@@ -1,4 +1,4 @@
-# lot/
+# Lot/
 
 Lots de travail organisés **un sous-dossier par lot**.
 

@@ -1,4 +1,4 @@
-# specification/
+# Specification/
 
 Specs de travail définissant les **besoins** du projet.
 

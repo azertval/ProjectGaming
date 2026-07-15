@@ -15,8 +15,11 @@ x86/
 *.obj
 *.o
 
-# --- Visual Studio ---
+# --- Visual Studio (IDE + intégration CMake « Open Folder ») ---
 .vs/
+out/
+CMakeUserPresets.json
+CMakeSettings.json
 *.user
 *.suo
 *.userosscache
