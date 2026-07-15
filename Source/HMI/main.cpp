@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-#include "Core.h"
+#include "Core/Core.h"
 
 /**
  * @brief Point d'entrée du programme.

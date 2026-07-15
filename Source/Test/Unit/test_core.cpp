@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Core.h"
+#include "Core/Core.h"
 
 /// Vérifie que la version du moteur n'est pas vide.
 TEST(EngineTest, VersionNonVide) {

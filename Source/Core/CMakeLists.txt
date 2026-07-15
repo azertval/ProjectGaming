@@ -3,4 +3,6 @@ add_library(Core STATIC
     Core.cpp
 )
 
-target_include_directories(Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+# Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet
+# depuis la racine (ex. "Core/Core.h"), jamais par nom seul.
+target_include_directories(Core PUBLIC ${PROJECT_SOURCE_DIR}/Source)

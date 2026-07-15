@@ -3,7 +3,7 @@
 #include <string>
 
 /**
- * @file Core.h
+ * @file Core/Core.h
  * @brief Interface publique de la bibliothèque Core (moteur / logique de jeu).
  */
 

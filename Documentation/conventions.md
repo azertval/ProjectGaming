@@ -38,12 +38,27 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 - Longueur de ligne indicative : **100 colonnes**.
 - Include guard : **`#pragma once`** (pas de macros de garde manuelles).
 
-## 4. Ordre des `#include`
+## 4. Inclusions (`#include`)
+
+### Chemins complets depuis `Source/`
+Les en-têtes du projet s'incluent par leur **chemin complet depuis la racine `Source/`**, jamais par nom seul :
+
+```cpp
+#include "Core/Core.h"          // ✅ chemin complet
+#include "HMI/Window.h"         // ✅
+#include "Core.h"               // ❌ nom seul
+```
+
+- Séparateur : **slash `/`** (portable), y compris sous Windows — jamais d'antislash.
+- La racine d'inclusion `Source/` est fournie par CMake (`target_include_directories(... ${PROJECT_SOURCE_DIR}/Source)`).
+- Bénéfice : les dépendances sont explicites et un déplacement de fichier lors d'une refonte d'architecture se repère et se corrige par simple recherche du chemin.
+
+### Ordre des groupes
 Dans un `.cpp`, du plus proche au plus général, chaque groupe trié et séparé par une ligne vide :
-1. L'en-tête correspondant au fichier (`#include "Core.h"` en premier dans `Core.cpp`).
+1. L'en-tête correspondant au fichier (`#include "Core/Core.h"` en premier dans `Core.cpp`).
 2. En-têtes standard (`<string>`, `<vector>`, …).
 3. En-têtes tiers (`<gtest/gtest.h>`, DirectX…).
-4. En-têtes du projet (`"..."`).
+4. En-têtes du projet, chemin complet (`"Core/..."`, `"HMI/..."`).
 
 ## 5. Architecture (dépendances entre modules)
 - **`Core`** : logique/moteur, **indépendant** de la présentation. Ne connaît ni DirectX ni la fenêtre.
