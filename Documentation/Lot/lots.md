@@ -15,3 +15,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-02
 - @subpage lot-03
 - @subpage lot-04
+- @subpage lot-05
