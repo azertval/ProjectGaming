@@ -55,7 +55,7 @@ réelle** du jeu.
 | [TACHE-02](tache-02-pipeline-quads-textures.md) | Pipeline de quads texturés (HLSL, blend, nearest) | `HMI/Graphics` | ✅ Fait |
 | [TACHE-03](tache-03-atlas-procedural.md) | Atlas de textures procédural | `HMI/Graphics` | ✅ Fait |
 | [TACHE-04](tache-04-camera-2d.md) | Caméra 2D (monde → écran) | `HMI/Graphics` | ✅ Fait |
-| [TACHE-05](tache-05-systeme-rendu-sprites.md) | Système de rendu des sprites (ECS → écran) | `HMI` | ⬜ Non commencé |
+| [TACHE-05](tache-05-systeme-rendu-sprites.md) | Système de rendu des sprites (ECS → écran) | `HMI` | ✅ Fait |
 | [TACHE-06](tache-06-cablage-world-demo.md) | Câblage du `World` dans la boucle + scène de démo | `HMI/main.cpp` | ⬜ Non commencé |
 
 ## Critères d'acceptation du lot

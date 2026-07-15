@@ -1,6 +1,6 @@
 # TACHE-05 — Système de rendu des sprites (ECS → écran) {#lot-05-tache-05-systeme-rendu-sprites}
 
-**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI` · **Statut :** à faire
+**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI` · **Statut :** fait
 
 ## Contexte
 Le pont entre la simulation et l'image : un composant de rendu qui **lit** l'ECS et dessine
