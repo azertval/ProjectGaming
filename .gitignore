@@ -45,6 +45,11 @@ Documentation/html/
 Documentation/xml/
 Documentation/latex/
 
+# --- Couverture de code ---
+coverage.xml
+coverage-html/
+*.cov
+
 # --- Divers ---
 *.log
 *.tmp

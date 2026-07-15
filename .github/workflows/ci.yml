@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build-and-test:
+  build-test-coverage:
     runs-on: windows-latest
 
     steps:
@@ -21,3 +21,45 @@ jobs:
 
       - name: Test (CTest)
         run: ctest --preset vs
+
+      - name: Install OpenCppCoverage
+        run: choco install opencppcoverage -y --no-progress
+
+      - name: Coverage
+        shell: pwsh
+        run: |
+          $exe = "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe"
+          & $exe `
+            --sources "$env:GITHUB_WORKSPACE\Source" `
+            --excluded_sources "$env:GITHUB_WORKSPACE\Source\Test" `
+            --export_type "cobertura:coverage.xml" `
+            --export_type "html:coverage-html" `
+            -- "build\vs\bin\Debug\UnitTests.exe"
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: |
+            coverage.xml
+            coverage-html/
+
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen
+
+      - name: Generate documentation
+        working-directory: Documentation
+        run: doxygen Doxyfile
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: Documentation/generated/html/

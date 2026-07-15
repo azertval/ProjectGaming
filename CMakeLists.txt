@@ -18,6 +18,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 option(BUILD_TESTING "Construire les tests (GoogleTest)" ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Traiter les avertissements comme des erreurs" ON)
 option(ENABLE_ASAN "Activer AddressSanitizer" OFF)
+option(ENABLE_PCH "Activer les en-têtes précompilés (Source/pch.h)" ON)
 
 # --- Avertissements (appliqués uniquement à NOS cibles, pas aux dépendances) ---
 add_library(project_warnings INTERFACE)

@@ -14,4 +14,6 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - **CI GitHub Actions** : configure, build et tests sur `windows-latest`.
 - Documentation **Doxygen** (`Doxyfile`) et **guide de conventions** de code.
 - Outillage qualité : `.clang-format`, `.clang-tidy`, `.editorconfig`, avertissements `/W4 /WX`, option AddressSanitizer.
+- En-têtes précompilés (`Source/pch.h`, option `ENABLE_PCH`).
+- CI : couverture de code (OpenCppCoverage, artefact Cobertura + HTML) et génération de la documentation Doxygen (artefact HTML).
 - Gouvernance : `CONTRIBUTING.md` (Conventional Commits, trunk-based), `CHANGELOG.md`, `LICENSE`.

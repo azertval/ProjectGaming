@@ -8,3 +8,7 @@ add_library(Core STATIC
 target_include_directories(Core PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 
 target_link_libraries(Core PRIVATE project_warnings project_options)
+
+if(ENABLE_PCH)
+    target_precompile_headers(Core PRIVATE ${PROJECT_SOURCE_DIR}/Source/pch.h)
+endif()
