@@ -4,7 +4,7 @@
 
 ## 1. Cible technique
 - **EX-REN-001** — Le jeu doit fonctionner sous **Windows 10/11 (x64)**.
-- **EX-REN-002** — Le rendu doit s'appuyer sur **DirectX** (⚠️ proposition : **Direct3D 11**, bon compromis simplicité/capacités pour de la 2D). Alternative : Direct3D 12 (plus complexe, non justifié au MVP).
+- **EX-REN-002** — Le rendu doit s'appuyer sur **Direct3D 11** (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP).
 - **EX-REN-003** — La fenêtre doit être créée via l'API Win32, redimensionnable, avec titre et icône.
 
 ## 2. Rendu 2D

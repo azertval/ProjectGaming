@@ -3,7 +3,7 @@
 > Statut : **brouillon**. Dépend de [`00-vision.md`](00-vision.md).
 
 ## 1. Monde en tuiles
-Le niveau est une **grille de tuiles** de taille fixe (⚠️ proposition : **32 × 32 px** par tuile). Chaque cellule porte un type.
+Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuile. Chaque cellule porte un type.
 
 | Type de tuile | Comportement |
 |---------------|--------------|

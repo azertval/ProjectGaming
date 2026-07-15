@@ -5,25 +5,32 @@
 ## 1. Représentation des niveaux
 - **EX-LVL-001** — Un niveau doit être décrit par un **fichier de données** externe (pas en dur dans le code), placé dans `Source/Elements`.
 - **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille, type de chaque tuile, position d'entrée et de sortie, et les mécanismes (interrupteurs, portes, blocs) avec leurs liaisons.
-- **EX-LVL-003** — Le format doit être **lisible et modifiable à la main** (⚠️ proposition : texte, par exemple une grille de caractères + une section de métadonnées, ou JSON).
-- **EX-LVL-004** — Le chargement d'un niveau doit **valider** les données (dimensions cohérentes, présence d'une entrée et d'une sortie) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).
+- **EX-LVL-003** — Le format retenu est **hybride** : une **grille ASCII** décrit le décor (tuiles) et une section **JSON** porte les métadonnées et les **mécanismes** (interrupteurs, portes, blocs) avec leurs liaisons. Le décor reste éditable à la main, le JSON gère les données riches et extensibles.
+- **EX-LVL-004** — Le chargement d'un niveau doit **valider** les données (dimensions cohérentes avec la grille, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).
 
-### ⚠️ Exemple de format texte proposé
+### Format retenu (hybride ASCII + JSON)
+Légende de la grille : `.` vide, `#` solide, `^` danger, `E` entrée, `S` sortie, `i` interrupteur, `D` porte.
+```json
+{
+  "name": "Tutoriel 1",
+  "width": 12,
+  "height": 8,
+  "grid": [
+    "############",
+    "#E.........#",
+    "#....##....#",
+    "#....##..i.#",
+    "#........###",
+    "#..^^^....D#",
+    "#........S.#",
+    "############"
+  ],
+  "mechanisms": [
+    { "switch": [8, 3], "door": [10, 5] }
+  ]
+}
 ```
-# metadata
-name: Tutoriel 1
-width: 12
-height: 8
-# legend: . vide, # solide, ^ danger, E entree, S sortie, i interrupteur, D porte
-############
-#E.........#
-#....##....#
-#....##..i.#
-#........###
-#..^^^....D#
-#........S.#
-############
-```
+Les coordonnées des mécanismes sont exprimées en `[colonne, ligne]` dans le repère de la grille. Le tableau `grid` doit compter `height` lignes de `width` caractères.
 
 ## 2. Progression
 - **EX-LVL-010** — Le jeu doit charger les niveaux dans un **ordre défini** (liste ordonnée).

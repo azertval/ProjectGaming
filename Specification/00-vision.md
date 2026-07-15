@@ -11,8 +11,8 @@ Jeu **2D de plateforme et puzzle**, en vue de côté, à base de niveaux discret
 - **Public** : joueurs appréciant la réflexion et la précision, tous âges.
 - **Plateforme** : Windows (bureau), rendu DirectX.
 
-### ⚠️ Mécanique signature (à définir)
-Le socle repose sur la boîte à outils classique du genre (blocs, interrupteurs, clés/portes, dangers, plateformes mobiles). Une **mécanique signature** distinctive reste à choisir. Proposition par défaut : **bascule de gravité** (le joueur inverse le sens de la gravité pour marcher au plafond). Alternatives : rembobinage du temps, création/suppression de blocs, dédoublement du personnage.
+### Mécanique de jeu (décidée)
+Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et (plus tard) plateformes mobiles. **Pas de mécanique signature exotique** pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.
 
 ## Boucle de gameplay
 1. Le joueur entre dans un niveau (état initial défini).
