@@ -1,6 +1,6 @@
 # TACHE-03 — Stockage de composants (sparse set typé)
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
 
 ## Contexte
 Chaque type de composant est stocké dans un **sparse set** : un tableau dense de composants (itération cache-friendly) doublé d'un tableau creux indexé par l'entité (accès en temps constant).

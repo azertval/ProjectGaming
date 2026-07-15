@@ -1,6 +1,6 @@
 # TACHE-02 — Entités : handles générationnels & cycle de vie
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
 
 ## Contexte
 Le cœur de l'ECS est l'entité : un simple **identifiant**. Pour éviter les références pendantes (une entité détruite dont l'index est recyclé), on utilise un **handle générationnel** (index + génération).

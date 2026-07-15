@@ -1,6 +1,6 @@
 # TACHE-06 — Composant `Transform` + système de mouvement (démo)
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
 
 ## Contexte
 Tâche d'assemblage : prouver que l'ECS fonctionne de bout en bout avec un premier composant réel et un système qui le met à jour. Sert aussi d'exemple de référence pour les futurs systèmes de gameplay.
