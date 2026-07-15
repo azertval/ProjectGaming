@@ -1,8 +1,10 @@
 name: CI
 
+# Vérifications exécutées sur chaque Pull Request vers main.
+# Ce job est le contrôle requis pour merger (protection de branche).
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build-test-coverage:
@@ -42,23 +44,3 @@ jobs:
           path: |
             coverage.xml
             coverage-html/
-
-  docs:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen
-
-      - name: Generate documentation
-        working-directory: Documentation
-        run: doxygen Doxyfile
-
-      - name: Upload documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: Documentation/generated/html/

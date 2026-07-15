@@ -26,11 +26,17 @@ docs(conventions): préciser la politique de gestion d'erreurs
 ```
 La portée correspond en général au module (`core`, `hmi`, `elements`, `test`, `build`…).
 
-## Stratégie de branches (trunk-based)
-- `main` est **toujours dans un état compilable et testé** ; elle est protégée.
-- Travailler sur des branches courtes préfixées par le type : `feat/...`, `fix/...`, `docs/...`.
-- Ouvrir une **Pull Request** vers `main`. Le merge exige une **CI verte** (build + tests + zéro avertissement).
-- Rattacher chaque branche/PR au lot et à la tâche concernés (`lot/LOT-XX-.../`).
+## Stratégie de branches
+- `main` est **protégée** : **aucun push direct**. Toute évolution passe par une **Pull Request**.
+- **Une branche par lot** : `lot/LOT-XX-nom-du-lot` (ex. `lot/LOT-02-fondation-ecs`).
+  - Pour un correctif isolé hors lot : `fix/...` ; pour de la doc seule : `docs/...`.
+- Ouvrir une **Pull Request** vers `main`. Le merge exige une **CI verte** (build + tests + couverture, zéro avertissement).
+- `main` reste **toujours compilable et testée**.
+
+## Automatisations sur `main` (après merge d'une PR)
+- **CI** (`.github/workflows/ci.yml`) : s'exécute sur chaque PR ; contrôle requis pour merger.
+- **Release Debug** (`release.yml`) : publie l'exécutable Debug autonome dans la **Release `debug-latest`** — destiné aux non-développeurs (télécharger, décompresser, lancer).
+- **Documentation** (`docs.yml`) : génère la Doxygen et la publie sur la branche **`gh-pages`** (lisible en ligne via GitHub Pages).
 
 ## Avant d'ouvrir une PR
 1. `cmake --build --preset vs` compile sans avertissement.
