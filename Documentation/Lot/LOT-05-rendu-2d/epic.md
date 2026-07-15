@@ -1,6 +1,6 @@
 # LOT-05 — Rendu 2D : atlas, sprites & caméra {#lot-05}
 
-> Statut : **à faire**. Premier rendu visible du jeu : afficher les entités de l'ECS à l'écran. En préalable, brancher le `World` (LOT-03) dans la boucle de jeu, aujourd'hui vide.
+> Statut : **terminé**. L'exécutable affiche une scène ECS (grille de tuiles + sprite mobile) rendue en Direct3D 11 via la caméra 2D ; le `World` est cadencé à pas fixe et le rendu, découplé, lit les composants sans les muter.
 
 ## Objectif
 Afficher à l'écran des entités de l'ECS (`Transform` + `Sprite`) via un pipeline
@@ -56,7 +56,7 @@ réelle** du jeu.
 | [TACHE-03](tache-03-atlas-procedural.md) | Atlas de textures procédural | `HMI/Graphics` | ✅ Fait |
 | [TACHE-04](tache-04-camera-2d.md) | Caméra 2D (monde → écran) | `HMI/Graphics` | ✅ Fait |
 | [TACHE-05](tache-05-systeme-rendu-sprites.md) | Système de rendu des sprites (ECS → écran) | `HMI` | ✅ Fait |
-| [TACHE-06](tache-06-cablage-world-demo.md) | Câblage du `World` dans la boucle + scène de démo | `HMI/main.cpp` | ⬜ Non commencé |
+| [TACHE-06](tache-06-cablage-world-demo.md) | Câblage du `World` dans la boucle + scène de démo | `HMI/main.cpp` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. L'exécutable affiche une **grille de tuiles** et **un sprite** (avec transparence),
