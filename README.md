@@ -2,6 +2,10 @@
 
 Jeu 2D de plateforme / puzzle développé **from scratch** en **C++ / DirectX** (Windows).
 
+## Documentation en ligne :
+
+https://azertval.github.io/ProjectGaming/
+
 ## Organisation du dépôt
 
 | Dossier | Rôle |

@@ -28,7 +28,7 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 
 ## Stratégie de branches
 - `main` est **protégée** : **aucun push direct**. Toute évolution passe par une **Pull Request**.
-- **Une branche par lot** : `lot/LOT-XX-nom-du-lot` (ex. `lot/LOT-02-fondation-ecs`).
+- **Une branche par lot** : `lot/LOT-XX-nom-du-lot` (ex. `lot/LOT-03-fondation-ecs`).
   - Pour un correctif isolé hors lot : `fix/...` ; pour de la doc seule : `docs/...`.
 - Ouvrir une **Pull Request** vers `main`. Le merge exige une **CI verte** (build + tests + couverture, zéro avertissement).
 - `main` reste **toujours compilable et testée**.

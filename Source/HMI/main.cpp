@@ -41,7 +41,7 @@ int main() {
 
             const int steps = timestep.advance(elapsedSeconds);
             for (int step = 0; step < steps; ++step) {
-                // Mise à jour de la simulation : encore vide (arrive au LOT-02).
+                // Mise à jour de la simulation : encore vide (arrive au LOT-03).
             }
 
             graphics.clear(0.10f, 0.12f, 0.16f, 1.0f);
