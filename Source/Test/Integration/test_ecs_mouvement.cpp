@@ -1,6 +1,7 @@
 /**
- * @file test_movement_system.cpp
- * @brief Tests unitaires du système de mouvement (démo de bout en bout de l'ECS).
+ * @file test_ecs_mouvement.cpp
+ * @brief Tests d'intégration de l'ECS : entités + composants + système de mouvement
+ *        assemblés dans un `World`, vérifiés de bout en bout.
  */
 
 #include <memory>
@@ -20,7 +21,7 @@ constexpr float TOLERANCE = 1e-4f;
 
 /// Une entité Transform + Velocity avance de `velocity * fixedDelta` par pas ;
 /// après N pas, la position attendue est déterministe.
-TEST(MovementSystemTest, EntiteMobileAvanceDeVitesseFoisPas) {
+TEST(EcsMouvementIntegration, EntiteMobileAvanceDeVitesseFoisPas) {
     core::World world;
     const core::Entity mover = world.createEntity();
     world.addComponent(mover, core::Transform{});
@@ -39,7 +40,7 @@ TEST(MovementSystemTest, EntiteMobileAvanceDeVitesseFoisPas) {
 }
 
 /// Une entité sans Velocity ne bouge pas.
-TEST(MovementSystemTest, EntiteSansVelociteNeBougePas) {
+TEST(EcsMouvementIntegration, EntiteSansVelociteNeBougePas) {
     core::World world;
     const core::Entity fixture = world.createEntity();
     world.addComponent(fixture,
@@ -56,7 +57,7 @@ TEST(MovementSystemTest, EntiteSansVelociteNeBougePas) {
 }
 
 /// Deux entités de vitesses différentes évoluent indépendamment.
-TEST(MovementSystemTest, DeuxEntitesEvoluentIndependamment) {
+TEST(EcsMouvementIntegration, DeuxEntitesEvoluentIndependamment) {
     core::World world;
     const core::Entity slow = world.createEntity();
     const core::Entity fast = world.createEntity();
@@ -80,7 +81,7 @@ TEST(MovementSystemTest, DeuxEntitesEvoluentIndependamment) {
 }
 
 /// Enregistré dans le World, le système s'exécute via World::update (chaîne complète).
-TEST(MovementSystemTest, IntegrationViaWorldUpdate) {
+TEST(EcsMouvementIntegration, IntegrationViaWorldUpdate) {
     core::World world;
     const core::Entity mover = world.createEntity();
     world.addComponent(mover, core::Transform{});

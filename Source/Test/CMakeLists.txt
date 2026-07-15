@@ -9,7 +9,6 @@ add_executable(UnitTests
     Unit/test_component_pool.cpp
     Unit/test_view.cpp
     Unit/test_world.cpp
-    Unit/test_movement_system.cpp
     Unit/test_fixed_timestep.cpp
     Unit/test_logger.cpp
     Unit/test_sinks.cpp
@@ -24,5 +23,19 @@ target_link_libraries(UnitTests PRIVATE
     project_options
 )
 
+# Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
+add_executable(IntegrationTests
+    Integration/test_ecs_mouvement.cpp
+    Integration/test_boucle_simulation.cpp
+)
+
+target_link_libraries(IntegrationTests PRIVATE
+    Core
+    GTest::gtest_main
+    project_warnings
+    project_options
+)
+
 # Enregistre chaque TEST() auprès de CTest.
 gtest_discover_tests(UnitTests)
+gtest_discover_tests(IntegrationTests)
