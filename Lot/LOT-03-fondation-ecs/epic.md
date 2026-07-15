@@ -1,6 +1,6 @@
 # LOT-03 — Fondation ECS & mathématiques `Core`
 
-> Statut : **à faire**. Substrat de la simulation : gameplay, tuiles et décors en dépendent. Le point ⚠️ est à valider avant de démarrer.
+> Statut : **terminé**. Substrat de la simulation : gameplay, tuiles et décors en dépendent. Décision ⚠️ tranchée : **ECS maison** (sparse sets).
 
 ## Objectif
 Mettre en place, **dans `Core`**, un **ECS** fonctionnel et testé (entités, composants, systèmes, `World`) ainsi que les **types mathématiques** de base (`Vector2`, `Rect`, `Transform`). Le tout **indépendant de DirectX**, entièrement couvert par des tests unitaires.

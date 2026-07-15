@@ -5,6 +5,7 @@ add_library(Core STATIC
     Math/Rect.cpp
     Ecs/EntityManager.cpp
     Ecs/World.cpp
+    Ecs/Systems/MovementSystem.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp
