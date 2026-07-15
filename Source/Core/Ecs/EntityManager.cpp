@@ -1,12 +1,11 @@
-/**
- * @file Core/Ecs/EntityManager.cpp
- * @brief Implémentation du gestionnaire de cycle de vie des entités.
- */
-
 #include "Core/Ecs/EntityManager.h"
 
 namespace core {
 
+/**
+ * @brief Crée une nouvelle entité vivante.
+ * @return Un handle valide, distinct de toute entité vivante existante.
+ */
 Entity EntityManager::create() {
     Entity::Index index;
     if (!_freeIndices.empty()) {
@@ -26,6 +25,10 @@ Entity EntityManager::create() {
     return Entity{index, _generations[index]};
 }
 
+/**
+ * @brief Détruit une entité et libère son index pour recyclage.
+ * @param entity Handle de l'entité à détruire ; sans effet s'il n'est pas vivant.
+ */
 void EntityManager::destroy(Entity entity) {
     if (!isAlive(entity)) {
         // Handle déjà détruit ou périmé : rien à faire (idempotent).
@@ -39,6 +42,11 @@ void EntityManager::destroy(Entity entity) {
     --_aliveCount;
 }
 
+/**
+ * @brief Indique si un handle désigne une entité actuellement vivante.
+ * @param entity Handle à tester.
+ * @return `true` si l'index est vivant **et** la génération correspond.
+ */
 bool EntityManager::isAlive(Entity entity) const {
     if (entity.index >= _generations.size()) {
         return false;
@@ -46,6 +54,10 @@ bool EntityManager::isAlive(Entity entity) const {
     return _alive[entity.index] && _generations[entity.index] == entity.generation;
 }
 
+/**
+ * @brief Nombre d'entités actuellement vivantes.
+ * @return Le décompte des entités vivantes.
+ */
 std::size_t EntityManager::aliveCount() const {
     return _aliveCount;
 }
