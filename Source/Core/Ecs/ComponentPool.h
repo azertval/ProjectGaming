@@ -14,6 +14,25 @@
 namespace core {
 
 /**
+ * @brief Interface type-effacée d'une pool de composants.
+ *
+ * Permet au ::core::World de détenir des pools de types hétérogènes dans un même
+ * conteneur et d'agir dessus sans connaître le type concret — notamment pour
+ * retirer les composants d'une entité détruite dans **toutes** les pools.
+ */
+class IComponentPool {
+public:
+    virtual ~IComponentPool() = default;
+
+    /**
+     * @brief Retire le composant d'une entité s'il existe.
+     * @param entity Entité éventuellement porteuse d'un composant.
+     * @return `true` si un composant a été retiré, `false` sinon.
+     */
+    virtual bool removeIfPresent(Entity entity) = 0;
+};
+
+/**
  * @brief Stockage dense des composants d'un type `T`, indexé par entité (sparse set).
  *
  * Combine deux structures pour concilier itération rapide et accès direct :
@@ -36,7 +55,7 @@ namespace core {
  * @tparam T Type de composant stocké. Doit être une donnée pure (`EX-ARCH-011`).
  */
 template <typename T>
-class ComponentPool {
+class ComponentPool : public IComponentPool {
 public:
     /// Position dense réservée signifiant « aucun composant pour cette entité ».
     static constexpr std::size_t INVALID_POSITION = ~std::size_t{0};
@@ -84,7 +103,7 @@ public:
      * @param entity Entité éventuellement porteuse du composant.
      * @return `true` si un composant a été retiré, `false` s'il n'y en avait pas.
      */
-    bool removeIfPresent(Entity entity) {
+    bool removeIfPresent(Entity entity) override {
         if (!has(entity)) {
             return false;
         }

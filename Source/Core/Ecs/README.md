@@ -12,7 +12,9 @@ Implémenté (LOT-03) :
 - `EntityManager` — `create` / `destroy` / `isAlive`, recyclage des index par liste libre.
 - `ComponentPool<T>` — sparse set typé (`add` / `get` / `has` / `remove` / `removeIfPresent`), tableau dense contigu, suppression par swap-and-pop.
 - `View<Components...>` — vue multi-composants itérant l'intersection (pilotée par la plus petite pool), API `for (auto [entity, ...] : view)` et `view.each(...)`.
+- `ISystem` — interface d'un système (`update(World&, float fixedDelta)`).
+- `World` — façade : `createEntity` / `destroyEntity` (purge toutes les pools), `addComponent` / `getComponent` / `hasComponent` / `removeComponent`, `view<...>()`, `addSystem` / `update` (exécution ordonnée au pas fixe).
 
-À venir (LOT-03) : systèmes & `World`.
+À venir (LOT-03) : composant `Transform` + système de mouvement (démo).
 
 Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.
