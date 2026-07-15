@@ -99,19 +99,3 @@ Détails dans [`CONTRIBUTING.md`](CONTRIBUTING.md).
 | **CI** (`ci.yml`) | Pull Request vers `main` | Configure, **build** et **tests** (CTest) sur `windows-2022`, **couverture** (OpenCppCoverage) et **lint des exigences**. Contrôle requis pour merger. |
 | **Documentation** (`docs.yml`) | Push sur `main` | Génère la **Doxygen** (garde-fou `WARN_AS_ERROR`) et la publie sur la branche `gh-pages` (site en ligne). |
 | **Release Debug** (`release.yml`) | Push sur `main` | Compile un exécutable **Debug autonome** (runtime statique) et publie la release roulante **`debug-latest`** pour les non-développeurs. |
-
-## Statut
-
-| Lot | Objet | État |
-|-----|-------|:----:|
-| LOT-01 | Fenêtre Win32, init Direct3D 11 (RAII), boucle à pas fixe | ✅ Terminé |
-| LOT-02 | Journalisation & diagnostics | ✅ Terminé |
-| LOT-03 | Fondation ECS & mathématiques `Core` | ✅ Terminé |
-| LOT-04 | Documentation Doxygen & réorganisation documentaire | ✅ Terminé |
-
-Prochaines étapes : rendu de tuiles et chargement de niveaux (les composants *données
-pures* de l'ECS sont prêts pour la sérialisation).
-
-## Licence
-
-Propriétaire — tous droits réservés. Voir [`LICENSE`](LICENSE).
