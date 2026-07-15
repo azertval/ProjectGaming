@@ -11,7 +11,7 @@ Le site doit accueillir, à terme, un **manuel utilisateur** destiné aux non-d�
 - Prévoir la place des futures pages (prise en main, commandes) sous forme d'une brève liste « À venir », sans en rédiger le contenu.
 
 ## Fichiers impactés
-- `Documentation/Manuel/index.md` (accueil de la rubrique, nouveau).
+- `Documentation/Manuel/manuel.md` (accueil de la rubrique, nouveau ; nommé `manuel.md` et non `index.md` pour éviter un conflit de page principale Doxygen).
 - `Documentation/Manuel/telecharger-et-lancer.md` (première page réelle, nouveau).
 
 ## Vérifications (obligatoires)
