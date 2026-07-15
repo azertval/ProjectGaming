@@ -18,3 +18,6 @@ Expliquer *comment* le code et les outils fonctionnent : modules, classes, fonct
  * @return Description de la valeur de retour.
  */
 ```
+
+## Conventions de code
+Les règles de style, de nommage et d'architecture sont détaillées dans [`conventions.md`](conventions.md).
