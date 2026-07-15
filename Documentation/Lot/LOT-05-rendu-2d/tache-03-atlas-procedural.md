@@ -1,6 +1,6 @@
 # TACHE-03 — Atlas de textures procédural {#lot-05-tache-03-atlas-procedural}
 
-**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Aucun asset graphique n'existe encore. Pour débloquer le rendu sans dépendre d'un fichier

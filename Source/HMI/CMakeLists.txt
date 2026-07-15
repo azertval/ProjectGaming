@@ -4,6 +4,7 @@ add_executable(ProjectGaming
     Platform/Window.cpp
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
+    Graphics/TextureAtlas.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
