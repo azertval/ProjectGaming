@@ -5,6 +5,7 @@ add_executable(UnitTests
     Unit/test_core.cpp
     Unit/test_vector2.cpp
     Unit/test_rect.cpp
+    Unit/test_entity_manager.cpp
     Unit/test_fixed_timestep.cpp
     Unit/test_logger.cpp
     Unit/test_sinks.cpp

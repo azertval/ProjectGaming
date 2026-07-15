@@ -3,6 +3,7 @@ add_library(Core STATIC
     Core.cpp
     Math/Vector2.cpp
     Math/Rect.cpp
+    Ecs/EntityManager.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp
