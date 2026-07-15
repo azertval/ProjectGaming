@@ -1,6 +1,6 @@
 # TACHE-01 — Fenêtre Win32 & pompe de messages
 
-**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** à faire
+**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 
 ## Contexte
 Le jeu a besoin d'une fenêtre native Windows comme surface de rendu et source d'événements. Cette tâche pose la fenêtre et sa boucle de messages, sans encore de rendu.

@@ -1,6 +1,6 @@
 # TACHE-03 — Boucle à pas de temps fixe (testable)
 
-**Lot :** [LOT-01](epic.md) · **Module :** `Source/Core` · **Statut :** à faire
+**Lot :** [LOT-01](epic.md) · **Module :** `Source/Core` · **Statut :** terminé
 
 ## Contexte
 La simulation doit être **déterministe** et indépendante du framerate d'affichage. La logique de cadencement est placée dans `Core` pour être **testable sans fenêtre ni GPU** (`EX-NFR-010`).

@@ -1,12 +1,28 @@
-# Exécutable du jeu : bootstrap de la présentation.
-# (Le rendu DirectX sera ajouté lors du lot dédié ; pour l'instant, point d'entrée minimal.)
+# Exécutable du jeu : fenêtre, rendu Direct3D 11 et boucle de jeu.
 add_executable(ProjectGaming
     main.cpp
+    Window.cpp
+    GraphicsDevice.cpp
 )
 
-target_link_libraries(ProjectGaming PRIVATE Core project_warnings project_options)
+target_link_libraries(ProjectGaming PRIVATE
+    Core
+    project_warnings
+    project_options
+    d3d11
+    dxgi
+)
+
+# Réduit la surface de Windows.h et évite les macros min/max ; API Unicode.
+target_compile_definitions(ProjectGaming PRIVATE
+    WIN32_LEAN_AND_MEAN
+    NOMINMAX
+    UNICODE
+    _UNICODE
+)
 
 if(ENABLE_PCH)
-    # Réutilise le PCH déjà compilé pour Core (mêmes options de compilation).
-    target_precompile_headers(ProjectGaming REUSE_FROM Core)
+    # PCH propre à la cible : ses définitions (UNICODE…) diffèrent de Core,
+    # on ne peut donc pas réutiliser le PCH de Core (mismatch _MBCS/_UNICODE).
+    target_precompile_headers(ProjectGaming PRIVATE ${PROJECT_SOURCE_DIR}/Source/pch.h)
 endif()

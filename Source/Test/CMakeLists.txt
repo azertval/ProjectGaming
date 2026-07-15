@@ -3,6 +3,7 @@ include(GoogleTest)
 
 add_executable(UnitTests
     Unit/test_core.cpp
+    Unit/test_fixed_timestep.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

@@ -1,6 +1,6 @@
 # LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)
 
-> Statut : **à faire**. Premier lot : le socle d'exécution sur lequel tout le reste se greffe.
+> Statut : **terminé**. Premier lot : le socle d'exécution sur lequel tout le reste se greffe.
 
 ## Objectif
 Disposer d'une application Windows qui **ouvre une fenêtre**, **initialise Direct3D 11**, tourne dans une **boucle de jeu à pas de temps fixe** et **efface l'écran** à une couleur, avec une fermeture et une libération des ressources propres (RAII).

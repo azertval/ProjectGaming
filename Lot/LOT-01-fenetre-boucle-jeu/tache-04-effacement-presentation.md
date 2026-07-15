@@ -1,6 +1,6 @@
 # TACHE-04 — Effacement écran, présentation & redimensionnement
 
-**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** à faire
+**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 
 ## Contexte
 Avec la fenêtre (TACHE-01) et le device (TACHE-02), on produit la première image : un écran effacé à une couleur, présenté sans tearing, et robuste au redimensionnement.

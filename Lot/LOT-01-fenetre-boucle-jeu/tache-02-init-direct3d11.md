@@ -1,6 +1,6 @@
 # TACHE-02 — Initialisation Direct3D 11 (RAII)
 
-**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** à faire
+**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 
 ## Contexte
 Une fois la fenêtre disponible (TACHE-01), il faut initialiser le pipeline Direct3D 11 qui servira de base au rendu 2D des lots suivants.

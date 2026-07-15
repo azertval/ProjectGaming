@@ -1,6 +1,6 @@
 # TACHE-05 — Intégration `main` & vérification
 
-**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** à faire
+**Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 
 ## Contexte
 Dernière tâche du lot : assembler fenêtre, device et boucle de temps fixe dans le point d'entrée, et vérifier le comportement d'ensemble.
