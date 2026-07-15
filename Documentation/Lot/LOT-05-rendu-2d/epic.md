@@ -51,7 +51,7 @@ réelle** du jeu.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-composant-sprite.md) | Composant `Sprite` (données pures) | `Core/Ecs/Components` | ⬜ Non commencé |
+| [TACHE-01](tache-01-composant-sprite.md) | Composant `Sprite` (données pures) | `Core/Ecs/Components` | ✅ Fait |
 | [TACHE-02](tache-02-pipeline-quads-textures.md) | Pipeline de quads texturés (HLSL, blend, nearest) | `HMI/Graphics` | ⬜ Non commencé |
 | [TACHE-03](tache-03-atlas-procedural.md) | Atlas de textures procédural | `HMI/Graphics` | ⬜ Non commencé |
 | [TACHE-04](tache-04-camera-2d.md) | Caméra 2D (monde → écran) | `HMI/Graphics` | ⬜ Non commencé |

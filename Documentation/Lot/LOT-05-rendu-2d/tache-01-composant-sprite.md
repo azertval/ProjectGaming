@@ -1,6 +1,6 @@
 # TACHE-01 — Composant `Sprite` (données pures) {#lot-05-tache-01-composant-sprite}
 
-**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/Core/Ecs/Components` · **Statut :** à faire
+**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/Core/Ecs/Components` · **Statut :** fait
 
 ## Contexte
 Le rendu a besoin de savoir, pour chaque entité affichable, **quoi** dessiner et **dans
