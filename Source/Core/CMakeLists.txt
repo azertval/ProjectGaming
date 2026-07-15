@@ -2,6 +2,10 @@
 add_library(Core STATIC
     Core.cpp
     Time/FixedTimestep.cpp
+    Diagnostics/LogFormat.cpp
+    Diagnostics/Logger.cpp
+    Diagnostics/ConsoleLogSink.cpp
+    Diagnostics/Assert.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet

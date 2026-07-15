@@ -4,6 +4,10 @@ include(GoogleTest)
 add_executable(UnitTests
     Unit/test_core.cpp
     Unit/test_fixed_timestep.cpp
+    Unit/test_logger.cpp
+    Unit/test_sinks.cpp
+    Unit/test_log_format.cpp
+    Unit/test_assert.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
