@@ -8,7 +8,8 @@ on:
 
 jobs:
   build-test-coverage:
-    runs-on: windows-latest
+    # Épinglé : windows-latest (image 2025) ne fournit pas le générateur VS 2022.
+    runs-on: windows-2022
 
     steps:
       - name: Checkout
