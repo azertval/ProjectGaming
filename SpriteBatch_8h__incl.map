@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h">
+<area shape="rect" id="Node000001" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="134,5,355,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,76,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,63,82,105,80,100,181,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="100,108,163,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,62,159,102,156,97,208,58"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="187,108,302,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="247,60,247,94,242,94,242,60"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="326,108,401,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="282,58,338,98,335,102,279,62"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="425,108,520,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="315,58,430,101,428,106,313,63"/>
+</map>

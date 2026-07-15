@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['fenêtre_20boucle_20de_20jeu_20direct3d_2011_0',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
-  ['fenêtre_20win32_20pompe_20de_20messages_1',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['fichier_20ligne_20horodatage_2',['TACHE-03 — Macros de log (fichier/ligne, horodatage)',['../lot-02-tache-03-macros-log.html',1,'lot-02']]],
-  ['fixe_3',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
-  ['fixe_20testable_4',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
-  ['fonctionnelles_5',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
-  ['fondation_20ecs_20mathématiques_20core_6',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]]
+  ['ecs_20→_20écran_0',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
+  ['ecs_20mathématiques_20core_1',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]],
+  ['effacement_20écran_20présentation_20redimensionnement_2',['TACHE-04 — Effacement écran, présentation &amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],
+  ['enfichables_3',['TACHE-02 — Sinks enfichables',['../lot-02-tache-02-sinks.html',1,'lot-02']]],
+  ['entités_20_3a_20handles_20générationnels_20cycle_20de_20vie_4',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
+  ['entrées_5',['Contrôles &amp; entrées',['../spec-controles.html',1,'specifications']]],
+  ['et_20lancer_20le_20jeu_6',['Télécharger et lancer le jeu',['../manuel-telecharger.html',1,'manuel']]],
+  ['exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_7',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
+  ['exigences_20non_20fonctionnelles_8',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
 ];

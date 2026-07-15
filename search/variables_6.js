@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['position_0',['position',['../structcore_1_1Transform.html#a95083539c843b0577d8f8c324c4e6b27',1,'core::Transform::position'],['../structcore_1_1Rect.html#aa80907b79b8c68b4b6cb2ad6600ff1d3',1,'core::Rect::position']]]
+  ['index_0',['index',['../structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6',1,'core::Entity']]],
+  ['invalid_5fentity_1',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
+  ['invalid_5findex_2',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
+  ['invalid_5fposition_3',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
 ];

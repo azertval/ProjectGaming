@@ -10,6 +10,6 @@
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="601,61,770,105,768,111,599,66"/>
 <area shape="rect" id="Node000004" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="251,211,472,265"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,176,364,211,359,211,359,176"/>
-<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="251,313,472,368"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, simulation ECS et rendu 2D." alt="" coords="251,313,472,368"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="364,279,364,313,359,313,359,279"/>
 </map>

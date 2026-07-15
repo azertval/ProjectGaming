@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scale_0',['scale',['../structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9',1,'core::Transform']]],
-  ['size_1',['size',['../structcore_1_1Rect.html#a17a012f900230e1d44db338cebccf10b',1,'core::Rect']]]
+  ['maximum_5fquads_0',['MAXIMUM_QUADS',['../classhmi_1_1SpriteBatch.html#a57fd718a658a079c6ef72e34f95ce06c',1,'hmi::SpriteBatch']]],
+  ['message_1',['message',['../structcore_1_1MemoryLogSink_1_1Entry.html#aef520f464dacb8a65da8bff02af981cf',1,'core::MemoryLogSink::Entry']]]
 ];

@@ -1,0 +1,5 @@
+<map id="hmi::SpriteRenderer::LayeredQuad" name="hmi::SpriteRenderer::LayeredQuad">
+<area shape="rect" id="Node000001" title="Un quad prêt à dessiner, associé à sa couche (pour le tri)." alt="" coords="5,93,157,133"/>
+<area shape="rect" id="Node000002" href="$structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e..." alt="" coords="18,5,145,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,44,84,93,79,93,79,44"/>
+</map>

@@ -1,5 +1,13 @@
 var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
 [
+    [ "Camera2D.cpp", "Camera2D_8cpp.html", null ],
+    [ "Camera2D.h", "Camera2D_8h.html", "Camera2D_8h" ],
     [ "GraphicsDevice.cpp", "GraphicsDevice_8cpp.html", null ],
-    [ "GraphicsDevice.h", "GraphicsDevice_8h.html", "GraphicsDevice_8h" ]
+    [ "GraphicsDevice.h", "GraphicsDevice_8h.html", "GraphicsDevice_8h" ],
+    [ "SpriteBatch.cpp", "SpriteBatch_8cpp.html", null ],
+    [ "SpriteBatch.h", "SpriteBatch_8h.html", "SpriteBatch_8h" ],
+    [ "SpriteRenderer.cpp", "SpriteRenderer_8cpp.html", null ],
+    [ "SpriteRenderer.h", "SpriteRenderer_8h.html", "SpriteRenderer_8h" ],
+    [ "TextureAtlas.cpp", "TextureAtlas_8cpp.html", null ],
+    [ "TextureAtlas.h", "TextureAtlas_8h.html", "TextureAtlas_8h" ]
 ];

@@ -1,31 +1,4 @@
 var searchData=
 [
-  ['—_20assertions_20projectgaming_5fassert_0',['TACHE-04 — Assertions `PROJECTGAMING_ASSERT`',['../lot-02-tache-04-assertions.html',1,'lot-02']]],
-  ['—_20boucle_20à_20pas_20de_20temps_20fixe_20testable_1',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
-  ['—_20ci_20documentation_20warn_5fas_5ferror_20déploiement_2',['TACHE-07 — CI documentation (WARN_AS_ERROR &amp; déploiement)',['../lot-04-tache-07-ci-docs.html',1,'lot-04']]],
-  ['—_20composant_20transform_20système_20de_20mouvement_20démo_3',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
-  ['—_20configuration_20doxygen_20pour_20le_20markdown_4',['TACHE-02 — Configuration Doxygen pour le Markdown',['../lot-04-tache-02-config-doxygen-markdown.html',1,'lot-04']]],
-  ['—_20documentation_20doxygen_20réorganisation_20de_20l_20arborescence_20documentaire_5',['LOT-04 — Documentation Doxygen &amp; réorganisation de l&apos;arborescence documentaire',['../lot-04.html',1,'lots']]],
-  ['—_20effacement_20écran_20présentation_20redimensionnement_6',['TACHE-04 — Effacement écran, présentation &amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],
-  ['—_20entités_20_3a_20handles_20générationnels_20cycle_20de_20vie_7',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
-  ['—_20fenêtre_20boucle_20de_20jeu_20direct3d_2011_8',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
-  ['—_20fenêtre_20win32_20pompe_20de_20messages_9',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['—_20fondation_20ecs_20mathématiques_20core_10',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]],
-  ['—_20initialisation_20direct3d_2011_20raii_11',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
-  ['—_20intégration_20dans_20main_20documentation_12',['TACHE-05 — Intégration dans `main` &amp; documentation',['../lot-02-tache-05-integration.html',1,'lot-02']]],
-  ['—_20intégration_20main_20vérification_13',['TACHE-05 — Intégration `main` &amp; vérification',['../lot-01-tache-05-integration.html',1,'lot-01']]],
-  ['—_20journalisation_20diagnostics_14',['LOT-02 — Journalisation &amp; diagnostics',['../lot-02.html',1,'lots']]],
-  ['—_20macros_20de_20log_20fichier_20ligne_20horodatage_15',['TACHE-03 — Macros de log (fichier/ligne, horodatage)',['../lot-02-tache-03-macros-log.html',1,'lot-02']]],
-  ['—_20manuel_20utilisateur_20squelette_20première_20page_16',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]],
-  ['—_20niveaux_20de_20log_20interface_20logger_17',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
-  ['—_20page_20d_20accueil_20du_20projet_20mainpage_18',['TACHE-03 — Page d&apos;accueil du projet (mainpage)',['../lot-04-tache-03-page-accueil.html',1,'lot-04']]],
-  ['—_20pages_20de_20lots_20navigables_19',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]],
-  ['—_20pages_20de_20spécification_20navigables_20conventions_20incluses_20',['TACHE-04 — Pages de spécification navigables (conventions incluses)',['../lot-04-tache-04-pages-specification.html',1,'lot-04']]],
-  ['—_20réorganisation_20de_20l_20arborescence_20documentaire_21',['TACHE-01 — Réorganisation de l&apos;arborescence documentaire',['../lot-04-tache-01-reorganisation-arbo.html',1,'lot-04']]],
-  ['—_20requêtes_20vues_20multi_20composants_22',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
-  ['—_20sinks_20enfichables_23',['TACHE-02 — Sinks enfichables',['../lot-02-tache-02-sinks.html',1,'lot-02']]],
-  ['—_20stockage_20de_20composants_20sparse_20set_20typé_24',['TACHE-03 — Stockage de composants (sparse set typé)',['../lot-03-tache-03-stockage-composants.html',1,'lot-03']]],
-  ['—_20systèmes_20world_20orchestration_20au_20pas_20fixe_25',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
-  ['—_20traçabilité_20des_20exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_26',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['—_20types_20mathématiques_20de_20core_27',['TACHE-01 — Types mathématiques de `Core`',['../lot-03-tache-01-math-core.html',1,'lot-03']]]
+  ['à_20pas_20de_20temps_20fixe_20testable_0',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]]
 ];

@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structcore_1_1MemoryLogSink_1_1Entry.html" title="Un message reçu (niveau + texte)." alt="" coords="5,5,168,45"/>
+<area shape="rect" id="Node000000" href="$classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="5,5,116,31"/>
+<area shape="rect" id="Node000001" href="$classcore_1_1MovementSystem.html" title="Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe." alt="" coords="164,5,341,31"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="130,15,164,15,164,21,130,21"/>
 </map>

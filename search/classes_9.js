@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['vector2_0',['Vector2',['../structcore_1_1Vector2.html',1,'core']]],
-  ['velocity_1',['Velocity',['../structcore_1_1Velocity.html',1,'core']]],
-  ['view_2',['View',['../classcore_1_1View.html',1,'core']]]
+  ['sprite_0',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
+  ['spritebatch_1',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
+  ['spritequad_2',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
+  ['spriterenderer_3',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]]
 ];

@@ -1,0 +1,18 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/TextureAtlas.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/TextureAtlas.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="353,5,578,60"/>
+<area shape="rect" id="Node000002" href="$TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles." alt="" coords="115,108,322,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,63,265,106,264,101,389,58"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="332,269,399,295"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="460,61,436,135,401,222,382,259,377,256,396,220,431,133,455,60"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="463,108,550,133"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="480,59,498,94,493,97,476,61"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="574,108,637,133"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="509,58,576,98,573,103,507,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,189,80,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="194,136,82,186,79,181,192,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,189,199,214"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="211,135,173,180,169,177,207,132"/>
+<area shape="rect" id="Node000005" href="$Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="223,181,387,221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="233,132,276,170,272,174,230,135"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="322,220,350,257,346,260,318,223"/>
+</map>

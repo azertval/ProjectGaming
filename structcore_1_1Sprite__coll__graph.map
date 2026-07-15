@@ -1,0 +1,7 @@
+<map id="core::Sprite" name="core::Sprite">
+<area shape="rect" id="Node000001" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein..." alt="" coords="95,93,191,119"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1AtlasRegion.html" title="Région source dans l&#39;atlas de textures, en pixels (origine haut&#45;gauche)." alt="" coords="5,5,141,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,40,135,91,131,94,89,43"/>
+<area shape="rect" id="Node000003" href="$structcore_1_1Color.html" title="Couleur RVBA à composantes flottantes dans l&#39;intervalle [0, 1]." alt="" coords="166,5,258,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,43,154,94,150,91,192,40"/>
+</map>

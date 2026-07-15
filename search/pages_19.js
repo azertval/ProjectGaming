@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['écran_20présentation_20redimensionnement_0',['TACHE-04 — Effacement écran, présentation &amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],
-  ['éditeur_20de_20niveaux_1',['Éditeur de niveaux',['../spec-editeur.html',1,'specifications']]]
+  ['warn_5fas_5ferror_20déploiement_0',['TACHE-07 — CI documentation (WARN_AS_ERROR &amp; déploiement)',['../lot-04-tache-07-ci-docs.html',1,'lot-04']]],
+  ['win32_20pompe_20de_20messages_1',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
+  ['world_20dans_20la_20boucle_20scène_20de_20démo_2',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
+  ['world_20orchestration_20au_20pas_20fixe_3',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
 ];

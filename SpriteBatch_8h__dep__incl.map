@@ -1,0 +1,12 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h">
+<area shape="rect" id="Node000001" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="253,5,475,60"/>
+<area shape="rect" id="Node000002" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,68,182,110,180,105,286,63"/>
+<area shape="rect" id="Node000003" href="$SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="251,108,477,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="367,74,367,108,361,108,361,74"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, simulation ECS et rendu 2D." alt="" coords="403,211,624,265"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="443,65,469,83,490,106,504,132,512,160,517,210,512,211,506,161,499,134,486,110,465,87,440,69"/>
+<area shape="rect" id="Node000004" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="139,211,379,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="328,174,288,213,284,209,325,170"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="416,168,476,208,473,213,413,172"/>
+</map>

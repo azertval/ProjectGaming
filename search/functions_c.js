@@ -10,6 +10,6 @@ var searchData=
   ['operator_2d_3d_7',['operator-=',['../structcore_1_1Vector2.html#a925bd9d0c9b737b476783291f224ffb6',1,'core::Vector2']]],
   ['operator_2f_8',['operator/',['../namespacecore.html#ab931b1596f60176fe703b83007f27a12',1,'core']]],
   ['operator_2f_3d_9',['operator/=',['../structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87',1,'core::Vector2']]],
-  ['operator_3d_10',['operator=',['../classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643',1,'hmi::Window::operator=()'],['../classhmi_1_1GraphicsDevice.html#a8ec875fd4b1765cbead5860c176da11c',1,'hmi::GraphicsDevice::operator=()'],['../classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e',1,'core::Logger::operator=()']]],
+  ['operator_3d_10',['operator=',['../classhmi_1_1SpriteBatch.html#a5cdb243248c1ab453f1e00278c3b63f0',1,'hmi::SpriteBatch::operator=()'],['../classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643',1,'hmi::Window::operator=()'],['../classhmi_1_1GraphicsDevice.html#a8ec875fd4b1765cbead5860c176da11c',1,'hmi::GraphicsDevice::operator=()'],['../classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e',1,'core::Logger::operator=()']]],
   ['operator_3d_3d_11',['operator==',['../namespacecore.html#a78fa4a986a900f73517454f7c1eff774',1,'core']]]
 ];

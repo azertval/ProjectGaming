@@ -1,0 +1,18 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteRenderer.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteRenderer.h">
+<area shape="rect" id="Node000001" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="5,5,231,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="14,108,81,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,62,68,99,64,96,94,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="69,181,132,207"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="118,60,106,168,101,167,112,60"/>
+<area shape="rect" id="Node000004" href="$SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="190,108,390,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,58,256,99,253,104,169,62"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="261,136,145,179,144,174,259,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="156,181,227,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="276,136,220,175,217,171,273,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="251,181,366,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="296,133,305,168,300,169,291,134"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="390,181,465,207"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="313,131,394,173,392,177,311,136"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="489,181,584,207"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="330,131,484,175,483,180,329,136"/>
+</map>

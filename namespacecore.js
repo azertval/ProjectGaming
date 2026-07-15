@@ -1,5 +1,7 @@
 var namespacecore =
 [
+    [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
+    [ "Color", "structcore_1_1Color.html", "structcore_1_1Color" ],
     [ "ComponentPool", "classcore_1_1ComponentPool.html", "classcore_1_1ComponentPool" ],
     [ "ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", "classcore_1_1ConsoleLogSink" ],
     [ "Engine", "classcore_1_1Engine.html", "classcore_1_1Engine" ],
@@ -13,6 +15,7 @@ var namespacecore =
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
     [ "MovementSystem", "classcore_1_1MovementSystem.html", "classcore_1_1MovementSystem" ],
     [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
+    [ "Sprite", "structcore_1_1Sprite.html", "structcore_1_1Sprite" ],
     [ "Transform", "structcore_1_1Transform.html", "structcore_1_1Transform" ],
     [ "Vector2", "structcore_1_1Vector2.html", "structcore_1_1Vector2" ],
     [ "Velocity", "structcore_1_1Velocity.html", "structcore_1_1Velocity" ],

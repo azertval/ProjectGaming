@@ -1,0 +1,11 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h">
+<area shape="rect" id="Node000001" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="387,5,608,60"/>
+<area shape="rect" id="Node000002" href="$Camera2D_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,66,216,111,215,105,384,61"/>
+<area shape="rect" id="Node000003" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="251,108,491,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="455,71,405,110,402,106,452,67"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, simulation ECS et rendu 2D." alt="" coords="515,108,736,163"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="543,66,593,106,590,110,540,70"/>
+<area shape="rect" id="Node000005" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="760,108,981,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="608,61,774,105,773,111,607,66"/>
+</map>

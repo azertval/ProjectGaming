@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Cadenceur à pas de temps fixe pour une simulation déterministe." alt="" coords="373,5,595,60"/>
 <area shape="rect" id="Node000002" href="$FixedTimestep_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="382,66,206,118,205,113,381,61"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="251,115,472,170"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, simulation ECS et rendu 2D." alt="" coords="251,115,472,170"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="445,71,393,117,390,113,442,67"/>
 <area shape="rect" id="Node000004" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="496,108,717,177"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="526,68,570,106,567,110,523,72"/>

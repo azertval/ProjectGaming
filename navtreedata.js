@@ -140,7 +140,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md289", null ],
+      [ "Lots", "lots.html#autotoc_md341", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md87", null ],
         [ "Périmètre", "lot-01.html#autotoc_md88", [
@@ -402,15 +402,82 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md287", null ],
           [ "Exigences", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md288", null ]
         ] ]
+      ] ],
+      [ "LOT-05 — Rendu 2D : atlas, sprites & caméra", "lot-05.html", [
+        [ "Objectif", "lot-05.html#autotoc_md289", null ],
+        [ "Périmètre", "lot-05.html#autotoc_md290", [
+          [ "Inclus", "lot-05.html#autotoc_md291", null ],
+          [ "Exclus (lots ultérieurs)", "lot-05.html#autotoc_md292", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-05.html#autotoc_md293", null ],
+        [ "Exigences couvertes", "lot-05.html#autotoc_md294", null ],
+        [ "Découpage", "lot-05.html#autotoc_md295", null ],
+        [ "Critères d'acceptation du lot", "lot-05.html#autotoc_md296", null ],
+        [ "Dépendances", "lot-05.html#autotoc_md297", null ],
+        [ "Navigation des tâches", "lot-05.html#autotoc_md298", null ],
+        [ "TACHE-01 — Composant `Sprite` (données pures)", "lot-05-tache-01-composant-sprite.html", [
+          [ "Contexte", "lot-05-tache-01-composant-sprite.html#autotoc_md299", null ],
+          [ "Travail à réaliser", "lot-05-tache-01-composant-sprite.html#autotoc_md300", null ],
+          [ "Fichiers impactés", "lot-05-tache-01-composant-sprite.html#autotoc_md301", null ],
+          [ "Tests (obligatoires si logique)", "lot-05-tache-01-composant-sprite.html#autotoc_md302", null ],
+          [ "Points d'attention", "lot-05-tache-01-composant-sprite.html#autotoc_md303", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-01-composant-sprite.html#autotoc_md304", null ],
+          [ "Exigences", "lot-05-tache-01-composant-sprite.html#autotoc_md305", null ]
+        ] ],
+        [ "TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)", "lot-05-tache-02-pipeline-quads-textures.html", [
+          [ "Contexte", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md306", null ],
+          [ "Travail à réaliser", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md307", null ],
+          [ "Fichiers impactés", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md308", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md309", null ],
+          [ "Points d'attention", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md310", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md311", null ],
+          [ "Exigences", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md312", null ]
+        ] ],
+        [ "TACHE-03 — Atlas de textures procédural", "lot-05-tache-03-atlas-procedural.html", [
+          [ "Contexte", "lot-05-tache-03-atlas-procedural.html#autotoc_md313", null ],
+          [ "Travail à réaliser", "lot-05-tache-03-atlas-procedural.html#autotoc_md314", null ],
+          [ "Fichiers impactés", "lot-05-tache-03-atlas-procedural.html#autotoc_md315", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-03-atlas-procedural.html#autotoc_md316", null ],
+          [ "Points d'attention", "lot-05-tache-03-atlas-procedural.html#autotoc_md317", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-03-atlas-procedural.html#autotoc_md318", null ],
+          [ "Exigences", "lot-05-tache-03-atlas-procedural.html#autotoc_md319", null ]
+        ] ],
+        [ "TACHE-04 — Caméra 2D (monde → écran)", "lot-05-tache-04-camera-2d.html", [
+          [ "Contexte", "lot-05-tache-04-camera-2d.html#autotoc_md320", null ],
+          [ "Travail à réaliser", "lot-05-tache-04-camera-2d.html#autotoc_md321", null ],
+          [ "Fichiers impactés", "lot-05-tache-04-camera-2d.html#autotoc_md322", null ],
+          [ "Tests (obligatoires)", "lot-05-tache-04-camera-2d.html#autotoc_md323", null ],
+          [ "Points d'attention", "lot-05-tache-04-camera-2d.html#autotoc_md324", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-04-camera-2d.html#autotoc_md325", null ],
+          [ "Exigences", "lot-05-tache-04-camera-2d.html#autotoc_md326", null ]
+        ] ],
+        [ "TACHE-05 — Système de rendu des sprites (ECS → écran)", "lot-05-tache-05-systeme-rendu-sprites.html", [
+          [ "Contexte", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md327", null ],
+          [ "Travail à réaliser", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md328", null ],
+          [ "Fichiers impactés", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md329", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md330", null ],
+          [ "Points d'attention", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md331", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md332", null ],
+          [ "Exigences", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md333", null ]
+        ] ],
+        [ "TACHE-06 — Câblage du `World` dans la boucle + scène de démo", "lot-05-tache-06-cablage-world-demo.html", [
+          [ "Contexte", "lot-05-tache-06-cablage-world-demo.html#autotoc_md334", null ],
+          [ "Travail à réaliser", "lot-05-tache-06-cablage-world-demo.html#autotoc_md335", null ],
+          [ "Fichiers impactés", "lot-05-tache-06-cablage-world-demo.html#autotoc_md336", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md337", null ],
+          [ "Points d'attention", "lot-05-tache-06-cablage-world-demo.html#autotoc_md338", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md339", null ],
+          [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md340", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md290", null ],
-      [ "À venir", "manuel.html#autotoc_md291", null ],
+      [ "Pages", "manuel.html#autotoc_md342", null ],
+      [ "À venir", "manuel.html#autotoc_md343", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md292", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md293", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md294", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md344", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md345", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md346", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -428,7 +495,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
@@ -449,9 +516,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Assert_8cpp.html",
-"classcore_1_1View.html#a49e3c652711ec81da9dc5029136a5ab4",
-"lot-02.html#autotoc_md127",
-"spec-exigences.html#autotoc_md59"
+"classcore_1_1MemoryLogSink.html#a9bfb2629320e9647a66759b94bbf3e55",
+"classhmi_1_1Window.html#ad846994df75a64e3f547c04607bdc7f1",
+"lot-04-tache-04-pages-specification.html#autotoc_md253",
+"structcore_1_1AtlasRegion.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
