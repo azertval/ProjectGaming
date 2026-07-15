@@ -1,6 +1,6 @@
 # TACHE-05 — Systèmes & `World` (orchestration au pas fixe)
 
-**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 
 ## Contexte
 Le `World` est la **façade** de l'ECS : il possède les entités (TACHE-02), les pools de composants (TACHE-03), fournit les vues (TACHE-04) et orchestre les **systèmes**. Les systèmes portent la logique et s'exécutent au **pas de temps fixe** (`EX-ARCH-030`).

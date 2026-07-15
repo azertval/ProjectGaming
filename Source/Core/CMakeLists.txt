@@ -1,6 +1,11 @@
 # Bibliothèque Core : logique et moteur du jeu.
 add_library(Core STATIC
     Core.cpp
+    Math/Vector2.cpp
+    Math/Rect.cpp
+    Ecs/EntityManager.cpp
+    Ecs/World.cpp
+    Ecs/Systems/MovementSystem.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp

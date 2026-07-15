@@ -7,4 +7,14 @@ Entity-Component-System (implémentation **maison**), cœur de la simulation.
 - Systèmes : logique itérant sur les composants — sous-dossier `Systems/`.
 - `World` : façade, orchestration au pas de temps fixe.
 
-À venir : LOT-03. Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.
+Implémenté (LOT-03) :
+- `Entity` — handle générationnel `{ index, generation }`, `INVALID_ENTITY`.
+- `EntityManager` — `create` / `destroy` / `isAlive`, recyclage des index par liste libre.
+- `ComponentPool<T>` — sparse set typé (`add` / `get` / `has` / `remove` / `removeIfPresent`), tableau dense contigu, suppression par swap-and-pop.
+- `View<Components...>` — vue multi-composants itérant l'intersection (pilotée par la plus petite pool), API `for (auto [entity, ...] : view)` et `view.each(...)`.
+- `ISystem` — interface d'un système (`update(World&, float fixedDelta)`).
+- `World` — façade : `createEntity` / `destroyEntity` (purge toutes les pools), `addComponent` / `getComponent` / `hasComponent` / `removeComponent`, `view<...>()`, `addSystem` / `update` (exécution ordonnée au pas fixe).
+- `Components/` — composants données pures : `Transform` (position, échelle, rotation), `Velocity` (vitesse en unités monde/s).
+- `Systems/` — systèmes : `MovementSystem` (intègre `position += velocity * fixedDelta` sur les entités `Transform + Velocity`).
+
+Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.

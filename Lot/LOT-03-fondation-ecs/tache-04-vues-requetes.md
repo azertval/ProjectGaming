@@ -1,6 +1,6 @@
 # TACHE-04 — Requêtes / vues multi-composants
 
-**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 
 ## Contexte
 Les systèmes ont besoin d'itérer les entités possédant un **ensemble** de composants (ex. toutes celles ayant `Transform` **et** `Velocity`). C'est le rôle des vues.
