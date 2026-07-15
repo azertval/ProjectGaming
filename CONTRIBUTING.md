@@ -1,7 +1,7 @@
 # Contribuer à ProjectGaming
 
 ## Conventions de code
-Voir [`Documentation/conventions.md`](Documentation/conventions.md). Le code doit être formaté (`clang-format`) et compiler sans avertissement avant tout commit.
+Voir [`Documentation/Specification/conventions.md`](Documentation/Specification/conventions.md). Le code doit être formaté (`clang-format`) et compiler sans avertissement avant tout commit.
 
 ## Messages de commit — Conventional Commits
 Format : `<type>(<portée facultative>): <description à l'impératif>`

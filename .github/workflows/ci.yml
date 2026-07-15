@@ -45,3 +45,14 @@ jobs:
           path: |
             coverage.xml
             coverage-html/
+
+  lint-exigences:
+    # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et
+    # absence de référence orpheline. Léger et portable (Python), donc sur Linux.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint des identifiants d'exigences
+        run: python3 scripts/lint_exigences.py

@@ -27,7 +27,11 @@ Entity EntityManager::create() {
 
 /**
  * @brief Détruit une entité et libère son index pour recyclage.
- * @param entity Handle de l'entité à détruire ; sans effet s'il n'est pas vivant.
+ *
+ * Sans effet si le handle n'est pas vivant (déjà détruit ou périmé). Après
+ * l'appel, `isAlive(entity)` est faux pour ce handle.
+ *
+ * @param entity Handle de l'entité à détruire.
  */
 void EntityManager::destroy(Entity entity) {
     if (!isAlive(entity)) {

@@ -1,0 +1,43 @@
+# Vision & périmètre {#spec-vision}
+
+> Statut : **brouillon**. Les points marqués ⚠️ sont des propositions à valider.
+
+## Concept
+Jeu **2D de plateforme et puzzle**, en vue de côté, à base de niveaux discrets. Le joueur dirige un personnage qui traverse des tableaux en combinant **agilité de plateforme** (sauter, courir) et **résolution d'énigmes** (interrupteurs, blocs, portes, dangers).
+
+- **Genre** : plateforme / puzzle.
+- **Perspective** : 2D, vue de côté, décor en tuiles.
+- **Session type** : niveaux courts (1 à 3 minutes), rejouables.
+- **Public** : joueurs appréciant la réflexion et la précision, tous âges.
+- **Plateforme** : Windows (bureau), rendu DirectX.
+
+### Mécanique de jeu (décidée)
+Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et (plus tard) plateformes mobiles. **Pas de mécanique signature exotique** pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.
+
+## Boucle de gameplay
+1. Le joueur entre dans un niveau (état initial défini).
+2. Il observe l'agencement (plateformes, obstacles, mécanismes).
+3. Il agit : déplacement, saut, interaction avec les mécanismes.
+4. Il atteint la **sortie** du niveau (condition de victoire) — ou échoue (danger / chute) et **recommence** immédiatement.
+5. Progression vers le niveau suivant.
+
+## Objectifs (MVP)
+- \anchor EX-VIS-001 **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant et sautant dans un niveau en tuiles.
+- \anchor EX-VIS-002 **EX-VIS-002** — Le jeu doit permettre de terminer un niveau en atteignant une sortie.
+- \anchor EX-VIS-003 **EX-VIS-003** — Le jeu doit intégrer au moins un mécanisme de puzzle (interrupteur ↔ porte).
+- \anchor EX-VIS-004 **EX-VIS-004** — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.
+- \anchor EX-VIS-005 **EX-VIS-005** — Le jeu doit enchaîner au moins **3 niveaux** de démonstration.
+
+## Objectifs produit (au-delà du moteur)
+- \anchor EX-VIS-006 **EX-VIS-006** — Le projet doit fournir un **éditeur de niveaux** permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans [`editeur-niveaux.md`](editeur-niveaux.md). Livré **après** le chargement de niveaux dans le moteur.
+- \anchor EX-VIS-007 **EX-VIS-007** — À terme, le jeu doit proposer des **décors issus de photos réelles converties en pixel art**, plaçables et transformables, manipulables par le level designer (éditeur) **et par le joueur en jeu** (mécanique). Détaillé dans [`decors.md`](decors.md). L'architecture doit l'**accommoder dès maintenant** (cf. [`architecture.md`](architecture.md)) ; la livraison est **post-MVP**.
+
+## Hors périmètre (MVP)
+- Multijoueur, réseau.
+- Sauvegarde de progression persistante (au-delà du niveau courant).
+- Édition collaborative en temps réel dans l'éditeur (plusieurs éditeurs simultanés sur un même niveau).
+- Bande-son musicale élaborée (bruitages simples suffisent au MVP).
+- Portabilité hors Windows.
+
+## Traçabilité
+Ces objectifs sont détaillés dans [`gameplay.md`](gameplay.md), [`controles.md`](controles.md), [`rendu-technique.md`](rendu-technique.md), [`niveaux.md`](niveaux.md), [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md), [`editeur-niveaux.md`](editeur-niveaux.md), [`architecture.md`](architecture.md) et [`decors.md`](decors.md). Chaque lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.

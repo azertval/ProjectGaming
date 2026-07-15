@@ -10,4 +10,4 @@ Tests du projet, organisés par **niveau de test**.
 
 ## Convention
 - Un fichier de test par module testé, nommé d'après la cible (ex. `test_physique.cpp`).
-- Les tests référencent les specs (`../../Specification/`) et les critères d'acceptation des lots (`../../Lot/`).
+- Les tests référencent les specs (`../../Documentation/Specification/`) et les critères d'acceptation des lots (`../../Documentation/Lot/`).

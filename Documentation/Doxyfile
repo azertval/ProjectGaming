@@ -9,11 +9,22 @@ PROJECT_BRIEF          = "Jeu 2D de plateforme/puzzle en C++/DirectX"
 OUTPUT_DIRECTORY       = generated
 CREATE_SUBDIRS         = NO
 
-# Entrées : tout le code source.
-INPUT                  = ../Source
+# Entrées : documentation Markdown (accueil, spécifications, lots) + code source.
+# Les chemins sont relatifs à ce dossier (Documentation/).
+INPUT                  = index.md \
+                         Specification \
+                         Lot \
+                         Manuel \
+                         ../Source
 RECURSIVE              = YES
-FILE_PATTERNS          = *.cpp *.h *.hpp
-EXCLUDE_PATTERNS       = */build/* */External/*
+FILE_PATTERNS          = *.cpp *.h *.hpp *.md
+# Exclusions : build, dépendances, sortie générée, et les README de modules de
+# Source/ (notes internes, non voulues comme pages du site).
+EXCLUDE_PATTERNS       = */build/* */External/* */generated/* */Source/*README.md
+
+# Page d'accueil du site (mainpage) et arbre de navigation latéral.
+USE_MDFILE_AS_MAINPAGE = index.md
+GENERATE_TREEVIEW      = YES
 
 # Extraction.
 EXTRACT_ALL            = YES
@@ -31,3 +42,7 @@ GENERATE_LATEX         = NO
 # Verbosité.
 QUIET                  = YES
 WARN_IF_UNDOCUMENTED   = NO
+# Garde-fou qualité (esprit /W4 /WX) : tout avertissement Doxygen (référence
+# cassée, @param en conflit, symbole introuvable) fait échouer la génération.
+# FAIL_ON_WARNINGS : liste tous les avertissements puis retourne un code non nul.
+WARN_AS_ERROR          = FAIL_ON_WARNINGS
