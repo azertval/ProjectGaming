@@ -1,0 +1,39 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Entity.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Entity.h">
+<area shape="rect" id="Node000001" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="925,5,1146,60"/>
+<area shape="rect" id="Node000002" href="$ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="777,108,998,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="987,70,928,110,925,106,984,65"/>
+<area shape="rect" id="Node000003" href="$View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="629,218,850,273"/>
+<area shape="poly" id="edge19_Node000001_Node000003" title=" " alt="" coords="912,57,824,80,789,94,767,110,751,135,742,163,739,218,734,218,737,162,746,132,763,106,786,90,822,75,911,52"/>
+<area shape="rect" id="Node000004" href="$World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="567,328,789,383"/>
+<area shape="poly" id="edge20_Node000001_Node000004" title=" " alt="" coords="911,45,825,61,781,75,737,92,696,114,659,141,628,173,603,212,596,230,594,245,603,279,620,305,641,326,638,330,615,308,598,281,588,245,591,228,598,209,624,170,656,137,693,109,735,87,779,70,824,56,910,40"/>
+<area shape="rect" id="Node000010" href="$test__view_8cpp.html" title="Tests unitaires de la vue multi&#45;composants de l&#39;ECS." alt="" coords="838,328,1059,383"/>
+<area shape="poly" id="edge23_Node000001_Node000010" title=" " alt="" coords="1160,33,1267,37,1390,46,1515,61,1632,84,1684,98,1729,115,1767,135,1795,157,1811,184,1815,213,1805,246,1779,282,1764,292,1742,300,1675,315,1586,327,1481,337,1256,349,1060,355,1060,350,1255,344,1481,331,1585,322,1674,310,1740,295,1762,287,1775,278,1800,243,1810,213,1806,185,1791,161,1764,139,1727,120,1683,103,1631,89,1514,67,1389,52,1267,43,1160,38"/>
+<area shape="rect" id="Node000011" href="$test__component__pool_8cpp.html" title="Tests unitaires du stockage de composants en sparse set." alt="" coords="925,211,1146,280"/>
+<area shape="poly" id="edge21_Node000001_Node000011" title=" " alt="" coords="1038,74,1038,211,1033,211,1033,74"/>
+<area shape="rect" id="Node000012" href="$EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="1098,108,1319,163"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="1093,64,1165,105,1162,110,1091,69"/>
+<area shape="rect" id="Node000014" href="$test__entity__manager_8cpp.html" title="Tests unitaires du gestionnaire de cycle de vie des entités." alt="" coords="1517,218,1765,273"/>
+<area shape="poly" id="edge22_Node000001_Node000014" title=" " alt="" coords="1160,57,1245,79,1332,105,1473,161,1590,215,1588,220,1471,166,1330,111,1244,84,1159,63"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="842,173,777,220,774,215,838,169"/>
+<area shape="poly" id="edge10_Node000002_Node000004" title=" " alt="" coords="764,158,675,181,640,196,619,212,610,229,608,243,619,279,633,304,651,326,647,330,628,307,614,281,603,244,605,227,615,209,637,191,673,176,763,153"/>
+<area shape="poly" id="edge12_Node000002_Node000010" title=" " alt="" coords="894,176,902,226,915,279,936,327,931,329,910,281,897,227,889,177"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="936,169,990,208,987,212,933,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="720,286,695,329,691,326,715,284"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="804,277,899,325,896,330,802,282"/>
+<area shape="rect" id="Node000005" href="$MovementSystem_8cpp.html" title=" " alt="" coords="5,438,297,493"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="555,384,311,433,275,441,274,435,309,428,554,379"/>
+<area shape="rect" id="Node000006" href="$World_8cpp.html" title=" " alt="" coords="322,438,543,493"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="607,391,494,440,491,435,604,386"/>
+<area shape="rect" id="Node000007" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="567,431,789,500"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="681,397,681,430,675,430,675,397"/>
+<area shape="rect" id="Node000008" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="813,431,1034,500"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="751,386,848,428,846,433,749,391"/>
+<area shape="rect" id="Node000009" href="$test__world_8cpp.html" title="Tests unitaires de la façade World de l&#39;ECS." alt="" coords="1058,438,1279,493"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="802,377,1047,428,1076,435,1075,441,1045,433,801,382"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="1208,177,1194,232,1180,259,1160,282,1131,298,1093,308,998,320,901,325,826,331,789,337,789,331,826,325,901,320,998,315,1092,303,1129,293,1156,278,1176,256,1189,230,1203,176"/>
+<area shape="poly" id="edge18_Node000012_Node000010" title=" " alt="" coords="1221,176,1224,202,1223,230,1217,257,1204,282,1182,299,1147,314,1060,337,1059,332,1145,309,1179,294,1200,278,1212,255,1218,229,1218,202,1216,177"/>
+<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="1156,172,1091,213,1088,208,1153,168"/>
+<area shape="rect" id="Node000013" href="$EntityManager_8cpp.html" title=" " alt="" coords="1271,218,1493,273"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="1264,168,1341,215,1338,220,1261,172"/>
+<area shape="poly" id="edge17_Node000012_Node000014" title=" " alt="" coords="1328,163,1536,215,1535,221,1326,169"/>
+</map>

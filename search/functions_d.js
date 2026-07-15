@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['setassertionhandler_0',['setAssertionHandler',['../namespacecore.html#a0b2fde01c38742c460acb176220332ff',1,'core']]],
-  ['setminimumlevel_1',['setMinimumLevel',['../classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683',1,'core::Logger']]],
-  ['shouldclose_2',['shouldClose',['../classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c',1,'hmi::Window']]]
+  ['poolfor_0',['poolFor',['../classcore_1_1World.html#a5d524864277691a7419b5268d4c53449',1,'core::World']]],
+  ['present_1',['present',['../classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a',1,'hmi::GraphicsDevice']]],
+  ['pumpmessages_2',['pumpMessages',['../classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000',1,'hmi::Window']]]
 ];

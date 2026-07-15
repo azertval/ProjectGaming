@@ -81,12 +81,29 @@ $(function() {
 <area shape="rect" href="classcore_1_1Engine.html" title="Fournit les informations globales du moteur." alt="" coords="5,5,108,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_1.png" border="0" usemap="#acore_1_1FixedTimestep" alt=""/>
+<tr><td><img src="inherit_graph_1.png" border="0" usemap="#acore_1_1Entity" alt=""/>
+<map name="acore_1_1Entity" id="acore_1_1Entity">
+<area shape="rect" href="structcore_1_1Entity.html" title="Handle générationnel identifiant une entité de l&#39;ECS." alt="" coords="5,5,101,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_2.png" border="0" usemap="#acore_1_1EntityManager" alt=""/>
+<map name="acore_1_1EntityManager" id="acore_1_1EntityManager">
+<area shape="rect" href="classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="5,5,159,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_3.png" border="0" usemap="#acore_1_1FixedTimestep" alt=""/>
 <map name="acore_1_1FixedTimestep" id="acore_1_1FixedTimestep">
 <area shape="rect" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes." alt="" coords="5,5,159,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_2.png" border="0" usemap="#acore_1_1ILogSink" alt=""/>
+<tr><td><img src="inherit_graph_4.png" border="0" usemap="#acore_1_1IComponentPool" alt=""/>
+<map name="acore_1_1IComponentPool" id="acore_1_1IComponentPool">
+<area shape="rect" href="classcore_1_1IComponentPool.html" title="Interface type&#45;effacée d&#39;une pool de composants." alt="" coords="5,5,171,31"/>
+<area shape="rect" href="classcore_1_1ComponentPool.html" title="Stockage dense des composants d&#39;un type T, indexé par entité (sparse set)." alt="" coords="219,5,417,31"/>
+<area shape="poly" title=" " alt="" coords="184,15,218,15,218,21,184,21"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_5.png" border="0" usemap="#acore_1_1ILogSink" alt=""/>
 <map name="acore_1_1ILogSink" id="acore_1_1ILogSink">
 <area shape="rect" href="classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages." alt="" coords="5,31,119,56"/>
 <area shape="rect" href="classcore_1_1ConsoleLogSink.html" title="Sink qui écrit les messages sur la sortie standard et, sous Windows, vers le débogueur." alt="" coords="167,5,329,31"/>
@@ -95,22 +112,64 @@ $(function() {
 <area shape="poly" title=" " alt="" coords="133,50,167,54,166,60,132,55"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_3.png" border="0" usemap="#acore_1_1Logger" alt=""/>
+<tr><td><img src="inherit_graph_6.png" border="0" usemap="#acore_1_1ISystem" alt=""/>
+<map name="acore_1_1ISystem" id="acore_1_1ISystem">
+<area shape="rect" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="5,5,116,31"/>
+<area shape="rect" href="classcore_1_1MovementSystem.html" title="Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe." alt="" coords="164,5,341,31"/>
+<area shape="poly" title=" " alt="" coords="130,15,164,15,164,21,130,21"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_7.png" border="0" usemap="#acore_1_1Logger" alt=""/>
 <map name="acore_1_1Logger" id="acore_1_1Logger">
 <area shape="rect" href="classcore_1_1Logger.html" title="Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés." alt="" coords="5,5,108,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_4.png" border="0" usemap="#acore_1_1MemoryLogSink_1_1Entry" alt=""/>
+<tr><td><img src="inherit_graph_8.png" border="0" usemap="#acore_1_1MemoryLogSink_1_1Entry" alt=""/>
 <map name="acore_1_1MemoryLogSink_1_1Entry" id="acore_1_1MemoryLogSink_1_1Entry">
 <area shape="rect" href="structcore_1_1MemoryLogSink_1_1Entry.html" title="Un message reçu (niveau + texte)." alt="" coords="5,5,168,45"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_5.png" border="0" usemap="#ahmi_1_1GraphicsDevice" alt=""/>
+<tr><td><img src="inherit_graph_9.png" border="0" usemap="#acore_1_1Rect" alt=""/>
+<map name="acore_1_1Rect" id="acore_1_1Rect">
+<area shape="rect" href="structcore_1_1Rect.html" title="Rectangle aligné sur les axes (AABB) en unités monde." alt="" coords="5,5,92,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_10.png" border="0" usemap="#acore_1_1Transform" alt=""/>
+<map name="acore_1_1Transform" id="acore_1_1Transform">
+<area shape="rect" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX&#45;ARCH&#45;020)." alt="" coords="5,5,128,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_11.png" border="0" usemap="#acore_1_1Vector2" alt=""/>
+<map name="acore_1_1Vector2" id="acore_1_1Vector2">
+<area shape="rect" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="5,5,112,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_12.png" border="0" usemap="#acore_1_1Velocity" alt=""/>
+<map name="acore_1_1Velocity" id="acore_1_1Velocity">
+<area shape="rect" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde." alt="" coords="5,5,116,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_13.png" border="0" usemap="#acore_1_1View_3_01Components_01_4" alt=""/>
+<map name="acore_1_1View_3_01Components_01_4" id="acore_1_1View_3_01Components_01_4">
+<area shape="rect" href="classcore_1_1View.html" title="Sélection en lecture&#45;écriture des entités possédant tous les composants demandés." alt="" coords="5,5,208,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_14.png" border="0" usemap="#acore_1_1View_3_01Components_01_4_1_1Iterator" alt=""/>
+<map name="acore_1_1View_3_01Components_01_4_1_1Iterator" id="acore_1_1View_3_01Components_01_4_1_1Iterator">
+<area shape="rect" href="classcore_1_1View_1_1Iterator.html" title="Itérateur avant sur les entités retenues par la vue." alt="" coords="5,5,192,45"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_15.png" border="0" usemap="#acore_1_1World" alt=""/>
+<map name="acore_1_1World" id="acore_1_1World">
+<area shape="rect" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="5,5,100,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_16.png" border="0" usemap="#ahmi_1_1GraphicsDevice" alt=""/>
 <map name="ahmi_1_1GraphicsDevice" id="ahmi_1_1GraphicsDevice">
 <area shape="rect" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII)." alt="" coords="5,5,163,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_6.png" border="0" usemap="#ahmi_1_1Window" alt=""/>
+<tr><td><img src="inherit_graph_17.png" border="0" usemap="#ahmi_1_1Window" alt=""/>
 <map name="ahmi_1_1Window" id="ahmi_1_1Window">
 <area shape="rect" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, fermeture) en RAII." alt="" coords="5,5,112,31"/>
 </map>

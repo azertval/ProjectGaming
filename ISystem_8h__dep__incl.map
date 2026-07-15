@@ -1,0 +1,21 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/ISystem.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/ISystem.h">
+<area shape="rect" id="Node000001" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="595,5,817,60"/>
+<area shape="rect" id="Node000002" href="$MovementSystem_8h.html" title="Système intégrant la position des entités à partir de leur vitesse." alt="" coords="294,108,571,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="623,67,505,110,503,105,621,62"/>
+<area shape="rect" id="Node000006" href="$World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="595,108,817,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="709,74,709,108,703,108,703,74"/>
+<area shape="rect" id="Node000008" href="$test__world_8cpp.html" title="Tests unitaires de la façade World de l&#39;ECS." alt="" coords="1058,218,1279,273"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="777,63,1112,216,1110,220,775,68"/>
+<area shape="rect" id="Node000003" href="$MovementSystem_8cpp.html" title=" " alt="" coords="5,218,297,273"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="352,170,221,220,219,215,351,165"/>
+<area shape="rect" id="Node000004" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="322,211,543,280"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="435,177,435,210,430,210,430,177"/>
+<area shape="rect" id="Node000005" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="567,211,789,280"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="506,166,602,208,600,213,504,171"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="582,166,310,213,274,221,273,215,310,208,581,160"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="628,170,519,213,517,208,626,165"/>
+<area shape="poly" id="edge9_Node000006_Node000005" title=" " alt="" coords="698,177,689,211,684,210,693,176"/>
+<area shape="rect" id="Node000007" href="$World_8cpp.html" title=" " alt="" coords="813,218,1034,273"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="773,167,872,215,869,220,770,171"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="831,159,1047,208,1075,215,1074,221,1045,213,829,165"/>
+</map>

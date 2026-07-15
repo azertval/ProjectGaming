@@ -1,0 +1,17 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/View.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/View.h">
+<area shape="rect" id="Node000001" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="690,5,911,60"/>
+<area shape="rect" id="Node000002" href="$World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="567,108,789,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="760,71,712,110,708,106,756,67"/>
+<area shape="rect" id="Node000008" href="$test__view_8cpp.html" title="Tests unitaires de la vue multi&#45;composants de l&#39;ECS." alt="" coords="813,108,1034,163"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="845,67,893,106,890,110,842,71"/>
+<area shape="rect" id="Node000003" href="$MovementSystem_8cpp.html" title=" " alt="" coords="5,218,297,273"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="555,164,311,213,275,221,274,215,309,208,554,159"/>
+<area shape="rect" id="Node000004" href="$World_8cpp.html" title=" " alt="" coords="322,218,543,273"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="607,171,494,220,491,215,604,166"/>
+<area shape="rect" id="Node000005" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="567,211,789,280"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="681,177,681,210,675,210,675,177"/>
+<area shape="rect" id="Node000006" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="813,211,1034,280"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="751,166,848,208,846,213,749,171"/>
+<area shape="rect" id="Node000007" href="$test__world_8cpp.html" title="Tests unitaires de la façade World de l&#39;ECS." alt="" coords="1058,218,1279,273"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="803,160,927,183,1047,208,1076,215,1075,221,1045,213,926,189,802,166"/>
+</map>

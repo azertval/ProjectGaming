@@ -1,0 +1,5 @@
+<map id="core::Velocity" name="core::Velocity">
+<area shape="rect" id="Node000001" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde." alt="" coords="5,93,116,119"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="7,5,114,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,45,63,93,58,93,58,45"/>
+</map>

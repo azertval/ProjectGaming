@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['level_0',['level',['../structcore_1_1MemoryLogSink_1_1Entry.html#ab2a140504bc9e377d32147b8cddc7055',1,'core::MemoryLogSink::Entry']]]
+  ['epsilon_0',['EPSILON',['../namespacecore.html#a49c6e01fbd8905740993109a36f65c11',1,'core']]]
 ];

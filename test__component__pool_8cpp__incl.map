@@ -1,0 +1,28 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_component_pool.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_component_pool.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires du stockage de composants en sparse set." alt="" coords="215,5,437,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,123,92,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,77,97,121,95,116,225,72"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="117,123,221,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="271,77,202,118,199,113,268,72"/>
+<area shape="rect" id="Node000004" href="$Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="155,196,345,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="310,76,286,124,261,184,256,182,281,122,305,74"/>
+<area shape="rect" id="Node000006" href="$ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="295,123,493,148"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="353,73,380,110,375,113,348,76"/>
+<area shape="rect" id="Node000009" href="$Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="465,196,595,221"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="438,72,475,93,507,121,523,151,531,181,525,182,518,152,503,124,472,97,436,77"/>
+<area shape="rect" id="Node000011" href="$EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="568,123,756,148"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="438,69,609,116,607,122,436,75"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="207,269,293,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="253,222,253,256,247,256,247,222"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="372,150,287,192,285,187,370,146"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="369,196,440,221"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="398,148,404,182,398,183,393,149"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="620,196,683,221"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="436,145,607,192,606,198,435,151"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="417,146,497,187,495,192,415,150"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="591,269,658,295"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="547,219,600,259,597,263,544,223"/>
+<area shape="poly" id="edge14_Node000011_Node000008" title=" " alt="" coords="663,149,658,183,652,182,658,148"/>
+<area shape="poly" id="edge15_Node000011_Node000009" title=" " alt="" coords="642,150,565,192,562,187,640,146"/>
+<area shape="poly" id="edge13_Node000011_Node000010" title=" " alt="" coords="675,147,696,180,701,201,698,222,681,246,660,264,657,260,677,242,693,220,696,202,691,183,670,150"/>
+</map>

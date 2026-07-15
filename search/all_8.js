@@ -1,8 +1,14 @@
 var searchData=
 [
-  ['ilogsink_0',['ILogSink',['../classcore_1_1ILogSink.html',1,'core']]],
-  ['ilogsink_2eh_1',['ILogSink.h',['../ILogSink_8h.html',1,'']]],
-  ['info_2',['Info',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875',1,'core']]],
-  ['interpolationalpha_3',['interpolationAlpha',['../classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56',1,'core::FixedTimestep']]],
-  ['isenabled_4',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]]
+  ['handle_0',['handle',['../classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59',1,'hmi::Window']]],
+  ['handleassertionfailure_1',['handleAssertionFailure',['../namespacecore.html#a7278ef05514b62dcd5241984197dfb23',1,'core']]],
+  ['handlemessage_2',['handleMessage',['../classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75',1,'hmi::Window']]],
+  ['has_3',['has',['../classcore_1_1ComponentPool.html#aa6399864a2dc32b2625103a46c0ce6b8',1,'core::ComponentPool']]],
+  ['hascomponent_4',['hasComponent',['../classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04',1,'core::World']]],
+  ['hmi_5',['hmi',['../namespacehmi.html',1,'']]],
+  ['hmi_5flog_5ferror_6',['HMI_LOG_ERROR',['../HmiLog_8h.html#a08356273985cc5f411fffe27a351a6d4',1,'HmiLog.h']]],
+  ['hmi_5flog_5finfo_7',['HMI_LOG_INFO',['../HmiLog_8h.html#ab6e09a8b029232f1498e7066673258c5',1,'HmiLog.h']]],
+  ['hmi_5flog_5ftrace_8',['HMI_LOG_TRACE',['../HmiLog_8h.html#abf653eebaaa5c7cc6bcc5558b373f428',1,'HmiLog.h']]],
+  ['hmi_5flog_5fwarning_9',['HMI_LOG_WARNING',['../HmiLog_8h.html#a718507194f37a375550875cc970775c8',1,'HmiLog.h']]],
+  ['hmilog_2eh_10',['HmiLog.h',['../HmiLog_8h.html',1,'']]]
 ];

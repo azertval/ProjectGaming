@@ -1,0 +1,5 @@
+<map id="core::ComponentPool&lt; T &gt;" name="core::ComponentPool&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Stockage dense des composants d&#39;un type T, indexé par entité (sparse set)." alt="" coords="5,79,204,104"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1IComponentPool.html" title="Interface type&#45;effacée d&#39;une pool de composants." alt="" coords="22,5,187,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,44,107,79,102,79,102,44"/>
+</map>

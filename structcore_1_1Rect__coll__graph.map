@@ -1,0 +1,5 @@
+<map id="core::Rect" name="core::Rect">
+<area shape="rect" id="Node000001" title="Rectangle aligné sur les axes (AABB) en unités monde." alt="" coords="15,108,102,133"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="5,5,112,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,45,61,108,56,108,56,45"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/EntityManager.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/EntityManager.h">
+<area shape="rect" id="Node000001" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="5,5,227,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="108,181,175,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,62,74,96,71,114,74,132,90,154,110,172,107,176,86,158,70,134,65,114,69,94,89,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="85,108,147,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,60,119,94,113,94,113,60"/>
+<area shape="rect" id="Node000004" href="$Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="172,108,303,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="155,58,211,98,208,102,152,62"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="223,136,170,175,167,171,220,131"/>
+</map>

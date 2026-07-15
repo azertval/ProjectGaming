@@ -74,7 +74,8 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">core Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -84,23 +85,59 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ComponentPool.html">ComponentPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stockage dense des composants d'un type <code>T</code>, indexé par entité (sparse set).  <a href="classcore_1_1ComponentPool.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ConsoleLogSink.html">ConsoleLogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink qui écrit les messages sur la sortie standard et, sous Windows, vers le débogueur.  <a href="classcore_1_1ConsoleLogSink.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Engine.html">Engine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fournit les informations globales du moteur.  <a href="classcore_1_1Engine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Entity.html">Entity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle générationnel identifiant une entité de l'ECS.  <a href="structcore_1_1Entity.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1EntityManager.html">EntityManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée, détruit et valide les entités de l'ECS.  <a href="classcore_1_1EntityManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1FixedTimestep.html">FixedTimestep</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.  <a href="classcore_1_1FixedTimestep.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1IComponentPool.html">IComponentPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface type-effacée d'une pool de composants.  <a href="classcore_1_1IComponentPool.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ILogSink.html">ILogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination vers laquelle un <code><a class="el" href="classcore_1_1Logger.html" title="Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.">Logger</a></code> diffuse ses messages.  <a href="classcore_1_1ILogSink.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ISystem.html">ISystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface d'un système : porte la logique itérant sur les composants.  <a href="classcore_1_1ISystem.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Logger.html">Logger</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.  <a href="classcore_1_1Logger.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MemoryLogSink.html">MemoryLogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink de test : mémorise les messages reçus pour inspection.  <a href="classcore_1_1MemoryLogSink.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MovementSystem.html">MovementSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe.  <a href="classcore_1_1MovementSystem.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Rect.html">Rect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle aligné sur les axes (AABB) en unités monde.  <a href="structcore_1_1Rect.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Transform.html">Transform</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, échelle et rotation d'une entité, en unités monde (<code>EX-ARCH-020</code>).  <a href="structcore_1_1Transform.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vecteur bidimensionnel en coordonnées monde (composantes <code>float</code>).  <a href="structcore_1_1Vector2.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Velocity.html">Velocity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse linéaire d'une entité, en unités monde par seconde.  <a href="structcore_1_1Velocity.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1View.html">View</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection en lecture-écriture des entités possédant tous les composants demandés.  <a href="classcore_1_1View.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1World.html">World</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée unique de la simulation : possède les entités, les composants et les systèmes.  <a href="classcore_1_1World.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -142,6 +179,42 @@ Functions</h2></td></tr>
 <tr class="memitem:a44fc8d654b0e55558cf5e5a4258b5081" id="r_a44fc8d654b0e55558cf5e5a4258b5081"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081">toString</a> (<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level)</td></tr>
 <tr class="memdesc:a44fc8d654b0e55558cf5e5a4258b5081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un niveau en libellé lisible.  <br /></td></tr>
 <tr class="separator:a44fc8d654b0e55558cf5e5a4258b5081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
+<tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
+<tr class="separator:a69640dd3c9f3f8778a7c7621839c3794"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc000366ab7d8c9d1a897385b813a68" id="r_a0bc000366ab7d8c9d1a897385b813a68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a0bc000366ab7d8c9d1a897385b813a68">operator+</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a0bc000366ab7d8c9d1a897385b813a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Somme de deux vecteurs.  <br /></td></tr>
+<tr class="separator:a0bc000366ab7d8c9d1a897385b813a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a99b0f3e57dfc6bbaf34b5604308bc9" id="r_a1a99b0f3e57dfc6bbaf34b5604308bc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a1a99b0f3e57dfc6bbaf34b5604308bc9">operator-</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a1a99b0f3e57dfc6bbaf34b5604308bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Différence de deux vecteurs.  <br /></td></tr>
+<tr class="separator:a1a99b0f3e57dfc6bbaf34b5604308bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab422b18bf5b03f40421c9391b725dcd0" id="r_ab422b18bf5b03f40421c9391b725dcd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ab422b18bf5b03f40421c9391b725dcd0">operator*</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;vector, float scalar)</td></tr>
+<tr class="memdesc:ab422b18bf5b03f40421c9391b725dcd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produit d'un vecteur par un scalaire.  <br /></td></tr>
+<tr class="separator:ab422b18bf5b03f40421c9391b725dcd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af00d66f383c519ba8fa31cbab3a106" id="r_a6af00d66f383c519ba8fa31cbab3a106"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a6af00d66f383c519ba8fa31cbab3a106">operator*</a> (float scalar, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;vector)</td></tr>
+<tr class="memdesc:a6af00d66f383c519ba8fa31cbab3a106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produit d'un scalaire par un vecteur (commutatif).  <br /></td></tr>
+<tr class="separator:a6af00d66f383c519ba8fa31cbab3a106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab931b1596f60176fe703b83007f27a12" id="r_ab931b1596f60176fe703b83007f27a12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ab931b1596f60176fe703b83007f27a12">operator/</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;vector, float scalar)</td></tr>
+<tr class="memdesc:ab931b1596f60176fe703b83007f27a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Division d'un vecteur par un scalaire.  <br /></td></tr>
+<tr class="separator:ab931b1596f60176fe703b83007f27a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabe0f47eb63d4391e7e95509fb7ff6b0" id="r_aabe0f47eb63d4391e7e95509fb7ff6b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#aabe0f47eb63d4391e7e95509fb7ff6b0">operator-</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;vector)</td></tr>
+<tr class="memdesc:aabe0f47eb63d4391e7e95509fb7ff6b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opposé d'un vecteur.  <br /></td></tr>
+<tr class="separator:aabe0f47eb63d4391e7e95509fb7ff6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fa4a986a900f73517454f7c1eff774" id="r_a78fa4a986a900f73517454f7c1eff774"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a78fa4a986a900f73517454f7c1eff774">operator==</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a78fa4a986a900f73517454f7c1eff774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Égalité approchée entre deux vecteurs (comparaison par tolérance).  <br /></td></tr>
+<tr class="separator:a78fa4a986a900f73517454f7c1eff774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a197b5bff2c73896fbfb05df9ea6419b9" id="r_a197b5bff2c73896fbfb05df9ea6419b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a197b5bff2c73896fbfb05df9ea6419b9">operator!=</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a197b5bff2c73896fbfb05df9ea6419b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inégalité approchée entre deux vecteurs.  <br /></td></tr>
+<tr class="separator:a197b5bff2c73896fbfb05df9ea6419b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
+<tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
+<tr class="separator:a2a9202a1a89eacaec610bdc83b0ff272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
+<tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
+<tr class="separator:a49c6e01fbd8905740993109a36f65c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Espace de noms du moteur et de la logique de jeu. </p>
@@ -198,6 +271,60 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a69640dd3c9f3f8778a7c7621839c3794" name="a69640dd3c9f3f8778a7c7621839c3794"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69640dd3c9f3f8778a7c7621839c3794">&#9670;&#160;</a></span>approximatelyEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::approximatelyEqual </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>tolerance</em> = <code><a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compare deux flottants à une tolérance relative-absolue près. </p>
+<p>Évite les faux négatifs des comparaisons <code>==</code> brutes sur des résultats calculés, tout en restant robuste pour les grandes magnitudes (tolérance mise à l'échelle par le plus grand opérande).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Premier opérande. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second opérande. </td></tr>
+    <tr><td class="paramname">tolerance</td><td>Tolérance de base (défaut : <a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11" title="Tolérance par défaut pour les comparaisons de flottants issus de calculs.">core::EPSILON</a>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si les deux valeurs sont égales à la tolérance près. </dd></dl>
+
+</div>
+</div>
 <a id="a485afe76bcf660ec5db7d91f924f87a4" name="a485afe76bcf660ec5db7d91f924f87a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a485afe76bcf660ec5db7d91f924f87a4">&#9670;&#160;</a></span>currentTimestamp()</h2>
 
@@ -382,6 +509,299 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a197b5bff2c73896fbfb05df9ea6419b9" name="a197b5bff2c73896fbfb05df9ea6419b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a197b5bff2c73896fbfb05df9ea6419b9">&#9670;&#160;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inégalité approchée entre deux vecteurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Premier opérande. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second opérande. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si les vecteurs diffèrent au-delà de la tolérance. </dd></dl>
+
+</div>
+</div>
+<a id="ab422b18bf5b03f40421c9391b725dcd0" name="ab422b18bf5b03f40421c9391b725dcd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab422b18bf5b03f40421c9391b725dcd0">&#9670;&#160;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scalar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Produit d'un vecteur par un scalaire. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>Vecteur à mettre à l'échelle. </td></tr>
+    <tr><td class="paramname">scalar</td><td>Facteur d'échelle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur mis à l'échelle. </dd></dl>
+
+</div>
+</div>
+<a id="a6af00d66f383c519ba8fa31cbab3a106" name="a6af00d66f383c519ba8fa31cbab3a106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6af00d66f383c519ba8fa31cbab3a106">&#9670;&#160;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator* </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scalar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>vector</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Produit d'un scalaire par un vecteur (commutatif). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scalar</td><td>Facteur d'échelle. </td></tr>
+    <tr><td class="paramname">vector</td><td>Vecteur à mettre à l'échelle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur mis à l'échelle. </dd></dl>
+
+</div>
+</div>
+<a id="a0bc000366ab7d8c9d1a897385b813a68" name="a0bc000366ab7d8c9d1a897385b813a68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc000366ab7d8c9d1a897385b813a68">&#9670;&#160;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Somme de deux vecteurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Premier opérande. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second opérande. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur somme. </dd></dl>
+
+</div>
+</div>
+<a id="a1a99b0f3e57dfc6bbaf34b5604308bc9" name="a1a99b0f3e57dfc6bbaf34b5604308bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a99b0f3e57dfc6bbaf34b5604308bc9">&#9670;&#160;</a></span>operator-() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Différence de deux vecteurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Premier opérande. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second opérande. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur différence <code>lhs - rhs</code>. </dd></dl>
+
+</div>
+</div>
+<a id="aabe0f47eb63d4391e7e95509fb7ff6b0" name="aabe0f47eb63d4391e7e95509fb7ff6b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe0f47eb63d4391e7e95509fb7ff6b0">&#9670;&#160;</a></span>operator-() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opposé d'un vecteur. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>Vecteur à inverser. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur de composantes opposées. </dd></dl>
+
+</div>
+</div>
+<a id="ab931b1596f60176fe703b83007f27a12" name="ab931b1596f60176fe703b83007f27a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab931b1596f60176fe703b83007f27a12">&#9670;&#160;</a></span>operator/()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scalar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Division d'un vecteur par un scalaire. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>Vecteur à diviser. </td></tr>
+    <tr><td class="paramname">scalar</td><td>Diviseur (supposé non nul). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le vecteur divisé. </dd></dl>
+
+</div>
+</div>
+<a id="a78fa4a986a900f73517454f7c1eff774" name="a78fa4a986a900f73517454f7c1eff774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78fa4a986a900f73517454f7c1eff774">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Égalité approchée entre deux vecteurs (comparaison par tolérance). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Premier opérande. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Second opérande. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si les composantes coïncident à la tolérance près. </dd></dl>
+
+</div>
+</div>
 <a id="a0b2fde01c38742c460acb176220332ff" name="a0b2fde01c38742c460acb176220332ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b2fde01c38742c460acb176220332ff">&#9670;&#160;</a></span>setAssertionHandler()</h2>
 
@@ -440,6 +860,55 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Libellé constant ("TRACE", "INFO", "WARNING", "ERROR"). </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a49c6e01fbd8905740993109a36f65c11" name="a49c6e01fbd8905740993109a36f65c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49c6e01fbd8905740993109a36f65c11">&#9670;&#160;</a></span>EPSILON</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::EPSILON = 1e-5f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tolérance par défaut pour les comparaisons de flottants issus de calculs. </p>
+
+</div>
+</div>
+<a id="a2a9202a1a89eacaec610bdc83b0ff272" name="a2a9202a1a89eacaec610bdc83b0ff272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9202a1a89eacaec610bdc83b0ff272">&#9670;&#160;</a></span>INVALID_ENTITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a> core::INVALID_ENTITY {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entité invalide conventionnelle : ne désigne jamais une entité vivante. </p>
 
 </div>
 </div>

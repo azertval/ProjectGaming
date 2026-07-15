@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ilogsink_2eh_0',['ILogSink.h',['../ILogSink_8h.html',1,'']]]
+  ['hmilog_2eh_0',['HmiLog.h',['../HmiLog_8h.html',1,'']]]
 ];
