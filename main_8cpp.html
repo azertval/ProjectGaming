@@ -83,36 +83,69 @@ $(function() {
 <p>Point d'entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;cstdio&gt;</code><br />
 <code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="ConsoleLogSink_8h_source.html">Core/Diagnostics/ConsoleLogSink.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="FixedTimestep_8h_source.html">Core/Time/FixedTimestep.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GraphicsDevice_8h_source.html">HMI/Graphics/GraphicsDevice.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Window_8h_source.html">HMI/Platform/Window.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2main_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2main_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2main_8cpp">
-<area shape="rect" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="197,5,419,60"/>
+<area shape="rect" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="457,5,679,60"/>
 <area shape="rect" title=" " alt="" coords="5,108,72,133"/>
-<area shape="poly" title=" " alt="" coords="227,63,86,107,84,102,225,58"/>
-<area shape="rect" title=" " alt="" coords="96,108,157,133"/>
-<area shape="poly" title=" " alt="" coords="254,62,164,105,162,100,251,58"/>
-<area shape="rect" title=" " alt="" coords="182,108,269,133"/>
-<area shape="poly" title=" " alt="" coords="285,62,248,100,244,96,281,58"/>
-<area shape="rect" href="FixedTimestep_8h.html" title="Cadenceur à pas de temps fixe pour une simulation déterministe." alt="" coords="292,108,492,133"/>
-<area shape="poly" title=" " alt="" coords="336,58,373,96,369,100,332,62"/>
-<area shape="rect" href="GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image." alt="" coords="716,108,943,133"/>
-<area shape="poly" title=" " alt="" coords="420,50,747,103,746,108,419,55"/>
-<area shape="rect" href="Window_8h.html" title="Fenêtre native Win32 et sa pompe de messages." alt="" coords="517,108,691,133"/>
-<area shape="poly" title=" " alt="" coords="399,58,552,102,551,107,398,63"/>
-<area shape="rect" title=" " alt="" coords="616,181,709,207"/>
-<area shape="poly" title=" " alt="" coords="804,136,703,178,701,173,802,131"/>
-<area shape="rect" title=" " alt="" coords="737,181,812,207"/>
-<area shape="poly" title=" " alt="" coords="822,135,794,172,790,169,818,132"/>
-<area shape="rect" title=" " alt="" coords="837,181,931,207"/>
-<area shape="poly" title=" " alt="" coords="840,132,869,169,865,172,836,135"/>
-<area shape="poly" title=" " alt="" coords="616,132,647,169,643,173,612,135"/>
+<area shape="poly" title=" " alt="" coords="457,51,287,75,86,110,85,105,286,70,457,45"/>
+<area shape="rect" title=" " alt="" coords="97,108,183,133"/>
+<area shape="poly" title=" " alt="" coords="458,59,198,111,197,105,457,53"/>
+<area shape="rect" title=" " alt="" coords="177,343,255,368"/>
+<area shape="poly" title=" " alt="" coords="468,63,417,83,368,110,326,143,297,173,274,208,249,256,234,294,224,330,219,329,229,292,244,254,270,206,293,170,322,139,365,106,414,78,466,58"/>
+<area shape="rect" title=" " alt="" coords="905,343,964,368"/>
+<area shape="poly" title=" " alt="" coords="615,58,792,164,873,217,917,253,927,271,933,291,938,328,932,329,927,292,922,274,913,256,870,222,789,168,612,62"/>
+<area shape="rect" href="ConsoleLogSink_8h.html" title="Sink écrivant sur la console (et le débogueur sous Windows)." alt="" coords="474,255,662,295"/>
+<area shape="poly" title=" " alt="" coords="571,60,571,241,565,241,565,60"/>
+<area shape="rect" href="FixedTimestep_8h.html" title="Cadenceur à pas de temps fixe pour une simulation déterministe." alt="" coords="751,108,951,133"/>
+<area shape="poly" title=" " alt="" coords="655,58,801,102,799,107,654,63"/>
+<area shape="rect" href="GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image." alt="" coords="1175,108,1401,133"/>
+<area shape="poly" title=" " alt="" coords="679,44,1179,104,1178,109,679,50"/>
+<area shape="rect" href="HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="379,108,493,133"/>
+<area shape="poly" title=" " alt="" coords="529,62,467,103,464,98,526,58"/>
+<area shape="rect" href="Window_8h.html" title="Fenêtre native Win32 et sa pompe de messages." alt="" coords="975,108,1150,133"/>
+<area shape="poly" title=" " alt="" coords="679,51,984,103,983,108,679,56"/>
+<area shape="rect" title=" " alt="" coords="703,416,801,441"/>
+<area shape="poly" title=" " alt="" coords="594,293,655,341,730,404,727,408,652,345,591,297"/>
+<area shape="rect" href="ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="417,343,620,368"/>
+<area shape="poly" title=" " alt="" coords="558,296,535,332,531,330,554,293"/>
+<area shape="rect" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="415,416,622,441"/>
+<area shape="poly" title=" " alt="" coords="598,293,616,309,631,327,639,348,634,369,610,396,579,413,576,409,606,391,630,367,634,348,627,330,612,312,595,297"/>
+<area shape="poly" title=" " alt="" coords="557,365,702,409,701,415,555,371"/>
+<area shape="poly" title=" " alt="" coords="521,368,521,402,516,402,516,368"/>
+<area shape="rect" title=" " alt="" coords="1043,181,1136,207"/>
+<area shape="poly" title=" " alt="" coords="1257,136,1136,179,1134,174,1255,131"/>
+<area shape="rect" title=" " alt="" coords="1333,181,1408,207"/>
+<area shape="poly" title=" " alt="" coords="1303,131,1348,170,1345,174,1300,135"/>
+<area shape="rect" title=" " alt="" coords="1214,181,1309,207"/>
+<area shape="poly" title=" " alt="" coords="1286,135,1273,170,1268,168,1281,133"/>
+<area shape="rect" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="315,181,485,207"/>
+<area shape="poly" title=" " alt="" coords="432,135,414,170,410,168,428,132"/>
+<area shape="poly" title=" " alt="" coords="358,209,284,234,244,251,207,270,178,292,159,315,155,327,154,340,158,353,167,366,182,378,203,388,261,404,331,415,402,421,401,426,330,420,260,409,201,393,179,383,163,370,154,355,149,341,149,327,154,313,174,288,205,266,242,246,282,229,357,204"/>
+<area shape="rect" href="LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="686,262,903,287"/>
+<area shape="poly" title=" " alt="" coords="458,204,724,257,723,262,457,209"/>
+<area shape="rect" href="Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="259,262,450,287"/>
+<area shape="poly" title=" " alt="" coords="396,208,371,251,366,249,391,206"/>
+<area shape="poly" title=" " alt="" coords="817,285,903,334,901,338,814,290"/>
+<area shape="poly" title=" " alt="" coords="807,286,829,323,835,346,830,369,813,393,790,411,787,407,809,389,826,367,829,346,824,325,803,289"/>
+<area shape="poly" title=" " alt="" coords="781,290,726,327,655,370,562,413,560,408,652,366,723,323,778,285"/>
+<area shape="poly" title=" " alt="" coords="336,290,250,338,247,334,333,285"/>
+<area shape="poly" title=" " alt="" coords="414,285,535,311,592,326,633,340,677,368,728,405,725,410,674,372,631,345,591,331,534,316,413,290"/>
+<area shape="poly" title=" " alt="" coords="380,285,484,334,481,339,377,290"/>
+<area shape="poly" title=" " alt="" coords="345,289,331,306,319,326,314,347,320,367,336,384,356,398,403,416,401,421,354,403,333,388,315,369,308,347,314,324,327,303,341,286"/>
+<area shape="rect" title=" " alt="" coords="330,343,393,368"/>
+<area shape="poly" title=" " alt="" coords="358,287,362,329,357,329,353,288"/>
+<area shape="poly" title=" " alt="" coords="1070,133,1083,168,1078,170,1065,135"/>
 </map>
 </div>
 </div><table class="memberdecls">

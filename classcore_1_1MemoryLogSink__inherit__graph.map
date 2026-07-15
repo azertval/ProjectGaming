@@ -1,0 +1,5 @@
+<map id="core::MemoryLogSink" name="core::MemoryLogSink">
+<area shape="rect" id="Node000001" title="Sink de test : mémorise les messages reçus pour inspection." alt="" coords="5,79,168,104"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages." alt="" coords="30,5,143,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,44,89,79,84,79,84,44"/>
+</map>

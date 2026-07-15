@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/LogFormat.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/LogFormat.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="101,5,337,60"/>
+<area shape="rect" id="Node000002" href="$LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="29,108,246,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,62,160,100,156,96,192,58"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="271,108,329,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="245,58,281,96,277,100,242,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,64,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,136,64,175,61,171,119,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="89,181,186,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="140,134,140,168,135,168,135,134"/>
+<area shape="rect" id="Node000005" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="210,181,417,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="167,131,273,174,271,178,165,136"/>
+</map>

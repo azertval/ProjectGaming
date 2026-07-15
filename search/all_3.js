@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['engine_0',['Engine',['../classcore_1_1Engine.html',1,'core']]]
+  ['defaultlogger_0',['defaultLogger',['../namespacecore.html#a925cad771c457040a01272ff8be8e1a1',1,'core']]]
 ];

@@ -1,0 +1,15 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h">
+<area shape="rect" id="Node000001" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="79,5,300,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,83,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,62,77,103,74,99,144,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="166,181,263,207"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,62,148,96,144,114,148,132,163,154,184,172,180,176,159,158,143,134,139,114,143,94,163,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="158,108,221,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,60,192,94,187,94,187,60"/>
+<area shape="rect" id="Node000005" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="245,108,448,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="239,58,315,99,312,104,236,62"/>
+<area shape="rect" id="Node000006" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="313,181,519,207"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="301,48,398,71,437,87,462,106,468,124,465,142,442,173,438,170,460,139,463,124,458,110,435,92,396,77,300,53"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="327,136,249,177,247,172,324,131"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="360,132,397,170,393,173,356,136"/>
+</map>

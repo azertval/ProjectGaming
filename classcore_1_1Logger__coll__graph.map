@@ -1,0 +1,9 @@
+<map id="core::Logger" name="core::Logger">
+<area shape="rect" id="Node000001" title="Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés." alt="" coords="45,299,148,324"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,196,188,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,250,99,298,94,298,94,250"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="15,93,178,133"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,147,99,196,94,196,94,147"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages." alt="" coords="40,5,153,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="99,44,99,93,94,93,94,44"/>
+</map>

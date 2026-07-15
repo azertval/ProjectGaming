@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['resize_0',['resize',['../classhmi_1_1GraphicsDevice.html#ab21b773d7079c0f42fad09278d514b4c',1,'hmi::GraphicsDevice']]]
+  ['main_0',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
+  ['minimumlevel_1',['minimumLevel',['../classcore_1_1Logger.html#a63f6d39ff9fc0e6d92adffd74a3552e7',1,'core::Logger']]]
 ];

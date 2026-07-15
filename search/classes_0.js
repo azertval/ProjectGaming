@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['engine_0',['Engine',['../classcore_1_1Engine.html',1,'core']]]
+  ['consolelogsink_0',['ConsoleLogSink',['../classcore_1_1ConsoleLogSink.html',1,'core']]]
 ];

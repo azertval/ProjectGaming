@@ -1,0 +1,14 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_log_format.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_log_format.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires du formatage des lignes de log." alt="" coords="5,5,227,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="83,181,141,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,62,68,84,54,109,52,121,54,132,68,153,85,171,81,174,63,157,50,134,46,121,50,107,64,81,83,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="64,108,168,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,60,119,94,113,94,113,60"/>
+<area shape="rect" id="Node000004" href="$LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="193,108,410,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,58,265,100,263,105,171,62"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="272,136,155,179,154,174,270,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="209,181,306,207"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="296,135,274,171,269,168,292,132"/>
+<area shape="rect" id="Node000006" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="330,181,537,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="324,131,401,172,399,177,321,136"/>
+</map>

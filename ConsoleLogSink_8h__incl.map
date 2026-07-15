@@ -1,0 +1,11 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/ConsoleLogSink.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/ConsoleLogSink.h">
+<area shape="rect" id="Node000001" title="Sink écrivant sur la console (et le débogueur sous Windows)." alt="" coords="40,5,295,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,181,103,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,62,78,83,56,109,49,138,51,167,45,168,44,138,52,107,74,79,103,58"/>
+<area shape="rect" id="Node000003" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="66,108,269,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,60,170,94,165,94,165,60"/>
+<area shape="rect" id="Node000004" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="177,181,384,207"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="232,58,261,79,283,107,291,138,289,168,284,167,286,138,278,109,257,83,229,62"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="151,136,85,176,82,172,148,131"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="187,131,252,172,249,176,184,136"/>
+</map>

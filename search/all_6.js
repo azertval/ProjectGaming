@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['handle_0',['handle',['../classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59',1,'hmi::Window']]],
-  ['handlemessage_1',['handleMessage',['../classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75',1,'hmi::Window']]],
-  ['hmi_2',['hmi',['../namespacehmi.html',1,'']]]
+  ['graphicsdevice_0',['graphicsdevice',['../classhmi_1_1GraphicsDevice.html',1,'hmi::GraphicsDevice'],['../classhmi_1_1GraphicsDevice.html#ab2f74262d1db46c396485185a6a069cc',1,'hmi::GraphicsDevice::GraphicsDevice(HWND window, int width, int height)'],['../classhmi_1_1GraphicsDevice.html#a2596298ef621bc08f76c48aa349e286a',1,'hmi::GraphicsDevice::GraphicsDevice(const GraphicsDevice &amp;)=delete']]],
+  ['graphicsdevice_2ecpp_1',['GraphicsDevice.cpp',['../GraphicsDevice_8cpp.html',1,'']]],
+  ['graphicsdevice_2eh_2',['GraphicsDevice.h',['../GraphicsDevice_8h.html',1,'']]]
 ];

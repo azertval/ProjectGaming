@@ -1,0 +1,15 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h">
+<area shape="rect" id="Node000001" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="373,5,595,60"/>
+<area shape="rect" id="Node000002" href="$Assert_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="376,66,213,111,211,105,375,61"/>
+<area shape="rect" id="Node000003" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="251,108,472,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="443,71,395,110,392,106,440,67"/>
+<area shape="rect" id="Node000006" href="$Logger_8cpp.html" title=" " alt="" coords="496,108,717,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="528,67,576,106,573,110,525,71"/>
+<area shape="rect" id="Node000007" href="$test__logger_8cpp.html" title="Tests unitaires du journaliseur (filtrage et diffusion)." alt="" coords="741,108,963,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="593,61,757,105,755,111,592,66"/>
+<area shape="rect" id="Node000004" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="251,211,472,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,176,364,211,359,211,359,176"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="251,313,472,368"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="364,279,364,313,359,313,359,279"/>
+</map>

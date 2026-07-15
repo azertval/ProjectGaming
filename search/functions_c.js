@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version_0',['version',['../classcore_1_1Engine.html#acaf5ecea21fed7591829b57a9a387641',1,'core::Engine']]]
+  ['resize_0',['resize',['../classhmi_1_1GraphicsDevice.html#ab21b773d7079c0f42fad09278d514b4c',1,'hmi::GraphicsDevice']]]
 ];
