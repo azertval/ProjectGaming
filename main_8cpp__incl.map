@@ -1,0 +1,22 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/main.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/main.cpp">
+<area shape="rect" id="Node000001" title="Point d&#39;entrée : assemble fenêtre, device Direct3D 11 et boucle à pas de temps fixe." alt="" coords="197,5,419,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,72,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,63,86,107,84,102,225,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="96,108,157,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,62,164,105,162,100,251,58"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="182,108,269,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="285,62,248,100,244,96,281,58"/>
+<area shape="rect" id="Node000005" href="$FixedTimestep_8h.html" title="Cadenceur à pas de temps fixe pour une simulation déterministe." alt="" coords="292,108,492,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="336,58,373,96,369,100,332,62"/>
+<area shape="rect" id="Node000006" href="$GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image." alt="" coords="716,108,943,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="420,50,747,103,746,108,419,55"/>
+<area shape="rect" id="Node000010" href="$Window_8h.html" title="Fenêtre native Win32 et sa pompe de messages." alt="" coords="517,108,691,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="399,58,552,102,551,107,398,63"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="616,181,709,207"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="804,136,703,178,701,173,802,131"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="737,181,812,207"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="822,135,794,172,790,169,818,132"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="837,181,931,207"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="840,132,869,169,865,172,836,135"/>
+<area shape="poly" id="edge10_Node000010_Node000007" title=" " alt="" coords="616,132,647,169,643,173,612,135"/>
+</map>
