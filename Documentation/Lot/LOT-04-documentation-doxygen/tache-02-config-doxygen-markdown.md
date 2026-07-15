@@ -1,6 +1,6 @@
 # TACHE-02 — Configuration Doxygen pour le Markdown
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Doxyfile` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Doxyfile` · **Statut :** fait
 
 ## Contexte
 Le `Doxyfile` actuel n'ingère que le code (`INPUT = ../Source`, `FILE_PATTERNS = *.cpp *.h *.hpp`) : aucun fichier Markdown n'est lu et aucune page principale n'est définie, d'où un site sans accueil. Cette tâche configure Doxygen pour publier **le Markdown documentaire en plus du code**.

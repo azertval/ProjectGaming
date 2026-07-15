@@ -14,6 +14,14 @@ La CI documentaire (`docs.yml`) génère la Doxygen sur `main` et la publie sur 
 ## Fichiers impactés
 - `Documentation/Doxyfile`.
 - `.github/workflows/docs.yml`.
+- Corrections de doc code révélées (voir ci-dessous).
+
+## Avertissements connus à corriger avant `WARN_AS_ERROR` (relevés en TACHE-02)
+Doxygen signale un même `@param` documenté **différemment** dans le `.h` et le `.cpp`
+(« multiple @param documentation sections ») — la convention veut des blocs identiques :
+- `Core/Ecs/EntityManager.cpp` — `destroy`, paramètre `entity`.
+- `Core/Math/Rect.cpp` — `contains` (`point`) et `intersects` (`other`).
+Aligner le texte du `.cpp` sur celui du `.h` (ou l'inverse) pour chacun.
 
 ## Vérifications (obligatoires)
 - En local, `doxygen Doxyfile` avec `WARN_AS_ERROR` retourne un **code de sortie non nul** en présence d'un avertissement (test négatif), et **0** une fois tout propre.
