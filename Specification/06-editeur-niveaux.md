@@ -22,18 +22,15 @@ Permettre la **création et la modification de niveaux sans écrire de code**, a
 ## 3. Distribution & collaboration
 - **EX-EDIT-020** — L'éditeur doit être fourni comme un **outil exécutable** que les non-codeurs lancent sans étape de build.
 - **EX-EDIT-021** — Les niveaux sont des **fichiers** rangés dans `Source/Elements` et versionnés ; l'éditeur enregistre directement à cet emplacement.
-- **EX-EDIT-022** (⚠️ workflow d'équipe) — Un **flux de partage** pour les non-codeurs doit être défini : soit via Git (idéalement avec une interface graphique type GitHub Desktop), soit via un dossier partagé synchronisé, à trancher selon l'équipe. Objectif : qu'un level designer publie un niveau sans manipuler la ligne de commande.
+- **EX-EDIT-022** — Le partage des niveaux passe par **Git via une interface graphique** (type GitHub Desktop) : les niveaux sont versionnés dans le dépôt au même titre que le reste du projet. Le level designer publie et récupère les niveaux en quelques clics, **sans ligne de commande**. Un court guide d'utilisation (installation + flux publier/mettre à jour) doit être fourni dans `Documentation/` à destination des non-codeurs.
 
-## 4. ⚠️ Approche d'implémentation (à valider)
-Trois options, du plus intégré au plus externe :
+## 4. Approche d'implémentation (décidée)
+**Option retenue : éditeur intégré.** L'édition est un **mode de l'application** de jeu, réutilisant le rendu Direct3D 11 et le modèle de niveau de `Core`.
 
-| Option | Description | Avantages | Inconvénients |
-|--------|-------------|-----------|---------------|
-| **A. Éditeur intégré** *(recommandé)* | Un **mode éditeur** dans l'application, réutilisant le rendu D3D11 et le modèle `Core`. | Un seul codebase, rendu identique au jeu, test immédiat, round-trip garanti. | Développement d'une UI d'édition à faire. |
-| **B. Outil autonome** | Application séparée dédiée à l'édition. | Découplé du jeu. | Duplication de rendu/UI, risque de divergence. |
-| **C. Outil tiers (Tiled)** | Utiliser l'éditeur libre **Tiled** + un **import** vers notre format. | Éditeur mûr, gratuit, rien à développer côté UI. | Format imposé par Tiled → couche de conversion ; ergonomie non maîtrisée. |
+- **EX-EDIT-030** — L'éditeur est intégré à l'application (mode éditeur), et non un outil séparé.
+- **EX-EDIT-031** — Le mode éditeur réutilise le **rendu D3D11** de `HMI` et le **modèle/validation de niveau** de `Core` (pas de duplication).
 
-Recommandation : **option A** (mode éditeur intégré), pour la cohérence et le cycle création → essai le plus court. L'option C reste un repli rapide si le temps manque.
+Justification : un seul codebase, un rendu identique au jeu, un cycle **création → essai** immédiat et un round-trip garanti avec le format de niveau. *(Repli documenté si le temps manque : l'éditeur libre Tiled avec une couche d'import vers notre format — non retenu par défaut.)*
 
 ## 5. Non-objectifs (éditeur, MVP)
 - Édition collaborative en temps réel (plusieurs personnes sur le même niveau simultanément).
