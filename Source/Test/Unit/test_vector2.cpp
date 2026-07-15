@@ -8,7 +8,7 @@
 #include "Core/Math/Vector2.h"
 
 namespace {
-constexpr float TOL = 1e-5f;
+constexpr float TOLERANCE = 1e-5f;
 }
 
 /// L'addition et la soustraction agissent composante à composante.
@@ -45,22 +45,22 @@ TEST(Vector2Test, OperateursComposes) {
 TEST(Vector2Test, ProduitScalaire) {
     const core::Vector2 a{1.0f, 2.0f};
     const core::Vector2 b{3.0f, 4.0f};
-    EXPECT_NEAR(a.dot(b), 11.0f, TOL);
+    EXPECT_NEAR(a.dot(b), 11.0f, TOLERANCE);
     // Deux vecteurs orthogonaux ont un produit scalaire nul.
-    EXPECT_NEAR(core::Vector2(1.0f, 0.0f).dot(core::Vector2(0.0f, 1.0f)), 0.0f, TOL);
+    EXPECT_NEAR(core::Vector2(1.0f, 0.0f).dot(core::Vector2(0.0f, 1.0f)), 0.0f, TOLERANCE);
 }
 
 /// La longueur d'un (3,4) vaut 5 (triangle 3-4-5).
 TEST(Vector2Test, Longueur) {
     const core::Vector2 v{3.0f, 4.0f};
-    EXPECT_NEAR(v.lengthSquared(), 25.0f, TOL);
-    EXPECT_NEAR(v.length(), 5.0f, TOL);
+    EXPECT_NEAR(v.lengthSquared(), 25.0f, TOLERANCE);
+    EXPECT_NEAR(v.length(), 5.0f, TOLERANCE);
 }
 
 /// La normalisation d'un vecteur non nul produit un vecteur de longueur 1.
 TEST(Vector2Test, NormalisationNonNulle) {
     const core::Vector2 normalized = core::Vector2{3.0f, 4.0f}.normalized();
-    EXPECT_NEAR(normalized.length(), 1.0f, TOL);
+    EXPECT_NEAR(normalized.length(), 1.0f, TOLERANCE);
     EXPECT_EQ(normalized, core::Vector2(0.6f, 0.8f));
 }
 

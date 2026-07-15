@@ -8,7 +8,7 @@ Entity-Component-System (implémentation **maison**), cœur de la simulation.
 - `World` : façade, orchestration au pas de temps fixe.
 
 Implémenté (LOT-03) :
-- `Entity` — handle générationnel `{ index, generation }`, `kInvalidEntity`.
+- `Entity` — handle générationnel `{ index, generation }`, `INVALID_ENTITY`.
 - `EntityManager` — `create` / `destroy` / `isAlive`, recyclage des index par liste libre.
 
 À venir (LOT-03) : stockage de composants (sparse sets), vues, systèmes & `World`.

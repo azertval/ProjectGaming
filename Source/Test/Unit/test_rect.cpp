@@ -9,16 +9,16 @@
 #include "Core/Math/Vector2.h"
 
 namespace {
-constexpr float TOL = 1e-5f;
+constexpr float TOLERANCE = 1e-5f;
 }
 
 /// Les bords exposés découlent de la position et de la taille.
 TEST(RectTest, Bords) {
     const core::Rect rect{{10.0f, 20.0f}, {30.0f, 40.0f}};
-    EXPECT_NEAR(rect.left(), 10.0f, TOL);
-    EXPECT_NEAR(rect.top(), 20.0f, TOL);
-    EXPECT_NEAR(rect.right(), 40.0f, TOL);
-    EXPECT_NEAR(rect.bottom(), 60.0f, TOL);
+    EXPECT_NEAR(rect.left(), 10.0f, TOLERANCE);
+    EXPECT_NEAR(rect.top(), 20.0f, TOLERANCE);
+    EXPECT_NEAR(rect.right(), 40.0f, TOLERANCE);
+    EXPECT_NEAR(rect.bottom(), 60.0f, TOLERANCE);
 }
 
 /// Un point strictement intérieur est contenu.

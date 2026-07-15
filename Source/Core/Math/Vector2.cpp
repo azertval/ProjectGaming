@@ -88,12 +88,12 @@ float Vector2::length() const {
  *         est négligeable (aucune direction définie).
  */
 Vector2 Vector2::normalized() const {
-    const float len = length();
-    if (len <= kEpsilon) {
+    const float magnitude = length();
+    if (magnitude <= EPSILON) {
         // Le vecteur nul (ou quasi nul) n'a pas de direction : on renvoie zéro.
         return Vector2{};
     }
-    return Vector2{x / len, y / len};
+    return Vector2{x / magnitude, y / magnitude};
 }
 
 /**

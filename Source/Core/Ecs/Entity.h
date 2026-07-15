@@ -25,9 +25,9 @@ struct Entity {
     using Generation = std::uint32_t;
 
     /// Valeur d'index réservée pour désigner l'entité invalide.
-    static constexpr Index kInvalidIndex = ~Index{0};
+    static constexpr Index INVALID_INDEX = ~Index{0};
 
-    Index index = kInvalidIndex;
+    Index index = INVALID_INDEX;
     Generation generation = 0;
 
     /// @return `true` si les deux handles désignent la même entité (index et génération).
@@ -41,6 +41,6 @@ struct Entity {
 };
 
 /// Entité invalide conventionnelle : ne désigne jamais une entité vivante.
-inline constexpr Entity kInvalidEntity{Entity::kInvalidIndex, 0};
+inline constexpr Entity INVALID_ENTITY{Entity::INVALID_INDEX, 0};
 
 }  // namespace core

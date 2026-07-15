@@ -65,14 +65,14 @@ TEST(EntityManagerTest, DestructionHandlePerimeSansEffet) {
 /// L'entité invalide conventionnelle n'est jamais vivante.
 TEST(EntityManagerTest, EntiteInvalideJamaisVivante) {
     core::EntityManager manager;
-    EXPECT_FALSE(manager.isAlive(core::kInvalidEntity));
+    EXPECT_FALSE(manager.isAlive(core::INVALID_ENTITY));
     const core::Entity created = manager.create();
     EXPECT_TRUE(manager.isAlive(created));
-    EXPECT_FALSE(manager.isAlive(core::kInvalidEntity));
+    EXPECT_FALSE(manager.isAlive(core::INVALID_ENTITY));
 }
 
 /// Le handle invalide se compare comme tel.
 TEST(EntityManagerTest, EgaliteHandleInvalide) {
-    EXPECT_EQ(core::kInvalidEntity, core::kInvalidEntity);
-    EXPECT_EQ(core::kInvalidEntity.index, core::Entity::kInvalidIndex);
+    EXPECT_EQ(core::INVALID_ENTITY, core::INVALID_ENTITY);
+    EXPECT_EQ(core::INVALID_ENTITY.index, core::Entity::INVALID_INDEX);
 }

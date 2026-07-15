@@ -10,7 +10,7 @@
 namespace core {
 
 /// Tolérance par défaut pour les comparaisons de flottants issus de calculs.
-inline constexpr float kEpsilon = 1e-5f;
+inline constexpr float EPSILON = 1e-5f;
 
 /**
  * @brief Compare deux flottants à une tolérance relative-absolue près.
@@ -21,10 +21,10 @@ inline constexpr float kEpsilon = 1e-5f;
  *
  * @param lhs       Premier opérande.
  * @param rhs       Second opérande.
- * @param tolerance Tolérance de base (défaut : ::core::kEpsilon).
+ * @param tolerance Tolérance de base (défaut : ::core::EPSILON).
  * @return `true` si les deux valeurs sont égales à la tolérance près.
  */
-[[nodiscard]] inline bool approximatelyEqual(float lhs, float rhs, float tolerance = kEpsilon) {
+[[nodiscard]] inline bool approximatelyEqual(float lhs, float rhs, float tolerance = EPSILON) {
     const float difference = std::fabs(lhs - rhs);
     const float scale = std::fmax(std::fabs(lhs), std::fabs(rhs));
     return difference <= tolerance * std::fmax(1.0f, scale);
