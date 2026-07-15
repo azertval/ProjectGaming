@@ -30,6 +30,7 @@ Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle :
 
 ## Objectifs produit (au-delà du moteur)
 - **EX-VIS-006** — Le projet doit fournir un **éditeur de niveaux** permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans [`06-editeur-niveaux.md`](06-editeur-niveaux.md). Livré **après** le chargement de niveaux dans le moteur.
+- **EX-VIS-007** — À terme, le jeu doit proposer des **décors issus de photos réelles converties en pixel art**, plaçables et transformables, manipulables par le level designer (éditeur) **et par le joueur en jeu** (mécanique). Détaillé dans [`08-decors.md`](08-decors.md). L'architecture doit l'**accommoder dès maintenant** (cf. [`07-architecture.md`](07-architecture.md)) ; la livraison est **post-MVP**.
 
 ## Hors périmètre (MVP)
 - Multijoueur, réseau.
@@ -39,4 +40,4 @@ Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle :
 - Portabilité hors Windows.
 
 ## Traçabilité
-Ces objectifs sont détaillés dans [`01-gameplay.md`](01-gameplay.md), [`02-controles.md`](02-controles.md), [`03-rendu-technique.md`](03-rendu-technique.md), [`04-niveaux.md`](04-niveaux.md), [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md) et [`06-editeur-niveaux.md`](06-editeur-niveaux.md). Chaque lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
+Ces objectifs sont détaillés dans [`01-gameplay.md`](01-gameplay.md), [`02-controles.md`](02-controles.md), [`03-rendu-technique.md`](03-rendu-technique.md), [`04-niveaux.md`](04-niveaux.md), [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md), [`06-editeur-niveaux.md`](06-editeur-niveaux.md), [`07-architecture.md`](07-architecture.md) et [`08-decors.md`](08-decors.md). Chaque lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
