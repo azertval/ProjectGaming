@@ -1,6 +1,6 @@
-# TACHE-05 — Pages de lots navigables
+# TACHE-05 — Pages de lots navigables {#lot-04-tache-05-pages-lots}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Lot/` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Lot/` · **Statut :** fait
 
 ## Contexte
 Les lots (epics + tâches) décrivent le plan de travail et son avancement. Ils doivent former une rubrique « Lots » navigable, chaque lot exposant ses tâches en sous-pages.

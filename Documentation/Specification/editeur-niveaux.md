@@ -1,4 +1,4 @@
-# SPEC 06 — Éditeur de niveaux
+# Éditeur de niveaux {#spec-editeur}
 
 > Statut : **brouillon**. Dépend de [`niveaux.md`](niveaux.md). Le point marqué ⚠️ est à valider.
 

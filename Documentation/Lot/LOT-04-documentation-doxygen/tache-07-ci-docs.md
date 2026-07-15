@@ -1,4 +1,4 @@
-# TACHE-07 — CI documentation (WARN_AS_ERROR & déploiement)
+# TACHE-07 — CI documentation (WARN_AS_ERROR & déploiement) {#lot-04-tache-07-ci-docs}
 
 **Lot :** [LOT-04](epic.md) · **Emplacement :** `.github/workflows/docs.yml`, `Documentation/Doxyfile` · **Statut :** à faire
 

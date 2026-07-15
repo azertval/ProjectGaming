@@ -1,4 +1,4 @@
-# TACHE-02 — Entités : handles générationnels & cycle de vie
+# TACHE-02 — Entités : handles générationnels & cycle de vie {#lot-03-tache-02-entites}
 
 **Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 

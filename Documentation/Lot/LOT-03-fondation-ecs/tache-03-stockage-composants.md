@@ -1,4 +1,4 @@
-# TACHE-03 — Stockage de composants (sparse set typé)
+# TACHE-03 — Stockage de composants (sparse set typé) {#lot-03-tache-03-stockage-composants}
 
 **Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 

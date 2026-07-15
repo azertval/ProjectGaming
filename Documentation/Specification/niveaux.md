@@ -1,4 +1,4 @@
-# SPEC 04 — Niveaux & contenu
+# Niveaux & contenu {#spec-niveaux}
 
 > Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
 

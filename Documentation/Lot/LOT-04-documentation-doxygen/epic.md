@@ -1,4 +1,4 @@
-# LOT-04 — Documentation Doxygen & réorganisation de l'arborescence documentaire
+# LOT-04 — Documentation Doxygen & réorganisation de l'arborescence documentaire {#lot-04}
 
 > Statut : **à faire**. Aujourd'hui le site Doxygen ne présente qu'une référence de code sans page d'accueil ; les documents projet (spécifications, lots) ne sont pas publiés. Ce lot fait du site une **documentation complète et navigable**.
 
@@ -59,3 +59,13 @@ Transformer la documentation générée en un site **utilisable** : une **page d
 ## Dépendances
 - S'appuie sur la CI documentaire existante (`.github/workflows/docs.yml`) et le `Doxyfile` actuel.
 - Aucun impact sur le code de `Source/` (lot purement documentaire et outillage).
+
+## Navigation des tâches
+- @subpage lot-04-tache-01-reorganisation-arbo
+- @subpage lot-04-tache-02-config-doxygen-markdown
+- @subpage lot-04-tache-03-page-accueil
+- @subpage lot-04-tache-04-pages-specification
+- @subpage lot-04-tache-05-pages-lots
+- @subpage lot-04-tache-06-manuel-utilisateur
+- @subpage lot-04-tache-07-ci-docs
+- @subpage lot-04-tache-08-tracabilite-exigences

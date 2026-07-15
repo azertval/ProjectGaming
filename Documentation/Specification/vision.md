@@ -1,4 +1,4 @@
-# SPEC 00 — Vision & périmètre
+# Vision & périmètre {#spec-vision}
 
 > Statut : **brouillon**. Les points marqués ⚠️ sont des propositions à valider.
 

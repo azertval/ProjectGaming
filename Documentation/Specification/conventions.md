@@ -1,4 +1,4 @@
-# Conventions de code — ProjectGaming
+# Conventions de code {#spec-conventions}
 
 Règles à respecter dès la première ligne, pour garder un code cohérent et une documentation Doxygen exploitable. Le squelette existant (`Source/Core`, `Source/HMI`) suit déjà ces règles.
 

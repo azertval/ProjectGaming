@@ -1,4 +1,4 @@
-# LOT-03 — Fondation ECS & mathématiques `Core`
+# LOT-03 — Fondation ECS & mathématiques `Core` {#lot-03}
 
 > Statut : **terminé**. Substrat de la simulation : gameplay, tuiles et décors en dépendent. Décision ⚠️ tranchée : **ECS maison** (sparse sets).
 
@@ -60,3 +60,11 @@ Recommandation : **maison** (aligné sur l'esprit du projet). Si EnTT est retenu
 ## Dépendances
 - Réutilise `FixedTimestep` de [LOT-01](../LOT-01-fenetre-boucle-jeu/epic.md) pour cadencer `World::update` (dépendance douce : l'ECS est testable indépendamment).
 - Utilise la **journalisation et les assertions** de [LOT-02](../LOT-02-journalisation/epic.md) (`PROJECTGAMING_ASSERT` pour les préconditions des pools et handles).
+
+## Navigation des tâches
+- @subpage lot-03-tache-01-math-core
+- @subpage lot-03-tache-02-entites
+- @subpage lot-03-tache-03-stockage-composants
+- @subpage lot-03-tache-04-vues-requetes
+- @subpage lot-03-tache-05-systemes-world
+- @subpage lot-03-tache-06-transform-demo

@@ -1,4 +1,4 @@
-# TACHE-02 — Sinks enfichables
+# TACHE-02 — Sinks enfichables {#lot-02-tache-02-sinks}
 
 **Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
 

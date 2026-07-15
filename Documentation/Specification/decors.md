@@ -1,4 +1,4 @@
-# SPEC 08 — Décors & pipeline pixel art
+# Décors & pipeline pixel art {#spec-decors}
 
 > Statut : **brouillon**. Direction produit **« à terme »** : le socle (cf. [`architecture.md`](architecture.md)) doit l'**accommoder dès maintenant**, mais la livraison est **post-MVP**.
 

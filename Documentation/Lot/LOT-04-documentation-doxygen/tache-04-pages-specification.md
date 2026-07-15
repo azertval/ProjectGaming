@@ -1,6 +1,6 @@
-# TACHE-04 — Pages de spécification navigables (conventions incluses)
+# TACHE-04 — Pages de spécification navigables (conventions incluses) {#lot-04-tache-04-pages-specification}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Specification/` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Specification/` · **Statut :** fait
 
 ## Contexte
 Les spécifications (`vision` … `decors`, plus `conventions` intégré en TACHE-01) doivent former une **rubrique navigable** du site, et non une liste plate. On les structure sous une page « Spécifications » via `@page`/`@subpage`. Point clé de maintenabilité : **l'ordre d'affichage est porté par la liste `@subpage` de l'index** (source unique), et non par les noms de fichiers — insérer/réordonner une spec ne renumérote rien.

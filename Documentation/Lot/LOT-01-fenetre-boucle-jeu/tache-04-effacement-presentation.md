@@ -1,4 +1,4 @@
-# TACHE-04 — Effacement écran, présentation & redimensionnement
+# TACHE-04 — Effacement écran, présentation & redimensionnement {#lot-01-tache-04-effacement-presentation}
 
 **Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 

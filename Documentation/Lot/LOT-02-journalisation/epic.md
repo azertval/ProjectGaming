@@ -1,4 +1,4 @@
-# LOT-02 — Journalisation & diagnostics
+# LOT-02 — Journalisation & diagnostics {#lot-02}
 
 > Statut : **à faire**. Infrastructure **transverse** : utilisée par tous les modules (y compris l'ECS du LOT-03). À réaliser avant les lots de gameplay.
 
@@ -45,3 +45,10 @@ Fournir, dans `Core/Diagnostics`, un **système de journalisation** (log par niv
 
 ## Dépendances
 - Aucune dépendance de code. Ce lot **précède** LOT-03 (ECS), qui l'utilisera pour ses assertions et traces.
+
+## Navigation des tâches
+- @subpage lot-02-tache-01-niveaux-logger
+- @subpage lot-02-tache-02-sinks
+- @subpage lot-02-tache-03-macros-log
+- @subpage lot-02-tache-04-assertions
+- @subpage lot-02-tache-05-integration

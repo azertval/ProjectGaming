@@ -1,4 +1,4 @@
-# TACHE-04 — Requêtes / vues multi-composants
+# TACHE-04 — Requêtes / vues multi-composants {#lot-03-tache-04-vues-requetes}
 
 **Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 

@@ -1,4 +1,4 @@
-# TACHE-01 — Fenêtre Win32 & pompe de messages
+# TACHE-01 — Fenêtre Win32 & pompe de messages {#lot-01-tache-01-fenetre-win32}
 
 **Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 

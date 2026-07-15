@@ -1,4 +1,4 @@
-# TACHE-03 — Boucle à pas de temps fixe (testable)
+# TACHE-03 — Boucle à pas de temps fixe (testable) {#lot-01-tache-03-boucle-pas-fixe}
 
 **Lot :** [LOT-01](epic.md) · **Module :** `Source/Core` · **Statut :** terminé
 

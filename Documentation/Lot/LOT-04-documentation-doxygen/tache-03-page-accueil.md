@@ -1,6 +1,6 @@
-# TACHE-03 — Page d'accueil du projet (mainpage)
+# TACHE-03 — Page d'accueil du projet (mainpage) {#lot-04-tache-03-page-accueil}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/index.md` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/index.md` · **Statut :** fait
 
 ## Contexte
 Le site a besoin d'une porte d'entrée. `index.md` devient la page principale Doxygen (`USE_MDFILE_AS_MAINPAGE`, cf. TACHE-02) et présente le projet en quelques sections, avec des liens vers les grandes rubriques.

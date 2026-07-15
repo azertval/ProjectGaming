@@ -1,4 +1,4 @@
-# TACHE-05 — Intégration dans `main` & documentation
+# TACHE-05 — Intégration dans `main` & documentation {#lot-02-tache-05-integration}
 
 **Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/HMI` · **Statut :** à faire
 

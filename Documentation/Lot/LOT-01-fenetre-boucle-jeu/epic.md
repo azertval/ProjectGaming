@@ -1,4 +1,4 @@
-# LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)
+# LOT-01 — Fenêtre & boucle de jeu (Direct3D 11) {#lot-01}
 
 > Statut : **terminé**. Premier lot : le socle d'exécution sur lequel tout le reste se greffe.
 
@@ -48,3 +48,10 @@ Disposer d'une application Windows qui **ouvre une fenêtre**, **initialise Dire
 4. La logique de pas de temps fixe est couverte par des **tests unitaires** dans `Core`.
 5. Build **sans avertissement** (`/W4 /WX`), `ctest` vert, **CI verte**.
 6. API publique nouvelle documentée en Doxygen ; `CHANGELOG.md` mis à jour.
+
+## Navigation des tâches
+- @subpage lot-01-tache-01-fenetre-win32
+- @subpage lot-01-tache-02-init-direct3d11
+- @subpage lot-01-tache-03-boucle-pas-fixe
+- @subpage lot-01-tache-04-effacement-presentation
+- @subpage lot-01-tache-05-integration

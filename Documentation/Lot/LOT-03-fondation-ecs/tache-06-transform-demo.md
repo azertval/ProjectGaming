@@ -1,4 +1,4 @@
-# TACHE-06 — Composant `Transform` + système de mouvement (démo)
+# TACHE-06 — Composant `Transform` + système de mouvement (démo) {#lot-03-tache-06-transform-demo}
 
 **Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Ecs` · **Statut :** fait
 

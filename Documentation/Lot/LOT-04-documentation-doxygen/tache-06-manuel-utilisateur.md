@@ -1,6 +1,6 @@
-# TACHE-06 — Manuel utilisateur (squelette + première page)
+# TACHE-06 — Manuel utilisateur (squelette + première page) {#lot-04-tache-06-manuel-utilisateur}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Manuel/` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Manuel/` · **Statut :** fait
 
 ## Contexte
 Le site doit accueillir, à terme, un **manuel utilisateur** destiné aux non-développeurs. Ce lot en pose la structure et livre **une première page réelle** ; le contenu approfondi viendra plus tard.

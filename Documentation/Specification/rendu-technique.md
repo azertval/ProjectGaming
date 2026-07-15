@@ -1,4 +1,4 @@
-# SPEC 03 — Rendu & cible technique
+# Rendu & cible technique {#spec-rendu-technique}
 
 > Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
 

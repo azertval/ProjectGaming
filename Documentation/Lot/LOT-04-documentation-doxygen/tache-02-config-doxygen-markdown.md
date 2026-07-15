@@ -1,4 +1,4 @@
-# TACHE-02 — Configuration Doxygen pour le Markdown
+# TACHE-02 — Configuration Doxygen pour le Markdown {#lot-04-tache-02-config-doxygen-markdown}
 
 **Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Doxyfile` · **Statut :** fait
 

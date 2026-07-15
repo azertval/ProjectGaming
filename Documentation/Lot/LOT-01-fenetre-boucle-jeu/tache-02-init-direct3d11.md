@@ -1,4 +1,4 @@
-# TACHE-02 — Initialisation Direct3D 11 (RAII)
+# TACHE-02 — Initialisation Direct3D 11 (RAII) {#lot-01-tache-02-init-direct3d11}
 
 **Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 

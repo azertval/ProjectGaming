@@ -1,4 +1,4 @@
-# SPEC 07 — Architecture (décisions dimensionnantes)
+# Architecture (décisions dimensionnantes) {#spec-architecture}
 
 > Statut : **brouillon**. Décisions **structurantes**, chères à modifier après coup : tout lot doit les respecter. Transverse à toutes les specs.
 

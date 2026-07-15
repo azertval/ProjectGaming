@@ -1,4 +1,4 @@
-# SPEC 01 — Gameplay
+# Gameplay {#spec-gameplay}
 
 > Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
 

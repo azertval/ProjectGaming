@@ -1,4 +1,4 @@
-# TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)
+# TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI) {#lot-04-tache-08-tracabilite-exigences}
 
 **Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Specification/`, CI · **Statut :** à faire
 

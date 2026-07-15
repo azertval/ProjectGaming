@@ -1,4 +1,4 @@
-# TACHE-01 — Réorganisation de l'arborescence documentaire
+# TACHE-01 — Réorganisation de l'arborescence documentaire {#lot-04-tache-01-reorganisation-arbo}
 
 **Lot :** [LOT-04](epic.md) · **Emplacement :** racine → `Documentation/` · **Statut :** fait
 

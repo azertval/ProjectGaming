@@ -1,4 +1,4 @@
-# TACHE-03 — Macros de log (fichier/ligne, horodatage)
+# TACHE-03 — Macros de log (fichier/ligne, horodatage) {#lot-02-tache-03-macros-log}
 
 **Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
 

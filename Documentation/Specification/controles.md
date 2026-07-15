@@ -1,4 +1,4 @@
-# SPEC 02 — Contrôles & entrées
+# Contrôles & entrées {#spec-controles}
 
 > Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
 
