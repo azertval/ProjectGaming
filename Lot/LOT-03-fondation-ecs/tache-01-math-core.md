@@ -1,4 +1,4 @@
-# TACHE-01 — Types mathématiques de `Core`
+ # TACHE-01 — Types mathématiques de `Core`
 
 **Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Math` · **Statut :** fait
 

@@ -11,7 +11,8 @@ Implémenté (LOT-03) :
 - `Entity` — handle générationnel `{ index, generation }`, `INVALID_ENTITY`.
 - `EntityManager` — `create` / `destroy` / `isAlive`, recyclage des index par liste libre.
 - `ComponentPool<T>` — sparse set typé (`add` / `get` / `has` / `remove` / `removeIfPresent`), tableau dense contigu, suppression par swap-and-pop.
+- `View<Components...>` — vue multi-composants itérant l'intersection (pilotée par la plus petite pool), API `for (auto [entity, ...] : view)` et `view.each(...)`.
 
-À venir (LOT-03) : vues multi-composants, systèmes & `World`.
+À venir (LOT-03) : systèmes & `World`.
 
 Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.
