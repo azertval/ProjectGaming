@@ -44,8 +44,13 @@ float Rect::bottom() const {
 
 /**
  * @brief Teste si un point est contenu dans le rectangle.
+ *
+ * L'appartenance est **inclusive** sur les bords haut/gauche et **exclusive**
+ * sur les bords bas/droit, afin qu'une grille de rectangles jointifs pave le
+ * plan sans recouvrement ni trou.
+ *
  * @param point Point à tester, en coordonnées monde.
- * @return `true` si le point est à l'intérieur ou sur un bord inclus (haut/gauche).
+ * @return `true` si le point est à l'intérieur ou sur un bord inclus.
  */
 bool Rect::contains(const Vector2& point) const {
     // Inclusif haut/gauche, exclusif bas/droit : des rectangles jointifs pavent
@@ -55,6 +60,10 @@ bool Rect::contains(const Vector2& point) const {
 
 /**
  * @brief Teste le recouvrement avec un autre rectangle.
+ *
+ * Le simple **contact par un bord** (aires disjointes qui se touchent) n'est
+ * pas considéré comme une intersection.
+ *
  * @param other Autre rectangle.
  * @return `true` si les deux rectangles partagent une aire strictement positive.
  */

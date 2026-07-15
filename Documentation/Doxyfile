@@ -42,3 +42,7 @@ GENERATE_LATEX         = NO
 # Verbosité.
 QUIET                  = YES
 WARN_IF_UNDOCUMENTED   = NO
+# Garde-fou qualité (esprit /W4 /WX) : tout avertissement Doxygen (référence
+# cassée, @param en conflit, symbole introuvable) fait échouer la génération.
+# FAIL_ON_WARNINGS : liste tous les avertissements puis retourne un code non nul.
+WARN_AS_ERROR          = FAIL_ON_WARNINGS

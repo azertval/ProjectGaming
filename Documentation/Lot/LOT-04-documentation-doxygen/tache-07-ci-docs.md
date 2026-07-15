@@ -1,6 +1,6 @@
 # TACHE-07 — CI documentation (WARN_AS_ERROR & déploiement) {#lot-04-tache-07-ci-docs}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `.github/workflows/docs.yml`, `Documentation/Doxyfile` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `.github/workflows/docs.yml`, `Documentation/Doxyfile` · **Statut :** fait
 
 ## Contexte
 La CI documentaire (`docs.yml`) génère la Doxygen sur `main` et la publie sur `gh-pages`. Une fois toutes les pages en place et propres, on ajoute un **garde-fou qualité** : la génération échoue au moindre avertissement, dans l'esprit du `/W4 /WX` côté code.
