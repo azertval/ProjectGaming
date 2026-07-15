@@ -28,12 +28,15 @@ Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle :
 - **EX-VIS-004** — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.
 - **EX-VIS-005** — Le jeu doit enchaîner au moins **3 niveaux** de démonstration.
 
+## Objectifs produit (au-delà du moteur)
+- **EX-VIS-006** — Le projet doit fournir un **éditeur de niveaux** permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans [`06-editeur-niveaux.md`](06-editeur-niveaux.md). Livré **après** le chargement de niveaux dans le moteur.
+
 ## Hors périmètre (MVP)
 - Multijoueur, réseau.
 - Sauvegarde de progression persistante (au-delà du niveau courant).
-- Éditeur de niveaux intégré au jeu (les niveaux sont des fichiers de données).
+- Édition collaborative en temps réel dans l'éditeur (plusieurs éditeurs simultanés sur un même niveau).
 - Bande-son musicale élaborée (bruitages simples suffisent au MVP).
 - Portabilité hors Windows.
 
 ## Traçabilité
-Ces objectifs sont détaillés dans [`01-gameplay.md`](01-gameplay.md), [`02-controles.md`](02-controles.md), [`03-rendu-technique.md`](03-rendu-technique.md), [`04-niveaux.md`](04-niveaux.md) et [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md). Chaque lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
+Ces objectifs sont détaillés dans [`01-gameplay.md`](01-gameplay.md), [`02-controles.md`](02-controles.md), [`03-rendu-technique.md`](03-rendu-technique.md), [`04-niveaux.md`](04-niveaux.md), [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md) et [`06-editeur-niveaux.md`](06-editeur-niveaux.md). Chaque lot de `../Lot/` référence les exigences `EX-…` qu'il couvre.
