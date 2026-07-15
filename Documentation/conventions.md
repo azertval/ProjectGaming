@@ -19,11 +19,12 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 | Fonction / méthode | camelCase | `version()`, `updatePhysics()` |
 | Variable / paramètre | camelCase | `deltaTime`, `tileIndex` |
 | Membre de classe | camelCase + suffixe `_` | `position_`, `isGrounded_` |
-| Constante (`constexpr`) | UPPER_SNAKE_CASE | `MAX_ENTITIES` |
-| Macro (à éviter) | UPPER_SNAKE_CASE | `PG_ASSERT` |
+| Constante (`constexpr`) | UPPER_SNAKE_CASE | `MAXIMUM_ENTITIES` |
+| Macro (à éviter) | UPPER_SNAKE_CASE | `PROJECTGAMING_ASSERT` |
 
 - Un fichier `.h`/`.cpp` porte le nom du type ou module principal qu'il contient.
-- Noms en **anglais** pour le code (identifiants), **français** autorisé pour les commentaires et la doc.
+- Noms en **anglais** pour le code (identifiants), commentaires et documentation **en français**.
+- **Aucune abréviation** dans les noms de variables et de fonctions : le nom est écrit en toutes lettres (`deltaTime` et non `dt`, `position` et non `pos`, `updatePhysics` et non `updPhys`). Seuls les prénoms d'itérateurs conventionnels (`i`, `j`) et les termes standard du domaine restent tolérés.
 
 ## 3. Mise en forme
 - Indentation : **4 espaces**, jamais de tabulation.
@@ -50,23 +51,67 @@ Dans un `.cpp`, du plus proche au plus général, chaque groupe trié et sépar�
 - **`Elements`** : données/assets statiques, aucun code exécutable.
 - Aucune dépendance cyclique. `Core` reste testable sans fenêtre ni GPU.
 
-## 6. Documentation Doxygen
-Tout élément public (fichier, type, fonction) est documenté. `JAVADOC_AUTOBRIEF` est actif : la première phrase sert de description courte.
+### Classes plutôt que fonctions libres
+- **Privilégier une classe** (avec état encapsulé et membres privés) à un ensemble de fonctions libres dans un espace de noms. Une classe se dérive et se spécialise : elle permet d'étendre les comportements sans réécrire les appelants.
+- Réserver les fonctions libres dans un `namespace` aux utilitaires purs, sans état.
+- Exposer le minimum : membres et méthodes internes en `private` par défaut, `public` seulement pour l'interface réellement nécessaire.
 
+### RAII obligatoire
+- **Toute classe respecte le RAII** : une ressource (mémoire, handle DirectX, fichier…) est acquise dans le constructeur et libérée dans le destructeur. Aucune méthode `init()` / `cleanup()` manuelle à appeler séparément.
+- Un objet construit est immédiatement dans un état valide et utilisable ; sa destruction libère tout.
+- Bénéfice recherché : **traçage des bugs et tests facilités** — la durée de vie d'une ressource est celle de l'objet, sans état intermédiaire à moitié initialisé.
+- Gérer la copie/déplacement explicitement (règle des 0/3/5) ; préférer `= default` ou `= delete` à une implémentation manuelle quand c'est possible.
+
+## 6. Documentation Doxygen
+Tout élément public (fichier, type, fonction) est documenté **en français**. `JAVADOC_AUTOBRIEF` est actif : la première phrase sert de description courte.
+
+### Description dans le `.h` ET le `.cpp`
+Le bloc Doxygen de description de la fonction est présent **à la fois** dans la déclaration (`.h`) et dans la définition (`.cpp`) :
+- Dans le **`.h`** : le contrat de la fonction (rôle, paramètres, retour) — lu par les appelants.
+- Dans le **`.cpp`** : le même bloc, complété par la documentation **du corps** de la fonction.
+
+**Déclaration (`Core.h`)**
 ```cpp
 /**
- * @file Core.h
- * @brief Point d'entrée de la bibliothèque Core.
- */
-
-/**
- * @brief Met à jour la physique d'une entité.
+ * @brief Met à jour la physique d'une entité pour une frame.
  * @param entity    Entité à mettre à jour.
  * @param deltaTime Temps écoulé depuis la dernière frame, en secondes.
- * @return true si l'entité a bougé.
+ * @return true si l'entité a changé de position.
  */
 bool updatePhysics(Entity& entity, float deltaTime);
 ```
+
+**Définition (`Core.cpp`) — corps documenté**
+```cpp
+/**
+ * @brief Met à jour la physique d'une entité pour une frame.
+ * @param entity    Entité à mettre à jour.
+ * @param deltaTime Temps écoulé depuis la dernière frame, en secondes.
+ * @return true si l'entité a changé de position.
+ */
+bool updatePhysics(Entity& entity, float deltaTime) {
+    const Vector2 ancientPosition = entity.position();
+
+    // Intégration semi-implicite : la vitesse est mise à jour avant la position
+    // pour un comportement stable sous gravité constante.
+    entity.applyGravity(deltaTime);
+    entity.move(entity.velocity() * deltaTime);
+
+    // L'entité est considérée « au sol » uniquement si un contact est détecté
+    // sous ses pieds : sinon la gravité continue de s'appliquer à la frame suivante.
+    if (entity.detectGroundContact()) {
+        entity.resetVerticalVelocity();
+    }
+
+    return entity.position() != ancientPosition;
+}
+```
+
+### Documentation du corps (`.cpp`)
+Dans les définitions, commenter en français :
+- Le rôle de chaque **branche `if`/`else`** non triviale (pourquoi cette condition).
+- Le principe de tout **algorithme complexe** (intention, invariants, cas limites), pas la paraphrase ligne à ligne.
+- Les choix non évidents (pourquoi telle formule, telle borne, telle optimisation).
 
 Balises usuelles : `@file`, `@brief`, `@param`, `@return`, `@note`, `@warning`, `@see`.
 Commentaire de membre bref : `///< description` après la déclaration.

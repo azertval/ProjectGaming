@@ -4,16 +4,25 @@
 
 /**
  * @file Core.h
- * @brief Point d'entrée de la bibliothèque Core (placeholder d'initialisation).
+ * @brief Interface publique de la bibliothèque Core (moteur / logique de jeu).
  */
 
-/// Espace de noms du moteur / de la logique de jeu.
+/// Espace de noms du moteur et de la logique de jeu.
 namespace core {
 
 /**
- * @brief Retourne la version du moteur.
- * @return Chaîne de version sémantique (ex. "0.1.0").
+ * @brief Fournit les informations globales du moteur.
+ *
+ * Classe d'amorçage servant d'exemple de convention (RAII, membres privés).
+ * Elle sera remplacée par la véritable logique de jeu lors du premier lot.
  */
-std::string version();
+class Engine {
+public:
+    /**
+     * @brief Retourne la version du moteur.
+     * @return Chaîne de version sémantique (par exemple "0.1.0").
+     */
+    std::string version() const;
+};
 
 }  // namespace core
