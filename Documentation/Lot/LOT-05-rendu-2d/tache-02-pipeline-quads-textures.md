@@ -1,6 +1,6 @@
 # TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest) {#lot-05-tache-02-pipeline-quads-textures}
 
-**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `GraphicsDevice` sait effacer et présenter, mais ne dessine rien. Cette tâche pose le

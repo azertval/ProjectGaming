@@ -3,6 +3,7 @@ add_executable(ProjectGaming
     main.cpp
     Platform/Window.cpp
     Graphics/GraphicsDevice.cpp
+    Graphics/SpriteBatch.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
@@ -11,6 +12,7 @@ target_link_libraries(ProjectGaming PRIVATE
     project_options
     d3d11
     dxgi
+    d3dcompiler
 )
 
 # Réduit la surface de Windows.h et évite les macros min/max ; API Unicode.
