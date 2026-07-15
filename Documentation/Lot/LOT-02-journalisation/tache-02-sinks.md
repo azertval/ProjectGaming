@@ -1,6 +1,6 @@
 # TACHE-02 — Sinks enfichables {#lot-02-tache-02-sinks}
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
+**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 
 ## Contexte
 Un sink est une **destination** de log. On découple la production des messages (`Logger`) de leur restitution, pour tester facilement et varier les sorties.

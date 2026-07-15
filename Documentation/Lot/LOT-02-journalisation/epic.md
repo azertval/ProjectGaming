@@ -27,13 +27,16 @@ Fournir, dans `Core/Diagnostics`, un **système de journalisation** (log par niv
 - Appuie `EX-NFR-040` (signaler les erreurs récupérables) et la politique d'erreurs des conventions (§9).
 
 ## Découpage
-| Tâche | Intitulé | Emplacement |
-|-------|----------|-------------|
-| [TACHE-01](tache-01-niveaux-logger.md) | Niveaux de log & interface `Logger` | `Core/Diagnostics` |
-| [TACHE-02](tache-02-sinks.md) | Sinks enfichables (console/débogueur + mémoire de test) | `Core/Diagnostics` |
-| [TACHE-03](tache-03-macros-log.md) | Macros de log (fichier/ligne, horodatage) | `Core/Diagnostics` |
-| [TACHE-04](tache-04-assertions.md) | Assertions `PROJECTGAMING_ASSERT` (handler surchargeable) | `Core/Diagnostics` |
-| [TACHE-05](tache-05-integration.md) | Intégration dans `main` & documentation | `HMI` |
+
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
+
+| Tâche | Intitulé | Emplacement | État |
+|-------|----------|-------------|:----:|
+| [TACHE-01](tache-01-niveaux-logger.md) | Niveaux de log & interface `Logger` | `Core/Diagnostics` | ✅ Fait |
+| [TACHE-02](tache-02-sinks.md) | Sinks enfichables (console/débogueur + mémoire de test) | `Core/Diagnostics` | ✅ Fait |
+| [TACHE-03](tache-03-macros-log.md) | Macros de log (fichier/ligne, horodatage) | `Core/Diagnostics` | ✅ Fait |
+| [TACHE-04](tache-04-assertions.md) | Assertions `PROJECTGAMING_ASSERT` (handler surchargeable) | `Core/Diagnostics` | ✅ Fait |
+| [TACHE-05](tache-05-integration.md) | Intégration dans `main` & documentation | `HMI` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. Un message journalisé au-dessus du niveau minimal atteint les sinks configurés ; en dessous, il est filtré.

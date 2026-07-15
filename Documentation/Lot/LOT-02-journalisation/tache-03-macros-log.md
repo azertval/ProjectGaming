@@ -1,6 +1,6 @@
 # TACHE-03 — Macros de log (fichier/ligne, horodatage) {#lot-02-tache-03-macros-log}
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
+**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 
 ## Contexte
 Confort d'utilisation : des macros courtes pour journaliser, capturant automatiquement le contexte (fichier, ligne) et l'horodatage.

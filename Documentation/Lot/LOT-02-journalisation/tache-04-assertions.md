@@ -1,6 +1,6 @@
 # TACHE-04 — Assertions `PROJECTGAMING_ASSERT` {#lot-02-tache-04-assertions}
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
+**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 
 ## Contexte
 Les assertions vérifient les **préconditions et invariants** (bugs de programmation). Elles doivent être actives en Debug, nulles en Release, et **testables** sans interrompre la suite de tests.

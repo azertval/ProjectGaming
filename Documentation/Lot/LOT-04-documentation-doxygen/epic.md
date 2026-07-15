@@ -36,16 +36,19 @@ Transformer la documentation générée en un site **utilisable** : une **page d
 - Prépare une exigence « documentation publiée et navigable » (à formaliser en TACHE-04 si retenu).
 
 ## Découpage
-| Tâche | Intitulé | Emplacement principal |
-|-------|----------|-----------------------|
-| [TACHE-01](tache-01-reorganisation-arbo.md) | Réorganisation de l'arborescence documentaire | racine → `Documentation/` |
-| [TACHE-02](tache-02-config-doxygen-markdown.md) | Configuration Doxygen pour le Markdown | `Documentation/Doxyfile` |
-| [TACHE-03](tache-03-page-accueil.md) | Page d'accueil du projet (mainpage) | `Documentation/index.md` |
-| [TACHE-04](tache-04-pages-specification.md) | Pages de spécification navigables (+ conventions) | `Documentation/Specification/` |
-| [TACHE-05](tache-05-pages-lots.md) | Pages de lots navigables | `Documentation/Lot/` |
-| [TACHE-06](tache-06-manuel-utilisateur.md) | Manuel utilisateur (squelette + 1re page) | `Documentation/Manuel/` |
-| [TACHE-07](tache-07-ci-docs.md) | CI documentation (WARN_AS_ERROR, déploiement) | `.github/workflows/docs.yml` |
-| [TACHE-08](tache-08-tracabilite-exigences.md) | Traçabilité des exigences (IDs stables, ancres, lint CI) | `Documentation/Specification/`, CI |
+
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
+
+| Tâche | Intitulé | Emplacement principal | État |
+|-------|----------|-----------------------|:----:|
+| [TACHE-01](tache-01-reorganisation-arbo.md) | Réorganisation de l'arborescence documentaire | racine → `Documentation/` | ✅ Fait |
+| [TACHE-02](tache-02-config-doxygen-markdown.md) | Configuration Doxygen pour le Markdown | `Documentation/Doxyfile` | ✅ Fait |
+| [TACHE-03](tache-03-page-accueil.md) | Page d'accueil du projet (mainpage) | `Documentation/index.md` | ✅ Fait |
+| [TACHE-04](tache-04-pages-specification.md) | Pages de spécification navigables (+ conventions) | `Documentation/Specification/` | ✅ Fait |
+| [TACHE-05](tache-05-pages-lots.md) | Pages de lots navigables | `Documentation/Lot/` | ✅ Fait |
+| [TACHE-06](tache-06-manuel-utilisateur.md) | Manuel utilisateur (squelette + 1re page) | `Documentation/Manuel/` | ✅ Fait |
+| [TACHE-07](tache-07-ci-docs.md) | CI documentation (WARN_AS_ERROR, déploiement) | `.github/workflows/docs.yml` | ✅ Fait |
+| [TACHE-08](tache-08-tracabilite-exigences.md) | Traçabilité des exigences (IDs stables, ancres, lint CI) | `Documentation/Specification/`, CI | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. `Specification/` et `Lot/` vivent sous `Documentation/` ; `conventions.md` fait partie des spécifications ; **aucune référence cassée** dans le dépôt (README, CONTRIBUTING, CHANGELOG, READMEs `Source/`, liens internes).

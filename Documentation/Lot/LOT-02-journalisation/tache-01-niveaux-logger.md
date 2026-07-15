@@ -1,6 +1,6 @@
 # TACHE-01 — Niveaux de log & interface `Logger` {#lot-02-tache-01-niveaux-logger}
 
-**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** à faire
+**Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 
 ## Contexte
 Base du système de journalisation : définir les niveaux et un `Logger` qui filtre puis diffuse les messages vers des sinks (TACHE-02).

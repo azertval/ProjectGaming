@@ -9,7 +9,7 @@ Mettre en place, **dans `Core`**, un **ECS** fonctionnel et testé (entités, co
 
 ## ⚠️ Décision préalable : ECS maison vs bibliothèque
 | Option | Description | Pour | Contre |
-|--------|-------------|------|--------|
+|--------|-------------|------|--------|:----:|
 | **Maison** *(par défaut, cohérent « from scratch »)* | Implémenter l'ECS nous-mêmes (sparse sets). | Maîtrise totale, valeur pédagogique, aucune dépendance. | Plus de code et de tests à écrire. |
 | **EnTT** | Intégrer la bibliothèque header-only EnTT via FetchContent. | Mûre, performante, rien à écrire. | Dépendance externe, API imposée, s'éloigne du « from scratch ». |
 
@@ -40,14 +40,17 @@ Recommandation : **maison** (aligné sur l'esprit du projet). Si EnTT est retenu
 - Prépare `EX-ARCH-090` / `EX-ARCH-100` (composants *données pures* → sérialisables ; décors comme entités).
 
 ## Découpage
-| Tâche | Intitulé | Emplacement |
-|-------|----------|-------------|
-| [TACHE-01](tache-01-math-core.md) | Types mathématiques (`Vector2`, `Rect`) | `Core/Math` |
-| [TACHE-02](tache-02-entites.md) | Entités : handles générationnels & cycle de vie | `Core/Ecs` |
-| [TACHE-03](tache-03-stockage-composants.md) | Stockage de composants (sparse set typé) | `Core/Ecs` |
-| [TACHE-04](tache-04-vues-requetes.md) | Requêtes / vues multi-composants | `Core/Ecs` |
-| [TACHE-05](tache-05-systemes-world.md) | Systèmes & `World` (orchestration pas fixe) | `Core/Ecs` |
-| [TACHE-06](tache-06-transform-demo.md) | Composant `Transform` + système de mouvement (démo) | `Core/Ecs` |
+
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
+
+| Tâche | Intitulé | Emplacement | État |
+|-------|----------|-------------|:----:|
+| [TACHE-01](tache-01-math-core.md) | Types mathématiques (`Vector2`, `Rect`) | `Core/Math` | ✅ Fait |
+| [TACHE-02](tache-02-entites.md) | Entités : handles générationnels & cycle de vie | `Core/Ecs` | ✅ Fait |
+| [TACHE-03](tache-03-stockage-composants.md) | Stockage de composants (sparse set typé) | `Core/Ecs` | ✅ Fait |
+| [TACHE-04](tache-04-vues-requetes.md) | Requêtes / vues multi-composants | `Core/Ecs` | ✅ Fait |
+| [TACHE-05](tache-05-systemes-world.md) | Systèmes & `World` (orchestration pas fixe) | `Core/Ecs` | ✅ Fait |
+| [TACHE-06](tache-06-transform-demo.md) | Composant `Transform` + système de mouvement (démo) | `Core/Ecs` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. On peut créer/détruire des entités ; un handle vers une entité détruite est détecté comme **invalide** (génération).

@@ -33,13 +33,16 @@ Disposer d'une application Windows qui **ouvre une fenêtre**, **initialise Dire
 - `EX-NFR-041` — ressources DirectX gérées en RAII.
 
 ## Découpage
-| Tâche | Intitulé | Module |
-|-------|----------|--------|
-| [TACHE-01](tache-01-fenetre-win32.md) | Fenêtre Win32 & pompe de messages | `HMI` |
-| [TACHE-02](tache-02-init-direct3d11.md) | Initialisation Direct3D 11 (RAII) | `HMI` |
-| [TACHE-03](tache-03-boucle-pas-fixe.md) | Boucle à pas de temps fixe (testable) | `Core` |
-| [TACHE-04](tache-04-effacement-presentation.md) | Effacement écran, présentation & redimensionnement | `HMI` |
-| [TACHE-05](tache-05-integration.md) | Intégration `main` & vérification | `HMI` |
+
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
+
+| Tâche | Intitulé | Module | État |
+|-------|----------|--------|:----:|
+| [TACHE-01](tache-01-fenetre-win32.md) | Fenêtre Win32 & pompe de messages | `HMI` | ✅ Fait |
+| [TACHE-02](tache-02-init-direct3d11.md) | Initialisation Direct3D 11 (RAII) | `HMI` | ✅ Fait |
+| [TACHE-03](tache-03-boucle-pas-fixe.md) | Boucle à pas de temps fixe (testable) | `Core` | ✅ Fait |
+| [TACHE-04](tache-04-effacement-presentation.md) | Effacement écran, présentation & redimensionnement | `HMI` | ✅ Fait |
+| [TACHE-05](tache-05-integration.md) | Intégration `main` & vérification | `HMI` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. L'exécutable ouvre une fenêtre titrée, redimensionnable, et se ferme proprement (croix / Échap).
