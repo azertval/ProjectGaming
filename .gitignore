@@ -21,6 +21,11 @@ out/
 CMakeUserPresets.json
 CMakeSettings.json
 *.user
+# Solutions/projets VS régénérés à la racine (le build CMake vit dans build/)
+/*.slnx
+/*.sln
+/*.vcxproj
+/*.vcxproj.filters
 *.suo
 *.userosscache
 *.sln.docstates

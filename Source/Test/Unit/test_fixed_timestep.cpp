@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Core/FixedTimestep.h"
+#include "Core/Time/FixedTimestep.h"
 
 namespace {
 constexpr float STEP = 1.0f / 60.0f;

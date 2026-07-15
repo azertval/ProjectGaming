@@ -5,7 +5,7 @@
 #include <wrl/client.h>
 
 /**
- * @file HMI/GraphicsDevice.h
+ * @file HMI/Graphics/GraphicsDevice.h
  * @brief Initialisation Direct3D 11 et présentation de l'image.
  */
 

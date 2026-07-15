@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * @file Core/FixedTimestep.h
+ * @file Core/Time/FixedTimestep.h
  * @brief Cadenceur à pas de temps fixe pour une simulation déterministe.
  */
 

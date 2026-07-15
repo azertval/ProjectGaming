@@ -1,7 +1,7 @@
 # Bibliothèque Core : logique et moteur du jeu.
 add_library(Core STATIC
     Core.cpp
-    FixedTimestep.cpp
+    Time/FixedTimestep.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet

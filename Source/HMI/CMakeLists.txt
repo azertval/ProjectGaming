@@ -1,8 +1,8 @@
 # Exécutable du jeu : fenêtre, rendu Direct3D 11 et boucle de jeu.
 add_executable(ProjectGaming
     main.cpp
-    Window.cpp
-    GraphicsDevice.cpp
+    Platform/Window.cpp
+    Graphics/GraphicsDevice.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

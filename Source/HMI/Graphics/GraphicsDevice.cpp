@@ -1,4 +1,4 @@
-#include "HMI/GraphicsDevice.h"
+#include "HMI/Graphics/GraphicsDevice.h"
 
 #include <iterator>
 #include <stdexcept>

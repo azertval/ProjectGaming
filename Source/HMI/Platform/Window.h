@@ -3,7 +3,7 @@
 #include <Windows.h>
 
 /**
- * @file HMI/Window.h
+ * @file HMI/Platform/Window.h
  * @brief Fenêtre native Win32 et sa pompe de messages.
  */
 

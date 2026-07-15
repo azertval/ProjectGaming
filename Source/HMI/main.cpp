@@ -7,9 +7,9 @@
 #include <cstdio>
 #include <exception>
 
-#include "Core/FixedTimestep.h"
-#include "HMI/GraphicsDevice.h"
-#include "HMI/Window.h"
+#include "Core/Time/FixedTimestep.h"
+#include "HMI/Graphics/GraphicsDevice.h"
+#include "HMI/Platform/Window.h"
 
 /**
  * @brief Point d'entrée du programme.
