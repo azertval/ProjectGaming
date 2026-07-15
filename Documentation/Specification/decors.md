@@ -1,6 +1,6 @@
 # SPEC 08 — Décors & pipeline pixel art
 
-> Statut : **brouillon**. Direction produit **« à terme »** : le socle (cf. [`07-architecture.md`](07-architecture.md)) doit l'**accommoder dès maintenant**, mais la livraison est **post-MVP**.
+> Statut : **brouillon**. Direction produit **« à terme »** : le socle (cf. [`architecture.md`](architecture.md)) doit l'**accommoder dès maintenant**, mais la livraison est **post-MVP**.
 
 ## Vision
 Les décors sont issus de **photos réelles converties en pixel art**, plaçables et transformables. Ils sont manipulables par le **level designer** (dans l'éditeur) et, **à terme, par le joueur** (mécanique de gameplay).
@@ -38,4 +38,4 @@ Les décors sont issus de **photos réelles converties en pixel art**, plaçable
   5. Manipulation des décors en jeu.
 
 ## Traçabilité
-S'appuie sur [`07-architecture.md`](07-architecture.md) (ECS, coordonnées, décors = simulation), [`06-editeur-niveaux.md`](06-editeur-niveaux.md) (édition intégrée) et [`00-vision.md`](00-vision.md).
+S'appuie sur [`architecture.md`](architecture.md) (ECS, coordonnées, décors = simulation), [`editeur-niveaux.md`](editeur-niveaux.md) (édition intégrée) et [`vision.md`](vision.md).

@@ -1,6 +1,6 @@
 # SPEC 03 — Rendu & cible technique
 
-> Statut : **brouillon**. Dépend de [`00-vision.md`](00-vision.md).
+> Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
 
 ## 1. Cible technique
 - **EX-REN-001** — Le jeu doit fonctionner sous **Windows 10/11 (x64)**.
@@ -28,4 +28,4 @@
 - **EX-REN-040** (⚠️ souhaité) — Le jeu devrait jouer des **bruitages** (saut, interrupteur, victoire, échec).
 
 ## Traçabilité
-Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md).
+Tout ce qui touche fenêtre, rendu, entrées et interface relève de `Source/HMI` ; la logique de simulation reste dans `Source/Core`. Contraintes de performance : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).

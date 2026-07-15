@@ -1,6 +1,6 @@
 # SPEC 06 — Éditeur de niveaux
 
-> Statut : **brouillon**. Dépend de [`04-niveaux.md`](04-niveaux.md). Le point marqué ⚠️ est à valider.
+> Statut : **brouillon**. Dépend de [`niveaux.md`](niveaux.md). Le point marqué ⚠️ est à valider.
 
 ## Objectif
 Permettre la **création et la modification de niveaux sans écrire de code**, afin que des membres de l'équipe **non-développeurs** (game design, level design) contribuent directement au contenu du jeu.
@@ -33,14 +33,14 @@ Permettre la **création et la modification de niveaux sans écrire de code**, a
 Justification : un seul codebase, un rendu identique au jeu, un cycle **création → essai** immédiat et un round-trip garanti avec le format de niveau. *(Repli documenté si le temps manque : l'éditeur libre Tiled avec une couche d'import vers notre format — non retenu par défaut.)*
 
 ## 4bis. Décors & pixel art (post-MVP, intégré à l'éditeur)
-- **EX-EDIT-040** — L'éditeur doit permettre de **placer et transformer des décors** (position, échelle, superposition par couches) — cf. [`08-decors.md`](08-decors.md).
+- **EX-EDIT-040** — L'éditeur doit permettre de **placer et transformer des décors** (position, échelle, superposition par couches) — cf. [`decors.md`](decors.md).
 - **EX-EDIT-041** — L'éditeur doit intégrer la **conversion photo → pixel art** (chargement d'une photo, pixellisation, réduction de palette, paramètres ajustables) et enregistrer l'asset résultant dans `Source/Elements` — cf. `EX-DEC-030/031/032`.
 
-Ces capacités sont livrées **après** l'édition de tuiles de base, mais l'architecture les accommode dès le départ (cf. [`07-architecture.md`](07-architecture.md)).
+Ces capacités sont livrées **après** l'édition de tuiles de base, mais l'architecture les accommode dès le départ (cf. [`architecture.md`](architecture.md)).
 
 ## 5. Non-objectifs (éditeur, MVP)
 - Édition collaborative en temps réel (plusieurs personnes sur le même niveau simultanément).
 - Édition des assets graphiques/sonores (l'éditeur agence des tuiles existantes, il ne dessine pas les sprites).
 
 ## Traçabilité
-L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `04-niveaux.md`) et sur le rendu de `HMI` (`03-rendu-technique.md`). Il fera l'objet d'un lot dédié, planifié **après** le chargement de niveaux dans le moteur.
+L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de `HMI` (`rendu-technique.md`). Il fera l'objet d'un lot dédié, planifié **après** le chargement de niveaux dans le moteur.

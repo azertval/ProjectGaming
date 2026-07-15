@@ -1,6 +1,6 @@
 # SPEC 04 — Niveaux & contenu
 
-> Statut : **brouillon**. Dépend de [`01-gameplay.md`](01-gameplay.md).
+> Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Représentation des niveaux
 - **EX-LVL-001** — Un niveau doit être décrit par un **fichier de données** externe (pas en dur dans le code), placé dans `Source/Elements`.
@@ -43,4 +43,4 @@ Les coordonnées des mécanismes sont exprimées en `[colonne, ligne]` dans le r
 - Chaque niveau doit être **franchissable** — vérifié par un test système sur les niveaux du MVP.
 
 ## Traçabilité
-Le chargement et la validation relèvent de `Source/Core` ; les fichiers de niveaux et l'atlas sont dans `Source/Elements`. Types de tuiles : [`01-gameplay.md`](01-gameplay.md).
+Le chargement et la validation relèvent de `Source/Core` ; les fichiers de niveaux et l'atlas sont dans `Source/Elements`. Types de tuiles : [`gameplay.md`](gameplay.md).

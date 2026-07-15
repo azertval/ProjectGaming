@@ -6,4 +6,4 @@ Mode **éditeur intégré** (réutilise le rendu `Graphics` et le modèle/valida
 - Placement et transform des décors (couches).
 - Pipeline **photo → pixel art** intégré (chargement, pixellisation, palette).
 
-À venir (post-MVP). Réf. specs : `06-editeur-niveaux.md`, `08-decors.md`.
+À venir (post-MVP). Réf. specs : `editeur-niveaux.md`, `decors.md`.

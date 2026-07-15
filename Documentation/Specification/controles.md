@@ -1,6 +1,6 @@
 # SPEC 02 — Contrôles & entrées
 
-> Statut : **brouillon**. Dépend de [`01-gameplay.md`](01-gameplay.md).
+> Statut : **brouillon**. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Périphériques
 - **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.
@@ -28,4 +28,4 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 - **EX-CTRL-021** — La lecture des entrées doit être échantillonnée une fois par frame, en amont de la mise à jour de la logique.
 
 ## Traçabilité
-Le module d'entrées relève de `Source/HMI` (acquisition) mais expose un état d'actions consommé par `Source/Core` (logique), sans dépendance inverse. Voir [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md) pour l'architecture.
+Le module d'entrées relève de `Source/HMI` (acquisition) mais expose un état d'actions consommé par `Source/Core` (logique), sans dépendance inverse. Voir [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md) pour l'architecture.

@@ -6,6 +6,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Modifié
+- **LOT-04 (TACHE-01)** : réorganisation de l'arborescence documentaire — `Specification/` et `Lot/` déplacés sous `Documentation/` ; le guide de conventions rejoint les spécifications (`Documentation/Specification/conventions.md`) ; les fichiers de spécification perdent leur préfixe numérique (`00-vision.md` → `vision.md`, …), l'ordre étant désormais porté par la navigation Doxygen. Références mises à jour dans tout le dépôt.
+
 ### Ajouté
 - **Tests d'intégration** : première cible `IntegrationTests` (niveau *Integration*) — la démonstration de mouvement de l'ECS est reclassée depuis les tests unitaires (`test_ecs_mouvement.cpp`), et un test inter-lots vérifie que le cadenceur à pas fixe `FixedTimestep` (LOT-01) pilote correctement la simulation ECS (LOT-03) sans dérive et de façon déterministe (`test_boucle_simulation.cpp`).
 - **LOT-03 (TACHE-06)** : premier composant réel et système de démonstration, bouclant l'ECS de bout en bout — composants données pures `Transform` (position, échelle, rotation, en unités monde) et `Velocity` (`Core/Ecs/Components`), et `MovementSystem` (`Core/Ecs/Systems`) qui applique `position += velocity * fixedDelta` aux entités possédant les deux composants. Déterministe, couvert par tests unitaires. **LOT-03 (fondation ECS & math `Core`) terminé.**

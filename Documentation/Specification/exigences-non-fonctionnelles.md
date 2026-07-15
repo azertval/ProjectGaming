@@ -10,7 +10,7 @@
 ## 2. Architecture & maintenabilité
 - **EX-NFR-010** — La logique (`Core`) doit être **indépendante** de la présentation (`HMI`) et testable sans fenêtre ni GPU.
 - **EX-NFR-011** — Aucune dépendance cyclique entre modules (`HMI → Core`, jamais l'inverse).
-- **EX-NFR-012** — Le code doit respecter le [guide de conventions](../Documentation/conventions.md) (nommage, RAII, documentation, gestion d'erreurs).
+- **EX-NFR-012** — Le code doit respecter le [guide de conventions](conventions.md) (nommage, RAII, documentation, gestion d'erreurs).
 - **EX-NFR-013** — Le code livré doit compiler **sans avertissement** (`/W4 /WX`).
 
 ## 3. Qualité & vérification

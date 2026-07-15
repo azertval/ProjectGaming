@@ -20,4 +20,4 @@ Expliquer *comment* le code et les outils fonctionnent : modules, classes, fonct
 ```
 
 ## Conventions de code
-Les règles de style, de nommage et d'architecture sont détaillées dans [`conventions.md`](conventions.md).
+Les règles de style, de nommage et d'architecture sont détaillées dans [`Specification/conventions.md`](Specification/conventions.md).

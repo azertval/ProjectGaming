@@ -10,9 +10,7 @@ https://azertval.github.io/ProjectGaming/
 
 | Dossier | Rôle |
 |---------|------|
-| `specification/` | Specs de travail : définition des besoins, contraintes, règles du jeu. |
-| `lot/` | Lots de travail. Un sous-dossier par lot, contenant un fichier d'epic et des fichiers de tâches. |
-| `Documentation/` | Documentation technique au format **Doxygen** (outils et code). |
+| `Documentation/` | Documentation projet publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail), `Manuel/` (manuel utilisateur) et référence de code. |
 | `Source/` | Code source, réparti par fonction. |
 
 ### Découpage de `Source/`

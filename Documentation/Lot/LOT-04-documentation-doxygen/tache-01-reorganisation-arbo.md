@@ -1,6 +1,6 @@
 # TACHE-01 — Réorganisation de l'arborescence documentaire
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** racine → `Documentation/` · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** racine → `Documentation/` · **Statut :** fait
 
 ## Contexte
 Les documents projet sont dispersés : `Specification/` et `Lot/` sont à la racine, et `conventions.md` vit à part dans `Documentation/`. Pour un site de documentation cohérent (et une génération Doxygen simple à cadrer), tout le documentaire est regroupé sous `Documentation/`, et les conventions rejoignent les spécifications.

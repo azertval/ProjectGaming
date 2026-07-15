@@ -1,6 +1,6 @@
 # SPEC 01 — Gameplay
 
-> Statut : **brouillon**. Dépend de [`00-vision.md`](00-vision.md).
+> Statut : **brouillon**. Dépend de [`vision.md`](vision.md).
 
 ## 1. Monde en tuiles
 Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuile. Chaque cellule porte un type.
@@ -45,4 +45,4 @@ Chaque mécanisme est déterministe : à état d'entrée identique, comportement
 - **EX-GP-041** — Les transitions entre états doivent être explicites et unidirectionnelles à chaque événement (machine à états).
 
 ## Traçabilité
-Contrôles associés : [`02-controles.md`](02-controles.md). Format des niveaux : [`04-niveaux.md`](04-niveaux.md). Ces exigences seront couvertes par des tests unitaires (`Core`) et système.
+Contrôles associés : [`controles.md`](controles.md). Format des niveaux : [`niveaux.md`](niveaux.md). Ces exigences seront couvertes par des tests unitaires (`Core`) et système.

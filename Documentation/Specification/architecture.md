@@ -50,9 +50,9 @@ Choix retenu : **ECS complet**, hébergé dans `Core`. Assumé plus lourd, justi
 - **EX-ARCH-090** — Le modèle de niveau **et les décors** constituent un **état ECS mutable et sérialisable** ; le rendu de `HMI` est utilisable **hors mode jeu** ; les états de jeu incluent un état **Éditeur**. (Respecté tôt = cheap ; rajouté tard = cher.)
 
 ## 11. Décors dynamiques (accommodation dimensionnante)
-Les décors (cf. [`08-decors.md`](08-decors.md)) sont manipulables **à la conception (éditeur)** et **à terme en jeu par le joueur** (mécanique). Conséquence structurante :
+Les décors (cf. [`decors.md`](decors.md)) sont manipulables **à la conception (éditeur)** et **à terme en jeu par le joueur** (mécanique). Conséquence structurante :
 
 - **EX-ARCH-100** — Les décors sont des **entités de la simulation** (`Core`), et non de simples éléments de rendu, afin d'être manipulables de façon **déterministe** et **sérialisable**.
 
 ## Traçabilité
-Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : [`08-decors.md`](08-decors.md). Exigences non fonctionnelles associées : [`05-exigences-non-fonctionnelles.md`](05-exigences-non-fonctionnelles.md).
+Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : [`decors.md`](decors.md). Exigences non fonctionnelles associées : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).

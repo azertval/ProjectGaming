@@ -40,4 +40,4 @@ core::defaultLogger().setMinimumLevel(core::LogLevel::Info);
 PROJECTGAMING_ASSERT(index < taille, "index hors bornes");
 ```
 
-Réf. : guide de conventions §10 ; lot [LOT-02](../../../Lot/LOT-02-journalisation/epic.md).
+Réf. : guide de conventions §10 ; lot [LOT-02](../../../Documentation/Lot/LOT-02-journalisation/epic.md).
