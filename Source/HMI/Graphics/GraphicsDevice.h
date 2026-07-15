@@ -52,6 +52,26 @@ public:
     /// Présente l'image à l'écran avec synchronisation verticale (V-Sync).
     void present();
 
+    /// @return Le device Direct3D 11 (non possédé par l'appelant), pour créer des ressources.
+    [[nodiscard]] ID3D11Device* device() const {
+        return _device.Get();
+    }
+
+    /// @return Le contexte immédiat Direct3D 11 (non possédé par l'appelant), pour dessiner.
+    [[nodiscard]] ID3D11DeviceContext* context() const {
+        return _context.Get();
+    }
+
+    /// @return Largeur courante de la zone de rendu, en pixels.
+    [[nodiscard]] int width() const {
+        return _width;
+    }
+
+    /// @return Hauteur courante de la zone de rendu, en pixels.
+    [[nodiscard]] int height() const {
+        return _height;
+    }
+
 private:
     /// Crée la render target view à partir du back buffer et configure le viewport.
     void createRenderTarget();

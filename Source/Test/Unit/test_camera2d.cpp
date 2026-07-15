@@ -1,0 +1,92 @@
+/**
+ * @file test_camera2d.cpp
+ * @brief Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).
+ */
+
+#include <DirectXMath.h>
+#include <gtest/gtest.h>
+
+#include "Core/Math/Vector2.h"
+#include "HMI/Graphics/Camera2D.h"
+
+namespace {
+constexpr float TOLERANCE = 1e-3f;
+constexpr int WIDTH = 800;
+constexpr int HEIGHT = 600;
+}  // namespace
+
+/// Le centre de la caméra se projette au centre de l'écran.
+TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setCenter(core::Vector2{10.0f, 5.0f});
+
+    const core::Vector2 screen = camera.worldToScreen(core::Vector2{10.0f, 5.0f});
+    EXPECT_NEAR(screen.x, WIDTH * 0.5f, TOLERANCE);
+    EXPECT_NEAR(screen.y, HEIGHT * 0.5f, TOLERANCE);
+}
+
+/// Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.
+TEST(Camera2DTest, EchelleEtAxeY) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);  // centre (0,0), zoom 1 -> 16 px/unité
+
+    const core::Vector2 right = camera.worldToScreen(core::Vector2{1.0f, 0.0f});
+    EXPECT_NEAR(right.x, WIDTH * 0.5f + 16.0f, TOLERANCE);
+    EXPECT_NEAR(right.y, HEIGHT * 0.5f, TOLERANCE);
+
+    // Un Y monde positif descend à l'écran (Y-bas).
+    const core::Vector2 down = camera.worldToScreen(core::Vector2{0.0f, 1.0f});
+    EXPECT_NEAR(down.y, HEIGHT * 0.5f + 16.0f, TOLERANCE);
+}
+
+/// Le zoom multiplie l'échelle en pixels.
+TEST(Camera2DTest, Zoom) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setZoom(2.0f);  // 32 px/unité
+
+    const core::Vector2 right = camera.worldToScreen(core::Vector2{1.0f, 0.0f});
+    EXPECT_NEAR(right.x, WIDTH * 0.5f + 32.0f, TOLERANCE);
+}
+
+/// `screenToWorld` est la réciproque de `worldToScreen`.
+TEST(Camera2DTest, ConversionsReciproques) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setCenter(core::Vector2{-3.0f, 7.5f});
+    camera.setZoom(3.0f);
+
+    const core::Vector2 world{4.25f, -2.5f};
+    const core::Vector2 roundTrip = camera.screenToWorld(camera.worldToScreen(world));
+    EXPECT_NEAR(roundTrip.x, world.x, TOLERANCE);
+    EXPECT_NEAR(roundTrip.y, world.y, TOLERANCE);
+}
+
+/// La matrice de projection envoie le centre de la caméra à l'origine du clip space.
+TEST(Camera2DTest, ProjectionCentreVersOrigineClip) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setCenter(core::Vector2{12.0f, -8.0f});
+
+    const DirectX::XMFLOAT4X4 projection = camera.projectionMatrix();
+    const DirectX::XMMATRIX matrix = DirectX::XMLoadFloat4x4(&projection);
+    const DirectX::XMVECTOR worldCenter = DirectX::XMVectorSet(12.0f, -8.0f, 0.0f, 1.0f);
+    const DirectX::XMVECTOR clip = DirectX::XMVector4Transform(worldCenter, matrix);
+
+    DirectX::XMFLOAT4 result;
+    DirectX::XMStoreFloat4(&result, clip);
+    EXPECT_NEAR(result.x, 0.0f, TOLERANCE);
+    EXPECT_NEAR(result.y, 0.0f, TOLERANCE);
+    EXPECT_NEAR(result.w, 1.0f, TOLERANCE);
+}
+
+/// Un coin de l'écran correspond à un bord du clip space (±1).
+TEST(Camera2DTest, BordEcranVersBordClip) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);  // centre (0,0)
+
+    // Bord droit du monde visible : x = (WIDTH/2)/16 unités.
+    const float rightWorldX = (WIDTH * 0.5f) / hmi::Camera2D::PIXELS_PER_UNIT;
+    const DirectX::XMFLOAT4X4 projection = camera.projectionMatrix();
+    const DirectX::XMMATRIX matrix = DirectX::XMLoadFloat4x4(&projection);
+    const DirectX::XMVECTOR edge = DirectX::XMVectorSet(rightWorldX, 0.0f, 0.0f, 1.0f);
+
+    DirectX::XMFLOAT4 result;
+    DirectX::XMStoreFloat4(&result, DirectX::XMVector4Transform(edge, matrix));
+    EXPECT_NEAR(result.x, 1.0f, TOLERANCE);
+}
