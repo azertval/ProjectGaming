@@ -1,6 +1,6 @@
 # LOT-04 — Documentation Doxygen & réorganisation de l'arborescence documentaire {#lot-04}
 
-> Statut : **à faire**. Aujourd'hui le site Doxygen ne présente qu'une référence de code sans page d'accueil ; les documents projet (spécifications, lots) ne sont pas publiés. Ce lot fait du site une **documentation complète et navigable**.
+> Statut : **terminé**. Le site Doxygen offre désormais une page d'accueil, les spécifications, les lots et un manuel — navigables — en plus de la référence de code. Les documents projet vivent sous `Documentation/`.
 
 ## Objectif
 Transformer la documentation générée en un site **utilisable** : une **page d'accueil** décrivant le projet, les **spécifications** (conventions incluses), les **lots** et un premier **manuel utilisateur**, le tout navigable et publié sur `gh-pages`. En préalable, **réorganiser l'arborescence** documentaire : `Specification/` et `Lot/` deviennent des sous-dossiers de `Documentation/`.

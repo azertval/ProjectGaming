@@ -179,3 +179,25 @@ Ces règles sont appliquées par des outils, pas seulement par relecture :
 | **AddressSanitizer** | option `ENABLE_ASAN` | Détection à l'exécution des débordements et usages après libération. Activable en Debug : `cmake --preset ninja -DENABLE_ASAN=ON`. |
 
 Le code livré compile **sans aucun avertissement**. Un avertissement légitime et inévitable est neutralisé localement et commenté (jamais désactivé globalement).
+
+## 12. Identifiants d'exigences (`EX-…`)
+Les exigences sont identifiées par un code `EX-<CAT>-<NNN>` (ex. `EX-ARCH-011`),
+déclaré dans les [spécifications](@ref specifications) et référencé depuis les
+lots **et** le code. Ces identifiants sont **stables** : ils servent de handles
+permanents.
+
+Règles :
+- **Immuable** : un identifiant est alloué une seule fois, **jamais renuméroté**,
+  **jamais réutilisé** (le renuméroter casserait toutes les références).
+- **Allocation au prochain numéro libre** de la catégorie. Le numéro **n'encode
+  pas l'ordre** : l'ordre de lecture est celui du document, pas celui des numéros.
+- **Insérer une exigence** = écrire son paragraphe là où il doit être + lui donner
+  un numéro libre. Aucune renumérotation.
+
+Mise en œuvre :
+- Chaque exigence est déclarée par une **ancre Doxygen** :
+  `- \anchor EX-CAT-NNN **EX-CAT-NNN** — …`. Elle est alors référençable par
+  `@ref EX-CAT-NNN` (un renvoi cassé fait échouer la génération, cf. §11).
+- Le script `scripts/lint_exigences.py` vérifie en CI l'**unicité** des
+  déclarations et l'absence de **référence orpheline** ; `python
+  scripts/lint_exigences.py --next` affiche le prochain numéro libre par catégorie.

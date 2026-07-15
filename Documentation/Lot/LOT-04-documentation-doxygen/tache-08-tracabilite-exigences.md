@@ -1,6 +1,6 @@
 # TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI) {#lot-04-tache-08-tracabilite-exigences}
 
-**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Specification/`, CI · **Statut :** à faire
+**Lot :** [LOT-04](epic.md) · **Emplacement :** `Documentation/Specification/`, CI · **Statut :** fait
 
 ## Contexte
 Les identifiants d'exigences (`EX-VIS-001`, `EX-ARCH-011`, …) sont référencés à la fois dans les **lots** (epics + tâches) et dans le **code** (commentaires Doxygen de `Core`). Les renuméroter casserait ces références. Un ID d'exigence doit donc être un **identifiant permanent**, pas un marqueur de position. Cette tâche grave cette règle, sécurise les références et outille l'allocation. **Aucun ID existant n'est renuméroté** (y compris `EX-VIS`, laissé tel quel) : à la création d'une exigence, l'utilisateur choisit un numéro libre et le **lint CI garantit l'unicité** (un doublon fait échouer la CI).

@@ -6,25 +6,25 @@
 Les décors sont issus de **photos réelles converties en pixel art**, plaçables et transformables. Ils sont manipulables par le **level designer** (dans l'éditeur) et, **à terme, par le joueur** (mécanique de gameplay).
 
 ## 1. Système de décors
-- **EX-DEC-001** — Un décor est un **objet libre** (non calé sur la grille de tuiles) doté d'un **transform** (position, échelle, rotation optionnelle) en unités monde.
-- **EX-DEC-002** — Les décors se superposent par **couches** (arrière-plan, décor, premier plan) — cf. `EX-REN-014`.
-- **EX-DEC-003** — Rendu **pixel art net** (nearest-neighbor) — cf. `EX-ARCH-022`.
-- **EX-DEC-004** — Les décors sont des **entités ECS de la simulation `Core`** (état sérialisable, manipulation déterministe) — cf. `EX-ARCH-100`.
-- **EX-DEC-005** — Chaque décor porte une propriété **statique** ou **manipulable en jeu** (détermine s'il participe à la mécanique joueur).
+- \anchor EX-DEC-001 **EX-DEC-001** — Un décor est un **objet libre** (non calé sur la grille de tuiles) doté d'un **transform** (position, échelle, rotation optionnelle) en unités monde.
+- \anchor EX-DEC-002 **EX-DEC-002** — Les décors se superposent par **couches** (arrière-plan, décor, premier plan) — cf. `EX-REN-014`.
+- \anchor EX-DEC-003 **EX-DEC-003** — Rendu **pixel art net** (nearest-neighbor) — cf. `EX-ARCH-022`.
+- \anchor EX-DEC-004 **EX-DEC-004** — Les décors sont des **entités ECS de la simulation `Core`** (état sérialisable, manipulation déterministe) — cf. `EX-ARCH-100`.
+- \anchor EX-DEC-005 **EX-DEC-005** — Chaque décor porte une propriété **statique** ou **manipulable en jeu** (détermine s'il participe à la mécanique joueur).
 
 ## 2. Manipulation
 
 ### À la conception (éditeur)
-- **EX-DEC-010** — L'éditeur permet de **placer, déplacer, redimensionner, superposer et supprimer** des décors.
+- \anchor EX-DEC-010 **EX-DEC-010** — L'éditeur permet de **placer, déplacer, redimensionner, superposer et supprimer** des décors.
 
 ### En jeu (mécanique, à terme)
-- **EX-DEC-020** — Le joueur peut **manipuler en temps réel** les décors marqués manipulables (déplacer / redimensionner).
-- **EX-DEC-021** — La manipulation en jeu reste **déterministe** (pas de temps fixe) et compatible avec une éventuelle sauvegarde/rejeu.
+- \anchor EX-DEC-020 **EX-DEC-020** — Le joueur peut **manipuler en temps réel** les décors marqués manipulables (déplacer / redimensionner).
+- \anchor EX-DEC-021 **EX-DEC-021** — La manipulation en jeu reste **déterministe** (pas de temps fixe) et compatible avec une éventuelle sauvegarde/rejeu.
 
 ## 3. Pipeline photo → pixel art (intégré à l'éditeur)
-- **EX-DEC-030** — L'éditeur permet de **charger une photo** et de la **convertir en pixel art** (pixellisation, réduction de palette) — traitement **intégré à l'outil**.
-- **EX-DEC-031** — Les **paramètres de conversion** sont ajustables (taille de pixel / résolution cible, palette).
-- **EX-DEC-032** — L'image pixel art résultante est enregistrée comme **asset** dans `Source/Elements` et référencée par le décor.
+- \anchor EX-DEC-030 **EX-DEC-030** — L'éditeur permet de **charger une photo** et de la **convertir en pixel art** (pixellisation, réduction de palette) — traitement **intégré à l'outil**.
+- \anchor EX-DEC-031 **EX-DEC-031** — Les **paramètres de conversion** sont ajustables (taille de pixel / résolution cible, palette).
+- \anchor EX-DEC-032 **EX-DEC-032** — L'image pixel art résultante est enregistrée comme **asset** dans `Source/Elements` et référencée par le décor.
 
 > Dépendance à prévoir : une capacité de **traitement d'image** côté éditeur (bibliothèque à ajouter dans `External/`, par ex. `stb_image` pour le chargement) — décision de dépendance prise au lot correspondant.
 

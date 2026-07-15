@@ -22,15 +22,15 @@ Le jeu repose sur la **boîte à outils classique** du genre plateforme/puzzle :
 5. Progression vers le niveau suivant.
 
 ## Objectifs (MVP)
-- **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant et sautant dans un niveau en tuiles.
-- **EX-VIS-002** — Le jeu doit permettre de terminer un niveau en atteignant une sortie.
-- **EX-VIS-003** — Le jeu doit intégrer au moins un mécanisme de puzzle (interrupteur ↔ porte).
-- **EX-VIS-004** — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.
-- **EX-VIS-005** — Le jeu doit enchaîner au moins **3 niveaux** de démonstration.
+- \anchor EX-VIS-001 **EX-VIS-001** — Le jeu doit proposer un personnage jouable se déplaçant et sautant dans un niveau en tuiles.
+- \anchor EX-VIS-002 **EX-VIS-002** — Le jeu doit permettre de terminer un niveau en atteignant une sortie.
+- \anchor EX-VIS-003 **EX-VIS-003** — Le jeu doit intégrer au moins un mécanisme de puzzle (interrupteur ↔ porte).
+- \anchor EX-VIS-004 **EX-VIS-004** — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.
+- \anchor EX-VIS-005 **EX-VIS-005** — Le jeu doit enchaîner au moins **3 niveaux** de démonstration.
 
 ## Objectifs produit (au-delà du moteur)
-- **EX-VIS-006** — Le projet doit fournir un **éditeur de niveaux** permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans [`editeur-niveaux.md`](editeur-niveaux.md). Livré **après** le chargement de niveaux dans le moteur.
-- **EX-VIS-007** — À terme, le jeu doit proposer des **décors issus de photos réelles converties en pixel art**, plaçables et transformables, manipulables par le level designer (éditeur) **et par le joueur en jeu** (mécanique). Détaillé dans [`decors.md`](decors.md). L'architecture doit l'**accommoder dès maintenant** (cf. [`architecture.md`](architecture.md)) ; la livraison est **post-MVP**.
+- \anchor EX-VIS-006 **EX-VIS-006** — Le projet doit fournir un **éditeur de niveaux** permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans [`editeur-niveaux.md`](editeur-niveaux.md). Livré **après** le chargement de niveaux dans le moteur.
+- \anchor EX-VIS-007 **EX-VIS-007** — À terme, le jeu doit proposer des **décors issus de photos réelles converties en pixel art**, plaçables et transformables, manipulables par le level designer (éditeur) **et par le joueur en jeu** (mécanique). Détaillé dans [`decors.md`](decors.md). L'architecture doit l'**accommoder dès maintenant** (cf. [`architecture.md`](architecture.md)) ; la livraison est **post-MVP**.
 
 ## Hors périmètre (MVP)
 - Multijoueur, réseau.

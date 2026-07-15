@@ -6,6 +6,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **LOT-04 — Documentation Doxygen (terminé)** : le site Doxygen est désormais une documentation **navigable** — page d'accueil (`index.md`), rubriques **Spécifications**, **Lots** et **Manuel utilisateur** (page « Télécharger et lancer »), en plus de la référence de code. Navigation hiérarchique (`@page`/`@subpage`) ; l'ordre des spécifications est porté par l'index (pas par des préfixes de fichiers). Garde-fou qualité `WARN_AS_ERROR` sur la génération. **Traçabilité des exigences** : chaque `EX-…` est une ancre Doxygen (`@ref`), avec un lint CI (`scripts/lint_exigences.py`) garantissant l'unicité des identifiants et l'absence de référence orpheline (mode `--next` pour le prochain numéro libre).
+
 ### Modifié
 - **LOT-04 (TACHE-01)** : réorganisation de l'arborescence documentaire — `Specification/` et `Lot/` déplacés sous `Documentation/` ; le guide de conventions rejoint les spécifications (`Documentation/Specification/conventions.md`) ; les fichiers de spécification perdent leur préfixe numérique (`00-vision.md` → `vision.md`, …), l'ordre étant désormais porté par la navigation Doxygen. Références mises à jour dans tout le dépôt.
 
