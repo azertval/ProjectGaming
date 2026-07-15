@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -52,6 +56,23 @@ $(function() {
 $(document).ready(function() { init_codefold(0); });
 /* @license-end */
 </script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('Rect_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -73,11 +94,6 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="dir_345da4441ab9798aee6a61be5cf5c8cb.html">Math</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">Rect.h</div></div>
 </div><!--header-->
@@ -113,19 +129,23 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Core.cpp:3</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html"><div class="ttname"><a href="structcore_1_1Rect.html">core::Rect</a></div><div class="ttdoc">Rectangle aligné sur les axes (AABB) en unités monde.</div><div class="ttdef"><b>Definition</b> Rect.h:20</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_a0056591f956d7bff60c90b4b953be031"><div class="ttname"><a href="structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031">core::Rect::Rect</a></div><div class="ttdeci">Rect()=default</div></div>
-<div class="ttc" id="astructcore_1_1Rect_html_a136b376d96d042f839c0af03ce894d00"><div class="ttname"><a href="structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00">core::Rect::contains</a></div><div class="ttdeci">bool contains(const Vector2 &amp;point) const</div><div class="ttdoc">Teste si un point est contenu dans le rectangle.</div><div class="ttdef"><b>Definition</b> Rect.cpp:50</div></div>
+<div class="ttc" id="astructcore_1_1Rect_html_a136b376d96d042f839c0af03ce894d00"><div class="ttname"><a href="structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00">core::Rect::contains</a></div><div class="ttdeci">bool contains(const Vector2 &amp;point) const</div><div class="ttdoc">Teste si un point est contenu dans le rectangle.</div><div class="ttdef"><b>Definition</b> Rect.cpp:55</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_a17a012f900230e1d44db338cebccf10b"><div class="ttname"><a href="structcore_1_1Rect.html#a17a012f900230e1d44db338cebccf10b">core::Rect::size</a></div><div class="ttdeci">Vector2 size</div><div class="ttdoc">Dimensions (largeur en x, hauteur en y), attendues &gt;= 0.</div><div class="ttdef"><b>Definition</b> Rect.h:24</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_a492b3f92664cc6d42eed5aab8a7ac2a8"><div class="ttname"><a href="structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8">core::Rect::right</a></div><div class="ttdeci">float right() const</div><div class="ttdoc">Abscisse du bord droit.</div><div class="ttdef"><b>Definition</b> Rect.cpp:25</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_a66741d6015494a3fe71f8e293bb2a416"><div class="ttname"><a href="structcore_1_1Rect.html#a66741d6015494a3fe71f8e293bb2a416">core::Rect::top</a></div><div class="ttdeci">float top() const</div><div class="ttdoc">Ordonnée du bord supérieur.</div><div class="ttdef"><b>Definition</b> Rect.cpp:33</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_a6a76a493f43a69284836f6d078aca2f4"><div class="ttname"><a href="structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4">core::Rect::bottom</a></div><div class="ttdeci">float bottom() const</div><div class="ttdoc">Ordonnée du bord inférieur.</div><div class="ttdef"><b>Definition</b> Rect.cpp:41</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_aa80907b79b8c68b4b6cb2ad6600ff1d3"><div class="ttname"><a href="structcore_1_1Rect.html#aa80907b79b8c68b4b6cb2ad6600ff1d3">core::Rect::position</a></div><div class="ttdeci">Vector2 position</div><div class="ttdoc">Coin haut-gauche du rectangle.</div><div class="ttdef"><b>Definition</b> Rect.h:22</div></div>
-<div class="ttc" id="astructcore_1_1Rect_html_af2fe91e439799d0aa9dccc32296e8e3e"><div class="ttname"><a href="structcore_1_1Rect.html#af2fe91e439799d0aa9dccc32296e8e3e">core::Rect::intersects</a></div><div class="ttdeci">bool intersects(const Rect &amp;other) const</div><div class="ttdoc">Teste le recouvrement avec un autre rectangle.</div><div class="ttdef"><b>Definition</b> Rect.cpp:61</div></div>
+<div class="ttc" id="astructcore_1_1Rect_html_af2fe91e439799d0aa9dccc32296e8e3e"><div class="ttname"><a href="structcore_1_1Rect.html#af2fe91e439799d0aa9dccc32296e8e3e">core::Rect::intersects</a></div><div class="ttdeci">bool intersects(const Rect &amp;other) const</div><div class="ttdoc">Teste le recouvrement avec un autre rectangle.</div><div class="ttdef"><b>Definition</b> Rect.cpp:70</div></div>
 <div class="ttc" id="astructcore_1_1Rect_html_af4677180f48fd136bc50d3e98cd99169"><div class="ttname"><a href="structcore_1_1Rect.html#af4677180f48fd136bc50d3e98cd99169">core::Rect::left</a></div><div class="ttdeci">float left() const</div><div class="ttdoc">Abscisse du bord gauche.</div><div class="ttdef"><b>Definition</b> Rect.cpp:17</div></div>
 <div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="dir_345da4441ab9798aee6a61be5cf5c8cb.html">Math</a></li><li class="navelem"><a class="el" href="Rect_8h.html">Rect.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
 </body>
 </html>
