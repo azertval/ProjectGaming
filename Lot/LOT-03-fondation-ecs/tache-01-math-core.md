@@ -1,6 +1,6 @@
 # TACHE-01 — Types mathématiques de `Core`
 
-**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Math` · **Statut :** à faire
+**Lot :** [LOT-03](epic.md) · **Emplacement :** `Source/Core/Math` · **Statut :** fait
 
 ## Contexte
 Les composants (à commencer par `Transform`) et la physique ont besoin de types mathématiques 2D. `Core` ne devant pas dépendre de DirectX (`EX-ARCH-040`), ces types sont **propres au projet**. La conversion vers `DirectXMath` se fera plus tard, uniquement dans `HMI`.

@@ -2,6 +2,8 @@
 
 Types mathématiques **propres à `Core`**, sans dépendance DirectX (conversion vers `DirectXMath` uniquement côté `HMI`).
 
-- À venir (LOT-03) : `Vector2`, `Rect`.
+- `Vector2` — vecteur 2D flottant (opérateurs, produit scalaire, longueur, normalisation, égalité approchée).
+- `Rect` — rectangle aligné sur les axes (bords, `contains`, `intersects`), origine haut-gauche, Y-bas.
+- `MathUtils.h` — `approximatelyEqual` et `kEpsilon` pour les comparaisons flottantes.
 
 Réf. specs : `EX-ARCH-040`.
