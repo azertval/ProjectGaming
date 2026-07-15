@@ -5,6 +5,7 @@ add_executable(ProjectGaming
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp
+    Graphics/Camera2D.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

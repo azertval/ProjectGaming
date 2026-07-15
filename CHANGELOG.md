@@ -7,6 +7,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-05 (TACHE-04)** : caméra 2D `Camera2D` dans `HMI/Graphics` — projette le monde vers l'écran (16 px/unité, origine haut-gauche, Y-bas, zoom), fournit la matrice de projection pour le vertex shader et les conversions monde↔écran. Logique pure (DirectXMath), couverte par tests unitaires (conversions réciproques, projection).
 - **LOT-05 (TACHE-03)** : atlas de textures procédural `TextureAtlas` dans `HMI/Graphics` — génère en mémoire une grille 4×4 de tuiles 16×16 (couleurs distinctes + une tuile à zones **transparentes** pour valider l'alpha), crée la `ID3D11Texture2D` et sa vue de ressource (RAII), et expose les régions (`tile(colonne, ligne)`). Génération déterministe, remplaçable plus tard par un chargement de fichier.
 - **LOT-05 (TACHE-02)** : pipeline de rendu 2D `SpriteBatch` dans `HMI/Graphics` — dessine des quads texturés en Direct3D 11 (shaders HLSL compilés à l'exécution via `D3DCompile`), avec fusion **alpha** (transparence) et échantillonnage **nearest** (pixel art) ; API `begin`/`draw`/`end` avec *batching* (buffers dynamiques, RAII `ComPtr`). `GraphicsDevice` expose `device()`/`context()`.
 - **LOT-05 (TACHE-01)** : composant `Sprite` (données pures) dans `Core/Ecs/Components` — région d'atlas (`AtlasRegion`, en pixels), couche de dessin et teinte (`Color` RVBA, blanc opaque par défaut). Agnostique du backend (aucun type DirectX) ; lu par le rendu de `HMI`. Couvert par tests unitaires.

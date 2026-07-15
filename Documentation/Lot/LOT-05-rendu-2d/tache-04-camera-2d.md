@@ -1,6 +1,6 @@
 # TACHE-04 — Caméra 2D (monde → écran) {#lot-05-tache-04-camera-2d}
 
-**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Les positions des entités sont en **unités monde** (`EX-ARCH-020`). Le rendu doit les

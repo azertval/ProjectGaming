@@ -10,11 +10,15 @@ add_executable(UnitTests
     Unit/test_view.cpp
     Unit/test_world.cpp
     Unit/test_sprite.cpp
+    Unit/test_camera2d.cpp
     Unit/test_fixed_timestep.cpp
     Unit/test_logger.cpp
     Unit/test_sinks.cpp
     Unit/test_log_format.cpp
     Unit/test_assert.cpp
+    # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
+    # on compile sa source dans les tests unitaires.
+    ../HMI/Graphics/Camera2D.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
