@@ -20,7 +20,7 @@
 - \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*.
 
 ## 4. Interface (HMI)
-- \anchor EX-REN-030 **EX-REN-030** — Le jeu doit afficher un **menu principal** (Jouer, Quitter).
+- \anchor EX-REN-030 **EX-REN-030** — Le jeu doit afficher un **menu principal** (Jouer, Quitterter).
 - \anchor EX-REN-031 **EX-REN-031** — Le jeu doit afficher un écran de **pause** et un écran de **fin de niveau**.
 - \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle.
 

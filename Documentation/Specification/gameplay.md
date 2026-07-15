@@ -38,7 +38,7 @@ Chaque mécanisme est déterministe : à état d'entrée identique, comportement
 ## 4. Conditions de fin de niveau
 - \anchor EX-GP-030 **EX-GP-030** — Atteindre la tuile de **sortie** termine le niveau en **succès**.
 - \anchor EX-GP-031 **EX-GP-031** — Le contact avec un **danger** ou la sortie des limites basses du niveau provoque l'**échec**.
-- \anchor EX-GP-032 **EX-GP-032** — En cas d'échec, le niveau doit **redémarrer** à son état initial sans quitter le jeu.
+- \anchor EX-GP-032 **EX-GP-032** — En cas d'échec, le niveau doit **redémarrer** à son état initial sans Quitterter le jeu.
 
 ## 5. États de jeu
 - \anchor EX-GP-040 **EX-GP-040** — Le jeu doit gérer des états distincts : `Menu`, `EnJeu`, `Pause`, `NiveauTermine`.

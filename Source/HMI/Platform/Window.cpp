@@ -105,7 +105,7 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
             _shouldClose = true;
             return 0;
         case WM_DESTROY:
-            PostQuitMessage(0);
+            PostQuitterMessage(0);
             return 0;
         default:
             return DefWindowProcW(handle, message, wParam, lParam);
@@ -116,7 +116,7 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
 void Window::pumpMessages() {
     MSG message{};
     while (PeekMessageW(&message, nullptr, 0, 0, PM_REMOVE) != FALSE) {
-        if (message.message == WM_QUIT) {
+        if (message.message == WM_Quitter) {
             _shouldClose = true;
         }
         TranslateMessage(&message);

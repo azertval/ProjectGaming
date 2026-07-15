@@ -16,3 +16,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-03
 - @subpage lot-04
 - @subpage lot-05
+- @subpage lot-06
