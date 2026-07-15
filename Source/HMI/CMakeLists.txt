@@ -4,4 +4,4 @@ add_executable(ProjectGaming
     main.cpp
 )
 
-target_link_libraries(ProjectGaming PRIVATE Core)
+target_link_libraries(ProjectGaming PRIVATE Core project_warnings project_options)

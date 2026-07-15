@@ -18,7 +18,7 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 | Type (class, struct, enum) | PascalCase | `GameState`, `TileMap` |
 | Fonction / méthode | camelCase | `version()`, `updatePhysics()` |
 | Variable / paramètre | camelCase | `deltaTime`, `tileIndex` |
-| Membre de classe | camelCase + suffixe `_` | `position_`, `isGrounded_` |
+| Membre de classe | prefixe `_` + camelCase  | `_position`, `_isGrounded` |
 | Constante (`constexpr`) | UPPER_SNAKE_CASE | `MAXIMUM_ENTITIES` |
 | Macro (à éviter) | UPPER_SNAKE_CASE | `PROJECTGAMING_ASSERT` |
 
@@ -30,7 +30,7 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 - Indentation : **4 espaces**, jamais de tabulation.
 - Accolades style K&R (ouvrante en fin de ligne) :
   ```cpp
-  if (isGrounded_) {
+  if (_isGrounded) {
       jump();
   }
   ```
@@ -137,8 +137,45 @@ Commentaire de membre bref : `///< description` après la déclaration.
 - RAII et pointeurs intelligents (`std::unique_ptr`) ; éviter `new`/`delete` bruts.
 - Initialiser toutes les variables. Préférer l'initialisation par accolades `{}`.
 - Pas de nombres magiques : constantes nommées.
+- **`[[nodiscard]]`** sur toute fonction dont ignorer le résultat serait une erreur (getters, valeurs de statut).
+- **`noexcept`** sur les fonctions qui ne lèvent pas d'exception (obligatoire sur les destructeurs et les opérations de déplacement).
+- **`enum class`** plutôt qu'`enum` nu (typage fort, pas de conversion implicite).
+- **`override`** / **`final`** explicites sur les méthodes virtuelles redéfinies.
 
 ## 8. Tests
 - Un test = un comportement, nommé `TEST(SuiteName, ComportementTeste)`.
 - Fichiers de test : `test_<cible>.cpp` dans `Source/Test/{Unit,Integration,Systeme}/`.
 - Toute logique de `Core` livrée s'accompagne de tests unitaires.
+
+## 9. Gestion des erreurs
+Politique par catégorie d'erreur (à respecter dans tout le code) :
+
+| Nature | Traitement |
+|--------|-----------|
+| **Erreur de programmation** (précondition violée, invariant rompu, index hors bornes) | `assert` (voir §10). Non récupérable : le code appelant est fautif et doit être corrigé. |
+| **Erreur récupérable attendue** (fichier absent, ressource introuvable, entrée invalide) | Valeur de retour explicite : `std::optional<T>` pour une simple absence, ou un type `Result<T>` / code d'erreur pour distinguer les causes. |
+| **Erreur d'initialisation irrécupérable** (démarrage : device DirectX, fenêtre) | Exception, capturée uniquement à la frontière de démarrage. |
+
+Règles :
+- **Pas d'exception dans la boucle de jeu** ni dans les chemins critiques de performance.
+- Jamais d'exception qui traverse un destructeur (destructeurs `noexcept`).
+- Ne jamais ignorer silencieusement un `Result`/`optional` d'erreur (cf. `[[nodiscard]]`).
+
+> Note : `std::expected` (C++23) remplacera avantageusement `Result<T>` lorsque le projet passera à C++23.
+
+## 10. Assertions & journalisation
+- **Assertions** : vérifier les préconditions et invariants avec une macro projet `PROJECTGAMING_ASSERT(condition, message)` (basée sur `assert`, active en Debug, retirée en Release). Une assertion signale un **bug**, pas une erreur d'exécution normale.
+- **Journalisation** : passer par un module de log du projet (à venir dans `Core/Diagnostics`), **jamais** `std::cout`/`printf` directement dans le code de production. Niveaux : `trace`, `info`, `warning`, `error`.
+
+## 11. Outillage qualité (automatisé)
+Ces règles sont appliquées par des outils, pas seulement par relecture :
+
+| Outil | Fichier | Rôle |
+|-------|---------|------|
+| **clang-format** | `.clang-format` | Formatage automatique (indentation, accolades, ordre des `#include`). À exécuter avant chaque commit ; VS l'applique nativement. |
+| **clang-tidy** | `.clang-tidy` | Analyse statique + vérification des règles de nommage (§2). |
+| **EditorConfig** | `.editorconfig` | Cohérence d'édition (encodage, fins de ligne, indentation) entre postes et éditeurs. |
+| **Avertissements compilateur** | `CMakeLists.txt` | `/W4 /WX` (MSVC) : avertissements au niveau élevé, **traités comme des erreurs**. Bloquant en CI. |
+| **AddressSanitizer** | option `ENABLE_ASAN` | Détection à l'exécution des débordements et usages après libération. Activable en Debug : `cmake --preset ninja -DENABLE_ASAN=ON`. |
+
+Le code livré compile **sans aucun avertissement**. Un avertissement légitime et inévitable est neutralisé localement et commenté (jamais désactivé globalement).

@@ -8,6 +8,8 @@ add_executable(UnitTests
 target_link_libraries(UnitTests PRIVATE
     Core
     GTest::gtest_main
+    project_warnings
+    project_options
 )
 
 # Enregistre chaque TEST() auprès de CTest.
