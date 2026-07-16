@@ -3,6 +3,8 @@
  * @brief Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).
  */
 
+#include <filesystem>
+
 #include <gtest/gtest.h>
 
 #include "Core/Levels/LevelLoader.h"
@@ -126,4 +128,12 @@ TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+}
+
+/// Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
+TEST(LevelLoaderTest, NiveauDeDemoLivreValide) {
+    const std::filesystem::path path =
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
+    EXPECT_TRUE(result.ok()) << result.error;
 }

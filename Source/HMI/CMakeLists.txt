@@ -60,3 +60,11 @@ add_custom_command(TARGET ProjectGaming POST_BUILD
         ${PROJECT_SOURCE_DIR}/Source/Elements/Localization
         $<TARGET_FILE_DIR:ProjectGaming>/Localization
     COMMENT "Copie des catalogues de traduction (.lang)")
+
+# Copie les fichiers de niveaux (.json) à côté de l'exécutable : ils sont chargés à l'exécution
+# par core::LevelLoader, relativement au répertoire du binaire.
+add_custom_command(TARGET ProjectGaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Levels
+        $<TARGET_FILE_DIR:ProjectGaming>/Levels
+    COMMENT "Copie des niveaux (.json)")

@@ -53,6 +53,10 @@ target_link_libraries(UnitTests PRIVATE
     project_options
 )
 
+# Chemin (source) des niveaux, pour vérifier que le niveau de démonstration livré se charge.
+target_compile_definitions(UnitTests PRIVATE
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
     Integration/test_ecs_mouvement.cpp
