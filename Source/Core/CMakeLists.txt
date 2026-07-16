@@ -7,6 +7,7 @@ add_library(Core STATIC
     Ecs/World.cpp
     Ecs/Systems/MovementSystem.cpp
     Levels/TileMap.cpp
+    Levels/LevelLoader.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp
