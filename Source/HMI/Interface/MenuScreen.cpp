@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 
+#include "Core/BuildConfig.h"
 #include "Core/Ecs/Components/Sprite.h"  // core::Color, core::AtlasRegion
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/FlagIcons.h"
@@ -55,9 +56,11 @@ ScreenTransition MenuScreen::update(const InputState& input, float /*fixedDelta*
         }
     }
 
-    // Bouton d'enregistrement des logs : déclenche l'action fournie par l'assemblage.
-    if (_onSaveLog && _saveLogButton.clicked(input, _viewportWidth, _viewportHeight)) {
-        _onSaveLog();
+    // Bouton d'enregistrement des logs : outil de développement, absent des builds Release.
+    if constexpr (core::kDeveloperBuild) {
+        if (_onSaveLog && _saveLogButton.clicked(input, _viewportWidth, _viewportHeight)) {
+            _onSaveLog();
+        }
     }
 
     return transition;
@@ -111,22 +114,24 @@ void MenuScreen::render(RenderContext& context) {
     context.spriteBatch.draw(quad);
     context.spriteBatch.end();
 
-    // Passe icône : bouton d'enregistrement des logs, à gauche du drapeau (texture d'icône).
-    const SaveLogButton::Rect saveArea =
-        SaveLogButton::rect(context.viewportWidth, context.viewportHeight);
-    SpriteQuad saveQuad;
-    saveQuad.x = saveArea.x;
-    saveQuad.y = saveArea.y;
-    saveQuad.width = saveArea.width;
-    saveQuad.height = saveArea.height;
-    saveQuad.r = 0.75f;
-    saveQuad.g = 0.78f;
-    saveQuad.b = 0.85f;
-    saveQuad.a = 1.0f;
+    // Passe icône : bouton d'enregistrement des logs — outil de développement, masqué en Release.
+    if constexpr (core::kDeveloperBuild) {
+        const SaveLogButton::Rect saveArea =
+            SaveLogButton::rect(context.viewportWidth, context.viewportHeight);
+        SpriteQuad saveQuad;
+        saveQuad.x = saveArea.x;
+        saveQuad.y = saveArea.y;
+        saveQuad.width = saveArea.width;
+        saveQuad.height = saveArea.height;
+        saveQuad.r = 0.75f;
+        saveQuad.g = 0.78f;
+        saveQuad.b = 0.85f;
+        saveQuad.a = 1.0f;
 
-    context.spriteBatch.begin(projection, context.saveIcon.textureView());
-    context.spriteBatch.draw(saveQuad);
-    context.spriteBatch.end();
+        context.spriteBatch.begin(projection, context.saveIcon.textureView());
+        context.spriteBatch.draw(saveQuad);
+        context.spriteBatch.end();
+    }
 }
 
 }  // namespace hmi
