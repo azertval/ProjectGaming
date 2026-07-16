@@ -1,10 +1,12 @@
 #include "HMI/Interface/MenuScreen.h"
 
 #include <string>
+#include <utility>
 
 #include "Core/Ecs/Components/Sprite.h"  // core::Color, core::AtlasRegion
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/FlagIcons.h"
+#include "HMI/Graphics/SaveIcon.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/RenderContext.h"
@@ -25,8 +27,8 @@ constexpr core::Color SELECTED_COLOR{1.0f, 0.82f, 0.20f, 1.0f};
  * @brief Construit l'écran de menu.
  * @param localization Catalogue de traduction (mutable pour la bascule de langue).
  */
-MenuScreen::MenuScreen(Localization& localization)
-    : _localization(localization), _model(localization) {}
+MenuScreen::MenuScreen(Localization& localization, SaveLogAction onSaveLog)
+    : _localization(localization), _model(localization), _onSaveLog(std::move(onSaveLog)) {}
 
 /**
  * @brief Met à jour la logique du menu et le bouton de langue.
@@ -51,6 +53,11 @@ ScreenTransition MenuScreen::update(const InputState& input, float /*fixedDelta*
         } else {
             HMI_LOG_WARNING("Echec du chargement de la langue : " + toggle.next);
         }
+    }
+
+    // Bouton d'enregistrement des logs : déclenche l'action fournie par l'assemblage.
+    if (_onSaveLog && _saveLogButton.clicked(input, _viewportWidth, _viewportHeight)) {
+        _onSaveLog();
     }
 
     return transition;
@@ -102,6 +109,23 @@ void MenuScreen::render(RenderContext& context) {
 
     context.spriteBatch.begin(projection, context.flags.textureView());
     context.spriteBatch.draw(quad);
+    context.spriteBatch.end();
+
+    // Passe icône : bouton d'enregistrement des logs, à gauche du drapeau (texture d'icône).
+    const SaveLogButton::Rect saveArea =
+        SaveLogButton::rect(context.viewportWidth, context.viewportHeight);
+    SpriteQuad saveQuad;
+    saveQuad.x = saveArea.x;
+    saveQuad.y = saveArea.y;
+    saveQuad.width = saveArea.width;
+    saveQuad.height = saveArea.height;
+    saveQuad.r = 0.75f;
+    saveQuad.g = 0.78f;
+    saveQuad.b = 0.85f;
+    saveQuad.a = 1.0f;
+
+    context.spriteBatch.begin(projection, context.saveIcon.textureView());
+    context.spriteBatch.draw(saveQuad);
     context.spriteBatch.end();
 }
 

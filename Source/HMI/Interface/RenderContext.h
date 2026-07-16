@@ -2,6 +2,7 @@
 
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/FlagIcons.h"
+#include "HMI/Graphics/SaveIcon.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Localization/Localization.h"
@@ -27,6 +28,7 @@ struct RenderContext {
     const BitmapFont& font;           ///< Police bitmap pour le texte d'interface.
     const Localization& localization;  ///< Catalogue de traduction (textes par clé).
     const FlagIcons& flags;           ///< Icônes de drapeaux (sélecteur de langue).
+    const SaveIcon& saveIcon;         ///< Icône d'enregistrement des logs.
     int viewportWidth = 0;            ///< Largeur de la surface de rendu, en pixels.
     int viewportHeight = 0;           ///< Hauteur de la surface de rendu, en pixels.
 };

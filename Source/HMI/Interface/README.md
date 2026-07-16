@@ -11,6 +11,8 @@
 - `MenuModel` / `MenuScreen` — logique (testable) et dessin du menu principal.
 - `GameScreen` / `EditorScreen` — écrans cibles (scène de démo, placeholder éditeur).
 - `LanguageSelector` — logique (testable) du bouton de langue (bas-droit, bascule fr/en).
+- `SaveLogButton` — logique (testable) du bouton d'enregistrement des logs (à gauche du bouton de langue).
+- `SessionLog` — sérialisation et écriture fichier des logs de la session (`serializeSessionLog` pur + `saveSessionLog`).
 
 À venir : écrans de pause et de fin de niveau (`EX-REN-031`).
 

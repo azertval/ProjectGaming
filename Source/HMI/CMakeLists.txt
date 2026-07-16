@@ -10,6 +10,7 @@ add_executable(ProjectGaming
     Graphics/SpriteRenderer.cpp
     Graphics/BitmapFont.cpp
     Graphics/FlagIcons.cpp
+    Graphics/SaveIcon.cpp
     Localization/Localization.cpp
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
@@ -17,6 +18,8 @@ add_executable(ProjectGaming
     Interface/GameScreen.cpp
     Interface/EditorScreen.cpp
     Interface/LanguageSelector.cpp
+    Interface/SaveLogButton.cpp
+    Interface/SessionLog.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
