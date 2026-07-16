@@ -9,6 +9,8 @@ add_executable(UnitTests
     Unit/test_component_pool.cpp
     Unit/test_view.cpp
     Unit/test_world.cpp
+    Unit/test_level.cpp
+    Unit/test_level_loader.cpp
     Unit/test_sprite.cpp
     Unit/test_camera2d.cpp
     Unit/test_fixed_timestep.cpp
@@ -51,10 +53,15 @@ target_link_libraries(UnitTests PRIVATE
     project_options
 )
 
+# Chemin (source) des niveaux, pour vérifier que le niveau de démonstration livré se charge.
+target_compile_definitions(UnitTests PRIVATE
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
     Integration/test_ecs_mouvement.cpp
     Integration/test_boucle_simulation.cpp
+    Integration/test_niveau_ecs.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

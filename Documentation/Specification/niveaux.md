@@ -5,32 +5,30 @@
 ## 1. Représentation des niveaux
 - \anchor EX-LVL-001 **EX-LVL-001** — Un niveau doit être décrit par un **fichier de données** externe (pas en dur dans le code), placé dans `Source/Elements`.
 - \anchor EX-LVL-002 **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille, type de chaque tuile, position d'entrée et de sortie, et les mécanismes (interrupteurs, portes, blocs) avec leurs liaisons.
-- \anchor EX-LVL-003 **EX-LVL-003** — Le format retenu est **hybride** : une **grille ASCII** décrit le décor (tuiles) et une section **JSON** porte les métadonnées et les **mécanismes** (interrupteurs, portes, blocs) avec leurs liaisons. Le décor reste éditable à la main, le JSON gère les données riches et extensibles.
-- \anchor EX-LVL-004 **EX-LVL-004** — Le chargement d'un niveau doit **valider** les données (dimensions cohérentes avec la grille, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).
+- \anchor EX-LVL-003 **EX-LVL-003** — Le format retenu est un **JSON structuré orienté objets** : un niveau est un objet JSON portant ses **métadonnées** (nom, dimensions) et une **liste de tuiles**, chaque tuile étant un **objet** `{x, y, type, …}` (les cases vides sont omises) pouvant porter des **champs spécifiques** à son type (ex. liaison interrupteur↔porte par identifiant). Choisi pour un moteur **extensible et réutilisable** (données riches par tuile, sérialisation et *round-trip* d'éditeur directs), au prix d'une lisibilité « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'**éditeur**, pas par le texte brut.
+- \anchor EX-LVL-004 **EX-LVL-004** — Le chargement d'un niveau doit **valider** les données (positions des tuiles **dans les bornes** `width × height`, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).
 
-### Format retenu (hybride ASCII + JSON)
-Légende de la grille : `.` vide, `#` solide, `^` danger, `E` entrée, `S` sortie, `i` interrupteur, `D` porte.
+### Format retenu (JSON, liste de tuiles-objets)
+Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`
+(interrupteur), `door` (porte). Une case **vide** n'est pas listée (absence = vide).
 ```json
 {
   "name": "Tutoriel 1",
   "width": 12,
   "height": 8,
-  "grid": [
-    "############",
-    "#E.........#",
-    "#....##....#",
-    "#....##..i.#",
-    "#........###",
-    "#..^^^....D#",
-    "#........S.#",
-    "############"
-  ],
-  "mechanisms": [
-    { "switch": [8, 3], "door": [10, 5] }
+  "tiles": [
+    { "x": 1, "y": 1, "type": "entry" },
+    { "x": 9, "y": 6, "type": "exit" },
+    { "x": 5, "y": 5, "type": "danger" },
+    { "x": 8, "y": 3, "type": "switch", "id": "s1" },
+    { "x": 10, "y": 5, "type": "door", "opensWith": "s1" }
   ]
 }
 ```
-Les coordonnées des mécanismes sont exprimées en `[colonne, ligne]` dans le repère de la grille. Le tableau `grid` doit compter `height` lignes de `width` caractères.
+Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile hors des bornes
+`width × height` est invalide. Les **liaisons** interrupteur↔porte se font par **identifiant**
+(un `switch` porte un `id`, une `door` le référence via `opensWith`), schéma extensible à
+d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester lisible.
 
 ## 2. Progression
 - \anchor EX-LVL-010 **EX-LVL-010** — Le jeu doit charger les niveaux dans un **ordre défini** (liste ordonnée).

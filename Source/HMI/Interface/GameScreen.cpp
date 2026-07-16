@@ -1,12 +1,18 @@
 #include "HMI/Interface/GameScreen.h"
 
-#include <memory>
+#include <algorithm>
+#include <cmath>
+#include <string>
 
-#include "Core/Ecs/Components/Sprite.h"
-#include "Core/Ecs/Components/Transform.h"
-#include "Core/Ecs/Components/Velocity.h"
-#include "Core/Ecs/Systems/MovementSystem.h"
+#include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
+#include "Core/Levels/Level.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelScene.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Graphics/BitmapFont.h"
+#include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
@@ -15,75 +21,92 @@
 namespace hmi {
 
 namespace {
-// Centre de la caméra sur la scène de démonstration, en unités monde.
-const core::Vector2 SCENE_CENTER{6.0f, 4.0f};
-// Zoom (facteur entier pour la netteté pixel art).
-constexpr float SCENE_ZOOM = 4.0f;
 
-// Construit la scène de démonstration codée en dur dans l'ECS.
-//
-// Une grille de tuiles de fond (couche 0) et un sprite mobile au-dessus (couche 1, tuile
-// partiellement transparente) doté d'une vitesse : le `MovementSystem` le fait dériver, ce qui
-// illustre la simulation à pas fixe et le rendu par couches. Repris tel quel de `main` (LOT-05).
-void buildDemoScene(core::World& world, const TextureAtlas& atlas) {
-    constexpr int columns = 12;
-    constexpr int rows = 8;
-    for (int row = 0; row < rows; ++row) {
-        for (int column = 0; column < columns; ++column) {
-            const core::Entity tile = world.createEntity();
-            core::Transform transform;
-            transform.position = core::Vector2{static_cast<float>(column), static_cast<float>(row)};
-            world.addComponent(tile, transform);
-
-            core::Sprite sprite;
-            sprite.region = atlas.tile(column % TextureAtlas::TILES_PER_SIDE,
-                                       row % TextureAtlas::TILES_PER_SIDE);
-            sprite.layer = 0;
-            world.addComponent(tile, sprite);
-        }
+// Region d'atlas (couleur) associee a chaque type de tuile, pour un rendu distinct.
+core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) {
+    switch (type) {
+        case core::TileType::Solid:
+            return atlas.tile(0, 2);  // gris
+        case core::TileType::Danger:
+            return atlas.tile(0, 0);  // rouge
+        case core::TileType::Entry:
+            return atlas.tile(1, 0);  // vert
+        case core::TileType::Exit:
+            return atlas.tile(2, 0);  // bleu
+        case core::TileType::Switch:
+            return atlas.tile(3, 0);  // jaune
+        case core::TileType::Door:
+            return atlas.tile(2, 1);  // orange
+        case core::TileType::Empty:
+            break;
     }
-
-    const core::Entity mover = world.createEntity();
-    core::Transform moverTransform;
-    moverTransform.position = core::Vector2{1.0f, 1.0f};
-    world.addComponent(mover, moverTransform);
-
-    core::Sprite moverSprite;
-    // Dernière tuile de l'atlas : damier partiellement transparent (test de l'alpha).
-    moverSprite.region =
-        atlas.tile(TextureAtlas::TILES_PER_SIDE - 1, TextureAtlas::TILES_PER_SIDE - 1);
-    moverSprite.layer = 1;
-    world.addComponent(mover, moverSprite);
-
-    world.addComponent(mover, core::Velocity{core::Vector2{1.0f, 0.6f}});
+    return atlas.tile(0, 0);
 }
+
 }  // namespace
 
-// Construit l'écran de jeu et sa scène de démonstration.
+// Construit l'ecran et charge le niveau.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                       int viewportHeight)
+                       int viewportHeight, std::filesystem::path levelPath)
     : _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {
-    _camera.setCenter(SCENE_CENTER);
-    _camera.setZoom(SCENE_ZOOM);
-
-    _world.addSystem(std::make_unique<core::MovementSystem>());
-    buildDemoScene(_world, atlas);
-    HMI_LOG_TRACE("GameScreen cree (scene de demonstration montee)");
+    const core::LevelLoadResult result = core::LevelLoader::loadFromFile(levelPath);
+    if (result.ok()) {
+        const core::Level& level = *result.level;
+        _levelWidth = level.tileMap().width();
+        _levelHeight = level.tileMap().height();
+        _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
+                                        static_cast<float>(_levelHeight) * 0.5f});
+        // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
+        core::buildLevelScene(_world, level, [&atlas](core::TileType type) {
+            return regionForTile(type, atlas);
+        });
+        HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
+                     std::to_string(_levelHeight) + ")");
+    } else {
+        // Echec recuperable : on retient le message et on affichera un etat neutre.
+        _loadError = result.error;
+        HMI_LOG_WARNING("Echec du chargement du niveau : " + result.error);
+    }
 }
 
-// Avance la simulation d'un pas fixe et gère le retour au menu.
-// « Basculer vers le menu » sur Échap, sinon « rester ».
-ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
+// Gere le retour au menu (le niveau est statique : aucune simulation ici).
+ScreenTransition GameScreen::update(const InputState& input, float /*fixedDelta*/) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
     }
-    _world.update(fixedDelta);
     return ScreenTransition::none();
 }
 
-// Dessine la scène en lecture seule de l'ECS.
+// Dessine le niveau charge, ou un etat neutre si le chargement a echoue.
 void GameScreen::render(RenderContext& context) {
+    if (!_loadError.empty()) {
+        // Etat d'erreur : message centre a l'ecran.
+        const char* message = "Niveau indisponible";
+        constexpr float scale = 4.0f;
+        const float x = (static_cast<float>(context.viewportWidth) -
+                         context.font.textWidth(message, scale)) *
+                        0.5f;
+        const float y =
+            (static_cast<float>(context.viewportHeight) - context.font.lineHeight(scale)) * 0.5f;
+        const DirectX::XMFLOAT4X4 projection =
+            BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+        context.spriteBatch.begin(projection, context.font.textureView());
+        context.font.drawText(context.spriteBatch, message, x, y, scale,
+                              core::Color{0.90f, 0.55f, 0.55f, 1.0f});
+        context.spriteBatch.end();
+        return;
+    }
+
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
+
+    // Zoom pour faire tenir le niveau dans la fenetre, en facteur entier (nettete pixel art).
+    const float fitX = static_cast<float>(context.viewportWidth) /
+                       (static_cast<float>(_levelWidth) * Camera2D::PIXELS_PER_UNIT);
+    const float fitY = static_cast<float>(context.viewportHeight) /
+                       (static_cast<float>(_levelHeight) * Camera2D::PIXELS_PER_UNIT);
+    const float zoom = std::max(1.0f, std::floor(std::min(fitX, fitY) * 0.92f));
+    _camera.setZoom(zoom);
+
     _renderer.render(_world, _camera);
 }
 
