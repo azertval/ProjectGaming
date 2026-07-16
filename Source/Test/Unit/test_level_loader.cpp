@@ -87,3 +87,43 @@ TEST(LevelLoaderTest, LiaisonMecanismeNonResolueRejetee) {
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
 }
+
+/// Plusieurs entrées sont rejetées (une seule attendue).
+TEST(LevelLoaderTest, PlusieursEntreesRejetees) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 2, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Plusieurs sorties sont rejetées (une seule attendue).
+TEST(LevelLoaderTest, PlusieursSortiesRejetees) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 2, "y": 2, "type": "exit" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Deux tuiles à la même position sont rejetées.
+TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "solid" },
+        { "x": 0, "y": 0, "type": "danger" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+}

@@ -1,6 +1,7 @@
 #include "Core/Levels/LevelLoader.h"
 
 #include <fstream>
+#include <set>
 #include <sstream>
 #include <string>
 #include <unordered_map>
@@ -78,8 +79,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
 
         GridPosition entry{};
         GridPosition exit{};
-        bool hasEntry = false;
-        bool hasExit = false;
+        int entryCount = 0;
+        int exitCount = 0;
+        std::set<std::pair<int, int>> occupiedPositions;
         std::unordered_map<std::string, GridPosition> switchesById;
         std::vector<DoorLink> doors;
 
@@ -97,14 +99,18 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 return failure("Tuile hors bornes en (" + std::to_string(x) + ", " +
                                std::to_string(y) + ")");
             }
+            if (!occupiedPositions.emplace(x, y).second) {
+                return failure("Deux tuiles a la meme position (" + std::to_string(x) + ", " +
+                               std::to_string(y) + ")");
+            }
             map.setTile(x, y, *type);
 
             if (*type == TileType::Entry) {
                 entry = GridPosition{x, y};
-                hasEntry = true;
+                ++entryCount;
             } else if (*type == TileType::Exit) {
                 exit = GridPosition{x, y};
-                hasExit = true;
+                ++exitCount;
             } else if (*type == TileType::Switch) {
                 const std::string id = tile.value("id", std::string{});
                 if (id.empty()) {
@@ -119,11 +125,18 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             }
         }
 
-        if (!hasEntry) {
+        // Validation : exactement une entrée et une sortie (EX-LVL-004).
+        if (entryCount == 0) {
             return failure("Niveau sans entree (aucune tuile 'entry')");
         }
-        if (!hasExit) {
+        if (entryCount > 1) {
+            return failure("Plusieurs entrees dans le niveau (une seule attendue)");
+        }
+        if (exitCount == 0) {
             return failure("Niveau sans sortie (aucune tuile 'exit')");
+        }
+        if (exitCount > 1) {
+            return failure("Plusieurs sorties dans le niveau (une seule attendue)");
         }
 
         // Résout les liaisons interrupteur↔porte par identifiant. Une porte sans 'opensWith'
