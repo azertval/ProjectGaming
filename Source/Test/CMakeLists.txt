@@ -18,6 +18,7 @@ add_executable(UnitTests
     Unit/test_assert.cpp
     Unit/test_input_state.cpp
     Unit/test_localization.cpp
+    Unit/test_screen_manager.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -26,6 +27,8 @@ add_executable(UnitTests
     ../HMI/Input/InputState.cpp
     # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
     ../HMI/Localization/Localization.cpp
+    # La navigation entre écrans (transitions) est testable via une fabrique factice, hors GPU.
+    ../HMI/Interface/ScreenManager.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

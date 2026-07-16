@@ -10,6 +10,7 @@ add_executable(ProjectGaming
     Graphics/SpriteRenderer.cpp
     Graphics/BitmapFont.cpp
     Localization/Localization.cpp
+    Interface/ScreenManager.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
