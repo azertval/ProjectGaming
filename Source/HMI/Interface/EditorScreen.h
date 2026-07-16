@@ -17,7 +17,7 @@ namespace hmi {
  */
 class EditorScreen : public IScreen {
 public:
-    EditorScreen() = default;
+    EditorScreen();
 
     [[nodiscard]] ScreenTransition update(const InputState& input, float fixedDelta) override;
 

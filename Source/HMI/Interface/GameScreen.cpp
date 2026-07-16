@@ -8,6 +8,7 @@
 #include "Core/Ecs/Systems/MovementSystem.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Interface/RenderContext.h"
 
@@ -75,6 +76,7 @@ GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewpo
 
     _world.addSystem(std::make_unique<core::MovementSystem>());
     buildDemoScene(_world, atlas);
+    HMI_LOG_TRACE("GameScreen cree (scene de demonstration montee)");
 }
 
 /**

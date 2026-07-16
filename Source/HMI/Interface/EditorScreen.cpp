@@ -5,6 +5,7 @@
 #include "Core/Ecs/Components/Sprite.h"  // core::Color
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
+#include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Interface/RenderContext.h"
 
@@ -16,6 +17,11 @@ constexpr float TEXT_SCALE = 5.0f;
 /// Teinte du texte « à venir ».
 constexpr core::Color TEXT_COLOR{0.85f, 0.85f, 0.90f, 1.0f};
 }  // namespace
+
+/// Construit l'écran éditeur (placeholder).
+EditorScreen::EditorScreen() {
+    HMI_LOG_TRACE("EditorScreen cree (placeholder Mode Edition)");
+}
 
 /**
  * @brief Gère le retour au menu.

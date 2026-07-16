@@ -49,6 +49,9 @@ int main() {
         HMI_LOG_INFO("Demarrage de ProjectGaming");
 
         hmi::Window window(L"ProjectGaming", 1280, 720);
+        HMI_LOG_INFO("Fenetre creee (" + std::to_string(window.clientWidth()) + "x" +
+                     std::to_string(window.clientHeight()) + ")");
+
         hmi::GraphicsDevice graphics(window.handle(), window.clientWidth(), window.clientHeight());
         HMI_LOG_INFO("Direct3D 11 initialise");
 
@@ -57,10 +60,13 @@ int main() {
         hmi::TextureAtlas atlas(graphics.device());
         hmi::BitmapFont font(graphics.device());
         hmi::FlagIcons flags(graphics.device());
+        HMI_LOG_INFO("Ressources de rendu pretes (atlas, police, drapeaux)");
 
         // Catalogue de traduction : chargé depuis les .lang copiés à côté de l'exécutable.
         hmi::Localization localization(executableDirectory() / "Localization");
-        if (!localization.loadDefaultLanguage("fr")) {
+        if (localization.loadDefaultLanguage("fr")) {
+            HMI_LOG_INFO(std::string("Langue chargee : ") + localization.activeLanguage());
+        } else {
             // Erreur récupérable : à défaut de traductions, les clés s'afficheront telles quelles.
             HMI_LOG_WARNING("Catalogue de traduction 'fr' introuvable : affichage des cles");
         }
@@ -81,7 +87,7 @@ int main() {
         };
 
         hmi::ScreenManager screens(std::move(factory), hmi::ScreenId::Menu);
-        HMI_LOG_INFO("Menu principal pret");
+        HMI_LOG_INFO("Demarrage de la boucle principale");
 
         const core::FixedTimestep timestep;
         const float fixedDelta = timestep.fixedDeltaSeconds();
@@ -96,6 +102,8 @@ int main() {
             int resizedHeight = 0;
             if (window.consumeResize(resizedWidth, resizedHeight)) {
                 graphics.resize(resizedWidth, resizedHeight);
+                HMI_LOG_TRACE("Redimensionnement : " + std::to_string(resizedWidth) + "x" +
+                              std::to_string(resizedHeight));
             }
 
             // 3. Met à jour l'écran courant ; une demande de fermeture arrête la boucle.

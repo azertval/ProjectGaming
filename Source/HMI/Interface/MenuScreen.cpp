@@ -1,9 +1,12 @@
 #include "HMI/Interface/MenuScreen.h"
 
+#include <string>
+
 #include "Core/Ecs/Components/Sprite.h"  // core::Color, core::AtlasRegion
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/FlagIcons.h"
 #include "HMI/Graphics/SpriteBatch.h"
+#include "HMI/HmiLog.h"
 #include "HMI/Interface/RenderContext.h"
 #include "HMI/Localization/Localization.h"
 
@@ -42,7 +45,12 @@ ScreenTransition MenuScreen::update(const InputState& input, float /*fixedDelta*
         _languageButton.update(input, _localization.activeLanguage(), _viewportWidth, _viewportHeight);
     if (toggle.requested) {
         // Bascule récupérable : si le catalogue cible est absent, la langue courante est conservée.
-        (void)_localization.loadLanguage(toggle.next);
+        const std::string previous = _localization.activeLanguage();
+        if (_localization.loadLanguage(toggle.next)) {
+            HMI_LOG_INFO("Langue changee : " + previous + " -> " + toggle.next);
+        } else {
+            HMI_LOG_WARNING("Echec du chargement de la langue : " + toggle.next);
+        }
     }
 
     return transition;

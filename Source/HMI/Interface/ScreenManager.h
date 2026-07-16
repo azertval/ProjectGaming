@@ -65,6 +65,7 @@ public:
 private:
     Factory _factory;
     std::unique_ptr<IScreen> _current;
+    ScreenId _currentId;  ///< Identifiant de l'écran courant (pour la journalisation).
     bool _quit = false;
 };
 
