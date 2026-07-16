@@ -1,6 +1,9 @@
 #include "Core/Ecs/World.h"
 
+#include <string>
 #include <utility>
+
+#include "Core/Ecs/EcsLog.h"
 
 namespace core {
 
@@ -45,6 +48,7 @@ bool World::isAlive(Entity entity) const {
  */
 void World::addSystem(std::unique_ptr<ISystem> system) {
     _systems.push_back(std::move(system));
+    ECS_LOG_TRACE("Systeme enregistre (total : " + std::to_string(_systems.size()) + ")");
 }
 
 /**

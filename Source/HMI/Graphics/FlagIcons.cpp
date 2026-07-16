@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include "HMI/Graphics/GraphicsLog.h"
+
 namespace hmi {
 
 namespace {
@@ -123,6 +125,7 @@ FlagIcons::FlagIcons(ID3D11Device* device) {
     if (FAILED(device->CreateShaderResourceView(_texture.Get(), nullptr, &_view))) {
         throw std::runtime_error("Echec de creation de la vue de la texture des drapeaux");
     }
+    GRAPHICS_LOG_TRACE("FlagIcons : drapeaux generes (France, Royaume-Uni)");
 }
 
 /**

@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <stdexcept>
 
+#include "HMI/Platform/PlatformLog.h"
+
 namespace hmi {
 
 namespace {
@@ -55,6 +57,7 @@ Window::Window(const wchar_t* title, int width, int height)
     }
 
     ShowWindow(_handle, SW_SHOW);
+    PLATFORM_LOG_TRACE("Fenetre Win32 creee et affichee");
 }
 
 /// Détruit la fenêtre Win32.
@@ -131,6 +134,7 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
             _input.onMouseButtonUp(MouseButton::Middle);
             return 0;
         case WM_CLOSE:
+            PLATFORM_LOG_TRACE("Fermeture de la fenetre demandee (croix)");
             _shouldClose = true;
             return 0;
         case WM_DESTROY:
@@ -174,6 +178,7 @@ const InputState& Window::input() const {
 
 /// Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).
 void Window::requestClose() {
+    PLATFORM_LOG_TRACE("Fermeture programmee de la fenetre demandee");
     _shouldClose = true;
 }
 

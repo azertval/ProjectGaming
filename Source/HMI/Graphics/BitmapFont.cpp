@@ -3,8 +3,10 @@
 #include <array>
 #include <cstddef>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
+#include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/SpriteBatch.h"
 
 namespace hmi {
@@ -364,6 +366,7 @@ BitmapFont::BitmapFont(ID3D11Device* device) {
     if (FAILED(device->CreateShaderResourceView(_texture.Get(), nullptr, &_view))) {
         throw std::runtime_error("Echec de creation de la vue de la texture de police");
     }
+    GRAPHICS_LOG_TRACE("BitmapFont : police generee (" + std::to_string(glyphCount) + " glyphes)");
 }
 
 /**
