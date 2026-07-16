@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include "HMI/Graphics/GraphicsLog.h"
+
 namespace hmi {
 
 namespace {
@@ -77,6 +79,7 @@ TextureAtlas::TextureAtlas(ID3D11Device* device) {
     if (FAILED(device->CreateShaderResourceView(_texture.Get(), nullptr, &_view))) {
         throw std::runtime_error("Echec de creation de la vue de la texture d'atlas");
     }
+    GRAPHICS_LOG_TRACE("TextureAtlas : atlas procedural genere");
 }
 
 /**

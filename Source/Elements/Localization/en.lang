@@ -1,0 +1,12 @@
+# Translation catalog - English.
+# Format: key = value (UTF-8 encoding).
+# Blank lines and lines starting with # are ignored.
+
+# Main menu
+menu.titre = ProjectGaming
+menu.charger_niveau = Load level
+menu.mode_edition = Edit Mode
+menu.quitter = Quit
+
+# Editor screen (edit mode, coming soon)
+editeur.a_venir = Edit Mode — coming soon

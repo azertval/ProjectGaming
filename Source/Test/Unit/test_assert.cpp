@@ -16,7 +16,8 @@ TEST(AssertTest, ConditionVraieNInvoquePasLeHandler) {
         [&](const char*, const char*, const char*, int) { invoked = true; });
 
     // Condition évaluée à l'exécution (évite l'avertissement de condition constante).
-    volatile bool condition = true;
+    // [[maybe_unused]] : en Release l'assertion est un no-op, la variable n'est pas lue.
+    [[maybe_unused]] volatile bool condition = true;
     PROJECTGAMING_ASSERT(condition, "ne doit pas echouer");
 
     EXPECT_FALSE(invoked);

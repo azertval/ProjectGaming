@@ -7,6 +7,8 @@
 
 #include <d3dcompiler.h>
 
+#include "HMI/Graphics/GraphicsLog.h"
+
 namespace hmi {
 
 namespace {
@@ -170,6 +172,7 @@ SpriteBatch::SpriteBatch(ID3D11Device* device, ID3D11DeviceContext* context) : _
     rasterizerDescription.DepthClipEnable = TRUE;
     throwIfFailed(device->CreateRasterizerState(&rasterizerDescription, &_rasterizerState),
                   "Echec de creation de l'etat de rasterisation");
+    GRAPHICS_LOG_TRACE("SpriteBatch : pipeline 2D cree (shaders, buffers, etats)");
 }
 
 /**

@@ -1,6 +1,11 @@
 #include "HMI/Platform/Window.h"
 
+#include <windowsx.h>
+
+#include <cstdint>
 #include <stdexcept>
+
+#include "HMI/Platform/PlatformLog.h"
 
 namespace hmi {
 
@@ -52,6 +57,7 @@ Window::Window(const wchar_t* title, int width, int height)
     }
 
     ShowWindow(_handle, SW_SHOW);
+    PLATFORM_LOG_TRACE("Fenetre Win32 creee et affichee");
 }
 
 /// Détruit la fenêtre Win32.
@@ -97,11 +103,38 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
             }
             return 0;
         case WM_KEYDOWN:
-            if (wParam == static_cast<WPARAM>(VK_ESCAPE)) {
-                _shouldClose = true;
-            }
+            // Échap n'est plus un raccourci de fermeture : toutes les touches sont de
+            // simples entrées, converties en `Key` par leur code virtuel (valeurs alignées).
+            _input.onKeyDown(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
+            return 0;
+        case WM_KEYUP:
+            _input.onKeyUp(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
+            return 0;
+        case WM_MOUSEMOVE:
+            // GET_X/Y_LPARAM extraient des coordonnées **signées** (souris hors zone client
+            // lors d'un capture), en pixels de la zone client.
+            _input.onMouseMove(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+            return 0;
+        case WM_LBUTTONDOWN:
+            _input.onMouseButtonDown(MouseButton::Left);
+            return 0;
+        case WM_LBUTTONUP:
+            _input.onMouseButtonUp(MouseButton::Left);
+            return 0;
+        case WM_RBUTTONDOWN:
+            _input.onMouseButtonDown(MouseButton::Right);
+            return 0;
+        case WM_RBUTTONUP:
+            _input.onMouseButtonUp(MouseButton::Right);
+            return 0;
+        case WM_MBUTTONDOWN:
+            _input.onMouseButtonDown(MouseButton::Middle);
+            return 0;
+        case WM_MBUTTONUP:
+            _input.onMouseButtonUp(MouseButton::Middle);
             return 0;
         case WM_CLOSE:
+            PLATFORM_LOG_TRACE("Fermeture de la fenetre demandee (croix)");
             _shouldClose = true;
             return 0;
         case WM_DESTROY:
@@ -112,8 +145,15 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
     }
 }
 
-/// Traite tous les messages Win32 en attente (non bloquant).
+/**
+ * @brief Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
+ *
+ * `beginFrame` fige l'état d'entrées de la frame précédente **avant** de drainer les messages,
+ * afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante.
+ */
 void Window::pumpMessages() {
+    _input.beginFrame();
+
     MSG message{};
     while (PeekMessageW(&message, nullptr, 0, 0, PM_REMOVE) != FALSE) {
         if (message.message == WM_QUIT) {
@@ -126,6 +166,20 @@ void Window::pumpMessages() {
 
 bool Window::shouldClose() const {
     return _shouldClose;
+}
+
+/**
+ * @brief État des entrées clavier/souris de la frame courante.
+ * @return L'`InputState` capturé, en lecture seule.
+ */
+const InputState& Window::input() const {
+    return _input;
+}
+
+/// Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).
+void Window::requestClose() {
+    PLATFORM_LOG_TRACE("Fermeture programmee de la fenetre demandee");
+    _shouldClose = true;
 }
 
 HWND Window::handle() const {

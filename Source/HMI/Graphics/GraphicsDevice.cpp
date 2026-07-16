@@ -2,6 +2,9 @@
 
 #include <iterator>
 #include <stdexcept>
+#include <string>
+
+#include "HMI/Graphics/GraphicsLog.h"
 
 namespace hmi {
 
@@ -62,6 +65,8 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height) : _width(widt
 
     throwIfFailed(result, "Echec de l'initialisation de Direct3D 11");
     createRenderTarget();
+    GRAPHICS_LOG_INFO("GraphicsDevice : Direct3D 11 et swap chain crees (" +
+                      std::to_string(_width) + "x" + std::to_string(_height) + ")");
 }
 
 /// Crée la render target view à partir du back buffer et configure le viewport.
@@ -102,6 +107,8 @@ void GraphicsDevice::resize(int width, int height) {
     _width = width;
     _height = height;
     createRenderTarget();
+    GRAPHICS_LOG_TRACE("Swap chain redimensionnee (" + std::to_string(width) + "x" +
+                       std::to_string(height) + ")");
 }
 
 /**
