@@ -3,7 +3,7 @@
 **Lot :** [LOT-07](epic.md) · **Emplacement :** `External/`, CMake · **Statut :** à faire
 
 ## Contexte
-Le format de niveau est **hybride** : une grille ASCII dans une enveloppe **JSON** (`EX-LVL-003`).
+Le format de niveau est un **JSON structuré** (liste de tuiles-objets, `EX-LVL-003`).
 Il faut donc parser du JSON. Plutôt qu'un parser maison, le lot s'appuie sur **nlohmann/json**
 (*header-only*, éprouvée), première dépendance tierce de **production** du projet.
 

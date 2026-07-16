@@ -4,7 +4,8 @@
 
 ## Objectif
 Représenter un niveau comme une **grille de tuiles typées** et le **charger depuis un fichier** au
-format **hybride ASCII + JSON** (`EX-LVL-003`), avec **validation** (`EX-LVL-004`). À l'issue du
+format **JSON structuré** (liste de tuiles-objets, `EX-LVL-003`), avec **validation**
+(`EX-LVL-004`). À l'issue du
 lot, « Charger niveau » ouvre un **niveau de démonstration réel** chargé depuis
 `Source/Elements/Levels`, dont la grille s'affiche à l'écran.
 
@@ -17,9 +18,10 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 - **Modèle (Core)** : types de tuiles (`Vide`, `Solide`, `Danger`, `Entrée`, `Sortie`,
   `Interrupteur`, `Porte`), grille (`TileMap`) et niveau (`Level` = grille + entrée/sortie +
   mécanismes avec liaisons) — `EX-GP-001`, `EX-LVL-002`.
-- **Format & chargement** : lecture d'un fichier de niveau au format **hybride** — grille
-  **ASCII** dans une enveloppe **JSON** portant les métadonnées et les mécanismes
-  (`EX-LVL-001`, `EX-LVL-003`), parsée via une **bibliothèque JSON épinglée**.
+- **Format & chargement** : lecture d'un fichier de niveau au format **JSON structuré** — un
+  objet JSON portant les métadonnées et une **liste de tuiles-objets** `{x, y, type, …}` avec
+  liaisons de mécanismes par identifiant (`EX-LVL-001`, `EX-LVL-003`), parsé via une
+  **bibliothèque JSON épinglée**.
 - **Validation** : dimensions cohérentes avec la grille, présence d'une entrée et d'une sortie,
   liaisons de mécanismes valides ; erreur **récupérable** et exploitable si le fichier est
   invalide (`EX-LVL-004`, `EX-NFR-040`).
@@ -37,9 +39,11 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 - **Éditeur** (`EX-EDIT-*`) et **décors** (`EX-DEC-*`).
 
 ## Décisions de cadrage
-- **Format** : hybride **ASCII + JSON** conforme à `EX-LVL-003` — le fichier est un objet JSON
-  (`name`, `width`, `height`, `grid` = tableau de lignes ASCII, `mechanisms`). Légende de la
-  grille : `.` vide, `#` solide, `^` danger, `E` entrée, `S` sortie, `i` interrupteur, `D` porte.
+- **Format** : **JSON structuré orienté objets** conforme à `EX-LVL-003` — le fichier est un
+  objet JSON (`name`, `width`, `height`, `tiles`), où `tiles` est une **liste d'objets tuile**
+  `{x, y, type, …}` (cases vides omises). Types : `entry`, `exit`, `solid`, `danger`, `switch`,
+  `door` ; liaison interrupteur↔porte par **identifiant** (`switch.id` ↔ `door.opensWith`).
+  Choisi pour un moteur **extensible** (données riches par tuile, round-trip d'éditeur direct).
 - **Dépendance JSON** : bibliothèque **nlohmann/json**, ajoutée via **FetchContent** et
   **épinglée** à une version (`EX-NFR-031`) ; *header-only*, elle n'entame pas la testabilité de
   `Core`.
@@ -53,7 +57,7 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 
 ## Exigences couvertes
 - `EX-LVL-001` (fichier externe), `EX-LVL-002` (contenu du niveau), `EX-LVL-003` (format
-  hybride), `EX-LVL-004` (validation).
+  JSON structuré), `EX-LVL-004` (validation).
 - `EX-GP-001` (grille de tuiles typées), `EX-REN-010` (rendu de la grille depuis l'atlas).
 - `EX-NFR-020` (tests), `EX-NFR-031` (dépendance épinglée), `EX-NFR-040` (erreur récupérable).
 
@@ -65,13 +69,13 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-dependance-json.md) | Dépendance JSON (nlohmann/json épinglé) | `External`, CMake | ⬜ Non commencé |
 | [TACHE-02](tache-02-modele-niveau.md) | Modèle de tuiles et de niveau | `Core/Levels` | ⬜ Non commencé |
-| [TACHE-03](tache-03-chargement-hybride.md) | Chargement du format hybride ASCII+JSON | `Core/Levels` | ⬜ Non commencé |
+| [TACHE-03](tache-03-chargement-json.md) | Chargement du niveau (JSON) | `Core/Levels` | ⬜ Non commencé |
 | [TACHE-04](tache-04-validation.md) | Validation du niveau | `Core/Levels` | ⬜ Non commencé |
 | [TACHE-05](tache-05-niveau-demo.md) | Niveau de démonstration | `Elements/Levels` | ⬜ Non commencé |
 | [TACHE-06](tache-06-rendu-integration.md) | Rendu du niveau + intégration « Charger niveau » | `HMI/Interface` | ⬜ Non commencé |
 
 ## Critères d'acceptation du lot
-1. Un fichier de niveau au format **hybride ASCII+JSON** est chargé en un `Level` (grille typée
+1. Un fichier de niveau au format **JSON structuré** (liste de tuiles-objets) est chargé en un `Level` (grille typée
    + entrée/sortie + mécanismes avec liaisons).
 2. Un fichier **invalide** (dimensions incohérentes, entrée/sortie manquante, liaison de
    mécanisme invalide) est **rejeté proprement** avec un message exploitable, **sans planter**.
@@ -89,7 +93,7 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 ## Navigation des tâches
 - @subpage lot-07-tache-01-dependance-json
 - @subpage lot-07-tache-02-modele-niveau
-- @subpage lot-07-tache-03-chargement-hybride
+- @subpage lot-07-tache-03-chargement-json
 - @subpage lot-07-tache-04-validation
 - @subpage lot-07-tache-05-niveau-demo
 - @subpage lot-07-tache-06-rendu-integration

@@ -3,18 +3,19 @@
 **Lot :** [LOT-07](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** à faire
 
 ## Contexte
-Un fichier de niveau syntaxiquement correct peut rester **incohérent** (grille de mauvaise
-taille, sans sortie, mécanisme mal lié). Le chargement doit **valider** les données et signaler
-une erreur **exploitable** (`EX-LVL-004`), sans planter (`EX-NFR-040`) — un level designer doit
+Un fichier de niveau syntaxiquement correct peut rester **incohérent** (tuile hors de la grille,
+sans sortie, mécanisme mal lié). Le chargement doit **valider** les données et signaler une
+erreur **exploitable** (`EX-LVL-004`), sans planter (`EX-NFR-040`) — un level designer doit
 comprendre ce qui ne va pas.
 
 ## Travail à réaliser
 - Valider, après parsing (TACHE-03) et avant de rendre le `Level` :
-  - **Dimensions cohérentes** : `grid` compte exactement `height` lignes de `width` caractères.
-  - **Entrée et sortie présentes** : exactement une **entrée** (`E`) et une **sortie** (`S`)
+  - **Positions dans les bornes** : chaque tuile a `0 ≤ x < width` et `0 ≤ y < height` ; pas de
+    **deux tuiles** sur la même case.
+  - **Entrée et sortie présentes** : exactement une tuile `entry` et une tuile `exit`
     (unicité retenue pour ce lot).
-  - **Liaisons de mécanismes valides** : chaque `switch`/`door` est **dans les bornes** et
-    pointe sur la **bonne tuile** (interrupteur sur `i`, porte sur `D`).
+  - **Liaisons de mécanismes valides** : chaque `door.opensWith` référence un `switch.id`
+    **existant** ; les `id` d'interrupteurs sont **uniques**.
 - Renvoyer un **message d'erreur descriptif** (quel contrôle a échoué, où) via le résultat du
   chargeur.
 
@@ -23,10 +24,9 @@ comprendre ce qui ne va pas.
 - `Source/Test/CMakeLists.txt`.
 
 ## Tests (obligatoires)
-- **Dimensions incohérentes** (ligne trop courte / trop de lignes) → rejet avec message.
+- **Tuile hors bornes** (`x ≥ width` ou `y ≥ height`) → rejet avec message.
 - **Entrée ou sortie manquante** (ou en double) → rejet.
-- **Liaison de mécanisme invalide** (hors bornes, ou pointant sur une tuile qui n'est pas
-  `i`/`D`) → rejet.
+- **Liaison de mécanisme invalide** (`door.opensWith` sans interrupteur correspondant) → rejet.
 - Un **niveau valide** est accepté.
 
 ## Points d'attention

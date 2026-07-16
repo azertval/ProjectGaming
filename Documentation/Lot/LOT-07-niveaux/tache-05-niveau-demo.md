@@ -8,10 +8,11 @@ d'un niveau à afficher. Cette tâche fournit **un** niveau de démonstration va
 `Source/Elements/Levels` (`EX-LVL-001`), et le rend disponible à l'exécution.
 
 ## Travail à réaliser
-- Créer un fichier de niveau au **format hybride ASCII+JSON** (`EX-LVL-003`), **valide** au sens
-  de la TACHE-04 : dimensions cohérentes, une entrée et une sortie, et au moins **un mécanisme**
-  interrupteur↔porte pour exercer le chargement des liaisons.
-- Ajouter un `README` à `Source/Elements/Levels` (format, légende, où sont les niveaux).
+- Créer un fichier de niveau au **format JSON** (liste de tuiles-objets, `EX-LVL-003`), **valide**
+  au sens de la TACHE-04 : tuiles dans les bornes, une entrée et une sortie, et au moins **un
+  mécanisme** interrupteur↔porte (`switch`/`door` liés par identifiant) pour exercer le
+  chargement des liaisons.
+- Ajouter un `README` à `Source/Elements/Levels` (format, types de tuiles, où sont les niveaux).
 - **CMake** : copier `Source/Elements/Levels/*` à côté de l'exécutable (comme les catalogues de
   traduction `.lang`), pour un chargement par chemin relatif au binaire.
 
@@ -26,9 +27,10 @@ d'un niveau à afficher. Cette tâche fournit **un** niveau de démonstration va
 - Les fichiers de niveaux sont bien **copiés** à côté de l'exécutable.
 
 ## Points d'attention
-- Rester **simple et lisible** : un petit niveau (≈ 12×8) illustrant tuiles solides, un danger,
-  une entrée, une sortie et une paire interrupteur/porte.
-- Coordonnées des mécanismes en `[colonne, ligne]`, cohérentes avec la grille (`niveaux.md`).
+- Rester **simple** : un petit niveau (≈ 12×8) illustrant tuiles solides, un danger, une entrée,
+  une sortie et une paire interrupteur/porte.
+- Coordonnées `x` = colonne, `y` = ligne, origine haut-gauche ; liaison `switch.id` ↔
+  `door.opensWith` (cf. `niveaux.md`).
 - Un seul niveau ici : l'enchaînement et les 3 niveaux du MVP (`EX-LVL-010`…`EX-LVL-012`) sont
   hors périmètre.
 
