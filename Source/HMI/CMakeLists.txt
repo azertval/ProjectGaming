@@ -13,6 +13,8 @@ add_executable(ProjectGaming
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
     Interface/MenuScreen.cpp
+    Interface/GameScreen.cpp
+    Interface/EditorScreen.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
