@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['index_0',['index',['../structcore_1_1Entity.html#a8549b4984fb56b9cb482921c204267c6',1,'core::Entity']]],
-  ['invalid_5fentity_1',['INVALID_ENTITY',['../namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272',1,'core']]],
-  ['invalid_5findex_2',['INVALID_INDEX',['../structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38',1,'core::Entity']]],
-  ['invalid_5fposition_3',['INVALID_POSITION',['../classcore_1_1ComponentPool.html#a1b125a165f29d95bd74bc14cdd40be64',1,'core::ComponentPool']]]
+  ['g_0',['g',['../structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3',1,'core::Color::g'],['../structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d',1,'hmi::SpriteQuad::g'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a159fa9be9305ea7dcf1e051c61649762',1,'hmi::SpriteBatch::Vertex::g']]],
+  ['gap_1',['GAP',['../classhmi_1_1SaveLogButton.html#aaeda1ca332259231077bdec136aa9dc6',1,'hmi::SaveLogButton']]],
+  ['generation_2',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]]
 ];

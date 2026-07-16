@@ -1,0 +1,21 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_save_log_button.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_save_log_button.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic." alt="" coords="205,5,459,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,109,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,63,108,106,106,101,247,58"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="133,108,301,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="299,62,246,102,243,97,295,58"/>
+<area shape="rect" id="Node000007" href="$LanguageSelector_8h.html" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="326,108,567,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="369,58,421,97,418,102,365,62"/>
+<area shape="rect" id="Node000010" href="$SaveLogButton_8h.html" title="Logique (testable) du bouton d&#39;enregistrement des logs, à gauche du bouton de langue." alt="" coords="592,108,816,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="446,57,642,102,641,108,445,63"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="101,181,157,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="205,135,156,175,153,170,202,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="182,181,253,207"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="220,134,220,168,215,168,215,134"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="277,181,344,207"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="234,131,286,171,283,175,231,135"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="392,181,451,207"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="445,135,432,169,427,168,440,133"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="475,181,573,207"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="461,131,503,170,499,174,457,135"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trace_0',['Trace',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1',1,'core']]]
+  ['down_0',['Down',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53',1,'hmi']]]
 ];

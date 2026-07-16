@@ -42,8 +42,10 @@ var namespacecore =
     [ "operator-", "namespacecore.html#aabe0f47eb63d4391e7e95509fb7ff6b0", null ],
     [ "operator/", "namespacecore.html#ab931b1596f60176fe703b83007f27a12", null ],
     [ "operator==", "namespacecore.html#a78fa4a986a900f73517454f7c1eff774", null ],
+    [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
     [ "setAssertionHandler", "namespacecore.html#a0b2fde01c38742c460acb176220332ff", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
-    [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ]
+    [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ],
+    [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ]
 ];

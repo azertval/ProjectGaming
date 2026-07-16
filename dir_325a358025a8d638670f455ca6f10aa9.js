@@ -3,6 +3,7 @@ var dir_325a358025a8d638670f455ca6f10aa9 =
     [ "Components", "dir_f69202b516efeab62778db608b6130e3.html", "dir_f69202b516efeab62778db608b6130e3" ],
     [ "Systems", "dir_935c2558c4a2ecc5b2bcb71c6abb691d.html", "dir_935c2558c4a2ecc5b2bcb71c6abb691d" ],
     [ "ComponentPool.h", "ComponentPool_8h.html", "ComponentPool_8h" ],
+    [ "EcsLog.h", "EcsLog_8h.html", "EcsLog_8h" ],
     [ "Entity.h", "Entity_8h.html", "Entity_8h" ],
     [ "EntityManager.cpp", "EntityManager_8cpp.html", null ],
     [ "EntityManager.h", "EntityManager_8h.html", "EntityManager_8h" ],

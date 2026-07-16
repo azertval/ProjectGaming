@@ -128,7 +128,7 @@ var NAVTREE =
           [ "RAII obligatoire", "spec-conventions.html#autotoc_md29", null ]
         ] ],
         [ "6. Documentation Doxygen", "spec-conventions.html#autotoc_md30", [
-          [ "Description dans le <tt>.h</tt> ET le <tt>.cpp</tt>", "spec-conventions.html#autotoc_md31", null ],
+          [ "Doxygen dans le header, commentaires simples <tt>//</tt> dans le <tt>.cpp</tt>", "spec-conventions.html#autotoc_md31", null ],
           [ "Documentation du corps (<tt>.cpp</tt>)", "spec-conventions.html#autotoc_md32", null ]
         ] ],
         [ "7. Bonnes pratiques", "spec-conventions.html#autotoc_md33", null ],
@@ -140,7 +140,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md341", null ],
+      [ "Lots", "lots.html#autotoc_md407", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md87", null ],
         [ "Périmètre", "lot-01.html#autotoc_md88", [
@@ -469,15 +469,100 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md339", null ],
           [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md340", null ]
         ] ]
+      ] ],
+      [ "LOT-06 — Menu principal", "lot-06.html", [
+        [ "Objectif", "lot-06.html#autotoc_md341", null ],
+        [ "Périmètre", "lot-06.html#autotoc_md342", [
+          [ "Inclus", "lot-06.html#autotoc_md343", null ],
+          [ "Exclus (lots ultérieurs)", "lot-06.html#autotoc_md344", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-06.html#autotoc_md345", null ],
+        [ "Exigences couvertes", "lot-06.html#autotoc_md346", null ],
+        [ "Découpage", "lot-06.html#autotoc_md347", null ],
+        [ "Critères d'acceptation du lot", "lot-06.html#autotoc_md348", null ],
+        [ "Dépendances", "lot-06.html#autotoc_md349", null ],
+        [ "Navigation des tâches", "lot-06.html#autotoc_md350", null ],
+        [ "TACHE-01 — Entrées clavier & souris", "lot-06-tache-01-entrees-clavier-souris.html", [
+          [ "Contexte", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md351", null ],
+          [ "Travail à réaliser", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md352", null ],
+          [ "Fichiers impactés", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md353", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md354", null ],
+          [ "Points d'attention", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md355", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md356", null ],
+          [ "Exigences", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md357", null ]
+        ] ],
+        [ "TACHE-02 — Rendu de texte (police bitmap)", "lot-06-tache-02-rendu-texte-bitmap.html", [
+          [ "Contexte", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md358", null ],
+          [ "Travail à réaliser", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md359", null ],
+          [ "Fichiers impactés", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md360", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md361", null ],
+          [ "Points d'attention", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md362", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md363", null ],
+          [ "Exigences", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md364", null ]
+        ] ],
+        [ "TACHE-03 — Catalogue de traduction (i18n)", "lot-06-tache-03-catalogue-traduction.html", [
+          [ "Contexte", "lot-06-tache-03-catalogue-traduction.html#autotoc_md365", null ],
+          [ "Travail à réaliser", "lot-06-tache-03-catalogue-traduction.html#autotoc_md366", null ],
+          [ "Fichiers impactés", "lot-06-tache-03-catalogue-traduction.html#autotoc_md367", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md368", null ],
+          [ "Points d'attention", "lot-06-tache-03-catalogue-traduction.html#autotoc_md369", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md370", null ],
+          [ "Exigences", "lot-06-tache-03-catalogue-traduction.html#autotoc_md371", null ]
+        ] ],
+        [ "TACHE-04 — États d'application (écrans)", "lot-06-tache-04-etats-application.html", [
+          [ "Contexte", "lot-06-tache-04-etats-application.html#autotoc_md372", null ],
+          [ "Travail à réaliser", "lot-06-tache-04-etats-application.html#autotoc_md373", null ],
+          [ "Fichiers impactés", "lot-06-tache-04-etats-application.html#autotoc_md374", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-04-etats-application.html#autotoc_md375", null ],
+          [ "Points d'attention", "lot-06-tache-04-etats-application.html#autotoc_md376", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-04-etats-application.html#autotoc_md377", null ],
+          [ "Exigences", "lot-06-tache-04-etats-application.html#autotoc_md378", null ]
+        ] ],
+        [ "TACHE-05 — Écran de menu principal", "lot-06-tache-05-ecran-menu-principal.html", [
+          [ "Contexte", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md379", null ],
+          [ "Travail à réaliser", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md380", null ],
+          [ "Fichiers impactés", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md381", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md382", null ],
+          [ "Points d'attention", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md383", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md384", null ],
+          [ "Exigences", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md385", null ]
+        ] ],
+        [ "TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)", "lot-06-tache-06-ecrans-cibles.html", [
+          [ "Contexte", "lot-06-tache-06-ecrans-cibles.html#autotoc_md386", null ],
+          [ "Travail à réaliser", "lot-06-tache-06-ecrans-cibles.html#autotoc_md387", null ],
+          [ "Fichiers impactés", "lot-06-tache-06-ecrans-cibles.html#autotoc_md388", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md389", null ],
+          [ "Points d'attention", "lot-06-tache-06-ecrans-cibles.html#autotoc_md390", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md391", null ],
+          [ "Exigences", "lot-06-tache-06-ecrans-cibles.html#autotoc_md392", null ]
+        ] ],
+        [ "TACHE-07 — Intégration `main` (boucle pilotée par l'écran)", "lot-06-tache-07-integration-main.html", [
+          [ "Contexte", "lot-06-tache-07-integration-main.html#autotoc_md393", null ],
+          [ "Travail à réaliser", "lot-06-tache-07-integration-main.html#autotoc_md394", null ],
+          [ "Fichiers impactés", "lot-06-tache-07-integration-main.html#autotoc_md395", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-07-integration-main.html#autotoc_md396", null ],
+          [ "Points d'attention", "lot-06-tache-07-integration-main.html#autotoc_md397", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-07-integration-main.html#autotoc_md398", null ],
+          [ "Exigences", "lot-06-tache-07-integration-main.html#autotoc_md399", null ]
+        ] ],
+        [ "TACHE-08 — Sélecteur de langue", "lot-06-tache-08-selecteur-langue.html", [
+          [ "Contexte", "lot-06-tache-08-selecteur-langue.html#autotoc_md400", null ],
+          [ "Travail à réaliser", "lot-06-tache-08-selecteur-langue.html#autotoc_md401", null ],
+          [ "Fichiers impactés", "lot-06-tache-08-selecteur-langue.html#autotoc_md402", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-08-selecteur-langue.html#autotoc_md403", null ],
+          [ "Points d'attention", "lot-06-tache-08-selecteur-langue.html#autotoc_md404", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-08-selecteur-langue.html#autotoc_md405", null ],
+          [ "Exigences", "lot-06-tache-08-selecteur-langue.html#autotoc_md406", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md342", null ],
-      [ "À venir", "manuel.html#autotoc_md343", null ],
+      [ "Pages", "manuel.html#autotoc_md408", null ],
+      [ "À venir", "manuel.html#autotoc_md409", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md344", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md345", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md346", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md410", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md411", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md412", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -496,9 +581,10 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
+        [ "Enumerations", "functions_enum.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -507,6 +593,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -516,10 +603,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Assert_8cpp.html",
-"classcore_1_1MemoryLogSink.html#a9bfb2629320e9647a66759b94bbf3e55",
-"classhmi_1_1Window.html#ad846994df75a64e3f547c04607bdc7f1",
-"lot-04-tache-04-pages-specification.html#autotoc_md253",
-"structcore_1_1AtlasRegion.html"
+"classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7",
+"classhmi_1_1EditorScreen.html",
+"classhmi_1_1SaveIcon.html#a19ae609a8e30fcd6fef1ec4e1ffeb955",
+"globals_vars.html",
+"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md311",
+"spec-exigences.html#autotoc_md60",
+"structhmi_1_1SpriteRenderer_1_1LayeredQuad.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

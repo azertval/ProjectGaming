@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['get_0',['get',['../classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08',1,'core::ComponentPool::get(Entity entity)'],['../classcore_1_1ComponentPool.html#a4ccf1839af203e6487c32b9a8c1ae00a',1,'core::ComponentPool::get(Entity entity) const']]],
-  ['getcomponent_1',['getComponent',['../classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd',1,'core::World']]],
-  ['graphicsdevice_2',['graphicsdevice',['../classhmi_1_1GraphicsDevice.html#ab2f74262d1db46c396485185a6a069cc',1,'hmi::GraphicsDevice::GraphicsDevice(HWND window, int width, int height)'],['../classhmi_1_1GraphicsDevice.html#a2596298ef621bc08f76c48aa349e286a',1,'hmi::GraphicsDevice::GraphicsDevice(const GraphicsDevice &amp;)=delete']]]
+  ['gamescreen_0',['GameScreen',['../classhmi_1_1GameScreen.html#a1e9d7fb46972f8e0d6c693804b106ca4',1,'hmi::GameScreen']]],
+  ['get_1',['get',['../classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08',1,'core::ComponentPool::get(Entity entity)'],['../classcore_1_1ComponentPool.html#a4ccf1839af203e6487c32b9a8c1ae00a',1,'core::ComponentPool::get(Entity entity) const']]],
+  ['getcomponent_2',['getComponent',['../classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd',1,'core::World']]],
+  ['graphicsdevice_3',['graphicsdevice',['../classhmi_1_1GraphicsDevice.html#ab2f74262d1db46c396485185a6a069cc',1,'hmi::GraphicsDevice::GraphicsDevice(HWND window, int width, int height)'],['../classhmi_1_1GraphicsDevice.html#a2596298ef621bc08f76c48aa349e286a',1,'hmi::GraphicsDevice::GraphicsDevice(const GraphicsDevice &amp;)=delete']]]
 ];

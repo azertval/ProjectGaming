@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['specifications_2emd_0',['specifications.md',['../specifications_8md.html',1,'']]],
-  ['sprite_2eh_1',['Sprite.h',['../Sprite_8h.html',1,'']]],
-  ['spritebatch_2ecpp_2',['SpriteBatch.cpp',['../SpriteBatch_8cpp.html',1,'']]],
-  ['spritebatch_2eh_3',['SpriteBatch.h',['../SpriteBatch_8h.html',1,'']]],
-  ['spriterenderer_2ecpp_4',['SpriteRenderer.cpp',['../SpriteRenderer_8cpp.html',1,'']]],
-  ['spriterenderer_2eh_5',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]]
+  ['rect_2ecpp_0',['Rect.cpp',['../Rect_8cpp.html',1,'']]],
+  ['rect_2eh_1',['Rect.h',['../Rect_8h.html',1,'']]],
+  ['rendercontext_2eh_2',['RenderContext.h',['../RenderContext_8h.html',1,'']]],
+  ['rendu_2dtechnique_2emd_3',['rendu-technique.md',['../rendu-technique_8md.html',1,'']]]
 ];

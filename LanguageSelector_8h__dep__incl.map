@@ -1,0 +1,17 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LanguageSelector.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LanguageSelector.h">
+<area shape="rect" id="Node000001" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="534,5,779,60"/>
+<area shape="rect" id="Node000002" href="$LanguageSelector_8cpp.html" title=" " alt="" coords="5,108,265,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="521,63,266,112,265,106,520,58"/>
+<area shape="rect" id="Node000003" href="$MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel." alt="" coords="290,108,511,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="578,67,468,110,466,105,576,62"/>
+<area shape="rect" id="Node000006" href="$SaveLogButton_8cpp.html" title=" " alt="" coords="535,108,778,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="659,74,659,108,654,108,654,74"/>
+<area shape="rect" id="Node000007" href="$test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic." alt="" coords="802,108,1066,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="742,62,863,105,861,110,741,67"/>
+<area shape="rect" id="Node000008" href="$test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic." alt="" coords="1090,108,1343,163"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="793,55,1078,105,1090,108,1089,113,1078,111,792,60"/>
+<area shape="rect" id="Node000004" href="$MenuScreen_8cpp.html" title=" " alt="" coords="164,211,389,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="359,174,311,213,307,208,356,169"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="414,211,635,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="446,169,494,208,491,213,442,174"/>
+</map>

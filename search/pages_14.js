@@ -5,6 +5,7 @@ var searchData=
   ['redimensionnement_2',['TACHE-04 — Effacement écran, présentation &amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],
   ['rendu_202d_20_3a_20atlas_20sprites_20caméra_3',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
   ['rendu_20cible_20technique_4',['Rendu &amp; cible technique',['../spec-rendu-technique.html',1,'specifications']]],
-  ['rendu_20des_20sprites_20ecs_20→_20écran_5',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
-  ['requêtes_20vues_20multi_20composants_6',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
+  ['rendu_20de_20texte_20police_20bitmap_5',['TACHE-02 — Rendu de texte (police bitmap)',['../lot-06-tache-02-rendu-texte-bitmap.html',1,'lot-06']]],
+  ['rendu_20des_20sprites_20ecs_20→_20écran_6',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
+  ['requêtes_20vues_20multi_20composants_7',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
 ];

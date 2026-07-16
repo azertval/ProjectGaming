@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['layer_0',['layer',['../structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082',1,'core::Sprite::layer'],['../structhmi_1_1SpriteRenderer_1_1LayeredQuad.html#a7f5eff7b482e40a676dfab85ccc7f0c2',1,'hmi::SpriteRenderer::LayeredQuad::layer']]],
-  ['level_1',['level',['../structcore_1_1MemoryLogSink_1_1Entry.html#ab2a140504bc9e377d32147b8cddc7055',1,'core::MemoryLogSink::Entry']]]
+  ['height_0',['height',['../structcore_1_1AtlasRegion.html#a3a0cb4b401af97afdc18eda1ad766069',1,'core::AtlasRegion::height'],['../structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344',1,'hmi::SpriteQuad::height'],['../structhmi_1_1LanguageSelector_1_1Rect.html#a8416e6bc9bf91772636f7cea6d82950e',1,'hmi::LanguageSelector::Rect::height'],['../structhmi_1_1SaveLogButton_1_1Rect.html#a42c332cf9264ca294eb3299f4e0512d3',1,'hmi::SaveLogButton::Rect::height']]]
 ];

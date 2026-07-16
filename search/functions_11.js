@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['update_0',['update',['../classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4',1,'core::ISystem::update()'],['../classcore_1_1MovementSystem.html#af4476267f1301a583126866e01567b1f',1,'core::MovementSystem::update()'],['../classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251',1,'core::World::update()']]]
+  ['saveicon_0',['SaveIcon',['../classhmi_1_1SaveIcon.html#a53f90e3b41a08af53813a88db83a85a1',1,'hmi::SaveIcon']]],
+  ['savesessionlog_1',['saveSessionLog',['../namespacehmi.html#a680b600014001a99d296df386e7ed9d8',1,'hmi']]],
+  ['scale_2',['scale',['../classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a',1,'hmi::Camera2D']]],
+  ['screenmanager_3',['screenmanager',['../classhmi_1_1ScreenManager.html#a1993ab9dcd72a71307cce101e136cea3',1,'hmi::ScreenManager::ScreenManager(Factory factory, ScreenId initial)'],['../classhmi_1_1ScreenManager.html#afa4dc906486b7031b60d35c125aa52e0',1,'hmi::ScreenManager::ScreenManager(const ScreenManager &amp;)=delete']]],
+  ['screenprojection_4',['screenProjection',['../classhmi_1_1BitmapFont.html#ae86748496c03abb1b67a5b4f3d8ada06',1,'hmi::BitmapFont']]],
+  ['screentoworld_5',['screenToWorld',['../classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d',1,'hmi::Camera2D']]],
+  ['selectedindex_6',['selectedIndex',['../classhmi_1_1MenuModel.html#a7006a37cb54fd087c01dd4a52a94c801',1,'hmi::MenuModel']]],
+  ['serializesessionlog_7',['serializeSessionLog',['../namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b',1,'hmi']]],
+  ['setactivecatalog_8',['setActiveCatalog',['../classhmi_1_1Localization.html#a9612fcf1c743d947e02ef916e652a44c',1,'hmi::Localization']]],
+  ['setassertionhandler_9',['setAssertionHandler',['../namespacecore.html#a0b2fde01c38742c460acb176220332ff',1,'core']]],
+  ['setcenter_10',['setCenter',['../classhmi_1_1Camera2D.html#a93c7658e7e6beddb7002f8b2223145d3',1,'hmi::Camera2D']]],
+  ['setdefaultcatalog_11',['setDefaultCatalog',['../classhmi_1_1Localization.html#a231fac6516ee2de00e652da9aaacf5b4',1,'hmi::Localization']]],
+  ['setminimumlevel_12',['setMinimumLevel',['../classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683',1,'core::Logger']]],
+  ['setviewportsize_13',['setViewportSize',['../classhmi_1_1Camera2D.html#aa82aa311014992d26f26c47db0f3d89c',1,'hmi::Camera2D']]],
+  ['setzoom_14',['setZoom',['../classhmi_1_1Camera2D.html#a6f952a49e27d13539d5ab592233228a9',1,'hmi::Camera2D']]],
+  ['shouldclose_15',['shouldClose',['../classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c',1,'hmi::Window']]],
+  ['shouldquit_16',['shouldQuit',['../classhmi_1_1ScreenManager.html#ab24b8140261ce6e630ba5e3dbdc5d46a',1,'hmi::ScreenManager']]],
+  ['size_17',['size',['../classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7',1,'core::ComponentPool']]],
+  ['skiptomatch_18',['skipToMatch',['../classcore_1_1View_1_1Iterator.html#a8023ce2eabf79c007797ced3a5dc7e06',1,'core::View::Iterator']]],
+  ['smallestentities_19',['smallestEntities',['../classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce',1,'core::View']]],
+  ['spritebatch_20',['spritebatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
+  ['spriterenderer_21',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
+  ['switchto_22',['switchTo',['../structhmi_1_1ScreenTransition.html#ab70f04892657b3e9f10ca3647ec8d4ef',1,'hmi::ScreenTransition']]],
+  ['systemcount_23',['systemCount',['../classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d',1,'core::World']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['generation_0',['Generation',['../structcore_1_1Entity.html#a7e90cbccd752d760b3e0757dcfbeeec8',1,'core::Entity']]]
+  ['factory_0',['Factory',['../classhmi_1_1ScreenManager.html#a5ffe9acb392e180c9d59fe3adaa6a5bf',1,'hmi::ScreenManager']]]
 ];

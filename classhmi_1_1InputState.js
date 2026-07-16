@@ -1,0 +1,26 @@
+var classhmi_1_1InputState =
+[
+    [ "InputState", "classhmi_1_1InputState.html#a2e64870c1d2ac0640668fcfdca3cb9ad", null ],
+    [ "beginFrame", "classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab", null ],
+    [ "keyDown", "classhmi_1_1InputState.html#a1f60f694446239cdcc190b792c89d130", null ],
+    [ "keyPressed", "classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f", null ],
+    [ "keyReleased", "classhmi_1_1InputState.html#ae58b5ee926c82c8f62bf57ee7e446ac4", null ],
+    [ "mouseButtonDown", "classhmi_1_1InputState.html#aeecec17aba35c137bed234ff033bc46c", null ],
+    [ "mouseButtonPressed", "classhmi_1_1InputState.html#ab129c79e0d8cf79448425c3a8d984e0e", null ],
+    [ "mouseButtonReleased", "classhmi_1_1InputState.html#a825c3827af5730d0c05b65f6c8a86798", null ],
+    [ "mouseX", "classhmi_1_1InputState.html#a88904c498ce8939978b988bc685dc904", null ],
+    [ "mouseY", "classhmi_1_1InputState.html#a7d36fdb64d478ef67dacee6c869432b9", null ],
+    [ "onKeyDown", "classhmi_1_1InputState.html#a0ac64c54bed934b3dddbafe545adcd8d", null ],
+    [ "onKeyUp", "classhmi_1_1InputState.html#ad760f16af7751f4627ffcfebb4723087", null ],
+    [ "onMouseButtonDown", "classhmi_1_1InputState.html#a3312dd5f77db5b9dcd128a8affddd0eb", null ],
+    [ "onMouseButtonUp", "classhmi_1_1InputState.html#a376004df68b5f7754a110a2bcd2f90f8", null ],
+    [ "onMouseMove", "classhmi_1_1InputState.html#abbd4df0d240a3683210015a31e183bc5", null ],
+    [ "_buttonsCurrent", "classhmi_1_1InputState.html#a7f0a7108d61b34be561c8566a3b3181e", null ],
+    [ "_buttonsPrevious", "classhmi_1_1InputState.html#add9f97042d722455e93b3a697bbeafa2", null ],
+    [ "_keysCurrent", "classhmi_1_1InputState.html#acc44c933a7b0873528148ea88efb3802", null ],
+    [ "_keysPrevious", "classhmi_1_1InputState.html#acb67773da145934bbee587d60990f64f", null ],
+    [ "_mouseX", "classhmi_1_1InputState.html#aec72ed3a0c3b1767f3f3b7e38c94b9f0", null ],
+    [ "_mouseY", "classhmi_1_1InputState.html#a8fa4e1ad152450c883658be004f0522a", null ],
+    [ "BUTTON_COUNT", "classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb", null ],
+    [ "KEY_COUNT", "classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a", null ]
+];

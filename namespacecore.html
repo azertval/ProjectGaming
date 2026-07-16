@@ -208,6 +208,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a44fc8d654b0e55558cf5e5a4258b5081" id="r_a44fc8d654b0e55558cf5e5a4258b5081"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081">toString</a> (<a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> level)</td></tr>
 <tr class="memdesc:a44fc8d654b0e55558cf5e5a4258b5081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un niveau en libellé lisible.  <br /></td></tr>
 <tr class="separator:a44fc8d654b0e55558cf5e5a4258b5081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ce294afb9bbebacf6676020a0e223a" id="r_ae8ce294afb9bbebacf6676020a0e223a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a">parseLogLevel</a> (std::string_view text)</td></tr>
+<tr class="memdesc:ae8ce294afb9bbebacf6676020a0e223a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une chaîne en niveau de log (insensible à la casse).  <br /></td></tr>
+<tr class="separator:ae8ce294afb9bbebacf6676020a0e223a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
 <tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
 <tr class="separator:a69640dd3c9f3f8778a7c7621839c3794"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,6 +241,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ada3f6bef6b32bd54ea16d550e0769fb1" id="r_ada3f6bef6b32bd54ea16d550e0769fb1"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1">kDeveloperBuild</a> = true</td></tr>
+<tr class="memdesc:ada3f6bef6b32bd54ea16d550e0769fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>.  <br /></td></tr>
+<tr class="separator:ada3f6bef6b32bd54ea16d550e0769fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
 <tr class="separator:a2a9202a1a89eacaec610bdc83b0ff272"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -831,6 +837,41 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae8ce294afb9bbebacf6676020a0e223a" name="ae8ce294afb9bbebacf6676020a0e223a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ce294afb9bbebacf6676020a0e223a">&#9670;&#160;</a></span>parseLogLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt; core::parseLogLevel </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>text</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit une chaîne en niveau de log (insensible à la casse). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Nom du niveau : « trace », « info », « warning » (ou « warn »), « error ». </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le niveau correspondant, ou <code>std::nullopt</code> si la chaîne n'est pas reconnue. </dd></dl>
+
+</div>
+</div>
 <a id="a0b2fde01c38742c460acb176220332ff" name="a0b2fde01c38742c460acb176220332ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b2fde01c38742c460acb176220332ff">&#9670;&#160;</a></span>setAssertionHandler()</h2>
 
@@ -938,6 +979,31 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Entité invalide conventionnelle : ne désigne jamais une entité vivante. </p>
+
+</div>
+</div>
+<a id="ada3f6bef6b32bd54ea16d550e0769fb1" name="ada3f6bef6b32bd54ea16d550e0769fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada3f6bef6b32bd54ea16d550e0769fb1">&#9670;&#160;</a></span>kDeveloperBuild</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool core::kDeveloperBuild = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>. </p>
+<p>S'appuie sur <code>NDEBUG</code> (défini par le compilateur en Release). Sert à n'inclure que dans les builds de développement des éléments d'outillage (par exemple des boutons de débogage de l'interface), à utiliser de préférence avec <code>if constexpr</code> pour éliminer le code en Release. </p>
 
 </div>
 </div>

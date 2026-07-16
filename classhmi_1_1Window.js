@@ -8,13 +8,16 @@ var classhmi_1_1Window =
     [ "consumeResize", "classhmi_1_1Window.html#a8982fa83d7a924f987f33260b1bcb169", null ],
     [ "handle", "classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59", null ],
     [ "handleMessage", "classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75", null ],
+    [ "input", "classhmi_1_1Window.html#a109b88a9b63f3f2723b7b040ab9a453a", null ],
     [ "operator=", "classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643", null ],
     [ "pumpMessages", "classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000", null ],
+    [ "requestClose", "classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead", null ],
     [ "shouldClose", "classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c", null ],
     [ "windowProcedure", "classhmi_1_1Window.html#a84edce17a0339adcb5aa1fb6473fe4c0", null ],
     [ "_clientHeight", "classhmi_1_1Window.html#af736466ab0ddd704963d011277f3b993", null ],
     [ "_clientWidth", "classhmi_1_1Window.html#a734318f2dafe226f3efee88089790a6a", null ],
     [ "_handle", "classhmi_1_1Window.html#aa1427e35a137aaebaebfec894efe1866", null ],
+    [ "_input", "classhmi_1_1Window.html#a7f866e82cb3a0faac01f2ae0a8d03699", null ],
     [ "_resized", "classhmi_1_1Window.html#ad846994df75a64e3f547c04607bdc7f1", null ],
     [ "_shouldClose", "classhmi_1_1Window.html#a09258ba23dcd76cf000cd1c9d7a4855f", null ]
 ];

@@ -100,10 +100,24 @@ $(document).ready(function(){initNavTree('classhmi_1_1Window.html',''); initResi
 </div><!--header-->
 <div class="contents">
 
-<p>Encapsule une fenêtre Win32 (création, événements, fermeture) en RAII.  
+<p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.  
  <a href="classhmi_1_1Window.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Window_8h_source.html">Window.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for hmi::Window:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhmi_1_1Window__coll__graph.png" border="0" usemap="#ahmi_1_1Window_coll__map" alt="Collaboration graph"/></div>
+<map name="ahmi_1_1Window_coll__map" id="ahmi_1_1Window_coll__map">
+<area shape="rect" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="132,211,239,236"/>
+<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="124,123,247,148"/>
+<area shape="poly" title=" " alt="" coords="188,162,188,210,183,210,183,162"/>
+<area shape="rect" title=" " alt="" coords="5,5,165,45"/>
+<area shape="poly" title=" " alt="" coords="114,54,176,120,172,124,110,57"/>
+<area shape="rect" title=" " alt="" coords="190,5,381,45"/>
+<area shape="poly" title=" " alt="" coords="277,60,266,81,251,101,234,114,216,125,213,120,231,110,247,97,261,78,272,57"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -118,11 +132,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adb76188ff4f04b291cce0ee95b55f643" id="r_adb76188ff4f04b291cce0ee95b55f643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1Window.html">Window</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643">operator=</a> (const <a class="el" href="classhmi_1_1Window.html">Window</a> &amp;)=delete</td></tr>
 <tr class="separator:adb76188ff4f04b291cce0ee95b55f643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac647a3054752fc7e9b7b0d2c60b14000" id="r_ac647a3054752fc7e9b7b0d2c60b14000"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000">pumpMessages</a> ()</td></tr>
-<tr class="memdesc:ac647a3054752fc7e9b7b0d2c60b14000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traite tous les messages Win32 en attente (non bloquant).  <br /></td></tr>
+<tr class="memdesc:ac647a3054752fc7e9b7b0d2c60b14000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.  <br /></td></tr>
 <tr class="separator:ac647a3054752fc7e9b7b0d2c60b14000"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca780785d93c87007bb8e2ab01aafa0c" id="r_aca780785d93c87007bb8e2ab01aafa0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c">shouldClose</a> () const</td></tr>
-<tr class="memdesc:aca780785d93c87007bb8e2ab01aafa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la fenêtre demande à se fermer (croix ou touche Échap).  <br /></td></tr>
+<tr class="memdesc:aca780785d93c87007bb8e2ab01aafa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la fenêtre demande à se fermer (croix ou <code>requestClose</code>).  <br /></td></tr>
 <tr class="separator:aca780785d93c87007bb8e2ab01aafa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a109b88a9b63f3f2723b7b040ab9a453a" id="r_a109b88a9b63f3f2723b7b040ab9a453a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a109b88a9b63f3f2723b7b040ab9a453a">input</a> () const</td></tr>
+<tr class="memdesc:a109b88a9b63f3f2723b7b040ab9a453a"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des entrées clavier/souris de la frame courante.  <br /></td></tr>
+<tr class="separator:a109b88a9b63f3f2723b7b040ab9a453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7750493037fd703a60787a56d2f61ead" id="r_a7750493037fd703a60787a56d2f61ead"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead">requestClose</a> ()</td></tr>
+<tr class="memdesc:a7750493037fd703a60787a56d2f61ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).  <br /></td></tr>
+<tr class="separator:a7750493037fd703a60787a56d2f61ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8129c90a7b8fabebad8db3755551a59" id="r_af8129c90a7b8fabebad8db3755551a59"><td class="memItemLeft" align="right" valign="top">HWND&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59">handle</a> () const</td></tr>
 <tr class="memdesc:af8129c90a7b8fabebad8db3755551a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle natif de la fenêtre, pour l'initialisation Direct3D.  <br /></td></tr>
 <tr class="separator:af8129c90a7b8fabebad8db3755551a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,10 +178,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a734318f2dafe226f3efee88089790a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af736466ab0ddd704963d011277f3b993" id="r_af736466ab0ddd704963d011277f3b993"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#af736466ab0ddd704963d011277f3b993">_clientHeight</a></td></tr>
 <tr class="separator:af736466ab0ddd704963d011277f3b993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f866e82cb3a0faac01f2ae0a8d03699" id="r_a7f866e82cb3a0faac01f2ae0a8d03699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1InputState.html">InputState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a7f866e82cb3a0faac01f2ae0a8d03699">_input</a></td></tr>
+<tr class="separator:a7f866e82cb3a0faac01f2ae0a8d03699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, fermeture) en RAII. </p>
-<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) sans traiter les entrées de gameplay, qui relèveront d'un module dédié. </p>
+<div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII. </p>
+<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La traduction des entrées en actions de gameplay relèvera d'un module dédié. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7091c512e24901972fdbed668a84939e" name="a7091c512e24901972fdbed668a84939e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7091c512e24901972fdbed668a84939e">&#9670;&#160;</a></span>Window() <span class="overload">[1/2]</span></h2>
@@ -397,6 +419,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a109b88a9b63f3f2723b7b040ab9a453a" name="a109b88a9b63f3f2723b7b040ab9a453a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109b88a9b63f3f2723b7b040ab9a453a">&#9670;&#160;</a></span>input()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp; hmi::Window::input </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État des entrées clavier/souris de la frame courante. </p>
+<dl class="section return"><dt>Returns</dt><dd>L'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> capturé, en lecture seule. </dd></dl>
+
+</div>
+</div>
 <a id="adb76188ff4f04b291cce0ee95b55f643" name="adb76188ff4f04b291cce0ee95b55f643"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb76188ff4f04b291cce0ee95b55f643">&#9670;&#160;</a></span>operator=()</h2>
 
@@ -438,7 +480,28 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Traite tous les messages Win32 en attente (non bloquant). </p>
+<p>Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente. </p>
+<p>Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">InputState::beginFrame</a></code>) puis met à jour l'état courant à partir des messages de la frame : l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est ainsi échantillonné <b>une fois par frame</b> (<code>EX-CTRL-021</code>).</p>
+<p><code>beginFrame</code> fige l'état d'entrées de la frame précédente <b>avant</b> de drainer les messages, afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante. </p>
+
+</div>
+</div>
+<a id="a7750493037fd703a60787a56d2f61ead" name="a7750493037fd703a60787a56d2f61ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7750493037fd703a60787a56d2f61ead">&#9670;&#160;</a></span>requestClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::Window::requestClose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Demande la fermeture programmée de la fenêtre (action « Quitter » du menu). </p>
 
 </div>
 </div>
@@ -457,8 +520,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Indique si la fenêtre demande à se fermer (croix ou touche Échap). </p>
+<p>Indique si la fenêtre demande à se fermer (croix ou <code>requestClose</code>). </p>
 <dl class="section return"><dt>Returns</dt><dd>true si la boucle de jeu doit s'arrêter. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>La touche Échap <b>ne ferme plus</b> la fenêtre : c'est une touche normale, lue via <code><a class="el" href="classhmi_1_1Window.html#a109b88a9b63f3f2723b7b040ab9a453a" title="État des entrées clavier/souris de la frame courante.">input()</a></code> (elle sert à revenir au menu depuis les écrans). </dd></dl>
 
 </div>
 </div>
@@ -569,6 +633,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">HWND hmi::Window::_handle</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f866e82cb3a0faac01f2ae0a8d03699" name="a7f866e82cb3a0faac01f2ae0a8d03699"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f866e82cb3a0faac01f2ae0a8d03699">&#9670;&#160;</a></span>_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1InputState.html">InputState</a> hmi::Window::_input</td>
         </tr>
       </table>
   </td>

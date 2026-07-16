@@ -190,14 +190,20 @@ RAII obligatoire</h2>
 6. Documentation Doxygen</h1>
 <p>Tout élément public (fichier, type, fonction) est documenté <b>en français</b>. <code>JAVADOC_AUTOBRIEF</code> est actif : la première phrase sert de description courte.</p>
 <h2><a class="anchor" id="autotoc_md31"></a>
-Description dans le &lt;tt&gt;.h&lt;/tt&gt; ET le &lt;tt&gt;.cpp&lt;/tt&gt;</h2>
-<p>Le bloc Doxygen de description de la fonction est présent <b>à la fois</b> dans la déclaration (<code>.h</code>) et dans la définition (<code>.cpp</code>) :</p><ul>
-<li>Dans le **<code>.h</code>** : le contrat de la fonction (rôle, paramètres, retour) — lu par les appelants.</li>
-<li>Dans le **<code>.cpp</code>** : le même bloc, complété par la documentation <b>du corps</b> de la fonction.</li>
+Doxygen dans le header, commentaires simples &lt;tt&gt;//&lt;/tt&gt; dans le &lt;tt&gt;.cpp&lt;/tt&gt;</h2>
+<p>La documentation Doxygen (exportée vers le site) vit <b>uniquement dans les en-têtes</b> (<code>.h</code>) :</p><ul>
+<li>Dans le **<code>.h</code>** : le bloc Doxygen <code>/** … */</code> complet — contrat de la fonction (rôle, <code>@param</code>, <code>@return</code>), lu par les appelants et exporté sur le site. C'est la <b>source unique</b>.</li>
+<li>Dans le **<code>.cpp</code>** : <b>pas de bloc Doxygen</b> (<code>/** */</code>, <code>///</code>, <code>//!</code>), uniquement des <b>commentaires simples <code>//</code></b> (non exportés) documentant le <b>corps</b> de la fonction.</li>
 </ul>
-<p>**Déclaration (<code><a class="el" href="Core_8h.html" title="Interface publique de la bibliothèque Core (moteur / logique de jeu).">Core.h</a></code>)** </p><div class="fragment"><div class="line"> </div>
+<p>Ne <b>jamais</b> redupliquer les <code>@param</code>/<code>@return</code> dans le <code>.cpp</code> : cela disperse la source de vérité et fait échouer la génération (Doxygen ≥ 1.16 rejette les <code>@param</code> documentés à la fois dans la déclaration et la définition — « multiple</p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">documentation</td><td>sections »).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>**Déclaration (<code><a class="el" href="Core_8h.html" title="Interface publique de la bibliothèque Core (moteur / logique de jeu).">Core.h</a></code>) — doc Doxygen exportée** </p><div class="fragment"><div class="line"> </div>
 <div class="line"><span class="keywordtype">bool</span> updatePhysics(Entity&amp; entity, <span class="keywordtype">float</span> deltaTime);</div>
-</div><!-- fragment --><p>**Définition (<code><a class="el" href="Core_8cpp.html">Core.cpp</a></code>) — corps documenté** </p><div class="fragment"><div class="line"> </div>
+</div><!-- fragment --><p>**Définition (<code><a class="el" href="Core_8cpp.html">Core.cpp</a></code>) — commentaires simples <code>//</code>, non exportés** </p><div class="fragment"><div class="line"><span class="comment">// Met à jour la physique d&#39;une entité pour une frame.</span></div>
 <div class="line"><span class="keywordtype">bool</span> updatePhysics(Entity&amp; entity, <span class="keywordtype">float</span> deltaTime) {</div>
 <div class="line">    <span class="keyword">const</span> Vector2 ancientPosition = entity.position();</div>
 <div class="line"> </div>
@@ -214,14 +220,17 @@ Description dans le &lt;tt&gt;.h&lt;/tt&gt; ET le &lt;tt&gt;.cpp&lt;/tt&gt;</h2>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> entity.position() != ancientPosition;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md32"></a>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;Une méthode qui <b>redéfinit</b> (<code>override</code>) une fonction déjà documentée dans un header (par ex. une interface) n'a pas besoin d'être redocumentée : Doxygen hérite de la doc de base. Les fonctions <b>internes</b> au <code>.cpp</code> (espace de noms anonyme) se contentent aussi de <code>//</code>. </p>
+</blockquote>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
-<p>Dans les définitions, commenter en français :</p><ul>
+<p>Dans les définitions, commenter en français avec des <code>//</code> :</p><ul>
 <li>Le rôle de chaque <b>branche <code>if</code>/<code>else</code></b> non triviale (pourquoi cette condition).</li>
 <li>Le principe de tout <b>algorithme complexe</b> (intention, invariants, cas limites), pas la paraphrase ligne à ligne.</li>
 <li>Les choix non évidents (pourquoi telle formule, telle borne, telle optimisation).</li>
 </ul>
-<p>Balises usuelles : <code>@file</code>, <code>@brief</code>, <code>@param</code>, <code>@return</code>, <code>@note</code>, <code>@warning</code>, <code>@see</code>. Commentaire de membre bref : <code>///&lt; description</code> après la déclaration.</p>
+<p>Balises Doxygen (dans les <b>en-têtes</b> uniquement) : <code>@file</code>, <code>@brief</code>, <code>@param</code>, <code>@return</code>, <code>@note</code>, <code>@warning</code>, <code>@see</code>. Commentaire de membre bref : <code>///&lt; description</code> après la déclaration (dans le <code>.h</code>).</p>
 <h1><a class="anchor" id="autotoc_md33"></a>
 7. Bonnes pratiques</h1>
 <ul>

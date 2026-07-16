@@ -1,0 +1,17 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/ScreenManager.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/ScreenManager.h">
+<area shape="rect" id="Node000001" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions." alt="" coords="40,5,271,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,92,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,62,76,101,72,97,121,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="117,108,194,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,60,158,94,153,94,153,60"/>
+<area shape="rect" id="Node000004" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="219,108,393,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,58,275,99,272,103,200,62"/>
+<area shape="rect" id="Node000005" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="222,181,390,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="309,134,309,168,303,168,303,134"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="190,255,246,280"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="294,209,245,248,241,244,290,205"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="271,255,341,280"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="309,207,309,241,303,241,303,207"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="366,255,433,280"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="323,205,375,244,372,248,319,209"/>
+</map>

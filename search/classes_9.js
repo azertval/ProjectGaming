@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['sprite_0',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
-  ['spritebatch_1',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
-  ['spritequad_2',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
-  ['spriterenderer_3',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]]
+  ['rect_0',['rect',['../structcore_1_1Rect.html',1,'core::Rect'],['../structhmi_1_1LanguageSelector_1_1Rect.html',1,'hmi::LanguageSelector::Rect'],['../structhmi_1_1SaveLogButton_1_1Rect.html',1,'hmi::SaveLogButton::Rect']]],
+  ['rendercontext_1',['RenderContext',['../structhmi_1_1RenderContext.html',1,'hmi']]]
 ];

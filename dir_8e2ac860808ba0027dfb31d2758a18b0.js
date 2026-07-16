@@ -11,5 +11,6 @@ var dir_8e2ac860808ba0027dfb31d2758a18b0 =
     [ "Logger.cpp", "Logger_8cpp.html", "Logger_8cpp" ],
     [ "Logger.h", "Logger_8h.html", "Logger_8h" ],
     [ "LogLevel.h", "LogLevel_8h.html", "LogLevel_8h" ],
+    [ "LogLevelParse.h", "LogLevelParse_8h.html", "LogLevelParse_8h" ],
     [ "MemoryLogSink.h", "MemoryLogSink_8h.html", "MemoryLogSink_8h" ]
 ];
