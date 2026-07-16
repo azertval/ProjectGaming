@@ -481,8 +481,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente. </p>
-<p>Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">InputState::beginFrame</a></code>) puis met à jour l'état courant à partir des messages de la frame : l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est ainsi échantillonné <b>une fois par frame</b> (<code>EX-CTRL-021</code>).</p>
-<p><code>beginFrame</code> fige l'état d'entrées de la frame précédente <b>avant</b> de drainer les messages, afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante. </p>
+<p>Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">InputState::beginFrame</a></code>) puis met à jour l'état courant à partir des messages de la frame : l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est ainsi échantillonné <b>une fois par frame</b> (<code>EX-CTRL-021</code>). </p>
 
 </div>
 </div>
@@ -573,7 +572,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Procédure de fenêtre statique : route les messages vers l'instance. </p>
-<p>Au tout premier message (WM_NCCREATE), le pointeur d'instance transmis à la création est stocké dans les données utilisateur du HWND, puis récupéré à chaque message suivant. </p>
 
 </div>
 </div>
