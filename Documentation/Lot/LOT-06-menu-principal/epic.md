@@ -1,6 +1,6 @@
 # LOT-06 — Menu principal {#lot-06}
 
-> Statut : **à faire**. Le jeu démarre directement sur une scène codée en dur. Ce lot introduit un **menu principal** et la structure d'**écrans** qui l'accompagne, avec les briques nécessaires : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n).
+> Statut : **terminé**. Au lancement, l'exécutable ouvre un **menu principal** navigable (clavier + souris) piloté par une structure d'**écrans**, avec les briques introduites en chemin : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n).
 
 ## Objectif
 Afficher au démarrage un **menu principal** navigable proposant trois options —
@@ -68,7 +68,7 @@ par **Échap**.
 | [TACHE-04](tache-04-etats-application.md) | États d'application (écrans) | `HMI/Interface` | ✅ Fait |
 | [TACHE-05](tache-05-ecran-menu-principal.md) | Écran de menu principal | `HMI/Interface` | ✅ Fait |
 | [TACHE-06](tache-06-ecrans-cibles.md) | Écrans cibles (jeu démo + éditeur placeholder) | `HMI/Interface` | ✅ Fait |
-| [TACHE-07](tache-07-integration-main.md) | Intégration `main` (boucle pilotée par l'écran) | `HMI/main.cpp` | ⬜ Non commencé |
+| [TACHE-07](tache-07-integration-main.md) | Intégration `main` (boucle pilotée par l'écran) | `HMI/main.cpp` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. Au lancement, l'exécutable affiche le **menu principal** avec les trois options.
