@@ -68,7 +68,7 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-dependance-json.md) | Dépendance JSON (nlohmann/json épinglé) | `External`, CMake | ✅ Fait |
-| [TACHE-02](tache-02-modele-niveau.md) | Modèle de tuiles et de niveau | `Core/Levels` | ⬜ Non commencé |
+| [TACHE-02](tache-02-modele-niveau.md) | Modèle de tuiles et de niveau | `Core/Levels` | ✅ Fait |
 | [TACHE-03](tache-03-chargement-json.md) | Chargement du niveau (JSON) | `Core/Levels` | ⬜ Non commencé |
 | [TACHE-04](tache-04-validation.md) | Validation du niveau | `Core/Levels` | ⬜ Non commencé |
 | [TACHE-05](tache-05-niveau-demo.md) | Niveau de démonstration | `Elements/Levels` | ⬜ Non commencé |

@@ -9,6 +9,7 @@ add_executable(UnitTests
     Unit/test_component_pool.cpp
     Unit/test_view.cpp
     Unit/test_world.cpp
+    Unit/test_level.cpp
     Unit/test_sprite.cpp
     Unit/test_camera2d.cpp
     Unit/test_fixed_timestep.cpp
