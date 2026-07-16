@@ -24,16 +24,14 @@ constexpr core::Color OPTION_COLOR{0.70f, 0.72f, 0.78f, 1.0f};
 constexpr core::Color SELECTED_COLOR{1.0f, 0.82f, 0.20f, 1.0f};
 }  // namespace
 
-/**
- * @brief Construit l'écran de menu.
- * @param localization Catalogue de traduction (mutable pour la bascule de langue).
- */
+/// @brief Construit l'écran de menu.
 MenuScreen::MenuScreen(Localization& localization, SaveLogAction onSaveLog)
     : _localization(localization), _model(localization), _onSaveLog(std::move(onSaveLog)) {}
 
 /**
  * @brief Met à jour la logique du menu et le bouton de langue.
- * @param input État des entrées de la frame.
+ * @param input      État des entrées de la frame.
+ * @param fixedDelta Pas de temps fixe (inutilisé : le menu n'a pas de simulation).
  * @return La transition demandée par le modèle de menu.
  *
  * Le clic sur le bouton de langue (bas-droit) est traité en plus de la navigation du menu :

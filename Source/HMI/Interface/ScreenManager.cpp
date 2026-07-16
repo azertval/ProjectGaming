@@ -22,11 +22,7 @@ namespace {
 }
 }  // namespace
 
-/**
- * @brief Construit le gestionnaire et son écran de départ.
- * @param factory Fabrique d'écrans.
- * @param initial Écran affiché au démarrage.
- */
+/// @brief Construit le gestionnaire et son écran de départ.
 ScreenManager::ScreenManager(Factory factory, ScreenId initial)
     : _factory(std::move(factory)), _current(_factory(initial)), _currentId(initial) {
     HMI_LOG_INFO(std::string("Ecran initial : ") + screenName(initial));
@@ -34,9 +30,6 @@ ScreenManager::ScreenManager(Factory factory, ScreenId initial)
 
 /**
  * @brief Met à jour l'écran courant et applique sa transition.
- * @param input      État des entrées de la frame.
- * @param fixedDelta Pas de temps fixe de simulation, en secondes.
- * @return true si l'application doit se fermer.
  *
  * La transition est appliquée immédiatement : un basculement remplace l'écran actif (l'ancien
  * est détruit, ses ressources libérées), si bien que le dessin de la même frame concerne déjà

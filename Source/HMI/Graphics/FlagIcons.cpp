@@ -128,11 +128,7 @@ FlagIcons::FlagIcons(ID3D11Device* device) {
     GRAPHICS_LOG_TRACE("FlagIcons : drapeaux generes (France, Royaume-Uni)");
 }
 
-/**
- * @brief Région du drapeau associé à une langue.
- * @param language Identifiant de langue (« fr » ou « en »).
- * @return La région en pixels ; le drapeau français par défaut si la langue est inconnue.
- */
+/// @brief Région du drapeau associé à une langue (drapeau français si langue inconnue).
 core::AtlasRegion FlagIcons::region(std::string_view language) const {
     const int flag = language == "en" ? FLAG_UNITED_KINGDOM : FLAG_FRANCE;
     return core::AtlasRegion{flag * FLAG_WIDTH, 0, FLAG_WIDTH, FLAG_HEIGHT};

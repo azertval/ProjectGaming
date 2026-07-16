@@ -61,13 +61,7 @@ void buildDemoScene(core::World& world, const TextureAtlas& atlas) {
 }
 }  // namespace
 
-/**
- * @brief Construit l'écran de jeu et sa scène de démonstration.
- * @param batch          Lot de sprites partagé.
- * @param atlas          Atlas de tuiles.
- * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
- */
+/// @brief Construit l'écran de jeu et sa scène de démonstration.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                        int viewportHeight)
     : _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {

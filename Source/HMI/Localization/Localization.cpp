@@ -24,16 +24,11 @@ namespace {
 }
 }  // namespace
 
-/**
- * @brief Construit un catalogue vide.
- * @param directory Dossier contenant les fichiers `<langue>.lang`.
- */
+/// @brief Construit un catalogue vide.
 Localization::Localization(std::filesystem::path directory) : _directory(std::move(directory)) {}
 
 /**
  * @brief Analyse un contenu `clé = valeur` en table de traductions.
- * @param content Texte source (UTF-8).
- * @return La table clé → valeur.
  *
  * Chaque ligne est traitée indépendamment : une ligne vide ou commençant (après espaces) par
  * `#` est ignorée ; sinon, le **premier** `=` sépare la clé de la valeur, toutes deux
@@ -73,11 +68,7 @@ std::unordered_map<std::string, std::string> Localization::parseCatalog(std::str
     return strings;
 }
 
-/**
- * @brief Définit la langue par défaut (source de repli) et l'active dessus.
- * @param language Identifiant de langue.
- * @param strings  Table de traductions déjà analysée.
- */
+/// @brief Définit la langue par défaut (source de repli) et l'active dessus.
 void Localization::setDefaultCatalog(std::string language,
                                      std::unordered_map<std::string, std::string> strings) {
     _defaultLanguage = language;
@@ -87,22 +78,14 @@ void Localization::setDefaultCatalog(std::string language,
     _activeStrings = _defaultStrings;
 }
 
-/**
- * @brief Définit la langue active à partir d'une table déjà analysée.
- * @param language Identifiant de langue.
- * @param strings  Table de traductions déjà analysée.
- */
+/// @brief Définit la langue active à partir d'une table déjà analysée.
 void Localization::setActiveCatalog(std::string language,
                                     std::unordered_map<std::string, std::string> strings) {
     _activeLanguage = std::move(language);
     _activeStrings = std::move(strings);
 }
 
-/**
- * @brief Charge la langue par défaut depuis `<directory>/<language>.lang` et l'active.
- * @param language Identifiant de langue.
- * @return true si le fichier a été lu ; false (récupérable) sinon.
- */
+/// @brief Charge la langue par défaut depuis `<directory>/<language>.lang` et l'active.
 bool Localization::loadDefaultLanguage(const std::string& language) {
     std::string content;
     if (!readFile(_directory / (language + ".lang"), content)) {
@@ -112,11 +95,7 @@ bool Localization::loadDefaultLanguage(const std::string& language) {
     return true;
 }
 
-/**
- * @brief Charge la langue active depuis `<directory>/<language>.lang`.
- * @param language Identifiant de langue.
- * @return true si le fichier a été lu ; false (récupérable) sinon — l'active est conservée.
- */
+/// @brief Charge la langue active depuis `<directory>/<language>.lang`.
 bool Localization::loadLanguage(const std::string& language) {
     std::string content;
     if (!readFile(_directory / (language + ".lang"), content)) {
@@ -127,9 +106,7 @@ bool Localization::loadLanguage(const std::string& language) {
 }
 
 /**
- * @brief Résout le texte associé à @p key.
- * @param key Clé de traduction.
- * @return La chaîne de la langue active, sinon de la langue par défaut, sinon la clé.
+ * @brief Résout le texte associé à une clé.
  *
  * Le repli garantit un affichage toujours défini : une clé oubliée dans une traduction
  * réapparaît dans la langue par défaut, et une clé inconnue s'affiche telle quelle (utile
@@ -146,12 +123,7 @@ std::string Localization::text(std::string_view key) const {
     return lookup;
 }
 
-/**
- * @brief Lit tout le contenu d'un fichier texte.
- * @param path Chemin du fichier.
- * @param out  Reçoit le contenu en cas de succès.
- * @return true si le fichier a pu être ouvert et lu.
- */
+/// @brief Lit tout le contenu d'un fichier texte (true et remplit @p out en cas de succès).
 bool Localization::readFile(const std::filesystem::path& path, std::string& out) {
     std::ifstream file(path, std::ios::binary);
     if (!file) {

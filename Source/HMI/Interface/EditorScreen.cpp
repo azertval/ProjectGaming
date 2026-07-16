@@ -25,7 +25,8 @@ EditorScreen::EditorScreen() {
 
 /**
  * @brief Gère le retour au menu.
- * @param input État des entrées de la frame.
+ * @param input      État des entrées de la frame.
+ * @param fixedDelta Pas de temps fixe (inutilisé : cet écran n'a pas de simulation).
  * @return « Basculer vers le menu » sur Échap, sinon « rester ».
  */
 ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelta*/) {

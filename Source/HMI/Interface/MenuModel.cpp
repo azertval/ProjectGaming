@@ -36,16 +36,11 @@ constexpr Option OPTIONS[MenuModel::OPTION_COUNT] = {
 
 }  // namespace
 
-/**
- * @brief Construit le modèle de menu.
- * @param localization Catalogue de traduction résolvant les libellés.
- */
+/// @brief Construit le modèle de menu.
 MenuModel::MenuModel(const Localization& localization) : _localization(localization) {}
 
 /**
  * @brief Met à jour la sélection selon les entrées et renvoie une éventuelle transition.
- * @param input État des entrées de la frame.
- * @return La transition à appliquer, sinon « rester ».
  *
  * Le clavier déplace la sélection (flèches, avec bouclage aux extrémités) ; le survol souris
  * la place sur l'option pointée. La validation (Entrée, ou clic gauche sur une option) produit

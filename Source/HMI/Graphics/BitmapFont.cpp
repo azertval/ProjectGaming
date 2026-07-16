@@ -248,7 +248,6 @@ constexpr std::uint32_t GLYPH_PIXEL = 0xFFFFFFFFu;
 
 /**
  * @brief Génère la texture de police et crée la ressource Direct3D associée.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
  *
  * La texture est une grille de cellules : d'abord les caractères ASCII imprimables, puis les
  * lettres accentuées composées (corps de la lettre de base + diacritique). Chaque pixel
@@ -377,15 +376,7 @@ int BitmapFont::cellForCodePoint(char32_t codePoint) const {
     return found == _cellIndex.end() ? -1 : found->second;
 }
 
-/**
- * @brief Dessine une chaîne UTF-8 dans le lot courant, en espace écran (pixels).
- * @param batch Lot déjà démarré avec la texture de police et une projection écran.
- * @param text  Texte à dessiner, encodé en UTF-8.
- * @param x     Abscisse du coin haut-gauche du texte, en pixels.
- * @param y     Ordonnée du coin haut-gauche du texte, en pixels.
- * @param scale Facteur d'échelle (entier recommandé).
- * @param color Teinte appliquée aux glyphes.
- */
+/// @brief Dessine une chaîne UTF-8 dans le lot courant, en espace écran (pixels).
 void BitmapFont::drawText(SpriteBatch& batch, std::string_view text, float x, float y, float scale,
                           const core::Color& color) const {
     const float advance = static_cast<float>(CELL_WIDTH) * scale;
@@ -455,9 +446,6 @@ float BitmapFont::lineHeight(float scale) const noexcept {
 
 /**
  * @brief Construit une projection orthographique espace écran → clip.
- * @param viewportWidth  Largeur de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur de la surface de rendu, en pixels.
- * @return Matrice mappant (0,0) au coin haut-gauche et (w,h) au coin bas-droit (Y vers le bas).
  *
  * Le nuanceur applique `mul(float4(position, 0, 1), projection)` (vecteur-ligne) : la matrice
  * transforme une position en pixels en coordonnées de clip `[-1, 1]`, l'axe Y étant inversé
