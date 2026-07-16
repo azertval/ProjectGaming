@@ -9,6 +9,7 @@ add_executable(ProjectGaming
     Graphics/Camera2D.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/BitmapFont.cpp
+    Localization/Localization.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
@@ -33,3 +34,11 @@ if(ENABLE_PCH)
     # on ne peut donc pas réutiliser le PCH de Core (mismatch _MBCS/_UNICODE).
     target_precompile_headers(ProjectGaming PRIVATE ${PROJECT_SOURCE_DIR}/Source/pch.h)
 endif()
+
+# Copie les catalogues de traduction (.lang) à côté de l'exécutable : ils sont chargés à
+# l'exécution par hmi::Localization, relativement au répertoire du binaire.
+add_custom_command(TARGET ProjectGaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Localization
+        $<TARGET_FILE_DIR:ProjectGaming>/Localization
+    COMMENT "Copie des catalogues de traduction (.lang)")

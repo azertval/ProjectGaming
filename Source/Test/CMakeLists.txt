@@ -17,12 +17,15 @@ add_executable(UnitTests
     Unit/test_log_format.cpp
     Unit/test_assert.cpp
     Unit/test_input_state.cpp
+    Unit/test_localization.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp
+    # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
+    ../HMI/Localization/Localization.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

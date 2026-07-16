@@ -64,7 +64,7 @@ par **Échap**.
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-entrees-clavier-souris.md) | Entrées clavier & souris | `HMI/Input` | ✅ Fait |
 | [TACHE-02](tache-02-rendu-texte-bitmap.md) | Rendu de texte (police bitmap) | `HMI/Graphics` | ✅ Fait |
-| [TACHE-03](tache-03-catalogue-traduction.md) | Catalogue de traduction (i18n) | `HMI/Localization` | ⬜ Non commencé |
+| [TACHE-03](tache-03-catalogue-traduction.md) | Catalogue de traduction (i18n) | `HMI/Localization` | ✅ Fait |
 | [TACHE-04](tache-04-etats-application.md) | États d'application (écrans) | `HMI/Interface` | ⬜ Non commencé |
 | [TACHE-05](tache-05-ecran-menu-principal.md) | Écran de menu principal | `HMI/Interface` | ⬜ Non commencé |
 | [TACHE-06](tache-06-ecrans-cibles.md) | Écrans cibles (jeu démo + éditeur placeholder) | `HMI/Interface` | ⬜ Non commencé |

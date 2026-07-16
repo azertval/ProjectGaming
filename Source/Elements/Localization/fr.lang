@@ -1,0 +1,13 @@
+# Catalogue de traduction - francais (langue par defaut).
+# Format : cle = valeur (encodage UTF-8).
+# Les lignes vides et les lignes commencant par # sont ignorees.
+# Seul le premier '=' separe la cle de la valeur ; les espaces de bordure sont retires.
+
+# Menu principal
+menu.titre = ProjectGaming
+menu.charger_niveau = Charger niveau
+menu.mode_edition = Mode Edition
+menu.quitter = Quitter
+
+# Ecran editeur (mode edition, a venir)
+editeur.a_venir = Mode Edition — à venir
