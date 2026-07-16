@@ -7,6 +7,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-06 (TACHE-01)** : entrées clavier/souris dans `HMI/Input` — `InputState` échantillonne l'état par frame et expose les fronts **pressée / maintenue / relâchée** (`EX-CTRL-011`) pour le clavier et les boutons souris, plus la position souris. Indépendant de toute fenêtre (aucun `<Windows.h>`), donc testable en isolation (`EX-NFR-010`) ; `hmi::Window` capture les messages Win32 (`WM_KEY*`, `WM_MOUSE*`) et échantillonne l'`InputState` une fois par frame en tête de `pumpMessages` (`EX-CTRL-021`), et expose `input()` + `requestClose()`. Couvert par tests unitaires (fronts déterministes).
+
+### Modifié
+- **LOT-06 (TACHE-01)** : la touche **Échap ne ferme plus** la fenêtre — elle devient une entrée normale (destinée au retour menu) ; la fermeture programmée passe désormais par `Window::requestClose()` (action « Quitter »), la croix continuant de fermer.
+
+### Ajouté
 - **LOT-05 — Rendu 2D (terminé)** : l'exécutable affiche désormais une **scène issue de l'ECS**. La boucle de `main` branche un `core::World` (avec le `MovementSystem`) cadencé à **pas fixe**, puis un **rendu découplé** en lecture seule. `main` construit une scène de démonstration (grille de tuiles + sprite mobile partiellement transparent) rendue via `SpriteRenderer` / `SpriteBatch` / `TextureAtlas` et la `Camera2D`. Première image réelle du jeu (tuiles, transparence, couches, déplacement déterministe).
 - **LOT-05 (TACHE-05)** : système de rendu des sprites `SpriteRenderer` dans `HMI/Graphics` — parcourt `world.view<Transform, Sprite>()`, construit le quad monde de chaque entité, résout la région d'atlas en coordonnées de texture, trie par **couche** (tri stable) et dessine via le `SpriteBatch` en appliquant la projection de la caméra. Lecture seule de l'ECS (`EX-ARCH-012`) ; rendu découplé de la simulation.
 - **LOT-05 (TACHE-04)** : caméra 2D `Camera2D` dans `HMI/Graphics` — projette le monde vers l'écran (16 px/unité, origine haut-gauche, Y-bas, zoom), fournit la matrice de projection pour le vertex shader et les conversions monde↔écran. Logique pure (DirectXMath), couverte par tests unitaires (conversions réciproques, projection).

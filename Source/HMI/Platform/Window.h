@@ -2,19 +2,22 @@
 
 #include <Windows.h>
 
+#include "HMI/Input/InputState.h"
+
 /**
  * @file HMI/Platform/Window.h
- * @brief Fenêtre native Win32 et sa pompe de messages.
+ * @brief Fenêtre native Win32, sa pompe de messages et la capture des entrées.
  */
 
 namespace hmi {
 
 /**
- * @brief Encapsule une fenêtre Win32 (création, événements, fermeture) en RAII.
+ * @brief Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.
  *
- * La fenêtre est créée à la construction et détruite au destructeur. Elle expose
- * les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement)
- * sans traiter les entrées de gameplay, qui relèveront d'un module dédié.
+ * La fenêtre est créée à la construction et détruite au destructeur. Elle expose les
+ * événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et **capture
+ * les entrées** clavier/souris dans un `InputState` échantillonné une fois par frame
+ * (`EX-CTRL-021`). La traduction des entrées en actions de gameplay relèvera d'un module dédié.
  */
 class Window {
 public:
@@ -32,14 +35,31 @@ public:
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
 
-    /// Traite tous les messages Win32 en attente (non bloquant).
+    /**
+     * @brief Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
+     *
+     * Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via
+     * `InputState::beginFrame`) puis met à jour l'état courant à partir des messages de la
+     * frame : l'`InputState` est ainsi échantillonné **une fois par frame** (`EX-CTRL-021`).
+     */
     void pumpMessages();
 
     /**
-     * @brief Indique si la fenêtre demande à se fermer (croix ou touche Échap).
+     * @brief Indique si la fenêtre demande à se fermer (croix ou `requestClose`).
      * @return true si la boucle de jeu doit s'arrêter.
+     * @note La touche Échap **ne ferme plus** la fenêtre : c'est une touche normale, lue via
+     *       `input()` (elle sert à revenir au menu depuis les écrans).
      */
     [[nodiscard]] bool shouldClose() const;
+
+    /**
+     * @brief État des entrées clavier/souris de la frame courante.
+     * @return L'`InputState` capturé, en lecture seule.
+     */
+    [[nodiscard]] const InputState& input() const;
+
+    /// Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).
+    void requestClose();
 
     /**
      * @brief Handle natif de la fenêtre, pour l'initialisation Direct3D.
@@ -73,6 +93,7 @@ private:
     bool _resized;
     int _clientWidth;
     int _clientHeight;
+    InputState _input;
 };
 
 }  // namespace hmi
