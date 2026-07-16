@@ -17,7 +17,7 @@ add_library(Core STATIC
 # depuis la racine (ex. "Core/Core.h"), jamais par nom seul.
 target_include_directories(Core PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 
-target_link_libraries(Core PRIVATE project_warnings project_options)
+target_link_libraries(Core PRIVATE project_warnings project_options nlohmann_json::nlohmann_json)
 
 if(ENABLE_PCH)
     target_precompile_headers(Core PRIVATE ${PROJECT_SOURCE_DIR}/Source/pch.h)
