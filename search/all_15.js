@@ -8,5 +8,7 @@ var searchData=
   ['jeu_20mapping_20logique_5',['2. Actions du jeu (mapping logique)',['../spec-controles.html#autotoc_md17',1,'']]],
   ['journalisation_6',['10. Assertions &amp; journalisation',['../spec-conventions.html#autotoc_md36',1,'']]],
   ['journalisation_20diagnostics_7',['LOT-02 — Journalisation &amp; diagnostics',['../lot-02.html',1,'lots']]],
-  ['json_8',['Format retenu (hybride ASCII + JSON)',['../spec-niveaux.html#autotoc_md69',1,'']]]
+  ['json_8',['TACHE-03 — Chargement du niveau (JSON)',['../lot-07-tache-03-chargement-json.html',1,'lot-07']]],
+  ['json_20liste_20de_20tuiles_20objets_9',['Format retenu (JSON, liste de tuiles-objets)',['../spec-niveaux.html#autotoc_md69',1,'']]],
+  ['json_20nlohmann_20json_20épinglé_10',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]]
 ];

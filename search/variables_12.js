@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['target_0',['target',['../structhmi_1_1ScreenTransition.html#af5375d816304469b7f0cd99306d70e0f',1,'hmi::ScreenTransition::target'],['../MenuModel_8cpp.html#a70387ae8a562774364e6100bbb8ec0c8',1,'target:&#160;MenuModel.cpp']]],
-  ['tile_5fsize_1',['TILE_SIZE',['../classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d',1,'hmi::TextureAtlas']]],
-  ['tiles_5fper_5fside_2',['TILES_PER_SIDE',['../classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67',1,'hmi::TextureAtlas']]],
-  ['tint_3',['tint',['../structcore_1_1Sprite.html#aa14509186966df68f09f59dfda0e2318',1,'core::Sprite']]],
-  ['title_5fscale_4',['TITLE_SCALE',['../classhmi_1_1MenuModel.html#a5fb4eddac1bbb210c51fff7b8631f80d',1,'hmi::MenuModel']]],
-  ['title_5fy_5',['TITLE_Y',['../classhmi_1_1MenuModel.html#af715642c472a2a635786dd28a4f877e0',1,'hmi::MenuModel']]]
+  ['saveicon_0',['saveIcon',['../structhmi_1_1RenderContext.html#a977c9c60a244b25f4766f4e8b76edd92',1,'hmi::RenderContext']]],
+  ['scale_1',['scale',['../structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9',1,'core::Transform']]],
+  ['size_2',['size',['../structcore_1_1Rect.html#a17a012f900230e1d44db338cebccf10b',1,'core::Rect::size'],['../classhmi_1_1SaveIcon.html#a4849444f9a8a44c1d0e75936089c6b1e',1,'hmi::SaveIcon::SIZE'],['../classhmi_1_1SaveLogButton.html#ad86733f6e69cfb6b3a04882e1fe67741',1,'hmi::SaveLogButton::SIZE']]],
+  ['spritebatch_3',['spriteBatch',['../structhmi_1_1RenderContext.html#a1307206e8be1fe886e70b787236dfe23',1,'hmi::RenderContext']]],
+  ['switchposition_4',['switchPosition',['../structcore_1_1Mechanism.html#a5dd9b9cdb7f5f631367af20f9abbf545',1,'core::Mechanism']]]
 ];

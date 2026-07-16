@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['g_0',['g',['../structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3',1,'core::Color::g'],['../structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d',1,'hmi::SpriteQuad::g'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a159fa9be9305ea7dcf1e051c61649762',1,'hmi::SpriteBatch::Vertex::g']]],
-  ['gap_1',['GAP',['../classhmi_1_1SaveLogButton.html#aaeda1ca332259231077bdec136aa9dc6',1,'hmi::SaveLogButton']]],
-  ['generation_2',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]]
+  ['flag_5fheight_0',['FLAG_HEIGHT',['../classhmi_1_1FlagIcons.html#a26438d9175d1b37c4c42ec702b8abbc4',1,'hmi::FlagIcons']]],
+  ['flag_5fwidth_1',['FLAG_WIDTH',['../classhmi_1_1FlagIcons.html#a52723027048ee047185f1cabcd98df5e',1,'hmi::FlagIcons']]],
+  ['flags_2',['flags',['../structhmi_1_1RenderContext.html#a9c68caf96ec64cf484cd162dd2b72e52',1,'hmi::RenderContext']]],
+  ['font_3',['font',['../structhmi_1_1RenderContext.html#a646a3645252152a6671da848f0d31873',1,'hmi::RenderContext']]]
 ];

@@ -8,6 +8,8 @@ var dir_c93feed3c4fd1e74851cc11896f1a53c =
     [ "test_fixed_timestep.cpp", "test__fixed__timestep_8cpp.html", "test__fixed__timestep_8cpp" ],
     [ "test_input_state.cpp", "test__input__state_8cpp.html", "test__input__state_8cpp" ],
     [ "test_language_selector.cpp", "test__language__selector_8cpp.html", "test__language__selector_8cpp" ],
+    [ "test_level.cpp", "test__level_8cpp.html", "test__level_8cpp" ],
+    [ "test_level_loader.cpp", "test__level__loader_8cpp.html", "test__level__loader_8cpp" ],
     [ "test_localization.cpp", "test__localization_8cpp.html", "test__localization_8cpp" ],
     [ "test_log_format.cpp", "test__log__format_8cpp.html", "test__log__format_8cpp" ],
     [ "test_log_level_parse.cpp", "test__log__level__parse_8cpp.html", "test__log__level__parse_8cpp" ],

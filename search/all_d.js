@@ -21,7 +21,8 @@ var searchData=
   ['boucle_20temps_18',['3. Boucle &amp; temps',['../spec-rendu-technique.html#autotoc_md75',1,'']]],
   ['bref_19',['En bref',['../index.html#autotoc_md1',1,'']]],
   ['buildconfig_2eh_20',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]],
-  ['button_5fcount_21',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['button_5fheight_22',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
-  ['button_5fwidth_23',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
+  ['buildlevelscene_21',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
+  ['button_5fcount_22',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['button_5fheight_23',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
+  ['button_5fwidth_24',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
 ];

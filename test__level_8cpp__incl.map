@@ -1,0 +1,22 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_level.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_level.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires du modèle de niveau : TileMap et Level." alt="" coords="289,5,511,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="119,108,223,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="331,63,215,106,213,101,329,58"/>
+<area shape="rect" id="Node000003" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="247,108,396,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="378,62,343,99,339,96,374,58"/>
+<area shape="rect" id="Node000008" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="442,181,609,207"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="423,59,510,169,506,172,419,62"/>
+<area shape="rect" id="Node000009" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="501,255,669,280"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="473,58,514,78,556,105,594,139,624,180,628,197,625,215,608,245,603,243,620,213,623,197,619,182,590,143,552,109,511,83,470,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,181,64,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="273,136,78,184,77,178,272,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="89,181,149,207"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="290,136,163,180,161,175,288,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="315,255,378,280"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="284,136,253,148,226,165,211,184,210,194,214,205,232,225,254,239,303,257,301,262,252,244,228,229,210,208,204,195,206,182,223,161,251,144,282,131"/>
+<area shape="rect" id="Node000007" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="225,181,418,207"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="324,134,324,168,319,168,319,134"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="355,131,480,174,479,179,353,136"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="498,209,389,252,387,247,496,204"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="537,205,569,242,565,246,533,209"/>
+</map>

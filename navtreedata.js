@@ -66,7 +66,7 @@ var NAVTREE =
       ] ],
       [ "Niveaux & contenu", "spec-niveaux.html", [
         [ "1. Représentation des niveaux", "spec-niveaux.html#autotoc_md68", [
-          [ "Format retenu (hybride ASCII + JSON)", "spec-niveaux.html#autotoc_md69", null ]
+          [ "Format retenu (JSON, liste de tuiles-objets)", "spec-niveaux.html#autotoc_md69", null ]
         ] ],
         [ "2. Progression", "spec-niveaux.html#autotoc_md70", null ],
         [ "3. Conception (lignes directrices)", "spec-niveaux.html#autotoc_md71", null ],
@@ -140,7 +140,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md407", null ],
+      [ "Lots", "lots.html#autotoc_md459", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md87", null ],
         [ "Périmètre", "lot-01.html#autotoc_md88", [
@@ -554,15 +554,82 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-06-tache-08-selecteur-langue.html#autotoc_md405", null ],
           [ "Exigences", "lot-06-tache-08-selecteur-langue.html#autotoc_md406", null ]
         ] ]
+      ] ],
+      [ "LOT-07 — Niveaux : modèle et chargement", "lot-07.html", [
+        [ "Objectif", "lot-07.html#autotoc_md407", null ],
+        [ "Périmètre", "lot-07.html#autotoc_md408", [
+          [ "Inclus", "lot-07.html#autotoc_md409", null ],
+          [ "Exclus (lots ultérieurs)", "lot-07.html#autotoc_md410", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-07.html#autotoc_md411", null ],
+        [ "Exigences couvertes", "lot-07.html#autotoc_md412", null ],
+        [ "Découpage", "lot-07.html#autotoc_md413", null ],
+        [ "Critères d'acceptation du lot", "lot-07.html#autotoc_md414", null ],
+        [ "Dépendances", "lot-07.html#autotoc_md415", null ],
+        [ "Navigation des tâches", "lot-07.html#autotoc_md416", null ],
+        [ "TACHE-01 — Dépendance JSON (nlohmann/json épinglé)", "lot-07-tache-01-dependance-json.html", [
+          [ "Contexte", "lot-07-tache-01-dependance-json.html#autotoc_md417", null ],
+          [ "Travail à réaliser", "lot-07-tache-01-dependance-json.html#autotoc_md418", null ],
+          [ "Fichiers impactés", "lot-07-tache-01-dependance-json.html#autotoc_md419", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-01-dependance-json.html#autotoc_md420", null ],
+          [ "Points d'attention", "lot-07-tache-01-dependance-json.html#autotoc_md421", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-01-dependance-json.html#autotoc_md422", null ],
+          [ "Exigences", "lot-07-tache-01-dependance-json.html#autotoc_md423", null ]
+        ] ],
+        [ "TACHE-02 — Modèle de tuiles et de niveau", "lot-07-tache-02-modele-niveau.html", [
+          [ "Contexte", "lot-07-tache-02-modele-niveau.html#autotoc_md424", null ],
+          [ "Travail à réaliser", "lot-07-tache-02-modele-niveau.html#autotoc_md425", null ],
+          [ "Fichiers impactés", "lot-07-tache-02-modele-niveau.html#autotoc_md426", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-02-modele-niveau.html#autotoc_md427", null ],
+          [ "Points d'attention", "lot-07-tache-02-modele-niveau.html#autotoc_md428", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-02-modele-niveau.html#autotoc_md429", null ],
+          [ "Exigences", "lot-07-tache-02-modele-niveau.html#autotoc_md430", null ]
+        ] ],
+        [ "TACHE-03 — Chargement du niveau (JSON)", "lot-07-tache-03-chargement-json.html", [
+          [ "Contexte", "lot-07-tache-03-chargement-json.html#autotoc_md431", null ],
+          [ "Travail à réaliser", "lot-07-tache-03-chargement-json.html#autotoc_md432", null ],
+          [ "Fichiers impactés", "lot-07-tache-03-chargement-json.html#autotoc_md433", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-03-chargement-json.html#autotoc_md434", null ],
+          [ "Points d'attention", "lot-07-tache-03-chargement-json.html#autotoc_md435", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-03-chargement-json.html#autotoc_md436", null ],
+          [ "Exigences", "lot-07-tache-03-chargement-json.html#autotoc_md437", null ]
+        ] ],
+        [ "TACHE-04 — Validation du niveau", "lot-07-tache-04-validation.html", [
+          [ "Contexte", "lot-07-tache-04-validation.html#autotoc_md438", null ],
+          [ "Travail à réaliser", "lot-07-tache-04-validation.html#autotoc_md439", null ],
+          [ "Fichiers impactés", "lot-07-tache-04-validation.html#autotoc_md440", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-04-validation.html#autotoc_md441", null ],
+          [ "Points d'attention", "lot-07-tache-04-validation.html#autotoc_md442", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-04-validation.html#autotoc_md443", null ],
+          [ "Exigences", "lot-07-tache-04-validation.html#autotoc_md444", null ]
+        ] ],
+        [ "TACHE-05 — Niveau de démonstration", "lot-07-tache-05-niveau-demo.html", [
+          [ "Contexte", "lot-07-tache-05-niveau-demo.html#autotoc_md445", null ],
+          [ "Travail à réaliser", "lot-07-tache-05-niveau-demo.html#autotoc_md446", null ],
+          [ "Fichiers impactés", "lot-07-tache-05-niveau-demo.html#autotoc_md447", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-05-niveau-demo.html#autotoc_md448", null ],
+          [ "Points d'attention", "lot-07-tache-05-niveau-demo.html#autotoc_md449", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-05-niveau-demo.html#autotoc_md450", null ],
+          [ "Exigences", "lot-07-tache-05-niveau-demo.html#autotoc_md451", null ]
+        ] ],
+        [ "TACHE-06 — Rendu du niveau + intégration « Charger niveau »", "lot-07-tache-06-rendu-integration.html", [
+          [ "Contexte", "lot-07-tache-06-rendu-integration.html#autotoc_md452", null ],
+          [ "Travail à réaliser", "lot-07-tache-06-rendu-integration.html#autotoc_md453", null ],
+          [ "Fichiers impactés", "lot-07-tache-06-rendu-integration.html#autotoc_md454", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-06-rendu-integration.html#autotoc_md455", null ],
+          [ "Points d'attention", "lot-07-tache-06-rendu-integration.html#autotoc_md456", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-06-rendu-integration.html#autotoc_md457", null ],
+          [ "Exigences", "lot-07-tache-06-rendu-integration.html#autotoc_md458", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md408", null ],
-      [ "À venir", "manuel.html#autotoc_md409", null ],
+      [ "Pages", "manuel.html#autotoc_md460", null ],
+      [ "À venir", "manuel.html#autotoc_md461", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md410", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md411", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md412", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md462", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md463", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md464", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -603,13 +670,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Assert_8cpp.html",
-"classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7",
-"classhmi_1_1EditorScreen.html",
-"classhmi_1_1SaveIcon.html#a19ae609a8e30fcd6fef1ec4e1ffeb955",
-"globals_vars.html",
-"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md311",
-"spec-exigences.html#autotoc_md60",
-"structhmi_1_1SpriteRenderer_1_1LayeredQuad.html"
+"View_8h_source.html",
+"classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251",
+"classhmi_1_1Localization.html#a74443598fef691b1c7c278bcf364bcb2",
+"classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59",
+"lot-04-tache-01-reorganisation-arbo.html#autotoc_md231",
+"lot-07-tache-06-rendu-integration.html",
+"structcore_1_1MemoryLogSink_1_1Entry.html",
+"test__level__loader_8cpp.html#a04f28bd87a14a88655c836895a18daaf"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

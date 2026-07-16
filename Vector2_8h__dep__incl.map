@@ -1,48 +1,51 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Math/Vector2.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Math/Vector2.h">
-<area shape="rect" id="Node000001" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="1205,5,1426,60"/>
-<area shape="rect" id="Node000002" href="$Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="741,108,991,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1192,64,983,111,982,105,1190,59"/>
-<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="483,328,711,383"/>
-<area shape="poly" id="edge23_Node000001_Node000005" title=" " alt="" coords="1191,39,960,45,680,58,412,79,303,93,220,111,155,126,104,140,81,150,61,164,41,185,22,212,12,230,8,247,11,262,21,278,42,290,82,301,202,320,347,335,482,345,482,350,346,340,202,325,81,306,40,295,17,282,6,264,3,246,7,228,17,209,37,181,57,160,79,145,102,135,154,121,219,105,302,88,412,74,680,53,960,40,1191,33"/>
-<area shape="rect" id="Node000006" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="31,211,253,280"/>
-<area shape="poly" id="edge24_Node000001_Node000006" title=" " alt="" coords="1191,37,977,40,721,51,595,60,480,73,383,90,310,110,269,131,232,157,173,212,169,208,229,153,267,126,308,106,381,84,480,68,595,55,721,45,976,35,1191,31"/>
-<area shape="rect" id="Node000007" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="327,211,549,280"/>
-<area shape="poly" id="edge25_Node000001_Node000007" title=" " alt="" coords="1191,41,1090,49,973,62,850,82,729,111,665,132,603,159,497,213,494,208,600,154,663,127,728,105,849,77,973,56,1090,43,1191,36"/>
-<area shape="rect" id="Node000008" href="$Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="321,108,555,163"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1191,48,924,75,612,111,556,118,555,113,611,105,924,69,1191,43"/>
-<area shape="rect" id="Node000009" href="$Rect_8h.html" title="Rectangle aligné sur les axes en coordonnées monde, propre à Core." alt="" coords="1501,108,1722,163"/>
-<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="1406,62,1535,105,1533,110,1404,67"/>
-<area shape="rect" id="Node000011" href="$test__rect_8cpp.html" title="Tests unitaires du rectangle aligné sur les axes de Core." alt="" coords="2186,218,2407,273"/>
-<area shape="poly" id="edge27_Node000001_Node000011" title=" " alt="" coords="1440,33,1510,40,1586,53,1663,74,1735,106,1752,119,1761,134,1770,148,1786,160,1840,184,1887,196,1931,201,1973,201,2063,197,2115,200,2174,208,2207,215,2206,221,2173,213,2114,205,2063,203,1973,207,1931,207,1886,202,1838,189,1783,165,1766,152,1757,137,1748,123,1733,110,1661,79,1585,58,1509,45,1440,38"/>
-<area shape="rect" id="Node000012" href="$Vector2_8cpp.html" title=" " alt="" coords="1797,108,2018,163"/>
-<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="1440,50,1778,105,1797,109,1796,114,1777,111,1439,55"/>
-<area shape="rect" id="Node000013" href="$Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="1205,108,1426,163"/>
-<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="1318,74,1318,108,1313,108,1313,74"/>
-<area shape="rect" id="Node000017" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="1695,218,1917,273"/>
-<area shape="poly" id="edge26_Node000001_Node000017" title=" " alt="" coords="1379,65,1440,106,1455,121,1464,135,1474,148,1490,160,1540,184,1583,193,1628,197,1684,208,1712,215,1710,221,1683,213,1627,203,1582,198,1538,189,1487,165,1470,152,1460,138,1451,125,1436,110,1376,69"/>
-<area shape="rect" id="Node000018" href="$test__vector2_8cpp.html" title="Tests unitaires du vecteur 2D de Core." alt="" coords="2042,108,2263,163"/>
-<area shape="poly" id="edge28_Node000001_Node000018" title=" " alt="" coords="1440,40,1712,65,1871,83,2030,105,2042,107,2041,113,2030,111,1871,88,1711,70,1440,46"/>
-<area shape="rect" id="Node000003" href="$MovementSystem_8cpp.html" title=" " alt="" coords="573,218,865,273"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="821,173,757,220,754,215,817,169"/>
-<area shape="rect" id="Node000004" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="941,218,1181,273"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="927,167,1014,215,1012,220,924,172"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="884,175,891,201,894,229,891,256,879,282,853,301,812,317,711,341,710,336,811,312,850,296,875,278,886,255,889,229,886,201,879,176"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="728,156,532,181,316,213,253,224,252,219,315,208,532,176,727,150"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="743,168,561,213,550,216,548,211,560,208,741,163"/>
-<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="520,165,652,215,650,220,518,170"/>
-<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="358,172,335,190,318,212,309,230,305,246,308,262,317,278,342,297,382,312,483,336,482,341,380,317,339,301,313,282,303,264,300,246,304,229,313,209,331,186,355,168"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="354,170,235,213,233,208,352,165"/>
-<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="441,177,441,210,435,210,435,177"/>
-<area shape="rect" id="Node000010" href="$Rect_8cpp.html" title=" " alt="" coords="1941,218,2162,273"/>
-<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="1736,162,1929,208,1958,215,1956,221,1928,213,1734,167"/>
-<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="1736,159,1741,160,1863,175,1958,182,2053,189,2174,208,2208,215,2207,221,2173,213,2053,195,1957,187,1862,180,1740,165,1735,164"/>
-<area shape="poly" id="edge18_Node000013_Node000004" title=" " alt="" coords="1242,171,1124,220,1122,215,1240,166"/>
-<area shape="rect" id="Node000014" href="$Camera2D_8cpp.html" title=" " alt="" coords="1450,218,1671,273"/>
-<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="1389,166,1502,215,1500,220,1387,171"/>
-<area shape="rect" id="Node000015" href="$GameScreen_8h.html" title="Écran de jeu : scène de démonstration (LOT&#45;05) encapsulée en écran." alt="" coords="1205,218,1426,273"/>
-<area shape="poly" id="edge19_Node000013_Node000015" title=" " alt="" coords="1318,177,1318,218,1313,218,1313,177"/>
-<area shape="poly" id="edge22_Node000013_Node000017" title=" " alt="" coords="1440,159,1684,208,1713,215,1712,221,1683,213,1439,164"/>
-<area shape="poly" id="edge20_Node000015_Node000005" title=" " alt="" coords="1212,278,1193,283,1065,305,935,323,711,347,711,342,934,318,1064,300,1192,277,1211,273"/>
-<area shape="rect" id="Node000016" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1205,328,1426,383"/>
-<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="1318,287,1318,328,1313,328,1313,287"/>
+<area shape="rect" id="Node000001" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="1979,5,2200,60"/>
+<area shape="rect" id="Node000002" href="$Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="821,108,1070,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1965,48,1071,126,1070,120,1965,42"/>
+<area shape="rect" id="Node000004" href="$LevelScene_8cpp.html" title=" " alt="" coords="1101,218,1323,273"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="1966,64,1677,130,1335,213,1307,220,1306,215,1334,208,1676,125,1965,59"/>
+<area shape="rect" id="Node000006" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="5,211,227,280"/>
+<area shape="poly" id="edge25_Node000001_Node000006" title=" " alt="" coords="1965,39,1584,48,1093,63,643,84,481,96,385,111,324,131,265,157,167,213,164,208,263,153,322,126,383,105,480,91,643,78,1093,57,1584,42,1965,34"/>
+<area shape="rect" id="Node000007" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="568,211,789,280"/>
+<area shape="poly" id="edge26_Node000001_Node000007" title=" " alt="" coords="1965,39,1672,46,1312,59,990,80,875,94,835,102,809,110,776,131,746,157,702,212,698,209,743,153,773,126,807,106,834,97,875,89,990,75,1312,54,1671,40,1965,33"/>
+<area shape="rect" id="Node000009" href="$Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="396,108,631,163"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1965,40,1422,62,1069,83,714,111,631,120,631,115,713,105,1069,78,1421,57,1965,35"/>
+<area shape="rect" id="Node000010" href="$Rect_8h.html" title="Rectangle aligné sur les axes en coordonnées monde, propre à Core." alt="" coords="2397,108,2619,163"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="2212,61,2400,105,2398,111,2211,66"/>
+<area shape="rect" id="Node000012" href="$test__rect_8cpp.html" title="Tests unitaires du rectangle aligné sur les axes de Core." alt="" coords="2643,218,2864,273"/>
+<area shape="poly" id="edge28_Node000001_Node000012" title=" " alt="" coords="2214,38,2327,48,2448,62,2556,81,2599,92,2632,106,2732,216,2728,219,2629,110,2597,97,2555,86,2447,67,2326,53,2213,44"/>
+<area shape="rect" id="Node000013" href="$Vector2_8cpp.html" title=" " alt="" coords="2693,108,2915,163"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="2214,44,2430,70,2675,105,2694,109,2693,114,2674,111,2429,75,2213,50"/>
+<area shape="rect" id="Node000014" href="$Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="1856,108,2077,163"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="2048,71,2000,110,1997,106,2045,67"/>
+<area shape="rect" id="Node000017" href="$GameScreen_8cpp.html" title=" " alt="" coords="2051,328,2279,383"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="2168,64,2214,89,2261,121,2304,162,2337,209,2346,229,2349,246,2346,263,2337,282,2310,310,2276,330,2274,326,2307,306,2332,278,2341,261,2344,246,2340,230,2332,212,2300,165,2258,126,2211,93,2166,68"/>
+<area shape="rect" id="Node000019" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="2101,218,2323,273"/>
+<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="2114,71,2199,216,2194,219,2109,73"/>
+<area shape="rect" id="Node000020" href="$test__vector2_8cpp.html" title="Tests unitaires du vecteur 2D de Core." alt="" coords="2939,108,3160,163"/>
+<area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="2214,38,2538,61,2732,80,2927,105,2939,107,2938,113,2926,111,2732,86,2537,66,2214,43"/>
+<area shape="rect" id="Node000003" href="$MovementSystem_8cpp.html" title=" " alt="" coords="251,218,543,273"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="808,165,557,213,521,221,520,215,555,208,807,160"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1024,165,1148,215,1146,220,1022,170"/>
+<area shape="rect" id="Node000005" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="1347,218,1587,273"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1084,158,1335,208,1367,215,1366,221,1334,213,1083,163"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="807,151,497,181,348,197,239,213,227,216,226,210,238,208,347,192,497,175,807,146"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="869,170,763,213,761,208,867,165"/>
+<area shape="rect" id="Node000008" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="814,218,1077,273"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="948,177,948,218,943,218,943,177"/>
+<area shape="poly" id="edge9_Node000009_Node000003" title=" " alt="" coords="476,175,427,220,424,216,473,171"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="404,169,239,213,228,216,226,211,238,208,402,164"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="566,168,628,208,625,213,564,172"/>
+<area shape="rect" id="Node000011" href="$Rect_8cpp.html" title=" " alt="" coords="2397,218,2619,273"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="2511,177,2511,218,2505,218,2505,177"/>
+<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="2582,166,2695,215,2692,220,2579,171"/>
+<area shape="poly" id="edge19_Node000014_Node000005" title=" " alt="" coords="1843,163,1599,213,1568,221,1567,215,1598,208,1842,157"/>
+<area shape="rect" id="Node000015" href="$Camera2D_8cpp.html" title=" " alt="" coords="1856,218,2077,273"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="1969,177,1969,218,1964,218,1964,177"/>
+<area shape="rect" id="Node000016" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="1611,218,1832,273"/>
+<area shape="poly" id="edge20_Node000014_Node000016" title=" " alt="" coords="1895,171,1782,220,1780,215,1893,166"/>
+<area shape="poly" id="edge23_Node000014_Node000019" title=" " alt="" coords="2040,166,2153,215,2151,220,2038,171"/>
+<area shape="poly" id="edge21_Node000016_Node000017" title=" " alt="" coords="1829,273,1845,277,2052,326,2051,331,1843,283,1828,279"/>
+<area shape="rect" id="Node000018" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1611,328,1832,383"/>
+<area shape="poly" id="edge22_Node000016_Node000018" title=" " alt="" coords="1724,287,1724,328,1719,328,1719,287"/>
 </map>

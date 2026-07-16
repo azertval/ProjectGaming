@@ -11,6 +11,7 @@ var hierarchy =
     [ "core::FixedTimestep", "classcore_1_1FixedTimestep.html", null ],
     [ "hmi::FlagIcons", "classhmi_1_1FlagIcons.html", null ],
     [ "hmi::GraphicsDevice", "classhmi_1_1GraphicsDevice.html", null ],
+    [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
       [ "core::ComponentPool< T >", "classcore_1_1ComponentPool.html", null ]
     ] ],
@@ -30,8 +31,12 @@ var hierarchy =
     [ "core::View< Components >::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
     [ "hmi::LanguageSelector", "classhmi_1_1LanguageSelector.html", null ],
     [ "hmi::SpriteRenderer::LayeredQuad", "structhmi_1_1SpriteRenderer_1_1LayeredQuad.html", null ],
+    [ "core::Level", "classcore_1_1Level.html", null ],
+    [ "core::LevelLoader", "classcore_1_1LevelLoader.html", null ],
+    [ "core::LevelLoadResult", "structcore_1_1LevelLoadResult.html", null ],
     [ "hmi::Localization", "classhmi_1_1Localization.html", null ],
     [ "core::Logger", "classcore_1_1Logger.html", null ],
+    [ "core::Mechanism", "structcore_1_1Mechanism.html", null ],
     [ "hmi::MenuModel", "classhmi_1_1MenuModel.html", null ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "hmi::LanguageSelector::Rect", "structhmi_1_1LanguageSelector_1_1Rect.html", null ],
@@ -46,6 +51,7 @@ var hierarchy =
     [ "hmi::SpriteQuad", "structhmi_1_1SpriteQuad.html", null ],
     [ "hmi::SpriteRenderer", "classhmi_1_1SpriteRenderer.html", null ],
     [ "hmi::TextureAtlas", "classhmi_1_1TextureAtlas.html", null ],
+    [ "core::TileMap", "classcore_1_1TileMap.html", null ],
     [ "hmi::LanguageSelector::Toggle", "structhmi_1_1LanguageSelector_1_1Toggle.html", null ],
     [ "core::Transform", "structcore_1_1Transform.html", null ],
     [ "core::Vector2", "structcore_1_1Vector2.html", null ],

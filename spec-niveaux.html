@@ -101,30 +101,24 @@ $(document).ready(function(){initNavTree('spec-niveaux.html',''); initResizable(
 <ul>
 <li><a class="anchor" id="EX-LVL-001"></a><b>EX-LVL-001</b> — Un niveau doit être décrit par un <b>fichier de données</b> externe (pas en dur dans le code), placé dans <code>Source/Elements</code>.</li>
 <li><a class="anchor" id="EX-LVL-002"></a><b>EX-LVL-002</b> — Le format doit décrire au minimum : dimensions de la grille, type de chaque tuile, position d'entrée et de sortie, et les mécanismes (interrupteurs, portes, blocs) avec leurs liaisons.</li>
-<li><a class="anchor" id="EX-LVL-003"></a><b>EX-LVL-003</b> — Le format retenu est <b>hybride</b> : une <b>grille ASCII</b> décrit le décor (tuiles) et une section <b>JSON</b> porte les métadonnées et les <b>mécanismes</b> (interrupteurs, portes, blocs) avec leurs liaisons. Le décor reste éditable à la main, le JSON gère les données riches et extensibles.</li>
-<li><a class="anchor" id="EX-LVL-004"></a><b>EX-LVL-004</b> — Le chargement d'un niveau doit <b>valider</b> les données (dimensions cohérentes avec la grille, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).</li>
+<li><a class="anchor" id="EX-LVL-003"></a><b>EX-LVL-003</b> — Le format retenu est un <b>JSON structuré orienté objets</b> : un niveau est un objet JSON portant ses <b>métadonnées</b> (nom, dimensions) et une <b>liste de tuiles</b>, chaque tuile étant un <b>objet</b> <code>{x, y, type, …}</code> (les cases vides sont omises) pouvant porter des <b>champs spécifiques</b> à son type (ex. liaison interrupteur↔porte par identifiant). Choisi pour un moteur <b>extensible et réutilisable</b> (données riches par tuile, sérialisation et <em>round-trip</em> d'éditeur directs), au prix d'une lisibilité « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'<b>éditeur</b>, pas par le texte brut.</li>
+<li><a class="anchor" id="EX-LVL-004"></a><b>EX-LVL-004</b> — Le chargement d'un niveau doit <b>valider</b> les données (positions des tuiles <b>dans les bornes</b> <code>width × height</code>, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md69"></a>
-Format retenu (hybride ASCII + JSON)</h2>
-<p>Légende de la grille : <code>.</code> vide, <code>#</code> solide, <code>^</code> danger, <code>E</code> entrée, <code>S</code> sortie, <code>i</code> interrupteur, <code>D</code> porte. </p><div class="fragment"><div class="line">{</div>
+Format retenu (JSON, liste de tuiles-objets)</h2>
+<p>Types de tuiles : <code>entry</code> (entrée), <code>exit</code> (sortie), <code>solid</code> (solide), <code>danger</code>, <code>switch</code> (interrupteur), <code>door</code> (porte). Une case <b>vide</b> n'est pas listée (absence = vide). </p><div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;name&quot;: &quot;Tutoriel 1&quot;,</div>
 <div class="line">  &quot;width&quot;: 12,</div>
 <div class="line">  &quot;height&quot;: 8,</div>
-<div class="line">  &quot;grid&quot;: [</div>
-<div class="line">    &quot;############&quot;,</div>
-<div class="line">    &quot;#E.........#&quot;,</div>
-<div class="line">    &quot;#....##....#&quot;,</div>
-<div class="line">    &quot;#....##..i.#&quot;,</div>
-<div class="line">    &quot;#........###&quot;,</div>
-<div class="line">    &quot;#..^^^....D#&quot;,</div>
-<div class="line">    &quot;#........S.#&quot;,</div>
-<div class="line">    &quot;############&quot;</div>
-<div class="line">  ],</div>
-<div class="line">  &quot;mechanisms&quot;: [</div>
-<div class="line">    { &quot;switch&quot;: [8, 3], &quot;door&quot;: [10, 5] }</div>
+<div class="line">  &quot;tiles&quot;: [</div>
+<div class="line">    { &quot;x&quot;: 1, &quot;y&quot;: 1, &quot;type&quot;: &quot;entry&quot; },</div>
+<div class="line">    { &quot;x&quot;: 9, &quot;y&quot;: 6, &quot;type&quot;: &quot;exit&quot; },</div>
+<div class="line">    { &quot;x&quot;: 5, &quot;y&quot;: 5, &quot;type&quot;: &quot;danger&quot; },</div>
+<div class="line">    { &quot;x&quot;: 8, &quot;y&quot;: 3, &quot;type&quot;: &quot;switch&quot;, &quot;id&quot;: &quot;s1&quot; },</div>
+<div class="line">    { &quot;x&quot;: 10, &quot;y&quot;: 5, &quot;type&quot;: &quot;door&quot;, &quot;opensWith&quot;: &quot;s1&quot; }</div>
 <div class="line">  ]</div>
 <div class="line">}</div>
-</div><!-- fragment --><p> Les coordonnées des mécanismes sont exprimées en <code>[colonne, ligne]</code> dans le repère de la grille. Le tableau <code>grid</code> doit compter <code>height</code> lignes de <code>width</code> caractères.</p>
+</div><!-- fragment --><p> Coordonnées <code>x</code> = colonne, <code>y</code> = ligne, origine <b>haut-gauche</b> ; toute tuile hors des bornes <code>width × height</code> est invalide. Les <b>liaisons</b> interrupteur↔porte se font par <b>identifiant</b> (un <code>switch</code> porte un <code>id</code>, une <code>door</code> le référence via <code>opensWith</code>), schéma extensible à d'autres mécanismes. L'exemple omet les tuiles <code>solid</code> des bords pour rester lisible.</p>
 <h1><a class="anchor" id="autotoc_md70"></a>
 2. Progression</h1>
 <ul>

@@ -7,7 +7,9 @@ var searchData=
   ['entités_20_3a_20handles_20générationnels_20cycle_20de_20vie_4',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
   ['entrées_5',['Contrôles &amp; entrées',['../spec-controles.html',1,'specifications']]],
   ['entrées_20clavier_20souris_6',['TACHE-01 — Entrées clavier &amp; souris',['../lot-06-tache-01-entrees-clavier-souris.html',1,'lot-06']]],
-  ['et_20lancer_20le_20jeu_7',['Télécharger et lancer le jeu',['../manuel-telecharger.html',1,'manuel']]],
-  ['exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_8',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['exigences_20non_20fonctionnelles_9',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
+  ['et_20chargement_7',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['et_20de_20niveau_8',['TACHE-02 — Modèle de tuiles et de niveau',['../lot-07-tache-02-modele-niveau.html',1,'lot-07']]],
+  ['et_20lancer_20le_20jeu_9',['Télécharger et lancer le jeu',['../manuel-telecharger.html',1,'manuel']]],
+  ['exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_10',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
+  ['exigences_20non_20fonctionnelles_11',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
 ];

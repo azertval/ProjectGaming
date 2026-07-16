@@ -10,7 +10,8 @@ var searchData=
   ['éditeur_20intégré_20»_7',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md13',1,'']]],
   ['éditeur_20mvp_8',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md53',1,'']]],
   ['éditeur_20placeholder_9',['TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)',['../lot-06-tache-06-ecrans-cibles.html',1,'lot-06']]],
-  ['étapes_10',['Étapes',['../manuel-telecharger.html#autotoc_md411',1,'']]],
-  ['états_20d_20application_20écrans_11',['TACHE-04 — États d&apos;application (écrans)',['../lot-06-tache-04-etats-application.html',1,'lot-06']]],
-  ['états_20de_20jeu_12',['5. États de jeu',['../spec-gameplay.html#autotoc_md66',1,'']]]
+  ['épinglé_10',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
+  ['étapes_11',['Étapes',['../manuel-telecharger.html#autotoc_md463',1,'']]],
+  ['états_20d_20application_20écrans_12',['TACHE-04 — États d&apos;application (écrans)',['../lot-06-tache-04-etats-application.html',1,'lot-06']]],
+  ['états_20de_20jeu_13',['5. États de jeu',['../spec-gameplay.html#autotoc_md66',1,'']]]
 ];

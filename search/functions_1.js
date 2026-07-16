@@ -3,5 +3,6 @@ var searchData=
   ['begin_0',['begin',['../classcore_1_1View.html#ab0515d40432d6e5dfa6aad75a8a4ea08',1,'core::View::begin()'],['../classhmi_1_1SpriteBatch.html#a4876bd6f672a6dbdc6dd166fcecb971d',1,'hmi::SpriteBatch::begin()']]],
   ['beginframe_1',['beginFrame',['../classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab',1,'hmi::InputState']]],
   ['bitmapfont_2',['bitmapfont',['../classhmi_1_1BitmapFont.html#a02df5ed7b73fa5bd98ca8fc1f00e6616',1,'hmi::BitmapFont::BitmapFont(ID3D11Device *device)'],['../classhmi_1_1BitmapFont.html#aceb78d34e59c4d1b32e1647a4ed4a2b6',1,'hmi::BitmapFont::BitmapFont(const BitmapFont &amp;)=delete']]],
-  ['bottom_3',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect']]]
+  ['bottom_3',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect']]],
+  ['buildlevelscene_4',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]]
 ];

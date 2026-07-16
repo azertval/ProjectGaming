@@ -18,6 +18,7 @@ var searchData=
   ['lot_2004_20—_20documentation_20doxygen_20réorganisation_20de_20l_20arborescence_20documentaire_15',['LOT-04 — Documentation Doxygen &amp; réorganisation de l&apos;arborescence documentaire',['../lot-04.html',1,'lots']]],
   ['lot_2005_20—_20rendu_202d_20_3a_20atlas_20sprites_20caméra_16',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
   ['lot_2006_20—_20menu_20principal_17',['LOT-06 — Menu principal',['../lot-06.html',1,'lots']]],
-  ['lots_18',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_19',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2007_20—_20niveaux_20_3a_20modèle_20et_20chargement_18',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['lots_19',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_20',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

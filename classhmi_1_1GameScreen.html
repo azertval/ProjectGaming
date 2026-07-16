@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1GameScreen.html',''); init
 </div><!--header-->
 <div class="contents">
 
-<p>Écran de jeu hébergeant la <b>scène de démonstration</b> du LOT-05 (niveau provisoire).  
+<p>Écran de jeu affichant un <b>niveau chargé depuis un fichier</b> (<code>EX-REN-010</code>).  
  <a href="classhmi_1_1GameScreen.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="GameScreen_8h_source.html">GameScreen.h</a>&gt;</code></p>
@@ -107,7 +107,7 @@ Inheritance diagram for hmi::GameScreen:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1GameScreen__inherit__graph.png" border="0" usemap="#ahmi_1_1GameScreen_inherit__map" alt="Inheritance graph"/></div>
 <map name="ahmi_1_1GameScreen_inherit__map" id="ahmi_1_1GameScreen_inherit__map">
-<area shape="rect" title="Écran de jeu hébergeant la scène de démonstration du LOT&#45;05 (niveau provisoire)." alt="" coords="5,79,144,104"/>
+<area shape="rect" title="Écran de jeu affichant un niveau chargé depuis un fichier (EX&#45;REN&#45;010)." alt="" coords="5,79,144,104"/>
 <area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="23,5,126,31"/>
 <area shape="poly" title=" " alt="" coords="77,44,77,79,72,79,72,44"/>
 </map>
@@ -117,11 +117,11 @@ Collaboration diagram for hmi::GameScreen:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1GameScreen__coll__graph.png" border="0" usemap="#ahmi_1_1GameScreen_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1GameScreen_coll__map" id="ahmi_1_1GameScreen_coll__map">
-<area shape="rect" title="Écran de jeu hébergeant la scène de démonstration du LOT&#45;05 (niveau provisoire)." alt="" coords="1224,287,1363,313"/>
+<area shape="rect" title="Écran de jeu affichant un niveau chargé depuis un fichier (EX&#45;REN&#45;010)." alt="" coords="1228,319,1367,345"/>
 <area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="982,213,1085,238"/>
-<area shape="poly" title=" " alt="" coords="1099,236,1201,263,1262,285,1260,290,1199,268,1098,241"/>
+<area shape="poly" title=" " alt="" coords="1098,238,1151,254,1205,275,1245,296,1279,317,1276,322,1243,301,1203,280,1149,259,1097,243"/>
 <area shape="rect" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="986,262,1081,287"/>
-<area shape="poly" title=" " alt="" coords="1095,278,1224,291,1223,296,1094,283"/>
+<area shape="poly" title=" " alt="" coords="1095,285,1239,317,1237,322,1094,290"/>
 <area shape="rect" href="classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="651,90,805,115"/>
 <area shape="poly" title=" " alt="" coords="780,118,844,147,893,175,935,212,947,231,959,247,987,262,985,267,956,251,942,234,931,215,890,179,841,152,778,123"/>
 <area shape="rect" title=" " alt="" coords="315,5,459,45"/>
@@ -142,34 +142,38 @@ Collaboration diagram for hmi::GameScreen:</div>
 <area shape="poly" title=" " alt="" coords="482,272,637,272,637,277,482,277"/>
 <area shape="rect" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="40,262,151,287"/>
 <area shape="poly" title=" " alt="" coords="165,272,306,272,306,277,165,277"/>
-<area shape="rect" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="971,318,1095,343"/>
-<area shape="poly" title=" " alt="" coords="1109,319,1223,305,1224,311,1109,324"/>
+<area shape="rect" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="971,319,1095,345"/>
+<area shape="poly" title=" " alt="" coords="1109,329,1228,329,1228,335,1109,335"/>
 <area shape="rect" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="675,319,781,345"/>
-<area shape="poly" title=" " alt="" coords="795,329,971,328,971,334,795,334"/>
-<area shape="rect" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="957,394,1109,419"/>
-<area shape="poly" title=" " alt="" coords="1077,386,1199,336,1261,310,1263,315,1201,341,1079,391"/>
+<area shape="poly" title=" " alt="" coords="795,329,971,329,971,335,795,335"/>
+<area shape="rect" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="957,399,1109,425"/>
+<area shape="poly" title=" " alt="" coords="1089,393,1254,342,1255,347,1090,398"/>
 <area shape="rect" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="663,369,793,394"/>
-<area shape="poly" title=" " alt="" coords="807,385,957,398,957,403,807,390"/>
+<area shape="poly" title=" " alt="" coords="807,387,958,402,957,407,807,392"/>
 <area shape="rect" title=" " alt="" coords="299,361,476,401"/>
 <area shape="poly" title=" " alt="" coords="490,379,663,379,663,384,490,384"/>
 <area shape="rect" href="structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,369,185,394"/>
 <area shape="poly" title=" " alt="" coords="199,379,298,379,298,384,199,384"/>
 <area shape="rect" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="660,418,796,443"/>
-<area shape="poly" title=" " alt="" coords="810,430,933,424,978,417,979,422,934,429,810,435"/>
+<area shape="poly" title=" " alt="" coords="809,429,933,424,957,421,958,427,934,429,810,434"/>
 <area shape="rect" title=" " alt="" coords="633,468,823,508"/>
-<area shape="poly" title=" " alt="" coords="836,472,933,449,973,434,1008,417,1010,422,975,439,934,455,837,477"/>
+<area shape="poly" title=" " alt="" coords="836,470,933,448,1003,422,1004,427,934,453,837,475"/>
 <area shape="rect" href="structhmi_1_1SpriteRenderer_1_1LayeredQuad.html" title="Un quad prêt à dessiner, associé à sa couche (pour le tri)." alt="" coords="311,468,463,508"/>
 <area shape="poly" title=" " alt="" coords="477,485,633,485,633,491,477,491"/>
 <area shape="rect" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e..." alt="" coords="32,475,159,501"/>
 <area shape="poly" title=" " alt="" coords="172,485,311,485,311,491,172,491"/>
+<area shape="rect" title=" " alt="" coords="990,485,1077,510"/>
+<area shape="poly" title=" " alt="" coords="1071,476,1133,442,1203,400,1279,343,1282,347,1205,405,1136,447,1073,481"/>
+<area shape="rect" title=" " alt="" coords="659,532,797,572"/>
+<area shape="poly" title=" " alt="" coords="810,535,989,502,990,508,811,540"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e9d7fb46972f8e0d6c693804b106ca4" id="r_a1e9d7fb46972f8e0d6c693804b106ca4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#a1e9d7fb46972f8e0d6c693804b106ca4">GameScreen</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, int viewportWidth, int viewportHeight)</td></tr>
-<tr class="memdesc:a1e9d7fb46972f8e0d6c693804b106ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit l'écran de jeu et sa scène de démonstration.  <br /></td></tr>
-<tr class="separator:a1e9d7fb46972f8e0d6c693804b106ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb05a5c56f3e1ec94cb11263d2e49b02" id="r_acb05a5c56f3e1ec94cb11263d2e49b02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#acb05a5c56f3e1ec94cb11263d2e49b02">GameScreen</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, int viewportWidth, int viewportHeight, std::filesystem::path levelPath)</td></tr>
+<tr class="memdesc:acb05a5c56f3e1ec94cb11263d2e49b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit l'écran et charge le niveau.  <br /></td></tr>
+<tr class="separator:acb05a5c56f3e1ec94cb11263d2e49b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab92718c098da04b32be460630477e3b1" id="r_ab92718c098da04b32be460630477e3b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmi_1_1ScreenTransition.html">ScreenTransition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#ab92718c098da04b32be460630477e3b1">update</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, float fixedDelta) override</td></tr>
 <tr class="memdesc:ab92718c098da04b32be460630477e3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la logique de l'écran pour une frame.  <br /></td></tr>
 <tr class="separator:ab92718c098da04b32be460630477e3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,13 +192,20 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a1eab05c7ae103ce10c5ae2572fffa53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1bade635453bf1388d91555c1bd3555" id="r_ad1bade635453bf1388d91555c1bd3555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1SpriteRenderer.html">SpriteRenderer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#ad1bade635453bf1388d91555c1bd3555">_renderer</a></td></tr>
 <tr class="separator:ad1bade635453bf1388d91555c1bd3555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a493f5509d5086709cd3e9084f2777909" id="r_a493f5509d5086709cd3e9084f2777909"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#a493f5509d5086709cd3e9084f2777909">_levelWidth</a> = 0</td></tr>
+<tr class="separator:a493f5509d5086709cd3e9084f2777909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa099ff22894a1b07b938fb067810020d" id="r_aa099ff22894a1b07b938fb067810020d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#aa099ff22894a1b07b938fb067810020d">_levelHeight</a> = 0</td></tr>
+<tr class="separator:aa099ff22894a1b07b938fb067810020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f909419cd04569c32e4af445e500deb" id="r_a2f909419cd04569c32e4af445e500deb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#a2f909419cd04569c32e4af445e500deb">_loadError</a></td></tr>
+<tr class="memdesc:a2f909419cd04569c32e4af445e500deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide si le niveau est chargé ; message d'erreur sinon.  <br /></td></tr>
+<tr class="separator:a2f909419cd04569c32e4af445e500deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Écran de jeu hébergeant la <b>scène de démonstration</b> du LOT-05 (niveau provisoire). </p>
-<p>Reprend la scène auparavant construite dans <code>main</code> : un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code> avec le <code>MovementSystem</code> (simulation à pas fixe, <code>EX-ARCH-030</code>) et un rendu par <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">SpriteRenderer</a></code> en <b>lecture seule</b> de l'ECS (<code>EX-ARCH-012</code>). L'écran possède ses ressources de simulation (RAII) ; <b>Échap</b> demande le retour au menu. Le chargement de niveaux depuis fichier est un lot ultérieur — la scène reste codée en dur ici. </p>
+<div class="textblock"><p>Écran de jeu affichant un <b>niveau chargé depuis un fichier</b> (<code>EX-REN-010</code>). </p>
+<p>Au chargement, le niveau (<code><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></code>) est projeté en <b>entités ECS</b> (une tuile non vide = un sprite) rendues par le <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">SpriteRenderer</a></code> en lecture seule (<code>EX-ARCH-012</code>). Un échec de chargement est <b>récupérable</b> (<code>EX-NFR-040</code>) : l'écran affiche un état neutre au lieu de planter. <b>Échap</b> revient au menu. Le déplacement du personnage et le comportement des mécanismes relèvent de lots ultérieurs : ce niveau est ici <b>statique</b>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e9d7fb46972f8e0d6c693804b106ca4" name="a1e9d7fb46972f8e0d6c693804b106ca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9d7fb46972f8e0d6c693804b106ca4">&#9670;&#160;</a></span>GameScreen()</h2>
+<a id="acb05a5c56f3e1ec94cb11263d2e49b02" name="acb05a5c56f3e1ec94cb11263d2e49b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb05a5c56f3e1ec94cb11263d2e49b02">&#9670;&#160;</a></span>GameScreen()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +232,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>viewportHeight</em>&#160;</td>
+          <td class="paramname"><em>viewportHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::filesystem::path&#160;</td>
+          <td class="paramname"><em>levelPath</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -231,13 +248,14 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construit l'écran de jeu et sa scène de démonstration. </p>
+<p>Construit l'écran et charge le niveau. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">batch</td><td>Lot de sprites partagé (rendu). </td></tr>
     <tr><td class="paramname">atlas</td><td>Atlas de tuiles fournissant les régions de sprites. </td></tr>
     <tr><td class="paramname">viewportWidth</td><td>Largeur initiale de la surface de rendu, en pixels. </td></tr>
     <tr><td class="paramname">viewportHeight</td><td>Hauteur initiale de la surface de rendu, en pixels. </td></tr>
+    <tr><td class="paramname">levelPath</td><td>Chemin du fichier de niveau à charger. </td></tr>
   </table>
   </dd>
 </dl>
@@ -349,6 +367,74 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa099ff22894a1b07b938fb067810020d" name="aa099ff22894a1b07b938fb067810020d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa099ff22894a1b07b938fb067810020d">&#9670;&#160;</a></span>_levelHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::GameScreen::_levelHeight = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a493f5509d5086709cd3e9084f2777909" name="a493f5509d5086709cd3e9084f2777909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a493f5509d5086709cd3e9084f2777909">&#9670;&#160;</a></span>_levelWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::GameScreen::_levelWidth = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f909419cd04569c32e4af445e500deb" name="a2f909419cd04569c32e4af445e500deb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f909419cd04569c32e4af445e500deb">&#9670;&#160;</a></span>_loadError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::GameScreen::_loadError</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vide si le niveau est chargé ; message d'erreur sinon. </p>
 
 </div>
 </div>

@@ -12,7 +12,9 @@ var searchData=
   ['mathématiques_20de_20core_9',['TACHE-01 — Types mathématiques de `Core`',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
   ['menu_20principal_10',['menu principal',['../lot-06.html',1,'LOT-06 — Menu principal'],['../lot-06-tache-05-ecran-menu-principal.html',1,'TACHE-05 — Écran de menu principal']]],
   ['messages_11',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['monde_20→_20écran_12',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]],
-  ['mouvement_20démo_13',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
-  ['multi_20composants_14',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
+  ['modèle_20de_20tuiles_20et_20de_20niveau_12',['TACHE-02 — Modèle de tuiles et de niveau',['../lot-07-tache-02-modele-niveau.html',1,'lot-07']]],
+  ['modèle_20et_20chargement_13',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['monde_20→_20écran_14',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]],
+  ['mouvement_20démo_15',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
+  ['multi_20composants_16',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
 ];

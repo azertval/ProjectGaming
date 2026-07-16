@@ -129,6 +129,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1FixedTimestep.html">FixedTimestep</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.  <a href="classcore_1_1FixedTimestep.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une case dans la grille d'un niveau, en <b>coordonnées entières</b>.  <a href="structcore_1_1GridPosition.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1IComponentPool.html">IComponentPool</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface type-effacée d'une pool de composants.  <a href="classcore_1_1IComponentPool.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,8 +141,20 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ISystem.html">ISystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface d'un système : porte la logique itérant sur les composants.  <a href="classcore_1_1ISystem.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Level.html">Level</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.  <a href="classcore_1_1Level.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelLoader.html">LevelLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge un niveau au format <b>JSON</b> (objet <code>{name, width, height, tiles}</code> où <code>tiles</code> est une liste d'objets <code>{x, y, type, …}</code>), <code>EX-LVL-001</code>/<code>EX-LVL-003</code>.  <a href="classcore_1_1LevelLoader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'un chargement de niveau : soit un <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code>, soit une <b>erreur</b> décrite.  <a href="structcore_1_1LevelLoadResult.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Logger.html">Logger</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.  <a href="classcore_1_1Logger.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Mechanism.html">Mechanism</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaison d'un <b>interrupteur</b> à une <b>porte</b>, par positions résolues.  <a href="structcore_1_1Mechanism.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MemoryLogSink.html">MemoryLogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink de test : mémorise les messages reçus pour inspection.  <a href="classcore_1_1MemoryLogSink.html#details">More...</a><br /></td></tr>
@@ -152,6 +167,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Sprite.html">Sprite</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence 2D d'une entité : quelle région de l'atlas dessiner, dans quelle couche et avec quelle teinte.  <a href="structcore_1_1Sprite.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1TileMap.html">TileMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille dense de tuiles typées (<code>EX-GP-001</code>), origine haut-gauche.  <a href="classcore_1_1TileMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Transform.html">Transform</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, échelle et rotation d'une entité, en unités monde (<code>EX-ARCH-020</code>).  <a href="structcore_1_1Transform.html#details">More...</a><br /></td></tr>
@@ -184,6 +202,19 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau d'un message de journalisation (ordre croissant de gravité).  <a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">More...</a><br /></td></tr>
 <tr class="separator:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace99a1be913e6294e42e9ebb145eb875" id="r_ace99a1be913e6294e42e9ebb145eb875"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">Solid</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">Danger</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c">Entry</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d">Exit</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">Switch</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">Door</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>).  <a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
+<tr class="separator:ace99a1be913e6294e42e9ebb145eb875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -211,6 +242,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ae8ce294afb9bbebacf6676020a0e223a" id="r_ae8ce294afb9bbebacf6676020a0e223a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a">parseLogLevel</a> (std::string_view text)</td></tr>
 <tr class="memdesc:ae8ce294afb9bbebacf6676020a0e223a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une chaîne en niveau de log (insensible à la casse).  <br /></td></tr>
 <tr class="separator:ae8ce294afb9bbebacf6676020a0e223a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b4ac39e4a1c16efbe9ff53132d9a95" id="r_a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95">operator==</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
+<tr class="separator:a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29323798eff97fce936a3352846efb93" id="r_a29323798eff97fce936a3352846efb93"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a29323798eff97fce936a3352846efb93">operator!=</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
+<tr class="separator:a29323798eff97fce936a3352846efb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb711314315ff134ed9c25c09b4cebe4" id="r_acb711314315ff134ed9c25c09b4cebe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile)</td></tr>
+<tr class="memdesc:acb711314315ff134ed9c25c09b4cebe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></code> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
+<tr class="separator:acb711314315ff134ed9c25c09b4cebe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105a7f2ca0f25e01231a9bc1bbc36ebb" id="r_a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb">isSolid</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile bloque le déplacement de manière <b>statique</b>.  <br /></td></tr>
+<tr class="separator:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
 <tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
 <tr class="separator:a69640dd3c9f3f8778a7c7621839c3794"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,6 +339,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ace99a1be913e6294e42e9ebb145eb875" name="ace99a1be913e6294e42e9ebb145eb875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace99a1be913e6294e42e9ebb145eb875">&#9670;&#160;</a></span>TileType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code> et <code>Door</code> sont les mécanismes de puzzle (leur <b>comportement</b> relève d'un lot ultérieur, ce modèle ne fait que les représenter). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564" name="ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564"></a>Danger&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c" name="ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c"></a>Entry&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d" name="ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d"></a>Exit&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b" name="ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b"></a>Switch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1" name="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"></a>Door&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a69640dd3c9f3f8778a7c7621839c3794" name="a69640dd3c9f3f8778a7c7621839c3794"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69640dd3c9f3f8778a7c7621839c3794">&#9670;&#160;</a></span>approximatelyEqual()</h2>
@@ -350,6 +425,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> si les deux valeurs sont égales à la tolérance près. </dd></dl>
+
+</div>
+</div>
+<a id="acb711314315ff134ed9c25c09b4cebe4" name="acb711314315ff134ed9c25c09b4cebe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb711314315ff134ed9c25c09b4cebe4">&#9670;&#160;</a></span>buildLevelScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::buildLevelScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1World.html">World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>regionForTile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peuple un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></code> d'une <b>entité par tuile non vide</b> du niveau. </p>
+<p>Chaque tuile non <code>Empty</code> devient une entité portant un <code><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></code> (position = colonne, ligne en unités monde) et un <code><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">Sprite</a></code> (couche 0, région fournie par <code>regionForTile</code>). Logique pure, indépendante du rendu (<code>EX-ARCH-011</code>) : la correspondance <b>type de tuile → région d'atlas</b> est <b>injectée</b>, ce qui rend la projection testable sans GPU (une fausse correspondance suffit).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>Monde à peupler. </td></tr>
+    <tr><td class="paramname">level</td><td>Niveau source. </td></tr>
+    <tr><td class="paramname">regionForTile</td><td>Correspondance type de tuile → région d'atlas (dépendance de rendu injectée). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -537,8 +657,43 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a105a7f2ca0f25e01231a9bc1bbc36ebb" name="a105a7f2ca0f25e01231a9bc1bbc36ebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105a7f2ca0f25e01231a9bc1bbc36ebb">&#9670;&#160;</a></span>isSolid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool core::isSolid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si un type de tuile bloque le déplacement de manière <b>statique</b>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code>. La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et sera gérée par la simulation ; elle n'est donc pas statiquement solide ici. </dd></dl>
+
+</div>
+</div>
 <a id="a197b5bff2c73896fbfb05df9ea6419b9" name="a197b5bff2c73896fbfb05df9ea6419b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a197b5bff2c73896fbfb05df9ea6419b9">&#9670;&#160;</a></span>operator!=()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a197b5bff2c73896fbfb05df9ea6419b9">&#9670;&#160;</a></span>operator!=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -562,6 +717,43 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29323798eff97fce936a3352846efb93" name="a29323798eff97fce936a3352846efb93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29323798eff97fce936a3352846efb93">&#9670;&#160;</a></span>operator!=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool core::operator!= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si les deux positions désignent des cases différentes. </dd></dl>
 
 </div>
 </div>
@@ -724,7 +916,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a78fa4a986a900f73517454f7c1eff774" name="a78fa4a986a900f73517454f7c1eff774"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78fa4a986a900f73517454f7c1eff774">&#9670;&#160;</a></span>operator==()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78fa4a986a900f73517454f7c1eff774">&#9670;&#160;</a></span>operator==() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -758,6 +950,43 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> si les composantes coïncident à la tolérance près. </dd></dl>
+
+</div>
+</div>
+<a id="a02b4ac39e4a1c16efbe9ff53132d9a95" name="a02b4ac39e4a1c16efbe9ff53132d9a95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b4ac39e4a1c16efbe9ff53132d9a95">&#9670;&#160;</a></span>operator==() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool core::operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si les deux positions désignent la même case. </dd></dl>
 
 </div>
 </div>
