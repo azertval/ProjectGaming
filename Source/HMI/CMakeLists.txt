@@ -39,6 +39,14 @@ target_compile_definitions(ProjectGaming PRIVATE
     _UNICODE
 )
 
+# En Release, pas de fenêtre console (sous-système Windows) pour une expérience utilisateur
+# propre ; en Debug, on conserve la console (logs visibles). Le point d'entrée reste le `main()`
+# standard grâce à `/ENTRY:mainCRTStartup` (la CRT s'initialise puis appelle `main`).
+if(MSVC)
+    set_target_properties(ProjectGaming PROPERTIES WIN32_EXECUTABLE $<CONFIG:Release>)
+    target_link_options(ProjectGaming PRIVATE $<$<CONFIG:Release>:/ENTRY:mainCRTStartup>)
+endif()
+
 if(ENABLE_PCH)
     # PCH propre à la cible : ses définitions (UNICODE…) diffèrent de Core,
     # on ne peut donc pas réutiliser le PCH de Core (mismatch _MBCS/_UNICODE).

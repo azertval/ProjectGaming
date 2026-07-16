@@ -13,6 +13,7 @@
 #include <string>
 #include <string_view>
 
+#include "Core/BuildConfig.h"
 #include "Core/Diagnostics/ConsoleLogSink.h"
 #include "Core/Diagnostics/LogLevelParse.h"
 #include "Core/Diagnostics/Logger.h"
@@ -119,11 +120,16 @@ namespace {
  * @return Code de sortie du processus (0 en cas de succès).
  */
 int main(int argc, char** argv) {
-    // Journaliseur global : sortie console + capture en mémoire (pour enregistrer les logs).
-    auto memoryLogSink = std::make_unique<core::MemoryLogSink>();
-    core::MemoryLogSink* sessionLog = memoryLogSink.get();
-    core::defaultLogger().addSink(std::make_unique<core::ConsoleLogSink>());
-    core::defaultLogger().addSink(std::move(memoryLogSink));
+    // Journaliseur. En développement : sortie console et capture en mémoire (pour le bouton
+    // d'enregistrement des logs). En Release : aucun sink — pas de console (l'exécutable est en
+    // sous-système Windows, voir CMake) et pas de croissance mémoire inutile.
+    core::MemoryLogSink* sessionLog = nullptr;
+    if constexpr (core::kDeveloperBuild) {
+        auto memoryLogSink = std::make_unique<core::MemoryLogSink>();
+        sessionLog = memoryLogSink.get();
+        core::defaultLogger().addSink(std::make_unique<core::ConsoleLogSink>());
+        core::defaultLogger().addSink(std::move(memoryLogSink));
+    }
 
     // Niveau de log configurable au lancement (env PROJECTGAMING_LOG_LEVEL ou --log-level=).
     bool invalidLogLevel = false;
@@ -164,6 +170,9 @@ int main(int argc, char** argv) {
         // Action d'enregistrement des logs de la session (déclenchée par le bouton du menu).
         const std::filesystem::path logDirectory = executableDirectory() / "logs";
         const hmi::MenuScreen::SaveLogAction saveLogAction = [sessionLog, logDirectory] {
+            if (sessionLog == nullptr) {
+                return;  // pas de capture des logs (build Release) : rien à enregistrer
+            }
             const std::filesystem::path path =
                 logDirectory / ("session_" + timestampForFilename() + ".log");
             if (hmi::saveSessionLog(sessionLog->entries(), path)) {
