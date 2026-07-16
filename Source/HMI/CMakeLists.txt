@@ -11,6 +11,8 @@ add_executable(ProjectGaming
     Graphics/BitmapFont.cpp
     Localization/Localization.cpp
     Interface/ScreenManager.cpp
+    Interface/MenuModel.cpp
+    Interface/MenuScreen.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
