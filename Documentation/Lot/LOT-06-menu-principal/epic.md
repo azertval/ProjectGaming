@@ -1,6 +1,6 @@
 # LOT-06 — Menu principal {#lot-06}
 
-> Statut : **terminé**. Au lancement, l'exécutable ouvre un **menu principal** navigable (clavier + souris) piloté par une structure d'**écrans**, avec les briques introduites en chemin : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n).
+> Statut : **terminé**. Au lancement, l'exécutable ouvre un **menu principal** navigable (clavier + souris) piloté par une structure d'**écrans**, avec les briques introduites en chemin : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n). Un **sélecteur de langue** (bouton drapeau, fr/en) complète l'i18n (TACHE-08).
 
 ## Objectif
 Afficher au démarrage un **menu principal** navigable proposant trois options —
@@ -69,6 +69,7 @@ par **Échap**.
 | [TACHE-05](tache-05-ecran-menu-principal.md) | Écran de menu principal | `HMI/Interface` | ✅ Fait |
 | [TACHE-06](tache-06-ecrans-cibles.md) | Écrans cibles (jeu démo + éditeur placeholder) | `HMI/Interface` | ✅ Fait |
 | [TACHE-07](tache-07-integration-main.md) | Intégration `main` (boucle pilotée par l'écran) | `HMI/main.cpp` | ✅ Fait |
+| [TACHE-08](tache-08-selecteur-langue.md) | Sélecteur de langue (bouton drapeau fr/en) | `HMI/Interface`, `HMI/Graphics` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. Au lancement, l'exécutable affiche le **menu principal** avec les trois options.
@@ -95,3 +96,4 @@ par **Échap**.
 - @subpage lot-06-tache-05-ecran-menu-principal
 - @subpage lot-06-tache-06-ecrans-cibles
 - @subpage lot-06-tache-07-integration-main
+- @subpage lot-06-tache-08-selecteur-langue

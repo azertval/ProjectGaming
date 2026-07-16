@@ -9,12 +9,14 @@ add_executable(ProjectGaming
     Graphics/Camera2D.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/BitmapFont.cpp
+    Graphics/FlagIcons.cpp
     Localization/Localization.cpp
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
     Interface/MenuScreen.cpp
     Interface/GameScreen.cpp
     Interface/EditorScreen.cpp
+    Interface/LanguageSelector.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

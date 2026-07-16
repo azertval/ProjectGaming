@@ -12,6 +12,7 @@
 #include "Core/Diagnostics/ConsoleLogSink.h"
 #include "Core/Time/FixedTimestep.h"
 #include "HMI/Graphics/BitmapFont.h"
+#include "HMI/Graphics/FlagIcons.h"
 #include "HMI/Graphics/GraphicsDevice.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -55,6 +56,7 @@ int main() {
         hmi::SpriteBatch spriteBatch(graphics.device(), graphics.context());
         hmi::TextureAtlas atlas(graphics.device());
         hmi::BitmapFont font(graphics.device());
+        hmi::FlagIcons flags(graphics.device());
 
         // Catalogue de traduction : chargé depuis les .lang copiés à côté de l'exécutable.
         hmi::Localization localization(executableDirectory() / "Localization");
@@ -103,8 +105,10 @@ int main() {
 
             // 4. Rendu : efface, dessine l'écran courant, présente.
             graphics.clear(0.10f, 0.12f, 0.16f, 1.0f);
-            hmi::RenderContext context{spriteBatch, atlas, font, localization,
-                                       window.clientWidth(), window.clientHeight()};
+            hmi::RenderContext context{spriteBatch,  atlas,
+                                       font,          localization,
+                                       flags,         window.clientWidth(),
+                                       window.clientHeight()};
             screens.render(context);
             graphics.present();
         }

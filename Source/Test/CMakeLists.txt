@@ -20,6 +20,7 @@ add_executable(UnitTests
     Unit/test_localization.cpp
     Unit/test_screen_manager.cpp
     Unit/test_menu_model.cpp
+    Unit/test_language_selector.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -32,6 +33,8 @@ add_executable(UnitTests
     ../HMI/Interface/ScreenManager.cpp
     # La logique du menu (sélection, survol, transitions) est pure, testable hors GPU.
     ../HMI/Interface/MenuModel.cpp
+    # Le bouton de langue (ancrage, bascule, clic) est une logique pure, testable hors GPU.
+    ../HMI/Interface/LanguageSelector.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
