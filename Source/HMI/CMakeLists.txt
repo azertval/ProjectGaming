@@ -8,6 +8,7 @@ add_executable(ProjectGaming
     Graphics/TextureAtlas.cpp
     Graphics/Camera2D.cpp
     Graphics/SpriteRenderer.cpp
+    Graphics/BitmapFont.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

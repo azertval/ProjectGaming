@@ -7,6 +7,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-06 (TACHE-02)** : rendu de texte dans `HMI/Graphics` — `BitmapFont`, police bitmap **monospace générée en code** (glyphes 5×7 intégrés couvrant ASCII imprimable, plus les lettres accentuées françaises composées d'une lettre de base et d'un diacritique). `drawText` dessine une chaîne **UTF-8** en **espace écran** (pixels) via le `SpriteBatch` : un quad par glyphe, teinte appliquée (glyphes blancs colorés par multiplication), échantillonnage *nearest* (`EX-REN-032`, `EX-ARCH-022`) ; les caractères non couverts sont ignorés sans plantage. Fournit aussi `textWidth`/`lineHeight` (centrage) et `screenProjection` (projection pixels → clip de l'interface). Ressources Direct3D en RAII. Vérifié visuellement (libellés du menu, jeu de caractères, accents, teintes).
 - **LOT-06 (TACHE-01)** : entrées clavier/souris dans `HMI/Input` — `InputState` échantillonne l'état par frame et expose les fronts **pressée / maintenue / relâchée** (`EX-CTRL-011`) pour le clavier et les boutons souris, plus la position souris. Indépendant de toute fenêtre (aucun `<Windows.h>`), donc testable en isolation (`EX-NFR-010`) ; `hmi::Window` capture les messages Win32 (`WM_KEY*`, `WM_MOUSE*`) et échantillonne l'`InputState` une fois par frame en tête de `pumpMessages` (`EX-CTRL-021`), et expose `input()` + `requestClose()`. Couvert par tests unitaires (fronts déterministes).
 
 ### Modifié
