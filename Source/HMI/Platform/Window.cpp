@@ -10,16 +10,11 @@
 namespace hmi {
 
 namespace {
-/// Nom de la classe de fenêtre Win32, partagé par toutes les instances.
+// Nom de la classe de fenêtre Win32, partagé par toutes les instances.
 constexpr const wchar_t* WINDOW_CLASS_NAME = L"ProjectGamingWindowClass";
 }  // namespace
 
-/**
- * @brief Crée et affiche la fenêtre.
- * @param title  Titre affiché dans la barre de la fenêtre.
- * @param width  Largeur souhaitée de la zone client, en pixels.
- * @param height Hauteur souhaitée de la zone client, en pixels.
- */
+// Crée et affiche la fenêtre.
 Window::Window(const wchar_t* title, int width, int height)
     : _handle(nullptr),
       _shouldClose(false),
@@ -60,20 +55,18 @@ Window::Window(const wchar_t* title, int width, int height)
     PLATFORM_LOG_TRACE("Fenetre Win32 creee et affichee");
 }
 
-/// Détruit la fenêtre Win32.
+// Détruit la fenêtre Win32.
 Window::~Window() {
     if (_handle != nullptr) {
         DestroyWindow(_handle);
     }
 }
 
-/**
- * @brief Procédure de fenêtre statique : route les messages vers l'instance.
- *
- * Au tout premier message (WM_NCCREATE), le pointeur d'instance transmis à la
- * création est stocké dans les données utilisateur du HWND, puis récupéré à
- * chaque message suivant.
- */
+// Procédure de fenêtre statique : route les messages vers l'instance.
+//
+// Au tout premier message (WM_NCCREATE), le pointeur d'instance transmis à la
+// création est stocké dans les données utilisateur du HWND, puis récupéré à
+// chaque message suivant.
 LRESULT CALLBACK Window::windowProcedure(HWND handle, UINT message, WPARAM wParam, LPARAM lParam) {
     if (message == WM_NCCREATE) {
         auto* createStructure = reinterpret_cast<CREATESTRUCTW*>(lParam);
@@ -90,7 +83,7 @@ LRESULT CALLBACK Window::windowProcedure(HWND handle, UINT message, WPARAM wPara
     return DefWindowProcW(handle, message, wParam, lParam);
 }
 
-/// Traite un message pour cette instance.
+// Traite un message pour cette instance.
 LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
@@ -145,12 +138,10 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
     }
 }
 
-/**
- * @brief Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
- *
- * `beginFrame` fige l'état d'entrées de la frame précédente **avant** de drainer les messages,
- * afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante.
- */
+// Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
+//
+// `beginFrame` fige l'état d'entrées de la frame précédente **avant** de drainer les messages,
+// afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante.
 void Window::pumpMessages() {
     _input.beginFrame();
 
@@ -168,15 +159,13 @@ bool Window::shouldClose() const {
     return _shouldClose;
 }
 
-/**
- * @brief État des entrées clavier/souris de la frame courante.
- * @return L'`InputState` capturé, en lecture seule.
- */
+// État des entrées clavier/souris de la frame courante.
+// L'`InputState` capturé, en lecture seule.
 const InputState& Window::input() const {
     return _input;
 }
 
-/// Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).
+// Demande la fermeture programmée de la fenêtre (action « Quitter » du menu).
 void Window::requestClose() {
     PLATFORM_LOG_TRACE("Fermeture programmee de la fenetre demandee");
     _shouldClose = true;
@@ -194,12 +183,8 @@ int Window::clientHeight() const {
     return _clientHeight;
 }
 
-/**
- * @brief Récupère et consomme un éventuel redimensionnement survenu depuis le dernier appel.
- * @param outWidth  Reçoit la nouvelle largeur client si un redimensionnement a eu lieu.
- * @param outHeight Reçoit la nouvelle hauteur client si un redimensionnement a eu lieu.
- * @return true si un redimensionnement était en attente (les sorties sont alors valides).
- */
+// Récupère et consomme un éventuel redimensionnement survenu depuis le dernier appel.
+// true si un redimensionnement était en attente (les sorties sont alors valides).
 bool Window::consumeResize(int& outWidth, int& outHeight) {
     if (!_resized) {
         return false;

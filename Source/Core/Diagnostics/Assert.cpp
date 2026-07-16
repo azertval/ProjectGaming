@@ -11,7 +11,7 @@
 namespace core {
 
 namespace {
-/// Gestionnaire courant, avec un comportement par défaut : journaliser puis abandonner.
+// Gestionnaire courant, avec un comportement par défaut : journaliser puis abandonner.
 AssertionHandler& currentHandler() {
     static AssertionHandler handler = [](const char* condition, const char* message,
                                          const char* file, int line) {

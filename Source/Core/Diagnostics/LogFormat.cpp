@@ -13,16 +13,8 @@ std::string_view fileName(std::string_view path) {
     return path.substr(separator + 1);
 }
 
-/**
- * @brief Compose une ligne de journalisation.
- * @param timestamp Horodatage déjà formaté (injecté, pour rester testable).
- * @param level     Niveau du message.
- * @param category  Catégorie / sous-système émetteur (ex. "HMI").
- * @param file      Fichier source (le nom seul est conservé dans la ligne).
- * @param line      Ligne source à l'origine du message.
- * @param message   Texte du message.
- * @return Ligne de la forme "[timestamp][NIVEAU][catégorie][fichier:ligne] message".
- */
+// Compose une ligne de journalisation.
+// Ligne de la forme "[timestamp][NIVEAU][catégorie][fichier:ligne] message".
 std::string formatLogLine(std::string_view timestamp, LogLevel level, std::string_view category,
                           std::string_view file, int line, std::string_view message) {
     const std::string_view name = fileName(file);
@@ -44,10 +36,8 @@ std::string formatLogLine(std::string_view timestamp, LogLevel level, std::strin
     return result;
 }
 
-/**
- * @brief Horodatage courant local, au format "HH:MM:SS".
- * @return La chaîne d'horodatage.
- */
+// Horodatage courant local, au format "HH:MM:SS".
+// La chaîne d'horodatage.
 std::string currentTimestamp() {
     const std::time_t now = std::time(nullptr);
     std::tm localTime{};

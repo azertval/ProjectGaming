@@ -14,14 +14,14 @@ namespace hmi {
 namespace {
 using Microsoft::WRL::ComPtr;
 
-/// Lève une exception si un appel Direct3D a échoué (frontière de construction).
+// Lève une exception si un appel Direct3D a échoué (frontière de construction).
 void throwIfFailed(HRESULT result, const char* message) {
     if (FAILED(result)) {
         throw std::runtime_error(message);
     }
 }
 
-/// Source HLSL du vertex shader : projette la position monde et transmet UV et couleur.
+// Source HLSL du vertex shader : projette la position monde et transmet UV et couleur.
 constexpr char kVertexShaderSource[] = R"(
 cbuffer Projection : register(b0) { float4x4 uProjection; };
 struct VSInput  { float2 position : POSITION; float2 uv : TEXCOORD0; float4 color : COLOR0; };
@@ -35,7 +35,7 @@ VSOutput main(VSInput input) {
 }
 )";
 
-/// Source HLSL du pixel shader : texture d'atlas échantillonnée, multipliée par la teinte.
+// Source HLSL du pixel shader : texture d'atlas échantillonnée, multipliée par la teinte.
 constexpr char kPixelShaderSource[] = R"(
 Texture2D uTexture : register(t0);
 SamplerState uSampler : register(s0);
@@ -45,13 +45,8 @@ float4 main(PSInput input) : SV_TARGET {
 }
 )";
 
-/**
- * @brief Compile un shader HLSL à l'exécution.
- * @param source     Code source HLSL.
- * @param entryPoint Nom de la fonction d'entrée.
- * @param target     Profil cible (ex. "vs_5_0").
- * @return Le bytecode compilé.
- */
+// Compile un shader HLSL à l'exécution.
+// Le bytecode compilé.
 ComPtr<ID3DBlob> compileShader(const char* source, const char* entryPoint, const char* target) {
     UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
 #ifdef _DEBUG
@@ -74,11 +69,7 @@ ComPtr<ID3DBlob> compileShader(const char* source, const char* entryPoint, const
 }
 }  // namespace
 
-/**
- * @brief Construit le pipeline (shaders, buffers, états de rendu).
- * @param device  Device Direct3D 11 (crée les ressources).
- * @param context Contexte immédiat (émet les commandes de dessin), non possédé.
- */
+// Construit le pipeline (shaders, buffers, états de rendu).
 SpriteBatch::SpriteBatch(ID3D11Device* device, ID3D11DeviceContext* context) : _context(context) {
     _vertices.reserve(MAXIMUM_QUADS * 4);
 
@@ -175,11 +166,7 @@ SpriteBatch::SpriteBatch(ID3D11Device* device, ID3D11DeviceContext* context) : _
     GRAPHICS_LOG_TRACE("SpriteBatch : pipeline 2D cree (shaders, buffers, etats)");
 }
 
-/**
- * @brief Démarre un lot : configure les états et la texture, et la projection caméra.
- * @param projection Matrice de projection monde → clip (fournie par la caméra).
- * @param texture    Vue de la texture d'atlas à échantillonner (non possédée).
- */
+// Démarre un lot : configure les états et la texture, et la projection caméra.
 void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, ID3D11ShaderResourceView* texture) {
     _texture = texture;
 
@@ -205,10 +192,7 @@ void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, ID3D11ShaderResou
     _vertices.clear();
 }
 
-/**
- * @brief Ajoute un quad au lot courant.
- * @param quad Quad à dessiner (unités monde, UV normalisées, teinte).
- */
+// Ajoute un quad au lot courant.
 void SpriteBatch::draw(const SpriteQuad& quad) {
     // Tampon plein : on vide avant d'ajouter (le lot reste dans le même état).
     if (_vertices.size() >= MAXIMUM_QUADS * 4) {
@@ -228,12 +212,12 @@ void SpriteBatch::draw(const SpriteQuad& quad) {
     _vertices.push_back(Vertex{left, bottom, quad.u0, quad.v1, quad.r, quad.g, quad.b, quad.a});
 }
 
-/// Termine le lot : émet le dessin des quads accumulés.
+// Termine le lot : émet le dessin des quads accumulés.
 void SpriteBatch::end() {
     flush();
 }
 
-/// Émet le dessin des quads accumulés et vide le tampon.
+// Émet le dessin des quads accumulés et vide le tampon.
 void SpriteBatch::flush() {
     if (_vertices.empty()) {
         return;

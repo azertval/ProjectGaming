@@ -2,59 +2,43 @@
 
 namespace hmi {
 
-/**
- * @brief Construit une caméra pour une surface de rendu donnée.
- * @param viewportWidth  Largeur de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur de la surface de rendu, en pixels.
- */
+// Construit une caméra pour une surface de rendu donnée.
 Camera2D::Camera2D(int viewportWidth, int viewportHeight)
     : _viewportWidth(viewportWidth), _viewportHeight(viewportHeight) {}
 
-/**
- * @brief Met à jour les dimensions de la surface de rendu (redimensionnement).
- * @param viewportWidth  Nouvelle largeur, en pixels.
- * @param viewportHeight Nouvelle hauteur, en pixels.
- */
+// Met à jour les dimensions de la surface de rendu (redimensionnement).
 void Camera2D::setViewportSize(int viewportWidth, int viewportHeight) {
     _viewportWidth = viewportWidth;
     _viewportHeight = viewportHeight;
 }
 
-/**
- * @brief Place le centre de la caméra.
- * @param worldCenter Position visée, au centre de l'écran, en unités monde.
- */
+// Place le centre de la caméra.
 void Camera2D::setCenter(const core::Vector2& worldCenter) {
     _center = worldCenter;
 }
 
-/**
- * @brief Règle le facteur de zoom.
- * @param zoom Multiplicateur d'échelle (> 0 ; entier recommandé).
- */
+// Règle le facteur de zoom.
 void Camera2D::setZoom(float zoom) {
     _zoom = zoom;
 }
 
-/// @return Le centre de la caméra, en unités monde.
+// Le centre de la caméra, en unités monde.
 core::Vector2 Camera2D::center() const {
     return _center;
 }
 
-/// @return Le facteur de zoom courant.
+// Le facteur de zoom courant.
 float Camera2D::zoom() const {
     return _zoom;
 }
 
-/// @return L'échelle effective, en pixels par unité monde (PIXELS_PER_UNIT × zoom).
+// L'échelle effective, en pixels par unité monde (PIXELS_PER_UNIT × zoom).
 float Camera2D::scale() const {
     return PIXELS_PER_UNIT * _zoom;
 }
 
-/**
- * @brief Matrice de projection monde → clip, pour le vertex shader.
- * @return La matrice (ligne-major DirectXMath) transformant une position monde en clip.
- */
+// Matrice de projection monde → clip, pour le vertex shader.
+// La matrice (ligne-major DirectXMath) transformant une position monde en clip.
 DirectX::XMFLOAT4X4 Camera2D::projectionMatrix() const {
     // Échelle monde → clip sur chaque axe : la moitié d'écran (viewport/2 pixels) doit
     // couvrir 1 en NDC. L'axe Y est inversé (monde Y-bas, NDC Y-haut).
@@ -71,11 +55,8 @@ DirectX::XMFLOAT4X4 Camera2D::projectionMatrix() const {
                                translateX, translateY, 0.0f, 1.0f);
 }
 
-/**
- * @brief Convertit une position monde en pixels écran.
- * @param world Position en unités monde.
- * @return Position en pixels (origine haut-gauche, Y-bas).
- */
+// Convertit une position monde en pixels écran.
+// Position en pixels (origine haut-gauche, Y-bas).
 core::Vector2 Camera2D::worldToScreen(const core::Vector2& world) const {
     const float halfWidth = static_cast<float>(_viewportWidth) * 0.5f;
     const float halfHeight = static_cast<float>(_viewportHeight) * 0.5f;
@@ -83,11 +64,8 @@ core::Vector2 Camera2D::worldToScreen(const core::Vector2& world) const {
                          (world.y - _center.y) * scale() + halfHeight};
 }
 
-/**
- * @brief Convertit une position écran (pixels) en unités monde.
- * @param screen Position en pixels (origine haut-gauche, Y-bas).
- * @return Position en unités monde.
- */
+// Convertit une position écran (pixels) en unités monde.
+// Position en unités monde.
 core::Vector2 Camera2D::screenToWorld(const core::Vector2& screen) const {
     const float halfWidth = static_cast<float>(_viewportWidth) * 0.5f;
     const float halfHeight = static_cast<float>(_viewportHeight) * 0.5f;

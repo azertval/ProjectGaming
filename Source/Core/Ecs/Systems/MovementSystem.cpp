@@ -6,11 +6,7 @@
 
 namespace core {
 
-/**
- * @brief Intègre la position des entités mobiles pour un pas de simulation.
- * @param world      Monde dont les entités mobiles sont mises à jour.
- * @param fixedDelta Durée du pas de simulation, en secondes.
- */
+// Intègre la position des entités mobiles pour un pas de simulation.
 void MovementSystem::update(World& world, float fixedDelta) {
     // Intégration explicite (Euler) au pas fixe : la vue ne visite que les
     // entités possédant Transform ET Velocity, les autres restent immobiles.

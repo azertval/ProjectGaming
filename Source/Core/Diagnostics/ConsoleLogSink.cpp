@@ -11,11 +11,7 @@
 
 namespace core {
 
-/**
- * @brief Restitue un message sur la console.
- * @param level   Niveau du message (oriente le flux de sortie).
- * @param message Texte à écrire.
- */
+// Restitue un message sur la console.
 void ConsoleLogSink::write(LogLevel level, std::string_view message) {
     // Les avertissements et erreurs partent sur la sortie d'erreur, le reste sur
     // la sortie standard.
