@@ -15,18 +15,16 @@
 namespace hmi {
 
 namespace {
-/// Centre de la caméra sur la scène de démonstration, en unités monde.
+// Centre de la caméra sur la scène de démonstration, en unités monde.
 const core::Vector2 SCENE_CENTER{6.0f, 4.0f};
-/// Zoom (facteur entier pour la netteté pixel art).
+// Zoom (facteur entier pour la netteté pixel art).
 constexpr float SCENE_ZOOM = 4.0f;
 
-/**
- * @brief Construit la scène de démonstration codée en dur dans l'ECS.
- *
- * Une grille de tuiles de fond (couche 0) et un sprite mobile au-dessus (couche 1, tuile
- * partiellement transparente) doté d'une vitesse : le `MovementSystem` le fait dériver, ce qui
- * illustre la simulation à pas fixe et le rendu par couches. Repris tel quel de `main` (LOT-05).
- */
+// Construit la scène de démonstration codée en dur dans l'ECS.
+//
+// Une grille de tuiles de fond (couche 0) et un sprite mobile au-dessus (couche 1, tuile
+// partiellement transparente) doté d'une vitesse : le `MovementSystem` le fait dériver, ce qui
+// illustre la simulation à pas fixe et le rendu par couches. Repris tel quel de `main` (LOT-05).
 void buildDemoScene(core::World& world, const TextureAtlas& atlas) {
     constexpr int columns = 12;
     constexpr int rows = 8;
@@ -61,13 +59,7 @@ void buildDemoScene(core::World& world, const TextureAtlas& atlas) {
 }
 }  // namespace
 
-/**
- * @brief Construit l'écran de jeu et sa scène de démonstration.
- * @param batch          Lot de sprites partagé.
- * @param atlas          Atlas de tuiles.
- * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
- */
+// Construit l'écran de jeu et sa scène de démonstration.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                        int viewportHeight)
     : _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {
@@ -79,12 +71,8 @@ GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewpo
     HMI_LOG_TRACE("GameScreen cree (scene de demonstration montee)");
 }
 
-/**
- * @brief Avance la simulation d'un pas fixe et gère le retour au menu.
- * @param input      État des entrées de la frame.
- * @param fixedDelta Pas de temps fixe de simulation, en secondes.
- * @return « Basculer vers le menu » sur Échap, sinon « rester ».
- */
+// Avance la simulation d'un pas fixe et gère le retour au menu.
+// « Basculer vers le menu » sur Échap, sinon « rester ».
 ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
@@ -93,10 +81,7 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     return ScreenTransition::none();
 }
 
-/**
- * @brief Dessine la scène en lecture seule de l'ECS.
- * @param context Ressources de rendu partagées.
- */
+// Dessine la scène en lecture seule de l'ECS.
 void GameScreen::render(RenderContext& context) {
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
     _renderer.render(_world, _camera);

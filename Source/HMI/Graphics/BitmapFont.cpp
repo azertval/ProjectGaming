@@ -13,30 +13,28 @@ namespace hmi {
 
 namespace {
 
-/// Nombre de colonnes et de lignes de pixels d'un glyphe de base (le corps de la lettre).
+// Nombre de colonnes et de lignes de pixels d'un glyphe de base (le corps de la lettre).
 constexpr int GLYPH_COLUMNS = 5;
 constexpr int GLYPH_ROWS = 7;
 
-/// Ligne de la cellule où commence le corps du glyphe (au-dessus : zone d'accents).
+// Ligne de la cellule où commence le corps du glyphe (au-dessus : zone d'accents).
 constexpr int BODY_TOP = 2;
 
-/// Nombre de cellules par ligne dans la texture de police.
+// Nombre de cellules par ligne dans la texture de police.
 constexpr int COLUMNS = 16;
 
-/// Premier et dernier code ASCII imprimable couverts par la table de base.
+// Premier et dernier code ASCII imprimable couverts par la table de base.
 constexpr char32_t ASCII_FIRST = 0x20;  // espace
 constexpr char32_t ASCII_LAST = 0x7E;   // ~
 
-/// Motif d'un glyphe : 7 lignes de 5 pixels (bit 4 = colonne de gauche).
+// Motif d'un glyphe : 7 lignes de 5 pixels (bit 4 = colonne de gauche).
 using Pattern = std::array<std::uint8_t, GLYPH_ROWS>;
 
-/**
- * @brief Table des glyphes ASCII imprimables (0x20 à 0x7E), un motif 5×7 par caractère.
- *
- * Chaque octet code une ligne : les 5 bits de poids faible sont les colonnes, le bit 4
- * (valeur 16) étant la colonne de gauche. Les formes sont volontairement simples (police
- * pixel art « from scratch ») ; elles restent lisibles à petite taille.
- */
+// Table des glyphes ASCII imprimables (0x20 à 0x7E), un motif 5×7 par caractère.
+//
+// Chaque octet code une ligne : les 5 bits de poids faible sont les colonnes, le bit 4
+// (valeur 16) étant la colonne de gauche. Les formes sont volontairement simples (police
+// pixel art « from scratch ») ; elles restent lisibles à petite taille.
 constexpr std::array<Pattern, (ASCII_LAST - ASCII_FIRST) + 1> ASCII_FONT = {{
     {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000},  // ' '
     {0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00000, 0b00100},  // '!'
@@ -135,13 +133,13 @@ constexpr std::array<Pattern, (ASCII_LAST - ASCII_FIRST) + 1> ASCII_FONT = {{
     {0b00000, 0b00000, 0b01000, 0b10101, 0b00010, 0b00000, 0b00000},  // '~'
 }};
 
-/// Signe diacritique appliqué à une lettre de base pour former une lettre accentuée.
+// Signe diacritique appliqué à une lettre de base pour former une lettre accentuée.
 enum class Accent { Acute, Grave, Circumflex, Diaeresis, Cedilla };
 
-/// Motif d'un accent supérieur (2 lignes de 5 pixels), placé au-dessus du corps.
+// Motif d'un accent supérieur (2 lignes de 5 pixels), placé au-dessus du corps.
 using TopAccent = std::array<std::uint8_t, 2>;
 
-/// @return Le motif (2 lignes) de l'accent supérieur @p accent.
+// Le motif (2 lignes) de l'accent supérieur accent.
 [[nodiscard]] TopAccent topAccentPattern(Accent accent) noexcept {
     switch (accent) {
         case Accent::Acute:
@@ -158,18 +156,18 @@ using TopAccent = std::array<std::uint8_t, 2>;
     return {0b00000, 0b00000};
 }
 
-/// Une lettre accentuée : son code point, la lettre ASCII de base et le diacritique.
+// Une lettre accentuée : son code point, la lettre ASCII de base et le diacritique.
 struct AccentedGlyph {
     char32_t codePoint;
     char base;
     Accent accent;
 };
 
-/// Lettres accentuées françaises couvertes, composées à partir des lettres de base.
-///
-/// Les code points sont écrits en valeur numérique (et non en littéral `U'é'`) pour être
-/// indépendants de l'encodage du fichier source : le compilateur lit ce fichier en page de
-/// code système, ce qui rendrait un littéral accentué ambigu.
+// Lettres accentuées françaises couvertes, composées à partir des lettres de base.
+//
+// Les code points sont écrits en valeur numérique (et non en littéral `U'é'`) pour être
+// indépendants de l'encodage du fichier source : le compilateur lit ce fichier en page de
+// code système, ce qui rendrait un littéral accentué ambigu.
 constexpr std::array<AccentedGlyph, 21> ACCENTED_GLYPHS = {{
     {0x00E0, 'a', Accent::Grave},       // à
     {0x00E2, 'a', Accent::Circumflex},  // â
@@ -194,17 +192,17 @@ constexpr std::array<AccentedGlyph, 21> ACCENTED_GLYPHS = {{
     {0x00CA, 'E', Accent::Circumflex},  // Ê
 }};
 
-/// Assemble une couleur RVBA (octets) en pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
+// Assemble une couleur RVBA (octets) en pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
 [[nodiscard]] std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue,
                                  std::uint8_t alpha) noexcept {
     return static_cast<std::uint32_t>(red) | (static_cast<std::uint32_t>(green) << 8) |
            (static_cast<std::uint32_t>(blue) << 16) | (static_cast<std::uint32_t>(alpha) << 24);
 }
 
-/// Pixel blanc opaque : couleur d'un pixel « allumé » d'un glyphe (colorable par teinte).
+// Pixel blanc opaque : couleur d'un pixel « allumé » d'un glyphe (colorable par teinte).
 constexpr std::uint32_t GLYPH_PIXEL = 0xFFFFFFFFu;
 
-/// Décode le prochain code point UTF-8 de @p text à partir de @p index (avancé en sortie).
+// Décode le prochain code point UTF-8 de text à partir de index (avancé en sortie).
 [[nodiscard]] char32_t nextCodePoint(std::string_view text, std::size_t& index) noexcept {
     const auto lead = static_cast<unsigned char>(text[index]);
     if (lead < 0x80) {
@@ -246,15 +244,12 @@ constexpr std::uint32_t GLYPH_PIXEL = 0xFFFFFFFFu;
 
 }  // namespace
 
-/**
- * @brief Génère la texture de police et crée la ressource Direct3D associée.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
- *
- * La texture est une grille de cellules : d'abord les caractères ASCII imprimables, puis les
- * lettres accentuées composées (corps de la lettre de base + diacritique). Chaque pixel
- * « allumé » est blanc opaque ; le reste est transparent, pour que la teinte de `drawText`
- * colore le texte par simple multiplication dans le nuanceur.
- */
+// Génère la texture de police et crée la ressource Direct3D associée.
+//
+// La texture est une grille de cellules : d'abord les caractères ASCII imprimables, puis les
+// lettres accentuées composées (corps de la lettre de base + diacritique). Chaque pixel
+// « allumé » est blanc opaque ; le reste est transparent, pour que la teinte de `drawText`
+// colore le texte par simple multiplication dans le nuanceur.
 BitmapFont::BitmapFont(ID3D11Device* device) {
     const int asciiCount = static_cast<int>(ASCII_FONT.size());
     const int glyphCount = asciiCount + static_cast<int>(ACCENTED_GLYPHS.size());
@@ -369,23 +364,13 @@ BitmapFont::BitmapFont(ID3D11Device* device) {
     GRAPHICS_LOG_TRACE("BitmapFont : police generee (" + std::to_string(glyphCount) + " glyphes)");
 }
 
-/**
- * @brief Indice de cellule couvrant @p codePoint, ou -1 si non couvert.
- */
+// Indice de cellule couvrant codePoint, ou -1 si non couvert.
 int BitmapFont::cellForCodePoint(char32_t codePoint) const {
     const auto found = _cellIndex.find(codePoint);
     return found == _cellIndex.end() ? -1 : found->second;
 }
 
-/**
- * @brief Dessine une chaîne UTF-8 dans le lot courant, en espace écran (pixels).
- * @param batch Lot déjà démarré avec la texture de police et une projection écran.
- * @param text  Texte à dessiner, encodé en UTF-8.
- * @param x     Abscisse du coin haut-gauche du texte, en pixels.
- * @param y     Ordonnée du coin haut-gauche du texte, en pixels.
- * @param scale Facteur d'échelle (entier recommandé).
- * @param color Teinte appliquée aux glyphes.
- */
+// Dessine une chaîne UTF-8 dans le lot courant, en espace écran (pixels).
 void BitmapFont::drawText(SpriteBatch& batch, std::string_view text, float x, float y, float scale,
                           const core::Color& color) const {
     const float advance = static_cast<float>(CELL_WIDTH) * scale;
@@ -433,9 +418,7 @@ void BitmapFont::drawText(SpriteBatch& batch, std::string_view text, float x, fl
     }
 }
 
-/**
- * @brief Largeur en pixels qu'occuperait @p text à l'échelle @p scale (chasse fixe).
- */
+// Largeur en pixels qu'occuperait text à l'échelle scale (chasse fixe).
 float BitmapFont::textWidth(std::string_view text, float scale) const {
     int glyphs = 0;
     std::size_t index = 0;
@@ -448,21 +431,16 @@ float BitmapFont::textWidth(std::string_view text, float scale) const {
     return static_cast<float>(glyphs * CELL_WIDTH) * scale;
 }
 
-/// @return Hauteur d'une ligne de texte à l'échelle @p scale, en pixels.
+// Hauteur d'une ligne de texte à l'échelle scale, en pixels.
 float BitmapFont::lineHeight(float scale) const noexcept {
     return static_cast<float>(CELL_HEIGHT) * scale;
 }
 
-/**
- * @brief Construit une projection orthographique espace écran → clip.
- * @param viewportWidth  Largeur de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur de la surface de rendu, en pixels.
- * @return Matrice mappant (0,0) au coin haut-gauche et (w,h) au coin bas-droit (Y vers le bas).
- *
- * Le nuanceur applique `mul(float4(position, 0, 1), projection)` (vecteur-ligne) : la matrice
- * transforme une position en pixels en coordonnées de clip `[-1, 1]`, l'axe Y étant inversé
- * pour que l'ordonnée croisse vers le bas de l'écran.
- */
+// Construit une projection orthographique espace écran → clip.
+//
+// Le nuanceur applique `mul(float4(position, 0, 1), projection)` (vecteur-ligne) : la matrice
+// transforme une position en pixels en coordonnées de clip `[-1, 1]`, l'axe Y étant inversé
+// pour que l'ordonnée croisse vers le bas de l'écran.
 DirectX::XMFLOAT4X4 BitmapFont::screenProjection(int viewportWidth, int viewportHeight) noexcept {
     const float width = viewportWidth > 0 ? static_cast<float>(viewportWidth) : 1.0f;
     const float height = viewportHeight > 0 ? static_cast<float>(viewportHeight) : 1.0f;

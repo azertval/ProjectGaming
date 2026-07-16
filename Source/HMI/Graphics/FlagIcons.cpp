@@ -10,12 +10,12 @@
 namespace hmi {
 
 namespace {
-/// Ordre des drapeaux dans la texture (indice de colonne).
+// Ordre des drapeaux dans la texture (indice de colonne).
 constexpr int FLAG_FRANCE = 0;
 constexpr int FLAG_UNITED_KINGDOM = 1;
 constexpr int FLAG_COUNT = 2;
 
-/// Assemble une couleur RVBA (octets) en pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
+// Assemble une couleur RVBA (octets) en pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
 [[nodiscard]] std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue,
                                  std::uint8_t alpha) noexcept {
     return static_cast<std::uint32_t>(red) | (static_cast<std::uint32_t>(green) << 8) |
@@ -29,7 +29,7 @@ const std::uint32_t WHITE = pack(255, 255, 255, 255);
 const std::uint32_t UK_BLUE = pack(1, 33, 105, 255);
 const std::uint32_t UK_RED = pack(200, 16, 46, 255);
 
-/// @return La couleur du pixel (@p x, @p y) du drapeau **français** (trois bandes verticales).
+// La couleur du pixel (x, y) du drapeau **français** (trois bandes verticales).
 [[nodiscard]] std::uint32_t franceColor(int x) noexcept {
     const int band = x / (FlagIcons::FLAG_WIDTH / 3);
     if (band <= 0) {
@@ -38,18 +38,16 @@ const std::uint32_t UK_RED = pack(200, 16, 46, 255);
     return band == 1 ? WHITE : FRENCH_RED;
 }
 
-/// Distance d'un point à une droite définie par a*x + b*y + c = 0.
+// Distance d'un point à une droite définie par a*x + b*y + c = 0.
 [[nodiscard]] float lineDistance(float a, float b, float c, float x, float y) noexcept {
     return std::abs(a * x + b * y + c) / std::sqrt(a * a + b * b);
 }
 
-/**
- * @brief Couleur du pixel (@p x, @p y) d'un drapeau du Royaume-Uni **approché**.
- *
- * Construction simplifiée pour une icône : fond bleu, sautoir blanc puis rouge (les
- * diagonales), enfin la croix blanche puis rouge (verticale + horizontale centrées). Le
- * contre-écartèlement du sautoir n'est pas reproduit (approximation lisible à petite taille).
- */
+// Couleur du pixel (x, y) d'un drapeau du Royaume-Uni **approché**.
+//
+// Construction simplifiée pour une icône : fond bleu, sautoir blanc puis rouge (les
+// diagonales), enfin la croix blanche puis rouge (verticale + horizontale centrées). Le
+// contre-écartèlement du sautoir n'est pas reproduit (approximation lisible à petite taille).
 [[nodiscard]] std::uint32_t unitedKingdomColor(int x, int y) noexcept {
     const float width = static_cast<float>(FlagIcons::FLAG_WIDTH);
     const float height = static_cast<float>(FlagIcons::FLAG_HEIGHT);
@@ -83,10 +81,7 @@ const std::uint32_t UK_RED = pack(200, 16, 46, 255);
 }
 }  // namespace
 
-/**
- * @brief Génère la texture des drapeaux et crée la ressource Direct3D associée.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
- */
+// Génère la texture des drapeaux et crée la ressource Direct3D associée.
 FlagIcons::FlagIcons(ID3D11Device* device) {
     _width = FLAG_WIDTH * FLAG_COUNT;
     std::vector<std::uint32_t> pixels(static_cast<std::size_t>(_width) *
@@ -128,11 +123,7 @@ FlagIcons::FlagIcons(ID3D11Device* device) {
     GRAPHICS_LOG_TRACE("FlagIcons : drapeaux generes (France, Royaume-Uni)");
 }
 
-/**
- * @brief Région du drapeau associé à une langue.
- * @param language Identifiant de langue (« fr » ou « en »).
- * @return La région en pixels ; le drapeau français par défaut si la langue est inconnue.
- */
+// Région du drapeau associé à une langue (drapeau français si langue inconnue).
 core::AtlasRegion FlagIcons::region(std::string_view language) const {
     const int flag = language == "en" ? FLAG_UNITED_KINGDOM : FLAG_FRANCE;
     return core::AtlasRegion{flag * FLAG_WIDTH, 0, FLAG_WIDTH, FLAG_HEIGHT};

@@ -9,18 +9,16 @@
 namespace hmi {
 
 namespace {
-/// Pixel blanc opaque (l'icône est colorée par la teinte au dessin).
+// Pixel blanc opaque (l'icône est colorée par la teinte au dessin).
 constexpr std::uint32_t ON = 0xFFFFFFFFu;
-/// Pixel transparent.
+// Pixel transparent.
 constexpr std::uint32_t OFF = 0x00000000u;
 
-/**
- * @brief Indique si le pixel (@p x, @p y) appartient au dessin de l'icône.
- *
- * L'icône (16×16) figure une **flèche descendante** au-dessus d'un **support** : une hampe
- * verticale centrée, une pointe triangulaire vers le bas, et une barre horizontale (avec
- * montants) évoquant le plateau où « déposer » le fichier.
- */
+// Indique si le pixel (x, y) appartient au dessin de l'icône.
+//
+// L'icône (16×16) figure une **flèche descendante** au-dessus d'un **support** : une hampe
+// verticale centrée, une pointe triangulaire vers le bas, et une barre horizontale (avec
+// montants) évoquant le plateau où « déposer » le fichier.
 [[nodiscard]] bool isDrawn(int x, int y) noexcept {
     // Hampe de la flèche.
     if ((x == 7 || x == 8) && y >= 2 && y <= 7) {
@@ -46,10 +44,7 @@ constexpr std::uint32_t OFF = 0x00000000u;
 }
 }  // namespace
 
-/**
- * @brief Génère la texture de l'icône et crée la ressource Direct3D associée.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
- */
+// Génère la texture de l'icône et crée la ressource Direct3D associée.
 SaveIcon::SaveIcon(ID3D11Device* device) {
     std::vector<std::uint32_t> pixels(static_cast<std::size_t>(SIZE) *
                                       static_cast<std::size_t>(SIZE));

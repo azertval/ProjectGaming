@@ -8,7 +8,7 @@
 namespace hmi {
 
 namespace {
-/// @return Un nom lisible pour la journalisation d'un écran.
+// Un nom lisible pour la journalisation d'un écran.
 [[nodiscard]] const char* screenName(ScreenId id) noexcept {
     switch (id) {
         case ScreenId::Menu:
@@ -22,26 +22,17 @@ namespace {
 }
 }  // namespace
 
-/**
- * @brief Construit le gestionnaire et son écran de départ.
- * @param factory Fabrique d'écrans.
- * @param initial Écran affiché au démarrage.
- */
+// Construit le gestionnaire et son écran de départ.
 ScreenManager::ScreenManager(Factory factory, ScreenId initial)
     : _factory(std::move(factory)), _current(_factory(initial)), _currentId(initial) {
     HMI_LOG_INFO(std::string("Ecran initial : ") + screenName(initial));
 }
 
-/**
- * @brief Met à jour l'écran courant et applique sa transition.
- * @param input      État des entrées de la frame.
- * @param fixedDelta Pas de temps fixe de simulation, en secondes.
- * @return true si l'application doit se fermer.
- *
- * La transition est appliquée immédiatement : un basculement remplace l'écran actif (l'ancien
- * est détruit, ses ressources libérées), si bien que le dessin de la même frame concerne déjà
- * le nouvel écran. Une demande de fermeture libère l'écran courant et se propage à la boucle.
- */
+// Met à jour l'écran courant et applique sa transition.
+//
+// La transition est appliquée immédiatement : un basculement remplace l'écran actif (l'ancien
+// est détruit, ses ressources libérées), si bien que le dessin de la même frame concerne déjà
+// le nouvel écran. Une demande de fermeture libère l'écran courant et se propage à la boucle.
 bool ScreenManager::update(const InputState& input, float fixedDelta) {
     if (_quit || _current == nullptr) {
         return true;
@@ -66,10 +57,7 @@ bool ScreenManager::update(const InputState& input, float fixedDelta) {
     return _quit;
 }
 
-/**
- * @brief Dessine l'écran courant.
- * @param context Ressources de rendu partagées.
- */
+// Dessine l'écran courant.
 void ScreenManager::render(RenderContext& context) {
     if (_current != nullptr) {
         _current->render(context);

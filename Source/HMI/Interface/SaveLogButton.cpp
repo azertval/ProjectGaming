@@ -5,11 +5,7 @@
 
 namespace hmi {
 
-/**
- * @brief Rectangle du bouton, ancré à gauche du bouton de langue.
- * @param viewportWidth  Largeur de la surface, en pixels.
- * @param viewportHeight Hauteur de la surface, en pixels.
- */
+// Rectangle du bouton, ancré à gauche du bouton de langue.
 SaveLogButton::Rect SaveLogButton::rect(int viewportWidth, int viewportHeight) noexcept {
     Rect area;
     area.width = SIZE;
@@ -21,13 +17,8 @@ SaveLogButton::Rect SaveLogButton::rect(int viewportWidth, int viewportHeight) n
     return area;
 }
 
-/**
- * @brief Indique si le bouton a été cliqué cette frame.
- * @param input          État des entrées de la frame.
- * @param viewportWidth  Largeur de la surface de rendu, en pixels.
- * @param viewportHeight Hauteur de la surface de rendu, en pixels.
- * @return true si un clic gauche est survenu dans le rectangle du bouton.
- */
+// Indique si le bouton a été cliqué cette frame.
+// true si un clic gauche est survenu dans le rectangle du bouton.
 bool SaveLogButton::clicked(const InputState& input, int viewportWidth,
                             int viewportHeight) const {
     if (!input.mouseButtonPressed(MouseButton::Left)) {

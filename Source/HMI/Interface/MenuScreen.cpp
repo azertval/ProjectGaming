@@ -16,31 +16,25 @@
 namespace hmi {
 
 namespace {
-/// Teinte du titre.
+// Teinte du titre.
 constexpr core::Color TITLE_COLOR{0.95f, 0.95f, 1.0f, 1.0f};
-/// Teinte d'une option non sélectionnée.
+// Teinte d'une option non sélectionnée.
 constexpr core::Color OPTION_COLOR{0.70f, 0.72f, 0.78f, 1.0f};
-/// Teinte de l'option sélectionnée (mise en évidence).
+// Teinte de l'option sélectionnée (mise en évidence).
 constexpr core::Color SELECTED_COLOR{1.0f, 0.82f, 0.20f, 1.0f};
 }  // namespace
 
-/**
- * @brief Construit l'écran de menu.
- * @param localization Catalogue de traduction (mutable pour la bascule de langue).
- */
+// Construit l'écran de menu.
 MenuScreen::MenuScreen(Localization& localization, SaveLogAction onSaveLog)
     : _localization(localization), _model(localization), _onSaveLog(std::move(onSaveLog)) {}
 
-/**
- * @brief Met à jour la logique du menu et le bouton de langue.
- * @param input État des entrées de la frame.
- * @return La transition demandée par le modèle de menu.
- *
- * Le clic sur le bouton de langue (bas-droit) est traité en plus de la navigation du menu :
- * il recharge le catalogue dans l'autre langue, ce qui met à jour les libellés dès la frame
- * suivante. Le bouton étant à l'opposé des options, un clic dessus ne déclenche aucune action
- * de menu.
- */
+// Met à jour la logique du menu et le bouton de langue.
+// La transition demandée par le modèle de menu.
+//
+// Le clic sur le bouton de langue (bas-droit) est traité en plus de la navigation du menu :
+// il recharge le catalogue dans l'autre langue, ce qui met à jour les libellés dès la frame
+// suivante. Le bouton étant à l'opposé des options, un clic dessus ne déclenche aucune action
+// de menu.
 ScreenTransition MenuScreen::update(const InputState& input, float /*fixedDelta*/) {
     const ScreenTransition transition = _model.update(input);
 
@@ -66,14 +60,11 @@ ScreenTransition MenuScreen::update(const InputState& input, float /*fixedDelta*
     return transition;
 }
 
-/**
- * @brief Dessine le titre et les options, l'option sélectionnée mise en évidence.
- * @param context Ressources de rendu partagées.
- *
- * Le texte est rendu en espace écran (pixels) : on démarre un lot avec la projection écran et
- * la texture de police, puis on dessine le titre et chaque option à la position de mise en
- * page du modèle, avec la teinte de sélection pour l'option courante.
- */
+// Dessine le titre et les options, l'option sélectionnée mise en évidence.
+//
+// Le texte est rendu en espace écran (pixels) : on démarre un lot avec la projection écran et
+// la texture de police, puis on dessine le titre et chaque option à la position de mise en
+// page du modèle, avec la teinte de sélection pour l'option courante.
 void MenuScreen::render(RenderContext& context) {
     // Mémorise la surface pour le survol/clic du bouton langue à la frame suivante.
     _viewportWidth = context.viewportWidth;
