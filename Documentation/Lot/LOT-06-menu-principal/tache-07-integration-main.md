@@ -1,4 +1,4 @@
-# TACHE-06 — Intégration `main` (boucle pilotée par l'écran) {#lot-06-tache-06-integration-main}
+# TACHE-07 — Intégration `main` (boucle pilotée par l'écran) {#lot-06-tache-07-integration-main}
 
 **Lot :** [LOT-06](epic.md) · **Emplacement :** `Source/HMI/main.cpp` · **Statut :** à faire
 
@@ -7,13 +7,14 @@ Tâche d'assemblage. `main` construit aujourd'hui la scène et la rend directeme
 cela par une boucle pilotée par le **gestionnaire d'écrans**, démarrant sur le **menu**.
 
 ## Travail à réaliser
-- Initialiser les ressources partagées (device, `SpriteBatch`, atlas, `BitmapFont`) et le
-  gestionnaire d'écrans avec le `MenuScreen` comme écran de départ.
+- Initialiser les ressources partagées (device, `SpriteBatch`, atlas, `BitmapFont`,
+  **catalogue de traduction** chargé sur la langue par défaut, TACHE-03) et le gestionnaire
+  d'écrans avec le `MenuScreen` comme écran de départ.
 - Boucle : **échantillonner les entrées une fois par frame** (nouvelle frame + pompe de
   messages), puis `update(input, fixedDelta)` de l'écran courant, puis `clear` / `render` /
   `present`. Appliquer les transitions ; **quitter** proprement sur demande (« Quitter » ou croix).
 - Répercuter le redimensionnement (swap chain + caméra des écrans concernés).
-- Retirer de `main` la scène de démo (déplacée dans `GameScreen`, TACHE-05).
+- Retirer de `main` la scène de démo (déplacée dans `GameScreen`, TACHE-06).
 
 ## Fichiers impactés
 - `Source/HMI/main.cpp`.

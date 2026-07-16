@@ -14,7 +14,7 @@ elle est **autonome** (aucune installation de Visual Studio requise).
    *Extraire tout…*).
 4. Ouvrir le dossier extrait et double-cliquer sur **`ProjectGaming.exe`**.
 
-Une fenêtre de jeu s'ouvre. Pour Quitterter : fermer la fenêtre (croix) ou appuyer
+Une fenêtre de jeu s'ouvre. Pour quitter : fermer la fenêtre (croix) ou appuyer
 sur **Échap**.
 
 ## Remarques

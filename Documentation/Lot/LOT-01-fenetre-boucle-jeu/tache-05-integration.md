@@ -10,7 +10,7 @@ Dernière tâche du lot : assembler fenêtre, device et boucle de temps fixe dan
   1. Créer la `Window` (TACHE-01) puis le `GraphicsDevice` (TACHE-02).
   2. Boucle principale : mesurer le temps réel écoulé, alimenter `FixedTimestep` (TACHE-03), exécuter les pas de mise à jour (vide pour l'instant), puis **effacer + présenter** (TACHE-04).
   3. Router l'événement de **redimensionnement** vers le device.
-  4. Quitterter proprement sur demande de fermeture (croix) ou touche **Échap**.
+  4. Quitter proprement sur demande de fermeture (croix) ou touche **Échap**.
 - Encadrer le démarrage par une gestion d'exception à la frontière (échec d'init → message clair, sortie contrôlée).
 
 ## Fichiers impactés

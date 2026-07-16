@@ -10,8 +10,10 @@ cohérent avec le pixel art et le « from scratch ».
 ## Travail à réaliser
 - `BitmapFont` : une texture de police **générée en code** (grille de glyphes de taille
   fixe) couvrant au minimum **A–Z**, **0–9**, l'espace et la ponctuation utile aux libellés
-  (« Charger niveau », « Mode Edition », « Quitter », titre). Données de glyphes intégrées
-  (déterministes), `ID3D11Texture2D` + vue de ressource en RAII.
+  (« Charger niveau », « Mode Edition », « Quitter », titre), ainsi que les **lettres
+  accentuées** nécessaires aux libellés du catalogue de traduction français (é, è, à, ç, É…,
+  cf. TACHE-03). Données de glyphes intégrées (déterministes), `ID3D11Texture2D` + vue de
+  ressource en RAII.
 - Métrique simple : chaque glyphe occupe une cellule de taille connue ; l'avance horizontale
   est fixe (police à chasse fixe) pour ce lot.
 - `drawText(SpriteBatch&, texte, position, échelle, couleur)` : émet un quad par glyphe

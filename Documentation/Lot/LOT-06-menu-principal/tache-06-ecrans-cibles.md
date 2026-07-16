@@ -1,4 +1,4 @@
-# TACHE-05 — Écrans cibles (jeu démo + éditeur placeholder) {#lot-06-tache-05-ecrans-cibles}
+# TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder) {#lot-06-tache-06-ecrans-cibles}
 
 **Lot :** [LOT-06](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** à faire
 
@@ -13,8 +13,9 @@ venir »**. Depuis ces deux écrans, **Échap** revient au menu.
   `core::World` avec le `MovementSystem`, `SpriteRenderer`, `Camera2D`) — la construction de
   scène **quitte `main`** pour vivre ici. Met à jour la simulation à pas fixe et rend la
   scène ; **Échap** demande le retour au menu.
-- `EditorScreen` (implémente `IScreen`) : affiche un texte « Mode Edition — à venir » (via
-  `BitmapFont`) ; **Échap** revient au menu.
+- `EditorScreen` (implémente `IScreen`) : affiche un texte « à venir » (via `BitmapFont`),
+  **issu du catalogue de traduction** (clé `editeur.a_venir`, TACHE-03) et non en dur ;
+  **Échap** revient au menu.
 - Passage des dépendances de rendu (device, `SpriteBatch`, atlas, police) aux écrans qui en
   ont besoin.
 

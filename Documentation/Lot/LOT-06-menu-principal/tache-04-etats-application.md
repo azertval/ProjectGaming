@@ -1,4 +1,4 @@
-# TACHE-03 — États d'application (écrans) {#lot-06-tache-03-etats-application}
+# TACHE-04 — États d'application (écrans) {#lot-06-tache-04-etats-application}
 
 **Lot :** [LOT-06](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** à faire
 
