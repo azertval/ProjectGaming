@@ -130,6 +130,83 @@ TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
     EXPECT_FALSE(result.ok());
 }
 
+/// Un champ 'tiles' qui n'est pas une liste est rejeté.
+TEST(LevelLoaderTest, TilesNonListeRejete) {
+    const core::LevelLoadResult result =
+        core::LevelLoader::loadFromString(R"({ "width": 4, "height": 3, "tiles": 5 })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Des dimensions non positives sont rejetées.
+TEST(LevelLoaderTest, DimensionsNonPositivesRejetees) {
+    const core::LevelLoadResult result =
+        core::LevelLoader::loadFromString(R"({ "width": 0, "height": 3, "tiles": [] })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Un interrupteur sans 'id' est rejeté.
+TEST(LevelLoaderTest, InterrupteurSansIdRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "switch" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Deux interrupteurs avec le même identifiant sont rejetés.
+TEST(LevelLoaderTest, IdentifiantInterrupteurEnDoubleRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "switch", "id": "s1" },
+        { "x": 3, "y": 0, "type": "switch", "id": "s1" }
+      ]
+    })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Un niveau sans entrée est rejeté.
+TEST(LevelLoaderTest, NiveauSansEntreeRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(
+        R"({ "width": 4, "height": 3, "tiles": [ { "x": 3, "y": 2, "type": "exit" } ] })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Un niveau sans sortie est rejeté.
+TEST(LevelLoaderTest, NiveauSansSortieRejete) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(
+        R"({ "width": 4, "height": 3, "tiles": [ { "x": 1, "y": 1, "type": "entry" } ] })");
+    EXPECT_FALSE(result.ok());
+}
+
+/// Charger un fichier inexistant échoue proprement (récupérable).
+TEST(LevelLoaderTest, FichierIntrouvableRejete) {
+    const core::LevelLoadResult result =
+        core::LevelLoader::loadFromFile("chemin/inexistant/pas_la.json");
+    EXPECT_FALSE(result.ok());
+    EXPECT_FALSE(result.error.empty());
+}
+
+/// Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.
+TEST(LevelLoaderTest, PorteSansLiaisonEstValide) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 0, "type": "door" }
+      ]
+    })");
+    ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_TRUE(result.level->mechanisms().empty());
+}
+
 /// Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
 TEST(LevelLoaderTest, NiveauDeDemoLivreValide) {
     const std::filesystem::path path =

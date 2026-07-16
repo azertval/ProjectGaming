@@ -1,0 +1,33 @@
+#pragma once
+
+#include <functional>
+
+#include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
+#include "Core/Levels/TileType.h"
+
+/**
+ * @file Core/Levels/LevelScene.h
+ * @brief Projection d'un niveau en entités ECS (une tuile non vide = un sprite).
+ */
+
+namespace core {
+
+class World;
+class Level;
+
+/**
+ * @brief Peuple un `World` d'une **entité par tuile non vide** du niveau.
+ *
+ * Chaque tuile non `Empty` devient une entité portant un `Transform` (position = colonne, ligne
+ * en unités monde) et un `Sprite` (couche 0, région fournie par @p regionForTile). Logique pure,
+ * indépendante du rendu (`EX-ARCH-011`) : la correspondance **type de tuile → région d'atlas**
+ * est **injectée**, ce qui rend la projection testable sans GPU (une fausse correspondance suffit).
+ *
+ * @param world         Monde à peupler.
+ * @param level         Niveau source.
+ * @param regionForTile Correspondance type de tuile → région d'atlas (dépendance de rendu injectée).
+ */
+void buildLevelScene(World& world, const Level& level,
+                     const std::function<AtlasRegion(TileType)>& regionForTile);
+
+}  // namespace core

@@ -4,10 +4,10 @@
 #include <cmath>
 #include <string>
 
-#include "Core/Ecs/Components/Sprite.h"
-#include "Core/Ecs/Components/Transform.h"
+#include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelScene.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
@@ -43,28 +43,6 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
     return atlas.tile(0, 0);
 }
 
-// Peuple le monde d'une entite-sprite par tuile non vide du niveau (position = colonne, ligne).
-void buildLevelScene(core::World& world, const core::Level& level, const TextureAtlas& atlas) {
-    const core::TileMap& map = level.tileMap();
-    for (int row = 0; row < map.height(); ++row) {
-        for (int column = 0; column < map.width(); ++column) {
-            const core::TileType type = map.tile(column, row);
-            if (type == core::TileType::Empty) {
-                continue;
-            }
-            const core::Entity entity = world.createEntity();
-            core::Transform transform;
-            transform.position = core::Vector2{static_cast<float>(column), static_cast<float>(row)};
-            world.addComponent(entity, transform);
-
-            core::Sprite sprite;
-            sprite.region = regionForTile(type, atlas);
-            sprite.layer = 0;
-            world.addComponent(entity, sprite);
-        }
-    }
-}
-
 }  // namespace
 
 // Construit l'ecran et charge le niveau.
@@ -78,7 +56,10 @@ GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewpo
         _levelHeight = level.tileMap().height();
         _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
                                         static_cast<float>(_levelHeight) * 0.5f});
-        buildLevelScene(_world, level, atlas);
+        // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
+        core::buildLevelScene(_world, level, [&atlas](core::TileType type) {
+            return regionForTile(type, atlas);
+        });
         HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
                      std::to_string(_levelHeight) + ")");
     } else {
