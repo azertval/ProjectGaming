@@ -5,7 +5,7 @@
 
 namespace hmi {
 
-/// @brief Assemble les messages de log en un texte (une ligne par message).
+// Assemble les messages de log en un texte (une ligne par message).
 std::string serializeSessionLog(const std::vector<core::MemoryLogSink::Entry>& entries) {
     std::string text;
     for (const core::MemoryLogSink::Entry& entry : entries) {
@@ -15,7 +15,7 @@ std::string serializeSessionLog(const std::vector<core::MemoryLogSink::Entry>& e
     return text;
 }
 
-/// @brief Enregistre les messages de log de la session dans un fichier.
+// Enregistre les messages de log de la session dans un fichier.
 bool saveSessionLog(const std::vector<core::MemoryLogSink::Entry>& entries,
                     const std::filesystem::path& path) {
     // Crée les dossiers parents si besoin (échec traité comme une erreur récupérable).

@@ -12,23 +12,19 @@
 namespace hmi {
 
 namespace {
-/// Échelle du texte « à venir ».
+// Échelle du texte « à venir ».
 constexpr float TEXT_SCALE = 5.0f;
-/// Teinte du texte « à venir ».
+// Teinte du texte « à venir ».
 constexpr core::Color TEXT_COLOR{0.85f, 0.85f, 0.90f, 1.0f};
 }  // namespace
 
-/// Construit l'écran éditeur (placeholder).
+// Construit l'écran éditeur (placeholder).
 EditorScreen::EditorScreen() {
     HMI_LOG_TRACE("EditorScreen cree (placeholder Mode Edition)");
 }
 
-/**
- * @brief Gère le retour au menu.
- * @param input      État des entrées de la frame.
- * @param fixedDelta Pas de temps fixe (inutilisé : cet écran n'a pas de simulation).
- * @return « Basculer vers le menu » sur Échap, sinon « rester ».
- */
+// Gère le retour au menu.
+// « Basculer vers le menu » sur Échap, sinon « rester ».
 ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelta*/) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
@@ -36,10 +32,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelt
     return ScreenTransition::none();
 }
 
-/**
- * @brief Dessine le texte « à venir » centré à l'écran.
- * @param context Ressources de rendu partagées.
- */
+// Dessine le texte « à venir » centré à l'écran.
 void EditorScreen::render(RenderContext& context) {
     const std::string label = context.localization.text("editeur.a_venir");
     const float width = context.font.textWidth(label, TEXT_SCALE);

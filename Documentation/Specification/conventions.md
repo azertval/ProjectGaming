@@ -80,12 +80,18 @@ Dans un `.cpp`, du plus proche au plus général, chaque groupe trié et sépar�
 ## 6. Documentation Doxygen
 Tout élément public (fichier, type, fonction) est documenté **en français**. `JAVADOC_AUTOBRIEF` est actif : la première phrase sert de description courte.
 
-### Description dans le `.h` ET le `.cpp`
-Le bloc Doxygen de description de la fonction est présent **à la fois** dans la déclaration (`.h`) et dans la définition (`.cpp`) :
-- Dans le **`.h`** : le contrat de la fonction (rôle, paramètres, retour) — lu par les appelants.
-- Dans le **`.cpp`** : le même bloc, complété par la documentation **du corps** de la fonction.
+### Doxygen dans le header, commentaires simples `//` dans le `.cpp`
+La documentation Doxygen (exportée vers le site) vit **uniquement dans les en-têtes** (`.h`) :
+- Dans le **`.h`** : le bloc Doxygen `/** … */` complet — contrat de la fonction (rôle,
+  `@param`, `@return`), lu par les appelants et exporté sur le site. C'est la **source unique**.
+- Dans le **`.cpp`** : **pas de bloc Doxygen** (`/** */`, `///`, `//!`), uniquement des
+  **commentaires simples `//`** (non exportés) documentant le **corps** de la fonction.
 
-**Déclaration (`Core.h`)**
+Ne **jamais** redupliquer les `@param`/`@return` dans le `.cpp` : cela disperse la source de
+vérité et fait échouer la génération (Doxygen ≥ 1.16 rejette les `@param` documentés à la fois
+dans la déclaration et la définition — « multiple @param documentation sections »).
+
+**Déclaration (`Core.h`) — doc Doxygen exportée**
 ```cpp
 /**
  * @brief Met à jour la physique d'une entité pour une frame.
@@ -96,14 +102,9 @@ Le bloc Doxygen de description de la fonction est présent **à la fois** dans l
 bool updatePhysics(Entity& entity, float deltaTime);
 ```
 
-**Définition (`Core.cpp`) — corps documenté**
+**Définition (`Core.cpp`) — commentaires simples `//`, non exportés**
 ```cpp
-/**
- * @brief Met à jour la physique d'une entité pour une frame.
- * @param entity    Entité à mettre à jour.
- * @param deltaTime Temps écoulé depuis la dernière frame, en secondes.
- * @return true si l'entité a changé de position.
- */
+// Met à jour la physique d'une entité pour une frame.
 bool updatePhysics(Entity& entity, float deltaTime) {
     const Vector2 ancientPosition = entity.position();
 
@@ -122,14 +123,19 @@ bool updatePhysics(Entity& entity, float deltaTime) {
 }
 ```
 
+> Une méthode qui **redéfinit** (`override`) une fonction déjà documentée dans un header (par
+> ex. une interface) n'a pas besoin d'être redocumentée : Doxygen hérite de la doc de base.
+> Les fonctions **internes** au `.cpp` (espace de noms anonyme) se contentent aussi de `//`.
+
 ### Documentation du corps (`.cpp`)
-Dans les définitions, commenter en français :
+Dans les définitions, commenter en français avec des `//` :
 - Le rôle de chaque **branche `if`/`else`** non triviale (pourquoi cette condition).
 - Le principe de tout **algorithme complexe** (intention, invariants, cas limites), pas la paraphrase ligne à ligne.
 - Les choix non évidents (pourquoi telle formule, telle borne, telle optimisation).
 
-Balises usuelles : `@file`, `@brief`, `@param`, `@return`, `@note`, `@warning`, `@see`.
-Commentaire de membre bref : `///< description` après la déclaration.
+Balises Doxygen (dans les **en-têtes** uniquement) : `@file`, `@brief`, `@param`, `@return`,
+`@note`, `@warning`, `@see`. Commentaire de membre bref : `///< description` après la
+déclaration (dans le `.h`).
 
 ## 7. Bonnes pratiques
 - `const` par défaut ; `constexpr` quand c'est possible.
