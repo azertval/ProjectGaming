@@ -24,11 +24,7 @@ void Logger::clearSinks() {
     _sinks.clear();
 }
 
-/**
- * @brief Diffuse un message aux sinks s'il passe le filtre de niveau.
- * @param level   Niveau du message.
- * @param message Texte du message.
- */
+// Diffuse un message aux sinks s'il passe le filtre de niveau.
 void Logger::log(LogLevel level, std::string_view message) {
     // Filtrage en amont : un message moins grave que le seuil n'est pas diffusé.
     if (!isEnabled(level)) {

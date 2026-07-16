@@ -11,19 +11,11 @@
 
 namespace hmi {
 
-/**
- * @brief Construit le rendu de sprites.
- * @param batch Pipeline de quads texturés utilisé pour dessiner (non possédé).
- * @param atlas Atlas fournissant la texture et ses dimensions (non possédé).
- */
+// Construit le rendu de sprites.
 SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
     : _batch(&batch), _atlas(&atlas) {}
 
-/**
- * @brief Dessine toutes les entités affichables du monde, vues par la caméra.
- * @param world  Monde dont on lit les composants `Transform` et `Sprite`.
- * @param camera Caméra fournissant la projection monde → écran.
- */
+// Dessine toutes les entités affichables du monde, vues par la caméra.
 void SpriteRenderer::render(core::World& world, const Camera2D& camera) {
     const float atlasWidth = static_cast<float>(_atlas->width());
     const float atlasHeight = static_cast<float>(_atlas->height());

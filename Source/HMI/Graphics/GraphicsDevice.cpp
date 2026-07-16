@@ -9,7 +9,7 @@
 namespace hmi {
 
 namespace {
-/// Lève une exception si un appel Direct3D a échoué (frontière de démarrage).
+// Lève une exception si un appel Direct3D a échoué (frontière de démarrage).
 void throwIfFailed(HRESULT result, const char* message) {
     if (FAILED(result)) {
         throw std::runtime_error(message);
@@ -17,12 +17,7 @@ void throwIfFailed(HRESULT result, const char* message) {
 }
 }  // namespace
 
-/**
- * @brief Initialise Direct3D 11 pour la fenêtre donnée.
- * @param window Handle de la fenêtre cible.
- * @param width  Largeur initiale de la zone client, en pixels.
- * @param height Hauteur initiale de la zone client, en pixels.
- */
+// Initialise Direct3D 11 pour la fenêtre donnée.
 GraphicsDevice::GraphicsDevice(HWND window, int width, int height) : _width(width), _height(height) {
     DXGI_SWAP_CHAIN_DESC description{};
     description.BufferCount = 1;
@@ -69,7 +64,7 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height) : _width(widt
                       std::to_string(_width) + "x" + std::to_string(_height) + ")");
 }
 
-/// Crée la render target view à partir du back buffer et configure le viewport.
+// Crée la render target view à partir du back buffer et configure le viewport.
 void GraphicsDevice::createRenderTarget() {
     Microsoft::WRL::ComPtr<ID3D11Texture2D> backBuffer;
     throwIfFailed(_swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer)),
@@ -86,11 +81,7 @@ void GraphicsDevice::createRenderTarget() {
     _context->RSSetViewports(1, &viewport);
 }
 
-/**
- * @brief Redimensionne les buffers de la swap chain.
- * @param width  Nouvelle largeur, en pixels (ignoré si nul).
- * @param height Nouvelle hauteur, en pixels (ignoré si nul).
- */
+// Redimensionne les buffers de la swap chain.
 void GraphicsDevice::resize(int width, int height) {
     // Une fenêtre minimisée a une taille client nulle : on ne redimensionne pas.
     if (width <= 0 || height <= 0) {
@@ -111,19 +102,13 @@ void GraphicsDevice::resize(int width, int height) {
                        std::to_string(height) + ")");
 }
 
-/**
- * @brief Efface la cible de rendu à une couleur.
- * @param red   Composante rouge [0, 1].
- * @param green Composante verte [0, 1].
- * @param blue  Composante bleue [0, 1].
- * @param alpha Composante alpha [0, 1].
- */
+// Efface la cible de rendu à une couleur.
 void GraphicsDevice::clear(float red, float green, float blue, float alpha) {
     const float color[4] = {red, green, blue, alpha};
     _context->ClearRenderTargetView(_renderTargetView.Get(), color);
 }
 
-/// Présente l'image à l'écran avec synchronisation verticale (V-Sync).
+// Présente l'image à l'écran avec synchronisation verticale (V-Sync).
 void GraphicsDevice::present() {
     // Intervalle de synchronisation = 1 : présentation calée sur le rafraîchissement
     // de l'écran, ce qui supprime le tearing.

@@ -6,11 +6,7 @@
 
 namespace core {
 
-/**
- * @brief Construit un cadenceur.
- * @param fixedDeltaSeconds   Durée d'un pas de simulation, en secondes (défaut : 1/60).
- * @param maximumStepsPerCall Nombre maximal de pas restitués par appel à advance() (anti-spirale).
- */
+// Construit un cadenceur.
 FixedTimestep::FixedTimestep(float fixedDeltaSeconds, int maximumStepsPerCall)
     : _fixedDeltaSeconds(fixedDeltaSeconds),
       _maximumStepsPerCall(maximumStepsPerCall),
@@ -19,11 +15,8 @@ FixedTimestep::FixedTimestep(float fixedDeltaSeconds, int maximumStepsPerCall)
                    " s/pas (max " + std::to_string(maximumStepsPerCall) + " pas/appel)");
 }
 
-/**
- * @brief Accumule le temps écoulé et renvoie le nombre de pas fixes à exécuter.
- * @param elapsedSeconds Temps réel écoulé depuis le dernier appel, en secondes.
- * @return Nombre de pas de simulation à exécuter (0 si le seuil n'est pas atteint).
- */
+// Accumule le temps écoulé et renvoie le nombre de pas fixes à exécuter.
+// Nombre de pas de simulation à exécuter (0 si le seuil n'est pas atteint).
 int FixedTimestep::advance(float elapsedSeconds) {
     // Un temps écoulé négatif ou nul n'apporte aucun pas : on ignore les valeurs
     // aberrantes (horloge non monotone) plutôt que de reculer l'accumulateur.
@@ -49,18 +42,14 @@ int FixedTimestep::advance(float elapsedSeconds) {
     return steps;
 }
 
-/**
- * @brief Durée d'un pas de simulation.
- * @return Le pas fixe, en secondes.
- */
+// Durée d'un pas de simulation.
+// Le pas fixe, en secondes.
 float FixedTimestep::fixedDeltaSeconds() const {
     return _fixedDeltaSeconds;
 }
 
-/**
- * @brief Fraction de pas restant dans l'accumulateur, pour l'interpolation du rendu.
- * @return Un facteur dans l'intervalle [0, 1[.
- */
+// Fraction de pas restant dans l'accumulateur, pour l'interpolation du rendu.
+// Un facteur dans l'intervalle [0, 1[.
 float FixedTimestep::interpolationAlpha() const {
     return _accumulator / _fixedDeltaSeconds;
 }

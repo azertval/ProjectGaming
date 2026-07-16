@@ -7,18 +7,13 @@
 
 namespace core {
 
-/**
- * @brief Crée une nouvelle entité vivante.
- * @return Un handle valide.
- */
+// Crée une nouvelle entité vivante.
+// Un handle valide.
 Entity World::createEntity() {
     return _entities.create();
 }
 
-/**
- * @brief Détruit une entité et retire ses composants de toutes les pools.
- * @param entity Entité à détruire ; sans effet si elle n'est pas vivante.
- */
+// Détruit une entité et retire ses composants de toutes les pools.
 void World::destroyEntity(Entity entity) {
     if (!_entities.isAlive(entity)) {
         // Handle déjà détruit ou périmé : rien à faire.
@@ -33,28 +28,19 @@ void World::destroyEntity(Entity entity) {
     _entities.destroy(entity);
 }
 
-/**
- * @brief Indique si une entité est vivante.
- * @param entity Handle à tester.
- * @return `true` si l'entité est vivante.
- */
+// Indique si une entité est vivante.
+// `true` si l'entité est vivante.
 bool World::isAlive(Entity entity) const {
     return _entities.isAlive(entity);
 }
 
-/**
- * @brief Enregistre un système ; l'ordre d'enregistrement fixe l'ordre d'exécution.
- * @param system Système à ajouter (le `World` en prend possession).
- */
+// Enregistre un système ; l'ordre d'enregistrement fixe l'ordre d'exécution.
 void World::addSystem(std::unique_ptr<ISystem> system) {
     _systems.push_back(std::move(system));
     ECS_LOG_TRACE("Systeme enregistre (total : " + std::to_string(_systems.size()) + ")");
 }
 
-/**
- * @brief Exécute tous les systèmes enregistrés, dans l'ordre, pour un pas fixe.
- * @param fixedDelta Durée du pas de simulation, en secondes.
- */
+// Exécute tous les systèmes enregistrés, dans l'ordre, pour un pas fixe.
 void World::update(float fixedDelta) {
     // Ordre d'exécution déterministe : l'ordre d'enregistrement des systèmes.
     for (const std::unique_ptr<ISystem>& system : _systems) {
@@ -62,10 +48,8 @@ void World::update(float fixedDelta) {
     }
 }
 
-/**
- * @brief Nombre de systèmes enregistrés.
- * @return Le décompte des systèmes.
- */
+// Nombre de systèmes enregistrés.
+// Le décompte des systèmes.
 std::size_t World::systemCount() const {
     return _systems.size();
 }

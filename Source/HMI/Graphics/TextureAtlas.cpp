@@ -9,13 +9,13 @@
 namespace hmi {
 
 namespace {
-/// Assemble une couleur RVBA (octets) en un pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
+// Assemble une couleur RVBA (octets) en un pixel `R8G8B8A8_UNORM` (ordre mémoire R,G,B,A).
 std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha) {
     return static_cast<std::uint32_t>(red) | (static_cast<std::uint32_t>(green) << 8) |
            (static_cast<std::uint32_t>(blue) << 16) | (static_cast<std::uint32_t>(alpha) << 24);
 }
 
-/// Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe).
+// Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe).
 std::uint32_t tileColor(int tileIndex) {
     static const std::uint32_t palette[] = {
         pack(200, 60, 60, 255),   pack(60, 200, 60, 255),  pack(60, 60, 200, 255),
@@ -30,10 +30,7 @@ std::uint32_t tileColor(int tileIndex) {
 }
 }  // namespace
 
-/**
- * @brief Génère l'atlas procédural et crée la ressource Direct3D associée.
- * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
- */
+// Génère l'atlas procédural et crée la ressource Direct3D associée.
 TextureAtlas::TextureAtlas(ID3D11Device* device) {
     const int side = TILE_SIZE * TILES_PER_SIDE;
     std::vector<std::uint32_t> pixels(static_cast<std::size_t>(side) *
@@ -82,12 +79,8 @@ TextureAtlas::TextureAtlas(ID3D11Device* device) {
     GRAPHICS_LOG_TRACE("TextureAtlas : atlas procedural genere");
 }
 
-/**
- * @brief Région (en pixels) de la tuile à une position de la grille.
- * @param column Colonne de la tuile (0 à TILES_PER_SIDE-1).
- * @param row    Ligne de la tuile (0 à TILES_PER_SIDE-1).
- * @return La région d'atlas correspondante, en pixels.
- */
+// Région (en pixels) de la tuile à une position de la grille.
+// La région d'atlas correspondante, en pixels.
 core::AtlasRegion TextureAtlas::tile(int column, int row) const {
     return core::AtlasRegion{column * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE};
 }
