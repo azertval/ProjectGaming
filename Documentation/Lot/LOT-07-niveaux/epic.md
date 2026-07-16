@@ -1,6 +1,6 @@
 # LOT-07 — Niveaux : modèle et chargement {#lot-07}
 
-> Statut : **à faire**. Le menu propose « Charger niveau », mais l'écran de jeu ouvre encore une scène codée en dur (LOT-05/06). Ce lot introduit un **modèle de niveau** (grille de tuiles typées) et son **chargement depuis un fichier**, de sorte que « Charger niveau » ouvre un **vrai niveau**.
+> Statut : **terminé**. « Charger niveau » ouvre désormais un **niveau chargé depuis un fichier** (format JSON, `Source/Elements/Levels/demo.json`) et en affiche la **grille de tuiles**, au lieu de la scène codée en dur. Le déplacement du personnage et le comportement des mécanismes restent des lots ultérieurs.
 
 ## Objectif
 Représenter un niveau comme une **grille de tuiles typées** et le **charger depuis un fichier** au
@@ -72,7 +72,7 @@ ultérieurs : ce lot pose la **fondation de données** dont dépend tout le game
 | [TACHE-03](tache-03-chargement-json.md) | Chargement du niveau (JSON) | `Core/Levels` | ✅ Fait |
 | [TACHE-04](tache-04-validation.md) | Validation du niveau | `Core/Levels` | ✅ Fait |
 | [TACHE-05](tache-05-niveau-demo.md) | Niveau de démonstration | `Elements/Levels` | ✅ Fait |
-| [TACHE-06](tache-06-rendu-integration.md) | Rendu du niveau + intégration « Charger niveau » | `HMI/Interface` | ⬜ Non commencé |
+| [TACHE-06](tache-06-rendu-integration.md) | Rendu du niveau + intégration « Charger niveau » | `HMI/Interface` | ✅ Fait |
 
 ## Critères d'acceptation du lot
 1. Un fichier de niveau au format **JSON structuré** (liste de tuiles-objets) est chargé en un `Level` (grille typée

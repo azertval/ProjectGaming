@@ -189,8 +189,9 @@ int main(int argc, char** argv) {
                 case hmi::ScreenId::Menu:
                     return std::make_unique<hmi::MenuScreen>(localization, saveLogAction);
                 case hmi::ScreenId::Game:
-                    return std::make_unique<hmi::GameScreen>(spriteBatch, atlas, window.clientWidth(),
-                                                             window.clientHeight());
+                    return std::make_unique<hmi::GameScreen>(
+                        spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
+                        executableDirectory() / "Levels" / "demo.json");
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>();
             }
