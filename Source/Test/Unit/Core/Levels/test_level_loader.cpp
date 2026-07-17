@@ -47,6 +47,23 @@ TEST(LevelLoaderTest, ChargeUnNiveauValide) {
     EXPECT_EQ(level.mechanisms().front().doorPosition, (core::GridPosition{3, 0}));
 }
 
+/// Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.
+TEST(LevelLoaderTest, BudgetsOptionnels) {
+    const core::LevelLoadResult withBudget = core::LevelLoader::loadFromString(R"({
+        "width": 3, "height": 3, "jumpBudget": 2, "dashBudget": 1,
+        "tiles": [ {"x":0,"y":0,"type":"entry"}, {"x":2,"y":2,"type":"exit"} ] })");
+    ASSERT_TRUE(withBudget.ok()) << withBudget.error;
+    EXPECT_EQ(withBudget.level->jumpBudget(), 2);
+    EXPECT_EQ(withBudget.level->dashBudget(), 1);
+
+    const core::LevelLoadResult noBudget = core::LevelLoader::loadFromString(R"({
+        "width": 3, "height": 3,
+        "tiles": [ {"x":0,"y":0,"type":"entry"}, {"x":2,"y":2,"type":"exit"} ] })");
+    ASSERT_TRUE(noBudget.ok()) << noBudget.error;
+    EXPECT_EQ(noBudget.level->jumpBudget(), -1);  // illimité par défaut
+    EXPECT_EQ(noBudget.level->dashBudget(), -1);
+}
+
 /// Un JSON syntaxiquement invalide est rejeté sans plantage.
 TEST(LevelLoaderTest, JsonMalformeRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString("{ pas du json");

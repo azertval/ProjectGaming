@@ -75,6 +75,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         }
 
         std::string name = root.value("name", std::string{});
+        // Budgets de mouvements optionnels (EX-GP-024) ; -1 = illimite.
+        const int jumpBudget = root.value("jumpBudget", -1);
+        const int dashBudget = root.value("dashBudget", -1);
         TileMap map(width, height);
 
         GridPosition entry{};
@@ -121,7 +124,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                     return failure("Identifiant d'interrupteur en double : " + id);
                 }
             } else if (*type == TileType::Door) {
-                doors.push_back(DoorLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
+                doors.push_back(
+                    DoorLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
             }
         }
 
@@ -153,8 +157,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             mechanisms.push_back(Mechanism{found->second, door.position});
         }
 
-        return LevelLoadResult{
-            Level(std::move(name), std::move(map), entry, exit, std::move(mechanisms)), {}};
+        return LevelLoadResult{Level(std::move(name), std::move(map), entry, exit,
+                                     std::move(mechanisms), jumpBudget, dashBudget),
+                               {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what());
     }

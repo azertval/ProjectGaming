@@ -41,6 +41,11 @@ struct Player {
     bool dashAvailable = false;
     /// Durée restante (secondes) du dash en cours ; > 0 pendant la ruée (gravité suspendue).
     float dashTimer = 0.0f;
+    /// Sauts **restants** dans le tableau (budget, `EX-GP-024`) ; **-1 = illimité**. Décompté par
+    /// la physique ; initialisé au spawn depuis le niveau.
+    int jumpsRemaining = -1;
+    /// Dashs **restants** dans le tableau (budget, `EX-GP-024`) ; **-1 = illimité**.
+    int dashesRemaining = -1;
 };
 
 }  // namespace core
