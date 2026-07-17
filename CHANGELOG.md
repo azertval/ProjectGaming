@@ -29,6 +29,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - **Pas de console en Release** : l'exécutable est désormais bâti en **sous-système Windows** en Release (aucune fenêtre console — expérience utilisateur plus propre), tout en conservant la **console en Debug** (logs visibles). Le point d'entrée reste le `main()` standard (`/ENTRY:mainCRTStartup`). En conséquence, **aucun sink de log n'est ajouté en Release** (ni console ni capture mémoire) : pas de destination de log, pas de croissance mémoire.
 - **LOT-06 (TACHE-01)** : la touche **Échap ne ferme plus** la fenêtre — elle devient une entrée normale (destinée au retour menu) ; la fermeture programmée passe désormais par `Window::requestClose()` (action « Quitter »), la croix continuant de fermer.
 
+### Supprimé
+- **Code mort** (audit projet) : retrait de fonctions publiques définies mais **jamais appelées ni testées** — `Camera2D::center()`/`zoom()`, `Logger::minimumLevel()`, `Localization::defaultLanguage()`. Le build `/W4 /WX` couvre déjà locals/paramètres/fonctions-fichier inutilisés ; l'API testée mais consommée au prochain lot (ex. `TileMap::isSolid`, `Level::entry/exit`, `MovementSystem`) et les macros de log uniformes (sans code généré) sont **conservées**.
+
 ### Corrigé
 - La cible de tests `UnitTests` compile désormais aussi en **Release** : `test_assert.cpp` marquait `[[maybe_unused]]` manquant sur une variable non lue lorsque `PROJECTGAMING_ASSERT` est neutralisé en Release (`/W4 /WX`).
 

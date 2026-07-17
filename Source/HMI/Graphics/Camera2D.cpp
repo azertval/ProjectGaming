@@ -22,16 +22,6 @@ void Camera2D::setZoom(float zoom) {
     _zoom = zoom;
 }
 
-// Le centre de la caméra, en unités monde.
-core::Vector2 Camera2D::center() const {
-    return _center;
-}
-
-// Le facteur de zoom courant.
-float Camera2D::zoom() const {
-    return _zoom;
-}
-
 // L'échelle effective, en pixels par unité monde (PIXELS_PER_UNIT × zoom).
 float Camera2D::scale() const {
     return PIXELS_PER_UNIT * _zoom;
