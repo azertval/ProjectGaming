@@ -80,12 +80,20 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted) {
 }  // namespace
 
 /// Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis « retour
-/// au titre ». La séquence grandira avec le lot (niveau 2 « saut requis » ajouté quand le saut
-/// existera, avec un scénario d'entrées incluant des sauts).
+/// au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.
 TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
     const std::vector<ScriptedLevel> sequence = {
         // Niveau 1 : escalier descendant, franchi en maintenant « droite ».
         {"demo.json", [](int) { return core::PlayerInput{1.0f}; }},
+        // Niveau 2 : marche ascendante, franchie en avançant et sautant.
+        {"demo2.json",
+         [](int) {
+             core::PlayerInput in;
+             in.moveX = 1.0f;
+             in.jumpPressed = true;
+             in.jumpHeld = true;
+             return in;
+         }},
     };
 
     ASSERT_FALSE(sequence.empty());

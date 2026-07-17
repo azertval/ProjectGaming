@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <functional>
 
 #include <gtest/gtest.h>
 
@@ -150,6 +151,32 @@ bool bufferedJump(int framesBeforeLanding) {
         }
     }
     return jumped;
+}
+
+// Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
+core::LevelOutcome playLevelFile(const char* file,
+                                 const std::function<core::PlayerInput(int)>& input) {
+    const std::filesystem::path path = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    if (!loaded.ok()) {
+        return core::LevelOutcome::Lost;
+    }
+    const core::Level& level = *loaded.level;
+
+    core::World world;
+    const core::Entity player = spawnPlayer(world, static_cast<float>(level.entry().column),
+                                            static_cast<float>(level.entry().row));
+    core::CharacterPhysicsSystem system;
+
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
+        system.update(world, level.tileMap(), input(step), STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        const core::Collider& collider = world.getComponent<core::Collider>(player);
+        outcome = core::evaluateOutcome(
+            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
+    }
+    return outcome;
 }
 
 }  // namespace
@@ -332,6 +359,29 @@ TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     EXPECT_GT(fullJump, shortHop + 0.3f);  // maintenir monte nettement plus haut
     EXPECT_GT(fullJump, 2.0f);             // ~2,25 tuiles avec le réglage par défaut
     EXPECT_LT(fullJump, 3.0f);
+}
+
+/// Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la sortie.
+TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
+    const auto rightAndJump = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        in.jumpPressed = true;  // saut maintenu/répété : franchit la marche ascendante
+        in.jumpHeld = true;
+        return in;
+    };
+    EXPECT_EQ(playLevelFile("demo2.json", rightAndJump), core::LevelOutcome::Won);
+}
+
+/// Le niveau 2 **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
+    const auto rightOnly = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        return in;
+    };
+    EXPECT_NE(playLevelFile("demo2.json", rightOnly),
+              core::LevelOutcome::Won);  // bloqué à la marche
 }
 
 /// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.

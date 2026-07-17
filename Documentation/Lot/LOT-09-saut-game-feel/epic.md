@@ -1,6 +1,6 @@
 # LOT-09 — Saut, game feel et enchaînement de niveaux {#lot-09}
 
-> Statut : **cadrage**. Ce lot ajoute le **saut** au personnage du LOT-08 et le rend **agréable à
+> Statut : **terminé**. Ce lot ajoute le **saut** au personnage du LOT-08 et le rend **agréable à
 > jouer** (coyote time, jump buffering, hauteur variable), puis enchaîne les niveaux en une
 > **progression** : écran titre → niveau 1 → niveau 2 → … → dernier niveau → retour au titre. Double
 > saut, wall jump, dash, gravité asymétrique et le niveau **puzzle** (mécanismes) restent des lots
@@ -79,12 +79,12 @@ des tests prouvant la franchissabilité et l'enchaînement.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-donnees-saut.md) | Données du saut : `PlayerInput`, `Player`, `PhysicsConfig` | `Core` | ⬜ |
-| [TACHE-02](tache-02-mapping-saut.md) | Mapping du saut (`Espace`/`W` → intention) | `HMI/Input` | ⬜ |
-| [TACHE-03](tache-03-saut-hauteur-variable.md) | Saut au sol + hauteur variable | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-04](tache-04-coyote-buffering.md) | Coyote time + jump buffering | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-05](tache-05-enchainement-niveaux.md) | Enchaînement de niveaux (séquence, auto-avance, retour titre) | `HMI/Interface` | ⬜ |
-| [TACHE-06](tache-06-niveaux-demo.md) | Niveaux de démo (séquence, dont saut requis) + preuve | `Elements/Levels` | ⬜ |
+| [TACHE-01](tache-01-donnees-saut.md) | Données du saut : `PlayerInput`, `Player`, `PhysicsConfig` | `Core` | ✅ |
+| [TACHE-02](tache-02-mapping-saut.md) | Mapping du saut (`Espace`/`W` → intention) | `HMI/Input` | ✅ |
+| [TACHE-03](tache-03-saut-hauteur-variable.md) | Saut au sol + hauteur variable | `Core/Ecs/Systems` | ✅ |
+| [TACHE-04](tache-04-coyote-buffering.md) | Coyote time + jump buffering | `Core/Ecs/Systems` | ✅ |
+| [TACHE-05](tache-05-enchainement-niveaux.md) | Enchaînement de niveaux (séquence, auto-avance, retour titre) | `HMI/Interface` | ✅ |
+| [TACHE-06](tache-06-niveaux-demo.md) | Niveaux de démo (séquence, dont saut requis) + preuve | `Elements/Levels` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage **saute** à l'appui, uniquement au sol (ou en coyote time), retombe sous gravité
