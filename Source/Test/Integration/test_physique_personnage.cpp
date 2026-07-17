@@ -88,7 +88,9 @@ bool jumpAfterLeavingLedge(int delayFrames) {
         tiles.setTile(col, 12, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 1.0f, 10.0f);
-    core::CharacterPhysicsSystem system;
+    core::PhysicsConfig config;
+    config.airJumps = 0;  // isole le coyote time (pas de saut aérien pour masquer l'expiration)
+    core::CharacterPhysicsSystem system(config);
 
     for (int i = 0; i < 200; ++i) {  // se poser sur le rebord
         system.update(world, tiles, core::PlayerInput{}, STEP);
@@ -151,6 +153,37 @@ bool bufferedJump(int framesBeforeLanding) {
         }
     }
     return jumped;
+}
+
+// Compte combien de sauts « prennent » (impulsion ascendante nette) : un premier au sol, puis des
+// sauts répétés en l'air. Attendu = 1 (sol) + `airJumpsConfig` (aériens).
+int successfulJumps(int airJumpsConfig) {
+    core::PhysicsConfig config;
+    config.airJumps = airJumpsConfig;
+    core::World world;
+    core::TileMap tiles(4, 200);
+    fillRow(tiles, 150);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system(config);
+    for (int i = 0; i < 1500; ++i) {  // se poser
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    int jumps = 0;
+    for (int attempt = 0; attempt < airJumpsConfig + 3; ++attempt) {
+        core::PlayerInput jump;
+        jump.jumpPressed = true;
+        jump.jumpHeld = true;
+        const float before = world.getComponent<core::Velocity>(player).value.y;
+        system.update(world, tiles, jump, STEP);
+        if (world.getComponent<core::Velocity>(player).value.y < before - 5.0f) {
+            ++jumps;  // l'impulsion a « pris »
+        }
+        for (int i = 0; i < 8; ++i) {  // rester en l'air avant la prochaine tentative
+            system.update(world, tiles, core::PlayerInput{}, STEP);
+        }
+    }
+    return jumps;
 }
 
 // Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
@@ -361,6 +394,207 @@ TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     EXPECT_LT(fullJump, 3.0f);
 }
 
+/// Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.
+TEST(PhysiquePersonnageIntegration, DoubleSautNombreParametrable) {
+    EXPECT_EQ(successfulJumps(1), 2);  // 1 au sol + 1 aérien (double saut)
+    EXPECT_EQ(successfulJumps(2), 3);  // 1 au sol + 2 aériens
+    EXPECT_EQ(successfulJumps(0), 1);  // aucun saut aérien : 1 seul
+}
+
+/// Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.
+TEST(PhysiquePersonnageIntegration, DashHorizontalRapide) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {  // se poser (dash rechargé au sol)
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    const float startX = world.getComponent<core::Transform>(player).position.x;
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;  // direction par défaut = orientation (droite)
+    system.update(world, tiles, dash, STEP);
+    const core::PhysicsConfig config;
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, config.moveSpeed * 2.0f);
+
+    for (int i = 0; i < 12; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    // Distance ≈ dashSpeed × dashDuration ; seuil relatif à la config (robuste au tuning).
+    EXPECT_GT(world.getComponent<core::Transform>(player).position.x - startX,
+              config.dashSpeed * config.dashDuration * 0.7f);
+}
+
+/// Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.
+TEST(PhysiquePersonnageIntegration, DashDiagonalHautDroite) {
+    core::World world;
+    core::TileMap tiles(20, 20);
+    fillRow(tiles, 15);
+    const core::Entity player = spawnPlayer(world, 2.0f, 14.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    dash.moveX = 1.0f;
+    dash.moveY = -1.0f;  // haut-droite
+    system.update(world, tiles, dash, STEP);
+
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_GT(velocity.value.x, 0.0f);  // droite
+    EXPECT_LT(velocity.value.y, 0.0f);  // haut
+}
+
+/// Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste nulle).
+TEST(PhysiquePersonnageIntegration, GraviteSuspenduePendantDash) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    system.update(world, tiles, dash, STEP);
+    for (int i = 0; i < 5; ++i) {  // pendant la durée du dash
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+        EXPECT_NEAR(world.getComponent<core::Velocity>(player).value.y, 0.0f, 0.1f);
+    }
+}
+
+/// Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au sol.
+TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
+    core::World world;
+    core::TileMap tiles(30, 60);
+    for (int col = 0; col <= 4; ++col) {  // plateforme à gauche, le vide à droite
+        tiles.setTile(col, 30, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 1.0f, 28.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 400; ++i) {  // se poser (dash rechargé au sol)
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    // Marcher à droite jusqu'à quitter la plateforme (chute dans le vide) : le dash reste chargé.
+    const core::PlayerInput right{1.0f};
+    int guard = 0;
+    while (world.getComponent<core::Player>(player).grounded && guard < 600) {
+        system.update(world, tiles, right, STEP);
+        ++guard;
+    }
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+    ASSERT_TRUE(world.getComponent<core::Player>(player).dashAvailable);
+
+    // 1er dash en l'air (horizontal).
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    dash.moveX = 1.0f;
+    system.update(world, tiles, dash, STEP);
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
+
+    for (int i = 0; i < 15; ++i) {  // fin du dash, toujours en chute dans le vide
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    ASSERT_FALSE(world.getComponent<core::Player>(player).dashAvailable);  // consommé
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+
+    // 2e dash refusé (indisponible jusqu'au retour au sol).
+    core::PlayerInput dash2;
+    dash2.dashPressed = true;
+    dash2.moveX = 1.0f;
+    system.update(world, tiles, dash2, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
+}
+
+/// Un dash vers un mur ne le traverse pas (résolu par le balayage).
+TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
+    core::World world;
+    core::TileMap tiles(10, 5);
+    fillRow(tiles, 3);
+    tiles.setTile(5, 2, core::TileType::Solid);  // mur sur la trajectoire (ligne du personnage)
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    for (int i = 0; i < 12; ++i) {
+        core::PlayerInput in;
+        in.dashPressed = (i == 0);  // dash droite au premier pas
+        system.update(world, tiles, in, STEP);
+    }
+    EXPECT_LE(world.getComponent<core::Transform>(player).position.x, 4.0f + 0.01f);  // bord ≤ mur
+}
+
+/// Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).
+TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
+    core::World world;
+    core::TileMap tiles(8, 20);
+    for (int row = 0; row < 20; ++row) {  // mur vertical colonne 5
+        tiles.setTile(5, row, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 4.0f, 2.0f);  // à gauche du mur, en l'air
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput pushRight{1.0f};  // pousse vers le mur
+    for (int i = 0; i < 30; ++i) {
+        system.update(world, tiles, pushRight, STEP);
+    }
+
+    const core::PhysicsConfig config;
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_NE(world.getComponent<core::Player>(player).wallDirection, 0.0f);  // collé au mur
+    EXPECT_GT(velocity.value.y, 0.0f);                                        // descend
+    EXPECT_LE(velocity.value.y, config.wallSlideSpeed + 0.5f);  // ralenti (≪ chute libre ~25)
+}
+
+/// Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.
+TEST(PhysiquePersonnageIntegration, WallJumpEjecteAlOpposeDuMur) {
+    core::World world;
+    core::TileMap tiles(8, 20);
+    for (int row = 0; row < 20; ++row) {
+        tiles.setTile(5, row, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 4.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput pushRight{1.0f};
+    for (int i = 0; i < 20; ++i) {  // se coller au mur
+        system.update(world, tiles, pushRight, STEP);
+    }
+    ASSERT_NE(world.getComponent<core::Player>(player).wallDirection, 0.0f);
+
+    core::PlayerInput wallJump{1.0f};  // saut en poussant encore vers le mur
+    wallJump.jumpPressed = true;
+    wallJump.jumpHeld = true;
+    system.update(world, tiles, wallJump, STEP);
+
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_LT(velocity.value.x, 0.0f);  // éjecté à gauche (opposé au mur), malgré moveX = +1
+    EXPECT_LT(velocity.value.y, 0.0f);  // et vers le haut
+}
+
+/// Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).
+TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
+    core::World world;
+    core::TileMap tiles(8, 50);  // ni mur ni sol à portée
+    const core::Entity player = spawnPlayer(world, 4.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    system.update(world, tiles, core::PlayerInput{}, STEP);  // commence à tomber
+    ASSERT_FLOAT_EQ(world.getComponent<core::Player>(player).wallDirection, 0.0f);
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    const float before = world.getComponent<core::Velocity>(player).value.y;
+    system.update(world, tiles, jump, STEP);
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_FLOAT_EQ(velocity.value.x, 0.0f);  // aucune éjection horizontale
+    EXPECT_GT(velocity.value.y, before);      // continue de tomber (aucun saut disponible)
+}
+
 /// Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la sortie.
 TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
     const auto rightAndJump = [](int) {
@@ -382,6 +616,28 @@ TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
     };
     EXPECT_NE(playLevelFile("demo2.json", rightOnly),
               core::LevelOutcome::Won);  // bloqué à la marche
+}
+
+/// Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher franchit.
+TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
+    const auto rightAndDash = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        in.dashPressed = true;  // dash répété : franchit la fosse (plafond bas → saut impossible)
+        return in;
+    };
+    EXPECT_EQ(playLevelFile("demo3.json", rightAndDash), core::LevelOutcome::Won);
+}
+
+/// Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
+TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
+    const auto rightOnly = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        return in;
+    };
+    EXPECT_NE(playLevelFile("demo3.json", rightOnly),
+              core::LevelOutcome::Won);  // tombe dans la fosse
 }
 
 /// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.

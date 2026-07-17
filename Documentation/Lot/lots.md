@@ -20,3 +20,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-07
 - @subpage lot-08
 - @subpage lot-09
+- @subpage lot-10

@@ -26,6 +26,21 @@ struct Player {
     /// Temps restant (secondes) de validité d'un saut pré-appuyé avant l'atterrissage
     /// (*jump buffering*) ; rechargé à l'appui, décompté par la physique au pas fixe.
     float jumpBufferTimer = 0.0f;
+    /// Sauts **aériens** restants (double/multi saut, `EX-GP-015`) ; rechargé au contact du sol.
+    int airJumpsRemaining = 0;
+    /// Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.
+    float facing = 1.0f;
+    /// Sens du **mur** au contact en l'air : -1 (mur à gauche) / +1 (à droite) / 0 (aucun),
+    /// calculé par la physique (`EX-GP-016`).
+    float wallDirection = 0.0f;
+    /// Temps restant (secondes) de **verrouillage** du contrôle horizontal après un wall jump
+    /// (la vitesse d'éjection persiste tant qu'il n'est pas écoulé).
+    float wallJumpLockTimer = 0.0f;
+    /// Le **dash** est-il disponible ? Consommé à l'usage, rechargé au contact du sol
+    /// (`EX-GP-017`).
+    bool dashAvailable = false;
+    /// Durée restante (secondes) du dash en cours ; > 0 pendant la ruée (gravité suspendue).
+    float dashTimer = 0.0f;
 };
 
 }  // namespace core

@@ -22,6 +22,7 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 - \anchor EX-CTRL-010 **EX-CTRL-010** — Chaque action de gameplay doit être définie comme une action logique, dissociée de la touche physique.
 - \anchor EX-CTRL-011 **EX-CTRL-011** — L'état d'une action doit distinguer **pressée**, **maintenue** et **relâchée** dans une frame (nécessaire au *jump buffering*).
 - \anchor EX-CTRL-012 **EX-CTRL-012** (⚠️ souhaité) — Le mapping devrait être **reconfigurable** (au minimum via un fichier de configuration).
+- \anchor EX-CTRL-013 **EX-CTRL-013** — Le **dash** doit être une action logique dédiée (touche par défaut : **Maj**), sa **direction** étant donnée par les touches directionnelles (8 directions), à défaut par l'**orientation** courante du personnage.
 
 ## 3. Réactivité
 - \anchor EX-CTRL-020 **EX-CTRL-020** — La latence entrée → action ne doit pas dépasser **une frame** de simulation.

@@ -25,6 +25,11 @@ struct PlayerInput {
     /// Bouton de saut **maintenu** : sert à la hauteur de saut variable (relâcher tôt = petit
     /// saut).
     bool jumpHeld = false;
+    /// Intention de **visée verticale** (pour la direction du dash) : -1 haut, +1 bas, 0. Le
+    /// déplacement reste horizontal ; ce champ ne sert qu'à orienter le dash (`EX-GP-017`).
+    float moveY = 0.0f;
+    /// **Dash** vient d'être pressé cette frame (front montant) — action dédiée (`EX-CTRL-013`).
+    bool dashPressed = false;
 };
 
 }  // namespace core

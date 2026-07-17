@@ -94,6 +94,14 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.jumpHeld = true;
              return in;
          }},
+        // Niveau 3 : couloir bas + fosse, franchi en avançant et dashant.
+        {"demo3.json",
+         [](int) {
+             core::PlayerInput in;
+             in.moveX = 1.0f;
+             in.dashPressed = true;
+             return in;
+         }},
     };
 
     ASSERT_FALSE(sequence.empty());
