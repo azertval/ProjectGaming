@@ -2,7 +2,6 @@ var classhmi_1_1Localization =
 [
     [ "Localization", "classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310", null ],
     [ "activeLanguage", "classhmi_1_1Localization.html#aaec6d6049a8b31c50fc1bf151dec6fa1", null ],
-    [ "defaultLanguage", "classhmi_1_1Localization.html#a60360772eb41562d8206df05e7a2bc5f", null ],
     [ "loadDefaultLanguage", "classhmi_1_1Localization.html#a2d6b7f130c14c3b796453e068b7fbbea", null ],
     [ "loadLanguage", "classhmi_1_1Localization.html#a49f9ec81ff30f2eb405930ce13e36584", null ],
     [ "parseCatalog", "classhmi_1_1Localization.html#a74443598fef691b1c7c278bcf364bcb2", null ],

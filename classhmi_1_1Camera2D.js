@@ -1,7 +1,6 @@
 var classhmi_1_1Camera2D =
 [
     [ "Camera2D", "classhmi_1_1Camera2D.html#a8e28425fba642a6e08de0fcdf53b0ce7", null ],
-    [ "center", "classhmi_1_1Camera2D.html#a53ae8f291a438401c86531a6dea9e8ed", null ],
     [ "projectionMatrix", "classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b", null ],
     [ "scale", "classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a", null ],
     [ "screenToWorld", "classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d", null ],
@@ -9,7 +8,6 @@ var classhmi_1_1Camera2D =
     [ "setViewportSize", "classhmi_1_1Camera2D.html#aa82aa311014992d26f26c47db0f3d89c", null ],
     [ "setZoom", "classhmi_1_1Camera2D.html#a6f952a49e27d13539d5ab592233228a9", null ],
     [ "worldToScreen", "classhmi_1_1Camera2D.html#a2f872fc80538490f888f3eef52498dfb", null ],
-    [ "zoom", "classhmi_1_1Camera2D.html#a1bcb82a8ed1006826b33061a346e33a6", null ],
     [ "_center", "classhmi_1_1Camera2D.html#ab11e9713f8b1ccad4cb98a5c2807a410", null ],
     [ "_viewportHeight", "classhmi_1_1Camera2D.html#adfbd3dc1e9d3a0840f9fed36c57d47a6", null ],
     [ "_viewportWidth", "classhmi_1_1Camera2D.html#a4da54e9f03ed445992a57e1a64cdaada", null ],

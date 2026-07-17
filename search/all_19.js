@@ -20,7 +20,7 @@ var searchData=
   ['nommage_17',['2. Nommage',['../spec-conventions.html#autotoc_md22',1,'']]],
   ['non_20fonctionnelles_18',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
   ['non_20objectifs_20éditeur_20mvp_19',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md53',1,'']]],
-  ['none_20',['none',['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754',1,'hmi::ScreenTransition::None'],['../structhmi_1_1ScreenTransition.html#a6c06f25ad13a3654f81d534378023e09',1,'hmi::ScreenTransition::none() noexcept']]],
+  ['none_20',['none',['../structhmi_1_1ScreenTransition.html#a6c06f25ad13a3654f81d534378023e09',1,'hmi::ScreenTransition::none() noexcept'],['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754',1,'hmi::ScreenTransition::None']]],
   ['normalized_21',['normalized',['../structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60',1,'core::Vector2']]],
   ['nouvelle_20spec_20à_20documenter_20dans_20l_20index_22',['Convention d&apos;insertion d&apos;une nouvelle spec (à documenter dans l&apos;index)',['../lot-04-tache-04-pages-specification.html#autotoc_md253',1,'']]]
 ];

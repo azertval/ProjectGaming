@@ -1,18 +1,19 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/Level.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/Level.h">
-<area shape="rect" id="Node000001" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="381,5,602,60"/>
-<area shape="rect" id="Node000002" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="258,108,479,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="450,71,402,110,399,106,447,67"/>
+<area shape="rect" id="Node000001" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="530,5,751,60"/>
+<area shape="rect" id="Node000002" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="382,108,603,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="593,70,533,110,530,106,590,65"/>
 <area shape="rect" id="Node000004" href="$GameScreen_8cpp.html" title=" " alt="" coords="5,211,233,265"/>
-<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="368,61,306,82,247,110,215,133,186,160,140,212,136,209,182,157,212,129,245,106,304,77,366,56"/>
-<area shape="rect" id="Node000007" href="$LevelScene_8cpp.html" title=" " alt="" coords="503,108,725,163"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="536,67,584,106,580,110,532,71"/>
-<area shape="rect" id="Node000008" href="$test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level." alt="" coords="749,108,970,163"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="601,61,764,105,763,111,599,66"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="517,65,444,85,371,110,258,162,165,213,162,208,256,157,369,106,443,80,516,60"/>
+<area shape="rect" id="Node000005" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="753,211,1016,265"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="641,74,647,119,655,141,668,161,684,173,710,186,776,208,774,213,708,191,682,178,664,164,650,144,642,120,636,74"/>
+<area shape="rect" id="Node000007" href="$LevelScene_8cpp.html" title=" " alt="" coords="678,108,899,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="692,65,751,106,748,110,689,70"/>
+<area shape="rect" id="Node000008" href="$test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level." alt="" coords="923,108,1145,163"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="757,61,932,105,931,111,755,66"/>
 <area shape="rect" id="Node000003" href="$LevelLoader_8cpp.html" title=" " alt="" coords="258,211,479,265"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,176,371,211,366,211,366,176"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="292,170,185,213,183,208,290,165"/>
-<area shape="rect" id="Node000005" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="504,211,767,265"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="452,165,567,208,565,213,450,170"/>
-<area shape="rect" id="Node000006" href="$test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables)." alt="" coords="791,211,1016,265"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="493,160,780,208,791,210,790,215,779,213,492,166"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="451,174,403,213,399,208,448,169"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="383,169,217,213,216,208,382,164"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="608,163,783,208,782,213,607,169"/>
+<area shape="rect" id="Node000006" href="$test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables)." alt="" coords="504,211,729,265"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="538,169,586,208,583,213,534,174"/>
 </map>

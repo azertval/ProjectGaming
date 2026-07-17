@@ -14,6 +14,7 @@ var dir_c93feed3c4fd1e74851cc11896f1a53c =
     [ "test_log_format.cpp", "test__log__format_8cpp.html", "test__log__format_8cpp" ],
     [ "test_log_level_parse.cpp", "test__log__level__parse_8cpp.html", "test__log__level__parse_8cpp" ],
     [ "test_logger.cpp", "test__logger_8cpp.html", "test__logger_8cpp" ],
+    [ "test_math_utils.cpp", "test__math__utils_8cpp.html", "test__math__utils_8cpp" ],
     [ "test_menu_model.cpp", "test__menu__model_8cpp.html", "test__menu__model_8cpp" ],
     [ "test_rect.cpp", "test__rect_8cpp.html", "test__rect_8cpp" ],
     [ "test_save_log_button.cpp", "test__save__log__button_8cpp.html", "test__save__log__button_8cpp" ],

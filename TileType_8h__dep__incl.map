@@ -1,38 +1,40 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/TileType.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/TileType.h">
-<area shape="rect" id="Node000001" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="403,5,624,60"/>
-<area shape="rect" id="Node000002" href="$LevelLoader_8cpp.html" title=" " alt="" coords="5,416,227,471"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="389,51,270,74,221,91,190,110,162,145,142,184,128,227,119,271,113,354,116,416,110,416,108,353,114,270,123,226,137,182,158,142,186,106,219,86,269,69,388,46"/>
-<area shape="rect" id="Node000003" href="$LevelScene_8h.html" title="Projection d&#39;un niveau en entités ECS (une tuile non vide = un sprite)." alt="" coords="847,211,1068,265"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="584,63,901,208,899,213,582,68"/>
-<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="399,416,627,471"/>
-<area shape="poly" id="edge21_Node000001_Node000005" title=" " alt="" coords="390,50,314,72,278,89,244,110,209,143,189,176,181,216,183,265,182,321,185,343,201,366,232,386,281,402,400,426,399,431,279,407,229,390,197,370,180,345,176,322,177,265,176,215,184,175,204,139,241,106,275,84,312,67,388,45"/>
-<area shape="rect" id="Node000006" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="1025,416,1287,471"/>
-<area shape="poly" id="edge22_Node000001_Node000006" title=" " alt="" coords="638,37,713,44,795,58,880,77,961,106,1007,125,1043,144,1073,170,1104,209,1130,263,1147,320,1155,373,1158,416,1153,416,1150,374,1141,321,1125,265,1099,212,1069,173,1040,149,1005,130,959,110,878,83,794,63,712,50,637,42"/>
-<area shape="rect" id="Node000007" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="255,108,476,163"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="465,70,406,110,403,106,462,65"/>
-<area shape="rect" id="Node000010" href="$test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables)." alt="" coords="714,416,939,471"/>
-<area shape="poly" id="edge24_Node000001_Node000010" title=" " alt="" coords="639,53,764,79,896,114,958,135,1011,158,1054,182,1082,209,1089,227,1090,249,1080,301,1065,347,1054,370,1029,391,1001,408,940,430,939,425,999,403,1026,387,1050,366,1060,345,1075,299,1085,249,1084,228,1078,212,1050,187,1009,163,956,140,895,119,762,84,637,58"/>
-<area shape="rect" id="Node000011" href="$test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level." alt="" coords="255,313,476,368"/>
-<area shape="poly" id="edge23_Node000001_Node000011" title=" " alt="" coords="515,74,511,116,503,166,487,218,462,267,439,294,412,315,409,311,435,290,458,264,482,216,497,165,506,116,510,73"/>
-<area shape="rect" id="Node000004" href="$LevelScene_8cpp.html" title=" " alt="" coords="796,313,1017,368"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="940,279,922,314,918,312,936,276"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="1001,273,1021,295,1036,320,1042,345,1039,358,1031,370,628,429,627,423,1028,366,1034,356,1036,345,1031,322,1017,298,997,276"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="1022,271,1050,289,1075,311,1117,364,1146,414,1141,417,1112,367,1071,315,1046,294,1019,275"/>
-<area shape="poly" id="edge16_Node000007_Node000002" title=" " alt="" coords="243,170,210,188,182,212,164,236,150,262,131,319,122,373,119,416,113,416,117,372,126,317,145,260,160,233,178,209,207,184,240,165"/>
-<area shape="poly" id="edge17_Node000007_Node000004" title=" " alt="" coords="490,135,560,142,636,155,713,177,785,208,803,221,814,233,837,264,883,311,879,315,833,267,810,237,799,224,783,213,711,182,635,161,559,147,490,141"/>
-<area shape="poly" id="edge19_Node000007_Node000005" title=" " alt="" coords="243,170,216,188,194,212,188,225,188,236,195,265,209,322,222,344,244,366,280,390,319,408,359,421,400,430,399,435,358,426,317,413,277,394,241,370,218,347,204,324,189,266,182,237,183,224,190,209,212,184,240,166"/>
-<area shape="rect" id="Node000008" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="551,211,772,265"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="456,165,585,208,583,213,455,170"/>
-<area shape="poly" id="edge20_Node000007_Node000011" title=" " alt="" coords="413,171,428,189,440,210,447,238,440,266,424,293,403,315,399,311,419,290,435,264,442,238,435,212,424,192,409,174"/>
-<area shape="rect" id="Node000012" href="$TileMap_8cpp.html" title=" " alt="" coords="204,211,425,265"/>
-<area shape="poly" id="edge18_Node000007_Node000012" title=" " alt="" coords="348,176,330,212,326,209,344,174"/>
-<area shape="poly" id="edge13_Node000008_Node000004" title=" " alt="" coords="739,268,844,311,842,316,737,273"/>
-<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="586,275,561,293,541,315,528,339,520,366,515,416,510,416,515,365,523,337,536,312,557,289,583,270"/>
-<area shape="rect" id="Node000009" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="551,313,772,368"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="664,279,664,313,659,313,659,279"/>
-<area shape="poly" id="edge15_Node000008_Node000011" title=" " alt="" coords="572,272,443,316,442,311,570,267"/>
-<area shape="poly" id="edge9_Node000009_Node000002" title=" " alt="" coords="537,367,227,424,226,419,536,362"/>
-<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="613,378,554,418,551,414,610,373"/>
-<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="786,366,1025,414,1024,419,785,371"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="718,373,785,413,782,418,715,377"/>
+<area shape="rect" id="Node000001" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="651,5,873,60"/>
+<area shape="rect" id="Node000002" href="$LevelLoader_8cpp.html" title=" " alt="" coords="1099,416,1321,471"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="887,41,930,50,975,64,1018,82,1058,106,1110,151,1141,196,1163,247,1187,313,1203,367,1210,415,1205,416,1197,368,1182,314,1158,249,1136,198,1106,155,1055,110,1016,87,973,69,929,56,886,47"/>
+<area shape="rect" id="Node000003" href="$LevelScene_8h.html" title="Projection d&#39;un niveau en entités ECS (une tuile non vide = un sprite)." alt="" coords="207,211,429,265"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="694,68,376,213,374,208,691,63"/>
+<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="5,416,233,471"/>
+<area shape="poly" id="edge23_Node000001_Node000005" title=" " alt="" coords="638,47,426,71,329,89,260,110,199,147,177,167,159,189,146,214,135,242,121,314,117,368,119,416,114,416,112,368,115,313,130,241,141,212,155,186,173,163,196,143,258,106,327,84,425,66,637,41"/>
+<area shape="rect" id="Node000006" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="436,416,699,471"/>
+<area shape="poly" id="edge24_Node000001_Node000006" title=" " alt="" coords="638,57,513,83,380,119,319,139,266,162,224,186,198,212,191,230,191,252,205,304,225,348,235,366,267,384,316,400,436,423,435,429,315,405,265,389,231,370,220,350,200,306,186,253,186,229,193,209,221,182,264,157,317,134,378,113,511,78,637,52"/>
+<area shape="rect" id="Node000007" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="651,108,873,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="765,74,765,108,759,108,759,74"/>
+<area shape="rect" id="Node000010" href="$test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables)." alt="" coords="787,416,1012,471"/>
+<area shape="poly" id="edge26_Node000001_Node000010" title=" " alt="" coords="887,53,949,74,1007,106,1061,150,1096,193,1118,245,1137,313,1144,342,1143,355,1136,370,1111,395,1081,415,1047,428,1013,437,1012,432,1046,423,1078,410,1108,391,1132,366,1138,354,1139,342,1131,314,1113,247,1091,196,1057,154,1005,110,947,79,885,58"/>
+<area shape="rect" id="Node000011" href="$test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level." alt="" coords="901,313,1122,368"/>
+<area shape="poly" id="edge25_Node000001_Node000011" title=" " alt="" coords="864,62,918,86,972,118,1021,159,1043,183,1060,210,1068,237,1063,265,1051,292,1036,315,1031,312,1046,289,1058,264,1062,237,1056,212,1038,186,1018,163,969,122,915,91,862,67"/>
+<area shape="rect" id="Node000004" href="$LevelScene_8cpp.html" title=" " alt="" coords="258,313,479,368"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="340,276,358,312,353,314,335,279"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="256,275,229,294,204,315,163,367,134,417,130,414,159,364,200,311,226,289,253,271"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="278,277,259,298,245,322,240,345,242,356,248,366,276,386,322,403,377,416,436,426,436,431,376,421,320,408,274,391,244,370,237,358,234,345,240,320,254,295,274,273"/>
+<area shape="poly" id="edge17_Node000007_Node000002" title=" " alt="" coords="887,146,975,168,1019,186,1059,208,1087,230,1112,256,1153,313,1184,369,1203,415,1198,417,1179,372,1149,316,1108,259,1084,234,1057,213,1016,190,973,173,885,151"/>
+<area shape="poly" id="edge18_Node000007_Node000004" title=" " alt="" coords="638,158,564,180,527,195,493,213,476,225,466,237,443,267,396,315,393,311,439,264,462,234,473,221,490,208,525,190,562,175,637,153"/>
+<area shape="poly" id="edge20_Node000007_Node000005" title=" " alt="" coords="638,141,517,147,387,159,273,181,229,195,197,213,176,234,159,258,136,314,125,370,122,416,117,415,120,370,131,313,154,256,172,230,194,209,226,190,272,175,387,154,517,142,638,136"/>
+<area shape="poly" id="edge21_Node000007_Node000006" title=" " alt="" coords="766,176,773,220,790,264,802,278,815,287,829,296,840,312,850,342,848,355,840,370,818,387,785,401,700,424,698,419,783,396,816,382,836,366,843,354,844,342,836,315,825,300,812,291,798,282,785,267,768,221,761,177"/>
+<area shape="rect" id="Node000008" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="503,211,725,265"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="714,172,654,213,651,208,711,168"/>
+<area shape="poly" id="edge22_Node000007_Node000011" title=" " alt="" coords="887,153,977,176,1012,191,1035,209,1046,235,1046,263,1039,290,1029,314,1024,312,1034,288,1040,262,1041,236,1031,212,1009,196,975,181,885,158"/>
+<area shape="rect" id="Node000012" href="$TileMap_8cpp.html" title=" " alt="" coords="799,211,1021,265"/>
+<area shape="poly" id="edge19_Node000007_Node000012" title=" " alt="" coords="813,168,873,208,870,213,810,172"/>
+<area shape="poly" id="edge13_Node000008_Node000004" title=" " alt="" coords="539,273,434,316,432,311,537,268"/>
+<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="590,279,549,327,522,351,493,370,429,399,362,419,296,432,234,440,233,435,295,427,361,414,427,394,490,366,519,346,545,323,586,275"/>
+<area shape="poly" id="edge15_Node000008_Node000006" title=" " alt="" coords="605,279,595,314,574,416,569,415,590,313,599,278"/>
+<area shape="rect" id="Node000009" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="605,313,826,368"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="652,273,691,311,687,315,649,277"/>
+<area shape="poly" id="edge16_Node000008_Node000011" title=" " alt="" coords="731,266,908,311,907,316,730,271"/>
+<area shape="poly" id="edge9_Node000009_Node000002" title=" " alt="" coords="840,364,1099,417,1098,422,839,370"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="592,365,234,425,233,420,591,360"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="667,378,608,418,605,414,664,373"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="776,372,852,413,850,418,774,377"/>
 </map>

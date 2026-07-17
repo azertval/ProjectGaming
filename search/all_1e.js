@@ -2,7 +2,7 @@ var searchData=
 [
   ['sélecteur_20de_20langue_0',['TACHE-08 — Sélecteur de langue',['../lot-06-tache-08-selecteur-langue.html',1,'lot-06']]],
   ['séquencement_1',['4. Périmètre &amp; séquencement',['../spec-decors.html#autotoc_md45',1,'']]],
-  ['saveicon_2',['saveicon',['../classhmi_1_1SaveIcon.html',1,'hmi::SaveIcon'],['../classhmi_1_1SaveIcon.html#a53f90e3b41a08af53813a88db83a85a1',1,'hmi::SaveIcon::SaveIcon()'],['../structhmi_1_1RenderContext.html#a977c9c60a244b25f4766f4e8b76edd92',1,'hmi::RenderContext::saveIcon']]],
+  ['saveicon_2',['saveicon',['../classhmi_1_1SaveIcon.html',1,'hmi::SaveIcon'],['../structhmi_1_1RenderContext.html#a977c9c60a244b25f4766f4e8b76edd92',1,'hmi::RenderContext::saveIcon'],['../classhmi_1_1SaveIcon.html#a53f90e3b41a08af53813a88db83a85a1',1,'hmi::SaveIcon::SaveIcon()']]],
   ['saveicon_2ecpp_3',['SaveIcon.cpp',['../SaveIcon_8cpp.html',1,'']]],
   ['saveicon_2eh_4',['SaveIcon.h',['../SaveIcon_8h.html',1,'']]],
   ['savelogaction_5',['SaveLogAction',['../classhmi_1_1MenuScreen.html#a686c5dcfb9c5eabe645e122e89d7d81e',1,'hmi::MenuScreen']]],
@@ -38,7 +38,7 @@ var searchData=
   ['simples_20tt_20tt_20dans_20le_20tt_20cpp_20tt_35',['Doxygen dans le header, commentaires simples &lt;tt&gt;//&lt;/tt&gt; dans le &lt;tt&gt;.cpp&lt;/tt&gt;',['../spec-conventions.html#autotoc_md31',1,'']]],
   ['simulation_20↔_20rendu_36',['4. Frontière simulation ↔ rendu',['../spec-architecture.html#autotoc_md7',1,'']]],
   ['sinks_20enfichables_37',['TACHE-02 — Sinks enfichables',['../lot-02-tache-02-sinks.html',1,'lot-02']]],
-  ['size_38',['size',['../structcore_1_1Rect.html#a17a012f900230e1d44db338cebccf10b',1,'core::Rect::size'],['../classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7',1,'core::ComponentPool::size()'],['../classhmi_1_1SaveIcon.html#a4849444f9a8a44c1d0e75936089c6b1e',1,'hmi::SaveIcon::SIZE'],['../classhmi_1_1SaveLogButton.html#ad86733f6e69cfb6b3a04882e1fe67741',1,'hmi::SaveLogButton::SIZE']]],
+  ['size_38',['size',['../classhmi_1_1SaveIcon.html#a4849444f9a8a44c1d0e75936089c6b1e',1,'hmi::SaveIcon::SIZE'],['../classhmi_1_1SaveLogButton.html#ad86733f6e69cfb6b3a04882e1fe67741',1,'hmi::SaveLogButton::SIZE'],['../structcore_1_1Rect.html#a17a012f900230e1d44db338cebccf10b',1,'core::Rect::size'],['../classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7',1,'core::ComponentPool::size()']]],
   ['skiptomatch_39',['skipToMatch',['../classcore_1_1View_1_1Iterator.html#a8023ce2eabf79c007797ced3a5dc7e06',1,'core::View::Iterator']]],
   ['smallestentities_40',['smallestEntities',['../classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce',1,'core::View']]],
   ['solid_41',['Solid',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa',1,'core']]],
