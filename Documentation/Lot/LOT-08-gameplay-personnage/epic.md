@@ -11,8 +11,9 @@ déplace horizontalement à vitesse constante (`EX-GP-010`), subit une **gravit�
 qu'il n'est pas au sol (`EX-GP-012`) et ne **traverse jamais** une tuile solide, même à vitesse
 élevée (`EX-GP-002`, `EX-GP-014`). Atteindre la **sortie** termine le niveau en succès
 (`EX-GP-030`) ; toucher un **danger** ou **sortir par le bas** provoque l'échec et le
-**redémarrage** du niveau à son état initial (`EX-GP-031`, `EX-GP-032`). La **caméra suit** le
-personnage en restant bornée au niveau (`EX-REN-013`).
+**redémarrage** du niveau à son état initial (`EX-GP-031`, `EX-GP-032`). Le jeu étant conçu **par
+tableaux** (un niveau = un écran), la **caméra reste fixe** et cadre le tableau entier, le
+personnage restant toujours visible (adaptation de `EX-REN-013`, cf. décisions de cadrage).
 
 Toute la logique de simulation (physique, collisions, règles de fin) vit dans **`Core`** comme
 **donnée + système purs**, à **pas de temps fixe et déterministe** (`EX-NFR-002`, `EX-ARCH-011`),
@@ -38,7 +39,8 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
   (`gauche` / `droite`), dissociée des touches physiques (`EX-CTRL-010`), échantillonnée une fois
   par frame en amont de la logique (`EX-CTRL-020`, `EX-CTRL-021`).
 - **Intégration jouable (HMI)** : le `GameScreen` fait apparaître le personnage à l'**entrée**,
-  exécute physique + règles à chaque pas fixe, fait **suivre la caméra** (`EX-REN-013`), affiche
+  exécute physique + règles à chaque pas fixe, garde une **caméra fixe** cadrant le tableau
+  (adaptation de `EX-REN-013`), affiche
   le sprite du personnage (`EX-REN-011`), revient au **menu** au succès et **réinitialise** le
   niveau à l'échec.
 
@@ -64,6 +66,12 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
   rien n'est jeté quand le saut s'ajoutera (l'état « au sol » est déjà géré).
 - **Retour au menu au succès** — atteindre la sortie ramène au menu (pas d'écran de fin, hors
   périmètre) ; l'échec **redémarre** le niveau à l'état initial (`EX-GP-032`).
+- **Jeu par tableaux, caméra fixe** — chaque niveau tient dans **un écran** ; la caméra ne
+  **suit pas** le personnage mais **cadre le tableau entier** (le personnage reste toujours
+  visible). C'est une **adaptation de `EX-REN-013`** (« caméra qui suit, bornée ») au design
+  retenu : le cadrage fixe satisfait l'esprit de l'exigence (personnage à l'écran, vue bornée au
+  niveau) et reprend le cadrage déjà en place au LOT-07. La spec `EX-REN-013` sera reformulée en
+  conséquence lors d'une passe ultérieure. Conséquence : **pas de logique de suivi** à écrire.
 - **Frontière Core/HMI** — toute la simulation (composants, physique, collisions, règles) est
   **pure** dans `Core/Ecs` / `Core/Physics`, alimentée par une **intention d'entrée** neutre
   (`core::PlayerInput`). `HMI` ne fait que **mapper les touches** vers cette intention et
@@ -77,7 +85,8 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
   chute = échec), `EX-GP-032` (redémarrage à l'état initial).
 - `EX-CTRL-010` (actions logiques), `EX-CTRL-020` (latence ≤ 1 frame), `EX-CTRL-021`
   (échantillonnage 1×/frame).
-- `EX-REN-013` (caméra qui suit, bornée), `EX-REN-011` (sprite du personnage).
+- `EX-REN-013` (**adapté** : caméra fixe cadrant le tableau, personnage visible), `EX-REN-011`
+  (sprite du personnage).
 - `EX-NFR-002` (pas fixe déterministe), `EX-NFR-010`/`EX-NFR-020` (testabilité, tests),
   `EX-ARCH-011` (composants = données pures).
 
@@ -92,7 +101,7 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
 | [TACHE-03](tache-03-physique-personnage.md) | Physique du personnage (gravité + déplacement + collisions) | `Core/Ecs/Systems` | ⬜ |
 | [TACHE-04](tache-04-regles-fin-niveau.md) | Règles de fin de niveau (succès / échec) | `Core/Levels` | ⬜ |
 | [TACHE-05](tache-05-actions-logiques.md) | Actions logiques d'entrée (mapping touches → intention) | `HMI/Input` | ⬜ |
-| [TACHE-06](tache-06-integration-jouable.md) | Intégration jouable dans `GameScreen` (caméra, succès/échec) | `HMI/Interface` | ⬜ |
+| [TACHE-06](tache-06-integration-jouable.md) | Intégration jouable dans `GameScreen` (cadrage fixe, succès/échec) | `HMI/Interface` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Le personnage **se déplace** à gauche/droite à vitesse constante et **tombe** sous gravité ;
@@ -100,7 +109,7 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
    non-tunneling vert).
 2. **Atteindre la sortie** termine le niveau et **revient au menu** ; **toucher un danger** ou
    **sortir par le bas** **redémarre** le niveau à son état initial.
-3. La **caméra suit** le personnage et reste **bornée** aux limites du niveau.
+3. La **caméra reste fixe** et cadre le **tableau entier** ; le personnage est toujours visible.
 4. La physique, le balayage, les règles de fin et le mapping d'actions sont **couverts par des
    tests** (unitaires + au moins un test d'**intégration** « entrées → monde → issue ») ; `ctest`
    vert.
