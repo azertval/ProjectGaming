@@ -18,20 +18,29 @@ TEST(PlayerComponentsTest, ColliderParDefautEstNul) {
     EXPECT_FLOAT_EQ(collider.size.y, 0.0f);
 }
 
-/// Le personnage démarre en l'air (pas au sol), minuteries de saut à zéro.
+/// Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite, dash
+/// indisponible.
 TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     const core::Player player;
     EXPECT_FALSE(player.grounded);
     EXPECT_FLOAT_EQ(player.coyoteTimer, 0.0f);
     EXPECT_FLOAT_EQ(player.jumpBufferTimer, 0.0f);
+    EXPECT_EQ(player.airJumpsRemaining, 0);
+    EXPECT_FLOAT_EQ(player.facing, 1.0f);
+    EXPECT_FLOAT_EQ(player.wallDirection, 0.0f);
+    EXPECT_FLOAT_EQ(player.wallJumpLockTimer, 0.0f);
+    EXPECT_FALSE(player.dashAvailable);
+    EXPECT_FLOAT_EQ(player.dashTimer, 0.0f);
 }
 
-/// L'intention d'entrée par défaut est neutre : immobile, aucun saut.
+/// L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash.
 TEST(PlayerComponentsTest, PlayerInputParDefautImmobile) {
     const core::PlayerInput input;
     EXPECT_FLOAT_EQ(input.moveX, 0.0f);
+    EXPECT_FLOAT_EQ(input.moveY, 0.0f);
     EXPECT_FALSE(input.jumpPressed);
     EXPECT_FALSE(input.jumpHeld);
+    EXPECT_FALSE(input.dashPressed);
 }
 
 /// Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence).
@@ -46,6 +55,13 @@ TEST(PlayerComponentsTest, PhysicsConfigParDefautPlausible) {
     // Facteur de coupe dans [0, 1] : 0 = coupe nette, 1 = pas de coupe.
     EXPECT_GE(config.jumpCutFactor, 0.0f);
     EXPECT_LE(config.jumpCutFactor, 1.0f);
+    // Mécaniques avancées (LOT-10) : réglages non nuls et plausibles.
+    EXPECT_GE(config.airJumps, 1);
+    EXPECT_GT(config.wallSlideSpeed, 0.0f);
+    EXPECT_GT(config.wallJumpSpeedX, 0.0f);
+    EXPECT_GT(config.wallJumpSpeedY, 0.0f);
+    EXPECT_GT(config.dashSpeed, 0.0f);
+    EXPECT_GT(config.dashDuration, 0.0f);
 }
 
 /// Les composants sont des agrégats : l'initialisation par accolades renseigne les champs.
