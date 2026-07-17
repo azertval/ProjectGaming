@@ -1,6 +1,6 @@
 # LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash {#lot-10}
 
-> Statut : **cadrage**. Ce lot enrichit le personnage du LOT-09 de trois mécaniques de platformer
+> Statut : **terminé**. Ce lot enrichit le personnage du LOT-09 de trois mécaniques de platformer
 > avancé : **double saut**, **wall jump** (+ wall slide) et **dash** 8 directions. Il **étend le
 > MVP** et **assouplit** `EX-GP-013` (pas de double saut) via les nouvelles exigences
 > `EX-GP-015`/`EX-GP-016`/`EX-GP-017` et l'action `EX-CTRL-013`.
@@ -73,12 +73,12 @@ franchissable.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-donnees.md) | Données des mécaniques (`PlayerInput`, `Player`, `PhysicsConfig`) | `Core` | ⬜ |
-| [TACHE-02](tache-02-mapping-dash.md) | Mapping du dash + direction de visée / orientation | `HMI/Input` | ⬜ |
-| [TACHE-03](tache-03-double-saut.md) | Double saut (sauts aériens rechargés au sol) | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-04](tache-04-wall-jump.md) | Wall jump + wall slide | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-05](tache-05-dash.md) | Dash 8 directions (burst, durée, recharge au sol) | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-06](tache-06-niveau-parkour.md) | Niveau de démo « parkour » + preuve système | `Elements/Levels` | ⬜ |
+| [TACHE-01](tache-01-donnees.md) | Données des mécaniques (`PlayerInput`, `Player`, `PhysicsConfig`) | `Core` | ✅ |
+| [TACHE-02](tache-02-mapping-dash.md) | Mapping du dash + direction de visée / orientation | `HMI/Input` | ✅ |
+| [TACHE-03](tache-03-double-saut.md) | Double saut (sauts aériens rechargés au sol) | `Core/Ecs/Systems` | ✅ |
+| [TACHE-04](tache-04-wall-jump.md) | Wall jump + wall slide | `Core/Ecs/Systems` | ✅ |
+| [TACHE-05](tache-05-dash.md) | Dash 8 directions (burst, durée, recharge au sol) | `Core/Ecs/Systems` | ✅ |
+| [TACHE-06](tache-06-niveau-parkour.md) | Niveau de démo « parkour » + preuve système | `Elements/Levels` | ✅ |
 
 ## Critères d'acceptation du lot
 1. **Double saut** : un second saut est possible **en l'air**, puis plus, jusqu'au retour au sol.

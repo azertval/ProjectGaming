@@ -610,6 +610,28 @@ TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
               core::LevelOutcome::Won);  // bloqué à la marche
 }
 
+/// Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher franchit.
+TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
+    const auto rightAndDash = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        in.dashPressed = true;  // dash répété : franchit la fosse (plafond bas → saut impossible)
+        return in;
+    };
+    EXPECT_EQ(playLevelFile("demo3.json", rightAndDash), core::LevelOutcome::Won);
+}
+
+/// Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
+TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
+    const auto rightOnly = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;
+        return in;
+    };
+    EXPECT_NE(playLevelFile("demo3.json", rightOnly),
+              core::LevelOutcome::Won);  // tombe dans la fosse
+}
+
 /// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.
 TEST(PhysiquePersonnageIntegration, CoyoteTimeAutoriseUnSautJusteApresLeBord) {
     EXPECT_TRUE(jumpAfterLeavingLedge(0));    // à peine quitté le sol → saut permis
