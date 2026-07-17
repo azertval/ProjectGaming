@@ -16,7 +16,7 @@ namespace core {
  */
 struct PhysicsConfig {
     /// Vitesse horizontale à pleine intention, en unités/seconde (`EX-GP-010`). ⚠️ à affiner.
-    float moveSpeed = 6.0f;
+    float moveSpeed = 3.0f;
     /// Accélération de la gravité, en unités/seconde². ⚠️ à affiner au ressenti.
     float gravity = 50.0f;
     /// Vitesse de chute maximale (terminale), en unités/seconde : borne de confort et de sûreté.
@@ -42,7 +42,7 @@ struct PhysicsConfig {
     /// Durée (secondes) de verrouillage du contrôle horizontal après un wall jump. ⚠️.
     float wallJumpLockTime = 0.18f;
     /// Vitesse de la ruée de **dash**, en unités/s (`EX-GP-017`). ⚠️.
-    float dashSpeed = 30.0f;
+    float dashSpeed = 15.0f;
     /// Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.
     float dashDuration = 0.15f;
 };

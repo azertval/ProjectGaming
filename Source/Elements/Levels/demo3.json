@@ -38,7 +38,7 @@
     { "x": 5, "y": 7, "type": "solid" },
     { "x": 6, "y": 7, "type": "solid" },
     { "x": 7, "y": 7, "type": "danger" },
-    { "x": 8, "y": 7, "type": "danger" },
+    { "x": 8, "y": 7, "type": "solid" },
     { "x": 9, "y": 7, "type": "solid" },
     { "x": 10, "y": 7, "type": "solid" },
     { "x": 11, "y": 7, "type": "solid" },
