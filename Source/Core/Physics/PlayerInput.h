@@ -16,8 +16,8 @@ namespace core {
  * Donnée pure, transitoire (re-remplie chaque frame), passée au `CharacterPhysicsSystem`.
  */
 struct PlayerInput {
-    /// Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :
-    /// -1 = vers la gauche, +1 = vers la droite, 0 = immobile. 
+    /// Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :Le
+    /// -1 = vers la gauche, +1 = vers la droite, 0 = immobile.
     float moveX = 0.0f;
 };
 
