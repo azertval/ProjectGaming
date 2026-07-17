@@ -3,6 +3,7 @@
  * @brief Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.
  */
 
+#include <filesystem>
 #include <string>
 #include <unordered_map>
 
@@ -77,4 +78,14 @@ TEST(LocalizationTest, LangueAbsenteEstRecuperable) {
     EXPECT_FALSE(localization.loadLanguage("xx"));
     EXPECT_EQ(localization.activeLanguage(), "fr");
     EXPECT_EQ(localization.text("menu.quitter"), "Quitter");
+}
+
+/// Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.
+TEST(LocalizationTest, CatalogueFrancaisLivreSeCharge) {
+    hmi::Localization localization(std::filesystem::path(PROJECTGAMING_LOCALIZATION_DIR));
+
+    ASSERT_TRUE(localization.loadDefaultLanguage("fr"));
+    EXPECT_EQ(localization.activeLanguage(), "fr");
+    EXPECT_EQ(localization.text("menu.quitter"), "Quitter");
+    EXPECT_EQ(localization.text("menu.charger_niveau"), "Charger niveau");
 }
