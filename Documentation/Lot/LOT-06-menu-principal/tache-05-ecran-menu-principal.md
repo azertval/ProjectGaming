@@ -14,7 +14,7 @@ de l'utilisateur (`EX-REN-030`), au clavier **et** à la souris.
 - **Navigation souris** : le **survol** d'une option la sélectionne ; le **clic** la valide
   (test de survol sur les rectangles des libellés).
 - **Libellés via le catalogue de traduction** (TACHE-03) : les trois entrées et le titre
-  référencent des **clés** (ex. `menu.charger_niveau`, `menu.mode_edition`, `menu.quitter`,
+  référencent des **clés** (ex. `menu.jouer`, `menu.mode_edition`, `menu.quitter`,
   `menu.titre`) résolues par le catalogue — **aucun texte en dur** dans le `MenuScreen`.
 - **Rendu** : titre + libellés via `BitmapFont` (TACHE-02), textes issus du catalogue ;
   l'option sélectionnée est mise en évidence (couleur/teinte ou surbrillance).

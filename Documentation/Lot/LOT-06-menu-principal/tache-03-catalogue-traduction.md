@@ -15,7 +15,7 @@ changer) et prépare l'internationalisation du jeu et, plus tard, de l'éditeur.
   vides ignorés. Choisi volontairement simple (pas de dépendance JSON à ce stade — le JSON
   est réservé aux niveaux, cf. `EX-LVL-003`) et éditable à la main.
 - **Fichier français** `fr.lang` (langue par défaut) portant au minimum les clés du lot :
-  `menu.titre`, `menu.charger_niveau`, `menu.mode_edition`, `menu.quitter`, `editeur.a_venir`.
+  `menu.titre`, `menu.jouer`, `menu.mode_edition`, `menu.quitter`, `editeur.a_venir`.
 - **Service `Localization`** (dans `HMI/Localization`) :
   - `loadLanguage(id)` charge le fichier `<id>.lang` en mémoire (map clé → valeur) ;
   - `text(clé)` renvoie la chaîne de la langue active ;

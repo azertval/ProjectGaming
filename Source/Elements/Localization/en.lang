@@ -4,7 +4,7 @@
 
 # Main menu
 menu.titre = ProjectGaming
-menu.charger_niveau = Load level
+menu.jouer = Play
 menu.mode_edition = Edit Mode
 menu.quitter = Quit
 
