@@ -1,6 +1,6 @@
 # LOT-08 — Gameplay personnage : déplacement, gravité et collisions {#lot-08}
 
-> Statut : **cadrage**. Ce lot rend le personnage **jouable** dans le niveau chargé au LOT-07 :
+> Statut : **terminé**. Ce lot rend le personnage **jouable** dans le niveau chargé au LOT-07 :
 > il se déplace horizontalement, **tombe sous gravité**, entre en **collision** avec les tuiles
 > solides, **gagne** en atteignant la sortie et **recommence** en cas d'échec (danger ou chute).
 > Le **saut** et le **comportement des mécanismes** restent des lots ultérieurs.
@@ -96,12 +96,12 @@ entrées en **actions logiques** (`EX-CTRL-010`) et afficher le résultat.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-composants-personnage.md) | Composants du personnage & intention d'entrée | `Core/Ecs` | ⬜ |
-| [TACHE-02](tache-02-balayage-aabb.md) | Balayage AABB contre la grille (géométrie pure) | `Core/Physics` | ⬜ |
-| [TACHE-03](tache-03-physique-personnage.md) | Physique du personnage (gravité + déplacement + collisions) | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-04](tache-04-regles-fin-niveau.md) | Règles de fin de niveau (succès / échec) | `Core/Levels` | ⬜ |
-| [TACHE-05](tache-05-actions-logiques.md) | Actions logiques d'entrée (mapping touches → intention) | `HMI/Input` | ⬜ |
-| [TACHE-06](tache-06-integration-jouable.md) | Intégration jouable dans `GameScreen` (cadrage fixe, succès/échec) | `HMI/Interface` | ⬜ |
+| [TACHE-01](tache-01-composants-personnage.md) | Composants du personnage & intention d'entrée | `Core/Ecs` | ✅ |
+| [TACHE-02](tache-02-balayage-aabb.md) | Balayage AABB contre la grille (géométrie pure) | `Core/Physics` | ✅ |
+| [TACHE-03](tache-03-physique-personnage.md) | Physique du personnage (gravité + déplacement + collisions) | `Core/Ecs/Systems` | ✅ |
+| [TACHE-04](tache-04-regles-fin-niveau.md) | Règles de fin de niveau (succès / échec) | `Core/Levels` | ✅ |
+| [TACHE-05](tache-05-actions-logiques.md) | Actions logiques d'entrée (mapping touches → intention) | `HMI/Input` | ✅ |
+| [TACHE-06](tache-06-integration-jouable.md) | Intégration jouable dans `GameScreen` (cadrage fixe, succès/échec) | `HMI/Interface` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage **se déplace** à gauche/droite à vitesse constante et **tombe** sous gravité ;
