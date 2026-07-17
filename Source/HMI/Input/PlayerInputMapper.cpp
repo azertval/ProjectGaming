@@ -18,6 +18,12 @@ core::PlayerInput toPlayerInput(const InputState& input) {
     // (hauteur variable). keyPressed = front d'une frame, keyDown = maintenu.
     result.jumpPressed = input.keyPressed(Key::Space) || input.keyPressed(Key::W);
     result.jumpHeld = input.keyDown(Key::Space) || input.keyDown(Key::W);
+    // Visee verticale du dash (y vers le bas) : Bas = +1, Haut = -1, sinon 0.
+    const bool aimDown = input.keyDown(Key::Down);
+    const bool aimUp = input.keyDown(Key::Up);
+    result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
+    // Dash : Maj, au front (`EX-CTRL-013`).
+    result.dashPressed = input.keyPressed(Key::Shift);
     return result;
 }
 

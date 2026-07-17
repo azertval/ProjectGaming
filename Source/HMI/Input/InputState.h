@@ -24,6 +24,7 @@ enum class Key : std::uint16_t {
     Backspace = 0x08,
     Tab = 0x09,
     Enter = 0x0D,
+    Shift = 0x10,  // Maj : action de dash (`EX-CTRL-013`)
     Escape = 0x1B,
     Space = 0x20,
     Left = 0x25,

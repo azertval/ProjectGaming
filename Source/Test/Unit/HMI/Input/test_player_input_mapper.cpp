@@ -86,3 +86,16 @@ TEST(PlayerInputMapperTest, DeplacementEtSautIndependants) {
     EXPECT_FLOAT_EQ(input.moveX, 1.0f);
     EXPECT_TRUE(input.jumpPressed);
 }
+
+/// Maj fraîchement enfoncée → dash **pressé** (front).
+TEST(PlayerInputMapperTest, MajDeclencheLeDash) {
+    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::Shift})).dashPressed);
+    EXPECT_FALSE(hmi::toPlayerInput(hmi::InputState{}).dashPressed);
+}
+
+/// Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.
+TEST(PlayerInputMapperTest, ViseeVerticale) {
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Down})).moveY, 1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Up})).moveY, -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Up, hmi::Key::Down})).moveY, 0.0f);
+}
