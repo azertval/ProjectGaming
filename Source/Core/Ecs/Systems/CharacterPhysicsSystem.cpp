@@ -22,10 +22,26 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
     world.view<Player, Transform, Velocity, Collider>().each(
         [&](Entity, Player& player, Transform& transform, Velocity& velocity, Collider& collider) {
             //  Pour CHAQUE personnage :
-            //   0. Saut : impulsion verticale, uniquement au sol (EX-GP-011, EX-GP-013).
-            //      y vers le bas → monter = vitesse négative.
-            if (input.jumpPressed && player.grounded) {
+            //   0. Minuteries de game feel, décomptées au pas fixe (EX-CTRL-011, EX-NFR-002) :
+            //      - coyote time : rechargé au sol, décompté en l'air (sauter juste après un bord)
+            //      ;
+            if (player.grounded) {
+                player.coyoteTimer = _config.coyoteTime;
+            } else {
+                player.coyoteTimer = std::max(0.0f, player.coyoteTimer - fixedDelta);
+            }
+            //      - jump buffering : rechargé à l'appui, décompté sinon (saut pré-appuyé honoré).
+            if (input.jumpPressed) {
+                player.jumpBufferTimer = _config.jumpBufferTime;
+            } else {
+                player.jumpBufferTimer = std::max(0.0f, player.jumpBufferTimer - fixedDelta);
+            }
+            //   0a. Saut : demandé (buffer) ET autorisé (au sol ou coyote), y négatif = montée
+            //       (EX-GP-011). On consomme les deux minuteries → pas de second saut (EX-GP-013).
+            if (player.jumpBufferTimer > 0.0f && player.coyoteTimer > 0.0f) {
                 velocity.value.y = -_config.jumpSpeed;
+                player.coyoteTimer = 0.0f;
+                player.jumpBufferTimer = 0.0f;
             }
             //   0b. Hauteur variable : bouton relâché pendant la montée → on plafonne la vitesse
             //       ascendante à `jumpCutFactor × jumpSpeed` (relâcher tôt = petit saut). Le max

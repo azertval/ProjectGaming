@@ -78,6 +78,80 @@ float jumpApexHeight(int holdFrames) {
     return groundY - minY;  // hauteur en unités monde (tuiles)
 }
 
+// Marche à droite jusqu'à quitter un rebord, attend `delayFrames`, puis presse le saut.
+// Renvoie true si le saut a décollé (vitesse ascendante) — teste le *coyote time*.
+bool jumpAfterLeavingLedge(int delayFrames) {
+    core::World world;
+    core::TileMap tiles(20, 20);
+    for (int col = 0; col <= 3; ++col) {  // rebord : sol sur les colonnes 0..3
+        tiles.setTile(col, 12, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 1.0f, 10.0f);
+    core::CharacterPhysicsSystem system;
+
+    for (int i = 0; i < 200; ++i) {  // se poser sur le rebord
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    const core::PlayerInput right{1.0f};
+    int guard = 0;
+    while (world.getComponent<core::Player>(player).grounded && guard < 600) {
+        system.update(world, tiles, right, STEP);  // marcher jusqu'à quitter le sol
+        ++guard;
+    }
+    for (int i = 0; i < delayFrames; ++i) {
+        system.update(world, tiles, right, STEP);  // attendre en l'air
+    }
+    core::PlayerInput jump{1.0f};
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    return world.getComponent<core::Velocity>(player).value.y < 0.0f;  // a décollé ?
+}
+
+// Presse le saut `framesBeforeLanding` avant l'atterrissage ; renvoie true si un saut part une fois
+// posé — teste le *jump buffering*. Deux passages : trouver l'atterrissage, puis presser au moment.
+bool bufferedJump(int framesBeforeLanding) {
+    int landingFrame = -1;
+    {
+        core::World world;
+        core::TileMap tiles(4, 20);
+        fillRow(tiles, 15);
+        const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+        core::CharacterPhysicsSystem system;
+        for (int i = 0; i < 200 && landingFrame < 0; ++i) {
+            system.update(world, tiles, core::PlayerInput{}, STEP);
+            if (world.getComponent<core::Player>(player).grounded) {
+                landingFrame = i;
+            }
+        }
+    }
+    if (landingFrame < 0) {
+        return false;
+    }
+    const int pressFrame = landingFrame - framesBeforeLanding;
+
+    core::World world;
+    core::TileMap tiles(4, 20);
+    fillRow(tiles, 15);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    bool landed = false;
+    bool jumped = false;
+    for (int i = 0; i < 200; ++i) {
+        core::PlayerInput in;
+        in.jumpPressed = (i == pressFrame);
+        system.update(world, tiles, in, STEP);
+        if (world.getComponent<core::Player>(player).grounded) {
+            landed = true;
+        }
+        // Après avoir touché le sol, une vitesse ascendante trahit un saut (bufferisé).
+        if (landed && world.getComponent<core::Velocity>(player).value.y < -1.0f) {
+            jumped = true;
+        }
+    }
+    return jumped;
+}
+
 }  // namespace
 
 /// Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).
@@ -258,6 +332,19 @@ TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     EXPECT_GT(fullJump, shortHop + 0.3f);  // maintenir monte nettement plus haut
     EXPECT_GT(fullJump, 2.0f);             // ~2,25 tuiles avec le réglage par défaut
     EXPECT_LT(fullJump, 3.0f);
+}
+
+/// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.
+TEST(PhysiquePersonnageIntegration, CoyoteTimeAutoriseUnSautJusteApresLeBord) {
+    EXPECT_TRUE(jumpAfterLeavingLedge(0));    // à peine quitté le sol → saut permis
+    EXPECT_FALSE(jumpAfterLeavingLedge(15));  // trop tard → fenêtre coyote expirée
+}
+
+/// Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop tôt,
+/// non.
+TEST(PhysiquePersonnageIntegration, JumpBufferingHonoreUnSautPreAppuye) {
+    EXPECT_TRUE(bufferedJump(2));    // appuyé 2 pas avant l'atterrissage → saute à la pose
+    EXPECT_FALSE(bufferedJump(30));  // appuyé bien trop tôt → buffer expiré
 }
 
 /// Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite »,
