@@ -10,6 +10,7 @@ add_executable(UnitTests
     Unit/test_component_pool.cpp
     Unit/test_view.cpp
     Unit/test_world.cpp
+    Unit/test_player_components.cpp
     Unit/test_level.cpp
     Unit/test_level_loader.cpp
     Unit/test_sprite.cpp
