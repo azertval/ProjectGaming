@@ -16,9 +16,15 @@ namespace core {
  * Donnée pure, transitoire (re-remplie chaque frame), passée au `CharacterPhysicsSystem`.
  */
 struct PlayerInput {
-    /// Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :Le
+    /// Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :
     /// -1 = vers la gauche, +1 = vers la droite, 0 = immobile.
     float moveX = 0.0f;
+    /// Saut **vient d'être pressé** cette frame (front montant) : déclenche le saut et alimente
+    /// le *jump buffering* (`EX-CTRL-011`).
+    bool jumpPressed = false;
+    /// Bouton de saut **maintenu** : sert à la hauteur de saut variable (relâcher tôt = petit
+    /// saut).
+    bool jumpHeld = false;
 };
 
 }  // namespace core
