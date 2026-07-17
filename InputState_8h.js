@@ -10,7 +10,11 @@ var InputState_8h =
       [ "Left", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff", null ],
       [ "Up", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa", null ],
       [ "Right", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c", null ],
-      [ "Down", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ]
+      [ "Down", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
+      [ "A", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "D", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "Q", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
+      [ "W", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ]
     ] ],
     [ "MouseButton", "InputState_8h.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "InputState_8h.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],

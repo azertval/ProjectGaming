@@ -6,9 +6,10 @@ var searchData=
   ['jeu_20direct3d_2011_3',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
   ['jeu_20mécanique_20à_20terme_4',['En jeu (mécanique, à terme)',['../spec-decors.html#autotoc_md43',1,'']]],
   ['jeu_20mapping_20logique_5',['2. Actions du jeu (mapping logique)',['../spec-controles.html#autotoc_md17',1,'']]],
-  ['journalisation_6',['10. Assertions &amp; journalisation',['../spec-conventions.html#autotoc_md36',1,'']]],
-  ['journalisation_20diagnostics_7',['LOT-02 — Journalisation &amp; diagnostics',['../lot-02.html',1,'lots']]],
-  ['json_8',['TACHE-03 — Chargement du niveau (JSON)',['../lot-07-tache-03-chargement-json.html',1,'lot-07']]],
-  ['json_20liste_20de_20tuiles_20objets_9',['Format retenu (JSON, liste de tuiles-objets)',['../spec-niveaux.html#autotoc_md69',1,'']]],
-  ['json_20nlohmann_20json_20épinglé_10',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]]
+  ['jouable_20dans_20gamescreen_20cadrage_20fixe_20succès_20échec_6',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
+  ['journalisation_7',['10. Assertions &amp; journalisation',['../spec-conventions.html#autotoc_md36',1,'']]],
+  ['journalisation_20diagnostics_8',['LOT-02 — Journalisation &amp; diagnostics',['../lot-02.html',1,'lots']]],
+  ['json_9',['TACHE-03 — Chargement du niveau (JSON)',['../lot-07-tache-03-chargement-json.html',1,'lot-07']]],
+  ['json_20liste_20de_20tuiles_20objets_10',['Format retenu (JSON, liste de tuiles-objets)',['../spec-niveaux.html#autotoc_md69',1,'']]],
+  ['json_20nlohmann_20json_20épinglé_11',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]]
 ];

@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/CharacterPhysicsSystem.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/CharacterPhysicsSystem.h">
+<area shape="rect" id="Node000001" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="269,5,528,75"/>
+<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,123,264,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="310,83,213,125,211,120,308,78"/>
+<area shape="rect" id="Node000003" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="288,130,509,185"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="401,89,401,130,396,130,396,89"/>
+<area shape="rect" id="Node000006" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="534,123,757,192"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="484,78,574,120,572,125,482,83"/>
+<area shape="rect" id="Node000004" href="$GameScreen_8cpp.html" title=" " alt="" coords="159,240,387,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="359,196,306,242,302,238,356,192"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="412,240,633,295"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="441,192,494,238,491,242,438,196"/>
+</map>

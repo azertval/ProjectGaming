@@ -1,23 +1,23 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Localization/Localization.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Localization/Localization.h">
 <area shape="rect" id="Node000001" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="531,5,759,60"/>
-<area shape="rect" id="Node000002" href="$MenuModel_8cpp.html" title=" " alt="" coords="85,108,306,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="518,65,307,112,306,107,516,60"/>
-<area shape="rect" id="Node000003" href="$MenuScreen_8cpp.html" title=" " alt="" coords="5,211,231,265"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="518,55,442,77,405,92,370,110,355,123,345,136,336,151,320,165,269,192,217,213,215,208,267,188,316,160,332,147,341,133,351,119,367,106,403,87,440,72,516,50"/>
-<area shape="rect" id="Node000004" href="$RenderContext_8h.html" title="Ressources de rendu partagées passées aux écrans lors du dessin." alt="" coords="381,108,607,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="596,70,535,110,532,106,593,65"/>
-<area shape="rect" id="Node000007" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="759,211,981,265"/>
-<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="645,74,652,119,660,141,672,161,687,173,712,185,774,208,772,213,709,190,685,178,668,164,655,144,646,120,640,74"/>
-<area shape="rect" id="Node000008" href="$Localization_8cpp.html" title=" " alt="" coords="682,108,925,163"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="699,65,763,106,760,110,696,69"/>
-<area shape="rect" id="Node000009" href="$test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue." alt="" coords="949,108,1170,163"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="766,61,952,105,951,111,765,66"/>
-<area shape="rect" id="Node000010" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="1195,108,1425,163"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="772,47,966,72,1182,105,1195,108,1194,113,1182,111,965,77,772,52"/>
-<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="384,169,217,213,215,208,383,164"/>
-<area shape="rect" id="Node000005" href="$EditorScreen_8cpp.html" title=" " alt="" coords="255,211,482,265"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="452,174,403,213,400,208,449,169"/>
-<area shape="rect" id="Node000006" href="$GameScreen_8cpp.html" title=" " alt="" coords="507,211,735,265"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="540,169,589,208,586,213,537,174"/>
-<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="605,164,773,208,771,213,604,169"/>
+<area shape="rect" id="Node000002" href="$MenuModel_8cpp.html" title=" " alt="" coords="85,115,306,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="518,65,325,111,296,118,295,113,324,105,517,60"/>
+<area shape="rect" id="Node000003" href="$MenuScreen_8cpp.html" title=" " alt="" coords="5,225,231,280"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="518,52,442,74,405,90,370,110,354,126,345,143,337,161,320,179,273,207,224,228,222,223,271,203,316,175,332,158,341,141,350,123,367,106,402,85,440,69,517,47"/>
+<area shape="rect" id="Node000004" href="$RenderContext_8h.html" title="Ressources de rendu partagées passées aux écrans lors du dessin." alt="" coords="381,115,607,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="598,71,533,117,529,113,595,66"/>
+<area shape="rect" id="Node000007" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="759,225,981,280"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="644,74,649,126,658,152,672,176,687,188,711,200,774,223,772,228,709,205,684,192,668,179,653,155,644,127,639,74"/>
+<area shape="rect" id="Node000008" href="$Localization_8cpp.html" title=" " alt="" coords="682,115,925,170"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="696,66,766,113,763,117,693,70"/>
+<area shape="rect" id="Node000009" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="949,108,1170,177"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="763,61,937,105,949,109,948,114,936,111,761,66"/>
+<area shape="rect" id="Node000010" href="$test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue." alt="" coords="1194,108,1415,177"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="773,44,967,69,1183,105,1194,108,1193,113,1181,111,966,74,772,50"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="390,176,210,228,209,223,389,171"/>
+<area shape="rect" id="Node000005" href="$EditorScreen_8cpp.html" title=" " alt="" coords="255,225,482,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="454,182,401,227,398,223,451,177"/>
+<area shape="rect" id="Node000006" href="$GameScreen_8cpp.html" title=" " alt="" coords="507,225,735,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="538,177,591,223,588,227,534,182"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="599,171,779,223,778,228,598,176"/>
 </map>

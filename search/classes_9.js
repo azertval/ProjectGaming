@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['rect_0',['rect',['../structcore_1_1Rect.html',1,'core::Rect'],['../structhmi_1_1LanguageSelector_1_1Rect.html',1,'hmi::LanguageSelector::Rect'],['../structhmi_1_1SaveLogButton_1_1Rect.html',1,'hmi::SaveLogButton::Rect']]],
-  ['rendercontext_1',['RenderContext',['../structhmi_1_1RenderContext.html',1,'hmi']]]
+  ['physicsconfig_0',['PhysicsConfig',['../structcore_1_1PhysicsConfig.html',1,'core']]],
+  ['player_1',['Player',['../structcore_1_1Player.html',1,'core']]],
+  ['playerinput_2',['PlayerInput',['../structcore_1_1PlayerInput.html',1,'core']]]
 ];

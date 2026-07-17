@@ -6,6 +6,6 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="445,71,393,117,390,113,442,67"/>
 <area shape="rect" id="Node000004" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="496,108,717,177"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="526,68,570,106,567,110,523,72"/>
-<area shape="rect" id="Node000005" href="$test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe." alt="" coords="741,115,984,170"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="590,61,771,113,770,118,588,66"/>
+<area shape="rect" id="Node000005" href="$test__fixed__timestep_8cpp.html" title="Tests unitaires du cadenceur à pas de temps fixe." alt="" coords="741,108,963,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="588,61,742,106,741,112,586,67"/>
 </map>

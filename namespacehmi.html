@@ -181,6 +181,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c">Right</a> = 0x27
 , <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53">Down</a> = 0x28
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">A</a> = 0x41
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
 <br />
  }</td></tr>
 <tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touche du clavier, identifiée par son <b>code virtuel Win32</b>.  <a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
@@ -201,6 +206,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a400f94138e7bf311db8eed180aec1f3b" id="r_a400f94138e7bf311db8eed180aec1f3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b">toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
+<tr class="memdesc:a400f94138e7bf311db8eed180aec1f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>).  <br /></td></tr>
+<tr class="separator:a400f94138e7bf311db8eed180aec1f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
 <tr class="memdesc:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble les messages de log en un texte (une ligne par message).  <br /></td></tr>
 <tr class="separator:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +249,10 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa" name="a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa"></a>Up&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c" name="a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53" name="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29" name="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5" name="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5"></a>D&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee" name="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee"></a>Q&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276" name="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276"></a>W&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -369,6 +381,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le texte complet, terminé par un saut de ligne (vide si aucun message). </dd></dl>
+
+</div>
+</div>
+<a id="a400f94138e7bf311db8eed180aec1f3b" name="a400f94138e7bf311db8eed180aec1f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400f94138e7bf311db8eed180aec1f3b">&#9670;&#160;</a></span>toPlayerInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a> hmi::toPlayerInput </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>). </p>
+<p>Le reste du moteur ne connaît que l'<b>intention</b> (<code>moveX</code>), pas les touches : un futur remappage ou une manette (<code>EX-CTRL-012</code>) ne toucherait que cette fonction. Correspondance : gauche = <code>←</code> ou <code>Q</code> ; droite = <code>→</code> ou <code>D</code>. Gauche et droite simultanées se neutralisent (<code>moveX == 0</code>). Fonction <b>pure</b>, testable avec un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> injecté (<code>EX-NFR-010</code>) ; appelée une fois par frame en amont de la logique (<code>EX-CTRL-020</code>, <code>EX-CTRL-021</code>).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>État clavier échantillonné de la frame. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'intention de déplacement correspondante. </dd></dl>
 
 </div>
 </div>

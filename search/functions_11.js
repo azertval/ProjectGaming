@@ -3,7 +3,7 @@ var searchData=
   ['saveicon_0',['SaveIcon',['../classhmi_1_1SaveIcon.html#a53f90e3b41a08af53813a88db83a85a1',1,'hmi::SaveIcon']]],
   ['savesessionlog_1',['saveSessionLog',['../namespacehmi.html#a680b600014001a99d296df386e7ed9d8',1,'hmi']]],
   ['scale_2',['scale',['../classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a',1,'hmi::Camera2D']]],
-  ['screenmanager_3',['screenmanager',['../classhmi_1_1ScreenManager.html#a1993ab9dcd72a71307cce101e136cea3',1,'hmi::ScreenManager::ScreenManager(Factory factory, ScreenId initial)'],['../classhmi_1_1ScreenManager.html#afa4dc906486b7031b60d35c125aa52e0',1,'hmi::ScreenManager::ScreenManager(const ScreenManager &amp;)=delete']]],
+  ['screenmanager_3',['screenmanager',['../classhmi_1_1ScreenManager.html#afa4dc906486b7031b60d35c125aa52e0',1,'hmi::ScreenManager::ScreenManager(const ScreenManager &amp;)=delete'],['../classhmi_1_1ScreenManager.html#a1993ab9dcd72a71307cce101e136cea3',1,'hmi::ScreenManager::ScreenManager(Factory factory, ScreenId initial)']]],
   ['screenprojection_4',['screenProjection',['../classhmi_1_1BitmapFont.html#ae86748496c03abb1b67a5b4f3d8ada06',1,'hmi::BitmapFont']]],
   ['screentoworld_5',['screenToWorld',['../classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d',1,'hmi::Camera2D']]],
   ['selectedindex_6',['selectedIndex',['../classhmi_1_1MenuModel.html#a7006a37cb54fd087c01dd4a52a94c801',1,'hmi::MenuModel']]],
@@ -21,8 +21,10 @@ var searchData=
   ['size_18',['size',['../classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7',1,'core::ComponentPool']]],
   ['skiptomatch_19',['skipToMatch',['../classcore_1_1View_1_1Iterator.html#a8023ce2eabf79c007797ced3a5dc7e06',1,'core::View::Iterator']]],
   ['smallestentities_20',['smallestEntities',['../classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce',1,'core::View']]],
-  ['spritebatch_21',['spritebatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
-  ['spriterenderer_22',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
-  ['switchto_23',['switchTo',['../structhmi_1_1ScreenTransition.html#ab70f04892657b3e9f10ca3647ec8d4ef',1,'hmi::ScreenTransition']]],
-  ['systemcount_24',['systemCount',['../classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d',1,'core::World']]]
+  ['spawnplayer_21',['spawnPlayer',['../classhmi_1_1GameScreen.html#a5b7513bd9ff5bebf0d9112dcd70dd64d',1,'hmi::GameScreen']]],
+  ['spritebatch_22',['spritebatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
+  ['spriterenderer_23',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
+  ['sweepaabb_24',['sweepAabb',['../namespacecore.html#a4ca635df367666624247837feb2af5a5',1,'core']]],
+  ['switchto_25',['switchTo',['../structhmi_1_1ScreenTransition.html#ab70f04892657b3e9f10ca3647ec8d4ef',1,'hmi::ScreenTransition']]],
+  ['systemcount_26',['systemCount',['../classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d',1,'core::World']]]
 ];

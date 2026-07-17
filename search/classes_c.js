@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['vector2_0',['Vector2',['../structcore_1_1Vector2.html',1,'core']]],
-  ['velocity_1',['Velocity',['../structcore_1_1Velocity.html',1,'core']]],
-  ['vertex_2',['Vertex',['../structhmi_1_1SpriteBatch_1_1Vertex.html',1,'hmi::SpriteBatch']]],
-  ['view_3',['View',['../classcore_1_1View.html',1,'core']]]
+  ['textureatlas_0',['TextureAtlas',['../classhmi_1_1TextureAtlas.html',1,'hmi']]],
+  ['tilemap_1',['TileMap',['../classcore_1_1TileMap.html',1,'core']]],
+  ['toggle_2',['Toggle',['../structhmi_1_1LanguageSelector_1_1Toggle.html',1,'hmi::LanguageSelector']]],
+  ['transform_3',['Transform',['../structcore_1_1Transform.html',1,'core']]]
 ];

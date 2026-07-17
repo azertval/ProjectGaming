@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {..." alt="" coords="5,5,143,31"/>
+<area shape="rect" id="Node000000" href="$classcore_1_1ILogSink.html" title="Destination vers laquelle un Logger diffuse ses messages." alt="" coords="5,31,119,56"/>
+<area shape="rect" id="Node000001" href="$classcore_1_1ConsoleLogSink.html" title="Sink qui écrit les messages sur la sortie standard et, sous Windows, vers le débogueur." alt="" coords="167,5,329,31"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="132,31,167,26,167,32,133,36"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1MemoryLogSink.html" title="Sink de test : mémorise les messages reçus pour inspection." alt="" coords="167,55,329,80"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="133,50,167,54,166,60,132,55"/>
 </map>

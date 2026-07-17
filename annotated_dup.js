@@ -1,7 +1,10 @@
 var annotated_dup =
 [
     [ "core", "namespacecore.html", [
+      [ "Aabb", "structcore_1_1Aabb.html", "structcore_1_1Aabb" ],
       [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
+      [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
+      [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],
       [ "Color", "structcore_1_1Color.html", "structcore_1_1Color" ],
       [ "ComponentPool", "classcore_1_1ComponentPool.html", "classcore_1_1ComponentPool" ],
       [ "ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", "classcore_1_1ConsoleLogSink" ],
@@ -20,8 +23,12 @@ var annotated_dup =
       [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
       [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
       [ "MovementSystem", "classcore_1_1MovementSystem.html", "classcore_1_1MovementSystem" ],
+      [ "PhysicsConfig", "structcore_1_1PhysicsConfig.html", "structcore_1_1PhysicsConfig" ],
+      [ "Player", "structcore_1_1Player.html", "structcore_1_1Player" ],
+      [ "PlayerInput", "structcore_1_1PlayerInput.html", "structcore_1_1PlayerInput" ],
       [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
       [ "Sprite", "structcore_1_1Sprite.html", "structcore_1_1Sprite" ],
+      [ "SweepResult", "structcore_1_1SweepResult.html", "structcore_1_1SweepResult" ],
       [ "TileMap", "classcore_1_1TileMap.html", "classcore_1_1TileMap" ],
       [ "Transform", "structcore_1_1Transform.html", "structcore_1_1Transform" ],
       [ "Vector2", "structcore_1_1Vector2.html", "structcore_1_1Vector2" ],

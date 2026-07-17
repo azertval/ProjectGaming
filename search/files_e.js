@@ -13,5 +13,7 @@ var searchData=
   ['spritebatch_2ecpp_10',['SpriteBatch.cpp',['../SpriteBatch_8cpp.html',1,'']]],
   ['spritebatch_2eh_11',['SpriteBatch.h',['../SpriteBatch_8h.html',1,'']]],
   ['spriterenderer_2ecpp_12',['SpriteRenderer.cpp',['../SpriteRenderer_8cpp.html',1,'']]],
-  ['spriterenderer_2eh_13',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]]
+  ['spriterenderer_2eh_13',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]],
+  ['sweptcollision_2ecpp_14',['SweptCollision.cpp',['../SweptCollision_8cpp.html',1,'']]],
+  ['sweptcollision_2eh_15',['SweptCollision.h',['../SweptCollision_8h.html',1,'']]]
 ];

@@ -1,27 +1,27 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_session_log.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_session_log.cpp">
-<area shape="rect" id="Node000001" title="Tests unitaires de la sérialisation des logs de session." alt="" coords="119,5,341,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,269,68,295"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,63,83,82,53,110,43,126,35,145,29,184,29,223,34,256,28,256,24,224,23,184,30,143,38,124,49,106,80,78,117,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="335,108,439,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="279,58,355,99,353,104,277,62"/>
-<area shape="rect" id="Node000004" href="$MemoryLogSink_8h.html" title="Sink qui conserve les messages en mémoire, destiné aux tests." alt="" coords="239,181,453,221"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="251,59,327,168,323,172,246,62"/>
-<area shape="rect" id="Node000009" href="$SessionLog_8h.html" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="63,108,261,133"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="211,62,182,99,178,95,207,58"/>
-<area shape="poly" id="edge6_Node000004_Node000002" title=" " alt="" coords="273,224,82,272,81,267,271,219"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="173,269,231,295"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="313,224,236,265,234,260,310,219"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="472,343,569,368"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="454,219,492,238,509,251,523,268,530,283,533,299,530,330,525,329,527,299,525,284,518,271,505,255,489,242,452,223"/>
-<area shape="rect" id="Node000007" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="306,269,509,295"/>
-<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="363,220,392,257,388,260,359,223"/>
-<area shape="rect" id="Node000008" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="216,343,423,368"/>
-<area shape="poly" id="edge10_Node000004_Node000008" title=" " alt="" coords="328,223,310,245,297,270,294,285,296,301,307,330,302,332,291,302,289,285,291,268,306,242,324,220"/>
-<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="427,292,492,333,489,338,424,297"/>
-<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="395,297,346,336,343,332,392,293"/>
-<area shape="poly" id="edge14_Node000009_Node000002" title=" " alt="" coords="131,136,95,155,78,168,64,183,54,200,47,219,40,256,35,255,42,218,49,198,60,180,75,164,93,150,129,131"/>
-<area shape="poly" id="edge15_Node000009_Node000004" title=" " alt="" coords="190,131,290,174,288,178,188,136"/>
-<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="167,133,198,255,193,256,162,134"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="74,189,165,214"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="158,135,134,178,130,175,153,132"/>
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_session_log.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_session_log.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la sérialisation des logs de session." alt="" coords="119,5,341,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,284,68,309"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,74,84,95,53,124,36,160,29,199,30,238,34,270,28,271,24,238,24,199,31,158,49,121,80,91,118,69"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="335,123,439,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="288,72,357,113,354,118,285,77"/>
+<area shape="rect" id="Node000004" href="$MemoryLogSink_8h.html" title="Sink qui conserve les messages en mémoire, destiné aux tests." alt="" coords="239,196,453,236"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="255,73,328,183,324,186,250,76"/>
+<area shape="rect" id="Node000009" href="$SessionLog_8h.html" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="63,123,261,148"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="208,76,181,113,176,110,203,73"/>
+<area shape="poly" id="edge6_Node000004_Node000002" title=" " alt="" coords="273,239,82,287,81,281,271,233"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="173,284,231,309"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="313,238,236,280,234,275,310,234"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="472,357,569,383"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="454,233,492,253,509,266,523,283,530,297,533,314,530,344,525,344,527,314,525,299,518,285,505,270,489,257,452,238"/>
+<area shape="rect" id="Node000007" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="306,284,509,309"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="363,235,392,271,388,275,359,238"/>
+<area shape="rect" id="Node000008" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="216,357,423,383"/>
+<area shape="poly" id="edge10_Node000004_Node000008" title=" " alt="" coords="328,238,310,259,297,285,294,300,296,315,307,344,302,346,291,317,289,300,291,283,306,256,324,235"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="427,307,492,348,489,352,424,312"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="395,311,346,351,343,346,392,307"/>
+<area shape="poly" id="edge14_Node000009_Node000002" title=" " alt="" coords="131,150,95,169,78,182,64,198,54,215,47,234,40,270,35,269,42,232,49,212,60,194,75,178,93,165,129,146"/>
+<area shape="poly" id="edge15_Node000009_Node000004" title=" " alt="" coords="190,146,290,188,288,193,188,150"/>
+<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="167,147,198,270,193,271,162,149"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="74,203,165,229"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="158,149,134,193,130,190,153,147"/>
 </map>

@@ -1,15 +1,15 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h">
 <area shape="rect" id="Node000001" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="387,5,608,60"/>
-<area shape="rect" id="Node000002" href="$Camera2D_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,66,216,111,215,105,384,61"/>
-<area shape="rect" id="Node000003" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="251,108,491,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="455,71,405,110,402,106,452,67"/>
-<area shape="rect" id="Node000004" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="515,108,736,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="543,66,593,106,590,110,540,70"/>
-<area shape="rect" id="Node000007" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="760,108,981,163"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="608,61,774,105,773,111,607,66"/>
-<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="386,211,614,265"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="583,174,534,213,531,208,580,169"/>
-<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="639,211,860,265"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="670,169,719,208,715,213,667,174"/>
+<area shape="rect" id="Node000002" href="$Camera2D_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,66,209,118,208,113,391,61"/>
+<area shape="rect" id="Node000003" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="251,115,491,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="457,72,403,117,400,113,454,67"/>
+<area shape="rect" id="Node000004" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="515,115,736,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="541,67,596,113,592,117,538,72"/>
+<area shape="rect" id="Node000007" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="760,108,981,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="602,61,760,107,759,112,600,66"/>
+<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="386,225,614,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="586,182,532,227,529,223,582,177"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="639,225,860,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="668,177,721,223,717,227,665,181"/>
 </map>

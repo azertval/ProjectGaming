@@ -1,0 +1,11 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Player.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Player.h">
+<area shape="rect" id="Node000001" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="415,5,639,60"/>
+<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,108,264,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="419,66,257,111,256,105,417,61"/>
+<area shape="rect" id="Node000003" href="$GameScreen_8cpp.html" title=" " alt="" coords="289,115,517,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="487,71,435,117,431,113,484,67"/>
+<area shape="rect" id="Node000004" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="541,108,763,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="570,67,615,106,611,110,566,71"/>
+<area shape="rect" id="Node000005" href="$test__player__components_8cpp.html" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut." alt="" coords="788,108,1009,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="631,61,789,107,787,112,629,66"/>
+</map>

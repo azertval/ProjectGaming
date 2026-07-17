@@ -140,7 +140,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md459", null ],
+      [ "Lots", "lots.html#autotoc_md511", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md87", null ],
         [ "Périmètre", "lot-01.html#autotoc_md88", [
@@ -621,15 +621,82 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-07-tache-06-rendu-integration.html#autotoc_md457", null ],
           [ "Exigences", "lot-07-tache-06-rendu-integration.html#autotoc_md458", null ]
         ] ]
+      ] ],
+      [ "LOT-08 — Gameplay personnage : déplacement, gravité et collisions", "lot-08.html", [
+        [ "Objectif", "lot-08.html#autotoc_md459", null ],
+        [ "Périmètre", "lot-08.html#autotoc_md460", [
+          [ "Inclus", "lot-08.html#autotoc_md461", null ],
+          [ "Exclus (lots ultérieurs)", "lot-08.html#autotoc_md462", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-08.html#autotoc_md463", null ],
+        [ "Exigences couvertes", "lot-08.html#autotoc_md464", null ],
+        [ "Découpage", "lot-08.html#autotoc_md465", null ],
+        [ "Critères d'acceptation du lot", "lot-08.html#autotoc_md466", null ],
+        [ "Dépendances", "lot-08.html#autotoc_md467", null ],
+        [ "Navigation des tâches", "lot-08.html#autotoc_md468", null ],
+        [ "TACHE-01 — Composants du personnage & intention d'entrée", "lot-08-tache-01-composants-personnage.html", [
+          [ "Contexte", "lot-08-tache-01-composants-personnage.html#autotoc_md469", null ],
+          [ "Travail à réaliser", "lot-08-tache-01-composants-personnage.html#autotoc_md470", null ],
+          [ "Fichiers impactés", "lot-08-tache-01-composants-personnage.html#autotoc_md471", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-01-composants-personnage.html#autotoc_md472", null ],
+          [ "Points d'attention", "lot-08-tache-01-composants-personnage.html#autotoc_md473", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-01-composants-personnage.html#autotoc_md474", null ],
+          [ "Exigences", "lot-08-tache-01-composants-personnage.html#autotoc_md475", null ]
+        ] ],
+        [ "TACHE-02 — Balayage AABB contre la grille (géométrie pure)", "lot-08-tache-02-balayage-aabb.html", [
+          [ "Contexte", "lot-08-tache-02-balayage-aabb.html#autotoc_md476", null ],
+          [ "Travail à réaliser", "lot-08-tache-02-balayage-aabb.html#autotoc_md477", null ],
+          [ "Fichiers impactés", "lot-08-tache-02-balayage-aabb.html#autotoc_md478", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-02-balayage-aabb.html#autotoc_md479", null ],
+          [ "Points d'attention", "lot-08-tache-02-balayage-aabb.html#autotoc_md480", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-02-balayage-aabb.html#autotoc_md481", null ],
+          [ "Exigences", "lot-08-tache-02-balayage-aabb.html#autotoc_md482", null ]
+        ] ],
+        [ "TACHE-03 — Physique du personnage (gravité + déplacement + collisions)", "lot-08-tache-03-physique-personnage.html", [
+          [ "Contexte", "lot-08-tache-03-physique-personnage.html#autotoc_md483", null ],
+          [ "Travail à réaliser", "lot-08-tache-03-physique-personnage.html#autotoc_md484", null ],
+          [ "Fichiers impactés", "lot-08-tache-03-physique-personnage.html#autotoc_md485", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-03-physique-personnage.html#autotoc_md486", null ],
+          [ "Points d'attention", "lot-08-tache-03-physique-personnage.html#autotoc_md487", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-03-physique-personnage.html#autotoc_md488", null ],
+          [ "Exigences", "lot-08-tache-03-physique-personnage.html#autotoc_md489", null ]
+        ] ],
+        [ "TACHE-04 — Règles de fin de niveau (succès / échec)", "lot-08-tache-04-regles-fin-niveau.html", [
+          [ "Contexte", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md490", null ],
+          [ "Travail à réaliser", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md491", null ],
+          [ "Fichiers impactés", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md492", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md493", null ],
+          [ "Points d'attention", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md494", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md495", null ],
+          [ "Exigences", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md496", null ]
+        ] ],
+        [ "TACHE-05 — Actions logiques d'entrée (mapping touches → intention)", "lot-08-tache-05-actions-logiques.html", [
+          [ "Contexte", "lot-08-tache-05-actions-logiques.html#autotoc_md497", null ],
+          [ "Travail à réaliser", "lot-08-tache-05-actions-logiques.html#autotoc_md498", null ],
+          [ "Fichiers impactés", "lot-08-tache-05-actions-logiques.html#autotoc_md499", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-05-actions-logiques.html#autotoc_md500", null ],
+          [ "Points d'attention", "lot-08-tache-05-actions-logiques.html#autotoc_md501", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-05-actions-logiques.html#autotoc_md502", null ],
+          [ "Exigences", "lot-08-tache-05-actions-logiques.html#autotoc_md503", null ]
+        ] ],
+        [ "TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)", "lot-08-tache-06-integration-jouable.html", [
+          [ "Contexte", "lot-08-tache-06-integration-jouable.html#autotoc_md504", null ],
+          [ "Travail à réaliser", "lot-08-tache-06-integration-jouable.html#autotoc_md505", null ],
+          [ "Fichiers impactés", "lot-08-tache-06-integration-jouable.html#autotoc_md506", null ],
+          [ "Vérification (visuelle, pas de test unitaire)", "lot-08-tache-06-integration-jouable.html#autotoc_md507", null ],
+          [ "Points d'attention", "lot-08-tache-06-integration-jouable.html#autotoc_md508", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-06-integration-jouable.html#autotoc_md509", null ],
+          [ "Exigences", "lot-08-tache-06-integration-jouable.html#autotoc_md510", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md460", null ],
-      [ "À venir", "manuel.html#autotoc_md461", null ],
+      [ "Pages", "manuel.html#autotoc_md512", null ],
+      [ "À venir", "manuel.html#autotoc_md513", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md462", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md463", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md464", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md514", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md515", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md516", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -649,7 +716,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
@@ -658,7 +725,7 @@ var NAVTREE =
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Macros", "globals_defs.html", null ]
@@ -669,15 +736,16 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"Assert_8cpp.html",
-"View_8h_source.html",
-"classcore_1_1World.html#ac19f665091a4c3bea7ba8f314fc0d502",
-"classhmi_1_1Localization.html#aaec6d6049a8b31c50fc1bf151dec6fa1",
-"dir_3427c72e69bc60a7077eff15a38bcae8.html",
-"lot-04-tache-02-config-doxygen-markdown.html#autotoc_md240",
-"lot-07.html#autotoc_md408",
-"structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00",
-"test__level__loader_8cpp.html#a9bf10cdd3770cd8492606db7983e76b4"
+"Aabb_8h.html",
+"TileMap_8h_source.html",
+"classcore_1_1View_1_1Iterator.html",
+"classhmi_1_1InputState.html#a88904c498ce8939978b988bc685dc904",
+"classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d",
+"lot-02-tache-02-sinks.html#autotoc_md147",
+"lot-06-tache-03-catalogue-traduction.html#autotoc_md368",
+"namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff",
+"structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87",
+"test__math__utils_8cpp.html#aa23edd61e47d2332603bb86cdbc2f9f5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

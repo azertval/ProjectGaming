@@ -14,7 +14,8 @@ var searchData=
   ['squelette_20première_20page_11',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]],
   ['stables_20ancres_20doxygen_20lint_20ci_12',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
   ['stockage_20de_20composants_20sparse_20set_20typé_13',['TACHE-03 — Stockage de composants (sparse set typé)',['../lot-03-tache-03-stockage-composants.html',1,'lot-03']]],
-  ['système_20de_20mouvement_20démo_14',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
-  ['système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_15',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
-  ['systèmes_20world_20orchestration_20au_20pas_20fixe_16',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['succès_20échec_14',['succès échec',['../lot-08-tache-04-regles-fin-niveau.html',1,'TACHE-04 — Règles de fin de niveau (succès / échec)'],['../lot-08-tache-06-integration-jouable.html',1,'TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)']]],
+  ['système_20de_20mouvement_20démo_15',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
+  ['système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_16',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
+  ['systèmes_20world_20orchestration_20au_20pas_20fixe_17',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
 ];

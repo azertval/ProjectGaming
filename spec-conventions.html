@@ -230,7 +230,21 @@ Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <li>Le principe de tout <b>algorithme complexe</b> (intention, invariants, cas limites), pas la paraphrase ligne à ligne.</li>
 <li>Les choix non évidents (pourquoi telle formule, telle borne, telle optimisation).</li>
 </ul>
-<p>Balises Doxygen (dans les <b>en-têtes</b> uniquement) : <code>@file</code>, <code>@brief</code>, <code>@param</code>, <code>@return</code>, <code>@note</code>, <code>@warning</code>, <code>@see</code>. Commentaire de membre bref : <code>///&lt; description</code> après la déclaration (dans le <code>.h</code>).</p>
+<p>Balises Doxygen (dans les <b>en-têtes</b> uniquement) : <code>@file</code>, <code>@brief</code>, <code>@param</code>, <code>@return</code>, <code>@note</code>, <code>@warning</code>, <code>@see</code>.</p>
+<p>Commentaire de <b>membre bref</b> (dans le <code>.h</code>) — deux formes acceptées, à choisir selon la lisibilité, une seule par déclaration :</p><ul>
+<li><code>/// description</code> <b>au-dessus</b> de la déclaration : pour une description autonome, souvent plus longue (membres de <code>struct</code>) ;</li>
+<li><code>///&lt; description</code> <b>après</b> la déclaration (même ligne) : pour une annotation compacte, idéale sur des listes serrées (énumérateurs, champs privés courts).</li>
+</ul>
+<div class="fragment"><div class="line"><span class="keyword">struct </span>Transform {</div>
+<div class="line">    Vector2 <a class="code hl_variable" href="LevelLoader_8cpp.html#a8f69b2e43ff0b9604263cdd2c0ae14f1">position</a>{};</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">enum class</span> LogLevel {</div>
+<div class="line">    Trace,  </div>
+<div class="line">    Info,   </div>
+<div class="line">};</div>
+<div class="ttc" id="aLevelLoader_8cpp_html_a8f69b2e43ff0b9604263cdd2c0ae14f1"><div class="ttname"><a href="LevelLoader_8cpp.html#a8f69b2e43ff0b9604263cdd2c0ae14f1">position</a></div><div class="ttdeci">GridPosition position</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:53</div></div>
+</div><!-- fragment --><p>Ne <b>jamais</b> utiliser un <code>///</code> de fin de ligne (sans <code>&lt;</code>) : il se rattacherait à la déclaration <em>suivante</em>, pas à celle qu'on croit documenter.</p>
 <h1><a class="anchor" id="autotoc_md33"></a>
 7. Bonnes pratiques</h1>
 <ul>

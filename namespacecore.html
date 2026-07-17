@@ -105,8 +105,17 @@ $(document).ready(function(){initNavTree('namespacecore.html',''); initResizable
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Aabb.html">Aabb</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>aligné aux axes</b>, décrit par ses coins <code>min</code> (haut-gauche) et <code>max</code> (bas-droite), en unités monde (origine haut-gauche, <code>y</code> vers le bas).  <a href="structcore_1_1Aabb.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région source dans l'atlas de textures, en <b>pixels</b> (origine haut-gauche).  <a href="structcore_1_1AtlasRegion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">CharacterPhysicsSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité continue, collisions <b>continues</b> contre les tuiles solides, et état « au sol ».  <a href="classcore_1_1CharacterPhysicsSystem.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Collider.html">Collider</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étendue physique d'une entité pour la collision : une boîte <b>alignée aux axes</b> (AABB).  <a href="structcore_1_1Collider.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Color.html">Color</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur RVBA à composantes flottantes dans l'intervalle [0, 1].  <a href="structcore_1_1Color.html#details">More...</a><br /></td></tr>
@@ -162,11 +171,23 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MovementSystem.html">MovementSystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe.  <a href="classcore_1_1MovementSystem.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html">PhysicsConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres réglables de la physique du personnage, regroupés pour faciliter le <em>tuning</em>.  <a href="structcore_1_1PhysicsConfig.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html">Player</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol.  <a href="structcore_1_1Player.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html">PlayerInput</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Intention</b> de déplacement transmise à la physique, dissociée de toute touche.  <a href="structcore_1_1PlayerInput.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Rect.html">Rect</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle aligné sur les axes (AABB) en unités monde.  <a href="structcore_1_1Rect.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Sprite.html">Sprite</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence 2D d'une entité : quelle région de l'atlas dessiner, dans quelle couche et avec quelle teinte.  <a href="structcore_1_1Sprite.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'un balayage : où la boîte s'arrête et sur quels axes elle a été bloquée.  <a href="structcore_1_1SweepResult.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1TileMap.html">TileMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille dense de tuiles typées (<code>EX-GP-001</code>), origine haut-gauche.  <a href="classcore_1_1TileMap.html#details">More...</a><br /></td></tr>
@@ -202,6 +223,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau d'un message de journalisation (ordre croissant de gravité).  <a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">More...</a><br /></td></tr>
 <tr class="separator:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60398ec3835dd2882a7d3a9eaddb65aa" id="r_a60398ec3835dd2882a7d3a9eaddb65aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a> { <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428">Playing</a>
+, <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5">Won</a>
+, <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b">Lost</a>
+ }</td></tr>
+<tr class="memdesc:a60398ec3835dd2882a7d3a9eaddb65aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue courante d'un niveau, déduite de la position du personnage.  <a href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">More...</a><br /></td></tr>
+<tr class="separator:a60398ec3835dd2882a7d3a9eaddb65aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace99a1be913e6294e42e9ebb145eb875" id="r_ace99a1be913e6294e42e9ebb145eb875"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">Empty</a>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">Solid</a>
@@ -246,6 +273,9 @@ Functions</h2></td></tr>
 <tr class="separator:a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29323798eff97fce936a3352846efb93" id="r_a29323798eff97fce936a3352846efb93"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a29323798eff97fce936a3352846efb93">operator!=</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="separator:a29323798eff97fce936a3352846efb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012cb92b3c5a0eb04cc159a2f34ba405" id="r_a012cb92b3c5a0eb04cc159a2f34ba405"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a012cb92b3c5a0eb04cc159a2f34ba405">evaluateOutcome</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
+<tr class="memdesc:a012cb92b3c5a0eb04cc159a2f34ba405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage.  <br /></td></tr>
+<tr class="separator:a012cb92b3c5a0eb04cc159a2f34ba405"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb711314315ff134ed9c25c09b4cebe4" id="r_acb711314315ff134ed9c25c09b4cebe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile)</td></tr>
 <tr class="memdesc:acb711314315ff134ed9c25c09b4cebe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></code> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
 <tr class="separator:acb711314315ff134ed9c25c09b4cebe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,6 +302,9 @@ Functions</h2></td></tr>
 <tr class="separator:a78fa4a986a900f73517454f7c1eff774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a197b5bff2c73896fbfb05df9ea6419b9" id="r_a197b5bff2c73896fbfb05df9ea6419b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a197b5bff2c73896fbfb05df9ea6419b9">operator!=</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
 <tr class="separator:a197b5bff2c73896fbfb05df9ea6419b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca635df367666624247837feb2af5a5" id="r_a4ca635df367666624247837feb2af5a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5">sweepAabb</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;box, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;delta, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles)</td></tr>
+<tr class="memdesc:a4ca635df367666624247837feb2af5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec une tuile <b>solide</b>, puis en <b>glissant</b> le long de la surface pour le déplacement résiduel.  <br /></td></tr>
+<tr class="separator:a4ca635df367666624247837feb2af5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -305,6 +338,38 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a60398ec3835dd2882a7d3a9eaddb65aa" name="a60398ec3835dd2882a7d3a9eaddb65aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60398ec3835dd2882a7d3a9eaddb65aa">&#9670;&#160;</a></span>LevelOutcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Issue courante d'un niveau, déduite de la position du personnage. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428" name="a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428"></a>Playing&#160;</td><td class="fielddoc"><p>Partie en cours. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" name="a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5"></a>Won&#160;</td><td class="fielddoc"><p>Le personnage a atteint la sortie (<code>EX-GP-030</code>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" name="a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b"></a>Lost&#160;</td><td class="fielddoc"><p>Le personnage a touché un danger ou est sorti par le bas (<code>EX-GP-031</code>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa9b5a444ee11933c91d5e3235aa5b5e3" name="aa9b5a444ee11933c91d5e3235aa5b5e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9b5a444ee11933c91d5e3235aa5b5e3">&#9670;&#160;</a></span>LogLevel</h2>
 
@@ -510,6 +575,45 @@ Variables</h2></td></tr>
 
 <p>Journaliseur global de l'application (utilisé par les macros de log). </p>
 <dl class="section return"><dt>Returns</dt><dd>Référence vers l'instance unique. </dd></dl>
+
+</div>
+</div>
+<a id="a012cb92b3c5a0eb04cc159a2f34ba405" name="a012cb92b3c5a0eb04cc159a2f34ba405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012cb92b3c5a0eb04cc159a2f34ba405">&#9670;&#160;</a></span>evaluateOutcome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a> core::evaluateOutcome </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
+          <td class="paramname"><em>playerBox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;&#160;</td>
+          <td class="paramname"><em>level</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage. </p>
+<p>Fonction <b>pure</b> d'observation (ne modifie rien) : elle classe l'état courant, sans déclencher de transition (le retour au menu ou le redémarrage relèvent de l'intégration). Priorité <b>déterministe</b> en cas de recouvrement simultané : l'<b>échec l'emporte sur le succès</b>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">playerBox</td><td>Boîte englobante du personnage, en unités monde. </td></tr>
+    <tr><td class="paramname">level</td><td>Niveau courant (sortie, tuiles <code>Danger</code>, limites de la grille). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>Lost</code> si contact avec un <code>Danger</code> ou sortie par le bas ; sinon <code>Won</code> si la sortie est recouverte ; sinon <code>Playing</code>. </dd></dl>
 
 </div>
 </div>
@@ -1048,6 +1152,53 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a4ca635df367666624247837feb2af5a5" name="a4ca635df367666624247837feb2af5a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca635df367666624247837feb2af5a5">&#9670;&#160;</a></span>sweepAabb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a> core::sweepAabb </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>delta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>tiles</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec une tuile <b>solide</b>, puis en <b>glissant</b> le long de la surface pour le déplacement résiduel. </p>
+<p>Collision <b>continue</b> (<code>EX-GP-014</code>) : quelle que soit la vitesse, la boîte ne <b>traverse jamais</b> une tuile solide sur un pas. Méthode : <b>balayage par axe</b> (X puis Y), chaque axe parcourant <em>toutes</em> les cellules entre la position courante et la cible (donc aucun tunneling), puis <b>calant</b> la position sur la coordonnée exacte du mur (clamp direct, sans dérive flottante). La passe Y part de la position X déjà résolue, ce qui produit le <b>glissement</b> le long des murs. Ordre X→Y conventionnel et déterministe (<code>EX-NFR-002</code>). Fonction <b>pure</b> : aucun état, aucun aléatoire.</p>
+<p>Précondition : <code>box</code> ne <b>chevauche</b> aucune tuile solide au départ (état non pénétrant) — la physique appelante garantit cet invariant pas après pas.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>Boîte mobile avant déplacement (coin haut-gauche = position de l'entité). </td></tr>
+    <tr><td class="paramname">delta</td><td>Déplacement voulu sur le pas, en unités monde (<code>velocity * dt</code>). </td></tr>
+    <tr><td class="paramname">tiles</td><td>Grille de collision : <code>tiles.isSolid(colonne, ligne)</code> désigne les tuiles bloquantes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position finale, l'indicateur de blocage par axe et l'occurrence d'un contact. </dd></dl>
 
 </div>
 </div>

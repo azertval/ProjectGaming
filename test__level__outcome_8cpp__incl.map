@@ -1,0 +1,31 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Levels/test_level_outcome.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Levels/test_level_outcome.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de l&#39;évaluation d&#39;issue de niveau (evaluateOutcome)." alt="" coords="467,5,689,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="151,123,255,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="468,71,263,122,262,117,466,66"/>
+<area shape="rect" id="Node000003" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="5,196,199,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="468,74,394,98,319,125,268,150,152,194,150,189,266,146,317,120,392,93,466,69"/>
+<area shape="rect" id="Node000004" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="330,123,479,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="517,77,439,118,437,114,514,72"/>
+<area shape="rect" id="Node000008" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="443,196,609,221"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="570,76,536,184,531,182,565,74"/>
+<area shape="rect" id="Node000009" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="557,269,725,295"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="590,74,623,195,638,255,633,257,618,197,585,76"/>
+<area shape="rect" id="Node000010" href="$LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="654,123,862,148"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="644,72,724,114,722,118,642,77"/>
+<area shape="rect" id="Node000011" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="758,196,913,221"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="689,55,747,67,802,81,847,99,876,121,882,138,880,155,860,187,855,184,875,154,877,138,872,124,845,104,800,86,745,72,688,60"/>
+<area shape="rect" id="Node000012" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="765,269,919,295"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="689,42,742,50,798,65,851,88,898,121,920,144,934,167,937,193,927,223,907,247,883,265,880,261,904,243,922,220,931,193,929,169,916,147,895,125,848,93,796,70,741,56,688,47"/>
+<area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="357,151,165,195,164,190,355,145"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="223,196,282,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="381,150,291,193,289,188,379,146"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="307,196,367,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="395,150,359,188,355,184,392,146"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="437,269,500,295"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="410,148,418,181,432,220,454,257,449,259,428,222,413,183,405,149"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="426,146,496,187,493,191,423,150"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="519,223,489,260,485,257,514,220"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="546,219,612,260,609,264,543,224"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="772,146,814,185,811,188,769,150"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="839,221,842,256,837,256,834,222"/>
+</map>

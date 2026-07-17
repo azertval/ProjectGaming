@@ -31,7 +31,11 @@ var namespacehmi =
       [ "Left", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff", null ],
       [ "Up", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa", null ],
       [ "Right", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c", null ],
-      [ "Down", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ]
+      [ "Down", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
+      [ "A", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "D", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
+      [ "W", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ]
     ] ],
     [ "MouseButton", "namespacehmi.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -45,5 +49,6 @@ var namespacehmi =
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ]
     ] ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
-    [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ]
+    [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
+    [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ]
 ];

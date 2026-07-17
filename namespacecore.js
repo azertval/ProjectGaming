@@ -1,6 +1,9 @@
 var namespacecore =
 [
+    [ "Aabb", "structcore_1_1Aabb.html", "structcore_1_1Aabb" ],
     [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
+    [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
+    [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],
     [ "Color", "structcore_1_1Color.html", "structcore_1_1Color" ],
     [ "ComponentPool", "classcore_1_1ComponentPool.html", "classcore_1_1ComponentPool" ],
     [ "ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", "classcore_1_1ConsoleLogSink" ],
@@ -19,8 +22,12 @@ var namespacecore =
     [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
     [ "MovementSystem", "classcore_1_1MovementSystem.html", "classcore_1_1MovementSystem" ],
+    [ "PhysicsConfig", "structcore_1_1PhysicsConfig.html", "structcore_1_1PhysicsConfig" ],
+    [ "Player", "structcore_1_1Player.html", "structcore_1_1Player" ],
+    [ "PlayerInput", "structcore_1_1PlayerInput.html", "structcore_1_1PlayerInput" ],
     [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
     [ "Sprite", "structcore_1_1Sprite.html", "structcore_1_1Sprite" ],
+    [ "SweepResult", "structcore_1_1SweepResult.html", "structcore_1_1SweepResult" ],
     [ "TileMap", "classcore_1_1TileMap.html", "classcore_1_1TileMap" ],
     [ "Transform", "structcore_1_1Transform.html", "structcore_1_1Transform" ],
     [ "Vector2", "structcore_1_1Vector2.html", "structcore_1_1Vector2" ],
@@ -28,6 +35,11 @@ var namespacecore =
     [ "View", "classcore_1_1View.html", "classcore_1_1View" ],
     [ "World", "classcore_1_1World.html", "classcore_1_1World" ],
     [ "AssertionHandler", "namespacecore.html#a63adb36f7635e1c8d5f8cb72fc563364", null ],
+    [ "LevelOutcome", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa", [
+      [ "Playing", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428", null ],
+      [ "Won", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5", null ],
+      [ "Lost", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b", null ]
+    ] ],
     [ "LogLevel", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3", [
       [ "Trace", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1", null ],
       [ "Info", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875", null ],
@@ -47,6 +59,7 @@ var namespacecore =
     [ "buildLevelScene", "namespacecore.html#acb711314315ff134ed9c25c09b4cebe4", null ],
     [ "currentTimestamp", "namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4", null ],
     [ "defaultLogger", "namespacecore.html#a925cad771c457040a01272ff8be8e1a1", null ],
+    [ "evaluateOutcome", "namespacecore.html#a012cb92b3c5a0eb04cc159a2f34ba405", null ],
     [ "fileName", "namespacecore.html#aacd09bfbf70df9627195ed54b58a0297", null ],
     [ "formatLogLine", "namespacecore.html#aafa85d91ee91c84b123fff01f147615e", null ],
     [ "handleAssertionFailure", "namespacecore.html#a7278ef05514b62dcd5241984197dfb23", null ],
@@ -63,6 +76,7 @@ var namespacecore =
     [ "operator==", "namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95", null ],
     [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
     [ "setAssertionHandler", "namespacecore.html#a0b2fde01c38742c460acb176220332ff", null ],
+    [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
     [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ],

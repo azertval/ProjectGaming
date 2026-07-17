@@ -8,5 +8,6 @@ var searchData=
   ['entities_5',['entities',['../classcore_1_1ComponentPool.html#a79bfb21e11d5240cca2e36e86aebf356',1,'core::ComponentPool']]],
   ['entries_6',['entries',['../classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17',1,'core::MemoryLogSink']]],
   ['entry_7',['entry',['../classcore_1_1Level.html#a08c4420372462d6e7991956902906da5',1,'core::Level']]],
-  ['exit_8',['exit',['../classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273',1,'core::Level']]]
+  ['evaluateoutcome_8',['evaluateOutcome',['../namespacecore.html#a012cb92b3c5a0eb04cc159a2f34ba405',1,'core']]],
+  ['exit_9',['exit',['../classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273',1,'core::Level']]]
 ];

@@ -1,60 +1,64 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.h">
-<area shape="rect" id="Node000001" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="1599,5,1820,60"/>
-<area shape="rect" id="Node000002" href="$InputState_8cpp.html" title=" " alt="" coords="101,108,323,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1585,37,1353,42,1044,53,694,75,516,91,342,111,323,113,323,108,341,105,515,86,694,70,1043,48,1353,37,1585,32"/>
-<area shape="rect" id="Node000003" href="$EditorScreen_8cpp.html" title=" " alt="" coords="1008,313,1235,368"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1651,69,1285,268,1182,316,1180,311,1283,263,1648,64"/>
-<area shape="rect" id="Node000004" href="$GameScreen_8cpp.html" title=" " alt="" coords="603,313,831,368"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1585,41,1469,48,1331,61,1184,81,1039,111,961,127,898,141,870,151,842,165,813,185,781,213,761,236,745,263,726,314,721,312,741,261,756,233,777,209,809,181,839,161,868,146,897,136,959,122,1038,105,1183,76,1331,55,1468,42,1585,35"/>
-<area shape="rect" id="Node000005" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="1051,108,1272,163"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1585,58,1291,111,1273,114,1272,109,1290,105,1584,53"/>
-<area shape="rect" id="Node000010" href="$MenuModel_8cpp.html" title=" " alt="" coords="1504,313,1725,368"/>
-<area shape="poly" id="edge26_Node000001_Node000010" title=" " alt="" coords="1629,69,1607,87,1589,109,1583,123,1582,135,1589,162,1598,176,1610,185,1623,194,1633,210,1639,237,1639,265,1628,314,1622,313,1634,264,1634,237,1628,212,1619,197,1607,189,1595,180,1584,164,1576,135,1578,122,1584,107,1603,83,1626,65"/>
-<area shape="rect" id="Node000013" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="1750,313,1981,368"/>
-<area shape="poly" id="edge33_Node000001_Node000013" title=" " alt="" coords="1834,36,1993,45,2165,59,2309,79,2359,91,2386,106,2404,132,2413,156,2412,178,2402,199,2385,218,2362,235,2300,264,2224,288,2141,307,1981,331,1980,326,2140,301,2223,283,2298,259,2359,230,2381,214,2397,196,2406,177,2407,157,2400,134,2382,110,2357,96,2308,84,2164,64,1992,50,1834,41"/>
-<area shape="rect" id="Node000016" href="$test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions." alt="" coords="5,313,259,368"/>
-<area shape="poly" id="edge35_Node000001_Node000016" title=" " alt="" coords="1585,35,1355,42,1209,52,1050,67,883,89,712,120,543,161,380,213,323,237,267,264,175,316,172,311,265,259,320,232,378,208,541,156,711,115,882,84,1050,62,1209,46,1354,37,1585,30"/>
-<area shape="rect" id="Node000017" href="$LanguageSelector_8cpp.html" title=" " alt="" coords="1845,108,2105,163"/>
-<area shape="poly" id="edge25_Node000001_Node000017" title=" " alt="" coords="1792,62,1906,105,1905,110,1790,67"/>
-<area shape="rect" id="Node000018" href="$SaveLogButton_8cpp.html" title=" " alt="" coords="2129,108,2372,163"/>
-<area shape="poly" id="edge27_Node000001_Node000018" title=" " alt="" coords="1834,53,2118,105,2130,108,2129,113,2117,111,1833,59"/>
-<area shape="rect" id="Node000019" href="$Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées." alt="" coords="1599,108,1820,163"/>
-<area shape="poly" id="edge28_Node000001_Node000019" title=" " alt="" coords="1712,74,1712,108,1707,108,1707,74"/>
-<area shape="rect" id="Node000021" href="$test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position." alt="" coords="2447,108,2668,163"/>
-<area shape="poly" id="edge31_Node000001_Node000021" title=" " alt="" coords="1834,41,2108,65,2268,84,2428,105,2447,108,2446,114,2428,111,2268,89,2107,71,1834,46"/>
-<area shape="rect" id="Node000022" href="$test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic." alt="" coords="2692,108,2956,163"/>
-<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="1834,37,2213,60,2446,80,2680,105,2692,107,2692,112,2680,111,2446,85,2213,65,1834,42"/>
-<area shape="rect" id="Node000023" href="$test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic." alt="" coords="2980,108,3233,163"/>
-<area shape="poly" id="edge34_Node000001_Node000023" title=" " alt="" coords="1834,33,2048,40,2331,52,2648,73,2968,105,2980,107,2979,112,2968,111,2648,79,2330,58,2048,45,1833,39"/>
-<area shape="rect" id="Node000006" href="$EditorScreen_8h.html" title="Écran « Mode Edition » : placeholder « à venir » en attendant le vrai éditeur." alt="" coords="1051,211,1272,265"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1164,176,1164,211,1159,211,1159,176"/>
-<area shape="rect" id="Node000007" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="835,416,1056,471"/>
-<area shape="poly" id="edge22_Node000005_Node000007" title=" " alt="" coords="1037,148,964,157,892,170,832,188,810,200,795,212,788,225,787,236,796,264,805,280,816,289,845,311,928,414,924,417,841,315,813,293,801,283,791,266,781,237,783,223,791,209,807,195,830,183,891,165,963,151,1037,142"/>
-<area shape="rect" id="Node000008" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="805,211,1027,265"/>
-<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="1086,170,981,213,979,208,1084,165"/>
-<area shape="rect" id="Node000009" href="$MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="1397,211,1619,265"/>
-<area shape="poly" id="edge11_Node000005_Node000009" title=" " alt="" coords="1265,164,1418,208,1417,213,1264,169"/>
-<area shape="rect" id="Node000011" href="$MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel." alt="" coords="1259,313,1480,368"/>
-<area shape="poly" id="edge17_Node000005_Node000011" title=" " alt="" coords="1230,167,1259,186,1286,209,1309,234,1329,261,1359,312,1354,315,1324,264,1305,237,1282,213,1256,191,1227,172"/>
-<area shape="poly" id="edge23_Node000005_Node000013" title=" " alt="" coords="1286,142,1452,164,1543,183,1632,208,1687,231,1741,258,1829,311,1826,315,1739,263,1685,236,1630,213,1542,188,1451,169,1285,147"/>
-<area shape="rect" id="Node000014" href="$ScreenManager_8h.html" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions." alt="" coords="449,211,679,265"/>
-<area shape="poly" id="edge18_Node000005_Node000014" title=" " alt="" coords="1038,160,680,220,679,215,1037,155"/>
-<area shape="poly" id="edge24_Node000005_Node000016" title=" " alt="" coords="1037,142,882,149,709,162,549,183,485,197,437,213,420,225,409,239,398,253,380,268,321,296,260,316,258,311,319,291,377,263,394,250,405,235,416,221,435,208,484,192,548,178,708,157,882,144,1037,137"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="1148,279,1134,314,1129,312,1143,277"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="1059,273,1026,292,998,315,980,339,967,366,952,416,947,415,962,364,976,336,994,311,1023,287,1056,269"/>
-<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="853,274,770,316,768,311,851,269"/>
-<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="924,278,944,415,939,416,919,279"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="1548,273,1589,311,1585,315,1544,277"/>
-<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="1463,275,1407,315,1404,311,1459,271"/>
-<area shape="poly" id="edge16_Node000009_Node000013" title=" " alt="" coords="1615,266,1773,311,1772,316,1613,272"/>
-<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="1247,374,1056,419,1055,413,1245,368"/>
-<area shape="rect" id="Node000012" href="$MenuScreen_8cpp.html" title=" " alt="" coords="1257,416,1482,471"/>
-<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="1372,382,1372,416,1367,416,1367,382"/>
-<area shape="poly" id="edge20_Node000014_Node000007" title=" " alt="" coords="564,279,570,325,579,347,593,366,608,378,631,388,692,406,763,420,835,429,834,435,762,425,691,411,629,393,606,382,589,370,574,350,565,326,559,279"/>
-<area shape="rect" id="Node000015" href="$ScreenManager_8cpp.html" title=" " alt="" coords="283,313,528,368"/>
-<area shape="poly" id="edge19_Node000014_Node000015" title=" " alt="" coords="513,275,448,315,446,311,510,270"/>
-<area shape="poly" id="edge21_Node000014_Node000016" title=" " alt="" coords="439,271,245,316,244,311,438,266"/>
-<area shape="poly" id="edge30_Node000019_Node000007" title=" " alt="" coords="1802,165,1889,203,1931,226,1968,251,1997,278,2013,308,2016,323,2014,339,2007,354,1995,370,1978,381,1949,390,1864,403,1753,411,1629,415,1388,417,1244,419,1056,434,1056,429,1244,413,1388,412,1628,410,1753,406,1864,398,1948,385,1975,376,1992,366,2003,352,2009,337,2010,323,2008,309,1992,282,1965,255,1928,230,1887,208,1800,170"/>
-<area shape="rect" id="Node000020" href="$Window_8cpp.html" title=" " alt="" coords="2056,211,2277,265"/>
-<area shape="poly" id="edge29_Node000019_Node000020" title=" " alt="" coords="1834,161,2056,210,2055,215,1833,166"/>
+<area shape="rect" id="Node000001" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="1663,5,1884,60"/>
+<area shape="rect" id="Node000002" href="$InputState_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1649,39,1333,47,927,62,529,82,364,96,239,111,203,118,202,113,238,105,364,90,529,77,927,56,1333,42,1648,34"/>
+<area shape="rect" id="Node000003" href="$PlayerInputMapper_8cpp.html" title=" " alt="" coords="251,115,493,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1649,37,1434,41,1151,52,832,74,671,90,512,111,472,118,471,113,512,105,670,85,832,68,1150,46,1434,35,1649,31"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8cpp.html" title=" " alt="" coords="1177,335,1404,390"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1704,69,1635,110,1582,155,1546,196,1510,237,1456,282,1406,313,1356,338,1353,333,1403,308,1453,278,1506,234,1542,193,1579,151,1632,106,1701,64"/>
+<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="773,335,1001,390"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1649,42,1552,50,1441,64,1324,83,1210,111,1131,131,1069,149,1041,161,1013,177,984,198,953,227,932,253,916,282,896,336,891,334,911,279,927,250,949,224,981,194,1010,172,1039,156,1067,144,1130,126,1209,105,1323,78,1441,58,1552,45,1649,37"/>
+<area shape="rect" id="Node000006" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="1221,115,1443,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1650,65,1462,111,1433,118,1432,113,1461,105,1649,60"/>
+<area shape="rect" id="Node000011" href="$MenuModel_8cpp.html" title=" " alt="" coords="1673,335,1895,390"/>
+<area shape="poly" id="edge27_Node000001_Node000011" title=" " alt="" coords="1693,69,1671,87,1653,109,1644,128,1641,143,1643,159,1653,176,1669,191,1686,198,1726,199,1767,199,1786,207,1804,224,1815,251,1816,281,1809,311,1800,336,1795,334,1804,309,1810,281,1810,252,1799,227,1783,212,1766,204,1726,204,1685,203,1666,196,1649,179,1638,161,1636,143,1639,126,1648,107,1667,83,1690,65"/>
+<area shape="rect" id="Node000014" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="1919,328,2140,397"/>
+<area shape="poly" id="edge35_Node000001_Node000014" title=" " alt="" coords="1898,36,2057,45,2229,59,2373,79,2423,91,2450,106,2467,128,2479,150,2486,171,2488,193,2485,215,2478,237,2450,282,2430,298,2400,313,2322,334,2230,349,2141,358,2140,353,2229,344,2321,329,2398,308,2427,294,2446,278,2473,235,2480,214,2483,193,2481,172,2474,152,2462,131,2446,110,2421,96,2372,84,2228,64,2056,50,1898,41"/>
+<area shape="rect" id="Node000017" href="$test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions." alt="" coords="207,328,428,397"/>
+<area shape="poly" id="edge37_Node000001_Node000017" title=" " alt="" coords="1649,37,1435,47,1301,59,1156,76,1004,100,850,133,697,175,550,228,500,251,450,278,366,330,364,326,448,273,497,246,548,223,695,170,848,128,1003,95,1156,71,1301,53,1434,42,1649,32"/>
+<area shape="rect" id="Node000018" href="$LanguageSelector_8cpp.html" title=" " alt="" coords="1909,115,2169,170"/>
+<area shape="poly" id="edge26_Node000001_Node000018" title=" " alt="" coords="1851,63,1975,113,1973,118,1849,68"/>
+<area shape="rect" id="Node000019" href="$SaveLogButton_8cpp.html" title=" " alt="" coords="2193,115,2436,170"/>
+<area shape="poly" id="edge28_Node000001_Node000019" title=" " alt="" coords="1898,52,2182,105,2214,113,2213,118,2181,111,1897,57"/>
+<area shape="rect" id="Node000020" href="$Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées." alt="" coords="1663,115,1884,170"/>
+<area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="1776,74,1776,115,1771,115,1771,74"/>
+<area shape="rect" id="Node000022" href="$test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position." alt="" coords="2511,108,2732,177"/>
+<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="1898,38,2172,62,2333,81,2492,105,2511,109,2510,114,2492,111,2332,86,2171,67,1898,44"/>
+<area shape="rect" id="Node000023" href="$test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier → intention (toPlayerInput)." alt="" coords="2756,108,2977,177"/>
+<area shape="poly" id="edge33_Node000001_Node000023" title=" " alt="" coords="1898,33,2066,39,2278,52,2511,73,2744,105,2756,108,2755,113,2744,111,2511,78,2277,57,2066,45,1898,39"/>
+<area shape="rect" id="Node000024" href="$test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic." alt="" coords="3001,108,3223,177"/>
+<area shape="poly" id="edge34_Node000001_Node000024" title=" " alt="" coords="1898,31,2106,33,2378,44,2683,66,2838,84,2990,105,3002,108,3001,113,2989,111,2838,89,2683,72,2378,49,2106,39,1898,36"/>
+<area shape="rect" id="Node000025" href="$test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic." alt="" coords="3247,108,3468,177"/>
+<area shape="poly" id="edge36_Node000001_Node000025" title=" " alt="" coords="1898,34,2200,43,2585,57,2961,78,3117,91,3235,105,3247,107,3246,113,3234,111,3116,96,2961,83,2585,63,2199,48,1898,40"/>
+<area shape="rect" id="Node000007" href="$EditorScreen_8h.html" title="Écran « Mode Edition » : placeholder « à venir » en attendant le vrai éditeur." alt="" coords="1221,225,1443,280"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1335,184,1335,225,1329,225,1329,184"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1004,445,1225,500"/>
+<area shape="poly" id="edge23_Node000006_Node000008" title=" " alt="" coords="1208,158,1134,168,1062,183,1003,202,981,214,966,227,959,240,957,251,966,279,976,294,987,304,1000,313,1014,326,1062,388,1100,444,1096,447,1058,392,1010,330,996,317,983,308,972,298,962,281,952,252,954,238,962,224,978,210,1001,198,1061,178,1133,163,1207,152"/>
+<area shape="rect" id="Node000009" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="976,225,1197,280"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="1261,178,1148,228,1145,223,1258,173"/>
+<area shape="rect" id="Node000010" href="$MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="1568,225,1789,280"/>
+<area shape="poly" id="edge12_Node000006_Node000010" title=" " alt="" coords="1430,172,1595,223,1594,228,1429,177"/>
+<area shape="rect" id="Node000012" href="$MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel." alt="" coords="1428,335,1649,390"/>
+<area shape="poly" id="edge18_Node000006_Node000012" title=" " alt="" coords="1395,175,1427,197,1457,223,1480,251,1500,280,1529,334,1524,336,1495,283,1475,254,1453,227,1423,201,1392,179"/>
+<area shape="poly" id="edge24_Node000006_Node000014" title=" " alt="" coords="1457,150,1536,160,1623,175,1714,195,1802,223,1854,245,1903,272,1986,326,1983,330,1901,277,1851,250,1800,228,1713,200,1622,180,1535,165,1456,156"/>
+<area shape="rect" id="Node000015" href="$ScreenManager_8h.html" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions." alt="" coords="619,225,850,280"/>
+<area shape="poly" id="edge19_Node000006_Node000015" title=" " alt="" coords="1208,169,851,233,850,228,1207,164"/>
+<area shape="poly" id="edge25_Node000006_Node000017" title=" " alt="" coords="1208,151,1053,160,879,174,720,197,656,211,608,228,590,240,579,253,568,268,551,282,499,305,427,330,425,325,497,300,548,278,565,264,575,250,587,236,605,223,654,206,719,191,879,169,1053,154,1207,146"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="1319,294,1303,336,1298,334,1314,292"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="1227,288,1195,306,1167,330,1148,357,1134,388,1120,445,1115,444,1129,386,1143,354,1163,326,1192,302,1225,283"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="1027,289,937,338,934,333,1024,284"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="1094,293,1114,445,1109,445,1089,294"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="1716,288,1760,333,1756,337,1712,292"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="1635,291,1575,337,1571,333,1632,287"/>
+<area shape="poly" id="edge17_Node000010_Node000014" title=" " alt="" coords="1778,282,1921,325,1919,330,1776,287"/>
+<area shape="poly" id="edge16_Node000012_Node000008" title=" " alt="" coords="1431,396,1417,400,1224,448,1223,443,1415,395,1430,391"/>
+<area shape="rect" id="Node000013" href="$MenuScreen_8cpp.html" title=" " alt="" coords="1426,445,1651,500"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="1541,404,1541,445,1536,445,1536,404"/>
+<area shape="poly" id="edge21_Node000015_Node000008" title=" " alt="" coords="733,293,738,347,747,373,762,395,778,407,800,418,861,436,933,450,1004,459,1004,464,932,455,860,441,798,423,775,412,758,399,742,375,732,348,728,294"/>
+<area shape="rect" id="Node000016" href="$ScreenManager_8cpp.html" title=" " alt="" coords="452,335,697,390"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="686,290,615,337,612,333,683,286"/>
+<area shape="poly" id="edge22_Node000015_Node000017" title=" " alt="" coords="616,286,441,331,429,334,428,328,439,325,615,281"/>
+<area shape="poly" id="edge31_Node000020_Node000008" title=" " alt="" coords="1863,172,1947,204,2034,243,2109,285,2136,306,2154,326,2164,346,2169,364,2166,382,2154,399,2136,410,2108,419,2025,432,1915,440,1792,444,1555,446,1413,448,1226,464,1225,458,1413,443,1555,441,1792,439,1915,435,2024,427,2107,414,2134,405,2150,395,2161,380,2163,364,2159,348,2150,330,2132,310,2106,289,2031,248,1944,209,1861,177"/>
+<area shape="rect" id="Node000021" href="$Window_8cpp.html" title=" " alt="" coords="2215,225,2436,280"/>
+<area shape="poly" id="edge30_Node000020_Node000021" title=" " alt="" coords="1880,171,1898,175,1981,191,2047,200,2196,223,2215,226,2214,231,2196,228,2046,206,1980,196,1897,180,1879,176"/>
 </map>

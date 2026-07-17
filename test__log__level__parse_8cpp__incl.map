@@ -1,4 +1,4 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_log_level_parse.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/test_log_level_parse.cpp">
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Diagnostics/test_log_level_parse.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Diagnostics/test_log_level_parse.cpp">
 <area shape="rect" id="Node000001" title="Tests unitaires de l&#39;analyse d&#39;un niveau de log depuis une chaîne." alt="" coords="33,5,255,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,130,109,155"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,77,78,121,74,118,113,73"/>
