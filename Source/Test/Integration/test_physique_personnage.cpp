@@ -4,9 +4,11 @@
  *
  * Le `CharacterPhysicsSystem` combine composants (`Player`/`Transform`/`Velocity`/`Collider`),
  * grille de collision (`TileMap`) et résolution continue (`sweepAabb`). On vérifie de bout en bout
- * la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le déterminisme.
+ * la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le
+ * déterminisme.
  */
 
+#include <algorithm>
 #include <filesystem>
 
 #include <gtest/gtest.h>
@@ -50,6 +52,32 @@ void fillRow(core::TileMap& tiles, int row) {
     }
 }
 
+// Mesure la hauteur (en tuiles) atteinte par un saut où le bouton est maintenu `holdFrames` pas.
+// Le personnage est d'abord posé au sol, puis saute (front à la frame 0), et on relève l'apogée.
+float jumpApexHeight(int holdFrames) {
+    core::World world;
+    core::TileMap tiles(4, 40);
+    fillRow(tiles, 30);  // sol bas, beaucoup d'espace au-dessus
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+
+    const core::PlayerInput idle{};
+    for (int i = 0; i < 400; ++i) {  // se poser au sol
+        system.update(world, tiles, idle, STEP);
+    }
+    const float groundY = world.getComponent<core::Transform>(player).position.y;
+
+    float minY = groundY;  // y décroît vers le haut → apogée = min
+    for (int i = 0; i < 250; ++i) {
+        core::PlayerInput in;
+        in.jumpPressed = (i == 0);       // front à la première frame
+        in.jumpHeld = (i < holdFrames);  // maintien pendant `holdFrames` pas
+        system.update(world, tiles, in, STEP);
+        minY = std::min(minY, world.getComponent<core::Transform>(player).position.y);
+    }
+    return groundY - minY;  // hauteur en unités monde (tuiles)
+}
+
 }  // namespace
 
 /// Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).
@@ -67,9 +95,9 @@ TEST(PhysiquePersonnageIntegration, TombeSousGraviteVitesseCroissante) {
     const float vy2 = world.getComponent<core::Velocity>(player).value.y;
     const float y2 = world.getComponent<core::Transform>(player).position.y;
 
-    EXPECT_GT(vy1, 0.0f);   // y vers le bas : tomber = vitesse positive
-    EXPECT_GT(vy2, vy1);    // la gravité continue d'accélérer
-    EXPECT_GT(y2, y1);      // le personnage descend
+    EXPECT_GT(vy1, 0.0f);  // y vers le bas : tomber = vitesse positive
+    EXPECT_GT(vy2, vy1);   // la gravité continue d'accélérer
+    EXPECT_GT(y2, y1);     // le personnage descend
     EXPECT_FALSE(world.getComponent<core::Player>(player).grounded);
 }
 
@@ -97,8 +125,8 @@ TEST(PhysiquePersonnageIntegration, AtterritSurLeSolEtEstAuSol) {
 TEST(PhysiquePersonnageIntegration, BloqueParUnMurADroite) {
     core::World world;
     core::TileMap tiles(10, 3);
-    fillRow(tiles, 2);                             // sol
-    tiles.setTile(4, 0, core::TileType::Solid);    // mur vertical (colonne 4)
+    fillRow(tiles, 2);                           // sol
+    tiles.setTile(4, 0, core::TileType::Solid);  // mur vertical (colonne 4)
     tiles.setTile(4, 1, core::TileType::Solid);
     const core::Entity player = spawnPlayer(world, 0.0f, 1.0f);
     core::CharacterPhysicsSystem system;
@@ -139,8 +167,8 @@ TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     fillRow(tiles, 50);  // sol loin en bas
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     core::PhysicsConfig fast;
-    fast.gravity = 2000.0f;        // accélération énorme
-    fast.maxFallSpeed = 1.0e6f;    // pas de borne : le pas dépasse une tuile
+    fast.gravity = 2000.0f;      // accélération énorme
+    fast.maxFallSpeed = 1.0e6f;  // pas de borne : le pas dépasse une tuile
     core::CharacterPhysicsSystem system(fast);
     const core::PlayerInput input{};
 
@@ -174,6 +202,64 @@ TEST(PhysiquePersonnageIntegration, Deterministe) {
     EXPECT_FLOAT_EQ(first.y, second.y);
 }
 
+/// Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève).
+TEST(PhysiquePersonnageIntegration, SauteDepuisLeSol) {
+    core::World world;
+    core::TileMap tiles(4, 20);
+    fillRow(tiles, 15);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+
+    const core::PlayerInput idle{};
+    for (int i = 0; i < 300; ++i) {
+        system.update(world, tiles, idle, STEP);
+    }
+    ASSERT_TRUE(world.getComponent<core::Player>(player).grounded);
+    const float groundY = world.getComponent<core::Transform>(player).position.y;
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.y, 0.0f);  // monte (y négatif)
+
+    core::PlayerInput hold;
+    hold.jumpHeld = true;
+    for (int i = 0; i < 5; ++i) {
+        system.update(world, tiles, hold, STEP);
+    }
+    EXPECT_LT(world.getComponent<core::Transform>(player).position.y, groundY);  // au-dessus du sol
+}
+
+/// En l'air, une pression de saut n'a aucun effet : pas de double saut (`EX-GP-013`).
+TEST(PhysiquePersonnageIntegration, PasDeSautEnLAir) {
+    core::World world;
+    core::TileMap tiles(4, 50);  // pas de sol à portée : le personnage tombe
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+
+    const core::PlayerInput idle{};
+    system.update(world, tiles, idle, STEP);
+    ASSERT_FALSE(world.getComponent<core::Player>(player).grounded);
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.y,
+              0.0f);  // tombe encore, pas de saut
+}
+
+/// Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.
+TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
+    const float fullJump = jumpApexHeight(1000);  // maintenu toute la montée
+    const float shortHop = jumpApexHeight(1);     // relâché immédiatement
+
+    EXPECT_GT(fullJump, shortHop + 0.3f);  // maintenir monte nettement plus haut
+    EXPECT_GT(fullJump, 2.0f);             // ~2,25 tuiles avec le réglage par défaut
+    EXPECT_LT(fullJump, 3.0f);
+}
+
 /// Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite »,
 /// le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
 TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
@@ -184,9 +270,8 @@ TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
     const core::Level& level = *loaded.level;
 
     core::World world;
-    const core::Entity player =
-        spawnPlayer(world, static_cast<float>(level.entry().column),
-                    static_cast<float>(level.entry().row));
+    const core::Entity player = spawnPlayer(world, static_cast<float>(level.entry().column),
+                                            static_cast<float>(level.entry().row));
     core::CharacterPhysicsSystem system;
     const core::PlayerInput goRight{1.0f};
 
