@@ -29,6 +29,7 @@
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/PhysicsConfig.h"
 #include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/PlayerSpawn.h"
 
 namespace {
 
@@ -186,7 +187,20 @@ int successfulJumps(int airJumpsConfig) {
     return jumps;
 }
 
+// Fait apparaître le personnage à sa **vraie taille** (humanoïde 0,4×0,8), centré dans la tuile.
+core::Entity spawnHumanoid(core::World& world, core::GridPosition entry) {
+    const core::Entity entity = world.createEntity();
+    const core::Vector2 size = core::playerSize();
+    world.addComponent(
+        entity, core::Transform{core::playerSpawnPosition(entry.column, entry.row), size, 0.0f});
+    world.addComponent(entity, core::Velocity{});
+    world.addComponent(entity, core::Collider{size});
+    world.addComponent(entity, core::Player{});
+    return entity;
+}
+
 // Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
+// Le personnage a sa vraie taille (humanoïde), pour prouver que le VRAI perso franchit le niveau.
 core::LevelOutcome playLevelFile(const char* file,
                                  const std::function<core::PlayerInput(int)>& input) {
     const std::filesystem::path path = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
@@ -197,8 +211,7 @@ core::LevelOutcome playLevelFile(const char* file,
     const core::Level& level = *loaded.level;
 
     core::World world;
-    const core::Entity player = spawnPlayer(world, static_cast<float>(level.entry().column),
-                                            static_cast<float>(level.entry().row));
+    const core::Entity player = spawnHumanoid(world, level.entry());
     core::CharacterPhysicsSystem system;
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
@@ -755,8 +768,7 @@ TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
     const core::Level& level = *loaded.level;
 
     core::World world;
-    const core::Entity player = spawnPlayer(world, static_cast<float>(level.entry().column),
-                                            static_cast<float>(level.entry().row));
+    const core::Entity player = spawnHumanoid(world, level.entry());
     core::CharacterPhysicsSystem system;
     const core::PlayerInput goRight{1.0f};
 

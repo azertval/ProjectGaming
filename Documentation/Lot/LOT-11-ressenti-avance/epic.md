@@ -1,6 +1,6 @@
 # LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions {#lot-11}
 
-> Statut : **cadrage**. Ce lot affine le **ressenti** du personnage du LOT-10 : une **silhouette
+> Statut : **terminé**. Ce lot affine le **ressenti** du personnage du LOT-10 : une **silhouette
 > humanoïde** (0,4 × 0,8 tuile au lieu d'un carré 1×1), une **gravité asymétrique** (chute plus
 > rapide que la montée) et deux finitions verticales — **flottement à l'apex** et **fast-fall**
 > (`EX-GP-018`). La physique horizontale (`EX-GP-010`) reste inchangée.
@@ -65,10 +65,10 @@ Toute la logique reste **pure et déterministe au pas fixe** dans `Core` (`EX-NF
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-donnees.md) | Données : réglages de *feel* + taille/placement du personnage | `Core` | ⬜ |
-| [TACHE-02](tache-02-gravite-asymetrique.md) | Gravité asymétrique + apex hang + fast-fall | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-03](tache-03-personnage-humanoide.md) | Personnage humanoïde (spawn 0,4×0,8, sprite) | `HMI/Interface` | ⬜ |
-| [TACHE-04](tache-04-reequilibrage.md) | Rééquilibrage des niveaux + preuves à la vraie taille | `Elements/Levels` | ⬜ |
+| [TACHE-01](tache-01-donnees.md) | Données : réglages de *feel* + taille/placement du personnage | `Core` | ✅ |
+| [TACHE-02](tache-02-gravite-asymetrique.md) | Gravité asymétrique + apex hang + fast-fall | `Core/Ecs/Systems` | ✅ |
+| [TACHE-03](tache-03-personnage-humanoide.md) | Personnage humanoïde (spawn 0,4×0,8, sprite) | `HMI/Interface` | ✅ |
+| [TACHE-04](tache-04-reequilibrage.md) | Rééquilibrage des niveaux + preuves à la vraie taille | `Elements/Levels` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage est **humanoïde** (0,4 × 0,8) en collision **et** au rendu, centré au spawn.
