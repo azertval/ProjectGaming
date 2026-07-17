@@ -7,6 +7,8 @@
  * la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le déterminisme.
  */
 
+#include <filesystem>
+
 #include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Collider.h"
@@ -15,9 +17,13 @@
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Levels/Level.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelOutcome.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "Core/Physics/Aabb.h"
 #include "Core/Physics/PhysicsConfig.h"
 #include "Core/Physics/PlayerInput.h"
 
@@ -166,4 +172,33 @@ TEST(PhysiquePersonnageIntegration, Deterministe) {
     const core::Vector2 second = run();
     EXPECT_FLOAT_EQ(first.x, second.x);
     EXPECT_FLOAT_EQ(first.y, second.y);
+}
+
+/// Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite »,
+/// le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
+TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
+    const std::filesystem::path path =
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+    const core::Level& level = *loaded.level;
+
+    core::World world;
+    const core::Entity player =
+        spawnPlayer(world, static_cast<float>(level.entry().column),
+                    static_cast<float>(level.entry().row));
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput goRight{1.0f};
+
+    // On simule jusqu'à l'issue (borne large pour éviter une boucle infinie si le niveau régresse).
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    for (int step = 0; step < 3000 && outcome == core::LevelOutcome::Playing; ++step) {
+        system.update(world, level.tileMap(), goRight, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        const core::Collider& collider = world.getComponent<core::Collider>(player);
+        outcome = core::evaluateOutcome(
+            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
+    }
+
+    EXPECT_EQ(outcome, core::LevelOutcome::Won);  // franchi, jamais Lost
 }
