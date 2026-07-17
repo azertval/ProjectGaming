@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('spec-vision.html',''); initResizable()
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Les points marqués ⚠️ sont des propositions à valider. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md80"></a>
+<h1><a class="anchor" id="autotoc_md81"></a>
 Concept</h1>
 <p>Jeu <b>2D de plateforme et puzzle</b>, en vue de côté, à base de niveaux discrets. Le joueur dirige un personnage qui traverse des tableaux en combinant <b>agilité de plateforme</b> (sauter, courir) et <b>résolution d'énigmes</b> (interrupteurs, blocs, portes, dangers).</p>
 <ul>
@@ -106,10 +106,10 @@ Concept</h1>
 <li><b>Public</b> : joueurs appréciant la réflexion et la précision, tous âges.</li>
 <li><b>Plateforme</b> : Windows (bureau), rendu DirectX.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md81"></a>
+<h2><a class="anchor" id="autotoc_md82"></a>
 Mécanique de jeu (décidée)</h2>
 <p>Le jeu repose sur la <b>boîte à outils classique</b> du genre plateforme/puzzle : interrupteurs, portes, clés, blocs poussables, dangers et (plus tard) plateformes mobiles. <b>Pas de mécanique signature exotique</b> pour le MVP : la difficulté vient de l'agencement des mécanismes, pas d'un gimmick. Une mécanique distinctive pourra être introduite ultérieurement une fois le socle validé.</p>
-<h1><a class="anchor" id="autotoc_md82"></a>
+<h1><a class="anchor" id="autotoc_md83"></a>
 Boucle de gameplay</h1>
 <ol type="1">
 <li>Le joueur entre dans un niveau (état initial défini).</li>
@@ -118,7 +118,7 @@ Boucle de gameplay</h1>
 <li>Il atteint la <b>sortie</b> du niveau (condition de victoire) — ou échoue (danger / chute) et <b>recommence</b> immédiatement.</li>
 <li>Progression vers le niveau suivant.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md83"></a>
+<h1><a class="anchor" id="autotoc_md84"></a>
 Objectifs (MVP)</h1>
 <ul>
 <li><a class="anchor" id="EX-VIS-001"></a><b>EX-VIS-001</b> — Le jeu doit proposer un personnage jouable se déplaçant et sautant dans un niveau en tuiles.</li>
@@ -127,13 +127,13 @@ Objectifs (MVP)</h1>
 <li><a class="anchor" id="EX-VIS-004"></a><b>EX-VIS-004</b> — Le jeu doit gérer l'échec (danger/chute) et le redémarrage du niveau.</li>
 <li><a class="anchor" id="EX-VIS-005"></a><b>EX-VIS-005</b> — Le jeu doit enchaîner au moins <b>3 niveaux</b> de démonstration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md84"></a>
+<h1><a class="anchor" id="autotoc_md85"></a>
 Objectifs produit (au-delà du moteur)</h1>
 <ul>
 <li><a class="anchor" id="EX-VIS-006"></a><b>EX-VIS-006</b> — Le projet doit fournir un <b>éditeur de niveaux</b> permettant à des membres non-développeurs de l'équipe (level/game design) de créer du contenu sans coder. Détaillé dans <a class="el" href="editeur-niveaux_8md.html">`editeur-niveaux.md`</a>. Livré <b>après</b> le chargement de niveaux dans le moteur.</li>
 <li><a class="anchor" id="EX-VIS-007"></a><b>EX-VIS-007</b> — À terme, le jeu doit proposer des <b>décors issus de photos réelles converties en pixel art</b>, plaçables et transformables, manipulables par le level designer (éditeur) <b>et par le joueur en jeu</b> (mécanique). Détaillé dans <a class="el" href="decors_8md.html">`decors.md`</a>. L'architecture doit l'<b>accommoder dès maintenant</b> (cf. <a class="el" href="architecture_8md.html">`architecture.md`</a>) ; la livraison est <b>post-MVP</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md85"></a>
+<h1><a class="anchor" id="autotoc_md86"></a>
 Hors périmètre (MVP)</h1>
 <ul>
 <li>Multijoueur, réseau.</li>
@@ -142,7 +142,7 @@ Hors périmètre (MVP)</h1>
 <li>Bande-son musicale élaborée (bruitages simples suffisent au MVP).</li>
 <li>Portabilité hors Windows.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md86"></a>
+<h1><a class="anchor" id="autotoc_md87"></a>
 Traçabilité</h1>
 <p>Ces objectifs sont détaillés dans <a class="el" href="gameplay_8md.html">`gameplay.md`</a>, <a class="el" href="controles_8md.html">`controles.md`</a>, <a class="el" href="rendu-technique_8md.html">`rendu-technique.md`</a>, <a class="el" href="niveaux_8md.html">`niveaux.md`</a>, <a class="el" href="exigences-non-fonctionnelles_8md.html">`exigences-non-fonctionnelles.md`</a>, <a class="el" href="editeur-niveaux_8md.html">`editeur-niveaux.md`</a>, <a class="el" href="architecture_8md.html">`architecture.md`</a> et <a class="el" href="decors_8md.html">`decors.md`</a>. Chaque lot de <code>../Lot/</code> référence les exigences <code>EX-…</code> qu'il couvre. </p>
 </div></div><!-- contents -->

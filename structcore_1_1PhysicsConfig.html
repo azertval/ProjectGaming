@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('structcore_1_1PhysicsConfig.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0fdb33afff65f36642d32a0714f9a642" id="r_a0fdb33afff65f36642d32a0714f9a642"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a0fdb33afff65f36642d32a0714f9a642">moveSpeed</a> = 6.0f</td></tr>
+<tr class="memitem:a0fdb33afff65f36642d32a0714f9a642" id="r_a0fdb33afff65f36642d32a0714f9a642"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a0fdb33afff65f36642d32a0714f9a642">moveSpeed</a> = 3.0f</td></tr>
 <tr class="memdesc:a0fdb33afff65f36642d32a0714f9a642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse horizontale à pleine intention, en unités/seconde (<code>EX-GP-010</code>). ⚠️ à affiner.  <br /></td></tr>
 <tr class="separator:a0fdb33afff65f36642d32a0714f9a642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abca056c01e3263ccc8d5e3adbd174e91" id="r_abca056c01e3263ccc8d5e3adbd174e91"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91">gravity</a> = 50.0f</td></tr>
@@ -125,11 +125,48 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aad3d74392a7ee0841dc1d321a63ab1a9" id="r_aad3d74392a7ee0841dc1d321a63ab1a9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#aad3d74392a7ee0841dc1d321a63ab1a9">jumpCutFactor</a> = 0.5f</td></tr>
 <tr class="memdesc:aad3d74392a7ee0841dc1d321a63ab1a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fraction de vitesse ascendante <b>conservée</b> au relâchement du saut (hauteur variable) : 0 = coupe nette, 1 = pas de coupe.  <br /></td></tr>
 <tr class="separator:aad3d74392a7ee0841dc1d321a63ab1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece7832fe12221342224bb69afc9e273" id="r_aece7832fe12221342224bb69afc9e273"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273">airJumps</a> = 1</td></tr>
+<tr class="memdesc:aece7832fe12221342224bb69afc9e273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de sauts <b>aériens</b> supplémentaires (double/multi saut, <code>EX-GP-015</code>). Défaut 1.  <br /></td></tr>
+<tr class="separator:aece7832fe12221342224bb69afc9e273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af147f8c04010b7b16faf1989c171bd4a" id="r_af147f8c04010b7b16faf1989c171bd4a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#af147f8c04010b7b16faf1989c171bd4a">wallSlideSpeed</a> = 4.0f</td></tr>
+<tr class="memdesc:af147f8c04010b7b16faf1989c171bd4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de descente <b>plafonnée</b> le long d'un mur (wall slide), en unités/s. ⚠️.  <br /></td></tr>
+<tr class="separator:af147f8c04010b7b16faf1989c171bd4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58542418c2b5c5c883337bd8a23297a7" id="r_a58542418c2b5c5c883337bd8a23297a7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a58542418c2b5c5c883337bd8a23297a7">wallJumpSpeedX</a> = 12.0f</td></tr>
+<tr class="memdesc:a58542418c2b5c5c883337bd8a23297a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composante horizontale de l'impulsion de <b>wall jump</b> (éjection opposée au mur), unités/s.  <br /></td></tr>
+<tr class="separator:a58542418c2b5c5c883337bd8a23297a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef6fbf45958ba26e09a1e9c78cfa268b" id="r_aef6fbf45958ba26e09a1e9c78cfa268b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#aef6fbf45958ba26e09a1e9c78cfa268b">wallJumpSpeedY</a> = 14.0f</td></tr>
+<tr class="memdesc:aef6fbf45958ba26e09a1e9c78cfa268b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composante verticale (montée) de l'impulsion de <b>wall jump</b>, en unités/s.  <br /></td></tr>
+<tr class="separator:aef6fbf45958ba26e09a1e9c78cfa268b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aed664da44b757c3e23cfe105bb34c7" id="r_a2aed664da44b757c3e23cfe105bb34c7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a2aed664da44b757c3e23cfe105bb34c7">wallJumpLockTime</a> = 0.18f</td></tr>
+<tr class="memdesc:a2aed664da44b757c3e23cfe105bb34c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée (secondes) de verrouillage du contrôle horizontal après un wall jump. ⚠️.  <br /></td></tr>
+<tr class="separator:a2aed664da44b757c3e23cfe105bb34c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a888d96f8f59b21cc05de8aa32ad8567c" id="r_a888d96f8f59b21cc05de8aa32ad8567c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a888d96f8f59b21cc05de8aa32ad8567c">dashSpeed</a> = 15.0f</td></tr>
+<tr class="memdesc:a888d96f8f59b21cc05de8aa32ad8567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de la ruée de <b>dash</b>, en unités/s (<code>EX-GP-017</code>). ⚠️.  <br /></td></tr>
+<tr class="separator:a888d96f8f59b21cc05de8aa32ad8567c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e06016d2850f9cf6772501a9d0267cb" id="r_a2e06016d2850f9cf6772501a9d0267cb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a2e06016d2850f9cf6772501a9d0267cb">dashDuration</a> = 0.15f</td></tr>
+<tr class="memdesc:a2e06016d2850f9cf6772501a9d0267cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.  <br /></td></tr>
+<tr class="separator:a2e06016d2850f9cf6772501a9d0267cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres réglables de la physique du personnage, regroupés pour faciliter le <em>tuning</em>. </p>
 <p>Donnée pure (<code>EX-ARCH-011</code>) : le <code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code> la lit, ne la modifie pas. Les valeurs par défaut sont des points de départ <b>à affiner par tests</b> (le ressenti « game feel » est marqué ⚠️ dans la spec <code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>). Unités monde : une tuile = 1 unité, <code>y</code> vers le bas. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aece7832fe12221342224bb69afc9e273" name="aece7832fe12221342224bb69afc9e273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece7832fe12221342224bb69afc9e273">&#9670;&#160;</a></span>airJumps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::PhysicsConfig::airJumps = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nombre de sauts <b>aériens</b> supplémentaires (double/multi saut, <code>EX-GP-015</code>). Défaut 1. </p>
+
+</div>
+</div>
 <a id="ac73ce3de3e423e272cad5f348e524bbe" name="ac73ce3de3e423e272cad5f348e524bbe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac73ce3de3e423e272cad5f348e524bbe">&#9670;&#160;</a></span>coyoteTime</h2>
 
@@ -143,6 +180,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fenêtre de <em>coyote time</em>, en secondes : saut permis peu après avoir quitté un bord. ⚠️. </p>
+
+</div>
+</div>
+<a id="a2e06016d2850f9cf6772501a9d0267cb" name="a2e06016d2850f9cf6772501a9d0267cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e06016d2850f9cf6772501a9d0267cb">&#9670;&#160;</a></span>dashDuration</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashDuration = 0.15f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️. </p>
+
+</div>
+</div>
+<a id="a888d96f8f59b21cc05de8aa32ad8567c" name="a888d96f8f59b21cc05de8aa32ad8567c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a888d96f8f59b21cc05de8aa32ad8567c">&#9670;&#160;</a></span>dashSpeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::dashSpeed = 15.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vitesse de la ruée de <b>dash</b>, en unités/s (<code>EX-GP-017</code>). ⚠️. </p>
 
 </div>
 </div>
@@ -235,12 +304,76 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float core::PhysicsConfig::moveSpeed = 6.0f</td>
+          <td class="memname">float core::PhysicsConfig::moveSpeed = 3.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Vitesse horizontale à pleine intention, en unités/seconde (<code>EX-GP-010</code>). ⚠️ à affiner. </p>
+
+</div>
+</div>
+<a id="a2aed664da44b757c3e23cfe105bb34c7" name="a2aed664da44b757c3e23cfe105bb34c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aed664da44b757c3e23cfe105bb34c7">&#9670;&#160;</a></span>wallJumpLockTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::wallJumpLockTime = 0.18f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Durée (secondes) de verrouillage du contrôle horizontal après un wall jump. ⚠️. </p>
+
+</div>
+</div>
+<a id="a58542418c2b5c5c883337bd8a23297a7" name="a58542418c2b5c5c883337bd8a23297a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58542418c2b5c5c883337bd8a23297a7">&#9670;&#160;</a></span>wallJumpSpeedX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::wallJumpSpeedX = 12.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Composante horizontale de l'impulsion de <b>wall jump</b> (éjection opposée au mur), unités/s. </p>
+
+</div>
+</div>
+<a id="aef6fbf45958ba26e09a1e9c78cfa268b" name="aef6fbf45958ba26e09a1e9c78cfa268b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef6fbf45958ba26e09a1e9c78cfa268b">&#9670;&#160;</a></span>wallJumpSpeedY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::wallJumpSpeedY = 14.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Composante verticale (montée) de l'impulsion de <b>wall jump</b>, en unités/s. </p>
+
+</div>
+</div>
+<a id="af147f8c04010b7b16faf1989c171bd4a" name="af147f8c04010b7b16faf1989c171bd4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af147f8c04010b7b16faf1989c171bd4a">&#9670;&#160;</a></span>wallSlideSpeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::wallSlideSpeed = 4.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vitesse de descente <b>plafonnée</b> le long d'un mur (wall slide), en unités/s. ⚠️. </p>
 
 </div>
 </div>

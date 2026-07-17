@@ -8,5 +8,6 @@ var searchData=
   ['message_5',['message',['../structcore_1_1MemoryLogSink_1_1Entry.html#aef520f464dacb8a65da8bff02af981cf',1,'core::MemoryLogSink::Entry']]],
   ['min_6',['min',['../structcore_1_1Aabb.html#a5ac2bfbdb6dd36daa5527db035c80c1f',1,'core::Aabb']]],
   ['movespeed_7',['moveSpeed',['../structcore_1_1PhysicsConfig.html#a0fdb33afff65f36642d32a0714f9a642',1,'core::PhysicsConfig']]],
-  ['movex_8',['moveX',['../structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623',1,'core::PlayerInput']]]
+  ['movex_8',['moveX',['../structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623',1,'core::PlayerInput']]],
+  ['movey_9',['moveY',['../structcore_1_1PlayerInput.html#abcac0b75aeffc17a50a48e9a6208c1e2',1,'core::PlayerInput']]]
 ];

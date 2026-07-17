@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['w_20→_20intention_0',['TACHE-02 — Mapping du saut (`Espace`/`W` → intention)',['../lot-09-tache-02-mapping-saut.html',1,'lot-09']]],
-  ['warn_5fas_5ferror_20déploiement_1',['TACHE-07 — CI documentation (WARN_AS_ERROR &amp; déploiement)',['../lot-04-tache-07-ci-docs.html',1,'lot-04']]],
-  ['win32_20pompe_20de_20messages_2',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['world_20dans_20la_20boucle_20scène_20de_20démo_3',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
-  ['world_20orchestration_20au_20pas_20fixe_4',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['vérification_0',['TACHE-05 — Intégration `main` &amp; vérification',['../lot-01-tache-05-integration.html',1,'lot-01']]],
+  ['validation_20du_20niveau_1',['TACHE-04 — Validation du niveau',['../lot-07-tache-04-validation.html',1,'lot-07']]],
+  ['variable_2',['TACHE-03 — Saut au sol + hauteur variable',['../lot-09-tache-03-saut-hauteur-variable.html',1,'lot-09']]],
+  ['vie_3',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
+  ['visée_20orientation_4',['TACHE-02 — Mapping du dash + direction de visée / orientation',['../lot-10-tache-02-mapping-dash.html',1,'lot-10']]],
+  ['vision_20périmètre_5',['Vision &amp; périmètre',['../spec-vision.html',1,'specifications']]],
+  ['vues_20multi_20composants_6',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
 ];

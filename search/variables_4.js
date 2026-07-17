@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['doorposition_0',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
+  ['dashavailable_0',['dashAvailable',['../structcore_1_1Player.html#a7ab08163c367d65f04dfefee21b59529',1,'core::Player']]],
+  ['dashduration_1',['dashDuration',['../structcore_1_1PhysicsConfig.html#a2e06016d2850f9cf6772501a9d0267cb',1,'core::PhysicsConfig']]],
+  ['dashpressed_2',['dashPressed',['../structcore_1_1PlayerInput.html#a554649f1780708614de0ffad89e7c076',1,'core::PlayerInput']]],
+  ['dashspeed_3',['dashSpeed',['../structcore_1_1PhysicsConfig.html#a888d96f8f59b21cc05de8aa32ad8567c',1,'core::PhysicsConfig']]],
+  ['dashtimer_4',['dashTimer',['../structcore_1_1Player.html#a2a7cb76eef85ffa779b1a6cb0e47cedf',1,'core::Player']]],
+  ['doorposition_5',['doorPosition',['../structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7',1,'core::Mechanism']]]
 ];

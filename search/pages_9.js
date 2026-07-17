@@ -1,13 +1,22 @@
 var searchData=
 [
-  ['feel_20et_20enchaînement_20de_20niveaux_0',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
-  ['fenêtre_20boucle_20de_20jeu_20direct3d_2011_1',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
-  ['fenêtre_20win32_20pompe_20de_20messages_2',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['fichier_20ligne_20horodatage_3',['TACHE-03 — Macros de log (fichier/ligne, horodatage)',['../lot-02-tache-03-macros-log.html',1,'lot-02']]],
-  ['fin_20de_20niveau_20succès_20échec_4',['TACHE-04 — Règles de fin de niveau (succès / échec)',['../lot-08-tache-04-regles-fin-niveau.html',1,'lot-08']]],
-  ['fixe_5',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
-  ['fixe_20succès_20échec_6',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
-  ['fixe_20testable_7',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
-  ['fonctionnelles_8',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
-  ['fondation_20ecs_20mathématiques_20core_9',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]]
+  ['ecs_20→_20écran_0',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
+  ['ecs_20mathématiques_20core_1',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]],
+  ['effacement_20écran_20présentation_20redimensionnement_2',['TACHE-04 — Effacement écran, présentation &amp; redimensionnement',['../lot-01-tache-04-effacement-presentation.html',1,'lot-01']]],
+  ['enchaînement_20de_20niveaux_3',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
+  ['enchaînement_20de_20niveaux_20séquence_20auto_20avance_20retour_20titre_4',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
+  ['enfichables_5',['TACHE-02 — Sinks enfichables',['../lot-02-tache-02-sinks.html',1,'lot-02']]],
+  ['entités_20_3a_20handles_20générationnels_20cycle_20de_20vie_6',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
+  ['entrée_7',['TACHE-01 — Composants du personnage &amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
+  ['entrée_20mapping_20touches_20→_20intention_8',['TACHE-05 — Actions logiques d&apos;entrée (mapping touches → intention)',['../lot-08-tache-05-actions-logiques.html',1,'lot-08']]],
+  ['entrées_9',['Contrôles &amp; entrées',['../spec-controles.html',1,'specifications']]],
+  ['entrées_20clavier_20souris_10',['TACHE-01 — Entrées clavier &amp; souris',['../lot-06-tache-01-entrees-clavier-souris.html',1,'lot-06']]],
+  ['espace_20w_20→_20intention_11',['TACHE-02 — Mapping du saut (`Espace`/`W` → intention)',['../lot-09-tache-02-mapping-saut.html',1,'lot-09']]],
+  ['et_20chargement_12',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['et_20collisions_13',['LOT-08 — Gameplay personnage : déplacement, gravité et collisions',['../lot-08.html',1,'lots']]],
+  ['et_20de_20niveau_14',['TACHE-02 — Modèle de tuiles et de niveau',['../lot-07-tache-02-modele-niveau.html',1,'lot-07']]],
+  ['et_20enchaînement_20de_20niveaux_15',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
+  ['et_20lancer_20le_20jeu_16',['Télécharger et lancer le jeu',['../manuel-telecharger.html',1,'manuel']]],
+  ['exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_17',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
+  ['exigences_20non_20fonctionnelles_18',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
 ];

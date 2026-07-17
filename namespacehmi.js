@@ -27,6 +27,7 @@ var namespacehmi =
       [ "Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
       [ "Tab", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],
       [ "Enter", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b", null ],
+      [ "Shift", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c", null ],
       [ "Escape", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224", null ],
       [ "Space", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394", null ],
       [ "Left", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff", null ],

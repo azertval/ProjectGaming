@@ -113,11 +113,33 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8fb113d4f6429ea94935827f5b2e93db" id="r_a8fb113d4f6429ea94935827f5b2e93db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db">jumpHeld</a> = false</td></tr>
 <tr class="memdesc:a8fb113d4f6429ea94935827f5b2e93db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton de saut <b>maintenu</b> : sert à la hauteur de saut variable (relâcher tôt = petit saut).  <br /></td></tr>
 <tr class="separator:a8fb113d4f6429ea94935827f5b2e93db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcac0b75aeffc17a50a48e9a6208c1e2" id="r_abcac0b75aeffc17a50a48e9a6208c1e2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#abcac0b75aeffc17a50a48e9a6208c1e2">moveY</a> = 0.0f</td></tr>
+<tr class="memdesc:abcac0b75aeffc17a50a48e9a6208c1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intention de <b>visée verticale</b> (pour la direction du dash) : -1 haut, +1 bas, 0.  <br /></td></tr>
+<tr class="separator:abcac0b75aeffc17a50a48e9a6208c1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a554649f1780708614de0ffad89e7c076" id="r_a554649f1780708614de0ffad89e7c076"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#a554649f1780708614de0ffad89e7c076">dashPressed</a> = false</td></tr>
+<tr class="memdesc:a554649f1780708614de0ffad89e7c076"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Dash</b> vient d'être pressé cette frame (front montant) — action dédiée (<code>EX-CTRL-013</code>).  <br /></td></tr>
+<tr class="separator:a554649f1780708614de0ffad89e7c076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><b>Intention</b> de déplacement transmise à la physique, dissociée de toute touche. </p>
 <p>Contrat entre la couche d'entrée (<code>HMI</code>, qui traduit clavier/manette — <code>EX-CTRL-010</code>) et la simulation (<code>Core</code>, qui l'applique). <code>Core</code> ne connaît <b>que</b> cette intention : il ignore les touches, ce qui garde la simulation testable et permettra remappage/manette sans le modifier. Donnée pure, transitoire (re-remplie chaque frame), passée au <code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code>. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a554649f1780708614de0ffad89e7c076" name="a554649f1780708614de0ffad89e7c076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a554649f1780708614de0ffad89e7c076">&#9670;&#160;</a></span>dashPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::dashPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>Dash</b> vient d'être pressé cette frame (front montant) — action dédiée (<code>EX-CTRL-013</code>). </p>
+
+</div>
+</div>
 <a id="a8fb113d4f6429ea94935827f5b2e93db" name="a8fb113d4f6429ea94935827f5b2e93db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8fb113d4f6429ea94935827f5b2e93db">&#9670;&#160;</a></span>jumpHeld</h2>
 
@@ -163,6 +185,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] : -1 = vers la gauche, +1 = vers la droite, 0 = immobile. </p>
+
+</div>
+</div>
+<a id="abcac0b75aeffc17a50a48e9a6208c1e2" name="abcac0b75aeffc17a50a48e9a6208c1e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcac0b75aeffc17a50a48e9a6208c1e2">&#9670;&#160;</a></span>moveY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PlayerInput::moveY = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Intention de <b>visée verticale</b> (pour la direction du dash) : -1 haut, +1 bas, 0. </p>
+<p>Le déplacement reste horizontal ; ce champ ne sert qu'à orienter le dash (<code>EX-GP-017</code>). </p>
 
 </div>
 </div>

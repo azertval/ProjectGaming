@@ -113,11 +113,45 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a57dfc80a1b22f8c10cd6a2cff4b9e47e" id="r_a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e">jumpBufferTimer</a> = 0.0f</td></tr>
 <tr class="memdesc:a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de validité d'un saut pré-appuyé avant l'atterrissage (<em>jump buffering</em>) ; rechargé à l'appui, décompté par la physique au pas fixe.  <br /></td></tr>
 <tr class="separator:a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a15fb635f3f0a169ad0f70c1df2abf9" id="r_a9a15fb635f3f0a169ad0f70c1df2abf9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9">airJumpsRemaining</a> = 0</td></tr>
+<tr class="memdesc:a9a15fb635f3f0a169ad0f70c1df2abf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauts <b>aériens</b> restants (double/multi saut, <code>EX-GP-015</code>) ; rechargé au contact du sol.  <br /></td></tr>
+<tr class="separator:a9a15fb635f3f0a169ad0f70c1df2abf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a485438ac4030c8edf6f84c214a1a1e69" id="r_a485438ac4030c8edf6f84c214a1a1e69"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a485438ac4030c8edf6f84c214a1a1e69">facing</a> = 1.0f</td></tr>
+<tr class="memdesc:a485438ac4030c8edf6f84c214a1a1e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut.  <br /></td></tr>
+<tr class="separator:a485438ac4030c8edf6f84c214a1a1e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adff2c3089248a9bc8bcc286dff1550ce" id="r_adff2c3089248a9bc8bcc286dff1550ce"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce">wallDirection</a> = 0.0f</td></tr>
+<tr class="memdesc:adff2c3089248a9bc8bcc286dff1550ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sens du <b>mur</b> au contact en l'air : -1 (mur à gauche) / +1 (à droite) / 0 (aucun), calculé par la physique (<code>EX-GP-016</code>).  <br /></td></tr>
+<tr class="separator:adff2c3089248a9bc8bcc286dff1550ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37e8efccea023b2f1d4f6adada4290b" id="r_ab37e8efccea023b2f1d4f6adada4290b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#ab37e8efccea023b2f1d4f6adada4290b">wallJumpLockTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:ab37e8efccea023b2f1d4f6adada4290b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de <b>verrouillage</b> du contrôle horizontal après un wall jump (la vitesse d'éjection persiste tant qu'il n'est pas écoulé).  <br /></td></tr>
+<tr class="separator:ab37e8efccea023b2f1d4f6adada4290b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ab08163c367d65f04dfefee21b59529" id="r_a7ab08163c367d65f04dfefee21b59529"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a7ab08163c367d65f04dfefee21b59529">dashAvailable</a> = false</td></tr>
+<tr class="memdesc:a7ab08163c367d65f04dfefee21b59529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>dash</b> est-il disponible ? Consommé à l'usage, rechargé au contact du sol (<code>EX-GP-017</code>).  <br /></td></tr>
+<tr class="separator:a7ab08163c367d65f04dfefee21b59529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7cb76eef85ffa779b1a6cb0e47cedf" id="r_a2a7cb76eef85ffa779b1a6cb0e47cedf"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a2a7cb76eef85ffa779b1a6cb0e47cedf">dashTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a2a7cb76eef85ffa779b1a6cb0e47cedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée restante (secondes) du dash en cours ; &gt; 0 pendant la ruée (gravité suspendue).  <br /></td></tr>
+<tr class="separator:a2a7cb76eef85ffa779b1a6cb0e47cedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol. </p>
 <p>Donnée pure sans logique (<code>EX-ARCH-011</code>). Sa présence sur une entité signale à la physique (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code>) que celle-ci est pilotée par l'intention d'entrée (<a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>) et soumise à la gravité. L'état « au sol » est <b>calculé par la physique</b> (mis à <code>true</code> quand un contact bloquant se produit sous le personnage) et sert la caméra et le <b>saut</b> (<code>EX-GP-013</code>). Les minuteries <code>coyoteTimer</code>/<code>jumpBufferTimer</code> portent l'état de <em>game feel</em> du saut (coyote time, jump buffering), décompté par la physique au pas fixe. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9a15fb635f3f0a169ad0f70c1df2abf9" name="a9a15fb635f3f0a169ad0f70c1df2abf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a15fb635f3f0a169ad0f70c1df2abf9">&#9670;&#160;</a></span>airJumpsRemaining</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Player::airJumpsRemaining = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sauts <b>aériens</b> restants (double/multi saut, <code>EX-GP-015</code>) ; rechargé au contact du sol. </p>
+
+</div>
+</div>
 <a id="a69f291499ab2b7c27220c071a590b97a" name="a69f291499ab2b7c27220c071a590b97a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69f291499ab2b7c27220c071a590b97a">&#9670;&#160;</a></span>coyoteTimer</h2>
 
@@ -131,6 +165,54 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Temps restant (secondes) pendant lequel un saut est encore permis après avoir quitté le sol (<em>coyote time</em>) ; rechargé au contact du sol, décompté par la physique au pas fixe. </p>
+
+</div>
+</div>
+<a id="a7ab08163c367d65f04dfefee21b59529" name="a7ab08163c367d65f04dfefee21b59529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ab08163c367d65f04dfefee21b59529">&#9670;&#160;</a></span>dashAvailable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Player::dashAvailable = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le <b>dash</b> est-il disponible ? Consommé à l'usage, rechargé au contact du sol (<code>EX-GP-017</code>). </p>
+
+</div>
+</div>
+<a id="a2a7cb76eef85ffa779b1a6cb0e47cedf" name="a2a7cb76eef85ffa779b1a6cb0e47cedf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a7cb76eef85ffa779b1a6cb0e47cedf">&#9670;&#160;</a></span>dashTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::dashTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Durée restante (secondes) du dash en cours ; &gt; 0 pendant la ruée (gravité suspendue). </p>
+
+</div>
+</div>
+<a id="a485438ac4030c8edf6f84c214a1a1e69" name="a485438ac4030c8edf6f84c214a1a1e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485438ac4030c8edf6f84c214a1a1e69">&#9670;&#160;</a></span>facing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::facing = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Orientation courante : -1 (gauche) / +1 (droite) ; sert de direction de dash par défaut. </p>
 
 </div>
 </div>
@@ -163,6 +245,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Temps restant (secondes) de validité d'un saut pré-appuyé avant l'atterrissage (<em>jump buffering</em>) ; rechargé à l'appui, décompté par la physique au pas fixe. </p>
+
+</div>
+</div>
+<a id="adff2c3089248a9bc8bcc286dff1550ce" name="adff2c3089248a9bc8bcc286dff1550ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adff2c3089248a9bc8bcc286dff1550ce">&#9670;&#160;</a></span>wallDirection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::wallDirection = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sens du <b>mur</b> au contact en l'air : -1 (mur à gauche) / +1 (à droite) / 0 (aucun), calculé par la physique (<code>EX-GP-016</code>). </p>
+
+</div>
+</div>
+<a id="ab37e8efccea023b2f1d4f6adada4290b" name="ab37e8efccea023b2f1d4f6adada4290b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37e8efccea023b2f1d4f6adada4290b">&#9670;&#160;</a></span>wallJumpLockTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::wallJumpLockTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) de <b>verrouillage</b> du contrôle horizontal après un wall jump (la vitesse d'éjection persiste tant qu'il n'est pas écoulé). </p>
 
 </div>
 </div>

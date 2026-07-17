@@ -1,7 +1,7 @@
 var searchData=
 [
   ['readfile_0',['readFile',['../classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938',1,'hmi::Localization']]],
-  ['rect_1',['rect',['../structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031',1,'core::Rect::Rect()=default'],['../structcore_1_1Rect.html#a37db30b4d3a91d2c3b48c90a51cee1d1',1,'core::Rect::Rect(const Vector2 &amp;topLeft, const Vector2 &amp;dimensions)'],['../classhmi_1_1LanguageSelector.html#a4f3fec17c6f6ca4f9d26b29295fc3a7d',1,'hmi::LanguageSelector::rect()'],['../classhmi_1_1SaveLogButton.html#a52ce78174386bbf4dc827f2f6cda5a99',1,'hmi::SaveLogButton::rect()']]],
+  ['rect_1',['rect',['../classhmi_1_1LanguageSelector.html#a4f3fec17c6f6ca4f9d26b29295fc3a7d',1,'hmi::LanguageSelector::rect()'],['../classhmi_1_1SaveLogButton.html#a52ce78174386bbf4dc827f2f6cda5a99',1,'hmi::SaveLogButton::rect()'],['../structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031',1,'core::Rect::Rect()=default'],['../structcore_1_1Rect.html#a37db30b4d3a91d2c3b48c90a51cee1d1',1,'core::Rect::Rect(const Vector2 &amp;topLeft, const Vector2 &amp;dimensions)']]],
   ['region_2',['region',['../classhmi_1_1FlagIcons.html#a87eadd49f7ad5265cd256a0b72f540a8',1,'hmi::FlagIcons']]],
   ['remove_3',['remove',['../classcore_1_1ComponentPool.html#abfe3af447f41425bf06d4db890f67bf4',1,'core::ComponentPool']]],
   ['removecomponent_4',['removeComponent',['../classcore_1_1World.html#acee09d7b00169a19e1bd2d9247b6bce5',1,'core::World']]],
