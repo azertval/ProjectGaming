@@ -134,8 +134,29 @@ Dans les définitions, commenter en français avec des `//` :
 - Les choix non évidents (pourquoi telle formule, telle borne, telle optimisation).
 
 Balises Doxygen (dans les **en-têtes** uniquement) : `@file`, `@brief`, `@param`, `@return`,
-`@note`, `@warning`, `@see`. Commentaire de membre bref : `///< description` après la
-déclaration (dans le `.h`).
+`@note`, `@warning`, `@see`.
+
+Commentaire de **membre bref** (dans le `.h`) — deux formes acceptées, à choisir selon la
+lisibilité, une seule par déclaration :
+- `/// description` **au-dessus** de la déclaration : pour une description autonome, souvent plus
+  longue (membres de `struct`) ;
+- `///< description` **après** la déclaration (même ligne) : pour une annotation compacte, idéale
+  sur des listes serrées (énumérateurs, champs privés courts).
+
+```cpp
+struct Transform {
+    /// Position du repère de l'entité, en unités monde (origine haut-gauche, Y-bas).
+    Vector2 position{};
+};
+
+enum class LogLevel {
+    Trace,  ///< Détails fins de débogage.
+    Info,   ///< Information de fonctionnement normal.
+};
+```
+
+Ne **jamais** utiliser un `///` de fin de ligne (sans `<`) : il se rattacherait à la déclaration
+*suivante*, pas à celle qu'on croit documenter.
 
 ## 7. Bonnes pratiques
 - `const` par défaut ; `constexpr` quand c'est possible.

@@ -3,6 +3,7 @@ add_executable(ProjectGaming
     main.cpp
     Platform/Window.cpp
     Input/InputState.cpp
+    Input/PlayerInputMapper.cpp
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp
