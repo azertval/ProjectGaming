@@ -16,7 +16,7 @@ namespace {
 hmi::Localization frenchCatalog() {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"menu.titre", "ProjectGaming"},
-                                          {"menu.charger_niveau", "Charger niveau"},
+                                          {"menu.jouer", "Charger niveau"},
                                           {"menu.mode_edition", "Mode Edition"},
                                           {"menu.quitter", "Quitter"}});
     return localization;

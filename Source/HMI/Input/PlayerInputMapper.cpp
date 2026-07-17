@@ -14,6 +14,10 @@ core::PlayerInput toPlayerInput(const InputState& input) {
     core::PlayerInput result;
     // Gauche et droite se neutralisent (-1 + 1 = 0) : comportement deterministe.
     result.moveX = (right ? 1.0f : 0.0f) - (left ? 1.0f : 0.0f);
+    // Saut : Espace ou W. jumpPressed = front (declenche/bufferise), jumpHeld = maintenu
+    // (hauteur variable). keyPressed = front d'une frame, keyDown = maintenu.
+    result.jumpPressed = input.keyPressed(Key::Space) || input.keyPressed(Key::W);
+    result.jumpHeld = input.keyDown(Key::Space) || input.keyDown(Key::W);
     return result;
 }
 

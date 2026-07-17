@@ -18,7 +18,7 @@ struct Option {
 
 // Les trois options, dans l'ordre d'affichage. Libellés résolus par clé (aucun texte en dur).
 constexpr Option OPTIONS[MenuModel::OPTION_COUNT] = {
-    {"menu.charger_niveau", ScreenId::Game, false},
+    {"menu.jouer", ScreenId::Game, false},
     {"menu.mode_edition", ScreenId::Editor, false},
     {"menu.quitter", ScreenId::Menu, true},
 };

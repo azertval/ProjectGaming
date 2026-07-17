@@ -47,3 +47,42 @@ TEST(PlayerInputMapperTest, AucuneTouche) {
 TEST(PlayerInputMapperTest, GaucheEtDroiteSeNeutralisent) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left, hmi::Key::Right})).moveX, 0.0f);
 }
+
+/// Espace fraîchement enfoncée → saut **pressé** (front) et **maintenu**.
+TEST(PlayerInputMapperTest, EspacePresseeDeclencheLeSaut) {
+    const core::PlayerInput input = hmi::toPlayerInput(withKeys({hmi::Key::Space}));
+    EXPECT_TRUE(input.jumpPressed);
+    EXPECT_TRUE(input.jumpHeld);
+}
+
+/// `W` équivaut à Espace pour le saut.
+TEST(PlayerInputMapperTest, WEquivautEspacePourLeSaut) {
+    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::W})).jumpPressed);
+}
+
+/// Saut **maintenu** sans nouveau front → `jumpHeld` vrai mais `jumpPressed` faux.
+TEST(PlayerInputMapperTest, SautMaintenuN_estPasUnFront) {
+    hmi::InputState input;
+    input.onKeyDown(hmi::Key::Space);  // frame 1 : le front a déjà eu lieu
+    input.beginFrame();                // frame 2 : l'état courant devient l'état précédent
+    input.onKeyDown(hmi::Key::Space);  // toujours enfoncée, mais plus au front
+
+    const core::PlayerInput mapped = hmi::toPlayerInput(input);
+    EXPECT_FALSE(mapped.jumpPressed);
+    EXPECT_TRUE(mapped.jumpHeld);
+}
+
+/// Aucune touche de saut → ni pressé ni maintenu.
+TEST(PlayerInputMapperTest, PasDeSaut) {
+    const core::PlayerInput input = hmi::toPlayerInput(hmi::InputState{});
+    EXPECT_FALSE(input.jumpPressed);
+    EXPECT_FALSE(input.jumpHeld);
+}
+
+/// Déplacement et saut sont indépendants (axes distincts).
+TEST(PlayerInputMapperTest, DeplacementEtSautIndependants) {
+    const core::PlayerInput input =
+        hmi::toPlayerInput(withKeys({hmi::Key::Right, hmi::Key::Space}));
+    EXPECT_FLOAT_EQ(input.moveX, 1.0f);
+    EXPECT_TRUE(input.jumpPressed);
+}

@@ -1,6 +1,6 @@
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 
-#include <algorithm>  // std::min (borne de vitesse de chute)
+#include <algorithm>  // std::min / std::max (borne de chute, coupe de saut)
 
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Player.h"
@@ -22,6 +22,35 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
     world.view<Player, Transform, Velocity, Collider>().each(
         [&](Entity, Player& player, Transform& transform, Velocity& velocity, Collider& collider) {
             //  Pour CHAQUE personnage :
+            //   0. Minuteries de game feel, décomptées au pas fixe (EX-CTRL-011, EX-NFR-002) :
+            //      - coyote time : rechargé au sol, décompté en l'air (sauter juste après un bord)
+            //      ;
+            if (player.grounded) {
+                player.coyoteTimer = _config.coyoteTime;
+            } else {
+                player.coyoteTimer = std::max(0.0f, player.coyoteTimer - fixedDelta);
+            }
+            //      - jump buffering : rechargé à l'appui, décompté sinon (saut pré-appuyé honoré).
+            if (input.jumpPressed) {
+                player.jumpBufferTimer = _config.jumpBufferTime;
+            } else {
+                player.jumpBufferTimer = std::max(0.0f, player.jumpBufferTimer - fixedDelta);
+            }
+            //   0a. Saut : demandé (buffer) ET autorisé (au sol ou coyote), y négatif = montée
+            //       (EX-GP-011). On consomme les deux minuteries → pas de second saut (EX-GP-013).
+            if (player.jumpBufferTimer > 0.0f && player.coyoteTimer > 0.0f) {
+                velocity.value.y = -_config.jumpSpeed;
+                player.coyoteTimer = 0.0f;
+                player.jumpBufferTimer = 0.0f;
+            }
+            //   0b. Hauteur variable : bouton relâché pendant la montée → on plafonne la vitesse
+            //       ascendante à `jumpCutFactor × jumpSpeed` (relâcher tôt = petit saut). Le max
+            //       n'a aucun effet en chute (velocity.y > 0). Gravité inchangée (EX-GP-011).
+            if (!input.jumpHeld) {
+                velocity.value.y =
+                    std::max(velocity.value.y, -_config.jumpSpeed * _config.jumpCutFactor);
+            }
+
             //   1. Vitesse horizontale voulue (pas d'inertie au MVP, on écrase X) :
             velocity.value.x = input.moveX * _config.moveSpeed;
 
