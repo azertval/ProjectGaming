@@ -16,6 +16,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
     Unit/Core/Diagnostics/test_sinks.cpp
