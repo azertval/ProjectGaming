@@ -8,10 +8,12 @@ var searchData=
   ['niveau_20intégration_20«_20charger_20niveau_20»_5',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
   ['niveau_20json_6',['TACHE-03 — Chargement du niveau (JSON)',['../lot-07-tache-03-chargement-json.html',1,'lot-07']]],
   ['niveau_20succès_20échec_7',['TACHE-04 — Règles de fin de niveau (succès / échec)',['../lot-08-tache-04-regles-fin-niveau.html',1,'lot-08']]],
-  ['niveaux_8',['Éditeur de niveaux',['../spec-editeur.html',1,'specifications']]],
+  ['niveaux_8',['niveaux',['../spec-editeur.html',1,'Éditeur de niveaux'],['../lot-09.html',1,'LOT-09 — Saut, game feel et enchaînement de niveaux']]],
   ['niveaux_20_3a_20modèle_20et_20chargement_9',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
   ['niveaux_20contenu_10',['Niveaux &amp; contenu',['../spec-niveaux.html',1,'specifications']]],
-  ['niveaux_20de_20log_20interface_20logger_11',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
-  ['nlohmann_20json_20épinglé_12',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
-  ['non_20fonctionnelles_13',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
+  ['niveaux_20de_20démo_20séquence_20dont_20saut_20requis_20preuve_11',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
+  ['niveaux_20de_20log_20interface_20logger_12',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
+  ['niveaux_20séquence_20auto_20avance_20retour_20titre_13',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
+  ['nlohmann_20json_20épinglé_14',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
+  ['non_20fonctionnelles_15',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
 ];

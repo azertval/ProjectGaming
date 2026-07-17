@@ -143,12 +143,27 @@ Functions</h2></td></tr>
 <tr class="memitem:a1d668492b9fee6d327b8ff53ffd6a100" id="r_a1d668492b9fee6d327b8ff53ffd6a100"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a1d668492b9fee6d327b8ff53ffd6a100">TEST</a> (PlayerInputMapperTest, GaucheEtDroiteSeNeutralisent)</td></tr>
 <tr class="memdesc:a1d668492b9fee6d327b8ff53ffd6a100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gauche et droite simultanées → neutralisation (0).  <br /></td></tr>
 <tr class="separator:a1d668492b9fee6d327b8ff53ffd6a100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603c41caca0b2b1f5a93c6c594e2b3e4" id="r_a603c41caca0b2b1f5a93c6c594e2b3e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a603c41caca0b2b1f5a93c6c594e2b3e4">TEST</a> (PlayerInputMapperTest, EspacePresseeDeclencheLeSaut)</td></tr>
+<tr class="memdesc:a603c41caca0b2b1f5a93c6c594e2b3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace fraîchement enfoncée → saut <b>pressé</b> (front) et <b>maintenu</b>.  <br /></td></tr>
+<tr class="separator:a603c41caca0b2b1f5a93c6c594e2b3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae9903c7d9e3cde20427f3b04f1d0d4f" id="r_aae9903c7d9e3cde20427f3b04f1d0d4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#aae9903c7d9e3cde20427f3b04f1d0d4f">TEST</a> (PlayerInputMapperTest, WEquivautEspacePourLeSaut)</td></tr>
+<tr class="memdesc:aae9903c7d9e3cde20427f3b04f1d0d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>W</code> équivaut à Espace pour le saut.  <br /></td></tr>
+<tr class="separator:aae9903c7d9e3cde20427f3b04f1d0d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db08aeca730e98a9d9c850799724c94" id="r_a7db08aeca730e98a9d9c850799724c94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a7db08aeca730e98a9d9c850799724c94">TEST</a> (PlayerInputMapperTest, SautMaintenuN_estPasUnFront)</td></tr>
+<tr class="memdesc:a7db08aeca730e98a9d9c850799724c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saut <b>maintenu</b> sans nouveau front → <code>jumpHeld</code> vrai mais <code>jumpPressed</code> faux.  <br /></td></tr>
+<tr class="separator:a7db08aeca730e98a9d9c850799724c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf54df2bc4c9ad041ba9e4c2d6f69c37" id="r_aaf54df2bc4c9ad041ba9e4c2d6f69c37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#aaf54df2bc4c9ad041ba9e4c2d6f69c37">TEST</a> (PlayerInputMapperTest, PasDeSaut)</td></tr>
+<tr class="memdesc:aaf54df2bc4c9ad041ba9e4c2d6f69c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aucune touche de saut → ni pressé ni maintenu.  <br /></td></tr>
+<tr class="separator:aaf54df2bc4c9ad041ba9e4c2d6f69c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37328126b238599bfb953984a6a7102" id="r_ab37328126b238599bfb953984a6a7102"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#ab37328126b238599bfb953984a6a7102">TEST</a> (PlayerInputMapperTest, DeplacementEtSautIndependants)</td></tr>
+<tr class="memdesc:ab37328126b238599bfb953984a6a7102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplacement et saut sont indépendants (axes distincts).  <br /></td></tr>
+<tr class="separator:ab37328126b238599bfb953984a6a7102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la traduction clavier → intention (<code>toPlayerInput</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a2559653883b30ce0324e830d51f47449" name="a2559653883b30ce0324e830d51f47449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2559653883b30ce0324e830d51f47449">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2559653883b30ce0324e830d51f47449">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,8 +192,68 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab37328126b238599bfb953984a6a7102" name="ab37328126b238599bfb953984a6a7102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37328126b238599bfb953984a6a7102">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeplacementEtSautIndependants&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplacement et saut sont indépendants (axes distincts). </p>
+
+</div>
+</div>
+<a id="a603c41caca0b2b1f5a93c6c594e2b3e4" name="a603c41caca0b2b1f5a93c6c594e2b3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a603c41caca0b2b1f5a93c6c594e2b3e4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EspacePresseeDeclencheLeSaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Espace fraîchement enfoncée → saut <b>pressé</b> (front) et <b>maintenu</b>. </p>
+
+</div>
+</div>
 <a id="a7c81e1f4894e2b29de37883269ff434d" name="a7c81e1f4894e2b29de37883269ff434d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c81e1f4894e2b29de37883269ff434d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c81e1f4894e2b29de37883269ff434d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +283,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae2af958d2fb47fd5b3ab86db447fd00c" name="ae2af958d2fb47fd5b3ab86db447fd00c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2af958d2fb47fd5b3ab86db447fd00c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2af958d2fb47fd5b3ab86db447fd00c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +313,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1d668492b9fee6d327b8ff53ffd6a100" name="a1d668492b9fee6d327b8ff53ffd6a100"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d668492b9fee6d327b8ff53ffd6a100">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d668492b9fee6d327b8ff53ffd6a100">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,8 +342,68 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aaf54df2bc4c9ad041ba9e4c2d6f69c37" name="aaf54df2bc4c9ad041ba9e4c2d6f69c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf54df2bc4c9ad041ba9e4c2d6f69c37">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PasDeSaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aucune touche de saut → ni pressé ni maintenu. </p>
+
+</div>
+</div>
+<a id="a7db08aeca730e98a9d9c850799724c94" name="a7db08aeca730e98a9d9c850799724c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db08aeca730e98a9d9c850799724c94">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SautMaintenuN_estPasUnFront&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saut <b>maintenu</b> sans nouveau front → <code>jumpHeld</code> vrai mais <code>jumpPressed</code> faux. </p>
+
+</div>
+</div>
 <a id="abfe237996cd027a26b6ee9be30a3f86d" name="abfe237996cd027a26b6ee9be30a3f86d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfe237996cd027a26b6ee9be30a3f86d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abfe237996cd027a26b6ee9be30a3f86d">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,6 +429,36 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Touches alternatives ZQSD : Q → gauche, D → droite. </p>
+
+</div>
+</div>
+<a id="aae9903c7d9e3cde20427f3b04f1d0d4f" name="aae9903c7d9e3cde20427f3b04f1d0d4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae9903c7d9e3cde20427f3b04f1d0d4f">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">WEquivautEspacePourLeSaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>W</code> équivaut à Espace pour le saut. </p>
 
 </div>
 </div>

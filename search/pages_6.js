@@ -27,5 +27,6 @@ var searchData=
   ['conventions_20de_20code_24',['Conventions de code',['../spec-conventions.html',1,'specifications']]],
   ['conventions_20incluses_25',['TACHE-04 — Pages de spécification navigables (conventions incluses)',['../lot-04-tache-04-pages-specification.html',1,'lot-04']]],
   ['core_26',['core',['../lot-03.html',1,'LOT-03 — Fondation ECS &amp; mathématiques `Core`'],['../lot-03-tache-01-math-core.html',1,'TACHE-01 — Types mathématiques de `Core`']]],
-  ['cycle_20de_20vie_27',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]]
+  ['coyote_20time_20jump_20buffering_27',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
+  ['cycle_20de_20vie_28',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]]
 ];

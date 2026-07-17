@@ -101,7 +101,7 @@ Contexte</h1>
 Travail à réaliser</h1>
 <ul>
 <li><b>Format du catalogue</b> : un <b>fichier texte par langue</b> (<code>fr.lang</code>, puis <code>en.lang</code>, …), <b>une paire <code>clé = valeur</code> par ligne</b>, encodage <b>UTF-8</b>, commentaires en <code>#</code> et lignes vides ignorés. Choisi volontairement simple (pas de dépendance JSON à ce stade — le JSON est réservé aux niveaux, cf. <code>EX-LVL-003</code>) et éditable à la main.</li>
-<li><b>Fichier français</b> <code>fr.lang</code> (langue par défaut) portant au minimum les clés du lot : <code>menu.titre</code>, <code>menu.charger_niveau</code>, <code>menu.mode_edition</code>, <code>menu.quitter</code>, <code>editeur.a_venir</code>.</li>
+<li><b>Fichier français</b> <code>fr.lang</code> (langue par défaut) portant au minimum les clés du lot : <code>menu.titre</code>, <code>menu.jouer</code>, <code>menu.mode_edition</code>, <code>menu.quitter</code>, <code>editeur.a_venir</code>.</li>
 <li><b>Service <code>Localization</code></b> (dans <code>HMI/Localization</code>) :<ul>
 <li><code>loadLanguage(id)</code> charge le fichier <code>&lt;id&gt;.lang</code> en mémoire (map clé → valeur) ;</li>
 <li><code>text(clé)</code> renvoie la chaîne de la langue active ;</li>

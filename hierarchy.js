@@ -37,6 +37,7 @@ var hierarchy =
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelLoader", "classcore_1_1LevelLoader.html", null ],
     [ "core::LevelLoadResult", "structcore_1_1LevelLoadResult.html", null ],
+    [ "hmi::LevelSequence", "classhmi_1_1LevelSequence.html", null ],
     [ "hmi::Localization", "classhmi_1_1Localization.html", null ],
     [ "core::Logger", "classcore_1_1Logger.html", null ],
     [ "core::Mechanism", "structcore_1_1Mechanism.html", null ],

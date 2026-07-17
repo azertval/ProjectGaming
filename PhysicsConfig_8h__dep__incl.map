@@ -1,14 +1,18 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/PhysicsConfig.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/PhysicsConfig.h">
-<area shape="rect" id="Node000001" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="411,5,632,60"/>
-<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="309,108,568,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="495,73,467,109,462,106,490,70"/>
-<area shape="rect" id="Node000007" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="534,225,757,295"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="556,69,582,107,614,168,636,224,631,226,609,170,578,109,551,72"/>
+<area shape="rect" id="Node000001" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="740,5,961,60"/>
+<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="515,108,773,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="789,69,710,110,707,105,787,64"/>
+<area shape="rect" id="Node000007" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="779,225,1002,295"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="860,73,879,177,887,225,882,226,873,178,855,74"/>
+<area shape="rect" id="Node000009" href="$test__player__components_8cpp.html" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut." alt="" coords="888,108,1109,177"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="899,66,954,105,951,110,896,70"/>
 <area shape="rect" id="Node000003" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,225,264,295"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="338,185,224,228,223,223,336,180"/>
-<area shape="rect" id="Node000004" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="288,233,509,287"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="425,191,410,233,405,232,420,190"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="512,182,586,223,584,227,509,186"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="502,178,277,228,265,231,263,225,275,223,500,173"/>
+<area shape="rect" id="Node000004" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="288,233,509,287"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="561,186,456,235,453,230,559,181"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="729,181,820,223,817,228,727,186"/>
+<area shape="rect" id="Node000008" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="533,225,755,295"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="647,191,647,225,641,225,641,191"/>
 <area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="161,343,389,397"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="359,299,307,344,303,340,356,295"/>
 <area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="413,343,635,397"/>

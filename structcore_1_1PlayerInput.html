@@ -105,13 +105,51 @@ $(document).ready(function(){initNavTree('structcore_1_1PlayerInput.html',''); i
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:adce05fa0a13062c53bfef04c63b85623" id="r_adce05fa0a13062c53bfef04c63b85623"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623">moveX</a> = 0.0f</td></tr>
-<tr class="memdesc:adce05fa0a13062c53bfef04c63b85623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :Le -1 = vers la gauche, +1 = vers la droite, 0 = immobile.  <br /></td></tr>
+<tr class="memdesc:adce05fa0a13062c53bfef04c63b85623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] : -1 = vers la gauche, +1 = vers la droite, 0 = immobile.  <br /></td></tr>
 <tr class="separator:adce05fa0a13062c53bfef04c63b85623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b085dfdd9bfdf1f3f5a743cf9658b23" id="r_a3b085dfdd9bfdf1f3f5a743cf9658b23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23">jumpPressed</a> = false</td></tr>
+<tr class="memdesc:a3b085dfdd9bfdf1f3f5a743cf9658b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saut <b>vient d'être pressé</b> cette frame (front montant) : déclenche le saut et alimente le <em>jump buffering</em> (<code>EX-CTRL-011</code>).  <br /></td></tr>
+<tr class="separator:a3b085dfdd9bfdf1f3f5a743cf9658b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb113d4f6429ea94935827f5b2e93db" id="r_a8fb113d4f6429ea94935827f5b2e93db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db">jumpHeld</a> = false</td></tr>
+<tr class="memdesc:a8fb113d4f6429ea94935827f5b2e93db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton de saut <b>maintenu</b> : sert à la hauteur de saut variable (relâcher tôt = petit saut).  <br /></td></tr>
+<tr class="separator:a8fb113d4f6429ea94935827f5b2e93db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><b>Intention</b> de déplacement transmise à la physique, dissociée de toute touche. </p>
 <p>Contrat entre la couche d'entrée (<code>HMI</code>, qui traduit clavier/manette — <code>EX-CTRL-010</code>) et la simulation (<code>Core</code>, qui l'applique). <code>Core</code> ne connaît <b>que</b> cette intention : il ignore les touches, ce qui garde la simulation testable et permettra remappage/manette sans le modifier. Donnée pure, transitoire (re-remplie chaque frame), passée au <code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code>. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8fb113d4f6429ea94935827f5b2e93db" name="a8fb113d4f6429ea94935827f5b2e93db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fb113d4f6429ea94935827f5b2e93db">&#9670;&#160;</a></span>jumpHeld</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::jumpHeld = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bouton de saut <b>maintenu</b> : sert à la hauteur de saut variable (relâcher tôt = petit saut). </p>
+
+</div>
+</div>
+<a id="a3b085dfdd9bfdf1f3f5a743cf9658b23" name="a3b085dfdd9bfdf1f3f5a743cf9658b23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b085dfdd9bfdf1f3f5a743cf9658b23">&#9670;&#160;</a></span>jumpPressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayerInput::jumpPressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saut <b>vient d'être pressé</b> cette frame (front montant) : déclenche le saut et alimente le <em>jump buffering</em> (<code>EX-CTRL-011</code>). </p>
+
+</div>
+</div>
 <a id="adce05fa0a13062c53bfef04c63b85623" name="adce05fa0a13062c53bfef04c63b85623"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adce05fa0a13062c53bfef04c63b85623">&#9670;&#160;</a></span>moveX</h2>
 
@@ -124,7 +162,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] :Le -1 = vers la gauche, +1 = vers la droite, 0 = immobile. </p>
+<p>Intention de déplacement horizontal, normalisée dans l'intervalle [-1, 1] : -1 = vers la gauche, +1 = vers la droite, 0 = immobile. </p>
 
 </div>
 </div>

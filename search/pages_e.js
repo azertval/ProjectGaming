@@ -22,6 +22,7 @@ var searchData=
   ['lot_2006_20—_20menu_20principal_19',['LOT-06 — Menu principal',['../lot-06.html',1,'lots']]],
   ['lot_2007_20—_20niveaux_20_3a_20modèle_20et_20chargement_20',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
   ['lot_2008_20—_20gameplay_20personnage_20_3a_20déplacement_20gravité_20et_20collisions_21',['LOT-08 — Gameplay personnage : déplacement, gravité et collisions',['../lot-08.html',1,'lots']]],
-  ['lots_22',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_23',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2009_20—_20saut_20game_20feel_20et_20enchaînement_20de_20niveaux_22',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
+  ['lots_23',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_24',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

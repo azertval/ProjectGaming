@@ -107,11 +107,33 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a36776822edfa4ee73e00f620aa007085" id="r_a36776822edfa4ee73e00f620aa007085"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085">grounded</a> = false</td></tr>
 <tr class="memdesc:a36776822edfa4ee73e00f620aa007085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le personnage repose sur une surface solide ; calculé par la physique.  <br /></td></tr>
 <tr class="separator:a36776822edfa4ee73e00f620aa007085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f291499ab2b7c27220c071a590b97a" id="r_a69f291499ab2b7c27220c071a590b97a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a">coyoteTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a69f291499ab2b7c27220c071a590b97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) pendant lequel un saut est encore permis après avoir quitté le sol (<em>coyote time</em>) ; rechargé au contact du sol, décompté par la physique au pas fixe.  <br /></td></tr>
+<tr class="separator:a69f291499ab2b7c27220c071a590b97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57dfc80a1b22f8c10cd6a2cff4b9e47e" id="r_a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e">jumpBufferTimer</a> = 0.0f</td></tr>
+<tr class="memdesc:a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps restant (secondes) de validité d'un saut pré-appuyé avant l'atterrissage (<em>jump buffering</em>) ; rechargé à l'appui, décompté par la physique au pas fixe.  <br /></td></tr>
+<tr class="separator:a57dfc80a1b22f8c10cd6a2cff4b9e47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol. </p>
-<p>Donnée pure sans logique (<code>EX-ARCH-011</code>). Sa présence sur une entité signale à la physique (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code>) que celle-ci est pilotée par l'intention d'entrée (<a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>) et soumise à la gravité. L'état « au sol » est <b>calculé par la physique</b> (mis à <code>true</code> quand un contact bloquant se produit sous le personnage) et sert la caméra ainsi que le futur saut (<code>EX-GP-013</code>, hors périmètre de ce lot). </p>
+<p>Donnée pure sans logique (<code>EX-ARCH-011</code>). Sa présence sur une entité signale à la physique (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></code>) que celle-ci est pilotée par l'intention d'entrée (<a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>) et soumise à la gravité. L'état « au sol » est <b>calculé par la physique</b> (mis à <code>true</code> quand un contact bloquant se produit sous le personnage) et sert la caméra et le <b>saut</b> (<code>EX-GP-013</code>). Les minuteries <code>coyoteTimer</code>/<code>jumpBufferTimer</code> portent l'état de <em>game feel</em> du saut (coyote time, jump buffering), décompté par la physique au pas fixe. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a69f291499ab2b7c27220c071a590b97a" name="a69f291499ab2b7c27220c071a590b97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f291499ab2b7c27220c071a590b97a">&#9670;&#160;</a></span>coyoteTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::coyoteTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) pendant lequel un saut est encore permis après avoir quitté le sol (<em>coyote time</em>) ; rechargé au contact du sol, décompté par la physique au pas fixe. </p>
+
+</div>
+</div>
 <a id="a36776822edfa4ee73e00f620aa007085" name="a36776822edfa4ee73e00f620aa007085"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36776822edfa4ee73e00f620aa007085">&#9670;&#160;</a></span>grounded</h2>
 
@@ -125,6 +147,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si le personnage repose sur une surface solide ; calculé par la physique. </p>
+
+</div>
+</div>
+<a id="a57dfc80a1b22f8c10cd6a2cff4b9e47e" name="a57dfc80a1b22f8c10cd6a2cff4b9e47e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57dfc80a1b22f8c10cd6a2cff4b9e47e">&#9670;&#160;</a></span>jumpBufferTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::jumpBufferTimer = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps restant (secondes) de validité d'un saut pré-appuyé avant l'atterrissage (<em>jump buffering</em>) ; rechargé à l'appui, décompté par la physique au pas fixe. </p>
 
 </div>
 </div>

@@ -34,7 +34,7 @@
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1335,184,1335,225,1329,225,1329,184"/>
 <area shape="rect" id="Node000008" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1004,445,1225,500"/>
 <area shape="poly" id="edge23_Node000006_Node000008" title=" " alt="" coords="1208,158,1134,168,1062,183,1003,202,981,214,966,227,959,240,957,251,966,279,976,294,987,304,1000,313,1014,326,1062,388,1100,444,1096,447,1058,392,1010,330,996,317,983,308,972,298,962,281,952,252,954,238,962,224,978,210,1001,198,1061,178,1133,163,1207,152"/>
-<area shape="rect" id="Node000009" href="$GameScreen_8h.html" title="Écran de jeu : charge un niveau depuis un fichier et l&#39;affiche." alt="" coords="976,225,1197,280"/>
+<area shape="rect" id="Node000009" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="976,225,1197,280"/>
 <area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="1261,178,1148,228,1145,223,1258,173"/>
 <area shape="rect" id="Node000010" href="$MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="1568,225,1789,280"/>
 <area shape="poly" id="edge12_Node000006_Node000010" title=" " alt="" coords="1430,172,1595,223,1594,228,1429,177"/>

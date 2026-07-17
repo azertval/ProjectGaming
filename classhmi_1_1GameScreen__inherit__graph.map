@@ -1,5 +1,5 @@
 <map id="hmi::GameScreen" name="hmi::GameScreen">
-<area shape="rect" id="Node000001" title="Écran de jeu affichant un niveau chargé depuis un fichier (EX&#45;REN&#45;010)." alt="" coords="5,79,144,104"/>
+<area shape="rect" id="Node000001" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers." alt="" coords="5,79,144,104"/>
 <area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="23,5,126,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,44,77,79,72,79,72,44"/>
 </map>

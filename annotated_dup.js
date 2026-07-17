@@ -46,6 +46,7 @@ var annotated_dup =
       [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
       [ "IScreen", "classhmi_1_1IScreen.html", "classhmi_1_1IScreen" ],
       [ "LanguageSelector", "classhmi_1_1LanguageSelector.html", "classhmi_1_1LanguageSelector" ],
+      [ "LevelSequence", "classhmi_1_1LevelSequence.html", "classhmi_1_1LevelSequence" ],
       [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
       [ "MenuModel", "classhmi_1_1MenuModel.html", "classhmi_1_1MenuModel" ],
       [ "MenuScreen", "classhmi_1_1MenuScreen.html", "classhmi_1_1MenuScreen" ],

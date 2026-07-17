@@ -140,7 +140,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md511", null ],
+      [ "Lots", "lots.html#autotoc_md563", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md87", null ],
         [ "Périmètre", "lot-01.html#autotoc_md88", [
@@ -688,15 +688,82 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-08-tache-06-integration-jouable.html#autotoc_md509", null ],
           [ "Exigences", "lot-08-tache-06-integration-jouable.html#autotoc_md510", null ]
         ] ]
+      ] ],
+      [ "LOT-09 — Saut, game feel et enchaînement de niveaux", "lot-09.html", [
+        [ "Objectif", "lot-09.html#autotoc_md511", null ],
+        [ "Périmètre", "lot-09.html#autotoc_md512", [
+          [ "Inclus", "lot-09.html#autotoc_md513", null ],
+          [ "Exclus (lots ultérieurs)", "lot-09.html#autotoc_md514", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-09.html#autotoc_md515", null ],
+        [ "Exigences couvertes", "lot-09.html#autotoc_md516", null ],
+        [ "Découpage", "lot-09.html#autotoc_md517", null ],
+        [ "Critères d'acceptation du lot", "lot-09.html#autotoc_md518", null ],
+        [ "Dépendances", "lot-09.html#autotoc_md519", null ],
+        [ "Navigation des tâches", "lot-09.html#autotoc_md520", null ],
+        [ "TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig`", "lot-09-tache-01-donnees-saut.html", [
+          [ "Contexte", "lot-09-tache-01-donnees-saut.html#autotoc_md521", null ],
+          [ "Travail à réaliser", "lot-09-tache-01-donnees-saut.html#autotoc_md522", null ],
+          [ "Fichiers impactés", "lot-09-tache-01-donnees-saut.html#autotoc_md523", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-01-donnees-saut.html#autotoc_md524", null ],
+          [ "Points d'attention", "lot-09-tache-01-donnees-saut.html#autotoc_md525", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-01-donnees-saut.html#autotoc_md526", null ],
+          [ "Exigences", "lot-09-tache-01-donnees-saut.html#autotoc_md527", null ]
+        ] ],
+        [ "TACHE-02 — Mapping du saut (`Espace`/`W` → intention)", "lot-09-tache-02-mapping-saut.html", [
+          [ "Contexte", "lot-09-tache-02-mapping-saut.html#autotoc_md528", null ],
+          [ "Travail à réaliser", "lot-09-tache-02-mapping-saut.html#autotoc_md529", null ],
+          [ "Fichiers impactés", "lot-09-tache-02-mapping-saut.html#autotoc_md530", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-02-mapping-saut.html#autotoc_md531", null ],
+          [ "Points d'attention", "lot-09-tache-02-mapping-saut.html#autotoc_md532", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-02-mapping-saut.html#autotoc_md533", null ],
+          [ "Exigences", "lot-09-tache-02-mapping-saut.html#autotoc_md534", null ]
+        ] ],
+        [ "TACHE-03 — Saut au sol + hauteur variable", "lot-09-tache-03-saut-hauteur-variable.html", [
+          [ "Contexte", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md535", null ],
+          [ "Travail à réaliser", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md536", null ],
+          [ "Fichiers impactés", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md537", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md538", null ],
+          [ "Points d'attention", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md539", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md540", null ],
+          [ "Exigences", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md541", null ]
+        ] ],
+        [ "TACHE-04 — Coyote time + jump buffering", "lot-09-tache-04-coyote-buffering.html", [
+          [ "Contexte", "lot-09-tache-04-coyote-buffering.html#autotoc_md542", null ],
+          [ "Travail à réaliser", "lot-09-tache-04-coyote-buffering.html#autotoc_md543", null ],
+          [ "Fichiers impactés", "lot-09-tache-04-coyote-buffering.html#autotoc_md544", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-04-coyote-buffering.html#autotoc_md545", null ],
+          [ "Points d'attention", "lot-09-tache-04-coyote-buffering.html#autotoc_md546", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-04-coyote-buffering.html#autotoc_md547", null ],
+          [ "Exigences", "lot-09-tache-04-coyote-buffering.html#autotoc_md548", null ]
+        ] ],
+        [ "TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)", "lot-09-tache-05-enchainement-niveaux.html", [
+          [ "Contexte", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md549", null ],
+          [ "Travail à réaliser", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md550", null ],
+          [ "Fichiers impactés", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md551", null ],
+          [ "Vérification / tests", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md552", null ],
+          [ "Points d'attention", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md553", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md554", null ],
+          [ "Exigences", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md555", null ]
+        ] ],
+        [ "TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve", "lot-09-tache-06-niveaux-demo.html", [
+          [ "Contexte", "lot-09-tache-06-niveaux-demo.html#autotoc_md556", null ],
+          [ "Travail à réaliser", "lot-09-tache-06-niveaux-demo.html#autotoc_md557", null ],
+          [ "Fichiers impactés", "lot-09-tache-06-niveaux-demo.html#autotoc_md558", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-06-niveaux-demo.html#autotoc_md559", null ],
+          [ "Points d'attention", "lot-09-tache-06-niveaux-demo.html#autotoc_md560", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-06-niveaux-demo.html#autotoc_md561", null ],
+          [ "Exigences", "lot-09-tache-06-niveaux-demo.html#autotoc_md562", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md512", null ],
-      [ "À venir", "manuel.html#autotoc_md513", null ],
+      [ "Pages", "manuel.html#autotoc_md564", null ],
+      [ "À venir", "manuel.html#autotoc_md565", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md514", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md515", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md516", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md566", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md567", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md568", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -737,15 +804,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Aabb_8h.html",
-"TileMap_8h_source.html",
-"classcore_1_1View_1_1Iterator.html",
-"classhmi_1_1InputState.html#a88904c498ce8939978b988bc685dc904",
-"classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d",
-"lot-02-tache-02-sinks.html#autotoc_md147",
-"lot-06-tache-03-catalogue-traduction.html#autotoc_md368",
-"namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff",
-"structcore_1_1Vector2.html#a53fe7ef62405da41a3ee05b3081cab87",
-"test__math__utils_8cpp.html#aa23edd61e47d2332603bb86cdbc2f9f5"
+"TileMap_8cpp.html",
+"classcore_1_1View.html#af9deaef919667673a6f66212ed15cc54",
+"classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb",
+"classhmi_1_1SpriteBatch.html#afd70f31ebe3105c00cb64db5c68fc07c",
+"lot-01-tache-04-effacement-presentation.html#autotoc_md118",
+"lot-05-tache-06-cablage-world-demo.html#autotoc_md340",
+"lot-09-tache-06-niveaux-demo.html#autotoc_md560",
+"structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0",
+"test__boucle__simulation_8cpp.html#a50e2d082ef55dd83c84d068b0a6781aa"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

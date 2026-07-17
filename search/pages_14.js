@@ -9,5 +9,7 @@ var searchData=
   ['rendu_20de_20texte_20police_20bitmap_6',['TACHE-02 — Rendu de texte (police bitmap)',['../lot-06-tache-02-rendu-texte-bitmap.html',1,'lot-06']]],
   ['rendu_20des_20sprites_20ecs_20→_20écran_7',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
   ['rendu_20du_20niveau_20intégration_20«_20charger_20niveau_20»_8',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
-  ['requêtes_20vues_20multi_20composants_9',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]]
+  ['requêtes_20vues_20multi_20composants_9',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
+  ['requis_20preuve_10',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
+  ['retour_20titre_11',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]]
 ];

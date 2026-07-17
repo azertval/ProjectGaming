@@ -9,7 +9,7 @@ var searchData=
   ['intégration_20jouable_20dans_20gamescreen_20cadrage_20fixe_20succès_20échec_6',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
   ['intégration_20main_20boucle_20pilotée_20par_20l_20écran_7',['TACHE-07 — Intégration `main` (boucle pilotée par l&apos;écran)',['../lot-06-tache-07-integration-main.html',1,'lot-06']]],
   ['intégration_20main_20vérification_8',['TACHE-05 — Intégration `main` &amp; vérification',['../lot-01-tache-05-integration.html',1,'lot-01']]],
-  ['intention_9',['TACHE-05 — Actions logiques d&apos;entrée (mapping touches → intention)',['../lot-08-tache-05-actions-logiques.html',1,'lot-08']]],
+  ['intention_9',['intention',['../lot-09-tache-02-mapping-saut.html',1,'TACHE-02 — Mapping du saut (`Espace`/`W` → intention)'],['../lot-08-tache-05-actions-logiques.html',1,'TACHE-05 — Actions logiques d&apos;entrée (mapping touches → intention)']]],
   ['intention_20d_20entrée_10',['TACHE-01 — Composants du personnage &amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
   ['interface_20logger_11',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]]
 ];

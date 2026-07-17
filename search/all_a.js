@@ -5,5 +5,6 @@ var searchData=
   ['_3a_20ecs_2',['2. Modèle d&apos;entités : ECS',['../spec-architecture.html#autotoc_md5',1,'']]],
   ['_3a_20ecs_20maison_20vs_20bibliothèque_3',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md169',1,'']]],
   ['_3a_20handles_20générationnels_20cycle_20de_20vie_4',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
-  ['_3a_20modèle_20et_20chargement_5',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]]
+  ['_3a_20modèle_20et_20chargement_5',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['_3a_20playerinput_20player_20physicsconfig_6',['TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig`',['../lot-09-tache-01-donnees-saut.html',1,'lot-09']]]
 ];

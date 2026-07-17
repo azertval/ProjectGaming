@@ -11,5 +11,8 @@ var searchData=
   ['assertions_20projectgaming_5fassert_8',['TACHE-04 — Assertions `PROJECTGAMING_ASSERT`',['../lot-02-tache-04-assertions.html',1,'lot-02']]],
   ['atlas_20de_20textures_20procédural_9',['TACHE-03 — Atlas de textures procédural',['../lot-05-tache-03-atlas-procedural.html',1,'lot-05']]],
   ['atlas_20sprites_20caméra_10',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
-  ['au_20pas_20fixe_11',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['au_20pas_20fixe_11',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
+  ['au_20sol_20hauteur_20variable_12',['TACHE-03 — Saut au sol + hauteur variable',['../lot-09-tache-03-saut-hauteur-variable.html',1,'lot-09']]],
+  ['auto_20avance_20retour_20titre_13',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
+  ['avance_20retour_20titre_14',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]]
 ];

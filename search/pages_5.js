@@ -6,5 +6,6 @@ var searchData=
   ['boucle_20à_20pas_20de_20temps_20fixe_20testable_3',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
   ['boucle_20de_20jeu_20direct3d_2011_4',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
   ['boucle_20pilotée_20par_20l_20écran_5',['TACHE-07 — Intégration `main` (boucle pilotée par l&apos;écran)',['../lot-06-tache-07-integration-main.html',1,'lot-06']]],
-  ['boucle_20scène_20de_20démo_6',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]]
+  ['boucle_20scène_20de_20démo_6',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
+  ['buffering_7',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]]
 ];

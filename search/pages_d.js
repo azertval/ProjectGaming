@@ -6,5 +6,6 @@ var searchData=
   ['jouable_20dans_20gamescreen_20cadrage_20fixe_20succès_20échec_3',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
   ['journalisation_20diagnostics_4',['LOT-02 — Journalisation &amp; diagnostics',['../lot-02.html',1,'lots']]],
   ['json_5',['TACHE-03 — Chargement du niveau (JSON)',['../lot-07-tache-03-chargement-json.html',1,'lot-07']]],
-  ['json_20nlohmann_20json_20épinglé_6',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]]
+  ['json_20nlohmann_20json_20épinglé_6',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
+  ['jump_20buffering_7',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]]
 ];

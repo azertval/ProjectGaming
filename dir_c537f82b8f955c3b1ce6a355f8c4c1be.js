@@ -7,6 +7,7 @@ var dir_c537f82b8f955c3b1ce6a355f8c4c1be =
     [ "IScreen.h", "IScreen_8h.html", "IScreen_8h" ],
     [ "LanguageSelector.cpp", "LanguageSelector_8cpp.html", null ],
     [ "LanguageSelector.h", "LanguageSelector_8h.html", "LanguageSelector_8h" ],
+    [ "LevelSequence.h", "LevelSequence_8h.html", "LevelSequence_8h" ],
     [ "MenuModel.cpp", "MenuModel_8cpp.html", "MenuModel_8cpp" ],
     [ "MenuModel.h", "MenuModel_8h.html", "MenuModel_8h" ],
     [ "MenuScreen.cpp", "MenuScreen_8cpp.html", null ],
