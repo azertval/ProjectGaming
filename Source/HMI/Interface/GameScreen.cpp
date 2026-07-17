@@ -18,6 +18,7 @@
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -96,16 +97,17 @@ void GameScreen::loadLevel(const std::filesystem::path& path) {
                  std::to_string(_levelHeight) + ")");
 }
 
-// Fait apparaitre le personnage a l'entree du niveau (voir en-tete).
+// Fait apparaitre le personnage humanoide (0,4x0,8), centre dans la tuile d'entree (voir en-tete).
 void GameScreen::spawnPlayer(core::GridPosition entry) {
     _player = _world.createEntity();
-    _world.addComponent(_player, core::Transform{core::Vector2{static_cast<float>(entry.column),
-                                                               static_cast<float>(entry.row)},
-                                                 core::Vector2{1.0f, 1.0f}, 0.0f});
+    const core::Vector2 size = core::playerSize();  // collision ET rendu partagent la meme taille
+    _world.addComponent(
+        _player, core::Transform{core::playerSpawnPosition(entry.column, entry.row), size, 0.0f});
     _world.addComponent(_player, core::Velocity{});
-    _world.addComponent(_player, core::Collider{core::Vector2{1.0f, 1.0f}});
+    _world.addComponent(_player, core::Collider{size});
     _world.addComponent(_player, core::Player{});
-    // Sprite du personnage : couche haute (dessine par-dessus les tuiles), teinte claire.
+    // Sprite du personnage : couche haute (dessine par-dessus les tuiles), teinte claire. La
+    // taille a l'ecran suit l'echelle du Transform (silhouette humanoide).
     core::Sprite sprite;
     sprite.region = _atlas.tile(1, 1);
     sprite.layer = 100;
@@ -113,11 +115,11 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
     _world.addComponent(_player, sprite);
 }
 
-// Remet le personnage a l'entree, immobile (apres un echec).
+// Remet le personnage a l'entree (centre), immobile (apres un echec).
 void GameScreen::resetPlayer() {
     const core::GridPosition entry = _level->entry();
     _world.getComponent<core::Transform>(_player).position =
-        core::Vector2{static_cast<float>(entry.column), static_cast<float>(entry.row)};
+        core::playerSpawnPosition(entry.column, entry.row);
     _world.getComponent<core::Velocity>(_player).value = core::Vector2{0.0f, 0.0f};
     _world.getComponent<core::Player>(_player).grounded = false;
 }
