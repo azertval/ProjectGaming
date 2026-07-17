@@ -10,6 +10,7 @@
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/PhysicsConfig.h"
 #include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/PlayerSpawn.h"
 
 /// Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au moment du spawn.
 TEST(PlayerComponentsTest, ColliderParDefautEstNul) {
@@ -62,6 +63,23 @@ TEST(PlayerComponentsTest, PhysicsConfigParDefautPlausible) {
     EXPECT_GT(config.wallJumpSpeedY, 0.0f);
     EXPECT_GT(config.dashSpeed, 0.0f);
     EXPECT_GT(config.dashDuration, 0.0f);
+    // Ressenti vertical (LOT-11) : chute renforcée (>1), flottement apex (<1), fast-fall (>1).
+    EXPECT_GT(config.fallGravityMultiplier, 1.0f);
+    EXPECT_GT(config.apexThreshold, 0.0f);
+    EXPECT_GT(config.apexGravityMultiplier, 0.0f);
+    EXPECT_LT(config.apexGravityMultiplier, 1.0f);
+    EXPECT_GT(config.fastFallMultiplier, 1.0f);
+}
+
+/// La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile.
+TEST(PlayerComponentsTest, TailleEtSpawnHumanoide) {
+    EXPECT_FLOAT_EQ(core::playerSize().x, 0.4f);
+    EXPECT_FLOAT_EQ(core::playerSize().y, 0.8f);
+
+    // Tuile (3, 5) : marges symétriques (1-0,4)/2 = 0,3 en x, (1-0,8)/2 = 0,1 en y.
+    const core::Vector2 spawn = core::playerSpawnPosition(3, 5);
+    EXPECT_FLOAT_EQ(spawn.x, 3.3f);
+    EXPECT_FLOAT_EQ(spawn.y, 5.1f);
 }
 
 /// Les composants sont des agrégats : l'initialisation par accolades renseigne les champs.

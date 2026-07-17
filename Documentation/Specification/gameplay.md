@@ -28,6 +28,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-015 **EX-GP-015** — Le personnage doit pouvoir effectuer un nombre **paramétrable** de sauts **aériens** supplémentaires (double/multi saut), **rechargés au contact du sol**.
 - \anchor EX-GP-016 **EX-GP-016** — Au contact d'un mur en l'air, le personnage doit **glisser** le long de celui-ci (wall slide) ; un saut le propulse alors **en diagonale opposée** au mur (wall jump).
 - \anchor EX-GP-017 **EX-GP-017** — Le personnage doit pouvoir **dasher** : une ruée directionnelle (**8 directions**) à vitesse élevée sur une **courte durée**, disponible une fois puis **rechargée au contact du sol**.
+- \anchor EX-GP-018 **EX-GP-018** — Le ressenti vertical doit être affiné : **gravité de chute renforcée** (chute plus rapide que la montée), **flottement à l'apex** (gravité réduite quand la vitesse verticale est faible) et **fast-fall** (chute accélérée en maintenant « bas »). La retombée reste sous gravité **constante** (à multiplicateur près), conformément à `EX-GP-011`.
 
 ### Ressenti (game feel) — ⚠️ à affiner par tests
 - Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.

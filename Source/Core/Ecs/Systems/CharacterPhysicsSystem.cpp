@@ -1,6 +1,7 @@
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 
 #include <algorithm>  // std::min / std::max (borne de chute, coupe de saut)
+#include <cmath>      // std::abs (détection de l'apex)
 
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Player.h"
@@ -101,8 +102,20 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                     velocity.value.x = input.moveX * _config.moveSpeed;
                 }
 
-                //   2. Gravité (y vers le bas → tomber = y positif), puis borne de chute :
-                velocity.value.y += _config.gravity * fixedDelta;
+                //   2. Gravité EFFECTIVE (EX-GP-018), y vers le bas → tomber = y positif :
+                //      base pour la montée ; × chute (plus rapide) ; × fast-fall si « bas » ;
+                //      × apex (flottement) quand la vitesse verticale est faible.
+                float gravity = _config.gravity;
+                if (velocity.value.y > 0.0f) {  // en chute
+                    gravity *= _config.fallGravityMultiplier;
+                    if (input.moveY > 0.0f) {  // « bas » maintenu → chute accélérée
+                        gravity *= _config.fastFallMultiplier;
+                    }
+                }
+                if (std::abs(velocity.value.y) < _config.apexThreshold) {  // proche de l'apex
+                    gravity *= _config.apexGravityMultiplier;
+                }
+                velocity.value.y += gravity * fixedDelta;
                 velocity.value.y = std::min(velocity.value.y, _config.maxFallSpeed);
 
                 //   2b. Wall slide : contre un mur, en l'air et en descente → chute ralentie

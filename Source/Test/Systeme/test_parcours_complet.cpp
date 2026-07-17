@@ -28,6 +28,7 @@
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/PlayerSpawn.h"
 
 namespace {
 
@@ -40,14 +41,14 @@ struct ScriptedLevel {
     std::function<core::PlayerInput(int)> input;
 };
 
-// Fait apparaître un personnage 1×1 à la position de grille donnée.
+// Fait apparaître le personnage à sa vraie taille (humanoïde 0,4×0,8), centré dans la tuile.
 core::Entity spawn(core::World& world, core::GridPosition at) {
     const core::Entity entity = world.createEntity();
-    world.addComponent(entity, core::Transform{core::Vector2{static_cast<float>(at.column),
-                                                             static_cast<float>(at.row)},
-                                               core::Vector2{1.0f, 1.0f}, 0.0f});
+    const core::Vector2 size = core::playerSize();
+    world.addComponent(entity,
+                       core::Transform{core::playerSpawnPosition(at.column, at.row), size, 0.0f});
     world.addComponent(entity, core::Velocity{});
-    world.addComponent(entity, core::Collider{core::Vector2{1.0f, 1.0f}});
+    world.addComponent(entity, core::Collider{size});
     world.addComponent(entity, core::Player{});
     return entity;
 }

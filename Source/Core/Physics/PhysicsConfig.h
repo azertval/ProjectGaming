@@ -45,6 +45,16 @@ struct PhysicsConfig {
     float dashSpeed = 15.0f;
     /// Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.
     float dashDuration = 0.15f;
+    /// Multiplicateur de gravité en **chute** (> 1) : la chute est plus rapide que la montée
+    /// (`EX-GP-018`). ⚠️ à affiner (~1,8).
+    float fallGravityMultiplier = 1.8f;
+    /// Seuil de vitesse verticale (unités/s) sous lequel on est « à l'apex » (flottement). ⚠️.
+    float apexThreshold = 4.0f;
+    /// Multiplicateur de gravité **près de l'apex** (< 1) : contrôle flottant au sommet. ⚠️.
+    float apexGravityMultiplier = 0.5f;
+    /// Multiplicateur de gravité **supplémentaire** en chute quand « bas » est maintenu
+    /// (*fast-fall*, > 1). ⚠️ à affiner (~1,6).
+    float fastFallMultiplier = 1.6f;
 };
 
 }  // namespace core
