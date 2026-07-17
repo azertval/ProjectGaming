@@ -23,6 +23,12 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-013 **EX-GP-013** — Le personnage ne doit pouvoir sauter que lorsqu'il est **au sol** (pas de double saut au MVP).
 - \anchor EX-GP-014 **EX-GP-014** — Les collisions personnage ↔ tuiles solides doivent être résolues sur les deux axes (pas de traversée à vitesse élevée — collision par balayage ou pas fixes).
 
+### Mécaniques aériennes avancées (au-delà du MVP)
+> Ces exigences **étendent** le MVP et **assouplissent** `EX-GP-013` (qui interdit le double saut) : non requises au MVP, elles visent un platformer aux mécaniques riches.
+- \anchor EX-GP-015 **EX-GP-015** — Le personnage doit pouvoir effectuer un nombre **paramétrable** de sauts **aériens** supplémentaires (double/multi saut), **rechargés au contact du sol**.
+- \anchor EX-GP-016 **EX-GP-016** — Au contact d'un mur en l'air, le personnage doit **glisser** le long de celui-ci (wall slide) ; un saut le propulse alors **en diagonale opposée** au mur (wall jump).
+- \anchor EX-GP-017 **EX-GP-017** — Le personnage doit pouvoir **dasher** : une ruée directionnelle (**8 directions**) à vitesse élevée sur une **courte durée**, disponible une fois puis **rechargée au contact du sol**.
+
 ### Ressenti (game feel) — ⚠️ à affiner par tests
 - Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.
 - Tolérances de confort recommandées : *coyote time* (~80 ms) et *jump buffering* (~120 ms).
