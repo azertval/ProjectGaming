@@ -37,13 +37,23 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             } else {
                 player.jumpBufferTimer = std::max(0.0f, player.jumpBufferTimer - fixedDelta);
             }
+            // Verrou horizontal du wall jump : l'éjection persiste tant qu'il n'est pas écoulé.
+            player.wallJumpLockTimer = std::max(0.0f, player.wallJumpLockTimer - fixedDelta);
+
             //   0a. Saut, y négatif = montée (EX-GP-011). Sources d'autorisation, dans l'ordre :
-            //       sol/coyote, puis saut AÉRIEN restant (double saut, EX-GP-015). On consomme le
-            //       buffer au déclenchement.
+            //       sol/coyote, puis MUR (wall jump, EX-GP-016), puis saut AÉRIEN (double saut,
+            //       EX-GP-015). On consomme le buffer au déclenchement.
             if (player.jumpBufferTimer > 0.0f) {
                 if (player.coyoteTimer > 0.0f) {
                     velocity.value.y = -_config.jumpSpeed;
                     player.coyoteTimer = 0.0f;  // consomme (pas de re-saut dans la fenêtre)
+                    player.jumpBufferTimer = 0.0f;
+                } else if (player.wallDirection != 0.0f) {
+                    // Éjection en diagonale OPPOSÉE au mur ; verrouille le contrôle horizontal
+                    // pour que la vitesse d'éjection porte le personnage loin du mur.
+                    velocity.value.x = -player.wallDirection * _config.wallJumpSpeedX;
+                    velocity.value.y = -_config.wallJumpSpeedY;
+                    player.wallJumpLockTimer = _config.wallJumpLockTime;
                     player.jumpBufferTimer = 0.0f;
                 } else if (player.airJumpsRemaining > 0) {
                     velocity.value.y = -_config.jumpSpeed;
@@ -59,12 +69,21 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                     std::max(velocity.value.y, -_config.jumpSpeed * _config.jumpCutFactor);
             }
 
-            //   1. Vitesse horizontale voulue (pas d'inertie au MVP, on écrase X) :
-            velocity.value.x = input.moveX * _config.moveSpeed;
+            //   1. Vitesse horizontale voulue (pas d'inertie). Pendant le verrou de wall jump, on
+            //      CONSERVE la vitesse d'éjection (contrôle horizontal suspendu).
+            if (player.wallJumpLockTimer <= 0.0f) {
+                velocity.value.x = input.moveX * _config.moveSpeed;
+            }
 
             //   2. Gravité (y vers le bas → tomber = y positif), puis borne de chute :
             velocity.value.y += _config.gravity * fixedDelta;
             velocity.value.y = std::min(velocity.value.y, _config.maxFallSpeed);
+
+            //   2b. Wall slide : contre un mur, en l'air et en descente → chute ralentie
+            //   (EX-GP-016).
+            if (player.wallDirection != 0.0f && !player.grounded && velocity.value.y > 0.0f) {
+                velocity.value.y = std::min(velocity.value.y, _config.wallSlideSpeed);
+            }
 
             //   3. Déplacement voulu sur ce pas :
             const Vector2 delta = velocity.value * fixedDelta;
@@ -88,6 +107,16 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
 
             //   8. État « au sol » = contact SOUS le personnage (normale vers le haut, y < 0) :
             player.grounded = (result.normal.y < 0.0f);
+
+            //   9. Contact MURAL : en l'air, blocage horizontal alors qu'on POUSSE vers le mur
+            //      (EX-GP-016). wallDirection = sens du mur (opposé à la normale du contact).
+            player.wallDirection = 0.0f;
+            if (!player.grounded && result.normal.x != 0.0f) {
+                const float wallDir = -result.normal.x;
+                if (input.moveX * wallDir > 0.0f) {  // l'intention va bien vers le mur
+                    player.wallDirection = wallDir;
+                }
+            }
         });
 }
 

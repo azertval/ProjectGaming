@@ -401,6 +401,71 @@ TEST(PhysiquePersonnageIntegration, DoubleSautNombreParametrable) {
     EXPECT_EQ(successfulJumps(0), 1);  // aucun saut aérien : 1 seul
 }
 
+/// Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).
+TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
+    core::World world;
+    core::TileMap tiles(8, 20);
+    for (int row = 0; row < 20; ++row) {  // mur vertical colonne 5
+        tiles.setTile(5, row, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 4.0f, 2.0f);  // à gauche du mur, en l'air
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput pushRight{1.0f};  // pousse vers le mur
+    for (int i = 0; i < 30; ++i) {
+        system.update(world, tiles, pushRight, STEP);
+    }
+
+    const core::PhysicsConfig config;
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_NE(world.getComponent<core::Player>(player).wallDirection, 0.0f);  // collé au mur
+    EXPECT_GT(velocity.value.y, 0.0f);                                        // descend
+    EXPECT_LE(velocity.value.y, config.wallSlideSpeed + 0.5f);  // ralenti (≪ chute libre ~25)
+}
+
+/// Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.
+TEST(PhysiquePersonnageIntegration, WallJumpEjecteAlOpposeDuMur) {
+    core::World world;
+    core::TileMap tiles(8, 20);
+    for (int row = 0; row < 20; ++row) {
+        tiles.setTile(5, row, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 4.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput pushRight{1.0f};
+    for (int i = 0; i < 20; ++i) {  // se coller au mur
+        system.update(world, tiles, pushRight, STEP);
+    }
+    ASSERT_NE(world.getComponent<core::Player>(player).wallDirection, 0.0f);
+
+    core::PlayerInput wallJump{1.0f};  // saut en poussant encore vers le mur
+    wallJump.jumpPressed = true;
+    wallJump.jumpHeld = true;
+    system.update(world, tiles, wallJump, STEP);
+
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_LT(velocity.value.x, 0.0f);  // éjecté à gauche (opposé au mur), malgré moveX = +1
+    EXPECT_LT(velocity.value.y, 0.0f);  // et vers le haut
+}
+
+/// Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).
+TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
+    core::World world;
+    core::TileMap tiles(8, 50);  // ni mur ni sol à portée
+    const core::Entity player = spawnPlayer(world, 4.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    system.update(world, tiles, core::PlayerInput{}, STEP);  // commence à tomber
+    ASSERT_FLOAT_EQ(world.getComponent<core::Player>(player).wallDirection, 0.0f);
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    const float before = world.getComponent<core::Velocity>(player).value.y;
+    system.update(world, tiles, jump, STEP);
+    const core::Velocity& velocity = world.getComponent<core::Velocity>(player);
+    EXPECT_FLOAT_EQ(velocity.value.x, 0.0f);  // aucune éjection horizontale
+    EXPECT_GT(velocity.value.y, before);      // continue de tomber (aucun saut disponible)
+}
+
 /// Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la sortie.
 TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
     const auto rightAndJump = [](int) {
