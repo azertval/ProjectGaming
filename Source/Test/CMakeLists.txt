@@ -2,32 +2,34 @@
 include(GoogleTest)
 
 add_executable(UnitTests
-    Unit/test_core.cpp
-    Unit/test_vector2.cpp
-    Unit/test_rect.cpp
-    Unit/test_math_utils.cpp
-    Unit/test_entity_manager.cpp
-    Unit/test_component_pool.cpp
-    Unit/test_view.cpp
-    Unit/test_world.cpp
-    Unit/test_player_components.cpp
-    Unit/test_level.cpp
-    Unit/test_level_loader.cpp
-    Unit/test_sprite.cpp
-    Unit/test_camera2d.cpp
-    Unit/test_fixed_timestep.cpp
-    Unit/test_logger.cpp
-    Unit/test_sinks.cpp
-    Unit/test_log_format.cpp
-    Unit/test_assert.cpp
-    Unit/test_input_state.cpp
-    Unit/test_localization.cpp
-    Unit/test_screen_manager.cpp
-    Unit/test_menu_model.cpp
-    Unit/test_language_selector.cpp
-    Unit/test_save_log_button.cpp
-    Unit/test_session_log.cpp
-    Unit/test_log_level_parse.cpp
+    # L'arborescence des tests unitaires reflète celle des sources (Source/) :
+    # le test de Source/<Module>/<X> vit sous Unit/<Module>/test_<x>.cpp.
+    Unit/Core/test_core.cpp
+    Unit/Core/Math/test_vector2.cpp
+    Unit/Core/Math/test_rect.cpp
+    Unit/Core/Math/test_math_utils.cpp
+    Unit/Core/Ecs/test_entity_manager.cpp
+    Unit/Core/Ecs/test_component_pool.cpp
+    Unit/Core/Ecs/test_view.cpp
+    Unit/Core/Ecs/test_world.cpp
+    Unit/Core/Ecs/test_sprite.cpp
+    Unit/Core/Ecs/test_player_components.cpp
+    Unit/Core/Levels/test_level.cpp
+    Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Time/test_fixed_timestep.cpp
+    Unit/Core/Diagnostics/test_logger.cpp
+    Unit/Core/Diagnostics/test_sinks.cpp
+    Unit/Core/Diagnostics/test_log_format.cpp
+    Unit/Core/Diagnostics/test_assert.cpp
+    Unit/Core/Diagnostics/test_log_level_parse.cpp
+    Unit/HMI/Input/test_input_state.cpp
+    Unit/HMI/Graphics/test_camera2d.cpp
+    Unit/HMI/Localization/test_localization.cpp
+    Unit/HMI/Interface/test_screen_manager.cpp
+    Unit/HMI/Interface/test_menu_model.cpp
+    Unit/HMI/Interface/test_language_selector.cpp
+    Unit/HMI/Interface/test_save_log_button.cpp
+    Unit/HMI/Interface/test_session_log.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
