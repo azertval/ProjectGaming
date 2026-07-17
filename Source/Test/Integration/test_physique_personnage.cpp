@@ -401,6 +401,98 @@ TEST(PhysiquePersonnageIntegration, DoubleSautNombreParametrable) {
     EXPECT_EQ(successfulJumps(0), 1);  // aucun saut aérien : 1 seul
 }
 
+/// Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018).
+TEST(PhysiquePersonnageIntegration, ChutePlusRapideQueLaMontee) {
+    core::World world;
+    core::TileMap tiles(4, 100);
+    fillRow(tiles, 90);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PhysicsConfig config;
+    for (int i = 0; i < 800; ++i) {  // se poser
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+
+    float riseDelta = -1.0f;
+    float fallDelta = -1.0f;
+    float previous = world.getComponent<core::Velocity>(player).value.y;
+    for (int i = 0; i < 250; ++i) {
+        core::PlayerInput hold;
+        hold.jumpHeld = true;  // maintenir : pas de coupe de hauteur
+        system.update(world, tiles, hold, STEP);
+        const float current = world.getComponent<core::Velocity>(player).value.y;
+        const float delta = current - previous;  // variation de vitesse verticale sur le pas
+        if (current < -config.apexThreshold - 2.0f && riseDelta < 0.0f) {
+            riseDelta = delta;  // en montée franche (hors apex) : gravité de base
+        }
+        if (current > config.apexThreshold + 2.0f && fallDelta < 0.0f) {
+            fallDelta = delta;  // en chute franche (hors apex) : gravité renforcée
+        }
+        previous = current;
+    }
+    ASSERT_GT(riseDelta, 0.0f);
+    ASSERT_GT(fallDelta, 0.0f);
+    EXPECT_GT(fallDelta, riseDelta * 1.3f);  // la chute est nettement plus « lourde »
+}
+
+/// Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).
+TEST(PhysiquePersonnageIntegration, ApexHangReduitLaGravite) {
+    core::World world;
+    core::TileMap tiles(4, 100);
+    fillRow(tiles, 90);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 800; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+
+    float earlyRise = -1.0f;
+    float atApex = -1.0f;
+    float previous = world.getComponent<core::Velocity>(player).value.y;
+    for (int i = 0; i < 250; ++i) {
+        core::PlayerInput hold;
+        hold.jumpHeld = true;
+        system.update(world, tiles, hold, STEP);
+        const float current = world.getComponent<core::Velocity>(player).value.y;
+        const float delta = current - previous;
+        if (current < -8.0f && earlyRise < 0.0f) {
+            earlyRise = delta;  // montée franche : gravité de base
+        }
+        if (current < 0.0f && current > -2.0f) {
+            atApex = delta;  // proche de l'apex (encore en montée) : gravité réduite
+        }
+        previous = current;
+    }
+    ASSERT_GT(earlyRise, 0.0f);
+    ASSERT_GT(atApex, 0.0f);
+    EXPECT_LT(atApex, earlyRise * 0.8f);  // moins de gravité au sommet
+}
+
+/// Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale.
+TEST(PhysiquePersonnageIntegration, FastFallAccelereLaChute) {
+    const auto fallDistance = [](bool holdDown) {
+        core::World world;
+        core::TileMap tiles(4, 200);  // pas de sol : chute libre
+        const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+        core::CharacterPhysicsSystem system;
+        for (int i = 0; i < 14; ++i) {
+            core::PlayerInput in;
+            in.moveY = holdDown ? 1.0f : 0.0f;  // « bas » maintenu ?
+            system.update(world, tiles, in, STEP);
+        }
+        return world.getComponent<core::Transform>(player).position.y;  // profondeur atteinte
+    };
+    EXPECT_GT(fallDistance(true), fallDistance(false));  // fast-fall descend plus bas
+}
+
 /// Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.
 TEST(PhysiquePersonnageIntegration, DashHorizontalRapide) {
     core::World world;
