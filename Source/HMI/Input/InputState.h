@@ -30,6 +30,10 @@ enum class Key : std::uint16_t {
     Up = 0x26,
     Right = 0x27,
     Down = 0x28,
+    A = 0x41,  // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
+    D = 0x44,
+    Q = 0x51,
+    W = 0x57,
 };
 
 /**

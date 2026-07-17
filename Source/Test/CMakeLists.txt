@@ -16,6 +16,7 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
@@ -24,6 +25,7 @@ add_executable(UnitTests
     Unit/Core/Diagnostics/test_assert.cpp
     Unit/Core/Diagnostics/test_log_level_parse.cpp
     Unit/HMI/Input/test_input_state.cpp
+    Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Interface/test_screen_manager.cpp
@@ -37,6 +39,8 @@ add_executable(UnitTests
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp
+    # Le mapping touches → intention est une logique pure, testable hors GPU.
+    ../HMI/Input/PlayerInputMapper.cpp
     # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
     ../HMI/Localization/Localization.cpp
     # La navigation entre écrans (transitions) est testable via une fabrique factice, hors GPU.

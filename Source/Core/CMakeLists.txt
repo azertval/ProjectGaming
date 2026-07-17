@@ -10,6 +10,7 @@ add_library(Core STATIC
     Levels/TileMap.cpp
     Levels/LevelLoader.cpp
     Levels/LevelScene.cpp
+    Levels/LevelOutcome.cpp
     Physics/SweptCollision.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
