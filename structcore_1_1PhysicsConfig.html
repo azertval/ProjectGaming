@@ -146,6 +146,18 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a2e06016d2850f9cf6772501a9d0267cb" id="r_a2e06016d2850f9cf6772501a9d0267cb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a2e06016d2850f9cf6772501a9d0267cb">dashDuration</a> = 0.15f</td></tr>
 <tr class="memdesc:a2e06016d2850f9cf6772501a9d0267cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée (secondes) du dash ; distance ≈ dashSpeed × dashDuration. ⚠️.  <br /></td></tr>
 <tr class="separator:a2e06016d2850f9cf6772501a9d0267cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d917394883028f145c989fd268e876c" id="r_a1d917394883028f145c989fd268e876c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a1d917394883028f145c989fd268e876c">fallGravityMultiplier</a> = 1.8f</td></tr>
+<tr class="memdesc:a1d917394883028f145c989fd268e876c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de gravité en <b>chute</b> (&gt; 1) : la chute est plus rapide que la montée (<code>EX-GP-018</code>).  <br /></td></tr>
+<tr class="separator:a1d917394883028f145c989fd268e876c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e782cd22d0d68a6e918286166fab6f4" id="r_a7e782cd22d0d68a6e918286166fab6f4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a7e782cd22d0d68a6e918286166fab6f4">apexThreshold</a> = 4.0f</td></tr>
+<tr class="memdesc:a7e782cd22d0d68a6e918286166fab6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil de vitesse verticale (unités/s) sous lequel on est « à l'apex » (flottement). ⚠️.  <br /></td></tr>
+<tr class="separator:a7e782cd22d0d68a6e918286166fab6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac393eb19e1428343e98922bcdd1451ab" id="r_ac393eb19e1428343e98922bcdd1451ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#ac393eb19e1428343e98922bcdd1451ab">apexGravityMultiplier</a> = 0.5f</td></tr>
+<tr class="memdesc:ac393eb19e1428343e98922bcdd1451ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de gravité <b>près de l'apex</b> (&lt; 1) : contrôle flottant au sommet. ⚠️.  <br /></td></tr>
+<tr class="separator:ac393eb19e1428343e98922bcdd1451ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86519b415dabe1d51ada36517647e603" id="r_a86519b415dabe1d51ada36517647e603"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a86519b415dabe1d51ada36517647e603">fastFallMultiplier</a> = 1.6f</td></tr>
+<tr class="memdesc:a86519b415dabe1d51ada36517647e603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplicateur de gravité <b>supplémentaire</b> en chute quand « bas » est maintenu (<em>fast-fall</em>, &gt; 1).  <br /></td></tr>
+<tr class="separator:a86519b415dabe1d51ada36517647e603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Paramètres réglables de la physique du personnage, regroupés pour faciliter le <em>tuning</em>. </p>
@@ -164,6 +176,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de sauts <b>aériens</b> supplémentaires (double/multi saut, <code>EX-GP-015</code>). Défaut 1. </p>
+
+</div>
+</div>
+<a id="ac393eb19e1428343e98922bcdd1451ab" name="ac393eb19e1428343e98922bcdd1451ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac393eb19e1428343e98922bcdd1451ab">&#9670;&#160;</a></span>apexGravityMultiplier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::apexGravityMultiplier = 0.5f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiplicateur de gravité <b>près de l'apex</b> (&lt; 1) : contrôle flottant au sommet. ⚠️. </p>
+
+</div>
+</div>
+<a id="a7e782cd22d0d68a6e918286166fab6f4" name="a7e782cd22d0d68a6e918286166fab6f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e782cd22d0d68a6e918286166fab6f4">&#9670;&#160;</a></span>apexThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::apexThreshold = 4.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seuil de vitesse verticale (unités/s) sous lequel on est « à l'apex » (flottement). ⚠️. </p>
 
 </div>
 </div>
@@ -212,6 +256,40 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vitesse de la ruée de <b>dash</b>, en unités/s (<code>EX-GP-017</code>). ⚠️. </p>
+
+</div>
+</div>
+<a id="a1d917394883028f145c989fd268e876c" name="a1d917394883028f145c989fd268e876c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d917394883028f145c989fd268e876c">&#9670;&#160;</a></span>fallGravityMultiplier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::fallGravityMultiplier = 1.8f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiplicateur de gravité en <b>chute</b> (&gt; 1) : la chute est plus rapide que la montée (<code>EX-GP-018</code>). </p>
+<p>⚠️ à affiner (~1,8). </p>
+
+</div>
+</div>
+<a id="a86519b415dabe1d51ada36517647e603" name="a86519b415dabe1d51ada36517647e603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86519b415dabe1d51ada36517647e603">&#9670;&#160;</a></span>fastFallMultiplier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::fastFallMultiplier = 1.6f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiplicateur de gravité <b>supplémentaire</b> en chute quand « bas » est maintenu (<em>fast-fall</em>, &gt; 1). </p>
+<p>⚠️ à affiner (~1,6). </p>
 
 </div>
 </div>

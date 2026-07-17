@@ -6,5 +6,6 @@ var searchData=
   ['player_2eh_3',['Player.h',['../Player_8h.html',1,'']]],
   ['playerinput_2eh_4',['PlayerInput.h',['../PlayerInput_8h.html',1,'']]],
   ['playerinputmapper_2ecpp_5',['PlayerInputMapper.cpp',['../PlayerInputMapper_8cpp.html',1,'']]],
-  ['playerinputmapper_2eh_6',['PlayerInputMapper.h',['../PlayerInputMapper_8h.html',1,'']]]
+  ['playerinputmapper_2eh_6',['PlayerInputMapper.h',['../PlayerInputMapper_8h.html',1,'']]],
+  ['playerspawn_2eh_7',['PlayerSpawn.h',['../PlayerSpawn_8h.html',1,'']]]
 ];

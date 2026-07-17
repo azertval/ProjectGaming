@@ -212,6 +212,12 @@ var NAVTREEINDEX0 =
 "PlayerInputMapper_8h_source.html":[8,0,2,1,1,3],
 "PlayerInput_8h.html":[8,0,2,0,4,2],
 "PlayerInput_8h_source.html":[8,0,2,0,4,2],
+"PlayerSpawn_8h.html":[8,0,2,0,4,3],
+"PlayerSpawn_8h.html#a478b06d0135ab7cd314b90791cfe7ba0":[8,0,2,0,4,3,1],
+"PlayerSpawn_8h.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb":[8,0,2,0,4,3,0],
+"PlayerSpawn_8h.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a":[8,0,2,0,4,3,2],
+"PlayerSpawn_8h.html#af90aca85784a36802e810be93df9800f":[8,0,2,0,4,3,3],
+"PlayerSpawn_8h_source.html":[8,0,2,0,4,3],
 "Player_8h.html":[8,0,2,0,1,0,1],
 "Player_8h_source.html":[8,0,2,0,1,0,1],
 "Rect_8cpp.html":[8,0,2,0,3,1],
@@ -243,11 +249,5 @@ var NAVTREEINDEX0 =
 "SpriteRenderer_8h_source.html":[8,0,2,1,0,14],
 "Sprite_8h.html":[8,0,2,0,1,0,2],
 "Sprite_8h_source.html":[8,0,2,0,1,0,2],
-"SweptCollision_8cpp.html":[8,0,2,0,4,3],
-"SweptCollision_8cpp.html#a4ca635df367666624247837feb2af5a5":[8,0,2,0,4,3,0],
-"SweptCollision_8h.html":[8,0,2,0,4,4],
-"SweptCollision_8h.html#a4ca635df367666624247837feb2af5a5":[8,0,2,0,4,4,1],
-"SweptCollision_8h_source.html":[8,0,2,0,4,4],
-"TextureAtlas_8cpp.html":[8,0,2,1,0,15],
-"TextureAtlas_8h.html":[8,0,2,1,0,16]
+"SweptCollision_8cpp.html":[8,0,2,0,4,4]
 };

@@ -8,7 +8,7 @@ var searchData=
   ['beginframe_5',['beginFrame',['../classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab',1,'hmi::InputState']]],
   ['bibliothèque_6',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md170',1,'']]],
   ['bitmap_7',['TACHE-02 — Rendu de texte (police bitmap)',['../lot-06-tache-02-rendu-texte-bitmap.html',1,'lot-06']]],
-  ['bitmapfont_8',['bitmapfont',['../classhmi_1_1BitmapFont.html#aceb78d34e59c4d1b32e1647a4ed4a2b6',1,'hmi::BitmapFont::BitmapFont()'],['../classhmi_1_1BitmapFont.html',1,'hmi::BitmapFont'],['../classhmi_1_1BitmapFont.html#a02df5ed7b73fa5bd98ca8fc1f00e6616',1,'hmi::BitmapFont::BitmapFont()']]],
+  ['bitmapfont_8',['bitmapfont',['../classhmi_1_1BitmapFont.html',1,'hmi::BitmapFont'],['../classhmi_1_1BitmapFont.html#aceb78d34e59c4d1b32e1647a4ed4a2b6',1,'hmi::BitmapFont::BitmapFont(const BitmapFont &amp;)=delete'],['../classhmi_1_1BitmapFont.html#a02df5ed7b73fa5bd98ca8fc1f00e6616',1,'hmi::BitmapFont::BitmapFont(ID3D11Device *device)']]],
   ['bitmapfont_2ecpp_9',['BitmapFont.cpp',['../BitmapFont_8cpp.html',1,'']]],
   ['bitmapfont_2eh_10',['BitmapFont.h',['../BitmapFont_8h.html',1,'']]],
   ['blend_20nearest_11',['TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)',['../lot-05-tache-02-pipeline-quads-textures.html',1,'lot-05']]],
@@ -21,11 +21,12 @@ var searchData=
   ['boucle_20scène_20de_20démo_18',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
   ['boucle_20temps_19',['3. Boucle &amp; temps',['../spec-rendu-technique.html#autotoc_md76',1,'']]],
   ['bref_20',['En bref',['../index.html#autotoc_md1',1,'']]],
-  ['buffering_21',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
-  ['buildconfig_2eh_22',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]],
-  ['buildlevelscene_23',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
-  ['burst_20durée_20recharge_20au_20sol_24',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]],
-  ['button_5fcount_25',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['button_5fheight_26',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
-  ['button_5fwidth_27',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
+  ['brique_20gpu_21',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md643',1,'']]],
+  ['buffering_22',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
+  ['buildconfig_2eh_23',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]],
+  ['buildlevelscene_24',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
+  ['burst_20durée_20recharge_20au_20sol_25',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]],
+  ['button_5fcount_26',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['button_5fheight_27',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
+  ['button_5fwidth_28',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
 ];

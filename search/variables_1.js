@@ -4,5 +4,7 @@ var searchData=
   ['accent_1',['accent',['../BitmapFont_8cpp.html#a81db296bba079bf7f37371ba95e96fd4',1,'BitmapFont.cpp']]],
   ['airjumps_2',['airJumps',['../structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273',1,'core::PhysicsConfig']]],
   ['airjumpsremaining_3',['airJumpsRemaining',['../structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9',1,'core::Player']]],
-  ['atlas_4',['atlas',['../structhmi_1_1RenderContext.html#ac44122085f888756bb571d7baf2391fe',1,'hmi::RenderContext']]]
+  ['apexgravitymultiplier_4',['apexGravityMultiplier',['../structcore_1_1PhysicsConfig.html#ac393eb19e1428343e98922bcdd1451ab',1,'core::PhysicsConfig']]],
+  ['apexthreshold_5',['apexThreshold',['../structcore_1_1PhysicsConfig.html#a7e782cd22d0d68a6e918286166fab6f4',1,'core::PhysicsConfig']]],
+  ['atlas_6',['atlas',['../structhmi_1_1RenderContext.html#ac44122085f888756bb571d7baf2391fe',1,'hmi::RenderContext']]]
 ];

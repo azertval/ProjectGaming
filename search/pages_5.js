@@ -1,22 +1,11 @@
 var searchData=
 [
-  ['aériennes_20avancées_20_3a_20double_20saut_20wall_20jump_20dash_0',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],
-  ['aériens_20rechargés_20au_20sol_1',['TACHE-03 — Double saut (sauts aériens rechargés au sol)',['../lot-10-tache-03-double-saut.html',1,'lot-10']]],
-  ['aabb_20contre_20la_20grille_20géométrie_20pure_2',['TACHE-02 — Balayage AABB contre la grille (géométrie pure)',['../lot-08-tache-02-balayage-aabb.html',1,'lot-08']]],
-  ['accueil_20du_20projet_20mainpage_3',['TACHE-03 — Page d&apos;accueil du projet (mainpage)',['../lot-04-tache-03-page-accueil.html',1,'lot-04']]],
-  ['actions_20logiques_20d_20entrée_20mapping_20touches_20→_20intention_4',['TACHE-05 — Actions logiques d&apos;entrée (mapping touches → intention)',['../lot-08-tache-05-actions-logiques.html',1,'lot-08']]],
-  ['ancres_20doxygen_20lint_20ci_5',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['application_20écrans_6',['TACHE-04 — États d&apos;application (écrans)',['../lot-06-tache-04-etats-application.html',1,'lot-06']]],
-  ['arborescence_20documentaire_7',['arborescence documentaire',['../lot-04.html',1,'LOT-04 — Documentation Doxygen &amp; réorganisation de l&apos;arborescence documentaire'],['../lot-04-tache-01-reorganisation-arbo.html',1,'TACHE-01 — Réorganisation de l&apos;arborescence documentaire']]],
-  ['architecture_20décisions_20dimensionnantes_8',['Architecture (décisions dimensionnantes)',['../spec-architecture.html',1,'specifications']]],
-  ['art_9',['Décors &amp; pipeline pixel art',['../spec-decors.html',1,'specifications']]],
-  ['assertions_20projectgaming_5fassert_10',['TACHE-04 — Assertions `PROJECTGAMING_ASSERT`',['../lot-02-tache-04-assertions.html',1,'lot-02']]],
-  ['atlas_20de_20textures_20procédural_11',['TACHE-03 — Atlas de textures procédural',['../lot-05-tache-03-atlas-procedural.html',1,'lot-05']]],
-  ['atlas_20sprites_20caméra_12',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
-  ['au_20pas_20fixe_13',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
-  ['au_20sol_14',['au sol',['../lot-10-tache-03-double-saut.html',1,'TACHE-03 — Double saut (sauts aériens rechargés au sol)'],['../lot-10-tache-05-dash.html',1,'TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)']]],
-  ['au_20sol_20hauteur_20variable_15',['TACHE-03 — Saut au sol + hauteur variable',['../lot-09-tache-03-saut-hauteur-variable.html',1,'lot-09']]],
-  ['auto_20avance_20retour_20titre_16',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
-  ['avancées_20_3a_20double_20saut_20wall_20jump_20dash_17',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],
-  ['avance_20retour_20titre_18',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]]
+  ['_3a_20atlas_20sprites_20caméra_0',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
+  ['_3a_20déplacement_20gravité_20et_20collisions_1',['LOT-08 — Gameplay personnage : déplacement, gravité et collisions',['../lot-08.html',1,'lots']]],
+  ['_3a_20double_20saut_20wall_20jump_20dash_2',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],
+  ['_3a_20handles_20générationnels_20cycle_20de_20vie_3',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
+  ['_3a_20modèle_20et_20chargement_4',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['_3a_20personnage_20humanoïde_20gravité_20asymétrique_20finitions_5',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
+  ['_3a_20playerinput_20player_20physicsconfig_6',['TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig`',['../lot-09-tache-01-donnees-saut.html',1,'lot-09']]],
+  ['_3a_20réglages_20de_20feel_20taille_20placement_20du_20personnage_7',['TACHE-01 — Données : réglages de *feel* + taille/placement du personnage',['../lot-11-tache-01-donnees.html',1,'lot-11']]]
 ];

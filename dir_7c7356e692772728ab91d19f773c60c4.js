@@ -9,5 +9,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-07-niveaux", "dir_38531c41d46d453c586174f8aa624a92.html", null ],
     [ "LOT-08-gameplay-personnage", "dir_7b1cd929ff3f21b13bc6308045a5826b.html", null ],
     [ "LOT-09-saut-game-feel", "dir_334d7122776fba0cf2d3a71ece85987c.html", null ],
-    [ "LOT-10-mecaniques-avancees", "dir_9bce32c38ae0c0cbddc86a95f8da039c.html", null ]
+    [ "LOT-10-mecaniques-avancees", "dir_9bce32c38ae0c0cbddc86a95f8da039c.html", null ],
+    [ "LOT-11-ressenti-avance", "dir_73c049fa024bd1ab37be02b35c3e5148.html", null ]
 ];

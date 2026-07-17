@@ -13,8 +13,9 @@ var searchData=
   ['10_20assertions_20journalisation_10',['10. Assertions &amp; journalisation',['../spec-conventions.html#autotoc_md36',1,'']]],
   ['10_20contrainte_20«_20éditeur_20intégré_20»_11',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md13',1,'']]],
   ['11_12',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
-  ['11_20décors_20dynamiques_20accommodation_20dimensionnante_13',['11. Décors dynamiques (accommodation dimensionnante)',['../spec-architecture.html#autotoc_md14',1,'']]],
-  ['11_20outillage_20qualité_20automatisé_14',['11. Outillage qualité (automatisé)',['../spec-conventions.html#autotoc_md37',1,'']]],
-  ['11_20raii_15',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
-  ['12_20identifiants_20d_20exigences_20tt_20ex_20…_20tt_16',['12. Identifiants d&apos;exigences (&lt;tt&gt;EX-…&lt;/tt&gt;)',['../spec-conventions.html#autotoc_md38',1,'']]]
+  ['11_20—_20ressenti_20avancé_20_3a_20personnage_20humanoïde_20gravité_20asymétrique_20finitions_13',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
+  ['11_20décors_20dynamiques_20accommodation_20dimensionnante_14',['11. Décors dynamiques (accommodation dimensionnante)',['../spec-architecture.html#autotoc_md14',1,'']]],
+  ['11_20outillage_20qualité_20automatisé_15',['11. Outillage qualité (automatisé)',['../spec-conventions.html#autotoc_md37',1,'']]],
+  ['11_20raii_16',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
+  ['12_20identifiants_20d_20exigences_20tt_20ex_20…_20tt_17',['12. Identifiants d&apos;exigences (&lt;tt&gt;EX-…&lt;/tt&gt;)',['../spec-conventions.html#autotoc_md38',1,'']]]
 ];

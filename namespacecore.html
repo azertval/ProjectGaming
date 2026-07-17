@@ -302,6 +302,11 @@ Functions</h2></td></tr>
 <tr class="separator:a78fa4a986a900f73517454f7c1eff774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a197b5bff2c73896fbfb05df9ea6419b9" id="r_a197b5bff2c73896fbfb05df9ea6419b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a197b5bff2c73896fbfb05df9ea6419b9">operator!=</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
 <tr class="separator:a197b5bff2c73896fbfb05df9ea6419b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b2b8e5dc4a0b610cc1225c14e1ce5cb" id="r_a6b2b8e5dc4a0b610cc1225c14e1ce5cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">playerSize</a> ()</td></tr>
+<tr class="separator:a6b2b8e5dc4a0b610cc1225c14e1ce5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478b06d0135ab7cd314b90791cfe7ba0" id="r_a478b06d0135ab7cd314b90791cfe7ba0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0">playerSpawnPosition</a> (int column, int row)</td></tr>
+<tr class="memdesc:a478b06d0135ab7cd314b90791cfe7ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coin haut-gauche du personnage <b>centré</b> dans la tuile (<code>column</code>, <code>row</code>).  <br /></td></tr>
+<tr class="separator:a478b06d0135ab7cd314b90791cfe7ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ca635df367666624247837feb2af5a5" id="r_a4ca635df367666624247837feb2af5a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5">sweepAabb</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;box, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;delta, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles)</td></tr>
 <tr class="memdesc:a4ca635df367666624247837feb2af5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec une tuile <b>solide</b>, puis en <b>glissant</b> le long de la surface pour le déplacement résiduel.  <br /></td></tr>
 <tr class="separator:a4ca635df367666624247837feb2af5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,6 +322,12 @@ Variables</h2></td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
 <tr class="separator:a49c6e01fbd8905740993109a36f65c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af90aca85784a36802e810be93df9800f" id="r_af90aca85784a36802e810be93df9800f"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#af90aca85784a36802e810be93df9800f">kPlayerWidth</a> = 0.4f</td></tr>
+<tr class="memdesc:af90aca85784a36802e810be93df9800f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du personnage, en unités monde (une tuile = 1 unité).  <br /></td></tr>
+<tr class="separator:af90aca85784a36802e810be93df9800f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa73b5f2476cf8e0f359e4f05e1b2d9a" id="r_aaa73b5f2476cf8e0f359e4f05e1b2d9a"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a">kPlayerHeight</a> = 0.8f</td></tr>
+<tr class="memdesc:aaa73b5f2476cf8e0f359e4f05e1b2d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur du personnage, en unités monde.  <br /></td></tr>
+<tr class="separator:aaa73b5f2476cf8e0f359e4f05e1b2d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Espace de noms du moteur et de la logique de jeu. </p>
@@ -1129,6 +1140,71 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a6b2b8e5dc4a0b610cc1225c14e1ce5cb" name="a6b2b8e5dc4a0b610cc1225c14e1ce5cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">&#9670;&#160;</a></span>playerSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::playerSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les dimensions (largeur, hauteur) du personnage, pour le <a class="el" href="structcore_1_1Collider.html" title="Étendue physique d&#39;une entité pour la collision : une boîte alignée aux axes (AABB).">Collider</a> et le rendu. </dd></dl>
+
+</div>
+</div>
+<a id="a478b06d0135ab7cd314b90791cfe7ba0" name="a478b06d0135ab7cd314b90791cfe7ba0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478b06d0135ab7cd314b90791cfe7ba0">&#9670;&#160;</a></span>playerSpawnPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::playerSpawnPosition </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Coin haut-gauche du personnage <b>centré</b> dans la tuile (<code>column</code>, <code>row</code>). </p>
+<p>Marges symétriques : la boîte 0,4 × 0,8 est centrée dans la tuile 1×1 (repère haut-gauche, <code>y</code> vers le bas). Évite de faire apparaître le personnage collé à un bord de la tuile. </p>
+
+</div>
+</div>
 <a id="a0b2fde01c38742c460acb176220332ff" name="a0b2fde01c38742c460acb176220332ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b2fde01c38742c460acb176220332ff">&#9670;&#160;</a></span>setAssertionHandler()</h2>
 
@@ -1308,6 +1384,54 @@ Variables</h2></td></tr>
 
 <p>Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>. </p>
 <p>S'appuie sur <code>NDEBUG</code> (défini par le compilateur en Release). Sert à n'inclure que dans les builds de développement des éléments d'outillage (par exemple des boutons de débogage de l'interface), à utiliser de préférence avec <code>if constexpr</code> pour éliminer le code en Release. </p>
+
+</div>
+</div>
+<a id="aaa73b5f2476cf8e0f359e4f05e1b2d9a" name="aaa73b5f2476cf8e0f359e4f05e1b2d9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa73b5f2476cf8e0f359e4f05e1b2d9a">&#9670;&#160;</a></span>kPlayerHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::kPlayerHeight = 0.8f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hauteur du personnage, en unités monde. </p>
+
+</div>
+</div>
+<a id="af90aca85784a36802e810be93df9800f" name="af90aca85784a36802e810be93df9800f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af90aca85784a36802e810be93df9800f">&#9670;&#160;</a></span>kPlayerWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::kPlayerWidth = 0.4f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Largeur du personnage, en unités monde (une tuile = 1 unité). </p>
 
 </div>
 </div>

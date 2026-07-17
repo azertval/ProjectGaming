@@ -1,5 +1,12 @@
 var NAVTREEINDEX6 =
 {
+"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md331":[4,5,12,3],
+"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md332":[4,5,12,4],
+"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md333":[4,5,12,5],
+"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md334":[4,5,12,6],
+"lot-05-tache-06-cablage-world-demo.html":[4,5,13],
+"lot-05-tache-06-cablage-world-demo.html#autotoc_md335":[4,5,13,0],
+"lot-05-tache-06-cablage-world-demo.html#autotoc_md336":[4,5,13,1],
 "lot-05-tache-06-cablage-world-demo.html#autotoc_md337":[4,5,13,2],
 "lot-05-tache-06-cablage-world-demo.html#autotoc_md338":[4,5,13,3],
 "lot-05-tache-06-cablage-world-demo.html#autotoc_md339":[4,5,13,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX6 =
 "lot-09-tache-04-coyote-buffering.html#autotoc_md548":[4,9,11,5],
 "lot-09-tache-04-coyote-buffering.html#autotoc_md549":[4,9,11,6],
 "lot-09-tache-05-enchainement-niveaux.html":[4,9,12],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md550":[4,9,12,0],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md551":[4,9,12,1],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md552":[4,9,12,2],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md553":[4,9,12,3],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md554":[4,9,12,4],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md555":[4,9,12,5],
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md556":[4,9,12,6],
-"lot-09-tache-06-niveaux-demo.html":[4,9,13]
+"lot-09-tache-05-enchainement-niveaux.html#autotoc_md550":[4,9,12,0]
 };

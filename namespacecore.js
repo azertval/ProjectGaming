@@ -75,10 +75,14 @@ var namespacecore =
     [ "operator==", "namespacecore.html#a78fa4a986a900f73517454f7c1eff774", null ],
     [ "operator==", "namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95", null ],
     [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
+    [ "playerSize", "namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb", null ],
+    [ "playerSpawnPosition", "namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0", null ],
     [ "setAssertionHandler", "namespacecore.html#a0b2fde01c38742c460acb176220332ff", null ],
     [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
     [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ],
-    [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ]
+    [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ],
+    [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
+    [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ]
 ];

@@ -141,7 +141,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md616", null ],
+      [ "Lots", "lots.html#autotoc_md654", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md88", null ],
         [ "Périmètre", "lot-01.html#autotoc_md89", [
@@ -823,15 +823,64 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-10-tache-06-niveau-parkour.html#autotoc_md614", null ],
           [ "Exigences", "lot-10-tache-06-niveau-parkour.html#autotoc_md615", null ]
         ] ]
+      ] ],
+      [ "LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions", "lot-11.html", [
+        [ "Objectif", "lot-11.html#autotoc_md616", null ],
+        [ "Périmètre", "lot-11.html#autotoc_md617", [
+          [ "Inclus", "lot-11.html#autotoc_md618", null ],
+          [ "Exclus (lots ultérieurs)", "lot-11.html#autotoc_md619", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-11.html#autotoc_md620", null ],
+        [ "Exigences couvertes", "lot-11.html#autotoc_md621", null ],
+        [ "Découpage", "lot-11.html#autotoc_md622", null ],
+        [ "Critères d'acceptation du lot", "lot-11.html#autotoc_md623", null ],
+        [ "Dépendances", "lot-11.html#autotoc_md624", null ],
+        [ "Navigation des tâches", "lot-11.html#autotoc_md625", null ],
+        [ "TACHE-01 — Données : réglages de *feel* + taille/placement du personnage", "lot-11-tache-01-donnees.html", [
+          [ "Contexte", "lot-11-tache-01-donnees.html#autotoc_md626", null ],
+          [ "Travail à réaliser", "lot-11-tache-01-donnees.html#autotoc_md627", null ],
+          [ "Fichiers impactés", "lot-11-tache-01-donnees.html#autotoc_md628", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-01-donnees.html#autotoc_md629", null ],
+          [ "Points d'attention", "lot-11-tache-01-donnees.html#autotoc_md630", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-01-donnees.html#autotoc_md631", null ],
+          [ "Exigences", "lot-11-tache-01-donnees.html#autotoc_md632", null ]
+        ] ],
+        [ "TACHE-02 — Gravité asymétrique + apex hang + fast-fall", "lot-11-tache-02-gravite-asymetrique.html", [
+          [ "Contexte", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md633", null ],
+          [ "Travail à réaliser", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md634", null ],
+          [ "Fichiers impactés", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md635", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md636", null ],
+          [ "Points d'attention", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md637", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md638", null ],
+          [ "Exigences", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md639", null ]
+        ] ],
+        [ "TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)", "lot-11-tache-03-personnage-humanoide.html", [
+          [ "Contexte", "lot-11-tache-03-personnage-humanoide.html#autotoc_md640", null ],
+          [ "Travail à réaliser", "lot-11-tache-03-personnage-humanoide.html#autotoc_md641", null ],
+          [ "Fichiers impactés", "lot-11-tache-03-personnage-humanoide.html#autotoc_md642", null ],
+          [ "Vérification (visuelle, pas de test unitaire — brique GPU)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md643", null ],
+          [ "Points d'attention", "lot-11-tache-03-personnage-humanoide.html#autotoc_md644", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md645", null ],
+          [ "Exigences", "lot-11-tache-03-personnage-humanoide.html#autotoc_md646", null ]
+        ] ],
+        [ "TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille", "lot-11-tache-04-reequilibrage.html", [
+          [ "Contexte", "lot-11-tache-04-reequilibrage.html#autotoc_md647", null ],
+          [ "Travail à réaliser", "lot-11-tache-04-reequilibrage.html#autotoc_md648", null ],
+          [ "Fichiers impactés", "lot-11-tache-04-reequilibrage.html#autotoc_md649", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-04-reequilibrage.html#autotoc_md650", null ],
+          [ "Points d'attention", "lot-11-tache-04-reequilibrage.html#autotoc_md651", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-04-reequilibrage.html#autotoc_md652", null ],
+          [ "Exigences", "lot-11-tache-04-reequilibrage.html#autotoc_md653", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md617", null ],
-      [ "À venir", "manuel.html#autotoc_md618", null ],
+      [ "Pages", "manuel.html#autotoc_md655", null ],
+      [ "À venir", "manuel.html#autotoc_md656", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md619", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md620", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md621", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md657", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md658", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md659", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -872,16 +921,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Aabb_8h.html",
-"TextureAtlas_8h_source.html",
-"classcore_1_1View.html#ac20dc22d88d76018c5e34a6c502c6b8f",
-"classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb",
-"classhmi_1_1SpriteBatch.html#afd70f31ebe3105c00cb64db5c68fc07c",
-"lot-01-tache-04-effacement-presentation.html#autotoc_md115",
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md337",
-"lot-09-tache-06-niveaux-demo.html#autotoc_md557",
-"spec-rendu-technique.html#autotoc_md76",
-"structhmi_1_1RenderContext.html#a9039ca70aa2c5bd2d861e2220457166a",
-"test__player__components_8cpp.html"
+"SweptCollision_8cpp.html#a4ca635df367666624247837feb2af5a5",
+"classcore_1_1View.html#a49e3c652711ec81da9dc5029136a5ab4",
+"classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f",
+"classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef",
+"lot-01-tache-03-boucle-pas-fixe.html#autotoc_md109",
+"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md331",
+"lot-09-tache-05-enchainement-niveaux.html#autotoc_md551",
+"spec-conventions.html#autotoc_md28",
+"structcore_1_1Transform.html",
+"test__localization_8cpp.html#aa0f27340066e9efd017ea009fab79ba7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

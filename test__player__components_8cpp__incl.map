@@ -1,16 +1,19 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Ecs/test_player_components.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Ecs/test_player_components.cpp">
-<area shape="rect" id="Node000001" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut." alt="" coords="285,5,507,75"/>
+<area shape="rect" id="Node000001" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut." alt="" coords="345,5,567,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,130,109,155"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,77,110,129,108,124,284,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="346,69,122,125,109,129,108,124,121,120,345,64"/>
 <area shape="rect" id="Node000003" href="$Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="134,123,298,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="337,77,263,118,260,114,334,73"/>
-<area shape="rect" id="Node000004" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="199,211,353,236"/>
-<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="376,76,293,201,289,198,371,73"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="377,77,274,120,272,115,375,72"/>
+<area shape="rect" id="Node000004" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="259,211,413,236"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="409,77,385,99,365,124,349,161,341,197,336,196,344,159,360,121,381,95,405,73"/>
 <area shape="rect" id="Node000005" href="$Player_8h.html" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="374,123,538,163"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="419,74,440,109,435,112,414,77"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="459,75,459,108,453,108,453,75"/>
 <area shape="rect" id="Node000006" href="$PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="563,130,773,155"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="488,72,625,123,623,128,486,77"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="528,72,633,122,630,127,526,77"/>
 <area shape="rect" id="Node000007" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="797,130,992,155"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="507,61,825,125,824,130,506,66"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,161,261,198,257,201,228,165"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="567,64,832,124,831,130,566,69"/>
+<area shape="rect" id="Node000008" href="$PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn." alt="" coords="1016,130,1221,155"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="567,55,1004,120,1037,125,1036,130,1004,125,566,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,161,308,201,305,205,244,165"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="1054,158,1004,165,687,198,427,219,427,213,686,193,1004,160,1054,153"/>
 </map>
