@@ -12,6 +12,7 @@
 #include <optional>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Core/BuildConfig.h"
 #include "Core/Diagnostics/ConsoleLogSink.h"
@@ -188,10 +189,15 @@ int main(int argc, char** argv) {
             switch (id) {
                 case hmi::ScreenId::Menu:
                     return std::make_unique<hmi::MenuScreen>(localization, saveLogAction);
-                case hmi::ScreenId::Game:
+                case hmi::ScreenId::Game: {
+                    // Sequence de niveaux dans un ordre de difficulte maitrise (EX-LVL-010) :
+                    // demo (deplacement/chute) puis demo2 (saut requis).
+                    const std::filesystem::path levels = executableDirectory() / "Levels";
                     return std::make_unique<hmi::GameScreen>(
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
-                        executableDirectory() / "Levels" / "demo.json");
+                        std::vector<std::filesystem::path>{levels / "demo.json",
+                                                           levels / "demo2.json"});
+                }
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>();
             }
@@ -225,10 +231,14 @@ int main(int argc, char** argv) {
 
             // 4. Rendu : efface, dessine l'écran courant, présente.
             graphics.clear(0.10f, 0.12f, 0.16f, 1.0f);
-            hmi::RenderContext context{spriteBatch, atlas,
-                                       font,        localization,
-                                       flags,       saveIcon,
-                                       window.clientWidth(), window.clientHeight()};
+            hmi::RenderContext context{spriteBatch,
+                                       atlas,
+                                       font,
+                                       localization,
+                                       flags,
+                                       saveIcon,
+                                       window.clientWidth(),
+                                       window.clientHeight()};
             screens.render(context);
             graphics.present();
         }

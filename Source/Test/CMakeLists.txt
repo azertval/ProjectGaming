@@ -29,6 +29,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Interface/test_screen_manager.cpp
+    Unit/HMI/Interface/test_level_sequence.cpp
     Unit/HMI/Interface/test_menu_model.cpp
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp

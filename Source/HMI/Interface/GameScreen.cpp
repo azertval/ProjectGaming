@@ -53,33 +53,51 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
 
 }  // namespace
 
-// Construit l'ecran et charge le niveau.
+// Construit l'ecran et charge le premier niveau de la sequence.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                       int viewportHeight, std::filesystem::path levelPath)
-    : _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {
-    core::LevelLoadResult result = core::LevelLoader::loadFromFile(levelPath);
-    if (result.ok()) {
-        _level = std::move(result.level);  // conserve le niveau pour la simulation et le reset
-        const core::Level& level = *_level;
-        _levelWidth = level.tileMap().width();
-        _levelHeight = level.tileMap().height();
-        _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
-                                        static_cast<float>(_levelHeight) * 0.5f});
-        // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
-        core::buildLevelScene(_world, level,
-                              [&atlas](core::TileType type) { return regionForTile(type, atlas); });
-        spawnPlayer(atlas, level.entry());
-        HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
-                     std::to_string(_levelHeight) + ")");
-    } else {
+                       int viewportHeight, std::vector<std::filesystem::path> levels)
+    : _atlas(atlas),
+      _camera(viewportWidth, viewportHeight),
+      _renderer(batch, atlas),
+      _sequence(std::move(levels)) {
+    if (_sequence.empty()) {
+        _loadError = "Aucun niveau a charger.";  // robustesse : sequence vide -> etat neutre
+        HMI_LOG_WARNING(_loadError);
+        return;
+    }
+    loadLevel(_sequence.current());
+}
+
+// (Re)construit la scene pour un niveau : monde neuf + grille + personnage a l'entree.
+void GameScreen::loadLevel(const std::filesystem::path& path) {
+    _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
+    _loadError.clear();
+
+    core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
+    if (!result.ok()) {
         // Echec recuperable : on retient le message et on affichera un etat neutre.
+        _level.reset();
         _loadError = result.error;
         HMI_LOG_WARNING("Echec du chargement du niveau : " + result.error);
+        return;
     }
+
+    _level = std::move(result.level);  // conserve le niveau pour la simulation et le reset
+    const core::Level& level = *_level;
+    _levelWidth = level.tileMap().width();
+    _levelHeight = level.tileMap().height();
+    _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
+                                    static_cast<float>(_levelHeight) * 0.5f});
+    // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
+    core::buildLevelScene(_world, level,
+                          [this](core::TileType type) { return regionForTile(type, _atlas); });
+    spawnPlayer(level.entry());
+    HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
+                 std::to_string(_levelHeight) + ")");
 }
 
 // Fait apparaitre le personnage a l'entree du niveau (voir en-tete).
-void GameScreen::spawnPlayer(const TextureAtlas& atlas, core::GridPosition entry) {
+void GameScreen::spawnPlayer(core::GridPosition entry) {
     _player = _world.createEntity();
     _world.addComponent(_player, core::Transform{core::Vector2{static_cast<float>(entry.column),
                                                                static_cast<float>(entry.row)},
@@ -89,7 +107,7 @@ void GameScreen::spawnPlayer(const TextureAtlas& atlas, core::GridPosition entry
     _world.addComponent(_player, core::Player{});
     // Sprite du personnage : couche haute (dessine par-dessus les tuiles), teinte claire.
     core::Sprite sprite;
-    sprite.region = atlas.tile(1, 1);
+    sprite.region = _atlas.tile(1, 1);
     sprite.layer = 100;
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
@@ -123,7 +141,15 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
     switch (core::evaluateOutcome(box, *_level)) {
         case core::LevelOutcome::Won:
-            HMI_LOG_INFO("Niveau termine : sortie atteinte.");
+            if (_sequence.hasNext()) {
+                // Enchaine le niveau suivant : on reste sur l'ecran de jeu (EX-LVL-011).
+                _sequence.advance();
+                HMI_LOG_INFO("Niveau termine : passage au niveau suivant.");
+                loadLevel(_sequence.current());
+                return ScreenTransition::none();
+            }
+            // Dernier niveau franchi : retour au titre.
+            HMI_LOG_INFO("Sequence terminee : retour au menu.");
             return ScreenTransition::switchTo(ScreenId::Menu);
         case core::LevelOutcome::Lost:
             resetPlayer();  // echec : on redemarre le personnage a l'entree
