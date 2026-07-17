@@ -86,6 +86,23 @@ target_link_libraries(IntegrationTests PRIVATE
 target_compile_definitions(IntegrationTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
 
+# Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
+add_executable(SystemTests
+    Systeme/test_parcours_complet.cpp
+)
+
+target_link_libraries(SystemTests PRIVATE
+    Core
+    GTest::gtest_main
+    project_warnings
+    project_options
+)
+
+# Chemin (source) des niveaux : le parcours complet rejoue les niveaux livrés.
+target_compile_definitions(SystemTests PRIVATE
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+
 # Enregistre chaque TEST() auprès de CTest.
 gtest_discover_tests(UnitTests)
 gtest_discover_tests(IntegrationTests)
+gtest_discover_tests(SystemTests)
