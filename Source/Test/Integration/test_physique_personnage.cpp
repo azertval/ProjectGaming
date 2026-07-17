@@ -635,6 +635,57 @@ TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
     EXPECT_LE(world.getComponent<core::Transform>(player).position.x, 4.0f + 0.01f);  // bord ≤ mur
 }
 
+/// Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.
+TEST(PhysiquePersonnageIntegration, BudgetDeSautsRefuseAuDela) {
+    core::World world;
+    core::TileMap tiles(4, 200);
+    fillRow(tiles, 150);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 1500; ++i) {  // se poser
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    world.getComponent<core::Player>(player).jumpsRemaining = 1;  // budget : un seul saut
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.y, 0.0f);  // a sauté
+    EXPECT_EQ(world.getComponent<core::Player>(player).jumpsRemaining, 0);
+
+    for (int i = 0; i < 500; ++i) {  // retombe et se pose
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    system.update(world, tiles, jump, STEP);  // 2e saut : budget épuisé
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.y, -1.0f);  // aucune impulsion
+}
+
+/// Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.
+TEST(PhysiquePersonnageIntegration, BudgetDeDashsRefuseAuDela) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    world.getComponent<core::Player>(player).dashesRemaining = 1;  // budget : un seul dash
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    system.update(world, tiles, dash, STEP);
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, 10.0f);  // a dashé
+    EXPECT_EQ(world.getComponent<core::Player>(player).dashesRemaining, 0);
+
+    for (int i = 0; i < 60; ++i) {  // fin du dash, se repose
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    system.update(world, tiles, dash, STEP);  // 2e dash : budget épuisé
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, 10.0f);  // aucune ruée
+}
+
 /// Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).
 TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
     core::World world;

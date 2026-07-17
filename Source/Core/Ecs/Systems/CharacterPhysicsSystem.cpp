@@ -48,7 +48,9 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
 
             //   0d. Dash (EX-GP-017) : ruée directionnelle si disponible et pas déjà en dash.
             //       Direction = (moveX, moveY) normalisée (8 directions) ; à défaut l'orientation.
-            if (input.dashPressed && player.dashAvailable && player.dashTimer <= 0.0f) {
+            //       Refusé si le budget de dashs du tableau est épuisé (EX-GP-024 ; -1 = illimité).
+            if (input.dashPressed && player.dashAvailable && player.dashTimer <= 0.0f &&
+                player.dashesRemaining != 0) {
                 Vector2 direction{input.moveX, input.moveY};
                 if (direction.x == 0.0f && direction.y == 0.0f) {
                     direction = Vector2{player.facing, 0.0f};
@@ -56,6 +58,9 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                 velocity.value = direction.normalized() * _config.dashSpeed;
                 player.dashTimer = _config.dashDuration;
                 player.dashAvailable = false;  // consommé, rechargé au prochain contact du sol
+                if (player.dashesRemaining > 0) {
+                    --player.dashesRemaining;  // décompte le budget (si limité)
+                }
             }
 
             if (player.dashTimer > 0.0f) {
@@ -67,22 +72,30 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                 //   :
                 //       sol/coyote, puis MUR (wall jump, EX-GP-016), puis saut AÉRIEN (double saut,
                 //       EX-GP-015). On consomme le buffer au déclenchement.
-                if (player.jumpBufferTimer > 0.0f) {
+                //       Refusé si le budget de sauts du tableau est épuisé (EX-GP-024 ; -1
+                //       illimité).
+                if (player.jumpBufferTimer > 0.0f && player.jumpsRemaining != 0) {
+                    bool jumped = true;
                     if (player.coyoteTimer > 0.0f) {
                         velocity.value.y = -_config.jumpSpeed;
                         player.coyoteTimer = 0.0f;  // consomme (pas de re-saut dans la fenêtre)
-                        player.jumpBufferTimer = 0.0f;
                     } else if (player.wallDirection != 0.0f) {
                         // Éjection en diagonale OPPOSÉE au mur ; verrouille le contrôle horizontal
                         // pour que la vitesse d'éjection porte le personnage loin du mur.
                         velocity.value.x = -player.wallDirection * _config.wallJumpSpeedX;
                         velocity.value.y = -_config.wallJumpSpeedY;
                         player.wallJumpLockTimer = _config.wallJumpLockTime;
-                        player.jumpBufferTimer = 0.0f;
                     } else if (player.airJumpsRemaining > 0) {
                         velocity.value.y = -_config.jumpSpeed;
                         --player.airJumpsRemaining;  // consomme un saut aérien
-                        player.jumpBufferTimer = 0.0f;
+                    } else {
+                        jumped = false;  // aucune source de saut disponible
+                    }
+                    if (jumped) {
+                        player.jumpBufferTimer = 0.0f;  // consomme le buffer
+                        if (player.jumpsRemaining > 0) {
+                            --player.jumpsRemaining;  // décompte le budget (si limité)
+                        }
                     }
                 }
                 //   0b. Hauteur variable : bouton relâché pendant la montée → on plafonne la
