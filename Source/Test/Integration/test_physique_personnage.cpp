@@ -88,7 +88,9 @@ bool jumpAfterLeavingLedge(int delayFrames) {
         tiles.setTile(col, 12, core::TileType::Solid);
     }
     const core::Entity player = spawnPlayer(world, 1.0f, 10.0f);
-    core::CharacterPhysicsSystem system;
+    core::PhysicsConfig config;
+    config.airJumps = 0;  // isole le coyote time (pas de saut aérien pour masquer l'expiration)
+    core::CharacterPhysicsSystem system(config);
 
     for (int i = 0; i < 200; ++i) {  // se poser sur le rebord
         system.update(world, tiles, core::PlayerInput{}, STEP);
@@ -151,6 +153,37 @@ bool bufferedJump(int framesBeforeLanding) {
         }
     }
     return jumped;
+}
+
+// Compte combien de sauts « prennent » (impulsion ascendante nette) : un premier au sol, puis des
+// sauts répétés en l'air. Attendu = 1 (sol) + `airJumpsConfig` (aériens).
+int successfulJumps(int airJumpsConfig) {
+    core::PhysicsConfig config;
+    config.airJumps = airJumpsConfig;
+    core::World world;
+    core::TileMap tiles(4, 200);
+    fillRow(tiles, 150);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system(config);
+    for (int i = 0; i < 1500; ++i) {  // se poser
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+
+    int jumps = 0;
+    for (int attempt = 0; attempt < airJumpsConfig + 3; ++attempt) {
+        core::PlayerInput jump;
+        jump.jumpPressed = true;
+        jump.jumpHeld = true;
+        const float before = world.getComponent<core::Velocity>(player).value.y;
+        system.update(world, tiles, jump, STEP);
+        if (world.getComponent<core::Velocity>(player).value.y < before - 5.0f) {
+            ++jumps;  // l'impulsion a « pris »
+        }
+        for (int i = 0; i < 8; ++i) {  // rester en l'air avant la prochaine tentative
+            system.update(world, tiles, core::PlayerInput{}, STEP);
+        }
+    }
+    return jumps;
 }
 
 // Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
@@ -359,6 +392,13 @@ TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     EXPECT_GT(fullJump, shortHop + 0.3f);  // maintenir monte nettement plus haut
     EXPECT_GT(fullJump, 2.0f);             // ~2,25 tuiles avec le réglage par défaut
     EXPECT_LT(fullJump, 3.0f);
+}
+
+/// Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.
+TEST(PhysiquePersonnageIntegration, DoubleSautNombreParametrable) {
+    EXPECT_EQ(successfulJumps(1), 2);  // 1 au sol + 1 aérien (double saut)
+    EXPECT_EQ(successfulJumps(2), 3);  // 1 au sol + 2 aériens
+    EXPECT_EQ(successfulJumps(0), 1);  // aucun saut aérien : 1 seul
 }
 
 /// Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la sortie.

@@ -27,6 +27,7 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             //      ;
             if (player.grounded) {
                 player.coyoteTimer = _config.coyoteTime;
+                player.airJumpsRemaining = _config.airJumps;  // recharge du double saut (EX-GP-015)
             } else {
                 player.coyoteTimer = std::max(0.0f, player.coyoteTimer - fixedDelta);
             }
@@ -36,12 +37,19 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             } else {
                 player.jumpBufferTimer = std::max(0.0f, player.jumpBufferTimer - fixedDelta);
             }
-            //   0a. Saut : demandé (buffer) ET autorisé (au sol ou coyote), y négatif = montée
-            //       (EX-GP-011). On consomme les deux minuteries → pas de second saut (EX-GP-013).
-            if (player.jumpBufferTimer > 0.0f && player.coyoteTimer > 0.0f) {
-                velocity.value.y = -_config.jumpSpeed;
-                player.coyoteTimer = 0.0f;
-                player.jumpBufferTimer = 0.0f;
+            //   0a. Saut, y négatif = montée (EX-GP-011). Sources d'autorisation, dans l'ordre :
+            //       sol/coyote, puis saut AÉRIEN restant (double saut, EX-GP-015). On consomme le
+            //       buffer au déclenchement.
+            if (player.jumpBufferTimer > 0.0f) {
+                if (player.coyoteTimer > 0.0f) {
+                    velocity.value.y = -_config.jumpSpeed;
+                    player.coyoteTimer = 0.0f;  // consomme (pas de re-saut dans la fenêtre)
+                    player.jumpBufferTimer = 0.0f;
+                } else if (player.airJumpsRemaining > 0) {
+                    velocity.value.y = -_config.jumpSpeed;
+                    --player.airJumpsRemaining;  // consomme un saut aérien
+                    player.jumpBufferTimer = 0.0f;
+                }
             }
             //   0b. Hauteur variable : bouton relâché pendant la montée → on plafonne la vitesse
             //       ascendante à `jumpCutFactor × jumpSpeed` (relâcher tôt = petit saut). Le max
