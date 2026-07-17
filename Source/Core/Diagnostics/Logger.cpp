@@ -8,10 +8,6 @@ void Logger::setMinimumLevel(LogLevel level) {
     _minimumLevel = level;
 }
 
-LogLevel Logger::minimumLevel() const {
-    return _minimumLevel;
-}
-
 bool Logger::isEnabled(LogLevel level) const {
     return level >= _minimumLevel;
 }

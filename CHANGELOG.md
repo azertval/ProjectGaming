@@ -7,6 +7,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **Complétude des tests (audit)** : combler des trous de couverture — test unitaire de `approximatelyEqual` (tolérance relative-absolue, grandes magnitudes), test que le **catalogue français livré** (`fr.lang`) se charge et résout ses clés, et un test d'**intégration** « fichier de niveau livré (`demo.json`) → monde ECS » (une entité par tuile non vide). Rééquilibre unit/intégration.
 - **LOT-07 — Niveaux (terminé)** : **« Charger niveau »** ouvre désormais un **vrai niveau** chargé depuis `Source/Elements/Levels/demo.json` (format JSON) au lieu de la scène codée en dur. `GameScreen` (TACHE-06) charge le fichier via `LevelLoader`, projette chaque tuile non vide en **entité ECS** (couleur d'atlas par type : solide, danger, entrée, sortie, interrupteur, porte) rendue par le `SpriteRenderer` (`EX-REN-010`, `EX-ARCH-012`), et ajuste la caméra pour cadrer le niveau. Échec de chargement **récupérable** (état neutre à l'écran, pas de plantage, `EX-NFR-040`) ; **Échap** revient au menu. Vérifié de bout en bout (grille de tuiles affichée conforme au fichier).
 - **LOT-07 (TACHE-05)** : niveau de démonstration `Source/Elements/Levels/demo.json` (12×8, bords solides, entrée/sortie, danger, paire interrupteur/porte) au format JSON ; copié à côté de l'exécutable par CMake (comme les `.lang`). Un test unitaire vérifie que le niveau **livré se charge et se valide** via `LevelLoader`.
 - **LOT-07 (TACHE-04)** : validation du niveau (`EX-LVL-004`) — le chargement rejette proprement, avec message exploitable, un niveau **incohérent** : tuile hors bornes, **positions en double**, entrée/sortie **absente** ou en **plusieurs exemplaires** (unicité), liaison de mécanisme non résolue. Couvert par tests unitaires.
@@ -28,6 +29,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ### Modifié
 - **Pas de console en Release** : l'exécutable est désormais bâti en **sous-système Windows** en Release (aucune fenêtre console — expérience utilisateur plus propre), tout en conservant la **console en Debug** (logs visibles). Le point d'entrée reste le `main()` standard (`/ENTRY:mainCRTStartup`). En conséquence, **aucun sink de log n'est ajouté en Release** (ni console ni capture mémoire) : pas de destination de log, pas de croissance mémoire.
 - **LOT-06 (TACHE-01)** : la touche **Échap ne ferme plus** la fenêtre — elle devient une entrée normale (destinée au retour menu) ; la fermeture programmée passe désormais par `Window::requestClose()` (action « Quitter »), la croix continuant de fermer.
+
+### Supprimé
+- **Code mort** (audit projet) : retrait de fonctions publiques définies mais **jamais appelées ni testées** — `Camera2D::center()`/`zoom()`, `Logger::minimumLevel()`, `Localization::defaultLanguage()`. Le build `/W4 /WX` couvre déjà locals/paramètres/fonctions-fichier inutilisés ; l'API testée mais consommée au prochain lot (ex. `TileMap::isSolid`, `Level::entry/exit`, `MovementSystem`) et les macros de log uniformes (sans code généré) sont **conservées**.
 
 ### Corrigé
 - La cible de tests `UnitTests` compile désormais aussi en **Release** : `test_assert.cpp` marquait `[[maybe_unused]]` manquant sur une variable non lue lorsque `PROJECTGAMING_ASSERT` est neutralisé en Release (`/W4 /WX`).

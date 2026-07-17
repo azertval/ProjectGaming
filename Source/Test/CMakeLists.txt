@@ -5,6 +5,7 @@ add_executable(UnitTests
     Unit/test_core.cpp
     Unit/test_vector2.cpp
     Unit/test_rect.cpp
+    Unit/test_math_utils.cpp
     Unit/test_entity_manager.cpp
     Unit/test_component_pool.cpp
     Unit/test_view.cpp
@@ -53,9 +54,10 @@ target_link_libraries(UnitTests PRIVATE
     project_options
 )
 
-# Chemin (source) des niveaux, pour vérifier que le niveau de démonstration livré se charge.
+# Chemins (source) des assets, pour vérifier que le contenu livré (niveaux, catalogues) se charge.
 target_compile_definitions(UnitTests PRIVATE
-    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
+    PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
@@ -70,6 +72,10 @@ target_link_libraries(IntegrationTests PRIVATE
     project_warnings
     project_options
 )
+
+# Chemin (source) des niveaux, pour le test d'intégration « fichier livré → ECS ».
+target_compile_definitions(IntegrationTests PRIVATE
+    PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels")
 
 # Enregistre chaque TEST() auprès de CTest.
 gtest_discover_tests(UnitTests)

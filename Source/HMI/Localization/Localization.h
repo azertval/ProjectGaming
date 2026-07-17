@@ -85,11 +85,6 @@ public:
         return _activeLanguage;
     }
 
-    /// @return L'identifiant de la langue par défaut (source de repli).
-    [[nodiscard]] const std::string& defaultLanguage() const noexcept {
-        return _defaultLanguage;
-    }
-
 private:
     /// Lit tout le contenu d'un fichier texte. @return true et remplit @p out en cas de succès.
     [[nodiscard]] static bool readFile(const std::filesystem::path& path, std::string& out);

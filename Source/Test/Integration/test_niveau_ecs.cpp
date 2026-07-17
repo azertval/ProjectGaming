@@ -8,6 +8,7 @@
  */
 
 #include <cstddef>
+#include <filesystem>
 #include <map>
 #include <utility>
 
@@ -16,8 +17,10 @@
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
+#include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelScene.h"
+#include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 
 namespace {
@@ -65,4 +68,33 @@ TEST(NiveauEcsIntegration, DuJsonAuxEntites) {
     EXPECT_EQ(tilesByPosition.at({0, 0}), static_cast<int>(core::TileType::Entry));
     EXPECT_EQ(tilesByPosition.at({1, 0}), static_cast<int>(core::TileType::Solid));
     EXPECT_EQ(tilesByPosition.at({1, 1}), static_cast<int>(core::TileType::Exit));
+}
+
+/// Le niveau de démonstration livré, chargé depuis le fichier, peuple bien le monde.
+TEST(NiveauEcsIntegration, FichierDemoVersMonde) {
+    const std::filesystem::path path =
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    core::World world;
+    core::buildLevelScene(world, *result.level, regionEncodingType);
+
+    // Compte les tuiles non vides de la grille (référence attendue) et les entités créées.
+    const core::TileMap& map = result.level->tileMap();
+    int nonEmptyTiles = 0;
+    for (int row = 0; row < map.height(); ++row) {
+        for (int column = 0; column < map.width(); ++column) {
+            if (map.tile(column, row) != core::TileType::Empty) {
+                ++nonEmptyTiles;
+            }
+        }
+    }
+
+    int entities = 0;
+    world.view<core::Transform, core::Sprite>().each(
+        [&](core::Entity, core::Transform&, core::Sprite&) { ++entities; });
+
+    EXPECT_GT(nonEmptyTiles, 0);
+    EXPECT_EQ(entities, nonEmptyTiles);  // une entité par tuile non vide du niveau livré
 }
