@@ -41,6 +41,8 @@ public:
      * @param entry      Position d'apparition (case `Entry`).
      * @param exit       Position de sortie (case `Exit`).
      * @param mechanisms Liaisons interrupteur↔porte résolues.
+     * @param jumpBudget Budget de sauts du tableau (`EX-GP-024`) ; -1 = illimité.
+     * @param dashBudget Budget de dashs du tableau (`EX-GP-024`) ; -1 = illimité.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1)
