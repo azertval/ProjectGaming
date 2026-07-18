@@ -22,11 +22,14 @@ var searchData=
   ['boucle_20temps_19',['3. Boucle &amp; temps',['../spec-rendu-technique.html#autotoc_md76',1,'']]],
   ['bref_20',['En bref',['../index.html#autotoc_md1',1,'']]],
   ['brique_20gpu_21',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md643',1,'']]],
-  ['buffering_22',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
-  ['buildconfig_2eh_23',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]],
-  ['buildlevelscene_24',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
-  ['burst_20durée_20recharge_20au_20sol_25',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]],
-  ['button_5fcount_26',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['button_5fheight_27',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
-  ['button_5fwidth_28',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
+  ['budget_20de_20mouvements_22',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
+  ['budget_20de_20sauts_20dashs_20dans_20la_20physique_23',['TACHE-03 — Budget de sauts/dashs dans la physique',['../lot-12-tache-03-budget.html',1,'lot-12']]],
+  ['budget_20player_20level_20levelloader_24',['TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`)',['../lot-12-tache-01-donnees.html',1,'lot-12']]],
+  ['buffering_25',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
+  ['buildconfig_2eh_26',['BuildConfig.h',['../BuildConfig_8h.html',1,'']]],
+  ['buildlevelscene_27',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
+  ['burst_20durée_20recharge_20au_20sol_28',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]],
+  ['button_5fcount_29',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['button_5fheight_30',['BUTTON_HEIGHT',['../classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa',1,'hmi::LanguageSelector']]],
+  ['button_5fwidth_31',['BUTTON_WIDTH',['../classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041',1,'hmi::LanguageSelector']]]
 ];

@@ -20,6 +20,7 @@ var namespacecore =
     [ "LevelLoadResult", "structcore_1_1LevelLoadResult.html", "structcore_1_1LevelLoadResult" ],
     [ "Logger", "classcore_1_1Logger.html", "classcore_1_1Logger" ],
     [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
+    [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
     [ "MovementSystem", "classcore_1_1MovementSystem.html", "classcore_1_1MovementSystem" ],
     [ "PhysicsConfig", "structcore_1_1PhysicsConfig.html", "structcore_1_1PhysicsConfig" ],

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['width_0',['width',['../classcore_1_1TileMap.html#aacb0302300621bb9fb43c89bbddfef0d',1,'core::TileMap::width()'],['../classhmi_1_1FlagIcons.html#a38b6db5aec54a1a888963dcc05fcdfe8',1,'hmi::FlagIcons::width()'],['../classhmi_1_1GraphicsDevice.html#ae753a818a230fa1106136604504acce2',1,'hmi::GraphicsDevice::width()'],['../classhmi_1_1TextureAtlas.html#a6408ca8d697d60ac8d5da5290b157726',1,'hmi::TextureAtlas::width()']]],
-  ['window_1',['window',['../classhmi_1_1Window.html#a7091c512e24901972fdbed668a84939e',1,'hmi::Window::Window(const wchar_t *title, int width, int height)'],['../classhmi_1_1Window.html#ae2db2c19b34bf927b358d7acda6334f9',1,'hmi::Window::Window(const Window &amp;)=delete']]],
-  ['windowprocedure_2',['windowProcedure',['../classhmi_1_1Window.html#a84edce17a0339adcb5aa1fb6473fe4c0',1,'hmi::Window']]],
-  ['worldtoscreen_3',['worldToScreen',['../classhmi_1_1Camera2D.html#a2f872fc80538490f888f3eef52498dfb',1,'hmi::Camera2D']]],
-  ['write_4',['write',['../classcore_1_1ConsoleLogSink.html#a832f603dba5ba9ecaa75b1314ed6b84d',1,'core::ConsoleLogSink::write()'],['../classcore_1_1ILogSink.html#ab0e09a7994cb3ee96744c6ebb1755585',1,'core::ILogSink::write()'],['../classcore_1_1MemoryLogSink.html#a7e1c23f28325a73a36c7b837759c0c05',1,'core::MemoryLogSink::write()']]]
+  ['vector2_0',['vector2',['../structcore_1_1Vector2.html#a895249415331e9f9f894bbd6ad1f2b8c',1,'core::Vector2::Vector2()=default'],['../structcore_1_1Vector2.html#a9ddd3b555ac4e050f00c3ab9954d7844',1,'core::Vector2::Vector2(float xComponent, float yComponent)']]],
+  ['version_1',['version',['../classcore_1_1Engine.html#acaf5ecea21fed7591829b57a9a387641',1,'core::Engine']]],
+  ['view_2',['view',['../classcore_1_1View.html#af9deaef919667673a6f66212ed15cc54',1,'core::View::View()'],['../classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8',1,'core::World::view()']]]
 ];

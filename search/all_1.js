@@ -17,5 +17,6 @@ var searchData=
   ['11_20décors_20dynamiques_20accommodation_20dimensionnante_14',['11. Décors dynamiques (accommodation dimensionnante)',['../spec-architecture.html#autotoc_md14',1,'']]],
   ['11_20outillage_20qualité_20automatisé_15',['11. Outillage qualité (automatisé)',['../spec-conventions.html#autotoc_md37',1,'']]],
   ['11_20raii_16',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
-  ['12_20identifiants_20d_20exigences_20tt_20ex_20…_20tt_17',['12. Identifiants d&apos;exigences (&lt;tt&gt;EX-…&lt;/tt&gt;)',['../spec-conventions.html#autotoc_md38',1,'']]]
+  ['12_20—_20niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_17',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
+  ['12_20identifiants_20d_20exigences_20tt_20ex_20…_20tt_18',['12. Identifiants d&apos;exigences (&lt;tt&gt;EX-…&lt;/tt&gt;)',['../spec-conventions.html#autotoc_md38',1,'']]]
 ];

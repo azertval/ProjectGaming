@@ -1,0 +1,15 @@
+<map id="core::MechanismController" name="core::MechanismController">
+<area shape="rect" id="Node000001" title="Fait vivre les mécanismes interrupteur ↔ porte d&#39;un niveau (EX&#45;GP&#45;020, EX&#45;GP&#45;021)." alt="" coords="165,313,362,339"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="51,203,161,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,236,194,287,238,311,236,316,191,292,126,240"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,108,180,133"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,147,107,203,102,204,94,147"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="192,196,335,236"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="266,250,266,313,261,313,261,250"/>
+<area shape="rect" id="Node000005" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="205,108,338,133"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="272,147,268,196,262,196,267,147"/>
+<area shape="rect" id="Node000006" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="203,5,340,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="274,45,274,108,269,108,269,45"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="359,203,509,229"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="419,241,395,267,365,292,338,306,310,316,308,311,336,301,362,287,391,263,415,238"/>
+</map>

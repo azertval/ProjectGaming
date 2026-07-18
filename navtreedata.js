@@ -141,7 +141,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md654", null ],
+      [ "Lots", "lots.html#autotoc_md692", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md88", null ],
         [ "Périmètre", "lot-01.html#autotoc_md89", [
@@ -872,15 +872,64 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-11-tache-04-reequilibrage.html#autotoc_md652", null ],
           [ "Exigences", "lot-11-tache-04-reequilibrage.html#autotoc_md653", null ]
         ] ]
+      ] ],
+      [ "LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements", "lot-12.html", [
+        [ "Objectif", "lot-12.html#autotoc_md654", null ],
+        [ "Périmètre", "lot-12.html#autotoc_md655", [
+          [ "Inclus", "lot-12.html#autotoc_md656", null ],
+          [ "Exclus (lots ultérieurs)", "lot-12.html#autotoc_md657", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-12.html#autotoc_md658", null ],
+        [ "Exigences couvertes", "lot-12.html#autotoc_md659", null ],
+        [ "Découpage", "lot-12.html#autotoc_md660", null ],
+        [ "Critères d'acceptation du lot", "lot-12.html#autotoc_md661", null ],
+        [ "Dépendances", "lot-12.html#autotoc_md662", null ],
+        [ "Navigation des tâches", "lot-12.html#autotoc_md663", null ],
+        [ "TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`)", "lot-12-tache-01-donnees.html", [
+          [ "Contexte", "lot-12-tache-01-donnees.html#autotoc_md664", null ],
+          [ "Travail à réaliser", "lot-12-tache-01-donnees.html#autotoc_md665", null ],
+          [ "Fichiers impactés", "lot-12-tache-01-donnees.html#autotoc_md666", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-01-donnees.html#autotoc_md667", null ],
+          [ "Points d'attention", "lot-12-tache-01-donnees.html#autotoc_md668", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-01-donnees.html#autotoc_md669", null ],
+          [ "Exigences", "lot-12-tache-01-donnees.html#autotoc_md670", null ]
+        ] ],
+        [ "TACHE-02 — Mécanismes interrupteur/porte (`MechanismController`)", "lot-12-tache-02-mecanismes.html", [
+          [ "Contexte", "lot-12-tache-02-mecanismes.html#autotoc_md671", null ],
+          [ "Travail à réaliser", "lot-12-tache-02-mecanismes.html#autotoc_md672", null ],
+          [ "Fichiers impactés", "lot-12-tache-02-mecanismes.html#autotoc_md673", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-02-mecanismes.html#autotoc_md674", null ],
+          [ "Points d'attention", "lot-12-tache-02-mecanismes.html#autotoc_md675", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-02-mecanismes.html#autotoc_md676", null ],
+          [ "Exigences", "lot-12-tache-02-mecanismes.html#autotoc_md677", null ]
+        ] ],
+        [ "TACHE-03 — Budget de sauts/dashs dans la physique", "lot-12-tache-03-budget.html", [
+          [ "Contexte", "lot-12-tache-03-budget.html#autotoc_md678", null ],
+          [ "Travail à réaliser", "lot-12-tache-03-budget.html#autotoc_md679", null ],
+          [ "Fichiers impactés", "lot-12-tache-03-budget.html#autotoc_md680", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-03-budget.html#autotoc_md681", null ],
+          [ "Points d'attention", "lot-12-tache-03-budget.html#autotoc_md682", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-03-budget.html#autotoc_md683", null ],
+          [ "Exigences", "lot-12-tache-03-budget.html#autotoc_md684", null ]
+        ] ],
+        [ "TACHE-04 — Intégration `GameScreen` + niveau `demo4` + preuves", "lot-12-tache-04-integration-puzzle.html", [
+          [ "Contexte", "lot-12-tache-04-integration-puzzle.html#autotoc_md685", null ],
+          [ "Travail à réaliser", "lot-12-tache-04-integration-puzzle.html#autotoc_md686", null ],
+          [ "Fichiers impactés", "lot-12-tache-04-integration-puzzle.html#autotoc_md687", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-04-integration-puzzle.html#autotoc_md688", null ],
+          [ "Points d'attention", "lot-12-tache-04-integration-puzzle.html#autotoc_md689", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-04-integration-puzzle.html#autotoc_md690", null ],
+          [ "Exigences", "lot-12-tache-04-integration-puzzle.html#autotoc_md691", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md655", null ],
-      [ "À venir", "manuel.html#autotoc_md656", null ],
+      [ "Pages", "manuel.html#autotoc_md693", null ],
+      [ "À venir", "manuel.html#autotoc_md694", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md657", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md658", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md659", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md695", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md696", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md697", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -921,16 +970,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Aabb_8h.html",
-"SweptCollision_8cpp.html#a4ca635df367666624247837feb2af5a5",
-"classcore_1_1View.html#a49e3c652711ec81da9dc5029136a5ab4",
-"classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f",
-"classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef",
-"lot-01-tache-03-boucle-pas-fixe.html#autotoc_md109",
-"lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md331",
-"lot-09-tache-05-enchainement-niveaux.html#autotoc_md551",
-"spec-conventions.html#autotoc_md28",
-"structcore_1_1Transform.html",
-"test__localization_8cpp.html#aa0f27340066e9efd017ea009fab79ba7"
+"Sprite_8h.html",
+"classcore_1_1TileMap.html",
+"classhmi_1_1GraphicsDevice.html#a8f0ce520f7a676109374adafc4bd6669",
+"classhmi_1_1SpriteBatch.html",
+"globals.html",
+"lot-04.html#autotoc_md228",
+"lot-08.html#autotoc_md465",
+"namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1",
+"structcore_1_1PhysicsConfig.html#ac393eb19e1428343e98922bcdd1451ab",
+"test__camera2d_8cpp.html#afb44f0a1467aad957fe999626534600c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

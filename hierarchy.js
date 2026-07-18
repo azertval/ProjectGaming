@@ -41,6 +41,7 @@ var hierarchy =
     [ "hmi::Localization", "classhmi_1_1Localization.html", null ],
     [ "core::Logger", "classcore_1_1Logger.html", null ],
     [ "core::Mechanism", "structcore_1_1Mechanism.html", null ],
+    [ "core::MechanismController", "classcore_1_1MechanismController.html", null ],
     [ "hmi::MenuModel", "classhmi_1_1MenuModel.html", null ],
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],

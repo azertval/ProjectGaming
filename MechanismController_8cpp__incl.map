@@ -1,0 +1,30 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Gameplay/MechanismController.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Gameplay/MechanismController.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="481,5,777,60"/>
+<area shape="rect" id="Node000002" href="$MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="149,108,426,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="525,63,347,107,345,102,524,57"/>
+<area shape="rect" id="Node000008" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="432,255,625,280"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="620,61,542,243,537,241,615,59"/>
+<area shape="rect" id="Node000010" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="410,328,578,353"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="641,59,654,104,663,162,664,193,661,224,653,254,639,282,611,309,577,326,574,321,608,304,635,278,648,252,656,223,659,193,658,163,649,106,636,61"/>
+<area shape="rect" id="Node000011" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="701,108,855,133"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="676,58,747,99,745,103,673,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="252,181,323,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="290,134,290,168,285,168,285,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,328,68,353"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="160,136,110,154,88,167,68,183,48,213,38,248,35,284,36,314,31,314,29,284,33,247,43,211,64,180,85,163,108,149,158,131"/>
+<area shape="rect" id="Node000005" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="78,181,227,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="267,136,188,177,186,172,264,131"/>
+<area shape="rect" id="Node000009" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="241,255,408,280"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="303,132,321,153,337,181,340,212,336,242,330,241,335,212,331,182,317,156,299,135"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="127,209,94,228,64,256,50,285,42,315,37,314,45,283,60,253,91,224,124,204"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="74,255,133,280"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="147,209,121,245,117,242,142,205"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="157,255,217,280"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="161,206,178,241,173,243,156,208"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="214,204,455,249,454,255,213,209"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="181,204,285,247,283,252,179,209"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="279,283,82,331,81,326,278,277"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="353,278,455,320,453,325,351,282"/>
+<area shape="rect" id="Node000012" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="701,181,855,207"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="781,134,781,168,775,168,775,134"/>
+</map>

@@ -15,10 +15,12 @@ var searchData=
   ['jump_20buffering_12',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
   ['jump_20dash_13',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],
   ['jump_20wall_20slide_14',['TACHE-04 — Wall jump + wall slide',['../lot-10-tache-04-wall-jump.html',1,'lot-10']]],
-  ['jumpbuffertime_15',['jumpBufferTime',['../structcore_1_1PhysicsConfig.html#a5e7506cee08635b18e230c975e8d6770',1,'core::PhysicsConfig']]],
-  ['jumpbuffertimer_16',['jumpBufferTimer',['../structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e',1,'core::Player']]],
-  ['jumpcutfactor_17',['jumpCutFactor',['../structcore_1_1PhysicsConfig.html#aad3d74392a7ee0841dc1d321a63ab1a9',1,'core::PhysicsConfig']]],
-  ['jumpheld_18',['jumpHeld',['../structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db',1,'core::PlayerInput']]],
-  ['jumppressed_19',['jumpPressed',['../structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23',1,'core::PlayerInput']]],
-  ['jumpspeed_20',['jumpSpeed',['../structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1',1,'core::PhysicsConfig']]]
+  ['jumpbudget_15',['jumpBudget',['../classcore_1_1Level.html#abf83804977ffb806c167c6d905766745',1,'core::Level']]],
+  ['jumpbuffertime_16',['jumpBufferTime',['../structcore_1_1PhysicsConfig.html#a5e7506cee08635b18e230c975e8d6770',1,'core::PhysicsConfig']]],
+  ['jumpbuffertimer_17',['jumpBufferTimer',['../structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e',1,'core::Player']]],
+  ['jumpcutfactor_18',['jumpCutFactor',['../structcore_1_1PhysicsConfig.html#aad3d74392a7ee0841dc1d321a63ab1a9',1,'core::PhysicsConfig']]],
+  ['jumpheld_19',['jumpHeld',['../structcore_1_1PlayerInput.html#a8fb113d4f6429ea94935827f5b2e93db',1,'core::PlayerInput']]],
+  ['jumppressed_20',['jumpPressed',['../structcore_1_1PlayerInput.html#a3b085dfdd9bfdf1f3f5a743cf9658b23',1,'core::PlayerInput']]],
+  ['jumpspeed_21',['jumpSpeed',['../structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1',1,'core::PhysicsConfig']]],
+  ['jumpsremaining_22',['jumpsRemaining',['../structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8',1,'core::Player']]]
 ];

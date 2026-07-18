@@ -12,7 +12,7 @@ var searchData=
   ['éditeur_20mvp_9',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md53',1,'']]],
   ['éditeur_20placeholder_10',['TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)',['../lot-06-tache-06-ecrans-cibles.html',1,'lot-06']]],
   ['épinglé_11',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
-  ['étapes_12',['Étapes',['../manuel-telecharger.html#autotoc_md658',1,'']]],
+  ['étapes_12',['Étapes',['../manuel-telecharger.html#autotoc_md696',1,'']]],
   ['états_20d_20application_20écrans_13',['TACHE-04 — États d&apos;application (écrans)',['../lot-06-tache-04-etats-application.html',1,'lot-06']]],
   ['états_20de_20jeu_14',['5. États de jeu',['../spec-gameplay.html#autotoc_md67',1,'']]]
 ];
