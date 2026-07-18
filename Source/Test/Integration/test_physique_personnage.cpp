@@ -20,6 +20,7 @@
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -197,6 +198,41 @@ core::Entity spawnHumanoid(core::World& world, core::GridPosition entry) {
     world.addComponent(entity, core::Collider{size});
     world.addComponent(entity, core::Player{});
     return entity;
+}
+
+// Rejoue un niveau AVEC ses mécanismes (interrupteurs/portes) : mime la boucle du GameScreen
+// (physique sur la grille des mécanismes, puis mise à jour des mécanismes), budget appliqué.
+core::LevelOutcome simulatePuzzle(const core::Level& level,
+                                  const std::function<core::PlayerInput(int)>& input,
+                                  int maxSteps = 3000) {
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, level.entry());
+    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
+    world.getComponent<core::Player>(player).dashesRemaining = level.dashBudget();
+    core::CharacterPhysicsSystem system;
+    core::MechanismController mechanisms(level);
+
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
+        system.update(world, mechanisms.collisionMap(), input(step), STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        const core::Collider& collider = world.getComponent<core::Collider>(player);
+        const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+        mechanisms.update(box);
+        outcome = core::evaluateOutcome(box, level);
+    }
+    return outcome;
+}
+
+// Charge un niveau puzzle livré et le rejoue avec ses mécanismes.
+core::LevelOutcome playPuzzleFile(const char* file,
+                                  const std::function<core::PlayerInput(int)>& input) {
+    const std::filesystem::path path = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    if (!loaded.ok()) {
+        return core::LevelOutcome::Lost;
+    }
+    return simulatePuzzle(*loaded.level, input);
 }
 
 // Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
@@ -794,6 +830,38 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
     };
     EXPECT_NE(playLevelFile("demo3.json", rightOnly),
               core::LevelOutcome::Won);  // tombe dans la fosse
+}
+
+/// Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
+TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
+    const auto right = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;  // le trajet passe sur l'interrupteur (ouvre la porte) puis la sortie
+        return in;
+    };
+    EXPECT_EQ(playPuzzleFile("demo4.json", right), core::LevelOutcome::Won);
+}
+
+/// Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste inatteignable.
+TEST(PhysiquePersonnageIntegration, PorteFermeeBloque) {
+    // Couloir au sol (ligne 4) ; interrupteur EN HAUT (hors du chemin), porte sur le chemin.
+    core::TileMap map(12, 5);
+    for (int col = 0; col < 12; ++col) {
+        map.setTile(col, 4, core::TileType::Solid);
+    }
+    map.setTile(6, 0, core::TileType::Switch);  // inatteignable en marchant
+    map.setTile(6, 3, core::TileType::Door);    // barre le couloir (ligne du personnage)
+    std::vector<core::Mechanism> mechanisms{
+        core::Mechanism{core::GridPosition{6, 0}, core::GridPosition{6, 3}}};
+    const core::Level level("bloc", std::move(map), core::GridPosition{1, 3},
+                            core::GridPosition{10, 3}, std::move(mechanisms));
+
+    const auto right = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;  // n'atteint jamais l'interrupteur en haut → porte fermée
+        return in;
+    };
+    EXPECT_NE(simulatePuzzle(level, right, 600), core::LevelOutcome::Won);  // bloqué par la porte
 }
 
 /// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.

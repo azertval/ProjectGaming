@@ -195,9 +195,9 @@ int main(int argc, char** argv) {
                     const std::filesystem::path levels = executableDirectory() / "Levels";
                     return std::make_unique<hmi::GameScreen>(
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
-                        std::vector<std::filesystem::path>{levels / "demo.json",
-                                                           levels / "demo2.json",
-                                                           levels / "demo3.json"});
+                        std::vector<std::filesystem::path>{
+                            levels / "demo.json", levels / "demo2.json", levels / "demo3.json",
+                            levels / "demo4.json"});
                 }
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>();

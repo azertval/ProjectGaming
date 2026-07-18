@@ -1,6 +1,6 @@
 # LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements {#lot-12}
 
-> Statut : **cadrage**. Ce lot rend les **mécanismes** interrupteur↔porte **fonctionnels**
+> Statut : **terminé**. Ce lot rend les **mécanismes** interrupteur↔porte **fonctionnels**
 > (`EX-GP-020`, `EX-GP-021`, chargés depuis le LOT-07 mais inertes jusqu'ici) et ajoute un
 > **budget de sauts/dashs par tableau** (`EX-GP-024`) — les deux briques d'un gameplay **puzzle**.
 
@@ -58,10 +58,10 @@ Toute la logique de gameplay reste **pure et déterministe au pas fixe** dans `C
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-donnees.md) | Données : budget (`Player`, `Level`, `LevelLoader`) | `Core` | ⬜ |
-| [TACHE-02](tache-02-mecanismes.md) | Mécanismes interrupteur/porte (`MechanismController`) | `Core/Gameplay` | ⬜ |
-| [TACHE-03](tache-03-budget.md) | Budget de sauts/dashs dans la physique | `Core/Ecs/Systems` | ⬜ |
-| [TACHE-04](tache-04-integration-puzzle.md) | Intégration `GameScreen` + niveau `demo4` + preuves | `HMI`, `Elements/Levels` | ⬜ |
+| [TACHE-01](tache-01-donnees.md) | Données : budget (`Player`, `Level`, `LevelLoader`) | `Core` | ✅ |
+| [TACHE-02](tache-02-mecanismes.md) | Mécanismes interrupteur/porte (`MechanismController`) | `Core/Gameplay` | ✅ |
+| [TACHE-03](tache-03-budget.md) | Budget de sauts/dashs dans la physique | `Core/Ecs/Systems` | ✅ |
+| [TACHE-04](tache-04-integration-puzzle.md) | Intégration `GameScreen` + niveau `demo4` + preuves | `HMI`, `Elements/Levels` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Toucher un **interrupteur** ouvre/ferme sa **porte** liée ; une porte **fermée bloque**, une
