@@ -25,7 +25,14 @@ core::Aabb unitBox(float x, float y) {
 
 }  // namespace
 
-/// Sans obstacle, la boîte parcourt tout son déplacement, sans contact.
+/**
+ * @brief Sans obstacle, la boîte parcourt tout son déplacement, sans contact.
+ * \castest{<b>Balayage : trajet libre</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Grille sans tuile solide.<br/>2. Balayer une boîte 1×1 d'un déplacement (3, 2).<br/>
+ * \tattendu Aucun contact ; la boîte atteint exactement la position visée.}
+ */
 TEST(SweptCollisionTest, TrajetLibre) {
     const core::TileMap tiles = emptyMap(10, 10);
     const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{3.0f, 2.0f}, tiles);
@@ -37,7 +44,14 @@ TEST(SweptCollisionTest, TrajetLibre) {
     EXPECT_FLOAT_EQ(r.normal.y, 0.0f);
 }
 
-/// Un mur à droite stoppe le mouvement horizontal, la boîte s'arrête au ras du mur.
+/**
+ * @brief Un mur à droite stoppe le mouvement horizontal, la boîte s'arrête au ras du mur.
+ * \castest{<b>Balayage : butée horizontale (mur à droite)</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Placer un mur solide à droite.<br/>2. Balayer la boîte vers la droite.<br/>
+ * \tattendu La boîte s'arrête au ras du mur (bord droit = bord du mur) ; normale horizontale.}
+ */
 TEST(SweptCollisionTest, ButeeHorizontale) {
     core::TileMap tiles = emptyMap(10, 3);
     tiles.setTile(3, 1, core::TileType::Solid);
@@ -49,7 +63,14 @@ TEST(SweptCollisionTest, ButeeHorizontale) {
     EXPECT_FLOAT_EQ(r.normal.x, -1.0f);
 }
 
-/// Un sol stoppe la chute : la boîte se pose dessus, normale vers le haut (appui au sol).
+/**
+ * @brief Un sol stoppe la chute : la boîte se pose dessus, normale vers le haut (appui au sol).
+ * \castest{<b>Balayage : butée verticale (sol)</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Placer un sol solide en dessous.<br/>2. Balayer la boîte vers le bas.<br/>
+ * \tattendu La boîte se pose sur le sol (bord bas = haut du sol) ; normale vers le haut.}
+ */
 TEST(SweptCollisionTest, ButeeVerticale) {
     core::TileMap tiles = emptyMap(3, 10);
     tiles.setTile(1, 5, core::TileType::Solid);
@@ -61,7 +82,14 @@ TEST(SweptCollisionTest, ButeeVerticale) {
     EXPECT_FLOAT_EQ(r.normal.y, -1.0f);
 }
 
-/// Cœur de la décision de cadrage : un pas plus grand qu'une tuile ne traverse pas le mur.
+/**
+ * @brief Cœur de la décision de cadrage : un pas plus grand qu'une tuile ne traverse pas le mur.
+ * \castest{<b>Balayage : non-tunneling à vitesse élevée</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mur à 5 tuiles.<br/>2. Balayer d'un déplacement de 10 (≫ une tuile) vers le mur.<br/>
+ * \tattendu La boîte s'arrête au ras du mur ; elle ne le traverse pas (garantie continue).}
+ */
 TEST(SweptCollisionTest, NonTunneling) {
     core::TileMap tiles = emptyMap(8, 2);
     tiles.setTile(5, 0, core::TileType::Solid);
@@ -72,7 +100,14 @@ TEST(SweptCollisionTest, NonTunneling) {
     EXPECT_FLOAT_EQ(r.normal.x, -1.0f);
 }
 
-/// Glissement : en butant contre un mur vertical, la boîte continue de descendre le long du mur.
+/**
+ * @brief Glissement : en butant contre un mur vertical, la boîte continue de descendre le long du mur.
+ * \castest{<b>Balayage : glissement le long d'un mur</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mur vertical à droite.<br/>2. Balayer d'un déplacement diagonal (droite + bas).<br/>
+ * \tattendu Bloquée en X (au ras du mur), mais la descente complète en Y a lieu (glissement).}
+ */
 TEST(SweptCollisionTest, GlissementLeLongDuMur) {
     core::TileMap tiles = emptyMap(6, 4);
     tiles.setTile(3, 0, core::TileType::Solid);
@@ -86,7 +121,14 @@ TEST(SweptCollisionTest, GlissementLeLongDuMur) {
     EXPECT_FLOAT_EQ(r.normal.x, -1.0f);
 }
 
-/// Un mur à gauche stoppe le déplacement vers la gauche, bord gauche collé au mur.
+/**
+ * @brief Un mur à gauche stoppe le déplacement vers la gauche, bord gauche collé au mur.
+ * \castest{<b>Balayage : butée horizontale (mur à gauche)</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mur solide à gauche.<br/>2. Balayer la boîte vers la gauche.<br/>
+ * \tattendu La boîte s'arrête au ras du mur (bord gauche = bord droit du mur) ; normale opposée.}
+ */
 TEST(SweptCollisionTest, ButeeGauche) {
     core::TileMap tiles = emptyMap(10, 3);
     tiles.setTile(2, 1, core::TileType::Solid);
@@ -97,7 +139,14 @@ TEST(SweptCollisionTest, ButeeGauche) {
     EXPECT_FLOAT_EQ(r.normal.x, 1.0f);
 }
 
-/// Un plafond stoppe la montée, bord haut collé sous le plafond.
+/**
+ * @brief Un plafond stoppe la montée, bord haut collé sous le plafond.
+ * \castest{<b>Balayage : butée verticale (plafond)</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Plafond solide au-dessus.<br/>2. Balayer la boîte vers le haut.<br/>
+ * \tattendu La boîte s'arrête sous le plafond (bord haut = bas du plafond) ; normale vers le bas.}
+ */
 TEST(SweptCollisionTest, ButeePlafond) {
     core::TileMap tiles = emptyMap(3, 10);
     tiles.setTile(1, 2, core::TileType::Solid);
@@ -108,7 +157,14 @@ TEST(SweptCollisionTest, ButeePlafond) {
     EXPECT_FLOAT_EQ(r.normal.y, 1.0f);
 }
 
-/// En marchant le long d'un sol, la boîte n'est pas bloquée horizontalement par ce sol (peau).
+/**
+ * @brief En marchant le long d'un sol, la boîte n'est pas bloquée horizontalement par ce sol (peau).
+ * \castest{<b>Balayage : marcher sur un sol sans blocage horizontal</b><br/>
+ * \tcat Unitaire · Physique · Balayage AABB<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Sol continu ; boîte posée dessus.<br/>2. Balayer horizontalement le long du sol.<br/>
+ * \tattendu Aucun blocage : la « peau » perpendiculaire évite de confondre marcher sur / buter contre.}
+ */
 TEST(SweptCollisionTest, MarcheSurLeSolSansBlocageHorizontal) {
     core::TileMap tiles = emptyMap(10, 3);
     for (int col = 0; col < 10; ++col) {
