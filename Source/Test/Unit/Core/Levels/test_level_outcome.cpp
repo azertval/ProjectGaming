@@ -31,31 +31,77 @@ core::Level makeLevel(core::GridPosition exit, int dangerCol = -1, int dangerRow
 
 }  // namespace
 
-/// En zone libre (ni sortie, ni danger, dans les limites) : partie en cours.
+/**
+ * @brief En zone libre (ni sortie, ni danger, dans les limites) : partie en cours.
+ * \castest{<b>En zone libre (ni sortie, ni danger, dans les limites) : partie en cours.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu En zone libre (ni sortie, ni danger, dans les limites) : partie en cours.
+ * }
+ */
 TEST(LevelOutcomeTest, ZoneLibreEstEnCours) {
     const core::Level level = makeLevel(core::GridPosition{8, 8}, 5, 5);
     EXPECT_EQ(core::evaluateOutcome(unitBox(1.0f, 1.0f), level), core::LevelOutcome::Playing);
 }
 
-/// La boîte recouvrant la case de sortie : niveau gagné.
+/**
+ * @brief La boîte recouvrant la case de sortie : niveau gagné.
+ * \castest{<b>La boîte recouvrant la case de sortie : niveau gagné.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La boîte recouvrant la case de sortie : niveau gagné.
+ * }
+ */
 TEST(LevelOutcomeTest, SurLaSortieEstGagne) {
     const core::Level level = makeLevel(core::GridPosition{8, 8});
     EXPECT_EQ(core::evaluateOutcome(unitBox(8.0f, 8.0f), level), core::LevelOutcome::Won);
 }
 
-/// La boîte recouvrant une tuile Danger : niveau perdu.
+/**
+ * @brief La boîte recouvrant une tuile Danger : niveau perdu.
+ * \castest{<b>La boîte recouvrant une tuile Danger : niveau perdu.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La boîte recouvrant une tuile Danger : niveau perdu.
+ * }
+ */
 TEST(LevelOutcomeTest, SurUnDangerEstPerdu) {
     const core::Level level = makeLevel(core::GridPosition{8, 8}, 5, 5);
     EXPECT_EQ(core::evaluateOutcome(unitBox(5.0f, 5.0f), level), core::LevelOutcome::Lost);
 }
 
-/// La boîte sous la limite basse (chute dans le vide) : niveau perdu.
+/**
+ * @brief La boîte sous la limite basse (chute dans le vide) : niveau perdu.
+ * \castest{<b>La boîte sous la limite basse (chute dans le vide) : niveau perdu.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La boîte sous la limite basse (chute dans le vide) : niveau perdu.
+ * }
+ */
 TEST(LevelOutcomeTest, SousLaLimiteBasseEstPerdu) {
     const core::Level level = makeLevel(core::GridPosition{8, 8});
     EXPECT_EQ(core::evaluateOutcome(unitBox(2.0f, 10.0f), level), core::LevelOutcome::Lost);
 }
 
-/// Recouvrement simultané sortie + danger : l'échec est prioritaire (déterminisme).
+/**
+ * @brief Recouvrement simultané sortie + danger : l'échec est prioritaire (déterminisme).
+ * \castest{<b>Recouvrement simultané sortie + danger : l'échec est prioritaire
+ * (déterminisme).</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Recouvrement simultané sortie + danger : l'échec est prioritaire (déterminisme).
+ * }
+ */
 TEST(LevelOutcomeTest, EchecPrioritaireSurSucces) {
     // Sortie ET danger sur la même case (5,5) : la boîte recouvre les deux.
     const core::Level level = makeLevel(core::GridPosition{5, 5}, 5, 5);

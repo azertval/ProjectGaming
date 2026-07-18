@@ -44,8 +44,19 @@ int runFrames(core::World& world, core::FixedTimestep& timestep,
 }
 }  // namespace
 
-/// Le cadenceur découpe un temps réel variable en pas fixes, et la position finale
-/// correspond exactement au nombre de pas réellement exécutés (aucune dérive).
+/**
+ * @brief Le cadenceur découpe un temps réel variable en pas fixes, et la position finale correspond
+ * exactement au nombre de pas réellement exécutés (aucune dérive).
+ * \castest{<b>Le cadenceur découpe un temps réel variable en pas fixes, et la position finale
+ * correspond exactement au nombre de pas réellement exécutés (aucune dérive).</b><br/>
+ * \tcat Integration · Boucle Simulation<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le cadenceur découpe un temps réel variable en pas fixes, et la position finale
+ * correspond exactement au nombre de pas réellement exécutés (aucune dérive).
+ * }
+ */
 TEST(BoucleSimulationIntegration, CadenceurPiloteLaSimulation) {
     core::World world;
     const core::Entity mover = buildMovingWorld(world, core::Vector2{6.0f, 0.0f});
@@ -60,7 +71,17 @@ TEST(BoucleSimulationIntegration, CadenceurPiloteLaSimulation) {
     EXPECT_NEAR(position.x, 6.0f * totalSteps * STEP, TOLERANCE);
 }
 
-/// Déterminisme : même séquence de frames et même état initial -> même résultat.
+/**
+ * @brief Déterminisme : même séquence de frames et même état initial -> même résultat.
+ * \castest{<b>Déterminisme : même séquence de frames et même état initial -> même
+ * résultat.</b><br/>
+ * \tcat Integration · Boucle Simulation<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Déterminisme : même séquence de frames et même état initial -> même résultat.
+ * }
+ */
 TEST(BoucleSimulationIntegration, MemeEntreeMemeResultat) {
     const std::vector<float> frames{STEP * 0.7f, STEP * 2.3f, STEP, STEP * 0.4f};
     const core::Vector2 velocity{0.0f, 5.0f};

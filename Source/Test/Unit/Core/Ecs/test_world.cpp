@@ -48,7 +48,16 @@ private:
 };
 }  // namespace
 
-/// Le cycle add/has/get/remove d'un composant est cohérent via le `World`.
+/**
+ * @brief Le cycle add/has/get/remove d'un composant est cohérent via le `World`.
+ * \castest{<b>Le cycle add/has/get/remove d'un composant est cohérent via le `World`.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le cycle add/has/get/remove d'un composant est cohérent via le `World`.
+ * }
+ */
 TEST(WorldTest, CycleComposant) {
     core::World world;
     const core::Entity entity = world.createEntity();
@@ -66,14 +75,32 @@ TEST(WorldTest, CycleComposant) {
     EXPECT_FALSE(world.hasComponent<Health>(entity));
 }
 
-/// `hasComponent` est faux quand aucune pool du type n'existe encore.
+/**
+ * @brief `hasComponent` est faux quand aucune pool du type n'existe encore.
+ * \castest{<b>`hasComponent` est faux quand aucune pool du type n'existe encore.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `hasComponent` est faux quand aucune pool du type n'existe encore.
+ * }
+ */
 TEST(WorldTest, HasComponentSansPool) {
     core::World world;
     const core::Entity entity = world.createEntity();
     EXPECT_FALSE(world.hasComponent<Health>(entity));
 }
 
-/// `destroyEntity` retire l'entité de toutes les pools et la rend non vivante.
+/**
+ * @brief `destroyEntity` retire l'entité de toutes les pools et la rend non vivante.
+ * \castest{<b>`destroyEntity` retire l'entité de toutes les pools et la rend non vivante.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `destroyEntity` retire l'entité de toutes les pools et la rend non vivante.
+ * }
+ */
 TEST(WorldTest, DestroyEntityRetireTousLesComposants) {
     core::World world;
     const core::Entity entity = world.createEntity();
@@ -87,7 +114,16 @@ TEST(WorldTest, DestroyEntityRetireTousLesComposants) {
     EXPECT_FALSE(world.hasComponent<Position>(entity));
 }
 
-/// Les systèmes enregistrés s'exécutent dans l'ordre d'enregistrement.
+/**
+ * @brief Les systèmes enregistrés s'exécutent dans l'ordre d'enregistrement.
+ * \castest{<b>Les systèmes enregistrés s'exécutent dans l'ordre d'enregistrement.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les systèmes enregistrés s'exécutent dans l'ordre d'enregistrement.
+ * }
+ */
 TEST(WorldTest, SystemesExecutesDansLOrdre) {
     core::World world;
     std::vector<int> log;
@@ -101,7 +137,17 @@ TEST(WorldTest, SystemesExecutesDansLOrdre) {
     EXPECT_EQ(log, (std::vector<int>{1, 2, 3}));
 }
 
-/// `update` appelé N fois exécute chaque système N fois (cadencement déterministe).
+/**
+ * @brief `update` appelé N fois exécute chaque système N fois (cadencement déterministe).
+ * \castest{<b>`update` appelé N fois exécute chaque système N fois (cadencement
+ * déterministe).</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `update` appelé N fois exécute chaque système N fois (cadencement déterministe).
+ * }
+ */
 TEST(WorldTest, UpdateNFoisExecuteNFois) {
     core::World world;
     std::vector<int> log;
@@ -115,7 +161,16 @@ TEST(WorldTest, UpdateNFoisExecuteNFois) {
     EXPECT_EQ(log.size(), static_cast<std::size_t>(calls));
 }
 
-/// Le `fixedDelta` passé à `update` est transmis tel quel aux systèmes.
+/**
+ * @brief Le `fixedDelta` passé à `update` est transmis tel quel aux systèmes.
+ * \castest{<b>Le `fixedDelta` passé à `update` est transmis tel quel aux systèmes.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le `fixedDelta` passé à `update` est transmis tel quel aux systèmes.
+ * }
+ */
 TEST(WorldTest, FixedDeltaTransmisAuxSystemes) {
     core::World world;
     float observed = 0.0f;
@@ -126,7 +181,16 @@ TEST(WorldTest, FixedDeltaTransmisAuxSystemes) {
     EXPECT_FLOAT_EQ(observed, 0.25f);
 }
 
-/// La vue exposée par le `World` itère l'intersection des composants.
+/**
+ * @brief La vue exposée par le `World` itère l'intersection des composants.
+ * \castest{<b>La vue exposée par le `World` itère l'intersection des composants.</b><br/>
+ * \tcat Unitaire · World<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La vue exposée par le `World` itère l'intersection des composants.
+ * }
+ */
 TEST(WorldTest, ViewViaWorld) {
     core::World world;
     const core::Entity both = world.createEntity();

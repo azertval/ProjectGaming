@@ -24,6 +24,8 @@ Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
 [Lots](@ref lots).
 
 ## Navigation
+- @subpage guide — **Guide du développeur** : comprendre tout le moteur (concepts, code, maths).
+- @subpage cahiertest — **Cahier de test** : tous les cas de test (catégorie, criticité, étapes).
 - @subpage specifications — besoins, contraintes et exigences (`EX-…`), conventions de code.
 - @subpage lots — plan de travail : un lot par incrément, découpé en tâches.
 - @subpage manuel — manuel utilisateur (télécharger et lancer le jeu).

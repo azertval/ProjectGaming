@@ -22,7 +22,16 @@ struct Velocity {
 };
 }  // namespace
 
-/// Une vue <A, B> itère exactement les entités possédant A et B.
+/**
+ * @brief Une vue <A, B> itère exactement les entités possédant A et B.
+ * \castest{<b>Une vue <A, B> itère exactement les entités possédant A et B.</b><br/>
+ * \tcat Unitaire · View<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une vue <A, B> itère exactement les entités possédant A et B.
+ * }
+ */
 TEST(ViewTest, SelectionneUniquementLIntersection) {
     core::EntityManager manager;
     const core::Entity both = manager.create();  // Position + Velocity
@@ -44,7 +53,16 @@ TEST(ViewTest, SelectionneUniquementLIntersection) {
     EXPECT_EQ(visited.front(), both);
 }
 
-/// Les composants fournis par la vue correspondent bien à l'entité itérée.
+/**
+ * @brief Les composants fournis par la vue correspondent bien à l'entité itérée.
+ * \castest{<b>Les composants fournis par la vue correspondent bien à l'entité itérée.</b><br/>
+ * \tcat Unitaire · View<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les composants fournis par la vue correspondent bien à l'entité itérée.
+ * }
+ */
 TEST(ViewTest, ComposantsCorrespondentALEntite) {
     core::EntityManager manager;
     const core::Entity first = manager.create();
@@ -69,7 +87,16 @@ TEST(ViewTest, ComposantsCorrespondentALEntite) {
     });
 }
 
-/// La modification d'un composant via la vue est visible ensuite (référence).
+/**
+ * @brief La modification d'un composant via la vue est visible ensuite (référence).
+ * \castest{<b>La modification d'un composant via la vue est visible ensuite (référence).</b><br/>
+ * \tcat Unitaire · View<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La modification d'un composant via la vue est visible ensuite (référence).
+ * }
+ */
 TEST(ViewTest, ModificationViaVueEstVisible) {
     core::EntityManager manager;
     const core::Entity entity = manager.create();
@@ -86,7 +113,16 @@ TEST(ViewTest, ModificationViaVueEstVisible) {
     EXPECT_EQ(positions.get(entity).value, 8);
 }
 
-/// Une vue sans entité correspondante s'itère sans erreur (aucune visite).
+/**
+ * @brief Une vue sans entité correspondante s'itère sans erreur (aucune visite).
+ * \castest{<b>Une vue sans entité correspondante s'itère sans erreur (aucune visite).</b><br/>
+ * \tcat Unitaire · View<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une vue sans entité correspondante s'itère sans erreur (aucune visite).
+ * }
+ */
 TEST(ViewTest, VueVideNIterePas) {
     core::ComponentPool<Position> positions;
     core::ComponentPool<Velocity> velocities;
@@ -104,7 +140,16 @@ TEST(ViewTest, VueVideNIterePas) {
     EXPECT_EQ(visits, 0);
 }
 
-/// L'itération par `for` visite les mêmes entités que `each`.
+/**
+ * @brief L'itération par `for` visite les mêmes entités que `each`.
+ * \castest{<b>L'itération par `for` visite les mêmes entités que `each`.</b><br/>
+ * \tcat Unitaire · View<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'itération par `for` visite les mêmes entités que `each`.
+ * }
+ */
 TEST(ViewTest, IterationForEtEachCoherentes) {
     core::EntityManager manager;
     const core::Entity a = manager.create();

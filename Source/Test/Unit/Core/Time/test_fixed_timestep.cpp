@@ -11,26 +11,62 @@ namespace {
 constexpr float STEP = 1.0f / 60.0f;
 }
 
-/// Un temps écoulé égal au pas fixe produit exactement un pas.
+/**
+ * @brief Un temps écoulé égal au pas fixe produit exactement un pas.
+ * \castest{<b>Un temps écoulé égal au pas fixe produit exactement un pas.</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un temps écoulé égal au pas fixe produit exactement un pas.
+ * }
+ */
 TEST(FixedTimestepTest, UnPasExact) {
     core::FixedTimestep timestep(STEP);
     EXPECT_EQ(timestep.advance(STEP), 1);
 }
 
-/// Un temps écoulé inférieur au pas ne produit aucun pas.
+/**
+ * @brief Un temps écoulé inférieur au pas ne produit aucun pas.
+ * \castest{<b>Un temps écoulé inférieur au pas ne produit aucun pas.</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un temps écoulé inférieur au pas ne produit aucun pas.
+ * }
+ */
 TEST(FixedTimestepTest, TempsInsuffisant) {
     core::FixedTimestep timestep(STEP);
     EXPECT_EQ(timestep.advance(STEP * 0.5f), 0);
 }
 
-/// Un temps écoulé nul ou négatif ne produit aucun pas.
+/**
+ * @brief Un temps écoulé nul ou négatif ne produit aucun pas.
+ * \castest{<b>Un temps écoulé nul ou négatif ne produit aucun pas.</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un temps écoulé nul ou négatif ne produit aucun pas.
+ * }
+ */
 TEST(FixedTimestepTest, TempsNulOuNegatif) {
     core::FixedTimestep timestep(STEP);
     EXPECT_EQ(timestep.advance(0.0f), 0);
     EXPECT_EQ(timestep.advance(-1.0f), 0);
 }
 
-/// 2,5 pas donnent 2 pas, et le reste (0,5 pas) est conservé puis complété.
+/**
+ * @brief 2,5 pas donnent 2 pas, et le reste (0,5 pas) est conservé puis complété.
+ * \castest{<b>2,5 pas donnent 2 pas, et le reste (0,5 pas) est conservé puis complété.</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu 2,5 pas donnent 2 pas, et le reste (0,5 pas) est conservé puis complété.
+ * }
+ */
 TEST(FixedTimestepTest, ResteConserve) {
     core::FixedTimestep timestep(STEP);
     EXPECT_EQ(timestep.advance(STEP * 2.5f), 2);
@@ -41,7 +77,16 @@ TEST(FixedTimestepTest, ResteConserve) {
     EXPECT_EQ(timestep.advance(STEP * 0.6f), 1);
 }
 
-/// Un temps écoulé énorme est plafonné (anti-spirale de la mort).
+/**
+ * @brief Un temps écoulé énorme est plafonné (anti-spirale de la mort).
+ * \castest{<b>Un temps écoulé énorme est plafonné (anti-spirale de la mort).</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un temps écoulé énorme est plafonné (anti-spirale de la mort).
+ * }
+ */
 TEST(FixedTimestepTest, PlafondAntiSpirale) {
     const int maximum = 5;
     core::FixedTimestep timestep(STEP, maximum);
@@ -50,7 +95,16 @@ TEST(FixedTimestepTest, PlafondAntiSpirale) {
     EXPECT_EQ(timestep.advance(0.0f), 0);
 }
 
-/// Le pas fixe exposé correspond à la configuration.
+/**
+ * @brief Le pas fixe exposé correspond à la configuration.
+ * \castest{<b>Le pas fixe exposé correspond à la configuration.</b><br/>
+ * \tcat Unitaire · Fixed Timestep<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le pas fixe exposé correspond à la configuration.
+ * }
+ */
 TEST(FixedTimestepTest, PasFixeExpose) {
     core::FixedTimestep timestep(STEP);
     EXPECT_NEAR(timestep.fixedDeltaSeconds(), STEP, 1e-6f);

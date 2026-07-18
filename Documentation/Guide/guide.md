@@ -1,0 +1,35 @@
+# Guide du développeur {#guide}
+
+Ce guide explique **toutes les notions couvertes par le moteur** et **comment le code les
+implémente**. Objectif : un développeur ayant des notions de C++ comprend l'ensemble du code **en
+autonomie**. Chaque page décrit les fonctions clés, leurs invariants, et renvoie aux **explications
+mathématiques** derrière les concepts.
+
+## Comment lire ce guide
+
+- Les noms de types et de fonctions (`core::World`, `core::sweepAabb`, …) sont **cliquables** :
+  ils mènent à la référence de code Doxygen (signature, doc détaillée).
+- Les liens externes (⧉) pointent vers les **fondements mathématiques/algorithmiques**.
+- Le *quoi* et le *pourquoi* vivent dans les [spécifications](@ref specifications) ; ce guide
+  couvre le *comment*.
+
+## Architecture en deux couches
+
+Le moteur sépare strictement :
+
+- **`Core`** — logique pure : ECS, mathématiques, physique, modèle de niveau, gameplay, temps.
+  **Aucune dépendance** à DirectX ni à la fenêtre → testable sans GPU (`EX-NFR-010`).
+- **`HMI`** — présentation : fenêtre Win32, rendu Direct3D 11, entrées, écrans. Dépend de `Core`,
+  **jamais l'inverse** (`EX-ARCH-010`).
+
+La règle d'or : **la simulation est dans `Core`, déterministe et testée** ; `HMI` orchestre et
+affiche. Cette frontière est ce qui rend le moteur analysable domaine par domaine.
+
+## Plan du guide
+
+- @subpage guide-boucle — la boucle de jeu et le **pas de temps fixe** (déterminisme).
+- @subpage guide-ecs — l'**ECS** maison (entités, composants, systèmes, vues).
+- @subpage guide-maths — les **mathématiques** du moteur (`Vector2`, AABB, unités).
+- @subpage guide-physique — la **physique** du personnage : balayage AABB, gravité, saut, dash.
+- @subpage guide-niveaux — les **niveaux** : modèle, chargement JSON, mécanismes, budgets.
+- @subpage guide-entrees — les **entrées** et leur traduction en **actions logiques**.

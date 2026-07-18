@@ -3,7 +3,7 @@
 # Les options non spécifiées gardent les valeurs par défaut de Doxygen.
 
 PROJECT_NAME           = "ProjectGaming"
-PROJECT_NUMBER         = 0.1.0
+PROJECT_NUMBER         = 0.0.1
 PROJECT_BRIEF          = "Jeu 2D de plateforme/puzzle en C++/DirectX"
 
 OUTPUT_DIRECTORY       = generated
@@ -12,6 +12,7 @@ CREATE_SUBDIRS         = NO
 # Entrées : documentation Markdown (accueil, spécifications, lots) + code source.
 # Les chemins sont relatifs à ce dossier (Documentation/).
 INPUT                  = index.md \
+                         Guide \
                          Specification \
                          Lot \
                          Manuel \
@@ -46,3 +47,13 @@ WARN_IF_UNDOCUMENTED   = NO
 # cassée, @param en conflit, symbole introuvable) fait échouer la génération.
 # FAIL_ON_WARNINGS : liste tous les avertissements puis retourne un code non nul.
 WARN_AS_ERROR          = FAIL_ON_WARNINGS
+
+# --- Cahier de test (LOT-13) ---
+# \castest{...} : UN seul argument (accolades) -> les virgules du contenu sont autorisees.
+# Agrege le cas dans la page "Cahier de test" (via \xrefitem) ET dans la doc du test.
+# Sous-commandes pour structurer le contenu (categorie, criticite, etapes, resultat attendu).
+ALIASES += "castest{1}=\xrefitem cahiertest \"Cas de test\" \"Cahier de test\" \1"
+ALIASES += "tcat=<b>Categorie :</b> "
+ALIASES += "tcrit=<b>Criticite :</b> "
+ALIASES += "tetapes=<b>Etapes :</b><br/>"
+ALIASES += "tattendu=<b>Resultat attendu :</b> "

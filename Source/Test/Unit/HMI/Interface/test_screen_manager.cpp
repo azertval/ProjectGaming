@@ -44,7 +44,16 @@ struct Harness {
 
 }  // namespace
 
-/// La construction fabrique l'écran initial demandé.
+/**
+ * @brief La construction fabrique l'écran initial demandé.
+ * \castest{<b>La construction fabrique l'écran initial demandé.</b><br/>
+ * \tcat Unitaire · Screen Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La construction fabrique l'écran initial demandé.
+ * }
+ */
 TEST(ScreenManagerTest, ConstructionCreeEcranInitial) {
     Harness harness;
     hmi::ScreenManager manager(harness.factory(), hmi::ScreenId::Menu);
@@ -54,7 +63,17 @@ TEST(ScreenManagerTest, ConstructionCreeEcranInitial) {
     EXPECT_NE(manager.currentScreen(), nullptr);
 }
 
-/// Une transition « rester » conserve l'écran actif et n'en fabrique pas d'autre.
+/**
+ * @brief Une transition « rester » conserve l'écran actif et n'en fabrique pas d'autre.
+ * \castest{<b>Une transition « rester » conserve l'écran actif et n'en fabrique pas
+ * d'autre.</b><br/>
+ * \tcat Unitaire · Screen Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une transition « rester » conserve l'écran actif et n'en fabrique pas d'autre.
+ * }
+ */
 TEST(ScreenManagerTest, TransitionNoneResteSurEcran) {
     Harness harness;
     hmi::ScreenManager manager(harness.factory(), hmi::ScreenId::Menu);
@@ -67,7 +86,16 @@ TEST(ScreenManagerTest, TransitionNoneResteSurEcran) {
     EXPECT_EQ(harness.requested.size(), 1u);  // aucun nouvel écran fabriqué
 }
 
-/// Une transition « basculer » remplace l'écran actif par celui demandé.
+/**
+ * @brief Une transition « basculer » remplace l'écran actif par celui demandé.
+ * \castest{<b>Une transition « basculer » remplace l'écran actif par celui demandé.</b><br/>
+ * \tcat Unitaire · Screen Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une transition « basculer » remplace l'écran actif par celui demandé.
+ * }
+ */
 TEST(ScreenManagerTest, TransitionSwitchRemplaceEcran) {
     Harness harness;
     hmi::ScreenManager manager(harness.factory(), hmi::ScreenId::Menu);
@@ -83,7 +111,16 @@ TEST(ScreenManagerTest, TransitionSwitchRemplaceEcran) {
     EXPECT_FALSE(manager.shouldQuit());
 }
 
-/// Une transition « quitter » ferme l'application et se propage à la boucle.
+/**
+ * @brief Une transition « quitter » ferme l'application et se propage à la boucle.
+ * \castest{<b>Une transition « quitter » ferme l'application et se propage à la boucle.</b><br/>
+ * \tcat Unitaire · Screen Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une transition « quitter » ferme l'application et se propage à la boucle.
+ * }
+ */
 TEST(ScreenManagerTest, TransitionQuitFermeApplication) {
     Harness harness;
     hmi::ScreenManager manager(harness.factory(), hmi::ScreenId::Menu);

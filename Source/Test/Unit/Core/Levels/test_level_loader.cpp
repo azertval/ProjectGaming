@@ -28,7 +28,17 @@ constexpr const char* VALID_LEVEL = R"({
 
 }  // namespace
 
-/// Un niveau valide est chargé avec ses dimensions, tuiles, entrée/sortie et mécanismes.
+/**
+ * @brief Un niveau valide est chargé avec ses dimensions, tuiles, entrée/sortie et mécanismes.
+ * \castest{<b>Un niveau valide est chargé avec ses dimensions, tuiles, entrée/sortie et
+ * mécanismes.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau valide est chargé avec ses dimensions, tuiles, entrée/sortie et mécanismes.
+ * }
+ */
 TEST(LevelLoaderTest, ChargeUnNiveauValide) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(VALID_LEVEL);
     ASSERT_TRUE(result.ok()) << result.error;
@@ -47,7 +57,19 @@ TEST(LevelLoaderTest, ChargeUnNiveauValide) {
     EXPECT_EQ(level.mechanisms().front().doorPosition, (core::GridPosition{3, 0}));
 }
 
-/// Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.
+/**
+ * @brief Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
+ * sinon.
+ * \castest{<b>Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités
+ * (-1) sinon.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
+ * sinon.
+ * }
+ */
 TEST(LevelLoaderTest, BudgetsOptionnels) {
     const core::LevelLoadResult withBudget = core::LevelLoader::loadFromString(R"({
         "width": 3, "height": 3, "jumpBudget": 2, "dashBudget": 1,
@@ -64,21 +86,48 @@ TEST(LevelLoaderTest, BudgetsOptionnels) {
     EXPECT_EQ(noBudget.level->dashBudget(), -1);
 }
 
-/// Un JSON syntaxiquement invalide est rejeté sans plantage.
+/**
+ * @brief Un JSON syntaxiquement invalide est rejeté sans plantage.
+ * \castest{<b>Un JSON syntaxiquement invalide est rejeté sans plantage.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un JSON syntaxiquement invalide est rejeté sans plantage.
+ * }
+ */
 TEST(LevelLoaderTest, JsonMalformeRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString("{ pas du json");
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
 }
 
-/// Un champ obligatoire manquant est rejeté.
+/**
+ * @brief Un champ obligatoire manquant est rejeté.
+ * \castest{<b>Un champ obligatoire manquant est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un champ obligatoire manquant est rejeté.
+ * }
+ */
 TEST(LevelLoaderTest, ChampManquantRejete) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 4, "height": 3 })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Un type de tuile inconnu est rejeté avec un message.
+/**
+ * @brief Un type de tuile inconnu est rejeté avec un message.
+ * \castest{<b>Un type de tuile inconnu est rejeté avec un message.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un type de tuile inconnu est rejeté avec un message.
+ * }
+ */
 TEST(LevelLoaderTest, TypeDeTuileInconnuRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 0, "y": 0, "type": "lave" } ] })");
@@ -86,14 +135,32 @@ TEST(LevelLoaderTest, TypeDeTuileInconnuRejete) {
     EXPECT_FALSE(result.error.empty());
 }
 
-/// Une tuile hors des bornes est rejetée.
+/**
+ * @brief Une tuile hors des bornes est rejetée.
+ * \castest{<b>Une tuile hors des bornes est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une tuile hors des bornes est rejetée.
+ * }
+ */
 TEST(LevelLoaderTest, TuileHorsBornesRejetee) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 9, "y": 0, "type": "solid" } ] })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Une porte liée à un interrupteur inexistant est rejetée.
+/**
+ * @brief Une porte liée à un interrupteur inexistant est rejetée.
+ * \castest{<b>Une porte liée à un interrupteur inexistant est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une porte liée à un interrupteur inexistant est rejetée.
+ * }
+ */
 TEST(LevelLoaderTest, LiaisonMecanismeNonResolueRejetee) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -107,7 +174,16 @@ TEST(LevelLoaderTest, LiaisonMecanismeNonResolueRejetee) {
     EXPECT_FALSE(result.error.empty());
 }
 
-/// Plusieurs entrées sont rejetées (une seule attendue).
+/**
+ * @brief Plusieurs entrées sont rejetées (une seule attendue).
+ * \castest{<b>Plusieurs entrées sont rejetées (une seule attendue).</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Plusieurs entrées sont rejetées (une seule attendue).
+ * }
+ */
 TEST(LevelLoaderTest, PlusieursEntreesRejetees) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -120,7 +196,16 @@ TEST(LevelLoaderTest, PlusieursEntreesRejetees) {
     EXPECT_FALSE(result.ok());
 }
 
-/// Plusieurs sorties sont rejetées (une seule attendue).
+/**
+ * @brief Plusieurs sorties sont rejetées (une seule attendue).
+ * \castest{<b>Plusieurs sorties sont rejetées (une seule attendue).</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Plusieurs sorties sont rejetées (une seule attendue).
+ * }
+ */
 TEST(LevelLoaderTest, PlusieursSortiesRejetees) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -133,7 +218,16 @@ TEST(LevelLoaderTest, PlusieursSortiesRejetees) {
     EXPECT_FALSE(result.ok());
 }
 
-/// Deux tuiles à la même position sont rejetées.
+/**
+ * @brief Deux tuiles à la même position sont rejetées.
+ * \castest{<b>Deux tuiles à la même position sont rejetées.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Deux tuiles à la même position sont rejetées.
+ * }
+ */
 TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -147,21 +241,48 @@ TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
     EXPECT_FALSE(result.ok());
 }
 
-/// Un champ 'tiles' qui n'est pas une liste est rejeté.
+/**
+ * @brief Un champ 'tiles' qui n'est pas une liste est rejeté.
+ * \castest{<b>Un champ 'tiles' qui n'est pas une liste est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un champ 'tiles' qui n'est pas une liste est rejeté.
+ * }
+ */
 TEST(LevelLoaderTest, TilesNonListeRejete) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 4, "height": 3, "tiles": 5 })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Des dimensions non positives sont rejetées.
+/**
+ * @brief Des dimensions non positives sont rejetées.
+ * \castest{<b>Des dimensions non positives sont rejetées.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Des dimensions non positives sont rejetées.
+ * }
+ */
 TEST(LevelLoaderTest, DimensionsNonPositivesRejetees) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 0, "height": 3, "tiles": [] })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Un interrupteur sans 'id' est rejeté.
+/**
+ * @brief Un interrupteur sans 'id' est rejeté.
+ * \castest{<b>Un interrupteur sans 'id' est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un interrupteur sans 'id' est rejeté.
+ * }
+ */
 TEST(LevelLoaderTest, InterrupteurSansIdRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -174,7 +295,16 @@ TEST(LevelLoaderTest, InterrupteurSansIdRejete) {
     EXPECT_FALSE(result.ok());
 }
 
-/// Deux interrupteurs avec le même identifiant sont rejetés.
+/**
+ * @brief Deux interrupteurs avec le même identifiant sont rejetés.
+ * \castest{<b>Deux interrupteurs avec le même identifiant sont rejetés.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Deux interrupteurs avec le même identifiant sont rejetés.
+ * }
+ */
 TEST(LevelLoaderTest, IdentifiantInterrupteurEnDoubleRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -188,21 +318,48 @@ TEST(LevelLoaderTest, IdentifiantInterrupteurEnDoubleRejete) {
     EXPECT_FALSE(result.ok());
 }
 
-/// Un niveau sans entrée est rejeté.
+/**
+ * @brief Un niveau sans entrée est rejeté.
+ * \castest{<b>Un niveau sans entrée est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau sans entrée est rejeté.
+ * }
+ */
 TEST(LevelLoaderTest, NiveauSansEntreeRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 3, "y": 2, "type": "exit" } ] })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Un niveau sans sortie est rejeté.
+/**
+ * @brief Un niveau sans sortie est rejeté.
+ * \castest{<b>Un niveau sans sortie est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau sans sortie est rejeté.
+ * }
+ */
 TEST(LevelLoaderTest, NiveauSansSortieRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 1, "y": 1, "type": "entry" } ] })");
     EXPECT_FALSE(result.ok());
 }
 
-/// Charger un fichier inexistant échoue proprement (récupérable).
+/**
+ * @brief Charger un fichier inexistant échoue proprement (récupérable).
+ * \castest{<b>Charger un fichier inexistant échoue proprement (récupérable).</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Charger un fichier inexistant échoue proprement (récupérable).
+ * }
+ */
 TEST(LevelLoaderTest, FichierIntrouvableRejete) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromFile("chemin/inexistant/pas_la.json");
@@ -210,7 +367,17 @@ TEST(LevelLoaderTest, FichierIntrouvableRejete) {
     EXPECT_FALSE(result.error.empty());
 }
 
-/// Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.
+/**
+ * @brief Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.
+ * \castest{<b>Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun
+ * mécanisme.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.
+ * }
+ */
 TEST(LevelLoaderTest, PorteSansLiaisonEstValide) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(R"({
       "width": 4, "height": 3,
@@ -224,7 +391,17 @@ TEST(LevelLoaderTest, PorteSansLiaisonEstValide) {
     EXPECT_TRUE(result.level->mechanisms().empty());
 }
 
-/// Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
+/**
+ * @brief Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
+ * \castest{<b>Le niveau de démonstration livré (Source/Elements/Levels) se charge et se
+ * valide.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.
+ * }
+ */
 TEST(LevelLoaderTest, NiveauDeDemoLivreValide) {
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";

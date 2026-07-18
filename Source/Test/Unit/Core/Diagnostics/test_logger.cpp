@@ -10,7 +10,17 @@
 #include "Core/Diagnostics/Logger.h"
 #include "Core/Diagnostics/MemoryLogSink.h"
 
-/// Un message au-dessus du niveau minimal est diffusé ; en dessous, il est filtré.
+/**
+ * @brief Un message au-dessus du niveau minimal est diffusé ; en dessous, il est filtré.
+ * \castest{<b>Un message au-dessus du niveau minimal est diffusé ; en dessous, il est
+ * filtré.</b><br/>
+ * \tcat Unitaire · Logger<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un message au-dessus du niveau minimal est diffusé ; en dessous, il est filtré.
+ * }
+ */
 TEST(LoggerTest, FiltreParNiveauMinimal) {
     core::Logger logger;
     auto sink = std::make_unique<core::MemoryLogSink>();
@@ -26,7 +36,16 @@ TEST(LoggerTest, FiltreParNiveauMinimal) {
     EXPECT_EQ(observed->entries()[0].message, "garde");
 }
 
-/// Le même message atteint tous les sinks enregistrés.
+/**
+ * @brief Le même message atteint tous les sinks enregistrés.
+ * \castest{<b>Le même message atteint tous les sinks enregistrés.</b><br/>
+ * \tcat Unitaire · Logger<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le même message atteint tous les sinks enregistrés.
+ * }
+ */
 TEST(LoggerTest, DiffuseAPlusieursSinks) {
     core::Logger logger;
     auto first = std::make_unique<core::MemoryLogSink>();
@@ -42,7 +61,16 @@ TEST(LoggerTest, DiffuseAPlusieursSinks) {
     EXPECT_EQ(secondObserved->entries().size(), 1u);
 }
 
-/// clearSinks retire les destinations : plus rien n'est diffusé ensuite.
+/**
+ * @brief clearSinks retire les destinations : plus rien n'est diffusé ensuite.
+ * \castest{<b>clearSinks retire les destinations : plus rien n'est diffusé ensuite.</b><br/>
+ * \tcat Unitaire · Logger<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu clearSinks retire les destinations : plus rien n'est diffusé ensuite.
+ * }
+ */
 TEST(LoggerTest, ClearSinksArreteLaDiffusion) {
     core::Logger logger;
     auto sink = std::make_unique<core::MemoryLogSink>();

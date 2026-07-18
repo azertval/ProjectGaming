@@ -11,7 +11,19 @@
 
 #include "HMI/Localization/Localization.h"
 
-/// L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de '='.
+/**
+ * @brief L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de
+ * '='.
+ * \castest{<b>L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour
+ * de '='.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'analyse ignore les lignes vides et les commentaires, et retire les espaces autour de
+ * '='.
+ * }
+ */
 TEST(LocalizationTest, AnalyseIgnoreCommentairesEtEspaces) {
     const auto strings = hmi::Localization::parseCatalog(
         "# commentaire\n"
@@ -25,7 +37,16 @@ TEST(LocalizationTest, AnalyseIgnoreCommentairesEtEspaces) {
     EXPECT_EQ(strings.at("menu.titre"), "ProjectGaming");
 }
 
-/// Seul le premier '=' sépare ; un '=' dans la valeur est conservé.
+/**
+ * @brief Seul le premier '=' sépare ; un '=' dans la valeur est conservé.
+ * \castest{<b>Seul le premier '=' sépare ; un '=' dans la valeur est conservé.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Seul le premier '=' sépare ; un '=' dans la valeur est conservé.
+ * }
+ */
 TEST(LocalizationTest, AnalyseConserveEgalDansLaValeur) {
     const auto strings = hmi::Localization::parseCatalog("expression = a = b + c\n");
 
@@ -33,7 +54,16 @@ TEST(LocalizationTest, AnalyseConserveEgalDansLaValeur) {
     EXPECT_EQ(strings.at("expression"), "a = b + c");
 }
 
-/// Une clé existante est résolue dans la langue active.
+/**
+ * @brief Une clé existante est résolue dans la langue active.
+ * \castest{<b>Une clé existante est résolue dans la langue active.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une clé existante est résolue dans la langue active.
+ * }
+ */
 TEST(LocalizationTest, CleExistanteResolue) {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"menu.quitter", "Quitter"}});
@@ -42,7 +72,18 @@ TEST(LocalizationTest, CleExistanteResolue) {
     EXPECT_EQ(localization.activeLanguage(), "fr");
 }
 
-/// Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage).
+/**
+ * @brief Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de plantage).
+ * \castest{<b>Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de
+ * plantage).</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une clé inconnue partout est renvoyée telle quelle (repli déterministe, pas de
+ * plantage).
+ * }
+ */
 TEST(LocalizationTest, CleInconnueRenvoieLaCle) {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"menu.quitter", "Quitter"}});
@@ -50,7 +91,16 @@ TEST(LocalizationTest, CleInconnueRenvoieLaCle) {
     EXPECT_EQ(localization.text("menu.inconnue"), "menu.inconnue");
 }
 
-/// Changer de langue résout les valeurs de la nouvelle langue.
+/**
+ * @brief Changer de langue résout les valeurs de la nouvelle langue.
+ * \castest{<b>Changer de langue résout les valeurs de la nouvelle langue.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Changer de langue résout les valeurs de la nouvelle langue.
+ * }
+ */
 TEST(LocalizationTest, ChangementDeLangue) {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"menu.quitter", "Quitter"}});
@@ -60,7 +110,16 @@ TEST(LocalizationTest, ChangementDeLangue) {
     EXPECT_EQ(localization.text("menu.quitter"), "Quit");
 }
 
-/// Une clé manquante dans la langue active retombe sur la langue par défaut.
+/**
+ * @brief Une clé manquante dans la langue active retombe sur la langue par défaut.
+ * \castest{<b>Une clé manquante dans la langue active retombe sur la langue par défaut.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une clé manquante dans la langue active retombe sur la langue par défaut.
+ * }
+ */
 TEST(LocalizationTest, RepliSurLangueParDefaut) {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"menu.quitter", "Quitter"}, {"menu.titre", "Jeu"}});
@@ -70,7 +129,18 @@ TEST(LocalizationTest, RepliSurLangueParDefaut) {
     EXPECT_EQ(localization.text("menu.titre"), "Jeu");     // repli langue par défaut
 }
 
-/// Charger une langue absente échoue proprement et conserve la langue active (récupérable).
+/**
+ * @brief Charger une langue absente échoue proprement et conserve la langue active (récupérable).
+ * \castest{<b>Charger une langue absente échoue proprement et conserve la langue active
+ * (récupérable).</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Charger une langue absente échoue proprement et conserve la langue active
+ * (récupérable).
+ * }
+ */
 TEST(LocalizationTest, LangueAbsenteEstRecuperable) {
     hmi::Localization localization("dossier/inexistant");
     localization.setDefaultCatalog("fr", {{"menu.quitter", "Quitter"}});
@@ -80,7 +150,18 @@ TEST(LocalizationTest, LangueAbsenteEstRecuperable) {
     EXPECT_EQ(localization.text("menu.quitter"), "Quitter");
 }
 
-/// Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.
+/**
+ * @brief Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.
+ * \castest{<b>Le catalogue français livré (Source/Elements/Localization) se charge et résout ses
+ * clés.</b><br/>
+ * \tcat Unitaire · Localization<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le catalogue français livré (Source/Elements/Localization) se charge et résout ses
+ * clés.
+ * }
+ */
 TEST(LocalizationTest, CatalogueFrancaisLivreSeCharge) {
     hmi::Localization localization(std::filesystem::path(PROJECTGAMING_LOCALIZATION_DIR));
 

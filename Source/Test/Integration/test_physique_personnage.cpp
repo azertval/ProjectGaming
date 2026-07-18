@@ -263,7 +263,17 @@ core::LevelOutcome playLevelFile(const char* file,
 
 }  // namespace
 
-/// Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).
+/**
+ * @brief Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).
+ * \castest{<b>Sans sol, le personnage tombe et sa vitesse verticale croît (gravité
+ * continue).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, TombeSousGraviteVitesseCroissante) {
     core::World world;
     core::TileMap tiles(4, 100);  // aucune tuile solide : chute libre
@@ -284,7 +294,17 @@ TEST(PhysiquePersonnageIntegration, TombeSousGraviteVitesseCroissante) {
     EXPECT_FALSE(world.getComponent<core::Player>(player).grounded);
 }
 
-/// Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.
+/**
+ * @brief Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.
+ * \castest{<b>Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol »
+ * vrai.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, AtterritSurLeSolEtEstAuSol) {
     core::World world;
     core::TileMap tiles(4, 10);
@@ -304,7 +324,17 @@ TEST(PhysiquePersonnageIntegration, AtterritSurLeSolEtEstAuSol) {
     EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
 }
 
-/// Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal).
+/**
+ * @brief Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal).
+ * \castest{<b>Poussé contre un mur, le personnage s'arrête au ras du mur (blocage
+ * horizontal).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, BloqueParUnMurADroite) {
     core::World world;
     core::TileMap tiles(10, 3);
@@ -323,7 +353,17 @@ TEST(PhysiquePersonnageIntegration, BloqueParUnMurADroite) {
     EXPECT_NEAR(transform.position.x, 3.0f, TOLERANCE);  // bord droit = 4.0 = bord du mur
 }
 
-/// Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante).
+/**
+ * @brief Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante).
+ * \castest{<b>Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse
+ * constante).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, AvanceAVitesseConstante) {
     core::World world;
     core::TileMap tiles(100, 3);
@@ -343,7 +383,19 @@ TEST(PhysiquePersonnageIntegration, AvanceAVitesseConstante) {
     EXPECT_NEAR(endX - startX, config.moveSpeed * steps * STEP, 1e-3f);
 }
 
-/// Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage continu).
+/**
+ * @brief Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage
+ * continu).
+ * \castest{<b>Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage
+ * continu).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage
+ * continu).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     core::World world;
     core::TileMap tiles(4, 60);
@@ -364,7 +416,16 @@ TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
 }
 
-/// Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).
+/**
+ * @brief Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).
+ * \castest{<b>Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Deterministe) {
     const auto run = []() {
         core::World world;
@@ -385,7 +446,18 @@ TEST(PhysiquePersonnageIntegration, Deterministe) {
     EXPECT_FLOAT_EQ(first.y, second.y);
 }
 
-/// Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève).
+/**
+ * @brief Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève).
+ * \castest{<b>Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il
+ * s'élève).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il
+ * s'élève).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, SauteDepuisLeSol) {
     core::World world;
     core::TileMap tiles(4, 20);
@@ -414,7 +486,17 @@ TEST(PhysiquePersonnageIntegration, SauteDepuisLeSol) {
     EXPECT_LT(world.getComponent<core::Transform>(player).position.y, groundY);  // au-dessus du sol
 }
 
-/// En l'air, une pression de saut n'a aucun effet : pas de double saut (`EX-GP-013`).
+/**
+ * @brief En l'air, une pression de saut n'a aucun effet : pas de double saut (`EX-GP-013`).
+ * \castest{<b>En l'air, une pression de saut n'a aucun effet : pas de double saut
+ * (`EX-GP-013`).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu En l'air, une pression de saut n'a aucun effet : pas de double saut (`EX-GP-013`).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, PasDeSautEnLAir) {
     core::World world;
     core::TileMap tiles(4, 50);  // pas de sol à portée : le personnage tombe
@@ -433,7 +515,17 @@ TEST(PhysiquePersonnageIntegration, PasDeSautEnLAir) {
               0.0f);  // tombe encore, pas de saut
 }
 
-/// Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.
+/**
+ * @brief Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.
+ * \castest{<b>Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher
+ * tôt.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     const float fullJump = jumpApexHeight(1000);  // maintenu toute la montée
     const float shortHop = jumpApexHeight(1);     // relâché immédiatement
@@ -443,14 +535,36 @@ TEST(PhysiquePersonnageIntegration, HauteurDeSautVariable) {
     EXPECT_LT(fullJump, 3.0f);
 }
 
-/// Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.
+/**
+ * @brief Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.
+ * \castest{<b>Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du
+ * sol.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du
+ * sol.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, DoubleSautNombreParametrable) {
     EXPECT_EQ(successfulJumps(1), 2);  // 1 au sol + 1 aérien (double saut)
     EXPECT_EQ(successfulJumps(2), 3);  // 1 au sol + 2 aériens
     EXPECT_EQ(successfulJumps(0), 1);  // aucun saut aérien : 1 seul
 }
 
-/// Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018).
+/**
+ * @brief Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018).
+ * \castest{<b>Gravité asymétrique : la chute accélère plus vite que la montée ne décélère
+ * (EX-GP-018).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Gravité asymétrique : la chute accélère plus vite que la montée ne décélère
+ * (EX-GP-018).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ChutePlusRapideQueLaMontee) {
     core::World world;
     core::TileMap tiles(4, 100);
@@ -488,7 +602,17 @@ TEST(PhysiquePersonnageIntegration, ChutePlusRapideQueLaMontee) {
     EXPECT_GT(fallDelta, riseDelta * 1.3f);  // la chute est nettement plus « lourde »
 }
 
-/// Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).
+/**
+ * @brief Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).
+ * \castest{<b>Apex hang : près du sommet du saut, la gravité est réduite (contrôle
+ * flottant).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, ApexHangReduitLaGravite) {
     core::World world;
     core::TileMap tiles(4, 100);
@@ -525,7 +649,18 @@ TEST(PhysiquePersonnageIntegration, ApexHangReduitLaGravite) {
     EXPECT_LT(atApex, earlyRise * 0.8f);  // moins de gravité au sommet
 }
 
-/// Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale.
+/**
+ * @brief Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale.
+ * \castest{<b>Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre
+ * normale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre
+ * normale.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, FastFallAccelereLaChute) {
     const auto fallDistance = [](bool holdDown) {
         core::World world;
@@ -542,7 +677,18 @@ TEST(PhysiquePersonnageIntegration, FastFallAccelereLaChute) {
     EXPECT_GT(fallDistance(true), fallDistance(false));  // fast-fall descend plus bas
 }
 
-/// Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.
+/**
+ * @brief Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.
+ * \castest{<b>Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande
+ * distance.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande
+ * distance.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, DashHorizontalRapide) {
     core::World world;
     core::TileMap tiles(100, 5);
@@ -568,7 +714,16 @@ TEST(PhysiquePersonnageIntegration, DashHorizontalRapide) {
               config.dashSpeed * config.dashDuration * 0.7f);
 }
 
-/// Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.
+/**
+ * @brief Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.
+ * \castest{<b>Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, DashDiagonalHautDroite) {
     core::World world;
     core::TileMap tiles(20, 20);
@@ -589,7 +744,19 @@ TEST(PhysiquePersonnageIntegration, DashDiagonalHautDroite) {
     EXPECT_LT(velocity.value.y, 0.0f);  // haut
 }
 
-/// Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste nulle).
+/**
+ * @brief Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste
+ * nulle).
+ * \castest{<b>Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste
+ * nulle).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste
+ * nulle).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, GraviteSuspenduePendantDash) {
     core::World world;
     core::TileMap tiles(100, 5);
@@ -608,7 +775,19 @@ TEST(PhysiquePersonnageIntegration, GraviteSuspenduePendantDash) {
     }
 }
 
-/// Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au sol.
+/**
+ * @brief Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au
+ * sol.
+ * \castest{<b>Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au
+ * retour au sol.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour
+ * au sol.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     core::World world;
     core::TileMap tiles(30, 60);
@@ -652,7 +831,16 @@ TEST(PhysiquePersonnageIntegration, DashUneSeuleFoisEnLAir) {
     EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, config.dashSpeed * 0.9f);
 }
 
-/// Un dash vers un mur ne le traverse pas (résolu par le balayage).
+/**
+ * @brief Un dash vers un mur ne le traverse pas (résolu par le balayage).
+ * \castest{<b>Un dash vers un mur ne le traverse pas (résolu par le balayage).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un dash vers un mur ne le traverse pas (résolu par le balayage).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
     core::World world;
     core::TileMap tiles(10, 5);
@@ -671,7 +859,18 @@ TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
     EXPECT_LE(world.getComponent<core::Transform>(player).position.x, 4.0f + 0.01f);  // bord ≤ mur
 }
 
-/// Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.
+/**
+ * @brief Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.
+ * \castest{<b>Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est
+ * refusé.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est
+ * refusé.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, BudgetDeSautsRefuseAuDela) {
     core::World world;
     core::TileMap tiles(4, 200);
@@ -697,7 +896,18 @@ TEST(PhysiquePersonnageIntegration, BudgetDeSautsRefuseAuDela) {
     EXPECT_GT(world.getComponent<core::Velocity>(player).value.y, -1.0f);  // aucune impulsion
 }
 
-/// Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.
+/**
+ * @brief Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.
+ * \castest{<b>Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est
+ * refusé.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est
+ * refusé.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, BudgetDeDashsRefuseAuDela) {
     core::World world;
     core::TileMap tiles(100, 5);
@@ -722,7 +932,19 @@ TEST(PhysiquePersonnageIntegration, BudgetDeDashsRefuseAuDela) {
     EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, 10.0f);  // aucune ruée
 }
 
-/// Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).
+/**
+ * @brief Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente
+ * ralentie).
+ * \castest{<b>Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente
+ * ralentie).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente
+ * ralentie).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
     core::World world;
     core::TileMap tiles(8, 20);
@@ -743,7 +965,17 @@ TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
     EXPECT_LE(velocity.value.y, config.wallSlideSpeed + 0.5f);  // ralenti (≪ chute libre ~25)
 }
 
-/// Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.
+/**
+ * @brief Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.
+ * \castest{<b>Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le
+ * haut.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, WallJumpEjecteAlOpposeDuMur) {
     core::World world;
     core::TileMap tiles(8, 20);
@@ -768,7 +1000,19 @@ TEST(PhysiquePersonnageIntegration, WallJumpEjecteAlOpposeDuMur) {
     EXPECT_LT(velocity.value.y, 0.0f);  // et vers le haut
 }
 
-/// Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).
+/**
+ * @brief Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en
+ * l'air).
+ * \castest{<b>Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en
+ * l'air).</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en
+ * l'air).
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
     core::World world;
     core::TileMap tiles(8, 50);  // ni mur ni sol à portée
@@ -787,7 +1031,19 @@ TEST(PhysiquePersonnageIntegration, PasDeWallJumpSansMur) {
     EXPECT_GT(velocity.value.y, before);      // continue de tomber (aucun saut disponible)
 }
 
-/// Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la sortie.
+/**
+ * @brief Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la
+ * sortie.
+ * \castest{<b>Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint
+ * la sortie.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau 2 est franchissable **avec le saut** : en avançant et sautant, on atteint la
+ * sortie.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
     const auto rightAndJump = [](int) {
         core::PlayerInput in;
@@ -799,7 +1055,17 @@ TEST(PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut) {
     EXPECT_EQ(playLevelFile("demo2.json", rightAndJump), core::LevelOutcome::Won);
 }
 
-/// Le niveau 2 **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+/**
+ * @brief Le niveau 2 **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+ * \castest{<b>Le niveau 2 **exige** le saut : en avançant seulement (sans sauter), la marche
+ * bloque.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau 2 **exige** le saut : en avançant seulement (sans sauter), la marche bloque.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
     const auto rightOnly = [](int) {
         core::PlayerInput in;
@@ -810,7 +1076,19 @@ TEST(PhysiquePersonnageIntegration, Niveau2RequiertLeSaut) {
               core::LevelOutcome::Won);  // bloqué à la marche
 }
 
-/// Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher franchit.
+/**
+ * @brief Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
+ * franchit.
+ * \castest{<b>Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
+ * franchit.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau 3 (couloir bas + fosse) est franchissable **au dash** : avancer + dasher
+ * franchit.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
     const auto rightAndDash = [](int) {
         core::PlayerInput in;
@@ -821,7 +1099,18 @@ TEST(PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash) {
     EXPECT_EQ(playLevelFile("demo3.json", rightAndDash), core::LevelOutcome::Won);
 }
 
-/// Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
+/**
+ * @brief Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de danger.
+ * \castest{<b>Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de
+ * danger.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau 3 **exige** le dash : en avançant seulement, on tombe dans la fosse de
+ * danger.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
     const auto rightOnly = [](int) {
         core::PlayerInput in;
@@ -832,7 +1121,18 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
               core::LevelOutcome::Won);  // tombe dans la fosse
 }
 
-/// Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
+/**
+ * @brief Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
+ * \castest{<b>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient
+ * atteignable.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient
+ * atteignable.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
     const auto right = [](int) {
         core::PlayerInput in;
@@ -842,7 +1142,18 @@ TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
     EXPECT_EQ(playPuzzleFile("demo4.json", right), core::LevelOutcome::Won);
 }
 
-/// Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste inatteignable.
+/**
+ * @brief Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste inatteignable.
+ * \castest{<b>Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste
+ * inatteignable.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste
+ * inatteignable.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, PorteFermeeBloque) {
     // Couloir au sol (ligne 4) ; interrupteur EN HAUT (hors du chemin), porte sur le chemin.
     core::TileMap map(12, 5);
@@ -864,21 +1175,54 @@ TEST(PhysiquePersonnageIntegration, PorteFermeeBloque) {
     EXPECT_NE(simulatePuzzle(level, right, 600), core::LevelOutcome::Won);  // bloqué par la porte
 }
 
-/// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.
+/**
+ * @brief Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.
+ * \castest{<b>Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard,
+ * non.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, CoyoteTimeAutoriseUnSautJusteApresLeBord) {
     EXPECT_TRUE(jumpAfterLeavingLedge(0));    // à peine quitté le sol → saut permis
     EXPECT_FALSE(jumpAfterLeavingLedge(15));  // trop tard → fenêtre coyote expirée
 }
 
-/// Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop tôt,
-/// non.
+/**
+ * @brief Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop
+ * tôt, non.
+ * \castest{<b>Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ;
+ * trop tôt, non.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop
+ * tôt, non.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, JumpBufferingHonoreUnSautPreAppuye) {
     EXPECT_TRUE(bufferedJump(2));    // appuyé 2 pas avant l'atterrissage → saute à la pose
     EXPECT_FALSE(bufferedJump(30));  // appuyé bien trop tôt → buffer expiré
 }
 
-/// Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite »,
-/// le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
+/**
+ * @brief Le niveau de démonstration livré est **franchissable** sans saut : en maintenant « droite
+ * », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
+ * \castest{<b>Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
+ * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais
+ * mourir.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau de démonstration livré est **franchissable** sans saut : en maintenant «
+ * droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.
+ * }
+ */
 TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";

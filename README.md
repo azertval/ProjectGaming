@@ -25,14 +25,31 @@ ProjectGaming est un moteur de jeu 2D maison. Ses partis pris :
   créer du contenu, et **décors issus de photos converties en pixel art** (post-MVP).
 
 Le *quoi* et le *pourquoi* sont décrits dans les
-[spécifications](https://azertval.github.io/ProjectGaming/) ; le *comment* dans la
-référence de code Doxygen.
+[spécifications](https://azertval.github.io/ProjectGaming/) ; le *comment* dans le
+**Guide du développeur** et la référence de code Doxygen.
+
+## Fonctionnalités du moteur (état actuel)
+
+Le moteur physique est complet et **jouable** :
+
+- **Personnage de plateforme** (silhouette humanoïde 0,4 × 0,8) : déplacement horizontal,
+  **saut** avec *game feel* (hauteur variable, coyote time, jump buffering), **double saut**,
+  **wall jump** + wall slide, **dash** 8 directions.
+- **Gravité** asymétrique (chute plus lourde que la montée), flottement à l'apex, *fast-fall*.
+- **Collisions** par **balayage continu** (swept AABB) : aucune traversée à vitesse élevée.
+- **Niveaux** en tuiles typées, chargés depuis des fichiers **JSON**, avec **validation**.
+- **Mécanismes** interrupteur ↔ porte et **budget de mouvements** (sauts/dashs limités par tableau)
+  pour des tableaux **puzzle**.
+- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en).
+
+Toute la simulation vit dans `Core` (pure, déterministe au pas fixe) et est **couverte par des
+tests** (unitaires, intégration, système) — voir le **Cahier de test**.
 
 ## Organisation du dépôt
 
 | Dossier | Rôle |
 |---------|------|
-| `Documentation/` | Documentation projet publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail), `Manuel/` (manuel utilisateur) et référence de code. |
+| `Documentation/` | Documentation publiée en site **Doxygen** : `Specification/` (specs & conventions), `Lot/` (lots de travail), `Manuel/` (manuel utilisateur), **Guide du développeur**, **Cahier de test**, et référence de code. |
 | `Source/` | Code source, réparti par fonction. |
 | `.github/workflows/` | Intégration continue (voir plus bas). |
 
@@ -43,7 +60,7 @@ référence de code Doxygen.
 | `Core/` | Logique et moteur : ECS, mathématiques, boucle à pas fixe, diagnostics — **sans dépendance à DirectX**. |
 | `HMI/` | Présentation : fenêtre Win32, rendu Direct3D 11, entrées, éditeur. Dépend de `Core`, jamais l'inverse. |
 | `Elements/` | Assets et éléments statiques (sprites, tuiles, sons, niveaux). |
-| `Test/` | Tests **unitaires** (`Unit/`) et **d'intégration** (`Integration/`) — GoogleTest. |
+| `Test/` | Tests **unitaires** (`Unit/`), **d'intégration** (`Integration/`) et **système** (`Systeme/`) — GoogleTest. |
 
 ## Build
 
