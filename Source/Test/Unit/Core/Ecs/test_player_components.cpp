@@ -32,6 +32,8 @@ TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     EXPECT_FLOAT_EQ(player.wallJumpLockTimer, 0.0f);
     EXPECT_FALSE(player.dashAvailable);
     EXPECT_FLOAT_EQ(player.dashTimer, 0.0f);
+    EXPECT_EQ(player.jumpsRemaining, -1);  // budget illimité par défaut
+    EXPECT_EQ(player.dashesRemaining, -1);
 }
 
 /// L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash.

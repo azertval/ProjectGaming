@@ -20,6 +20,7 @@
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -197,6 +198,41 @@ core::Entity spawnHumanoid(core::World& world, core::GridPosition entry) {
     world.addComponent(entity, core::Collider{size});
     world.addComponent(entity, core::Player{});
     return entity;
+}
+
+// Rejoue un niveau AVEC ses mécanismes (interrupteurs/portes) : mime la boucle du GameScreen
+// (physique sur la grille des mécanismes, puis mise à jour des mécanismes), budget appliqué.
+core::LevelOutcome simulatePuzzle(const core::Level& level,
+                                  const std::function<core::PlayerInput(int)>& input,
+                                  int maxSteps = 3000) {
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, level.entry());
+    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
+    world.getComponent<core::Player>(player).dashesRemaining = level.dashBudget();
+    core::CharacterPhysicsSystem system;
+    core::MechanismController mechanisms(level);
+
+    core::LevelOutcome outcome = core::LevelOutcome::Playing;
+    for (int step = 0; step < maxSteps && outcome == core::LevelOutcome::Playing; ++step) {
+        system.update(world, mechanisms.collisionMap(), input(step), STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        const core::Collider& collider = world.getComponent<core::Collider>(player);
+        const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+        mechanisms.update(box);
+        outcome = core::evaluateOutcome(box, level);
+    }
+    return outcome;
+}
+
+// Charge un niveau puzzle livré et le rejoue avec ses mécanismes.
+core::LevelOutcome playPuzzleFile(const char* file,
+                                  const std::function<core::PlayerInput(int)>& input) {
+    const std::filesystem::path path = std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / file;
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    if (!loaded.ok()) {
+        return core::LevelOutcome::Lost;
+    }
+    return simulatePuzzle(*loaded.level, input);
 }
 
 // Rejoue un niveau livré avec un scénario d'entrées (fonction du pas) et renvoie son issue.
@@ -635,6 +671,57 @@ TEST(PhysiquePersonnageIntegration, DashNeTraversePasLeMur) {
     EXPECT_LE(world.getComponent<core::Transform>(player).position.x, 4.0f + 0.01f);  // bord ≤ mur
 }
 
+/// Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.
+TEST(PhysiquePersonnageIntegration, BudgetDeSautsRefuseAuDela) {
+    core::World world;
+    core::TileMap tiles(4, 200);
+    fillRow(tiles, 150);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 1500; ++i) {  // se poser
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    world.getComponent<core::Player>(player).jumpsRemaining = 1;  // budget : un seul saut
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.y, 0.0f);  // a sauté
+    EXPECT_EQ(world.getComponent<core::Player>(player).jumpsRemaining, 0);
+
+    for (int i = 0; i < 500; ++i) {  // retombe et se pose
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    system.update(world, tiles, jump, STEP);  // 2e saut : budget épuisé
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.y, -1.0f);  // aucune impulsion
+}
+
+/// Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.
+TEST(PhysiquePersonnageIntegration, BudgetDeDashsRefuseAuDela) {
+    core::World world;
+    core::TileMap tiles(100, 5);
+    fillRow(tiles, 3);
+    const core::Entity player = spawnPlayer(world, 1.0f, 2.0f);
+    core::CharacterPhysicsSystem system;
+    for (int i = 0; i < 60; ++i) {
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    world.getComponent<core::Player>(player).dashesRemaining = 1;  // budget : un seul dash
+
+    core::PlayerInput dash;
+    dash.dashPressed = true;
+    system.update(world, tiles, dash, STEP);
+    EXPECT_GT(world.getComponent<core::Velocity>(player).value.x, 10.0f);  // a dashé
+    EXPECT_EQ(world.getComponent<core::Player>(player).dashesRemaining, 0);
+
+    for (int i = 0; i < 60; ++i) {  // fin du dash, se repose
+        system.update(world, tiles, core::PlayerInput{}, STEP);
+    }
+    system.update(world, tiles, dash, STEP);  // 2e dash : budget épuisé
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.x, 10.0f);  // aucune ruée
+}
+
 /// Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).
 TEST(PhysiquePersonnageIntegration, WallSlideRalentitLaChute) {
     core::World world;
@@ -743,6 +830,38 @@ TEST(PhysiquePersonnageIntegration, Niveau3RequiertLeDash) {
     };
     EXPECT_NE(playLevelFile("demo3.json", rightOnly),
               core::LevelOutcome::Won);  // tombe dans la fosse
+}
+
+/// Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.
+TEST(PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur) {
+    const auto right = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;  // le trajet passe sur l'interrupteur (ouvre la porte) puis la sortie
+        return in;
+    };
+    EXPECT_EQ(playPuzzleFile("demo4.json", right), core::LevelOutcome::Won);
+}
+
+/// Une porte **fermée** (interrupteur non touché) **bloque** : la sortie reste inatteignable.
+TEST(PhysiquePersonnageIntegration, PorteFermeeBloque) {
+    // Couloir au sol (ligne 4) ; interrupteur EN HAUT (hors du chemin), porte sur le chemin.
+    core::TileMap map(12, 5);
+    for (int col = 0; col < 12; ++col) {
+        map.setTile(col, 4, core::TileType::Solid);
+    }
+    map.setTile(6, 0, core::TileType::Switch);  // inatteignable en marchant
+    map.setTile(6, 3, core::TileType::Door);    // barre le couloir (ligne du personnage)
+    std::vector<core::Mechanism> mechanisms{
+        core::Mechanism{core::GridPosition{6, 0}, core::GridPosition{6, 3}}};
+    const core::Level level("bloc", std::move(map), core::GridPosition{1, 3},
+                            core::GridPosition{10, 3}, std::move(mechanisms));
+
+    const auto right = [](int) {
+        core::PlayerInput in;
+        in.moveX = 1.0f;  // n'atteint jamais l'interrupteur en haut → porte fermée
+        return in;
+    };
+    EXPECT_NE(simulatePuzzle(level, right, 600), core::LevelOutcome::Won);  // bloqué par la porte
 }
 
 /// Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.

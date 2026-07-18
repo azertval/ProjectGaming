@@ -92,6 +92,24 @@ void GameScreen::loadLevel(const std::filesystem::path& path) {
     // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
     core::buildLevelScene(_world, level,
                           [this](core::TileType type) { return regionForTile(type, _atlas); });
+    // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
+    _mechanisms.emplace(level);
+    // Repere l'entite-tuile de chaque porte (avant le spawn du perso) pour le retour visuel d'etat.
+    _doorEntities.clear();
+    for (const core::Mechanism& mechanism : _mechanisms->mechanisms()) {
+        core::Entity doorEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == mechanism.doorPosition.column &&
+                    static_cast<int>(transform.position.y) == mechanism.doorPosition.row) {
+                    doorEntity = entity;
+                    found = true;
+                }
+            });
+        _doorEntities.push_back(doorEntity);
+    }
     spawnPlayer(level.entry());
     HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
                  std::to_string(_levelHeight) + ")");
@@ -105,7 +123,11 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
         _player, core::Transform{core::playerSpawnPosition(entry.column, entry.row), size, 0.0f});
     _world.addComponent(_player, core::Velocity{});
     _world.addComponent(_player, core::Collider{size});
-    _world.addComponent(_player, core::Player{});
+    // Budget de mouvements du tableau (EX-GP-024) : -1 = illimite si le niveau n'en fixe pas.
+    core::Player playerComponent;
+    playerComponent.jumpsRemaining = _level->jumpBudget();
+    playerComponent.dashesRemaining = _level->dashBudget();
+    _world.addComponent(_player, playerComponent);
     // Sprite du personnage : couche haute (dessine par-dessus les tuiles), teinte claire. La
     // taille a l'ecran suit l'echelle du Transform (silhouette humanoide).
     core::Sprite sprite;
@@ -115,16 +137,19 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
     _world.addComponent(_player, sprite);
 }
 
-// Remet le personnage a l'entree (centre), immobile (apres un echec).
-void GameScreen::resetPlayer() {
-    const core::GridPosition entry = _level->entry();
-    _world.getComponent<core::Transform>(_player).position =
-        core::playerSpawnPosition(entry.column, entry.row);
-    _world.getComponent<core::Velocity>(_player).value = core::Vector2{0.0f, 0.0f};
-    _world.getComponent<core::Player>(_player).grounded = false;
+// Met a jour la teinte des sprites de portes selon leur etat (ouverte attenuee / fermee opaque).
+void GameScreen::refreshDoorVisuals() {
+    for (std::size_t index = 0; index < _doorEntities.size(); ++index) {
+        const core::Entity door = _doorEntities[index];
+        if (!_world.hasComponent<core::Sprite>(door)) {
+            continue;  // porte non reperee (robustesse) : rien a faire
+        }
+        const float alpha = _mechanisms->isDoorOpen(index) ? 0.25f : 1.0f;
+        _world.getComponent<core::Sprite>(door).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
+    }
 }
 
-// Simule le personnage d'un pas fixe, puis statue sur l'issue du niveau.
+// Simule le personnage d'un pas fixe (mecanismes + physique), puis statue sur l'issue du niveau.
 ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
@@ -133,14 +158,20 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
         return ScreenTransition::none();  // chargement echoue : rien a simuler
     }
 
-    // 1. Entrees -> intention (action logique), 2. physique au pas fixe.
+    // 1. Entrees -> intention, 2. physique sur la grille des MECANISMES (portes fermees = solides).
     const core::PlayerInput intent = toPlayerInput(input);
-    _physics.update(_world, _level->tileMap(), intent, fixedDelta);
+    _physics.update(_world, _mechanisms->collisionMap(), intent, fixedDelta);
 
-    // 3. Issue du niveau depuis la boite du personnage.
+    // 3. Boite du personnage apres deplacement.
     const core::Transform& transform = _world.getComponent<core::Transform>(_player);
     const core::Collider& collider = _world.getComponent<core::Collider>(_player);
     const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+
+    // 4. Mecanismes : contact des interrupteurs -> etat des portes (pour le pas suivant + visuel).
+    _mechanisms->update(box);
+    refreshDoorVisuals();
+
+    // 5. Issue du niveau.
     switch (core::evaluateOutcome(box, *_level)) {
         case core::LevelOutcome::Won:
             if (_sequence.hasNext()) {
@@ -154,7 +185,9 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
             HMI_LOG_INFO("Sequence terminee : retour au menu.");
             return ScreenTransition::switchTo(ScreenId::Menu);
         case core::LevelOutcome::Lost:
-            resetPlayer();  // echec : on redemarre le personnage a l'entree
+            // Echec : rechargement COMPLET du niveau (perso a l'entree, mecanismes et budget
+            // remis).
+            loadLevel(_sequence.current());
             break;
         case core::LevelOutcome::Playing:
             break;

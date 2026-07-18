@@ -41,14 +41,18 @@ public:
      * @param entry      Position d'apparition (case `Entry`).
      * @param exit       Position de sortie (case `Exit`).
      * @param mechanisms Liaisons interrupteur↔porte résolues.
+     * @param jumpBudget Budget de sauts du tableau (`EX-GP-024`) ; -1 = illimité.
+     * @param dashBudget Budget de dashs du tableau (`EX-GP-024`) ; -1 = illimité.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
-          std::vector<Mechanism> mechanisms)
+          std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1)
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
           _exit(exit),
-          _mechanisms(std::move(mechanisms)) {}
+          _mechanisms(std::move(mechanisms)),
+          _jumpBudget(jumpBudget),
+          _dashBudget(dashBudget) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -75,12 +79,24 @@ public:
         return _mechanisms;
     }
 
+    /// @return Budget de **sauts** du tableau (`EX-GP-024`) ; **-1 = illimité**.
+    [[nodiscard]] int jumpBudget() const noexcept {
+        return _jumpBudget;
+    }
+
+    /// @return Budget de **dashs** du tableau (`EX-GP-024`) ; **-1 = illimité**.
+    [[nodiscard]] int dashBudget() const noexcept {
+        return _dashBudget;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
     GridPosition _entry;
     GridPosition _exit;
     std::vector<Mechanism> _mechanisms;
+    int _jumpBudget = -1;
+    int _dashBudget = -1;
 };
 
 }  // namespace core

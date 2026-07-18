@@ -7,6 +7,7 @@
 
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "HMI/Graphics/Camera2D.h"
@@ -62,8 +63,9 @@ private:
     /// l'entrée.
     void spawnPlayer(core::GridPosition entry);
 
-    /// Réinitialise le personnage à l'entrée du niveau courant (vitesse nulle) après un échec.
-    void resetPlayer();
+    /// Met à jour la teinte des sprites de portes selon leur état (ouverte atténuée / fermée
+    /// opaque).
+    void refreshDoorVisuals();
 
     const TextureAtlas& _atlas;  ///< Atlas conservé pour reconstruire la scène à chaque niveau.
     core::World _world;
@@ -71,6 +73,9 @@ private:
     SpriteRenderer _renderer;
     LevelSequence _sequence;            ///< Progression : niveaux ordonnés + indice courant.
     std::optional<core::Level> _level;  ///< Niveau courant chargé (simulation, reset).
+    std::optional<core::MechanismController>
+        _mechanisms;                          ///< Interrupteurs/portes du niveau courant.
+    std::vector<core::Entity> _doorEntities;  ///< Entités-tuiles des portes (retour visuel d'état).
     core::CharacterPhysicsSystem _physics;
     core::Entity _player{};  ///< Entité du personnage jouable (valide si `_level`).
     int _levelWidth = 0;

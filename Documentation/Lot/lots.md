@@ -22,3 +22,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-09
 - @subpage lot-10
 - @subpage lot-11
+- @subpage lot-12

@@ -21,6 +21,7 @@
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
@@ -65,15 +66,19 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted) {
 
     core::World world;
     const core::Entity player = spawn(world, level.entry());
+    world.getComponent<core::Player>(player).jumpsRemaining = level.jumpBudget();
+    world.getComponent<core::Player>(player).dashesRemaining = level.dashBudget();
     core::CharacterPhysicsSystem system;
+    core::MechanismController mechanisms(level);  // portes/interrupteurs (no-op sans mécanisme)
 
     core::LevelOutcome outcome = core::LevelOutcome::Playing;
     for (int step = 0; step < 5000 && outcome == core::LevelOutcome::Playing; ++step) {
-        system.update(world, level.tileMap(), scripted.input(step), STEP);
+        system.update(world, mechanisms.collisionMap(), scripted.input(step), STEP);
         const core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Collider& collider = world.getComponent<core::Collider>(player);
-        outcome = core::evaluateOutcome(
-            core::Aabb::fromTopLeftSize(transform.position, collider.size), level);
+        const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+        mechanisms.update(box);
+        outcome = core::evaluateOutcome(box, level);
     }
     return outcome;
 }
@@ -103,6 +108,8 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.dashPressed = true;
              return in;
          }},
+        // Niveau 4 (puzzle) : avancer passe sur l'interrupteur (ouvre la porte) puis la sortie.
+        {"demo4.json", [](int) { return core::PlayerInput{1.0f}; }},
     };
 
     ASSERT_FALSE(sequence.empty());

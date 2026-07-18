@@ -11,6 +11,7 @@ add_library(Core STATIC
     Levels/LevelLoader.cpp
     Levels/LevelScene.cpp
     Levels/LevelOutcome.cpp
+    Gameplay/MechanismController.cpp
     Physics/SweptCollision.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp

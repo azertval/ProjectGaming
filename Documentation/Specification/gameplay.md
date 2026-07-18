@@ -39,6 +39,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-021 **EX-GP-021** — Une **porte** liée à un interrupteur doit s'ouvrir/se fermer selon l'état de celui-ci.
 - \anchor EX-GP-022 **EX-GP-022** — Un **bloc poussable** doit pouvoir être déplacé horizontalement par le personnage et retomber sous gravité.
 - \anchor EX-GP-023 **EX-GP-023** (⚠️ optionnel MVP) — Une **clé** collectée doit ouvrir une **porte verrouillée** correspondante.
+- \anchor EX-GP-024 **EX-GP-024** — Un **tableau** peut **limiter** le nombre de **sauts** et/ou de **dashs** disponibles (budget de mouvements, défini par le niveau) ; à budget épuisé, l'action est **refusée**. Le budget est **réinitialisé** au (re)chargement du niveau. Contrainte de **puzzle**.
 
 Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).
 
