@@ -12,6 +12,7 @@ CREATE_SUBDIRS         = NO
 # Entrées : documentation Markdown (accueil, spécifications, lots) + code source.
 # Les chemins sont relatifs à ce dossier (Documentation/).
 INPUT                  = index.md \
+                         Guide \
                          Specification \
                          Lot \
                          Manuel \
