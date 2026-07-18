@@ -12,7 +12,14 @@
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 
-/// Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au moment du spawn.
+/**
+ * @brief Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au spawn.
+ * \castest{<b>Collider par défaut nul</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Construire un `core::Collider` par défaut.<br/>2. Lire `size.x` et `size.y`.<br/>
+ * \tattendu La boîte est nulle, `size` vaut (0, 0).}
+ */
 TEST(PlayerComponentsTest, ColliderParDefautEstNul) {
     const core::Collider collider;
     EXPECT_FLOAT_EQ(collider.size.x, 0.0f);
