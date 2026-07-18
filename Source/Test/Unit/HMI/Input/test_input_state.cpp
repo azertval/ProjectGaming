@@ -7,7 +7,17 @@
 
 #include "HMI/Input/InputState.h"
 
-/// Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.
+/**
+ * @brief Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.
+ * \castest{<b>Une touche passée d'« absente » à « présente » est « pressée » exactement une
+ * frame.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.
+ * }
+ */
 TEST(InputStateTest, FrontMontantClavier) {
     hmi::InputState input;
 
@@ -23,7 +33,16 @@ TEST(InputStateTest, FrontMontantClavier) {
     EXPECT_FALSE(input.keyPressed(hmi::Key::Enter));
 }
 
-/// Une touche restée enfoncée n'est « pressée » qu'à la première frame.
+/**
+ * @brief Une touche restée enfoncée n'est « pressée » qu'à la première frame.
+ * \castest{<b>Une touche restée enfoncée n'est « pressée » qu'à la première frame.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une touche restée enfoncée n'est « pressée » qu'à la première frame.
+ * }
+ */
 TEST(InputStateTest, MaintienClavier) {
     hmi::InputState input;
 
@@ -39,7 +58,17 @@ TEST(InputStateTest, MaintienClavier) {
     }
 }
 
-/// Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.
+/**
+ * @brief Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.
+ * \castest{<b>Le relâchement d'une touche est détecté « relâchée » pendant exactement une
+ * frame.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.
+ * }
+ */
 TEST(InputStateTest, FrontDescendantClavier) {
     hmi::InputState input;
 
@@ -56,7 +85,17 @@ TEST(InputStateTest, FrontDescendantClavier) {
     EXPECT_FALSE(input.keyReleased(hmi::Key::Space));
 }
 
-/// Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.
+/**
+ * @brief Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.
+ * \castest{<b>Les touches sont indépendantes : un front sur l'une n'affecte pas les
+ * autres.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.
+ * }
+ */
 TEST(InputStateTest, TouchesIndependantes) {
     hmi::InputState input;
 
@@ -67,7 +106,17 @@ TEST(InputStateTest, TouchesIndependantes) {
     EXPECT_FALSE(input.keyPressed(hmi::Key::Down));
 }
 
-/// Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.
+/**
+ * @brief Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.
+ * \castest{<b>Un bouton de souris suit la même logique pressé/cliqué/relâché que les
+ * touches.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.
+ * }
+ */
 TEST(InputStateTest, BoutonSouris) {
     hmi::InputState input;
 
@@ -86,7 +135,16 @@ TEST(InputStateTest, BoutonSouris) {
     EXPECT_TRUE(input.mouseButtonReleased(hmi::MouseButton::Left));
 }
 
-/// La position de la souris reflète le dernier déplacement injecté.
+/**
+ * @brief La position de la souris reflète le dernier déplacement injecté.
+ * \castest{<b>La position de la souris reflète le dernier déplacement injecté.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La position de la souris reflète le dernier déplacement injecté.
+ * }
+ */
 TEST(InputStateTest, PositionSouris) {
     hmi::InputState input;
 

@@ -20,7 +20,16 @@ struct Position {
 };
 }  // namespace
 
-/// `add` puis `get` renvoie la valeur stockée ; `has` est cohérent.
+/**
+ * @brief `add` puis `get` renvoie la valeur stockée ; `has` est cohérent.
+ * \castest{<b>`add` puis `get` renvoie la valeur stockée ; `has` est cohérent.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `add` puis `get` renvoie la valeur stockée ; `has` est cohérent.
+ * }
+ */
 TEST(ComponentPoolTest, AjoutPuisAcces) {
     core::EntityManager manager;
     const core::Entity entity = manager.create();
@@ -35,7 +44,16 @@ TEST(ComponentPoolTest, AjoutPuisAcces) {
     EXPECT_EQ(pool.size(), 1u);
 }
 
-/// `get` renvoie une référence modifiable sur le composant stocké.
+/**
+ * @brief `get` renvoie une référence modifiable sur le composant stocké.
+ * \castest{<b>`get` renvoie une référence modifiable sur le composant stocké.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `get` renvoie une référence modifiable sur le composant stocké.
+ * }
+ */
 TEST(ComponentPoolTest, GetRenvoieReferenceModifiable) {
     core::EntityManager manager;
     const core::Entity entity = manager.create();
@@ -47,8 +65,19 @@ TEST(ComponentPoolTest, GetRenvoieReferenceModifiable) {
     EXPECT_EQ(pool.get(entity).x, 42);
 }
 
-/// `remove` d'un élément au milieu (swap-and-pop) laisse les autres composants
-/// accessibles et corrects, et le stockage dense reste contigu.
+/**
+ * @brief `remove` d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et
+ * corrects, et le stockage dense reste contigu.
+ * \castest{<b>`remove` d'un élément au milieu (swap-and-pop) laisse les autres composants
+ * accessibles et corrects, et le stockage dense reste contigu.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `remove` d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles
+ * et corrects, et le stockage dense reste contigu.
+ * }
+ */
 TEST(ComponentPoolTest, RemoveAuMilieuSwapAndPop) {
     core::EntityManager manager;
     const core::Entity first = manager.create();
@@ -73,7 +102,16 @@ TEST(ComponentPoolTest, RemoveAuMilieuSwapAndPop) {
     EXPECT_EQ(pool.entities().size(), 2u);
 }
 
-/// Retirer le dernier élément ne perturbe pas les précédents.
+/**
+ * @brief Retirer le dernier élément ne perturbe pas les précédents.
+ * \castest{<b>Retirer le dernier élément ne perturbe pas les précédents.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Retirer le dernier élément ne perturbe pas les précédents.
+ * }
+ */
 TEST(ComponentPoolTest, RemoveDernierElement) {
     core::EntityManager manager;
     const core::Entity a = manager.create();
@@ -90,8 +128,19 @@ TEST(ComponentPoolTest, RemoveDernierElement) {
     EXPECT_EQ(pool.size(), 1u);
 }
 
-/// Un handle périmé (index recyclé, génération différente) ne possède pas le
-/// composant de l'ancienne entité.
+/**
+ * @brief Un handle périmé (index recyclé, génération différente) ne possède pas le composant de
+ * l'ancienne entité.
+ * \castest{<b>Un handle périmé (index recyclé, génération différente) ne possède pas le composant
+ * de l'ancienne entité.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un handle périmé (index recyclé, génération différente) ne possède pas le composant de
+ * l'ancienne entité.
+ * }
+ */
 TEST(ComponentPoolTest, HandlePerimeNePossedePasLeComposant) {
     core::EntityManager manager;
     const core::Entity original = manager.create();
@@ -107,7 +156,16 @@ TEST(ComponentPoolTest, HandlePerimeNePossedePasLeComposant) {
     EXPECT_FALSE(pool.has(recycled));
 }
 
-/// `removeIfPresent` retire si le composant existe, sinon ne fait rien.
+/**
+ * @brief `removeIfPresent` retire si le composant existe, sinon ne fait rien.
+ * \castest{<b>`removeIfPresent` retire si le composant existe, sinon ne fait rien.</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `removeIfPresent` retire si le composant existe, sinon ne fait rien.
+ * }
+ */
 TEST(ComponentPoolTest, RemoveIfPresent) {
     core::EntityManager manager;
     const core::Entity entity = manager.create();
@@ -119,7 +177,16 @@ TEST(ComponentPoolTest, RemoveIfPresent) {
     EXPECT_FALSE(pool.has(entity));
 }
 
-/// `get` sur une entité absente viole une précondition (assertion en Debug).
+/**
+ * @brief `get` sur une entité absente viole une précondition (assertion en Debug).
+ * \castest{<b>`get` sur une entité absente viole une précondition (assertion en Debug).</b><br/>
+ * \tcat Unitaire · Component Pool<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `get` sur une entité absente viole une précondition (assertion en Debug).
+ * }
+ */
 TEST(ComponentPoolTest, GetSurEntiteAbsenteViolePrecondition) {
 #ifdef NDEBUG
     GTEST_SKIP() << "Assertions desactivees en Release";

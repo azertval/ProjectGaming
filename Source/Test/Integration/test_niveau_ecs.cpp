@@ -44,7 +44,17 @@ constexpr const char* LEVEL = R"({
 
 }  // namespace
 
-/// Le niveau chargé peuple le monde d'une entité par tuile non vide, bien placée et typée.
+/**
+ * @brief Le niveau chargé peuple le monde d'une entité par tuile non vide, bien placée et typée.
+ * \castest{<b>Le niveau chargé peuple le monde d'une entité par tuile non vide, bien placée et
+ * typée.</b><br/>
+ * \tcat Integration · Niveau Ecs<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau chargé peuple le monde d'une entité par tuile non vide, bien placée et typée.
+ * }
+ */
 TEST(NiveauEcsIntegration, DuJsonAuxEntites) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
     ASSERT_TRUE(result.ok()) << result.error;
@@ -70,7 +80,17 @@ TEST(NiveauEcsIntegration, DuJsonAuxEntites) {
     EXPECT_EQ(tilesByPosition.at({1, 1}), static_cast<int>(core::TileType::Exit));
 }
 
-/// Le niveau de démonstration livré, chargé depuis le fichier, peuple bien le monde.
+/**
+ * @brief Le niveau de démonstration livré, chargé depuis le fichier, peuple bien le monde.
+ * \castest{<b>Le niveau de démonstration livré, chargé depuis le fichier, peuple bien le
+ * monde.</b><br/>
+ * \tcat Integration · Niveau Ecs<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le niveau de démonstration livré, chargé depuis le fichier, peuple bien le monde.
+ * }
+ */
 TEST(NiveauEcsIntegration, FichierDemoVersMonde) {
     const std::filesystem::path path =
         std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";

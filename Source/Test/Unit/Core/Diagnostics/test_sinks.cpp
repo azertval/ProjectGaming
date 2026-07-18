@@ -7,7 +7,16 @@
 
 #include "Core/Diagnostics/MemoryLogSink.h"
 
-/// Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre.
+/**
+ * @brief Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre.
+ * \castest{<b>Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre.</b><br/>
+ * \tcat Unitaire · Memory Log Sink<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le sink mémoire conserve fidèlement niveau et texte, dans l'ordre.
+ * }
+ */
 TEST(MemoryLogSinkTest, ConserveNiveauEtTexteDansLOrdre) {
     core::MemoryLogSink sink;
     sink.write(core::LogLevel::Info, "premier");
@@ -20,7 +29,16 @@ TEST(MemoryLogSinkTest, ConserveNiveauEtTexteDansLOrdre) {
     EXPECT_EQ(sink.entries()[1].message, "second");
 }
 
-/// clear vide les messages mémorisés.
+/**
+ * @brief clear vide les messages mémorisés.
+ * \castest{<b>clear vide les messages mémorisés.</b><br/>
+ * \tcat Unitaire · Memory Log Sink<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu clear vide les messages mémorisés.
+ * }
+ */
 TEST(MemoryLogSinkTest, ClearVideLesMessages) {
     core::MemoryLogSink sink;
     sink.write(core::LogLevel::Trace, "x");

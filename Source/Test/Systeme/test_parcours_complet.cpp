@@ -85,8 +85,20 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted) {
 
 }  // namespace
 
-/// Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis « retour
-/// au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.
+/**
+ * @brief Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis «
+ * retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.
+ * \castest{<b>Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre,
+ * puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du
+ * jeu.</b><br/>
+ * \tcat Systeme · Parcours Complet<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Parcours complet : chaque niveau de la séquence est franchi (`Won`) dans l'ordre, puis
+ * « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.
+ * }
+ */
 TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
     const std::vector<ScriptedLevel> sequence = {
         // Niveau 1 : escalier descendant, franchi en maintenant « droite ».

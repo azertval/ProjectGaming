@@ -15,7 +15,16 @@ constexpr int WIDTH = 800;
 constexpr int HEIGHT = 600;
 }  // namespace
 
-/// Le centre de la caméra se projette au centre de l'écran.
+/**
+ * @brief Le centre de la caméra se projette au centre de l'écran.
+ * \castest{<b>Le centre de la caméra se projette au centre de l'écran.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le centre de la caméra se projette au centre de l'écran.
+ * }
+ */
 TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
     hmi::Camera2D camera(WIDTH, HEIGHT);
     camera.setCenter(core::Vector2{10.0f, 5.0f});
@@ -25,7 +34,16 @@ TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
     EXPECT_NEAR(screen.y, HEIGHT * 0.5f, TOLERANCE);
 }
 
-/// Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.
+/**
+ * @brief Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.
+ * \castest{<b>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.
+ * }
+ */
 TEST(Camera2DTest, EchelleEtAxeY) {
     hmi::Camera2D camera(WIDTH, HEIGHT);  // centre (0,0), zoom 1 -> 16 px/unité
 
@@ -38,7 +56,16 @@ TEST(Camera2DTest, EchelleEtAxeY) {
     EXPECT_NEAR(down.y, HEIGHT * 0.5f + 16.0f, TOLERANCE);
 }
 
-/// Le zoom multiplie l'échelle en pixels.
+/**
+ * @brief Le zoom multiplie l'échelle en pixels.
+ * \castest{<b>Le zoom multiplie l'échelle en pixels.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le zoom multiplie l'échelle en pixels.
+ * }
+ */
 TEST(Camera2DTest, Zoom) {
     hmi::Camera2D camera(WIDTH, HEIGHT);
     camera.setZoom(2.0f);  // 32 px/unité
@@ -47,7 +74,16 @@ TEST(Camera2DTest, Zoom) {
     EXPECT_NEAR(right.x, WIDTH * 0.5f + 32.0f, TOLERANCE);
 }
 
-/// `screenToWorld` est la réciproque de `worldToScreen`.
+/**
+ * @brief `screenToWorld` est la réciproque de `worldToScreen`.
+ * \castest{<b>`screenToWorld` est la réciproque de `worldToScreen`.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `screenToWorld` est la réciproque de `worldToScreen`.
+ * }
+ */
 TEST(Camera2DTest, ConversionsReciproques) {
     hmi::Camera2D camera(WIDTH, HEIGHT);
     camera.setCenter(core::Vector2{-3.0f, 7.5f});
@@ -59,7 +95,17 @@ TEST(Camera2DTest, ConversionsReciproques) {
     EXPECT_NEAR(roundTrip.y, world.y, TOLERANCE);
 }
 
-/// La matrice de projection envoie le centre de la caméra à l'origine du clip space.
+/**
+ * @brief La matrice de projection envoie le centre de la caméra à l'origine du clip space.
+ * \castest{<b>La matrice de projection envoie le centre de la caméra à l'origine du clip
+ * space.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La matrice de projection envoie le centre de la caméra à l'origine du clip space.
+ * }
+ */
 TEST(Camera2DTest, ProjectionCentreVersOrigineClip) {
     hmi::Camera2D camera(WIDTH, HEIGHT);
     camera.setCenter(core::Vector2{12.0f, -8.0f});
@@ -76,7 +122,16 @@ TEST(Camera2DTest, ProjectionCentreVersOrigineClip) {
     EXPECT_NEAR(result.w, 1.0f, TOLERANCE);
 }
 
-/// Un coin de l'écran correspond à un bord du clip space (±1).
+/**
+ * @brief Un coin de l'écran correspond à un bord du clip space (±1).
+ * \castest{<b>Un coin de l'écran correspond à un bord du clip space (±1).</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un coin de l'écran correspond à un bord du clip space (±1).
+ * }
+ */
 TEST(Camera2DTest, BordEcranVersBordClip) {
     hmi::Camera2D camera(WIDTH, HEIGHT);  // centre (0,0)
 

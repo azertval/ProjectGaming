@@ -37,7 +37,17 @@ core::Aabb boxAt(int col, int row) {
 
 }  // namespace
 
-/// Au départ, la porte est **fermée** (solide) ; toucher l'interrupteur l'**ouvre**.
+/**
+ * @brief Au départ, la porte est **fermée** (solide) ; toucher l'interrupteur l'**ouvre**.
+ * \castest{<b>Au départ, la porte est **fermée** (solide) ; toucher l'interrupteur
+ * l'**ouvre**.</b><br/>
+ * \tcat Unitaire · Mechanism Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Au départ, la porte est **fermée** (solide) ; toucher l'interrupteur l'**ouvre**.
+ * }
+ */
 TEST(MechanismControllerTest, ContactOuvreLaPorte) {
     core::MechanismController controller(makeLevelWithMechanism());
     EXPECT_TRUE(controller.collisionMap().isSolid(4, 1));  // porte fermée = solide
@@ -48,7 +58,19 @@ TEST(MechanismControllerTest, ContactOuvreLaPorte) {
     EXPECT_TRUE(controller.isDoorOpen(0));
 }
 
-/// La bascule est **sur front** : rester sur l'interrupteur ne re-bascule pas ; revenir bascule.
+/**
+ * @brief La bascule est **sur front** : rester sur l'interrupteur ne re-bascule pas ; revenir
+ * bascule.
+ * \castest{<b>La bascule est **sur front** : rester sur l'interrupteur ne re-bascule pas ; revenir
+ * bascule.</b><br/>
+ * \tcat Unitaire · Mechanism Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La bascule est **sur front** : rester sur l'interrupteur ne re-bascule pas ; revenir
+ * bascule.
+ * }
+ */
 TEST(MechanismControllerTest, BasculeSurFront) {
     core::MechanismController controller(makeLevelWithMechanism());
 
@@ -64,7 +86,16 @@ TEST(MechanismControllerTest, BasculeSurFront) {
     EXPECT_TRUE(controller.collisionMap().isSolid(4, 1));
 }
 
-/// Loin de l'interrupteur, rien ne change (la porte reste fermée).
+/**
+ * @brief Loin de l'interrupteur, rien ne change (la porte reste fermée).
+ * \castest{<b>Loin de l'interrupteur, rien ne change (la porte reste fermée).</b><br/>
+ * \tcat Unitaire · Mechanism Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Loin de l'interrupteur, rien ne change (la porte reste fermée).
+ * }
+ */
 TEST(MechanismControllerTest, SansContactRienNeChange) {
     core::MechanismController controller(makeLevelWithMechanism());
     controller.update(boxAt(0, 0));

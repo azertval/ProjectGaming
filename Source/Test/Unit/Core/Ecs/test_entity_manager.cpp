@@ -8,7 +8,16 @@
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/EntityManager.h"
 
-/// `create` renvoie des entités vivantes et distinctes.
+/**
+ * @brief `create` renvoie des entités vivantes et distinctes.
+ * \castest{<b>`create` renvoie des entités vivantes et distinctes.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `create` renvoie des entités vivantes et distinctes.
+ * }
+ */
 TEST(EntityManagerTest, CreeEntitesVivantesEtDistinctes) {
     core::EntityManager manager;
     const core::Entity a = manager.create();
@@ -20,7 +29,16 @@ TEST(EntityManagerTest, CreeEntitesVivantesEtDistinctes) {
     EXPECT_EQ(manager.aliveCount(), 2u);
 }
 
-/// Après destruction, l'ancien handle n'est plus vivant.
+/**
+ * @brief Après destruction, l'ancien handle n'est plus vivant.
+ * \castest{<b>Après destruction, l'ancien handle n'est plus vivant.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Après destruction, l'ancien handle n'est plus vivant.
+ * }
+ */
 TEST(EntityManagerTest, DestructionInvalideLeHandle) {
     core::EntityManager manager;
     const core::Entity entity = manager.create();
@@ -31,8 +49,19 @@ TEST(EntityManagerTest, DestructionInvalideLeHandle) {
     EXPECT_EQ(manager.aliveCount(), 0u);
 }
 
-/// Un index recyclé produit une génération différente : l'ancien handle reste
-/// invalide, le nouveau est valide.
+/**
+ * @brief Un index recyclé produit une génération différente : l'ancien handle reste invalide, le
+ * nouveau est valide.
+ * \castest{<b>Un index recyclé produit une génération différente : l'ancien handle reste invalide,
+ * le nouveau est valide.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un index recyclé produit une génération différente : l'ancien handle reste invalide, le
+ * nouveau est valide.
+ * }
+ */
 TEST(EntityManagerTest, RecyclageChangeLaGeneration) {
     core::EntityManager manager;
     const core::Entity first = manager.create();
@@ -48,8 +77,19 @@ TEST(EntityManagerTest, RecyclageChangeLaGeneration) {
     EXPECT_TRUE(manager.isAlive(recycled));
 }
 
-/// Détruire un handle périmé est sans effet (idempotent) et ne touche pas
-/// l'entité vivante qui occupe désormais le même index.
+/**
+ * @brief Détruire un handle périmé est sans effet (idempotent) et ne touche pas l'entité vivante
+ * qui occupe désormais le même index.
+ * \castest{<b>Détruire un handle périmé est sans effet (idempotent) et ne touche pas l'entité
+ * vivante qui occupe désormais le même index.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Détruire un handle périmé est sans effet (idempotent) et ne touche pas l'entité vivante
+ * qui occupe désormais le même index.
+ * }
+ */
 TEST(EntityManagerTest, DestructionHandlePerimeSansEffet) {
     core::EntityManager manager;
     const core::Entity stale = manager.create();
@@ -62,7 +102,16 @@ TEST(EntityManagerTest, DestructionHandlePerimeSansEffet) {
     EXPECT_EQ(manager.aliveCount(), 1u);
 }
 
-/// L'entité invalide conventionnelle n'est jamais vivante.
+/**
+ * @brief L'entité invalide conventionnelle n'est jamais vivante.
+ * \castest{<b>L'entité invalide conventionnelle n'est jamais vivante.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'entité invalide conventionnelle n'est jamais vivante.
+ * }
+ */
 TEST(EntityManagerTest, EntiteInvalideJamaisVivante) {
     core::EntityManager manager;
     EXPECT_FALSE(manager.isAlive(core::INVALID_ENTITY));
@@ -71,7 +120,16 @@ TEST(EntityManagerTest, EntiteInvalideJamaisVivante) {
     EXPECT_FALSE(manager.isAlive(core::INVALID_ENTITY));
 }
 
-/// Le handle invalide se compare comme tel.
+/**
+ * @brief Le handle invalide se compare comme tel.
+ * \castest{<b>Le handle invalide se compare comme tel.</b><br/>
+ * \tcat Unitaire · Entity Manager<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le handle invalide se compare comme tel.
+ * }
+ */
 TEST(EntityManagerTest, EgaliteHandleInvalide) {
     EXPECT_EQ(core::INVALID_ENTITY, core::INVALID_ENTITY);
     EXPECT_EQ(core::INVALID_ENTITY.index, core::Entity::INVALID_INDEX);

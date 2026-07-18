@@ -26,8 +26,15 @@ TEST(PlayerComponentsTest, ColliderParDefautEstNul) {
     EXPECT_FLOAT_EQ(collider.size.y, 0.0f);
 }
 
-/// Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite, dash
-/// indisponible.
+/**
+ * @brief Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite.
+ * \castest{<b>Player par défaut (en l'air, budgets illimités)</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Construire un `core::Player` par défaut.<br/>2. Lire ses champs.<br/>
+ * \tattendu Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ;
+ * budgets sauts/dashs à -1 (illimité).}
+ */
 TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     const core::Player player;
     EXPECT_FALSE(player.grounded);
@@ -43,7 +50,14 @@ TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     EXPECT_EQ(player.dashesRemaining, -1);
 }
 
-/// L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash.
+/**
+ * @brief L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash.
+ * \castest{<b>PlayerInput par défaut neutre</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Construire un `core::PlayerInput` par défaut.<br/>2. Lire ses champs.<br/>
+ * \tattendu `moveX`/`moveY` nuls ; aucun front de saut ni de dash.}
+ */
 TEST(PlayerComponentsTest, PlayerInputParDefautImmobile) {
     const core::PlayerInput input;
     EXPECT_FLOAT_EQ(input.moveX, 0.0f);
@@ -53,7 +67,15 @@ TEST(PlayerComponentsTest, PlayerInputParDefautImmobile) {
     EXPECT_FALSE(input.dashPressed);
 }
 
-/// Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence).
+/**
+ * @brief Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence).
+ * \castest{<b>PhysicsConfig par défaut plausible</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Construire un `core::PhysicsConfig` par défaut.<br/>2. Vérifier chaque réglage.<br/>
+ * \tattendu Vitesses/temps > 0 ; `jumpCutFactor` ∈ [0, 1] ; multiplicateurs de chute/fast-fall > 1
+ * ; apex ∈ ]0, 1[ ; au moins 1 saut aérien.}
+ */
 TEST(PlayerComponentsTest, PhysicsConfigParDefautPlausible) {
     const core::PhysicsConfig config;
     EXPECT_GT(config.moveSpeed, 0.0f);
@@ -80,7 +102,14 @@ TEST(PlayerComponentsTest, PhysicsConfigParDefautPlausible) {
     EXPECT_GT(config.fastFallMultiplier, 1.0f);
 }
 
-/// La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile.
+/**
+ * @brief La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile.
+ * \castest{<b>Taille humanoïde et spawn centré</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire `playerSize()`.<br/>2. Calculer `playerSpawnPosition(3, 5)`.<br/>
+ * \tattendu Taille (0,4 ; 0,8) ; position centrée dans la tuile : (3,3 ; 5,1).}
+ */
 TEST(PlayerComponentsTest, TailleEtSpawnHumanoide) {
     EXPECT_FLOAT_EQ(core::playerSize().x, 0.4f);
     EXPECT_FLOAT_EQ(core::playerSize().y, 0.8f);
@@ -91,7 +120,14 @@ TEST(PlayerComponentsTest, TailleEtSpawnHumanoide) {
     EXPECT_FLOAT_EQ(spawn.y, 5.1f);
 }
 
-/// Les composants sont des agrégats : l'initialisation par accolades renseigne les champs.
+/**
+ * @brief Les composants sont des agrégats : l'initialisation par accolades renseigne les champs.
+ * \castest{<b>Agrégation des composants</b><br/>
+ * \tcat Unitaire · Composants du personnage<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Initialiser `Collider` et `PlayerInput` par accolades.<br/>2. Lire les champs.<br/>
+ * \tattendu Les valeurs fournies sont bien affectées (agrégats).}
+ */
 TEST(PlayerComponentsTest, AggregationRenseigneLesChamps) {
     const core::Collider collider{core::Vector2{2.0f, 3.0f}};
     EXPECT_FLOAT_EQ(collider.size.x, 2.0f);

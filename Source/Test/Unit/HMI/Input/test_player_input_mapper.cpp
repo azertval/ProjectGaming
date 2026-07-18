@@ -22,45 +22,118 @@ hmi::InputState withKeys(std::initializer_list<hmi::Key> keys) {
 
 }  // namespace
 
-/// Flèche gauche seule → intention vers la gauche (-1).
+/**
+ * @brief Flèche gauche seule → intention vers la gauche (-1).
+ * \castest{<b>Flèche gauche seule → intention vers la gauche (-1).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Flèche gauche seule → intention vers la gauche (-1).
+ * }
+ */
 TEST(PlayerInputMapperTest, FlecheGauche) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left})).moveX, -1.0f);
 }
 
-/// Flèche droite seule → intention vers la droite (+1).
+/**
+ * @brief Flèche droite seule → intention vers la droite (+1).
+ * \castest{<b>Flèche droite seule → intention vers la droite (+1).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Flèche droite seule → intention vers la droite (+1).
+ * }
+ */
 TEST(PlayerInputMapperTest, FlecheDroite) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Right})).moveX, 1.0f);
 }
 
-/// Touches alternatives ZQSD : Q → gauche, D → droite.
+/**
+ * @brief Touches alternatives ZQSD : Q → gauche, D → droite.
+ * \castest{<b>Touches alternatives ZQSD : Q → gauche, D → droite.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Touches alternatives ZQSD : Q → gauche, D → droite.
+ * }
+ */
 TEST(PlayerInputMapperTest, TouchesAlternativesQetD) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q})).moveX, -1.0f);
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::D})).moveX, 1.0f);
 }
 
-/// Aucune touche → intention nulle (immobile).
+/**
+ * @brief Aucune touche → intention nulle (immobile).
+ * \castest{<b>Aucune touche → intention nulle (immobile).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Aucune touche → intention nulle (immobile).
+ * }
+ */
 TEST(PlayerInputMapperTest, AucuneTouche) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(hmi::InputState{}).moveX, 0.0f);
 }
 
-/// Gauche et droite simultanées → neutralisation (0).
+/**
+ * @brief Gauche et droite simultanées → neutralisation (0).
+ * \castest{<b>Gauche et droite simultanées → neutralisation (0).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Gauche et droite simultanées → neutralisation (0).
+ * }
+ */
 TEST(PlayerInputMapperTest, GaucheEtDroiteSeNeutralisent) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left, hmi::Key::Right})).moveX, 0.0f);
 }
 
-/// Espace fraîchement enfoncée → saut **pressé** (front) et **maintenu**.
+/**
+ * @brief Espace fraîchement enfoncée → saut **pressé** (front) et **maintenu**.
+ * \castest{<b>Espace fraîchement enfoncée → saut **pressé** (front) et **maintenu**.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Espace fraîchement enfoncée → saut **pressé** (front) et **maintenu**.
+ * }
+ */
 TEST(PlayerInputMapperTest, EspacePresseeDeclencheLeSaut) {
     const core::PlayerInput input = hmi::toPlayerInput(withKeys({hmi::Key::Space}));
     EXPECT_TRUE(input.jumpPressed);
     EXPECT_TRUE(input.jumpHeld);
 }
 
-/// `W` équivaut à Espace pour le saut.
+/**
+ * @brief `W` équivaut à Espace pour le saut.
+ * \castest{<b>`W` équivaut à Espace pour le saut.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `W` équivaut à Espace pour le saut.
+ * }
+ */
 TEST(PlayerInputMapperTest, WEquivautEspacePourLeSaut) {
     EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::W})).jumpPressed);
 }
 
-/// Saut **maintenu** sans nouveau front → `jumpHeld` vrai mais `jumpPressed` faux.
+/**
+ * @brief Saut **maintenu** sans nouveau front → `jumpHeld` vrai mais `jumpPressed` faux.
+ * \castest{<b>Saut **maintenu** sans nouveau front → `jumpHeld` vrai mais `jumpPressed`
+ * faux.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Saut **maintenu** sans nouveau front → `jumpHeld` vrai mais `jumpPressed` faux.
+ * }
+ */
 TEST(PlayerInputMapperTest, SautMaintenuN_estPasUnFront) {
     hmi::InputState input;
     input.onKeyDown(hmi::Key::Space);  // frame 1 : le front a déjà eu lieu
@@ -72,14 +145,32 @@ TEST(PlayerInputMapperTest, SautMaintenuN_estPasUnFront) {
     EXPECT_TRUE(mapped.jumpHeld);
 }
 
-/// Aucune touche de saut → ni pressé ni maintenu.
+/**
+ * @brief Aucune touche de saut → ni pressé ni maintenu.
+ * \castest{<b>Aucune touche de saut → ni pressé ni maintenu.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Aucune touche de saut → ni pressé ni maintenu.
+ * }
+ */
 TEST(PlayerInputMapperTest, PasDeSaut) {
     const core::PlayerInput input = hmi::toPlayerInput(hmi::InputState{});
     EXPECT_FALSE(input.jumpPressed);
     EXPECT_FALSE(input.jumpHeld);
 }
 
-/// Déplacement et saut sont indépendants (axes distincts).
+/**
+ * @brief Déplacement et saut sont indépendants (axes distincts).
+ * \castest{<b>Déplacement et saut sont indépendants (axes distincts).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Déplacement et saut sont indépendants (axes distincts).
+ * }
+ */
 TEST(PlayerInputMapperTest, DeplacementEtSautIndependants) {
     const core::PlayerInput input =
         hmi::toPlayerInput(withKeys({hmi::Key::Right, hmi::Key::Space}));
@@ -87,13 +178,31 @@ TEST(PlayerInputMapperTest, DeplacementEtSautIndependants) {
     EXPECT_TRUE(input.jumpPressed);
 }
 
-/// Maj fraîchement enfoncée → dash **pressé** (front).
+/**
+ * @brief Maj fraîchement enfoncée → dash **pressé** (front).
+ * \castest{<b>Maj fraîchement enfoncée → dash **pressé** (front).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Maj fraîchement enfoncée → dash **pressé** (front).
+ * }
+ */
 TEST(PlayerInputMapperTest, MajDeclencheLeDash) {
     EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::Shift})).dashPressed);
     EXPECT_FALSE(hmi::toPlayerInput(hmi::InputState{}).dashPressed);
 }
 
-/// Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.
+/**
+ * @brief Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.
+ * \castest{<b>Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.
+ * }
+ */
 TEST(PlayerInputMapperTest, ViseeVerticale) {
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Down})).moveY, 1.0f);
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Up})).moveY, -1.0f);

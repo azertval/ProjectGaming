@@ -9,11 +9,19 @@
 
 #include "Core/Diagnostics/Assert.h"
 
-/// Une condition vraie n'invoque pas le gestionnaire d'assertion.
+/**
+ * @brief Une condition vraie n'invoque pas le gestionnaire d'assertion.
+ * \castest{<b>Une condition vraie n'invoque pas le gestionnaire d'assertion.</b><br/>
+ * \tcat Unitaire · Assert<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une condition vraie n'invoque pas le gestionnaire d'assertion.
+ * }
+ */
 TEST(AssertTest, ConditionVraieNInvoquePasLeHandler) {
     bool invoked = false;
-    core::setAssertionHandler(
-        [&](const char*, const char*, const char*, int) { invoked = true; });
+    core::setAssertionHandler([&](const char*, const char*, const char*, int) { invoked = true; });
 
     // Condition évaluée à l'exécution (évite l'avertissement de condition constante).
     // [[maybe_unused]] : en Release l'assertion est un no-op, la variable n'est pas lue.
@@ -24,7 +32,18 @@ TEST(AssertTest, ConditionVraieNInvoquePasLeHandler) {
     core::setAssertionHandler(nullptr);
 }
 
-/// Une condition fausse invoque le gestionnaire une fois, avec le message (Debug uniquement).
+/**
+ * @brief Une condition fausse invoque le gestionnaire une fois, avec le message (Debug uniquement).
+ * \castest{<b>Une condition fausse invoque le gestionnaire une fois, avec le message (Debug
+ * uniquement).</b><br/>
+ * \tcat Unitaire · Assert<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une condition fausse invoque le gestionnaire une fois, avec le message (Debug
+ * uniquement).
+ * }
+ */
 TEST(AssertTest, ConditionFausseInvoqueLeHandler) {
 #ifdef NDEBUG
     GTEST_SKIP() << "Assertions desactivees en Release";

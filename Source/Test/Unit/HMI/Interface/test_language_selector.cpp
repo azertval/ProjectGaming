@@ -24,7 +24,16 @@ constexpr int VIEWPORT_HEIGHT = 720;
 
 }  // namespace
 
-/// Le bouton est ancré au coin bas-droit, marge comprise.
+/**
+ * @brief Le bouton est ancré au coin bas-droit, marge comprise.
+ * \castest{<b>Le bouton est ancré au coin bas-droit, marge comprise.</b><br/>
+ * \tcat Unitaire · Language Selector<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bouton est ancré au coin bas-droit, marge comprise.
+ * }
+ */
 TEST(LanguageSelectorTest, RectangleAncreBasDroite) {
     const hmi::LanguageSelector::Rect rect =
         hmi::LanguageSelector::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
@@ -37,14 +46,32 @@ TEST(LanguageSelectorTest, RectangleAncreBasDroite) {
                                 hmi::LanguageSelector::BUTTON_HEIGHT);
 }
 
-/// La bascule renvoie l'autre langue (français ↔ anglais).
+/**
+ * @brief La bascule renvoie l'autre langue (français ↔ anglais).
+ * \castest{<b>La bascule renvoie l'autre langue (français ↔ anglais).</b><br/>
+ * \tcat Unitaire · Language Selector<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La bascule renvoie l'autre langue (français ↔ anglais).
+ * }
+ */
 TEST(LanguageSelectorTest, BasculeAlterneLesLangues) {
     EXPECT_EQ(hmi::LanguageSelector::other("fr"), "en");
     EXPECT_EQ(hmi::LanguageSelector::other("en"), "fr");
     EXPECT_EQ(hmi::LanguageSelector::other("xx"), "en");  // défaut robuste
 }
 
-/// Un clic dans le bouton demande la bascule vers l'autre langue.
+/**
+ * @brief Un clic dans le bouton demande la bascule vers l'autre langue.
+ * \castest{<b>Un clic dans le bouton demande la bascule vers l'autre langue.</b><br/>
+ * \tcat Unitaire · Language Selector<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic dans le bouton demande la bascule vers l'autre langue.
+ * }
+ */
 TEST(LanguageSelectorTest, ClicDansLeBoutonBascule) {
     const hmi::LanguageSelector selector;
     const hmi::LanguageSelector::Rect rect =
@@ -58,7 +85,16 @@ TEST(LanguageSelectorTest, ClicDansLeBoutonBascule) {
     EXPECT_EQ(toggle.next, "en");
 }
 
-/// Un clic hors du bouton ne demande aucune bascule.
+/**
+ * @brief Un clic hors du bouton ne demande aucune bascule.
+ * \castest{<b>Un clic hors du bouton ne demande aucune bascule.</b><br/>
+ * \tcat Unitaire · Language Selector<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic hors du bouton ne demande aucune bascule.
+ * }
+ */
 TEST(LanguageSelectorTest, ClicHorsBoutonNeBasculePas) {
     const hmi::LanguageSelector selector;
 
@@ -67,7 +103,16 @@ TEST(LanguageSelectorTest, ClicHorsBoutonNeBasculePas) {
     EXPECT_FALSE(toggle.requested);
 }
 
-/// Sans clic, aucune bascule même si la souris est sur le bouton.
+/**
+ * @brief Sans clic, aucune bascule même si la souris est sur le bouton.
+ * \castest{<b>Sans clic, aucune bascule même si la souris est sur le bouton.</b><br/>
+ * \tcat Unitaire · Language Selector<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sans clic, aucune bascule même si la souris est sur le bouton.
+ * }
+ */
 TEST(LanguageSelectorTest, SansClicPasDeBascule) {
     const hmi::LanguageSelector selector;
     const hmi::LanguageSelector::Rect rect =

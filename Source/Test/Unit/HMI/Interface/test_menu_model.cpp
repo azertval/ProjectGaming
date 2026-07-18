@@ -57,7 +57,16 @@ int optionPointY(int index) {
 
 }  // namespace
 
-/// À l'ouverture, la première option (Charger niveau) est sélectionnée.
+/**
+ * @brief À l'ouverture, la première option (Charger niveau) est sélectionnée.
+ * \castest{<b>À l'ouverture, la première option (Charger niveau) est sélectionnée.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu À l'ouverture, la première option (Charger niveau) est sélectionnée.
+ * }
+ */
 TEST(MenuModelTest, SelectionParDefaut) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -67,7 +76,16 @@ TEST(MenuModelTest, SelectionParDefaut) {
     EXPECT_EQ(menu.title(), "ProjectGaming");
 }
 
-/// Valider par défaut (Entrée) bascule vers l'écran de jeu.
+/**
+ * @brief Valider par défaut (Entrée) bascule vers l'écran de jeu.
+ * \castest{<b>Valider par défaut (Entrée) bascule vers l'écran de jeu.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Valider par défaut (Entrée) bascule vers l'écran de jeu.
+ * }
+ */
 TEST(MenuModelTest, ValiderChargeNiveau) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -77,7 +95,16 @@ TEST(MenuModelTest, ValiderChargeNiveau) {
     EXPECT_EQ(transition.target, hmi::ScreenId::Game);
 }
 
-/// La flèche bas déplace la sélection ; valider mène alors au Mode Edition.
+/**
+ * @brief La flèche bas déplace la sélection ; valider mène alors au Mode Edition.
+ * \castest{<b>La flèche bas déplace la sélection ; valider mène alors au Mode Edition.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La flèche bas déplace la sélection ; valider mène alors au Mode Edition.
+ * }
+ */
 TEST(MenuModelTest, FlecheBasPuisValider) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -91,7 +118,16 @@ TEST(MenuModelTest, FlecheBasPuisValider) {
     EXPECT_EQ(transition.target, hmi::ScreenId::Editor);
 }
 
-/// La flèche haut depuis la première option boucle sur la dernière (Quitter).
+/**
+ * @brief La flèche haut depuis la première option boucle sur la dernière (Quitter).
+ * \castest{<b>La flèche haut depuis la première option boucle sur la dernière (Quitter).</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La flèche haut depuis la première option boucle sur la dernière (Quitter).
+ * }
+ */
 TEST(MenuModelTest, FlecheHautBoucleSurQuitter) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -103,7 +139,16 @@ TEST(MenuModelTest, FlecheHautBoucleSurQuitter) {
     EXPECT_EQ(transition.kind, hmi::ScreenTransition::Kind::Quit);
 }
 
-/// Trois flèches bas ramènent à la première option (bouclage déterministe).
+/**
+ * @brief Trois flèches bas ramènent à la première option (bouclage déterministe).
+ * \castest{<b>Trois flèches bas ramènent à la première option (bouclage déterministe).</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Trois flèches bas ramènent à la première option (bouclage déterministe).
+ * }
+ */
 TEST(MenuModelTest, BouclageBasComplet) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -116,7 +161,16 @@ TEST(MenuModelTest, BouclageBasComplet) {
     EXPECT_EQ(menu.selectedIndex(), 0);
 }
 
-/// Le survol d'une option à la souris la sélectionne.
+/**
+ * @brief Le survol d'une option à la souris la sélectionne.
+ * \castest{<b>Le survol d'une option à la souris la sélectionne.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le survol d'une option à la souris la sélectionne.
+ * }
+ */
 TEST(MenuModelTest, SurvolSourisSelectionne) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -126,7 +180,16 @@ TEST(MenuModelTest, SurvolSourisSelectionne) {
     EXPECT_EQ(menu.selectedIndex(), 1);
 }
 
-/// Un clic gauche sur une option la valide.
+/**
+ * @brief Un clic gauche sur une option la valide.
+ * \castest{<b>Un clic gauche sur une option la valide.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic gauche sur une option la valide.
+ * }
+ */
 TEST(MenuModelTest, ClicValideOption) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);
@@ -137,7 +200,16 @@ TEST(MenuModelTest, ClicValideOption) {
     EXPECT_EQ(transition.kind, hmi::ScreenTransition::Kind::Quit);
 }
 
-/// Un clic hors de toute option ne valide rien.
+/**
+ * @brief Un clic hors de toute option ne valide rien.
+ * \castest{<b>Un clic hors de toute option ne valide rien.</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic hors de toute option ne valide rien.
+ * }
+ */
 TEST(MenuModelTest, ClicHorsOptionNeValidePas) {
     hmi::Localization catalog = frenchCatalog();
     hmi::MenuModel menu(catalog);

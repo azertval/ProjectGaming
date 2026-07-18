@@ -35,7 +35,8 @@ core::Aabb unitBox(float x, float y) {
  */
 TEST(SweptCollisionTest, TrajetLibre) {
     const core::TileMap tiles = emptyMap(10, 10);
-    const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{3.0f, 2.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{3.0f, 2.0f}, tiles);
 
     EXPECT_FALSE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 3.0f);
@@ -55,7 +56,8 @@ TEST(SweptCollisionTest, TrajetLibre) {
 TEST(SweptCollisionTest, ButeeHorizontale) {
     core::TileMap tiles = emptyMap(10, 3);
     tiles.setTile(3, 1, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 1.0f), core::Vector2{5.0f, 0.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(0.0f, 1.0f), core::Vector2{5.0f, 0.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 2.0f);  // bord droit = 3.0 = bord gauche du mur
@@ -74,7 +76,8 @@ TEST(SweptCollisionTest, ButeeHorizontale) {
 TEST(SweptCollisionTest, ButeeVerticale) {
     core::TileMap tiles = emptyMap(3, 10);
     tiles.setTile(1, 5, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(1.0f, 0.0f), core::Vector2{0.0f, 10.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(1.0f, 0.0f), core::Vector2{0.0f, 10.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.y, 4.0f);  // bord bas = 5.0 = haut du sol
@@ -93,7 +96,8 @@ TEST(SweptCollisionTest, ButeeVerticale) {
 TEST(SweptCollisionTest, NonTunneling) {
     core::TileMap tiles = emptyMap(8, 2);
     tiles.setTile(5, 0, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{10.0f, 0.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{10.0f, 0.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 4.0f);  // stoppé au ras du mur malgré delta = 10
@@ -101,7 +105,8 @@ TEST(SweptCollisionTest, NonTunneling) {
 }
 
 /**
- * @brief Glissement : en butant contre un mur vertical, la boîte continue de descendre le long du mur.
+ * @brief Glissement : en butant contre un mur vertical, la boîte continue de descendre le long du
+ * mur.
  * \castest{<b>Balayage : glissement le long d'un mur</b><br/>
  * \tcat Unitaire · Physique · Balayage AABB<br/>
  * \tcrit Bloquant<br/>
@@ -113,7 +118,8 @@ TEST(SweptCollisionTest, GlissementLeLongDuMur) {
     tiles.setTile(3, 0, core::TileType::Solid);
     tiles.setTile(3, 1, core::TileType::Solid);
     tiles.setTile(3, 2, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{5.0f, 2.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(0.0f, 0.0f), core::Vector2{5.0f, 2.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 2.0f);  // bloqué au ras du mur (bord droit = 3.0)
@@ -132,7 +138,8 @@ TEST(SweptCollisionTest, GlissementLeLongDuMur) {
 TEST(SweptCollisionTest, ButeeGauche) {
     core::TileMap tiles = emptyMap(10, 3);
     tiles.setTile(2, 1, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(6.0f, 1.0f), core::Vector2{-5.0f, 0.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(6.0f, 1.0f), core::Vector2{-5.0f, 0.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 3.0f);  // bord gauche = 3.0 = bord droit du mur (col 2)
@@ -150,7 +157,8 @@ TEST(SweptCollisionTest, ButeeGauche) {
 TEST(SweptCollisionTest, ButeePlafond) {
     core::TileMap tiles = emptyMap(3, 10);
     tiles.setTile(1, 2, core::TileType::Solid);
-    const core::SweepResult r = core::sweepAabb(unitBox(1.0f, 6.0f), core::Vector2{0.0f, -5.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(1.0f, 6.0f), core::Vector2{0.0f, -5.0f}, tiles);
 
     EXPECT_TRUE(r.hit);
     EXPECT_FLOAT_EQ(r.position.y, 3.0f);  // bord haut = 3.0 = bas du plafond (ligne 2)
@@ -158,12 +166,14 @@ TEST(SweptCollisionTest, ButeePlafond) {
 }
 
 /**
- * @brief En marchant le long d'un sol, la boîte n'est pas bloquée horizontalement par ce sol (peau).
+ * @brief En marchant le long d'un sol, la boîte n'est pas bloquée horizontalement par ce sol
+ * (peau).
  * \castest{<b>Balayage : marcher sur un sol sans blocage horizontal</b><br/>
  * \tcat Unitaire · Physique · Balayage AABB<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Sol continu ; boîte posée dessus.<br/>2. Balayer horizontalement le long du sol.<br/>
- * \tattendu Aucun blocage : la « peau » perpendiculaire évite de confondre marcher sur / buter contre.}
+ * \tattendu Aucun blocage : la « peau » perpendiculaire évite de confondre marcher sur / buter
+ * contre.}
  */
 TEST(SweptCollisionTest, MarcheSurLeSolSansBlocageHorizontal) {
     core::TileMap tiles = emptyMap(10, 3);
@@ -171,7 +181,8 @@ TEST(SweptCollisionTest, MarcheSurLeSolSansBlocageHorizontal) {
         tiles.setTile(col, 2, core::TileType::Solid);  // sol continu sur la ligne 2
     }
     // La boîte repose sur le sol (bord bas = 2.0) et avance à droite.
-    const core::SweepResult r = core::sweepAabb(unitBox(0.0f, 1.0f), core::Vector2{3.0f, 0.0f}, tiles);
+    const core::SweepResult r =
+        core::sweepAabb(unitBox(0.0f, 1.0f), core::Vector2{3.0f, 0.0f}, tiles);
 
     EXPECT_FALSE(r.hit);
     EXPECT_FLOAT_EQ(r.position.x, 3.0f);  // avance librement, le sol dessous ne bloque pas

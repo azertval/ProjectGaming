@@ -25,10 +25,18 @@ constexpr int VIEWPORT_HEIGHT = 720;
 
 }  // namespace
 
-/// Le bouton est à gauche du bouton de langue, aligné sur le même bord bas.
+/**
+ * @brief Le bouton est à gauche du bouton de langue, aligné sur le même bord bas.
+ * \castest{<b>Le bouton est à gauche du bouton de langue, aligné sur le même bord bas.</b><br/>
+ * \tcat Unitaire · Save Log Button<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bouton est à gauche du bouton de langue, aligné sur le même bord bas.
+ * }
+ */
 TEST(SaveLogButtonTest, AGaucheDuBoutonLangue) {
-    const hmi::SaveLogButton::Rect save =
-        hmi::SaveLogButton::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+    const hmi::SaveLogButton::Rect save = hmi::SaveLogButton::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     const hmi::LanguageSelector::Rect language =
         hmi::LanguageSelector::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
@@ -37,18 +45,35 @@ TEST(SaveLogButtonTest, AGaucheDuBoutonLangue) {
                     static_cast<float>(VIEWPORT_HEIGHT) - hmi::LanguageSelector::MARGIN);
 }
 
-/// Un clic dans le bouton est détecté.
+/**
+ * @brief Un clic dans le bouton est détecté.
+ * \castest{<b>Un clic dans le bouton est détecté.</b><br/>
+ * \tcat Unitaire · Save Log Button<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic dans le bouton est détecté.
+ * }
+ */
 TEST(SaveLogButtonTest, ClicDansLeBouton) {
     const hmi::SaveLogButton button;
-    const hmi::SaveLogButton::Rect rect =
-        hmi::SaveLogButton::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+    const hmi::SaveLogButton::Rect rect = hmi::SaveLogButton::rect(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     const int x = static_cast<int>(rect.x + rect.width * 0.5f);
     const int y = static_cast<int>(rect.y + rect.height * 0.5f);
 
     EXPECT_TRUE(button.clicked(mouseClick(x, y), VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
 }
 
-/// Un clic hors du bouton n'est pas détecté.
+/**
+ * @brief Un clic hors du bouton n'est pas détecté.
+ * \castest{<b>Un clic hors du bouton n'est pas détecté.</b><br/>
+ * \tcat Unitaire · Save Log Button<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic hors du bouton n'est pas détecté.
+ * }
+ */
 TEST(SaveLogButtonTest, ClicHorsBouton) {
     const hmi::SaveLogButton button;
     EXPECT_FALSE(button.clicked(mouseClick(5, 5), VIEWPORT_WIDTH, VIEWPORT_HEIGHT));

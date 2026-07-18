@@ -19,8 +19,19 @@ constexpr float STEP = 1.0f / 60.0f;
 constexpr float TOLERANCE = 1e-4f;
 }  // namespace
 
-/// Une entité Transform + Velocity avance de `velocity * fixedDelta` par pas ;
-/// après N pas, la position attendue est déterministe.
+/**
+ * @brief Une entité Transform + Velocity avance de `velocity * fixedDelta` par pas ; après N pas,
+ * la position attendue est déterministe.
+ * \castest{<b>Une entité Transform + Velocity avance de `velocity * fixedDelta` par pas ; après N
+ * pas, la position attendue est déterministe.</b><br/>
+ * \tcat Integration · Ecs Mouvement<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une entité Transform + Velocity avance de `velocity * fixedDelta` par pas ; après N
+ * pas, la position attendue est déterministe.
+ * }
+ */
 TEST(EcsMouvementIntegration, EntiteMobileAvanceDeVitesseFoisPas) {
     core::World world;
     const core::Entity mover = world.createEntity();
@@ -39,7 +50,16 @@ TEST(EcsMouvementIntegration, EntiteMobileAvanceDeVitesseFoisPas) {
     EXPECT_NEAR(position.y, -3.0f * steps * STEP, TOLERANCE);
 }
 
-/// Une entité sans Velocity ne bouge pas.
+/**
+ * @brief Une entité sans Velocity ne bouge pas.
+ * \castest{<b>Une entité sans Velocity ne bouge pas.</b><br/>
+ * \tcat Integration · Ecs Mouvement<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une entité sans Velocity ne bouge pas.
+ * }
+ */
 TEST(EcsMouvementIntegration, EntiteSansVelociteNeBougePas) {
     core::World world;
     const core::Entity fixture = world.createEntity();
@@ -56,7 +76,16 @@ TEST(EcsMouvementIntegration, EntiteSansVelociteNeBougePas) {
     EXPECT_NEAR(position.y, 5.0f, TOLERANCE);
 }
 
-/// Deux entités de vitesses différentes évoluent indépendamment.
+/**
+ * @brief Deux entités de vitesses différentes évoluent indépendamment.
+ * \castest{<b>Deux entités de vitesses différentes évoluent indépendamment.</b><br/>
+ * \tcat Integration · Ecs Mouvement<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Deux entités de vitesses différentes évoluent indépendamment.
+ * }
+ */
 TEST(EcsMouvementIntegration, DeuxEntitesEvoluentIndependamment) {
     core::World world;
     const core::Entity slow = world.createEntity();
@@ -80,7 +109,17 @@ TEST(EcsMouvementIntegration, DeuxEntitesEvoluentIndependamment) {
     EXPECT_NEAR(fastPosition.y, 4.0f, TOLERANCE);
 }
 
-/// Enregistré dans le World, le système s'exécute via World::update (chaîne complète).
+/**
+ * @brief Enregistré dans le World, le système s'exécute via World::update (chaîne complète).
+ * \castest{<b>Enregistré dans le World, le système s'exécute via World::update (chaîne
+ * complète).</b><br/>
+ * \tcat Integration · Ecs Mouvement<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Enregistré dans le World, le système s'exécute via World::update (chaîne complète).
+ * }
+ */
 TEST(EcsMouvementIntegration, IntegrationViaWorldUpdate) {
     core::World world;
     const core::Entity mover = world.createEntity();
