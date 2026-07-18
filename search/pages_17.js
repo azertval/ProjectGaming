@@ -34,5 +34,6 @@ var searchData=
   ['système_31',['TACHE-06 — Niveau de démo « parkour » + preuve système',['../lot-10-tache-06-niveau-parkour.html',1,'lot-10']]],
   ['système_20de_20mouvement_20démo_32',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
   ['système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_33',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
-  ['systèmes_20world_20orchestration_20au_20pas_20fixe_34',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['systèmes_34',['ECS : entités, composants, systèmes',['../guide-ecs.html',1,'guide']]],
+  ['systèmes_20world_20orchestration_20au_20pas_20fixe_35',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
 ];

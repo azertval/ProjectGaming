@@ -12,12 +12,13 @@ var searchData=
   ['niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_9',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
   ['niveau_20succès_20échec_10',['TACHE-04 — Règles de fin de niveau (succès / échec)',['../lot-08-tache-04-regles-fin-niveau.html',1,'lot-08']]],
   ['niveaux_11',['niveaux',['../spec-editeur.html',1,'Éditeur de niveaux'],['../lot-09.html',1,'LOT-09 — Saut, game feel et enchaînement de niveaux']]],
-  ['niveaux_20_3a_20modèle_20et_20chargement_12',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
-  ['niveaux_20contenu_13',['Niveaux &amp; contenu',['../spec-niveaux.html',1,'specifications']]],
-  ['niveaux_20de_20démo_20séquence_20dont_20saut_20requis_20preuve_14',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
-  ['niveaux_20de_20log_20interface_20logger_15',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
-  ['niveaux_20preuves_20à_20la_20vraie_20taille_16',['TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille',['../lot-11-tache-04-reequilibrage.html',1,'lot-11']]],
-  ['niveaux_20séquence_20auto_20avance_20retour_20titre_17',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
-  ['nlohmann_20json_20épinglé_18',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
-  ['non_20fonctionnelles_19',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
+  ['niveaux_20_3a_20modèle_20chargement_20mécanismes_20budgets_12',['Niveaux : modèle, chargement, mécanismes, budgets',['../guide-niveaux.html',1,'guide']]],
+  ['niveaux_20_3a_20modèle_20et_20chargement_13',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
+  ['niveaux_20contenu_14',['Niveaux &amp; contenu',['../spec-niveaux.html',1,'specifications']]],
+  ['niveaux_20de_20démo_20séquence_20dont_20saut_20requis_20preuve_15',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
+  ['niveaux_20de_20log_20interface_20logger_16',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
+  ['niveaux_20preuves_20à_20la_20vraie_20taille_17',['TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille',['../lot-11-tache-04-reequilibrage.html',1,'lot-11']]],
+  ['niveaux_20séquence_20auto_20avance_20retour_20titre_18',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
+  ['nlohmann_20json_20épinglé_19',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
+  ['non_20fonctionnelles_20',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]]
 ];

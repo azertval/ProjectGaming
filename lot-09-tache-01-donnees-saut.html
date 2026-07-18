@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-09-tache-01-donnees-saut.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-09-saut-game-feel_2epic_8md.html">LOT-09</a> · <b>Emplacement :</b> <code>Source/Core</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md522"></a>
+<h1><a class="anchor" id="autotoc_md555"></a>
 Contexte</h1>
 <p>Avant la logique de saut, il faut décrire son <b>état</b> en données pures (<code>EX-ARCH-011</code>) : l'intention d'entrée, les minuteries de <em>game feel</em> et les réglages. Séparer ces données de la logique garde la simulation déterministe et testable (comme au LOT-08).</p>
-<h1><a class="anchor" id="autotoc_md523"></a>
+<h1><a class="anchor" id="autotoc_md556"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>PlayerInput</code>** (Core/Physics) : ajouter l'intention de <b>saut</b> à deux signaux (<code>EX-CTRL-011</code>) :<ul>
@@ -117,30 +117,30 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md524"></a>
+<h1><a class="anchor" id="autotoc_md557"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></code>, <code><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></code>, <code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></code>.</li>
 <li>Tests unitaires associés (valeurs par défaut).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md525"></a>
+<h1><a class="anchor" id="autotoc_md558"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes : <code>PlayerInput::jumpPressed/jumpHeld == false</code>, <code>Player::coyoteTimer == 0</code> et <code>jumpBufferTimer == 0</code>, <code>PhysicsConfig</code> avec des réglages non nuls et plausibles.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md526"></a>
+<h1><a class="anchor" id="autotoc_md559"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucun type DirectX, aucune logique ; unités monde et <b>secondes</b> documentées.</li>
 <li>Ne pas encore décompter les minuteries ici (c'est le rôle de TACHE-03/04) : cette tâche <b>déclare</b>.</li>
 <li>Rester rétrocompatible avec le LOT-08 : n'ajouter que des champs, sans casser l'existant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md527"></a>
+<h1><a class="anchor" id="autotoc_md560"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Champs ajoutés, documentés (Doxygen en en-tête) et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md528"></a>
+<h1><a class="anchor" id="autotoc_md561"></a>
 Exigences</h1>
 <p><code>EX-CTRL-011</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

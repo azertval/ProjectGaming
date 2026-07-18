@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -133,10 +133,10 @@ Include dependency graph for test_player_components.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3fcd7fab8131c5736b26d52e7d1ef347" id="r_a3fcd7fab8131c5736b26d52e7d1ef347"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__components_8cpp.html#a3fcd7fab8131c5736b26d52e7d1ef347">TEST</a> (PlayerComponentsTest, ColliderParDefautEstNul)</td></tr>
-<tr class="memdesc:a3fcd7fab8131c5736b26d52e7d1ef347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au moment du spawn.  <br /></td></tr>
+<tr class="memdesc:a3fcd7fab8131c5736b26d52e7d1ef347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au spawn.  <br /></td></tr>
 <tr class="separator:a3fcd7fab8131c5736b26d52e7d1ef347"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c4230ea1142a35cd9fbcaaf47347d90" id="r_a5c4230ea1142a35cd9fbcaaf47347d90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__components_8cpp.html#a5c4230ea1142a35cd9fbcaaf47347d90">TEST</a> (PlayerComponentsTest, PlayerParDefautPasAuSol)</td></tr>
-<tr class="memdesc:a5c4230ea1142a35cd9fbcaaf47347d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite, dash indisponible.  <br /></td></tr>
+<tr class="memdesc:a5c4230ea1142a35cd9fbcaaf47347d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite.  <br /></td></tr>
 <tr class="separator:a5c4230ea1142a35cd9fbcaaf47347d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3024646f4bc6e924a6c550f728d91b3f" id="r_a3024646f4bc6e924a6c550f728d91b3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__components_8cpp.html#a3024646f4bc6e924a6c550f728d91b3f">TEST</a> (PlayerComponentsTest, PlayerInputParDefautImmobile)</td></tr>
 <tr class="memdesc:a3024646f4bc6e924a6c550f728d91b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash.  <br /></td></tr>
@@ -181,6 +181,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les composants sont des agrégats : l'initialisation par accolades renseigne les champs. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000074">Cas de test:</a></b></dt><dd><b>Agrégation des composants</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Initialiser <code>Collider</code> et <code>PlayerInput</code> par accolades.<br  />
+2. Lire les champs.<br  />
+ <b>Resultat attendu :</b> Les valeurs fournies sont bien affectées (agrégats). </dd></dl>
 
 </div>
 </div>
@@ -210,7 +217,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au moment du spawn. </p>
+<p>Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au spawn. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000069">Cas de test:</a></b></dt><dd><b>Collider par défaut nul</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un <code><a class="el" href="structcore_1_1Collider.html" title="Étendue physique d&#39;une entité pour la collision : une boîte alignée aux axes (AABB).">core::Collider</a></code> par défaut.<br  />
+2. Lire <code>size.x</code> et <code>size.y</code>.<br  />
+ <b>Resultat attendu :</b> La boîte est nulle, <code>size</code> vaut (0, 0). </dd></dl>
 
 </div>
 </div>
@@ -241,6 +255,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000072">Cas de test:</a></b></dt><dd><b>PhysicsConfig par défaut plausible</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un <code><a class="el" href="structcore_1_1PhysicsConfig.html" title="Paramètres réglables de la physique du personnage, regroupés pour faciliter le tuning.">core::PhysicsConfig</a></code> par défaut.<br  />
+2. Vérifier chaque réglage.<br  />
+ <b>Resultat attendu :</b> Vitesses/temps &gt; 0 ; <code>jumpCutFactor</code> ∈ [0, 1] ; multiplicateurs de chute/fast-fall &gt; 1 ; apex ∈ ]0, 1[ ; au moins 1 saut aérien. </dd></dl>
 
 </div>
 </div>
@@ -271,6 +292,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000071">Cas de test:</a></b></dt><dd><b>PlayerInput par défaut neutre</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code> par défaut.<br  />
+2. Lire ses champs.<br  />
+ <b>Resultat attendu :</b> <code>moveX</code>/<code>moveY</code> nuls ; aucun front de saut ni de dash. </dd></dl>
 
 </div>
 </div>
@@ -300,7 +328,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite, dash indisponible. </p>
+<p>Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000070">Cas de test:</a></b></dt><dd><b>Player par défaut (en l'air, budgets illimités)</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un <code><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></code> par défaut.<br  />
+2. Lire ses champs.<br  />
+ <b>Resultat attendu :</b> Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ; budgets sauts/dashs à -1 (illimité). </dd></dl>
 
 </div>
 </div>
@@ -331,6 +366,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000073">Cas de test:</a></b></dt><dd><b>Taille humanoïde et spawn centré</b><br  />
+ <b>Categorie :</b> Unitaire · Composants du personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire <code>playerSize()</code>.<br  />
+2. Calculer <code>playerSpawnPosition(3, 5)</code>.<br  />
+ <b>Resultat attendu :</b> Taille (0,4 ; 0,8) ; position centrée dans la tuile : (3,3 ; 5,1). </dd></dl>
 
 </div>
 </div>

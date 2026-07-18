@@ -11,5 +11,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-09-saut-game-feel", "dir_334d7122776fba0cf2d3a71ece85987c.html", null ],
     [ "LOT-10-mecaniques-avancees", "dir_9bce32c38ae0c0cbddc86a95f8da039c.html", null ],
     [ "LOT-11-ressenti-avance", "dir_73c049fa024bd1ab37be02b35c3e5148.html", null ],
-    [ "LOT-12-niveau-puzzle", "dir_101f8ceac4a8e42040e1ea2eaaa20b5e.html", null ]
+    [ "LOT-12-niveau-puzzle", "dir_101f8ceac4a8e42040e1ea2eaaa20b5e.html", null ],
+    [ "LOT-13-documentation", "dir_9b3320635a3fce7e119923fb643adc2f.html", null ]
 ];

@@ -9,7 +9,7 @@ var searchData=
   ['fichier_20ligne_20horodatage_6',['TACHE-03 — Macros de log (fichier/ligne, horodatage)',['../lot-02-tache-03-macros-log.html',1,'lot-02']]],
   ['fin_20de_20niveau_20succès_20échec_7',['TACHE-04 — Règles de fin de niveau (succès / échec)',['../lot-08-tache-04-regles-fin-niveau.html',1,'lot-08']]],
   ['finitions_8',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
-  ['fixe_9',['TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
+  ['fixe_9',['fixe',['../guide-boucle.html',1,'Boucle de jeu et pas de temps fixe'],['../lot-03-tache-05-systemes-world.html',1,'TACHE-05 — Systèmes &amp; `World` (orchestration au pas fixe)']]],
   ['fixe_20succès_20échec_10',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
   ['fixe_20testable_11',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
   ['fonctionnelles_12',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],

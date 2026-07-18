@@ -4,5 +4,6 @@ var searchData=
   ['11_1',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
   ['11_20—_20ressenti_20avancé_20_3a_20personnage_20humanoïde_20gravité_20asymétrique_20finitions_2',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
   ['11_20raii_3',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
-  ['12_20—_20niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_4',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]]
+  ['12_20—_20niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_4',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
+  ['13_20—_20consolidation_20de_20la_20documentation_5',['LOT-13 — Consolidation de la documentation',['../lot-13.html',1,'lots']]]
 ];

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,23 +94,23 @@ $(document).ready(function(){initNavTree('lot-09-tache-04-coyote-buffering.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-09-saut-game-feel_2epic_8md.html">LOT-09</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md543"></a>
+<h1><a class="anchor" id="autotoc_md576"></a>
 Contexte</h1>
 <p>Le saut « strict au sol » (TACHE-03) est correct mais <b>sec</b> : il punit les erreurs d'une frame. Deux minuteries corrigent ça et rendent le saut <b>indulgent</b>, sans tricher — c'est la signature d'un platformer réactif. Elles s'appuient sur les champs déclarés en TACHE-01 (<code>Player::coyoteTimer</code>, <code>Player::jumpBufferTimer</code>) et sur les fenêtres de <code>PhysicsConfig</code>.</p>
-<h1><a class="anchor" id="autotoc_md544"></a>
+<h1><a class="anchor" id="autotoc_md577"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code>, au pas fixe <code>fixedDelta</code> :</p><ul>
 <li><b>Coyote time</b> : quand le personnage <b>est au sol</b>, (re)charger <code>coyoteTimer = coyoteTime</code> ; sinon le <b>décrémenter</b> de <code>fixedDelta</code> (borné à 0). La condition de saut de TACHE-03 devient : saut permis si <code>jumpPressed</code> <b>et</b> (<code>grounded</code> <b>ou</b> <code>coyoteTimer &gt; 0</code>). Au décollage, remettre <code>coyoteTimer</code> à 0 (empêche un second saut dans la même fenêtre).</li>
 <li><b>Jump buffering</b> : à chaque <code>jumpPressed</code>, (re)charger <code>jumpBufferTimer = jumpBufferTime</code> ; sinon le <b>décrémenter</b>. Le saut se déclenche si <code>jumpBufferTimer &gt; 0</code> <b>et</b> le personnage est sautable (au sol ou coyote) — ainsi un appui <b>juste avant</b> l'atterrissage s'exécute à la pose. Consommer le buffer (le remettre à 0) au déclenchement.</li>
 <li>Fusionner proprement les deux avec la logique de TACHE-03 : une <b>seule</b> décision « peut sauter maintenant ? » combinant buffer (source de l'intention) et coyote/sol (autorisation).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md545"></a>
+<h1><a class="anchor" id="autotoc_md578"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests unitaires/d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md546"></a>
+<h1><a class="anchor" id="autotoc_md579"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Coyote</b> : le personnage quitte un bord (devient non <code>grounded</code>) ; un <code>jumpPressed</code> <b>dans</b> la fenêtre coyote déclenche le saut ; <b>au-delà</b> de la fenêtre, non.</li>
@@ -118,7 +118,7 @@ Tests (obligatoires)</h1>
 <li><b>Pas de double saut</b> (<code>EX-GP-013</code>) : coyote et buffer n'autorisent <b>jamais</b> un second saut en plein vol hors fenêtre.</li>
 <li><b>Décompte déterministe</b> : les minuteries décroissent de <code>fixedDelta</code> par pas (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md547"></a>
+<h1><a class="anchor" id="autotoc_md580"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Au pas fixe uniquement</b> : décompte en <code>fixedDelta</code>, jamais en temps réel de frame.</li>
@@ -126,12 +126,12 @@ Points d'attention</h1>
 <li><b>Un seul point de décision</b> : éviter deux chemins de déclenchement concurrents (buffer vs appui direct) — les unifier pour un comportement reproductible.</li>
 <li>Garder la logique <b>dans le système</b>, l'état <b>dans le composant</b> (<code>EX-ARCH-011</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md548"></a>
+<h1><a class="anchor" id="autotoc_md581"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Coyote time et jump buffering fonctionnels, documentés et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md549"></a>
+<h1><a class="anchor" id="autotoc_md582"></a>
 Exigences</h1>
 <p><code>EX-CTRL-011</code>, <code>EX-GP-013</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

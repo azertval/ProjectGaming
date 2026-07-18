@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,14 +95,14 @@ $(document).ready(function(){initNavTree('spec-conventions.html',''); initResiza
 <div class="contents">
 <div class="textblock"><p>Règles à respecter dès la première ligne, pour garder un code cohérent et une documentation Doxygen exploitable. Le squelette existant (<code>Source/Core</code>, <code>Source/HMI</code>) suit déjà ces règles.</p>
 <hr  />
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 1. Langage &amp; standard</h1>
 <ul>
 <li><b>C++20</b> (fixé dans <code>CMakeLists.txt</code>, extensions compilateur désactivées).</li>
 <li>Préférer la bibliothèque standard aux API brutes quand c'est possible.</li>
 <li>Pas de <code>using namespace</code> en portée de fichier d'en-tête.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md55"></a>
 2. Nommage</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('spec-conventions.html',''); initResiza
 <li>Noms en <b>anglais</b> pour le code (identifiants), commentaires et documentation <b>en français</b>.</li>
 <li><b>Aucune abréviation</b> dans les noms de variables et de fonctions : le nom est écrit en toutes lettres (<code>deltaTime</code> et non <code>dt</code>, <code>position</code> et non <code>pos</code>, <code>updatePhysics</code> et non <code>updPhys</code>). Seuls les prénoms d'itérateurs conventionnels (<code>i</code>, <code>j</code>) et les termes standard du domaine restent tolérés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 3. Mise en forme</h1>
 <ul>
 <li>Indentation : <b>4 espaces</b>, jamais de tabulation.</li>
@@ -141,9 +141,9 @@ $(document).ready(function(){initNavTree('spec-conventions.html',''); initResiza
 <li>Longueur de ligne indicative : <b>100 colonnes</b>.</li>
 <li>Include guard : **<code>#pragma once</code>** (pas de macros de garde manuelles).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 4. Inclusions (&lt;tt&gt;#include&lt;/tt&gt;)</h1>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md58"></a>
 Chemins complets depuis &lt;tt&gt;Source/&lt;/tt&gt;</h2>
 <p>Les en-têtes du projet s'incluent par leur <b>chemin complet depuis la racine <code>Source/</code></b>, jamais par nom seul :</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="Core_8h.html">Core/Core.h</a>&quot;</span>          <span class="comment">// ✅ chemin complet</span></div>
@@ -155,7 +155,7 @@ Chemins complets depuis &lt;tt&gt;Source/&lt;/tt&gt;</h2>
 <li>La racine d'inclusion <code>Source/</code> est fournie par CMake (<code>target_include_directories(... ${PROJECT_SOURCE_DIR}/Source)</code>).</li>
 <li>Bénéfice : les dépendances sont explicites et un déplacement de fichier lors d'une refonte d'architecture se repère et se corrige par simple recherche du chemin.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Ordre des groupes</h2>
 <p>Dans un <code>.cpp</code>, du plus proche au plus général, chaque groupe trié et séparé par une ligne vide :</p><ol type="1">
 <li>L'en-tête correspondant au fichier (<code>#include "Core/Core.h"</code> en premier dans <code><a class="el" href="Core_8cpp.html">Core.cpp</a></code>).</li>
@@ -163,7 +163,7 @@ Ordre des groupes</h2>
 <li>En-têtes tiers (<code>&lt;gtest/gtest.h&gt;</code>, DirectX…).</li>
 <li>En-têtes du projet, chemin complet (<code>"Core/..."</code>, <code>"HMI/..."</code>).</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 5. Architecture (dépendances entre modules)</h1>
 <ul>
 <li>**<code>Core</code>** : logique/moteur, <b>indépendant</b> de la présentation. Ne connaît ni DirectX ni la fenêtre.</li>
@@ -171,14 +171,14 @@ Ordre des groupes</h2>
 <li>**<code>Elements</code>** : données/assets statiques, aucun code exécutable.</li>
 <li>Aucune dépendance cyclique. <code>Core</code> reste testable sans fenêtre ni GPU.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Classes plutôt que fonctions libres</h2>
 <ul>
 <li><b>Privilégier une classe</b> (avec état encapsulé et membres privés) à un ensemble de fonctions libres dans un espace de noms. Une classe se dérive et se spécialise : elle permet d'étendre les comportements sans réécrire les appelants.</li>
 <li>Réserver les fonctions libres dans un <code>namespace</code> aux utilitaires purs, sans état.</li>
 <li>Exposer le minimum : membres et méthodes internes en <code>private</code> par défaut, <code>public</code> seulement pour l'interface réellement nécessaire.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md62"></a>
 RAII obligatoire</h2>
 <ul>
 <li><b>Toute classe respecte le RAII</b> : une ressource (mémoire, handle DirectX, fichier…) est acquise dans le constructeur et libérée dans le destructeur. Aucune méthode <code>init()</code> / <code>cleanup()</code> manuelle à appeler séparément.</li>
@@ -186,10 +186,10 @@ RAII obligatoire</h2>
 <li>Bénéfice recherché : <b>traçage des bugs et tests facilités</b> — la durée de vie d'une ressource est celle de l'objet, sans état intermédiaire à moitié initialisé.</li>
 <li>Gérer la copie/déplacement explicitement (règle des 0/3/5) ; préférer <code>= default</code> ou <code>= delete</code> à une implémentation manuelle quand c'est possible.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md63"></a>
 6. Documentation Doxygen</h1>
 <p>Tout élément public (fichier, type, fonction) est documenté <b>en français</b>. <code>JAVADOC_AUTOBRIEF</code> est actif : la première phrase sert de description courte.</p>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 Doxygen dans le header, commentaires simples &lt;tt&gt;//&lt;/tt&gt; dans le &lt;tt&gt;.cpp&lt;/tt&gt;</h2>
 <p>La documentation Doxygen (exportée vers le site) vit <b>uniquement dans les en-têtes</b> (<code>.h</code>) :</p><ul>
 <li>Dans le **<code>.h</code>** : le bloc Doxygen <code>/** … */</code> complet — contrat de la fonction (rôle, <code>@param</code>, <code>@return</code>), lu par les appelants et exporté sur le site. C'est la <b>source unique</b>.</li>
@@ -223,7 +223,7 @@ Doxygen dans le header, commentaires simples &lt;tt&gt;//&lt;/tt&gt; dans le &lt
 </div><!-- fragment --><blockquote class="doxtable">
 <p>&zwj;Une méthode qui <b>redéfinit</b> (<code>override</code>) une fonction déjà documentée dans un header (par ex. une interface) n'a pas besoin d'être redocumentée : Doxygen hérite de la doc de base. Les fonctions <b>internes</b> au <code>.cpp</code> (espace de noms anonyme) se contentent aussi de <code>//</code>. </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <p>Dans les définitions, commenter en français avec des <code>//</code> :</p><ul>
 <li>Le rôle de chaque <b>branche <code>if</code>/<code>else</code></b> non triviale (pourquoi cette condition).</li>
@@ -245,7 +245,7 @@ Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <div class="line">};</div>
 <div class="ttc" id="aLevelLoader_8cpp_html_a8f69b2e43ff0b9604263cdd2c0ae14f1"><div class="ttname"><a href="LevelLoader_8cpp.html#a8f69b2e43ff0b9604263cdd2c0ae14f1">position</a></div><div class="ttdeci">GridPosition position</div><div class="ttdef"><b>Definition</b> LevelLoader.cpp:53</div></div>
 </div><!-- fragment --><p>Ne <b>jamais</b> utiliser un <code>///</code> de fin de ligne (sans <code>&lt;</code>) : il se rattacherait à la déclaration <em>suivante</em>, pas à celle qu'on croit documenter.</p>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 7. Bonnes pratiques</h1>
 <ul>
 <li><code>const</code> par défaut ; <code>constexpr</code> quand c'est possible.</li>
@@ -258,14 +258,14 @@ Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <li>**<code>enum class</code>** plutôt qu'<code>enum</code> nu (typage fort, pas de conversion implicite).</li>
 <li>**<code>override</code>** / **<code>final</code>** explicites sur les méthodes virtuelles redéfinies.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md67"></a>
 8. Tests</h1>
 <ul>
 <li>Un test = un comportement, nommé <code>TEST(SuiteName, ComportementTeste)</code>.</li>
 <li>Fichiers de test : <code>test_&lt;cible&gt;.cpp</code> dans <code>Source/Test/{Unit,Integration,Systeme}/</code>.</li>
 <li>Toute logique de <code>Core</code> livrée s'accompagne de tests unitaires.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 9. Gestion des erreurs</h1>
 <p>Politique par catégorie d'erreur (à respecter dans tout le code) :</p>
 <table class="markdownTable">
@@ -286,13 +286,13 @@ Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <blockquote class="doxtable">
 <p>&zwj;Note : <code>std::expected</code> (C++23) remplacera avantageusement <code>Result&lt;T&gt;</code> lorsque le projet passera à C++23. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 10. Assertions &amp; journalisation</h1>
 <ul>
 <li><b>Assertions</b> : vérifier les préconditions et invariants avec une macro projet <code><a class="el" href="Assert_8h.html#a24ec0bff1ac1e68bdf8ac50376a41076" title="Vérifie une précondition.">PROJECTGAMING_ASSERT(condition, message)</a></code> (basée sur <code>assert</code>, active en Debug, retirée en Release). Une assertion signale un <b>bug</b>, pas une erreur d'exécution normale.</li>
 <li><b>Journalisation</b> : passer par un module de log du projet (à venir dans <code>Core/Diagnostics</code>), <b>jamais</b> <code>std::cout</code>/<code>printf</code> directement dans le code de production. Niveaux : <code>trace</code>, <code>info</code>, <code>warning</code>, <code>error</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md70"></a>
 11. Outillage qualité (automatisé)</h1>
 <p>Ces règles sont appliquées par des outils, pas seulement par relecture :</p>
 <table class="markdownTable">
@@ -310,7 +310,7 @@ Documentation du corps (&lt;tt&gt;.cpp&lt;/tt&gt;)</h2>
 <td class="markdownTableBodyNone"><b>AddressSanitizer</b>   </td><td class="markdownTableBodyNone">option <code>ENABLE_ASAN</code>   </td><td class="markdownTableBodyNone">Détection à l'exécution des débordements et usages après libération. Activable en Debug : <code>cmake --preset ninja -DENABLE_ASAN=ON</code>.   </td></tr>
 </table>
 <p>Le code livré compile <b>sans aucun avertissement</b>. Un avertissement légitime et inévitable est neutralisé localement et commenté (jamais désactivé globalement).</p>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 12. Identifiants d'exigences (&lt;tt&gt;EX-…&lt;/tt&gt;)</h1>
 <p>Les exigences sont identifiées par un code <code>EX-&lt;CAT&gt;-&lt;NNN&gt;</code> (ex. <code>EX-ARCH-011</code>), déclaré dans les <a class="el" href="specifications.html">spécifications</a> et référencé depuis les lots <b>et</b> le code. Ces identifiants sont <b>stables</b> : ils servent de handles permanents.</p>
 <p>Règles :</p><ul>
