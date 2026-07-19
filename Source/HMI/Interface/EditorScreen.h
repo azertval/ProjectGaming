@@ -24,7 +24,12 @@ class TextureAtlas;
  * d'édition de `Core` (`core::LevelDraft`, LOT-14 TACHE-01) — aucune duplication de la logique de
  * niveau (`EX-EDIT-010`, `EX-EDIT-030`, `EX-EDIT-031`). Un clic sur la palette change le type de
  * tuile actif ; un clic (ou glisser-clic) sur la grille peint ce type à la position visée
- * (`EX-EDIT-002`). **Échap** revient au menu.
+ * (`EX-EDIT-002`, y compris l'entrée/la sortie, dont l'unicité est gérée par `LevelDraft`).
+ *
+ * **Liaison de mécanismes** (`EX-EDIT-003`) : `Maj` + clic sur une tuile `Switch` puis, `Maj`
+ * toujours enfoncé, sur une tuile `Door` (ou l'inverse) les lie ; répéter la même paire la délie
+ * (bascule). **Redimensionnement** (`EX-EDIT-005`) : les flèches ↑/↓ réduisent/agrandissent la
+ * hauteur, ←/→ la largeur. **Échap** revient au menu.
  */
 class EditorScreen : public IScreen {
 public:
@@ -47,7 +52,11 @@ private:
     /// bornes du brouillon courant.
     [[nodiscard]] std::optional<core::GridPosition> hoveredCell(float mouseX, float mouseY) const;
 
-    /// Dessine la grille du brouillon (tuiles non vides) et la case survolée en surbrillance.
+    /// Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).
+    void handleLinkClick(float mouseX, float mouseY);
+
+    /// Dessine la grille du brouillon (tuiles non vides), les liaisons de mécanismes, la
+    /// sélection de liaison en attente et la case survolée en surbrillance.
     void renderGrid(RenderContext& context);
 
     /// Dessine la palette (couleurs des types + surbrillance de la sélection).
@@ -60,6 +69,8 @@ private:
     bool _paintingDrag = false;  ///< Le clic gauche en cours peint-il la grille (vs. la palette) ?
     float _mouseX = 0.0f;        ///< Dernière position souris connue (pour le rendu du survol).
     float _mouseY = 0.0f;
+    /// Première case (Switch ou Door) choisie pour une liaison, en attente de sa contrepartie.
+    std::optional<core::GridPosition> _pendingLink;
 };
 
 }  // namespace hmi

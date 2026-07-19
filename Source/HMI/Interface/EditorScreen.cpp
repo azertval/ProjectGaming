@@ -6,6 +6,7 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"  // core::Mechanism
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
@@ -70,7 +71,59 @@ std::optional<core::GridPosition> EditorScreen::hoveredCell(float mouseX, float 
     return core::GridPosition{column, row};
 }
 
-// Clic palette -> selection ; clic/glisser sur la grille -> peinture du type actif ; Echap -> menu.
+// Traite un clic Maj+souris pour la liaison de mecanismes (bascule si la paire est deja liee).
+void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
+    const std::optional<core::GridPosition> cell = hoveredCell(mouseX, mouseY);
+    if (!cell) {
+        return;
+    }
+    const core::TileType type = _draft.tileMap().tile(cell->column, cell->row);
+    if (type != core::TileType::Switch && type != core::TileType::Door) {
+        return;  // rien a lier sur cette case
+    }
+
+    if (_pendingLink) {
+        const core::TileType pendingType =
+            _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
+        if (pendingType != core::TileType::Switch && pendingType != core::TileType::Door) {
+            _pendingLink.reset();  // la case en attente a change de type entre-temps
+        }
+    }
+
+    if (!_pendingLink) {
+        _pendingLink = cell;
+        return;
+    }
+
+    const core::TileType pendingType =
+        _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
+    if (pendingType == type) {
+        // Deux cases du meme type (deux interrupteurs, deux portes) : on recommence avec
+        // la nouvelle case plutot que de rester bloque.
+        _pendingLink = cell;
+        return;
+    }
+
+    const bool pendingIsSwitch = pendingType == core::TileType::Switch;
+    const core::GridPosition switchPosition = pendingIsSwitch ? *_pendingLink : *cell;
+    const core::GridPosition doorPosition = pendingIsSwitch ? *cell : *_pendingLink;
+
+    const bool alreadyLinked =
+        std::any_of(_draft.mechanisms().begin(), _draft.mechanisms().end(),
+                   [&](const core::Mechanism& mechanism) {
+                       return mechanism.switchPosition == switchPosition &&
+                              mechanism.doorPosition == doorPosition;
+                   });
+    if (alreadyLinked) {
+        _draft.unlinkMechanism(doorPosition);
+    } else {
+        _draft.linkMechanism(switchPosition, doorPosition);
+    }
+    _pendingLink.reset();
+}
+
+// Clic palette -> selection ; clic/glisser sur la grille -> peinture ; Maj+clic -> liaison de
+// mecanismes ; fleches -> redimensionnement ; Echap -> menu.
 ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelta*/) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
@@ -80,15 +133,35 @@ ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelt
     _mouseY = static_cast<float>(input.mouseY());
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
-        // Le clic initial decide si ce geste peint la grille ou agit sur la palette : la
-        // palette, dessinee par-dessus la grille, est prioritaire.
-        _paintingDrag = !_palette.handleClick(_mouseX, _mouseY);
+        if (_palette.handleClick(_mouseX, _mouseY)) {
+            // La palette, dessinee par-dessus la grille, est prioritaire sur le reste.
+            _paintingDrag = false;
+        } else if (input.keyDown(Key::Shift)) {
+            handleLinkClick(_mouseX, _mouseY);
+            _paintingDrag = false;
+        } else {
+            _paintingDrag = true;
+        }
     }
 
     if (_paintingDrag && input.mouseButtonDown(MouseButton::Left)) {
         if (const std::optional<core::GridPosition> cell = hoveredCell(_mouseX, _mouseY)) {
             _draft.paintTile(cell->column, cell->row, _palette.selected());
         }
+    }
+
+    // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas.
+    const int width = _draft.tileMap().width();
+    const int height = _draft.tileMap().height();
+    if (input.keyPressed(Key::Right)) {
+        _draft.resize(width + 1, height);
+    } else if (input.keyPressed(Key::Left)) {
+        _draft.resize((std::max)(1, width - 1), height);
+    }
+    if (input.keyPressed(Key::Down)) {
+        _draft.resize(_draft.tileMap().width(), height + 1);
+    } else if (input.keyPressed(Key::Up)) {
+        _draft.resize(_draft.tileMap().width(), (std::max)(1, height - 1));
     }
 
     return ScreenTransition::none();
@@ -120,6 +193,29 @@ void EditorScreen::renderGrid(RenderContext& context) {
                                              static_cast<float>(column),
                                              static_cast<float>(row), 1.0f, 1.0f, _atlas));
         }
+    }
+
+    // Mecanismes lies : meme teinte cyan sur les deux tuiles d'une liaison (pas de primitive de
+    // ligne dans SpriteBatch — un quad ne peut pas etre incline — d'ou cette association par
+    // couleur plutot qu'un trait reliant les deux cases).
+    constexpr core::Color LINK_TINT{0.3f, 1.0f, 1.0f, 0.45f};
+    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                         static_cast<float>(mechanism.switchPosition.column),
+                                         static_cast<float>(mechanism.switchPosition.row), 1.0f,
+                                         1.0f, _atlas, LINK_TINT));
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                         static_cast<float>(mechanism.doorPosition.column),
+                                         static_cast<float>(mechanism.doorPosition.row), 1.0f,
+                                         1.0f, _atlas, LINK_TINT));
+    }
+
+    // Case en attente de liaison (premier clic Maj+souris d'une paire), teinte magenta.
+    if (_pendingLink) {
+        constexpr core::Color PENDING_TINT{1.0f, 0.3f, 1.0f, 0.55f};
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), static_cast<float>(_pendingLink->column),
+                                         static_cast<float>(_pendingLink->row), 1.0f, 1.0f, _atlas,
+                                         PENDING_TINT));
     }
 
     // Surbrillance de la case survolee : quad blanc translucide par-dessus la tuile.
