@@ -98,6 +98,32 @@ public:
      */
     void resize(int width, int height);
 
+    /**
+     * @brief Annule la dernière mutation (`EX-EDIT-005`).
+     * @return `true` si une mutation a été annulée, `false` si l'historique était vide.
+     */
+    bool undo();
+
+    /**
+     * @brief Refait la dernière mutation annulée.
+     *
+     * Toute nouvelle mutation après un `undo()` invalide la branche de refaire (historique
+     * linéaire classique) : `redo()` redevient sans effet tant qu'aucun nouvel `undo()` n'a eu
+     * lieu depuis.
+     * @return `true` si une mutation a été refaite, `false` si rien n'était à refaire.
+     */
+    bool redo();
+
+    /// @return `true` si `undo()` aurait un effet.
+    [[nodiscard]] bool canUndo() const noexcept {
+        return !_undoHistory.empty();
+    }
+
+    /// @return `true` si `redo()` aurait un effet.
+    [[nodiscard]] bool canRedo() const noexcept {
+        return !_redoHistory.empty();
+    }
+
     /// Définit le budget de sauts (`-1` = illimité).
     void setJumpBudget(int jumpBudget) noexcept {
         _jumpBudget = jumpBudget;
@@ -163,6 +189,27 @@ private:
     /// Retire toute liaison de mécanisme référençant @p position (comme interrupteur ou porte).
     void removeMechanismsAt(GridPosition position);
 
+    /// État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo).
+    struct State {
+        std::string name;
+        TileMap tileMap;
+        std::optional<GridPosition> entry;
+        std::optional<GridPosition> exit;
+        std::vector<Mechanism> mechanisms;
+        int jumpBudget;
+        int dashBudget;
+    };
+
+    /// Capture l'état courant (pour empiler dans l'historique undo/redo).
+    [[nodiscard]] State snapshot() const;
+
+    /// Restitue un état capturé précédemment.
+    void restore(State state);
+
+    /// Empile l'état courant sur la pile d'annulation ; à appeler avant toute mutation
+    /// undoable. Une nouvelle mutation invalide toujours la branche de refaire.
+    void pushUndo();
+
     std::string _name;
     TileMap _tileMap;
     std::optional<GridPosition> _entry;
@@ -170,6 +217,8 @@ private:
     std::vector<Mechanism> _mechanisms;
     int _jumpBudget = -1;
     int _dashBudget = -1;
+    std::vector<State> _undoHistory;
+    std::vector<State> _redoHistory;
 };
 
 }  // namespace core

@@ -27,14 +27,15 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
 
 void LevelDraft::paintTile(int column, int row, TileType type) {
     if (type == TileType::Entry) {
-        setEntry(column, row);
+        setEntry(column, row);  // pushUndo() vit dans setEntry (une seule capture par action)
         return;
     }
     if (type == TileType::Exit) {
-        setExit(column, row);
+        setExit(column, row);  // pushUndo() vit dans setExit
         return;
     }
 
+    pushUndo();
     const GridPosition position{column, row};
     if (_entry && *_entry == position) {
         _entry.reset();
@@ -47,6 +48,7 @@ void LevelDraft::paintTile(int column, int row, TileType type) {
 }
 
 void LevelDraft::setEntry(int column, int row) {
+    pushUndo();
     const GridPosition position{column, row};
     if (_entry && *_entry != position) {
         _tileMap.setTile(_entry->column, _entry->row, TileType::Empty);
@@ -57,6 +59,7 @@ void LevelDraft::setEntry(int column, int row) {
 }
 
 void LevelDraft::setExit(int column, int row) {
+    pushUndo();
     const GridPosition position{column, row};
     if (_exit && *_exit != position) {
         _tileMap.setTile(_exit->column, _exit->row, TileType::Empty);
@@ -76,11 +79,19 @@ void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition doorPos
                                  TileType::Door,
                          "linkMechanism : la position cible ne porte pas de porte");
 
-    unlinkMechanism(doorPosition);
+    pushUndo();
+    // Retrait direct (sans passer par unlinkMechanism, qui empilerait un second snapshot) :
+    // lier remplace une eventuelle liaison existante en une seule action undoable.
+    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
+                                     [doorPosition](const Mechanism& mechanism) {
+                                         return mechanism.doorPosition == doorPosition;
+                                     }),
+                      _mechanisms.end());
     _mechanisms.push_back(Mechanism{switchPosition, doorPosition});
 }
 
 void LevelDraft::unlinkMechanism(GridPosition doorPosition) {
+    pushUndo();
     _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
                                      [doorPosition](const Mechanism& mechanism) {
                                          return mechanism.doorPosition == doorPosition;
@@ -89,6 +100,7 @@ void LevelDraft::unlinkMechanism(GridPosition doorPosition) {
 }
 
 void LevelDraft::resize(int width, int height) {
+    pushUndo();
     TileMap resized(width, height);
     const int copyWidth = (std::min)(width, _tileMap.width());
     const int copyHeight = (std::min)(height, _tileMap.height());
@@ -113,6 +125,45 @@ void LevelDraft::resize(int width, int height) {
                                                                     mechanism.doorPosition.row);
                                      }),
                       _mechanisms.end());
+}
+
+bool LevelDraft::undo() {
+    if (_undoHistory.empty()) {
+        return false;
+    }
+    _redoHistory.push_back(snapshot());
+    restore(std::move(_undoHistory.back()));
+    _undoHistory.pop_back();
+    return true;
+}
+
+bool LevelDraft::redo() {
+    if (_redoHistory.empty()) {
+        return false;
+    }
+    _undoHistory.push_back(snapshot());
+    restore(std::move(_redoHistory.back()));
+    _redoHistory.pop_back();
+    return true;
+}
+
+LevelDraft::State LevelDraft::snapshot() const {
+    return State{_name, _tileMap, _entry, _exit, _mechanisms, _jumpBudget, _dashBudget};
+}
+
+void LevelDraft::restore(State state) {
+    _name = std::move(state.name);
+    _tileMap = std::move(state.tileMap);
+    _entry = state.entry;
+    _exit = state.exit;
+    _mechanisms = std::move(state.mechanisms);
+    _jumpBudget = state.jumpBudget;
+    _dashBudget = state.dashBudget;
+}
+
+void LevelDraft::pushUndo() {
+    _undoHistory.push_back(snapshot());
+    _redoHistory.clear();  // une nouvelle mutation invalide la branche de refaire
 }
 
 LevelLoadResult LevelDraft::toLevel() const {

@@ -88,7 +88,7 @@ séparation `Core`/`HMI` de tout le moteur.
 | [TACHE-01](tache-01-serialisation-modele-edition.md) | Sérialisation JSON + modèle d'édition mutable | `Core/Levels` | ✅ |
 | [TACHE-02](tache-02-ecran-editeur-palette.md) | Écran éditeur : grille cliquable + palette de tuiles | `HMI/Editor` | ✅ |
 | [TACHE-03](tache-03-entree-sortie-mecanismes-redimension.md) | Entrée/sortie, liaison de mécanismes, redimensionnement | `HMI/Editor` | ✅ |
-| [TACHE-04](tache-04-undo-redo.md) | Historique annuler/refaire | `Core/Levels`, `HMI/Editor` | ⬜ |
+| [TACHE-04](tache-04-undo-redo.md) | Historique annuler/refaire | `Core/Levels`, `HMI/Editor` | ✅ |
 | [TACHE-05](tache-05-enregistrement-validation-essai.md) | Enregistrement/chargement, validation, essai immédiat | `HMI/Editor`, `HMI/Interface` | ⬜ |
 | [TACHE-06](tache-06-integration-guide-non-codeur.md) | Intégration menu, tests système, guide non-codeur Git | `HMI`, `Documentation/Manuel` | ⬜ |
 

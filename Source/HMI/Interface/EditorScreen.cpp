@@ -150,6 +150,13 @@ ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelt
         }
     }
 
+    // Annuler/refaire (EX-EDIT-005) : Ctrl+Z / Ctrl+Y.
+    if (input.keyDown(Key::Control) && input.keyPressed(Key::Z)) {
+        _draft.undo();
+    } else if (input.keyDown(Key::Control) && input.keyPressed(Key::Y)) {
+        _draft.redo();
+    }
+
     // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas.
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();

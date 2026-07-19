@@ -29,7 +29,8 @@ class TextureAtlas;
  * **Liaison de mécanismes** (`EX-EDIT-003`) : `Maj` + clic sur une tuile `Switch` puis, `Maj`
  * toujours enfoncé, sur une tuile `Door` (ou l'inverse) les lie ; répéter la même paire la délie
  * (bascule). **Redimensionnement** (`EX-EDIT-005`) : les flèches ↑/↓ réduisent/agrandissent la
- * hauteur, ←/→ la largeur. **Échap** revient au menu.
+ * hauteur, ←/→ la largeur. **Annuler/refaire** (`EX-EDIT-005`) : `Ctrl+Z`/`Ctrl+Y`, délégués à
+ * `core::LevelDraft::undo`/`redo`. **Échap** revient au menu.
  */
 class EditorScreen : public IScreen {
 public:
