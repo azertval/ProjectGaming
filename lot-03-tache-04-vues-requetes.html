@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-03-tache-04-vues-requetes.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md285"></a>
+<h1><a class="anchor" id="autotoc_md298"></a>
 Contexte</h1>
 <p>Les systèmes ont besoin d'itérer les entités possédant un <b>ensemble</b> de composants (ex. toutes celles ayant <code>Transform</code> <b>et</b> <code>Velocity</code>). C'est le rôle des vues.</p>
-<h1><a class="anchor" id="autotoc_md286"></a>
+<h1><a class="anchor" id="autotoc_md299"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Une <b>vue</b> <code>view&lt;A, B, ...&gt;()</code> exposée par le <code>World</code> :<ul>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 </li>
 <li>Forme d'API au choix : <code>for (auto [entity, a, b] : world.view&lt;A, B&gt;())</code> ou <code>world.view&lt;A, B&gt;().each([](Entity, A&amp;, B&amp;){ ... })</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md287"></a>
+<h1><a class="anchor" id="autotoc_md300"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="View_8h.html" title="Vue multi-composants : itère les entités possédant un ensemble de types.">Source/Core/Ecs/View.h</a></code> (nouveau, template) et intégration <code>World</code>.</li>
 <li><code>Source/Test/Unit/test_view.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md288"></a>
+<h1><a class="anchor" id="autotoc_md301"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une vue <code>&lt;A, B&gt;</code> itère <b>exactement</b> les entités ayant A et B (ni celles avec A seul, ni B seul).</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li>La modification d'un composant via la vue est visible ensuite (référence, pas copie).</li>
 <li>Vue vide (aucune entité correspondante) : itération sans erreur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md289"></a>
+<h1><a class="anchor" id="autotoc_md302"></a>
 Points d'attention</h1>
 <ul>
 <li>La vue ne doit <b>pas</b> invalider ses itérateurs si l'on ne modifie que les valeurs des composants (documenter l'interdiction d'ajouter/détruire pendant l'itération, ou définir un contrat clair).</li>
 <li>Conventions : documentation <code>.h</code>, <code>[[nodiscard]]</code> sur <code>view(...)</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md290"></a>
+<h1><a class="anchor" id="autotoc_md303"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Sélection multi-composants exacte et efficace, testée (<code>ctest</code> vert).</li>
 <li>Compile <code>/W4 /WX</code>, formaté, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md291"></a>
+<h1><a class="anchor" id="autotoc_md304"></a>
 Exigences</h1>
 <p><code>EX-ARCH-010</code>, <code>EX-ARCH-012</code>, <code>EX-NFR-010</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

@@ -1,0 +1,15 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelDraft.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelDraft.h">
+<area shape="rect" id="Node000001" title="Représentation mutable d&#39;un niveau en cours d&#39;édition." alt="" coords="373,5,595,60"/>
+<area shape="rect" id="Node000002" href="$LevelDraft_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="382,66,206,118,205,113,381,61"/>
+<area shape="rect" id="Node000003" href="$EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT&#45;14)." alt="" coords="251,115,472,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="445,71,393,117,390,113,442,67"/>
+<area shape="rect" id="Node000006" href="$test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est..." alt="" coords="496,108,717,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="526,68,570,106,567,110,523,72"/>
+<area shape="rect" id="Node000007" href="$test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT&#45;14, EX&#45;EDIT&#45;002 à EX&#45;EDIT&#45;007)." alt="" coords="741,108,963,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="588,61,742,106,741,112,586,67"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8cpp.html" title=" " alt="" coords="124,225,351,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="322,181,269,227,266,223,319,177"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="375,225,596,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="404,177,457,223,453,227,401,181"/>
+</map>

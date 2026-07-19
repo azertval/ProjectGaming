@@ -6,6 +6,7 @@ var InputState_8h =
       [ "Tab", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],
       [ "Enter", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b", null ],
       [ "Shift", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c", null ],
+      [ "Control", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1", null ],
       [ "Escape", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224", null ],
       [ "Space", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394", null ],
       [ "Left", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -14,8 +15,12 @@ var InputState_8h =
       [ "Down", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
       [ "A", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "D", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "P", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "Q", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
-      [ "W", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ]
+      [ "S", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e", null ],
+      [ "W", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ],
+      [ "Y", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0", null ],
+      [ "Z", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ]
     ] ],
     [ "MouseButton", "InputState_8h.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "InputState_8h.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],

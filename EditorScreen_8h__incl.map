@@ -1,13 +1,66 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/EditorScreen.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/EditorScreen.h">
-<area shape="rect" id="Node000001" title="Écran « Mode Edition » : placeholder « à venir » en attendant le vrai éditeur." alt="" coords="11,5,232,60"/>
-<area shape="rect" id="Node000002" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="34,108,209,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,60,124,94,119,94,119,60"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="37,181,205,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="124,134,124,168,119,168,119,134"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,255,61,280"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="109,209,60,248,57,244,106,205"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="86,255,157,280"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="124,207,124,241,119,241,119,207"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="181,255,248,280"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="138,205,190,244,187,248,135,209"/>
+<area shape="rect" id="Node000001" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT&#45;14)." alt="" coords="467,5,688,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,83,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="467,53,102,111,97,112,96,106,101,105,466,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="259,255,333,280"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="547,62,322,248,319,244,544,58"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="456,328,515,353"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="467,40,385,52,299,77,258,96,220,119,186,148,158,183,149,202,146,219,150,234,158,248,189,273,234,293,287,309,344,320,442,333,442,339,343,325,286,314,232,298,186,278,154,252,145,236,141,219,144,200,154,180,182,144,217,115,256,91,297,72,384,47,466,35"/>
+<area shape="rect" id="Node000005" href="$LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition." alt="" coords="680,108,861,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="637,58,734,100,731,105,635,63"/>
+<area shape="rect" id="Node000015" href="$LevelPicker_8h.html" title="Sélection du niveau à éditer : nouveau brouillon ou fichier existant (LOT&#45;14 TACHE&#45;06)." alt="" coords="168,181,347,207"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="483,63,424,84,367,110,320,142,281,174,278,170,316,137,364,106,422,79,481,58"/>
+<area shape="rect" id="Node000016" href="$TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="1134,328,1309,353"/>
+<area shape="poly" id="edge30_Node000001_Node000016" title=" " alt="" coords="689,50,781,72,874,106,973,157,1066,216,1144,273,1199,317,1196,321,1141,277,1063,221,971,162,872,110,779,77,688,55"/>
+<area shape="rect" id="Node000017" href="$Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="1259,108,1453,133"/>
+<area shape="poly" id="edge33_Node000001_Node000017" title=" " alt="" coords="688,43,1245,105,1245,110,688,49"/>
+<area shape="rect" id="Node000020" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="1525,108,1699,133"/>
+<area shape="poly" id="edge36_Node000001_Node000020" title=" " alt="" coords="688,40,1511,108,1511,114,688,46"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="680,136,577,154,468,184,391,216,328,250,325,245,389,211,466,179,576,149,679,131"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="680,135,582,154,541,167,515,183,496,214,486,249,483,284,485,315,479,315,478,284,481,248,491,211,511,179,539,162,580,149,679,130"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="874,401,937,427"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="793,131,822,152,850,180,867,205,880,232,897,290,905,344,908,387,903,387,900,345,892,291,875,234,862,208,846,183,818,156,790,136"/>
+<area shape="rect" id="Node000007" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="674,328,867,353"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="784,132,823,182,844,216,860,254,863,268,860,281,839,306,814,324,811,319,836,302,855,279,858,268,855,255,840,219,819,185,780,135"/>
+<area shape="rect" id="Node000008" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="696,255,845,280"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="773,134,773,241,768,241,768,134"/>
+<area shape="rect" id="Node000010" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="943,328,1110,353"/>
+<area shape="poly" id="edge23_Node000005_Node000010" title=" " alt="" coords="850,131,904,149,930,162,954,179,981,211,1001,247,1024,314,1019,315,996,249,977,214,950,183,927,167,902,154,849,136"/>
+<area shape="rect" id="Node000011" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="1137,401,1305,427"/>
+<area shape="poly" id="edge24_Node000005_Node000011" title=" " alt="" coords="862,123,974,137,1037,151,1102,171,1166,197,1226,231,1279,274,1322,327,1327,338,1327,349,1315,369,1294,385,1268,398,1266,394,1291,381,1311,365,1322,348,1322,339,1318,329,1275,278,1223,235,1164,202,1100,176,1036,156,973,142,861,128"/>
+<area shape="rect" id="Node000012" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="525,181,717,207"/>
+<area shape="poly" id="edge17_Node000005_Node000012" title=" " alt="" coords="748,136,659,178,657,173,746,131"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="725,283,529,331,528,326,724,277"/>
+<area shape="poly" id="edge12_Node000008_Node000006" title=" " alt="" coords="706,283,629,303,598,315,579,330,575,341,579,352,598,366,626,377,702,394,787,404,860,409,860,414,786,409,701,400,624,382,595,370,575,355,569,341,575,326,596,311,628,297,705,277"/>
+<area shape="poly" id="edge13_Node000008_Node000007" title=" " alt="" coords="773,280,773,314,768,314,768,280"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="590,328,650,353"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="748,282,658,324,656,320,745,278"/>
+<area shape="poly" id="edge14_Node000008_Node000010" title=" " alt="" coords="813,277,973,322,972,327,811,283"/>
+<area shape="poly" id="edge15_Node000010_Node000006" title=" " alt="" coords="1009,356,938,397,935,392,1006,351"/>
+<area shape="poly" id="edge16_Node000010_Node000011" title=" " alt="" coords="1059,351,1178,394,1176,399,1057,356"/>
+<area shape="poly" id="edge19_Node000012_Node000003" title=" " alt="" coords="568,209,348,257,347,252,567,204"/>
+<area shape="poly" id="edge20_Node000012_Node000004" title=" " alt="" coords="611,209,563,257,506,319,502,316,559,253,607,205"/>
+<area shape="poly" id="edge22_Node000012_Node000008" title=" " alt="" coords="646,204,735,246,733,251,644,209"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="357,255,448,280"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="587,209,452,253,450,248,585,204"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="574,255,671,280"/>
+<area shape="poly" id="edge21_Node000012_Node000014" title=" " alt="" coords="624,207,625,241,620,241,619,207"/>
+<area shape="poly" id="edge27_Node000015_Node000003" title=" " alt="" coords="266,206,286,241,281,244,261,208"/>
+<area shape="poly" id="edge28_Node000015_Node000004" title=" " alt="" coords="254,208,242,243,242,262,249,278,261,289,280,298,331,314,443,332,442,338,330,319,278,303,258,293,245,282,237,263,237,242,248,206"/>
+<area shape="poly" id="edge29_Node000015_Node000006" title=" " alt="" coords="251,208,233,242,230,261,236,279,257,303,278,320,301,330,324,336,379,341,444,351,561,374,677,390,860,407,860,413,677,395,560,379,444,356,378,346,324,341,299,335,276,325,253,307,231,281,225,262,228,241,246,206"/>
+<area shape="poly" id="edge26_Node000015_Node000013" title=" " alt="" coords="282,204,368,246,366,251,280,209"/>
+<area shape="poly" id="edge31_Node000016_Node000006" title=" " alt="" coords="1171,356,950,405,949,400,1170,351"/>
+<area shape="poly" id="edge32_Node000016_Node000011" title=" " alt="" coords="1224,354,1224,388,1219,388,1219,354"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1437,181,1552,207"/>
+<area shape="poly" id="edge34_Node000017_Node000018" title=" " alt="" coords="1379,131,1461,173,1459,177,1377,136"/>
+<area shape="rect" id="Node000019" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="1259,181,1413,207"/>
+<area shape="poly" id="edge35_Node000017_Node000019" title=" " alt="" coords="1355,134,1345,169,1340,167,1350,133"/>
+<area shape="rect" id="Node000021" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="1576,181,1744,207"/>
+<area shape="poly" id="edge37_Node000020_Node000021" title=" " alt="" coords="1622,132,1647,169,1642,172,1618,135"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="1632,255,1688,280"/>
+<area shape="poly" id="edge38_Node000021_Node000022" title=" " alt="" coords="1663,207,1663,241,1657,241,1657,207"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="1713,255,1783,280"/>
+<area shape="poly" id="edge39_Node000021_Node000023" title=" " alt="" coords="1676,205,1725,244,1721,248,1672,209"/>
+<area shape="rect" id="Node000024" title=" " alt="" coords="1541,255,1608,280"/>
+<area shape="poly" id="edge40_Node000021_Node000024" title=" " alt="" coords="1648,209,1601,248,1597,244,1645,205"/>
 </map>

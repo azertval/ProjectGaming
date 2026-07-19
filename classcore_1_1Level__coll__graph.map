@@ -8,11 +8,13 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="284,269,303,302,327,326,323,330,299,306,280,272"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="169,115,343,141"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="262,154,273,232,268,233,257,154"/>
-<area shape="rect" id="Node000006" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="334,5,471,31"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="405,45,398,160,386,233,365,305,352,329,347,326,360,303,380,232,392,159,400,45"/>
-<area shape="rect" id="Node000008" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="421,115,555,141"/>
-<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="422,40,481,113,477,117,418,43"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="419,225,562,265"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="451,275,401,306,361,330,359,325,399,302,449,270"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="491,154,493,225,488,225,486,154"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="218,5,294,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="259,44,259,115,253,115,253,44"/>
+<area shape="rect" id="Node000007" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="353,5,490,31"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="420,45,396,179,381,252,365,305,351,329,347,326,360,303,375,251,391,178,415,44"/>
+<area shape="rect" id="Node000009" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="421,115,555,141"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="438,41,483,114,478,116,433,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="419,225,562,265"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="451,275,401,306,361,330,359,325,399,302,449,270"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="491,154,493,225,488,225,486,154"/>
 </map>

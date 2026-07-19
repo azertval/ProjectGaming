@@ -1,0 +1,12 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Editor/test_tile_palette.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Editor/test_tile_palette.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT&#45;14, EX&#45;EDIT&#45;002)." alt="" coords="36,5,257,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
+<area shape="rect" id="Node000003" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="63,196,231,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,75,149,182,144,182,144,75"/>
+<area shape="rect" id="Node000004" href="$TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="185,123,359,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,73,247,112,244,116,190,77"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="253,150,180,191,178,187,251,146"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="255,196,318,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="277,148,284,182,279,183,272,149"/>
+</map>

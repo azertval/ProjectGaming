@@ -1,0 +1,11 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LevelPicker.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LevelPicker.h">
+<area shape="rect" id="Node000001" title="Sélection du niveau à éditer : nouveau brouillon ou fichier existant (LOT&#45;14 TACHE&#45;06)." alt="" coords="92,5,313,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,96,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,62,84,104,81,99,155,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="120,108,195,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,61,172,97,167,95,186,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="219,108,277,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,59,238,95,233,97,214,61"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="302,108,365,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="244,58,306,98,303,103,241,62"/>
+</map>

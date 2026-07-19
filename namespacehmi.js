@@ -9,6 +9,7 @@ var namespacehmi =
     [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
     [ "IScreen", "classhmi_1_1IScreen.html", "classhmi_1_1IScreen" ],
     [ "LanguageSelector", "classhmi_1_1LanguageSelector.html", "classhmi_1_1LanguageSelector" ],
+    [ "LevelPicker", "classhmi_1_1LevelPicker.html", "classhmi_1_1LevelPicker" ],
     [ "LevelSequence", "classhmi_1_1LevelSequence.html", "classhmi_1_1LevelSequence" ],
     [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
     [ "MenuModel", "classhmi_1_1MenuModel.html", "classhmi_1_1MenuModel" ],
@@ -22,12 +23,14 @@ var namespacehmi =
     [ "SpriteQuad", "structhmi_1_1SpriteQuad.html", "structhmi_1_1SpriteQuad" ],
     [ "SpriteRenderer", "classhmi_1_1SpriteRenderer.html", "classhmi_1_1SpriteRenderer" ],
     [ "TextureAtlas", "classhmi_1_1TextureAtlas.html", "classhmi_1_1TextureAtlas" ],
+    [ "TilePalette", "classhmi_1_1TilePalette.html", "classhmi_1_1TilePalette" ],
     [ "Window", "classhmi_1_1Window.html", "classhmi_1_1Window" ],
     [ "Key", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48", [
       [ "Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
       [ "Tab", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],
       [ "Enter", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b", null ],
       [ "Shift", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c", null ],
+      [ "Control", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1", null ],
       [ "Escape", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224", null ],
       [ "Space", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394", null ],
       [ "Left", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -36,8 +39,12 @@ var namespacehmi =
       [ "Down", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
       [ "A", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
       [ "D", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
+      [ "P", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
-      [ "W", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ]
+      [ "S", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e", null ],
+      [ "W", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ],
+      [ "Y", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0", null ],
+      [ "Z", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ]
     ] ],
     [ "MouseButton", "namespacehmi.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -50,6 +57,8 @@ var namespacehmi =
       [ "Game", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb", null ],
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ]
     ] ],
+    [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
+    [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ]

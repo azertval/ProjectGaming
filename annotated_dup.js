@@ -17,8 +17,10 @@ var annotated_dup =
       [ "ILogSink", "classcore_1_1ILogSink.html", "classcore_1_1ILogSink" ],
       [ "ISystem", "classcore_1_1ISystem.html", "classcore_1_1ISystem" ],
       [ "Level", "classcore_1_1Level.html", "classcore_1_1Level" ],
+      [ "LevelDraft", "classcore_1_1LevelDraft.html", "classcore_1_1LevelDraft" ],
       [ "LevelLoader", "classcore_1_1LevelLoader.html", "classcore_1_1LevelLoader" ],
       [ "LevelLoadResult", "structcore_1_1LevelLoadResult.html", "structcore_1_1LevelLoadResult" ],
+      [ "LevelWriter", "classcore_1_1LevelWriter.html", "classcore_1_1LevelWriter" ],
       [ "Logger", "classcore_1_1Logger.html", "classcore_1_1Logger" ],
       [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
       [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
@@ -47,6 +49,7 @@ var annotated_dup =
       [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
       [ "IScreen", "classhmi_1_1IScreen.html", "classhmi_1_1IScreen" ],
       [ "LanguageSelector", "classhmi_1_1LanguageSelector.html", "classhmi_1_1LanguageSelector" ],
+      [ "LevelPicker", "classhmi_1_1LevelPicker.html", "classhmi_1_1LevelPicker" ],
       [ "LevelSequence", "classhmi_1_1LevelSequence.html", "classhmi_1_1LevelSequence" ],
       [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
       [ "MenuModel", "classhmi_1_1MenuModel.html", "classhmi_1_1MenuModel" ],
@@ -60,6 +63,7 @@ var annotated_dup =
       [ "SpriteQuad", "structhmi_1_1SpriteQuad.html", "structhmi_1_1SpriteQuad" ],
       [ "SpriteRenderer", "classhmi_1_1SpriteRenderer.html", "classhmi_1_1SpriteRenderer" ],
       [ "TextureAtlas", "classhmi_1_1TextureAtlas.html", "classhmi_1_1TextureAtlas" ],
+      [ "TilePalette", "classhmi_1_1TilePalette.html", "classhmi_1_1TilePalette" ],
       [ "Window", "classhmi_1_1Window.html", "classhmi_1_1Window" ]
     ] ]
 ];

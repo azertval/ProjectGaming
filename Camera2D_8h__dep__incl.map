@@ -1,15 +1,21 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h">
-<area shape="rect" id="Node000001" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="387,5,608,60"/>
+<area shape="rect" id="Node000001" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="515,5,736,60"/>
 <area shape="rect" id="Node000002" href="$Camera2D_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,66,209,118,208,113,391,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="502,58,239,111,210,118,208,113,238,105,500,53"/>
 <area shape="rect" id="Node000003" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="251,115,491,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="457,72,403,117,400,113,454,67"/>
-<area shape="rect" id="Node000004" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="515,115,736,170"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="541,67,596,113,592,117,538,72"/>
-<area shape="rect" id="Node000007" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="760,108,981,177"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="602,61,760,107,759,112,600,66"/>
-<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="386,225,614,280"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="586,182,532,227,529,223,582,177"/>
-<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="639,225,860,280"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="668,177,721,223,717,227,665,181"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="552,68,434,118,432,113,550,63"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT&#45;14)." alt="" coords="515,115,736,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="628,74,628,115,623,115,623,74"/>
+<area shape="rect" id="Node000007" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="760,115,981,170"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="699,63,812,113,810,118,697,68"/>
+<area shape="rect" id="Node000009" href="$test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="1005,108,1227,177"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="750,54,994,105,1006,108,1004,113,993,111,749,59"/>
+<area shape="rect" id="Node000005" href="$EditorScreen_8cpp.html" title=" " alt="" coords="757,225,984,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="699,173,812,223,810,228,697,178"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="512,225,733,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="627,184,626,225,621,225,622,184"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="873,184,873,225,868,225,868,184"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="799,178,684,228,682,223,796,173"/>
+<area shape="rect" id="Node000008" href="$GameScreen_8cpp.html" title=" " alt="" coords="1009,225,1237,280"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="946,173,1062,223,1060,228,944,178"/>
 </map>

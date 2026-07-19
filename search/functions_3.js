@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['dashbudget_0',['dashBudget',['../classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d',1,'core::Level']]],
+  ['dashbudget_0',['dashbudget',['../classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d',1,'core::Level::dashBudget()'],['../classcore_1_1LevelDraft.html#ac8048001ee2bf60309c234ff6f717ff4',1,'core::LevelDraft::dashBudget()']]],
   ['defaultlogger_1',['defaultLogger',['../namespacecore.html#a925cad771c457040a01272ff8be8e1a1',1,'core']]],
   ['destroy_2',['destroy',['../classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0',1,'core::EntityManager']]],
   ['destroyentity_3',['destroyEntity',['../classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885',1,'core::World']]],

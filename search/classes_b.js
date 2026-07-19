@@ -8,5 +8,6 @@ var searchData=
   ['spritebatch_5',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
   ['spritequad_6',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
   ['spriterenderer_7',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]],
-  ['sweepresult_8',['SweepResult',['../structcore_1_1SweepResult.html',1,'core']]]
+  ['state_8',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
+  ['sweepresult_9',['SweepResult',['../structcore_1_1SweepResult.html',1,'core']]]
 ];

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-11-tache-02-gravite-asymetrique.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-11-ressenti-avance_2epic_8md.html">LOT-11</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md718"></a>
+<h1><a class="anchor" id="autotoc_md731"></a>
 Contexte</h1>
 <p>Cœur du ressenti (<code>EX-GP-018</code>) : la <b>gravité effective</b> dépend de la phase du saut. On remplace le simple <code>velocity.y += gravity * dt</code> du <code>CharacterPhysicsSystem</code> par une gravité modulée, sans toucher au reste (saut, wall slide, dash restent compatibles).</p>
-<h1><a class="anchor" id="autotoc_md719"></a>
+<h1><a class="anchor" id="autotoc_md732"></a>
 Travail à réaliser</h1>
 <p>Dans la partie « gravité » de <code>CharacterPhysicsSystem::update</code> (hors dash), calculer une gravité <b>effective</b> <code>g</code> avant intégration :</p><ul>
 <li>base : <code>g = _config.gravity</code> ;</li>
@@ -107,13 +107,13 @@ Travail à réaliser</h1>
 <li>puis <code>velocity.y += g * fixedDelta</code> et la <b>borne de chute</b> existante (<code>maxFallSpeed</code>) inchangée.</li>
 </ul>
 <p>La montée (<code>velocity.y &lt; 0</code> hors apex) garde la gravité de base → la chute est <b>plus rapide</b> que la montée.</p>
-<h1><a class="anchor" id="autotoc_md720"></a>
+<h1><a class="anchor" id="autotoc_md733"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code> (+ <code>&lt;cmath&gt;</code> pour <code>std::abs</code>).</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md721"></a>
+<h1><a class="anchor" id="autotoc_md734"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chute plus rapide que la montée</b> : après un saut, l'accélération verticale en <b>chute</b> (<code>Δvy</code>/pas) est <b>supérieure</b> à la décélération en <b>montée</b> (hors apex).</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><b>Compatibilité</b> : le saut atteint toujours une hauteur cohérente ; wall slide et dash inchangés (leurs tests restent verts).</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md722"></a>
+<h1><a class="anchor" id="autotoc_md735"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre des multiplicateurs</b> : appliquer chute → fast-fall → apex sur un même <code>g</code> (documenter).</li>
 <li><b>Ne pas casser la borne</b> <code>maxFallSpeed</code> ni la suspension de gravité <b>pendant le dash</b>.</li>
 <li>La modulation vit <b>dans le système</b> ; les réglages restent des <b>données</b> (<code>EX-ARCH-011</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md723"></a>
+<h1><a class="anchor" id="autotoc_md736"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Gravité asymétrique + apex hang + fast-fall fonctionnels et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md724"></a>
+<h1><a class="anchor" id="autotoc_md737"></a>
 Exigences</h1>
 <p><code>EX-GP-018</code>, <code>EX-GP-011</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

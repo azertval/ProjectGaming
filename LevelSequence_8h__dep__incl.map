@@ -1,11 +1,13 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LevelSequence.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LevelSequence.h">
-<area shape="rect" id="Node000001" title="Séquence ordonnée de niveaux et progression courante (logique pure)." alt="" coords="252,5,480,60"/>
-<area shape="rect" id="Node000002" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="133,115,354,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,71,275,117,272,113,324,67"/>
-<area shape="rect" id="Node000005" href="$test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement)." alt="" coords="378,108,599,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="408,68,452,106,449,110,405,72"/>
-<area shape="rect" id="Node000003" href="$GameScreen_8cpp.html" title=" " alt="" coords="5,225,233,280"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="204,181,151,227,148,223,201,177"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="258,225,479,280"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="286,177,340,223,336,227,283,182"/>
+<area shape="rect" id="Node000001" title="Séquence ordonnée de niveaux et progression courante (logique pure)." alt="" coords="379,5,607,60"/>
+<area shape="rect" id="Node000002" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="260,115,481,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="455,71,402,117,399,113,451,67"/>
+<area shape="rect" id="Node000006" href="$test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement)." alt="" coords="505,108,727,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="536,68,579,106,576,110,532,72"/>
+<area shape="rect" id="Node000003" href="$EditorScreen_8cpp.html" title=" " alt="" coords="5,225,232,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="298,178,181,228,179,223,296,173"/>
+<area shape="rect" id="Node000004" href="$GameScreen_8cpp.html" title=" " alt="" coords="257,225,485,280"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="373,184,373,225,368,225,368,184"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="509,225,731,280"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="445,173,560,223,558,228,443,178"/>
 </map>

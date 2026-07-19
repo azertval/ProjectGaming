@@ -1,0 +1,19 @@
+<map id="core::LevelDraft::State" name="core::LevelDraft::State">
+<area shape="rect" id="Node000001" title="État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo)." alt="" coords="173,313,339,339"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="61,218,147,243"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,248,239,311,236,315,133,253"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,108,144,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,160,103,217,98,218,81,162"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="201,218,311,243"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,257,259,313,253,313,253,257"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="169,115,343,141"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="259,155,259,218,253,218,253,155"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="218,5,294,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="259,44,259,115,253,115,253,44"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="349,211,491,251"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="376,260,278,316,275,311,374,255"/>
+<area shape="rect" id="Node000008" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="368,115,501,141"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="434,155,425,211,420,210,428,154"/>
+<area shape="rect" id="Node000009" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="366,5,503,31"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="437,44,437,115,432,115,432,44"/>
+</map>

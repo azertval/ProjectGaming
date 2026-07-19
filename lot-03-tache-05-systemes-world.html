@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-03-tache-05-systemes-world.html','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md292"></a>
+<h1><a class="anchor" id="autotoc_md305"></a>
 Contexte</h1>
 <p>Le <code>World</code> est la <b>façade</b> de l'ECS : il possède les entités (TACHE-02), les pools de composants (TACHE-03), fournit les vues (TACHE-04) et orchestre les <b>systèmes</b>. Les systèmes portent la logique et s'exécutent au <b>pas de temps fixe</b> (<code>EX-ARCH-030</code>).</p>
-<h1><a class="anchor" id="autotoc_md293"></a>
+<h1><a class="anchor" id="autotoc_md306"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>World</code> :<ul>
@@ -114,14 +114,14 @@ Travail à réaliser</h1>
 </li>
 <li>Intégration avec <code>FixedTimestep</code> (LOT-01) : l'appelant calcule le nombre de pas et invoque <code>World::update(fixedDelta)</code> autant de fois.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md294"></a>
+<h1><a class="anchor" id="autotoc_md307"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes.">Source/Core/Ecs/World.h</a></code>, <code><a class="el" href="World_8cpp.html">World.cpp</a></code> (nouveau).</li>
 <li><code><a class="el" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe.">Source/Core/Ecs/ISystem.h</a></code> (nouveau).</li>
 <li><code>Source/Test/Unit/test_world.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md295"></a>
+<h1><a class="anchor" id="autotoc_md308"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>addComponent</code>/<code>getComponent</code>/<code>hasComponent</code>/<code>removeComponent</code> cohérents via le <code>World</code>.</li>
@@ -129,20 +129,20 @@ Tests (obligatoires)</h1>
 <li>Les systèmes enregistrés s'exécutent <b>dans l'ordre</b> ; un système de test compte ses invocations.</li>
 <li><code>update</code> appelé N fois exécute chaque système N fois (déterminisme du cadencement).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md296"></a>
+<h1><a class="anchor" id="autotoc_md309"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <code>World</code> <b>possède</b> ses ressources (RAII) ; pas d'état global.</li>
 <li>Ordre d'exécution des systèmes <b>déterministe</b> et explicite.</li>
 <li>Conventions : documentation <code>.h</code> + <code>.cpp</code>, dépendances <code>HMI → Core</code> respectées (le <code>World</code> ignore tout du rendu).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md297"></a>
+<h1><a class="anchor" id="autotoc_md310"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Façade complète et testée (<code>ctest</code> vert) ; orchestration des systèmes déterministe.</li>
 <li>Compile <code>/W4 /WX</code>, formaté, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md298"></a>
+<h1><a class="anchor" id="autotoc_md311"></a>
 Exigences</h1>
 <p><code>EX-ARCH-010</code>, <code>EX-ARCH-030</code>, <code>EX-NFR-010</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

@@ -16,5 +16,7 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "SpriteRenderer.cpp", "SpriteRenderer_8cpp.html", null ],
     [ "SpriteRenderer.h", "SpriteRenderer_8h.html", "SpriteRenderer_8h" ],
     [ "TextureAtlas.cpp", "TextureAtlas_8cpp.html", null ],
-    [ "TextureAtlas.h", "TextureAtlas_8h.html", "TextureAtlas_8h" ]
+    [ "TextureAtlas.h", "TextureAtlas_8h.html", "TextureAtlas_8h" ],
+    [ "TileVisuals.cpp", "TileVisuals_8cpp.html", "TileVisuals_8cpp" ],
+    [ "TileVisuals.h", "TileVisuals_8h.html", "TileVisuals_8h" ]
 ];

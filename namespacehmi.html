@@ -107,7 +107,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html">EditorScreen</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran d'attente pour le Mode Edition (le vrai éditeur est un lot ultérieur).  <a href="classhmi_1_1EditorScreen.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.  <a href="classhmi_1_1EditorScreen.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1FlagIcons.html">FlagIcons</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'icônes de drapeaux <b>générée en code</b>, indexée par identifiant de langue.  <a href="classhmi_1_1FlagIcons.html#details">More...</a><br /></td></tr>
@@ -126,6 +126,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LanguageSelector.html">LanguageSelector</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.  <a href="classhmi_1_1LanguageSelector.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html">LevelPicker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste « Nouveau niveau » + les fichiers <code>.json</code> d'un dossier, navigable au clavier.  <a href="classhmi_1_1LevelPicker.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelSequence.html">LevelSequence</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste <b>ordonnée</b> de niveaux et position courante dans la progression (<code>EX-LVL-010</code>).  <a href="classhmi_1_1LevelSequence.html#details">More...</a><br /></td></tr>
@@ -166,6 +169,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas et table de régions, avec un contenu <b>généré en code</b>.  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html">TilePalette</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.  <a href="classhmi_1_1TilePalette.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html">Window</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.  <a href="classhmi_1_1Window.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,18 +184,24 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b">Enter</a> = 0x0D
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c">Shift</a> = 0x10
 , <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224">Escape</a> = 0x1B
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1">Control</a> = 0x11
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224">Escape</a> = 0x1B
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394">Space</a> = 0x20
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff">Left</a> = 0x25
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0x26
 , <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c">Right</a> = 0x27
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0x26
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c">Right</a> = 0x27
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53">Down</a> = 0x28
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">A</a> = 0x41
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
 , <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">P</a> = 0x50
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">S</a> = 0x53
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0">Y</a> = 0x59
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">Z</a> = 0x5A
 <br />
  }</td></tr>
 <tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touche du clavier, identifiée par son <b>code virtuel Win32</b>.  <a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
@@ -210,6 +222,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
+<tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
+<tr class="separator:a2c8e7957dacab70252bf7edbdc80422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a400f94138e7bf311db8eed180aec1f3b" id="r_a400f94138e7bf311db8eed180aec1f3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b">toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
 <tr class="memdesc:a400f94138e7bf311db8eed180aec1f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>).  <br /></td></tr>
 <tr class="separator:a400f94138e7bf311db8eed180aec1f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,6 +234,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a680b600014001a99d296df386e7ed9d8" id="r_a680b600014001a99d296df386e7ed9d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a680b600014001a99d296df386e7ed9d8">saveSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a680b600014001a99d296df386e7ed9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre les messages de log de la session dans un fichier.  <br /></td></tr>
 <tr class="separator:a680b600014001a99d296df386e7ed9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft" align="right" valign="top">std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
+<tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
+<tr class="separator:a18648161d8a6c752202b6034613a947b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a83c98e56e30eafa606048853f7962e48" name="a83c98e56e30eafa606048853f7962e48"></a>
@@ -248,6 +266,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413" name="a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413"></a>Tab&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b" name="a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b"></a>Enter&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c" name="a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c"></a>Shift&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1" name="a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1"></a>Control&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224" name="a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224"></a>Escape&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394" name="a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394"></a>Space&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff" name="a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff"></a>Left&#160;</td><td class="fielddoc"></td></tr>
@@ -256,8 +275,12 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53" name="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29" name="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5" name="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5"></a>D&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa" name="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa"></a>P&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee" name="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee"></a>Q&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e" name="a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e"></a>S&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276" name="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276"></a>W&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0" name="a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0"></a>Y&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5" name="a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5"></a>Z&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -324,6 +347,64 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::executableDirectory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
+<dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="a2c8e7957dacab70252bf7edbdc80422e" name="a2c8e7957dacab70252bf7edbdc80422e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c8e7957dacab70252bf7edbdc80422e">&#9670;&#160;</a></span>regionForTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::regionForTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;&#160;</td>
+          <td class="paramname"><em>atlas</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Région d'atlas (couleur procédurale) associée à un type de tuile. </p>
+<p>Utilisée à la fois par <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">GameScreen</a></code> (rendu d'un niveau joué) et <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> (rendu du niveau en cours d'édition, LOT-14) : une <b>unique</b> correspondance type → couleur garantit que l'aperçu dans l'éditeur correspond exactement à ce que le joueur verra en jeu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile (<code>Empty</code> renvoie une région arbitraire, jamais dessinée en pratique — les cases vides ne sont pas rendues par l'appelant). </td></tr>
+    <tr><td class="paramname">atlas</td><td>Atlas fournissant les régions. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région d'atlas à échantillonner pour ce type. </dd></dl>
+
+</div>
+</div>
 <a id="a680b600014001a99d296df386e7ed9d8" name="a680b600014001a99d296df386e7ed9d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a680b600014001a99d296df386e7ed9d8">&#9670;&#160;</a></span>saveSessionLog()</h2>
 

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['⚠️_20à_20affiner_20par_20tests_0',['Ressenti (game feel) — ⚠️ à affiner par tests',['../spec-gameplay.html#autotoc_md149',1,'']]],
-  ['⚠️_20décision_20préalable_20_3a_20ecs_20maison_20vs_20bibliothèque_1',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md255',1,'']]],
-  ['⚠️_20minimal_20mvp_2',['5. Audio (⚠️ minimal MVP)',['../spec-rendu-technique.html#autotoc_md163',1,'']]]
+  ['↔_20porte_0',['Mécanismes interrupteur ↔ porte',['../guide-niveaux.html#autotoc_md70',1,'']]],
+  ['↔_20rendu_1',['4. Frontière simulation ↔ rendu',['../spec-architecture.html#autotoc_md105',1,'']]]
 ];

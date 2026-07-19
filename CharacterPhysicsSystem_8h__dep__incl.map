@@ -4,12 +4,14 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="396,81,248,125,247,120,394,76"/>
 <area shape="rect" id="Node000003" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="288,130,509,185"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,86,429,132,425,128,473,82"/>
-<area shape="rect" id="Node000006" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="534,123,757,192"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="570,83,611,121,607,124,566,86"/>
-<area shape="rect" id="Node000007" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="781,123,1003,192"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="644,76,784,120,783,125,642,81"/>
-<area shape="rect" id="Node000004" href="$GameScreen_8cpp.html" title=" " alt="" coords="159,240,387,295"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="359,196,306,242,302,238,356,192"/>
-<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="412,240,633,295"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="441,192,494,238,491,242,438,196"/>
+<area shape="rect" id="Node000007" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="534,123,757,192"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="570,83,611,121,607,124,566,86"/>
+<area shape="rect" id="Node000008" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="781,123,1003,192"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="644,76,784,120,783,125,642,81"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8cpp.html" title=" " alt="" coords="33,240,260,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="326,193,209,242,207,237,324,188"/>
+<area shape="rect" id="Node000005" href="$GameScreen_8cpp.html" title=" " alt="" coords="285,240,513,295"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="401,199,401,240,396,240,396,199"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="537,240,759,295"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="473,188,588,237,586,242,471,193"/>
 </map>

@@ -1,58 +1,60 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Entity.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Entity.h">
-<area shape="rect" id="Node000001" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="1732,5,1953,60"/>
-<area shape="rect" id="Node000002" href="$ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="1467,108,1688,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1762,67,1647,110,1646,105,1760,62"/>
-<area shape="rect" id="Node000003" href="$View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="1268,218,1489,273"/>
-<area shape="poly" id="edge28_Node000001_Node000003" title=" " alt="" coords="1719,49,1566,73,1501,90,1456,110,1432,134,1412,163,1388,219,1383,217,1408,160,1427,130,1453,106,1499,85,1565,68,1718,44"/>
-<area shape="rect" id="Node000004" href="$World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="1521,328,1743,383"/>
-<area shape="poly" id="edge29_Node000001_Node000004" title=" " alt="" coords="1967,38,2162,60,2266,78,2362,102,2440,133,2469,152,2491,173,2504,197,2506,223,2496,251,2474,282,2459,292,2436,301,2369,316,2278,328,2171,337,1942,349,1743,355,1743,350,1941,344,2171,332,2277,322,2368,310,2435,296,2457,287,2470,278,2492,249,2501,222,2499,198,2487,176,2466,156,2437,138,2360,107,2265,83,2162,65,1967,44"/>
-<area shape="rect" id="Node000009" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="2879,438,3119,493"/>
-<area shape="poly" id="edge30_Node000001_Node000009" title=" " alt="" coords="1967,31,2072,36,2193,48,2320,70,2383,86,2444,105,2527,140,2609,181,2687,227,2761,275,2886,367,2970,436,2967,440,2883,371,2758,280,2684,232,2606,186,2525,145,2442,111,2381,91,2319,75,2192,53,2071,41,1967,36"/>
-<area shape="rect" id="Node000019" href="$test__view_8cpp.html" title="Tests unitaires de la vue multi&#45;composants de l&#39;ECS." alt="" coords="1261,328,1497,383"/>
-<area shape="poly" id="edge33_Node000001_Node000019" title=" " alt="" coords="1718,43,1646,51,1566,64,1484,84,1405,111,1356,129,1317,146,1286,171,1258,212,1250,230,1248,246,1250,261,1258,279,1281,305,1310,326,1307,330,1277,309,1254,281,1245,262,1242,245,1245,228,1254,209,1282,167,1315,142,1354,124,1403,105,1482,79,1565,59,1645,46,1718,38"/>
-<area shape="rect" id="Node000020" href="$test__component__pool_8cpp.html" title="Tests unitaires du stockage de composants en sparse set." alt="" coords="1615,211,1867,280"/>
-<area shape="poly" id="edge31_Node000001_Node000020" title=" " alt="" coords="1827,73,1760,212,1755,209,1822,71"/>
-<area shape="rect" id="Node000021" href="$EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="1820,108,2041,163"/>
-<area shape="poly" id="edge22_Node000001_Node000021" title=" " alt="" coords="1877,69,1910,106,1906,110,1873,72"/>
-<area shape="rect" id="Node000023" href="$test__entity__manager_8cpp.html" title="Tests unitaires du gestionnaire de cycle de vie des entités." alt="" coords="2239,211,2460,280"/>
-<area shape="poly" id="edge32_Node000001_Node000023" title=" " alt="" coords="1936,62,2054,106,2176,158,2282,208,2280,213,2174,163,2052,110,1934,67"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1518,172,1428,220,1426,215,1515,167"/>
-<area shape="poly" id="edge19_Node000002_Node000004" title=" " alt="" coords="1585,176,1593,226,1605,279,1623,327,1618,329,1600,281,1588,227,1579,177"/>
-<area shape="poly" id="edge21_Node000002_Node000019" title=" " alt="" coords="1566,177,1541,229,1524,257,1503,282,1472,309,1437,330,1434,326,1468,305,1499,278,1519,254,1536,227,1561,174"/>
-<area shape="poly" id="edge20_Node000002_Node000020" title=" " alt="" coords="1631,168,1691,208,1688,213,1628,173"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1454,276,1571,325,1569,330,1452,281"/>
-<area shape="poly" id="edge18_Node000003_Node000019" title=" " alt="" coords="1381,287,1381,328,1376,328,1376,287"/>
-<area shape="rect" id="Node000005" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="2033,431,2292,500"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1757,376,2022,428,2034,431,2033,436,2021,433,1756,382"/>
-<area shape="rect" id="Node000006" href="$MovementSystem_8cpp.html" title=" " alt="" coords="2317,438,2609,493"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1757,364,2010,389,2304,428,2346,435,2345,441,2304,433,2010,394,1756,369"/>
-<area shape="rect" id="Node000007" href="$World_8cpp.html" title=" " alt="" coords="2633,438,2855,493"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1757,356,1928,361,2145,374,2383,395,2622,428,2657,435,2655,441,2621,433,2383,400,2144,379,1928,367,1757,361"/>
-<area shape="rect" id="Node000008" href="$LevelScene_8cpp.html" title=" " alt="" coords="5,438,227,493"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="1509,385,1508,385,1316,404,1152,410,1007,408,872,403,738,399,594,400,431,410,239,433,203,441,202,435,238,428,430,404,594,394,738,394,873,398,1007,403,1152,405,1315,398,1508,380,1508,380"/>
-<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="1756,354,1968,357,2245,368,2555,390,2713,407,2867,428,2905,435,2904,441,2866,433,2712,412,2555,396,2244,373,1967,362,1756,359"/>
-<area shape="rect" id="Node000010" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="251,438,472,493"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="1509,385,1508,385,1353,401,1221,407,1104,407,995,404,887,402,770,404,639,413,484,433,448,441,447,435,484,428,638,408,770,399,887,397,995,399,1104,402,1221,402,1353,396,1508,380,1508,380"/>
-<area shape="rect" id="Node000013" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="496,431,717,500"/>
-<area shape="poly" id="edge12_Node000004_Node000013" title=" " alt="" coords="1509,385,1508,385,1390,398,1290,404,1118,406,947,409,847,417,730,433,718,435,717,430,729,428,847,412,947,403,1118,400,1289,399,1390,393,1508,380,1508,380"/>
-<area shape="rect" id="Node000014" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="741,431,963,500"/>
-<area shape="poly" id="edge13_Node000004_Node000014" title=" " alt="" coords="1509,385,1508,385,1359,402,1241,407,1124,413,975,433,963,436,962,430,974,428,1123,408,1241,401,1358,396,1508,380,1508,380"/>
-<area shape="rect" id="Node000015" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="987,438,1250,493"/>
-<area shape="poly" id="edge14_Node000004_Node000015" title=" " alt="" coords="1509,385,1509,385,1262,433,1229,441,1228,435,1261,428,1507,380,1508,380"/>
-<area shape="rect" id="Node000016" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="1274,431,1497,500"/>
-<area shape="poly" id="edge15_Node000004_Node000016" title=" " alt="" coords="1560,391,1463,433,1461,428,1558,386"/>
-<area shape="rect" id="Node000017" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="1521,431,1743,500"/>
-<area shape="poly" id="edge16_Node000004_Node000017" title=" " alt="" coords="1635,397,1635,430,1629,430,1629,397"/>
-<area shape="rect" id="Node000018" href="$test__world_8cpp.html" title="Tests unitaires de la façade World de l&#39;ECS." alt="" coords="1767,438,2009,493"/>
-<area shape="poly" id="edge17_Node000004_Node000018" title=" " alt="" coords="1708,386,1827,435,1825,440,1706,391"/>
-<area shape="rect" id="Node000011" href="$GameScreen_8cpp.html" title=" " alt="" coords="123,548,351,603"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="322,504,269,550,266,546,319,500"/>
-<area shape="rect" id="Node000012" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="376,548,597,603"/>
-<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="404,500,458,546,454,550,401,504"/>
-<area shape="poly" id="edge24_Node000021_Node000004" title=" " alt="" coords="1943,176,1946,202,1946,230,1940,257,1926,282,1897,302,1853,319,1743,342,1742,337,1851,314,1895,297,1922,278,1935,255,1940,229,1941,202,1938,177"/>
-<area shape="poly" id="edge27_Node000021_Node000019" title=" " alt="" coords="1930,177,1915,232,1901,259,1880,282,1849,299,1806,310,1701,321,1593,325,1510,331,1497,333,1496,327,1509,325,1592,319,1700,316,1805,305,1847,294,1877,278,1897,256,1910,230,1925,176"/>
-<area shape="poly" id="edge25_Node000021_Node000020" title=" " alt="" coords="1874,172,1802,213,1799,208,1871,167"/>
-<area shape="rect" id="Node000022" href="$EntityManager_8cpp.html" title=" " alt="" coords="1993,218,2215,273"/>
-<area shape="poly" id="edge23_Node000021_Node000022" title=" " alt="" coords="1986,168,2063,215,2060,220,1983,172"/>
-<area shape="poly" id="edge26_Node000021_Node000023" title=" " alt="" coords="2051,163,2227,208,2239,211,2238,216,2226,213,2049,169"/>
+<area shape="rect" id="Node000001" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="1741,5,1963,60"/>
+<area shape="rect" id="Node000002" href="$ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="1476,108,1697,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1771,67,1657,110,1655,105,1769,62"/>
+<area shape="rect" id="Node000003" href="$View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="1277,218,1499,273"/>
+<area shape="poly" id="edge29_Node000001_Node000003" title=" " alt="" coords="1728,49,1575,73,1510,90,1466,110,1441,134,1422,163,1398,219,1393,217,1417,160,1437,130,1462,106,1508,85,1574,68,1727,44"/>
+<area shape="rect" id="Node000004" href="$World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="1531,328,1752,383"/>
+<area shape="poly" id="edge30_Node000001_Node000004" title=" " alt="" coords="1977,38,2172,60,2275,78,2371,102,2449,133,2479,152,2500,173,2513,197,2515,223,2506,251,2483,282,2469,292,2446,301,2378,316,2287,328,2180,337,1951,349,1752,355,1752,350,1951,344,2180,332,2286,322,2377,310,2444,296,2466,287,2479,278,2501,249,2510,222,2508,198,2496,176,2475,156,2446,138,2369,107,2274,83,2171,65,1976,44"/>
+<area shape="rect" id="Node000009" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="2888,438,3128,493"/>
+<area shape="poly" id="edge31_Node000001_Node000009" title=" " alt="" coords="1976,31,2081,36,2202,48,2329,70,2392,86,2453,105,2536,140,2618,181,2697,227,2770,275,2895,367,2980,436,2976,440,2892,371,2767,280,2694,232,2615,186,2534,145,2451,111,2391,91,2328,75,2201,53,2081,41,1976,36"/>
+<area shape="rect" id="Node000020" href="$test__view_8cpp.html" title="Tests unitaires de la vue multi&#45;composants de l&#39;ECS." alt="" coords="1270,328,1506,383"/>
+<area shape="poly" id="edge34_Node000001_Node000020" title=" " alt="" coords="1728,43,1655,51,1575,64,1493,84,1414,111,1365,129,1327,146,1296,171,1268,212,1260,230,1257,246,1259,261,1268,279,1290,305,1319,326,1316,330,1286,309,1263,281,1254,262,1252,245,1255,228,1263,209,1292,167,1324,142,1363,124,1412,105,1492,79,1574,59,1654,46,1727,38"/>
+<area shape="rect" id="Node000021" href="$test__component__pool_8cpp.html" title="Tests unitaires du stockage de composants en sparse set." alt="" coords="1625,211,1877,280"/>
+<area shape="poly" id="edge32_Node000001_Node000021" title=" " alt="" coords="1836,73,1769,212,1764,209,1831,71"/>
+<area shape="rect" id="Node000022" href="$EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="1829,108,2051,163"/>
+<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="1886,69,1919,106,1915,110,1882,72"/>
+<area shape="rect" id="Node000024" href="$test__entity__manager_8cpp.html" title="Tests unitaires du gestionnaire de cycle de vie des entités." alt="" coords="2248,211,2469,280"/>
+<area shape="poly" id="edge33_Node000001_Node000024" title=" " alt="" coords="1945,62,2064,106,2185,158,2292,208,2290,213,2183,163,2062,110,1944,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1527,172,1438,220,1435,215,1525,167"/>
+<area shape="poly" id="edge20_Node000002_Node000004" title=" " alt="" coords="1594,176,1602,226,1615,279,1632,327,1627,329,1609,281,1597,227,1589,177"/>
+<area shape="poly" id="edge22_Node000002_Node000020" title=" " alt="" coords="1575,177,1550,229,1533,257,1513,282,1481,309,1446,330,1444,326,1478,305,1509,278,1529,254,1545,227,1570,174"/>
+<area shape="poly" id="edge21_Node000002_Node000021" title=" " alt="" coords="1640,168,1701,208,1698,213,1637,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1463,276,1581,325,1579,330,1461,281"/>
+<area shape="poly" id="edge19_Node000003_Node000020" title=" " alt="" coords="1391,287,1391,328,1385,328,1385,287"/>
+<area shape="rect" id="Node000005" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="2043,431,2301,500"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1766,376,2031,428,2043,431,2042,436,2030,433,1765,382"/>
+<area shape="rect" id="Node000006" href="$MovementSystem_8cpp.html" title=" " alt="" coords="2326,438,2618,493"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1766,364,2019,389,2314,428,2355,435,2354,441,2313,433,2019,394,1766,369"/>
+<area shape="rect" id="Node000007" href="$World_8cpp.html" title=" " alt="" coords="2643,438,2864,493"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1766,356,1938,361,2154,374,2393,395,2631,428,2666,435,2665,441,2630,433,2392,400,2153,379,1937,367,1766,361"/>
+<area shape="rect" id="Node000008" href="$LevelScene_8cpp.html" title=" " alt="" coords="15,438,236,493"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="1518,385,1518,385,1325,404,1161,410,1017,408,882,403,747,399,603,400,440,410,248,433,212,441,211,435,248,428,440,404,603,394,747,394,882,398,1017,403,1161,405,1325,398,1517,380,1517,380"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="1766,354,1977,357,2254,368,2564,390,2722,407,2876,428,2914,435,2913,441,2876,433,2722,412,2564,396,2254,373,1977,362,1766,359"/>
+<area shape="rect" id="Node000010" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="260,438,481,493"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="1518,385,1518,385,1362,401,1230,407,1113,407,1005,404,896,402,780,404,648,413,494,433,458,441,457,435,493,428,648,408,780,399,896,397,1005,399,1113,402,1230,402,1362,396,1517,380,1517,380"/>
+<area shape="rect" id="Node000014" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="505,431,727,500"/>
+<area shape="poly" id="edge13_Node000004_Node000014" title=" " alt="" coords="1518,385,1518,385,1399,398,1299,404,1127,406,956,409,857,417,739,433,727,435,726,430,738,428,856,412,956,403,1127,400,1299,399,1399,393,1517,380,1517,380"/>
+<area shape="rect" id="Node000015" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="751,431,972,500"/>
+<area shape="poly" id="edge14_Node000004_Node000015" title=" " alt="" coords="1518,385,1518,385,1368,402,1250,407,1133,413,984,433,973,436,972,430,984,428,1133,408,1250,401,1367,396,1517,380,1517,380"/>
+<area shape="rect" id="Node000016" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="997,438,1259,493"/>
+<area shape="poly" id="edge15_Node000004_Node000016" title=" " alt="" coords="1518,385,1518,385,1271,433,1238,441,1237,435,1270,428,1517,380,1517,380"/>
+<area shape="rect" id="Node000017" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="1283,431,1506,500"/>
+<area shape="poly" id="edge16_Node000004_Node000017" title=" " alt="" coords="1570,391,1473,433,1471,428,1568,386"/>
+<area shape="rect" id="Node000018" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="1531,431,1752,500"/>
+<area shape="poly" id="edge17_Node000004_Node000018" title=" " alt="" coords="1644,397,1644,430,1639,430,1639,397"/>
+<area shape="rect" id="Node000019" href="$test__world_8cpp.html" title="Tests unitaires de la façade World de l&#39;ECS." alt="" coords="1776,438,2019,493"/>
+<area shape="poly" id="edge18_Node000004_Node000019" title=" " alt="" coords="1717,386,1836,435,1834,440,1715,391"/>
+<area shape="rect" id="Node000011" href="$EditorScreen_8cpp.html" title=" " alt="" coords="5,548,232,603"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="298,501,181,550,179,545,296,496"/>
+<area shape="rect" id="Node000012" href="$GameScreen_8cpp.html" title=" " alt="" coords="257,548,485,603"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="373,507,373,548,368,548,368,507"/>
+<area shape="rect" id="Node000013" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="509,548,731,603"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="445,496,560,545,558,550,443,501"/>
+<area shape="poly" id="edge25_Node000022_Node000004" title=" " alt="" coords="1953,176,1955,202,1955,230,1949,257,1935,282,1907,302,1862,319,1753,342,1752,337,1861,314,1904,297,1931,278,1944,255,1950,229,1950,202,1947,177"/>
+<area shape="poly" id="edge28_Node000022_Node000020" title=" " alt="" coords="1939,177,1925,232,1910,259,1890,282,1858,299,1815,310,1710,321,1602,325,1519,331,1507,333,1506,327,1518,325,1602,319,1710,316,1814,305,1856,294,1886,278,1906,256,1920,230,1934,176"/>
+<area shape="poly" id="edge26_Node000022_Node000021" title=" " alt="" coords="1883,172,1811,213,1808,208,1881,167"/>
+<area shape="rect" id="Node000023" href="$EntityManager_8cpp.html" title=" " alt="" coords="2003,218,2224,273"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="1995,168,2072,215,2069,220,1992,172"/>
+<area shape="poly" id="edge27_Node000022_Node000024" title=" " alt="" coords="2060,163,2237,208,2248,211,2247,216,2235,213,2059,169"/>
 </map>

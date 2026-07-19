@@ -4,5 +4,6 @@ var searchData=
   ['beginframe_1',['beginFrame',['../classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab',1,'hmi::InputState']]],
   ['bitmapfont_2',['bitmapfont',['../classhmi_1_1BitmapFont.html#a02df5ed7b73fa5bd98ca8fc1f00e6616',1,'hmi::BitmapFont::BitmapFont(ID3D11Device *device)'],['../classhmi_1_1BitmapFont.html#aceb78d34e59c4d1b32e1647a4ed4a2b6',1,'hmi::BitmapFont::BitmapFont(const BitmapFont &amp;)=delete']]],
   ['bottom_3',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect']]],
-  ['buildlevelscene_4',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]]
+  ['buildjson_4',['buildJson',['../classcore_1_1LevelWriter.html#a9158ba1687451a6a0a4c5526efd271b0',1,'core::LevelWriter']]],
+  ['buildlevelscene_5',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]]
 ];
