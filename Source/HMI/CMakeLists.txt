@@ -2,6 +2,7 @@
 add_executable(ProjectGaming
     main.cpp
     Platform/Window.cpp
+    Platform/ExecutableDirectory.cpp
     Input/InputState.cpp
     Input/PlayerInputMapper.cpp
     Graphics/GraphicsDevice.cpp

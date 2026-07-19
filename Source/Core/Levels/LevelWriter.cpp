@@ -1,5 +1,6 @@
 #include "Core/Levels/LevelWriter.h"
 
+#include <fstream>
 #include <map>
 #include <string>
 #include <utility>
@@ -39,6 +40,16 @@ namespace {
 std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget());
+}
+
+bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
+    std::ofstream file(path, std::ios::binary);
+    if (!file) {
+        return false;
+    }
+    const std::string json = toJsonString(level);
+    file.write(json.data(), static_cast<std::streamsize>(json.size()));
+    return file.good();
 }
 
 std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileMap,

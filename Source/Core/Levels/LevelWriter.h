@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -32,6 +33,18 @@ public:
      * @return Le contenu JSON du niveau.
      */
     [[nodiscard]] static std::string toJsonString(const Level& level);
+
+    /**
+     * @brief Écrit un niveau au format JSON dans un fichier (`EX-EDIT-006`).
+     *
+     * Écriture directe (`std::ofstream`), sans exception vers l'appelant : un échec (chemin
+     * invalide, permissions) est signalé par la valeur de retour, jamais par une exception
+     * (`EX-NFR-040`), symétrique à `LevelLoader::loadFromFile`.
+     * @param level Niveau à écrire (déjà validé).
+     * @param path  Chemin du fichier de destination ; le dossier parent doit exister.
+     * @return `true` si l'écriture a réussi.
+     */
+    [[nodiscard]] static bool saveToFile(const Level& level, const std::filesystem::path& path);
 
     /**
      * @brief Construit le JSON à partir des composantes brutes d'un niveau (utilisé également

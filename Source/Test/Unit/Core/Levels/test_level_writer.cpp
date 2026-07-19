@@ -150,3 +150,49 @@ TEST(LevelWriterTest, NiveauPuzzleLivreSurvieAuRoundTrip) {
     EXPECT_EQ(reloaded.level->entry(), loaded.level->entry());
     EXPECT_EQ(reloaded.level->exit(), loaded.level->exit());
 }
+
+/**
+ * @brief saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).
+ * \castest{<b>saveToFile écrit un fichier qui se recharge à l'identique (round-trip
+ * disque).</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).
+ * }
+ */
+TEST(LevelWriterTest, SaveToFileEcritUnFichierRechargeable) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL_WITH_MECHANISM);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_test_save_to_file.json";
+    ASSERT_TRUE(core::LevelWriter::saveToFile(*loaded.level, path));
+
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromFile(path);
+    std::filesystem::remove(path);
+
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+    EXPECT_EQ(reloaded.level->name(), loaded.level->name());
+    EXPECT_EQ(reloaded.level->entry(), loaded.level->entry());
+}
+
+/**
+ * @brief saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).
+ * \castest{<b>saveToFile vers un dossier inexistant échoue proprement (récupérable,
+ * EX-NFR-040).</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).
+ * }
+ */
+TEST(LevelWriterTest, SaveToFileVersDossierInexistantEchoueProprement) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL_WITH_MECHANISM);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::filesystem::path path = "chemin/inexistant/pas_la/niveau.json";
+    EXPECT_FALSE(core::LevelWriter::saveToFile(*loaded.level, path));
+}

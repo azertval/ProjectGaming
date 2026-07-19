@@ -2,11 +2,15 @@
 
 #include <algorithm>
 #include <cmath>
+#include <filesystem>
 #include <string>
+#include <vector>
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"  // core::Mechanism
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
@@ -16,7 +20,9 @@
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/RenderContext.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
 
@@ -25,6 +31,28 @@ namespace {
 // Dimensions par defaut d'un brouillon vierge (comparables aux niveaux livres, ex. demo3/demo4).
 constexpr int DEFAULT_WIDTH = 14;
 constexpr int DEFAULT_HEIGHT = 8;
+
+// Chemin du fichier temporaire utilise pour l'essai immediat (EX-EDIT-008) : le brouillon y est
+// ecrit avant de lancer une session de jeu interne, sans jamais toucher aux niveaux enregistres.
+[[nodiscard]] std::filesystem::path playtestFilePath() {
+    return std::filesystem::temp_directory_path() / "projectgaming_playtest_level.json";
+}
+
+// Traduit un message d'erreur de validation (LevelLoader) en phrase comprehensible par un
+// non-codeur (EX-EDIT-007) : evite d'exposer le jargon interne (JSON, cle manquante...).
+[[nodiscard]] std::string describeValidationError(const std::string& technicalMessage) {
+    if (technicalMessage.find("entree") != std::string::npos) {
+        return "Il manque une entree : placez une tuile Entree sur la grille.";
+    }
+    if (technicalMessage.find("sortie") != std::string::npos) {
+        return "Il manque une sortie : placez une tuile Sortie sur la grille.";
+    }
+    if (technicalMessage.find("interrupteur") != std::string::npos ||
+        technicalMessage.find("Porte liee") != std::string::npos) {
+        return "Une porte n'est pas reliee a un interrupteur valide.";
+    }
+    return "Niveau invalide : " + technicalMessage;
+}
 
 // Construit un quad texture a partir d'une region d'atlas et d'un rectangle (espace quelconque,
 // pilote par la projection active du SpriteBatch), avec une teinte optionnelle.
@@ -51,14 +79,21 @@ SpriteQuad quadFor(const core::AtlasRegion& region, float x, float y, float widt
 }  // namespace
 
 // Construit l'editeur avec un brouillon de niveau vierge.
-EditorScreen::EditorScreen(SpriteBatch& /*batch*/, const TextureAtlas& atlas, int viewportWidth,
+EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                            int viewportHeight)
     : _atlas(atlas),
+      _batch(batch),
+      _viewportWidth(viewportWidth),
+      _viewportHeight(viewportHeight),
       _draft(core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT)),
       _camera(viewportWidth, viewportHeight) {
     HMI_LOG_TRACE("EditorScreen cree (brouillon vierge " + std::to_string(DEFAULT_WIDTH) + "x" +
                  std::to_string(DEFAULT_HEIGHT) + ")");
 }
+
+// Definition necessaire ici (GameScreen complet), pour le unique_ptr<GameScreen> sur type
+// incomplet dans l'en-tete.
+EditorScreen::~EditorScreen() = default;
 
 // Convertit une position souris en case de grille, si elle est dans les bornes du brouillon.
 std::optional<core::GridPosition> EditorScreen::hoveredCell(float mouseX, float mouseY) const {
@@ -123,10 +158,29 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
 }
 
 // Clic palette -> selection ; clic/glisser sur la grille -> peinture ; Maj+clic -> liaison de
-// mecanismes ; fleches -> redimensionnement ; Echap -> menu.
-ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelta*/) {
+// mecanismes ; fleches -> redimensionnement ; Ctrl+S -> enregistrer ; P -> essai immediat ;
+// Echap -> menu (ou fin de l'essai immediat, sans quitter l'ecran).
+ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta) {
+    if (_playtest) {
+        // Session de jeu interne : on lui delegue entierement la frame. Une transition (Echap,
+        // fin de niveau -> retour menu) signale la fin de l'essai : on la consomme localement,
+        // sans jamais quitter reellement l'ecran editeur (brouillon et historique intacts).
+        if (_playtest->update(input, fixedDelta).kind != ScreenTransition::Kind::None) {
+            _playtest.reset();
+            _statusMessage.clear();
+        }
+        return ScreenTransition::none();
+    }
+
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
+    }
+
+    if (input.keyDown(Key::Control) && input.keyPressed(Key::S)) {
+        saveDraft();
+    }
+    if (input.keyPressed(Key::P)) {
+        startPlaytest();
     }
 
     _mouseX = static_cast<float>(input.mouseX());
@@ -172,6 +226,52 @@ ScreenTransition EditorScreen::update(const InputState& input, float /*fixedDelt
     }
 
     return ScreenTransition::none();
+}
+
+// Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).
+// Echec de validation : message non-codeur, aucun fichier ecrit.
+void EditorScreen::saveDraft() {
+    const core::LevelLoadResult result = _draft.toLevel();
+    if (!result.ok()) {
+        _statusMessage = describeValidationError(result.error);
+        HMI_LOG_WARNING("Enregistrement refuse (brouillon invalide) : " + result.error);
+        return;
+    }
+
+    const std::filesystem::path directory = hmi::executableDirectory() / "Levels";
+    std::error_code errorCode;
+    std::filesystem::create_directories(directory, errorCode);
+
+    const std::filesystem::path path = directory / (_draft.name() + ".json");
+    if (core::LevelWriter::saveToFile(*result.level, path)) {
+        _statusMessage = "Niveau enregistre : " + path.filename().string();
+        HMI_LOG_INFO("Niveau enregistre : " + path.string());
+    } else {
+        _statusMessage = "Echec de l'enregistrement (verifiez les droits d'ecriture).";
+        HMI_LOG_WARNING("Echec d'ecriture du niveau : " + path.string());
+    }
+}
+
+// Sur un brouillon valide, lance une session de jeu interne rejouant le niveau en cours
+// d'edition (EX-EDIT-008) ; message d'erreur non-codeur sinon, sans lancer l'essai.
+void EditorScreen::startPlaytest() {
+    const core::LevelLoadResult result = _draft.toLevel();
+    if (!result.ok()) {
+        _statusMessage = describeValidationError(result.error);
+        HMI_LOG_WARNING("Essai immediat refuse (brouillon invalide) : " + result.error);
+        return;
+    }
+
+    const std::filesystem::path path = playtestFilePath();
+    if (!core::LevelWriter::saveToFile(*result.level, path)) {
+        _statusMessage = "Impossible de preparer l'essai immediat (fichier temporaire).";
+        return;
+    }
+
+    _playtest = std::make_unique<GameScreen>(_batch, _atlas, _viewportWidth, _viewportHeight,
+                                             std::vector<std::filesystem::path>{path});
+    _statusMessage.clear();
+    HMI_LOG_INFO("Essai immediat demarre.");
 }
 
 // Dessine la grille du brouillon (tuiles non vides) et la case survolee en surbrillance.
@@ -257,11 +357,35 @@ void EditorScreen::renderPalette(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine la grille du niveau en cours d'edition, puis la palette par-dessus.
+// Dessine le message de statut courant (bande de texte en bas de l'ecran), s'il y en a un.
+void EditorScreen::renderStatus(RenderContext& context) {
+    if (_statusMessage.empty()) {
+        return;
+    }
+    constexpr float SCALE = 2.0f;
+    constexpr float MARGIN = 12.0f;
+    const float y =
+        static_cast<float>(context.viewportHeight) - context.font.lineHeight(SCALE) - MARGIN;
+
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+    context.font.drawText(context.spriteBatch, _statusMessage, MARGIN, y, SCALE,
+                          core::Color{0.90f, 0.85f, 0.55f, 1.0f});
+    context.spriteBatch.end();
+}
+
+// Dessine la session de jeu interne pendant un essai immediat, sinon la grille du niveau en
+// cours d'edition, la palette et le message de statut.
 void EditorScreen::render(RenderContext& context) {
+    if (_playtest) {
+        _playtest->render(context);
+        return;
+    }
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
     renderGrid(context);
     renderPalette(context);
+    renderStatus(context);
 }
 
 }  // namespace hmi

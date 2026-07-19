@@ -34,7 +34,9 @@ enum class Key : std::uint16_t {
     Down = 0x28,
     A = 0x41,  // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
     D = 0x44,
+    P = 0x50,  // Essai immédiat du niveau en cours d'édition (éditeur, LOT-14)
     Q = 0x51,
+    S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
     W = 0x57,
     Y = 0x59,  // Ctrl+Y : refaire (éditeur, LOT-14)
     Z = 0x5A,  // Ctrl+Z : annuler (éditeur, LOT-14)

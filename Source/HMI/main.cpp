@@ -35,16 +35,10 @@
 #include "HMI/Interface/ScreenManager.h"
 #include "HMI/Interface/SessionLog.h"
 #include "HMI/Localization/Localization.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Platform/Window.h"
 
 namespace {
-
-/// @return Le dossier contenant l'exécutable (pour localiser les ressources copiées à côté).
-[[nodiscard]] std::filesystem::path executableDirectory() {
-    wchar_t buffer[MAX_PATH];
-    const DWORD length = GetModuleFileNameW(nullptr, buffer, MAX_PATH);
-    return std::filesystem::path(std::wstring(buffer, length)).parent_path();
-}
 
 /// @return La valeur d'une variable d'environnement, ou `std::nullopt` si absente.
 [[nodiscard]] std::optional<std::string> environmentVariable(const char* name) {
@@ -160,7 +154,7 @@ int main(int argc, char** argv) {
         HMI_LOG_INFO("Ressources de rendu pretes (atlas, police, drapeaux, icones)");
 
         // Catalogue de traduction : chargé depuis les .lang copiés à côté de l'exécutable.
-        hmi::Localization localization(executableDirectory() / "Localization");
+        hmi::Localization localization(hmi::executableDirectory() / "Localization");
         if (localization.loadDefaultLanguage("fr")) {
             HMI_LOG_INFO(std::string("Langue chargee : ") + localization.activeLanguage());
         } else {
@@ -169,7 +163,7 @@ int main(int argc, char** argv) {
         }
 
         // Action d'enregistrement des logs de la session (déclenchée par le bouton du menu).
-        const std::filesystem::path logDirectory = executableDirectory() / "logs";
+        const std::filesystem::path logDirectory = hmi::executableDirectory() / "logs";
         const hmi::MenuScreen::SaveLogAction saveLogAction = [sessionLog, logDirectory] {
             if (sessionLog == nullptr) {
                 return;  // pas de capture des logs (build Release) : rien à enregistrer
@@ -192,7 +186,7 @@ int main(int argc, char** argv) {
                 case hmi::ScreenId::Game: {
                     // Sequence de niveaux dans un ordre de difficulte maitrise (EX-LVL-010) :
                     // demo (deplacement/chute) puis demo2 (saut requis).
-                    const std::filesystem::path levels = executableDirectory() / "Levels";
+                    const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
                     return std::make_unique<hmi::GameScreen>(
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
                         std::vector<std::filesystem::path>{

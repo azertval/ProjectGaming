@@ -1,6 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <optional>
+#include <string>
 
 #include "Core/Levels/LevelDraft.h"
 #include "HMI/Editor/TilePalette.h"
@@ -16,6 +18,7 @@ namespace hmi {
 
 class SpriteBatch;
 class TextureAtlas;
+class GameScreen;
 
 /**
  * @brief Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.
@@ -30,19 +33,31 @@ class TextureAtlas;
  * toujours enfoncé, sur une tuile `Door` (ou l'inverse) les lie ; répéter la même paire la délie
  * (bascule). **Redimensionnement** (`EX-EDIT-005`) : les flèches ↑/↓ réduisent/agrandissent la
  * hauteur, ←/→ la largeur. **Annuler/refaire** (`EX-EDIT-005`) : `Ctrl+Z`/`Ctrl+Y`, délégués à
- * `core::LevelDraft::undo`/`redo`. **Échap** revient au menu.
+ * `core::LevelDraft::undo`/`redo`.
+ *
+ * **Enregistrement** (`Ctrl+S`, `EX-EDIT-006`/`007`) : convertit le brouillon en `core::Level`
+ * validé (`LevelDraft::toLevel`) et l'écrit dans le dossier `Levels` de l'application ; un
+ * brouillon invalide affiche un message d'erreur compréhensible, **aucun fichier n'est écrit**.
+ * **Essai immédiat** (`P`, `EX-EDIT-008`) : sur un brouillon valide, lance une session de jeu
+ * **intégrée** (délégation à un `GameScreen` interne, sans transition d'écran) qui rejoue le
+ * niveau en cours d'édition ; **Échap** (ou la fin du niveau) y met fin et **restitue l'éditeur
+ * intact** (brouillon et historique undo/redo jamais touchés pendant l'essai). **Échap** hors
+ * essai revient au menu.
  */
 class EditorScreen : public IScreen {
 public:
     /**
      * @brief Construit l'éditeur avec un brouillon de niveau vierge.
-     * @param batch          Lot de sprites partagé (rendu).
+     * @param batch          Lot de sprites partagé (rendu ; réutilisé pour l'essai immédiat).
      * @param atlas          Atlas de tuiles fournissant les régions de sprites.
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
      */
     EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                 int viewportHeight);
+
+    /// Nécessaire : `_playtest` est un `unique_ptr` sur un type incomplet dans cet en-tête.
+    ~EditorScreen() override;
 
     [[nodiscard]] ScreenTransition update(const InputState& input, float fixedDelta) override;
 
@@ -63,7 +78,19 @@ private:
     /// Dessine la palette (couleurs des types + surbrillance de la sélection).
     void renderPalette(RenderContext& context);
 
+    /// Dessine le message de statut courant (erreur de validation, confirmation), s'il y en a un.
+    void renderStatus(RenderContext& context);
+
+    /// Enregistre le brouillon (`Ctrl+S`) : valide, puis écrit ; message de statut mis à jour.
+    void saveDraft();
+
+    /// Démarre l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
+    void startPlaytest();
+
     const TextureAtlas& _atlas;
+    SpriteBatch& _batch;
+    int _viewportWidth;
+    int _viewportHeight;
     core::LevelDraft _draft;
     Camera2D _camera;
     TilePalette _palette;
@@ -72,6 +99,9 @@ private:
     float _mouseY = 0.0f;
     /// Première case (Switch ou Door) choisie pour une liaison, en attente de sa contrepartie.
     std::optional<core::GridPosition> _pendingLink;
+    /// Session de jeu intégrée active pendant un essai immédiat ; `nullptr` en mode édition normal.
+    std::unique_ptr<GameScreen> _playtest;
+    std::string _statusMessage;  ///< Dernier message d'erreur/confirmation affiché à l'écran.
 };
 
 }  // namespace hmi

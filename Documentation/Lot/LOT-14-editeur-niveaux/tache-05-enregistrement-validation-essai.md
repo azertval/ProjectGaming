@@ -1,6 +1,17 @@
-# TACHE-05 — Enregistrement/chargement, validation, essai immédiat {#lot-14-tache-05-enregistrement-validation-essai}
+# TACHE-05 — Enregistrement, validation, essai immédiat {#lot-14-tache-05-enregistrement-validation-essai}
 
-**Lot :** [LOT-14](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-14](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Interface` · **Statut :** fait
+
+> **Ajustement de périmètre à l'implémentation** : le **chargement d'un fichier existant** dans
+> l'éditeur (choix nouveau niveau / niveau existant) est finalement traité en TACHE-06, qui
+> possède déjà cette responsabilité (« sélection nouveau/existant ») dans son découpage — évite de
+> la dupliquer entre deux tâches. Cette tâche livre : enregistrement (`Ctrl+S`), validation avec
+> message non-codeur, et **essai immédiat** (`P`), implémenté par une session de jeu **intégrée**
+> (un `GameScreen` embarqué dans `EditorScreen`, piloté par délégation d'`update`/`render`) plutôt
+> que par une transition `ScreenManager` — `ScreenManager` détruit l'écran quitté à chaque
+> transition (`_current = factory(target)`), ce qui aurait perdu le brouillon et l'historique
+> undo/redo à chaque essai ; la délégation interne les préserve intégralement, sans changement
+> d'architecture de `ScreenManager`/`ScreenTransition`.
 
 ## Contexte
 Éditer un niveau ne sert à rien s'il ne peut pas être **enregistré** de façon fiable, ni **essayé**
