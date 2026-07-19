@@ -14,7 +14,7 @@ var searchData=
   ['01_20—_20niveaux_20de_20log_20interface_20logger_11',['TACHE-01 — Niveaux de log &amp; interface `Logger`',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
   ['01_20—_20réorganisation_20de_20l_20arborescence_20documentaire_12',['TACHE-01 — Réorganisation de l&apos;arborescence documentaire',['../lot-04-tache-01-reorganisation-arbo.html',1,'lot-04']]],
   ['01_20—_20types_20mathématiques_20de_20core_13',['TACHE-01 — Types mathématiques de `Core`',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
-  ['02_14',['Avertissements connus à corriger avant &lt;tt&gt;WARN_AS_ERROR&lt;/tt&gt; (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md310',1,'']]],
+  ['02_14',['Avertissements connus à corriger avant &lt;tt&gt;WARN_AS_ERROR&lt;/tt&gt; (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md362',1,'']]],
   ['02_20—_20balayage_20aabb_20contre_20la_20grille_20géométrie_20pure_15',['TACHE-02 — Balayage AABB contre la grille (géométrie pure)',['../lot-08-tache-02-balayage-aabb.html',1,'lot-08']]],
   ['02_20—_20configuration_20doxygen_20pour_20le_20markdown_16',['TACHE-02 — Configuration Doxygen pour le Markdown',['../lot-04-tache-02-config-doxygen-markdown.html',1,'lot-04']]],
   ['02_20—_20entités_20_3a_20handles_20générationnels_20cycle_20de_20vie_17',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],

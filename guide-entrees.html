@@ -93,26 +93,62 @@ $(document).ready(function(){initNavTree('guide-entrees.html',''); initResizable
   <div class="headertitle"><div class="title">Entrées et actions logiques</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Le gameplay ne dépend <b>jamais</b> d'une touche physique (<code>EX-CTRL-010</code>) : les entrées brutes sont traduites en une <b>intention</b> neutre que <code>Core</code> consomme.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
-Échantillonnage : &lt;tt&gt;InputState&lt;/tt&gt;</h1>
-<p><code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></code> (dans <code>Source/HMI/Input</code>) capture l'état clavier/souris <b>une fois par frame</b> (<code>EX-CTRL-021</code>) et expose les <b>fronts</b> — <em>pressée</em> (<code>keyPressed</code>), <em>maintenue</em> (<code>keyDown</code>), <em>relâchée</em> (<code>keyReleased</code>) — nécessaires au <em>jump buffering</em> et à la hauteur de saut variable (<code>EX-CTRL-011</code>). Il est <b>indépendant de la fenêtre</b> (aucun <code>&lt;Windows.h&gt;</code>), donc testable en isolation : les événements peuvent être injectés directement.</p>
-<p>Le cycle d'une frame : <code>beginFrame()</code> recopie l'état courant vers l'état précédent, la couche fenêtre applique les événements Win32, puis la logique lit les fronts.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
-Traduction : &lt;tt&gt;toPlayerInput&lt;/tt&gt;</h1>
-<p><code>hmi::toPlayerInput(input)</code> produit un <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code> — le <b>contrat</b> entre <code>HMI</code> et <code>Core</code> :</p>
+<div class="textblock"><p>Cette page explique comment une touche physique devient un mouvement du personnage, et pourquoi ce trajet passe par une étape intermédiaire qui, au premier abord, peut sembler superflue.</p>
+<h1><a class="anchor" id="autotoc_md22"></a>
+Le principe : ne jamais coder « en dur » une touche dans le gameplay</h1>
+<p>Le gameplay ne dépend <b>jamais</b> directement d'une touche physique (<code>EX-CTRL-010</code>). Autrement dit, <code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></code> ne contient <b>aucun</b> test du genre « si la touche flèche gauche est enfoncée ». À la place, les entrées brutes (clavier, souris) sont d'abord traduites en une <b>intention</b> neutre — « aller à gauche », « sauter » — que <code>Core</code> consomme sans jamais savoir <b>quelle touche</b> a produit cette intention.</p>
+<p><b>Pourquoi cette indirection.</b> Sans elle, chaque système qui a besoin d'une entrée devrait connaître les touches physiques, ce qui pose plusieurs problèmes concrets :</p>
 <ul>
-<li><code>moveX</code> ∈ [-1, 1] : gauche (<code>←</code>/<code>Q</code>) / droite (<code>→</code>/<code>D</code>) ;</li>
-<li><code>moveY</code> : visée verticale du dash (<code>↑</code>/<code>↓</code>) ;</li>
-<li><code>jumpPressed</code> (front) et <code>jumpHeld</code> (maintenu) : <code>Espace</code>/<code>W</code> ;</li>
-<li><code>dashPressed</code> (front) : <code>Maj</code> (<code>EX-CTRL-013</code>).</li>
+<li><b>remappage impossible sans toucher la logique de jeu</b> — si un joueur veut réassigner « sauter » d'<code>Espace</code> à une autre touche, ou si le jeu ajoute le support d'une manette (<code>EX-CTRL-012</code>), il faudrait modifier chaque système qui teste directement les touches, au lieu d'un seul point de traduction ;</li>
+<li><b>tests plus difficiles</b> — tester la physique du saut obligerait à simuler de vrais événements clavier Win32 plutôt qu'à construire directement une intention <code>{ jumpPressed: true }</code> ;</li>
+<li><b>couplage entre <code>Core</code> et <code>HMI</code></b> — <code>Core</code> n'a, par ailleurs, <b>aucune</b> dépendance à Win32 (<code>EX-ARCH-010</code>, <a class="el" href="guide-boucle.html">Boucle de jeu et pas de temps fixe</a>) ; lui faire connaître des codes de touche briserait cette frontière architecturale.</li>
 </ul>
-<p><code>Core</code> ne connaît <b>que</b> <code>PlayerInput</code> : il ignore les touches. Un futur remappage ou une manette (<code>EX-CTRL-012</code>) ne toucherait <b>que</b> cette fonction — c'est tout l'intérêt de la dissociation.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<p>Le trajet complet est donc : <b>touche physique → <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></code> (état brut) → <code>hmi:: toPlayerInput</code> (traduction) → <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code> (intention) → <code>Core</code> (logique de jeu)</b>. Les deux premières étapes vivent dans <code>HMI</code> (dépendantes de la plateforme), la dernière dans <code>Core</code> (indépendante).</p>
+<h1><a class="anchor" id="autotoc_md23"></a>
+Échantillonner plutôt que réagir : &lt;tt&gt;hmi::InputState&lt;/tt&gt;</h1>
+<p>Deux façons classiques d'observer les entrées existent :</p>
+<ul>
+<li><b>piloté par les événements</b> : le code réagit immédiatement à chaque message du système d'exploitation (« touche enfoncée », « touche relâchée ») dès qu'il arrive, à un instant arbitraire ;</li>
+<li><b>échantillonné</b> (<em>polling</em>) : le code lit un <b>état courant</b>, mis à jour une fois par frame, à un instant <b>prévisible</b> de la boucle de jeu.</li>
+</ul>
+<p>Ce moteur choisit le second : <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></code> capture l'état clavier/souris <b>une fois par frame</b> (<code>EX-CTRL-021</code>), pas à chaque événement Win32 individuel. <b>Pourquoi</b> : la logique de jeu tourne au pas de temps fixe (<a class="el" href="guide-boucle.html">Boucle de jeu et pas de temps fixe</a>) — elle a besoin d'un état d'entrée <b>stable</b> pendant toute la durée d'un pas, pas d'un flux d'événements arrivant de façon désynchronisée par rapport à ce rythme. Échantillonner une fois par frame donne cette photographie stable.</p>
+<h2><a class="anchor" id="autotoc_md24"></a>
+Détecter les fronts, pas seulement l'état</h2>
+<p>Savoir qu'une touche est enfoncée ne suffit pas : la physique a besoin de distinguer <em>plusieurs</em> questions liées mais différentes, par exemple pour le saut (<a class="el" href="guide-physique.html">Physique du personnage</a> §3) :</p>
+<ul>
+<li>« le bouton <b>vient-il d'être pressé</b> cette frame ? » (le <b>front montant</b>) — déclenche le saut et alimente le <em>jump buffering</em> ;</li>
+<li>« le bouton est-il <b>maintenu</b> ? » — sert à la hauteur de saut variable (relâcher tôt écourte le saut) ;</li>
+<li>« le bouton <b>vient-il d'être relâché</b> ? » (le <b>front descendant</b>) — c'est ce relâchement, détecté précisément à la frame où il se produit, qui déclenche la coupe de vitesse ascendante.</li>
+</ul>
+<p><code>InputState</code> calcule ces trois fronts en gardant <b>deux instantanés</b> : l'état de la frame <b>courante</b> et celui de la frame <b>précédente</b>. Une touche est « pressée » (front montant) précisément quand elle est enfoncée maintenant mais ne l'était <b>pas</b> à la frame d'avant ; de même, « relâchée » (front descendant) quand elle ne l'est plus mais l'était juste avant. Sans conserver cet historique d'une frame, on ne pourrait connaître que l'état courant (<code>keyDown</code>), jamais le moment précis de transition (<code>keyPressed</code>/<code>keyReleased</code>) — pourtant essentiel au <em>game feel</em> du saut et du dash (des actions <b>ponctuelles</b>, à déclencher une seule fois par appui, pas à chaque frame où la touche reste enfoncée).</p>
+<h2><a class="anchor" id="autotoc_md25"></a>
+Le cycle d'une frame</h2>
+<ol type="1">
+<li><code>beginFrame()</code> recopie l'état <b>courant</b> vers l'état <b>précédent</b> — ouvre une nouvelle fenêtre d'observation ;</li>
+<li>la couche fenêtre (<code>Window</code>, dans <code>HMI</code>) traite les messages Win32 de la frame et appelle <code>onKeyDown</code>/<code>onKeyUp</code>/<code>onMouseMove</code>/… sur l'<code>InputState</code>, qui met à jour l'état <b>courant</b> ;</li>
+<li>la logique de jeu lit les fronts et l'état courant (<code>keyPressed</code>, <code>keyDown</code>, <code>keyReleased</code>, et leurs équivalents souris).</li>
+</ol>
+<p><code>InputState</code> est délibérément <b>indépendant de toute fenêtre</b> (aucune dépendance <code>&lt;Windows.h&gt;</code> dans son en-tête) : les événements peuvent être injectés directement en test, sans ouvrir de fenêtre ni passer par Win32, ce qui le rend testable en isolation (<code>EX-NFR-010</code>).</p>
+<h2><a class="anchor" id="autotoc_md26"></a>
+Un détail d'implémentation qui simplifie tout : &lt;tt&gt;Key&lt;/tt&gt; réutilise les codes Win32</h2>
+<p><code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></code> est une énumération dont les valeurs coïncident <b>volontairement</b> avec les codes virtuels (<code>VK_*</code>) de Win32. Ce choix n'a l'air que d'un détail, mais il évite une table de correspondance entière : la couche de capture peut convertir un <code>WPARAM</code> Win32 en <code>Key</code> par un simple <code>static_cast</code>, sans <code>switch</code> ni tableau de correspondance à maintenir. Ajouter le support d'une nouvelle touche revient alors à ajouter un énumérateur nommé — aucune autre modification.</p>
+<h1><a class="anchor" id="autotoc_md27"></a>
+Traduire l'état en intention : &lt;tt&gt;hmi::toPlayerInput&lt;/tt&gt;</h1>
+<p><code>hmi::toPlayerInput(input)</code> est la fonction qui <b>seule</b> connaît la correspondance entre touches et intentions ; elle produit un <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code> — le <b>contrat</b> de données entre <code>HMI</code> et <code>Core</code> :</p>
+<ul>
+<li><code>moveX</code> ∈ <code>[-1, 1]</code> : <code>-1</code> = gauche (<code>←</code> ou <code>Q</code>), <code>+1</code> = droite (<code>→</code> ou <code>D</code>), <code>0</code> = immobile. Appuyer sur les deux touches simultanément <b>neutralise</b> l'intention (<code>moveX == 0</code>) plutôt que de privilégier arbitrairement l'une ou l'autre ;</li>
+<li><code>moveY</code> : intention de <b>visée verticale</b>, utilisée uniquement pour orienter le <b>dash</b> (<code>↑</code>/<code>↓</code>) — le déplacement au sol reste purement horizontal, ce champ ne sert qu'à choisir une direction de dash parmi les 8 possibles (<a class="el" href="guide-physique.html">Physique du personnage</a> §4) ;</li>
+<li><code>jumpPressed</code> (front) / <code>jumpHeld</code> (maintenu) : <code>Espace</code> ou <code>W</code> ;</li>
+<li><code>dashPressed</code> (front) : <code>Maj</code> (<code>EX-CTRL-013</code>), une action dédiée et distincte du saut.</li>
+</ul>
+<p><code>Core</code> ne reçoit <b>que</b> cette structure : il ignore totalement l'existence des touches physiques. Un futur remappage clavier, ou l'ajout d'une manette (<code>EX-CTRL-012</code>), ne modifierait <b>que</b> <code>toPlayerInput</code> (ou son équivalent pour une manette) — c'est précisément ce que cette dissociation achète : un seul point de changement, à l'écart de toute la logique de simulation déjà testée.</p>
+<p><code>toPlayerInput</code> est une fonction <b>pure</b> (aucun état interne, aucun effet de bord) : lui passer le même <code>InputState</code> produit toujours le même <code>PlayerInput</code>, ce qui la rend testable sans fenêtre ni minuteur, en construisant directement un <code>InputState</code> avec les touches voulues. Elle est appelée <b>une fois par frame</b>, en amont de toute logique de jeu (<code>EX-CTRL-020</code>, <code>EX-CTRL-021</code>) — jamais à l'intérieur du pas fixe lui-même, pour que tous les pas exécutés dans une même frame (<a class="el" href="guide-boucle.html">Boucle de jeu et pas de temps fixe</a>) voient exactement la même intention.</p>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Voir aussi</h1>
 <ul>
 <li><code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></code>, <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></code>, <code><a class="el" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b" title="Traduit l&#39;état clavier en core::PlayerInput, dissocié des touches physiques (EX-CTRL-010).">hmi::toPlayerInput</a></code>, <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code>.</li>
-<li><a class="el" href="guide-physique.html">Physique du personnage</a> (la physique consomme l'intention). </li>
+<li><a class="el" href="guide-physique.html">Physique du personnage</a> — comment la physique consomme <code>PlayerInput</code> (saut, dash, mouvement).</li>
+<li><a class="el" href="guide-boucle.html">Boucle de jeu et pas de temps fixe</a> — pourquoi l'entrée est échantillonnée une fois par frame et non par pas fixe. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

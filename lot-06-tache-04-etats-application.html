@@ -94,43 +94,43 @@ $(document).ready(function(){initNavTree('lot-06-tache-04-etats-application.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md406"></a>
+<h1><a class="anchor" id="autotoc_md458"></a>
 Contexte</h1>
 <p>L'application n'a qu'un seul mode (la scène codée en dur). Un menu implique plusieurs <b>écrans</b> (Menu, Jeu, Éditeur) et des <b>transitions</b> entre eux. On introduit une structure d'états d'application minimale.</p>
-<h1><a class="anchor" id="autotoc_md407"></a>
+<h1><a class="anchor" id="autotoc_md459"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Interface <code>IScreen</code> : <code>update(input, fixedDelta)</code> (logique/entrées de l'écran) et <code>render(...)</code> (dessin), avec la possibilité de <b>demander une transition</b> (rester, changer d'écran, ou quitter).</li>
 <li>Un gestionnaire d'écrans (dans <code>HMI/Interface</code>) détenant l'<b>écran courant</b> et appliquant les transitions demandées (remplacement de l'écran actif).</li>
 <li>Énumération/typage des écrans cibles (Menu, Jeu, Éditeur) et mécanisme de fabrication de l'écran suivant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md408"></a>
+<h1><a class="anchor" id="autotoc_md460"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans.">Source/HMI/Interface/IScreen.h</a></code> (nouveau).</li>
 <li><code><a class="el" href="ScreenManager_8h.html" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions.">Source/HMI/Interface/ScreenManager.h</a></code>, <code><a class="el" href="ScreenManager_8cpp.html">ScreenManager.cpp</a></code> (nouveau) — ou équivalent.</li>
 <li><code>Source/HMI/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md409"></a>
+<h1><a class="anchor" id="autotoc_md461"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le gestionnaire exécute l'écran courant (update puis render) à chaque frame.</li>
 <li>Une transition demandée par un écran remplace bien l'écran actif à la frame suivante.</li>
 <li>Une demande de « quitter » se propage jusqu'à la boucle (<code>main</code>) pour fermer proprement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md410"></a>
+<h1><a class="anchor" id="autotoc_md462"></a>
 Points d'attention</h1>
 <ul>
 <li>Cycle de vie <b>RAII</b> des écrans (possédés par le gestionnaire) ; pas d'état global.</li>
 <li>Découplage : un écran ignore les autres ; il exprime une intention de transition, le gestionnaire l'applique.</li>
 <li>La logique d'écran testable (transitions) doit pouvoir l'être sans fenêtre ni GPU.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md411"></a>
+<h1><a class="anchor" id="autotoc_md463"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Structure d'écrans et transitions fonctionnelles et testées (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documentée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md412"></a>
+<h1><a class="anchor" id="autotoc_md464"></a>
 Exigences</h1>
 <p><code>EX-REN-030</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

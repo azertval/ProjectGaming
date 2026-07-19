@@ -93,20 +93,83 @@ $(document).ready(function(){initNavTree('guide-boucle.html',''); initResizable(
   <div class="headertitle"><div class="title">Boucle de jeu et pas de temps fixe</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>La boucle principale (<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>) enchaîne, à chaque tour : <b>pompage des événements</b> (fenêtre, entrées), <b>mise à jour</b> de la logique, <b>rendu</b>, <b>présentation</b>.</p>
+<div class="textblock"><p>Cette page part de zéro : elle explique ce qu'est une boucle de jeu pour qui n'en a jamais écrit, puis détaille comment ce moteur la construit.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Pourquoi un pas de temps fixe</h1>
-<p>Si la logique avançait de <code>Δt</code> = durée réelle de la frame, la simulation dépendrait de la vitesse de la machine : mêmes entrées → résultats différents. Le moteur utilise donc un <b>pas de temps fixe</b> (<code><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></code>) : la logique avance par incréments <b>constants</b> (1/60 s), découplés du rendu. Cela garantit le <b>déterminisme</b> (<code>EX-NFR-002</code>, <code>EX-ARCH-030</code>) — indispensable aux tests reproductibles et à un <em>game feel</em> stable.</p>
+Qu'est-ce qu'une boucle de jeu ?</h1>
+<p>Une application classique (un formulaire, un outil en ligne de commande) est <b>passive</b> : elle attend un événement (clic, entrée clavier, requête réseau) puis réagit, et ne fait rien entre deux événements. Un jeu vidéo, lui, doit donner l'illusion d'un monde <b>vivant</b> en continu : un personnage tombe sous l'effet de la gravité même si le joueur n'appuie sur aucune touche. Il faut donc une boucle qui tourne <b>en permanence</b>, tant que le jeu est ouvert, et qui à chaque tour :</p>
+<ol type="1">
+<li><b>lit</b> les entrées disponibles (clavier, souris, fenêtre) ;</li>
+<li><b>fait avancer</b> l'état du jeu (« mettre à jour la logique ») ;</li>
+<li><b>dessine</b> l'état courant à l'écran (« rendre ») ;</li>
+<li><b>affiche</b> l'image dessinée (« présenter »).</li>
+</ol>
+<p>Un tour de cette boucle correspond à une <b>frame</b> (image). Un jeu qui tourne à 60 <em>frames per second</em> (FPS) exécute ces quatre étapes 60 fois par seconde, soit un tour toutes les ~16,7 ms. Dans ce moteur, cette boucle vit dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> et enchaîne : pompage des événements Win32 → mise à jour → rendu → présentation.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
-Fonctionnement</h1>
-<p><code><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></code> accumule le temps réel écoulé et libère un <b>nombre entier</b> de pas fixes (borné pour éviter la « spirale de la mort » si une frame est très longue). Chaque pas appelle la mise à jour de l'écran courant (physique, mécanismes, règles) avec <code>fixedDelta</code> constant ; le rendu, lui, se fait une fois par frame réelle.</p>
-<p>Conséquence pratique : <b>toute</b> la simulation (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></code>, mécanismes) reçoit <code>fixedDelta</code> et <b>jamais</b> le temps réel. Les tests exploitent cela en appelant <code>update(..., 1.0f/60.0f)</code> en boucle : c'est exactement ce que fait le jeu.</p>
+Le piège du framerate variable</h1>
+<p>La difficulté est que la durée réelle d'une frame <b>varie</b> : selon la machine, la charge du système, ou une fenêtre minimisée un instant, une frame peut durer 16 ms ou 200 ms. Une écriture naïve de la mise à jour ressemblerait à :</p>
+<div class="fragment"><div class="line"><span class="keywordflow">while</span> (running) {</div>
+<div class="line">    <span class="keywordtype">float</span> deltaTime = measureTimeSinceLastFrame();  <span class="comment">// variable, imprévisible</span></div>
+<div class="line">    update(deltaTime);                               <span class="comment">// avance la simulation de deltaTime</span></div>
+<div class="line">    render();</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Ici, un personnage qui tombe se déplacerait de <code>vitesse × deltaTime</code> à chaque frame. Sur une machine rapide (deltaTime petit), la chute avancerait par petits pas fréquents ; sur une machine lente (deltaTime grand), par grands pas rares. Le résultat numérique final <b>diffère</b> selon la vitesse de la machine : mêmes entrées, trajectoires différentes. Deux conséquences concrètes :</p>
+<ul>
+<li><b>le jeu n'est pas reproductible</b> : un test automatisé qui rejoue une séquence d'entrées peut obtenir un résultat différent d'une exécution à l'autre, ou d'une machine à l'autre ;</li>
+<li><b>le <em>game feel</em> change avec la machine</b> : un saut peut être plus haut ou plus court, une collision peut « traverser » un mur plus facilement quand <code>deltaTime</code> grandit (un grand pas saute par-dessus un obstacle fin — voir <a class="el" href="guide-physique.html">Physique du personnage</a>, §1).</li>
+</ul>
+<p>C'est ce défaut que le <b>pas de temps fixe</b> élimine.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
+Le principe du pas de temps fixe</h1>
+<p>Idée : au lieu de faire avancer la logique de la durée réelle (variable) de la frame, on la fait avancer par <b>incréments constants</b>, par exemple toujours 1/60 s. Le nombre d'incréments à exécuter à chaque frame dépend du temps réel écoulé, mais <b>chaque incrément individuel</b> voit toujours exactement la même durée. La logique de jeu (physique, mécanismes) ne connaît donc <b>jamais</b> de <code>deltaTime</code> variable — seulement des pas identiques et répétés — ce qui garantit le <b>déterminisme</b> : mêmes entrées → <b>exactement</b> la même trajectoire, quelle que soit la vitesse de la machine (<code>EX-NFR-002</code>, <code>EX-ARCH-030</code>). C'est indispensable pour des tests reproductibles et pour un ressenti de jeu stable.</p>
+<p>Le rendu, lui, n'a pas besoin de cette contrainte : dessiner une fois de plus ou de moins par seconde ne casse aucun invariant logique. Il reste donc cadencé sur le temps réel, une fois par frame — c'est le <b>découplage</b> entre logique (fixe) et rendu (variable).</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
+L'accumulateur : &lt;tt&gt;core::FixedTimestep&lt;/tt&gt;</h1>
+<p>Le mécanisme qui convertit un temps réel variable en un nombre entier de pas fixes s'appelle un <b>accumulateur</b>. Principe :</p>
+<ol type="1">
+<li>à chaque frame, on <b>ajoute</b> le temps réel écoulé à un compteur (<code>_accumulator</code>) ;</li>
+<li>tant que ce compteur contient <b>au moins</b> un pas fixe complet, on <b>retranche</b> un pas fixe du compteur et on compte un pas à exécuter ;</li>
+<li>ce qui <b>reste</b> dans le compteur (moins d'un pas fixe) est conservé pour la frame suivante — il ne se perd jamais, sinon les erreurs d'arrondi s'accumuleraient et la simulation dériverait.</li>
+</ol>
+<p><code>core::FixedTimestep::advance(elapsedSeconds)</code> implémente exactement ce mécanisme et renvoie le nombre de pas à exécuter :</p>
+<div class="fragment"><div class="line"><a class="code hl_class" href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a> clock;               <span class="comment">// pas fixe par défaut : 1/60 s</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> steps = clock.<a class="code hl_function" href="classcore_1_1FixedTimestep.html#af793433cb70af5284492ca1eca34d797">advance</a>(elapsedSeconds);</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; steps; ++i) {</div>
+<div class="line">    updateCurrentScreen(clock.<a class="code hl_function" href="classcore_1_1FixedTimestep.html#a356438d57f1d49a6cbe12358a5c41cc0">fixedDeltaSeconds</a>());  <span class="comment">// toujours 1/60 s, jamais elapsedSeconds</span></div>
+<div class="line">}</div>
+<div class="line">render();  <span class="comment">// une seule fois, quel que soit le nombre de pas</span></div>
+<div class="ttc" id="aclasscore_1_1FixedTimestep_html"><div class="ttname"><a href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a></div><div class="ttdoc">Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.</div><div class="ttdef"><b>Definition</b> FixedTimestep.h:21</div></div>
+<div class="ttc" id="aclasscore_1_1FixedTimestep_html_a356438d57f1d49a6cbe12358a5c41cc0"><div class="ttname"><a href="classcore_1_1FixedTimestep.html#a356438d57f1d49a6cbe12358a5c41cc0">core::FixedTimestep::fixedDeltaSeconds</a></div><div class="ttdeci">float fixedDeltaSeconds() const</div><div class="ttdoc">Durée d'un pas de simulation.</div><div class="ttdef"><b>Definition</b> FixedTimestep.cpp:47</div></div>
+<div class="ttc" id="aclasscore_1_1FixedTimestep_html_af793433cb70af5284492ca1eca34d797"><div class="ttname"><a href="classcore_1_1FixedTimestep.html#af793433cb70af5284492ca1eca34d797">core::FixedTimestep::advance</a></div><div class="ttdeci">int advance(float elapsedSeconds)</div><div class="ttdoc">Accumule le temps écoulé et renvoie le nombre de pas fixes à exécuter.</div><div class="ttdef"><b>Definition</b> FixedTimestep.cpp:20</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+Exemple chiffré</h2>
+<p>Avec un pas fixe de 1/60 s (≈ 0,01667 s) :</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Frame   </th><th class="markdownTableHeadNone">Temps réel écoulé   </th><th class="markdownTableHeadNone">Accumulateur avant   </th><th class="markdownTableHeadNone">Accumulateur après   </th><th class="markdownTableHeadNone">Pas exécutés    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">0,020 s   </td><td class="markdownTableBodyNone">0,000 s   </td><td class="markdownTableBodyNone">0,003 s   </td><td class="markdownTableBodyNone">1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">0,015 s   </td><td class="markdownTableBodyNone">0,003 s   </td><td class="markdownTableBodyNone">0,018 s → 0,001 s   </td><td class="markdownTableBodyNone">1    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">0,040 s   </td><td class="markdownTableBodyNone">0,001 s   </td><td class="markdownTableBodyNone">0,041 s → 0,008 s   </td><td class="markdownTableBodyNone">2   </td></tr>
+</table>
+<p>À la frame 3, le temps réel écoulé (0,040 s) dépasse deux pas fixes (2 × 1/60 ≈ 0,033 s) : la boucle exécute <b>deux</b> mises à jour logiques avant de rendre une seule image. C'est normal et voulu — le rendu peut « sauter » plusieurs pas de simulation sans jamais désynchroniser la logique.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+La « spirale de la mort »</h2>
+<p>Si une frame est anormalement longue (fenêtre déplacée, point d'arrêt du débogueur, machine gelée un instant), le temps écoulé peut représenter des <b>dizaines</b> de pas fixes d'un coup. Exécuter tous ces pas d'affilée prend du temps réel, ce qui retarde la frame suivante, qui devra à son tour rattraper encore plus de pas — un cercle vicieux appelé la <b>spirale de la mort</b> (<em>spiral of death</em>), qui peut figer le jeu indéfiniment. <code>FixedTimestep</code> s'en protège avec <code>maximumStepsPerCall</code> : le nombre de pas renvoyé par <code>advance()</code> est <b>plafonné</b> (5 par défaut), quitte à ce que la simulation « perde » du temps réel dans un cas extrême plutôt que de bloquer.</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+&lt;tt&gt;interpolationAlpha&lt;/tt&gt;</h2>
+<p>Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans l'accumulateur (entre 0 et 1 pas). <code>interpolationAlpha()</code> l'expose comme un facteur dans <code>[0, 1[</code> : un rendu avancé pourrait s'en servir pour <b>interpoler</b> visuellement entre la position du pas précédent et celle du pas suivant, afin d'afficher un mouvement lisse même quand le framerate de rendu dépasse la fréquence des pas fixes. Ce moteur expose la valeur mais ne l'exploite pas encore.</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Conséquence pratique pour tout le code de simulation</h1>
+<p><b>Toute</b> la logique de jeu (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></code>, les mécanismes) reçoit <code>fixedDelta</code> — une constante — et <b>jamais</b> le temps réel. C'est pour cela que les tests peuvent appeler <code>update(..., 1.0f/60.0f)</code> en boucle, sans horloge ni minuteur : c'est <b>exactement</b> ce que fait le jeu en exécution normale, pas une approximation. Un système qui lirait le temps réel directement romprait cette garantie et deviendrait, par construction, non déterministe et difficile à tester.</p>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Voir aussi</h1>
 <ul>
 <li><code><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></code>.</li>
 <li><code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">hmi::ScreenManager</a></code> (navigation entre écrans), <code><a class="el" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine.">hmi::IScreen</a></code>.</li>
-<li><a class="el" href="guide-ecs.html">ECS : entités, composants, systèmes</a>, <a class="el" href="guide-physique.html">Physique du personnage</a>. </li>
+<li><a class="el" href="guide-ecs.html">ECS : entités, composants, systèmes</a> — la logique exécutée à chaque pas fixe.</li>
+<li><a class="el" href="guide-physique.html">Physique du personnage</a> — le système le plus sensible au déterminisme du pas fixe. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

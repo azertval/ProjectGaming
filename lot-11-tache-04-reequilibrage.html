@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-11-tache-04-reequilibrage.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-11-ressenti-avance_2epic_8md.html">LOT-11</a> · <b>Emplacement :</b> <code>Source/Elements/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md680"></a>
+<h1><a class="anchor" id="autotoc_md732"></a>
 Contexte</h1>
 <p>Les niveaux <code>demo</code>/<code>demo2</code>/<code>demo3</code> ont été conçus pour un personnage <b>1×1</b> ; avec un humanoïde <b>0,4 × 0,8</b> (et la gravité asymétrique), certains passages changent (le couloir de <code>demo3</code> fait pile une tuile de haut, etc.). On <b>rééquilibre</b> au besoin et on <b>prouve</b> la franchissabilité avec la <b>vraie taille</b> du personnage.</p>
-<h1><a class="anchor" id="autotoc_md681"></a>
+<h1><a class="anchor" id="autotoc_md733"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Tests à la vraie taille</b> : faire apparaître le personnage des tests de franchissabilité (<code>playLevelFile</code>, parcours <b>système</b>) via <code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code> + <code><a class="el" href="namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0" title="Coin haut-gauche du personnage centré dans la tuile (column, row).">core::playerSpawnPosition</a></code> (au lieu d'un 1×1 posé au coin), pour éprouver le <b>vrai</b> personnage.</li>
@@ -108,32 +108,32 @@ Travail à réaliser</h1>
 </li>
 <li>Les <b>tests de physique génériques</b> (hauteur de saut, wall slide, dash…) peuvent conserver un personnage 1×1 (ils testent la physique, pas le personnage précis).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md682"></a>
+<h1><a class="anchor" id="autotoc_md734"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Levels/*.json</code> (ajustements éventuels).</li>
 <li><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code> (spawn des tests de niveaux à la vraie taille), <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md683"></a>
+<h1><a class="anchor" id="autotoc_md735"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>demo</code> / <code>demo2</code> / <code>demo3</code> <b>franchissables</b> à la vraie taille (avec la mécanique attendue).</li>
 <li>Propriétés « requiert la mécanique » préservées (<code>demo2</code> sans saut → échec, <code>demo3</code> sans dash → échec).</li>
 <li>Parcours <b>système</b> complet (<code>demo → demo2 → demo3</code>) vert.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md684"></a>
+<h1><a class="anchor" id="autotoc_md736"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Mesurer, pas deviner</b> : ajuster les niveaux en s'appuyant sur les tests (itérer jusqu'au vert).</li>
 <li><b>Marges</b> : garder de la marge pour ne pas dépendre d'un pixel/frame près (la taille change les contacts).</li>
 <li>Ne pas casser les tests de mécanique génériques.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md685"></a>
+<h1><a class="anchor" id="autotoc_md737"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Niveaux franchissables à la vraie taille (preuves intégration + système vertes) ; build <code>/W4 /WX</code>, <code>CHANGELOG.md</code> à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md686"></a>
+<h1><a class="anchor" id="autotoc_md738"></a>
 Exigences</h1>
 <p><code>EX-LVL-004</code>, <code>EX-LVL-010</code>, <code>EX-GP-018</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

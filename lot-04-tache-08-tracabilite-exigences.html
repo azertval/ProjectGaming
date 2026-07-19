@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-04-tache-08-tracabilite-exigences.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-04-documentation-doxygen_2epic_8md.html">LOT-04</a> · <b>Emplacement :</b> <code>Documentation/Specification/</code>, CI · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md315"></a>
+<h1><a class="anchor" id="autotoc_md367"></a>
 Contexte</h1>
 <p>Les identifiants d'exigences (<code>EX-VIS-001</code>, <code>EX-ARCH-011</code>, …) sont référencés à la fois dans les <b>lots</b> (epics + tâches) et dans le <b>code</b> (commentaires Doxygen de <code>Core</code>). Les renuméroter casserait ces références. Un ID d'exigence doit donc être un <b>identifiant permanent</b>, pas un marqueur de position. Cette tâche grave cette règle, sécurise les références et outille l'allocation. <b>Aucun ID existant n'est renuméroté</b> (y compris <code>EX-VIS</code>, laissé tel quel) : à la création d'une exigence, l'utilisateur choisit un numéro libre et le <b>lint CI garantit l'unicité</b> (un doublon fait échouer la CI).</p>
-<h1><a class="anchor" id="autotoc_md316"></a>
+<h1><a class="anchor" id="autotoc_md368"></a>
 Règle à formaliser (dans &lt;tt&gt;conventions.md&lt;/tt&gt;)</h1>
 <ul>
 <li>Un <code>EX-…</code> est <b>immuable</b> : alloué une fois, <b>jamais renuméroté</b>, <b>jamais réutilisé</b>.</li>
@@ -105,7 +105,7 @@ Règle à formaliser (dans &lt;tt&gt;conventions.md&lt;/tt&gt;)</h1>
 <li>Le numéro <b>n'encode pas l'ordre</b> : l'ordre de lecture est celui du document, indépendant de l'ID.</li>
 <li>Insérer une exigence = écrire son paragraphe où il doit être + lui donner le prochain ID libre (aucune renumérotation).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md317"></a>
+<h1><a class="anchor" id="autotoc_md369"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Documenter la règle</b> ci-dessus dans <code><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></code> (nouvelle section « Identifiants d'exigences »), avec la procédure d'insertion.</li>
@@ -118,7 +118,7 @@ Travail à réaliser</h1>
 </li>
 <li>Brancher le lint dans la CI (job dédié, bloquant en PR).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md318"></a>
+<h1><a class="anchor" id="autotoc_md370"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></code> (règle + procédure).</li>
@@ -126,26 +126,26 @@ Fichiers impactés</h1>
 <li>Renvois dans les lots (<code>Documentation/Lot/**</code>) convertis en <code>@ref</code> le cas échéant.</li>
 <li>Script de lint (ex. <code>scripts/lint_exigences.py</code>) et son intégration CI (<code>.github/workflows/</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md319"></a>
+<h1><a class="anchor" id="autotoc_md371"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Chaque <code>EX-…</code> a <b>exactement une</b> déclaration <code>\anchor</code> ; <code>@ref</code> vers un ID inexistant fait échouer la génération Doxygen.</li>
 <li>Le lint échoue sur un ID <b>en double</b> et sur une <b>référence orpheline</b> (testé avec un cas fabriqué), et réussit sur l'état sain du dépôt.</li>
 <li>Le mode « prochain libre » renvoie un numéro non déjà utilisé pour la catégorie demandée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md320"></a>
+<h1><a class="anchor" id="autotoc_md372"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne renuméroter aucun ID existant</b> : l'unicité à la création repose sur la vigilance de l'auteur, <b>garantie par le lint CI</b> (échec sur doublon). Le mode « prochain libre » aide à choisir un numéro sûr.</li>
 <li>Le lint doit distinguer une <b>déclaration</b> (<code>\anchor</code>) d'une <b>référence</b> (<code>@ref</code> ou texte) pour compter correctement doublons vs orphelins.</li>
 <li>Coordination avec TACHE-07 : <code>WARN_AS_ERROR</code> transforme un <code>@ref</code> cassé en échec de build ; le lint couvre en plus les références en <b>texte brut</b> du code.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md321"></a>
+<h1><a class="anchor" id="autotoc_md373"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Règle d'immuabilité documentée ; exigences ancrées et référençables par <code>@ref</code> ; lint CI opérationnel (doublons, orphelins, prochain libre) et bloquant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md322"></a>
+<h1><a class="anchor" id="autotoc_md374"></a>
 Exigences</h1>
 <p><code>EX-NFR-012</code>, <code>EX-NFR-013</code> (esprit « zéro avertissement / références vérifiées »). </p>
 </div></div><!-- contents -->
