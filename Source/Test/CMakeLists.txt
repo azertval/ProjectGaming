@@ -16,6 +16,8 @@ add_executable(UnitTests
     Unit/Core/Ecs/test_player_components.cpp
     Unit/Core/Levels/test_level.cpp
     Unit/Core/Levels/test_level_loader.cpp
+    Unit/Core/Levels/test_level_writer.cpp
+    Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Physics/test_swept_collision.cpp
@@ -35,6 +37,8 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp
     Unit/HMI/Interface/test_session_log.cpp
+    Unit/HMI/Editor/test_tile_palette.cpp
+    Unit/HMI/Editor/test_level_picker.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -55,6 +59,10 @@ add_executable(UnitTests
     ../HMI/Interface/SaveLogButton.cpp
     # La sérialisation des logs de session est pure, testable hors GPU.
     ../HMI/Interface/SessionLog.cpp
+    # La palette de tuiles de l'éditeur (géométrie/sélection) est pure, testable hors GPU.
+    ../HMI/Editor/TilePalette.cpp
+    # Le sélecteur de niveau (navigation/sélection) est pur, testable hors GPU.
+    ../HMI/Editor/LevelPicker.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE
@@ -91,6 +99,7 @@ target_compile_definitions(IntegrationTests PRIVATE
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests
     Systeme/test_parcours_complet.cpp
+    Systeme/test_parcours_edition.cpp
 )
 
 target_link_libraries(SystemTests PRIVATE

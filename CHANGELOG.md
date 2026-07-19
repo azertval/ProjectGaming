@@ -6,6 +6,29 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **LOT-14 — Éditeur de niveaux intégré** (`EX-EDIT-001` à `EX-EDIT-011`, `EX-EDIT-020` à
+  `EX-EDIT-022`, `EX-EDIT-030`/`031`). Le menu **« Mode Édition »** ouvre désormais un véritable
+  éditeur, intégré à l'application (même exécutable, même rendu Direct3D 11 que le jeu) : un
+  sélecteur propose **« Nouveau niveau »** ou l'un des fichiers déjà enregistrés ; la grille se
+  peint à la **souris** depuis une **palette** de tuiles (vide, solide, danger, entrée, sortie,
+  interrupteur, porte) ; **Maj**+clic lie un interrupteur à une porte (répéter la paire la délie) ;
+  les **flèches** redimensionnent la grille ; **Ctrl+Z**/**Ctrl+Y** annulent/refont n'importe
+  quelle mutation (pile d'historique portée par `core::LevelDraft`, LOT-14) ; **Ctrl+S** valide
+  puis enregistre le niveau (message clair, non technique, en cas d'échec — aucun fichier écrit) ;
+  la touche **P** lance un **essai immédiat** du niveau en cours d'édition dans une session de jeu
+  **intégrée** (Échap y met fin et restitue l'éditeur intact, brouillon et historique compris).
+  Toute la logique de modèle/sérialisation/validation (`core::LevelWriter`, `core::LevelDraft`)
+  vit dans `Core`, pure et testée sans GPU, et réutilise **sans duplication** la validation de
+  `LevelLoader` (le brouillon se convertit en niveau en repassant par le même chemin que le
+  chargement d'un fichier). Nouveau guide non-codeur (`Documentation/Manuel/partager-un-niveau.md`)
+  expliquant, sans ligne de commande, comment créer un niveau et le partager via GitHub Desktop.
+  Couvert par tests **unitaires** (`LevelWriter`, `LevelDraft` — mutateurs, undo/redo,
+  `LevelPicker`, `TilePalette`) et un test **système** (parcours complet d'édition : peindre, lier
+  un mécanisme, annuler, redimensionner, enregistrer, recharger, vérifier que le niveau produit est
+  directement jouable). Vérifié manuellement dans l'application (peinture, palette, liaisons,
+  redimensionnement, undo/redo, enregistrement sur disque, essai immédiat).
+
 ## [0.0.1] - 2026-07-18
 
 > Premier jalon : base stable du **moteur physique 2D** (personnage humanoïde, gravité asymétrique,

@@ -9,6 +9,8 @@ add_library(Core STATIC
     Ecs/Systems/CharacterPhysicsSystem.cpp
     Levels/TileMap.cpp
     Levels/LevelLoader.cpp
+    Levels/LevelWriter.cpp
+    Levels/LevelDraft.cpp
     Levels/LevelScene.cpp
     Levels/LevelOutcome.cpp
     Gameplay/MechanismController.cpp

@@ -24,7 +24,8 @@ enum class Key : std::uint16_t {
     Backspace = 0x08,
     Tab = 0x09,
     Enter = 0x0D,
-    Shift = 0x10,  // Maj : action de dash (`EX-CTRL-013`)
+    Shift = 0x10,    // Maj : action de dash (`EX-CTRL-013`) ; liaison de mécanismes (éditeur, LOT-14)
+    Control = 0x11,  // Ctrl : raccourcis d'édition (annuler/refaire, éditeur, LOT-14)
     Escape = 0x1B,
     Space = 0x20,
     Left = 0x25,
@@ -33,8 +34,12 @@ enum class Key : std::uint16_t {
     Down = 0x28,
     A = 0x41,  // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
     D = 0x44,
+    P = 0x50,  // Essai immédiat du niveau en cours d'édition (éditeur, LOT-14)
     Q = 0x51,
+    S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
     W = 0x57,
+    Y = 0x59,  // Ctrl+Y : refaire (éditeur, LOT-14)
+    Z = 0x5A,  // Ctrl+Z : annuler (éditeur, LOT-14)
 };
 
 /**

@@ -2,6 +2,7 @@
 add_executable(ProjectGaming
     main.cpp
     Platform/Window.cpp
+    Platform/ExecutableDirectory.cpp
     Input/InputState.cpp
     Input/PlayerInputMapper.cpp
     Graphics/GraphicsDevice.cpp
@@ -12,6 +13,7 @@ add_executable(ProjectGaming
     Graphics/BitmapFont.cpp
     Graphics/FlagIcons.cpp
     Graphics/SaveIcon.cpp
+    Graphics/TileVisuals.cpp
     Localization/Localization.cpp
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
@@ -21,6 +23,8 @@ add_executable(ProjectGaming
     Interface/LanguageSelector.cpp
     Interface/SaveLogButton.cpp
     Interface/SessionLog.cpp
+    Editor/TilePalette.cpp
+    Editor/LevelPicker.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE
