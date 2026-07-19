@@ -60,9 +60,9 @@ cours de partie.
 
 Un niveau est décrit dans un fichier texte au format [JSON](https://www.json.org/json-fr.html) ⧉,
 parsé par la bibliothèque **nlohmann/json**, dont l'usage est confiné au fichier `.cpp` du
-chargeur — le reste du moteur ne dépend jamais directement de cette bibliothèque. `core::LevelLoader
-::loadFromFile` (depuis un chemin) et `::loadFromString` (depuis du texte déjà en mémoire, pratique
-pour les tests) exposent le chargement.
+chargeur — le reste du moteur ne dépend jamais directement de cette bibliothèque. La classe
+`core::LevelLoader` expose deux points d'entrée statiques : `loadFromFile` (depuis un chemin) et
+`loadFromString` (depuis du texte déjà en mémoire, pratique pour les tests).
 
 ### Exemple concret
 

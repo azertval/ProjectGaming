@@ -135,10 +135,10 @@ ignoré et chaque sprite dessinerait un rectangle plein.
 ## `hmi::TextureAtlas` : un spritesheet, généré en code
 
 Un **atlas de texture** (ou *spritesheet*) regroupe **plusieurs** images dans une **seule** grande
-texture, à des positions connues. C'est ce qui permet le batching décrit plus haut : `SpriteBatch
-::begin` ne prend **qu'une seule** texture par lot, donc dessiner des sprites différents dans le
-même appel exige qu'ils proviennent tous du même atlas — d'où l'intérêt de regrouper toutes les
-tuiles d'un jeu dans un seul atlas plutôt qu'une texture par tuile.
+texture, à des positions connues. C'est ce qui permet le batching décrit plus haut :
+`SpriteBatch::begin` ne prend **qu'une seule** texture par lot, donc dessiner des sprites différents
+dans le même appel exige qu'ils proviennent tous du même atlas — d'où l'intérêt de regrouper toutes
+les tuiles d'un jeu dans un seul atlas plutôt qu'une texture par tuile.
 
 Ce projet n'a pas (encore) d'atelier graphique fournissant des images dessinées à la main : l'atlas
 de `hmi::TextureAtlas` est **généré en code**, de façon déterministe, en une grille de tuiles de 16
