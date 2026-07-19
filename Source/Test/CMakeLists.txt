@@ -37,6 +37,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp
     Unit/HMI/Interface/test_session_log.cpp
+    Unit/HMI/Editor/test_tile_palette.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -57,6 +58,8 @@ add_executable(UnitTests
     ../HMI/Interface/SaveLogButton.cpp
     # La sérialisation des logs de session est pure, testable hors GPU.
     ../HMI/Interface/SessionLog.cpp
+    # La palette de tuiles de l'éditeur (géométrie/sélection) est pure, testable hors GPU.
+    ../HMI/Editor/TilePalette.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

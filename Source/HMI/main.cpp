@@ -200,7 +200,9 @@ int main(int argc, char** argv) {
                             levels / "demo4.json"});
                 }
                 case hmi::ScreenId::Editor:
-                    return std::make_unique<hmi::EditorScreen>();
+                    return std::make_unique<hmi::EditorScreen>(spriteBatch, atlas,
+                                                              window.clientWidth(),
+                                                              window.clientHeight());
             }
             return nullptr;
         };
