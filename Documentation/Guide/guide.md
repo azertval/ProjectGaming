@@ -1,9 +1,13 @@
 # Guide du développeur {#guide}
 
 Ce guide explique **toutes les notions couvertes par le moteur** et **comment le code les
-implémente**. Objectif : un développeur ayant des notions de C++ comprend l'ensemble du code **en
-autonomie**. Chaque page décrit les fonctions clés, leurs invariants, et renvoie aux **explications
-mathématiques** derrière les concepts.
+implémente**. Objectif : un développeur ayant des notions de C++ mais **aucune expérience du
+développement de jeu vidéo** comprend l'ensemble du code **en autonomie** — chaque page part des
+définitions de base (qu'est-ce qu'une boucle de jeu ? un ECS ? une collision continue ? un *coyote
+time* ?) avant d'entrer dans l'implémentation, plutôt que de présupposer ce vocabulaire acquis.
+Chaque page décrit les fonctions clés, leurs invariants, le **pourquoi** des choix de conception
+(pas seulement le *quoi*), et renvoie aux **explications mathématiques/algorithmiques** derrière
+les concepts.
 
 ## Comment lire ce guide
 
@@ -11,7 +15,12 @@ mathématiques** derrière les concepts.
   ils mènent à la référence de code Doxygen (signature, doc détaillée).
 - Les liens externes (⧉) pointent vers les **fondements mathématiques/algorithmiques**.
 - Le *quoi* et le *pourquoi* vivent dans les [spécifications](@ref specifications) ; ce guide
-  couvre le *comment*.
+  couvre le *comment* — y compris les notions de game dev prérequises pour le comprendre.
+- Les pages sont **indépendantes mais s'appuient les unes sur les autres** (voir leurs sections
+  « Voir aussi ») : @ref guide-maths pose le vocabulaire (vecteurs, AABB, unités) réutilisé par
+  @ref guide-physique et @ref guide-niveaux ; @ref guide-boucle et @ref guide-ecs posent les deux
+  piliers d'architecture (déterminisme, données/logique) sur lesquels tout le reste s'appuie. En cas
+  de doute sur un terme, remonter à la page qui le définit plutôt que de le supposer connu.
 
 ## Architecture en deux couches
 
@@ -33,3 +42,5 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-physique — la **physique** du personnage : balayage AABB, gravité, saut, dash.
 - @subpage guide-niveaux — les **niveaux** : modèle, chargement JSON, mécanismes, budgets.
 - @subpage guide-entrees — les **entrées** et leur traduction en **actions logiques**.
+- @subpage guide-rendu — le **rendu 2D** : Direct3D 11, sprite batching, atlas, caméra, texte.
+- @subpage guide-journalisation — la **journalisation** et les **assertions** : niveaux, sinks, macros.
