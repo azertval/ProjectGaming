@@ -24,6 +24,7 @@ add_executable(ProjectGaming
     Interface/SaveLogButton.cpp
     Interface/SessionLog.cpp
     Editor/TilePalette.cpp
+    Editor/LevelPicker.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

@@ -1,6 +1,14 @@
 # TACHE-06 — Intégration menu, tests système, guide non-codeur Git {#lot-14-tache-06-integration-guide-non-codeur}
 
-**Lot :** [LOT-14](epic.md) · **Emplacement :** `HMI`, `Documentation/Manuel` · **Statut :** à faire
+**Lot :** [LOT-14](epic.md) · **Emplacement :** `HMI`, `Documentation/Manuel` · **Statut :** fait
+
+> **Ajustement de périmètre à l'implémentation** : le sous-menu nouveau/existant est un
+> **sélecteur interne à `EditorScreen`** (`hmi::LevelPicker`), affiché avant l'édition, plutôt
+> qu'un état de `MenuScreen` — évite d'exposer une liste de fichiers (donnée d'édition) dans la
+> logique du menu principal. Navigation **clavier uniquement** (`↑`/`↓` + `Entrée`, comme
+> `MenuModel`) : pas de liste cliquable à la souris pour ce sélecteur, cohérent avec le nombre
+> réduit d'entrées attendu et évite une nouvelle géométrie de clic à maintenir pour un gain
+> marginal.
 
 ## Contexte
 Dernière tâche du lot : brancher le mode éditeur au **menu réel** (l'entrée `menu.mode_edition`

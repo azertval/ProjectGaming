@@ -10,6 +10,8 @@ et lancer le jeu, puis, à terme, comment y jouer.
 ## Pages
 
 - @subpage manuel-telecharger — récupérer la dernière version et la lancer.
+- @subpage manuel-partager-niveau — créer un niveau dans l'éditeur intégré et le partager avec
+  l'équipe via Git, sans ligne de commande.
 
 ## À venir
 - Prise en main (commandes, objectifs).

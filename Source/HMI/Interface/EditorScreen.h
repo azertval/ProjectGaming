@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Core/Levels/LevelDraft.h"
+#include "HMI/Editor/LevelPicker.h"
 #include "HMI/Editor/TilePalette.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Interface/IScreen.h"
@@ -43,11 +44,15 @@ class GameScreen;
  * niveau en cours d'édition ; **Échap** (ou la fin du niveau) y met fin et **restitue l'éditeur
  * intact** (brouillon et historique undo/redo jamais touchés pendant l'essai). **Échap** hors
  * essai revient au menu.
+ *
+ * À l'ouverture, un **sélecteur** (`LevelPicker`) propose « Nouveau niveau » ou l'un des fichiers
+ * du dossier `Levels` de l'application (`EX-EDIT-001`) — navigation `↑`/`↓` + `Entrée` — avant
+ * d'entrer réellement en édition.
  */
 class EditorScreen : public IScreen {
 public:
     /**
-     * @brief Construit l'éditeur avec un brouillon de niveau vierge.
+     * @brief Construit l'éditeur ; affiche d'abord le sélecteur de niveau (nouveau/existant).
      * @param batch          Lot de sprites partagé (rendu ; réutilisé pour l'essai immédiat).
      * @param atlas          Atlas de tuiles fournissant les régions de sprites.
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
@@ -87,10 +92,15 @@ private:
     /// Démarre l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
 
+    /// Dessine le sélecteur de niveau (liste « Nouveau niveau » + fichiers existants).
+    void renderPicker(RenderContext& context);
+
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     int _viewportWidth;
     int _viewportHeight;
+    /// Actif tant qu'aucun choix n'a été confirmé ; l'édition ne démarre qu'après.
+    std::optional<LevelPicker> _picker;
     core::LevelDraft _draft;
     Camera2D _camera;
     TilePalette _palette;

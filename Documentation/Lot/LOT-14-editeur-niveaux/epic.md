@@ -1,6 +1,6 @@
 # LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat {#lot-14}
 
-> Statut : **à faire**. Ce lot remplace le placeholder « à venir » de `EditorScreen` par un
+> Statut : **terminé**. Ce lot remplace le placeholder « à venir » de `EditorScreen` par un
 > **véritable mode éditeur**, intégré à l'application (`EX-EDIT-030`), permettant à un
 > **non-développeur** de créer et modifier des niveaux **sans écrire de code** (`EX-EDIT-001`).
 
@@ -60,9 +60,10 @@ séparation `Core`/`HMI` de tout le moteur.
   immuable une fois construit (design actuel, LOT-07) ; le modèle d'édition est un type **distinct**,
   qui se convertit vers un `Level` **validé** à l'enregistrement — pas de mutabilité ajoutée à
   `Level` lui-même.
-- **Undo/redo** : pile de **commandes réversibles** (poser une tuile, lier un mécanisme,
-  redimensionner…) portée par le modèle d'édition (`Core`), donc testable sans GPU comme le reste de
-  la logique du moteur.
+- **Undo/redo** : pile de **snapshots complets** de l'état du brouillon (pas de delta par type de
+  mutation), portée par `LevelDraft` (`Core`), donc testable sans GPU comme le reste de la logique
+  du moteur — les niveaux du projet restent petits (≤ 14×8), la simplicité l'emporte sur l'économie
+  mémoire d'un historique différentiel (arbitrage anticipé en TACHE-04, confirmé à l'implémentation).
 - **Unicité entrée/sortie** : poser une nouvelle `Entry`/`Exit` **déplace** l'ancienne plutôt que
   de permettre plusieurs occurrences — cohérent avec la validation existante (`EX-LVL-004`,
   exactement une entrée et une sortie) et évite un état invalide en cours d'édition.
@@ -72,6 +73,12 @@ séparation `Core`/`HMI` de tout le moteur.
 - **`EX-EDIT-020`** (outil exécutable sans étape de build) est déjà satisfait par l'approche
   éditeur **intégré** actée dans la spec (`EX-EDIT-030`) : c'est le même exécutable du jeu, en mode
   éditeur — aucune tâche dédiée.
+- **Essai immédiat, implémentation retenue** (précisée en TACHE-05) : une session de jeu
+  **intégrée** — un `GameScreen` embarqué dans `EditorScreen`, piloté par délégation
+  d'`update`/`render` — plutôt qu'une transition `ScreenManager` vers `ScreenId::Game`.
+  `ScreenManager` détruit l'écran quitté à chaque transition (`_current = factory(target)`), ce qui
+  aurait perdu le brouillon et l'historique undo/redo à chaque essai ; la délégation interne les
+  préserve intégralement, sans changement d'architecture de `ScreenManager`/`ScreenTransition`.
 
 ## Exigences couvertes
 - `EX-EDIT-001` à `EX-EDIT-008`, `EX-EDIT-010`, `EX-EDIT-011`, `EX-EDIT-020` à `EX-EDIT-022`,
@@ -90,7 +97,7 @@ séparation `Core`/`HMI` de tout le moteur.
 | [TACHE-03](tache-03-entree-sortie-mecanismes-redimension.md) | Entrée/sortie, liaison de mécanismes, redimensionnement | `HMI/Editor` | ✅ |
 | [TACHE-04](tache-04-undo-redo.md) | Historique annuler/refaire | `Core/Levels`, `HMI/Editor` | ✅ |
 | [TACHE-05](tache-05-enregistrement-validation-essai.md) | Enregistrement, validation, essai immédiat | `HMI/Editor`, `HMI/Interface` | ✅ |
-| [TACHE-06](tache-06-integration-guide-non-codeur.md) | Intégration menu, tests système, guide non-codeur Git | `HMI`, `Documentation/Manuel` | ⬜ |
+| [TACHE-06](tache-06-integration-guide-non-codeur.md) | Intégration menu, tests système, guide non-codeur Git | `HMI`, `Documentation/Manuel` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis le menu (« Mode Édition »), un non-codeur peut créer un **nouveau** niveau ou en **ouvrir**

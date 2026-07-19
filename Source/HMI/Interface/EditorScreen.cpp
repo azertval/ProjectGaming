@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <filesystem>
 #include <string>
 #include <vector>
@@ -78,17 +79,18 @@ SpriteQuad quadFor(const core::AtlasRegion& region, float x, float y, float widt
 
 }  // namespace
 
-// Construit l'editeur avec un brouillon de niveau vierge.
+// Construit l'editeur : affiche d'abord le selecteur nouveau/existant (EX-EDIT-001).
 EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                            int viewportHeight)
     : _atlas(atlas),
       _batch(batch),
       _viewportWidth(viewportWidth),
       _viewportHeight(viewportHeight),
+      _picker(LevelPicker::forDirectory(hmi::executableDirectory() / "Levels")),
       _draft(core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT)),
       _camera(viewportWidth, viewportHeight) {
-    HMI_LOG_TRACE("EditorScreen cree (brouillon vierge " + std::to_string(DEFAULT_WIDTH) + "x" +
-                 std::to_string(DEFAULT_HEIGHT) + ")");
+    HMI_LOG_TRACE("EditorScreen cree (selecteur : " +
+                 std::to_string(_picker->choices().size()) + " choix)");
 }
 
 // Definition necessaire ici (GameScreen complet), pour le unique_ptr<GameScreen> sur type
@@ -157,10 +159,35 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
     _pendingLink.reset();
 }
 
-// Clic palette -> selection ; clic/glisser sur la grille -> peinture ; Maj+clic -> liaison de
-// mecanismes ; fleches -> redimensionnement ; Ctrl+S -> enregistrer ; P -> essai immediat ;
-// Echap -> menu (ou fin de l'essai immediat, sans quitter l'ecran).
+// Selecteur de niveau (nouveau/existant) ; puis clic palette -> selection ; clic/glisser sur la
+// grille -> peinture ; Maj+clic -> liaison de mecanismes ; fleches -> redimensionnement ;
+// Ctrl+S -> enregistrer ; P -> essai immediat ; Echap -> menu (ou fin de l'essai, sans quitter).
 ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta) {
+    if (_picker) {
+        if (input.keyPressed(Key::Escape)) {
+            return ScreenTransition::switchTo(ScreenId::Menu);
+        }
+        const std::optional<int> confirmed = _picker->update(input);
+        if (confirmed) {
+            const LevelPicker::Choice& choice = _picker->choices()[*confirmed];
+            if (choice.path) {
+                const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(*choice.path);
+                if (loaded.ok()) {
+                    _draft = core::LevelDraft::fromLevel(*loaded.level);
+                    _picker.reset();
+                } else {
+                    // Fichier corrompu : message recuperable (EX-NFR-040), on reste au selecteur.
+                    _statusMessage = "Impossible de charger ce niveau : " + loaded.error;
+                    HMI_LOG_WARNING(_statusMessage);
+                }
+            } else {
+                _draft = core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                _picker.reset();
+            }
+        }
+        return ScreenTransition::none();
+    }
+
     if (_playtest) {
         // Session de jeu interne : on lui delegue entierement la frame. Une transition (Echap,
         // fin de niveau -> retour menu) signale la fin de l'essai : on la consomme localement,
@@ -375,9 +402,41 @@ void EditorScreen::renderStatus(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine la session de jeu interne pendant un essai immediat, sinon la grille du niveau en
-// cours d'edition, la palette et le message de statut.
+// Dessine la liste "Nouveau niveau" + fichiers existants, la selection en surbrillance.
+void EditorScreen::renderPicker(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+
+    context.font.drawText(context.spriteBatch, "Choisir un niveau", LevelPicker::MARGIN_X,
+                          LevelPicker::TITLE_Y, 4.0f, core::Color{0.90f, 0.90f, 0.95f, 1.0f});
+
+    const std::vector<LevelPicker::Choice>& choices = _picker->choices();
+    for (std::size_t index = 0; index < choices.size(); ++index) {
+        const bool isSelected = static_cast<int>(index) == _picker->selected();
+        const core::Color color = isSelected ? core::Color{1.0f, 0.85f, 0.35f, 1.0f}
+                                              : core::Color{0.75f, 0.75f, 0.80f, 1.0f};
+        const std::string label = (isSelected ? "> " : "  ") + choices[index].label;
+        const float y = LevelPicker::OPTIONS_TOP + static_cast<float>(index) * LevelPicker::OPTION_SPACING;
+        context.font.drawText(context.spriteBatch, label, LevelPicker::MARGIN_X, y,
+                              LevelPicker::OPTION_SCALE, color);
+    }
+
+    if (!_statusMessage.empty()) {
+        const float y = static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
+        context.font.drawText(context.spriteBatch, _statusMessage, LevelPicker::MARGIN_X, y, 2.0f,
+                              core::Color{0.90f, 0.55f, 0.55f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine le selecteur de niveau, la session de jeu interne pendant un essai immediat, ou sinon
+// la grille du niveau en cours d'edition, la palette et le message de statut.
 void EditorScreen::render(RenderContext& context) {
+    if (_picker) {
+        renderPicker(context);
+        return;
+    }
     if (_playtest) {
         _playtest->render(context);
         return;
