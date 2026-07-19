@@ -11,7 +11,7 @@ Permettre la **création et la modification de niveaux sans écrire de code**, a
 - \anchor EX-EDIT-003 **EX-EDIT-003** — L'éditeur doit permettre de placer et **relier visuellement les mécanismes** (interrupteur ↔ porte, clé ↔ porte verrouillée, blocs poussables).
 - \anchor EX-EDIT-004 **EX-EDIT-004** — L'éditeur doit permettre de définir l'**entrée** et la **sortie** du niveau.
 - \anchor EX-EDIT-005 **EX-EDIT-005** — L'éditeur doit permettre de **redimensionner** la grille et de gérer **annuler/refaire** (undo/redo).
-- \anchor EX-EDIT-006 **EX-EDIT-006** — L'éditeur doit **enregistrer et charger** au format hybride ASCII + JSON défini par `EX-LVL-003`, en produisant des fichiers **valides**.
+- \anchor EX-EDIT-006 **EX-EDIT-006** — L'éditeur doit **enregistrer et charger** au format JSON défini par `EX-LVL-003` (celui réellement implémenté par `LevelLoader`, pas un format hybride ASCII — l'édition texte brut n'est pas visée, cf. `EX-EDIT-001`), en produisant des fichiers **valides**.
 - \anchor EX-EDIT-007 **EX-EDIT-007** — L'éditeur doit **valider** le niveau avant enregistrement (présence entrée/sortie, dimensions cohérentes, liaisons de mécanismes valides — `EX-LVL-004`) et signaler les erreurs de façon compréhensible par un non-codeur.
 - \anchor EX-EDIT-008 **EX-EDIT-008** — L'éditeur doit permettre de **tester le niveau** immédiatement (le lancer dans le jeu depuis l'éditeur), pour un cycle création → essai rapide.
 

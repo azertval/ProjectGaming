@@ -1,0 +1,133 @@
+#include "Core/Levels/LevelDraft.h"
+
+#include <algorithm>
+#include <utility>
+
+#include "Core/Diagnostics/Assert.h"
+#include "Core/Levels/LevelWriter.h"
+
+namespace core {
+
+LevelDraft::LevelDraft(std::string name, TileMap tileMap)
+    : _name(std::move(name)), _tileMap(std::move(tileMap)) {}
+
+LevelDraft LevelDraft::empty(std::string name, int width, int height) {
+    return LevelDraft(std::move(name), TileMap(width, height));
+}
+
+LevelDraft LevelDraft::fromLevel(const Level& level) {
+    LevelDraft draft(level.name(), level.tileMap());
+    draft._entry = level.entry();
+    draft._exit = level.exit();
+    draft._mechanisms = level.mechanisms();
+    draft._jumpBudget = level.jumpBudget();
+    draft._dashBudget = level.dashBudget();
+    return draft;
+}
+
+void LevelDraft::paintTile(int column, int row, TileType type) {
+    if (type == TileType::Entry) {
+        setEntry(column, row);
+        return;
+    }
+    if (type == TileType::Exit) {
+        setExit(column, row);
+        return;
+    }
+
+    const GridPosition position{column, row};
+    if (_entry && *_entry == position) {
+        _entry.reset();
+    }
+    if (_exit && *_exit == position) {
+        _exit.reset();
+    }
+    removeMechanismsAt(position);
+    _tileMap.setTile(column, row, type);
+}
+
+void LevelDraft::setEntry(int column, int row) {
+    const GridPosition position{column, row};
+    if (_entry && *_entry != position) {
+        _tileMap.setTile(_entry->column, _entry->row, TileType::Empty);
+    }
+    removeMechanismsAt(position);
+    _tileMap.setTile(column, row, TileType::Entry);
+    _entry = position;
+}
+
+void LevelDraft::setExit(int column, int row) {
+    const GridPosition position{column, row};
+    if (_exit && *_exit != position) {
+        _tileMap.setTile(_exit->column, _exit->row, TileType::Empty);
+    }
+    removeMechanismsAt(position);
+    _tileMap.setTile(column, row, TileType::Exit);
+    _exit = position;
+}
+
+void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition doorPosition) {
+    PROJECTGAMING_ASSERT(_tileMap.inBounds(switchPosition.column, switchPosition.row) &&
+                             _tileMap.tile(switchPosition.column, switchPosition.row) ==
+                                 TileType::Switch,
+                         "linkMechanism : la position source ne porte pas d'interrupteur");
+    PROJECTGAMING_ASSERT(_tileMap.inBounds(doorPosition.column, doorPosition.row) &&
+                             _tileMap.tile(doorPosition.column, doorPosition.row) ==
+                                 TileType::Door,
+                         "linkMechanism : la position cible ne porte pas de porte");
+
+    unlinkMechanism(doorPosition);
+    _mechanisms.push_back(Mechanism{switchPosition, doorPosition});
+}
+
+void LevelDraft::unlinkMechanism(GridPosition doorPosition) {
+    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
+                                     [doorPosition](const Mechanism& mechanism) {
+                                         return mechanism.doorPosition == doorPosition;
+                                     }),
+                      _mechanisms.end());
+}
+
+void LevelDraft::resize(int width, int height) {
+    TileMap resized(width, height);
+    const int copyWidth = (std::min)(width, _tileMap.width());
+    const int copyHeight = (std::min)(height, _tileMap.height());
+    for (int row = 0; row < copyHeight; ++row) {
+        for (int column = 0; column < copyWidth; ++column) {
+            resized.setTile(column, row, _tileMap.tile(column, row));
+        }
+    }
+    _tileMap = std::move(resized);
+
+    if (_entry && !_tileMap.inBounds(_entry->column, _entry->row)) {
+        _entry.reset();
+    }
+    if (_exit && !_tileMap.inBounds(_exit->column, _exit->row)) {
+        _exit.reset();
+    }
+    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
+                                     [this](const Mechanism& mechanism) {
+                                         return !_tileMap.inBounds(mechanism.switchPosition.column,
+                                                                    mechanism.switchPosition.row) ||
+                                                !_tileMap.inBounds(mechanism.doorPosition.column,
+                                                                    mechanism.doorPosition.row);
+                                     }),
+                      _mechanisms.end());
+}
+
+LevelLoadResult LevelDraft::toLevel() const {
+    const std::string json =
+        LevelWriter::buildJson(_name, _tileMap, _mechanisms, _jumpBudget, _dashBudget);
+    return LevelLoader::loadFromString(json);
+}
+
+void LevelDraft::removeMechanismsAt(GridPosition position) {
+    _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
+                                     [position](const Mechanism& mechanism) {
+                                         return mechanism.switchPosition == position ||
+                                                mechanism.doorPosition == position;
+                                     }),
+                      _mechanisms.end());
+}
+
+}  // namespace core

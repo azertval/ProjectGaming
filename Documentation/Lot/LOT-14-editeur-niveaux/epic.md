@@ -85,7 +85,7 @@ séparation `Core`/`HMI` de tout le moteur.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-serialisation-modele-edition.md) | Sérialisation JSON + modèle d'édition mutable | `Core/Levels` | ⬜ |
+| [TACHE-01](tache-01-serialisation-modele-edition.md) | Sérialisation JSON + modèle d'édition mutable | `Core/Levels` | ✅ |
 | [TACHE-02](tache-02-ecran-editeur-palette.md) | Écran éditeur : grille cliquable + palette de tuiles | `HMI/Editor` | ⬜ |
 | [TACHE-03](tache-03-entree-sortie-mecanismes-redimension.md) | Entrée/sortie, liaison de mécanismes, redimensionnement | `HMI/Editor` | ⬜ |
 | [TACHE-04](tache-04-undo-redo.md) | Historique annuler/refaire | `Core/Levels`, `HMI/Editor` | ⬜ |
