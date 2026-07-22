@@ -108,11 +108,13 @@ Collaboration diagram for hmi::InputState:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1InputState__coll__graph.png" border="0" usemap="#ahmi_1_1InputState_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1InputState_coll__map" id="ahmi_1_1InputState_coll__map">
-<area shape="rect" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="124,123,247,148"/>
-<area shape="rect" title=" " alt="" coords="5,5,165,45"/>
-<area shape="poly" title=" " alt="" coords="114,54,176,120,172,124,110,57"/>
-<area shape="rect" title=" " alt="" coords="190,5,381,45"/>
-<area shape="poly" title=" " alt="" coords="277,60,266,81,251,101,234,114,216,125,213,120,231,110,247,97,261,78,272,57"/>
+<area shape="rect" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="363,77,485,102"/>
+<area shape="rect" title=" " alt="" coords="21,5,181,45"/>
+<area shape="poly" title=" " alt="" coords="195,28,266,37,339,52,398,74,396,79,338,57,265,42,194,34"/>
+<area shape="rect" title=" " alt="" coords="5,69,196,109"/>
+<area shape="poly" title=" " alt="" coords="210,87,363,87,363,92,210,92"/>
+<area shape="rect" title=" " alt="" coords="15,134,187,159"/>
+<area shape="poly" title=" " alt="" coords="200,130,338,107,372,99,373,105,339,112,201,135"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -139,6 +141,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a376004df68b5f7754a110a2bcd2f90f8" id="r_a376004df68b5f7754a110a2bcd2f90f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a376004df68b5f7754a110a2bcd2f90f8">onMouseButtonUp</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) noexcept</td></tr>
 <tr class="memdesc:a376004df68b5f7754a110a2bcd2f90f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>button</code> comme relâché dans l'état courant.  <br /></td></tr>
 <tr class="separator:a376004df68b5f7754a110a2bcd2f90f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76e9822764fcba7189cf9d0ffa8d9c92" id="r_a76e9822764fcba7189cf9d0ffa8d9c92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a76e9822764fcba7189cf9d0ffa8d9c92">onMouseWheel</a> (int delta) noexcept</td></tr>
+<tr class="memdesc:a76e9822764fcba7189cf9d0ffa8d9c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumule un incrément de molette pour la frame courante.  <br /></td></tr>
+<tr class="separator:a76e9822764fcba7189cf9d0ffa8d9c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a35b2416ee847e1f772dbb9fea9b9c" id="r_a50a35b2416ee847e1f772dbb9fea9b9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a50a35b2416ee847e1f772dbb9fea9b9c">onCharTyped</a> (wchar_t character)</td></tr>
+<tr class="memdesc:a50a35b2416ee847e1f772dbb9fea9b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre un caractère tapé pour la frame courante (<code>WM_CHAR</code>).  <br /></td></tr>
+<tr class="separator:a50a35b2416ee847e1f772dbb9fea9b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f60f694446239cdcc190b792c89d130" id="r_a1f60f694446239cdcc190b792c89d130"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a1f60f694446239cdcc190b792c89d130">keyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
 <tr class="separator:a1f60f694446239cdcc190b792c89d130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31d4d382e571e231ef0d13937e2b1f4f" id="r_a31d4d382e571e231ef0d13937e2b1f4f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
@@ -155,6 +163,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab129c79e0d8cf79448425c3a8d984e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825c3827af5730d0c05b65f6c8a86798" id="r_a825c3827af5730d0c05b65f6c8a86798"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a825c3827af5730d0c05b65f6c8a86798">mouseButtonReleased</a> (<a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">MouseButton</a> button) const noexcept</td></tr>
 <tr class="separator:a825c3827af5730d0c05b65f6c8a86798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8168408e70f27916878b8057227ef7ff" id="r_a8168408e70f27916878b8057227ef7ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a8168408e70f27916878b8057227ef7ff">wheelDelta</a> () const noexcept</td></tr>
+<tr class="memdesc:a8168408e70f27916878b8057227ef7ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Somme des incréments de molette accumulés depuis le dernier <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>.  <br /></td></tr>
+<tr class="separator:a8168408e70f27916878b8057227ef7ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65d50f70a43e38a66f9ea7e04429cb9d" id="r_a65d50f70a43e38a66f9ea7e04429cb9d"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; wchar_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a65d50f70a43e38a66f9ea7e04429cb9d">typedCharacters</a> () const noexcept</td></tr>
+<tr class="memdesc:a65d50f70a43e38a66f9ea7e04429cb9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caractères tapés depuis le dernier <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>, dans leur ordre de saisie.  <br /></td></tr>
+<tr class="separator:a65d50f70a43e38a66f9ea7e04429cb9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -170,6 +184,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aec72ed3a0c3b1767f3f3b7e38c94b9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fa4e1ad152450c883658be004f0522a" id="r_a8fa4e1ad152450c883658be004f0522a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a8fa4e1ad152450c883658be004f0522a">_mouseY</a> = 0</td></tr>
 <tr class="separator:a8fa4e1ad152450c883658be004f0522a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88513d390fb0d8d31a142cbf501ecc1b" id="r_a88513d390fb0d8d31a142cbf501ecc1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a88513d390fb0d8d31a142cbf501ecc1b">_wheelDelta</a> = 0</td></tr>
+<tr class="memdesc:a88513d390fb0d8d31a142cbf501ecc1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remis à zéro à chaque <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>.  <br /></td></tr>
+<tr class="separator:a88513d390fb0d8d31a142cbf501ecc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b01814d775d50a0bfe24579be4c1dfb" id="r_a3b01814d775d50a0bfe24579be4c1dfb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; wchar_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a3b01814d775d50a0bfe24579be4c1dfb">_typedCharacters</a></td></tr>
+<tr class="memdesc:a3b01814d775d50a0bfe24579be4c1dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vidée à chaque <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>.  <br /></td></tr>
+<tr class="separator:a3b01814d775d50a0bfe24579be4c1dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -459,6 +479,32 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a50a35b2416ee847e1f772dbb9fea9b9c" name="a50a35b2416ee847e1f772dbb9fea9b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a35b2416ee847e1f772dbb9fea9b9c">&#9670;&#160;</a></span>onCharTyped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onCharTyped </td>
+          <td>(</td>
+          <td class="paramtype">wchar_t&#160;</td>
+          <td class="paramname"><em>character</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enregistre un caractère tapé pour la frame courante (<code>WM_CHAR</code>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>Caractère déjà traduit selon la disposition clavier active. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0ac64c54bed934b3dddbafe545adcd8d" name="a0ac64c54bed934b3dddbafe545adcd8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ac64c54bed934b3dddbafe545adcd8d">&#9670;&#160;</a></span>onKeyDown()</h2>
 
@@ -616,6 +662,96 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a76e9822764fcba7189cf9d0ffa8d9c92" name="a76e9822764fcba7189cf9d0ffa8d9c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e9822764fcba7189cf9d0ffa8d9c92">&#9670;&#160;</a></span>onMouseWheel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onMouseWheel </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>delta</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Accumule un incrément de molette pour la frame courante. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delta</td><td>Incrément signé (positif = molette vers l'avant), en unités natives Win32 (<code>WHEEL_DELTA</code> = 120 par cran) ; l'appelant convertit selon son besoin. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a65d50f70a43e38a66f9ea7e04429cb9d" name="a65d50f70a43e38a66f9ea7e04429cb9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d50f70a43e38a66f9ea7e04429cb9d">&#9670;&#160;</a></span>typedCharacters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; wchar_t &gt; &amp; hmi::InputState::typedCharacters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Caractères tapés depuis le dernier <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>, dans leur ordre de saisie. </p>
+<dl class="section return"><dt>Returns</dt><dd>Une file vide si rien n'a été tapé depuis la frame précédente. </dd></dl>
+
+</div>
+</div>
+<a id="a8168408e70f27916878b8057227ef7ff" name="a8168408e70f27916878b8057227ef7ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8168408e70f27916878b8057227ef7ff">&#9670;&#160;</a></span>wheelDelta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::wheelDelta </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Somme des incréments de molette accumulés depuis le dernier <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Positif si la molette a tourné vers l'avant depuis la frame précédente, négatif vers l'arrière, zéro si elle n'a pas bougé. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a7f0a7108d61b34be561c8566a3b3181e" name="a7f0a7108d61b34be561c8566a3b3181e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f0a7108d61b34be561c8566a3b3181e">&#9670;&#160;</a></span>_buttonsCurrent</h2>
@@ -746,6 +882,54 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3b01814d775d50a0bfe24579be4c1dfb" name="a3b01814d775d50a0bfe24579be4c1dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b01814d775d50a0bfe24579be4c1dfb">&#9670;&#160;</a></span>_typedCharacters</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;wchar_t&gt; hmi::InputState::_typedCharacters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vidée à chaque <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>. </p>
+
+</div>
+</div>
+<a id="a88513d390fb0d8d31a142cbf501ecc1b" name="a88513d390fb0d8d31a142cbf501ecc1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88513d390fb0d8d31a142cbf501ecc1b">&#9670;&#160;</a></span>_wheelDelta</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::InputState::_wheelDelta = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remis à zéro à chaque <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>. </p>
 
 </div>
 </div>

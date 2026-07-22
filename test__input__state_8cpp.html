@@ -110,12 +110,14 @@ Include dependency graph for test_input_state.cpp:</div>
 <area shape="poly" title=" " alt="" coords="110,77,78,114,74,110,106,73"/>
 <area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" title=" " alt="" coords="168,73,200,110,196,114,164,77"/>
-<area shape="rect" title=" " alt="" coords="101,196,157,221"/>
-<area shape="poly" title=" " alt="" coords="205,150,156,189,153,185,202,146"/>
-<area shape="rect" title=" " alt="" coords="182,196,253,221"/>
-<area shape="poly" title=" " alt="" coords="220,148,220,182,215,182,215,148"/>
-<area shape="rect" title=" " alt="" coords="277,196,344,221"/>
-<area shape="poly" title=" " alt="" coords="234,146,286,185,283,190,231,150"/>
+<area shape="rect" title=" " alt="" coords="55,196,111,221"/>
+<area shape="poly" title=" " alt="" coords="197,150,118,192,116,187,194,146"/>
+<area shape="rect" title=" " alt="" coords="135,196,206,221"/>
+<area shape="poly" title=" " alt="" coords="212,150,188,186,184,183,207,147"/>
+<area shape="rect" title=" " alt="" coords="231,196,297,221"/>
+<area shape="poly" title=" " alt="" coords="227,147,251,183,247,186,223,150"/>
+<area shape="rect" title=" " alt="" coords="322,196,385,221"/>
+<area shape="poly" title=" " alt="" coords="240,146,320,187,318,192,238,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -139,12 +141,18 @@ Functions</h2></td></tr>
 <tr class="memitem:aed2efe7e5c68c8a62502bad7f424c558" id="r_aed2efe7e5c68c8a62502bad7f424c558"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#aed2efe7e5c68c8a62502bad7f424c558">TEST</a> (InputStateTest, PositionSouris)</td></tr>
 <tr class="memdesc:aed2efe7e5c68c8a62502bad7f424c558"><td class="mdescLeft">&#160;</td><td class="mdescRight">La position de la souris reflète le dernier déplacement injecté.  <br /></td></tr>
 <tr class="separator:aed2efe7e5c68c8a62502bad7f424c558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7efa418563f5fae1a48faf4078d6892f" id="r_a7efa418563f5fae1a48faf4078d6892f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a7efa418563f5fae1a48faf4078d6892f">TEST</a> (InputStateTest, MoletteAccumuleEtSeReinitialise)</td></tr>
+<tr class="memdesc:a7efa418563f5fae1a48faf4078d6892f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.  <br /></td></tr>
+<tr class="separator:a7efa418563f5fae1a48faf4078d6892f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8e6d3ad41aa204883ebcd46b5406b41" id="r_aa8e6d3ad41aa204883ebcd46b5406b41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#aa8e6d3ad41aa204883ebcd46b5406b41">TEST</a> (InputStateTest, CaracteresTapesAccumulesEtVides)</td></tr>
+<tr class="memdesc:aa8e6d3ad41aa204883ebcd46b5406b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.  <br /></td></tr>
+<tr class="separator:aa8e6d3ad41aa204883ebcd46b5406b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de l'état des entrées : fronts clavier/souris et position. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a9673354fc013b4ab816c4cdb8422855f" name="a9673354fc013b4ab816c4cdb8422855f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,7 +178,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000207">Cas de test:</a></b></dt><dd><b>Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000234">Cas de test:</a></b></dt><dd><b>Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -180,8 +188,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa8e6d3ad41aa204883ebcd46b5406b41" name="aa8e6d3ad41aa204883ebcd46b5406b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CaracteresTapesAccumulesEtVides&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000237">Cas de test:</a></b></dt><dd><b>Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.</dd></dl>
+
+</div>
+</div>
 <a id="a59ca224b39b7856470d0747f7900b16b" name="a59ca224b39b7856470d0747f7900b16b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +252,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000205">Cas de test:</a></b></dt><dd><b>Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000232">Cas de test:</a></b></dt><dd><b>Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -218,7 +263,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a45cf3dc465b7f8ead7c72522f7ac8198" name="a45cf3dc465b7f8ead7c72522f7ac8198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +289,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une touche passée d'« absente » à « présente » est « pressée » exactement une frame. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000203">Cas de test:</a></b></dt><dd><b>Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000230">Cas de test:</a></b></dt><dd><b>Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -255,7 +300,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a81215d1d3cac78f80bac142dacc0b34c" name="a81215d1d3cac78f80bac142dacc0b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +326,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une touche restée enfoncée n'est « pressée » qu'à la première frame. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000204">Cas de test:</a></b></dt><dd><b>Une touche restée enfoncée n'est « pressée » qu'à la première frame.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000231">Cas de test:</a></b></dt><dd><b>Une touche restée enfoncée n'est « pressée » qu'à la première frame.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -291,8 +336,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7efa418563f5fae1a48faf4078d6892f" name="a7efa418563f5fae1a48faf4078d6892f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MoletteAccumuleEtSeReinitialise&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000236">Cas de test:</a></b></dt><dd><b>Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.</dd></dl>
+
+</div>
+</div>
 <a id="aed2efe7e5c68c8a62502bad7f424c558" name="aed2efe7e5c68c8a62502bad7f424c558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +400,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La position de la souris reflète le dernier déplacement injecté. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000208">Cas de test:</a></b></dt><dd><b>La position de la souris reflète le dernier déplacement injecté.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000235">Cas de test:</a></b></dt><dd><b>La position de la souris reflète le dernier déplacement injecté.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -329,7 +411,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af9db81acd915bcdeb71f1ac1fafc3185" name="af9db81acd915bcdeb71f1ac1fafc3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,7 +437,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les touches sont indépendantes : un front sur l'une n'affecte pas les autres. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000206">Cas de test:</a></b></dt><dd><b>Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000233">Cas de test:</a></b></dt><dd><b>Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

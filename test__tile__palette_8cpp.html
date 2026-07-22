@@ -109,13 +109,15 @@ Include dependency graph for test_tile_palette.cpp:</div>
 <area shape="rect" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT&#45;14, EX&#45;EDIT&#45;002)." alt="" coords="36,5,257,75"/>
 <area shape="rect" title=" " alt="" coords="5,123,109,148"/>
 <area shape="poly" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="63,196,231,221"/>
-<area shape="poly" title=" " alt="" coords="149,75,149,182,144,182,144,75"/>
-<area shape="rect" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="185,123,359,148"/>
-<area shape="poly" title=" " alt="" coords="194,73,247,112,244,116,190,77"/>
-<area shape="poly" title=" " alt="" coords="253,150,180,191,178,187,251,146"/>
-<area shape="rect" title=" " alt="" coords="255,196,318,221"/>
-<area shape="poly" title=" " alt="" coords="277,148,284,182,279,183,272,149"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="59,196,227,221"/>
+<area shape="poly" title=" " alt="" coords="149,75,146,182,141,182,143,75"/>
+<area shape="rect" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="190,123,365,148"/>
+<area shape="poly" title=" " alt="" coords="195,73,251,112,248,117,192,77"/>
+<area shape="poly" title=" " alt="" coords="257,150,178,192,176,187,254,146"/>
+<area shape="rect" title=" " alt="" coords="251,196,309,221"/>
+<area shape="poly" title=" " alt="" coords="280,148,282,182,276,183,275,148"/>
+<area shape="rect" title=" " alt="" coords="334,196,397,221"/>
+<area shape="poly" title=" " alt="" coords="293,146,342,185,339,189,290,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -133,12 +135,52 @@ Functions</h2></td></tr>
 <tr class="memitem:a177a49a311fc252f8c49e0530e2c475b" id="r_a177a49a311fc252f8c49e0530e2c475b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a177a49a311fc252f8c49e0530e2c475b">TEST</a> (TilePaletteTest, ClicHorsPaletteNonConsomme)</td></tr>
 <tr class="memdesc:a177a49a311fc252f8c49e0530e2c475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.  <br /></td></tr>
 <tr class="separator:a177a49a311fc252f8c49e0530e2c475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63e8ba3bf04058acb82c190579342df" id="r_ac63e8ba3bf04058acb82c190579342df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ac63e8ba3bf04058acb82c190579342df">TEST</a> (TilePaletteTest, ChaqueEntreePorteUnLibelle)</td></tr>
+<tr class="memdesc:ac63e8ba3bf04058acb82c190579342df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque entrée porte un libellé non vide (découvrabilité, LOT-15, EX-EDIT-015).  <br /></td></tr>
+<tr class="separator:ac63e8ba3bf04058acb82c190579342df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la palette de tuiles de l'éditeur (LOT-14, EX-EDIT-002). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ac63e8ba3bf04058acb82c190579342df" name="ac63e8ba3bf04058acb82c190579342df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63e8ba3bf04058acb82c190579342df">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueEntreePorteUnLibelle&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque entrée porte un libellé non vide (découvrabilité, LOT-15, EX-EDIT-015). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000218">Cas de test:</a></b></dt><dd><b>Chaque entrée porte un libellé non vide.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Chaque entrée porte un libellé non vide.</dd></dl>
+
+</div>
+</div>
 <a id="a177a49a311fc252f8c49e0530e2c475b" name="a177a49a311fc252f8c49e0530e2c475b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +206,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cliquer hors de la palette ne change pas la sélection et n'est pas consommé. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000196">Cas de test:</a></b></dt><dd><b>Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000217">Cas de test:</a></b></dt><dd><b>Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -175,7 +217,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abf0a26cdbb87effe6864b4c756289f99" name="abf0a26cdbb87effe6864b4c756289f99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf0a26cdbb87effe6864b4c756289f99">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abf0a26cdbb87effe6864b4c756289f99">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +243,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cliquer une entrée de la palette sélectionne son type et signale le clic consommé. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000195">Cas de test:</a></b></dt><dd><b>Cliquer une entrée de la palette sélectionne son type et signale le clic consommé.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000216">Cas de test:</a></b></dt><dd><b>Cliquer une entrée de la palette sélectionne son type et signale le clic consommé.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -212,7 +254,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8386bf542e50f2bcec436064fc03a967" name="a8386bf542e50f2bcec436064fc03a967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8386bf542e50f2bcec436064fc03a967">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8386bf542e50f2bcec436064fc03a967">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +280,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La palette expose au moins une entrée par type de tuile éditable. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000193">Cas de test:</a></b></dt><dd><b>La palette expose au moins une entrée par type de tuile éditable.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000214">Cas de test:</a></b></dt><dd><b>La palette expose au moins une entrée par type de tuile éditable.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
@@ -249,7 +291,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad3ce7930a954de0d87ecc16fe2e8e8a5" name="ad3ce7930a954de0d87ecc16fe2e8e8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +317,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La sélection par défaut est Solid. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000194">Cas de test:</a></b></dt><dd><b>La sélection par défaut est Solid.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000215">Cas de test:</a></b></dt><dd><b>La sélection par défaut est Solid.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />

@@ -6,7 +6,7 @@ var searchData=
   ['maxfallspeed_3',['maxFallSpeed',['../structcore_1_1PhysicsConfig.html#acce6797219a5f1f1dc1bddb5a3f63705',1,'core::PhysicsConfig']]],
   ['maximum_5fquads_4',['MAXIMUM_QUADS',['../classhmi_1_1SpriteBatch.html#a57fd718a658a079c6ef72e34f95ce06c',1,'hmi::SpriteBatch']]],
   ['mechanisms_5',['mechanisms',['../structcore_1_1LevelDraft_1_1State.html#a569e0485b72f648b9dddadbd167e106d',1,'core::LevelDraft::State']]],
-  ['message_6',['message',['../structcore_1_1MemoryLogSink_1_1Entry.html#aef520f464dacb8a65da8bff02af981cf',1,'core::MemoryLogSink::Entry']]],
+  ['message_6',['message',['../structcore_1_1MemoryLogSink_1_1Entry.html#aef520f464dacb8a65da8bff02af981cf',1,'core::MemoryLogSink::Entry::message'],['../structhmi_1_1EditorScreen_1_1PendingConfirmation.html#a871a792fae0de808146174b70e7269b7',1,'hmi::EditorScreen::PendingConfirmation::message']]],
   ['min_7',['min',['../structcore_1_1Aabb.html#a5ac2bfbdb6dd36daa5527db035c80c1f',1,'core::Aabb']]],
   ['movespeed_8',['moveSpeed',['../structcore_1_1PhysicsConfig.html#a0fdb33afff65f36642d32a0714f9a642',1,'core::PhysicsConfig']]],
   ['movex_9',['moveX',['../structcore_1_1PlayerInput.html#adce05fa0a13062c53bfef04c63b85623',1,'core::PlayerInput']]],

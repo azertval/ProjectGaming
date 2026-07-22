@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('structhmi_1_1TilePalette_1_1Entry.html
 </div><!--header-->
 <div class="contents">
 
-<p>Une entrée cliquable de la palette : son rectangle écran et le type qu'elle sélectionne.  
+<p>Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et son libellé court (découvrabilité, <code>EX-EDIT-015</code>) — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>.  
  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TilePalette_8h_source.html">TilePalette.h</a>&gt;</code></p>
@@ -106,9 +106,13 @@ Collaboration diagram for hmi::TilePalette::Entry:</div>
 <div class="dyncontent">
 <div class="center"><img src="structhmi_1_1TilePalette_1_1Entry__coll__graph.png" border="0" usemap="#ahmi_1_1TilePalette_1_1Entry_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1TilePalette_1_1Entry_coll__map" id="ahmi_1_1TilePalette_1_1Entry_coll__map">
-<area shape="rect" title="Une entrée cliquable de la palette : son rectangle écran et le type qu&#39;elle sélectionne." alt="" coords="5,93,172,119"/>
-<area shape="rect" title=" " alt="" coords="51,5,127,31"/>
-<area shape="poly" title=" " alt="" coords="91,45,91,93,86,93,86,45"/>
+<area shape="rect" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="5,183,172,208"/>
+<area shape="rect" title=" " alt="" coords="9,95,85,120"/>
+<area shape="poly" title=" " alt="" coords="59,132,71,157,84,181,79,184,66,160,55,134"/>
+<area shape="rect" title=" " alt="" coords="109,95,196,120"/>
+<area shape="poly" title=" " alt="" coords="138,133,100,184,95,181,134,129"/>
+<area shape="rect" title=" " alt="" coords="83,5,222,45"/>
+<area shape="poly" title=" " alt="" coords="155,59,155,94,150,94,150,59"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -124,9 +128,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a5a1243235cd622b55be91340a582ca12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdba09fb4170f84d9b49857c7114ec61" id="r_abdba09fb4170f84d9b49857c7114ec61"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html#abdba09fb4170f84d9b49857c7114ec61">height</a> = 0.0f</td></tr>
 <tr class="separator:abdba09fb4170f84d9b49857c7114ec61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af05992f2eb9dbf0a36323fd36f63dfc4" id="r_af05992f2eb9dbf0a36323fd36f63dfc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html#af05992f2eb9dbf0a36323fd36f63dfc4">label</a></td></tr>
+<tr class="separator:af05992f2eb9dbf0a36323fd36f63dfc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Une entrée cliquable de la palette : son rectangle écran et le type qu'elle sélectionne. </p>
+<div class="textblock"><p>Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et son libellé court (découvrabilité, <code>EX-EDIT-015</code>) — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="abdba09fb4170f84d9b49857c7114ec61" name="abdba09fb4170f84d9b49857c7114ec61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abdba09fb4170f84d9b49857c7114ec61">&#9670;&#160;</a></span>height</h2>
@@ -136,6 +142,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float hmi::TilePalette::Entry::height = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af05992f2eb9dbf0a36323fd36f63dfc4" name="af05992f2eb9dbf0a36323fd36f63dfc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af05992f2eb9dbf0a36323fd36f63dfc4">&#9670;&#160;</a></span>label</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::TilePalette::Entry::label</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -1,0 +1,9 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/EditorLayout.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/EditorLayout.h">
+<area shape="rect" id="Node000001" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets." alt="" coords="251,5,472,60"/>
+<area shape="rect" id="Node000002" href="$TilePalette_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,68,181,110,179,105,284,63"/>
+<area shape="rect" id="Node000003" href="$ToolBar_8cpp.html" title=" " alt="" coords="251,108,472,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,74,364,108,359,108,359,74"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8cpp.html" title=" " alt="" coords="496,108,723,163"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="440,63,546,105,544,110,438,68"/>
+</map>

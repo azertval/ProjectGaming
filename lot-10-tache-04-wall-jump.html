@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-04-wall-jump.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md693"></a>
+<h1><a class="anchor" id="autotoc_md699"></a>
 Contexte</h1>
 <p>Deuxième mécanique (<code>EX-GP-016</code>) : contre un mur en l'air, <b>glisser</b> (chute ralentie) et pouvoir <b>sauter à l'opposé</b> du mur. Le contact mural est déjà connu — le balayage (<code>sweepAabb</code>) renvoie une <b>normale horizontale</b> non nulle quand le déplacement est bloqué latéralement.</p>
-<h1><a class="anchor" id="autotoc_md694"></a>
+<h1><a class="anchor" id="autotoc_md700"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code> :</p><ul>
 <li><b>Détection du mur</b> : après le balayage, si le personnage n'est <b>pas au sol</b> et qu'un contact <b>horizontal</b> a eu lieu (normale X non nulle) alors qu'il <b>pousse vers ce mur</b> (<code>moveX</code> de même sens), positionner <code>Player::wallDirection</code> (−1 mur à gauche, +1 à droite) ; sinon 0.</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b>Wall jump</b> : si un saut est demandé alors que <code>wallDirection != 0</code> (et pas au sol), appliquer une <b>impulsion diagonale opposée</b> au mur : <code>velocity.x = -wallDirection * wallJumpSpeedX</code>, <code>velocity.y = -wallJumpSpeedY</code>. Consommer le buffer. Optionnel : recharger le double saut au wall jump (à décider à l'implémentation, documenter).</li>
 <li>Ordonner proprement avec le saut au sol/coyote/aérien (TACHE-03) : le wall jump est une source d'autorisation supplémentaire.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md695"></a>
+<h1><a class="anchor" id="autotoc_md701"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md696"></a>
+<h1><a class="anchor" id="autotoc_md702"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Wall slide</b> : collé à un mur en chute, la vitesse de descente est <b>plafonnée</b> (plus lente qu'une chute libre).</li>
@@ -119,19 +119,19 @@ Tests (obligatoires)</h1>
 <li><b>Pas de wall jump sans mur</b> : en l'air sans contact mural, la logique de wall jump ne s'active pas.</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md697"></a>
+<h1><a class="anchor" id="autotoc_md703"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Pousser vers le mur</b> : ne considérer le contact mural que si l'intention va vers le mur (évite de « coller » en s'en éloignant).</li>
 <li><b>Repère</b> : <code>y</code> bas → monter = négatif ; <code>wallDirection</code> = sens du mur, l'impulsion part à l'opposé.</li>
 <li>Ne pas confondre contact <b>mural</b> (normale X) et contact <b>sol</b> (normale Y) — <code>grounded</code> prime.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md698"></a>
+<h1><a class="anchor" id="autotoc_md704"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Wall slide + wall jump fonctionnels et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md699"></a>
+<h1><a class="anchor" id="autotoc_md705"></a>
 Exigences</h1>
 <p><code>EX-GP-016</code>, <code>EX-GP-011</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

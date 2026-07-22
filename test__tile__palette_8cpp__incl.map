@@ -2,11 +2,13 @@
 <area shape="rect" id="Node000001" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT&#45;14, EX&#45;EDIT&#45;002)." alt="" coords="36,5,257,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
-<area shape="rect" id="Node000003" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="63,196,231,221"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,75,149,182,144,182,144,75"/>
-<area shape="rect" id="Node000004" href="$TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="185,123,359,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,73,247,112,244,116,190,77"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="253,150,180,191,178,187,251,146"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="255,196,318,221"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="277,148,284,182,279,183,272,149"/>
+<area shape="rect" id="Node000003" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="59,196,227,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,75,146,182,141,182,143,75"/>
+<area shape="rect" id="Node000004" href="$TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="190,123,365,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="195,73,251,112,248,117,192,77"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="257,150,178,192,176,187,254,146"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="251,196,309,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="280,148,282,182,276,183,275,148"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="334,196,397,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="293,146,342,185,339,189,290,150"/>
 </map>

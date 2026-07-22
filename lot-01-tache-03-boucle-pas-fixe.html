@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-01-tache-03-boucle-pas-fixe.html',
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-01-fenetre-boucle-jeu_2epic_8md.html">LOT-01</a> · <b>Module :</b> <code>Source/Core</code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md206"></a>
+<h1><a class="anchor" id="autotoc_md212"></a>
 Contexte</h1>
 <p>La simulation doit être <b>déterministe</b> et indépendante du framerate d'affichage. La logique de cadencement est placée dans <code>Core</code> pour être <b>testable sans fenêtre ni GPU</b> (<code>EX-NFR-010</code>).</p>
-<h1><a class="anchor" id="autotoc_md207"></a>
+<h1><a class="anchor" id="autotoc_md213"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer une classe <code>FixedTimestep</code> dans <code>Core</code> :<ul>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 </li>
 <li>Ne dépend d'<b>aucune API système</b> (pas de <code>QueryPerformanceCounter</code> dans la classe : le temps réel est passé en paramètre, mesuré par l'appelant côté <code>HMI</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md208"></a>
+<h1><a class="anchor" id="autotoc_md214"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Core/FixedTimestep.h</code>, <code>Source/Core/FixedTimestep.cpp</code> (nouveau).</li>
 <li><code>Source/Core/CMakeLists.txt</code> (ajout des sources).</li>
 <li><code>Source/Test/Unit/test_fixed_timestep.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md209"></a>
+<h1><a class="anchor" id="autotoc_md215"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un temps écoulé égal au pas fixe → exactement <b>1</b> pas.</li>
@@ -123,14 +123,14 @@ Tests (obligatoires)</h1>
 <li>Un temps écoulé énorme → nombre de pas <b>plafonné</b> (anti-spirale).</li>
 <li>Un temps écoulé nul ou inférieur au pas → <b>0</b> pas.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md210"></a>
+<h1><a class="anchor" id="autotoc_md216"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Comportement conforme, couvert par les tests ci-dessus (<code>ctest</code> vert).</li>
 <li>Aucune dépendance système dans la classe (compilable/testable en isolation).</li>
 <li>Compile <code>/W4 /WX</code>, formaté, API documentée <code>.h</code> + <code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md211"></a>
+<h1><a class="anchor" id="autotoc_md217"></a>
 Exigences</h1>
 <p><code>EX-REN-021</code>, <code>EX-REN-020</code>, <code>EX-NFR-010</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

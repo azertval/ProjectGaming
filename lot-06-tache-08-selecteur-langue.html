@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-06-tache-08-selecteur-langue.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code>, <code>Source/HMI/Graphics</code>, <code>Source/Elements/Localization</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md499"></a>
+<h1><a class="anchor" id="autotoc_md505"></a>
 Contexte</h1>
 <p>Le catalogue de traduction (TACHE-03) sait charger n'importe quelle langue, mais l'application démarre en français sans moyen d'en changer. Cette tâche ajoute un <b>bouton de langue</b> en bas à droite du menu, matérialisé par le <b>drapeau de la langue courante</b>, qui bascule entre <b>français</b> et <b>anglais</b> (<code>EX-REN-033</code>). Elle introduit le catalogue anglais et des icônes de drapeaux.</p>
-<h1><a class="anchor" id="autotoc_md500"></a>
+<h1><a class="anchor" id="autotoc_md506"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Catalogue anglais</b> <code>en.lang</code> (mêmes clés que <code>fr.lang</code>) dans <code>Source/Elements/Localization</code>.</li>
@@ -105,7 +105,7 @@ Travail à réaliser</h1>
 <li>**<code>LanguageSelector</code>** (<code>HMI/Interface</code>) : logique <b>pure</b> du bouton — rectangle ancré en bas à droite, détection du <b>clic</b> gauche, bascule vers l'autre langue. Testable hors GPU (<code>EX-NFR-010</code>).</li>
 <li>**<code>MenuScreen</code>** : détient une référence <b>mutable</b> au catalogue ; à un clic sur le bouton, recharge la langue (<code>loadLanguage</code>), ce qui met à jour les libellés dès la frame suivante ; dessine l'icône du drapeau de la langue active (<code>RenderContext</code> porte les <code>FlagIcons</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md501"></a>
+<h1><a class="anchor" id="autotoc_md507"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Localization/en.lang</code> (nouveau).</li>
@@ -114,14 +114,14 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="RenderContext_8h.html" title="Ressources de rendu partagées passées aux écrans lors du dessin.">Source/HMI/Interface/RenderContext.h</a></code>, <code><a class="el" href="MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel.">MenuScreen.h</a></code>, <code><a class="el" href="MenuScreen_8cpp.html">MenuScreen.cpp</a></code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code>.</li>
 <li><code>Source/HMI/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md502"></a>
+<h1><a class="anchor" id="autotoc_md508"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le rectangle du bouton est ancré au coin <b>bas-droit</b> (marge comprise).</li>
 <li>La bascule renvoie l'<b>autre</b> langue (fr ↔ en), avec un défaut robuste.</li>
 <li>Un <b>clic dans</b> le bouton demande la bascule ; un clic <b>hors</b> du bouton, ou l'absence de clic, ne bascule pas.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md503"></a>
+<h1><a class="anchor" id="autotoc_md509"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Séparer</b> la logique (<code>LanguageSelector</code>, testable) du dessin (icône via <code>SpriteBatch</code>).</li>
@@ -129,13 +129,13 @@ Points d'attention</h1>
 <li>Bascule <b>récupérable</b> : si le fichier de la langue cible est absent, la langue courante est conservée (<code>EX-NFR-040</code>).</li>
 <li>Le bouton est à l'opposé des options : un clic dessus ne déclenche aucune action de menu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md504"></a>
+<h1><a class="anchor" id="autotoc_md510"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le menu affiche le drapeau de la langue courante ; un clic bascule fr ↔ en et met à jour tous les libellés ; logique testée (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documenté.</li>
 <li>Vérifié visuellement (menu français ↔ anglais, drapeaux France / Royaume-Uni).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md505"></a>
+<h1><a class="anchor" id="autotoc_md511"></a>
 Exigences</h1>
 <p><code>EX-REN-033</code>, <code>EX-REN-030</code>, <code>EX-REN-011</code>, <code>EX-NFR-010</code>, <code>EX-NFR-040</code>. </p>
 </div></div><!-- contents -->

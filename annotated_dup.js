@@ -62,8 +62,10 @@ var annotated_dup =
       [ "SpriteBatch", "classhmi_1_1SpriteBatch.html", "classhmi_1_1SpriteBatch" ],
       [ "SpriteQuad", "structhmi_1_1SpriteQuad.html", "structhmi_1_1SpriteQuad" ],
       [ "SpriteRenderer", "classhmi_1_1SpriteRenderer.html", "classhmi_1_1SpriteRenderer" ],
+      [ "TextInputField", "classhmi_1_1TextInputField.html", "classhmi_1_1TextInputField" ],
       [ "TextureAtlas", "classhmi_1_1TextureAtlas.html", "classhmi_1_1TextureAtlas" ],
       [ "TilePalette", "classhmi_1_1TilePalette.html", "classhmi_1_1TilePalette" ],
+      [ "ToolBar", "classhmi_1_1ToolBar.html", "classhmi_1_1ToolBar" ],
       [ "Window", "classhmi_1_1Window.html", "classhmi_1_1Window" ]
     ] ]
 ];

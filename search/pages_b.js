@@ -13,5 +13,6 @@ var searchData=
   ['fixe_20succès_20échec_10',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
   ['fixe_20testable_11',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
   ['fonctionnelles_12',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
-  ['fondation_20ecs_20mathématiques_20core_13',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]]
+  ['fondation_20ecs_20mathématiques_20core_13',['LOT-03 — Fondation ECS &amp; mathématiques `Core`',['../lot-03.html',1,'lots']]],
+  ['fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_14',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]]
 ];

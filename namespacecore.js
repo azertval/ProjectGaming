@@ -43,6 +43,19 @@ var namespacecore =
       [ "Won", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5", null ],
       [ "Lost", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b", null ]
     ] ],
+    [ "LevelValidationError", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823", [
+      [ "None", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "ParseError", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165", null ],
+      [ "UnknownTileType", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e", null ],
+      [ "OutOfBounds", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f", null ],
+      [ "DuplicatePosition", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba", null ],
+      [ "MissingSwitchId", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3", null ],
+      [ "DuplicateSwitchId", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb", null ],
+      [ "InvalidEntryCount", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff", null ],
+      [ "InvalidExitCount", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc", null ],
+      [ "UnresolvedMechanism", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb", null ],
+      [ "FileNotFound", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2", null ]
+    ] ],
     [ "LogLevel", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3", [
       [ "Trace", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1", null ],
       [ "Info", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875", null ],

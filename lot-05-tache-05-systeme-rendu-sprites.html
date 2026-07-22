@@ -94,41 +94,41 @@ $(document).ready(function(){initNavTree('lot-05-tache-05-systeme-rendu-sprites.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-05-rendu-2d_2epic_8md.html">LOT-05</a> · <b>Emplacement :</b> <code>Source/HMI</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md426"></a>
+<h1><a class="anchor" id="autotoc_md432"></a>
 Contexte</h1>
 <p>Le pont entre la simulation et l'image : un composant de rendu qui <b>lit</b> l'ECS et dessine chaque entité affichable. Il vit dans <code>HMI</code> (présentation) et ne modifie jamais les composants (<code>EX-ARCH-012</code>).</p>
-<h1><a class="anchor" id="autotoc_md427"></a>
+<h1><a class="anchor" id="autotoc_md433"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>SpriteRenderer</code> (dans <code>HMI</code>) : à chaque frame, itère <code>world.view&lt;Transform, Sprite&gt;()</code>, résout la région d'atlas (TACHE-03), calcule le quad monde (position/échelle depuis <code>Transform</code>), applique la caméra (TACHE-04) et l'empile dans le <code>SpriteBatch</code> (TACHE-02).</li>
 <li><b>Tri par couche</b> (<code>EX-REN-014</code>) : dessiner fond → décor → entités → interface (ordre stable et déterministe à couche égale).</li>
 <li>Rendu <b>en lecture seule</b> de l'ECS : accès par référence const, aucune mutation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md428"></a>
+<h1><a class="anchor" id="autotoc_md434"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite.">Source/HMI/Graphics/SpriteRenderer.h</a></code>, <code><a class="el" href="SpriteRenderer_8cpp.html">SpriteRenderer.cpp</a></code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md429"></a>
+<h1><a class="anchor" id="autotoc_md435"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Toutes les entités <code>Transform + Sprite</code> sont dessinées ; celles sans <code>Sprite</code> ne le sont pas.</li>
 <li>L'ordre de dessin respecte les couches (une entité de couche supérieure passe au-dessus).</li>
 <li>Vérification que l'ECS n'est pas muté par le rendu (accès const).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md430"></a>
+<h1><a class="anchor" id="autotoc_md436"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas allouer par frame de façon incontrôlée (réutiliser les tampons du <code>SpriteBatch</code>).</li>
 <li>Le renderer <b>n'est pas</b> un <code><a class="el" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants.">core::ISystem</a></code> (il vit dans <code>HMI</code>) : il lit le <code>World</code> mais n'est pas orchestré par <code>World::update</code> (le rendu est découplé de la simulation, <code>EX-REN-021</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md431"></a>
+<h1><a class="anchor" id="autotoc_md437"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rendu ECS → écran correct (couches respectées, lecture seule), documenté ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md432"></a>
+<h1><a class="anchor" id="autotoc_md438"></a>
 Exigences</h1>
 <p><code>EX-ARCH-012</code>, <code>EX-REN-010</code>, <code>EX-REN-011</code>, <code>EX-REN-014</code>, <code>EX-REN-021</code>. </p>
 </div></div><!-- contents -->

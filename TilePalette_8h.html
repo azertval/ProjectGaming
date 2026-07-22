@@ -99,18 +99,21 @@ $(document).ready(function(){initNavTree('TilePalette_8h.html',''); initResizabl
 
 <p>Sélection du type de tuile actif pour la peinture dans l'éditeur (EX-EDIT-002).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TilePalette.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="TilePalette_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2TilePalette_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2TilePalette_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2TilePalette_8h">
-<area shape="rect" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="5,5,227,60"/>
-<area shape="rect" title=" " alt="" coords="15,108,78,133"/>
-<area shape="poly" title=" " alt="" coords="97,62,67,99,63,95,93,58"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="103,108,271,133"/>
-<area shape="poly" title=" " alt="" coords="140,58,170,96,166,99,136,62"/>
+<area shape="rect" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="9,5,231,60"/>
+<area shape="rect" title=" " alt="" coords="5,108,64,133"/>
+<area shape="poly" title=" " alt="" coords="96,62,58,100,54,96,92,58"/>
+<area shape="rect" title=" " alt="" coords="89,108,151,133"/>
+<area shape="poly" title=" " alt="" coords="123,60,123,94,117,94,117,60"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="176,108,344,133"/>
+<area shape="poly" title=" " alt="" coords="164,58,231,98,228,103,161,62"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -140,7 +143,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.  <a href="classhmi_1_1TilePalette.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html">hmi::TilePalette::Entry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran et le type qu'elle sélectionne.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et son libellé court (découvrabilité, <code>EX-EDIT-015</code>) — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>

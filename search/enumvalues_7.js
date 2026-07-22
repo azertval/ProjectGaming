@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['left_0',['left',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff',1,'hmi::Left'],['../namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff',1,'hmi::Left']]],
-  ['lost_1',['Lost',['../namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b',1,'core']]]
+  ['info_0',['Info',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a4059b0251f66a18cb56f544728796875',1,'core']]],
+  ['invalidentrycount_1',['InvalidEntryCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff',1,'core']]],
+  ['invalidexitcount_2',['InvalidExitCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc',1,'core']]]
 ];

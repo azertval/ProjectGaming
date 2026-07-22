@@ -148,6 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab10397c5b66b6997de6adff24cca19d2" id="r_ab10397c5b66b6997de6adff24cca19d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#ab10397c5b66b6997de6adff24cca19d2">paintTile</a> (int column, int row, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type)</td></tr>
 <tr class="memdesc:ab10397c5b66b6997de6adff24cca19d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le type de tuile <code>type</code> en (column, row).  <br /></td></tr>
 <tr class="separator:ab10397c5b66b6997de6adff24cca19d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb667e044067f5e9bf16f747d3f5f8e" id="r_a7fb667e044067f5e9bf16f747d3f5f8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a7fb667e044067f5e9bf16f747d3f5f8e">paintRegion</a> (int originColumn, int originRow, const std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> &gt; &gt; &amp;block)</td></tr>
+<tr class="memdesc:a7fb667e044067f5e9bf16f747d3f5f8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un bloc rectangulaire de types de tuiles à partir de (<code>originColumn</code>, <code>originRow</code>).  <br /></td></tr>
+<tr class="separator:a7fb667e044067f5e9bf16f747d3f5f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad27c800742bff5e3bd6f4c04e9780d25" id="r_ad27c800742bff5e3bd6f4c04e9780d25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25">setEntry</a> (int column, int row)</td></tr>
 <tr class="memdesc:ad27c800742bff5e3bd6f4c04e9780d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place l'entrée en (column, row) ; déplace l'occurrence existante s'il y en avait une (unicité, <code>EX-EDIT-004</code>).  <br /></td></tr>
 <tr class="separator:ad27c800742bff5e3bd6f4c04e9780d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +166,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adcaec64d68695ac6214641b19e2ec1af" id="r_adcaec64d68695ac6214641b19e2ec1af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af">resize</a> (int width, int height)</td></tr>
 <tr class="memdesc:adcaec64d68695ac6214641b19e2ec1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne la grille (<code>EX-EDIT-005</code>).  <br /></td></tr>
 <tr class="separator:adcaec64d68695ac6214641b19e2ec1af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb1c529de03797c0e158a1f13b39084" id="r_a7bb1c529de03797c0e158a1f13b39084"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a7bb1c529de03797c0e158a1f13b39084">wouldResizeDropContent</a> (int width, int height) const noexcept</td></tr>
+<tr class="memdesc:a7bb1c529de03797c0e158a1f13b39084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si redimensionner à (<code>width</code>, <code>height</code>) supprimerait du contenu déjà posé.  <br /></td></tr>
+<tr class="separator:a7bb1c529de03797c0e158a1f13b39084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adec82624786f4ad3a83502eccc8712af" id="r_adec82624786f4ad3a83502eccc8712af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#adec82624786f4ad3a83502eccc8712af">undo</a> ()</td></tr>
 <tr class="memdesc:adec82624786f4ad3a83502eccc8712af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Annule la dernière mutation (<code>EX-EDIT-005</code>).  <br /></td></tr>
 <tr class="separator:adec82624786f4ad3a83502eccc8712af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,6 +219,15 @@ Static Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:acda8ea200910fc5679cd968d36de87e4" id="r_acda8ea200910fc5679cd968d36de87e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#acda8ea200910fc5679cd968d36de87e4">LevelDraft</a> (std::string <a class="el" href="classcore_1_1LevelDraft.html#a7ac47bce808a2ac8e8fce362411269cf">name</a>, <a class="el" href="classcore_1_1TileMap.html">TileMap</a> <a class="el" href="classcore_1_1LevelDraft.html#acc48e2f45fb3db53de09e30f60f75845">tileMap</a>)</td></tr>
 <tr class="separator:acda8ea200910fc5679cd968d36de87e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1286763b9db8bf337b2bf3a4d4049917" id="r_a1286763b9db8bf337b2bf3a4d4049917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a1286763b9db8bf337b2bf3a4d4049917">paintTileInternal</a> (int column, int row, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type)</td></tr>
+<tr class="memdesc:a1286763b9db8bf337b2bf3a4d4049917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique de <code>paintTile</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code> : réutilisée cellule par cellule par <code>paintRegion</code> pour n'empiler qu'un seul snapshot par opération de bloc.  <br /></td></tr>
+<tr class="separator:a1286763b9db8bf337b2bf3a4d4049917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d039adf33432c729620cd113ee8b5fb" id="r_a9d039adf33432c729620cd113ee8b5fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a9d039adf33432c729620cd113ee8b5fb">setEntryInternal</a> (int column, int row)</td></tr>
+<tr class="memdesc:a9d039adf33432c729620cd113ee8b5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique de <code>setEntry</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code>.  <br /></td></tr>
+<tr class="separator:a9d039adf33432c729620cd113ee8b5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2200dadec2de3ffe91fff274306a8be5" id="r_a2200dadec2de3ffe91fff274306a8be5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a2200dadec2de3ffe91fff274306a8be5">setExitInternal</a> (int column, int row)</td></tr>
+<tr class="memdesc:a2200dadec2de3ffe91fff274306a8be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique de <code>setExit</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code>.  <br /></td></tr>
+<tr class="separator:a2200dadec2de3ffe91fff274306a8be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d95955ffb6dc3429930c63e8b786869" id="r_a3d95955ffb6dc3429930c63e8b786869"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LevelDraft.html#a3d95955ffb6dc3429930c63e8b786869">removeMechanismsAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="el" href="LevelLoader_8cpp.html#a8f69b2e43ff0b9604263cdd2c0ae14f1">position</a>)</td></tr>
 <tr class="memdesc:a3d95955ffb6dc3429930c63e8b786869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire toute liaison de mécanisme référençant <code>position</code> (comme interrupteur ou porte).  <br /></td></tr>
 <tr class="separator:a3d95955ffb6dc3429930c63e8b786869"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -615,6 +630,50 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7fb667e044067f5e9bf16f747d3f5f8e" name="a7fb667e044067f5e9bf16f747d3f5f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb667e044067f5e9bf16f747d3f5f8e">&#9670;&#160;</a></span>paintRegion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::paintRegion </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>originColumn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>originRow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>block</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applique un bloc rectangulaire de types de tuiles à partir de (<code>originColumn</code>, <code>originRow</code>). </p>
+<p>Repasse par la même sémantique cellule-par-cellule que <code>paintTile</code> (déplacement entrée/sortie, nettoyage des liaisons) pour chaque case du bloc, mais ne pousse <b>qu'un seul</b> snapshot undo pour toute l'opération — sert au remplissage rectangulaire et au collage (<code>EX-EDIT-014</code>), sans dupliquer de règle de niveau (<code>EX-EDIT-010</code>). Les cases du bloc hors des bornes de la grille sont silencieusement ignorées (découpe aux bords, même principe que <code>resize</code>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">originColumn</td><td>Colonne de la case (0,0) du bloc. </td></tr>
+    <tr><td class="paramname">originRow</td><td>Ligne de la case (0,0) du bloc. </td></tr>
+    <tr><td class="paramname">block</td><td>Bloc de types, indexé <code>[ligne][colonne]</code> ; sans effet si vide. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab10397c5b66b6997de6adff24cca19d2" name="ab10397c5b66b6997de6adff24cca19d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab10397c5b66b6997de6adff24cca19d2">&#9670;&#160;</a></span>paintTile()</h2>
 
@@ -656,6 +715,50 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a1286763b9db8bf337b2bf3a4d4049917" name="a1286763b9db8bf337b2bf3a4d4049917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1286763b9db8bf337b2bf3a4d4049917">&#9670;&#160;</a></span>paintTileInternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::paintTileInternal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logique de <code>paintTile</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code> : réutilisée cellule par cellule par <code>paintRegion</code> pour n'empiler qu'un seul snapshot par opération de bloc. </p>
 
 </div>
 </div>
@@ -858,6 +961,44 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9d039adf33432c729620cd113ee8b5fb" name="a9d039adf33432c729620cd113ee8b5fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d039adf33432c729620cd113ee8b5fb">&#9670;&#160;</a></span>setEntryInternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setEntryInternal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logique de <code>setEntry</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code>. </p>
+
+</div>
+</div>
 <a id="a43da8f9a68020121dfad59756c579b7a" name="a43da8f9a68020121dfad59756c579b7a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43da8f9a68020121dfad59756c579b7a">&#9670;&#160;</a></span>setExit()</h2>
 
@@ -885,6 +1026,44 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Place la sortie en (column, row) ; déplace l'occurrence existante s'il y en avait une (unicité, <code>EX-EDIT-004</code>). </p>
+
+</div>
+</div>
+<a id="a2200dadec2de3ffe91fff274306a8be5" name="a2200dadec2de3ffe91fff274306a8be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2200dadec2de3ffe91fff274306a8be5">&#9670;&#160;</a></span>setExitInternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setExitInternal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Logique de <code>setExit</code>, sans <code><a class="el" href="classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></code>. </p>
 
 </div>
 </div>
@@ -1054,6 +1233,52 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retire la liaison de la porte à <code>doorPosition</code>, si elle en a une. Sans effet sinon. </p>
+
+</div>
+</div>
+<a id="a7bb1c529de03797c0e158a1f13b39084" name="a7bb1c529de03797c0e158a1f13b39084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb1c529de03797c0e158a1f13b39084">&#9670;&#160;</a></span>wouldResizeDropContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::wouldResizeDropContent </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si redimensionner à (<code>width</code>, <code>height</code>) supprimerait du contenu déjà posé. </p>
+<p>Requête <b>pure</b> (n'altère rien) : vraie si les nouvelles bornes excluraient l'entrée, la sortie, ou une des deux extrémités d'une liaison de mécanisme actuellement posées. Permet à <code>HMI</code> d'avertir avant d'appeler <code>resize</code> (<code>EX-EDIT-012</code>), sans dupliquer la logique de troncature déjà portée par <code>resize</code>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>Largeur envisagée, en cases (&gt; 0). </td></tr>
+    <tr><td class="paramname">height</td><td>Hauteur envisagée, en cases (&gt; 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si l'entrée, la sortie ou une liaison serait perdue. </dd></dl>
 
 </div>
 </div>

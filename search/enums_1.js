@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['leveloutcome_0',['LevelOutcome',['../namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa',1,'core']]],
-  ['loglevel_1',['LogLevel',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3',1,'core']]]
+  ['key_0',['Key',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48',1,'hmi']]],
+  ['kind_1',['Kind',['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42',1,'hmi::ScreenTransition']]]
 ];

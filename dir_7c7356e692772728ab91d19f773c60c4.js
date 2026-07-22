@@ -13,5 +13,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-11-ressenti-avance", "dir_73c049fa024bd1ab37be02b35c3e5148.html", null ],
     [ "LOT-12-niveau-puzzle", "dir_101f8ceac4a8e42040e1ea2eaaa20b5e.html", null ],
     [ "LOT-13-documentation", "dir_9b3320635a3fce7e119923fb643adc2f.html", null ],
-    [ "LOT-14-editeur-niveaux", "dir_370b38824b920f20db807258fd71fd6d.html", null ]
+    [ "LOT-14-editeur-niveaux", "dir_370b38824b920f20db807258fd71fd6d.html", null ],
+    [ "LOT-15-editeur-industriel", "dir_f96d2eb70da790314c10522d155d5bc2.html", null ]
 ];

@@ -1,7 +1,9 @@
 var classhmi_1_1GameScreen =
 [
     [ "GameScreen", "classhmi_1_1GameScreen.html#ac6aa6b25e60bd0c2e2e8dc37a998ecb9", null ],
+    [ "GameScreen", "classhmi_1_1GameScreen.html#a40fd5107c6197e190f0bd21d9a43b599", null ],
     [ "loadLevel", "classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f", null ],
+    [ "loadLevel", "classhmi_1_1GameScreen.html#a65880fa25b1d6c65449aa5194c052be5", null ],
     [ "refreshDoorVisuals", "classhmi_1_1GameScreen.html#a12b0dd458f1c9b31c762f4a0f3a0eaf4", null ],
     [ "render", "classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2", null ],
     [ "spawnPlayer", "classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9", null ],
@@ -17,6 +19,6 @@ var classhmi_1_1GameScreen =
     [ "_physics", "classhmi_1_1GameScreen.html#a3808202159b25eeecbc246493d3bef04", null ],
     [ "_player", "classhmi_1_1GameScreen.html#a14fb0c4c67d811505dfd2c8e97cc4ee3", null ],
     [ "_renderer", "classhmi_1_1GameScreen.html#ad1bade635453bf1388d91555c1bd3555", null ],
-    [ "_sequence", "classhmi_1_1GameScreen.html#a04f8a2761623d1b190d3766e56eaed0f", null ],
+    [ "_sequence", "classhmi_1_1GameScreen.html#ab1190bb7060826af15c29bd6f851c717", null ],
     [ "_world", "classhmi_1_1GameScreen.html#a688af25a96bfc4c98eed90d86f41991a", null ]
 ];

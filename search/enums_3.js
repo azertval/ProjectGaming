@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['screenid_0',['ScreenId',['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528d',1,'hmi']]]
+  ['mousebutton_0',['MouseButton',['../namespacehmi.html#a4180e6c308353c9965d695855746d982',1,'hmi']]]
 ];

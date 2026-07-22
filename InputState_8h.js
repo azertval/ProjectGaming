@@ -13,14 +13,20 @@ var InputState_8h =
       [ "Up", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa", null ],
       [ "Right", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c", null ],
       [ "Down", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
+      [ "D0", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8", null ],
       [ "A", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "C", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257", null ],
       [ "D", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
       [ "P", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "Q", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
       [ "S", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e", null ],
+      [ "V", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce", null ],
       [ "W", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ],
       [ "Y", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0", null ],
-      [ "Z", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ]
+      [ "Z", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ],
+      [ "F1", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89", null ],
+      [ "F2", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74", null ],
+      [ "F10", "InputState_8h.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a", null ]
     ] ],
     [ "MouseButton", "InputState_8h.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "InputState_8h.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],

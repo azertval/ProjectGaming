@@ -2,7 +2,7 @@ var searchData=
 [
   ['handle_0',['handle',['../classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59',1,'hmi::Window']]],
   ['handleassertionfailure_1',['handleAssertionFailure',['../namespacecore.html#a7278ef05514b62dcd5241984197dfb23',1,'core']]],
-  ['handleclick_2',['handleClick',['../classhmi_1_1TilePalette.html#a5d1b4a3102e16bbed9cc8d8ae692d0a5',1,'hmi::TilePalette']]],
+  ['handleclick_2',['handleclick',['../classhmi_1_1TilePalette.html#a5d1b4a3102e16bbed9cc8d8ae692d0a5',1,'hmi::TilePalette::handleClick()'],['../classhmi_1_1ToolBar.html#a05172aaa375291beb6e681b1215315ca',1,'hmi::ToolBar::handleClick()']]],
   ['handlelinkclick_3',['handleLinkClick',['../classhmi_1_1EditorScreen.html#aebd885eb2c376cc5e7716450bc229b42',1,'hmi::EditorScreen']]],
   ['handlemessage_4',['handleMessage',['../classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75',1,'hmi::Window']]],
   ['has_5',['has',['../classcore_1_1ComponentPool.html#aa6399864a2dc32b2625103a46c0ce6b8',1,'core::ComponentPool']]],

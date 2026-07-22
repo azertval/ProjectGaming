@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('namespacehmi.html',''); initResizable(
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">hmi Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -166,11 +167,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1SpriteRenderer.html">SpriteRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par couche.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextInputField.html">TextInputField</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Champ de saisie de texte <b>pur</b> (aucune dépendance rendu), pilotable par <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>.  <a href="classhmi_1_1TextInputField.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas et table de régions, avec un contenu <b>généré en code</b>.  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html">TilePalette</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.  <a href="classhmi_1_1TilePalette.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1ToolBar.html">ToolBar</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bande d'icônes cliquables sélectionnant l'<code>EditorTool</code> actif.  <a href="classhmi_1_1ToolBar.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html">Window</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.  <a href="classhmi_1_1Window.html#details">More...</a><br /></td></tr>
@@ -178,6 +185,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a02048ad8ad69a87a10e8307ac2bd68dd" id="r_a02048ad8ad69a87a10e8307ac2bd68dd"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> { <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">Paint</a>
+, <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e">Rectangle</a>
+, <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de">Selection</a>
+ }</td></tr>
+<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <code>Tab</code> ou la <code>ToolBar</code>.  <a href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
+<tr class="separator:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83c98e56e30eafa606048853f7962e48" id="r_a83c98e56e30eafa606048853f7962e48"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> : std::uint16_t { <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef">Backspace</a> = 0x08
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413">Tab</a> = 0x09
@@ -192,16 +205,24 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0x26
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c">Right</a> = 0x27
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53">Down</a> = 0x28
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">A</a> = 0x41
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8">D0</a> = 0x30
 , <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">A</a> = 0x41
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257">C</a> = 0x43
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">D</a> = 0x44
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">P</a> = 0x50
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">S</a> = 0x53
 , <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
-, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0">Y</a> = 0x59
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">Q</a> = 0x51
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">S</a> = 0x53
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce">V</a> = 0x56
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">W</a> = 0x57
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0">Y</a> = 0x59
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">Z</a> = 0x5A
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">F1</a> = 0x70
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74">F2</a> = 0x71
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a">F10</a> = 0x79
 <br />
  }</td></tr>
 <tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touche du clavier, identifiée par son <b>code virtuel Win32</b>.  <a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
@@ -222,6 +243,12 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code>name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
+<tr class="separator:abf93f3d263fe7268a624a8a96566a89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:acb440eec2a1a3d3cc760795b9875ae8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire les espaces de bord de <code>name</code> (le nom réellement utilisé une fois confirmé).  <br /></td></tr>
+<tr class="separator:acb440eec2a1a3d3cc760795b9875ae8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="separator:a2c8e7957dacab70252bf7edbdc80422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -237,8 +264,65 @@ Functions</h2></td></tr>
 <tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft" align="right" valign="top">std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
 <tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
 <tr class="separator:a18648161d8a6c752202b6034613a947b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3a2548dda58563a7daa1697ae663322f" id="r_a3a2548dda58563a7daa1697ae663322f"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3a2548dda58563a7daa1697ae663322f">PANEL_WIDTH</a> = 168.0f</td></tr>
+<tr class="memdesc:a3a2548dda58563a7daa1697ae663322f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constantes de disposition du panneau latéral de l'éditeur (LOT-15, <code>EX-EDIT-015</code>).  <br /></td></tr>
+<tr class="separator:a3a2548dda58563a7daa1697ae663322f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd03b541899e96afe12467d40fa4996" id="r_afbd03b541899e96afe12467d40fa4996"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#afbd03b541899e96afe12467d40fa4996">PANEL_MARGIN</a> = 8.0f</td></tr>
+<tr class="memdesc:afbd03b541899e96afe12467d40fa4996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marge gauche des icônes dans le panneau.  <br /></td></tr>
+<tr class="separator:afbd03b541899e96afe12467d40fa4996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a8862a219476b6895ad32ba251b6796" id="r_a2a8862a219476b6895ad32ba251b6796"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2a8862a219476b6895ad32ba251b6796">PANEL_ICON_SIZE</a> = 26.0f</td></tr>
+<tr class="memdesc:a2a8862a219476b6895ad32ba251b6796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'une icône (palette, outil, bouton).  <br /></td></tr>
+<tr class="separator:a2a8862a219476b6895ad32ba251b6796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dbd25134826e84a7feae8757ae3c882" id="r_a2dbd25134826e84a7feae8757ae3c882"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882">PANEL_ROW_GAP</a> = 6.0f</td></tr>
+<tr class="memdesc:a2dbd25134826e84a7feae8757ae3c882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace vertical entre deux lignes.  <br /></td></tr>
+<tr class="separator:a2dbd25134826e84a7feae8757ae3c882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a292daeddb3354429e60223e3e818c8" id="r_a4a292daeddb3354429e60223e3e818c8"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a4a292daeddb3354429e60223e3e818c8">PANEL_ROW_PITCH</a> = <a class="el" href="namespacehmi.html#a2a8862a219476b6895ad32ba251b6796">PANEL_ICON_SIZE</a> + <a class="el" href="namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882">PANEL_ROW_GAP</a></td></tr>
+<tr class="memdesc:a4a292daeddb3354429e60223e3e818c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas vertical d'une ligne.  <br /></td></tr>
+<tr class="separator:a4a292daeddb3354429e60223e3e818c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c7ebaa378e443f0111ae16621bdc67b" id="r_a9c7ebaa378e443f0111ae16621bdc67b"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a9c7ebaa378e443f0111ae16621bdc67b">PANEL_SECTION_GAP</a> = 14.0f</td></tr>
+<tr class="memdesc:a9c7ebaa378e443f0111ae16621bdc67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace supplémentaire entre deux sections.  <br /></td></tr>
+<tr class="separator:a9c7ebaa378e443f0111ae16621bdc67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae106af4848582a6f2c2f44525a602d2a" id="r_ae106af4848582a6f2c2f44525a602d2a"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">PALETTE_TOP</a> = 8.0f</td></tr>
+<tr class="memdesc:ae106af4848582a6f2c2f44525a602d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Haut de la première ligne (palette, 7 types).  <br /></td></tr>
+<tr class="separator:ae106af4848582a6f2c2f44525a602d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30cf5856c8e2d19b71c5844ada586ae" id="r_af30cf5856c8e2d19b71c5844ada586ae"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#af30cf5856c8e2d19b71c5844ada586ae">TOOLBAR_TOP</a> = <a class="el" href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">PALETTE_TOP</a> + 7.0f * <a class="el" href="namespacehmi.html#a4a292daeddb3354429e60223e3e818c8">PANEL_ROW_PITCH</a> + <a class="el" href="namespacehmi.html#a9c7ebaa378e443f0111ae16621bdc67b">PANEL_SECTION_GAP</a></td></tr>
+<tr class="memdesc:af30cf5856c8e2d19b71c5844ada586ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Haut de la première ligne de la barre d'outils (sous les 7 lignes de la palette).  <br /></td></tr>
+<tr class="separator:af30cf5856c8e2d19b71c5844ada586ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a02048ad8ad69a87a10e8307ac2bd68dd" name="a02048ad8ad69a87a10e8307ac2bd68dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02048ad8ad69a87a10e8307ac2bd68dd">&#9670;&#160;</a></span>EditorTool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Outil actif dans la grille de l'éditeur, changé via <code>Tab</code> ou la <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code>. </p>
+<p><code>Paint</code> peint case par case au clic/glisser (comportement LOT-14, inchangé). <code>Rectangle</code> peint un rectangle entier au relâchement d'un glisser. <code>Selection</code> définit une zone (glisser) dont le contenu peut être copié (<code>Ctrl+C</code>) puis collé ailleurs (<code>Ctrl+V</code>), sans peindre directement. La liaison de mécanismes (<code>Maj</code>+clic) reste disponible quel que soit l'outil actif. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e" name="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e"></a>Paint&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e" name="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e"></a>Rectangle&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de" name="a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de"></a>Selection&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a83c98e56e30eafa606048853f7962e48" name="a83c98e56e30eafa606048853f7962e48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83c98e56e30eafa606048853f7962e48">&#9670;&#160;</a></span>Key</h2>
 
@@ -273,14 +357,20 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa" name="a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa"></a>Up&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c" name="a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53" name="a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8" name="a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8"></a>D0&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29" name="a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257" name="a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257"></a>C&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5" name="a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5"></a>D&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa" name="a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa"></a>P&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee" name="a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee"></a>Q&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e" name="a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e"></a>S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce" name="a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce"></a>V&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276" name="a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276"></a>W&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0" name="a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0"></a>Y&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5" name="a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5"></a>Z&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89" name="a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89"></a>F1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74" name="a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74"></a>F2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a" name="a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a"></a>F10&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -364,6 +454,33 @@ Functions</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="abf93f3d263fe7268a624a8a96566a89e" name="abf93f3d263fe7268a624a8a96566a89e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf93f3d263fe7268a624a8a96566a89e">&#9670;&#160;</a></span>isValidLevelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isValidLevelName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indique si <code>name</code> peut servir de nom de niveau (donc de nom de fichier Windows). </p>
+<p>Liste noire <b>minimale</b> (pas une liste blanche restrictive : les accents et l'Unicode restent autorisés, <code>EX-NFR-010</code> n'impose rien de plus) : un nom valide n'est pas vide une fois les espaces de bord retirés, et ne contient aucun des caractères interdits par le système de fichiers Windows (antislash, barre oblique, deux-points, astérisque, point d'interrogation, guillemet droit, chevrons ouvrant/fermant, barre verticale). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nom saisi, tel quel (non retiré de ses espaces de bord). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si <code>name</code> peut être utilisé comme nom de niveau. </dd></dl>
 
 </div>
 </div>
@@ -495,6 +612,227 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'intention de déplacement correspondante. </dd></dl>
+
+</div>
+</div>
+<a id="acb440eec2a1a3d3cc760795b9875ae8e" name="acb440eec2a1a3d3cc760795b9875ae8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb440eec2a1a3d3cc760795b9875ae8e">&#9670;&#160;</a></span>trimLevelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::trimLevelName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire les espaces de bord de <code>name</code> (le nom réellement utilisé une fois confirmé). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nom saisi. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>name</code> sans ses espaces de début/fin. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ae106af4848582a6f2c2f44525a602d2a" name="ae106af4848582a6f2c2f44525a602d2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae106af4848582a6f2c2f44525a602d2a">&#9670;&#160;</a></span>PALETTE_TOP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PALETTE_TOP = 8.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Haut de la première ligne (palette, 7 types). </p>
+
+</div>
+</div>
+<a id="a2a8862a219476b6895ad32ba251b6796" name="a2a8862a219476b6895ad32ba251b6796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a8862a219476b6895ad32ba251b6796">&#9670;&#160;</a></span>PANEL_ICON_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_ICON_SIZE = 26.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté d'une icône (palette, outil, bouton). </p>
+
+</div>
+</div>
+<a id="afbd03b541899e96afe12467d40fa4996" name="afbd03b541899e96afe12467d40fa4996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd03b541899e96afe12467d40fa4996">&#9670;&#160;</a></span>PANEL_MARGIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_MARGIN = 8.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marge gauche des icônes dans le panneau. </p>
+
+</div>
+</div>
+<a id="a2dbd25134826e84a7feae8757ae3c882" name="a2dbd25134826e84a7feae8757ae3c882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dbd25134826e84a7feae8757ae3c882">&#9670;&#160;</a></span>PANEL_ROW_GAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_ROW_GAP = 6.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Espace vertical entre deux lignes. </p>
+
+</div>
+</div>
+<a id="a4a292daeddb3354429e60223e3e818c8" name="a4a292daeddb3354429e60223e3e818c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a292daeddb3354429e60223e3e818c8">&#9670;&#160;</a></span>PANEL_ROW_PITCH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_ROW_PITCH = <a class="el" href="namespacehmi.html#a2a8862a219476b6895ad32ba251b6796">PANEL_ICON_SIZE</a> + <a class="el" href="namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882">PANEL_ROW_GAP</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pas vertical d'une ligne. </p>
+
+</div>
+</div>
+<a id="a9c7ebaa378e443f0111ae16621bdc67b" name="a9c7ebaa378e443f0111ae16621bdc67b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c7ebaa378e443f0111ae16621bdc67b">&#9670;&#160;</a></span>PANEL_SECTION_GAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_SECTION_GAP = 14.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Espace supplémentaire entre deux sections. </p>
+
+</div>
+</div>
+<a id="a3a2548dda58563a7daa1697ae663322f" name="a3a2548dda58563a7daa1697ae663322f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a2548dda58563a7daa1697ae663322f">&#9670;&#160;</a></span>PANEL_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PANEL_WIDTH = 168.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constantes de disposition du panneau latéral de l'éditeur (LOT-15, <code>EX-EDIT-015</code>). </p>
+<p><code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>, <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code> et <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> (bouton grille, décalage de la caméra) partagent ces constantes pour rester cohérents : un <b>panneau vertical</b> fixe sur le bord gauche de l'écran, plutôt que des bandes empilées en haut-gauche pouvant se superposer entre elles ou avec la grille (LOT-14/LOT-15 TACHE-06 initiales). Largeur totale du panneau, en pixels écran. </p>
+
+</div>
+</div>
+<a id="af30cf5856c8e2d19b71c5844ada586ae" name="af30cf5856c8e2d19b71c5844ada586ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af30cf5856c8e2d19b71c5844ada586ae">&#9670;&#160;</a></span>TOOLBAR_TOP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::TOOLBAR_TOP = <a class="el" href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">PALETTE_TOP</a> + 7.0f * <a class="el" href="namespacehmi.html#a4a292daeddb3354429e60223e3e818c8">PANEL_ROW_PITCH</a> + <a class="el" href="namespacehmi.html#a9c7ebaa378e443f0111ae16621bdc67b">PANEL_SECTION_GAP</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Haut de la première ligne de la barre d'outils (sous les 7 lignes de la palette). </p>
 
 </div>
 </div>

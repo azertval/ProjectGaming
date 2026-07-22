@@ -126,10 +126,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:acd73f8d045b0de9992c2a35920b35324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac21cc63832094fc7dda052a6372dd167" id="r_ac21cc63832094fc7dda052a6372dd167"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1LevelLoadResult.html#ac21cc63832094fc7dda052a6372dd167">error</a></td></tr>
 <tr class="separator:ac21cc63832094fc7dda052a6372dd167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e2623371658540ee9003d846c0840d9" id="r_a6e2623371658540ee9003d846c0840d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1LevelLoadResult.html#a6e2623371658540ee9003d846c0840d9">errorCode</a> = <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">LevelValidationError::None</a></td></tr>
+<tr class="separator:a6e2623371658540ee9003d846c0840d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Résultat d'un chargement de niveau : soit un <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code>, soit une <b>erreur</b> décrite. </p>
-<p>En cas de succès, <code>level</code> contient le niveau et <code>error</code> est vide. En cas d'échec (récupérable, <code>EX-NFR-040</code>), <code>level</code> est vide et <code>error</code> décrit le problème de façon exploitable. </p>
+<p>En cas de succès, <code>level</code> contient le niveau, <code>error</code> est vide et <code>errorCode</code> vaut <code>None</code>. En cas d'échec (récupérable, <code>EX-NFR-040</code>), <code>level</code> est vide, <code>error</code> décrit le problème de façon exploitable pour les journaux/tests, et <code>errorCode</code> catégorise l'échec pour un traitement programmatique (traduction non-codeur, LOT-15). </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab18f975c074af924854ff0ffe5218047" name="ab18f975c074af924854ff0ffe5218047"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab18f975c074af924854ff0ffe5218047">&#9670;&#160;</a></span>ok()</h2>
@@ -166,6 +168,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string core::LevelLoadResult::error</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e2623371658540ee9003d846c0840d9" name="a6e2623371658540ee9003d846c0840d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2623371658540ee9003d846c0840d9">&#9670;&#160;</a></span>errorCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> core::LevelLoadResult::errorCode = <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">LevelValidationError::None</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

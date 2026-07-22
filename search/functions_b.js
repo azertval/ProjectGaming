@@ -13,7 +13,7 @@ var searchData=
   ['loadfromfile_10',['loadFromFile',['../classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543',1,'core::LevelLoader']]],
   ['loadfromstring_11',['loadFromString',['../classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89',1,'core::LevelLoader']]],
   ['loadlanguage_12',['loadLanguage',['../classhmi_1_1Localization.html#a49f9ec81ff30f2eb405930ce13e36584',1,'hmi::Localization']]],
-  ['loadlevel_13',['loadLevel',['../classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f',1,'hmi::GameScreen']]],
+  ['loadlevel_13',['loadlevel',['../classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f',1,'hmi::GameScreen::loadLevel(const std::filesystem::path &amp;path)'],['../classhmi_1_1GameScreen.html#a65880fa25b1d6c65449aa5194c052be5',1,'hmi::GameScreen::loadLevel(core::Level level)']]],
   ['localization_14',['Localization',['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization']]],
   ['log_15',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger']]],
   ['logger_16',['logger',['../classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327',1,'core::Logger::Logger()=default'],['../classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e',1,'core::Logger::Logger(const Logger &amp;)=delete']]]

@@ -22,9 +22,16 @@ var namespacehmi =
     [ "SpriteBatch", "classhmi_1_1SpriteBatch.html", "classhmi_1_1SpriteBatch" ],
     [ "SpriteQuad", "structhmi_1_1SpriteQuad.html", "structhmi_1_1SpriteQuad" ],
     [ "SpriteRenderer", "classhmi_1_1SpriteRenderer.html", "classhmi_1_1SpriteRenderer" ],
+    [ "TextInputField", "classhmi_1_1TextInputField.html", "classhmi_1_1TextInputField" ],
     [ "TextureAtlas", "classhmi_1_1TextureAtlas.html", "classhmi_1_1TextureAtlas" ],
     [ "TilePalette", "classhmi_1_1TilePalette.html", "classhmi_1_1TilePalette" ],
+    [ "ToolBar", "classhmi_1_1ToolBar.html", "classhmi_1_1ToolBar" ],
     [ "Window", "classhmi_1_1Window.html", "classhmi_1_1Window" ],
+    [ "EditorTool", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd", [
+      [ "Paint", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e", null ],
+      [ "Rectangle", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e", null ],
+      [ "Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ]
+    ] ],
     [ "Key", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48", [
       [ "Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
       [ "Tab", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],
@@ -37,14 +44,20 @@ var namespacehmi =
       [ "Up", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa", null ],
       [ "Right", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c", null ],
       [ "Down", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53", null ],
+      [ "D0", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8", null ],
       [ "A", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "C", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257", null ],
       [ "D", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5", null ],
       [ "P", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa", null ],
       [ "Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
       [ "S", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e", null ],
+      [ "V", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce", null ],
       [ "W", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ],
       [ "Y", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0", null ],
-      [ "Z", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ]
+      [ "Z", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5", null ],
+      [ "F1", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89", null ],
+      [ "F2", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74", null ],
+      [ "F10", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a", null ]
     ] ],
     [ "MouseButton", "namespacehmi.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],
@@ -58,8 +71,18 @@ var namespacehmi =
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ]
     ] ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
+    [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],
     [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
-    [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ]
+    [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ],
+    [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
+    [ "PALETTE_TOP", "namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a", null ],
+    [ "PANEL_ICON_SIZE", "namespacehmi.html#a2a8862a219476b6895ad32ba251b6796", null ],
+    [ "PANEL_MARGIN", "namespacehmi.html#afbd03b541899e96afe12467d40fa4996", null ],
+    [ "PANEL_ROW_GAP", "namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882", null ],
+    [ "PANEL_ROW_PITCH", "namespacehmi.html#a4a292daeddb3354429e60223e3e818c8", null ],
+    [ "PANEL_SECTION_GAP", "namespacehmi.html#a9c7ebaa378e443f0111ae16621bdc67b", null ],
+    [ "PANEL_WIDTH", "namespacehmi.html#a3a2548dda58563a7daa1697ae663322f", null ],
+    [ "TOOLBAR_TOP", "namespacehmi.html#af30cf5856c8e2d19b71c5844ada586ae", null ]
 ];

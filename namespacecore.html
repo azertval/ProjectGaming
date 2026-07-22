@@ -232,6 +232,24 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau d'un message de journalisation (ordre croissant de gravité).  <a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">More...</a><br /></td></tr>
 <tr class="separator:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a63d18c9ef40479ebdc204e726e823" id="r_af2a63d18c9ef40479ebdc204e726e823"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">ParseError</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e">UnknownTileType</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f">OutOfBounds</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba">DuplicatePosition</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3">MissingSwitchId</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb">DuplicateSwitchId</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff">InvalidEntryCount</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc">InvalidExitCount</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb">UnresolvedMechanism</a>
+, <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:af2a63d18c9ef40479ebdc204e726e823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de chargement/validation d'un niveau (LOT-15, <code>EX-EDIT-012</code>).  <a href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">More...</a><br /></td></tr>
+<tr class="separator:af2a63d18c9ef40479ebdc204e726e823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60398ec3835dd2882a7d3a9eaddb65aa" id="r_a60398ec3835dd2882a7d3a9eaddb65aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a> { <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428">Playing</a>
 , <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5">Won</a>
 , <a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b">Lost</a>
@@ -385,6 +403,55 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" name="a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5"></a>Won&#160;</td><td class="fielddoc"><p>Le personnage a atteint la sortie (<code>EX-GP-030</code>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b" name="a60398ec3835dd2882a7d3a9eaddb65aaab578b733cbb788fc6ad208314d2c4c2b"></a>Lost&#160;</td><td class="fielddoc"><p>Le personnage a touché un danger ou est sorti par le bas (<code>EX-GP-031</code>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="af2a63d18c9ef40479ebdc204e726e823" name="af2a63d18c9ef40479ebdc204e726e823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2a63d18c9ef40479ebdc204e726e823">&#9670;&#160;</a></span>LevelValidationError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">core::LevelValidationError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégorie d'échec de chargement/validation d'un niveau (LOT-15, <code>EX-EDIT-012</code>). </p>
+<p>Complète le message technique (<code><a class="el" href="structcore_1_1LevelLoadResult.html#ac21cc63832094fc7dda052a6372dd167">LevelLoadResult::error</a></code>) d'un code <b>programmatique</b>, pour qu'un appelant (l'éditeur) puisse traduire une erreur en message non-codeur sans dépendre du texte exact du message — une correspondance de sous-chaînes s'y casserait silencieusement au moindre changement de formulation. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754" name="af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Pas d'erreur (chargement réussi). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" name="af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"><p>JSON malformé, champ obligatoire manquant, ou de mauvais type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e" name="af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e"></a>UnknownTileType&#160;</td><td class="fielddoc"><p>Type de tuile non reconnu. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f" name="af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f"></a>OutOfBounds&#160;</td><td class="fielddoc"><p>Tuile positionnée hors des dimensions déclarées. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba" name="af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba"></a>DuplicatePosition&#160;</td><td class="fielddoc"><p>Deux tuiles à la même position. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3" name="af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3"></a>MissingSwitchId&#160;</td><td class="fielddoc"><p>Interrupteur sans identifiant. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb" name="af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb"></a>DuplicateSwitchId&#160;</td><td class="fielddoc"><p>Deux interrupteurs partagent le même identifiant. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff" name="af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff"></a>InvalidEntryCount&#160;</td><td class="fielddoc"><p>Zéro ou plusieurs tuiles d'entrée (une seule attendue). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" name="af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc"></a>InvalidExitCount&#160;</td><td class="fielddoc"><p>Zéro ou plusieurs tuiles de sortie (une seule attendue). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" name="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb"></a>UnresolvedMechanism&#160;</td><td class="fielddoc"><p>Porte liée à un identifiant d'interrupteur inexistant. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" name="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier de niveau introuvable sur disque. </p>
 </td></tr>
 </table>
 

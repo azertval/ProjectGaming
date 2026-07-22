@@ -108,21 +108,25 @@ Collaboration diagram for hmi::TilePalette:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1TilePalette__coll__graph.png" border="0" usemap="#ahmi_1_1TilePalette_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1TilePalette_coll__map" id="ahmi_1_1TilePalette_coll__map">
-<area shape="rect" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="5,284,129,309"/>
-<area shape="rect" title=" " alt="" coords="59,181,267,221"/>
-<area shape="poly" title=" " alt="" coords="136,233,81,286,78,282,132,229"/>
-<area shape="rect" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran et le type qu&#39;elle sélectionne." alt="" coords="69,93,236,119"/>
-<area shape="poly" title=" " alt="" coords="158,132,164,181,159,181,153,133"/>
-<area shape="rect" title=" " alt="" coords="5,5,81,31"/>
-<area shape="poly" title=" " alt="" coords="45,44,43,123,50,221,66,283,61,285,45,222,38,124,39,44"/>
-<area shape="poly" title=" " alt="" coords="71,37,139,91,136,95,67,41"/>
+<area shape="rect" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="9,373,133,399"/>
+<area shape="rect" title=" " alt="" coords="63,271,271,311"/>
+<area shape="poly" title=" " alt="" coords="140,322,85,375,82,371,136,318"/>
+<area shape="rect" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="73,183,240,208"/>
+<area shape="poly" title=" " alt="" coords="162,221,168,270,163,271,157,222"/>
+<area shape="rect" title=" " alt="" coords="5,95,81,120"/>
+<area shape="poly" title=" " alt="" coords="45,134,46,213,54,310,70,373,65,374,49,311,40,213,40,134"/>
+<area shape="poly" title=" " alt="" coords="71,126,143,180,140,185,68,130"/>
+<area shape="rect" title=" " alt="" coords="113,95,200,120"/>
+<area shape="poly" title=" " alt="" coords="159,134,159,182,154,182,154,134"/>
+<area shape="rect" title=" " alt="" coords="87,5,226,45"/>
+<area shape="poly" title=" " alt="" coords="159,59,159,94,154,94,154,59"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html">Entry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran et le type qu'elle sélectionne.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et son libellé court (découvrabilité, <code>EX-EDIT-015</code>) — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -148,7 +152,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre. </p>
 <p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>). Le dessin des entrées (couleurs d'atlas, surbrillance de la sélection) est délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code>/<code><a class="el" href="classhmi_1_1TilePalette.html#af8b0a532bf775db098660afc01b8e01d">selected()</a></code>.</p>
-<p>Types proposés : ceux que <code>Core</code> sait réellement gérer aujourd'hui (<code>Empty</code>, <code>Solid</code>, <code>Danger</code>, <code><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran et le type qu&#39;elle sélectionne.">Entry</a></code>, <code>Exit</code>, <code>Switch</code>, <code>Door</code>) — ni bloc poussable ni clé/porte verrouillée, non implémentés côté gameplay (hors périmètre du LOT-14, voir <code>epic.md</code>). </p>
+<p>Types proposés : ceux que <code>Core</code> sait réellement gérer aujourd'hui (<code>Empty</code>, <code>Solid</code>, <code>Danger</code>, <code><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ...">Entry</a></code>, <code>Exit</code>, <code>Switch</code>, <code>Door</code>) — ni bloc poussable ni clé/porte verrouillée, non implémentés côté gameplay (hors périmètre du LOT-14, voir <code>epic.md</code>). </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad27da99e240b358a4c4703081238e512" name="ad27da99e240b358a4c4703081238e512"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad27da99e240b358a4c4703081238e512">&#9670;&#160;</a></span>TilePalette()</h2>

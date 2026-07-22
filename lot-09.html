@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('lot-09.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Ce lot ajoute le <b>saut</b> au personnage du LOT-08 et le rend <b>agréable à jouer</b> (coyote time, jump buffering, hauteur variable), puis enchaîne les niveaux en une <b>progression</b> : écran titre → niveau 1 → niveau 2 → … → dernier niveau → retour au titre. Double saut, wall jump, dash, gravité asymétrique et le niveau <b>puzzle</b> (mécanismes) restent des lots ultérieurs. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md610"></a>
+<h1><a class="anchor" id="autotoc_md616"></a>
 Objectif</h1>
 <p>Deux apports complémentaires :</p>
 <ol type="1">
@@ -109,9 +109,9 @@ Objectif</h1>
 <li><b>Un enchaînement de niveaux</b> (<code>EX-LVL-010</code>, <code>EX-LVL-011</code>) : les niveaux se jouent dans un <b>ordre défini</b> ; à la réussite d'un niveau, le <b>suivant</b> se charge automatiquement ; après le <b>dernier</b>, retour à l'<b>écran titre</b>.</li>
 </ol>
 <p>Toute la simulation reste <b>pure et déterministe au pas fixe</b> dans <code>Core</code> (<code>EX-NFR-002</code>, <code>EX-ARCH-011</code>), testable sans GPU ; <code>HMI</code> traduit les touches (<code>EX-CTRL-010</code>) et orchestre les écrans. Le lot fournit au moins <b>deux niveaux</b> de démonstration (dont un <b>exigeant le saut</b>) et des tests prouvant la franchissabilité et l'enchaînement.</p>
-<h1><a class="anchor" id="autotoc_md611"></a>
+<h1><a class="anchor" id="autotoc_md617"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md612"></a>
+<h2><a class="anchor" id="autotoc_md618"></a>
 Inclus</h2>
 <ul>
 <li><b>Données (Core)</b> : <code>PlayerInput</code> enrichi d'une intention de <b>saut</b> (<em>pressé</em> + <em>maintenu</em>, <code>EX-CTRL-011</code>) ; <code>Player</code> enrichi des <b>minuteries</b> coyote et buffer ; <code>PhysicsConfig</code> enrichi des réglages (vitesse d'impulsion, fenêtres, facteur de coupe).</li>
@@ -121,7 +121,7 @@ Inclus</h2>
 <li><b>Enchaînement de niveaux (HMI)</b> : une <b>séquence ordonnée</b> de niveaux ; réussite → niveau suivant chargé automatiquement (personnage réapparu à l'entrée du nouveau niveau) ; après le dernier → retour au menu/titre (<code>EX-LVL-010</code>, <code>EX-LVL-011</code>).</li>
 <li><b>Contenu + preuve</b> : au moins <b>deux niveaux</b> de démonstration — un premier (déplacement/chute, hérité du LOT-08) et un second <b>exigeant le saut</b> (section ascendante) ; tests d'intégration de franchissabilité (saut requis) et d'enchaînement (niveau 1 → niveau 2 → fin).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md613"></a>
+<h2><a class="anchor" id="autotoc_md619"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Double saut / saut multiple</b> (<code>EX-GP-013</code>), <b>wall jump</b>, <b>dash</b>, <b>gravité asymétrique</b>.</li>
@@ -129,7 +129,7 @@ Exclus (lots ultérieurs)</h2>
 <li><b>Écran de fin</b> dédié (<code>EX-REN-031</code>) : après le dernier niveau, on revient au <b>menu</b>.</li>
 <li><b>Animations</b> (<code>EX-REN-012</code>), manette.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md614"></a>
+<h1><a class="anchor" id="autotoc_md620"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Quatre techniques de *feel*** : saut au sol, hauteur variable, coyote time, jump buffering. Mécaniques avancées différées.</b></li>
@@ -138,7 +138,7 @@ Décisions de cadrage</h1>
 <li><b>Progression côté <code>HMI</code></b> : le <code>GameScreen</code> (ou une petite abstraction de <b>séquence</b>) détient la <b>liste ordonnée</b> des niveaux et l'<b>indice courant</b> ; la réussite avance l'indice et <b>recharge la scène</b> (monde + personnage) pour le niveau suivant, ou revient au menu après le dernier. La simulation <code>Core</code> reste ignorante de la progression (un niveau à la fois).</li>
 <li><b>Contenu progressif</b> : niveau 1 sans saut (prise en main), niveau 2 avec saut requis. La séquence est <b>extensible</b> (« niveau XX ») sans changer le code — source à trancher à l'implémentation (liste explicite ou balayage ordonné du dossier des niveaux).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md615"></a>
+<h1><a class="anchor" id="autotoc_md621"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-GP-011</code> (saut), <code>EX-GP-013</code> (au sol uniquement, pas de double saut).</li>
@@ -146,7 +146,7 @@ Exigences couvertes</h1>
 <li><code>EX-LVL-010</code> (ordre défini), <code>EX-LVL-011</code> (enchaînement automatique, retour menu après le dernier). <code>EX-LVL-012</code> partiellement (déplacement/saut + danger ; le niveau puzzle viendra avec les mécanismes).</li>
 <li><code>EX-NFR-002</code> (pas fixe déterministe), <code>EX-NFR-010</code>/<code>EX-NFR-020</code> (testabilité, tests), <code>EX-ARCH-011</code> (composants = données pures).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md616"></a>
+<h1><a class="anchor" id="autotoc_md622"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -167,7 +167,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-06-niveaux-demo_8md.html">TACHE-06</a>   </td><td class="markdownTableBodyNone">Niveaux de démo (séquence, dont saut requis) + preuve   </td><td class="markdownTableBodyNone"><code>Elements/Levels</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md617"></a>
+<h1><a class="anchor" id="autotoc_md623"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage <b>saute</b> à l'appui, uniquement au sol (ou en coyote time), retombe sous gravité constante ; la <b>hauteur varie</b> selon la durée d'appui. <b>Coyote</b> et <b>buffering</b> fonctionnent.</li>
@@ -176,13 +176,13 @@ Critères d'acceptation du lot</h1>
 <li>La logique (saut, hauteur variable, coyote, buffer) est <b>couverte par des tests</b> (<code>ctest</code> vert), déterministe au pas fixe.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, documentation Doxygen et <code>CHANGELOG.md</code> à jour, <code>lint</code> des exigences vert.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md618"></a>
+<h1><a class="anchor" id="autotoc_md624"></a>
 Dépendances</h1>
 <ul>
 <li>Prolonge le LOT-08 : réutilise <code>CharacterPhysicsSystem</code>, <code>sweepAabb</code>, <code>grounded</code>, <code>PlayerInput</code>/<code>Player</code>/<code>PhysicsConfig</code>, <code>toPlayerInput</code>, <code>GameScreen</code>, <code>evaluateOutcome</code>.</li>
 <li>L'<code>InputState</code> (LOT-06) fournit les fronts <em>pressée/relâchée</em> nécessaires au buffering et à la hauteur variable. Le <code>LevelLoader</code> (LOT-07) charge chaque niveau de la séquence.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md619"></a>
+<h1><a class="anchor" id="autotoc_md625"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-09-tache-01-donnees-saut.html">TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig`</a></li>

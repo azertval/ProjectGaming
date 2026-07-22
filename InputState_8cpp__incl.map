@@ -1,11 +1,13 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="11,5,232,60"/>
-<area shape="rect" id="Node000002" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="37,108,205,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,60,124,94,119,94,119,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="57,5,279,60"/>
+<area shape="rect" id="Node000002" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="84,108,252,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,60,171,94,165,94,165,60"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,181,61,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,135,60,175,57,170,106,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="148,136,69,177,66,172,145,131"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="86,181,157,207"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="124,134,124,168,119,168,119,134"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="163,135,139,171,134,168,158,132"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="181,181,248,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="138,131,190,171,187,175,135,135"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="178,132,202,168,197,171,173,135"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="273,181,335,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="191,131,271,173,269,177,189,136"/>
 </map>
