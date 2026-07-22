@@ -36,40 +36,54 @@ GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewpo
     : _atlas(atlas),
       _camera(viewportWidth, viewportHeight),
       _renderer(batch, atlas),
-      _sequence(std::move(levels)) {
-    if (_sequence.empty()) {
+      _sequence(LevelSequence(std::move(levels))) {
+    if (_sequence->empty()) {
         _loadError = "Aucun niveau a charger.";  // robustesse : sequence vide -> etat neutre
         HMI_LOG_WARNING(_loadError);
         return;
     }
-    loadLevel(_sequence.current());
+    loadLevel(_sequence->current());
 }
 
-// (Re)construit la scene pour un niveau : monde neuf + grille + personnage a l'entree.
-void GameScreen::loadLevel(const std::filesystem::path& path) {
-    _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
-    _loadError.clear();
+// Construit l'ecran pour un niveau unique deja en memoire (essai immediat de l'editeur, LOT-15) :
+// pas de sequence/fichier, la sortie termine l'essai au lieu d'enchainer (voir update()).
+GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
+                       int viewportHeight, core::Level level)
+    : _atlas(atlas), _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {
+    loadLevel(std::move(level));
+}
 
+// Charge le niveau path depuis un fichier, puis delegue a loadLevel(core::Level) ; echec
+// recuperable (EX-NFR-040) : _level reste vide, _loadError est renseigne.
+void GameScreen::loadLevel(const std::filesystem::path& path) {
     core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
     if (!result.ok()) {
-        // Echec recuperable : on retient le message et on affichera un etat neutre.
+        _world = core::World{};  // repart d'un monde vierge (etat neutre)
         _level.reset();
         _loadError = result.error;
         HMI_LOG_WARNING("Echec du chargement du niveau : " + result.error);
         return;
     }
+    loadLevel(std::move(*result.level));
+}
 
-    _level = std::move(result.level);  // conserve le niveau pour la simulation et le reset
-    const core::Level& level = *_level;
-    _levelWidth = level.tileMap().width();
-    _levelHeight = level.tileMap().height();
+// (Re)construit la scene pour un niveau deja charge et valide : monde neuf + grille + personnage
+// a l'entree. Coeur commun aux deux constructeurs et aux rechargements (echec, niveau suivant).
+void GameScreen::loadLevel(core::Level level) {
+    _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
+    _loadError.clear();
+
+    _level = std::move(level);  // conserve le niveau pour la simulation et le reset
+    const core::Level& levelRef = *_level;  // level est deplace : plus lu au-dela de cette ligne
+    _levelWidth = levelRef.tileMap().width();
+    _levelHeight = levelRef.tileMap().height();
     _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
                                     static_cast<float>(_levelHeight) * 0.5f});
     // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
-    core::buildLevelScene(_world, level,
+    core::buildLevelScene(_world, levelRef,
                           [this](core::TileType type) { return regionForTile(type, _atlas); });
     // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
-    _mechanisms.emplace(level);
+    _mechanisms.emplace(levelRef);
     // Repere l'entite-tuile de chaque porte (avant le spawn du perso) pour le retour visuel d'etat.
     _doorEntities.clear();
     for (const core::Mechanism& mechanism : _mechanisms->mechanisms()) {
@@ -86,8 +100,8 @@ void GameScreen::loadLevel(const std::filesystem::path& path) {
             });
         _doorEntities.push_back(doorEntity);
     }
-    spawnPlayer(level.entry());
-    HMI_LOG_INFO("Niveau charge : " + level.name() + " (" + std::to_string(_levelWidth) + "x" +
+    spawnPlayer(levelRef.entry());
+    HMI_LOG_INFO("Niveau charge : " + levelRef.name() + " (" + std::to_string(_levelWidth) + "x" +
                  std::to_string(_levelHeight) + ")");
 }
 
@@ -150,20 +164,22 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     // 5. Issue du niveau.
     switch (core::evaluateOutcome(box, *_level)) {
         case core::LevelOutcome::Won:
-            if (_sequence.hasNext()) {
+            if (_sequence && _sequence->hasNext()) {
                 // Enchaine le niveau suivant : on reste sur l'ecran de jeu (EX-LVL-011).
-                _sequence.advance();
+                _sequence->advance();
                 HMI_LOG_INFO("Niveau termine : passage au niveau suivant.");
-                loadLevel(_sequence.current());
+                loadLevel(_sequence->current());
                 return ScreenTransition::none();
             }
-            // Dernier niveau franchi : retour au titre.
-            HMI_LOG_INFO("Sequence terminee : retour au menu.");
+            // Dernier niveau de la sequence franchi, ou niveau unique en memoire (essai immediat,
+            // LOT-15, pas de sequence) : retour au titre, sans enchainement.
+            HMI_LOG_INFO("Niveau/sequence termine(e) : retour au menu.");
             return ScreenTransition::switchTo(ScreenId::Menu);
         case core::LevelOutcome::Lost:
             // Echec : rechargement COMPLET du niveau (perso a l'entree, mecanismes et budget
-            // remis).
-            loadLevel(_sequence.current());
+            // remis) depuis le Level deja en memoire — pas de nouvelle lecture disque, valable
+            // aussi bien en mode sequence qu'en mode niveau unique en memoire.
+            loadLevel(*_level);
             break;
         case core::LevelOutcome::Playing:
             break;

@@ -34,26 +34,32 @@ namespace {
 constexpr int DEFAULT_WIDTH = 14;
 constexpr int DEFAULT_HEIGHT = 8;
 
-// Chemin du fichier temporaire utilise pour l'essai immediat (EX-EDIT-008) : le brouillon y est
-// ecrit avant de lancer une session de jeu interne, sans jamais toucher aux niveaux enregistres.
-[[nodiscard]] std::filesystem::path playtestFilePath() {
-    return std::filesystem::temp_directory_path() / "projectgaming_playtest_level.json";
-}
-
-// Traduit un message d'erreur de validation (LevelLoader) en phrase comprehensible par un
-// non-codeur (EX-EDIT-007) : evite d'exposer le jargon interne (JSON, cle manquante...).
-[[nodiscard]] std::string describeValidationError(const std::string& technicalMessage) {
-    if (technicalMessage.find("entree") != std::string::npos) {
-        return "Il manque une entree : placez une tuile Entree sur la grille.";
+// Traduit un resultat de validation (LevelLoader) en phrase comprehensible par un non-codeur
+// (EX-EDIT-007) : bascule sur le code d'erreur categorise (LOT-15), pas sur une recherche de
+// sous-chaine dans le message technique — insensible a un changement de formulation dans
+// LevelLoader.
+[[nodiscard]] std::string describeValidationError(const core::LevelLoadResult& result) {
+    switch (result.errorCode) {
+        case core::LevelValidationError::InvalidEntryCount:
+            return "Il manque une entree (ou il y en a plusieurs) : la grille doit porter "
+                  "exactement une tuile Entree.";
+        case core::LevelValidationError::InvalidExitCount:
+            return "Il manque une sortie (ou il y en a plusieurs) : la grille doit porter "
+                  "exactement une tuile Sortie.";
+        case core::LevelValidationError::UnresolvedMechanism:
+        case core::LevelValidationError::MissingSwitchId:
+        case core::LevelValidationError::DuplicateSwitchId:
+            return "Une porte n'est pas reliee a un interrupteur valide.";
+        case core::LevelValidationError::OutOfBounds:
+        case core::LevelValidationError::DuplicatePosition:
+            return "La grille contient une tuile en dehors des bornes ou en double.";
+        case core::LevelValidationError::UnknownTileType:
+        case core::LevelValidationError::ParseError:
+        case core::LevelValidationError::FileNotFound:
+        case core::LevelValidationError::None:
+            break;
     }
-    if (technicalMessage.find("sortie") != std::string::npos) {
-        return "Il manque une sortie : placez une tuile Sortie sur la grille.";
-    }
-    if (technicalMessage.find("interrupteur") != std::string::npos ||
-        technicalMessage.find("Porte liee") != std::string::npos) {
-        return "Une porte n'est pas reliee a un interrupteur valide.";
-    }
-    return "Niveau invalide : " + technicalMessage;
+    return "Niveau invalide : " + result.error;
 }
 
 // Libelle court affiche sous chaque icone de la barre d'outils (decouvrabilite, EX-EDIT-015).
@@ -464,7 +470,7 @@ void EditorScreen::requestResize(int width, int height) {
 void EditorScreen::saveDraft() {
     const core::LevelLoadResult result = _draft.toLevel();
     if (!result.ok()) {
-        _statusMessage = describeValidationError(result.error);
+        _statusMessage = describeValidationError(result);
         HMI_LOG_WARNING("Enregistrement refuse (brouillon invalide) : " + result.error);
         return;
     }
@@ -505,23 +511,18 @@ void EditorScreen::writeLevelToDisk(const core::Level& level, const std::filesys
 }
 
 // Sur un brouillon valide, lance une session de jeu interne rejouant le niveau en cours
-// d'edition (EX-EDIT-008) ; message d'erreur non-codeur sinon, sans lancer l'essai.
+// d'edition (EX-EDIT-008) ; message d'erreur non-codeur sinon, sans lancer l'essai. Le niveau
+// valide est transmis directement en memoire (LOT-15) : aucun fichier temporaire.
 void EditorScreen::startPlaytest() {
     const core::LevelLoadResult result = _draft.toLevel();
     if (!result.ok()) {
-        _statusMessage = describeValidationError(result.error);
+        _statusMessage = describeValidationError(result);
         HMI_LOG_WARNING("Essai immediat refuse (brouillon invalide) : " + result.error);
         return;
     }
 
-    const std::filesystem::path path = playtestFilePath();
-    if (!core::LevelWriter::saveToFile(*result.level, path)) {
-        _statusMessage = "Impossible de preparer l'essai immediat (fichier temporaire).";
-        return;
-    }
-
     _playtest = std::make_unique<GameScreen>(_batch, _atlas, _viewportWidth, _viewportHeight,
-                                             std::vector<std::filesystem::path>{path});
+                                             *result.level);
     _statusMessage.clear();
     HMI_LOG_INFO("Essai immediat demarre.");
 }

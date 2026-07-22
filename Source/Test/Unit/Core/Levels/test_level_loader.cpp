@@ -42,6 +42,7 @@ constexpr const char* VALID_LEVEL = R"({
 TEST(LevelLoaderTest, ChargeUnNiveauValide) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(VALID_LEVEL);
     ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::None);
 
     const core::Level& level = *result.level;
     EXPECT_EQ(level.name(), "Tutoriel");
@@ -100,6 +101,7 @@ TEST(LevelLoaderTest, JsonMalformeRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString("{ pas du json");
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::ParseError);
 }
 
 /**
@@ -116,6 +118,7 @@ TEST(LevelLoaderTest, ChampManquantRejete) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 4, "height": 3 })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::ParseError);
 }
 
 /**
@@ -133,6 +136,7 @@ TEST(LevelLoaderTest, TypeDeTuileInconnuRejete) {
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 0, "y": 0, "type": "lave" } ] })");
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnknownTileType);
 }
 
 /**
@@ -149,6 +153,7 @@ TEST(LevelLoaderTest, TuileHorsBornesRejetee) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 9, "y": 0, "type": "solid" } ] })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::OutOfBounds);
 }
 
 /**
@@ -172,6 +177,7 @@ TEST(LevelLoaderTest, LiaisonMecanismeNonResolueRejetee) {
     })");
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnresolvedMechanism);
 }
 
 /**
@@ -194,6 +200,7 @@ TEST(LevelLoaderTest, PlusieursEntreesRejetees) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::InvalidEntryCount);
 }
 
 /**
@@ -216,6 +223,7 @@ TEST(LevelLoaderTest, PlusieursSortiesRejetees) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::InvalidExitCount);
 }
 
 /**
@@ -239,6 +247,7 @@ TEST(LevelLoaderTest, PositionEnDoubleRejetee) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::DuplicatePosition);
 }
 
 /**
@@ -255,6 +264,7 @@ TEST(LevelLoaderTest, TilesNonListeRejete) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 4, "height": 3, "tiles": 5 })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::ParseError);
 }
 
 /**
@@ -271,6 +281,7 @@ TEST(LevelLoaderTest, DimensionsNonPositivesRejetees) {
     const core::LevelLoadResult result =
         core::LevelLoader::loadFromString(R"({ "width": 0, "height": 3, "tiles": [] })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::ParseError);
 }
 
 /**
@@ -293,6 +304,7 @@ TEST(LevelLoaderTest, InterrupteurSansIdRejete) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::MissingSwitchId);
 }
 
 /**
@@ -316,6 +328,7 @@ TEST(LevelLoaderTest, IdentifiantInterrupteurEnDoubleRejete) {
       ]
     })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::DuplicateSwitchId);
 }
 
 /**
@@ -332,6 +345,7 @@ TEST(LevelLoaderTest, NiveauSansEntreeRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 3, "y": 2, "type": "exit" } ] })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::InvalidEntryCount);
 }
 
 /**
@@ -348,6 +362,7 @@ TEST(LevelLoaderTest, NiveauSansSortieRejete) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(
         R"({ "width": 4, "height": 3, "tiles": [ { "x": 1, "y": 1, "type": "entry" } ] })");
     EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::InvalidExitCount);
 }
 
 /**
@@ -365,6 +380,7 @@ TEST(LevelLoaderTest, FichierIntrouvableRejete) {
         core::LevelLoader::loadFromFile("chemin/inexistant/pas_la.json");
     EXPECT_FALSE(result.ok());
     EXPECT_FALSE(result.error.empty());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::FileNotFound);
 }
 
 /**
