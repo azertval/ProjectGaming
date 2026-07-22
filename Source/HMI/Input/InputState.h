@@ -46,6 +46,7 @@ enum class Key : std::uint16_t {
     Z = 0x5A,  // Ctrl+Z : annuler (éditeur, LOT-14)
     F1 = 0x70,  // Aide des raccourcis (éditeur, LOT-15)
     F2 = 0x71,  // Renommer le niveau en cours d'édition (éditeur, LOT-15)
+    F10 = 0x79,  // Bascule la grille de repère (éditeur, LOT-15)
 };
 
 /**

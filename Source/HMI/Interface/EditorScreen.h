@@ -124,6 +124,10 @@ private:
     /// Dessine l'aperçu des raccourcis (bascule `F1`) ou l'indice permanent replié.
     void renderHelp(RenderContext& context);
 
+    /// Dessine le fond opaque du panneau latéral, sous la palette/barre d'outils (`EX-EDIT-015`) :
+    /// garantit qu'aucune tuile de la grille ne reste visible « sous » l'interface.
+    void renderPanelBackground(RenderContext& context);
+
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     int _viewportWidth;
@@ -182,6 +186,10 @@ private:
     /// `true` si l'aperçu des raccourcis (`F1`) est affiché ; sinon, un indice permanent discret
     /// le rappelle en bas d'écran (`EX-EDIT-015`).
     bool _showHelp = false;
+
+    /// `true` si les lignes de la grille de repère sont dessinées par-dessus les tuiles, pour
+    /// simplifier le repérage d'une case avant d'y peindre (bascule `F10`).
+    bool _showGridLines = false;
 };
 
 }  // namespace hmi

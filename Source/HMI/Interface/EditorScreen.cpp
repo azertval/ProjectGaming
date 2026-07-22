@@ -15,6 +15,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/EditorLayout.h"
 #include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -308,6 +309,11 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         _showHelp = !_showHelp;
     }
 
+    // Grille de repere (EX-EDIT-015) : raccourci clavier, pas un bouton du panneau d'edition.
+    if (input.keyPressed(Key::F10)) {
+        _showGridLines = !_showGridLines;
+    }
+
     // Copier/coller de l'outil Selection (EX-EDIT-014) : Ctrl+C lit directement la grille (aucun
     // ajout Core necessaire cote copie) ; Ctrl+V colle via paintRegion (un seul undo).
     if (input.keyDown(Key::Control) && input.keyPressed(Key::C)) {
@@ -344,7 +350,26 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     const int wheel = input.wheelDelta();
     if (wheel != 0) {
         constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
-        _cameraZoom = (std::max)(1.0f, _cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH));
+        constexpr float MIN_VISIBLE_TILES = 4.0f;  // zoom max : au moins 4 cases visibles.
+        const float canvasWidth =
+            (std::max)(1.0f, static_cast<float>(_viewportWidth) - PANEL_WIDTH);
+        const float viewportHeight = static_cast<float>(_viewportHeight);
+        const int width = _draft.tileMap().width();
+        const int height = _draft.tileMap().height();
+        // Zoom minimal : jamais moins que le cadrage automatique (rien a voir au-dela du niveau,
+        // meme formule que renderGrid) ; zoom maximal : au moins MIN_VISIBLE_TILES cases sur le
+        // plus petit axe (precision suffisante pour poser un bloc, pas plus).
+        const float minZoom = (std::max)(
+            1.0f, std::floor((std::min)(canvasWidth / (static_cast<float>(width) *
+                                                       Camera2D::PIXELS_PER_UNIT),
+                                        viewportHeight / (static_cast<float>(height) *
+                                                          Camera2D::PIXELS_PER_UNIT)) *
+                             0.85f));
+        const float maxZoom =
+            (std::max)(minZoom, std::floor((std::min)(canvasWidth, viewportHeight) /
+                                           (MIN_VISIBLE_TILES * Camera2D::PIXELS_PER_UNIT)));
+        _cameraZoom = std::clamp(
+            _cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH), minZoom, maxZoom);
         _manualCamera = true;
     }
     const float newMouseX = static_cast<float>(input.mouseX());
@@ -361,7 +386,12 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
         if (_palette.handleClick(_mouseX, _mouseY) || _toolBar.handleClick(_mouseX, _mouseY)) {
-            // La palette et la barre d'outils, dessinees par-dessus la grille, sont prioritaires.
+            // La palette et la barre d'outils, dans le panneau lateral, sont prioritaires.
+            _paintingDrag = false;
+            _areaDragActive = false;
+        } else if (_mouseX < PANEL_WIDTH) {
+            // Reste du panneau (zone vide, sous/entre les boutons) : rien a faire — surtout pas
+            // peindre une case de la grille qui serait visuellement cachee par le panneau.
             _paintingDrag = false;
             _areaDragActive = false;
         } else if (input.keyDown(Key::Shift)) {
@@ -534,15 +564,22 @@ void EditorScreen::renderGrid(RenderContext& context) {
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
 
+    // La grille se cadre dans le canevas (a droite du panneau lateral), pas sur toute la fenetre
+    // (EX-EDIT-015) — evite qu'une case ne se retrouve visuellement sous la palette/barre d'outils.
+    const float canvasWidth = (std::max)(1.0f, static_cast<float>(context.viewportWidth) - PANEL_WIDTH);
     if (!_manualCamera) {
-        _cameraCenter =
-            core::Vector2{static_cast<float>(width) * 0.5f, static_cast<float>(height) * 0.5f};
-        // Zoom pour faire tenir la grille dans la fenetre, en facteur entier (nettete pixel art).
-        const float fitX = static_cast<float>(context.viewportWidth) /
-                           (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
+        // Zoom pour faire tenir la grille dans le canevas, en facteur entier (nettete pixel art).
+        const float fitX = canvasWidth / (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
         const float fitY = static_cast<float>(context.viewportHeight) /
                            (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
         _cameraZoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
+        // Decale le centre vers la gauche, en unites monde, de la moitie du panneau converti a
+        // l'echelle courante : le centre APPARENT de la grille se retrouve au milieu du canevas
+        // plutot qu'au milieu de la fenetre entiere.
+        const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
+        _cameraCenter = core::Vector2{
+            static_cast<float>(width) * 0.5f - (PANEL_WIDTH * 0.5f) / scale,
+            static_cast<float>(height) * 0.5f};
     }
     _camera.setCenter(_cameraCenter);
     _camera.setZoom(_cameraZoom);
@@ -557,6 +594,25 @@ void EditorScreen::renderGrid(RenderContext& context) {
             context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
                                              static_cast<float>(column),
                                              static_cast<float>(row), 1.0f, 1.0f, _atlas));
+        }
+    }
+
+    // Grille de repere (bouton du panneau lateral) : fines lignes sur chaque bord de case,
+    // par-dessus les tuiles deja peintes, pour simplifier le reperage d'une case avant d'y peindre.
+    if (_showGridLines) {
+        constexpr core::Color GRID_LINE_TINT{1.0f, 1.0f, 1.0f, 0.18f};
+        constexpr float LINE_THICKNESS = 0.035f;  // en unites monde (fraction d'une case)
+        for (int column = 0; column <= width; ++column) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                             static_cast<float>(column) - LINE_THICKNESS * 0.5f,
+                                             0.0f, LINE_THICKNESS, static_cast<float>(height),
+                                             _atlas, GRID_LINE_TINT));
+        }
+        for (int row = 0; row <= height; ++row) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), 0.0f,
+                                             static_cast<float>(row) - LINE_THICKNESS * 0.5f,
+                                             static_cast<float>(width), LINE_THICKNESS, _atlas,
+                                             GRID_LINE_TINT));
         }
     }
 
@@ -644,8 +700,21 @@ void EditorScreen::renderGrid(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine la palette : une couleur par type, la selection encadree, un libelle sous chaque entree
-// (decouvrabilite, EX-EDIT-015).
+// Dessine le fond opaque du panneau lateral (EX-EDIT-015) : la grille (canevas a droite du
+// panneau, cf. renderGrid) ne doit jamais rester visible « sous » l'interface.
+void EditorScreen::renderPanelBackground(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, _atlas.textureView());
+    constexpr core::Color PANEL_TINT{0.09f, 0.09f, 0.12f, 0.92f};
+    context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), 0.0f, 0.0f, PANEL_WIDTH,
+                                     static_cast<float>(context.viewportHeight), _atlas,
+                                     PANEL_TINT));
+    context.spriteBatch.end();
+}
+
+// Dessine la palette (panneau lateral) : une icone par type, la selection encadree, un libelle a
+// droite de chaque icone (decouvrabilite, EX-EDIT-015).
 void EditorScreen::renderPalette(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
@@ -667,26 +736,30 @@ void EditorScreen::renderPalette(RenderContext& context) {
     context.spriteBatch.end();
 
     // Deuxieme passe (texture de police distincte de l'atlas de tuiles, cf. SpriteBatch) : un
-    // libelle court sous chaque icone.
+    // libelle court a droite de chaque icone, verticalement centre.
     context.spriteBatch.begin(projection, context.font.textureView());
     constexpr float LABEL_SCALE = 1.0f;
+    constexpr float LABEL_GAP = 6.0f;
     for (const TilePalette::Entry& entry : _palette.entries()) {
-        context.font.drawText(context.spriteBatch, entry.label, entry.x, entry.y + entry.height + 2.0f,
-                              LABEL_SCALE, core::Color{0.85f, 0.85f, 0.90f, 1.0f});
+        const float labelY = entry.y + (entry.height - context.font.lineHeight(LABEL_SCALE)) * 0.5f;
+        context.font.drawText(context.spriteBatch, entry.label, entry.x + entry.width + LABEL_GAP,
+                              labelY, LABEL_SCALE, core::Color{0.85f, 0.85f, 0.90f, 1.0f});
     }
     context.spriteBatch.end();
 }
 
-// Dessine la barre d'outils (une teinte par icone, la selection encadree, un libelle sous chaque
-// entree) — EX-EDIT-015.
+// Dessine la barre d'outils (panneau lateral, sous la palette) : une icone teintee, la selection
+// encadree, un libelle a droite de chaque ligne (EX-EDIT-014/015). La grille de repere n'a pas de
+// bouton dedie : bascule au clavier (F10, cf. update()).
 void EditorScreen::renderToolBar(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
 
-    context.spriteBatch.begin(projection, _atlas.textureView());
     constexpr float BORDER = 3.0f;
     constexpr core::Color SELECTION_TINT{1.0f, 1.0f, 0.4f, 1.0f};
     constexpr core::Color TOOL_TINT{0.55f, 0.55f, 0.68f, 1.0f};
+
+    context.spriteBatch.begin(projection, _atlas.textureView());
     for (const ToolBar::Entry& entry : _toolBar.entries()) {
         if (entry.tool == _toolBar.selected()) {
             context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x - BORDER, entry.y - BORDER,
@@ -700,16 +773,18 @@ void EditorScreen::renderToolBar(RenderContext& context) {
 
     context.spriteBatch.begin(projection, context.font.textureView());
     constexpr float LABEL_SCALE = 1.0f;
+    constexpr float LABEL_GAP = 6.0f;
     for (const ToolBar::Entry& entry : _toolBar.entries()) {
-        context.font.drawText(context.spriteBatch, toolLabel(entry.tool), entry.x,
-                              entry.y + entry.height + 2.0f, LABEL_SCALE,
+        const float labelY = entry.y + (entry.height - context.font.lineHeight(LABEL_SCALE)) * 0.5f;
+        context.font.drawText(context.spriteBatch, toolLabel(entry.tool),
+                              entry.x + entry.width + LABEL_GAP, labelY, LABEL_SCALE,
                               core::Color{0.85f, 0.85f, 0.90f, 1.0f});
     }
     context.spriteBatch.end();
 }
 
-// Dessine l'apercu des raccourcis (bascule F1) ou, replie, un indice permanent discret en haut a
-// droite de l'ecran (decouvrabilite, EX-EDIT-015).
+// Dessine l'apercu des raccourcis (bascule F1, dans le canevas a droite du panneau lateral) ou,
+// replie, un indice permanent discret en haut a droite de l'ecran (decouvrabilite, EX-EDIT-015).
 void EditorScreen::renderHelp(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
@@ -723,13 +798,16 @@ void EditorScreen::renderHelp(RenderContext& context) {
             "Ctrl+C / Ctrl+V : copier / coller la selection",
             "Fleches : redimensionner la grille   |   Ctrl+Z / Ctrl+Y : annuler / refaire",
             "F2 : renommer   |   Ctrl+S : enregistrer   |   P : essai immediat",
-            "Echap : quitter (ou fin de l'essai)   |   F1 : fermer cette aide",
+            "F10 : grille de repere   |   Echap : quitter (ou fin de l'essai)",
+            "F1 : fermer cette aide",
         };
         constexpr float SCALE = 1.6f;
-        constexpr float MARGIN_X = 12.0f;
-        float y = 92.0f;
+        // A droite du panneau lateral (pas x = 12) : eviter tout chevauchement avec la palette et
+        // la barre d'outils (EX-EDIT-015).
+        const float marginX = PANEL_WIDTH + 12.0f;
+        float y = 12.0f;
         for (const std::string& line : LINES) {
-            context.font.drawText(context.spriteBatch, line, MARGIN_X, y, SCALE,
+            context.font.drawText(context.spriteBatch, line, marginX, y, SCALE,
                                   core::Color{0.92f, 0.92f, 0.95f, 1.0f});
             y += context.font.lineHeight(SCALE) + 4.0f;
         }
@@ -837,6 +915,7 @@ void EditorScreen::render(RenderContext& context) {
     }
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
     renderGrid(context);
+    renderPanelBackground(context);
     renderPalette(context);
     renderToolBar(context);
     renderHelp(context);

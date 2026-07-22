@@ -1,26 +1,22 @@
 #include "HMI/Editor/ToolBar.h"
 
+#include "HMI/Editor/EditorLayout.h"
+
 namespace hmi {
 
 namespace {
-
-constexpr float ENTRY_SIZE = 28.0f;
-constexpr float ENTRY_GAP = 6.0f;
-constexpr float MARGIN_X = 8.0f;
-// Sous la palette de tuiles (TilePalette : y = 8, hauteur 40, donc bas a 48), avec un petit
-// interstice.
-constexpr float TOP_Y = 56.0f;
 
 // Outils proposes, dans leur ordre d'affichage (et l'ordre de defilement de Tab).
 constexpr EditorTool TOOLS[] = {EditorTool::Paint, EditorTool::Rectangle, EditorTool::Selection};
 
 }  // namespace
 
+// Disposition en colonne dans le panneau lateral (LOT-15), sous la palette de tuiles.
 ToolBar::ToolBar() {
-    float x = MARGIN_X;
+    float y = TOOLBAR_TOP;
     for (const EditorTool tool : TOOLS) {
-        _entries.push_back(Entry{tool, x, TOP_Y, ENTRY_SIZE, ENTRY_SIZE});
-        x += ENTRY_SIZE + ENTRY_GAP;
+        _entries.push_back(Entry{tool, PANEL_MARGIN, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE});
+        y += PANEL_ROW_PITCH;
     }
 }
 
