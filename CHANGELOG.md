@@ -7,6 +7,29 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-15 — Éditeur de niveaux : robustesse et confort d'édition** (`EX-EDIT-009`, `EX-EDIT-012` à
+  `EX-EDIT-016`). L'éditeur intégré (LOT-14) se rapproche d'un outil de production : créer un
+  niveau **demande un nom** (plus de collision silencieuse sur « Nouveau niveau.json ») et **F2**
+  le renomme en cours d'édition ; enregistrer sous un nom qui **écraserait** un autre fichier, un
+  **redimensionnement** qui supprimerait l'entrée/la sortie/une liaison, ou **Échap** avec des
+  modifications **non enregistrées**, sont désormais **confirmés** avant d'agir. La caméra se
+  **déplace** (glisser bouton droit) et **zoome** (molette) indépendamment du cadrage automatique
+  (« 0 » y revient). Deux nouveaux outils au-delà du pinceau : **Rectangle** (remplissage d'une
+  zone glissée) et **Sélection** (`Ctrl+C`/`Ctrl+V`, copier/coller une zone de tuiles) — `Tab` fait
+  défiler Pinceau/Rectangle/Sélection, la liaison de mécanismes (`Maj`+clic) restant disponible
+  quel que soit l'outil actif. Découvrabilité : une **barre d'outils** cliquable, un aperçu des
+  raccourcis (`F1`), des libellés sous chaque entrée de la palette, et des liaisons interrupteur↔
+  porte teintées **différemment par interrupteur** (au lieu d'une seule teinte cyan partagée).
+  Côté dette technique : l'essai immédiat (`P`) transmet désormais le niveau **directement en
+  mémoire** à une session de jeu interne (plus de fichier temporaire partagé), et les messages
+  d'erreur de validation s'appuient sur un **code d'erreur catégorisé** (`LevelValidationError`)
+  plutôt que sur une recherche de sous-chaîne dans le message technique. `LevelDraft::paintRegion`
+  (remplissage/collage) réutilise la sémantique cellule-par-cellule de `paintTile`, sans dupliquer
+  de règle de niveau (`EX-EDIT-010`), en un seul snapshot undo par opération. Couvert par tests
+  **unitaires** (`LevelDraft::paintRegion`/`wouldResizeDropContent`, `TextInputField`,
+  `LevelNameValidation`, `ToolBar`, `InputState` — molette/texte tapé, `LevelLoader` — codes
+  d'erreur) ; vérifié manuellement dans l'application pour la caméra et le glisser-déposer des
+  outils de zone (logique non testable hors GPU, comme le reste d'`EditorScreen`/`GameScreen`).
 - **LOT-14 — Éditeur de niveaux intégré** (`EX-EDIT-001` à `EX-EDIT-011`, `EX-EDIT-020` à
   `EX-EDIT-022`, `EX-EDIT-030`/`031`). Le menu **« Mode Édition »** ouvre désormais un véritable
   éditeur, intégré à l'application (même exécutable, même rendu Direct3D 11 que le jeu) : un

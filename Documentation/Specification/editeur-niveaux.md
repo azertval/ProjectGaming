@@ -1,9 +1,9 @@
 # Éditeur de niveaux {#spec-editeur}
 
-> Statut : **édition de tuiles de base validée et livrée** (LOT-14 : peinture, mécanismes,
-> entrée/sortie, redimensionnement, undo/redo, enregistrement/validation, essai immédiat).
-> Dépend de [`niveaux.md`](niveaux.md). La section 6 (robustesse et confort d'édition, LOT-15) est
-> en cours de définition.
+> Statut : **édition de tuiles de base et robustesse/confort d'édition validés et livrés**
+> (LOT-14 : peinture, mécanismes, entrée/sortie, redimensionnement, undo/redo,
+> enregistrement/validation, essai immédiat ; LOT-15 : nommage, garde-fous, caméra, outils de
+> zone, découvrabilité). Dépend de [`niveaux.md`](niveaux.md).
 
 ## Objectif
 Permettre la **création et la modification de niveaux sans écrire de code**, afin que des membres de l'équipe **non-développeurs** (game design, level design) contribuent directement au contenu du jeu.

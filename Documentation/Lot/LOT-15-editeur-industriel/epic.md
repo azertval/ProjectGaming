@@ -1,6 +1,6 @@
 # LOT-15 — Éditeur de niveaux : robustesse et confort d'édition {#lot-15}
 
-> Statut : **non commencé**. Ce lot fait évoluer l'éditeur intégré livré en LOT-14 (peinture,
+> Statut : **terminé**. Ce lot fait évoluer l'éditeur intégré livré en LOT-14 (peinture,
 > mécanismes, redimensionnement, undo/redo, enregistrement, essai immédiat) vers un outil plus
 > proche d'un éditeur de niveau de production : protection contre la perte de travail, confort
 > d'édition sur des niveaux plus grands, découvrabilité des commandes, et réduction de la dette
@@ -110,14 +110,14 @@ données, saisie de texte) reste dans `Core`/logique pure, testable sans GPU (`E
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-entrees-molette-texte.md) | Entrées bas niveau : molette et texte tapé | `HMI/Input`, `HMI/Platform` | ⬜ |
-| [TACHE-02](tache-02-garde-fous-perte-donnees.md) | Garde-fous : redimensionnement destructeur, quitter sans enregistrer | `Core/Levels`, `HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-nommage-renommage.md) | Nommage, renommage, avertissement d'écrasement | `HMI/Editor`, `HMI/Interface` | ⬜ |
-| [TACHE-04](tache-04-camera-pan-zoom.md) | Caméra : pan et zoom manuels | `HMI/Interface` | ⬜ |
-| [TACHE-05](tache-05-outils-rectangle-selection.md) | Outils de zone : remplissage rectangulaire, sélection, copier/coller | `Core/Levels`, `HMI/Editor`, `HMI/Interface` | ⬜ |
-| [TACHE-06](tache-06-decouvrabilite.md) | Découvrabilité : barre d'outils, aide, libellés, liaisons lisibles | `HMI/Editor`, `HMI/Interface` | ⬜ |
-| [TACHE-07](tache-07-essai-memoire-erreurs-structurees.md) | Essai immédiat en mémoire, erreurs de validation structurées | `Core/Levels`, `HMI/Interface` | ⬜ |
-| [TACHE-08](tache-08-nettoyage-documentation.md) | Nettoyage documentaire (READMEs, spec, CHANGELOG) | `Documentation`, `Source/Core/Level`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-entrees-molette-texte.md) | Entrées bas niveau : molette et texte tapé | `HMI/Input`, `HMI/Platform` | ✅ |
+| [TACHE-02](tache-02-garde-fous-perte-donnees.md) | Garde-fous : redimensionnement destructeur, quitter sans enregistrer | `Core/Levels`, `HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-nommage-renommage.md) | Nommage, renommage, avertissement d'écrasement | `HMI/Editor`, `HMI/Interface` | ✅ |
+| [TACHE-04](tache-04-camera-pan-zoom.md) | Caméra : pan et zoom manuels | `HMI/Interface` | ✅ |
+| [TACHE-05](tache-05-outils-rectangle-selection.md) | Outils de zone : remplissage rectangulaire, sélection, copier/coller | `Core/Levels`, `HMI/Editor`, `HMI/Interface` | ✅ |
+| [TACHE-06](tache-06-decouvrabilite.md) | Découvrabilité : barre d'outils, aide, libellés, liaisons lisibles | `HMI/Editor`, `HMI/Interface` | ✅ |
+| [TACHE-07](tache-07-essai-memoire-erreurs-structurees.md) | Essai immédiat en mémoire, erreurs de validation structurées | `Core/Levels`, `HMI/Interface` | ✅ |
+| [TACHE-08](tache-08-nettoyage-documentation.md) | Nettoyage documentaire (READMEs, spec, CHANGELOG) | `Documentation`, `Source/Core/Level`, `Source/HMI/Editor` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Créer un niveau demande un **nom** ; le renommer est possible en cours d'édition ; enregistrer
