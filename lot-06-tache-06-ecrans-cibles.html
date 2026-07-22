@@ -94,43 +94,43 @@ $(document).ready(function(){initNavTree('lot-06-tache-06-ecrans-cibles.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md494"></a>
+<h1><a class="anchor" id="autotoc_md495"></a>
 Contexte</h1>
 <p>Les deux options non triviales du menu doivent mener quelque part de tangible, alors que le chargement de niveaux et l'éditeur sont des lots futurs. « Charger niveau » ouvre la <b>scène de démonstration</b> du LOT-05 (niveau provisoire) ; « Mode Edition » ouvre un écran <b>« à venir »</b>. Depuis ces deux écrans, <b>Échap</b> revient au menu.</p>
-<h1><a class="anchor" id="autotoc_md495"></a>
+<h1><a class="anchor" id="autotoc_md496"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>GameScreen</code> (implémente <code>IScreen</code>) : encapsule la scène de démo du LOT-05 (un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code> avec le <code>MovementSystem</code>, <code>SpriteRenderer</code>, <code>Camera2D</code>) — la construction de scène <b>quitte <code>main</code></b> pour vivre ici. Met à jour la simulation à pas fixe et rend la scène ; <b>Échap</b> demande le retour au menu.</li>
 <li><code>EditorScreen</code> (implémente <code>IScreen</code>) : affiche un texte « à venir » (via <code>BitmapFont</code>), <b>issu du catalogue de traduction</b> (clé <code>editeur.a_venir</code>, TACHE-03) et non en dur ; <b>Échap</b> revient au menu.</li>
 <li>Passage des dépendances de rendu (device, <code>SpriteBatch</code>, atlas, police) aux écrans qui en ont besoin.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md496"></a>
+<h1><a class="anchor" id="autotoc_md497"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>, <code><a class="el" href="GameScreen_8cpp.html">GameScreen.cpp</a></code> (nouveau).</li>
 <li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>, <code><a class="el" href="EditorScreen_8cpp.html">EditorScreen.cpp</a></code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md497"></a>
+<h1><a class="anchor" id="autotoc_md498"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>« Charger niveau » ouvre la scène de démo animée (sprite mobile) ; Échap revient au menu.</li>
 <li>« Mode Edition » affiche l'écran « à venir » ; Échap revient au menu.</li>
 <li>Aucune fuite au changement d'écran (ressources d'écran libérées à la transition).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md498"></a>
+<h1><a class="anchor" id="autotoc_md499"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <code>GameScreen</code> reprend la logique de démo <b>sans la dupliquer inutilement</b> ; la scène reste codée en dur (le chargement de fichier est un lot ultérieur).</li>
 <li>Rendu de la scène <b>découplé</b> de la simulation ; lecture seule de l'ECS (<code>EX-ARCH-012</code>).</li>
 <li>Écrans propriétaires de leurs ressources (RAII) ; le retour menu recrée le menu proprement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md499"></a>
+<h1><a class="anchor" id="autotoc_md500"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux écrans fonctionnent avec retour menu par Échap ; la scène codée en dur a quitté <code>main</code> ; build <code>/W4 /WX</code> sans avertissement, documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md500"></a>
+<h1><a class="anchor" id="autotoc_md501"></a>
 Exigences</h1>
 <p><code>EX-REN-030</code>, <code>EX-REN-032</code>, <code>EX-ARCH-012</code>, <code>EX-ARCH-030</code>. </p>
 </div></div><!-- contents -->

@@ -2,6 +2,8 @@ var annotated_dup =
 [
     [ "core", "namespacecore.html", [
       [ "Aabb", "structcore_1_1Aabb.html", "structcore_1_1Aabb" ],
+      [ "Animation", "structcore_1_1Animation.html", "structcore_1_1Animation" ],
+      [ "AnimationSystem", "classcore_1_1AnimationSystem.html", "classcore_1_1AnimationSystem" ],
       [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
       [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
       [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],

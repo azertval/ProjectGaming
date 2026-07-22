@@ -1,6 +1,8 @@
 var namespacecore =
 [
     [ "Aabb", "structcore_1_1Aabb.html", "structcore_1_1Aabb" ],
+    [ "Animation", "structcore_1_1Animation.html", "structcore_1_1Animation" ],
+    [ "AnimationSystem", "classcore_1_1AnimationSystem.html", "classcore_1_1AnimationSystem" ],
     [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
     [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
     [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],
@@ -38,6 +40,11 @@ var namespacecore =
     [ "View", "classcore_1_1View.html", "classcore_1_1View" ],
     [ "World", "classcore_1_1World.html", "classcore_1_1World" ],
     [ "AssertionHandler", "namespacecore.html#a63adb36f7635e1c8d5f8cb72fc563364", null ],
+    [ "AnimationClip", "namespacecore.html#a799a99a97ade0219550e8316e18aa860", [
+      [ "Idle", "namespacecore.html#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c", null ],
+      [ "Run", "namespacecore.html#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d", null ],
+      [ "Jump", "namespacecore.html#a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed", null ]
+    ] ],
     [ "LevelOutcome", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa", [
       [ "Playing", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428", null ],
       [ "Won", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5", null ],
@@ -97,8 +104,11 @@ var namespacecore =
     [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
+    [ "IDLE_FRAME_COUNT", "namespacecore.html#a572ec27480068f4deb0511ed85244e68", null ],
     [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ],
+    [ "JUMP_FRAME_COUNT", "namespacecore.html#ae3c64100a95020d369b6f4b976fe0ffe", null ],
     [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ],
     [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
-    [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ]
+    [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ],
+    [ "RUN_FRAME_COUNT", "namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d", null ]
 ];

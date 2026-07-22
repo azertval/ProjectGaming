@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "core::Aabb", "structcore_1_1Aabb.html", null ],
+    [ "core::Animation", "structcore_1_1Animation.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
     [ "hmi::Camera2D", "classhmi_1_1Camera2D.html", null ],
@@ -32,6 +33,7 @@ var hierarchy =
       [ "hmi::MenuScreen", "classhmi_1_1MenuScreen.html", null ]
     ] ],
     [ "core::ISystem", "classcore_1_1ISystem.html", [
+      [ "core::AnimationSystem", "classcore_1_1AnimationSystem.html", null ],
       [ "core::MovementSystem", "classcore_1_1MovementSystem.html", null ]
     ] ],
     [ "core::View< Components >::Iterator", "classcore_1_1View_1_1Iterator.html", null ],

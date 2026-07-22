@@ -29,9 +29,9 @@ var NAVTREE =
     [ "Avancement", "index.html#autotoc_md2", null ],
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", [
-      [ "Comment lire ce guide", "guide.html#autotoc_md106", null ],
-      [ "Architecture en deux couches", "guide.html#autotoc_md107", null ],
-      [ "Plan du guide", "guide.html#autotoc_md108", null ],
+      [ "Comment lire ce guide", "guide.html#autotoc_md107", null ],
+      [ "Architecture en deux couches", "guide.html#autotoc_md108", null ],
+      [ "Plan du guide", "guide.html#autotoc_md109", null ],
       [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
         [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md4", null ],
         [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md5", null ],
@@ -119,12 +119,13 @@ var NAVTREE =
           [ "Sommets, shaders, et échantillonnage <em>nearest</em>", "guide-rendu.html#autotoc_md99", null ]
         ] ],
         [ "<tt>hmi::TextureAtlas</tt> : un spritesheet, généré en code", "guide-rendu.html#autotoc_md100", [
-          [ "La région du personnage : pourquoi elle vit dans le même atlas", "guide-rendu.html#autotoc_md101", null ]
+          [ "Les images du personnage : pourquoi elles vivent dans le même atlas", "guide-rendu.html#autotoc_md101", null ],
+          [ "L'animation : une projection de l'état physique, pas un état séparé", "guide-rendu.html#autotoc_md102", null ]
         ] ],
-        [ "<tt>hmi::SpriteRenderer</tt> : le pont ECS → écran", "guide-rendu.html#autotoc_md102", null ],
-        [ "<tt>hmi::BitmapFont</tt> : dessiner du texte", "guide-rendu.html#autotoc_md103", null ],
-        [ "Assembler la frame complète", "guide-rendu.html#autotoc_md104", null ],
-        [ "Voir aussi", "guide-rendu.html#autotoc_md105", null ]
+        [ "<tt>hmi::SpriteRenderer</tt> : le pont ECS → écran", "guide-rendu.html#autotoc_md103", null ],
+        [ "<tt>hmi::BitmapFont</tt> : dessiner du texte", "guide-rendu.html#autotoc_md104", null ],
+        [ "Assembler la frame complète", "guide-rendu.html#autotoc_md105", null ],
+        [ "Voir aussi", "guide-rendu.html#autotoc_md106", null ]
       ] ],
       [ "Journalisation et assertions", "guide-journalisation.html", [
         [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md48", null ],
@@ -167,1164 +168,1204 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Spécifications", "specifications.html", [
-      [ "Documents", "specifications.html#autotoc_md187", null ],
+      [ "Documents", "specifications.html#autotoc_md188", null ],
       [ "Vision & périmètre", "spec-vision.html", [
-        [ "Concept", "spec-vision.html#autotoc_md188", [
-          [ "Mécanique de jeu (décidée)", "spec-vision.html#autotoc_md189", null ]
+        [ "Concept", "spec-vision.html#autotoc_md189", [
+          [ "Mécanique de jeu (décidée)", "spec-vision.html#autotoc_md190", null ]
         ] ],
-        [ "Boucle de gameplay", "spec-vision.html#autotoc_md190", null ],
-        [ "Objectifs (MVP)", "spec-vision.html#autotoc_md191", null ],
-        [ "Objectifs produit (au-delà du moteur)", "spec-vision.html#autotoc_md192", null ],
-        [ "Hors périmètre (MVP)", "spec-vision.html#autotoc_md193", null ],
-        [ "Traçabilité", "spec-vision.html#autotoc_md194", null ]
+        [ "Boucle de gameplay", "spec-vision.html#autotoc_md191", null ],
+        [ "Objectifs (MVP)", "spec-vision.html#autotoc_md192", null ],
+        [ "Objectifs produit (au-delà du moteur)", "spec-vision.html#autotoc_md193", null ],
+        [ "Hors périmètre (MVP)", "spec-vision.html#autotoc_md194", null ],
+        [ "Traçabilité", "spec-vision.html#autotoc_md195", null ]
       ] ],
       [ "Gameplay", "spec-gameplay.html", [
-        [ "1. Monde en tuiles", "spec-gameplay.html#autotoc_md168", null ],
-        [ "2. Personnage & déplacement", "spec-gameplay.html#autotoc_md169", [
-          [ "Mécaniques aériennes avancées (au-delà du MVP)", "spec-gameplay.html#autotoc_md170", null ],
-          [ "Ressenti (game feel) — ⚠️ à affiner par tests", "spec-gameplay.html#autotoc_md171", null ]
+        [ "1. Monde en tuiles", "spec-gameplay.html#autotoc_md169", null ],
+        [ "2. Personnage & déplacement", "spec-gameplay.html#autotoc_md170", [
+          [ "Mécaniques aériennes avancées (au-delà du MVP)", "spec-gameplay.html#autotoc_md171", null ],
+          [ "Ressenti (game feel) — ⚠️ à affiner par tests", "spec-gameplay.html#autotoc_md172", null ]
         ] ],
-        [ "3. Mécanismes de puzzle", "spec-gameplay.html#autotoc_md172", null ],
-        [ "4. Conditions de fin de niveau", "spec-gameplay.html#autotoc_md173", null ],
-        [ "5. États de jeu", "spec-gameplay.html#autotoc_md174", null ],
-        [ "Traçabilité", "spec-gameplay.html#autotoc_md175", null ]
+        [ "3. Mécanismes de puzzle", "spec-gameplay.html#autotoc_md173", null ],
+        [ "4. Conditions de fin de niveau", "spec-gameplay.html#autotoc_md174", null ],
+        [ "5. États de jeu", "spec-gameplay.html#autotoc_md175", null ],
+        [ "Traçabilité", "spec-gameplay.html#autotoc_md176", null ]
       ] ],
       [ "Contrôles & entrées", "spec-controles.html", [
-        [ "1. Périphériques", "spec-controles.html#autotoc_md121", null ],
-        [ "2. Actions du jeu (mapping logique)", "spec-controles.html#autotoc_md122", null ],
-        [ "3. Réactivité", "spec-controles.html#autotoc_md123", null ],
-        [ "Traçabilité", "spec-controles.html#autotoc_md124", null ]
+        [ "1. Périphériques", "spec-controles.html#autotoc_md122", null ],
+        [ "2. Actions du jeu (mapping logique)", "spec-controles.html#autotoc_md123", null ],
+        [ "3. Réactivité", "spec-controles.html#autotoc_md124", null ],
+        [ "Traçabilité", "spec-controles.html#autotoc_md125", null ]
       ] ],
       [ "Rendu & cible technique", "spec-rendu-technique.html", [
-        [ "1. Cible technique", "spec-rendu-technique.html#autotoc_md181", null ],
-        [ "2. Rendu 2D", "spec-rendu-technique.html#autotoc_md182", null ],
-        [ "3. Boucle & temps", "spec-rendu-technique.html#autotoc_md183", null ],
-        [ "4. Interface (HMI)", "spec-rendu-technique.html#autotoc_md184", null ],
-        [ "5. Audio (⚠️ minimal MVP)", "spec-rendu-technique.html#autotoc_md185", null ],
-        [ "Traçabilité", "spec-rendu-technique.html#autotoc_md186", null ]
+        [ "1. Cible technique", "spec-rendu-technique.html#autotoc_md182", null ],
+        [ "2. Rendu 2D", "spec-rendu-technique.html#autotoc_md183", null ],
+        [ "3. Boucle & temps", "spec-rendu-technique.html#autotoc_md184", null ],
+        [ "4. Interface (HMI)", "spec-rendu-technique.html#autotoc_md185", null ],
+        [ "5. Audio (⚠️ minimal MVP)", "spec-rendu-technique.html#autotoc_md186", null ],
+        [ "Traçabilité", "spec-rendu-technique.html#autotoc_md187", null ]
       ] ],
       [ "Niveaux & contenu", "spec-niveaux.html", [
-        [ "1. Représentation des niveaux", "spec-niveaux.html#autotoc_md176", [
-          [ "Format retenu (JSON, liste de tuiles-objets)", "spec-niveaux.html#autotoc_md177", null ]
+        [ "1. Représentation des niveaux", "spec-niveaux.html#autotoc_md177", [
+          [ "Format retenu (JSON, liste de tuiles-objets)", "spec-niveaux.html#autotoc_md178", null ]
         ] ],
-        [ "2. Progression", "spec-niveaux.html#autotoc_md178", null ],
-        [ "3. Conception (lignes directrices)", "spec-niveaux.html#autotoc_md179", null ],
-        [ "Traçabilité", "spec-niveaux.html#autotoc_md180", null ]
+        [ "2. Progression", "spec-niveaux.html#autotoc_md179", null ],
+        [ "3. Conception (lignes directrices)", "spec-niveaux.html#autotoc_md180", null ],
+        [ "Traçabilité", "spec-niveaux.html#autotoc_md181", null ]
       ] ],
       [ "Exigences non fonctionnelles", "spec-exigences.html", [
-        [ "1. Performance", "spec-exigences.html#autotoc_md162", null ],
-        [ "2. Architecture & maintenabilité", "spec-exigences.html#autotoc_md163", null ],
-        [ "3. Qualité & vérification", "spec-exigences.html#autotoc_md164", null ],
-        [ "4. Portabilité & reproductibilité", "spec-exigences.html#autotoc_md165", null ],
-        [ "5. Robustesse", "spec-exigences.html#autotoc_md166", null ],
-        [ "Traçabilité", "spec-exigences.html#autotoc_md167", null ]
+        [ "1. Performance", "spec-exigences.html#autotoc_md163", null ],
+        [ "2. Architecture & maintenabilité", "spec-exigences.html#autotoc_md164", null ],
+        [ "3. Qualité & vérification", "spec-exigences.html#autotoc_md165", null ],
+        [ "4. Portabilité & reproductibilité", "spec-exigences.html#autotoc_md166", null ],
+        [ "5. Robustesse", "spec-exigences.html#autotoc_md167", null ],
+        [ "Traçabilité", "spec-exigences.html#autotoc_md168", null ]
       ] ],
       [ "Éditeur de niveaux", "spec-editeur.html", [
-        [ "Objectif", "spec-editeur.html#autotoc_md152", null ],
-        [ "1. Exigences fonctionnelles", "spec-editeur.html#autotoc_md153", null ],
-        [ "2. Réutilisation & cohérence", "spec-editeur.html#autotoc_md154", null ],
-        [ "3. Distribution & collaboration", "spec-editeur.html#autotoc_md155", null ],
-        [ "4. Approche d'implémentation (décidée)", "spec-editeur.html#autotoc_md156", null ],
-        [ "4bis. Décors & pixel art (post-MVP, intégré à l'éditeur)", "spec-editeur.html#autotoc_md157", null ],
-        [ "5. Non-objectifs (éditeur, MVP)", "spec-editeur.html#autotoc_md158", null ],
-        [ "6. Robustesse et confort d'édition (LOT-15)", "spec-editeur.html#autotoc_md159", null ],
-        [ "7. Niveaux de grande taille (LOT-16)", "spec-editeur.html#autotoc_md160", null ],
-        [ "Traçabilité", "spec-editeur.html#autotoc_md161", null ]
+        [ "Objectif", "spec-editeur.html#autotoc_md153", null ],
+        [ "1. Exigences fonctionnelles", "spec-editeur.html#autotoc_md154", null ],
+        [ "2. Réutilisation & cohérence", "spec-editeur.html#autotoc_md155", null ],
+        [ "3. Distribution & collaboration", "spec-editeur.html#autotoc_md156", null ],
+        [ "4. Approche d'implémentation (décidée)", "spec-editeur.html#autotoc_md157", null ],
+        [ "4bis. Décors & pixel art (post-MVP, intégré à l'éditeur)", "spec-editeur.html#autotoc_md158", null ],
+        [ "5. Non-objectifs (éditeur, MVP)", "spec-editeur.html#autotoc_md159", null ],
+        [ "6. Robustesse et confort d'édition (LOT-15)", "spec-editeur.html#autotoc_md160", null ],
+        [ "7. Niveaux de grande taille (LOT-16)", "spec-editeur.html#autotoc_md161", null ],
+        [ "Traçabilité", "spec-editeur.html#autotoc_md162", null ]
       ] ],
       [ "Architecture (décisions dimensionnantes)", "spec-architecture.html", [
-        [ "1. Modules & dépendances", "spec-architecture.html#autotoc_md109", null ],
-        [ "2. Modèle d'entités : ECS", "spec-architecture.html#autotoc_md110", null ],
-        [ "3. Coordonnées & unités — trois espaces distincts", "spec-architecture.html#autotoc_md111", null ],
-        [ "4. Frontière simulation ↔ rendu", "spec-architecture.html#autotoc_md112", null ],
-        [ "5. Mathématiques dans <tt>Core</tt>", "spec-architecture.html#autotoc_md113", null ],
-        [ "6. Abstraction de rendu", "spec-architecture.html#autotoc_md114", null ],
-        [ "7. Modèle de threading", "spec-architecture.html#autotoc_md115", null ],
-        [ "8. Communication inter-systèmes", "spec-architecture.html#autotoc_md116", null ],
-        [ "9. Gestion des ressources", "spec-architecture.html#autotoc_md117", null ],
-        [ "10. Contrainte « éditeur intégré »", "spec-architecture.html#autotoc_md118", null ],
-        [ "11. Décors dynamiques (accommodation dimensionnante)", "spec-architecture.html#autotoc_md119", null ],
-        [ "Traçabilité", "spec-architecture.html#autotoc_md120", null ]
+        [ "1. Modules & dépendances", "spec-architecture.html#autotoc_md110", null ],
+        [ "2. Modèle d'entités : ECS", "spec-architecture.html#autotoc_md111", null ],
+        [ "3. Coordonnées & unités — trois espaces distincts", "spec-architecture.html#autotoc_md112", null ],
+        [ "4. Frontière simulation ↔ rendu", "spec-architecture.html#autotoc_md113", null ],
+        [ "5. Mathématiques dans <tt>Core</tt>", "spec-architecture.html#autotoc_md114", null ],
+        [ "6. Abstraction de rendu", "spec-architecture.html#autotoc_md115", null ],
+        [ "7. Modèle de threading", "spec-architecture.html#autotoc_md116", null ],
+        [ "8. Communication inter-systèmes", "spec-architecture.html#autotoc_md117", null ],
+        [ "9. Gestion des ressources", "spec-architecture.html#autotoc_md118", null ],
+        [ "10. Contrainte « éditeur intégré »", "spec-architecture.html#autotoc_md119", null ],
+        [ "11. Décors dynamiques (accommodation dimensionnante)", "spec-architecture.html#autotoc_md120", null ],
+        [ "Traçabilité", "spec-architecture.html#autotoc_md121", null ]
       ] ],
       [ "Décors & pipeline pixel art", "spec-decors.html", [
-        [ "Vision", "spec-decors.html#autotoc_md144", null ],
-        [ "1. Système de décors", "spec-decors.html#autotoc_md145", null ],
-        [ "2. Manipulation", "spec-decors.html#autotoc_md146", [
-          [ "À la conception (éditeur)", "spec-decors.html#autotoc_md147", null ],
-          [ "En jeu (mécanique, à terme)", "spec-decors.html#autotoc_md148", null ]
+        [ "Vision", "spec-decors.html#autotoc_md145", null ],
+        [ "1. Système de décors", "spec-decors.html#autotoc_md146", null ],
+        [ "2. Manipulation", "spec-decors.html#autotoc_md147", [
+          [ "À la conception (éditeur)", "spec-decors.html#autotoc_md148", null ],
+          [ "En jeu (mécanique, à terme)", "spec-decors.html#autotoc_md149", null ]
         ] ],
-        [ "3. Pipeline photo → pixel art (intégré à l'éditeur)", "spec-decors.html#autotoc_md149", null ],
-        [ "4. Périmètre & séquencement", "spec-decors.html#autotoc_md150", null ],
-        [ "Traçabilité", "spec-decors.html#autotoc_md151", null ]
+        [ "3. Pipeline photo → pixel art (intégré à l'éditeur)", "spec-decors.html#autotoc_md150", null ],
+        [ "4. Périmètre & séquencement", "spec-decors.html#autotoc_md151", null ],
+        [ "Traçabilité", "spec-decors.html#autotoc_md152", null ]
       ] ],
       [ "Conventions de code", "spec-conventions.html", [
-        [ "1. Langage & standard", "spec-conventions.html#autotoc_md126", null ],
-        [ "2. Nommage", "spec-conventions.html#autotoc_md127", null ],
-        [ "3. Mise en forme", "spec-conventions.html#autotoc_md128", null ],
-        [ "4. Inclusions (<tt>#include</tt>)", "spec-conventions.html#autotoc_md129", [
-          [ "Chemins complets depuis <tt>Source/</tt>", "spec-conventions.html#autotoc_md130", null ],
-          [ "Ordre des groupes", "spec-conventions.html#autotoc_md131", null ]
+        [ "1. Langage & standard", "spec-conventions.html#autotoc_md127", null ],
+        [ "2. Nommage", "spec-conventions.html#autotoc_md128", null ],
+        [ "3. Mise en forme", "spec-conventions.html#autotoc_md129", null ],
+        [ "4. Inclusions (<tt>#include</tt>)", "spec-conventions.html#autotoc_md130", [
+          [ "Chemins complets depuis <tt>Source/</tt>", "spec-conventions.html#autotoc_md131", null ],
+          [ "Ordre des groupes", "spec-conventions.html#autotoc_md132", null ]
         ] ],
-        [ "5. Architecture (dépendances entre modules)", "spec-conventions.html#autotoc_md132", [
-          [ "Classes plutôt que fonctions libres", "spec-conventions.html#autotoc_md133", null ],
-          [ "RAII obligatoire", "spec-conventions.html#autotoc_md134", null ]
+        [ "5. Architecture (dépendances entre modules)", "spec-conventions.html#autotoc_md133", [
+          [ "Classes plutôt que fonctions libres", "spec-conventions.html#autotoc_md134", null ],
+          [ "RAII obligatoire", "spec-conventions.html#autotoc_md135", null ]
         ] ],
-        [ "6. Documentation Doxygen", "spec-conventions.html#autotoc_md135", [
-          [ "Doxygen dans le header, commentaires simples <tt>//</tt> dans le <tt>.cpp</tt>", "spec-conventions.html#autotoc_md136", null ],
-          [ "Documentation du corps (<tt>.cpp</tt>)", "spec-conventions.html#autotoc_md137", null ]
+        [ "6. Documentation Doxygen", "spec-conventions.html#autotoc_md136", [
+          [ "Doxygen dans le header, commentaires simples <tt>//</tt> dans le <tt>.cpp</tt>", "spec-conventions.html#autotoc_md137", null ],
+          [ "Documentation du corps (<tt>.cpp</tt>)", "spec-conventions.html#autotoc_md138", null ]
         ] ],
-        [ "7. Bonnes pratiques", "spec-conventions.html#autotoc_md138", null ],
-        [ "8. Tests", "spec-conventions.html#autotoc_md139", null ],
-        [ "9. Gestion des erreurs", "spec-conventions.html#autotoc_md140", null ],
-        [ "10. Assertions & journalisation", "spec-conventions.html#autotoc_md141", null ],
-        [ "11. Outillage qualité (automatisé)", "spec-conventions.html#autotoc_md142", null ],
-        [ "12. Identifiants d'exigences (<tt>EX-…</tt>)", "spec-conventions.html#autotoc_md143", null ]
+        [ "7. Bonnes pratiques", "spec-conventions.html#autotoc_md139", null ],
+        [ "8. Tests", "spec-conventions.html#autotoc_md140", null ],
+        [ "9. Gestion des erreurs", "spec-conventions.html#autotoc_md141", null ],
+        [ "10. Assertions & journalisation", "spec-conventions.html#autotoc_md142", null ],
+        [ "11. Outillage qualité (automatisé)", "spec-conventions.html#autotoc_md143", null ],
+        [ "12. Identifiants d'exigences (<tt>EX-…</tt>)", "spec-conventions.html#autotoc_md144", null ]
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md991", null ],
+      [ "Lots", "lots.html#autotoc_md1023", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
-        [ "Objectif", "lot-01.html#autotoc_md195", null ],
-        [ "Périmètre", "lot-01.html#autotoc_md196", [
-          [ "Inclus", "lot-01.html#autotoc_md197", null ],
-          [ "Exclus (lots ultérieurs)", "lot-01.html#autotoc_md198", null ]
+        [ "Objectif", "lot-01.html#autotoc_md196", null ],
+        [ "Périmètre", "lot-01.html#autotoc_md197", [
+          [ "Inclus", "lot-01.html#autotoc_md198", null ],
+          [ "Exclus (lots ultérieurs)", "lot-01.html#autotoc_md199", null ]
         ] ],
-        [ "Exigences couvertes", "lot-01.html#autotoc_md199", null ],
-        [ "Découpage", "lot-01.html#autotoc_md200", null ],
-        [ "Critères d'acceptation du lot", "lot-01.html#autotoc_md201", null ],
-        [ "Navigation des tâches", "lot-01.html#autotoc_md202", null ],
+        [ "Exigences couvertes", "lot-01.html#autotoc_md200", null ],
+        [ "Découpage", "lot-01.html#autotoc_md201", null ],
+        [ "Critères d'acceptation du lot", "lot-01.html#autotoc_md202", null ],
+        [ "Navigation des tâches", "lot-01.html#autotoc_md203", null ],
         [ "TACHE-01 — Fenêtre Win32 & pompe de messages", "lot-01-tache-01-fenetre-win32.html", [
-          [ "Contexte", "lot-01-tache-01-fenetre-win32.html#autotoc_md203", null ],
-          [ "Travail à réaliser", "lot-01-tache-01-fenetre-win32.html#autotoc_md204", null ],
-          [ "Fichiers impactés", "lot-01-tache-01-fenetre-win32.html#autotoc_md205", null ],
-          [ "Points d'attention", "lot-01-tache-01-fenetre-win32.html#autotoc_md206", null ],
-          [ "Définition de fait (DoD)", "lot-01-tache-01-fenetre-win32.html#autotoc_md207", null ],
-          [ "Exigences", "lot-01-tache-01-fenetre-win32.html#autotoc_md208", null ]
+          [ "Contexte", "lot-01-tache-01-fenetre-win32.html#autotoc_md204", null ],
+          [ "Travail à réaliser", "lot-01-tache-01-fenetre-win32.html#autotoc_md205", null ],
+          [ "Fichiers impactés", "lot-01-tache-01-fenetre-win32.html#autotoc_md206", null ],
+          [ "Points d'attention", "lot-01-tache-01-fenetre-win32.html#autotoc_md207", null ],
+          [ "Définition de fait (DoD)", "lot-01-tache-01-fenetre-win32.html#autotoc_md208", null ],
+          [ "Exigences", "lot-01-tache-01-fenetre-win32.html#autotoc_md209", null ]
         ] ],
         [ "TACHE-02 — Initialisation Direct3D 11 (RAII)", "lot-01-tache-02-init-direct3d11.html", [
-          [ "Contexte", "lot-01-tache-02-init-direct3d11.html#autotoc_md209", null ],
-          [ "Travail à réaliser", "lot-01-tache-02-init-direct3d11.html#autotoc_md210", null ],
-          [ "Fichiers impactés", "lot-01-tache-02-init-direct3d11.html#autotoc_md211", null ],
-          [ "Points d'attention", "lot-01-tache-02-init-direct3d11.html#autotoc_md212", null ],
-          [ "Définition de fait (DoD)", "lot-01-tache-02-init-direct3d11.html#autotoc_md213", null ],
-          [ "Exigences", "lot-01-tache-02-init-direct3d11.html#autotoc_md214", null ]
+          [ "Contexte", "lot-01-tache-02-init-direct3d11.html#autotoc_md210", null ],
+          [ "Travail à réaliser", "lot-01-tache-02-init-direct3d11.html#autotoc_md211", null ],
+          [ "Fichiers impactés", "lot-01-tache-02-init-direct3d11.html#autotoc_md212", null ],
+          [ "Points d'attention", "lot-01-tache-02-init-direct3d11.html#autotoc_md213", null ],
+          [ "Définition de fait (DoD)", "lot-01-tache-02-init-direct3d11.html#autotoc_md214", null ],
+          [ "Exigences", "lot-01-tache-02-init-direct3d11.html#autotoc_md215", null ]
         ] ],
         [ "TACHE-03 — Boucle à pas de temps fixe (testable)", "lot-01-tache-03-boucle-pas-fixe.html", [
-          [ "Contexte", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md215", null ],
-          [ "Travail à réaliser", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md216", null ],
-          [ "Fichiers impactés", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md217", null ],
-          [ "Tests (obligatoires)", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md218", null ],
-          [ "Définition de fait (DoD)", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md219", null ],
-          [ "Exigences", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md220", null ]
+          [ "Contexte", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md216", null ],
+          [ "Travail à réaliser", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md217", null ],
+          [ "Fichiers impactés", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md218", null ],
+          [ "Tests (obligatoires)", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md219", null ],
+          [ "Définition de fait (DoD)", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md220", null ],
+          [ "Exigences", "lot-01-tache-03-boucle-pas-fixe.html#autotoc_md221", null ]
         ] ],
         [ "TACHE-04 — Effacement écran, présentation & redimensionnement", "lot-01-tache-04-effacement-presentation.html", [
-          [ "Contexte", "lot-01-tache-04-effacement-presentation.html#autotoc_md221", null ],
-          [ "Travail à réaliser", "lot-01-tache-04-effacement-presentation.html#autotoc_md222", null ],
-          [ "Fichiers impactés", "lot-01-tache-04-effacement-presentation.html#autotoc_md223", null ],
-          [ "Points d'attention", "lot-01-tache-04-effacement-presentation.html#autotoc_md224", null ],
-          [ "Définition de fait (DoD)", "lot-01-tache-04-effacement-presentation.html#autotoc_md225", null ],
-          [ "Exigences", "lot-01-tache-04-effacement-presentation.html#autotoc_md226", null ]
+          [ "Contexte", "lot-01-tache-04-effacement-presentation.html#autotoc_md222", null ],
+          [ "Travail à réaliser", "lot-01-tache-04-effacement-presentation.html#autotoc_md223", null ],
+          [ "Fichiers impactés", "lot-01-tache-04-effacement-presentation.html#autotoc_md224", null ],
+          [ "Points d'attention", "lot-01-tache-04-effacement-presentation.html#autotoc_md225", null ],
+          [ "Définition de fait (DoD)", "lot-01-tache-04-effacement-presentation.html#autotoc_md226", null ],
+          [ "Exigences", "lot-01-tache-04-effacement-presentation.html#autotoc_md227", null ]
         ] ],
         [ "TACHE-05 — Intégration `main` & vérification", "lot-01-tache-05-integration.html", [
-          [ "Contexte", "lot-01-tache-05-integration.html#autotoc_md227", null ],
-          [ "Travail à réaliser", "lot-01-tache-05-integration.html#autotoc_md228", null ],
-          [ "Fichiers impactés", "lot-01-tache-05-integration.html#autotoc_md229", null ],
-          [ "Vérification (manuelle + automatique)", "lot-01-tache-05-integration.html#autotoc_md230", null ],
-          [ "Définition de fait (DoD)", "lot-01-tache-05-integration.html#autotoc_md231", null ],
-          [ "Exigences", "lot-01-tache-05-integration.html#autotoc_md232", null ]
+          [ "Contexte", "lot-01-tache-05-integration.html#autotoc_md228", null ],
+          [ "Travail à réaliser", "lot-01-tache-05-integration.html#autotoc_md229", null ],
+          [ "Fichiers impactés", "lot-01-tache-05-integration.html#autotoc_md230", null ],
+          [ "Vérification (manuelle + automatique)", "lot-01-tache-05-integration.html#autotoc_md231", null ],
+          [ "Définition de fait (DoD)", "lot-01-tache-05-integration.html#autotoc_md232", null ],
+          [ "Exigences", "lot-01-tache-05-integration.html#autotoc_md233", null ]
         ] ]
       ] ],
       [ "LOT-02 — Journalisation & diagnostics", "lot-02.html", [
-        [ "Objectif", "lot-02.html#autotoc_md233", null ],
-        [ "Périmètre", "lot-02.html#autotoc_md234", [
-          [ "Inclus", "lot-02.html#autotoc_md235", null ],
-          [ "Exclus (plus tard)", "lot-02.html#autotoc_md236", null ]
+        [ "Objectif", "lot-02.html#autotoc_md234", null ],
+        [ "Périmètre", "lot-02.html#autotoc_md235", [
+          [ "Inclus", "lot-02.html#autotoc_md236", null ],
+          [ "Exclus (plus tard)", "lot-02.html#autotoc_md237", null ]
         ] ],
-        [ "Exigences couvertes", "lot-02.html#autotoc_md237", null ],
-        [ "Découpage", "lot-02.html#autotoc_md238", null ],
-        [ "Critères d'acceptation du lot", "lot-02.html#autotoc_md239", null ],
-        [ "Dépendances", "lot-02.html#autotoc_md240", null ],
-        [ "Navigation des tâches", "lot-02.html#autotoc_md241", null ],
+        [ "Exigences couvertes", "lot-02.html#autotoc_md238", null ],
+        [ "Découpage", "lot-02.html#autotoc_md239", null ],
+        [ "Critères d'acceptation du lot", "lot-02.html#autotoc_md240", null ],
+        [ "Dépendances", "lot-02.html#autotoc_md241", null ],
+        [ "Navigation des tâches", "lot-02.html#autotoc_md242", null ],
         [ "TACHE-01 — Niveaux de log & interface `Logger`", "lot-02-tache-01-niveaux-logger.html", [
-          [ "Contexte", "lot-02-tache-01-niveaux-logger.html#autotoc_md242", null ],
-          [ "Travail à réaliser", "lot-02-tache-01-niveaux-logger.html#autotoc_md243", null ],
-          [ "Fichiers impactés", "lot-02-tache-01-niveaux-logger.html#autotoc_md244", null ],
-          [ "Tests (obligatoires)", "lot-02-tache-01-niveaux-logger.html#autotoc_md245", null ],
-          [ "Points d'attention", "lot-02-tache-01-niveaux-logger.html#autotoc_md246", null ],
-          [ "Définition de fait (DoD)", "lot-02-tache-01-niveaux-logger.html#autotoc_md247", null ],
-          [ "Exigences", "lot-02-tache-01-niveaux-logger.html#autotoc_md248", null ]
+          [ "Contexte", "lot-02-tache-01-niveaux-logger.html#autotoc_md243", null ],
+          [ "Travail à réaliser", "lot-02-tache-01-niveaux-logger.html#autotoc_md244", null ],
+          [ "Fichiers impactés", "lot-02-tache-01-niveaux-logger.html#autotoc_md245", null ],
+          [ "Tests (obligatoires)", "lot-02-tache-01-niveaux-logger.html#autotoc_md246", null ],
+          [ "Points d'attention", "lot-02-tache-01-niveaux-logger.html#autotoc_md247", null ],
+          [ "Définition de fait (DoD)", "lot-02-tache-01-niveaux-logger.html#autotoc_md248", null ],
+          [ "Exigences", "lot-02-tache-01-niveaux-logger.html#autotoc_md249", null ]
         ] ],
         [ "TACHE-02 — Sinks enfichables", "lot-02-tache-02-sinks.html", [
-          [ "Contexte", "lot-02-tache-02-sinks.html#autotoc_md249", null ],
-          [ "Travail à réaliser", "lot-02-tache-02-sinks.html#autotoc_md250", null ],
-          [ "Fichiers impactés", "lot-02-tache-02-sinks.html#autotoc_md251", null ],
-          [ "Tests (obligatoires)", "lot-02-tache-02-sinks.html#autotoc_md252", null ],
-          [ "Points d'attention", "lot-02-tache-02-sinks.html#autotoc_md253", null ],
-          [ "Définition de fait (DoD)", "lot-02-tache-02-sinks.html#autotoc_md254", null ],
-          [ "Exigences", "lot-02-tache-02-sinks.html#autotoc_md255", null ]
+          [ "Contexte", "lot-02-tache-02-sinks.html#autotoc_md250", null ],
+          [ "Travail à réaliser", "lot-02-tache-02-sinks.html#autotoc_md251", null ],
+          [ "Fichiers impactés", "lot-02-tache-02-sinks.html#autotoc_md252", null ],
+          [ "Tests (obligatoires)", "lot-02-tache-02-sinks.html#autotoc_md253", null ],
+          [ "Points d'attention", "lot-02-tache-02-sinks.html#autotoc_md254", null ],
+          [ "Définition de fait (DoD)", "lot-02-tache-02-sinks.html#autotoc_md255", null ],
+          [ "Exigences", "lot-02-tache-02-sinks.html#autotoc_md256", null ]
         ] ],
         [ "TACHE-03 — Macros de log (fichier/ligne, horodatage)", "lot-02-tache-03-macros-log.html", [
-          [ "Contexte", "lot-02-tache-03-macros-log.html#autotoc_md256", null ],
-          [ "Travail à réaliser", "lot-02-tache-03-macros-log.html#autotoc_md257", null ],
-          [ "Fichiers impactés", "lot-02-tache-03-macros-log.html#autotoc_md258", null ],
-          [ "Tests (obligatoires)", "lot-02-tache-03-macros-log.html#autotoc_md259", null ],
-          [ "Points d'attention", "lot-02-tache-03-macros-log.html#autotoc_md260", null ],
-          [ "Définition de fait (DoD)", "lot-02-tache-03-macros-log.html#autotoc_md261", null ],
-          [ "Exigences", "lot-02-tache-03-macros-log.html#autotoc_md262", null ]
+          [ "Contexte", "lot-02-tache-03-macros-log.html#autotoc_md257", null ],
+          [ "Travail à réaliser", "lot-02-tache-03-macros-log.html#autotoc_md258", null ],
+          [ "Fichiers impactés", "lot-02-tache-03-macros-log.html#autotoc_md259", null ],
+          [ "Tests (obligatoires)", "lot-02-tache-03-macros-log.html#autotoc_md260", null ],
+          [ "Points d'attention", "lot-02-tache-03-macros-log.html#autotoc_md261", null ],
+          [ "Définition de fait (DoD)", "lot-02-tache-03-macros-log.html#autotoc_md262", null ],
+          [ "Exigences", "lot-02-tache-03-macros-log.html#autotoc_md263", null ]
         ] ],
         [ "TACHE-04 — Assertions `PROJECTGAMING_ASSERT`", "lot-02-tache-04-assertions.html", [
-          [ "Contexte", "lot-02-tache-04-assertions.html#autotoc_md263", null ],
-          [ "Travail à réaliser", "lot-02-tache-04-assertions.html#autotoc_md264", null ],
-          [ "Fichiers impactés", "lot-02-tache-04-assertions.html#autotoc_md265", null ],
-          [ "Tests (obligatoires)", "lot-02-tache-04-assertions.html#autotoc_md266", null ],
-          [ "Points d'attention", "lot-02-tache-04-assertions.html#autotoc_md267", null ],
-          [ "Définition de fait (DoD)", "lot-02-tache-04-assertions.html#autotoc_md268", null ],
-          [ "Exigences", "lot-02-tache-04-assertions.html#autotoc_md269", null ]
+          [ "Contexte", "lot-02-tache-04-assertions.html#autotoc_md264", null ],
+          [ "Travail à réaliser", "lot-02-tache-04-assertions.html#autotoc_md265", null ],
+          [ "Fichiers impactés", "lot-02-tache-04-assertions.html#autotoc_md266", null ],
+          [ "Tests (obligatoires)", "lot-02-tache-04-assertions.html#autotoc_md267", null ],
+          [ "Points d'attention", "lot-02-tache-04-assertions.html#autotoc_md268", null ],
+          [ "Définition de fait (DoD)", "lot-02-tache-04-assertions.html#autotoc_md269", null ],
+          [ "Exigences", "lot-02-tache-04-assertions.html#autotoc_md270", null ]
         ] ],
         [ "TACHE-05 — Intégration dans `main` & documentation", "lot-02-tache-05-integration.html", [
-          [ "Contexte", "lot-02-tache-05-integration.html#autotoc_md270", null ],
-          [ "Travail à réaliser", "lot-02-tache-05-integration.html#autotoc_md271", null ],
-          [ "Fichiers impactés", "lot-02-tache-05-integration.html#autotoc_md272", null ],
-          [ "Vérification", "lot-02-tache-05-integration.html#autotoc_md273", null ],
-          [ "Définition de fait (DoD)", "lot-02-tache-05-integration.html#autotoc_md274", null ],
-          [ "Exigences", "lot-02-tache-05-integration.html#autotoc_md275", null ]
+          [ "Contexte", "lot-02-tache-05-integration.html#autotoc_md271", null ],
+          [ "Travail à réaliser", "lot-02-tache-05-integration.html#autotoc_md272", null ],
+          [ "Fichiers impactés", "lot-02-tache-05-integration.html#autotoc_md273", null ],
+          [ "Vérification", "lot-02-tache-05-integration.html#autotoc_md274", null ],
+          [ "Définition de fait (DoD)", "lot-02-tache-05-integration.html#autotoc_md275", null ],
+          [ "Exigences", "lot-02-tache-05-integration.html#autotoc_md276", null ]
         ] ]
       ] ],
       [ "LOT-03 — Fondation ECS & mathématiques `Core`", "lot-03.html", [
-        [ "Objectif", "lot-03.html#autotoc_md276", null ],
-        [ "⚠️ Décision préalable : ECS maison vs bibliothèque", "lot-03.html#autotoc_md277", null ],
-        [ "Périmètre", "lot-03.html#autotoc_md278", [
-          [ "Inclus", "lot-03.html#autotoc_md279", null ],
-          [ "Exclus (lots ultérieurs)", "lot-03.html#autotoc_md280", null ]
+        [ "Objectif", "lot-03.html#autotoc_md277", null ],
+        [ "⚠️ Décision préalable : ECS maison vs bibliothèque", "lot-03.html#autotoc_md278", null ],
+        [ "Périmètre", "lot-03.html#autotoc_md279", [
+          [ "Inclus", "lot-03.html#autotoc_md280", null ],
+          [ "Exclus (lots ultérieurs)", "lot-03.html#autotoc_md281", null ]
         ] ],
-        [ "Exigences couvertes", "lot-03.html#autotoc_md281", null ],
-        [ "Découpage", "lot-03.html#autotoc_md282", null ],
-        [ "Critères d'acceptation du lot", "lot-03.html#autotoc_md283", null ],
-        [ "Dépendances", "lot-03.html#autotoc_md284", null ],
-        [ "Navigation des tâches", "lot-03.html#autotoc_md285", null ],
+        [ "Exigences couvertes", "lot-03.html#autotoc_md282", null ],
+        [ "Découpage", "lot-03.html#autotoc_md283", null ],
+        [ "Critères d'acceptation du lot", "lot-03.html#autotoc_md284", null ],
+        [ "Dépendances", "lot-03.html#autotoc_md285", null ],
+        [ "Navigation des tâches", "lot-03.html#autotoc_md286", null ],
         [ "TACHE-01 — Types mathématiques de `Core`", "lot-03-tache-01-math-core.html", [
-          [ "Contexte", "lot-03-tache-01-math-core.html#autotoc_md286", null ],
-          [ "Travail à réaliser", "lot-03-tache-01-math-core.html#autotoc_md287", null ],
-          [ "Fichiers impactés", "lot-03-tache-01-math-core.html#autotoc_md288", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-01-math-core.html#autotoc_md289", null ],
-          [ "Points d'attention", "lot-03-tache-01-math-core.html#autotoc_md290", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-01-math-core.html#autotoc_md291", null ],
-          [ "Exigences", "lot-03-tache-01-math-core.html#autotoc_md292", null ]
+          [ "Contexte", "lot-03-tache-01-math-core.html#autotoc_md287", null ],
+          [ "Travail à réaliser", "lot-03-tache-01-math-core.html#autotoc_md288", null ],
+          [ "Fichiers impactés", "lot-03-tache-01-math-core.html#autotoc_md289", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-01-math-core.html#autotoc_md290", null ],
+          [ "Points d'attention", "lot-03-tache-01-math-core.html#autotoc_md291", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-01-math-core.html#autotoc_md292", null ],
+          [ "Exigences", "lot-03-tache-01-math-core.html#autotoc_md293", null ]
         ] ],
         [ "TACHE-02 — Entités : handles générationnels & cycle de vie", "lot-03-tache-02-entites.html", [
-          [ "Contexte", "lot-03-tache-02-entites.html#autotoc_md293", null ],
-          [ "Travail à réaliser", "lot-03-tache-02-entites.html#autotoc_md294", null ],
-          [ "Fichiers impactés", "lot-03-tache-02-entites.html#autotoc_md295", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-02-entites.html#autotoc_md296", null ],
-          [ "Points d'attention", "lot-03-tache-02-entites.html#autotoc_md297", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-02-entites.html#autotoc_md298", null ],
-          [ "Exigences", "lot-03-tache-02-entites.html#autotoc_md299", null ]
+          [ "Contexte", "lot-03-tache-02-entites.html#autotoc_md294", null ],
+          [ "Travail à réaliser", "lot-03-tache-02-entites.html#autotoc_md295", null ],
+          [ "Fichiers impactés", "lot-03-tache-02-entites.html#autotoc_md296", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-02-entites.html#autotoc_md297", null ],
+          [ "Points d'attention", "lot-03-tache-02-entites.html#autotoc_md298", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-02-entites.html#autotoc_md299", null ],
+          [ "Exigences", "lot-03-tache-02-entites.html#autotoc_md300", null ]
         ] ],
         [ "TACHE-03 — Stockage de composants (sparse set typé)", "lot-03-tache-03-stockage-composants.html", [
-          [ "Contexte", "lot-03-tache-03-stockage-composants.html#autotoc_md300", null ],
-          [ "Travail à réaliser", "lot-03-tache-03-stockage-composants.html#autotoc_md301", null ],
-          [ "Fichiers impactés", "lot-03-tache-03-stockage-composants.html#autotoc_md302", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-03-stockage-composants.html#autotoc_md303", null ],
-          [ "Points d'attention", "lot-03-tache-03-stockage-composants.html#autotoc_md304", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-03-stockage-composants.html#autotoc_md305", null ],
-          [ "Exigences", "lot-03-tache-03-stockage-composants.html#autotoc_md306", null ]
+          [ "Contexte", "lot-03-tache-03-stockage-composants.html#autotoc_md301", null ],
+          [ "Travail à réaliser", "lot-03-tache-03-stockage-composants.html#autotoc_md302", null ],
+          [ "Fichiers impactés", "lot-03-tache-03-stockage-composants.html#autotoc_md303", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-03-stockage-composants.html#autotoc_md304", null ],
+          [ "Points d'attention", "lot-03-tache-03-stockage-composants.html#autotoc_md305", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-03-stockage-composants.html#autotoc_md306", null ],
+          [ "Exigences", "lot-03-tache-03-stockage-composants.html#autotoc_md307", null ]
         ] ],
         [ "TACHE-04 — Requêtes / vues multi-composants", "lot-03-tache-04-vues-requetes.html", [
-          [ "Contexte", "lot-03-tache-04-vues-requetes.html#autotoc_md307", null ],
-          [ "Travail à réaliser", "lot-03-tache-04-vues-requetes.html#autotoc_md308", null ],
-          [ "Fichiers impactés", "lot-03-tache-04-vues-requetes.html#autotoc_md309", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-04-vues-requetes.html#autotoc_md310", null ],
-          [ "Points d'attention", "lot-03-tache-04-vues-requetes.html#autotoc_md311", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-04-vues-requetes.html#autotoc_md312", null ],
-          [ "Exigences", "lot-03-tache-04-vues-requetes.html#autotoc_md313", null ]
+          [ "Contexte", "lot-03-tache-04-vues-requetes.html#autotoc_md308", null ],
+          [ "Travail à réaliser", "lot-03-tache-04-vues-requetes.html#autotoc_md309", null ],
+          [ "Fichiers impactés", "lot-03-tache-04-vues-requetes.html#autotoc_md310", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-04-vues-requetes.html#autotoc_md311", null ],
+          [ "Points d'attention", "lot-03-tache-04-vues-requetes.html#autotoc_md312", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-04-vues-requetes.html#autotoc_md313", null ],
+          [ "Exigences", "lot-03-tache-04-vues-requetes.html#autotoc_md314", null ]
         ] ],
         [ "TACHE-05 — Systèmes & `World` (orchestration au pas fixe)", "lot-03-tache-05-systemes-world.html", [
-          [ "Contexte", "lot-03-tache-05-systemes-world.html#autotoc_md314", null ],
-          [ "Travail à réaliser", "lot-03-tache-05-systemes-world.html#autotoc_md315", null ],
-          [ "Fichiers impactés", "lot-03-tache-05-systemes-world.html#autotoc_md316", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-05-systemes-world.html#autotoc_md317", null ],
-          [ "Points d'attention", "lot-03-tache-05-systemes-world.html#autotoc_md318", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-05-systemes-world.html#autotoc_md319", null ],
-          [ "Exigences", "lot-03-tache-05-systemes-world.html#autotoc_md320", null ]
+          [ "Contexte", "lot-03-tache-05-systemes-world.html#autotoc_md315", null ],
+          [ "Travail à réaliser", "lot-03-tache-05-systemes-world.html#autotoc_md316", null ],
+          [ "Fichiers impactés", "lot-03-tache-05-systemes-world.html#autotoc_md317", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-05-systemes-world.html#autotoc_md318", null ],
+          [ "Points d'attention", "lot-03-tache-05-systemes-world.html#autotoc_md319", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-05-systemes-world.html#autotoc_md320", null ],
+          [ "Exigences", "lot-03-tache-05-systemes-world.html#autotoc_md321", null ]
         ] ],
         [ "TACHE-06 — Composant `Transform` + système de mouvement (démo)", "lot-03-tache-06-transform-demo.html", [
-          [ "Contexte", "lot-03-tache-06-transform-demo.html#autotoc_md321", null ],
-          [ "Travail à réaliser", "lot-03-tache-06-transform-demo.html#autotoc_md322", null ],
-          [ "Fichiers impactés", "lot-03-tache-06-transform-demo.html#autotoc_md323", null ],
-          [ "Tests (obligatoires)", "lot-03-tache-06-transform-demo.html#autotoc_md324", null ],
-          [ "Points d'attention", "lot-03-tache-06-transform-demo.html#autotoc_md325", null ],
-          [ "Définition de fait (DoD)", "lot-03-tache-06-transform-demo.html#autotoc_md326", null ],
-          [ "Exigences", "lot-03-tache-06-transform-demo.html#autotoc_md327", null ]
+          [ "Contexte", "lot-03-tache-06-transform-demo.html#autotoc_md322", null ],
+          [ "Travail à réaliser", "lot-03-tache-06-transform-demo.html#autotoc_md323", null ],
+          [ "Fichiers impactés", "lot-03-tache-06-transform-demo.html#autotoc_md324", null ],
+          [ "Tests (obligatoires)", "lot-03-tache-06-transform-demo.html#autotoc_md325", null ],
+          [ "Points d'attention", "lot-03-tache-06-transform-demo.html#autotoc_md326", null ],
+          [ "Définition de fait (DoD)", "lot-03-tache-06-transform-demo.html#autotoc_md327", null ],
+          [ "Exigences", "lot-03-tache-06-transform-demo.html#autotoc_md328", null ]
         ] ]
       ] ],
       [ "LOT-04 — Documentation Doxygen & réorganisation de l'arborescence documentaire", "lot-04.html", [
-        [ "Objectif", "lot-04.html#autotoc_md328", null ],
-        [ "Périmètre", "lot-04.html#autotoc_md329", [
-          [ "Inclus", "lot-04.html#autotoc_md330", null ],
-          [ "Exclus (lots ultérieurs)", "lot-04.html#autotoc_md331", null ]
+        [ "Objectif", "lot-04.html#autotoc_md329", null ],
+        [ "Périmètre", "lot-04.html#autotoc_md330", [
+          [ "Inclus", "lot-04.html#autotoc_md331", null ],
+          [ "Exclus (lots ultérieurs)", "lot-04.html#autotoc_md332", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-04.html#autotoc_md332", null ],
-        [ "Exigences couvertes", "lot-04.html#autotoc_md333", null ],
-        [ "Découpage", "lot-04.html#autotoc_md334", null ],
-        [ "Critères d'acceptation du lot", "lot-04.html#autotoc_md335", null ],
-        [ "Dépendances", "lot-04.html#autotoc_md336", null ],
-        [ "Navigation des tâches", "lot-04.html#autotoc_md337", null ],
+        [ "Décisions de cadrage", "lot-04.html#autotoc_md333", null ],
+        [ "Exigences couvertes", "lot-04.html#autotoc_md334", null ],
+        [ "Découpage", "lot-04.html#autotoc_md335", null ],
+        [ "Critères d'acceptation du lot", "lot-04.html#autotoc_md336", null ],
+        [ "Dépendances", "lot-04.html#autotoc_md337", null ],
+        [ "Navigation des tâches", "lot-04.html#autotoc_md338", null ],
         [ "TACHE-01 — Réorganisation de l'arborescence documentaire", "lot-04-tache-01-reorganisation-arbo.html", [
-          [ "Contexte", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md338", null ],
-          [ "Travail à réaliser", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md339", null ],
-          [ "Fichiers impactés", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md340", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md341", null ],
-          [ "Points d'attention", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md342", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md343", null ],
-          [ "Exigences", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md344", null ]
+          [ "Contexte", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md339", null ],
+          [ "Travail à réaliser", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md340", null ],
+          [ "Fichiers impactés", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md341", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md342", null ],
+          [ "Points d'attention", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md343", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md344", null ],
+          [ "Exigences", "lot-04-tache-01-reorganisation-arbo.html#autotoc_md345", null ]
         ] ],
         [ "TACHE-02 — Configuration Doxygen pour le Markdown", "lot-04-tache-02-config-doxygen-markdown.html", [
-          [ "Contexte", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md345", null ],
-          [ "Travail à réaliser", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md346", null ],
-          [ "Fichiers impactés", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md347", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md348", null ],
-          [ "Points d'attention", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md349", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md350", null ],
-          [ "Exigences", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md351", null ]
+          [ "Contexte", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md346", null ],
+          [ "Travail à réaliser", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md347", null ],
+          [ "Fichiers impactés", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md348", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md349", null ],
+          [ "Points d'attention", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md350", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md351", null ],
+          [ "Exigences", "lot-04-tache-02-config-doxygen-markdown.html#autotoc_md352", null ]
         ] ],
         [ "TACHE-03 — Page d'accueil du projet (mainpage)", "lot-04-tache-03-page-accueil.html", [
-          [ "Contexte", "lot-04-tache-03-page-accueil.html#autotoc_md352", null ],
-          [ "Travail à réaliser", "lot-04-tache-03-page-accueil.html#autotoc_md353", null ],
-          [ "Fichiers impactés", "lot-04-tache-03-page-accueil.html#autotoc_md354", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-03-page-accueil.html#autotoc_md355", null ],
-          [ "Points d'attention", "lot-04-tache-03-page-accueil.html#autotoc_md356", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-03-page-accueil.html#autotoc_md357", null ],
-          [ "Exigences", "lot-04-tache-03-page-accueil.html#autotoc_md358", null ]
+          [ "Contexte", "lot-04-tache-03-page-accueil.html#autotoc_md353", null ],
+          [ "Travail à réaliser", "lot-04-tache-03-page-accueil.html#autotoc_md354", null ],
+          [ "Fichiers impactés", "lot-04-tache-03-page-accueil.html#autotoc_md355", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-03-page-accueil.html#autotoc_md356", null ],
+          [ "Points d'attention", "lot-04-tache-03-page-accueil.html#autotoc_md357", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-03-page-accueil.html#autotoc_md358", null ],
+          [ "Exigences", "lot-04-tache-03-page-accueil.html#autotoc_md359", null ]
         ] ],
         [ "TACHE-04 — Pages de spécification navigables (conventions incluses)", "lot-04-tache-04-pages-specification.html", [
-          [ "Contexte", "lot-04-tache-04-pages-specification.html#autotoc_md359", null ],
-          [ "Travail à réaliser", "lot-04-tache-04-pages-specification.html#autotoc_md360", null ],
-          [ "Convention d'insertion d'une nouvelle spec (à documenter dans l'index)", "lot-04-tache-04-pages-specification.html#autotoc_md361", null ],
-          [ "Fichiers impactés", "lot-04-tache-04-pages-specification.html#autotoc_md362", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-04-pages-specification.html#autotoc_md363", null ],
-          [ "Points d'attention", "lot-04-tache-04-pages-specification.html#autotoc_md364", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-04-pages-specification.html#autotoc_md365", null ],
-          [ "Exigences", "lot-04-tache-04-pages-specification.html#autotoc_md366", null ]
+          [ "Contexte", "lot-04-tache-04-pages-specification.html#autotoc_md360", null ],
+          [ "Travail à réaliser", "lot-04-tache-04-pages-specification.html#autotoc_md361", null ],
+          [ "Convention d'insertion d'une nouvelle spec (à documenter dans l'index)", "lot-04-tache-04-pages-specification.html#autotoc_md362", null ],
+          [ "Fichiers impactés", "lot-04-tache-04-pages-specification.html#autotoc_md363", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-04-pages-specification.html#autotoc_md364", null ],
+          [ "Points d'attention", "lot-04-tache-04-pages-specification.html#autotoc_md365", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-04-pages-specification.html#autotoc_md366", null ],
+          [ "Exigences", "lot-04-tache-04-pages-specification.html#autotoc_md367", null ]
         ] ],
         [ "TACHE-05 — Pages de lots navigables", "lot-04-tache-05-pages-lots.html", [
-          [ "Contexte", "lot-04-tache-05-pages-lots.html#autotoc_md367", null ],
-          [ "Travail à réaliser", "lot-04-tache-05-pages-lots.html#autotoc_md368", null ],
-          [ "Fichiers impactés", "lot-04-tache-05-pages-lots.html#autotoc_md369", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-05-pages-lots.html#autotoc_md370", null ],
-          [ "Points d'attention", "lot-04-tache-05-pages-lots.html#autotoc_md371", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-05-pages-lots.html#autotoc_md372", null ],
-          [ "Exigences", "lot-04-tache-05-pages-lots.html#autotoc_md373", null ]
+          [ "Contexte", "lot-04-tache-05-pages-lots.html#autotoc_md368", null ],
+          [ "Travail à réaliser", "lot-04-tache-05-pages-lots.html#autotoc_md369", null ],
+          [ "Fichiers impactés", "lot-04-tache-05-pages-lots.html#autotoc_md370", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-05-pages-lots.html#autotoc_md371", null ],
+          [ "Points d'attention", "lot-04-tache-05-pages-lots.html#autotoc_md372", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-05-pages-lots.html#autotoc_md373", null ],
+          [ "Exigences", "lot-04-tache-05-pages-lots.html#autotoc_md374", null ]
         ] ],
         [ "TACHE-06 — Manuel utilisateur (squelette + première page)", "lot-04-tache-06-manuel-utilisateur.html", [
-          [ "Contexte", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md374", null ],
-          [ "Travail à réaliser", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md375", null ],
-          [ "Fichiers impactés", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md376", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md377", null ],
-          [ "Points d'attention", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md378", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md379", null ],
-          [ "Exigences", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md380", null ]
+          [ "Contexte", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md375", null ],
+          [ "Travail à réaliser", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md376", null ],
+          [ "Fichiers impactés", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md377", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md378", null ],
+          [ "Points d'attention", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md379", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md380", null ],
+          [ "Exigences", "lot-04-tache-06-manuel-utilisateur.html#autotoc_md381", null ]
         ] ],
         [ "TACHE-07 — CI documentation (WARN_AS_ERROR & déploiement)", "lot-04-tache-07-ci-docs.html", [
-          [ "Contexte", "lot-04-tache-07-ci-docs.html#autotoc_md381", null ],
-          [ "Travail à réaliser", "lot-04-tache-07-ci-docs.html#autotoc_md382", null ],
-          [ "Fichiers impactés", "lot-04-tache-07-ci-docs.html#autotoc_md383", null ],
-          [ "Avertissements connus à corriger avant <tt>WARN_AS_ERROR</tt> (relevés en TACHE-02)", "lot-04-tache-07-ci-docs.html#autotoc_md384", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-07-ci-docs.html#autotoc_md385", null ],
-          [ "Points d'attention", "lot-04-tache-07-ci-docs.html#autotoc_md386", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-07-ci-docs.html#autotoc_md387", null ],
-          [ "Exigences", "lot-04-tache-07-ci-docs.html#autotoc_md388", null ]
+          [ "Contexte", "lot-04-tache-07-ci-docs.html#autotoc_md382", null ],
+          [ "Travail à réaliser", "lot-04-tache-07-ci-docs.html#autotoc_md383", null ],
+          [ "Fichiers impactés", "lot-04-tache-07-ci-docs.html#autotoc_md384", null ],
+          [ "Avertissements connus à corriger avant <tt>WARN_AS_ERROR</tt> (relevés en TACHE-02)", "lot-04-tache-07-ci-docs.html#autotoc_md385", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-07-ci-docs.html#autotoc_md386", null ],
+          [ "Points d'attention", "lot-04-tache-07-ci-docs.html#autotoc_md387", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-07-ci-docs.html#autotoc_md388", null ],
+          [ "Exigences", "lot-04-tache-07-ci-docs.html#autotoc_md389", null ]
         ] ],
         [ "TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)", "lot-04-tache-08-tracabilite-exigences.html", [
-          [ "Contexte", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md389", null ],
-          [ "Règle à formaliser (dans <tt>conventions.md</tt>)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md390", null ],
-          [ "Travail à réaliser", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md391", null ],
-          [ "Fichiers impactés", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md392", null ],
-          [ "Vérifications (obligatoires)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md393", null ],
-          [ "Points d'attention", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md394", null ],
-          [ "Définition de fait (DoD)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md395", null ],
-          [ "Exigences", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md396", null ]
+          [ "Contexte", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md390", null ],
+          [ "Règle à formaliser (dans <tt>conventions.md</tt>)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md391", null ],
+          [ "Travail à réaliser", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md392", null ],
+          [ "Fichiers impactés", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md393", null ],
+          [ "Vérifications (obligatoires)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md394", null ],
+          [ "Points d'attention", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md395", null ],
+          [ "Définition de fait (DoD)", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md396", null ],
+          [ "Exigences", "lot-04-tache-08-tracabilite-exigences.html#autotoc_md397", null ]
         ] ]
       ] ],
       [ "LOT-05 — Rendu 2D : atlas, sprites & caméra", "lot-05.html", [
-        [ "Objectif", "lot-05.html#autotoc_md397", null ],
-        [ "Périmètre", "lot-05.html#autotoc_md398", [
-          [ "Inclus", "lot-05.html#autotoc_md399", null ],
-          [ "Exclus (lots ultérieurs)", "lot-05.html#autotoc_md400", null ]
+        [ "Objectif", "lot-05.html#autotoc_md398", null ],
+        [ "Périmètre", "lot-05.html#autotoc_md399", [
+          [ "Inclus", "lot-05.html#autotoc_md400", null ],
+          [ "Exclus (lots ultérieurs)", "lot-05.html#autotoc_md401", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-05.html#autotoc_md401", null ],
-        [ "Exigences couvertes", "lot-05.html#autotoc_md402", null ],
-        [ "Découpage", "lot-05.html#autotoc_md403", null ],
-        [ "Critères d'acceptation du lot", "lot-05.html#autotoc_md404", null ],
-        [ "Dépendances", "lot-05.html#autotoc_md405", null ],
-        [ "Navigation des tâches", "lot-05.html#autotoc_md406", null ],
+        [ "Décisions de cadrage", "lot-05.html#autotoc_md402", null ],
+        [ "Exigences couvertes", "lot-05.html#autotoc_md403", null ],
+        [ "Découpage", "lot-05.html#autotoc_md404", null ],
+        [ "Critères d'acceptation du lot", "lot-05.html#autotoc_md405", null ],
+        [ "Dépendances", "lot-05.html#autotoc_md406", null ],
+        [ "Navigation des tâches", "lot-05.html#autotoc_md407", null ],
         [ "TACHE-01 — Composant `Sprite` (données pures)", "lot-05-tache-01-composant-sprite.html", [
-          [ "Contexte", "lot-05-tache-01-composant-sprite.html#autotoc_md407", null ],
-          [ "Travail à réaliser", "lot-05-tache-01-composant-sprite.html#autotoc_md408", null ],
-          [ "Fichiers impactés", "lot-05-tache-01-composant-sprite.html#autotoc_md409", null ],
-          [ "Tests (obligatoires si logique)", "lot-05-tache-01-composant-sprite.html#autotoc_md410", null ],
-          [ "Points d'attention", "lot-05-tache-01-composant-sprite.html#autotoc_md411", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-01-composant-sprite.html#autotoc_md412", null ],
-          [ "Exigences", "lot-05-tache-01-composant-sprite.html#autotoc_md413", null ]
+          [ "Contexte", "lot-05-tache-01-composant-sprite.html#autotoc_md408", null ],
+          [ "Travail à réaliser", "lot-05-tache-01-composant-sprite.html#autotoc_md409", null ],
+          [ "Fichiers impactés", "lot-05-tache-01-composant-sprite.html#autotoc_md410", null ],
+          [ "Tests (obligatoires si logique)", "lot-05-tache-01-composant-sprite.html#autotoc_md411", null ],
+          [ "Points d'attention", "lot-05-tache-01-composant-sprite.html#autotoc_md412", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-01-composant-sprite.html#autotoc_md413", null ],
+          [ "Exigences", "lot-05-tache-01-composant-sprite.html#autotoc_md414", null ]
         ] ],
         [ "TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)", "lot-05-tache-02-pipeline-quads-textures.html", [
-          [ "Contexte", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md414", null ],
-          [ "Travail à réaliser", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md415", null ],
-          [ "Fichiers impactés", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md416", null ],
-          [ "Vérifications (obligatoires)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md417", null ],
-          [ "Points d'attention", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md418", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md419", null ],
-          [ "Exigences", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md420", null ]
+          [ "Contexte", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md415", null ],
+          [ "Travail à réaliser", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md416", null ],
+          [ "Fichiers impactés", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md417", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md418", null ],
+          [ "Points d'attention", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md419", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md420", null ],
+          [ "Exigences", "lot-05-tache-02-pipeline-quads-textures.html#autotoc_md421", null ]
         ] ],
         [ "TACHE-03 — Atlas de textures procédural", "lot-05-tache-03-atlas-procedural.html", [
-          [ "Contexte", "lot-05-tache-03-atlas-procedural.html#autotoc_md421", null ],
-          [ "Travail à réaliser", "lot-05-tache-03-atlas-procedural.html#autotoc_md422", null ],
-          [ "Fichiers impactés", "lot-05-tache-03-atlas-procedural.html#autotoc_md423", null ],
-          [ "Vérifications (obligatoires)", "lot-05-tache-03-atlas-procedural.html#autotoc_md424", null ],
-          [ "Points d'attention", "lot-05-tache-03-atlas-procedural.html#autotoc_md425", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-03-atlas-procedural.html#autotoc_md426", null ],
-          [ "Exigences", "lot-05-tache-03-atlas-procedural.html#autotoc_md427", null ]
+          [ "Contexte", "lot-05-tache-03-atlas-procedural.html#autotoc_md422", null ],
+          [ "Travail à réaliser", "lot-05-tache-03-atlas-procedural.html#autotoc_md423", null ],
+          [ "Fichiers impactés", "lot-05-tache-03-atlas-procedural.html#autotoc_md424", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-03-atlas-procedural.html#autotoc_md425", null ],
+          [ "Points d'attention", "lot-05-tache-03-atlas-procedural.html#autotoc_md426", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-03-atlas-procedural.html#autotoc_md427", null ],
+          [ "Exigences", "lot-05-tache-03-atlas-procedural.html#autotoc_md428", null ]
         ] ],
         [ "TACHE-04 — Caméra 2D (monde → écran)", "lot-05-tache-04-camera-2d.html", [
-          [ "Contexte", "lot-05-tache-04-camera-2d.html#autotoc_md428", null ],
-          [ "Travail à réaliser", "lot-05-tache-04-camera-2d.html#autotoc_md429", null ],
-          [ "Fichiers impactés", "lot-05-tache-04-camera-2d.html#autotoc_md430", null ],
-          [ "Tests (obligatoires)", "lot-05-tache-04-camera-2d.html#autotoc_md431", null ],
-          [ "Points d'attention", "lot-05-tache-04-camera-2d.html#autotoc_md432", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-04-camera-2d.html#autotoc_md433", null ],
-          [ "Exigences", "lot-05-tache-04-camera-2d.html#autotoc_md434", null ]
+          [ "Contexte", "lot-05-tache-04-camera-2d.html#autotoc_md429", null ],
+          [ "Travail à réaliser", "lot-05-tache-04-camera-2d.html#autotoc_md430", null ],
+          [ "Fichiers impactés", "lot-05-tache-04-camera-2d.html#autotoc_md431", null ],
+          [ "Tests (obligatoires)", "lot-05-tache-04-camera-2d.html#autotoc_md432", null ],
+          [ "Points d'attention", "lot-05-tache-04-camera-2d.html#autotoc_md433", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-04-camera-2d.html#autotoc_md434", null ],
+          [ "Exigences", "lot-05-tache-04-camera-2d.html#autotoc_md435", null ]
         ] ],
         [ "TACHE-05 — Système de rendu des sprites (ECS → écran)", "lot-05-tache-05-systeme-rendu-sprites.html", [
-          [ "Contexte", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md435", null ],
-          [ "Travail à réaliser", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md436", null ],
-          [ "Fichiers impactés", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md437", null ],
-          [ "Vérifications (obligatoires)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md438", null ],
-          [ "Points d'attention", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md439", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md440", null ],
-          [ "Exigences", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md441", null ]
+          [ "Contexte", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md436", null ],
+          [ "Travail à réaliser", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md437", null ],
+          [ "Fichiers impactés", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md438", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md439", null ],
+          [ "Points d'attention", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md440", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md441", null ],
+          [ "Exigences", "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md442", null ]
         ] ],
         [ "TACHE-06 — Câblage du `World` dans la boucle + scène de démo", "lot-05-tache-06-cablage-world-demo.html", [
-          [ "Contexte", "lot-05-tache-06-cablage-world-demo.html#autotoc_md442", null ],
-          [ "Travail à réaliser", "lot-05-tache-06-cablage-world-demo.html#autotoc_md443", null ],
-          [ "Fichiers impactés", "lot-05-tache-06-cablage-world-demo.html#autotoc_md444", null ],
-          [ "Vérifications (obligatoires)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md445", null ],
-          [ "Points d'attention", "lot-05-tache-06-cablage-world-demo.html#autotoc_md446", null ],
-          [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md447", null ],
-          [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md448", null ]
+          [ "Contexte", "lot-05-tache-06-cablage-world-demo.html#autotoc_md443", null ],
+          [ "Travail à réaliser", "lot-05-tache-06-cablage-world-demo.html#autotoc_md444", null ],
+          [ "Fichiers impactés", "lot-05-tache-06-cablage-world-demo.html#autotoc_md445", null ],
+          [ "Vérifications (obligatoires)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md446", null ],
+          [ "Points d'attention", "lot-05-tache-06-cablage-world-demo.html#autotoc_md447", null ],
+          [ "Définition de fait (DoD)", "lot-05-tache-06-cablage-world-demo.html#autotoc_md448", null ],
+          [ "Exigences", "lot-05-tache-06-cablage-world-demo.html#autotoc_md449", null ]
         ] ]
       ] ],
       [ "LOT-06 — Menu principal", "lot-06.html", [
-        [ "Objectif", "lot-06.html#autotoc_md449", null ],
-        [ "Périmètre", "lot-06.html#autotoc_md450", [
-          [ "Inclus", "lot-06.html#autotoc_md451", null ],
-          [ "Exclus (lots ultérieurs)", "lot-06.html#autotoc_md452", null ]
+        [ "Objectif", "lot-06.html#autotoc_md450", null ],
+        [ "Périmètre", "lot-06.html#autotoc_md451", [
+          [ "Inclus", "lot-06.html#autotoc_md452", null ],
+          [ "Exclus (lots ultérieurs)", "lot-06.html#autotoc_md453", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-06.html#autotoc_md453", null ],
-        [ "Exigences couvertes", "lot-06.html#autotoc_md454", null ],
-        [ "Découpage", "lot-06.html#autotoc_md455", null ],
-        [ "Critères d'acceptation du lot", "lot-06.html#autotoc_md456", null ],
-        [ "Dépendances", "lot-06.html#autotoc_md457", null ],
-        [ "Navigation des tâches", "lot-06.html#autotoc_md458", null ],
+        [ "Décisions de cadrage", "lot-06.html#autotoc_md454", null ],
+        [ "Exigences couvertes", "lot-06.html#autotoc_md455", null ],
+        [ "Découpage", "lot-06.html#autotoc_md456", null ],
+        [ "Critères d'acceptation du lot", "lot-06.html#autotoc_md457", null ],
+        [ "Dépendances", "lot-06.html#autotoc_md458", null ],
+        [ "Navigation des tâches", "lot-06.html#autotoc_md459", null ],
         [ "TACHE-01 — Entrées clavier & souris", "lot-06-tache-01-entrees-clavier-souris.html", [
-          [ "Contexte", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md459", null ],
-          [ "Travail à réaliser", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md460", null ],
-          [ "Fichiers impactés", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md461", null ],
-          [ "Tests (obligatoires)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md462", null ],
-          [ "Points d'attention", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md463", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md464", null ],
-          [ "Exigences", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md465", null ]
+          [ "Contexte", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md460", null ],
+          [ "Travail à réaliser", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md461", null ],
+          [ "Fichiers impactés", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md462", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md463", null ],
+          [ "Points d'attention", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md464", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md465", null ],
+          [ "Exigences", "lot-06-tache-01-entrees-clavier-souris.html#autotoc_md466", null ]
         ] ],
         [ "TACHE-02 — Rendu de texte (police bitmap)", "lot-06-tache-02-rendu-texte-bitmap.html", [
-          [ "Contexte", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md466", null ],
-          [ "Travail à réaliser", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md467", null ],
-          [ "Fichiers impactés", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md468", null ],
-          [ "Vérifications (obligatoires)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md469", null ],
-          [ "Points d'attention", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md470", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md471", null ],
-          [ "Exigences", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md472", null ]
+          [ "Contexte", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md467", null ],
+          [ "Travail à réaliser", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md468", null ],
+          [ "Fichiers impactés", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md469", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md470", null ],
+          [ "Points d'attention", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md471", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md472", null ],
+          [ "Exigences", "lot-06-tache-02-rendu-texte-bitmap.html#autotoc_md473", null ]
         ] ],
         [ "TACHE-03 — Catalogue de traduction (i18n)", "lot-06-tache-03-catalogue-traduction.html", [
-          [ "Contexte", "lot-06-tache-03-catalogue-traduction.html#autotoc_md473", null ],
-          [ "Travail à réaliser", "lot-06-tache-03-catalogue-traduction.html#autotoc_md474", null ],
-          [ "Fichiers impactés", "lot-06-tache-03-catalogue-traduction.html#autotoc_md475", null ],
-          [ "Tests (obligatoires)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md476", null ],
-          [ "Points d'attention", "lot-06-tache-03-catalogue-traduction.html#autotoc_md477", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md478", null ],
-          [ "Exigences", "lot-06-tache-03-catalogue-traduction.html#autotoc_md479", null ]
+          [ "Contexte", "lot-06-tache-03-catalogue-traduction.html#autotoc_md474", null ],
+          [ "Travail à réaliser", "lot-06-tache-03-catalogue-traduction.html#autotoc_md475", null ],
+          [ "Fichiers impactés", "lot-06-tache-03-catalogue-traduction.html#autotoc_md476", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md477", null ],
+          [ "Points d'attention", "lot-06-tache-03-catalogue-traduction.html#autotoc_md478", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-03-catalogue-traduction.html#autotoc_md479", null ],
+          [ "Exigences", "lot-06-tache-03-catalogue-traduction.html#autotoc_md480", null ]
         ] ],
         [ "TACHE-04 — États d'application (écrans)", "lot-06-tache-04-etats-application.html", [
-          [ "Contexte", "lot-06-tache-04-etats-application.html#autotoc_md480", null ],
-          [ "Travail à réaliser", "lot-06-tache-04-etats-application.html#autotoc_md481", null ],
-          [ "Fichiers impactés", "lot-06-tache-04-etats-application.html#autotoc_md482", null ],
-          [ "Vérifications (obligatoires)", "lot-06-tache-04-etats-application.html#autotoc_md483", null ],
-          [ "Points d'attention", "lot-06-tache-04-etats-application.html#autotoc_md484", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-04-etats-application.html#autotoc_md485", null ],
-          [ "Exigences", "lot-06-tache-04-etats-application.html#autotoc_md486", null ]
+          [ "Contexte", "lot-06-tache-04-etats-application.html#autotoc_md481", null ],
+          [ "Travail à réaliser", "lot-06-tache-04-etats-application.html#autotoc_md482", null ],
+          [ "Fichiers impactés", "lot-06-tache-04-etats-application.html#autotoc_md483", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-04-etats-application.html#autotoc_md484", null ],
+          [ "Points d'attention", "lot-06-tache-04-etats-application.html#autotoc_md485", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-04-etats-application.html#autotoc_md486", null ],
+          [ "Exigences", "lot-06-tache-04-etats-application.html#autotoc_md487", null ]
         ] ],
         [ "TACHE-05 — Écran de menu principal", "lot-06-tache-05-ecran-menu-principal.html", [
-          [ "Contexte", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md487", null ],
-          [ "Travail à réaliser", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md488", null ],
-          [ "Fichiers impactés", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md489", null ],
-          [ "Tests (obligatoires)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md490", null ],
-          [ "Points d'attention", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md491", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md492", null ],
-          [ "Exigences", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md493", null ]
+          [ "Contexte", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md488", null ],
+          [ "Travail à réaliser", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md489", null ],
+          [ "Fichiers impactés", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md490", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md491", null ],
+          [ "Points d'attention", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md492", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md493", null ],
+          [ "Exigences", "lot-06-tache-05-ecran-menu-principal.html#autotoc_md494", null ]
         ] ],
         [ "TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)", "lot-06-tache-06-ecrans-cibles.html", [
-          [ "Contexte", "lot-06-tache-06-ecrans-cibles.html#autotoc_md494", null ],
-          [ "Travail à réaliser", "lot-06-tache-06-ecrans-cibles.html#autotoc_md495", null ],
-          [ "Fichiers impactés", "lot-06-tache-06-ecrans-cibles.html#autotoc_md496", null ],
-          [ "Vérifications (obligatoires)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md497", null ],
-          [ "Points d'attention", "lot-06-tache-06-ecrans-cibles.html#autotoc_md498", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md499", null ],
-          [ "Exigences", "lot-06-tache-06-ecrans-cibles.html#autotoc_md500", null ]
+          [ "Contexte", "lot-06-tache-06-ecrans-cibles.html#autotoc_md495", null ],
+          [ "Travail à réaliser", "lot-06-tache-06-ecrans-cibles.html#autotoc_md496", null ],
+          [ "Fichiers impactés", "lot-06-tache-06-ecrans-cibles.html#autotoc_md497", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md498", null ],
+          [ "Points d'attention", "lot-06-tache-06-ecrans-cibles.html#autotoc_md499", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-06-ecrans-cibles.html#autotoc_md500", null ],
+          [ "Exigences", "lot-06-tache-06-ecrans-cibles.html#autotoc_md501", null ]
         ] ],
         [ "TACHE-07 — Intégration `main` (boucle pilotée par l'écran)", "lot-06-tache-07-integration-main.html", [
-          [ "Contexte", "lot-06-tache-07-integration-main.html#autotoc_md501", null ],
-          [ "Travail à réaliser", "lot-06-tache-07-integration-main.html#autotoc_md502", null ],
-          [ "Fichiers impactés", "lot-06-tache-07-integration-main.html#autotoc_md503", null ],
-          [ "Vérifications (obligatoires)", "lot-06-tache-07-integration-main.html#autotoc_md504", null ],
-          [ "Points d'attention", "lot-06-tache-07-integration-main.html#autotoc_md505", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-07-integration-main.html#autotoc_md506", null ],
-          [ "Exigences", "lot-06-tache-07-integration-main.html#autotoc_md507", null ]
+          [ "Contexte", "lot-06-tache-07-integration-main.html#autotoc_md502", null ],
+          [ "Travail à réaliser", "lot-06-tache-07-integration-main.html#autotoc_md503", null ],
+          [ "Fichiers impactés", "lot-06-tache-07-integration-main.html#autotoc_md504", null ],
+          [ "Vérifications (obligatoires)", "lot-06-tache-07-integration-main.html#autotoc_md505", null ],
+          [ "Points d'attention", "lot-06-tache-07-integration-main.html#autotoc_md506", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-07-integration-main.html#autotoc_md507", null ],
+          [ "Exigences", "lot-06-tache-07-integration-main.html#autotoc_md508", null ]
         ] ],
         [ "TACHE-08 — Sélecteur de langue", "lot-06-tache-08-selecteur-langue.html", [
-          [ "Contexte", "lot-06-tache-08-selecteur-langue.html#autotoc_md508", null ],
-          [ "Travail à réaliser", "lot-06-tache-08-selecteur-langue.html#autotoc_md509", null ],
-          [ "Fichiers impactés", "lot-06-tache-08-selecteur-langue.html#autotoc_md510", null ],
-          [ "Tests (obligatoires)", "lot-06-tache-08-selecteur-langue.html#autotoc_md511", null ],
-          [ "Points d'attention", "lot-06-tache-08-selecteur-langue.html#autotoc_md512", null ],
-          [ "Définition de fait (DoD)", "lot-06-tache-08-selecteur-langue.html#autotoc_md513", null ],
-          [ "Exigences", "lot-06-tache-08-selecteur-langue.html#autotoc_md514", null ]
+          [ "Contexte", "lot-06-tache-08-selecteur-langue.html#autotoc_md509", null ],
+          [ "Travail à réaliser", "lot-06-tache-08-selecteur-langue.html#autotoc_md510", null ],
+          [ "Fichiers impactés", "lot-06-tache-08-selecteur-langue.html#autotoc_md511", null ],
+          [ "Tests (obligatoires)", "lot-06-tache-08-selecteur-langue.html#autotoc_md512", null ],
+          [ "Points d'attention", "lot-06-tache-08-selecteur-langue.html#autotoc_md513", null ],
+          [ "Définition de fait (DoD)", "lot-06-tache-08-selecteur-langue.html#autotoc_md514", null ],
+          [ "Exigences", "lot-06-tache-08-selecteur-langue.html#autotoc_md515", null ]
         ] ]
       ] ],
       [ "LOT-07 — Niveaux : modèle et chargement", "lot-07.html", [
-        [ "Objectif", "lot-07.html#autotoc_md515", null ],
-        [ "Périmètre", "lot-07.html#autotoc_md516", [
-          [ "Inclus", "lot-07.html#autotoc_md517", null ],
-          [ "Exclus (lots ultérieurs)", "lot-07.html#autotoc_md518", null ]
+        [ "Objectif", "lot-07.html#autotoc_md516", null ],
+        [ "Périmètre", "lot-07.html#autotoc_md517", [
+          [ "Inclus", "lot-07.html#autotoc_md518", null ],
+          [ "Exclus (lots ultérieurs)", "lot-07.html#autotoc_md519", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-07.html#autotoc_md519", null ],
-        [ "Exigences couvertes", "lot-07.html#autotoc_md520", null ],
-        [ "Découpage", "lot-07.html#autotoc_md521", null ],
-        [ "Critères d'acceptation du lot", "lot-07.html#autotoc_md522", null ],
-        [ "Dépendances", "lot-07.html#autotoc_md523", null ],
-        [ "Navigation des tâches", "lot-07.html#autotoc_md524", null ],
+        [ "Décisions de cadrage", "lot-07.html#autotoc_md520", null ],
+        [ "Exigences couvertes", "lot-07.html#autotoc_md521", null ],
+        [ "Découpage", "lot-07.html#autotoc_md522", null ],
+        [ "Critères d'acceptation du lot", "lot-07.html#autotoc_md523", null ],
+        [ "Dépendances", "lot-07.html#autotoc_md524", null ],
+        [ "Navigation des tâches", "lot-07.html#autotoc_md525", null ],
         [ "TACHE-01 — Dépendance JSON (nlohmann/json épinglé)", "lot-07-tache-01-dependance-json.html", [
-          [ "Contexte", "lot-07-tache-01-dependance-json.html#autotoc_md525", null ],
-          [ "Travail à réaliser", "lot-07-tache-01-dependance-json.html#autotoc_md526", null ],
-          [ "Fichiers impactés", "lot-07-tache-01-dependance-json.html#autotoc_md527", null ],
-          [ "Vérifications (obligatoires)", "lot-07-tache-01-dependance-json.html#autotoc_md528", null ],
-          [ "Points d'attention", "lot-07-tache-01-dependance-json.html#autotoc_md529", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-01-dependance-json.html#autotoc_md530", null ],
-          [ "Exigences", "lot-07-tache-01-dependance-json.html#autotoc_md531", null ]
+          [ "Contexte", "lot-07-tache-01-dependance-json.html#autotoc_md526", null ],
+          [ "Travail à réaliser", "lot-07-tache-01-dependance-json.html#autotoc_md527", null ],
+          [ "Fichiers impactés", "lot-07-tache-01-dependance-json.html#autotoc_md528", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-01-dependance-json.html#autotoc_md529", null ],
+          [ "Points d'attention", "lot-07-tache-01-dependance-json.html#autotoc_md530", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-01-dependance-json.html#autotoc_md531", null ],
+          [ "Exigences", "lot-07-tache-01-dependance-json.html#autotoc_md532", null ]
         ] ],
         [ "TACHE-02 — Modèle de tuiles et de niveau", "lot-07-tache-02-modele-niveau.html", [
-          [ "Contexte", "lot-07-tache-02-modele-niveau.html#autotoc_md532", null ],
-          [ "Travail à réaliser", "lot-07-tache-02-modele-niveau.html#autotoc_md533", null ],
-          [ "Fichiers impactés", "lot-07-tache-02-modele-niveau.html#autotoc_md534", null ],
-          [ "Tests (obligatoires)", "lot-07-tache-02-modele-niveau.html#autotoc_md535", null ],
-          [ "Points d'attention", "lot-07-tache-02-modele-niveau.html#autotoc_md536", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-02-modele-niveau.html#autotoc_md537", null ],
-          [ "Exigences", "lot-07-tache-02-modele-niveau.html#autotoc_md538", null ]
+          [ "Contexte", "lot-07-tache-02-modele-niveau.html#autotoc_md533", null ],
+          [ "Travail à réaliser", "lot-07-tache-02-modele-niveau.html#autotoc_md534", null ],
+          [ "Fichiers impactés", "lot-07-tache-02-modele-niveau.html#autotoc_md535", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-02-modele-niveau.html#autotoc_md536", null ],
+          [ "Points d'attention", "lot-07-tache-02-modele-niveau.html#autotoc_md537", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-02-modele-niveau.html#autotoc_md538", null ],
+          [ "Exigences", "lot-07-tache-02-modele-niveau.html#autotoc_md539", null ]
         ] ],
         [ "TACHE-03 — Chargement du niveau (JSON)", "lot-07-tache-03-chargement-json.html", [
-          [ "Contexte", "lot-07-tache-03-chargement-json.html#autotoc_md539", null ],
-          [ "Travail à réaliser", "lot-07-tache-03-chargement-json.html#autotoc_md540", null ],
-          [ "Fichiers impactés", "lot-07-tache-03-chargement-json.html#autotoc_md541", null ],
-          [ "Tests (obligatoires)", "lot-07-tache-03-chargement-json.html#autotoc_md542", null ],
-          [ "Points d'attention", "lot-07-tache-03-chargement-json.html#autotoc_md543", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-03-chargement-json.html#autotoc_md544", null ],
-          [ "Exigences", "lot-07-tache-03-chargement-json.html#autotoc_md545", null ]
+          [ "Contexte", "lot-07-tache-03-chargement-json.html#autotoc_md540", null ],
+          [ "Travail à réaliser", "lot-07-tache-03-chargement-json.html#autotoc_md541", null ],
+          [ "Fichiers impactés", "lot-07-tache-03-chargement-json.html#autotoc_md542", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-03-chargement-json.html#autotoc_md543", null ],
+          [ "Points d'attention", "lot-07-tache-03-chargement-json.html#autotoc_md544", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-03-chargement-json.html#autotoc_md545", null ],
+          [ "Exigences", "lot-07-tache-03-chargement-json.html#autotoc_md546", null ]
         ] ],
         [ "TACHE-04 — Validation du niveau", "lot-07-tache-04-validation.html", [
-          [ "Contexte", "lot-07-tache-04-validation.html#autotoc_md546", null ],
-          [ "Travail à réaliser", "lot-07-tache-04-validation.html#autotoc_md547", null ],
-          [ "Fichiers impactés", "lot-07-tache-04-validation.html#autotoc_md548", null ],
-          [ "Tests (obligatoires)", "lot-07-tache-04-validation.html#autotoc_md549", null ],
-          [ "Points d'attention", "lot-07-tache-04-validation.html#autotoc_md550", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-04-validation.html#autotoc_md551", null ],
-          [ "Exigences", "lot-07-tache-04-validation.html#autotoc_md552", null ]
+          [ "Contexte", "lot-07-tache-04-validation.html#autotoc_md547", null ],
+          [ "Travail à réaliser", "lot-07-tache-04-validation.html#autotoc_md548", null ],
+          [ "Fichiers impactés", "lot-07-tache-04-validation.html#autotoc_md549", null ],
+          [ "Tests (obligatoires)", "lot-07-tache-04-validation.html#autotoc_md550", null ],
+          [ "Points d'attention", "lot-07-tache-04-validation.html#autotoc_md551", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-04-validation.html#autotoc_md552", null ],
+          [ "Exigences", "lot-07-tache-04-validation.html#autotoc_md553", null ]
         ] ],
         [ "TACHE-05 — Niveau de démonstration", "lot-07-tache-05-niveau-demo.html", [
-          [ "Contexte", "lot-07-tache-05-niveau-demo.html#autotoc_md553", null ],
-          [ "Travail à réaliser", "lot-07-tache-05-niveau-demo.html#autotoc_md554", null ],
-          [ "Fichiers impactés", "lot-07-tache-05-niveau-demo.html#autotoc_md555", null ],
-          [ "Vérifications (obligatoires)", "lot-07-tache-05-niveau-demo.html#autotoc_md556", null ],
-          [ "Points d'attention", "lot-07-tache-05-niveau-demo.html#autotoc_md557", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-05-niveau-demo.html#autotoc_md558", null ],
-          [ "Exigences", "lot-07-tache-05-niveau-demo.html#autotoc_md559", null ]
+          [ "Contexte", "lot-07-tache-05-niveau-demo.html#autotoc_md554", null ],
+          [ "Travail à réaliser", "lot-07-tache-05-niveau-demo.html#autotoc_md555", null ],
+          [ "Fichiers impactés", "lot-07-tache-05-niveau-demo.html#autotoc_md556", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-05-niveau-demo.html#autotoc_md557", null ],
+          [ "Points d'attention", "lot-07-tache-05-niveau-demo.html#autotoc_md558", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-05-niveau-demo.html#autotoc_md559", null ],
+          [ "Exigences", "lot-07-tache-05-niveau-demo.html#autotoc_md560", null ]
         ] ],
         [ "TACHE-06 — Rendu du niveau + intégration « Charger niveau »", "lot-07-tache-06-rendu-integration.html", [
-          [ "Contexte", "lot-07-tache-06-rendu-integration.html#autotoc_md560", null ],
-          [ "Travail à réaliser", "lot-07-tache-06-rendu-integration.html#autotoc_md561", null ],
-          [ "Fichiers impactés", "lot-07-tache-06-rendu-integration.html#autotoc_md562", null ],
-          [ "Vérifications (obligatoires)", "lot-07-tache-06-rendu-integration.html#autotoc_md563", null ],
-          [ "Points d'attention", "lot-07-tache-06-rendu-integration.html#autotoc_md564", null ],
-          [ "Définition de fait (DoD)", "lot-07-tache-06-rendu-integration.html#autotoc_md565", null ],
-          [ "Exigences", "lot-07-tache-06-rendu-integration.html#autotoc_md566", null ]
+          [ "Contexte", "lot-07-tache-06-rendu-integration.html#autotoc_md561", null ],
+          [ "Travail à réaliser", "lot-07-tache-06-rendu-integration.html#autotoc_md562", null ],
+          [ "Fichiers impactés", "lot-07-tache-06-rendu-integration.html#autotoc_md563", null ],
+          [ "Vérifications (obligatoires)", "lot-07-tache-06-rendu-integration.html#autotoc_md564", null ],
+          [ "Points d'attention", "lot-07-tache-06-rendu-integration.html#autotoc_md565", null ],
+          [ "Définition de fait (DoD)", "lot-07-tache-06-rendu-integration.html#autotoc_md566", null ],
+          [ "Exigences", "lot-07-tache-06-rendu-integration.html#autotoc_md567", null ]
         ] ]
       ] ],
       [ "LOT-08 — Gameplay personnage : déplacement, gravité et collisions", "lot-08.html", [
-        [ "Objectif", "lot-08.html#autotoc_md567", null ],
-        [ "Périmètre", "lot-08.html#autotoc_md568", [
-          [ "Inclus", "lot-08.html#autotoc_md569", null ],
-          [ "Exclus (lots ultérieurs)", "lot-08.html#autotoc_md570", null ]
+        [ "Objectif", "lot-08.html#autotoc_md568", null ],
+        [ "Périmètre", "lot-08.html#autotoc_md569", [
+          [ "Inclus", "lot-08.html#autotoc_md570", null ],
+          [ "Exclus (lots ultérieurs)", "lot-08.html#autotoc_md571", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-08.html#autotoc_md571", null ],
-        [ "Exigences couvertes", "lot-08.html#autotoc_md572", null ],
-        [ "Découpage", "lot-08.html#autotoc_md573", null ],
-        [ "Critères d'acceptation du lot", "lot-08.html#autotoc_md574", null ],
-        [ "Dépendances", "lot-08.html#autotoc_md575", null ],
-        [ "Navigation des tâches", "lot-08.html#autotoc_md576", null ],
+        [ "Décisions de cadrage", "lot-08.html#autotoc_md572", null ],
+        [ "Exigences couvertes", "lot-08.html#autotoc_md573", null ],
+        [ "Découpage", "lot-08.html#autotoc_md574", null ],
+        [ "Critères d'acceptation du lot", "lot-08.html#autotoc_md575", null ],
+        [ "Dépendances", "lot-08.html#autotoc_md576", null ],
+        [ "Navigation des tâches", "lot-08.html#autotoc_md577", null ],
         [ "TACHE-01 — Composants du personnage & intention d'entrée", "lot-08-tache-01-composants-personnage.html", [
-          [ "Contexte", "lot-08-tache-01-composants-personnage.html#autotoc_md577", null ],
-          [ "Travail à réaliser", "lot-08-tache-01-composants-personnage.html#autotoc_md578", null ],
-          [ "Fichiers impactés", "lot-08-tache-01-composants-personnage.html#autotoc_md579", null ],
-          [ "Tests (obligatoires)", "lot-08-tache-01-composants-personnage.html#autotoc_md580", null ],
-          [ "Points d'attention", "lot-08-tache-01-composants-personnage.html#autotoc_md581", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-01-composants-personnage.html#autotoc_md582", null ],
-          [ "Exigences", "lot-08-tache-01-composants-personnage.html#autotoc_md583", null ]
+          [ "Contexte", "lot-08-tache-01-composants-personnage.html#autotoc_md578", null ],
+          [ "Travail à réaliser", "lot-08-tache-01-composants-personnage.html#autotoc_md579", null ],
+          [ "Fichiers impactés", "lot-08-tache-01-composants-personnage.html#autotoc_md580", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-01-composants-personnage.html#autotoc_md581", null ],
+          [ "Points d'attention", "lot-08-tache-01-composants-personnage.html#autotoc_md582", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-01-composants-personnage.html#autotoc_md583", null ],
+          [ "Exigences", "lot-08-tache-01-composants-personnage.html#autotoc_md584", null ]
         ] ],
         [ "TACHE-02 — Balayage AABB contre la grille (géométrie pure)", "lot-08-tache-02-balayage-aabb.html", [
-          [ "Contexte", "lot-08-tache-02-balayage-aabb.html#autotoc_md584", null ],
-          [ "Travail à réaliser", "lot-08-tache-02-balayage-aabb.html#autotoc_md585", null ],
-          [ "Fichiers impactés", "lot-08-tache-02-balayage-aabb.html#autotoc_md586", null ],
-          [ "Tests (obligatoires)", "lot-08-tache-02-balayage-aabb.html#autotoc_md587", null ],
-          [ "Points d'attention", "lot-08-tache-02-balayage-aabb.html#autotoc_md588", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-02-balayage-aabb.html#autotoc_md589", null ],
-          [ "Exigences", "lot-08-tache-02-balayage-aabb.html#autotoc_md590", null ]
+          [ "Contexte", "lot-08-tache-02-balayage-aabb.html#autotoc_md585", null ],
+          [ "Travail à réaliser", "lot-08-tache-02-balayage-aabb.html#autotoc_md586", null ],
+          [ "Fichiers impactés", "lot-08-tache-02-balayage-aabb.html#autotoc_md587", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-02-balayage-aabb.html#autotoc_md588", null ],
+          [ "Points d'attention", "lot-08-tache-02-balayage-aabb.html#autotoc_md589", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-02-balayage-aabb.html#autotoc_md590", null ],
+          [ "Exigences", "lot-08-tache-02-balayage-aabb.html#autotoc_md591", null ]
         ] ],
         [ "TACHE-03 — Physique du personnage (gravité + déplacement + collisions)", "lot-08-tache-03-physique-personnage.html", [
-          [ "Contexte", "lot-08-tache-03-physique-personnage.html#autotoc_md591", null ],
-          [ "Travail à réaliser", "lot-08-tache-03-physique-personnage.html#autotoc_md592", null ],
-          [ "Fichiers impactés", "lot-08-tache-03-physique-personnage.html#autotoc_md593", null ],
-          [ "Tests (obligatoires)", "lot-08-tache-03-physique-personnage.html#autotoc_md594", null ],
-          [ "Points d'attention", "lot-08-tache-03-physique-personnage.html#autotoc_md595", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-03-physique-personnage.html#autotoc_md596", null ],
-          [ "Exigences", "lot-08-tache-03-physique-personnage.html#autotoc_md597", null ]
+          [ "Contexte", "lot-08-tache-03-physique-personnage.html#autotoc_md592", null ],
+          [ "Travail à réaliser", "lot-08-tache-03-physique-personnage.html#autotoc_md593", null ],
+          [ "Fichiers impactés", "lot-08-tache-03-physique-personnage.html#autotoc_md594", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-03-physique-personnage.html#autotoc_md595", null ],
+          [ "Points d'attention", "lot-08-tache-03-physique-personnage.html#autotoc_md596", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-03-physique-personnage.html#autotoc_md597", null ],
+          [ "Exigences", "lot-08-tache-03-physique-personnage.html#autotoc_md598", null ]
         ] ],
         [ "TACHE-04 — Règles de fin de niveau (succès / échec)", "lot-08-tache-04-regles-fin-niveau.html", [
-          [ "Contexte", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md598", null ],
-          [ "Travail à réaliser", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md599", null ],
-          [ "Fichiers impactés", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md600", null ],
-          [ "Tests (obligatoires)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md601", null ],
-          [ "Points d'attention", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md602", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md603", null ],
-          [ "Exigences", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md604", null ]
+          [ "Contexte", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md599", null ],
+          [ "Travail à réaliser", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md600", null ],
+          [ "Fichiers impactés", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md601", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md602", null ],
+          [ "Points d'attention", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md603", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md604", null ],
+          [ "Exigences", "lot-08-tache-04-regles-fin-niveau.html#autotoc_md605", null ]
         ] ],
         [ "TACHE-05 — Actions logiques d'entrée (mapping touches → intention)", "lot-08-tache-05-actions-logiques.html", [
-          [ "Contexte", "lot-08-tache-05-actions-logiques.html#autotoc_md605", null ],
-          [ "Travail à réaliser", "lot-08-tache-05-actions-logiques.html#autotoc_md606", null ],
-          [ "Fichiers impactés", "lot-08-tache-05-actions-logiques.html#autotoc_md607", null ],
-          [ "Tests (obligatoires)", "lot-08-tache-05-actions-logiques.html#autotoc_md608", null ],
-          [ "Points d'attention", "lot-08-tache-05-actions-logiques.html#autotoc_md609", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-05-actions-logiques.html#autotoc_md610", null ],
-          [ "Exigences", "lot-08-tache-05-actions-logiques.html#autotoc_md611", null ]
+          [ "Contexte", "lot-08-tache-05-actions-logiques.html#autotoc_md606", null ],
+          [ "Travail à réaliser", "lot-08-tache-05-actions-logiques.html#autotoc_md607", null ],
+          [ "Fichiers impactés", "lot-08-tache-05-actions-logiques.html#autotoc_md608", null ],
+          [ "Tests (obligatoires)", "lot-08-tache-05-actions-logiques.html#autotoc_md609", null ],
+          [ "Points d'attention", "lot-08-tache-05-actions-logiques.html#autotoc_md610", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-05-actions-logiques.html#autotoc_md611", null ],
+          [ "Exigences", "lot-08-tache-05-actions-logiques.html#autotoc_md612", null ]
         ] ],
         [ "TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)", "lot-08-tache-06-integration-jouable.html", [
-          [ "Contexte", "lot-08-tache-06-integration-jouable.html#autotoc_md612", null ],
-          [ "Travail à réaliser", "lot-08-tache-06-integration-jouable.html#autotoc_md613", null ],
-          [ "Fichiers impactés", "lot-08-tache-06-integration-jouable.html#autotoc_md614", null ],
-          [ "Vérification (visuelle, pas de test unitaire)", "lot-08-tache-06-integration-jouable.html#autotoc_md615", null ],
-          [ "Points d'attention", "lot-08-tache-06-integration-jouable.html#autotoc_md616", null ],
-          [ "Définition de fait (DoD)", "lot-08-tache-06-integration-jouable.html#autotoc_md617", null ],
-          [ "Exigences", "lot-08-tache-06-integration-jouable.html#autotoc_md618", null ]
+          [ "Contexte", "lot-08-tache-06-integration-jouable.html#autotoc_md613", null ],
+          [ "Travail à réaliser", "lot-08-tache-06-integration-jouable.html#autotoc_md614", null ],
+          [ "Fichiers impactés", "lot-08-tache-06-integration-jouable.html#autotoc_md615", null ],
+          [ "Vérification (visuelle, pas de test unitaire)", "lot-08-tache-06-integration-jouable.html#autotoc_md616", null ],
+          [ "Points d'attention", "lot-08-tache-06-integration-jouable.html#autotoc_md617", null ],
+          [ "Définition de fait (DoD)", "lot-08-tache-06-integration-jouable.html#autotoc_md618", null ],
+          [ "Exigences", "lot-08-tache-06-integration-jouable.html#autotoc_md619", null ]
         ] ]
       ] ],
       [ "LOT-09 — Saut, game feel et enchaînement de niveaux", "lot-09.html", [
-        [ "Objectif", "lot-09.html#autotoc_md619", null ],
-        [ "Périmètre", "lot-09.html#autotoc_md620", [
-          [ "Inclus", "lot-09.html#autotoc_md621", null ],
-          [ "Exclus (lots ultérieurs)", "lot-09.html#autotoc_md622", null ]
+        [ "Objectif", "lot-09.html#autotoc_md620", null ],
+        [ "Périmètre", "lot-09.html#autotoc_md621", [
+          [ "Inclus", "lot-09.html#autotoc_md622", null ],
+          [ "Exclus (lots ultérieurs)", "lot-09.html#autotoc_md623", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-09.html#autotoc_md623", null ],
-        [ "Exigences couvertes", "lot-09.html#autotoc_md624", null ],
-        [ "Découpage", "lot-09.html#autotoc_md625", null ],
-        [ "Critères d'acceptation du lot", "lot-09.html#autotoc_md626", null ],
-        [ "Dépendances", "lot-09.html#autotoc_md627", null ],
-        [ "Navigation des tâches", "lot-09.html#autotoc_md628", null ],
+        [ "Décisions de cadrage", "lot-09.html#autotoc_md624", null ],
+        [ "Exigences couvertes", "lot-09.html#autotoc_md625", null ],
+        [ "Découpage", "lot-09.html#autotoc_md626", null ],
+        [ "Critères d'acceptation du lot", "lot-09.html#autotoc_md627", null ],
+        [ "Dépendances", "lot-09.html#autotoc_md628", null ],
+        [ "Navigation des tâches", "lot-09.html#autotoc_md629", null ],
         [ "TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig`", "lot-09-tache-01-donnees-saut.html", [
-          [ "Contexte", "lot-09-tache-01-donnees-saut.html#autotoc_md629", null ],
-          [ "Travail à réaliser", "lot-09-tache-01-donnees-saut.html#autotoc_md630", null ],
-          [ "Fichiers impactés", "lot-09-tache-01-donnees-saut.html#autotoc_md631", null ],
-          [ "Tests (obligatoires)", "lot-09-tache-01-donnees-saut.html#autotoc_md632", null ],
-          [ "Points d'attention", "lot-09-tache-01-donnees-saut.html#autotoc_md633", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-01-donnees-saut.html#autotoc_md634", null ],
-          [ "Exigences", "lot-09-tache-01-donnees-saut.html#autotoc_md635", null ]
+          [ "Contexte", "lot-09-tache-01-donnees-saut.html#autotoc_md630", null ],
+          [ "Travail à réaliser", "lot-09-tache-01-donnees-saut.html#autotoc_md631", null ],
+          [ "Fichiers impactés", "lot-09-tache-01-donnees-saut.html#autotoc_md632", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-01-donnees-saut.html#autotoc_md633", null ],
+          [ "Points d'attention", "lot-09-tache-01-donnees-saut.html#autotoc_md634", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-01-donnees-saut.html#autotoc_md635", null ],
+          [ "Exigences", "lot-09-tache-01-donnees-saut.html#autotoc_md636", null ]
         ] ],
         [ "TACHE-02 — Mapping du saut (`Espace`/`W` → intention)", "lot-09-tache-02-mapping-saut.html", [
-          [ "Contexte", "lot-09-tache-02-mapping-saut.html#autotoc_md636", null ],
-          [ "Travail à réaliser", "lot-09-tache-02-mapping-saut.html#autotoc_md637", null ],
-          [ "Fichiers impactés", "lot-09-tache-02-mapping-saut.html#autotoc_md638", null ],
-          [ "Tests (obligatoires)", "lot-09-tache-02-mapping-saut.html#autotoc_md639", null ],
-          [ "Points d'attention", "lot-09-tache-02-mapping-saut.html#autotoc_md640", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-02-mapping-saut.html#autotoc_md641", null ],
-          [ "Exigences", "lot-09-tache-02-mapping-saut.html#autotoc_md642", null ]
+          [ "Contexte", "lot-09-tache-02-mapping-saut.html#autotoc_md637", null ],
+          [ "Travail à réaliser", "lot-09-tache-02-mapping-saut.html#autotoc_md638", null ],
+          [ "Fichiers impactés", "lot-09-tache-02-mapping-saut.html#autotoc_md639", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-02-mapping-saut.html#autotoc_md640", null ],
+          [ "Points d'attention", "lot-09-tache-02-mapping-saut.html#autotoc_md641", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-02-mapping-saut.html#autotoc_md642", null ],
+          [ "Exigences", "lot-09-tache-02-mapping-saut.html#autotoc_md643", null ]
         ] ],
         [ "TACHE-03 — Saut au sol + hauteur variable", "lot-09-tache-03-saut-hauteur-variable.html", [
-          [ "Contexte", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md643", null ],
-          [ "Travail à réaliser", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md644", null ],
-          [ "Fichiers impactés", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md645", null ],
-          [ "Tests (obligatoires)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md646", null ],
-          [ "Points d'attention", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md647", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md648", null ],
-          [ "Exigences", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md649", null ]
+          [ "Contexte", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md644", null ],
+          [ "Travail à réaliser", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md645", null ],
+          [ "Fichiers impactés", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md646", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md647", null ],
+          [ "Points d'attention", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md648", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md649", null ],
+          [ "Exigences", "lot-09-tache-03-saut-hauteur-variable.html#autotoc_md650", null ]
         ] ],
         [ "TACHE-04 — Coyote time + jump buffering", "lot-09-tache-04-coyote-buffering.html", [
-          [ "Contexte", "lot-09-tache-04-coyote-buffering.html#autotoc_md650", null ],
-          [ "Travail à réaliser", "lot-09-tache-04-coyote-buffering.html#autotoc_md651", null ],
-          [ "Fichiers impactés", "lot-09-tache-04-coyote-buffering.html#autotoc_md652", null ],
-          [ "Tests (obligatoires)", "lot-09-tache-04-coyote-buffering.html#autotoc_md653", null ],
-          [ "Points d'attention", "lot-09-tache-04-coyote-buffering.html#autotoc_md654", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-04-coyote-buffering.html#autotoc_md655", null ],
-          [ "Exigences", "lot-09-tache-04-coyote-buffering.html#autotoc_md656", null ]
+          [ "Contexte", "lot-09-tache-04-coyote-buffering.html#autotoc_md651", null ],
+          [ "Travail à réaliser", "lot-09-tache-04-coyote-buffering.html#autotoc_md652", null ],
+          [ "Fichiers impactés", "lot-09-tache-04-coyote-buffering.html#autotoc_md653", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-04-coyote-buffering.html#autotoc_md654", null ],
+          [ "Points d'attention", "lot-09-tache-04-coyote-buffering.html#autotoc_md655", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-04-coyote-buffering.html#autotoc_md656", null ],
+          [ "Exigences", "lot-09-tache-04-coyote-buffering.html#autotoc_md657", null ]
         ] ],
         [ "TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)", "lot-09-tache-05-enchainement-niveaux.html", [
-          [ "Contexte", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md657", null ],
-          [ "Travail à réaliser", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md658", null ],
-          [ "Fichiers impactés", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md659", null ],
-          [ "Vérification / tests", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md660", null ],
-          [ "Points d'attention", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md661", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md662", null ],
-          [ "Exigences", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md663", null ]
+          [ "Contexte", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md658", null ],
+          [ "Travail à réaliser", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md659", null ],
+          [ "Fichiers impactés", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md660", null ],
+          [ "Vérification / tests", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md661", null ],
+          [ "Points d'attention", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md662", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md663", null ],
+          [ "Exigences", "lot-09-tache-05-enchainement-niveaux.html#autotoc_md664", null ]
         ] ],
         [ "TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve", "lot-09-tache-06-niveaux-demo.html", [
-          [ "Contexte", "lot-09-tache-06-niveaux-demo.html#autotoc_md664", null ],
-          [ "Travail à réaliser", "lot-09-tache-06-niveaux-demo.html#autotoc_md665", null ],
-          [ "Fichiers impactés", "lot-09-tache-06-niveaux-demo.html#autotoc_md666", null ],
-          [ "Tests (obligatoires)", "lot-09-tache-06-niveaux-demo.html#autotoc_md667", null ],
-          [ "Points d'attention", "lot-09-tache-06-niveaux-demo.html#autotoc_md668", null ],
-          [ "Définition de fait (DoD)", "lot-09-tache-06-niveaux-demo.html#autotoc_md669", null ],
-          [ "Exigences", "lot-09-tache-06-niveaux-demo.html#autotoc_md670", null ]
+          [ "Contexte", "lot-09-tache-06-niveaux-demo.html#autotoc_md665", null ],
+          [ "Travail à réaliser", "lot-09-tache-06-niveaux-demo.html#autotoc_md666", null ],
+          [ "Fichiers impactés", "lot-09-tache-06-niveaux-demo.html#autotoc_md667", null ],
+          [ "Tests (obligatoires)", "lot-09-tache-06-niveaux-demo.html#autotoc_md668", null ],
+          [ "Points d'attention", "lot-09-tache-06-niveaux-demo.html#autotoc_md669", null ],
+          [ "Définition de fait (DoD)", "lot-09-tache-06-niveaux-demo.html#autotoc_md670", null ],
+          [ "Exigences", "lot-09-tache-06-niveaux-demo.html#autotoc_md671", null ]
         ] ]
       ] ],
       [ "LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash", "lot-10.html", [
-        [ "Objectif", "lot-10.html#autotoc_md671", null ],
-        [ "Périmètre", "lot-10.html#autotoc_md672", [
-          [ "Inclus", "lot-10.html#autotoc_md673", null ],
-          [ "Exclus (lots ultérieurs)", "lot-10.html#autotoc_md674", null ]
+        [ "Objectif", "lot-10.html#autotoc_md672", null ],
+        [ "Périmètre", "lot-10.html#autotoc_md673", [
+          [ "Inclus", "lot-10.html#autotoc_md674", null ],
+          [ "Exclus (lots ultérieurs)", "lot-10.html#autotoc_md675", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-10.html#autotoc_md675", null ],
-        [ "Exigences couvertes", "lot-10.html#autotoc_md676", null ],
-        [ "Découpage", "lot-10.html#autotoc_md677", null ],
-        [ "Critères d'acceptation du lot", "lot-10.html#autotoc_md678", null ],
-        [ "Dépendances", "lot-10.html#autotoc_md679", null ],
-        [ "Navigation des tâches", "lot-10.html#autotoc_md680", null ],
+        [ "Décisions de cadrage", "lot-10.html#autotoc_md676", null ],
+        [ "Exigences couvertes", "lot-10.html#autotoc_md677", null ],
+        [ "Découpage", "lot-10.html#autotoc_md678", null ],
+        [ "Critères d'acceptation du lot", "lot-10.html#autotoc_md679", null ],
+        [ "Dépendances", "lot-10.html#autotoc_md680", null ],
+        [ "Navigation des tâches", "lot-10.html#autotoc_md681", null ],
         [ "TACHE-01 — Données des mécaniques (`PlayerInput`, `Player`, `PhysicsConfig`)", "lot-10-tache-01-donnees.html", [
-          [ "Contexte", "lot-10-tache-01-donnees.html#autotoc_md681", null ],
-          [ "Travail à réaliser", "lot-10-tache-01-donnees.html#autotoc_md682", null ],
-          [ "Fichiers impactés", "lot-10-tache-01-donnees.html#autotoc_md683", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-01-donnees.html#autotoc_md684", null ],
-          [ "Points d'attention", "lot-10-tache-01-donnees.html#autotoc_md685", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-01-donnees.html#autotoc_md686", null ],
-          [ "Exigences", "lot-10-tache-01-donnees.html#autotoc_md687", null ]
+          [ "Contexte", "lot-10-tache-01-donnees.html#autotoc_md682", null ],
+          [ "Travail à réaliser", "lot-10-tache-01-donnees.html#autotoc_md683", null ],
+          [ "Fichiers impactés", "lot-10-tache-01-donnees.html#autotoc_md684", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-01-donnees.html#autotoc_md685", null ],
+          [ "Points d'attention", "lot-10-tache-01-donnees.html#autotoc_md686", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-01-donnees.html#autotoc_md687", null ],
+          [ "Exigences", "lot-10-tache-01-donnees.html#autotoc_md688", null ]
         ] ],
         [ "TACHE-02 — Mapping du dash + direction de visée / orientation", "lot-10-tache-02-mapping-dash.html", [
-          [ "Contexte", "lot-10-tache-02-mapping-dash.html#autotoc_md688", null ],
-          [ "Travail à réaliser", "lot-10-tache-02-mapping-dash.html#autotoc_md689", null ],
-          [ "Fichiers impactés", "lot-10-tache-02-mapping-dash.html#autotoc_md690", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-02-mapping-dash.html#autotoc_md691", null ],
-          [ "Points d'attention", "lot-10-tache-02-mapping-dash.html#autotoc_md692", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-02-mapping-dash.html#autotoc_md693", null ],
-          [ "Exigences", "lot-10-tache-02-mapping-dash.html#autotoc_md694", null ]
+          [ "Contexte", "lot-10-tache-02-mapping-dash.html#autotoc_md689", null ],
+          [ "Travail à réaliser", "lot-10-tache-02-mapping-dash.html#autotoc_md690", null ],
+          [ "Fichiers impactés", "lot-10-tache-02-mapping-dash.html#autotoc_md691", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-02-mapping-dash.html#autotoc_md692", null ],
+          [ "Points d'attention", "lot-10-tache-02-mapping-dash.html#autotoc_md693", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-02-mapping-dash.html#autotoc_md694", null ],
+          [ "Exigences", "lot-10-tache-02-mapping-dash.html#autotoc_md695", null ]
         ] ],
         [ "TACHE-03 — Double saut (sauts aériens rechargés au sol)", "lot-10-tache-03-double-saut.html", [
-          [ "Contexte", "lot-10-tache-03-double-saut.html#autotoc_md695", null ],
-          [ "Travail à réaliser", "lot-10-tache-03-double-saut.html#autotoc_md696", null ],
-          [ "Fichiers impactés", "lot-10-tache-03-double-saut.html#autotoc_md697", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-03-double-saut.html#autotoc_md698", null ],
-          [ "Points d'attention", "lot-10-tache-03-double-saut.html#autotoc_md699", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-03-double-saut.html#autotoc_md700", null ],
-          [ "Exigences", "lot-10-tache-03-double-saut.html#autotoc_md701", null ]
+          [ "Contexte", "lot-10-tache-03-double-saut.html#autotoc_md696", null ],
+          [ "Travail à réaliser", "lot-10-tache-03-double-saut.html#autotoc_md697", null ],
+          [ "Fichiers impactés", "lot-10-tache-03-double-saut.html#autotoc_md698", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-03-double-saut.html#autotoc_md699", null ],
+          [ "Points d'attention", "lot-10-tache-03-double-saut.html#autotoc_md700", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-03-double-saut.html#autotoc_md701", null ],
+          [ "Exigences", "lot-10-tache-03-double-saut.html#autotoc_md702", null ]
         ] ],
         [ "TACHE-04 — Wall jump + wall slide", "lot-10-tache-04-wall-jump.html", [
-          [ "Contexte", "lot-10-tache-04-wall-jump.html#autotoc_md702", null ],
-          [ "Travail à réaliser", "lot-10-tache-04-wall-jump.html#autotoc_md703", null ],
-          [ "Fichiers impactés", "lot-10-tache-04-wall-jump.html#autotoc_md704", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-04-wall-jump.html#autotoc_md705", null ],
-          [ "Points d'attention", "lot-10-tache-04-wall-jump.html#autotoc_md706", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-04-wall-jump.html#autotoc_md707", null ],
-          [ "Exigences", "lot-10-tache-04-wall-jump.html#autotoc_md708", null ]
+          [ "Contexte", "lot-10-tache-04-wall-jump.html#autotoc_md703", null ],
+          [ "Travail à réaliser", "lot-10-tache-04-wall-jump.html#autotoc_md704", null ],
+          [ "Fichiers impactés", "lot-10-tache-04-wall-jump.html#autotoc_md705", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-04-wall-jump.html#autotoc_md706", null ],
+          [ "Points d'attention", "lot-10-tache-04-wall-jump.html#autotoc_md707", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-04-wall-jump.html#autotoc_md708", null ],
+          [ "Exigences", "lot-10-tache-04-wall-jump.html#autotoc_md709", null ]
         ] ],
         [ "TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)", "lot-10-tache-05-dash.html", [
-          [ "Contexte", "lot-10-tache-05-dash.html#autotoc_md709", null ],
-          [ "Travail à réaliser", "lot-10-tache-05-dash.html#autotoc_md710", null ],
-          [ "Fichiers impactés", "lot-10-tache-05-dash.html#autotoc_md711", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-05-dash.html#autotoc_md712", null ],
-          [ "Points d'attention", "lot-10-tache-05-dash.html#autotoc_md713", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-05-dash.html#autotoc_md714", null ],
-          [ "Exigences", "lot-10-tache-05-dash.html#autotoc_md715", null ]
+          [ "Contexte", "lot-10-tache-05-dash.html#autotoc_md710", null ],
+          [ "Travail à réaliser", "lot-10-tache-05-dash.html#autotoc_md711", null ],
+          [ "Fichiers impactés", "lot-10-tache-05-dash.html#autotoc_md712", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-05-dash.html#autotoc_md713", null ],
+          [ "Points d'attention", "lot-10-tache-05-dash.html#autotoc_md714", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-05-dash.html#autotoc_md715", null ],
+          [ "Exigences", "lot-10-tache-05-dash.html#autotoc_md716", null ]
         ] ],
         [ "TACHE-06 — Niveau de démo « parkour » + preuve système", "lot-10-tache-06-niveau-parkour.html", [
-          [ "Contexte", "lot-10-tache-06-niveau-parkour.html#autotoc_md716", null ],
-          [ "Travail à réaliser", "lot-10-tache-06-niveau-parkour.html#autotoc_md717", null ],
-          [ "Fichiers impactés", "lot-10-tache-06-niveau-parkour.html#autotoc_md718", null ],
-          [ "Tests (obligatoires)", "lot-10-tache-06-niveau-parkour.html#autotoc_md719", null ],
-          [ "Points d'attention", "lot-10-tache-06-niveau-parkour.html#autotoc_md720", null ],
-          [ "Définition de fait (DoD)", "lot-10-tache-06-niveau-parkour.html#autotoc_md721", null ],
-          [ "Exigences", "lot-10-tache-06-niveau-parkour.html#autotoc_md722", null ]
+          [ "Contexte", "lot-10-tache-06-niveau-parkour.html#autotoc_md717", null ],
+          [ "Travail à réaliser", "lot-10-tache-06-niveau-parkour.html#autotoc_md718", null ],
+          [ "Fichiers impactés", "lot-10-tache-06-niveau-parkour.html#autotoc_md719", null ],
+          [ "Tests (obligatoires)", "lot-10-tache-06-niveau-parkour.html#autotoc_md720", null ],
+          [ "Points d'attention", "lot-10-tache-06-niveau-parkour.html#autotoc_md721", null ],
+          [ "Définition de fait (DoD)", "lot-10-tache-06-niveau-parkour.html#autotoc_md722", null ],
+          [ "Exigences", "lot-10-tache-06-niveau-parkour.html#autotoc_md723", null ]
         ] ]
       ] ],
       [ "LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions", "lot-11.html", [
-        [ "Objectif", "lot-11.html#autotoc_md723", null ],
-        [ "Périmètre", "lot-11.html#autotoc_md724", [
-          [ "Inclus", "lot-11.html#autotoc_md725", null ],
-          [ "Exclus (lots ultérieurs)", "lot-11.html#autotoc_md726", null ]
+        [ "Objectif", "lot-11.html#autotoc_md724", null ],
+        [ "Périmètre", "lot-11.html#autotoc_md725", [
+          [ "Inclus", "lot-11.html#autotoc_md726", null ],
+          [ "Exclus (lots ultérieurs)", "lot-11.html#autotoc_md727", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-11.html#autotoc_md727", null ],
-        [ "Exigences couvertes", "lot-11.html#autotoc_md728", null ],
-        [ "Découpage", "lot-11.html#autotoc_md729", null ],
-        [ "Critères d'acceptation du lot", "lot-11.html#autotoc_md730", null ],
-        [ "Dépendances", "lot-11.html#autotoc_md731", null ],
-        [ "Navigation des tâches", "lot-11.html#autotoc_md732", null ],
+        [ "Décisions de cadrage", "lot-11.html#autotoc_md728", null ],
+        [ "Exigences couvertes", "lot-11.html#autotoc_md729", null ],
+        [ "Découpage", "lot-11.html#autotoc_md730", null ],
+        [ "Critères d'acceptation du lot", "lot-11.html#autotoc_md731", null ],
+        [ "Dépendances", "lot-11.html#autotoc_md732", null ],
+        [ "Navigation des tâches", "lot-11.html#autotoc_md733", null ],
         [ "TACHE-01 — Données : réglages de *feel* + taille/placement du personnage", "lot-11-tache-01-donnees.html", [
-          [ "Contexte", "lot-11-tache-01-donnees.html#autotoc_md733", null ],
-          [ "Travail à réaliser", "lot-11-tache-01-donnees.html#autotoc_md734", null ],
-          [ "Fichiers impactés", "lot-11-tache-01-donnees.html#autotoc_md735", null ],
-          [ "Tests (obligatoires)", "lot-11-tache-01-donnees.html#autotoc_md736", null ],
-          [ "Points d'attention", "lot-11-tache-01-donnees.html#autotoc_md737", null ],
-          [ "Définition de fait (DoD)", "lot-11-tache-01-donnees.html#autotoc_md738", null ],
-          [ "Exigences", "lot-11-tache-01-donnees.html#autotoc_md739", null ]
+          [ "Contexte", "lot-11-tache-01-donnees.html#autotoc_md734", null ],
+          [ "Travail à réaliser", "lot-11-tache-01-donnees.html#autotoc_md735", null ],
+          [ "Fichiers impactés", "lot-11-tache-01-donnees.html#autotoc_md736", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-01-donnees.html#autotoc_md737", null ],
+          [ "Points d'attention", "lot-11-tache-01-donnees.html#autotoc_md738", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-01-donnees.html#autotoc_md739", null ],
+          [ "Exigences", "lot-11-tache-01-donnees.html#autotoc_md740", null ]
         ] ],
         [ "TACHE-02 — Gravité asymétrique + apex hang + fast-fall", "lot-11-tache-02-gravite-asymetrique.html", [
-          [ "Contexte", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md740", null ],
-          [ "Travail à réaliser", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md741", null ],
-          [ "Fichiers impactés", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md742", null ],
-          [ "Tests (obligatoires)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md743", null ],
-          [ "Points d'attention", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md744", null ],
-          [ "Définition de fait (DoD)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md745", null ],
-          [ "Exigences", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md746", null ]
+          [ "Contexte", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md741", null ],
+          [ "Travail à réaliser", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md742", null ],
+          [ "Fichiers impactés", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md743", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md744", null ],
+          [ "Points d'attention", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md745", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md746", null ],
+          [ "Exigences", "lot-11-tache-02-gravite-asymetrique.html#autotoc_md747", null ]
         ] ],
         [ "TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)", "lot-11-tache-03-personnage-humanoide.html", [
-          [ "Contexte", "lot-11-tache-03-personnage-humanoide.html#autotoc_md747", null ],
-          [ "Travail à réaliser", "lot-11-tache-03-personnage-humanoide.html#autotoc_md748", null ],
-          [ "Fichiers impactés", "lot-11-tache-03-personnage-humanoide.html#autotoc_md749", null ],
-          [ "Vérification (visuelle, pas de test unitaire — brique GPU)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md750", null ],
-          [ "Points d'attention", "lot-11-tache-03-personnage-humanoide.html#autotoc_md751", null ],
-          [ "Définition de fait (DoD)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md752", null ],
-          [ "Exigences", "lot-11-tache-03-personnage-humanoide.html#autotoc_md753", null ]
+          [ "Contexte", "lot-11-tache-03-personnage-humanoide.html#autotoc_md748", null ],
+          [ "Travail à réaliser", "lot-11-tache-03-personnage-humanoide.html#autotoc_md749", null ],
+          [ "Fichiers impactés", "lot-11-tache-03-personnage-humanoide.html#autotoc_md750", null ],
+          [ "Vérification (visuelle, pas de test unitaire — brique GPU)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md751", null ],
+          [ "Points d'attention", "lot-11-tache-03-personnage-humanoide.html#autotoc_md752", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-03-personnage-humanoide.html#autotoc_md753", null ],
+          [ "Exigences", "lot-11-tache-03-personnage-humanoide.html#autotoc_md754", null ]
         ] ],
         [ "TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille", "lot-11-tache-04-reequilibrage.html", [
-          [ "Contexte", "lot-11-tache-04-reequilibrage.html#autotoc_md754", null ],
-          [ "Travail à réaliser", "lot-11-tache-04-reequilibrage.html#autotoc_md755", null ],
-          [ "Fichiers impactés", "lot-11-tache-04-reequilibrage.html#autotoc_md756", null ],
-          [ "Tests (obligatoires)", "lot-11-tache-04-reequilibrage.html#autotoc_md757", null ],
-          [ "Points d'attention", "lot-11-tache-04-reequilibrage.html#autotoc_md758", null ],
-          [ "Définition de fait (DoD)", "lot-11-tache-04-reequilibrage.html#autotoc_md759", null ],
-          [ "Exigences", "lot-11-tache-04-reequilibrage.html#autotoc_md760", null ]
+          [ "Contexte", "lot-11-tache-04-reequilibrage.html#autotoc_md755", null ],
+          [ "Travail à réaliser", "lot-11-tache-04-reequilibrage.html#autotoc_md756", null ],
+          [ "Fichiers impactés", "lot-11-tache-04-reequilibrage.html#autotoc_md757", null ],
+          [ "Tests (obligatoires)", "lot-11-tache-04-reequilibrage.html#autotoc_md758", null ],
+          [ "Points d'attention", "lot-11-tache-04-reequilibrage.html#autotoc_md759", null ],
+          [ "Définition de fait (DoD)", "lot-11-tache-04-reequilibrage.html#autotoc_md760", null ],
+          [ "Exigences", "lot-11-tache-04-reequilibrage.html#autotoc_md761", null ]
         ] ]
       ] ],
       [ "LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements", "lot-12.html", [
-        [ "Objectif", "lot-12.html#autotoc_md761", null ],
-        [ "Périmètre", "lot-12.html#autotoc_md762", [
-          [ "Inclus", "lot-12.html#autotoc_md763", null ],
-          [ "Exclus (lots ultérieurs)", "lot-12.html#autotoc_md764", null ]
+        [ "Objectif", "lot-12.html#autotoc_md762", null ],
+        [ "Périmètre", "lot-12.html#autotoc_md763", [
+          [ "Inclus", "lot-12.html#autotoc_md764", null ],
+          [ "Exclus (lots ultérieurs)", "lot-12.html#autotoc_md765", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-12.html#autotoc_md765", null ],
-        [ "Exigences couvertes", "lot-12.html#autotoc_md766", null ],
-        [ "Découpage", "lot-12.html#autotoc_md767", null ],
-        [ "Critères d'acceptation du lot", "lot-12.html#autotoc_md768", null ],
-        [ "Dépendances", "lot-12.html#autotoc_md769", null ],
-        [ "Navigation des tâches", "lot-12.html#autotoc_md770", null ],
+        [ "Décisions de cadrage", "lot-12.html#autotoc_md766", null ],
+        [ "Exigences couvertes", "lot-12.html#autotoc_md767", null ],
+        [ "Découpage", "lot-12.html#autotoc_md768", null ],
+        [ "Critères d'acceptation du lot", "lot-12.html#autotoc_md769", null ],
+        [ "Dépendances", "lot-12.html#autotoc_md770", null ],
+        [ "Navigation des tâches", "lot-12.html#autotoc_md771", null ],
         [ "TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`)", "lot-12-tache-01-donnees.html", [
-          [ "Contexte", "lot-12-tache-01-donnees.html#autotoc_md771", null ],
-          [ "Travail à réaliser", "lot-12-tache-01-donnees.html#autotoc_md772", null ],
-          [ "Fichiers impactés", "lot-12-tache-01-donnees.html#autotoc_md773", null ],
-          [ "Tests (obligatoires)", "lot-12-tache-01-donnees.html#autotoc_md774", null ],
-          [ "Points d'attention", "lot-12-tache-01-donnees.html#autotoc_md775", null ],
-          [ "Définition de fait (DoD)", "lot-12-tache-01-donnees.html#autotoc_md776", null ],
-          [ "Exigences", "lot-12-tache-01-donnees.html#autotoc_md777", null ]
+          [ "Contexte", "lot-12-tache-01-donnees.html#autotoc_md772", null ],
+          [ "Travail à réaliser", "lot-12-tache-01-donnees.html#autotoc_md773", null ],
+          [ "Fichiers impactés", "lot-12-tache-01-donnees.html#autotoc_md774", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-01-donnees.html#autotoc_md775", null ],
+          [ "Points d'attention", "lot-12-tache-01-donnees.html#autotoc_md776", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-01-donnees.html#autotoc_md777", null ],
+          [ "Exigences", "lot-12-tache-01-donnees.html#autotoc_md778", null ]
         ] ],
         [ "TACHE-02 — Mécanismes interrupteur/porte (`MechanismController`)", "lot-12-tache-02-mecanismes.html", [
-          [ "Contexte", "lot-12-tache-02-mecanismes.html#autotoc_md778", null ],
-          [ "Travail à réaliser", "lot-12-tache-02-mecanismes.html#autotoc_md779", null ],
-          [ "Fichiers impactés", "lot-12-tache-02-mecanismes.html#autotoc_md780", null ],
-          [ "Tests (obligatoires)", "lot-12-tache-02-mecanismes.html#autotoc_md781", null ],
-          [ "Points d'attention", "lot-12-tache-02-mecanismes.html#autotoc_md782", null ],
-          [ "Définition de fait (DoD)", "lot-12-tache-02-mecanismes.html#autotoc_md783", null ],
-          [ "Exigences", "lot-12-tache-02-mecanismes.html#autotoc_md784", null ]
+          [ "Contexte", "lot-12-tache-02-mecanismes.html#autotoc_md779", null ],
+          [ "Travail à réaliser", "lot-12-tache-02-mecanismes.html#autotoc_md780", null ],
+          [ "Fichiers impactés", "lot-12-tache-02-mecanismes.html#autotoc_md781", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-02-mecanismes.html#autotoc_md782", null ],
+          [ "Points d'attention", "lot-12-tache-02-mecanismes.html#autotoc_md783", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-02-mecanismes.html#autotoc_md784", null ],
+          [ "Exigences", "lot-12-tache-02-mecanismes.html#autotoc_md785", null ]
         ] ],
         [ "TACHE-03 — Budget de sauts/dashs dans la physique", "lot-12-tache-03-budget.html", [
-          [ "Contexte", "lot-12-tache-03-budget.html#autotoc_md785", null ],
-          [ "Travail à réaliser", "lot-12-tache-03-budget.html#autotoc_md786", null ],
-          [ "Fichiers impactés", "lot-12-tache-03-budget.html#autotoc_md787", null ],
-          [ "Tests (obligatoires)", "lot-12-tache-03-budget.html#autotoc_md788", null ],
-          [ "Points d'attention", "lot-12-tache-03-budget.html#autotoc_md789", null ],
-          [ "Définition de fait (DoD)", "lot-12-tache-03-budget.html#autotoc_md790", null ],
-          [ "Exigences", "lot-12-tache-03-budget.html#autotoc_md791", null ]
+          [ "Contexte", "lot-12-tache-03-budget.html#autotoc_md786", null ],
+          [ "Travail à réaliser", "lot-12-tache-03-budget.html#autotoc_md787", null ],
+          [ "Fichiers impactés", "lot-12-tache-03-budget.html#autotoc_md788", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-03-budget.html#autotoc_md789", null ],
+          [ "Points d'attention", "lot-12-tache-03-budget.html#autotoc_md790", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-03-budget.html#autotoc_md791", null ],
+          [ "Exigences", "lot-12-tache-03-budget.html#autotoc_md792", null ]
         ] ],
         [ "TACHE-04 — Intégration `GameScreen` + niveau `demo4` + preuves", "lot-12-tache-04-integration-puzzle.html", [
-          [ "Contexte", "lot-12-tache-04-integration-puzzle.html#autotoc_md792", null ],
-          [ "Travail à réaliser", "lot-12-tache-04-integration-puzzle.html#autotoc_md793", null ],
-          [ "Fichiers impactés", "lot-12-tache-04-integration-puzzle.html#autotoc_md794", null ],
-          [ "Tests (obligatoires)", "lot-12-tache-04-integration-puzzle.html#autotoc_md795", null ],
-          [ "Points d'attention", "lot-12-tache-04-integration-puzzle.html#autotoc_md796", null ],
-          [ "Définition de fait (DoD)", "lot-12-tache-04-integration-puzzle.html#autotoc_md797", null ],
-          [ "Exigences", "lot-12-tache-04-integration-puzzle.html#autotoc_md798", null ]
+          [ "Contexte", "lot-12-tache-04-integration-puzzle.html#autotoc_md793", null ],
+          [ "Travail à réaliser", "lot-12-tache-04-integration-puzzle.html#autotoc_md794", null ],
+          [ "Fichiers impactés", "lot-12-tache-04-integration-puzzle.html#autotoc_md795", null ],
+          [ "Tests (obligatoires)", "lot-12-tache-04-integration-puzzle.html#autotoc_md796", null ],
+          [ "Points d'attention", "lot-12-tache-04-integration-puzzle.html#autotoc_md797", null ],
+          [ "Définition de fait (DoD)", "lot-12-tache-04-integration-puzzle.html#autotoc_md798", null ],
+          [ "Exigences", "lot-12-tache-04-integration-puzzle.html#autotoc_md799", null ]
         ] ]
       ] ],
       [ "LOT-13 — Consolidation de la documentation", "lot-13.html", [
-        [ "Objectif", "lot-13.html#autotoc_md799", null ],
-        [ "Périmètre", "lot-13.html#autotoc_md800", [
-          [ "Inclus", "lot-13.html#autotoc_md801", null ],
-          [ "Exclus", "lot-13.html#autotoc_md802", null ]
+        [ "Objectif", "lot-13.html#autotoc_md800", null ],
+        [ "Périmètre", "lot-13.html#autotoc_md801", [
+          [ "Inclus", "lot-13.html#autotoc_md802", null ],
+          [ "Exclus", "lot-13.html#autotoc_md803", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-13.html#autotoc_md803", null ],
-        [ "Exigences couvertes", "lot-13.html#autotoc_md804", null ],
-        [ "Découpage", "lot-13.html#autotoc_md805", null ],
-        [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md806", null ],
-        [ "Dépendances", "lot-13.html#autotoc_md807", null ]
+        [ "Décisions de cadrage", "lot-13.html#autotoc_md804", null ],
+        [ "Exigences couvertes", "lot-13.html#autotoc_md805", null ],
+        [ "Découpage", "lot-13.html#autotoc_md806", null ],
+        [ "Critères d'acceptation du lot", "lot-13.html#autotoc_md807", null ],
+        [ "Dépendances", "lot-13.html#autotoc_md808", null ]
       ] ],
       [ "LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat", "lot-14.html", [
-        [ "Objectif", "lot-14.html#autotoc_md808", null ],
-        [ "Périmètre", "lot-14.html#autotoc_md809", [
-          [ "Inclus", "lot-14.html#autotoc_md810", null ],
-          [ "Exclus (lots ultérieurs)", "lot-14.html#autotoc_md811", null ]
+        [ "Objectif", "lot-14.html#autotoc_md809", null ],
+        [ "Périmètre", "lot-14.html#autotoc_md810", [
+          [ "Inclus", "lot-14.html#autotoc_md811", null ],
+          [ "Exclus (lots ultérieurs)", "lot-14.html#autotoc_md812", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-14.html#autotoc_md812", null ],
-        [ "Exigences couvertes", "lot-14.html#autotoc_md813", null ],
-        [ "Découpage", "lot-14.html#autotoc_md814", null ],
-        [ "Critères d'acceptation du lot", "lot-14.html#autotoc_md815", null ],
-        [ "Dépendances", "lot-14.html#autotoc_md816", null ],
-        [ "Navigation des tâches", "lot-14.html#autotoc_md817", null ],
+        [ "Décisions de cadrage", "lot-14.html#autotoc_md813", null ],
+        [ "Exigences couvertes", "lot-14.html#autotoc_md814", null ],
+        [ "Découpage", "lot-14.html#autotoc_md815", null ],
+        [ "Critères d'acceptation du lot", "lot-14.html#autotoc_md816", null ],
+        [ "Dépendances", "lot-14.html#autotoc_md817", null ],
+        [ "Navigation des tâches", "lot-14.html#autotoc_md818", null ],
         [ "TACHE-01 — Sérialisation JSON + modèle d'édition mutable", "lot-14-tache-01-serialisation-modele-edition.html", [
-          [ "Contexte", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md818", null ],
-          [ "Travail à réaliser", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md819", null ],
-          [ "Fichiers impactés", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md820", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md821", null ],
-          [ "Points d'attention", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md822", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md823", null ],
-          [ "Exigences", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md824", null ]
+          [ "Contexte", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md819", null ],
+          [ "Travail à réaliser", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md820", null ],
+          [ "Fichiers impactés", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md821", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md822", null ],
+          [ "Points d'attention", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md823", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md824", null ],
+          [ "Exigences", "lot-14-tache-01-serialisation-modele-edition.html#autotoc_md825", null ]
         ] ],
         [ "TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles", "lot-14-tache-02-ecran-editeur-palette.html", [
-          [ "Contexte", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md825", null ],
-          [ "Travail à réaliser", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md826", null ],
-          [ "Fichiers impactés", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md827", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md828", null ],
-          [ "Points d'attention", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md829", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md830", null ],
-          [ "Exigences", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md831", null ]
+          [ "Contexte", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md826", null ],
+          [ "Travail à réaliser", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md827", null ],
+          [ "Fichiers impactés", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md828", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md829", null ],
+          [ "Points d'attention", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md830", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md831", null ],
+          [ "Exigences", "lot-14-tache-02-ecran-editeur-palette.html#autotoc_md832", null ]
         ] ],
         [ "TACHE-03 — Entrée/sortie, liaison de mécanismes, redimensionnement", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html", [
-          [ "Contexte", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md832", null ],
-          [ "Travail à réaliser", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md833", null ],
-          [ "Fichiers impactés", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md834", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md835", null ],
-          [ "Points d'attention", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md836", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md837", null ],
-          [ "Exigences", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md838", null ]
+          [ "Contexte", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md833", null ],
+          [ "Travail à réaliser", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md834", null ],
+          [ "Fichiers impactés", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md835", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md836", null ],
+          [ "Points d'attention", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md837", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md838", null ],
+          [ "Exigences", "lot-14-tache-03-entree-sortie-mecanismes-redimension.html#autotoc_md839", null ]
         ] ],
         [ "TACHE-04 — Historique annuler/refaire", "lot-14-tache-04-undo-redo.html", [
-          [ "Contexte", "lot-14-tache-04-undo-redo.html#autotoc_md839", null ],
-          [ "Travail à réaliser", "lot-14-tache-04-undo-redo.html#autotoc_md840", null ],
-          [ "Fichiers impactés", "lot-14-tache-04-undo-redo.html#autotoc_md841", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-04-undo-redo.html#autotoc_md842", null ],
-          [ "Points d'attention", "lot-14-tache-04-undo-redo.html#autotoc_md843", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-04-undo-redo.html#autotoc_md844", null ],
-          [ "Exigences", "lot-14-tache-04-undo-redo.html#autotoc_md845", null ]
+          [ "Contexte", "lot-14-tache-04-undo-redo.html#autotoc_md840", null ],
+          [ "Travail à réaliser", "lot-14-tache-04-undo-redo.html#autotoc_md841", null ],
+          [ "Fichiers impactés", "lot-14-tache-04-undo-redo.html#autotoc_md842", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-04-undo-redo.html#autotoc_md843", null ],
+          [ "Points d'attention", "lot-14-tache-04-undo-redo.html#autotoc_md844", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-04-undo-redo.html#autotoc_md845", null ],
+          [ "Exigences", "lot-14-tache-04-undo-redo.html#autotoc_md846", null ]
         ] ],
         [ "TACHE-05 — Enregistrement, validation, essai immédiat", "lot-14-tache-05-enregistrement-validation-essai.html", [
-          [ "Contexte", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md846", null ],
-          [ "Travail à réaliser", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md847", null ],
-          [ "Fichiers impactés", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md848", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md849", null ],
-          [ "Points d'attention", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md850", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md851", null ],
-          [ "Exigences", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md852", null ]
+          [ "Contexte", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md847", null ],
+          [ "Travail à réaliser", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md848", null ],
+          [ "Fichiers impactés", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md849", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md850", null ],
+          [ "Points d'attention", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md851", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md852", null ],
+          [ "Exigences", "lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md853", null ]
         ] ],
         [ "TACHE-06 — Intégration menu, tests système, guide non-codeur Git", "lot-14-tache-06-integration-guide-non-codeur.html", [
-          [ "Contexte", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md853", null ],
-          [ "Travail à réaliser", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md854", null ],
-          [ "Fichiers impactés", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md855", null ],
-          [ "Tests (obligatoires)", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md856", null ],
-          [ "Points d'attention", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md857", null ],
-          [ "Définition de fait (DoD)", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md858", null ],
-          [ "Exigences", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md859", null ]
+          [ "Contexte", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md854", null ],
+          [ "Travail à réaliser", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md855", null ],
+          [ "Fichiers impactés", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md856", null ],
+          [ "Tests (obligatoires)", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md857", null ],
+          [ "Points d'attention", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md858", null ],
+          [ "Définition de fait (DoD)", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md859", null ],
+          [ "Exigences", "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md860", null ]
         ] ]
       ] ],
       [ "LOT-15 — Éditeur de niveaux : robustesse et confort d'édition", "lot-15.html", [
-        [ "Objectif", "lot-15.html#autotoc_md860", null ],
-        [ "Périmètre", "lot-15.html#autotoc_md861", [
-          [ "Inclus", "lot-15.html#autotoc_md862", null ],
-          [ "Exclus (lots ultérieurs ou non retenus)", "lot-15.html#autotoc_md863", null ]
+        [ "Objectif", "lot-15.html#autotoc_md861", null ],
+        [ "Périmètre", "lot-15.html#autotoc_md862", [
+          [ "Inclus", "lot-15.html#autotoc_md863", null ],
+          [ "Exclus (lots ultérieurs ou non retenus)", "lot-15.html#autotoc_md864", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-15.html#autotoc_md864", null ],
-        [ "Exigences couvertes", "lot-15.html#autotoc_md865", null ],
-        [ "Découpage", "lot-15.html#autotoc_md866", null ],
-        [ "Critères d'acceptation du lot", "lot-15.html#autotoc_md867", null ],
-        [ "Dépendances", "lot-15.html#autotoc_md868", null ],
-        [ "Navigation des tâches", "lot-15.html#autotoc_md869", null ],
+        [ "Décisions de cadrage", "lot-15.html#autotoc_md865", null ],
+        [ "Exigences couvertes", "lot-15.html#autotoc_md866", null ],
+        [ "Découpage", "lot-15.html#autotoc_md867", null ],
+        [ "Critères d'acceptation du lot", "lot-15.html#autotoc_md868", null ],
+        [ "Dépendances", "lot-15.html#autotoc_md869", null ],
+        [ "Navigation des tâches", "lot-15.html#autotoc_md870", null ],
         [ "TACHE-01 — Entrées bas niveau : molette et texte tapé", "lot-15-tache-01-entrees-molette-texte.html", [
-          [ "Contexte", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md870", null ],
-          [ "Travail à réaliser", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md871", null ],
-          [ "Fichiers impactés", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md872", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md873", null ],
-          [ "Points d'attention", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md874", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md875", null ],
-          [ "Exigences", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md876", null ],
-          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md877", null ]
+          [ "Contexte", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md871", null ],
+          [ "Travail à réaliser", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md872", null ],
+          [ "Fichiers impactés", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md873", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md874", null ],
+          [ "Points d'attention", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md875", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md876", null ],
+          [ "Exigences", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md877", null ],
+          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-01-entrees-molette-texte.html#autotoc_md878", null ]
         ] ],
         [ "TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer", "lot-15-tache-02-garde-fous-perte-donnees.html", [
-          [ "Contexte", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md878", null ],
-          [ "Travail à réaliser", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md879", null ],
-          [ "Fichiers impactés", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md880", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md881", null ],
-          [ "Points d'attention", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md882", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md883", null ],
-          [ "Exigences", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md884", null ]
+          [ "Contexte", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md879", null ],
+          [ "Travail à réaliser", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md880", null ],
+          [ "Fichiers impactés", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md881", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md882", null ],
+          [ "Points d'attention", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md883", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md884", null ],
+          [ "Exigences", "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md885", null ]
         ] ],
         [ "TACHE-03 — Nommage, renommage, avertissement d'écrasement", "lot-15-tache-03-nommage-renommage.html", [
-          [ "Contexte", "lot-15-tache-03-nommage-renommage.html#autotoc_md885", null ],
-          [ "Travail à réaliser", "lot-15-tache-03-nommage-renommage.html#autotoc_md886", null ],
-          [ "Fichiers impactés", "lot-15-tache-03-nommage-renommage.html#autotoc_md887", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-03-nommage-renommage.html#autotoc_md888", null ],
-          [ "Points d'attention", "lot-15-tache-03-nommage-renommage.html#autotoc_md889", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-03-nommage-renommage.html#autotoc_md890", null ],
-          [ "Exigences", "lot-15-tache-03-nommage-renommage.html#autotoc_md891", null ]
+          [ "Contexte", "lot-15-tache-03-nommage-renommage.html#autotoc_md886", null ],
+          [ "Travail à réaliser", "lot-15-tache-03-nommage-renommage.html#autotoc_md887", null ],
+          [ "Fichiers impactés", "lot-15-tache-03-nommage-renommage.html#autotoc_md888", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-03-nommage-renommage.html#autotoc_md889", null ],
+          [ "Points d'attention", "lot-15-tache-03-nommage-renommage.html#autotoc_md890", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-03-nommage-renommage.html#autotoc_md891", null ],
+          [ "Exigences", "lot-15-tache-03-nommage-renommage.html#autotoc_md892", null ]
         ] ],
         [ "TACHE-04 — Caméra : pan et zoom manuels", "lot-15-tache-04-camera-pan-zoom.html", [
-          [ "Contexte", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md892", null ],
-          [ "Travail à réaliser", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md893", null ],
-          [ "Fichiers impactés", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md894", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md895", null ],
-          [ "Points d'attention", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md896", null ],
-          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md897", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md898", null ],
-          [ "Exigences", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md899", null ]
+          [ "Contexte", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md893", null ],
+          [ "Travail à réaliser", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md894", null ],
+          [ "Fichiers impactés", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md895", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md896", null ],
+          [ "Points d'attention", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md897", null ],
+          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md898", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md899", null ],
+          [ "Exigences", "lot-15-tache-04-camera-pan-zoom.html#autotoc_md900", null ]
         ] ],
         [ "TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller", "lot-15-tache-05-outils-rectangle-selection.html", [
-          [ "Contexte", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md900", null ],
-          [ "Travail à réaliser", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md901", null ],
-          [ "Fichiers impactés", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md902", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md903", null ],
-          [ "Points d'attention", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md904", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md905", null ],
-          [ "Exigences", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md906", null ]
+          [ "Contexte", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md901", null ],
+          [ "Travail à réaliser", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md902", null ],
+          [ "Fichiers impactés", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md903", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md904", null ],
+          [ "Points d'attention", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md905", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md906", null ],
+          [ "Exigences", "lot-15-tache-05-outils-rectangle-selection.html#autotoc_md907", null ]
         ] ],
         [ "TACHE-06 — Découvrabilité : barre d'outils, aide, libellés, liaisons lisibles", "lot-15-tache-06-decouvrabilite.html", [
-          [ "Contexte", "lot-15-tache-06-decouvrabilite.html#autotoc_md907", null ],
-          [ "Travail à réaliser", "lot-15-tache-06-decouvrabilite.html#autotoc_md908", null ],
-          [ "Fichiers impactés", "lot-15-tache-06-decouvrabilite.html#autotoc_md909", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-06-decouvrabilite.html#autotoc_md910", null ],
-          [ "Points d'attention", "lot-15-tache-06-decouvrabilite.html#autotoc_md911", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-06-decouvrabilite.html#autotoc_md912", null ],
-          [ "Exigences", "lot-15-tache-06-decouvrabilite.html#autotoc_md913", null ],
-          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-06-decouvrabilite.html#autotoc_md914", null ]
+          [ "Contexte", "lot-15-tache-06-decouvrabilite.html#autotoc_md908", null ],
+          [ "Travail à réaliser", "lot-15-tache-06-decouvrabilite.html#autotoc_md909", null ],
+          [ "Fichiers impactés", "lot-15-tache-06-decouvrabilite.html#autotoc_md910", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-06-decouvrabilite.html#autotoc_md911", null ],
+          [ "Points d'attention", "lot-15-tache-06-decouvrabilite.html#autotoc_md912", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-06-decouvrabilite.html#autotoc_md913", null ],
+          [ "Exigences", "lot-15-tache-06-decouvrabilite.html#autotoc_md914", null ],
+          [ "Ajustement post-livraison (essai utilisateur)", "lot-15-tache-06-decouvrabilite.html#autotoc_md915", null ]
         ] ],
         [ "TACHE-07 — Essai immédiat en mémoire, erreurs de validation structurées", "lot-15-tache-07-essai-memoire-erreurs-structurees.html", [
-          [ "Contexte", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md915", null ],
-          [ "Travail à réaliser", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md916", null ],
-          [ "Fichiers impactés", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md917", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md918", null ],
-          [ "Points d'attention", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md919", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md920", null ],
-          [ "Exigences", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md921", null ]
+          [ "Contexte", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md916", null ],
+          [ "Travail à réaliser", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md917", null ],
+          [ "Fichiers impactés", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md918", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md919", null ],
+          [ "Points d'attention", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md920", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md921", null ],
+          [ "Exigences", "lot-15-tache-07-essai-memoire-erreurs-structurees.html#autotoc_md922", null ]
         ] ],
         [ "TACHE-08 — Nettoyage documentaire", "lot-15-tache-08-nettoyage-documentation.html", [
-          [ "Contexte", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md922", null ],
-          [ "Travail à réaliser", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md923", null ],
-          [ "Fichiers impactés", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md924", null ],
-          [ "Tests (obligatoires)", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md925", null ],
-          [ "Points d'attention", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md926", null ],
-          [ "Définition de fait (DoD)", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md927", null ],
-          [ "Exigences", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md928", null ]
+          [ "Contexte", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md923", null ],
+          [ "Travail à réaliser", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md924", null ],
+          [ "Fichiers impactés", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md925", null ],
+          [ "Tests (obligatoires)", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md926", null ],
+          [ "Points d'attention", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md927", null ],
+          [ "Définition de fait (DoD)", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md928", null ],
+          [ "Exigences", "lot-15-tache-08-nettoyage-documentation.html#autotoc_md929", null ]
         ] ]
       ] ],
       [ "LOT-16 — Niveaux de grande taille", "lot-16.html", [
-        [ "Objectif", "lot-16.html#autotoc_md929", null ],
-        [ "Périmètre", "lot-16.html#autotoc_md930", [
-          [ "Inclus", "lot-16.html#autotoc_md931", null ],
-          [ "Exclus (hors périmètre de ce lot)", "lot-16.html#autotoc_md932", null ]
+        [ "Objectif", "lot-16.html#autotoc_md930", null ],
+        [ "Périmètre", "lot-16.html#autotoc_md931", [
+          [ "Inclus", "lot-16.html#autotoc_md932", null ],
+          [ "Exclus (hors périmètre de ce lot)", "lot-16.html#autotoc_md933", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-16.html#autotoc_md933", null ],
-        [ "Exigences couvertes", "lot-16.html#autotoc_md934", null ],
-        [ "Découpage", "lot-16.html#autotoc_md935", null ],
-        [ "Critères d'acceptation du lot", "lot-16.html#autotoc_md936", null ],
-        [ "Dépendances", "lot-16.html#autotoc_md937", null ],
-        [ "Navigation des tâches", "lot-16.html#autotoc_md938", null ],
+        [ "Décisions de cadrage", "lot-16.html#autotoc_md934", null ],
+        [ "Exigences couvertes", "lot-16.html#autotoc_md935", null ],
+        [ "Découpage", "lot-16.html#autotoc_md936", null ],
+        [ "Critères d'acceptation du lot", "lot-16.html#autotoc_md937", null ],
+        [ "Dépendances", "lot-16.html#autotoc_md938", null ],
+        [ "Navigation des tâches", "lot-16.html#autotoc_md939", null ],
         [ "TACHE-01 — Plafond de taille et validation « largeur x hauteur »", "lot-16-tache-01-plafond-validation-taille.html", [
-          [ "Contexte", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md939", null ],
-          [ "Travail à réaliser", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md940", null ],
-          [ "Fichiers impactés", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md941", null ],
-          [ "Tests (obligatoires)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md942", null ],
-          [ "Points d'attention", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md943", null ],
-          [ "Définition de fait (DoD)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md944", null ],
-          [ "Exigences", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md945", null ]
+          [ "Contexte", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md940", null ],
+          [ "Travail à réaliser", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md941", null ],
+          [ "Fichiers impactés", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md942", null ],
+          [ "Tests (obligatoires)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md943", null ],
+          [ "Points d'attention", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md944", null ],
+          [ "Définition de fait (DoD)", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md945", null ],
+          [ "Exigences", "lot-16-tache-01-plafond-validation-taille.html#autotoc_md946", null ]
         ] ],
         [ "TACHE-02 — Boîte de dialogue de redimensionnement (`Ctrl+R`)", "lot-16-tache-02-boite-dialogue-redimensionnement.html", [
-          [ "Contexte", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md946", null ],
-          [ "Travail à réaliser", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md947", null ],
-          [ "Fichiers impactés", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md948", null ],
-          [ "Tests (obligatoires)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md949", null ],
-          [ "Points d'attention", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md950", null ],
-          [ "Définition de fait (DoD)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md951", null ],
-          [ "Exigences", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md952", null ]
+          [ "Contexte", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md947", null ],
+          [ "Travail à réaliser", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md948", null ],
+          [ "Fichiers impactés", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md949", null ],
+          [ "Tests (obligatoires)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md950", null ],
+          [ "Points d'attention", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md951", null ],
+          [ "Définition de fait (DoD)", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md952", null ],
+          [ "Exigences", "lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md953", null ]
         ] ],
         [ "TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)", "lot-16-tache-03-camera-niveau-entier.html", [
-          [ "Contexte", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md953", null ],
-          [ "Travail à réaliser", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md954", null ],
-          [ "Fichiers impactés", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md955", null ],
-          [ "Tests (obligatoires)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md956", null ],
-          [ "Points d'attention", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md957", null ],
-          [ "Définition de fait (DoD)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md958", null ],
-          [ "Exigences", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md959", null ]
+          [ "Contexte", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md954", null ],
+          [ "Travail à réaliser", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md955", null ],
+          [ "Fichiers impactés", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md956", null ],
+          [ "Tests (obligatoires)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md957", null ],
+          [ "Points d'attention", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md958", null ],
+          [ "Définition de fait (DoD)", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md959", null ],
+          [ "Exigences", "lot-16-tache-03-camera-niveau-entier.html#autotoc_md960", null ]
         ] ],
         [ "TACHE-04 — Documentation et vérification", "lot-16-tache-04-documentation-verification.html", [
-          [ "Contexte", "lot-16-tache-04-documentation-verification.html#autotoc_md960", null ],
-          [ "Travail à réaliser", "lot-16-tache-04-documentation-verification.html#autotoc_md961", null ],
-          [ "Fichiers impactés", "lot-16-tache-04-documentation-verification.html#autotoc_md962", null ],
-          [ "Tests (obligatoires)", "lot-16-tache-04-documentation-verification.html#autotoc_md963", null ],
-          [ "Points d'attention", "lot-16-tache-04-documentation-verification.html#autotoc_md964", null ],
-          [ "Définition de fait (DoD)", "lot-16-tache-04-documentation-verification.html#autotoc_md965", null ],
-          [ "Exigences", "lot-16-tache-04-documentation-verification.html#autotoc_md966", null ]
+          [ "Contexte", "lot-16-tache-04-documentation-verification.html#autotoc_md961", null ],
+          [ "Travail à réaliser", "lot-16-tache-04-documentation-verification.html#autotoc_md962", null ],
+          [ "Fichiers impactés", "lot-16-tache-04-documentation-verification.html#autotoc_md963", null ],
+          [ "Tests (obligatoires)", "lot-16-tache-04-documentation-verification.html#autotoc_md964", null ],
+          [ "Points d'attention", "lot-16-tache-04-documentation-verification.html#autotoc_md965", null ],
+          [ "Définition de fait (DoD)", "lot-16-tache-04-documentation-verification.html#autotoc_md966", null ],
+          [ "Exigences", "lot-16-tache-04-documentation-verification.html#autotoc_md967", null ]
         ] ]
       ] ],
       [ "LOT-17 — Sprite du personnage (statique)", "lot-17.html", [
-        [ "Objectif", "lot-17.html#autotoc_md967", null ],
-        [ "Périmètre", "lot-17.html#autotoc_md968", [
-          [ "Inclus", "lot-17.html#autotoc_md969", null ],
-          [ "Exclus (hors périmètre de ce lot)", "lot-17.html#autotoc_md970", null ]
+        [ "Objectif", "lot-17.html#autotoc_md968", null ],
+        [ "Périmètre", "lot-17.html#autotoc_md969", [
+          [ "Inclus", "lot-17.html#autotoc_md970", null ],
+          [ "Exclus (hors périmètre de ce lot)", "lot-17.html#autotoc_md971", null ]
         ] ],
-        [ "Décisions de cadrage", "lot-17.html#autotoc_md971", null ],
-        [ "Exigences couvertes", "lot-17.html#autotoc_md972", null ],
-        [ "Découpage", "lot-17.html#autotoc_md973", null ],
-        [ "Critères d'acceptation du lot", "lot-17.html#autotoc_md974", null ],
-        [ "Dépendances", "lot-17.html#autotoc_md975", null ],
-        [ "Navigation des tâches", "lot-17.html#autotoc_md976", null ],
+        [ "Décisions de cadrage", "lot-17.html#autotoc_md972", null ],
+        [ "Exigences couvertes", "lot-17.html#autotoc_md973", null ],
+        [ "Découpage", "lot-17.html#autotoc_md974", null ],
+        [ "Critères d'acceptation du lot", "lot-17.html#autotoc_md975", null ],
+        [ "Dépendances", "lot-17.html#autotoc_md976", null ],
+        [ "Navigation des tâches", "lot-17.html#autotoc_md977", null ],
         [ "TACHE-01 — Silhouette du personnage dans l'atlas", "lot-17-tache-01-silhouette-personnage.html", [
-          [ "Contexte", "lot-17-tache-01-silhouette-personnage.html#autotoc_md977", null ],
-          [ "Travail à réaliser", "lot-17-tache-01-silhouette-personnage.html#autotoc_md978", null ],
-          [ "Fichiers impactés", "lot-17-tache-01-silhouette-personnage.html#autotoc_md979", null ],
-          [ "Tests (obligatoires)", "lot-17-tache-01-silhouette-personnage.html#autotoc_md980", null ],
-          [ "Points d'attention", "lot-17-tache-01-silhouette-personnage.html#autotoc_md981", null ],
-          [ "Définition de fait (DoD)", "lot-17-tache-01-silhouette-personnage.html#autotoc_md982", null ],
-          [ "Exigences", "lot-17-tache-01-silhouette-personnage.html#autotoc_md983", null ]
+          [ "Contexte", "lot-17-tache-01-silhouette-personnage.html#autotoc_md978", null ],
+          [ "Travail à réaliser", "lot-17-tache-01-silhouette-personnage.html#autotoc_md979", null ],
+          [ "Fichiers impactés", "lot-17-tache-01-silhouette-personnage.html#autotoc_md980", null ],
+          [ "Tests (obligatoires)", "lot-17-tache-01-silhouette-personnage.html#autotoc_md981", null ],
+          [ "Points d'attention", "lot-17-tache-01-silhouette-personnage.html#autotoc_md982", null ],
+          [ "Définition de fait (DoD)", "lot-17-tache-01-silhouette-personnage.html#autotoc_md983", null ],
+          [ "Exigences", "lot-17-tache-01-silhouette-personnage.html#autotoc_md984", null ]
         ] ],
         [ "TACHE-02 — Documentation et vérification", "lot-17-tache-02-documentation-verification.html", [
-          [ "Contexte", "lot-17-tache-02-documentation-verification.html#autotoc_md984", null ],
-          [ "Travail à réaliser", "lot-17-tache-02-documentation-verification.html#autotoc_md985", null ],
-          [ "Fichiers impactés", "lot-17-tache-02-documentation-verification.html#autotoc_md986", null ],
-          [ "Tests (obligatoires)", "lot-17-tache-02-documentation-verification.html#autotoc_md987", null ],
-          [ "Points d'attention", "lot-17-tache-02-documentation-verification.html#autotoc_md988", null ],
-          [ "Définition de fait (DoD)", "lot-17-tache-02-documentation-verification.html#autotoc_md989", null ],
-          [ "Exigences", "lot-17-tache-02-documentation-verification.html#autotoc_md990", null ]
+          [ "Contexte", "lot-17-tache-02-documentation-verification.html#autotoc_md985", null ],
+          [ "Travail à réaliser", "lot-17-tache-02-documentation-verification.html#autotoc_md986", null ],
+          [ "Fichiers impactés", "lot-17-tache-02-documentation-verification.html#autotoc_md987", null ],
+          [ "Tests (obligatoires)", "lot-17-tache-02-documentation-verification.html#autotoc_md988", null ],
+          [ "Points d'attention", "lot-17-tache-02-documentation-verification.html#autotoc_md989", null ],
+          [ "Définition de fait (DoD)", "lot-17-tache-02-documentation-verification.html#autotoc_md990", null ],
+          [ "Exigences", "lot-17-tache-02-documentation-verification.html#autotoc_md991", null ]
+        ] ]
+      ] ],
+      [ "LOT-18 — Animation du personnage (repos, course, saut)", "lot-18.html", [
+        [ "Objectif", "lot-18.html#autotoc_md992", null ],
+        [ "Périmètre", "lot-18.html#autotoc_md993", [
+          [ "Inclus", "lot-18.html#autotoc_md994", null ],
+          [ "Exclus (hors périmètre de ce lot)", "lot-18.html#autotoc_md995", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-18.html#autotoc_md996", null ],
+        [ "Exigences couvertes", "lot-18.html#autotoc_md997", null ],
+        [ "Découpage", "lot-18.html#autotoc_md998", null ],
+        [ "Critères d'acceptation du lot", "lot-18.html#autotoc_md999", null ],
+        [ "Dépendances", "lot-18.html#autotoc_md1000", null ],
+        [ "Navigation des tâches", "lot-18.html#autotoc_md1001", null ],
+        [ "TACHE-01 — Composant et système d'animation", "lot-18-tache-01-composant-systeme-animation.html", [
+          [ "Contexte", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1002", null ],
+          [ "Travail à réaliser", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1003", null ],
+          [ "Fichiers impactés", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1004", null ],
+          [ "Tests (obligatoires)", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1005", null ],
+          [ "Points d'attention", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1006", null ],
+          [ "Définition de fait (DoD)", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1007", null ],
+          [ "Exigences", "lot-18-tache-01-composant-systeme-animation.html#autotoc_md1008", null ]
+        ] ],
+        [ "TACHE-02 — Images dans l'atlas et intégration au rendu", "lot-18-tache-02-frames-atlas-integration.html", [
+          [ "Contexte", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1009", null ],
+          [ "Travail à réaliser", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1010", null ],
+          [ "Fichiers impactés", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1011", null ],
+          [ "Tests (obligatoires)", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1012", null ],
+          [ "Points d'attention", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1013", null ],
+          [ "Définition de fait (DoD)", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1014", null ],
+          [ "Exigences", "lot-18-tache-02-frames-atlas-integration.html#autotoc_md1015", null ]
+        ] ],
+        [ "TACHE-03 — Documentation et vérification", "lot-18-tache-03-documentation-verification.html", [
+          [ "Contexte", "lot-18-tache-03-documentation-verification.html#autotoc_md1016", null ],
+          [ "Travail à réaliser", "lot-18-tache-03-documentation-verification.html#autotoc_md1017", null ],
+          [ "Fichiers impactés", "lot-18-tache-03-documentation-verification.html#autotoc_md1018", null ],
+          [ "Tests (obligatoires)", "lot-18-tache-03-documentation-verification.html#autotoc_md1019", null ],
+          [ "Points d'attention", "lot-18-tache-03-documentation-verification.html#autotoc_md1020", null ],
+          [ "Définition de fait (DoD)", "lot-18-tache-03-documentation-verification.html#autotoc_md1021", null ],
+          [ "Exigences", "lot-18-tache-03-documentation-verification.html#autotoc_md1022", null ]
         ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md992", null ],
-      [ "À venir", "manuel.html#autotoc_md993", null ],
+      [ "Pages", "manuel.html#autotoc_md1024", null ],
+      [ "À venir", "manuel.html#autotoc_md1025", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md1000", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md1001", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md1002", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md1032", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md1033", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md1034", null ]
       ] ],
       [ "Créer et partager un niveau (sans ligne de commande)", "manuel-partager-niveau.html", [
-        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md994", null ],
-        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md995", null ],
-        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md996", null ],
-        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md997", null ],
-        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md998", null ],
-        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md999", null ]
+        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md1026", null ],
+        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md1027", null ],
+        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md1028", null ],
+        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md1029", null ],
+        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md1030", null ],
+        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md1031", null ]
       ] ]
     ] ],
     [ "Cahier de test", "cahiertest.html", null ],
@@ -1366,20 +1407,20 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Aabb_8h.html",
-"MechanismController_8cpp.html",
-"classcore_1_1Level.html#a4343c41b514da24fd083b045ce08f9eb",
-"classcore_1_1World.html#a83f903df9110e847a0c48d5ffad567e1",
-"classhmi_1_1GameScreen.html#ac6aa6b25e60bd0c2e2e8dc37a998ecb9",
-"classhmi_1_1MenuScreen.html#a3d2e4cca77c462b99c9a1600bd598d3f",
-"dir_1711bb3acb2deb972114c6956c7d7ccf.html",
-"guide-physique.html#autotoc_md91",
-"lot-04.html#autotoc_md333",
-"lot-08.html#autotoc_md570",
-"lot-14-tache-04-undo-redo.html#autotoc_md843",
-"namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754",
-"structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324",
-"structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9",
-"test__mechanism__controller_8cpp.html#a49940b49e95c5c4cf1fa58f900bdd47f"
+"Log_8h.html#ad3fe6eb59d2a357388658f908fd1d21b",
+"classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a",
+"classcore_1_1World.html",
+"classhmi_1_1GameScreen.html#a54afe71d6f2b04577e0124d368b90d61",
+"classhmi_1_1MenuModel.html#aaf3eb157f50afb8bbe0afd900234f7b1",
+"classhmi_1_1Window.html#a8982fa83d7a924f987f33260b1bcb169",
+"guide-niveaux.html#autotoc_md68",
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md381",
+"lot-08-tache-04-regles-fin-niveau.html#autotoc_md601",
+"lot-14-tache-01-serialisation-modele-edition.html#autotoc_md822",
+"manuel-telecharger.html#autotoc_md1032",
+"structcore_1_1Animation.html#a366d8197577c0cba046a9cf59d27ac92",
+"structhmi_1_1LanguageSelector_1_1Rect.html#abbe708d1220fa7e2f9bf7314e03fcd76",
+"test__level__loader_8cpp.html#a661a688872dbc02f5f16bb707ed40562"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

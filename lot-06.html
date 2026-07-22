@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('lot-06.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Au lancement, l'exécutable ouvre un <b>menu principal</b> navigable (clavier + souris) piloté par une structure d'<b>écrans</b>, avec les briques introduites en chemin : entrées clavier/souris, rendu de texte et catalogue de traduction (i18n). Un <b>sélecteur de langue</b> (bouton drapeau, fr/en) complète l'i18n (TACHE-08). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md449"></a>
+<h1><a class="anchor" id="autotoc_md450"></a>
 Objectif</h1>
 <p>Afficher au démarrage un <b>menu principal</b> navigable proposant trois options — <b>« Charger niveau »</b>, <b>« Mode Edition »</b> et <b>« Quitter »</b> — et router l'application vers l'écran correspondant. En préalable, poser les briques manquantes : un module d'<b>entrées</b> (clavier + souris), un <b>rendu de texte</b> (police bitmap) et un <b>catalogue de traduction</b> (i18n) par lequel passent tous les textes affichés.</p>
 <p>À l'issue du lot : au lancement, l'exécutable ouvre le menu ; on navigue au clavier et à la souris ; « Quitter » ferme l'application, « Charger niveau » ouvre la scène de démonstration (niveau provisoire) et « Mode Edition » un écran « à venir », tous deux avec retour au menu par <b>Échap</b>.</p>
-<h1><a class="anchor" id="autotoc_md450"></a>
+<h1><a class="anchor" id="autotoc_md451"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md451"></a>
+<h2><a class="anchor" id="autotoc_md452"></a>
 Inclus</h2>
 <ul>
 <li><b>Entrées</b> : état clavier et souris exposé par <code>Window</code>, avec distinction <b>pressée / maintenue / relâchée</b> (<code>EX-CTRL-011</code>), échantillonné une fois par frame (<code>EX-CTRL-021</code>).</li>
@@ -113,7 +113,7 @@ Inclus</h2>
 <li><b>Écrans cibles</b> : « Charger niveau » réutilise la scène de démo du LOT-05 (niveau provisoire) ; « Mode Edition » affiche un écran « à venir » ; retour au menu par Échap.</li>
 <li><b>Intégration <code>main</code></b> : la boucle pilote l'écran courant ; la scène codée en dur quitte <code>main</code> pour l'écran de jeu.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md452"></a>
+<h2><a class="anchor" id="autotoc_md453"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Chargement de niveaux depuis fichier</b> (« Charger niveau » ouvre la démo, pas un fichier).</li>
@@ -121,7 +121,7 @@ Exclus (lots ultérieurs)</h2>
 <li>Écrans de <b>pause</b> et de <b>fin de niveau</b> (<code>EX-REN-031</code>).</li>
 <li>Manette (<code>EX-CTRL-002</code>), remapping des touches (<code>EX-CTRL-012</code>), audio.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md453"></a>
+<h1><a class="anchor" id="autotoc_md454"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Texte</b> : police <b>bitmap</b> intégrée (dessinée via <code>SpriteBatch</code>), cohérente avec le pixel art et l'esprit « from scratch ».</li>
@@ -129,14 +129,14 @@ Décisions de cadrage</h1>
 <li><b>Navigation</b> : <b>clavier + souris</b> (flèches/Entrée et survol/clic).</li>
 <li><b>Actions</b> : « Charger niveau » → scène de démo (niveau provisoire) ; « Mode Edition » → écran « à venir » ; « Quitter » → fermeture. Retour menu par Échap.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md454"></a>
+<h1><a class="anchor" id="autotoc_md455"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-REN-030</code> (menu principal), <code>EX-REN-032</code> (texte), <code>EX-REN-033</code> (catalogue de traduction), <code>EX-ARCH-012</code> (le rendu lit l'état).</li>
 <li><code>EX-CTRL-011</code> (pressée/maintenue/relâchée), <code>EX-CTRL-021</code> (entrées échantillonnées une fois par frame, en amont de la logique).</li>
 <li><code>EX-NFR-040</code> (fichier/​clé de traduction manquant traité comme erreur récupérable).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md455"></a>
+<h1><a class="anchor" id="autotoc_md456"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -161,7 +161,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-08-selecteur-langue_8md.html">TACHE-08</a>   </td><td class="markdownTableBodyNone">Sélecteur de langue (bouton drapeau fr/en)   </td><td class="markdownTableBodyNone"><code>HMI/Interface</code>, <code>HMI/Graphics</code>   </td><td class="markdownTableBodyCenter">✅ Fait   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md456"></a>
+<h1><a class="anchor" id="autotoc_md457"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Au lancement, l'exécutable affiche le <b>menu principal</b> avec les trois options.</li>
@@ -171,13 +171,13 @@ Critères d'acceptation du lot</h1>
 <li>Tous les textes affichés proviennent du <b>catalogue de traduction</b> (aucun littéral d'UI en dur) ; charger un autre fichier de langue change les textes sans recompiler.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, tests verts (logique testable : entrées, catalogue de traduction, sélection de menu), documentation Doxygen à jour, <code>CHANGELOG.md</code> mis à jour.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md457"></a>
+<h1><a class="anchor" id="autotoc_md458"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise le rendu 2D de <a class="el" href="lot-05.html">LOT-05</a> (<code>SpriteBatch</code>, <code>Camera2D</code>, <code>SpriteRenderer</code>, scène de démo) et l'ECS de <a class="el" href="lot-03.html">LOT-03</a>.</li>
 <li>S'appuie sur <code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">hmi::Window</a></code> (LOT-01) pour la capture des événements d'entrée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md458"></a>
+<h1><a class="anchor" id="autotoc_md459"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-06-tache-01-entrees-clavier-souris.html">TACHE-01 — Entrées clavier &amp; souris</a></li>

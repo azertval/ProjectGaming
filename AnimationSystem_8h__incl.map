@@ -1,0 +1,5 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/AnimationSystem.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/AnimationSystem.h">
+<area shape="rect" id="Node000001" title="Système dérivant le clip/l&#39;image d&#39;animation du personnage de son état physique." alt="" coords="5,5,280,60"/>
+<area shape="rect" id="Node000002" href="$ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="69,108,216,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,60,145,94,140,94,140,60"/>
+</map>

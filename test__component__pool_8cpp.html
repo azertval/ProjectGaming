@@ -192,7 +192,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000057">Cas de test:</a></b></dt><dd><b><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000062">Cas de test:</a></b></dt><dd><b><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -229,7 +229,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>get</code> renvoie une référence modifiable sur le composant stocké. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000058">Cas de test:</a></b></dt><dd><b><code>get</code> renvoie une référence modifiable sur le composant stocké.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000063">Cas de test:</a></b></dt><dd><b><code>get</code> renvoie une référence modifiable sur le composant stocké.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -266,7 +266,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>get</code> sur une entité absente viole une précondition (assertion en Debug). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000063">Cas de test:</a></b></dt><dd><b><code>get</code> sur une entité absente viole une précondition (assertion en Debug).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000068">Cas de test:</a></b></dt><dd><b><code>get</code> sur une entité absente viole une précondition (assertion en Debug).</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -303,7 +303,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000061">Cas de test:</a></b></dt><dd><b>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000066">Cas de test:</a></b></dt><dd><b>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -340,7 +340,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000059">Cas de test:</a></b></dt><dd><b><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000064">Cas de test:</a></b></dt><dd><b><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -377,7 +377,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retirer le dernier élément ne perturbe pas les précédents. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000060">Cas de test:</a></b></dt><dd><b>Retirer le dernier élément ne perturbe pas les précédents.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000065">Cas de test:</a></b></dt><dd><b>Retirer le dernier élément ne perturbe pas les précédents.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -414,7 +414,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000062">Cas de test:</a></b></dt><dd><b><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000067">Cas de test:</a></b></dt><dd><b><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

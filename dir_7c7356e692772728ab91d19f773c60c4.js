@@ -16,5 +16,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-14-editeur-niveaux", "dir_370b38824b920f20db807258fd71fd6d.html", null ],
     [ "LOT-15-editeur-industriel", "dir_f96d2eb70da790314c10522d155d5bc2.html", null ],
     [ "LOT-16-niveaux-plus-grands", "dir_a8a579c8514154364e14fcf634ca6910.html", null ],
-    [ "LOT-17-sprite-personnage", "dir_7cf981fad327d6d7b0e92a4c93f60063.html", null ]
+    [ "LOT-17-sprite-personnage", "dir_7cf981fad327d6d7b0e92a4c93f60063.html", null ],
+    [ "LOT-18-animation-personnage", "dir_0d6e23667d2f12070992df02c81714a3.html", null ]
 ];

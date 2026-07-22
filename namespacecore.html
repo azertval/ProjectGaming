@@ -108,6 +108,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Aabb.html">Aabb</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>aligné aux axes</b>, décrit par ses coins <code>min</code> (haut-gauche) et <code>max</code> (bas-droite), en unités monde (origine haut-gauche, <code>y</code> vers le bas).  <a href="structcore_1_1Aabb.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Animation.html">Animation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1AnimationSystem.html">AnimationSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer l'état d'animation (<code><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></code>) de chaque personnage, au pas fixe.  <a href="classcore_1_1AnimationSystem.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région source dans l'atlas de textures, en <b>pixels</b> (origine haut-gauche).  <a href="structcore_1_1AtlasRegion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,6 +238,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau d'un message de journalisation (ordre croissant de gravité).  <a href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">More...</a><br /></td></tr>
 <tr class="separator:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a799a99a97ade0219550e8316e18aa860" id="r_a799a99a97ade0219550e8316e18aa860"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">AnimationClip</a> { <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c">Idle</a>
+, <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d">Run</a>
+, <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed">Jump</a>
+ }</td></tr>
+<tr class="memdesc:a799a99a97ade0219550e8316e18aa860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip d'animation du personnage (<code>EX-REN-012</code>).  <a href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">More...</a><br /></td></tr>
+<tr class="separator:a799a99a97ade0219550e8316e18aa860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2a63d18c9ef40479ebdc204e726e823" id="r_af2a63d18c9ef40479ebdc204e726e823"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">ParseError</a>
@@ -343,6 +355,15 @@ Variables</h2></td></tr>
 <tr class="memitem:ada3f6bef6b32bd54ea16d550e0769fb1" id="r_ada3f6bef6b32bd54ea16d550e0769fb1"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1">kDeveloperBuild</a> = true</td></tr>
 <tr class="memdesc:ada3f6bef6b32bd54ea16d550e0769fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>.  <br /></td></tr>
 <tr class="separator:ada3f6bef6b32bd54ea16d550e0769fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a572ec27480068f4deb0511ed85244e68" id="r_a572ec27480068f4deb0511ed85244e68"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a572ec27480068f4deb0511ed85244e68">IDLE_FRAME_COUNT</a> = 2</td></tr>
+<tr class="memdesc:a572ec27480068f4deb0511ed85244e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <code>Idle</code>. Seule source de vérité (<code>Core</code> et <code>HMI</code>, cf. LOT-18).  <br /></td></tr>
+<tr class="separator:a572ec27480068f4deb0511ed85244e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7670734985ecf5fc4b23cf34f941a13d" id="r_a7670734985ecf5fc4b23cf34f941a13d"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d">RUN_FRAME_COUNT</a> = 4</td></tr>
+<tr class="memdesc:a7670734985ecf5fc4b23cf34f941a13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <code>Run</code>.  <br /></td></tr>
+<tr class="separator:a7670734985ecf5fc4b23cf34f941a13d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c64100a95020d369b6f4b976fe0ffe" id="r_ae3c64100a95020d369b6f4b976fe0ffe"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ae3c64100a95020d369b6f4b976fe0ffe">JUMP_FRAME_COUNT</a> = 1</td></tr>
+<tr class="memdesc:ae3c64100a95020d369b6f4b976fe0ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <code>Jump</code> (pose unique, jamais animée).  <br /></td></tr>
+<tr class="separator:ae3c64100a95020d369b6f4b976fe0ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
 <tr class="separator:a2a9202a1a89eacaec610bdc83b0ff272"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -376,6 +397,38 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a799a99a97ade0219550e8316e18aa860" name="a799a99a97ade0219550e8316e18aa860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a799a99a97ade0219550e8316e18aa860">&#9670;&#160;</a></span>AnimationClip</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clip d'animation du personnage (<code>EX-REN-012</code>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c" name="a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c"></a>Idle&#160;</td><td class="fielddoc"><p>Immobile, au sol. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d" name="a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"><p>Déplacement horizontal, au sol. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed" name="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"><p>En l'air (saut ou chute) — pose unique, pas un cycle. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a60398ec3835dd2882a7d3a9eaddb65aa" name="a60398ec3835dd2882a7d3a9eaddb65aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60398ec3835dd2882a7d3a9eaddb65aa">&#9670;&#160;</a></span>LevelOutcome</h2>
 
@@ -1414,6 +1467,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a572ec27480068f4deb0511ed85244e68" name="a572ec27480068f4deb0511ed85244e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a572ec27480068f4deb0511ed85244e68">&#9670;&#160;</a></span>IDLE_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int core::IDLE_FRAME_COUNT = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <code>Idle</code>. Seule source de vérité (<code>Core</code> et <code>HMI</code>, cf. LOT-18). </p>
+
+</div>
+</div>
 <a id="a2a9202a1a89eacaec610bdc83b0ff272" name="a2a9202a1a89eacaec610bdc83b0ff272"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a9202a1a89eacaec610bdc83b0ff272">&#9670;&#160;</a></span>INVALID_ENTITY</h2>
 
@@ -1435,6 +1512,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Entité invalide conventionnelle : ne désigne jamais une entité vivante. </p>
+
+</div>
+</div>
+<a id="ae3c64100a95020d369b6f4b976fe0ffe" name="ae3c64100a95020d369b6f4b976fe0ffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c64100a95020d369b6f4b976fe0ffe">&#9670;&#160;</a></span>JUMP_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int core::JUMP_FRAME_COUNT = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <code>Jump</code> (pose unique, jamais animée). </p>
 
 </div>
 </div>
@@ -1508,6 +1609,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Largeur du personnage, en unités monde (une tuile = 1 unité). </p>
+
+</div>
+</div>
+<a id="a7670734985ecf5fc4b23cf34f941a13d" name="a7670734985ecf5fc4b23cf34f941a13d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7670734985ecf5fc4b23cf34f941a13d">&#9670;&#160;</a></span>RUN_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int core::RUN_FRAME_COUNT = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <code>Run</code>. </p>
 
 </div>
 </div>

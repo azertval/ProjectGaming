@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-09-tache-05-enchainement-niveaux.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-09-saut-game-feel_2epic_8md.html">LOT-09</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md657"></a>
+<h1><a class="anchor" id="autotoc_md658"></a>
 Contexte</h1>
 <p>Aujourd'hui, « Charger niveau » ouvre <b>un</b> niveau et la réussite revient au menu. On veut une <b>progression</b> (<code>EX-LVL-010</code>, <code>EX-LVL-011</code>) : écran titre → niveau 1 → niveau 2 → … → dernier → retour au titre. La simulation <code>Core</code> ne connaît qu'<b>un niveau à la fois</b> ; l'enchaînement est une responsabilité <b>d'orchestration</b>, donc côté <code>HMI</code> (<code>GameScreen</code>).</p>
-<h1><a class="anchor" id="autotoc_md658"></a>
+<h1><a class="anchor" id="autotoc_md659"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Séquence ordonnée</b> : le <code>GameScreen</code> reçoit une <b>liste ordonnée</b> de chemins de niveaux (plutôt qu'un chemin unique) et un <b>indice courant</b> (démarrage à 0). Adapter la <b>fabrique d'écrans</b> (menu « Charger niveau ») pour fournir cette liste.<ul>
@@ -112,19 +112,19 @@ Travail à réaliser</h1>
 </li>
 <li><b>Échec</b> : inchangé (redémarrage du <b>niveau courant</b> à l'entrée). <b>Échap</b> : retour au menu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md659"></a>
+<h1><a class="anchor" id="autotoc_md660"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code> (liste + indice, <code>loadLevel</code>, transition de réussite).</li>
 <li>La <b>fabrique</b> d'écrans (là où <code>GameScreen</code> est construit avec un chemin — <code>MenuScreen</code>/ <code>ScreenManager</code>/<code>main</code>) : fournir la séquence.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md660"></a>
+<h1><a class="anchor" id="autotoc_md661"></a>
 Vérification / tests</h1>
 <ul>
 <li><b>Logique testable</b> : isoler autant que possible la <b>décision de progression</b> (indice courant, « y a-t-il un suivant ? », prochain indice) dans une petite logique <b>pure</b> testable sans GPU (ex. un <code>LevelSequence</code> : <code>current()</code>, <code>advance()</code>, <code>isFinished()</code>), couverte par tests unitaires.</li>
 <li>L'<b>intégration</b> GPU (rechargement de scène, rendu) est vérifiée <b>visuellement</b> ; le franchissement effectif de la séquence est prouvé par le test d'intégration de la TACHE-06.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md661"></a>
+<h1><a class="anchor" id="autotoc_md662"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Monde neuf entre niveaux</b> : si <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code> n'est pas ré-assignable simplement, prévoir une remise à zéro explicite ; ne pas laisser d'entités du niveau précédent.</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li><b>Extensibilité</b> : ajouter un niveau ne doit pas demander de modifier la logique d'enchaînement.</li>
 <li><b>Robustesse</b> : une séquence <b>vide</b> ou un niveau <b>illisible</b> ne doit pas planter (état neutre récupérable, <code>EX-NFR-040</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md662"></a>
+<h1><a class="anchor" id="autotoc_md663"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Réussite → niveau suivant chargé ; après le dernier → retour titre ; échec → redémarrage du niveau courant. Logique de séquence <b>testée</b> (<code>ctest</code> vert) ; enchaînement <b>vérifié visuellement</b> ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md663"></a>
+<h1><a class="anchor" id="autotoc_md664"></a>
 Exigences</h1>
 <p><code>EX-LVL-010</code>, <code>EX-LVL-011</code>, <code>EX-NFR-010</code>, <code>EX-NFR-040</code>, <code>EX-ARCH-030</code>. </p>
 </div></div><!-- contents -->

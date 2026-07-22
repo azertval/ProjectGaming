@@ -6,7 +6,7 @@ var searchData=
   ['parsecatalog_3',['parseCatalog',['../classhmi_1_1Localization.html#a74443598fef691b1c7c278bcf364bcb2',1,'hmi::Localization']]],
   ['parselevelsize_4',['parseLevelSize',['../namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50',1,'hmi']]],
   ['parseloglevel_5',['parseLogLevel',['../namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a',1,'core']]],
-  ['playerregion_6',['playerRegion',['../classhmi_1_1TextureAtlas.html#a6cc15916809e1bf5646f969787f59dd9',1,'hmi::TextureAtlas']]],
+  ['playerframeregion_6',['playerFrameRegion',['../classhmi_1_1TextureAtlas.html#a0721b08ef5299ad94c093689f3c61197',1,'hmi::TextureAtlas']]],
   ['playersize_7',['playerSize',['../namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb',1,'core']]],
   ['playerspawnposition_8',['playerSpawnPosition',['../namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0',1,'core']]],
   ['poolfor_9',['poolFor',['../classcore_1_1World.html#a5d524864277691a7419b5268d4c53449',1,'core::World']]],

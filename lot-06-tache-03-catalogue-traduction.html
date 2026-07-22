@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-06-tache-03-catalogue-traduction.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Localization</code>, <code>Source/Elements/Localization</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md473"></a>
+<h1><a class="anchor" id="autotoc_md474"></a>
 Contexte</h1>
 <p>Le menu (TACHE-05) et l'écran éditeur (TACHE-06) affichent des libellés. Plutôt que de coder ces textes <b>en dur</b> dans les écrans, on les fait passer par un <b>catalogue de traduction</b> : chaque texte affiché est désigné par une <b>clé</b> stable, résolue vers une chaîne selon la <b>langue active</b>. Ajouter une langue devient trivial (un fichier de plus, aucun code à changer) et prépare l'internationalisation du jeu et, plus tard, de l'éditeur.</p>
-<h1><a class="anchor" id="autotoc_md474"></a>
+<h1><a class="anchor" id="autotoc_md475"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Format du catalogue</b> : un <b>fichier texte par langue</b> (<code>fr.lang</code>, puis <code>en.lang</code>, …), <b>une paire <code>clé = valeur</code> par ligne</b>, encodage <b>UTF-8</b>, commentaires en <code>#</code> et lignes vides ignorés. Choisi volontairement simple (pas de dépendance JSON à ce stade — le JSON est réservé aux niveaux, cf. <code>EX-LVL-003</code>) et éditable à la main.</li>
@@ -112,14 +112,14 @@ Travail à réaliser</h1>
 <li><b>Clés stables</b> : les écrans référencent <b>uniquement des clés</b>, jamais un littéral d'UI.</li>
 <li><b>CMake</b> : copier <code>Source/Elements/Localization/*.lang</code> à côté de l'exécutable (comme les autres assets), pour un chargement par chemin relatif au démarrage.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md475"></a>
+<h1><a class="anchor" id="autotoc_md476"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue.">Source/HMI/Localization/Localization.h</a></code>, <code><a class="el" href="Localization_8cpp.html">Localization.cpp</a></code> (nouveau).</li>
 <li><code>Source/Elements/Localization/fr.lang</code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code> (source + copie des <code>.lang</code>), <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md476"></a>
+<h1><a class="anchor" id="autotoc_md477"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une <b>clé existante</b> renvoie la valeur attendue de la langue chargée.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li><b>Changement de langue</b> : après <code>loadLanguage</code>, <code>text(clé)</code> renvoie la valeur de la nouvelle langue ; une clé manquante dans cette langue retombe sur la langue par défaut.</li>
 <li>Le catalogue est testable <b>sans fenêtre ni GPU</b> (logique pure, <code>EX-NFR-010</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md477"></a>
+<h1><a class="anchor" id="autotoc_md478"></a>
 Points d'attention</h1>
 <ul>
 <li><b>UTF-8 de bout en bout</b> : les accents doivent survivre du fichier au rendu (cohérence avec la police, TACHE-02).</li>
@@ -137,12 +137,12 @@ Points d'attention</h1>
 <li>Pas de sur-ingénierie : ni pluriels, ni genres, ni interpolation d'arguments pour ce lot (extensions futures possibles) — hors périmètre.</li>
 <li>Séparer <b>données</b> (<code>.lang</code>) et <b>code</b> (chargeur) : source unique de vérité des textes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md478"></a>
+<h1><a class="anchor" id="autotoc_md479"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Catalogue chargé depuis fichier, <code>text(clé)</code> avec repli, changement de langue fonctionnels et testés (<code>ctest</code> vert) ; <b>langue française</b> complète pour les libellés du lot ; build <code>/W4 /WX</code> sans avertissement, documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md479"></a>
+<h1><a class="anchor" id="autotoc_md480"></a>
 Exigences</h1>
 <p><code>EX-REN-033</code>, <code>EX-REN-032</code>, <code>EX-NFR-010</code>, <code>EX-NFR-040</code>. </p>
 </div></div><!-- contents -->

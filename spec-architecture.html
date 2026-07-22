@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('spec-architecture.html',''); initResiz
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Décisions <b>structurantes</b>, chères à modifier après coup : tout lot doit les respecter. Transverse à toutes les specs. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md109"></a>
+<h1><a class="anchor" id="autotoc_md110"></a>
 1. Modules &amp; dépendances</h1>
 <ul>
 <li><code>Core</code> (simulation, indépendant du système), <code>HMI</code> (fenêtre, rendu, entrées, éditeur), <code>Elements</code> (assets), <code>Test</code>.</li>
 <li><a class="anchor" id="EX-ARCH-001"></a><b>EX-ARCH-001</b> — Le sens des dépendances est <code>HMI → Core</code>, jamais l'inverse. <code>Core</code> est testable sans fenêtre ni GPU.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md110"></a>
+<h1><a class="anchor" id="autotoc_md111"></a>
 2. Modèle d'entités : ECS</h1>
 <p>Choix retenu : <b>ECS complet</b>, hébergé dans <code>Core</code>. Assumé plus lourd, justifié par le grand nombre de types d'objets manipulables visés (dont décors dynamiques, cf. §11).</p>
 <ul>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('spec-architecture.html',''); initResiz
 <li>Composants pressentis (indicatif) : <code>Transform</code> (position/échelle/rotation en unités monde), <code>Velocity</code>, <code>Collider</code>, <code>Sprite</code>, <code>Animation</code>, <code>Layer</code>.</li>
 <li>Systèmes pressentis : mouvement/physique, collisions, animation (<code>Core</code>) ; rendu (lecture, <code>HMI</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md111"></a>
+<h1><a class="anchor" id="autotoc_md112"></a>
 3. Coordonnées &amp; unités — trois espaces distincts</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -130,49 +130,49 @@ $(document).ready(function(){initNavTree('spec-architecture.html',''); initResiz
 <li><a class="anchor" id="EX-ARCH-022"></a><b>EX-ARCH-022</b> — Rendu <b>pixel art</b> : échantillonnage <em>nearest-neighbor</em>, zoom caméra de préférence en <b>facteurs entiers</b> (netteté).</li>
 <li>La grille de tuiles (gameplay/collisions) et les décors libres <b>coexistent</b> dans le même espace monde ; les décors ne sont pas calés sur la grille.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md112"></a>
+<h1><a class="anchor" id="autotoc_md113"></a>
 4. Frontière simulation ↔ rendu</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-030"></a><b>EX-ARCH-030</b> — <code>Core</code> met à jour la simulation à <b>pas de temps fixe</b> ; <code>HMI</code> produit l'image en <b>lisant</b> l'état.</li>
 <li><a class="anchor" id="EX-ARCH-031"></a><b>EX-ARCH-031</b> — Un <b>facteur d'interpolation</b> <code>[0,1]</code> entre le pas précédent et le pas courant est fourni au rendu pour lisser le mouvement (prévu dès le départ).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md113"></a>
+<h1><a class="anchor" id="autotoc_md114"></a>
 5. Mathématiques dans &lt;tt&gt;Core&lt;/tt&gt;</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-040"></a><b>EX-ARCH-040</b> — <code>Core</code> définit <b>ses propres types</b> mathématiques (<code>Vector2</code>, <code>Rect</code>, …), <b>sans dépendance DirectX</b>. La conversion vers <code>DirectXMath</code> a lieu uniquement à la frontière de rendu (<code>HMI</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md114"></a>
+<h1><a class="anchor" id="autotoc_md115"></a>
 6. Abstraction de rendu</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-050"></a><b>EX-ARCH-050</b> — Le rendu est un <b>wrapper mince</b> au-dessus de Direct3D 11 (sprite batch). Pas de couche d'abstraction multi-backend (DirectX-only est acté).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md115"></a>
+<h1><a class="anchor" id="autotoc_md116"></a>
 7. Modèle de threading</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-060"></a><b>EX-ARCH-060</b> — Boucle <b>mono-thread</b> au MVP. Un éventuel chargement asynchrone sera isolé plus tard, sans remettre en cause la simulation déterministe.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md116"></a>
+<h1><a class="anchor" id="autotoc_md117"></a>
 8. Communication inter-systèmes</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-070"></a><b>EX-ARCH-070</b> — Communication par <b>appels directs / observateur simple</b>. Pas de bus d'événements tant que le couplage reste faible (réévalué si nécessaire).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md117"></a>
+<h1><a class="anchor" id="autotoc_md118"></a>
 9. Gestion des ressources</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-080"></a><b>EX-ARCH-080</b> — Un <code>ResourceManager</code> simple gère les ressources (textures, niveaux, décors) par <b>handle</b>, chargement à la demande. Pas de hot-reload au MVP.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md118"></a>
+<h1><a class="anchor" id="autotoc_md119"></a>
 10. Contrainte « éditeur intégré »</h1>
 <ul>
 <li><a class="anchor" id="EX-ARCH-090"></a><b>EX-ARCH-090</b> — Le modèle de niveau <b>et les décors</b> constituent un <b>état ECS mutable et sérialisable</b> ; le rendu de <code>HMI</code> est utilisable <b>hors mode jeu</b> ; les états de jeu incluent un état <b>Éditeur</b>. (Respecté tôt = cheap ; rajouté tard = cher.)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md119"></a>
+<h1><a class="anchor" id="autotoc_md120"></a>
 11. Décors dynamiques (accommodation dimensionnante)</h1>
 <p>Les décors (cf. <a class="el" href="decors_8md.html">`decors.md`</a>) sont manipulables <b>à la conception (éditeur)</b> et <b>à terme en jeu par le joueur</b> (mécanique). Conséquence structurante :</p>
 <ul>
 <li><a class="anchor" id="EX-ARCH-100"></a><b>EX-ARCH-100</b> — Les décors sont des <b>entités de la simulation</b> (<code>Core</code>), et non de simples éléments de rendu, afin d'être manipulables de façon <b>déterministe</b> et <b>sérialisable</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md120"></a>
+<h1><a class="anchor" id="autotoc_md121"></a>
 Traçabilité</h1>
 <p>Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : <a class="el" href="decors_8md.html">`decors.md`</a>. Exigences non fonctionnelles associées : <a class="el" href="exigences-non-fonctionnelles_8md.html">`exigences-non-fonctionnelles.md`</a>. </p>
 </div></div><!-- contents -->
