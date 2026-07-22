@@ -211,36 +211,48 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 // Niveau vierge : le nom est demande avant d'entrer en edition (EX-EDIT-009), pas
                 // fige a "Nouveau niveau" comme au LOT-14.
                 _picker.reset();
-                _nameInput = TextInputField("", &isValidLevelName);
-                _nameInputIsCreation = true;
+                _textPrompt = TextInputField("", &isValidLevelName);
+                _textPromptPurpose = TextPromptPurpose::CreateLevelName;
             }
         }
         return ScreenTransition::none();
     }
 
-    if (_nameInput) {
-        _nameInput->update(input);
-        if (_nameInput->confirmed()) {
-            const std::string name = trimLevelName(_nameInput->text());
-            if (_nameInputIsCreation) {
-                _draft = core::LevelDraft::empty(name, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-                _loadedFrom.reset();
-                _dirty = false;
-                _manualCamera = false;  // repart du cadrage automatique sur ce niveau
-                _selection.reset();     // une selection precedente peut deborder ce niveau
-            } else {
-                _draft.setName(name);
-                _dirty = true;  // renommer est une modification du brouillon comme une autre
+    if (_textPrompt) {
+        _textPrompt->update(input);
+        if (_textPrompt->confirmed()) {
+            switch (_textPromptPurpose) {
+                case TextPromptPurpose::CreateLevelName: {
+                    const std::string name = trimLevelName(_textPrompt->text());
+                    _draft = core::LevelDraft::empty(name, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                    _loadedFrom.reset();
+                    _dirty = false;
+                    _manualCamera = false;  // repart du cadrage automatique sur ce niveau
+                    _selection.reset();     // une selection precedente peut deborder ce niveau
+                    break;
+                }
+                case TextPromptPurpose::RenameLevel:
+                    _draft.setName(trimLevelName(_textPrompt->text()));
+                    _dirty = true;  // renommer est une modification du brouillon comme une autre
+                    break;
+                case TextPromptPurpose::ResizeGrid: {
+                    // Deja garanti analysable : isValidLevelSize (le validateur du champ) n'aurait
+                    // pas confirme sinon. Meme chemin que les fleches (EX-EDIT-012 inclus).
+                    const std::optional<std::pair<int, int>> size =
+                        parseLevelSize(_textPrompt->text());
+                    requestResize(size->first, size->second);
+                    break;
+                }
             }
-            _nameInput.reset();
+            _textPrompt.reset();
             _statusMessage.clear();
-        } else if (_nameInput->cancelled()) {
-            if (_nameInputIsCreation) {
+        } else if (_textPrompt->cancelled()) {
+            if (_textPromptPurpose == TextPromptPurpose::CreateLevelName) {
                 // Aucun brouillon n'existe encore a ce stade : rien a perdre, retour au selecteur.
-                _nameInput.reset();
+                _textPrompt.reset();
                 _picker = LevelPicker::forDirectory(hmi::executableDirectory() / "Levels");
             } else {
-                _nameInput.reset();  // renommage annule : le nom courant reste inchange
+                _textPrompt.reset();  // renommage/redimensionnement annule : rien ne change
             }
         }
         return ScreenTransition::none();
@@ -291,9 +303,18 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     }
     if (input.keyPressed(Key::F2)) {
         // Renommage (EX-EDIT-009) : le champ est pre-rempli du nom courant ; annuler le laisse
-        // inchange (traite par le bloc _nameInput ci-dessus a la prochaine frame).
-        _nameInput = TextInputField(_draft.name(), &isValidLevelName);
-        _nameInputIsCreation = false;
+        // inchange (traite par le bloc _textPrompt ci-dessus a la prochaine frame).
+        _textPrompt = TextInputField(_draft.name(), &isValidLevelName);
+        _textPromptPurpose = TextPromptPurpose::RenameLevel;
+        return ScreenTransition::none();
+    }
+    if (input.keyDown(Key::Control) && input.keyPressed(Key::R)) {
+        // Redimensionnement par saisie directe (EX-EDIT-017) : champ pre-rempli de la taille
+        // courante au format "largeur x hauteur", accepte par le parseur qui le confirmera.
+        const std::string currentSize = std::to_string(_draft.tileMap().width()) + "x" +
+                                        std::to_string(_draft.tileMap().height());
+        _textPrompt = TextInputField(currentSize, &isValidLevelSize);
+        _textPromptPurpose = TextPromptPurpose::ResizeGrid;
         return ScreenTransition::none();
     }
 
@@ -879,42 +900,57 @@ void EditorScreen::renderPicker(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine le champ de saisie du nom (creation ou renommage F2), avec un message de refus si la
-// derniere tentative de confirmation etait invalide (EX-EDIT-009).
-void EditorScreen::renderNameInput(RenderContext& context) {
+// Dessine le champ de saisie generique (nom a la creation, renommage F2, ou taille Ctrl+R), avec
+// un message de refus si la derniere tentative de confirmation etait invalide (EX-EDIT-009/017).
+void EditorScreen::renderTextPrompt(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
     context.spriteBatch.begin(projection, context.font.textureView());
 
-    const std::string title = _nameInputIsCreation ? "Nom du nouveau niveau" : "Renommer le niveau";
+    std::string title;
+    std::string rejectionMessage;
+    switch (_textPromptPurpose) {
+        case TextPromptPurpose::CreateLevelName:
+            title = "Nom du nouveau niveau";
+            rejectionMessage = "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+            break;
+        case TextPromptPurpose::RenameLevel:
+            title = "Renommer le niveau";
+            rejectionMessage = "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+            break;
+        case TextPromptPurpose::ResizeGrid:
+            title = "Nouvelle taille (largeur x hauteur)";
+            rejectionMessage = "Taille invalide : format attendu \"largeurxhauteur\" (ex. 40x30), "
+                               "chaque valeur entre 1 et " +
+                               std::to_string(MAX_LEVEL_DIMENSION) + ".";
+            break;
+    }
     context.font.drawText(context.spriteBatch, title, LevelPicker::MARGIN_X, LevelPicker::TITLE_Y,
                           4.0f, core::Color{0.90f, 0.90f, 0.95f, 1.0f});
 
-    const std::string display = _nameInput->text() + "_";
+    const std::string display = _textPrompt->text() + "_";
     context.font.drawText(context.spriteBatch, display, LevelPicker::MARGIN_X,
                           LevelPicker::OPTIONS_TOP, LevelPicker::OPTION_SCALE,
                           core::Color{1.0f, 0.85f, 0.35f, 1.0f});
 
-    if (_nameInput->rejected()) {
-        const std::string message =
-            "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+    if (_textPrompt->rejected()) {
         const float y =
             static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
-        context.font.drawText(context.spriteBatch, message, LevelPicker::MARGIN_X, y, 2.0f,
+        context.font.drawText(context.spriteBatch, rejectionMessage, LevelPicker::MARGIN_X, y, 2.0f,
                               core::Color{0.90f, 0.55f, 0.55f, 1.0f});
     }
     context.spriteBatch.end();
 }
 
-// Dessine le selecteur de niveau, le champ de saisie du nom, la session de jeu interne pendant un
-// essai immediat, ou sinon la grille du niveau en cours d'edition, la palette et le statut.
+// Dessine le selecteur de niveau, le champ de saisie generique, la session de jeu interne pendant
+// un essai immediat, ou sinon la grille du niveau en cours d'edition, la palette et le statut.
 void EditorScreen::render(RenderContext& context) {
     if (_picker) {
         renderPicker(context);
         return;
     }
-    if (_nameInput) {
-        renderNameInput(context);
+    if (_textPrompt) {
+        renderTextPrompt(context);
         return;
     }
     if (_playtest) {
