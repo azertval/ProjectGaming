@@ -149,6 +149,34 @@ pixels) d'une tuile de cette grille — c'est cette région, convertie en UV nor
 de la résolution réelle de l'atlas — c'est le rendu qui la normalise). La classe est conçue pour
 être **remplaçable** plus tard par un chargement de fichier réel sans changer son interface.
 
+### La région du personnage : pourquoi elle vit dans le même atlas
+
+Depuis LOT-17, `TextureAtlas` ne génère pas que la grille de tuiles : une bande supplémentaire de
+32 pixels de haut est ajoutée **sous** la grille (colonnes 0-15), où vit une **silhouette
+humanoïde** de 16×32 pixels (`playerRegion()`) — tête, cheveux, torse/manches, mains, jambes,
+chaussures, chacun une couleur distincte, le reste transparent. Le ratio 16:32 (1:2) n'est pas
+arbitraire : il reprend exactement celui de `core::playerSize()` (0,4×0,8 unité monde), pour que la
+silhouette ne subisse **aucune déformation** à l'écran (`SpriteRenderer` multiplie directement les
+pixels de la région par l'échelle du `Transform`, cf. plus bas).
+
+Ce choix — étendre l'atlas existant plutôt que créer une classe séparée sur le modèle de
+`SaveIcon`/`FlagIcons` (icônes de l'interface, @ref guide-journalisation, @ref guide-entrees) —
+découle directement de la contrainte de batching énoncée plus haut : `SpriteBatch::begin` (et donc
+`SpriteRenderer::render`, qui ne fait qu'**un seul** `begin`/`end` pour **toutes** les entités du
+monde) ne lie qu'**une seule** texture par lot. Une région de personnage dans une texture séparée
+aurait exigé de restructurer `SpriteRenderer` pour trier les entités par texture et faire plusieurs
+passes — hors de proportion pour ajouter une seule silhouette. En la plaçant dans la texture de
+`TextureAtlas`, aucune ligne de `SpriteRenderer` n'a besoin de changer : la normalisation UV s'appuie
+déjà, génériquement, sur `atlas.width()`/`height()` (devenus des membres stockés plutôt qu'une
+formule figée sur un atlas carré, pour accueillir cette bande supplémentaire).
+
+La silhouette elle-même est dessinée par **blocs rectangulaires** (comparaisons d'intervalles sur
+les coordonnées de pixel) plutôt que par les fonctions de distance géométrique de `FlagIcons` — plus
+direct à lire et à ajuster pour une forme humanoïde à cette résolution. Ce sprite est **statique**
+(une seule pose) : l'animation par séquence d'images (`EX-REN-012` — repos, course, saut) est
+délibérément un lot séparé, pour ne concevoir la structure de séquence qu'une fois la pose de
+référence validée visuellement.
+
 ## `hmi::SpriteRenderer` : le pont ECS → écran
 
 C'est ici que les fils se rejoignent : `SpriteRenderer::render(world, camera)` parcourt le `World`

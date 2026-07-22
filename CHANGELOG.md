@@ -6,6 +6,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **LOT-17 — Sprite du personnage (statique)** (`EX-REN-011`). Le personnage n'est plus une tuile
+  de couleur unie (`_atlas.tile(1, 1)`, cyan) : il affiche désormais une **silhouette humanoïde**
+  (tête, cheveux, torse/manches, mains, jambes, chaussures) générée en code, comme le reste de
+  l'atlas — aucun fichier image, aucune dépendance externe. La région (16×32 pixels, ratio 1:2
+  identique à `core::playerSize()`, pour éviter toute déformation à l'écran) vit dans la **même**
+  texture que les tuiles (`TextureAtlas`, agrandie d'une bande sous la grille), plutôt que dans une
+  classe séparée façon `SaveIcon`/`FlagIcons` : `SpriteRenderer` ne dessine qu'une seule texture
+  par passe, étendre l'atlas existant évite toute restructuration du rendu. Premier de **deux
+  lots** : ce lot livre une **pose statique unique** ; l'animation par séquence d'images
+  (repos/course/saut, `EX-REN-012`) est explicitement un lot séparé à venir. Vérifié visuellement
+  dans l'application ; `ctest` inchangé (292/292, aucune logique `Core` nouvelle — génération de
+  texture non testable hors GPU).
+
 ## [0.0.2] - 2026-07-22
 
 > Deuxième jalon : **éditeur de niveaux intégré**, du prototype (LOT-14) à l'outil de production
