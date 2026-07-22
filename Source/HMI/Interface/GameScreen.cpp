@@ -116,10 +116,10 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
     playerComponent.jumpsRemaining = _level->jumpBudget();
     playerComponent.dashesRemaining = _level->dashBudget();
     _world.addComponent(_player, playerComponent);
-    // Sprite du personnage : couche haute (dessine par-dessus les tuiles), teinte claire. La
-    // taille a l'ecran suit l'echelle du Transform (silhouette humanoide).
+    // Sprite du personnage : silhouette humanoide dediee (EX-REN-011), couche haute (dessine
+    // par-dessus les tuiles). La taille a l'ecran suit l'echelle du Transform.
     core::Sprite sprite;
-    sprite.region = _atlas.tile(1, 1);
+    sprite.region = _atlas.playerRegion();
     sprite.layer = 100;
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
