@@ -71,6 +71,29 @@ public:
      */
     [[nodiscard]] core::Vector2 screenToWorld(const core::Vector2& screen) const;
 
+    /**
+     * @brief Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.
+     *
+     * Entier (`std::floor`) tant que le facteur brut est supérieur ou égal à 1 — netteté pixel
+     * art, `EX-ARCH-022` (préférence, pas une règle absolue) ; **fractionnaire** uniquement
+     * lorsque nécessaire pour que le contenu entier tienne dans la surface disponible
+     * (`EX-REN-013`, `EX-EDIT-013`) : sans cette exception, un contenu plus grand que la surface
+     * resterait partiellement hors champ, faute de pouvoir descendre sous le zoom ×1.
+     *
+     * Fonction **pure**, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune
+     * règle dupliquée entre les deux écrans, LOT-16).
+     * @param availableWidth  Largeur disponible, en pixels (> 0).
+     * @param availableHeight Hauteur disponible, en pixels (> 0).
+     * @param contentWidth    Largeur du contenu à cadrer, en unités monde (> 0).
+     * @param contentHeight   Hauteur du contenu à cadrer, en unités monde (> 0).
+     * @param margin          Facteur multiplicatif appliqué avant l'arrondi (ex. `0.85` pour
+     *                        laisser une marge visuelle) ; `1.0` par défaut (aucune marge).
+     * @return Le facteur de zoom à appliquer via `setZoom`.
+     */
+    [[nodiscard]] static float fitZoom(float availableWidth, float availableHeight,
+                                       float contentWidth, float contentHeight,
+                                       float margin = 1.0f);
+
 private:
     /// @return L'échelle effective, en pixels par unité monde (PIXELS_PER_UNIT × zoom).
     [[nodiscard]] float scale() const;

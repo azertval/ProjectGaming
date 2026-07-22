@@ -379,14 +379,11 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         const int width = _draft.tileMap().width();
         const int height = _draft.tileMap().height();
         // Zoom minimal : jamais moins que le cadrage automatique (rien a voir au-dela du niveau,
-        // meme formule que renderGrid) ; zoom maximal : au moins MIN_VISIBLE_TILES cases sur le
-        // plus petit axe (precision suffisante pour poser un bloc, pas plus).
-        const float minZoom = (std::max)(
-            1.0f, std::floor((std::min)(canvasWidth / (static_cast<float>(width) *
-                                                       Camera2D::PIXELS_PER_UNIT),
-                                        viewportHeight / (static_cast<float>(height) *
-                                                          Camera2D::PIXELS_PER_UNIT)) *
-                             0.85f));
+        // meme formule que renderGrid, LOT-16 fitZoom) ; zoom maximal : au moins MIN_VISIBLE_TILES
+        // cases sur le plus petit axe (precision suffisante pour poser un bloc, pas plus).
+        const float minZoom = Camera2D::fitZoom(canvasWidth, viewportHeight,
+                                                static_cast<float>(width),
+                                                static_cast<float>(height), 0.85f);
         const float maxZoom =
             (std::max)(minZoom, std::floor((std::min)(canvasWidth, viewportHeight) /
                                            (MIN_VISIBLE_TILES * Camera2D::PIXELS_PER_UNIT)));
@@ -597,11 +594,12 @@ void EditorScreen::renderGrid(RenderContext& context) {
     // (EX-EDIT-015) — evite qu'une case ne se retrouve visuellement sous la palette/barre d'outils.
     const float canvasWidth = (std::max)(1.0f, static_cast<float>(context.viewportWidth) - PANEL_WIDTH);
     if (!_manualCamera) {
-        // Zoom pour faire tenir la grille dans le canevas, en facteur entier (nettete pixel art).
-        const float fitX = canvasWidth / (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
-        const float fitY = static_cast<float>(context.viewportHeight) /
-                           (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
-        _cameraZoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
+        // Zoom pour faire tenir la grille entiere dans le canevas (LOT-16, EX-EDIT-013) : entier
+        // (nettete pixel art) tant que le niveau tient a l'echelle x1, fractionnaire au-dela pour
+        // qu'aucune case ne reste hors champ.
+        _cameraZoom = Camera2D::fitZoom(canvasWidth, static_cast<float>(context.viewportHeight),
+                                        static_cast<float>(width), static_cast<float>(height),
+                                        0.85f);
         // Decale le centre vers la gauche, en unites monde, de la moitie du panneau converti a
         // l'echelle courante : le centre APPARENT de la grille se retrouve au milieu du canevas
         // plutot qu'au milieu de la fenetre entiere.

@@ -1,5 +1,8 @@
 #include "HMI/Graphics/Camera2D.h"
 
+#include <algorithm>
+#include <cmath>
+
 namespace hmi {
 
 // Construit une caméra pour une surface de rendu donnée.
@@ -61,6 +64,16 @@ core::Vector2 Camera2D::screenToWorld(const core::Vector2& screen) const {
     const float halfHeight = static_cast<float>(_viewportHeight) * 0.5f;
     return core::Vector2{(screen.x - halfWidth) / scale() + _center.x,
                          (screen.y - halfHeight) / scale() + _center.y};
+}
+
+// Facteur de zoom ajustant un contenu a une surface disponible, sans zone hors champ (LOT-16) :
+// entier tant qu'il est >= 1 (nettete pixel art), fractionnaire seulement si necessaire.
+float Camera2D::fitZoom(float availableWidth, float availableHeight, float contentWidth,
+                        float contentHeight, float margin) {
+    const float fitX = availableWidth / (contentWidth * PIXELS_PER_UNIT);
+    const float fitY = availableHeight / (contentHeight * PIXELS_PER_UNIT);
+    const float rawZoom = (std::min)(fitX, fitY) * margin;
+    return rawZoom >= 1.0f ? std::floor(rawZoom) : rawZoom;
 }
 
 }  // namespace hmi
