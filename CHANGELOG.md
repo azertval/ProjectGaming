@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.0.2] - 2026-07-22
+
+> Deuxième jalon : **éditeur de niveaux intégré**, du prototype (LOT-14) à l'outil de production
+> (LOT-15 : nommage, garde-fous contre la perte de travail, caméra manuelle, outils de zone,
+> panneau latéral, découvrabilité) puis aux grands niveaux (LOT-16 : saisie directe de taille,
+> caméra qui cadre un niveau plus grand que la fenêtre). Un level designer peint, lie des
+> mécanismes, redimensionne, annule/refait, enregistre et teste un niveau sans écrire de code —
+> guide non-codeur inclus pour partager les niveaux via Git sans ligne de commande. **292 tests**
+> (215 au jalon précédent), CI verte.
+>
+> Voir le [CHANGELOG](CHANGELOG.md) pour le détail par lot (LOT-14 → LOT-16).
+
 ### Ajouté
 - **LOT-16 — Niveaux de grande taille** (`EX-EDIT-017`, `EX-REN-013` corrigée). L'éditeur permet
   désormais de **saisir directement** une taille cible (**Ctrl+R**, format `largeurxhauteur`, ex.
