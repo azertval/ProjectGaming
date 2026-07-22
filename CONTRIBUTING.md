@@ -35,7 +35,11 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 
 ## Automatisations sur `main` (après merge d'une PR)
 - **CI** (`.github/workflows/ci.yml`) : s'exécute sur chaque PR ; contrôle requis pour merger.
-- **Release Debug** (`release.yml`) : publie l'exécutable Debug autonome dans la **Release `debug-latest`** — destiné aux non-développeurs (télécharger, décompresser, lancer).
+- **Release** (`release.yml`) : à chaque push sur `main`, republie l'exécutable Debug autonome
+  dans la **Release roulante `debug-latest`** (préversion, toujours à jour). À chaque tag
+  `vX.Y.Z` poussé, publie une **Release versionnée** (non préversion) avec les exécutables
+  **Debug et Release**, chacun autonome — destinés aux non-développeurs (télécharger,
+  décompresser, lancer).
 - **Documentation** (`docs.yml`) : génère la Doxygen et la publie sur la branche **`gh-pages`** (lisible en ligne via GitHub Pages).
 
 ## Avant d'ouvrir une PR
