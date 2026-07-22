@@ -15,7 +15,8 @@ namespace hmi {
  * Liste noire **minimale** (pas une liste blanche restrictive : les accents et l'Unicode restent
  * autorisés, `EX-NFR-010` n'impose rien de plus) : un nom valide n'est pas vide une fois les
  * espaces de bord retirés, et ne contient aucun des caractères interdits par le système de
- * fichiers Windows (`\ / : * ? " < > |`).
+ * fichiers Windows (antislash, barre oblique, deux-points, astérisque, point d'interrogation,
+ * guillemet droit, chevrons ouvrant/fermant, barre verticale).
  * @param name Nom saisi, tel quel (non retiré de ses espaces de bord).
  * @return `true` si @p name peut être utilisé comme nom de niveau.
  */

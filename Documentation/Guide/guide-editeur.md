@@ -284,7 +284,9 @@ virtuels de `WM_KEYDOWN`, cf. @ref guide-entrees) et les touches `Retour arrièr
 
 Un **validateur** optionnel (`std::function<bool(const std::string&)>`) conditionne la confirmation
 : `hmi::isValidLevelName` refuse un nom vide ou contenant un caractère interdit par le système de
-fichiers Windows (`\ / : * ? " < > |`) — une liste **noire** minimale, pas une liste blanche
+fichiers Windows (antislash, barre oblique, deux-points, astérisque, point d'interrogation,
+guillemet droit, chevrons ouvrant/fermant, barre verticale) — une liste **noire** minimale, pas une
+liste blanche
 restrictive (les accents restent autorisés). Un nom refusé laisse le champ actif plutôt que de le
 fermer, avec un message affiché par l'appelant (le champ lui-même ignore tout de la sémantique
 « niveau », il ne fait que saisir et valider du texte).

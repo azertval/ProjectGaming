@@ -16,8 +16,9 @@ silencieusement** — le défaut le plus risqué relevé sur LOT-14 (`EX-EDIT-00
   l'identique du principe déjà suivi par `TilePalette`/`LevelPicker`.
 - **Validation du nom** (fonction pure, testable, ex. `TextInputField::isValidLevelName` ou
   utilitaire dédié) : un nom valide est non vide (une fois les espaces de bord retirés) et ne
-  contient aucun des caractères invalides pour un nom de fichier Windows (`\ / : * ? " < > |`). Un
-  nom invalide **n'est pas confirmé** : le champ reste actif et affiche le motif du refus (nom
+  contient aucun des caractères invalides pour un nom de fichier Windows (antislash, barre oblique,
+  deux-points, astérisque, point d'interrogation, guillemet droit, chevrons ouvrant/fermant, barre
+  verticale). Un nom invalide **n'est pas confirmé** : le champ reste actif et affiche le motif du refus (nom
   vide / caractère interdit), sur le même modèle que la validation de niveau (`EX-EDIT-007`).
 - **Prompt à la création** : choisir « Nouveau niveau » dans `LevelPicker` ouvre un
   `TextInputField` demandant le nom avant d'entrer réellement en édition (au lieu du nom figé
@@ -45,8 +46,9 @@ silencieusement** — le défaut le plus risqué relevé sur LOT-14 (`EX-EDIT-00
 - `TextInputField` : caractères tapés s'accumulent dans l'ordre, `Backspace` retire le dernier,
   `Entrée` confirme avec le texte courant (si valide), `Échap` annule sans modifier l'appelant.
 - Validation du nom : chaîne vide ou composée uniquement d'espaces refusée ; chaîne contenant un
-  caractère de `\ / : * ? " < > |` refusée ; nom légitime (lettres, chiffres, espaces, accents,
-  tiret, underscore) accepté.
+  antislash, une barre oblique, un deux-points, un astérisque, un point d'interrogation, un
+  guillemet droit, un chevron ou une barre verticale refusée ; nom légitime (lettres, chiffres,
+  espaces, accents, tiret, underscore) accepté.
 - `Échap` pendant le prompt de création revient au `LevelPicker` sans créer de brouillon ; `Échap`
   pendant un renommage (`F2`) laisse `LevelDraft::name()` strictement inchangé.
 - `F2` puis renommage valide change `LevelDraft::name()` et le nom de fichier utilisé au prochain

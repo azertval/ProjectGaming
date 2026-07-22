@@ -23,9 +23,10 @@ projet vous-même. Depuis le menu principal, choisissez **Mode Édition**.
 enregistrés. Naviguez avec les flèches **↑**/**↓**, validez avec **Entrée**.
 
 En choisissant **Nouveau niveau**, un champ vous demande un **nom** : tapez-le puis validez avec
-**Entrée** (**Échap** annule et revient à la liste). Un nom ne doit pas être vide, ni contenir les
-caractères `\ / : * ? " < > |` (interdits par Windows dans un nom de fichier) — le champ vous le
-signale si besoin.
+**Entrée** (**Échap** annule et revient à la liste). Un nom ne doit pas être vide, ni contenir
+d'antislash, de barre oblique, de deux-points, d'astérisque, de point d'interrogation, de guillemet
+droit, de chevron ou de barre verticale (caractères interdits par Windows dans un nom de fichier) —
+le champ vous le signale si besoin.
 
 Une fois dans la grille, la **palette** de tuiles et la **barre d'outils** occupent le panneau à
 gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste complète des raccourcis
