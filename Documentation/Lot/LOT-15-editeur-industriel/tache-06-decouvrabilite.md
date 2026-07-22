@@ -53,3 +53,23 @@ partagée).
 
 ## Exigences
 `EX-EDIT-015`, `EX-EDIT-016`.
+
+## Ajustement post-livraison (essai utilisateur)
+Deux retours d'un essai interactif, après la livraison initiale de cette tâche, ont fait évoluer
+le périmètre au-delà de ce qui précède :
+
+- **« Les menus se superposent, faire plutôt un menu latéral. »** La palette et la barre d'outils,
+  dessinées en bandes horizontales empilées dans le coin haut-gauche (comme décrit ci-dessus),
+  pouvaient se recouvrir entre elles (aide, palette, barre d'outils) et recouvrir la grille selon
+  le cadrage. Remplacé par un **panneau latéral** vertical fixe : `Source/HMI/Editor/
+  EditorLayout.h` (nouveau) centralise la disposition (marges, taille d'icône, pas de ligne),
+  partagée par `TilePalette`, `ToolBar` et `EditorScreen`, qui recadre la grille dans le canevas à
+  droite du panneau (cf. TACHE-04) et dessine un fond opaque en garde-fou supplémentaire. Les
+  libellés passent de « sous chaque icône » à « à droite de chaque icône », plus adapté à une
+  colonne qu'à une rangée.
+- **« Ajouter un bouton pour afficher une grille, simplifiant la visualisation de la pré-pose des
+  blocs. »** Capacité absente du périmètre initial de cette tâche : des lignes fines sur chaque
+  bord de case, dessinées par-dessus les tuiles peintes (`EditorScreen::renderGrid`), activées par
+  `F10` — un raccourci clavier plutôt qu'un bouton du panneau, précisé par l'utilisateur après une
+  première version au bouton (cf. TACHE-01 pour le détail `WM_SYSKEYDOWN` qu'a exigé la capture de
+  `F10`).

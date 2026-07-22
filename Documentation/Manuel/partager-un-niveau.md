@@ -22,18 +22,31 @@ projet vous-même. Depuis le menu principal, choisissez **Mode Édition**.
 À l'ouverture de l'éditeur, une liste apparaît : **Nouveau niveau**, ou l'un des niveaux déjà
 enregistrés. Naviguez avec les flèches **↑**/**↓**, validez avec **Entrée**.
 
-Une fois dans la grille :
+En choisissant **Nouveau niveau**, un champ vous demande un **nom** : tapez-le puis validez avec
+**Entrée** (**Échap** annule et revient à la liste). Un nom ne doit pas être vide, ni contenir les
+caractères `\ / : * ? " < > |` (interdits par Windows dans un nom de fichier) — le champ vous le
+signale si besoin.
+
+Une fois dans la grille, la **palette** de tuiles et la **barre d'outils** occupent le panneau à
+gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste complète des raccourcis
+à l'écran (**F1** de nouveau pour la refermer).
 
 | Action | Comment |
 |--------|---------|
-| Peindre une tuile | Cliquer une case de la **palette** (en haut à gauche) pour choisir son type, puis cliquer (ou cliquer-glisser) sur la grille. |
+| Peindre une tuile | Cliquer une case de la **palette** (panneau de gauche) pour choisir son type, puis cliquer (ou cliquer-glisser) sur la grille. |
 | Placer l'entrée / la sortie | Choisir *Entrée* ou *Sortie* dans la palette, puis cliquer la case voulue — l'ancienne position se déplace automatiquement (un niveau n'a qu'une seule entrée et une seule sortie). |
-| Relier un interrupteur à une porte | Peindre d'abord un *Interrupteur* et une *Porte*, puis maintenir **Maj** et cliquer l'interrupteur, puis (Maj toujours enfoncé) cliquer la porte. Recommencer la même paire retire la liaison. |
-| Agrandir / réduire la grille | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. |
+| Relier un interrupteur à une porte | Peindre d'abord un *Interrupteur* et une *Porte*, puis maintenir **Maj** et cliquer l'interrupteur, puis (Maj toujours enfoncé) cliquer la porte. Recommencer la même paire retire la liaison. Cette liaison est possible avec n'importe quel outil actif. |
+| Changer d'outil | **Tab** fait défiler **Pinceau** (case par case) → **Rectangle** (remplit toute une zone glissée) → **Sélection** (voir ci-dessous) → Pinceau ; ou cliquer directement l'outil voulu dans le panneau. |
+| Remplir une zone | Outil **Rectangle** : cliquer-glisser d'un coin à l'autre de la zone, relâcher pour la remplir du type choisi dans la palette. |
+| Copier / coller une zone | Outil **Sélection** : cliquer-glisser pour définir la zone, puis **Ctrl+C** pour la copier ; **Ctrl+V** colle la copie à l'endroit survolé par la souris. |
+| Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** de la souris pour déplacer la vue ; **molette** pour zoomer/dézoomer ; touche **0** pour revenir au cadrage automatique. |
+| Afficher un quadrillage | **F10** — des lignes fines apparaissent sur chaque case, utile pour bien viser avant de peindre. |
+| Agrandir / réduire la grille | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (**Entrée** = confirmer, **Échap** = annuler) avant d'agir. |
+| Renommer le niveau | **F2**, taper le nouveau nom, **Entrée** pour valider (**Échap** pour annuler sans rien changer). |
 | Annuler / refaire | **Ctrl+Z** / **Ctrl+Y**. |
 | Tester le niveau | Touche **P** — le niveau se joue directement dans l'éditeur ; **Échap** pour revenir à l'édition, rien n'est perdu. |
-| Enregistrer | **Ctrl+S** — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). |
-| Quitter l'éditeur | **Échap** (hors essai immédiat) — retour au menu. |
+| Enregistrer | **Ctrl+S** — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). Si le nom correspond à un **autre** niveau déjà enregistré, une confirmation est demandée avant d'écraser ce fichier. |
+| Quitter l'éditeur | **Échap** (hors essai immédiat) — retour au menu. Si des modifications ne sont pas encore enregistrées, une confirmation est demandée avant de les perdre. |
 
 Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`.
 

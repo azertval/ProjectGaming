@@ -22,9 +22,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   tuiles) — `Tab` fait défiler Pinceau/Rectangle/Sélection, la liaison de mécanismes (`Maj`+clic)
   restant disponible quel que soit l'outil actif. Découvrabilité : la palette et la barre d'outils
   rejoignent un **panneau latéral** vertical fixe (au lieu de bandes empilées pouvant se
-  superposer entre elles ou avec la grille), avec un libellé sous chaque entrée ; un aperçu des
-  raccourcis (`F1`) ; et des liaisons interrupteur↔porte teintées **différemment par interrupteur**
-  (au lieu d'une seule teinte cyan partagée).
+  superposer entre elles ou avec la grille), avec un libellé à côté de chaque entrée ; un aperçu
+  des raccourcis (`F1`) ; et des liaisons interrupteur↔porte teintées **différemment par
+  interrupteur** (au lieu d'une seule teinte cyan partagée).
   Côté dette technique : l'essai immédiat (`P`) transmet désormais le niveau **directement en
   mémoire** à une session de jeu interne (plus de fichier temporaire partagé), et les messages
   d'erreur de validation s'appuient sur un **code d'erreur catégorisé** (`LevelValidationError`)
@@ -56,6 +56,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   un mécanisme, annuler, redimensionner, enregistrer, recharger, vérifier que le niveau produit est
   directement jouable). Vérifié manuellement dans l'application (peinture, palette, liaisons,
   redimensionnement, undo/redo, enregistrement sur disque, essai immédiat).
+
+### Corrigé
+- **`F10` (éditeur, LOT-15) ne déclenchait rien.** Win32 délivre cette touche (comme les
+  combinaisons `Alt`+quelque-chose) via `WM_SYSKEYDOWN`/`WM_SYSKEYUP`, jamais
+  `WM_KEYDOWN`/`WM_KEYUP` — une convention historique d'activation du menu, indépendante de
+  l'absence de menu dans cette fenêtre. `Window::handleMessage` capture désormais aussi ces deux
+  messages (comme les autres touches), en laissant `DefWindowProcW` traiter le comportement
+  système par défaut (`Alt+F4`, `Alt+Tab`) — sauf pour `F10` lui-même, absorbé pour éviter
+  l'activation visuelle, inutile ici, du (non-)système de menu au relâchement. Découvert lors d'un
+  essai interactif par l'utilisateur.
 
 ## [0.0.1] - 2026-07-18
 

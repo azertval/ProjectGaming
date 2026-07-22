@@ -55,3 +55,14 @@ fondations avant les tâches qui les consomment.
 
 ## Exigences
 `EX-NFR-010` (support des tâches suivantes, aucune exigence fonctionnelle propre).
+
+## Ajustement post-livraison (essai utilisateur)
+Un énumérateur `F10` (`0x79`) a été ajouté après coup, pour la bascule de la grille de repère
+(TACHE-06, elle-même ajoutée après un essai utilisateur — voir sa fiche). Contrairement aux autres
+touches nommées ici, `F10` a exigé plus qu'un énumérateur : un essai interactif a montré qu'elle ne
+déclenchait jamais rien, car Win32 délivre `F10` (et les combinaisons `Alt`+quelque-chose) via
+`WM_SYSKEYDOWN`/`WM_SYSKEYUP`, pas `WM_KEYDOWN`/`WM_KEYUP` (convention historique d'activation du
+menu). `Window::handleMessage` capture désormais aussi ces deux messages, enregistrés dans
+`InputState` comme les autres touches, tout en laissant `DefWindowProcW` traiter le comportement
+système par défaut (`Alt+F4`, `Alt+Tab`) — sauf pour `F10` lui-même, absorbé pour éviter
+l'activation visuelle, inutile ici, du (non-)système de menu de la fenêtre.

@@ -10,6 +10,8 @@ Livré (LOT-14, LOT-15) :
   (`TextInputField`, `LevelNameValidation`).
 - Outils **Pinceau** / **Rectangle** / **Sélection** (copier/coller) via la barre d'outils
   (`ToolBar`, `EditorTool`).
+- Panneau latéral fixe (`EditorLayout.h`, constantes de disposition partagées par `TilePalette`,
+  `ToolBar` et `EditorScreen`) — la grille se cadre dans le canevas à droite, jamais dessous.
 
 À venir (post-MVP, cf. `editeur-niveaux.md` §4bis) : placement/transform des **décors** (couches) et
 pipeline **photo → pixel art** intégré — dépendent d'un lot dédié (`decors.md`, `EX-DEC-*`,

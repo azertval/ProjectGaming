@@ -41,6 +41,16 @@ précision ou consulter une zone sans voir le reste dès que la grille dépasse 
 - Borner le zoom manuel à une valeur minimale raisonnable (> 0) pour éviter une division dégénérée
   dans `screenToWorld`/`worldToScreen`.
 
+## Ajustement post-livraison (essai utilisateur)
+Un premier passage ne bornait le zoom qu'à `≥ 1.0`, sans lien avec la taille du niveau. Un essai
+interactif a montré que ça permettait de dézoomer bien au-delà de ce qu'il y a à voir, et de zoomer
+sans limite jusqu'à perdre toute lisibilité. Les bornes ont été resserrées : **minimum** = le zoom
+d'ajustement automatique du niveau **courant** (rien à voir de plus loin), **maximum** = la valeur
+laissant encore **4 cases visibles** sur le plus petit axe de l'écran (précision jugée suffisante
+pour poser un bloc). Les deux bornes se recalculent à chaque molette sur les dimensions courantes
+du brouillon — aucune valeur figée, donc valable sans changement pour des niveaux plus grands
+(prévu pour un lot ultérieur, LOT-16).
+
 ## Définition de fait (DoD)
 - Pan/zoom manuels et réinitialisation opérationnels et testés (`ctest` vert) ; build `/W4 /WX` ;
   Doxygen à jour.

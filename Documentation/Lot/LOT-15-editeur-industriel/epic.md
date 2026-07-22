@@ -96,6 +96,12 @@ données, saisie de texte) reste dans `Core`/logique pure, testable sans GPU (`E
   d'écriture tardif et incompréhensible pour un non-codeur (cf. TACHE-03).
 - **Palette et barre d'outils restent des classes de géométrie pure** (comme `TilePalette` en
   LOT-14) : aucune dépendance de rendu, testables sans GPU.
+- **Ajustements post-livraison, à l'essai interactif** : la palette/barre d'outils, prévues en
+  bandes horizontales empilées, se recouvraient entre elles et parfois avec la grille — remplacées
+  par un **panneau latéral** vertical fixe (`EditorLayout.h`, TACHE-06). Une **grille de repère**
+  (bascule `F10`) a été ajoutée, absente du périmètre initial. Les bornes de zoom (TACHE-04) ont été
+  resserrées (cadrage automatique du niveau ↔ 4 cases visibles) après un premier passage sans lien
+  avec la taille du niveau. Détail dans les fiches TACHE-01/04/06 concernées.
 
 ## Exigences couvertes
 - Nouvelles : `EX-EDIT-009`, `EX-EDIT-012` à `EX-EDIT-016`.
