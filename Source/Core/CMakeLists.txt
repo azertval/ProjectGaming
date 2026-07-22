@@ -7,6 +7,7 @@ add_library(Core STATIC
     Ecs/World.cpp
     Ecs/Systems/MovementSystem.cpp
     Ecs/Systems/CharacterPhysicsSystem.cpp
+    Ecs/Systems/AnimationSystem.cpp
     Levels/TileMap.cpp
     Levels/LevelLoader.cpp
     Levels/LevelWriter.cpp

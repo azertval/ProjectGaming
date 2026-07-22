@@ -149,18 +149,18 @@ pixels) d'une tuile de cette grille — c'est cette région, convertie en UV nor
 de la résolution réelle de l'atlas — c'est le rendu qui la normalise). La classe est conçue pour
 être **remplaçable** plus tard par un chargement de fichier réel sans changer son interface.
 
-### La région du personnage : pourquoi elle vit dans le même atlas
+### Les images du personnage : pourquoi elles vivent dans le même atlas
 
-Depuis LOT-17, `TextureAtlas` ne génère pas que la grille de tuiles : une bande supplémentaire de
-16 pixels de haut est ajoutée **sous** la grille (colonnes 0-15), où vit une **silhouette
-humanoïde** (`playerRegion()`) — tête, cheveux, torse/manches, mains, jambes, chaussures, chacun
-une couleur distincte, le reste transparent. Cette région reste **carrée** (16×16, exactement comme
-une tuile) : `SpriteRenderer::render` multiplie ses dimensions en pixels par `Transform::scale`
-(cf. plus bas), et c'est cette échelle — `core::playerSize()`, déjà non uniforme (0,4×0,8 unité
-monde) — qui donne à elle seule au personnage sa proportion finale deux fois plus haute que large.
-Une région déjà 16×32 **doublerait** cet effet (0,4×1,6 à l'écran, débordant largement de la boîte
-de collision 0,4×0,8 — bug réellement rencontré en LOT-17, corrigé aussitôt) : la silhouette est
-donc dessinée **pré-compressée** de moitié en hauteur dans le canevas carré, pour retrouver ses
+Depuis LOT-17 (silhouette statique) puis LOT-18 (animation), `TextureAtlas` ne génère pas que la
+grille de tuiles : une grille supplémentaire est ajoutée **sous** la grille de tuiles, où vivent les
+**images de la silhouette humanoïde** (`playerFrameRegion(clip, frameIndex)`) — tête, cheveux,
+torse/manches, mains, jambes, chaussures, chacun une couleur distincte, le reste transparent.
+Chaque image reste **carrée** (16×16, exactement comme une tuile) : `SpriteRenderer::render`
+multiplie ses dimensions en pixels par `Transform::scale` (cf. plus bas), et c'est cette échelle —
+`core::playerSize()`, déjà non uniforme (0,4×0,8 unité monde) — qui donne à elle seule au
+personnage sa proportion finale deux fois plus haute que large. Une région déjà non carrée
+**doublerait** cet effet (bug réellement rencontré en LOT-17, corrigé aussitôt) : chaque image est
+donc dessinée **pré-compressée** de moitié en hauteur dans son canevas carré, pour retrouver ses
 proportions naturelles une fois étirée par l'échelle du `Transform`.
 
 Ce choix — étendre l'atlas existant plutôt que créer une classe séparée sur le modèle de
@@ -169,17 +169,34 @@ découle directement de la contrainte de batching énoncée plus haut : `SpriteB
 `SpriteRenderer::render`, qui ne fait qu'**un seul** `begin`/`end` pour **toutes** les entités du
 monde) ne lie qu'**une seule** texture par lot. Une région de personnage dans une texture séparée
 aurait exigé de restructurer `SpriteRenderer` pour trier les entités par texture et faire plusieurs
-passes — hors de proportion pour ajouter une seule silhouette. En la plaçant dans la texture de
-`TextureAtlas`, aucune ligne de `SpriteRenderer` n'a besoin de changer : la normalisation UV s'appuie
-déjà, génériquement, sur `atlas.width()`/`height()` (devenus des membres stockés plutôt qu'une
-formule figée sur un atlas carré, pour accueillir cette bande supplémentaire).
+passes — hors de proportion pour ce lot. En la plaçant dans la texture de `TextureAtlas`, aucune
+ligne de `SpriteRenderer` n'a besoin de changer : la normalisation UV s'appuie déjà, génériquement,
+sur `atlas.width()`/`height()` (devenus des membres stockés plutôt qu'une formule figée sur un atlas
+carré, pour accueillir cette grille supplémentaire).
 
-La silhouette elle-même est dessinée par **blocs rectangulaires** (comparaisons d'intervalles sur
-les coordonnées de pixel) plutôt que par les fonctions de distance géométrique de `FlagIcons` — plus
-direct à lire et à ajuster pour une forme humanoïde à cette résolution. Ce sprite est **statique**
-(une seule pose) : l'animation par séquence d'images (`EX-REN-012` — repos, course, saut) est
-délibérément un lot séparé, pour ne concevoir la structure de séquence qu'une fois la pose de
-référence validée visuellement.
+Chaque image est dessinée par **blocs rectangulaires** (comparaisons d'intervalles sur les
+coordonnées de pixel) plutôt que par les fonctions de distance géométrique de `FlagIcons` — plus
+direct à lire et à ajuster pour une forme humanoïde à cette résolution. Une pose (largeur des bras,
+écartement des jambes) est un simple paramètre de la fonction de dessin : les 7 images de la grille
+(2 `Idle`, 4 `Run`, 1 `Jump`) sont produites par la même logique, avec des paramètres différents —
+pas 7 fonctions dupliquées.
+
+### L'animation : une projection de l'état physique, pas un état séparé
+
+`EX-REN-012` demande une animation par séquence d'images (repos, course, saut). Le clip actif et
+l'image courante sont portés par un composant `core::Animation` (`clip`, `frameIndex`, `elapsed`)
+et mis à jour chaque pas fixe par `core::AnimationSystem` (@ref guide-ecs) — **entièrement côté
+`Core`**, sans dépendance aux pixels ni à `HMI` (`EX-ARCH-011`) : le système lit
+`Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem` **pour le
+même pas** — l'ordre d'appel dans `GameScreen::update` est significatif, @ref guide-ecs) pour
+déterminer si le personnage est en l'air, en train de courir, ou immobile ; aucun nouvel état n'est
+ajouté à `core::Player`, l'animation est une pure **conséquence** de l'état physique existant.
+
+Côté `HMI`, `GameScreen::render` appelle `refreshPlayerSprite()` **à chaque frame** (pas seulement
+au spawn, à la différence de LOT-17) : elle lit `core::Animation` du personnage et met à jour
+`sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex)`. C'est la même
+séparation que partout ailleurs dans le rendu : `Core` décide **quoi** afficher (quel clip, quelle
+image), `HMI` sait seule **à quoi ça ressemble** (quels pixels).
 
 ## `hmi::SpriteRenderer` : le pont ECS → écran
 

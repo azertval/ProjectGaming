@@ -95,6 +95,7 @@ add_executable(IntegrationTests
     Integration/test_boucle_simulation.cpp
     Integration/test_niveau_ecs.cpp
     Integration/test_physique_personnage.cpp
+    Integration/test_animation_personnage.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

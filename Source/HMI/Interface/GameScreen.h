@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/MechanismController.h"
@@ -88,6 +89,10 @@ private:
     /// opaque).
     void refreshDoorVisuals();
 
+    /// Met à jour la région d'atlas du sprite du personnage depuis son état d'animation
+    /// courant (`core::Animation`) — appelé à chaque frame de rendu, pas seulement au spawn.
+    void refreshPlayerSprite();
+
     const TextureAtlas& _atlas;  ///< Atlas conservé pour reconstruire la scène à chaque niveau.
     core::World _world;
     Camera2D _camera;
@@ -101,6 +106,7 @@ private:
         _mechanisms;                          ///< Interrupteurs/portes du niveau courant.
     std::vector<core::Entity> _doorEntities;  ///< Entités-tuiles des portes (retour visuel d'état).
     core::CharacterPhysicsSystem _physics;
+    core::AnimationSystem _animation;
     core::Entity _player{};  ///< Entité du personnage jouable (valide si `_level`).
     int _levelWidth = 0;
     int _levelHeight = 0;

@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Player.h"
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
@@ -116,10 +117,14 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
     playerComponent.jumpsRemaining = _level->jumpBudget();
     playerComponent.dashesRemaining = _level->dashBudget();
     _world.addComponent(_player, playerComponent);
-    // Sprite du personnage : silhouette humanoide dediee (EX-REN-011), couche haute (dessine
-    // par-dessus les tuiles). La taille a l'ecran suit l'echelle du Transform.
+    // Etat d'animation (EX-REN-012) : demarre en repos, image 0 (valeurs par defaut) ; fait
+    // evoluer par AnimationSystem chaque pas fixe (voir update()).
+    _world.addComponent(_player, core::Animation{});
+    // Sprite du personnage : silhouette humanoide animee (EX-REN-011), couche haute (dessine
+    // par-dessus les tuiles). La taille a l'ecran suit l'echelle du Transform. La region initiale
+    // correspond a l'etat d'animation par defaut ; refreshPlayerSprite() la tient a jour ensuite.
     core::Sprite sprite;
-    sprite.region = _atlas.playerRegion();
+    sprite.region = _atlas.playerFrameRegion(core::AnimationClip::Idle, 0);
     sprite.layer = 100;
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
@@ -137,7 +142,15 @@ void GameScreen::refreshDoorVisuals() {
     }
 }
 
-// Simule le personnage d'un pas fixe (mecanismes + physique), puis statue sur l'issue du niveau.
+// Met a jour la region d'atlas du sprite du personnage depuis son etat d'animation courant.
+void GameScreen::refreshPlayerSprite() {
+    const core::Animation& animation = _world.getComponent<core::Animation>(_player);
+    core::Sprite& sprite = _world.getComponent<core::Sprite>(_player);
+    sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex);
+}
+
+// Simule le personnage d'un pas fixe (mecanismes + physique + animation), puis statue sur
+// l'issue du niveau.
 ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     if (input.keyPressed(Key::Escape)) {
         return ScreenTransition::switchTo(ScreenId::Menu);
@@ -149,6 +162,9 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     // 1. Entrees -> intention, 2. physique sur la grille des MECANISMES (portes fermees = solides).
     const core::PlayerInput intent = toPlayerInput(input);
     _physics.update(_world, _mechanisms->collisionMap(), intent, fixedDelta);
+    // 2bis. Animation (EX-REN-012) : derivee de l'etat physique (Player::grounded, Velocity) qui
+    // vient d'etre mis a jour pour CE pas — doit s'executer apres la physique, jamais avant.
+    _animation.update(_world, fixedDelta);
 
     // 3. Boite du personnage apres deplacement.
     const core::Transform& transform = _world.getComponent<core::Transform>(_player);
@@ -204,6 +220,8 @@ void GameScreen::render(RenderContext& context) {
         context.spriteBatch.end();
         return;
     }
+
+    refreshPlayerSprite();
 
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
 
