@@ -1,6 +1,6 @@
 # LOT-16 — Niveaux de grande taille {#lot-16}
 
-> Statut : **non commencé**. Ce lot rend accessible ce que `Core` permet déjà sans restriction
+> Statut : **terminé**. Ce lot rend accessible ce que `Core` permet déjà sans restriction
 > (aucune taille maximale dans `TileMap`/`LevelDraft`) mais que l'ergonomie de l'éditeur limitait de
 > fait : choisir directement une grande taille de grille pendant l'édition, et voir un niveau
 > plus grand que la fenêtre correctement dans l'éditeur **et** en jeu.
@@ -81,10 +81,10 @@
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-plafond-validation-taille.md) | Plafond de taille et validation « largeur x hauteur » | `HMI/Editor`, `HMI/Input` | ⬜ |
-| [TACHE-02](tache-02-boite-dialogue-redimensionnement.md) | Boîte de dialogue de redimensionnement (`Ctrl+R`) | `HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-camera-niveau-entier.md) | Caméra : englober tout le niveau (éditeur et jeu) | `HMI/Interface` | ⬜ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-plafond-validation-taille.md) | Plafond de taille et validation « largeur x hauteur » | `HMI/Editor`, `HMI/Input` | ✅ |
+| [TACHE-02](tache-02-boite-dialogue-redimensionnement.md) | Boîte de dialogue de redimensionnement (`Ctrl+R`) | `HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-camera-niveau-entier.md) | Caméra : englober tout le niveau (éditeur et jeu) | `HMI/Interface` | ✅ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis l'éditeur, `Ctrl+R` ouvre une saisie pré-remplie de la taille courante ; taper une

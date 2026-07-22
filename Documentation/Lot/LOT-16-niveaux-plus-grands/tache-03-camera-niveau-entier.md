@@ -1,6 +1,6 @@
 # TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu) {#lot-16-tache-03-camera-niveau-entier}
 
-**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `EditorScreen::renderGrid` (cadrage automatique **et** borne minimale du zoom manuel, LOT-15) et

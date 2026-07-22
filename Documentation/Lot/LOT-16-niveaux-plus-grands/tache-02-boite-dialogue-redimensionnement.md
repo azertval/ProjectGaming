@@ -1,6 +1,6 @@
 # TACHE-02 — Boîte de dialogue de redimensionnement (`Ctrl+R`) {#lot-16-tache-02-boite-dialogue-redimensionnement}
 
-**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait
 
 ## Contexte
 `EditorScreen` porte déjà un champ de saisie de texte (`_nameInput`, LOT-15 TACHE-03) pour nommer

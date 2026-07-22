@@ -1,6 +1,6 @@
 # TACHE-01 — Plafond de taille et validation « largeur x hauteur » {#lot-16-tache-01-plafond-validation-taille}
 
-**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Input` · **Statut :** à faire
+**Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Input` · **Statut :** fait
 
 ## Contexte
 `Core` (`TileMap`, `LevelDraft`) n'impose aucune taille maximale — seule l'ergonomie du
