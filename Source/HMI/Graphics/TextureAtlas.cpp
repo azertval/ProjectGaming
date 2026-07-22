@@ -35,8 +35,15 @@ bool inRange(int value, int low, int high) {
 }
 
 // Couleur du pixel (x, y) de la silhouette du personnage, (0,0) = coin haut-gauche de la
-// region 16x32 (EX-REN-011). Silhouette humanoide simple, blocs rectangulaires : cheveux,
+// region 16x16 (EX-REN-011). Silhouette humanoide simple, blocs rectangulaires : cheveux,
 // peau, chemise/manches, mains, pantalon, chaussures. Transparent hors silhouette.
+//
+// La region est CARREE (16x16), comme une tuile : le rendu (SpriteRenderer) multiplie ses
+// dimensions par Transform::scale, qui vaut core::playerSize() (0,4 x 0,8, cf. GameScreen) —
+// c'est ce facteur d'echelle, deja non uniforme, qui donne au personnage sa silhouette deux
+// fois plus haute que large a l'ecran. Une region deja 16x32 doublerait cet effet (0,4 x 1,6
+// a l'ecran, hors de la hitbox 0,4 x 0,8) : la silhouette est donc dessinee compressee de
+// moitie en hauteur ici pour retrouver ses proportions une fois etiree par l'echelle.
 std::uint32_t playerPixel(int x, int y) {
     const std::uint32_t hair = pack(90, 60, 40, 255);
     const std::uint32_t skin = pack(230, 190, 150, 255);
@@ -45,40 +52,40 @@ std::uint32_t playerPixel(int x, int y) {
     const std::uint32_t shoes = pack(30, 30, 35, 255);
     const std::uint32_t transparent = pack(0, 0, 0, 0);
 
-    // Tete (lignes 0-7) : cheveux, puis peau avec cheveux sur les cotes, puis nuque.
-    if (inRange(y, 0, 1)) {
+    // Tete (lignes 0-3) : cheveux, puis peau avec cheveux sur les cotes, puis nuque.
+    if (y == 0) {
         return inRange(x, 5, 10) ? hair : transparent;
     }
-    if (inRange(y, 2, 4)) {
+    if (y == 1) {
         if (x == 5 || x == 10) {
             return hair;
         }
         return inRange(x, 6, 9) ? skin : transparent;
     }
-    if (inRange(y, 5, 6)) {
+    if (y == 2) {
         return inRange(x, 5, 10) ? skin : transparent;
     }
-    if (y == 7) {
+    if (y == 3) {
         return inRange(x, 6, 9) ? skin : transparent;
     }
-    // Torse (lignes 8-19) : epaules, puis bras+torse, mains aux extremites des bras, epaules.
-    if (y == 8 || inRange(y, 17, 19)) {
+    // Torse (lignes 4-9) : epaules, puis bras+torse, mains aux extremites des bras, epaules.
+    if (y == 4 || inRange(y, 8, 9)) {
         return inRange(x, 4, 11) ? shirt : transparent;
     }
-    if (inRange(y, 9, 14)) {
+    if (inRange(y, 5, 6)) {
         return inRange(x, 2, 13) ? shirt : transparent;
     }
-    if (inRange(y, 15, 16)) {
+    if (y == 7) {
         if (inRange(x, 2, 3) || inRange(x, 12, 13)) {
             return skin;
         }
         return inRange(x, 4, 11) ? shirt : transparent;
     }
-    // Jambes (lignes 20-31) : pantalon puis chaussures, separees par un espace transparent.
-    if (inRange(y, 20, 27)) {
+    // Jambes (lignes 10-15) : pantalon puis chaussures, separees par un espace transparent.
+    if (inRange(y, 10, 12)) {
         return (inRange(x, 5, 7) || inRange(x, 9, 11)) ? pants : transparent;
     }
-    if (inRange(y, 28, 31)) {
+    if (inRange(y, 13, 15)) {
         return (inRange(x, 5, 7) || inRange(x, 9, 11)) ? shoes : transparent;
     }
     return transparent;

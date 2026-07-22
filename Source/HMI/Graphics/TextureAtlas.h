@@ -17,10 +17,14 @@ namespace hmi {
  *
  * En l'absence d'asset graphique, l'atlas est produit en mémoire : une grille de tuiles
  * 16×16 de couleurs distinctes, dont une avec des zones **transparentes** (pour valider le
- * rendu alpha), complétée d'une **région dédiée au personnage** (silhouette humanoïde
- * 16×32, `EX-REN-011`) sous la grille. La génération est **déterministe**. La classe est
- * conçue pour être remplaçable plus tard par un chargement de fichier (l'interface — vue
- * de texture, dimensions, régions — reste stable). Ressources Direct3D en RAII (`ComPtr`).
+ * rendu alpha), complétée d'une **région dédiée au personnage** (silhouette humanoïde,
+ * `EX-REN-011`) sous la grille. Cette région reste **carrée** (16×16, comme une tuile) : le
+ * rendu (`SpriteRenderer`) la multiplie par `Transform::scale`, déjà non uniforme
+ * (`core::playerSize()`), qui donne à elle seule la silhouette sa proportion finale deux fois
+ * plus haute que large — une région déjà non carrée doublerait cet effet. La génération est
+ * **déterministe**. La classe est conçue pour être remplaçable plus tard par un chargement
+ * de fichier (l'interface — vue de texture, dimensions, régions — reste stable). Ressources
+ * Direct3D en RAII (`ComPtr`).
  */
 class TextureAtlas {
 public:
@@ -30,8 +34,9 @@ public:
     static constexpr int TILES_PER_SIDE = 4;
     /// Largeur de la région dédiée au personnage, en pixels.
     static constexpr int PLAYER_REGION_WIDTH = 16;
-    /// Hauteur de la région dédiée au personnage, en pixels (ratio 1:2, cf. `core::playerSize`).
-    static constexpr int PLAYER_REGION_HEIGHT = 32;
+    /// Hauteur de la région dédiée au personnage, en pixels. **Carrée** (= `TILE_SIZE`) : le
+    /// ratio 1:2 final vient de `Transform::scale` (`core::playerSize`), pas de la région.
+    static constexpr int PLAYER_REGION_HEIGHT = TILE_SIZE;
 
     /**
      * @brief Génère l'atlas procédural et crée la ressource Direct3D associée.
@@ -64,7 +69,7 @@ public:
 
     /**
      * @brief Région (en pixels) de la silhouette du personnage, sous la grille de tuiles.
-     * @return La région d'atlas de 16×32 pixels du personnage (`EX-REN-011`).
+     * @return La région d'atlas (16×16, carrée) du personnage (`EX-REN-011`).
      */
     [[nodiscard]] core::AtlasRegion playerRegion() const;
 
