@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-02-tache-05-integration.html','');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-02-journalisation_2epic_8md.html">LOT-02</a> · <b>Emplacement :</b> <code>Source/HMI</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md267"></a>
+<h1><a class="anchor" id="autotoc_md269"></a>
 Contexte</h1>
 <p>Dernière tâche : rendre le logger réellement utilisé par l'application et documenter son usage pour les prochains lots.</p>
-<h1><a class="anchor" id="autotoc_md268"></a>
+<h1><a class="anchor" id="autotoc_md270"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Fournir un <b>point d'accès</b> au logger de l'application (instance configurée au démarrage avec un <code>ConsoleLogSink</code>).</li>
@@ -105,27 +105,27 @@ Travail à réaliser</h1>
 <li>Journaliser les grandes étapes du démarrage (création fenêtre, initialisation Direct3D) en <code>Info</code>.</li>
 <li>Documenter dans <code>Source/Core/Diagnostics/README.md</code> l'usage des macros de log et d'assertion (exemples).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md269"></a>
+<h1><a class="anchor" id="autotoc_md271"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
 <li><code>Source/Core/Diagnostics/README.md</code> (mise à jour avec exemples).</li>
 <li><code>CHANGELOG.md</code> (section <em>Non publié</em>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md270"></a>
+<h1><a class="anchor" id="autotoc_md272"></a>
 Vérification</h1>
 <ul>
 <li><b>Manuelle</b> : au lancement, les messages <code>Info</code> de démarrage apparaissent ; en cas d'échec d'initialisation, un message <code>Error</code> clair est journalisé.</li>
 <li><b>Automatique</b> : <code>ctest</code> vert, build <code>/W4 /WX</code> sans avertissement, <b>CI verte</b> sur la PR.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md271"></a>
+<h1><a class="anchor" id="autotoc_md273"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>main</code> n'utilise plus d'I/O directe pour les erreurs (passe par le logger).</li>
 <li>Tous les critères d'acceptation de l'<a class="el" href="LOT-02-journalisation_2epic_8md.html">epic</a> satisfaits.</li>
 <li><code>CHANGELOG.md</code> mis à jour ; documentation Doxygen générable sans erreur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md272"></a>
+<h1><a class="anchor" id="autotoc_md274"></a>
 Exigences</h1>
 <p>Conventions §10 ; <code>EX-NFR-040</code>, <code>EX-NFR-013</code>. </p>
 </div></div><!-- contents -->

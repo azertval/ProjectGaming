@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('test__camera2d_8cpp.html',''); initRes
 <p>Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;DirectXMath.h&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
@@ -107,17 +108,19 @@ Include dependency graph for test_camera2d.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__camera2d_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Graphics_2test__camera2d_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Graphics_2test__camera2d_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Graphics_2test__camera2d_8cpp">
-<area shape="rect" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="76,5,297,75"/>
-<area shape="rect" title=" " alt="" coords="5,196,120,221"/>
-<area shape="poly" title=" " alt="" coords="90,77,61,97,38,124,34,138,35,153,48,183,43,185,30,155,28,138,34,121,57,94,87,73"/>
-<area shape="rect" title=" " alt="" coords="48,123,152,148"/>
-<area shape="poly" title=" " alt="" coords="157,77,122,114,118,111,153,73"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="263,196,417,221"/>
-<area shape="poly" title=" " alt="" coords="299,60,347,84,368,101,385,121,390,139,387,156,365,188,361,185,382,154,385,139,380,124,364,104,344,88,296,65"/>
-<area shape="rect" href="Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="176,123,371,148"/>
-<area shape="poly" title=" " alt="" coords="220,73,255,111,251,114,216,77"/>
-<area shape="poly" title=" " alt="" coords="240,151,110,194,109,189,239,145"/>
-<area shape="poly" title=" " alt="" coords="286,147,322,184,318,188,282,150"/>
+<area shape="rect" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection)." alt="" coords="52,5,273,75"/>
+<area shape="rect" title=" " alt="" coords="91,196,205,221"/>
+<area shape="poly" title=" " alt="" coords="65,77,36,97,13,124,9,135,9,145,22,163,48,178,80,190,78,195,46,183,19,167,4,147,3,135,8,121,32,93,62,72"/>
+<area shape="rect" title=" " alt="" coords="23,123,86,148"/>
+<area shape="poly" title=" " alt="" coords="125,77,80,116,77,112,122,73"/>
+<area shape="rect" title=" " alt="" coords="111,123,215,148"/>
+<area shape="poly" title=" " alt="" coords="165,75,165,109,160,109,160,75"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="325,196,480,221"/>
+<area shape="poly" title=" " alt="" coords="274,57,379,83,421,100,448,121,454,138,450,156,428,188,424,185,445,154,448,139,443,124,418,105,377,88,273,62"/>
+<area shape="rect" href="Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="239,123,433,148"/>
+<area shape="poly" title=" " alt="" coords="227,72,304,114,301,118,224,77"/>
+<area shape="poly" title=" " alt="" coords="307,151,192,193,191,188,305,146"/>
+<area shape="poly" title=" " alt="" coords="349,147,384,184,381,188,345,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -141,12 +144,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a53f875977ce1115431503ec3ccb00d6c" id="r_a53f875977ce1115431503ec3ccb00d6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__camera2d_8cpp.html#a53f875977ce1115431503ec3ccb00d6c">TEST</a> (Camera2DTest, BordEcranVersBordClip)</td></tr>
 <tr class="memdesc:a53f875977ce1115431503ec3ccb00d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un coin de l'écran correspond à un bord du clip space (±1).  <br /></td></tr>
 <tr class="separator:a53f875977ce1115431503ec3ccb00d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e8e1cce3f58cfbed72766c3fd93afd" id="r_a09e8e1cce3f58cfbed72766c3fd93afd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__camera2d_8cpp.html#a09e8e1cce3f58cfbed72766c3fd93afd">TEST</a> (Camera2DTest, FitZoomEntierPourPetitNiveau)</td></tr>
+<tr class="memdesc:a09e8e1cce3f58cfbed72766c3fd93afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).  <br /></td></tr>
+<tr class="separator:a09e8e1cce3f58cfbed72766c3fd93afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3337cce29ff92f989bed5ad7b77b5c4" id="r_ad3337cce29ff92f989bed5ad7b77b5c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__camera2d_8cpp.html#ad3337cce29ff92f989bed5ad7b77b5c4">TEST</a> (Camera2DTest, FitZoomFractionnairePourGrandNiveau)</td></tr>
+<tr class="memdesc:ad3337cce29ff92f989bed5ad7b77b5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.  <br /></td></tr>
+<tr class="separator:ad3337cce29ff92f989bed5ad7b77b5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d50b67f81e6de6a8cc1364b9ec2f8c" id="r_a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__camera2d_8cpp.html#a00d50b67f81e6de6a8cc1364b9ec2f8c">TEST</a> (Camera2DTest, FitZoomAppliqueLaMarge)</td></tr>
+<tr class="memdesc:a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">fitZoom applique la marge avant l'arrondi.  <br /></td></tr>
+<tr class="separator:a00d50b67f81e6de6a8cc1364b9ec2f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a53f875977ce1115431503ec3ccb00d6c" name="a53f875977ce1115431503ec3ccb00d6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53f875977ce1115431503ec3ccb00d6c">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a53f875977ce1115431503ec3ccb00d6c">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +184,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un coin de l'écran correspond à un bord du clip space (±1). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000229">Cas de test:</a></b></dt><dd><b>Un coin de l'écran correspond à un bord du clip space (±1).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000235">Cas de test:</a></b></dt><dd><b>Un coin de l'écran correspond à un bord du clip space (±1).</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -183,7 +195,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab1dad21306961b3a2292db4816f50ea1" name="ab1dad21306961b3a2292db4816f50ea1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1dad21306961b3a2292db4816f50ea1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1dad21306961b3a2292db4816f50ea1">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +221,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le centre de la caméra se projette au centre de l'écran. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000224">Cas de test:</a></b></dt><dd><b>Le centre de la caméra se projette au centre de l'écran.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000230">Cas de test:</a></b></dt><dd><b>Le centre de la caméra se projette au centre de l'écran.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -220,7 +232,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8501daf5f578c70a72d0ada742e2ed19" name="a8501daf5f578c70a72d0ada742e2ed19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8501daf5f578c70a72d0ada742e2ed19">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8501daf5f578c70a72d0ada742e2ed19">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +258,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000227">Cas de test:</a></b></dt><dd><b><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000233">Cas de test:</a></b></dt><dd><b><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -257,7 +269,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe3c8e4de45220ca2bdc4131088c6393" name="abe3c8e4de45220ca2bdc4131088c6393"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe3c8e4de45220ca2bdc4131088c6393">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe3c8e4de45220ca2bdc4131088c6393">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +295,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000225">Cas de test:</a></b></dt><dd><b>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000231">Cas de test:</a></b></dt><dd><b>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -293,8 +305,119 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a00d50b67f81e6de6a8cc1364b9ec2f8c" name="a00d50b67f81e6de6a8cc1364b9ec2f8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d50b67f81e6de6a8cc1364b9ec2f8c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">Camera2DTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FitZoomAppliqueLaMarge&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fitZoom applique la marge avant l'arrondi. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000238">Cas de test:</a></b></dt><dd><b>fitZoom applique la marge avant l'arrondi.</b><br  />
+ <b>Categorie :</b> Unitaire · Camera2 D<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> fitZoom applique la marge avant l'arrondi.</dd></dl>
+
+</div>
+</div>
+<a id="a09e8e1cce3f58cfbed72766c3fd93afd" name="a09e8e1cce3f58cfbed72766c3fd93afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09e8e1cce3f58cfbed72766c3fd93afd">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">Camera2DTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FitZoomEntierPourPetitNiveau&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000236">Cas de test:</a></b></dt><dd><b>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).</b><br  />
+ <b>Categorie :</b> Unitaire · Camera2 D<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).</dd></dl>
+
+</div>
+</div>
+<a id="ad3337cce29ff92f989bed5ad7b77b5c4" name="ad3337cce29ff92f989bed5ad7b77b5c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3337cce29ff92f989bed5ad7b77b5c4">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">Camera2DTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FitZoomFractionnairePourGrandNiveau&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000237">Cas de test:</a></b></dt><dd><b>fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.</b><br  />
+ <b>Categorie :</b> Unitaire · Camera2 D<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.</dd></dl>
+
+</div>
+</div>
 <a id="ae2179c844b3f7524cff7b02e0cad488d" name="ae2179c844b3f7524cff7b02e0cad488d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2179c844b3f7524cff7b02e0cad488d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2179c844b3f7524cff7b02e0cad488d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +443,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La matrice de projection envoie le centre de la caméra à l'origine du clip space. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000228">Cas de test:</a></b></dt><dd><b>La matrice de projection envoie le centre de la caméra à l'origine du clip space.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000234">Cas de test:</a></b></dt><dd><b>La matrice de projection envoie le centre de la caméra à l'origine du clip space.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -331,7 +454,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afb44f0a1467aad957fe999626534600c" name="afb44f0a1467aad957fe999626534600c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb44f0a1467aad957fe999626534600c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afb44f0a1467aad957fe999626534600c">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +480,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le zoom multiplie l'échelle en pixels. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000226">Cas de test:</a></b></dt><dd><b>Le zoom multiplie l'échelle en pixels.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000232">Cas de test:</a></b></dt><dd><b>Le zoom multiplie l'échelle en pixels.</b><br  />
  <b>Categorie :</b> Unitaire · Camera2 D<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

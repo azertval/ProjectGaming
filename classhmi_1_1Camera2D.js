@@ -1,6 +1,7 @@
 var classhmi_1_1Camera2D =
 [
     [ "Camera2D", "classhmi_1_1Camera2D.html#a8e28425fba642a6e08de0fcdf53b0ce7", null ],
+    [ "fitZoom", "classhmi_1_1Camera2D.html#a197df5a46fa35ccf6c17df58662b16bb", null ],
     [ "projectionMatrix", "classhmi_1_1Camera2D.html#ae4d184982026b7f61e3507c0d264321b", null ],
     [ "scale", "classhmi_1_1Camera2D.html#a05631b448bb3005aee3bbc5658a6058a", null ],
     [ "screenToWorld", "classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d", null ],

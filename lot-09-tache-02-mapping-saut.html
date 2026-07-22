@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-09-tache-02-mapping-saut.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-09-saut-game-feel_2epic_8md.html">LOT-09</a> · <b>Emplacement :</b> <code>Source/HMI/Input</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md633"></a>
+<h1><a class="anchor" id="autotoc_md635"></a>
 Contexte</h1>
 <p>Le saut ne doit pas dépendre d'une touche physique (<code>EX-CTRL-010</code>) : <code>toPlayerInput</code> (LOT-08) traduit déjà le déplacement, on lui ajoute le <b>saut</b>. Il faut les <b>deux fronts</b> — pressé et maintenu — que l'<code>InputState</code> (LOT-06) sait déjà fournir (<code>keyPressed</code>, <code>keyDown</code>).</p>
-<h1><a class="anchor" id="autotoc_md634"></a>
+<h1><a class="anchor" id="autotoc_md636"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Étendre l'énumération <code>Key</code> si nécessaire (l'espace existe déjà : <code>Space</code> ; <code>W</code> a été ajouté au LOT-08).</li>
@@ -108,13 +108,13 @@ Travail à réaliser</h1>
 </li>
 <li>Conserver la correspondance de déplacement existante (gauche/droite inchangée).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md635"></a>
+<h1><a class="anchor" id="autotoc_md637"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PlayerInputMapper_8cpp.html">Source/HMI/Input/PlayerInputMapper.cpp</a></code> (et <code>.h</code> si le contrat évolue).</li>
 <li>Test unitaire du mapping.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md636"></a>
+<h1><a class="anchor" id="autotoc_md638"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>Space</code> <b>pressée</b> (front) → <code>jumpPressed == true</code> ; <code>Space</code> maintenue mais pas au front → <code>jumpPressed == false</code>, <code>jumpHeld == true</code>.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li>Aucune touche de saut → <code>jumpPressed == false</code> et <code>jumpHeld == false</code>.</li>
 <li>Le déplacement (<code>moveX</code>) reste correct en présence d'un saut (indépendance des axes).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md637"></a>
+<h1><a class="anchor" id="autotoc_md639"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Pressé vs maintenu</b> : <code>keyPressed</code> = front d'une frame (déclenche une fois) ; <code>keyDown</code> = maintenu (continu). Ne pas confondre — c'est ce qui distingue « sauter » de « garder l'appui ».</li>
 <li><b>Pur et testable</b> : le mapper lit un <code>InputState</code> injecté, aucune fenêtre (<code>EX-NFR-010</code>).</li>
 <li>La couche <code>Core</code> ne verra que <code>PlayerInput</code> : un futur remappage/manette (<code>EX-CTRL-012</code>) ne touchera que cette fonction.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md638"></a>
+<h1><a class="anchor" id="autotoc_md640"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Saut mappé (pressé + maintenu) et <b>testé</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md639"></a>
+<h1><a class="anchor" id="autotoc_md641"></a>
 Exigences</h1>
 <p><code>EX-CTRL-010</code>, <code>EX-CTRL-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('lot-01.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Premier lot : le socle d'exécution sur lequel tout le reste se greffe. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md192"></a>
+<h1><a class="anchor" id="autotoc_md194"></a>
 Objectif</h1>
 <p>Disposer d'une application Windows qui <b>ouvre une fenêtre</b>, <b>initialise Direct3D 11</b>, tourne dans une <b>boucle de jeu à pas de temps fixe</b> et <b>efface l'écran</b> à une couleur, avec une fermeture et une libération des ressources propres (RAII).</p>
 <p>À l'issue du lot : un exécutable qui affiche une fenêtre stable à 60 FPS, redimensionnable, se fermant proprement — sans encore aucun contenu de jeu.</p>
-<h1><a class="anchor" id="autotoc_md193"></a>
+<h1><a class="anchor" id="autotoc_md195"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md194"></a>
+<h2><a class="anchor" id="autotoc_md196"></a>
 Inclus</h2>
 <ul>
 <li>Création d'une fenêtre Win32 (titre, icône, redimensionnable) et pompe de messages.</li>
@@ -112,14 +112,14 @@ Inclus</h2>
 <li>Gestion du <b>redimensionnement</b> de la fenêtre (redimensionnement du swap chain).</li>
 <li>Libération de toutes les ressources en RAII.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md195"></a>
+<h2><a class="anchor" id="autotoc_md197"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li>Rendu de sprites, tuiles, textures.</li>
 <li>Entrées clavier/manette (LOT dédié).</li>
 <li>Logique de jeu, entités, niveaux.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md196"></a>
+<h1><a class="anchor" id="autotoc_md198"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-REN-001</code> — fonctionnement Windows 10/11 x64.</li>
@@ -131,7 +131,7 @@ Exigences couvertes</h1>
 <li><code>EX-NFR-010</code> — logique de cadencement dans <code>Core</code>, testable sans fenêtre ni GPU.</li>
 <li><code>EX-NFR-041</code> — ressources DirectX gérées en RAII.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md197"></a>
+<h1><a class="anchor" id="autotoc_md199"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="LOT-01-fenetre-boucle-jeu_2tache-05-integration_8md.html">TACHE-05</a>   </td><td class="markdownTableBodyNone">Intégration <code>main</code> &amp; vérification   </td><td class="markdownTableBodyNone"><code>HMI</code>   </td><td class="markdownTableBodyCenter">✅ Fait   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md198"></a>
+<h1><a class="anchor" id="autotoc_md200"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>L'exécutable ouvre une fenêtre titrée, redimensionnable, et se ferme proprement (croix / Échap).</li>
@@ -160,7 +160,7 @@ Critères d'acceptation du lot</h1>
 <li>Build <b>sans avertissement</b> (<code>/W4 /WX</code>), <code>ctest</code> vert, <b>CI verte</b>.</li>
 <li>API publique nouvelle documentée en Doxygen ; <code>CHANGELOG.md</code> mis à jour.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md199"></a>
+<h1><a class="anchor" id="autotoc_md201"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-01-tache-01-fenetre-win32.html">TACHE-01 — Fenêtre Win32 &amp; pompe de messages</a></li>

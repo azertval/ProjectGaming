@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['jeu_0',['Télécharger et lancer le jeu',['../manuel-telecharger.html',1,'manuel']]],
+  ['jeu_0',['jeu',['../manuel-telecharger.html',1,'Télécharger et lancer le jeu'],['../lot-16-tache-03-camera-niveau-entier.html',1,'TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)']]],
   ['jeu_20démo_20éditeur_20placeholder_1',['TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)',['../lot-06-tache-06-ecrans-cibles.html',1,'lot-06']]],
   ['jeu_20direct3d_2011_2',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],
   ['jeu_20et_20pas_20de_20temps_20fixe_3',['Boucle de jeu et pas de temps fixe',['../guide-boucle.html',1,'guide']]],

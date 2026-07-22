@@ -1,6 +1,11 @@
 var classhmi_1_1EditorScreen =
 [
     [ "PendingConfirmation", "structhmi_1_1EditorScreen_1_1PendingConfirmation.html", "structhmi_1_1EditorScreen_1_1PendingConfirmation" ],
+    [ "TextPromptPurpose", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364", [
+      [ "CreateLevelName", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d", null ],
+      [ "RenameLevel", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a", null ],
+      [ "ResizeGrid", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364a60c3541891d2c4bc4e8341095197af1b", null ]
+    ] ],
     [ "EditorScreen", "classhmi_1_1EditorScreen.html#a032f695cbcced9ab149d4209b4397af1", null ],
     [ "~EditorScreen", "classhmi_1_1EditorScreen.html#a37879a751e352709fbc7c0bcca57ed19", null ],
     [ "clampedCell", "classhmi_1_1EditorScreen.html#abc2f18e75f0fa8df017eb45e7fcbed72", null ],
@@ -9,13 +14,13 @@ var classhmi_1_1EditorScreen =
     [ "render", "classhmi_1_1EditorScreen.html#ab20ee1eccc18221d1bb8ce0a21af06bd", null ],
     [ "renderGrid", "classhmi_1_1EditorScreen.html#a08788a9e0d8d4c68b99735193dbfdf60", null ],
     [ "renderHelp", "classhmi_1_1EditorScreen.html#a3e38294ee7e7807046ba5daee533cb63", null ],
-    [ "renderNameInput", "classhmi_1_1EditorScreen.html#aa77cf311091bf6ec3acf72dde590002a", null ],
     [ "renderPalette", "classhmi_1_1EditorScreen.html#a789e85309b32e3cde348a55f00233449", null ],
     [ "renderPanelBackground", "classhmi_1_1EditorScreen.html#ab73f97f44d92f1f5edeaec16c600323f", null ],
     [ "renderPicker", "classhmi_1_1EditorScreen.html#abe568e1c2f366f3bb7ba7d6c67f891b7", null ],
     [ "renderStatus", "classhmi_1_1EditorScreen.html#a47ec07ed07cd579fc42195310ba1aa45", null ],
+    [ "renderTextPrompt", "classhmi_1_1EditorScreen.html#a7cb57f9962c7e818c702c26e79f1bbac", null ],
     [ "renderToolBar", "classhmi_1_1EditorScreen.html#a6ae7f1e207e6e451bcd0000f71fd3ccd", null ],
-    [ "requestResize", "classhmi_1_1EditorScreen.html#a584dd9dee921dac71e4c2c9953e2bea4", null ],
+    [ "requestResize", "classhmi_1_1EditorScreen.html#a925a1d81bf6ac6f6afc9c09cf928c125", null ],
     [ "saveDraft", "classhmi_1_1EditorScreen.html#af418a4c8f6277b98c1eeb15c16ec54ff", null ],
     [ "startPlaytest", "classhmi_1_1EditorScreen.html#affd589aa8d71e4a5596c996ecf5242b5", null ],
     [ "update", "classhmi_1_1EditorScreen.html#a2360467b3ee638343647c4463478b6ff", null ],
@@ -34,8 +39,6 @@ var classhmi_1_1EditorScreen =
     [ "_manualCamera", "classhmi_1_1EditorScreen.html#ae615466da1fe13fcb2787f76818f115d", null ],
     [ "_mouseX", "classhmi_1_1EditorScreen.html#a28689a88815be22a377c3ad144cabfd6", null ],
     [ "_mouseY", "classhmi_1_1EditorScreen.html#a0942519f756a1d84fb294e5c16b6d4ea", null ],
-    [ "_nameInput", "classhmi_1_1EditorScreen.html#ab005a23cb49ba04956d6169c963ca938", null ],
-    [ "_nameInputIsCreation", "classhmi_1_1EditorScreen.html#a011cfdd2d54e6e80c1f74841526e3d78", null ],
     [ "_paintingDrag", "classhmi_1_1EditorScreen.html#ad95dc4eb430b5f22ec156a649cebc6bc", null ],
     [ "_palette", "classhmi_1_1EditorScreen.html#a1767565e47e451261bf6ac1d41a93051", null ],
     [ "_pendingConfirmation", "classhmi_1_1EditorScreen.html#aaa1daa256faf2b6c395e8061a043a28f", null ],
@@ -46,6 +49,8 @@ var classhmi_1_1EditorScreen =
     [ "_showGridLines", "classhmi_1_1EditorScreen.html#a65486fdc1190a59530c1bd970a5266a6", null ],
     [ "_showHelp", "classhmi_1_1EditorScreen.html#a2407fafdb6b1f2e26d11e2c79bf87cb9", null ],
     [ "_statusMessage", "classhmi_1_1EditorScreen.html#ad8cf6d4ffce51d77cb4663f26d517695", null ],
+    [ "_textPrompt", "classhmi_1_1EditorScreen.html#a2b566358212da5c137ee772e29ccd78a", null ],
+    [ "_textPromptPurpose", "classhmi_1_1EditorScreen.html#acee7f2c4d4c6f3686717cb592f4e886b", null ],
     [ "_toolBar", "classhmi_1_1EditorScreen.html#a8038add0904e76493141fbd8c9e160e5", null ],
     [ "_viewportHeight", "classhmi_1_1EditorScreen.html#abc6b058af0d1d6938ef4cda16c4fd5e1", null ],
     [ "_viewportWidth", "classhmi_1_1EditorScreen.html#ae9ba6050056593f8b719975b9f36e30f", null ]

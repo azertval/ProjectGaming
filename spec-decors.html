@@ -96,10 +96,10 @@ $(document).ready(function(){initNavTree('spec-decors.html',''); initResizable()
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Direction produit <b>« à terme »</b> : le socle (cf. <a class="el" href="architecture_8md.html">`architecture.md`</a>) doit l'<b>accommoder dès maintenant</b>, mais la livraison est <b>post-MVP</b>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md142"></a>
+<h1><a class="anchor" id="autotoc_md143"></a>
 Vision</h1>
 <p>Les décors sont issus de <b>photos réelles converties en pixel art</b>, plaçables et transformables. Ils sont manipulables par le <b>level designer</b> (dans l'éditeur) et, <b>à terme, par le joueur</b> (mécanique de gameplay).</p>
-<h1><a class="anchor" id="autotoc_md143"></a>
+<h1><a class="anchor" id="autotoc_md144"></a>
 1. Système de décors</h1>
 <ul>
 <li><a class="anchor" id="EX-DEC-001"></a><b>EX-DEC-001</b> — Un décor est un <b>objet libre</b> (non calé sur la grille de tuiles) doté d'un <b>transform</b> (position, échelle, rotation optionnelle) en unités monde.</li>
@@ -108,20 +108,20 @@ Vision</h1>
 <li><a class="anchor" id="EX-DEC-004"></a><b>EX-DEC-004</b> — Les décors sont des <b>entités ECS de la simulation <code>Core</code></b> (état sérialisable, manipulation déterministe) — cf. <code>EX-ARCH-100</code>.</li>
 <li><a class="anchor" id="EX-DEC-005"></a><b>EX-DEC-005</b> — Chaque décor porte une propriété <b>statique</b> ou <b>manipulable en jeu</b> (détermine s'il participe à la mécanique joueur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md144"></a>
+<h1><a class="anchor" id="autotoc_md145"></a>
 2. Manipulation</h1>
-<h2><a class="anchor" id="autotoc_md145"></a>
+<h2><a class="anchor" id="autotoc_md146"></a>
 À la conception (éditeur)</h2>
 <ul>
 <li><a class="anchor" id="EX-DEC-010"></a><b>EX-DEC-010</b> — L'éditeur permet de <b>placer, déplacer, redimensionner, superposer et supprimer</b> des décors.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md146"></a>
+<h2><a class="anchor" id="autotoc_md147"></a>
 En jeu (mécanique, à terme)</h2>
 <ul>
 <li><a class="anchor" id="EX-DEC-020"></a><b>EX-DEC-020</b> — Le joueur peut <b>manipuler en temps réel</b> les décors marqués manipulables (déplacer / redimensionner).</li>
 <li><a class="anchor" id="EX-DEC-021"></a><b>EX-DEC-021</b> — La manipulation en jeu reste <b>déterministe</b> (pas de temps fixe) et compatible avec une éventuelle sauvegarde/rejeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md147"></a>
+<h1><a class="anchor" id="autotoc_md148"></a>
 3. Pipeline photo → pixel art (intégré à l'éditeur)</h1>
 <ul>
 <li><a class="anchor" id="EX-DEC-030"></a><b>EX-DEC-030</b> — L'éditeur permet de <b>charger une photo</b> et de la <b>convertir en pixel art</b> (pixellisation, réduction de palette) — traitement <b>intégré à l'outil</b>.</li>
@@ -131,7 +131,7 @@ En jeu (mécanique, à terme)</h2>
 <blockquote class="doxtable">
 <p>&zwj;Dépendance à prévoir : une capacité de <b>traitement d'image</b> côté éditeur (bibliothèque à ajouter dans <code>External/</code>, par ex. <code>stb_image</code> pour le chargement) — décision de dépendance prise au lot correspondant. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md148"></a>
+<h1><a class="anchor" id="autotoc_md149"></a>
 4. Périmètre &amp; séquencement</h1>
 <ul>
 <li><b>MVP moteur</b> : ni décors photo ni manipulation en jeu. <b>Mais</b> l'architecture (ECS, trois espaces de coordonnées, décors = entités) est posée pour les accueillir sans refonte.</li>
@@ -144,7 +144,7 @@ En jeu (mécanique, à terme)</h2>
 </ol>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md149"></a>
+<h1><a class="anchor" id="autotoc_md150"></a>
 Traçabilité</h1>
 <p>S'appuie sur <a class="el" href="architecture_8md.html">`architecture.md`</a> (ECS, coordonnées, décors = simulation), <a class="el" href="editeur-niveaux_8md.html">`editeur-niveaux.md`</a> (édition intégrée) et <a class="el" href="vision_8md.html">`vision.md`</a>. </p>
 </div></div><!-- contents -->

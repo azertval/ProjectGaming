@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1EditorScreen.html',''); in
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classhmi_1_1EditorScreen-members.html">List of all members</a>  </div>
@@ -255,6 +256,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a45e43cb4695d37c53c7fab8b4e36b523 inherit pub_methods_classhmi_1_1IScreen" id="r_a45e43cb4695d37c53c7fab8b4e36b523"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1IScreen.html#a45e43cb4695d37c53c7fab8b4e36b523">~IScreen</a> ()=default</td></tr>
 <tr class="separator:a45e43cb4695d37c53c7fab8b4e36b523 inherit pub_methods_classhmi_1_1IScreen"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a1886cc2e2d30c668ff1f529503b04364" id="r_a1886cc2e2d30c668ff1f529503b04364"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364">TextPromptPurpose</a> { <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d">CreateLevelName</a>
+, <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a">RenameLevel</a>
+, <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364a60c3541891d2c4bc4e8341095197af1b">ResizeGrid</a>
+ }</td></tr>
+<tr class="memdesc:a1886cc2e2d30c668ff1f529503b04364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que sert <code>_textPrompt</code> (un seul champ, un seul usage actif à la fois) : nommer un niveau tout juste créé (annuler revient au sélecteur), le renommer (<code>F2</code>, annuler ne change rien), ou choisir sa taille (<code>Ctrl+R</code>, <code>EX-EDIT-017</code>, annuler ne change rien).  <a href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364">More...</a><br /></td></tr>
+<tr class="separator:a1886cc2e2d30c668ff1f529503b04364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a09f0c57418d1c66e4953a4973375a169" id="r_a09f0c57418d1c66e4953a4973375a169"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a09f0c57418d1c66e4953a4973375a169">hoveredCell</a> (float mouseX, float mouseY) const</td></tr>
@@ -263,9 +273,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aebd885eb2c376cc5e7716450bc229b42" id="r_aebd885eb2c376cc5e7716450bc229b42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#aebd885eb2c376cc5e7716450bc229b42">handleLinkClick</a> (float mouseX, float mouseY)</td></tr>
 <tr class="memdesc:aebd885eb2c376cc5e7716450bc229b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).  <br /></td></tr>
 <tr class="separator:aebd885eb2c376cc5e7716450bc229b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a584dd9dee921dac71e4c2c9953e2bea4" id="r_a584dd9dee921dac71e4c2c9953e2bea4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a584dd9dee921dac71e4c2c9953e2bea4">requestResize</a> (int width, int height)</td></tr>
-<tr class="memdesc:a584dd9dee921dac71e4c2c9953e2bea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne si l'opération est anodine ; sinon pose une confirmation (<code>EX-EDIT-012</code>) et n'applique rien tant qu'elle n'est pas acceptée.  <br /></td></tr>
-<tr class="separator:a584dd9dee921dac71e4c2c9953e2bea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a925a1d81bf6ac6f6afc9c09cf928c125" id="r_a925a1d81bf6ac6f6afc9c09cf928c125"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a925a1d81bf6ac6f6afc9c09cf928c125">requestResize</a> (int rawWidth, int rawHeight)</td></tr>
+<tr class="memdesc:a925a1d81bf6ac6f6afc9c09cf928c125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borne la cible au plafond (<code>EX-EDIT-017</code>), puis redimensionne si l'opération est anodine ; sinon pose une confirmation (<code>EX-EDIT-012</code>) et n'applique rien tant qu'elle n'est pas acceptée.  <br /></td></tr>
+<tr class="separator:a925a1d81bf6ac6f6afc9c09cf928c125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc2f18e75f0fa8df017eb45e7fcbed72" id="r_abc2f18e75f0fa8df017eb45e7fcbed72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#abc2f18e75f0fa8df017eb45e7fcbed72">clampedCell</a> (float mouseX, float mouseY) const</td></tr>
 <tr class="memdesc:abc2f18e75f0fa8df017eb45e7fcbed72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position souris en case de grille, <b>bornée</b> à la grille courante (jamais <code>nullopt</code>) — utilisé par les outils Rectangle/Sélection, dont le glisser doit rester utilisable même si le curseur dépasse légèrement la grille.  <br /></td></tr>
 <tr class="separator:abc2f18e75f0fa8df017eb45e7fcbed72"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,9 +297,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:abe568e1c2f366f3bb7ba7d6c67f891b7" id="r_abe568e1c2f366f3bb7ba7d6c67f891b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#abe568e1c2f366f3bb7ba7d6c67f891b7">renderPicker</a> (<a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a> &amp;context)</td></tr>
 <tr class="memdesc:abe568e1c2f366f3bb7ba7d6c67f891b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine le sélecteur de niveau (liste « Nouveau niveau » + fichiers existants).  <br /></td></tr>
 <tr class="separator:abe568e1c2f366f3bb7ba7d6c67f891b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa77cf311091bf6ec3acf72dde590002a" id="r_aa77cf311091bf6ec3acf72dde590002a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#aa77cf311091bf6ec3acf72dde590002a">renderNameInput</a> (<a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a> &amp;context)</td></tr>
-<tr class="memdesc:aa77cf311091bf6ec3acf72dde590002a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine le champ de saisie du nom (création ou renommage <code>F2</code>), avec un message de refus si la dernière tentative de confirmation a été invalide.  <br /></td></tr>
-<tr class="separator:aa77cf311091bf6ec3acf72dde590002a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cb57f9962c7e818c702c26e79f1bbac" id="r_a7cb57f9962c7e818c702c26e79f1bbac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a7cb57f9962c7e818c702c26e79f1bbac">renderTextPrompt</a> (<a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a> &amp;context)</td></tr>
+<tr class="memdesc:a7cb57f9962c7e818c702c26e79f1bbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine le champ de saisie générique (nom à la création, renommage <code>F2</code>, ou taille <code>Ctrl+R</code>), avec un message de refus si la dernière tentative de confirmation a été invalide.  <br /></td></tr>
+<tr class="separator:a7cb57f9962c7e818c702c26e79f1bbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22a3c3d75b0105482ed7db94411765f0" id="r_a22a3c3d75b0105482ed7db94411765f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a22a3c3d75b0105482ed7db94411765f0">writeLevelToDisk</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a22a3c3d75b0105482ed7db94411765f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <code>level</code> à <code>path</code>, met à jour le message de statut et le drapeau <code>_dirty</code>.  <br /></td></tr>
 <tr class="separator:a22a3c3d75b0105482ed7db94411765f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -344,12 +354,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a5861b316a6ad626abfd242549a769b9b" id="r_a5861b316a6ad626abfd242549a769b9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a5861b316a6ad626abfd242549a769b9b">_dirty</a> = false</td></tr>
 <tr class="memdesc:a5861b316a6ad626abfd242549a769b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>true</code> si le brouillon a des modifications non enregistrées.  <br /></td></tr>
 <tr class="separator:a5861b316a6ad626abfd242549a769b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab005a23cb49ba04956d6169c963ca938" id="r_ab005a23cb49ba04956d6169c963ca938"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classhmi_1_1TextInputField.html">TextInputField</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#ab005a23cb49ba04956d6169c963ca938">_nameInput</a></td></tr>
-<tr class="memdesc:ab005a23cb49ba04956d6169c963ca938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actif pendant la saisie du nom (création d'un niveau vierge ou renommage <code>F2</code>).  <br /></td></tr>
-<tr class="separator:ab005a23cb49ba04956d6169c963ca938"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a011cfdd2d54e6e80c1f74841526e3d78" id="r_a011cfdd2d54e6e80c1f74841526e3d78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a011cfdd2d54e6e80c1f74841526e3d78">_nameInputIsCreation</a> = false</td></tr>
-<tr class="memdesc:a011cfdd2d54e6e80c1f74841526e3d78"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>true</code> si <code>_nameInput</code> sert à nommer un niveau tout juste créé (annuler revient au sélecteur) ; <code>false</code> s'il s'agit d'un renommage en cours d'édition (annuler ne change rien).  <br /></td></tr>
-<tr class="separator:a011cfdd2d54e6e80c1f74841526e3d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b566358212da5c137ee772e29ccd78a" id="r_a2b566358212da5c137ee772e29ccd78a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classhmi_1_1TextInputField.html">TextInputField</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a2b566358212da5c137ee772e29ccd78a">_textPrompt</a></td></tr>
+<tr class="memdesc:a2b566358212da5c137ee772e29ccd78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actif pendant une saisie de texte générique — nom à la création, renommage <code>F2</code>, ou taille <code>Ctrl+R</code> ; la signification courante est portée par <code>_textPromptPurpose</code>.  <br /></td></tr>
+<tr class="separator:a2b566358212da5c137ee772e29ccd78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acee7f2c4d4c6f3686717cb592f4e886b" id="r_acee7f2c4d4c6f3686717cb592f4e886b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364">TextPromptPurpose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#acee7f2c4d4c6f3686717cb592f4e886b">_textPromptPurpose</a> = <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d">TextPromptPurpose::CreateLevelName</a></td></tr>
+<tr class="separator:acee7f2c4d4c6f3686717cb592f4e886b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cf03b0cc495b126c8c9270f6a6c7fa7" id="r_a0cf03b0cc495b126c8c9270f6a6c7fa7"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1EditorScreen.html#a0cf03b0cc495b126c8c9270f6a6c7fa7">_loadedFrom</a></td></tr>
 <tr class="memdesc:a0cf03b0cc495b126c8c9270f6a6c7fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.  <br /></td></tr>
 <tr class="separator:a0cf03b0cc495b126c8c9270f6a6c7fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -390,7 +399,37 @@ Private Attributes</h2></td></tr>
 <p><b>Liaison de mécanismes</b> (<code>EX-EDIT-003</code>) : <code>Maj</code> + clic sur une tuile <code>Switch</code> puis, <code>Maj</code> toujours enfoncé, sur une tuile <code>Door</code> (ou l'inverse) les lie ; répéter la même paire la délie (bascule). <b>Redimensionnement</b> (<code>EX-EDIT-005</code>) : les flèches ↑/↓ réduisent/agrandissent la hauteur, ←/→ la largeur. <b>Annuler/refaire</b> (<code>EX-EDIT-005</code>) : <code>Ctrl+Z</code>/<code>Ctrl+Y</code>, délégués à <code><a class="el" href="classcore_1_1LevelDraft.html#adec82624786f4ad3a83502eccc8712af" title="Annule la dernière mutation (EX-EDIT-005).">core::LevelDraft::undo</a></code>/<code>redo</code>.</p>
 <p><b>Enregistrement</b> (<code>Ctrl+S</code>, <code>EX-EDIT-006</code>/<code>007</code>) : convertit le brouillon en <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code> validé (<code>LevelDraft::toLevel</code>) et l'écrit dans le dossier <code>Levels</code> de l'application ; un brouillon invalide affiche un message d'erreur compréhensible, <b>aucun fichier n'est écrit</b>. <b>Essai immédiat</b> (<code>P</code>, <code>EX-EDIT-008</code>) : sur un brouillon valide, lance une session de jeu <b>intégrée</b> (délégation à un <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">GameScreen</a></code> interne, sans transition d'écran) qui rejoue le niveau en cours d'édition ; <b>Échap</b> (ou la fin du niveau) y met fin et <b>restitue l'éditeur intact</b> (brouillon et historique undo/redo jamais touchés pendant l'essai). <b>Échap</b> hors essai revient au menu.</p>
 <p>À l'ouverture, un <b>sélecteur</b> (<code><a class="el" href="classhmi_1_1LevelPicker.html" title="Liste « Nouveau niveau » + les fichiers .json d&#39;un dossier, navigable au clavier.">LevelPicker</a></code>) propose « Nouveau niveau » ou l'un des fichiers du dossier <code>Levels</code> de l'application (<code>EX-EDIT-001</code>) — navigation <code>↑</code>/<code>↓</code> + <code>Entrée</code> — avant d'entrer réellement en édition. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a1886cc2e2d30c668ff1f529503b04364" name="a1886cc2e2d30c668ff1f529503b04364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1886cc2e2d30c668ff1f529503b04364">&#9670;&#160;</a></span>TextPromptPurpose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364">hmi::EditorScreen::TextPromptPurpose</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que sert <code>_textPrompt</code> (un seul champ, un seul usage actif à la fois) : nommer un niveau tout juste créé (annuler revient au sélecteur), le renommer (<code>F2</code>, annuler ne change rien), ou choisir sa taille (<code>Ctrl+R</code>, <code>EX-EDIT-017</code>, annuler ne change rien). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d" name="a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d"></a>CreateLevelName&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a" name="a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a"></a>RenameLevel&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1886cc2e2d30c668ff1f529503b04364a60c3541891d2c4bc4e8341095197af1b" name="a1886cc2e2d30c668ff1f529503b04364a60c3541891d2c4bc4e8341095197af1b"></a>ResizeGrid&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a032f695cbcced9ab149d4209b4397af1" name="a032f695cbcced9ab149d4209b4397af1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a032f695cbcced9ab149d4209b4397af1">&#9670;&#160;</a></span>EditorScreen()</h2>
 
@@ -676,34 +715,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa77cf311091bf6ec3acf72dde590002a" name="aa77cf311091bf6ec3acf72dde590002a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa77cf311091bf6ec3acf72dde590002a">&#9670;&#160;</a></span>renderNameInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::EditorScreen::renderNameInput </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>context</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Dessine le champ de saisie du nom (création ou renommage <code>F2</code>), avec un message de refus si la dernière tentative de confirmation a été invalide. </p>
-
-</div>
-</div>
 <a id="a789e85309b32e3cde348a55f00233449" name="a789e85309b32e3cde348a55f00233449"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a789e85309b32e3cde348a55f00233449">&#9670;&#160;</a></span>renderPalette()</h2>
 
@@ -816,6 +827,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7cb57f9962c7e818c702c26e79f1bbac" name="a7cb57f9962c7e818c702c26e79f1bbac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cb57f9962c7e818c702c26e79f1bbac">&#9670;&#160;</a></span>renderTextPrompt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorScreen::renderTextPrompt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dessine le champ de saisie générique (nom à la création, renommage <code>F2</code>, ou taille <code>Ctrl+R</code>), avec un message de refus si la dernière tentative de confirmation a été invalide. </p>
+
+</div>
+</div>
 <a id="a6ae7f1e207e6e451bcd0000f71fd3ccd" name="a6ae7f1e207e6e451bcd0000f71fd3ccd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ae7f1e207e6e451bcd0000f71fd3ccd">&#9670;&#160;</a></span>renderToolBar()</h2>
 
@@ -844,8 +883,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a584dd9dee921dac71e4c2c9953e2bea4" name="a584dd9dee921dac71e4c2c9953e2bea4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a584dd9dee921dac71e4c2c9953e2bea4">&#9670;&#160;</a></span>requestResize()</h2>
+<a id="a925a1d81bf6ac6f6afc9c09cf928c125" name="a925a1d81bf6ac6f6afc9c09cf928c125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a925a1d81bf6ac6f6afc9c09cf928c125">&#9670;&#160;</a></span>requestResize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -857,13 +896,13 @@ Private Attributes</h2></td></tr>
           <td class="memname">void hmi::EditorScreen::requestResize </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramname"><em>rawWidth</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="paramname"><em>rawHeight</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -878,7 +917,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Redimensionne si l'opération est anodine ; sinon pose une confirmation (<code>EX-EDIT-012</code>) et n'applique rien tant qu'elle n'est pas acceptée. </p>
+<p>Borne la cible au plafond (<code>EX-EDIT-017</code>), puis redimensionne si l'opération est anodine ; sinon pose une confirmation (<code>EX-EDIT-012</code>) et n'applique rien tant qu'elle n'est pas acceptée. </p>
+<p>Seul point de passage des flèches et de la boîte de dialogue (<code>Ctrl+R</code>). </p>
 
 </div>
 </div>
@@ -1349,54 +1389,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab005a23cb49ba04956d6169c963ca938" name="ab005a23cb49ba04956d6169c963ca938"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab005a23cb49ba04956d6169c963ca938">&#9670;&#160;</a></span>_nameInput</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="classhmi_1_1TextInputField.html">TextInputField</a>&gt; hmi::EditorScreen::_nameInput</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Actif pendant la saisie du nom (création d'un niveau vierge ou renommage <code>F2</code>). </p>
-
-</div>
-</div>
-<a id="a011cfdd2d54e6e80c1f74841526e3d78" name="a011cfdd2d54e6e80c1f74841526e3d78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a011cfdd2d54e6e80c1f74841526e3d78">&#9670;&#160;</a></span>_nameInputIsCreation</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::EditorScreen::_nameInputIsCreation = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><code>true</code> si <code>_nameInput</code> sert à nommer un niveau tout juste créé (annuler revient au sélecteur) ; <code>false</code> s'il s'agit d'un renommage en cours d'édition (annuler ne change rien). </p>
-
-</div>
-</div>
 <a id="ad95dc4eb430b5f22ec156a649cebc6bc" name="ad95dc4eb430b5f22ec156a649cebc6bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad95dc4eb430b5f22ec156a649cebc6bc">&#9670;&#160;</a></span>_paintingDrag</h2>
 
@@ -1630,6 +1622,52 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dernier message d'erreur/confirmation affiché à l'écran. </p>
+
+</div>
+</div>
+<a id="a2b566358212da5c137ee772e29ccd78a" name="a2b566358212da5c137ee772e29ccd78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b566358212da5c137ee772e29ccd78a">&#9670;&#160;</a></span>_textPrompt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classhmi_1_1TextInputField.html">TextInputField</a>&gt; hmi::EditorScreen::_textPrompt</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actif pendant une saisie de texte générique — nom à la création, renommage <code>F2</code>, ou taille <code>Ctrl+R</code> ; la signification courante est portée par <code>_textPromptPurpose</code>. </p>
+
+</div>
+</div>
+<a id="acee7f2c4d4c6f3686717cb592f4e886b" name="acee7f2c4d4c6f3686717cb592f4e886b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee7f2c4d4c6f3686717cb592f4e886b">&#9670;&#160;</a></span>_textPromptPurpose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364">TextPromptPurpose</a> hmi::EditorScreen::_textPromptPurpose = <a class="el" href="classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d">TextPromptPurpose::CreateLevelName</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

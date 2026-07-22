@@ -11,5 +11,6 @@ var searchData=
   ['isenabled_8',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]],
   ['issolid_9',['issolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
   ['isvalidlevelname_10',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
-  ['iterator_11',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['isvalidlevelsize_11',['isValidLevelSize',['../namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430',1,'hmi']]],
+  ['iterator_12',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

@@ -94,42 +94,42 @@ $(document).ready(function(){initNavTree('lot-07-tache-01-dependance-json.html',
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-07-niveaux_2epic_8md.html">LOT-07</a> · <b>Emplacement :</b> <code>External/</code>, CMake · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md522"></a>
+<h1><a class="anchor" id="autotoc_md524"></a>
 Contexte</h1>
 <p>Le format de niveau est un <b>JSON structuré</b> (liste de tuiles-objets, <code>EX-LVL-003</code>). Il faut donc parser du JSON. Plutôt qu'un parser maison, le lot s'appuie sur <b>nlohmann/json</b> (<em>header-only</em>, éprouvée), première dépendance tierce de <b>production</b> du projet.</p>
-<h1><a class="anchor" id="autotoc_md523"></a>
+<h1><a class="anchor" id="autotoc_md525"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Ajouter <b>nlohmann/json</b> via <b>FetchContent</b>, <b>épinglée</b> à une version précise (tag/commit) — jamais une branche mobile (<code>EX-NFR-031</code>).</li>
 <li>Exposer la cible d'interface (<code>nlohmann_json::nlohmann_json</code>) et la lier au module qui en a besoin (**<code>Core</code>**, cible du chargement de niveaux).</li>
 <li>Vérifier que l'inclusion et un parse minimal (<code>nlohmann::json::parse("{}")</code>) compilent.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md524"></a>
+<h1><a class="anchor" id="autotoc_md526"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>CMakeLists.txt</code> racine (ou <code>External/CMakeLists.txt</code>) : déclaration FetchContent épinglée.</li>
 <li><code>Source/Core/CMakeLists.txt</code> : lien de la dépendance à <code>Core</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md525"></a>
+<h1><a class="anchor" id="autotoc_md527"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le projet <b>configure et compile</b> avec la dépendance récupérée.</li>
 <li>Un usage minimal de <code>nlohmann::json</code> compile (couvert concrètement par le chargeur, TACHE-03).</li>
 <li>La version est <b>épinglée</b> (reproductible sur un autre poste, <code>EX-NFR-030</code>/<code>EX-NFR-031</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md526"></a>
+<h1><a class="anchor" id="autotoc_md528"></a>
 Points d'attention</h1>
 <ul>
 <li><em>Header-only</em> : n'entame pas la testabilité de <code>Core</code> sans fenêtre ni GPU (<code>EX-NFR-010</code>).</li>
 <li>Isoler la récupération (FetchContent) comme les autres dépendances (GoogleTest) ; ne pas vendoriser les sources dans le dépôt.</li>
 <li>Éviter d'exposer <code>nlohmann/json</code> dans les <b>en-têtes publics</b> de <code>Core</code> (l'inclure seulement dans les <code>.cpp</code> de chargement) pour ne pas propager la dépendance aux appelants.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md527"></a>
+<h1><a class="anchor" id="autotoc_md529"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Dépendance disponible et liée à <code>Core</code>, version épinglée ; build <code>/W4 /WX</code> vert.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md528"></a>
+<h1><a class="anchor" id="autotoc_md530"></a>
 Exigences</h1>
 <p><code>EX-NFR-031</code>, <code>EX-NFR-030</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

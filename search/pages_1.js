@@ -7,5 +7,6 @@ var searchData=
   ['12_20—_20niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_4',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
   ['13_20—_20consolidation_20de_20la_20documentation_5',['LOT-13 — Consolidation de la documentation',['../lot-13.html',1,'lots']]],
   ['14_20—_20éditeur_20de_20niveaux_20intégré_20_3a_20édition_20de_20tuiles_20mécanismes_20essai_20immédiat_6',['LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat',['../lot-14.html',1,'lots']]],
-  ['15_20—_20éditeur_20de_20niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_7',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]]
+  ['15_20—_20éditeur_20de_20niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_7',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],
+  ['16_20—_20niveaux_20de_20grande_20taille_8',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]]
 ];

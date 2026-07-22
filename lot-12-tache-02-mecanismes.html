@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-12-tache-02-mecanismes.html',''); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-12-niveau-puzzle_2epic_8md.html">LOT-12</a> · <b>Emplacement :</b> <code>Source/Core/Gameplay</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md775"></a>
+<h1><a class="anchor" id="autotoc_md777"></a>
 Contexte</h1>
 <p>Les liaisons interrupteur↔porte sont <b>chargées</b> depuis le LOT-07 mais <b>inertes</b>. Cette tâche leur donne un <b>comportement</b> (<code>EX-GP-020</code>, <code>EX-GP-021</code>), en logique <b>pure</b> et testable : la collision consommera une <b>grille reflétant l'état des portes</b>.</p>
-<h1><a class="anchor" id="autotoc_md776"></a>
+<h1><a class="anchor" id="autotoc_md778"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>MechanismController</code>** (Core/Gameplay), construit depuis un <code>Level</code> :<ul>
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md777"></a>
+<h1><a class="anchor" id="autotoc_md779"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision.">Source/Core/Gameplay/MechanismController.h</a></code>/<code>.cpp</code> (nouveau), <code>Source/Core/CMakeLists.txt</code>.</li>
 <li>Tests unitaires.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md778"></a>
+<h1><a class="anchor" id="autotoc_md780"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Ouverture</b> : la porte est <b>solide</b> au départ ; après contact de l'interrupteur, la porte devient <b>franchissable</b> (<code>!isSolid</code>).</li>
@@ -123,19 +123,19 @@ Tests (obligatoires)</h1>
 <li><b>Liaison</b> : c'est bien la porte <b>liée</b> (par position) qui change, pas une autre.</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md779"></a>
+<h1><a class="anchor" id="autotoc_md781"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas muter</b> le <code>TileMap</code> du <code>Level</code> (source de vérité) : travailler sur la <b>copie</b>.</li>
 <li>Recouvrement boîte↔tuile cohérent avec le repère (origine haut-gauche, tuile = 1 unité).</li>
 <li>Front d'activation : mémoriser l'état « sur l'interrupteur » du pas précédent.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md780"></a>
+<h1><a class="anchor" id="autotoc_md782"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>MechanismController</code> fonctionnel, documenté et <b>testé</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md781"></a>
+<h1><a class="anchor" id="autotoc_md783"></a>
 Exigences</h1>
 <p><code>EX-GP-020</code>, <code>EX-GP-021</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

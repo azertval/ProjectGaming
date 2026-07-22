@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Dépend de <a class="el" href="vision_8md.html">`vision.md`</a>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md165"></a>
+<h1><a class="anchor" id="autotoc_md167"></a>
 1. Monde en tuiles</h1>
 <p>Le niveau est une <b>grille de tuiles</b> de taille fixe : <b>16 × 16 px</b> par tuile. Chaque cellule porte un type.</p>
 <table class="markdownTable">
@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <li><a class="anchor" id="EX-GP-001"></a><b>EX-GP-001</b> — Le niveau doit être représenté par une grille de tuiles typées.</li>
 <li><a class="anchor" id="EX-GP-002"></a><b>EX-GP-002</b> — Une tuile solide doit empêcher le personnage de la traverser.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md166"></a>
+<h1><a class="anchor" id="autotoc_md168"></a>
 2. Personnage &amp; déplacement</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-010"></a><b>EX-GP-010</b> — Le personnage doit se déplacer horizontalement à vitesse constante (⚠️ ~6 tuiles/s).</li>
@@ -126,7 +126,7 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <li><a class="anchor" id="EX-GP-013"></a><b>EX-GP-013</b> — Le personnage ne doit pouvoir sauter que lorsqu'il est <b>au sol</b> (pas de double saut au MVP).</li>
 <li><a class="anchor" id="EX-GP-014"></a><b>EX-GP-014</b> — Les collisions personnage ↔ tuiles solides doivent être résolues sur les deux axes (pas de traversée à vitesse élevée — collision par balayage ou pas fixes).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md167"></a>
+<h2><a class="anchor" id="autotoc_md169"></a>
 Mécaniques aériennes avancées (au-delà du MVP)</h2>
 <blockquote class="doxtable">
 <p>&zwj;Ces exigences <b>étendent</b> le MVP et <b>assouplissent</b> <code>EX-GP-013</code> (qui interdit le double saut) : non requises au MVP, elles visent un platformer aux mécaniques riches. </p>
@@ -136,13 +136,13 @@ Mécaniques aériennes avancées (au-delà du MVP)</h2>
 <li><a class="anchor" id="EX-GP-017"></a><b>EX-GP-017</b> — Le personnage doit pouvoir <b>dasher</b> : une ruée directionnelle (<b>8 directions</b>) à vitesse élevée sur une <b>courte durée</b>, disponible une fois puis <b>rechargée au contact du sol</b>.</li>
 <li><a class="anchor" id="EX-GP-018"></a><b>EX-GP-018</b> — Le ressenti vertical doit être affiné : <b>gravité de chute renforcée</b> (chute plus rapide que la montée), <b>flottement à l'apex</b> (gravité réduite quand la vitesse verticale est faible) et <b>fast-fall</b> (chute accélérée en maintenant « bas »). La retombée reste sous gravité <b>constante</b> (à multiplicateur près), conformément à <code>EX-GP-011</code>.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md168"></a>
+<h2><a class="anchor" id="autotoc_md170"></a>
 Ressenti (game feel) — ⚠️ à affiner par tests</h2>
 <ul>
 <li>Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.</li>
 <li>Tolérances de confort recommandées : <em>coyote time</em> (~80 ms) et <em>jump buffering</em> (~120 ms).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md169"></a>
+<h1><a class="anchor" id="autotoc_md171"></a>
 3. Mécanismes de puzzle</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-020"></a><b>EX-GP-020</b> — Un <b>interrupteur</b> doit changer d'état quand le personnage l'active (contact ou action dédiée).</li>
@@ -152,20 +152,20 @@ Ressenti (game feel) — ⚠️ à affiner par tests</h2>
 <li><a class="anchor" id="EX-GP-024"></a><b>EX-GP-024</b> — Un <b>tableau</b> peut <b>limiter</b> le nombre de <b>sauts</b> et/ou de <b>dashs</b> disponibles (budget de mouvements, défini par le niveau) ; à budget épuisé, l'action est <b>refusée</b>. Le budget est <b>réinitialisé</b> au (re)chargement du niveau. Contrainte de <b>puzzle</b>.</li>
 </ul>
 <p>Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).</p>
-<h1><a class="anchor" id="autotoc_md170"></a>
+<h1><a class="anchor" id="autotoc_md172"></a>
 4. Conditions de fin de niveau</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-030"></a><b>EX-GP-030</b> — Atteindre la tuile de <b>sortie</b> termine le niveau en <b>succès</b>.</li>
 <li><a class="anchor" id="EX-GP-031"></a><b>EX-GP-031</b> — Le contact avec un <b>danger</b> ou la sortie des limites basses du niveau provoque l'<b>échec</b>.</li>
 <li><a class="anchor" id="EX-GP-032"></a><b>EX-GP-032</b> — En cas d'échec, le niveau doit <b>redémarrer</b> à son état initial sans quitter le jeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md171"></a>
+<h1><a class="anchor" id="autotoc_md173"></a>
 5. États de jeu</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-040"></a><b>EX-GP-040</b> — Le jeu doit gérer des états distincts : <code>Menu</code>, <code>EnJeu</code>, <code>Pause</code>, <code>NiveauTermine</code>.</li>
 <li><a class="anchor" id="EX-GP-041"></a><b>EX-GP-041</b> — Les transitions entre états doivent être explicites et unidirectionnelles à chaque événement (machine à états).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md172"></a>
+<h1><a class="anchor" id="autotoc_md174"></a>
 Traçabilité</h1>
 <p>Contrôles associés : <a class="el" href="controles_8md.html">`controles.md`</a>. Format des niveaux : <a class="el" href="niveaux_8md.html">`niveaux.md`</a>. Ces exigences seront couvertes par des tests unitaires (<code>Core</code>) et système. </p>
 </div></div><!-- contents -->

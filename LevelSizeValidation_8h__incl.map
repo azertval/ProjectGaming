@@ -1,0 +1,9 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LevelSizeValidation.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LevelSizeValidation.h">
+<area shape="rect" id="Node000001" title="Analyse et validation d&#39;une taille de grille saisie dans l&#39;éditeur (LOT&#45;16, EX&#45;EDIT&#45;017)." alt="" coords="15,5,252,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,80,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,62,67,100,63,96,104,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="104,108,163,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="136,60,136,94,131,94,131,60"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="187,108,247,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,58,198,96,194,100,157,62"/>
+</map>

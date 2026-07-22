@@ -6,6 +6,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "LevelNameValidation.h", "LevelNameValidation_8h.html", "LevelNameValidation_8h" ],
     [ "LevelPicker.cpp", "LevelPicker_8cpp.html", null ],
     [ "LevelPicker.h", "LevelPicker_8h.html", "LevelPicker_8h" ],
+    [ "LevelSizeValidation.cpp", "LevelSizeValidation_8cpp.html", "LevelSizeValidation_8cpp" ],
+    [ "LevelSizeValidation.h", "LevelSizeValidation_8h.html", "LevelSizeValidation_8h" ],
     [ "TextInputField.cpp", "TextInputField_8cpp.html", null ],
     [ "TextInputField.h", "TextInputField_8h.html", "TextInputField_8h" ],
     [ "TilePalette.cpp", "TilePalette_8cpp.html", null ],

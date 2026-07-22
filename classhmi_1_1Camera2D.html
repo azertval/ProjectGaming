@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1Camera2D.html',''); initRe
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
@@ -138,6 +139,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aea18d5858adba920f73a1a252c3be08d" id="r_aea18d5858adba920f73a1a252c3be08d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d">screenToWorld</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;screen) const</td></tr>
 <tr class="memdesc:aea18d5858adba920f73a1a252c3be08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position écran (pixels) en unités monde.  <br /></td></tr>
 <tr class="separator:aea18d5858adba920f73a1a252c3be08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a197df5a46fa35ccf6c17df58662b16bb" id="r_a197df5a46fa35ccf6c17df58662b16bb"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Camera2D.html#a197df5a46fa35ccf6c17df58662b16bb">fitZoom</a> (float availableWidth, float availableHeight, float contentWidth, float contentHeight, float margin=1.0f)</td></tr>
+<tr class="memdesc:a197df5a46fa35ccf6c17df58662b16bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.  <br /></td></tr>
+<tr class="separator:a197df5a46fa35ccf6c17df58662b16bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -203,6 +210,74 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a197df5a46fa35ccf6c17df58662b16bb" name="a197df5a46fa35ccf6c17df58662b16bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a197df5a46fa35ccf6c17df58662b16bb">&#9670;&#160;</a></span>fitZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::Camera2D::fitZoom </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>availableWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>availableHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>contentWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>contentHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>margin</em> = <code>1.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ. </p>
+<p>Entier (<code>std::floor</code>) tant que le facteur brut est supérieur ou égal à 1 — netteté pixel art, <code>EX-ARCH-022</code> (préférence, pas une règle absolue) ; <b>fractionnaire</b> uniquement lorsque nécessaire pour que le contenu entier tienne dans la surface disponible (<code>EX-REN-013</code>, <code>EX-EDIT-013</code>) : sans cette exception, un contenu plus grand que la surface resterait partiellement hors champ, faute de pouvoir descendre sous le zoom ×1.</p>
+<p>Fonction <b>pure</b>, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune règle dupliquée entre les deux écrans, LOT-16). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">availableWidth</td><td>Largeur disponible, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">availableHeight</td><td>Hauteur disponible, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">contentWidth</td><td>Largeur du contenu à cadrer, en unités monde (&gt; 0). </td></tr>
+    <tr><td class="paramname">contentHeight</td><td>Hauteur du contenu à cadrer, en unités monde (&gt; 0). </td></tr>
+    <tr><td class="paramname">margin</td><td>Facteur multiplicatif appliqué avant l'arrondi (ex. <code>0.85</code> pour laisser une marge visuelle) ; <code>1.0</code> par défaut (aucune marge). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de zoom à appliquer via <code>setZoom</code>. </dd></dl>
+
+</div>
+</div>
 <a id="ae4d184982026b7f61e3507c0d264321b" name="ae4d184982026b7f61e3507c0d264321b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae4d184982026b7f61e3507c0d264321b">&#9670;&#160;</a></span>projectionMatrix()</h2>
 
