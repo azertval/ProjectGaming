@@ -1,6 +1,9 @@
 # Éditeur de niveaux {#spec-editeur}
 
-> Statut : **brouillon**. Dépend de [`niveaux.md`](niveaux.md). Le point marqué ⚠️ est à valider.
+> Statut : **édition de tuiles de base validée et livrée** (LOT-14 : peinture, mécanismes,
+> entrée/sortie, redimensionnement, undo/redo, enregistrement/validation, essai immédiat).
+> Dépend de [`niveaux.md`](niveaux.md). La section 6 (robustesse et confort d'édition, LOT-15) est
+> en cours de définition.
 
 ## Objectif
 Permettre la **création et la modification de niveaux sans écrire de code**, afin que des membres de l'équipe **non-développeurs** (game design, level design) contribuent directement au contenu du jeu.
@@ -8,12 +11,13 @@ Permettre la **création et la modification de niveaux sans écrire de code**, a
 ## 1. Exigences fonctionnelles
 - \anchor EX-EDIT-001 **EX-EDIT-001** — L'éditeur doit permettre de créer et modifier un niveau **sans compétence en programmation** ni ligne de commande.
 - \anchor EX-EDIT-002 **EX-EDIT-002** — L'édition doit être **WYSIWYG** : une grille visuelle où l'on peint les tuiles (vide, solide, danger…) à la souris, depuis une **palette** de types.
-- \anchor EX-EDIT-003 **EX-EDIT-003** — L'éditeur doit permettre de placer et **relier visuellement les mécanismes** (interrupteur ↔ porte, clé ↔ porte verrouillée, blocs poussables).
+- \anchor EX-EDIT-003 **EX-EDIT-003** — L'éditeur doit permettre de placer et **relier visuellement les mécanismes** (interrupteur ↔ porte ; clé ↔ porte verrouillée et blocs poussables **dès que `Core` les implémentera côté gameplay** — absents du moteur à ce jour, donc hors périmètre de l'éditeur jusque-là, cf. `epic.md` du lot LOT-14).
 - \anchor EX-EDIT-004 **EX-EDIT-004** — L'éditeur doit permettre de définir l'**entrée** et la **sortie** du niveau.
 - \anchor EX-EDIT-005 **EX-EDIT-005** — L'éditeur doit permettre de **redimensionner** la grille et de gérer **annuler/refaire** (undo/redo).
 - \anchor EX-EDIT-006 **EX-EDIT-006** — L'éditeur doit **enregistrer et charger** au format JSON défini par `EX-LVL-003` (celui réellement implémenté par `LevelLoader`, pas un format hybride ASCII — l'édition texte brut n'est pas visée, cf. `EX-EDIT-001`), en produisant des fichiers **valides**.
 - \anchor EX-EDIT-007 **EX-EDIT-007** — L'éditeur doit **valider** le niveau avant enregistrement (présence entrée/sortie, dimensions cohérentes, liaisons de mécanismes valides — `EX-LVL-004`) et signaler les erreurs de façon compréhensible par un non-codeur.
 - \anchor EX-EDIT-008 **EX-EDIT-008** — L'éditeur doit permettre de **tester le niveau** immédiatement (le lancer dans le jeu depuis l'éditeur), pour un cycle création → essai rapide.
+- \anchor EX-EDIT-009 **EX-EDIT-009** — L'éditeur doit permettre de **nommer** un niveau à sa création et de le **renommer**, et **avertir avant d'écraser** un fichier existant différent du niveau en cours d'édition lors de l'enregistrement.
 
 ## 2. Réutilisation & cohérence
 - \anchor EX-EDIT-010 **EX-EDIT-010** — L'éditeur doit **réutiliser le modèle de niveau et la validation de `Core`** — aucune duplication de la logique de niveau entre le jeu et l'éditeur (source unique de vérité).
@@ -41,6 +45,36 @@ Ces capacités sont livrées **après** l'édition de tuiles de base, mais l'arc
 ## 5. Non-objectifs (éditeur, MVP)
 - Édition collaborative en temps réel (plusieurs personnes sur le même niveau simultanément).
 - Édition des assets graphiques/sonores (l'éditeur agence des tuiles existantes, il ne dessine pas les sprites).
+- Sélection multiple non contiguë et historique annuler/refaire par delta (l'historique par
+  snapshots complets, retenu en LOT-14, reste adapté à la taille des niveaux du projet).
+- Palette pilotée par un fichier de configuration externe (la liste de types gérés par `Core`
+  reste petite et change rarement ; une couche de données externes serait une abstraction non
+  justifiée à ce stade).
+
+## 6. Robustesse et confort d'édition (LOT-15)
+Une fois l'édition de tuiles de base livrée (LOT-14), l'usage réel fait ressortir des besoins
+complémentaires pour rapprocher l'éditeur d'un outil de production : éviter la perte de travail,
+éditer confortablement des niveaux plus grands, et rendre les commandes découvrables sans dépendre
+uniquement de la documentation externe.
+
+- \anchor EX-EDIT-012 **EX-EDIT-012** — L'éditeur doit **demander confirmation** avant toute action
+  destructrice : un redimensionnement qui supprimerait l'entrée, la sortie ou une liaison de
+  mécanisme, et la fermeture de l'éditeur alors que des modifications ne sont **pas enregistrées**.
+- \anchor EX-EDIT-013 **EX-EDIT-013** — L'éditeur doit permettre de **déplacer (pan)** et de
+  **zoomer** la vue indépendamment du cadrage automatique, pour éditer confortablement des niveaux
+  de toute taille.
+- \anchor EX-EDIT-014 **EX-EDIT-014** — Au-delà de la peinture case par case, l'éditeur doit fournir
+  un **outil de remplissage rectangulaire** et un **outil de sélection** avec **copier/coller** d'une
+  zone de tuiles.
+- \anchor EX-EDIT-015 **EX-EDIT-015** — L'éditeur doit exposer ses commandes de façon
+  **découvrable** à l'écran : une barre d'outils pour changer d'outil, un aperçu des raccourcis
+  clavier, et des libellés sur les entrées de la palette.
+- \anchor EX-EDIT-016 **EX-EDIT-016** — Lorsque plusieurs liaisons interrupteur ↔ porte sont
+  visibles simultanément, chacune doit être **visuellement distinguable** des autres (et non une
+  teinte unique partagée par toutes les liaisons).
 
 ## Traçabilité
-L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de `HMI` (`rendu-technique.md`). Il fera l'objet d'un lot dédié, planifié **après** le chargement de niveaux dans le moteur.
+L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
+`HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
+la robustesse et le confort d'édition (section 6) font l'objet du lot **LOT-15**, planifié juste
+après.
