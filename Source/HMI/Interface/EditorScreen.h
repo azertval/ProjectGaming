@@ -5,6 +5,8 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "Core/Levels/LevelDraft.h"
 #include "HMI/Editor/LevelPicker.h"
@@ -23,6 +25,17 @@ namespace hmi {
 class SpriteBatch;
 class TextureAtlas;
 class GameScreen;
+
+/**
+ * @brief Outil actif dans la grille de l'éditeur (`EX-EDIT-014`), changé via `Tab` ou la barre
+ *        d'outils (LOT-15 TACHE-06).
+ *
+ * `Paint` peint case par case au clic/glisser (comportement LOT-14, inchangé). `Rectangle` peint
+ * un rectangle entier au relâchement d'un glisser. `Selection` définit une zone (glisser) dont le
+ * contenu peut être copié (`Ctrl+C`) puis collé ailleurs (`Ctrl+V`), sans peindre directement. La
+ * liaison de mécanismes (`Maj`+clic) reste disponible quel que soit l'outil actif.
+ */
+enum class EditorTool { Paint, Rectangle, Selection };
 
 /**
  * @brief Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.
@@ -82,6 +95,11 @@ private:
     /// Redimensionne si l'opération est anodine ; sinon pose une confirmation (`EX-EDIT-012`) et
     /// n'applique rien tant qu'elle n'est pas acceptée.
     void requestResize(int width, int height);
+
+    /// Convertit une position souris en case de grille, **bornée** à la grille courante (jamais
+    /// `nullopt`) — utilisé par les outils Rectangle/Sélection, dont le glisser doit rester
+    /// utilisable même si le curseur dépasse légèrement la grille.
+    [[nodiscard]] core::GridPosition clampedCell(float mouseX, float mouseY) const;
 
     /// Dessine la grille du brouillon (tuiles non vides), les liaisons de mécanismes, la
     /// sélection de liaison en attente et la case survolée en surbrillance.
@@ -150,6 +168,18 @@ private:
     bool _manualCamera = false;
     float _cameraZoom = 1.0f;         ///< Zoom courant (manuel ou dernier calcul automatique).
     core::Vector2 _cameraCenter{};    ///< Centre courant (manuel ou dernier calcul automatique).
+
+    /// Outil actif (`EX-EDIT-014`), changé par `Tab` (ou la barre d'outils, TACHE-06).
+    EditorTool _tool = EditorTool::Paint;
+    /// `true` pendant un glisser Rectangle/Sélection en cours (mutuellement exclusif avec
+    /// `_paintingDrag`, actif seulement quand `_tool != Paint`).
+    bool _areaDragActive = false;
+    core::GridPosition _areaDragStart{};  ///< Case de départ du glisser Rectangle/Sélection en cours.
+    /// Dernière sélection validée par l'outil Sélection (bornes inclusives min/max), pour `Ctrl+C`
+    /// ; invalidée par tout redimensionnement ou changement de niveau (peut sortir des bornes).
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
+    /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
+    std::vector<std::vector<core::TileType>> _clipboard;
 };
 
 }  // namespace hmi

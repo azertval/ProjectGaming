@@ -26,16 +26,39 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
 }
 
 void LevelDraft::paintTile(int column, int row, TileType type) {
+    pushUndo();
+    paintTileInternal(column, row, type);
+}
+
+void LevelDraft::paintRegion(int originColumn, int originRow,
+                             const std::vector<std::vector<TileType>>& block) {
+    if (block.empty()) {
+        return;
+    }
+    pushUndo();
+    for (std::size_t rowOffset = 0; rowOffset < block.size(); ++rowOffset) {
+        const std::vector<TileType>& rowTiles = block[rowOffset];
+        for (std::size_t columnOffset = 0; columnOffset < rowTiles.size(); ++columnOffset) {
+            const int column = originColumn + static_cast<int>(columnOffset);
+            const int row = originRow + static_cast<int>(rowOffset);
+            if (!_tileMap.inBounds(column, row)) {
+                continue;  // decoupe silencieuse aux bords, meme principe que resize()
+            }
+            paintTileInternal(column, row, rowTiles[columnOffset]);
+        }
+    }
+}
+
+void LevelDraft::paintTileInternal(int column, int row, TileType type) {
     if (type == TileType::Entry) {
-        setEntry(column, row);  // pushUndo() vit dans setEntry (une seule capture par action)
+        setEntryInternal(column, row);
         return;
     }
     if (type == TileType::Exit) {
-        setExit(column, row);  // pushUndo() vit dans setExit
+        setExitInternal(column, row);
         return;
     }
 
-    pushUndo();
     const GridPosition position{column, row};
     if (_entry && *_entry == position) {
         _entry.reset();
@@ -49,6 +72,10 @@ void LevelDraft::paintTile(int column, int row, TileType type) {
 
 void LevelDraft::setEntry(int column, int row) {
     pushUndo();
+    setEntryInternal(column, row);
+}
+
+void LevelDraft::setEntryInternal(int column, int row) {
     const GridPosition position{column, row};
     if (_entry && *_entry != position) {
         _tileMap.setTile(_entry->column, _entry->row, TileType::Empty);
@@ -60,6 +87,10 @@ void LevelDraft::setEntry(int column, int row) {
 
 void LevelDraft::setExit(int column, int row) {
     pushUndo();
+    setExitInternal(column, row);
+}
+
+void LevelDraft::setExitInternal(int column, int row) {
     const GridPosition position{column, row};
     if (_exit && *_exit != position) {
         _tileMap.setTile(_exit->column, _exit->row, TileType::Empty);

@@ -179,6 +179,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                     _loadedFrom = choice.path;
                     _dirty = false;
                     _manualCamera = false;  // repart du cadrage automatique sur ce niveau
+                    _selection.reset();     // une selection precedente peut deborder ce niveau
                     _picker.reset();
                 } else {
                     // Fichier corrompu : message recuperable (EX-NFR-040), on reste au selecteur.
@@ -205,6 +206,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 _loadedFrom.reset();
                 _dirty = false;
                 _manualCamera = false;  // repart du cadrage automatique sur ce niveau
+                _selection.reset();     // une selection precedente peut deborder ce niveau
             } else {
                 _draft.setName(name);
                 _dirty = true;  // renommer est une modification du brouillon comme une autre
@@ -274,6 +276,51 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::none();
     }
 
+    // Changement d'outil (EX-EDIT-014) : Tab fait defiler Pinceau -> Rectangle -> Selection ->
+    // Pinceau. Changer d'outil pendant un glisser Rectangle/Selection en cours l'annule (aucune
+    // application partielle).
+    if (input.keyPressed(Key::Tab)) {
+        _areaDragActive = false;
+        switch (_tool) {
+            case EditorTool::Paint:
+                _tool = EditorTool::Rectangle;
+                break;
+            case EditorTool::Rectangle:
+                _tool = EditorTool::Selection;
+                break;
+            case EditorTool::Selection:
+                _tool = EditorTool::Paint;
+                break;
+        }
+    }
+
+    // Copier/coller de l'outil Selection (EX-EDIT-014) : Ctrl+C lit directement la grille (aucun
+    // ajout Core necessaire cote copie) ; Ctrl+V colle via paintRegion (un seul undo).
+    if (input.keyDown(Key::Control) && input.keyPressed(Key::C)) {
+        if (_selection) {
+            _clipboard.clear();
+            for (int row = _selection->first.row; row <= _selection->second.row; ++row) {
+                std::vector<core::TileType> rowTiles;
+                for (int column = _selection->first.column; column <= _selection->second.column;
+                    ++column) {
+                    if (_draft.tileMap().inBounds(column, row)) {
+                        rowTiles.push_back(_draft.tileMap().tile(column, row));
+                    }
+                }
+                _clipboard.push_back(std::move(rowTiles));
+            }
+        }
+    } else if (input.keyDown(Key::Control) && input.keyPressed(Key::V)) {
+        if (!_clipboard.empty()) {
+            // Position souris de la frame courante (pas _mouseX/_mouseY, pas encore mis a jour a
+            // ce point de la frame — voir le bloc camera plus bas).
+            const core::GridPosition cell = clampedCell(static_cast<float>(input.mouseX()),
+                                                        static_cast<float>(input.mouseY()));
+            _draft.paintRegion(cell.column, cell.row, _clipboard);
+            _dirty = true;
+        }
+    }
+
     // Camera manuelle (EX-EDIT-013) : molette = zoom, glisser bouton droit = pan, "0" = retour au
     // cadrage automatique. _mouseX/_mouseY portent encore la position de la frame precedente ici :
     // le delta de glisser se calcule avant de les mettre a jour, plus bas.
@@ -302,11 +349,17 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         if (_palette.handleClick(_mouseX, _mouseY)) {
             // La palette, dessinee par-dessus la grille, est prioritaire sur le reste.
             _paintingDrag = false;
+            _areaDragActive = false;
         } else if (input.keyDown(Key::Shift)) {
+            // La liaison de mecanismes reste disponible quel que soit l'outil actif (EX-EDIT-014).
             handleLinkClick(_mouseX, _mouseY);
             _paintingDrag = false;
-        } else {
+            _areaDragActive = false;
+        } else if (_tool == EditorTool::Paint) {
             _paintingDrag = true;
+        } else {
+            _areaDragActive = true;
+            _areaDragStart = clampedCell(_mouseX, _mouseY);
         }
     }
 
@@ -314,6 +367,28 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         if (const std::optional<core::GridPosition> cell = hoveredCell(_mouseX, _mouseY)) {
             _draft.paintTile(cell->column, cell->row, _palette.selected());
             _dirty = true;
+        }
+    }
+
+    if (_areaDragActive && input.mouseButtonReleased(MouseButton::Left)) {
+        // Relachement d'un glisser Rectangle/Selection : applique (Rectangle) ou memorise
+        // (Selection) la zone entre le point de depart et la case courante, bornee a la grille.
+        _areaDragActive = false;
+        const core::GridPosition end = clampedCell(_mouseX, _mouseY);
+        const int minColumn = (std::min)(_areaDragStart.column, end.column);
+        const int maxColumn = (std::max)(_areaDragStart.column, end.column);
+        const int minRow = (std::min)(_areaDragStart.row, end.row);
+        const int maxRow = (std::max)(_areaDragStart.row, end.row);
+        if (_tool == EditorTool::Rectangle) {
+            const std::vector<core::TileType> rowTiles(
+                static_cast<std::size_t>(maxColumn - minColumn + 1), _palette.selected());
+            const std::vector<std::vector<core::TileType>> block(
+                static_cast<std::size_t>(maxRow - minRow + 1), rowTiles);
+            _draft.paintRegion(minColumn, minRow, block);
+            _dirty = true;
+        } else if (_tool == EditorTool::Selection) {
+            _selection = std::make_pair(core::GridPosition{minColumn, minRow},
+                                        core::GridPosition{maxColumn, maxRow});
         }
     }
 
@@ -342,8 +417,21 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     return ScreenTransition::none();
 }
 
+// Convertit une position souris en case de grille, bornee a la grille courante (jamais nullopt) :
+// utilise par les outils Rectangle/Selection, dont le glisser doit rester utilisable meme si le
+// curseur depasse legerement la grille.
+core::GridPosition EditorScreen::clampedCell(float mouseX, float mouseY) const {
+    const core::Vector2 world = _camera.screenToWorld(core::Vector2{mouseX, mouseY});
+    const int column = std::clamp(static_cast<int>(std::floor(world.x)), 0,
+                                  _draft.tileMap().width() - 1);
+    const int row = std::clamp(static_cast<int>(std::floor(world.y)), 0,
+                               _draft.tileMap().height() - 1);
+    return core::GridPosition{column, row};
+}
+
 // Redimensionne directement si l'opération est anodine ; sinon pose une confirmation et n'agit
-// qu'une fois acceptée (Entree), sans effet si annulée (Echap) — EX-EDIT-012.
+// qu'une fois acceptée (Entree), sans effet si annulée (Echap) — EX-EDIT-012. Une selection
+// Rectangle/Selection en cours devient potentiellement hors bornes : invalidee dans tous les cas.
 void EditorScreen::requestResize(int width, int height) {
     if (_draft.wouldResizeDropContent(width, height)) {
         _pendingConfirmation = PendingConfirmation{
@@ -352,12 +440,14 @@ void EditorScreen::requestResize(int width, int height) {
             [this, width, height]() {
                 _draft.resize(width, height);
                 _dirty = true;
+                _selection.reset();
                 return ScreenTransition::none();
             }};
         return;
     }
     _draft.resize(width, height);
     _dirty = true;
+    _selection.reset();
 }
 
 // Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).
@@ -490,6 +580,35 @@ void EditorScreen::renderGrid(RenderContext& context) {
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), static_cast<float>(hovered->column),
                                          static_cast<float>(hovered->row), 1.0f, 1.0f, _atlas,
                                          HIGHLIGHT_TINT));
+    }
+
+    // Previsualisation du glisser Rectangle/Selection en cours, ou selection validee restante
+    // (outil Selection) — teintes distinctes pour ne pas les confondre (EX-EDIT-014).
+    if (_tool != EditorTool::Paint) {
+        std::optional<core::GridPosition> rangeStart;
+        std::optional<core::GridPosition> rangeEnd;
+        core::Color tint{1.0f, 0.6f, 0.15f, 0.35f};  // orange : glisser en cours
+        if (_areaDragActive) {
+            rangeStart = _areaDragStart;
+            rangeEnd = clampedCell(_mouseX, _mouseY);
+        } else if (_tool == EditorTool::Selection && _selection) {
+            rangeStart = _selection->first;
+            rangeEnd = _selection->second;
+            tint = core::Color{0.4f, 0.7f, 1.0f, 0.30f};  // bleu : selection validee
+        }
+        if (rangeStart && rangeEnd) {
+            const int minColumn = (std::min)(rangeStart->column, rangeEnd->column);
+            const int maxColumn = (std::max)(rangeStart->column, rangeEnd->column);
+            const int minRow = (std::min)(rangeStart->row, rangeEnd->row);
+            const int maxRow = (std::max)(rangeStart->row, rangeEnd->row);
+            for (int row = minRow; row <= maxRow; ++row) {
+                for (int column = minColumn; column <= maxColumn; ++column) {
+                    context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), static_cast<float>(column),
+                                                     static_cast<float>(row), 1.0f, 1.0f, _atlas,
+                                                     tint));
+                }
+            }
+        }
     }
     context.spriteBatch.end();
 }

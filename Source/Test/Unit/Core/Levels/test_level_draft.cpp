@@ -498,6 +498,138 @@ TEST(LevelDraftTest, UndoApresLiaisonMecanismeRestitueLAbsenceDeLiaison) {
 }
 
 /**
+ * @brief paintRegion applique un bloc homogène comme une succession de paintTile équivalente.
+ * \castest{<b>paintRegion applique un bloc homogène comme une succession de paintTile
+ * équivalente.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion applique un bloc homogène comme une succession de paintTile équivalente.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionAppliqueLeBlocEntier) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    const std::vector<std::vector<TileType>> block = {
+        {TileType::Solid, TileType::Solid},
+        {TileType::Solid, TileType::Solid},
+    };
+    draft.paintRegion(1, 1, block);
+
+    EXPECT_EQ(draft.tileMap().tile(1, 1), TileType::Solid);
+    EXPECT_EQ(draft.tileMap().tile(2, 1), TileType::Solid);
+    EXPECT_EQ(draft.tileMap().tile(1, 2), TileType::Solid);
+    EXPECT_EQ(draft.tileMap().tile(2, 2), TileType::Solid);
+    EXPECT_EQ(draft.tileMap().tile(0, 0), TileType::Empty);
+}
+
+/**
+ * @brief paintRegion ne pousse qu'un seul snapshot undo pour tout le bloc.
+ * \castest{<b>paintRegion ne pousse qu'un seul snapshot undo pour tout le bloc.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion ne pousse qu'un seul snapshot undo pour tout le bloc.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionUnSeulSnapshotUndo) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    const std::vector<std::vector<TileType>> block = {
+        {TileType::Danger, TileType::Danger, TileType::Danger},
+    };
+    draft.paintRegion(0, 0, block);
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_FALSE(draft.canUndo());
+    EXPECT_EQ(draft.tileMap().tile(0, 0), TileType::Empty);
+    EXPECT_EQ(draft.tileMap().tile(1, 0), TileType::Empty);
+    EXPECT_EQ(draft.tileMap().tile(2, 0), TileType::Empty);
+}
+
+/**
+ * @brief paintRegion découpe silencieusement le bloc aux bords de la grille.
+ * \castest{<b>paintRegion découpe silencieusement le bloc aux bords de la grille.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion découpe silencieusement le bloc aux bords de la grille.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionDecoupeAuxBords) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    const std::vector<std::vector<TileType>> block = {
+        {TileType::Solid, TileType::Solid, TileType::Solid},
+        {TileType::Solid, TileType::Solid, TileType::Solid},
+    };
+    draft.paintRegion(1, 2, block);  // deborde largeur (colonne 3) et hauteur (ligne 3)
+
+    EXPECT_EQ(draft.tileMap().tile(1, 2), TileType::Solid);
+    EXPECT_EQ(draft.tileMap().tile(2, 2), TileType::Solid);
+}
+
+/**
+ * @brief paintRegion qui inclut une position d'entrée déplace l'entrée existante (même sémantique
+ *        que paintTile).
+ * \castest{<b>paintRegion qui inclut une position d'entrée déplace l'entrée existante.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion qui inclut une position d'entrée déplace l'entrée existante.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionDeplaceLEntree) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.setEntry(0, 0);
+    const std::vector<std::vector<TileType>> block = {{TileType::Entry}};
+    draft.paintRegion(2, 2, block);
+
+    EXPECT_EQ(draft.tileMap().tile(0, 0), TileType::Empty);
+    EXPECT_EQ(*draft.entry(), (GridPosition{2, 2}));
+}
+
+/**
+ * @brief paintRegion qui recouvre un interrupteur retire les liaisons qui le référencent.
+ * \castest{<b>paintRegion qui recouvre un interrupteur retire les liaisons qui le
+ * référencent.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion qui recouvre un interrupteur retire les liaisons qui le référencent.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionRetireLesLiaisonsRecouvertes) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::Switch);
+    draft.paintTile(3, 3, TileType::Door);
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+
+    const std::vector<std::vector<TileType>> block = {{TileType::Empty}};
+    draft.paintRegion(0, 0, block);
+
+    EXPECT_TRUE(draft.mechanisms().empty());
+}
+
+/**
+ * @brief paintRegion avec un bloc vide est sans effet (pas de snapshot undo créé).
+ * \castest{<b>paintRegion avec un bloc vide est sans effet.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu paintRegion avec un bloc vide est sans effet.
+ * }
+ */
+TEST(LevelDraftTest, PaintRegionBlocVideSansEffet) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    draft.paintRegion(0, 0, {});
+    EXPECT_FALSE(draft.canUndo());
+}
+
+/**
  * @brief wouldResizeDropContent détecte la perte de l'entrée, de la sortie ou d'une liaison.
  * \castest{<b>wouldResizeDropContent détecte la perte de l'entrée, de la sortie ou d'une
  * liaison.</b><br/>

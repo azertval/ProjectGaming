@@ -63,6 +63,23 @@ public:
     void paintTile(int column, int row, TileType type);
 
     /**
+     * @brief Applique un bloc rectangulaire de types de tuiles à partir de (@p originColumn,
+     *        @p originRow).
+     *
+     * Repasse par la même sémantique cellule-par-cellule que `paintTile` (déplacement
+     * entrée/sortie, nettoyage des liaisons) pour chaque case du bloc, mais ne pousse **qu'un
+     * seul** snapshot undo pour toute l'opération — sert au remplissage rectangulaire et au
+     * collage (`EX-EDIT-014`), sans dupliquer de règle de niveau (`EX-EDIT-010`). Les cases du
+     * bloc hors des bornes de la grille sont silencieusement ignorées (découpe aux bords, même
+     * principe que `resize`).
+     * @param originColumn Colonne de la case (0,0) du bloc.
+     * @param originRow    Ligne de la case (0,0) du bloc.
+     * @param block        Bloc de types, indexé `[ligne][colonne]` ; sans effet si vide.
+     */
+    void paintRegion(int originColumn, int originRow,
+                     const std::vector<std::vector<TileType>>& block);
+
+    /**
      * @brief Place l'entrée en (column, row) ; déplace l'occurrence existante s'il y en avait
      *        une (unicité, `EX-EDIT-004`).
      */
@@ -198,6 +215,16 @@ public:
 
 private:
     LevelDraft(std::string name, TileMap tileMap);
+
+    /// Logique de `paintTile`, sans `pushUndo()` : réutilisée cellule par cellule par
+    /// `paintRegion` pour n'empiler qu'un seul snapshot par opération de bloc.
+    void paintTileInternal(int column, int row, TileType type);
+
+    /// Logique de `setEntry`, sans `pushUndo()`.
+    void setEntryInternal(int column, int row);
+
+    /// Logique de `setExit`, sans `pushUndo()`.
+    void setExitInternal(int column, int row);
 
     /// Retire toute liaison de mécanisme référençant @p position (comme interrupteur ou porte).
     void removeMechanismsAt(GridPosition position);
