@@ -99,6 +99,19 @@ public:
     void resize(int width, int height);
 
     /**
+     * @brief Indique si redimensionner à (@p width, @p height) supprimerait du contenu déjà posé.
+     *
+     * Requête **pure** (n'altère rien) : vraie si les nouvelles bornes excluraient l'entrée, la
+     * sortie, ou une des deux extrémités d'une liaison de mécanisme actuellement posées. Permet à
+     * `HMI` d'avertir avant d'appeler `resize` (`EX-EDIT-012`), sans dupliquer la logique de
+     * troncature déjà portée par `resize`.
+     * @param width  Largeur envisagée, en cases (> 0).
+     * @param height Hauteur envisagée, en cases (> 0).
+     * @return `true` si l'entrée, la sortie ou une liaison serait perdue.
+     */
+    [[nodiscard]] bool wouldResizeDropContent(int width, int height) const noexcept;
+
+    /**
      * @brief Annule la dernière mutation (`EX-EDIT-005`).
      * @return `true` si une mutation a été annulée, `false` si l'historique était vide.
      */

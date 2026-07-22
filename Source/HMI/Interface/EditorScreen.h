@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -76,6 +77,10 @@ private:
     /// Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).
     void handleLinkClick(float mouseX, float mouseY);
 
+    /// Redimensionne si l'opération est anodine ; sinon pose une confirmation (`EX-EDIT-012`) et
+    /// n'applique rien tant qu'elle n'est pas acceptée.
+    void requestResize(int width, int height);
+
     /// Dessine la grille du brouillon (tuiles non vides), les liaisons de mécanismes, la
     /// sélection de liaison en attente et la case survolée en surbrillance.
     void renderGrid(RenderContext& context);
@@ -112,6 +117,15 @@ private:
     /// Session de jeu intégrée active pendant un essai immédiat ; `nullptr` en mode édition normal.
     std::unique_ptr<GameScreen> _playtest;
     std::string _statusMessage;  ///< Dernier message d'erreur/confirmation affiché à l'écran.
+
+    /// Confirmation en attente (`EX-EDIT-012`) : `Entrée` exécute `onConfirm` et applique sa
+    /// transition, `Échap` l'annule sans effet. Bloque le reste de l'interaction tant qu'affichée.
+    struct PendingConfirmation {
+        std::string message;
+        std::function<ScreenTransition()> onConfirm;
+    };
+    std::optional<PendingConfirmation> _pendingConfirmation;
+    bool _dirty = false;  ///< `true` si le brouillon a des modifications non enregistrées.
 };
 
 }  // namespace hmi

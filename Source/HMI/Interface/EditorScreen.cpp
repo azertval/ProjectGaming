@@ -156,6 +156,7 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
     } else {
         _draft.linkMechanism(switchPosition, doorPosition);
     }
+    _dirty = true;
     _pendingLink.reset();
 }
 
@@ -199,7 +200,29 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::none();
     }
 
+    if (_pendingConfirmation) {
+        // Bloque le reste de l'interaction tant que la confirmation est affichée : aucune
+        // peinture/liaison/redimensionnement supplémentaire ne doit s'intercaler.
+        if (input.keyPressed(Key::Enter)) {
+            const ScreenTransition transition = _pendingConfirmation->onConfirm();
+            _pendingConfirmation.reset();
+            _statusMessage.clear();
+            return transition;
+        }
+        if (input.keyPressed(Key::Escape)) {
+            _pendingConfirmation.reset();
+            _statusMessage.clear();
+        }
+        return ScreenTransition::none();
+    }
+
     if (input.keyPressed(Key::Escape)) {
+        if (_dirty) {
+            _pendingConfirmation = PendingConfirmation{
+                "Quitter sans enregistrer les modifications ? (Entree = oui, Echap = non)",
+                [this]() { return ScreenTransition::switchTo(ScreenId::Menu); }};
+            return ScreenTransition::none();
+        }
         return ScreenTransition::switchTo(ScreenId::Menu);
     }
 
@@ -228,31 +251,51 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     if (_paintingDrag && input.mouseButtonDown(MouseButton::Left)) {
         if (const std::optional<core::GridPosition> cell = hoveredCell(_mouseX, _mouseY)) {
             _draft.paintTile(cell->column, cell->row, _palette.selected());
+            _dirty = true;
         }
     }
 
     // Annuler/refaire (EX-EDIT-005) : Ctrl+Z / Ctrl+Y.
     if (input.keyDown(Key::Control) && input.keyPressed(Key::Z)) {
-        _draft.undo();
+        _dirty = _draft.undo() || _dirty;
     } else if (input.keyDown(Key::Control) && input.keyPressed(Key::Y)) {
-        _draft.redo();
+        _dirty = _draft.redo() || _dirty;
     }
 
-    // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas.
+    // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas ;
+    // confirmation si destructeur (EX-EDIT-012, requestResize).
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
     if (input.keyPressed(Key::Right)) {
-        _draft.resize(width + 1, height);
+        requestResize(width + 1, height);
     } else if (input.keyPressed(Key::Left)) {
-        _draft.resize((std::max)(1, width - 1), height);
+        requestResize((std::max)(1, width - 1), height);
     }
     if (input.keyPressed(Key::Down)) {
-        _draft.resize(_draft.tileMap().width(), height + 1);
+        requestResize(_draft.tileMap().width(), height + 1);
     } else if (input.keyPressed(Key::Up)) {
-        _draft.resize(_draft.tileMap().width(), (std::max)(1, height - 1));
+        requestResize(_draft.tileMap().width(), (std::max)(1, height - 1));
     }
 
     return ScreenTransition::none();
+}
+
+// Redimensionne directement si l'opération est anodine ; sinon pose une confirmation et n'agit
+// qu'une fois acceptée (Entree), sans effet si annulée (Echap) — EX-EDIT-012.
+void EditorScreen::requestResize(int width, int height) {
+    if (_draft.wouldResizeDropContent(width, height)) {
+        _pendingConfirmation = PendingConfirmation{
+            "Ce redimensionnement supprimerait l'entree, la sortie ou une liaison. "
+            "Confirmer ? (Entree = oui, Echap = non)",
+            [this, width, height]() {
+                _draft.resize(width, height);
+                _dirty = true;
+                return ScreenTransition::none();
+            }};
+        return;
+    }
+    _draft.resize(width, height);
+    _dirty = true;
 }
 
 // Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).
@@ -272,6 +315,7 @@ void EditorScreen::saveDraft() {
     const std::filesystem::path path = directory / (_draft.name() + ".json");
     if (core::LevelWriter::saveToFile(*result.level, path)) {
         _statusMessage = "Niveau enregistre : " + path.filename().string();
+        _dirty = false;
         HMI_LOG_INFO("Niveau enregistre : " + path.string());
     } else {
         _statusMessage = "Echec de l'enregistrement (verifiez les droits d'ecriture).";
@@ -384,21 +428,24 @@ void EditorScreen::renderPalette(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine le message de statut courant (bande de texte en bas de l'ecran), s'il y en a un.
+// Dessine le message de statut courant (bande de texte en bas de l'ecran) : la confirmation en
+// attente est prioritaire sur un simple message d'erreur/information, s'il y en a un.
 void EditorScreen::renderStatus(RenderContext& context) {
-    if (_statusMessage.empty()) {
+    const std::string& message = _pendingConfirmation ? _pendingConfirmation->message : _statusMessage;
+    if (message.empty()) {
         return;
     }
     constexpr float SCALE = 2.0f;
     constexpr float MARGIN = 12.0f;
     const float y =
         static_cast<float>(context.viewportHeight) - context.font.lineHeight(SCALE) - MARGIN;
+    const core::Color color = _pendingConfirmation ? core::Color{1.0f, 0.75f, 0.30f, 1.0f}
+                                                    : core::Color{0.90f, 0.85f, 0.55f, 1.0f};
 
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
     context.spriteBatch.begin(projection, context.font.textureView());
-    context.font.drawText(context.spriteBatch, _statusMessage, MARGIN, y, SCALE,
-                          core::Color{0.90f, 0.85f, 0.55f, 1.0f});
+    context.font.drawText(context.spriteBatch, message, MARGIN, y, SCALE, color);
     context.spriteBatch.end();
 }
 

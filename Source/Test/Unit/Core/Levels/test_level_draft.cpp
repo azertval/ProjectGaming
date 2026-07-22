@@ -498,6 +498,52 @@ TEST(LevelDraftTest, UndoApresLiaisonMecanismeRestitueLAbsenceDeLiaison) {
 }
 
 /**
+ * @brief wouldResizeDropContent détecte la perte de l'entrée, de la sortie ou d'une liaison.
+ * \castest{<b>wouldResizeDropContent détecte la perte de l'entrée, de la sortie ou d'une
+ * liaison.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu wouldResizeDropContent détecte la perte de l'entrée, de la sortie ou d'une liaison.
+ * }
+ */
+TEST(LevelDraftTest, WouldResizeDropContentDetecteLaPerte) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.setEntry(4, 4);
+    draft.setExit(0, 4);
+    draft.paintTile(4, 0, TileType::Switch);
+    draft.paintTile(0, 0, TileType::Door);
+    draft.linkMechanism(GridPosition{4, 0}, GridPosition{0, 0});
+
+    // L'entree (4,4) sortirait des bornes d'une grille 3x3.
+    EXPECT_TRUE(draft.wouldResizeDropContent(3, 3));
+    // Reduire uniquement la largeur : la sortie (0,4) et la liaison (0,0)/(4,0) sont concernees.
+    EXPECT_TRUE(draft.wouldResizeDropContent(2, 5));
+    // Agrandir ne perd jamais rien.
+    EXPECT_FALSE(draft.wouldResizeDropContent(10, 10));
+    // Memes dimensions : rien ne bouge.
+    EXPECT_FALSE(draft.wouldResizeDropContent(5, 5));
+}
+
+/**
+ * @brief wouldResizeDropContent est faux sur un brouillon vierge, quelle que soit la taille visee.
+ * \castest{<b>wouldResizeDropContent est faux sur un brouillon vierge, quelle que soit la taille
+ * visee.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu wouldResizeDropContent est faux sur un brouillon vierge, quelle que soit la taille
+ * visee.
+ * }
+ */
+TEST(LevelDraftTest, WouldResizeDropContentFauxSurBrouillonVierge) {
+    const LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    EXPECT_FALSE(draft.wouldResizeDropContent(1, 1));
+}
+
+/**
  * @brief L'annulation d'un redimensionnement restitue les dimensions et le contenu précédents.
  * \castest{<b>L'annulation d'un redimensionnement restitue les dimensions et le contenu
  * précédents.</b><br/>

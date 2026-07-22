@@ -127,6 +127,25 @@ void LevelDraft::resize(int width, int height) {
                       _mechanisms.end());
 }
 
+bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
+    const auto outOfBounds = [width, height](GridPosition position) {
+        return position.column < 0 || position.column >= width || position.row < 0 ||
+               position.row >= height;
+    };
+    if (_entry && outOfBounds(*_entry)) {
+        return true;
+    }
+    if (_exit && outOfBounds(*_exit)) {
+        return true;
+    }
+    for (const Mechanism& mechanism : _mechanisms) {
+        if (outOfBounds(mechanism.switchPosition) || outOfBounds(mechanism.doorPosition)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool LevelDraft::undo() {
     if (_undoHistory.empty()) {
         return false;
