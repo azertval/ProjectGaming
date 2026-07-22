@@ -14,12 +14,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   **redimensionnement** qui supprimerait l'entrée/la sortie/une liaison, ou **Échap** avec des
   modifications **non enregistrées**, sont désormais **confirmés** avant d'agir. La caméra se
   **déplace** (glisser bouton droit) et **zoome** (molette) indépendamment du cadrage automatique
-  (« 0 » y revient). Deux nouveaux outils au-delà du pinceau : **Rectangle** (remplissage d'une
-  zone glissée) et **Sélection** (`Ctrl+C`/`Ctrl+V`, copier/coller une zone de tuiles) — `Tab` fait
-  défiler Pinceau/Rectangle/Sélection, la liaison de mécanismes (`Maj`+clic) restant disponible
-  quel que soit l'outil actif. Découvrabilité : une **barre d'outils** cliquable, un aperçu des
-  raccourcis (`F1`), des libellés sous chaque entrée de la palette, et des liaisons interrupteur↔
-  porte teintées **différemment par interrupteur** (au lieu d'une seule teinte cyan partagée).
+  (« 0 » y revient), bornée entre ce cadrage (rien à voir au-delà du niveau) et un maximum de
+  **4 cases visibles** sur le plus petit axe (précision suffisante). Une **grille de repère**
+  (lignes fines sur chaque bord de case) bascule au clavier (`F10`) pour simplifier le repérage
+  d'une case avant d'y peindre. Deux nouveaux outils au-delà du pinceau : **Rectangle**
+  (remplissage d'une zone glissée) et **Sélection** (`Ctrl+C`/`Ctrl+V`, copier/coller une zone de
+  tuiles) — `Tab` fait défiler Pinceau/Rectangle/Sélection, la liaison de mécanismes (`Maj`+clic)
+  restant disponible quel que soit l'outil actif. Découvrabilité : la palette et la barre d'outils
+  rejoignent un **panneau latéral** vertical fixe (au lieu de bandes empilées pouvant se
+  superposer entre elles ou avec la grille), avec un libellé sous chaque entrée ; un aperçu des
+  raccourcis (`F1`) ; et des liaisons interrupteur↔porte teintées **différemment par interrupteur**
+  (au lieu d'une seule teinte cyan partagée).
   Côté dette technique : l'essai immédiat (`P`) transmet désormais le niveau **directement en
   mémoire** à une session de jeu interne (plus de fichier temporaire partagé), et les messages
   d'erreur de validation s'appuient sur un **code d'erreur catégorisé** (`LevelValidationError`)
