@@ -103,6 +103,16 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
         case WM_KEYUP:
             _input.onKeyUp(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
             return 0;
+        case WM_CHAR:
+            // Caractère déjà traduit selon la disposition clavier active par TranslateMessage
+            // (appelé en amont dans pumpMessages) : distinct des codes virtuels de WM_KEYDOWN,
+            // nécessaire à la saisie de texte de l'éditeur (LOT-15).
+            _input.onCharTyped(static_cast<wchar_t>(wParam));
+            return 0;
+        case WM_MOUSEWHEEL:
+            // GET_WHEEL_DELTA_WPARAM extrait l'incrément signé (multiple de WHEEL_DELTA = 120).
+            _input.onMouseWheel(GET_WHEEL_DELTA_WPARAM(wParam));
+            return 0;
         case WM_MOUSEMOVE:
             // GET_X/Y_LPARAM extraient des coordonnées **signées** (souris hors zone client
             // lors d'un capture), en pixels de la zone client.

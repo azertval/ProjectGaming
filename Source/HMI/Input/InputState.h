@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 /**
  * @file HMI/Input/InputState.h
@@ -32,14 +33,19 @@ enum class Key : std::uint16_t {
     Up = 0x26,
     Right = 0x27,
     Down = 0x28,
-    A = 0x41,  // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
+    D0 = 0x30,  // « 0 » : réinitialiser la caméra de l'éditeur (LOT-15)
+    A = 0x41,   // touches lettres (codes VK_*) pour les schémas ZQSD / WASD
+    C = 0x43,   // Ctrl+C : copier une zone (éditeur, LOT-15)
     D = 0x44,
     P = 0x50,  // Essai immédiat du niveau en cours d'édition (éditeur, LOT-14)
     Q = 0x51,
     S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
+    V = 0x56,  // Ctrl+V : coller une zone (éditeur, LOT-15)
     W = 0x57,
     Y = 0x59,  // Ctrl+Y : refaire (éditeur, LOT-14)
     Z = 0x5A,  // Ctrl+Z : annuler (éditeur, LOT-14)
+    F1 = 0x70,  // Aide des raccourcis (éditeur, LOT-15)
+    F2 = 0x71,  // Renommer le niveau en cours d'édition (éditeur, LOT-15)
 };
 
 /**
@@ -102,6 +108,19 @@ public:
     /// Marque @p button comme relâché dans l'état courant.
     void onMouseButtonUp(MouseButton button) noexcept;
 
+    /**
+     * @brief Accumule un incrément de molette pour la frame courante.
+     * @param delta Incrément signé (positif = molette vers l'avant), en unités natives Win32
+     *              (`WHEEL_DELTA` = 120 par cran) ; l'appelant convertit selon son besoin.
+     */
+    void onMouseWheel(int delta) noexcept;
+
+    /**
+     * @brief Enregistre un caractère tapé pour la frame courante (`WM_CHAR`).
+     * @param character Caractère déjà traduit selon la disposition clavier active.
+     */
+    void onCharTyped(wchar_t character);
+
     /// @return true si @p key est enfoncée à cette frame (maintenue ou vient d'être pressée).
     [[nodiscard]] bool keyDown(Key key) const noexcept;
 
@@ -126,6 +145,19 @@ public:
     /// @return true si @p button **vient d'être relâché** cette frame (front descendant).
     [[nodiscard]] bool mouseButtonReleased(MouseButton button) const noexcept;
 
+    /**
+     * @brief Somme des incréments de molette accumulés depuis le dernier `beginFrame()`.
+     * @return Positif si la molette a tourné vers l'avant depuis la frame précédente, négatif
+     *         vers l'arrière, zéro si elle n'a pas bougé.
+     */
+    [[nodiscard]] int wheelDelta() const noexcept;
+
+    /**
+     * @brief Caractères tapés depuis le dernier `beginFrame()`, dans leur ordre de saisie.
+     * @return Une file vide si rien n'a été tapé depuis la frame précédente.
+     */
+    [[nodiscard]] const std::vector<wchar_t>& typedCharacters() const noexcept;
+
 private:
     /// Nombre de codes de touches suivis (couvre l'ensemble des codes virtuels Win32).
     static constexpr std::size_t KEY_COUNT = 256;
@@ -139,6 +171,8 @@ private:
     std::array<bool, BUTTON_COUNT> _buttonsPrevious{};
     int _mouseX = 0;
     int _mouseY = 0;
+    int _wheelDelta = 0;                    ///< Remis à zéro à chaque `beginFrame()`.
+    std::vector<wchar_t> _typedCharacters;  ///< Vidée à chaque `beginFrame()`.
 };
 
 }  // namespace hmi
