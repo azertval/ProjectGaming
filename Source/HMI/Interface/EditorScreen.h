@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -7,6 +8,7 @@
 
 #include "Core/Levels/LevelDraft.h"
 #include "HMI/Editor/LevelPicker.h"
+#include "HMI/Editor/TextInputField.h"
 #include "HMI/Editor/TilePalette.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Interface/IScreen.h"
@@ -100,6 +102,13 @@ private:
     /// Dessine le sélecteur de niveau (liste « Nouveau niveau » + fichiers existants).
     void renderPicker(RenderContext& context);
 
+    /// Dessine le champ de saisie du nom (création ou renommage `F2`), avec un message de refus
+    /// si la dernière tentative de confirmation a été invalide.
+    void renderNameInput(RenderContext& context);
+
+    /// Écrit @p level à @p path, met à jour le message de statut et le drapeau `_dirty`.
+    void writeLevelToDisk(const core::Level& level, const std::filesystem::path& path);
+
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     int _viewportWidth;
@@ -126,6 +135,15 @@ private:
     };
     std::optional<PendingConfirmation> _pendingConfirmation;
     bool _dirty = false;  ///< `true` si le brouillon a des modifications non enregistrées.
+
+    /// Actif pendant la saisie du nom (création d'un niveau vierge ou renommage `F2`).
+    std::optional<TextInputField> _nameInput;
+    /// `true` si `_nameInput` sert à nommer un niveau tout juste créé (annuler revient au
+    /// sélecteur) ; `false` s'il s'agit d'un renommage en cours d'édition (annuler ne change rien).
+    bool _nameInputIsCreation = false;
+    /// Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau
+    /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.
+    std::optional<std::filesystem::path> _loadedFrom;
 };
 
 }  // namespace hmi

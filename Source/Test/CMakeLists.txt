@@ -39,6 +39,8 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_session_log.cpp
     Unit/HMI/Editor/test_tile_palette.cpp
     Unit/HMI/Editor/test_level_picker.cpp
+    Unit/HMI/Editor/test_text_input_field.cpp
+    Unit/HMI/Editor/test_level_name_validation.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -63,6 +65,10 @@ add_executable(UnitTests
     ../HMI/Editor/TilePalette.cpp
     # Le sélecteur de niveau (navigation/sélection) est pur, testable hors GPU.
     ../HMI/Editor/LevelPicker.cpp
+    # Le champ de saisie de texte de l'éditeur est pur, testable hors GPU.
+    ../HMI/Editor/TextInputField.cpp
+    # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
+    ../HMI/Editor/LevelNameValidation.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

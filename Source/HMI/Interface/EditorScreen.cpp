@@ -15,6 +15,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -175,6 +176,8 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(*choice.path);
                 if (loaded.ok()) {
                     _draft = core::LevelDraft::fromLevel(*loaded.level);
+                    _loadedFrom = choice.path;
+                    _dirty = false;
                     _picker.reset();
                 } else {
                     // Fichier corrompu : message recuperable (EX-NFR-040), on reste au selecteur.
@@ -182,8 +185,37 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                     HMI_LOG_WARNING(_statusMessage);
                 }
             } else {
-                _draft = core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                // Niveau vierge : le nom est demande avant d'entrer en edition (EX-EDIT-009), pas
+                // fige a "Nouveau niveau" comme au LOT-14.
                 _picker.reset();
+                _nameInput = TextInputField("", &isValidLevelName);
+                _nameInputIsCreation = true;
+            }
+        }
+        return ScreenTransition::none();
+    }
+
+    if (_nameInput) {
+        _nameInput->update(input);
+        if (_nameInput->confirmed()) {
+            const std::string name = trimLevelName(_nameInput->text());
+            if (_nameInputIsCreation) {
+                _draft = core::LevelDraft::empty(name, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                _loadedFrom.reset();
+                _dirty = false;
+            } else {
+                _draft.setName(name);
+                _dirty = true;  // renommer est une modification du brouillon comme une autre
+            }
+            _nameInput.reset();
+            _statusMessage.clear();
+        } else if (_nameInput->cancelled()) {
+            if (_nameInputIsCreation) {
+                // Aucun brouillon n'existe encore a ce stade : rien a perdre, retour au selecteur.
+                _nameInput.reset();
+                _picker = LevelPicker::forDirectory(hmi::executableDirectory() / "Levels");
+            } else {
+                _nameInput.reset();  // renommage annule : le nom courant reste inchange
             }
         }
         return ScreenTransition::none();
@@ -231,6 +263,13 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     }
     if (input.keyPressed(Key::P)) {
         startPlaytest();
+    }
+    if (input.keyPressed(Key::F2)) {
+        // Renommage (EX-EDIT-009) : le champ est pre-rempli du nom courant ; annuler le laisse
+        // inchange (traite par le bloc _nameInput ci-dessus a la prochaine frame).
+        _nameInput = TextInputField(_draft.name(), &isValidLevelName);
+        _nameInputIsCreation = false;
+        return ScreenTransition::none();
     }
 
     _mouseX = static_cast<float>(input.mouseX());
@@ -299,7 +338,8 @@ void EditorScreen::requestResize(int width, int height) {
 }
 
 // Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).
-// Echec de validation : message non-codeur, aucun fichier ecrit.
+// Echec de validation : message non-codeur, aucun fichier ecrit. Ecraser un fichier different de
+// celui d'origine du brouillon est confirme au prealable (EX-EDIT-009, EX-EDIT-012).
 void EditorScreen::saveDraft() {
     const core::LevelLoadResult result = _draft.toLevel();
     if (!result.ok()) {
@@ -311,11 +351,31 @@ void EditorScreen::saveDraft() {
     const std::filesystem::path directory = hmi::executableDirectory() / "Levels";
     std::error_code errorCode;
     std::filesystem::create_directories(directory, errorCode);
-
     const std::filesystem::path path = directory / (_draft.name() + ".json");
-    if (core::LevelWriter::saveToFile(*result.level, path)) {
+
+    std::error_code equivalenceError;
+    const bool sameAsOrigin =
+        _loadedFrom.has_value() && std::filesystem::equivalent(*_loadedFrom, path, equivalenceError);
+    const bool overwritesOtherFile = !sameAsOrigin && std::filesystem::exists(path, errorCode);
+    if (overwritesOtherFile) {
+        const core::Level level = *result.level;  // copie : capturee par la confirmation differee
+        _pendingConfirmation = PendingConfirmation{
+            "Un niveau \"" + _draft.name() + "\" existe deja. L'ecraser ? (Entree = oui, Echap = non)",
+            [this, level, path]() {
+                writeLevelToDisk(level, path);
+                return ScreenTransition::none();
+            }};
+        return;
+    }
+    writeLevelToDisk(*result.level, path);
+}
+
+// Ecrit level a path, met a jour le message de statut et le drapeau dirty (EX-EDIT-006).
+void EditorScreen::writeLevelToDisk(const core::Level& level, const std::filesystem::path& path) {
+    if (core::LevelWriter::saveToFile(level, path)) {
         _statusMessage = "Niveau enregistre : " + path.filename().string();
         _dirty = false;
+        _loadedFrom = path;
         HMI_LOG_INFO("Niveau enregistre : " + path.string());
     } else {
         _statusMessage = "Echec de l'enregistrement (verifiez les droits d'ecriture).";
@@ -477,11 +537,42 @@ void EditorScreen::renderPicker(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine le selecteur de niveau, la session de jeu interne pendant un essai immediat, ou sinon
-// la grille du niveau en cours d'edition, la palette et le message de statut.
+// Dessine le champ de saisie du nom (creation ou renommage F2), avec un message de refus si la
+// derniere tentative de confirmation etait invalide (EX-EDIT-009).
+void EditorScreen::renderNameInput(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+
+    const std::string title = _nameInputIsCreation ? "Nom du nouveau niveau" : "Renommer le niveau";
+    context.font.drawText(context.spriteBatch, title, LevelPicker::MARGIN_X, LevelPicker::TITLE_Y,
+                          4.0f, core::Color{0.90f, 0.90f, 0.95f, 1.0f});
+
+    const std::string display = _nameInput->text() + "_";
+    context.font.drawText(context.spriteBatch, display, LevelPicker::MARGIN_X,
+                          LevelPicker::OPTIONS_TOP, LevelPicker::OPTION_SCALE,
+                          core::Color{1.0f, 0.85f, 0.35f, 1.0f});
+
+    if (_nameInput->rejected()) {
+        const std::string message =
+            "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+        const float y =
+            static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
+        context.font.drawText(context.spriteBatch, message, LevelPicker::MARGIN_X, y, 2.0f,
+                              core::Color{0.90f, 0.55f, 0.55f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine le selecteur de niveau, le champ de saisie du nom, la session de jeu interne pendant un
+// essai immediat, ou sinon la grille du niveau en cours d'edition, la palette et le statut.
 void EditorScreen::render(RenderContext& context) {
     if (_picker) {
         renderPicker(context);
+        return;
+    }
+    if (_nameInput) {
+        renderNameInput(context);
         return;
     }
     if (_playtest) {
