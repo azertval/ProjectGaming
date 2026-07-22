@@ -51,13 +51,34 @@ public:
     GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
                std::vector<std::filesystem::path> levels);
 
+    /**
+     * @brief Construit l'écran pour un **niveau unique déjà en mémoire**, sans fichier ni
+     *        séquence (essai immédiat de l'éditeur, LOT-15 `EX-EDIT-008`).
+     *
+     * Atteindre la sortie termine l'essai (retour au menu, pas d'enchaînement) ; un échec
+     * (danger/chute) redémarre ce même niveau, à l'identique du mode séquence.
+     * @param batch          Lot de sprites partagé (rendu).
+     * @param atlas          Atlas de tuiles fournissant les régions de sprites.
+     * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
+     * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
+     * @param level          Niveau déjà validé à jouer.
+     */
+    GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
+               core::Level level);
+
     [[nodiscard]] ScreenTransition update(const InputState& input, float fixedDelta) override;
 
     void render(RenderContext& context) override;
 
 private:
-    /// Charge le niveau @p path : reconstruit la scène (monde ECS + personnage à l'entrée).
+    /// Charge le niveau @p path depuis un fichier, puis délègue à `loadLevel(core::Level)`.
+    /// Échec récupérable (`EX-NFR-040`) : `_level` reste vide, `_loadError` est renseigné.
     void loadLevel(const std::filesystem::path& path);
+
+    /// Reconstruit la scène (monde ECS + personnage à l'entrée) pour @p level, déjà chargé et
+    /// validé — cœur commun aux deux constructeurs (fichier ou niveau en mémoire) et aux
+    /// rechargements (échec, niveau suivant).
+    void loadLevel(core::Level level);
 
     /// Fait apparaître le personnage (Player + Transform + Velocity + Collider + Sprite) à
     /// l'entrée.
@@ -71,7 +92,10 @@ private:
     core::World _world;
     Camera2D _camera;
     SpriteRenderer _renderer;
-    LevelSequence _sequence;            ///< Progression : niveaux ordonnés + indice courant.
+    /// Progression : niveaux ordonnés + indice courant ; absente en mode niveau unique en
+    /// mémoire (essai immédiat de l'éditeur), auquel cas atteindre la sortie termine sans
+    /// enchaîner (cf. `update()`).
+    std::optional<LevelSequence> _sequence;
     std::optional<core::Level> _level;  ///< Niveau courant chargé (simulation, reset).
     std::optional<core::MechanismController>
         _mechanisms;                          ///< Interrupteurs/portes du niveau courant.

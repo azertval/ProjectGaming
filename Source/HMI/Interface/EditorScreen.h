@@ -1,12 +1,19 @@
 #pragma once
 
+#include <filesystem>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "Core/Levels/LevelDraft.h"
+#include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/LevelPicker.h"
+#include "HMI/Editor/TextInputField.h"
 #include "HMI/Editor/TilePalette.h"
+#include "HMI/Editor/ToolBar.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Interface/IScreen.h"
 
@@ -76,6 +83,15 @@ private:
     /// Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).
     void handleLinkClick(float mouseX, float mouseY);
 
+    /// Redimensionne si l'opération est anodine ; sinon pose une confirmation (`EX-EDIT-012`) et
+    /// n'applique rien tant qu'elle n'est pas acceptée.
+    void requestResize(int width, int height);
+
+    /// Convertit une position souris en case de grille, **bornée** à la grille courante (jamais
+    /// `nullopt`) — utilisé par les outils Rectangle/Sélection, dont le glisser doit rester
+    /// utilisable même si le curseur dépasse légèrement la grille.
+    [[nodiscard]] core::GridPosition clampedCell(float mouseX, float mouseY) const;
+
     /// Dessine la grille du brouillon (tuiles non vides), les liaisons de mécanismes, la
     /// sélection de liaison en attente et la case survolée en surbrillance.
     void renderGrid(RenderContext& context);
@@ -95,6 +111,23 @@ private:
     /// Dessine le sélecteur de niveau (liste « Nouveau niveau » + fichiers existants).
     void renderPicker(RenderContext& context);
 
+    /// Dessine le champ de saisie du nom (création ou renommage `F2`), avec un message de refus
+    /// si la dernière tentative de confirmation a été invalide.
+    void renderNameInput(RenderContext& context);
+
+    /// Écrit @p level à @p path, met à jour le message de statut et le drapeau `_dirty`.
+    void writeLevelToDisk(const core::Level& level, const std::filesystem::path& path);
+
+    /// Dessine la barre d'outils (icônes + surbrillance de la sélection).
+    void renderToolBar(RenderContext& context);
+
+    /// Dessine l'aperçu des raccourcis (bascule `F1`) ou l'indice permanent replié.
+    void renderHelp(RenderContext& context);
+
+    /// Dessine le fond opaque du panneau latéral, sous la palette/barre d'outils (`EX-EDIT-015`) :
+    /// garantit qu'aucune tuile de la grille ne reste visible « sous » l'interface.
+    void renderPanelBackground(RenderContext& context);
+
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     int _viewportWidth;
@@ -112,6 +145,51 @@ private:
     /// Session de jeu intégrée active pendant un essai immédiat ; `nullptr` en mode édition normal.
     std::unique_ptr<GameScreen> _playtest;
     std::string _statusMessage;  ///< Dernier message d'erreur/confirmation affiché à l'écran.
+
+    /// Confirmation en attente (`EX-EDIT-012`) : `Entrée` exécute `onConfirm` et applique sa
+    /// transition, `Échap` l'annule sans effet. Bloque le reste de l'interaction tant qu'affichée.
+    struct PendingConfirmation {
+        std::string message;
+        std::function<ScreenTransition()> onConfirm;
+    };
+    std::optional<PendingConfirmation> _pendingConfirmation;
+    bool _dirty = false;  ///< `true` si le brouillon a des modifications non enregistrées.
+
+    /// Actif pendant la saisie du nom (création d'un niveau vierge ou renommage `F2`).
+    std::optional<TextInputField> _nameInput;
+    /// `true` si `_nameInput` sert à nommer un niveau tout juste créé (annuler revient au
+    /// sélecteur) ; `false` s'il s'agit d'un renommage en cours d'édition (annuler ne change rien).
+    bool _nameInputIsCreation = false;
+    /// Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau
+    /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.
+    std::optional<std::filesystem::path> _loadedFrom;
+
+    /// `true` si la caméra est pilotée manuellement (molette/glisser droit) ; `false` tant que le
+    /// cadrage automatique (LOT-14) s'applique — réinitialisable via `Key::D0` (`EX-EDIT-013`).
+    bool _manualCamera = false;
+    float _cameraZoom = 1.0f;         ///< Zoom courant (manuel ou dernier calcul automatique).
+    core::Vector2 _cameraCenter{};    ///< Centre courant (manuel ou dernier calcul automatique).
+
+    /// Outil actif (`EX-EDIT-014`), changé par clic (barre) ou `Tab` (`selectNext`) ; source de
+    /// vérité de l'outil courant (comme `_palette` pour le type de tuile).
+    ToolBar _toolBar;
+    /// `true` pendant un glisser Rectangle/Sélection en cours (mutuellement exclusif avec
+    /// `_paintingDrag`, actif seulement quand `_toolBar.selected() != EditorTool::Paint`).
+    bool _areaDragActive = false;
+    core::GridPosition _areaDragStart{};  ///< Case de départ du glisser Rectangle/Sélection en cours.
+    /// Dernière sélection validée par l'outil Sélection (bornes inclusives min/max), pour `Ctrl+C`
+    /// ; invalidée par tout redimensionnement ou changement de niveau (peut sortir des bornes).
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
+    /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
+    std::vector<std::vector<core::TileType>> _clipboard;
+
+    /// `true` si l'aperçu des raccourcis (`F1`) est affiché ; sinon, un indice permanent discret
+    /// le rappelle en bas d'écran (`EX-EDIT-015`).
+    bool _showHelp = false;
+
+    /// `true` si les lignes de la grille de repère sont dessinées par-dessus les tuiles, pour
+    /// simplifier le repérage d'une case avant d'y peindre (bascule `F10`).
+    bool _showGridLines = false;
 };
 
 }  // namespace hmi

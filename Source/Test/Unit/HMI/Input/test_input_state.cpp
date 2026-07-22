@@ -156,3 +156,55 @@ TEST(InputStateTest, PositionSouris) {
     EXPECT_EQ(input.mouseX(), -3);
     EXPECT_EQ(input.mouseY(), 7);
 }
+
+/**
+ * @brief Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.
+ * \castest{<b>Les incréments de molette d'une frame s'additionnent et repartent de zéro
+ * ensuite.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.
+ * }
+ */
+TEST(InputStateTest, MoletteAccumuleEtSeReinitialise) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    EXPECT_EQ(input.wheelDelta(), 0);
+    input.onMouseWheel(120);
+    input.onMouseWheel(-40);
+    EXPECT_EQ(input.wheelDelta(), 80);
+
+    input.beginFrame();  // nouvelle frame sans nouvel événement molette
+    EXPECT_EQ(input.wheelDelta(), 0);
+}
+
+/**
+ * @brief Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.
+ * \castest{<b>Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame
+ * suivante.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.
+ * }
+ */
+TEST(InputStateTest, CaracteresTapesAccumulesEtVides) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    EXPECT_TRUE(input.typedCharacters().empty());
+    input.onCharTyped(L'N');
+    input.onCharTyped(L'1');
+    input.onCharTyped(L'\xE9');  // 'é', caractère accentué (saisie non anglophone, EX-EDIT-009)
+    ASSERT_EQ(input.typedCharacters().size(), 3u);
+    EXPECT_EQ(input.typedCharacters()[0], L'N');
+    EXPECT_EQ(input.typedCharacters()[1], L'1');
+    EXPECT_EQ(input.typedCharacters()[2], L'\xE9');
+
+    input.beginFrame();
+    EXPECT_TRUE(input.typedCharacters().empty());
+}

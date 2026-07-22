@@ -25,6 +25,9 @@ add_executable(ProjectGaming
     Interface/SessionLog.cpp
     Editor/TilePalette.cpp
     Editor/LevelPicker.cpp
+    Editor/TextInputField.cpp
+    Editor/LevelNameValidation.cpp
+    Editor/ToolBar.cpp
 )
 
 target_link_libraries(ProjectGaming PRIVATE

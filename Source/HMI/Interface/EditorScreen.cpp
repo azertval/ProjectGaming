@@ -15,6 +15,8 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/EditorLayout.h"
+#include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -33,26 +35,45 @@ namespace {
 constexpr int DEFAULT_WIDTH = 14;
 constexpr int DEFAULT_HEIGHT = 8;
 
-// Chemin du fichier temporaire utilise pour l'essai immediat (EX-EDIT-008) : le brouillon y est
-// ecrit avant de lancer une session de jeu interne, sans jamais toucher aux niveaux enregistres.
-[[nodiscard]] std::filesystem::path playtestFilePath() {
-    return std::filesystem::temp_directory_path() / "projectgaming_playtest_level.json";
+// Traduit un resultat de validation (LevelLoader) en phrase comprehensible par un non-codeur
+// (EX-EDIT-007) : bascule sur le code d'erreur categorise (LOT-15), pas sur une recherche de
+// sous-chaine dans le message technique — insensible a un changement de formulation dans
+// LevelLoader.
+[[nodiscard]] std::string describeValidationError(const core::LevelLoadResult& result) {
+    switch (result.errorCode) {
+        case core::LevelValidationError::InvalidEntryCount:
+            return "Il manque une entree (ou il y en a plusieurs) : la grille doit porter "
+                  "exactement une tuile Entree.";
+        case core::LevelValidationError::InvalidExitCount:
+            return "Il manque une sortie (ou il y en a plusieurs) : la grille doit porter "
+                  "exactement une tuile Sortie.";
+        case core::LevelValidationError::UnresolvedMechanism:
+        case core::LevelValidationError::MissingSwitchId:
+        case core::LevelValidationError::DuplicateSwitchId:
+            return "Une porte n'est pas reliee a un interrupteur valide.";
+        case core::LevelValidationError::OutOfBounds:
+        case core::LevelValidationError::DuplicatePosition:
+            return "La grille contient une tuile en dehors des bornes ou en double.";
+        case core::LevelValidationError::UnknownTileType:
+        case core::LevelValidationError::ParseError:
+        case core::LevelValidationError::FileNotFound:
+        case core::LevelValidationError::None:
+            break;
+    }
+    return "Niveau invalide : " + result.error;
 }
 
-// Traduit un message d'erreur de validation (LevelLoader) en phrase comprehensible par un
-// non-codeur (EX-EDIT-007) : evite d'exposer le jargon interne (JSON, cle manquante...).
-[[nodiscard]] std::string describeValidationError(const std::string& technicalMessage) {
-    if (technicalMessage.find("entree") != std::string::npos) {
-        return "Il manque une entree : placez une tuile Entree sur la grille.";
+// Libelle court affiche sous chaque icone de la barre d'outils (decouvrabilite, EX-EDIT-015).
+[[nodiscard]] std::string toolLabel(EditorTool tool) {
+    switch (tool) {
+        case EditorTool::Paint:
+            return "Pinceau";
+        case EditorTool::Rectangle:
+            return "Rectangle";
+        case EditorTool::Selection:
+            return "Selection";
     }
-    if (technicalMessage.find("sortie") != std::string::npos) {
-        return "Il manque une sortie : placez une tuile Sortie sur la grille.";
-    }
-    if (technicalMessage.find("interrupteur") != std::string::npos ||
-        technicalMessage.find("Porte liee") != std::string::npos) {
-        return "Une porte n'est pas reliee a un interrupteur valide.";
-    }
-    return "Niveau invalide : " + technicalMessage;
+    return "";
 }
 
 // Construit un quad texture a partir d'une region d'atlas et d'un rectangle (espace quelconque,
@@ -156,6 +177,7 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
     } else {
         _draft.linkMechanism(switchPosition, doorPosition);
     }
+    _dirty = true;
     _pendingLink.reset();
 }
 
@@ -174,6 +196,10 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(*choice.path);
                 if (loaded.ok()) {
                     _draft = core::LevelDraft::fromLevel(*loaded.level);
+                    _loadedFrom = choice.path;
+                    _dirty = false;
+                    _manualCamera = false;  // repart du cadrage automatique sur ce niveau
+                    _selection.reset();     // une selection precedente peut deborder ce niveau
                     _picker.reset();
                 } else {
                     // Fichier corrompu : message recuperable (EX-NFR-040), on reste au selecteur.
@@ -181,8 +207,39 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                     HMI_LOG_WARNING(_statusMessage);
                 }
             } else {
-                _draft = core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                // Niveau vierge : le nom est demande avant d'entrer en edition (EX-EDIT-009), pas
+                // fige a "Nouveau niveau" comme au LOT-14.
                 _picker.reset();
+                _nameInput = TextInputField("", &isValidLevelName);
+                _nameInputIsCreation = true;
+            }
+        }
+        return ScreenTransition::none();
+    }
+
+    if (_nameInput) {
+        _nameInput->update(input);
+        if (_nameInput->confirmed()) {
+            const std::string name = trimLevelName(_nameInput->text());
+            if (_nameInputIsCreation) {
+                _draft = core::LevelDraft::empty(name, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                _loadedFrom.reset();
+                _dirty = false;
+                _manualCamera = false;  // repart du cadrage automatique sur ce niveau
+                _selection.reset();     // une selection precedente peut deborder ce niveau
+            } else {
+                _draft.setName(name);
+                _dirty = true;  // renommer est une modification du brouillon comme une autre
+            }
+            _nameInput.reset();
+            _statusMessage.clear();
+        } else if (_nameInput->cancelled()) {
+            if (_nameInputIsCreation) {
+                // Aucun brouillon n'existe encore a ce stade : rien a perdre, retour au selecteur.
+                _nameInput.reset();
+                _picker = LevelPicker::forDirectory(hmi::executableDirectory() / "Levels");
+            } else {
+                _nameInput.reset();  // renommage annule : le nom courant reste inchange
             }
         }
         return ScreenTransition::none();
@@ -199,7 +256,29 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::none();
     }
 
+    if (_pendingConfirmation) {
+        // Bloque le reste de l'interaction tant que la confirmation est affichée : aucune
+        // peinture/liaison/redimensionnement supplémentaire ne doit s'intercaler.
+        if (input.keyPressed(Key::Enter)) {
+            const ScreenTransition transition = _pendingConfirmation->onConfirm();
+            _pendingConfirmation.reset();
+            _statusMessage.clear();
+            return transition;
+        }
+        if (input.keyPressed(Key::Escape)) {
+            _pendingConfirmation.reset();
+            _statusMessage.clear();
+        }
+        return ScreenTransition::none();
+    }
+
     if (input.keyPressed(Key::Escape)) {
+        if (_dirty) {
+            _pendingConfirmation = PendingConfirmation{
+                "Quitter sans enregistrer les modifications ? (Entree = oui, Echap = non)",
+                [this]() { return ScreenTransition::switchTo(ScreenId::Menu); }};
+            return ScreenTransition::none();
+        }
         return ScreenTransition::switchTo(ScreenId::Menu);
     }
 
@@ -209,58 +288,219 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     if (input.keyPressed(Key::P)) {
         startPlaytest();
     }
+    if (input.keyPressed(Key::F2)) {
+        // Renommage (EX-EDIT-009) : le champ est pre-rempli du nom courant ; annuler le laisse
+        // inchange (traite par le bloc _nameInput ci-dessus a la prochaine frame).
+        _nameInput = TextInputField(_draft.name(), &isValidLevelName);
+        _nameInputIsCreation = false;
+        return ScreenTransition::none();
+    }
 
-    _mouseX = static_cast<float>(input.mouseX());
-    _mouseY = static_cast<float>(input.mouseY());
+    // Changement d'outil (EX-EDIT-014/015) : Tab fait defiler Pinceau -> Rectangle -> Selection ->
+    // Pinceau (clic sur la barre : voir plus bas). Changer d'outil pendant un glisser en cours
+    // l'annule (aucune application partielle).
+    if (input.keyPressed(Key::Tab)) {
+        _areaDragActive = false;
+        _toolBar.selectNext();
+    }
+
+    // Aide des raccourcis (EX-EDIT-015) : bascule affichee/repliee.
+    if (input.keyPressed(Key::F1)) {
+        _showHelp = !_showHelp;
+    }
+
+    // Grille de repere (EX-EDIT-015) : raccourci clavier, pas un bouton du panneau d'edition.
+    if (input.keyPressed(Key::F10)) {
+        _showGridLines = !_showGridLines;
+    }
+
+    // Copier/coller de l'outil Selection (EX-EDIT-014) : Ctrl+C lit directement la grille (aucun
+    // ajout Core necessaire cote copie) ; Ctrl+V colle via paintRegion (un seul undo).
+    if (input.keyDown(Key::Control) && input.keyPressed(Key::C)) {
+        if (_selection) {
+            _clipboard.clear();
+            for (int row = _selection->first.row; row <= _selection->second.row; ++row) {
+                std::vector<core::TileType> rowTiles;
+                for (int column = _selection->first.column; column <= _selection->second.column;
+                    ++column) {
+                    if (_draft.tileMap().inBounds(column, row)) {
+                        rowTiles.push_back(_draft.tileMap().tile(column, row));
+                    }
+                }
+                _clipboard.push_back(std::move(rowTiles));
+            }
+        }
+    } else if (input.keyDown(Key::Control) && input.keyPressed(Key::V)) {
+        if (!_clipboard.empty()) {
+            // Position souris de la frame courante (pas _mouseX/_mouseY, pas encore mis a jour a
+            // ce point de la frame — voir le bloc camera plus bas).
+            const core::GridPosition cell = clampedCell(static_cast<float>(input.mouseX()),
+                                                        static_cast<float>(input.mouseY()));
+            _draft.paintRegion(cell.column, cell.row, _clipboard);
+            _dirty = true;
+        }
+    }
+
+    // Camera manuelle (EX-EDIT-013) : molette = zoom, glisser bouton droit = pan, "0" = retour au
+    // cadrage automatique. _mouseX/_mouseY portent encore la position de la frame precedente ici :
+    // le delta de glisser se calcule avant de les mettre a jour, plus bas.
+    if (input.keyPressed(Key::D0)) {
+        _manualCamera = false;
+    }
+    const int wheel = input.wheelDelta();
+    if (wheel != 0) {
+        constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
+        constexpr float MIN_VISIBLE_TILES = 4.0f;  // zoom max : au moins 4 cases visibles.
+        const float canvasWidth =
+            (std::max)(1.0f, static_cast<float>(_viewportWidth) - PANEL_WIDTH);
+        const float viewportHeight = static_cast<float>(_viewportHeight);
+        const int width = _draft.tileMap().width();
+        const int height = _draft.tileMap().height();
+        // Zoom minimal : jamais moins que le cadrage automatique (rien a voir au-dela du niveau,
+        // meme formule que renderGrid) ; zoom maximal : au moins MIN_VISIBLE_TILES cases sur le
+        // plus petit axe (precision suffisante pour poser un bloc, pas plus).
+        const float minZoom = (std::max)(
+            1.0f, std::floor((std::min)(canvasWidth / (static_cast<float>(width) *
+                                                       Camera2D::PIXELS_PER_UNIT),
+                                        viewportHeight / (static_cast<float>(height) *
+                                                          Camera2D::PIXELS_PER_UNIT)) *
+                             0.85f));
+        const float maxZoom =
+            (std::max)(minZoom, std::floor((std::min)(canvasWidth, viewportHeight) /
+                                           (MIN_VISIBLE_TILES * Camera2D::PIXELS_PER_UNIT)));
+        _cameraZoom = std::clamp(
+            _cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH), minZoom, maxZoom);
+        _manualCamera = true;
+    }
+    const float newMouseX = static_cast<float>(input.mouseX());
+    const float newMouseY = static_cast<float>(input.mouseY());
+    if (input.mouseButtonDown(MouseButton::Right) && !input.mouseButtonPressed(MouseButton::Right)) {
+        // Glisser en cours (pas le tout premier frame du clic, pour eviter un saut initial).
+        const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
+        _cameraCenter.x -= (newMouseX - _mouseX) / scale;
+        _cameraCenter.y -= (newMouseY - _mouseY) / scale;
+        _manualCamera = true;
+    }
+    _mouseX = newMouseX;
+    _mouseY = newMouseY;
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
-        if (_palette.handleClick(_mouseX, _mouseY)) {
-            // La palette, dessinee par-dessus la grille, est prioritaire sur le reste.
+        if (_palette.handleClick(_mouseX, _mouseY) || _toolBar.handleClick(_mouseX, _mouseY)) {
+            // La palette et la barre d'outils, dans le panneau lateral, sont prioritaires.
             _paintingDrag = false;
+            _areaDragActive = false;
+        } else if (_mouseX < PANEL_WIDTH) {
+            // Reste du panneau (zone vide, sous/entre les boutons) : rien a faire — surtout pas
+            // peindre une case de la grille qui serait visuellement cachee par le panneau.
+            _paintingDrag = false;
+            _areaDragActive = false;
         } else if (input.keyDown(Key::Shift)) {
+            // La liaison de mecanismes reste disponible quel que soit l'outil actif (EX-EDIT-014).
             handleLinkClick(_mouseX, _mouseY);
             _paintingDrag = false;
-        } else {
+            _areaDragActive = false;
+        } else if (_toolBar.selected() == EditorTool::Paint) {
             _paintingDrag = true;
+        } else {
+            _areaDragActive = true;
+            _areaDragStart = clampedCell(_mouseX, _mouseY);
         }
     }
 
     if (_paintingDrag && input.mouseButtonDown(MouseButton::Left)) {
         if (const std::optional<core::GridPosition> cell = hoveredCell(_mouseX, _mouseY)) {
             _draft.paintTile(cell->column, cell->row, _palette.selected());
+            _dirty = true;
+        }
+    }
+
+    if (_areaDragActive && input.mouseButtonReleased(MouseButton::Left)) {
+        // Relachement d'un glisser Rectangle/Selection : applique (Rectangle) ou memorise
+        // (Selection) la zone entre le point de depart et la case courante, bornee a la grille.
+        _areaDragActive = false;
+        const core::GridPosition end = clampedCell(_mouseX, _mouseY);
+        const int minColumn = (std::min)(_areaDragStart.column, end.column);
+        const int maxColumn = (std::max)(_areaDragStart.column, end.column);
+        const int minRow = (std::min)(_areaDragStart.row, end.row);
+        const int maxRow = (std::max)(_areaDragStart.row, end.row);
+        if (_toolBar.selected() == EditorTool::Rectangle) {
+            const std::vector<core::TileType> rowTiles(
+                static_cast<std::size_t>(maxColumn - minColumn + 1), _palette.selected());
+            const std::vector<std::vector<core::TileType>> block(
+                static_cast<std::size_t>(maxRow - minRow + 1), rowTiles);
+            _draft.paintRegion(minColumn, minRow, block);
+            _dirty = true;
+        } else if (_toolBar.selected() == EditorTool::Selection) {
+            _selection = std::make_pair(core::GridPosition{minColumn, minRow},
+                                        core::GridPosition{maxColumn, maxRow});
         }
     }
 
     // Annuler/refaire (EX-EDIT-005) : Ctrl+Z / Ctrl+Y.
     if (input.keyDown(Key::Control) && input.keyPressed(Key::Z)) {
-        _draft.undo();
+        _dirty = _draft.undo() || _dirty;
     } else if (input.keyDown(Key::Control) && input.keyPressed(Key::Y)) {
-        _draft.redo();
+        _dirty = _draft.redo() || _dirty;
     }
 
-    // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas.
+    // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas ;
+    // confirmation si destructeur (EX-EDIT-012, requestResize).
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
     if (input.keyPressed(Key::Right)) {
-        _draft.resize(width + 1, height);
+        requestResize(width + 1, height);
     } else if (input.keyPressed(Key::Left)) {
-        _draft.resize((std::max)(1, width - 1), height);
+        requestResize((std::max)(1, width - 1), height);
     }
     if (input.keyPressed(Key::Down)) {
-        _draft.resize(_draft.tileMap().width(), height + 1);
+        requestResize(_draft.tileMap().width(), height + 1);
     } else if (input.keyPressed(Key::Up)) {
-        _draft.resize(_draft.tileMap().width(), (std::max)(1, height - 1));
+        requestResize(_draft.tileMap().width(), (std::max)(1, height - 1));
     }
 
     return ScreenTransition::none();
 }
 
+// Convertit une position souris en case de grille, bornee a la grille courante (jamais nullopt) :
+// utilise par les outils Rectangle/Selection, dont le glisser doit rester utilisable meme si le
+// curseur depasse legerement la grille.
+core::GridPosition EditorScreen::clampedCell(float mouseX, float mouseY) const {
+    const core::Vector2 world = _camera.screenToWorld(core::Vector2{mouseX, mouseY});
+    const int column = std::clamp(static_cast<int>(std::floor(world.x)), 0,
+                                  _draft.tileMap().width() - 1);
+    const int row = std::clamp(static_cast<int>(std::floor(world.y)), 0,
+                               _draft.tileMap().height() - 1);
+    return core::GridPosition{column, row};
+}
+
+// Redimensionne directement si l'opération est anodine ; sinon pose une confirmation et n'agit
+// qu'une fois acceptée (Entree), sans effet si annulée (Echap) — EX-EDIT-012. Une selection
+// Rectangle/Selection en cours devient potentiellement hors bornes : invalidee dans tous les cas.
+void EditorScreen::requestResize(int width, int height) {
+    if (_draft.wouldResizeDropContent(width, height)) {
+        _pendingConfirmation = PendingConfirmation{
+            "Ce redimensionnement supprimerait l'entree, la sortie ou une liaison. "
+            "Confirmer ? (Entree = oui, Echap = non)",
+            [this, width, height]() {
+                _draft.resize(width, height);
+                _dirty = true;
+                _selection.reset();
+                return ScreenTransition::none();
+            }};
+        return;
+    }
+    _draft.resize(width, height);
+    _dirty = true;
+    _selection.reset();
+}
+
 // Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).
-// Echec de validation : message non-codeur, aucun fichier ecrit.
+// Echec de validation : message non-codeur, aucun fichier ecrit. Ecraser un fichier different de
+// celui d'origine du brouillon est confirme au prealable (EX-EDIT-009, EX-EDIT-012).
 void EditorScreen::saveDraft() {
     const core::LevelLoadResult result = _draft.toLevel();
     if (!result.ok()) {
-        _statusMessage = describeValidationError(result.error);
+        _statusMessage = describeValidationError(result);
         HMI_LOG_WARNING("Enregistrement refuse (brouillon invalide) : " + result.error);
         return;
     }
@@ -268,10 +508,31 @@ void EditorScreen::saveDraft() {
     const std::filesystem::path directory = hmi::executableDirectory() / "Levels";
     std::error_code errorCode;
     std::filesystem::create_directories(directory, errorCode);
-
     const std::filesystem::path path = directory / (_draft.name() + ".json");
-    if (core::LevelWriter::saveToFile(*result.level, path)) {
+
+    std::error_code equivalenceError;
+    const bool sameAsOrigin =
+        _loadedFrom.has_value() && std::filesystem::equivalent(*_loadedFrom, path, equivalenceError);
+    const bool overwritesOtherFile = !sameAsOrigin && std::filesystem::exists(path, errorCode);
+    if (overwritesOtherFile) {
+        const core::Level level = *result.level;  // copie : capturee par la confirmation differee
+        _pendingConfirmation = PendingConfirmation{
+            "Un niveau \"" + _draft.name() + "\" existe deja. L'ecraser ? (Entree = oui, Echap = non)",
+            [this, level, path]() {
+                writeLevelToDisk(level, path);
+                return ScreenTransition::none();
+            }};
+        return;
+    }
+    writeLevelToDisk(*result.level, path);
+}
+
+// Ecrit level a path, met a jour le message de statut et le drapeau dirty (EX-EDIT-006).
+void EditorScreen::writeLevelToDisk(const core::Level& level, const std::filesystem::path& path) {
+    if (core::LevelWriter::saveToFile(level, path)) {
         _statusMessage = "Niveau enregistre : " + path.filename().string();
+        _dirty = false;
+        _loadedFrom = path;
         HMI_LOG_INFO("Niveau enregistre : " + path.string());
     } else {
         _statusMessage = "Echec de l'enregistrement (verifiez les droits d'ecriture).";
@@ -280,41 +541,48 @@ void EditorScreen::saveDraft() {
 }
 
 // Sur un brouillon valide, lance une session de jeu interne rejouant le niveau en cours
-// d'edition (EX-EDIT-008) ; message d'erreur non-codeur sinon, sans lancer l'essai.
+// d'edition (EX-EDIT-008) ; message d'erreur non-codeur sinon, sans lancer l'essai. Le niveau
+// valide est transmis directement en memoire (LOT-15) : aucun fichier temporaire.
 void EditorScreen::startPlaytest() {
     const core::LevelLoadResult result = _draft.toLevel();
     if (!result.ok()) {
-        _statusMessage = describeValidationError(result.error);
+        _statusMessage = describeValidationError(result);
         HMI_LOG_WARNING("Essai immediat refuse (brouillon invalide) : " + result.error);
         return;
     }
 
-    const std::filesystem::path path = playtestFilePath();
-    if (!core::LevelWriter::saveToFile(*result.level, path)) {
-        _statusMessage = "Impossible de preparer l'essai immediat (fichier temporaire).";
-        return;
-    }
-
     _playtest = std::make_unique<GameScreen>(_batch, _atlas, _viewportWidth, _viewportHeight,
-                                             std::vector<std::filesystem::path>{path});
+                                             *result.level);
     _statusMessage.clear();
     HMI_LOG_INFO("Essai immediat demarre.");
 }
 
-// Dessine la grille du brouillon (tuiles non vides) et la case survolee en surbrillance.
+// Dessine la grille du brouillon (tuiles non vides) et la case survolee en surbrillance. Cadrage
+// automatique (ajuste a la fenetre) tant qu'aucun pan/zoom manuel n'est intervenu (EX-EDIT-013) ;
+// sinon _cameraCenter/_cameraZoom (pilotes par update()) restent tels quels.
 void EditorScreen::renderGrid(RenderContext& context) {
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
-    _camera.setCenter(
-        core::Vector2{static_cast<float>(width) * 0.5f, static_cast<float>(height) * 0.5f});
 
-    // Zoom pour faire tenir la grille dans la fenetre, en facteur entier (nettete pixel art).
-    const float fitX = static_cast<float>(context.viewportWidth) /
-                       (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
-    const float fitY = static_cast<float>(context.viewportHeight) /
-                       (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
-    const float zoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
-    _camera.setZoom(zoom);
+    // La grille se cadre dans le canevas (a droite du panneau lateral), pas sur toute la fenetre
+    // (EX-EDIT-015) — evite qu'une case ne se retrouve visuellement sous la palette/barre d'outils.
+    const float canvasWidth = (std::max)(1.0f, static_cast<float>(context.viewportWidth) - PANEL_WIDTH);
+    if (!_manualCamera) {
+        // Zoom pour faire tenir la grille dans le canevas, en facteur entier (nettete pixel art).
+        const float fitX = canvasWidth / (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
+        const float fitY = static_cast<float>(context.viewportHeight) /
+                           (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
+        _cameraZoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
+        // Decale le centre vers la gauche, en unites monde, de la moitie du panneau converti a
+        // l'echelle courante : le centre APPARENT de la grille se retrouve au milieu du canevas
+        // plutot qu'au milieu de la fenetre entiere.
+        const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
+        _cameraCenter = core::Vector2{
+            static_cast<float>(width) * 0.5f - (PANEL_WIDTH * 0.5f) / scale,
+            static_cast<float>(height) * 0.5f};
+    }
+    _camera.setCenter(_cameraCenter);
+    _camera.setZoom(_cameraZoom);
 
     context.spriteBatch.begin(_camera.projectionMatrix(), _atlas.textureView());
     for (int row = 0; row < height; ++row) {
@@ -329,19 +597,60 @@ void EditorScreen::renderGrid(RenderContext& context) {
         }
     }
 
-    // Mecanismes lies : meme teinte cyan sur les deux tuiles d'une liaison (pas de primitive de
-    // ligne dans SpriteBatch — un quad ne peut pas etre incline — d'ou cette association par
-    // couleur plutot qu'un trait reliant les deux cases).
-    constexpr core::Color LINK_TINT{0.3f, 1.0f, 1.0f, 0.45f};
+    // Grille de repere (bouton du panneau lateral) : fines lignes sur chaque bord de case,
+    // par-dessus les tuiles deja peintes, pour simplifier le reperage d'une case avant d'y peindre.
+    if (_showGridLines) {
+        constexpr core::Color GRID_LINE_TINT{1.0f, 1.0f, 1.0f, 0.18f};
+        constexpr float LINE_THICKNESS = 0.035f;  // en unites monde (fraction d'une case)
+        for (int column = 0; column <= width; ++column) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                             static_cast<float>(column) - LINE_THICKNESS * 0.5f,
+                                             0.0f, LINE_THICKNESS, static_cast<float>(height),
+                                             _atlas, GRID_LINE_TINT));
+        }
+        for (int row = 0; row <= height; ++row) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), 0.0f,
+                                             static_cast<float>(row) - LINE_THICKNESS * 0.5f,
+                                             static_cast<float>(width), LINE_THICKNESS, _atlas,
+                                             GRID_LINE_TINT));
+        }
+    }
+
+    // Mecanismes lies : une teinte par interrupteur (pas de primitive de ligne dans SpriteBatch —
+    // un quad ne peut pas etre incline — d'ou cette association par couleur plutot qu'un trait
+    // reliant les deux cases). Plusieurs liaisons simultanees restent distinguables (EX-EDIT-016) :
+    // chaque porte reprend la teinte de son interrupteur, cycliquement au-dela de LINK_TINTS.
+    constexpr core::Color LINK_TINTS[] = {
+        core::Color{0.3f, 1.0f, 1.0f, 0.45f},   // cyan
+        core::Color{1.0f, 0.55f, 0.15f, 0.45f}, // orange
+        core::Color{0.55f, 1.0f, 0.35f, 0.45f}, // vert
+        core::Color{1.0f, 0.35f, 0.75f, 0.45f}, // rose
+        core::Color{0.75f, 0.55f, 1.0f, 0.45f}, // violet
+        core::Color{1.0f, 0.9f, 0.25f, 0.45f},  // jaune
+    };
+    constexpr std::size_t LINK_TINT_COUNT = sizeof(LINK_TINTS) / sizeof(LINK_TINTS[0]);
+
+    std::vector<core::GridPosition> uniqueSwitches;
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        if (std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition) ==
+            uniqueSwitches.end()) {
+            uniqueSwitches.push_back(mechanism.switchPosition);
+        }
+    }
+    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        const auto switchIt =
+            std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition);
+        const std::size_t index =
+            static_cast<std::size_t>(std::distance(uniqueSwitches.begin(), switchIt));
+        const core::Color tint = LINK_TINTS[index % LINK_TINT_COUNT];
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
                                          static_cast<float>(mechanism.switchPosition.column),
                                          static_cast<float>(mechanism.switchPosition.row), 1.0f,
-                                         1.0f, _atlas, LINK_TINT));
+                                         1.0f, _atlas, tint));
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
                                          static_cast<float>(mechanism.doorPosition.column),
                                          static_cast<float>(mechanism.doorPosition.row), 1.0f,
-                                         1.0f, _atlas, LINK_TINT));
+                                         1.0f, _atlas, tint));
     }
 
     // Case en attente de liaison (premier clic Maj+souris d'une paire), teinte magenta.
@@ -359,10 +668,53 @@ void EditorScreen::renderGrid(RenderContext& context) {
                                          static_cast<float>(hovered->row), 1.0f, 1.0f, _atlas,
                                          HIGHLIGHT_TINT));
     }
+
+    // Previsualisation du glisser Rectangle/Selection en cours, ou selection validee restante
+    // (outil Selection) — teintes distinctes pour ne pas les confondre (EX-EDIT-014).
+    if (_toolBar.selected() != EditorTool::Paint) {
+        std::optional<core::GridPosition> rangeStart;
+        std::optional<core::GridPosition> rangeEnd;
+        core::Color tint{1.0f, 0.6f, 0.15f, 0.35f};  // orange : glisser en cours
+        if (_areaDragActive) {
+            rangeStart = _areaDragStart;
+            rangeEnd = clampedCell(_mouseX, _mouseY);
+        } else if (_toolBar.selected() == EditorTool::Selection && _selection) {
+            rangeStart = _selection->first;
+            rangeEnd = _selection->second;
+            tint = core::Color{0.4f, 0.7f, 1.0f, 0.30f};  // bleu : selection validee
+        }
+        if (rangeStart && rangeEnd) {
+            const int minColumn = (std::min)(rangeStart->column, rangeEnd->column);
+            const int maxColumn = (std::max)(rangeStart->column, rangeEnd->column);
+            const int minRow = (std::min)(rangeStart->row, rangeEnd->row);
+            const int maxRow = (std::max)(rangeStart->row, rangeEnd->row);
+            for (int row = minRow; row <= maxRow; ++row) {
+                for (int column = minColumn; column <= maxColumn; ++column) {
+                    context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), static_cast<float>(column),
+                                                     static_cast<float>(row), 1.0f, 1.0f, _atlas,
+                                                     tint));
+                }
+            }
+        }
+    }
     context.spriteBatch.end();
 }
 
-// Dessine la palette : une couleur par type, la selection encadree.
+// Dessine le fond opaque du panneau lateral (EX-EDIT-015) : la grille (canevas a droite du
+// panneau, cf. renderGrid) ne doit jamais rester visible « sous » l'interface.
+void EditorScreen::renderPanelBackground(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, _atlas.textureView());
+    constexpr core::Color PANEL_TINT{0.09f, 0.09f, 0.12f, 0.92f};
+    context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), 0.0f, 0.0f, PANEL_WIDTH,
+                                     static_cast<float>(context.viewportHeight), _atlas,
+                                     PANEL_TINT));
+    context.spriteBatch.end();
+}
+
+// Dessine la palette (panneau lateral) : une icone par type, la selection encadree, un libelle a
+// droite de chaque icone (decouvrabilite, EX-EDIT-015).
 void EditorScreen::renderPalette(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
@@ -382,23 +734,112 @@ void EditorScreen::renderPalette(RenderContext& context) {
                    entry.height, _atlas));
     }
     context.spriteBatch.end();
+
+    // Deuxieme passe (texture de police distincte de l'atlas de tuiles, cf. SpriteBatch) : un
+    // libelle court a droite de chaque icone, verticalement centre.
+    context.spriteBatch.begin(projection, context.font.textureView());
+    constexpr float LABEL_SCALE = 1.0f;
+    constexpr float LABEL_GAP = 6.0f;
+    for (const TilePalette::Entry& entry : _palette.entries()) {
+        const float labelY = entry.y + (entry.height - context.font.lineHeight(LABEL_SCALE)) * 0.5f;
+        context.font.drawText(context.spriteBatch, entry.label, entry.x + entry.width + LABEL_GAP,
+                              labelY, LABEL_SCALE, core::Color{0.85f, 0.85f, 0.90f, 1.0f});
+    }
+    context.spriteBatch.end();
 }
 
-// Dessine le message de statut courant (bande de texte en bas de l'ecran), s'il y en a un.
+// Dessine la barre d'outils (panneau lateral, sous la palette) : une icone teintee, la selection
+// encadree, un libelle a droite de chaque ligne (EX-EDIT-014/015). La grille de repere n'a pas de
+// bouton dedie : bascule au clavier (F10, cf. update()).
+void EditorScreen::renderToolBar(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+
+    constexpr float BORDER = 3.0f;
+    constexpr core::Color SELECTION_TINT{1.0f, 1.0f, 0.4f, 1.0f};
+    constexpr core::Color TOOL_TINT{0.55f, 0.55f, 0.68f, 1.0f};
+
+    context.spriteBatch.begin(projection, _atlas.textureView());
+    for (const ToolBar::Entry& entry : _toolBar.entries()) {
+        if (entry.tool == _toolBar.selected()) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x - BORDER, entry.y - BORDER,
+                                             entry.width + 2.0f * BORDER,
+                                             entry.height + 2.0f * BORDER, _atlas, SELECTION_TINT));
+        }
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x, entry.y, entry.width,
+                                         entry.height, _atlas, TOOL_TINT));
+    }
+    context.spriteBatch.end();
+
+    context.spriteBatch.begin(projection, context.font.textureView());
+    constexpr float LABEL_SCALE = 1.0f;
+    constexpr float LABEL_GAP = 6.0f;
+    for (const ToolBar::Entry& entry : _toolBar.entries()) {
+        const float labelY = entry.y + (entry.height - context.font.lineHeight(LABEL_SCALE)) * 0.5f;
+        context.font.drawText(context.spriteBatch, toolLabel(entry.tool),
+                              entry.x + entry.width + LABEL_GAP, labelY, LABEL_SCALE,
+                              core::Color{0.85f, 0.85f, 0.90f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine l'apercu des raccourcis (bascule F1, dans le canevas a droite du panneau lateral) ou,
+// replie, un indice permanent discret en haut a droite de l'ecran (decouvrabilite, EX-EDIT-015).
+void EditorScreen::renderHelp(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+
+    if (_showHelp) {
+        static const std::vector<std::string> LINES = {
+            "Clic gauche : peindre (outil actif)   |   Maj+clic : lier interrupteur/porte",
+            "Molette : zoom camera   |   Glisser bouton droit : deplacer la vue   |   0 : reinit.",
+            "Tab (ou barre d'outils) : changer d'outil (Pinceau / Rectangle / Selection)",
+            "Ctrl+C / Ctrl+V : copier / coller la selection",
+            "Fleches : redimensionner la grille   |   Ctrl+Z / Ctrl+Y : annuler / refaire",
+            "F2 : renommer   |   Ctrl+S : enregistrer   |   P : essai immediat",
+            "F10 : grille de repere   |   Echap : quitter (ou fin de l'essai)",
+            "F1 : fermer cette aide",
+        };
+        constexpr float SCALE = 1.6f;
+        // A droite du panneau lateral (pas x = 12) : eviter tout chevauchement avec la palette et
+        // la barre d'outils (EX-EDIT-015).
+        const float marginX = PANEL_WIDTH + 12.0f;
+        float y = 12.0f;
+        for (const std::string& line : LINES) {
+            context.font.drawText(context.spriteBatch, line, marginX, y, SCALE,
+                                  core::Color{0.92f, 0.92f, 0.95f, 1.0f});
+            y += context.font.lineHeight(SCALE) + 4.0f;
+        }
+    } else {
+        constexpr float SCALE = 1.4f;
+        const std::string hint = "F1 : aide";
+        const float x = static_cast<float>(context.viewportWidth) -
+                       context.font.textWidth(hint, SCALE) - 10.0f;
+        context.font.drawText(context.spriteBatch, hint, x, 10.0f, SCALE,
+                              core::Color{0.7f, 0.7f, 0.75f, 0.85f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine le message de statut courant (bande de texte en bas de l'ecran) : la confirmation en
+// attente est prioritaire sur un simple message d'erreur/information, s'il y en a un.
 void EditorScreen::renderStatus(RenderContext& context) {
-    if (_statusMessage.empty()) {
+    const std::string& message = _pendingConfirmation ? _pendingConfirmation->message : _statusMessage;
+    if (message.empty()) {
         return;
     }
     constexpr float SCALE = 2.0f;
     constexpr float MARGIN = 12.0f;
     const float y =
         static_cast<float>(context.viewportHeight) - context.font.lineHeight(SCALE) - MARGIN;
+    const core::Color color = _pendingConfirmation ? core::Color{1.0f, 0.75f, 0.30f, 1.0f}
+                                                    : core::Color{0.90f, 0.85f, 0.55f, 1.0f};
 
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
     context.spriteBatch.begin(projection, context.font.textureView());
-    context.font.drawText(context.spriteBatch, _statusMessage, MARGIN, y, SCALE,
-                          core::Color{0.90f, 0.85f, 0.55f, 1.0f});
+    context.font.drawText(context.spriteBatch, message, MARGIN, y, SCALE, color);
     context.spriteBatch.end();
 }
 
@@ -430,11 +871,42 @@ void EditorScreen::renderPicker(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine le selecteur de niveau, la session de jeu interne pendant un essai immediat, ou sinon
-// la grille du niveau en cours d'edition, la palette et le message de statut.
+// Dessine le champ de saisie du nom (creation ou renommage F2), avec un message de refus si la
+// derniere tentative de confirmation etait invalide (EX-EDIT-009).
+void EditorScreen::renderNameInput(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+
+    const std::string title = _nameInputIsCreation ? "Nom du nouveau niveau" : "Renommer le niveau";
+    context.font.drawText(context.spriteBatch, title, LevelPicker::MARGIN_X, LevelPicker::TITLE_Y,
+                          4.0f, core::Color{0.90f, 0.90f, 0.95f, 1.0f});
+
+    const std::string display = _nameInput->text() + "_";
+    context.font.drawText(context.spriteBatch, display, LevelPicker::MARGIN_X,
+                          LevelPicker::OPTIONS_TOP, LevelPicker::OPTION_SCALE,
+                          core::Color{1.0f, 0.85f, 0.35f, 1.0f});
+
+    if (_nameInput->rejected()) {
+        const std::string message =
+            "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+        const float y =
+            static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
+        context.font.drawText(context.spriteBatch, message, LevelPicker::MARGIN_X, y, 2.0f,
+                              core::Color{0.90f, 0.55f, 0.55f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine le selecteur de niveau, le champ de saisie du nom, la session de jeu interne pendant un
+// essai immediat, ou sinon la grille du niveau en cours d'edition, la palette et le statut.
 void EditorScreen::render(RenderContext& context) {
     if (_picker) {
         renderPicker(context);
+        return;
+    }
+    if (_nameInput) {
+        renderNameInput(context);
         return;
     }
     if (_playtest) {
@@ -443,7 +915,10 @@ void EditorScreen::render(RenderContext& context) {
     }
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
     renderGrid(context);
+    renderPanelBackground(context);
     renderPalette(context);
+    renderToolBar(context);
+    renderHelp(context);
     renderStatus(context);
 }
 

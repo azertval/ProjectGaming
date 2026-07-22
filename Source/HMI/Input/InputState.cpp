@@ -21,6 +21,8 @@ namespace {
 void InputState::beginFrame() noexcept {
     _keysPrevious = _keysCurrent;
     _buttonsPrevious = _buttonsCurrent;
+    _wheelDelta = 0;
+    _typedCharacters.clear();
 }
 
 // Marque key comme enfoncée dans l'état courant.
@@ -61,6 +63,17 @@ void InputState::onMouseButtonUp(MouseButton button) noexcept {
     if (index < BUTTON_COUNT) {
         _buttonsCurrent[index] = false;
     }
+}
+
+// Accumule un incrément de molette pour la frame courante (plusieurs crans dans la même frame
+// s'additionnent, cas normal d'une molette tournée vite).
+void InputState::onMouseWheel(int delta) noexcept {
+    _wheelDelta += delta;
+}
+
+// Enregistre un caractère tapé pour la frame courante, dans l'ordre de saisie.
+void InputState::onCharTyped(wchar_t character) {
+    _typedCharacters.push_back(character);
 }
 
 // true si key est enfoncée à cette frame (maintenue ou vient d'être pressée).
@@ -111,6 +124,16 @@ bool InputState::mouseButtonPressed(MouseButton button) const noexcept {
 bool InputState::mouseButtonReleased(MouseButton button) const noexcept {
     const std::size_t index = buttonIndex(button);
     return index < BUTTON_COUNT && !_buttonsCurrent[index] && _buttonsPrevious[index];
+}
+
+// Somme des incréments de molette accumulés depuis le dernier beginFrame().
+int InputState::wheelDelta() const noexcept {
+    return _wheelDelta;
+}
+
+// Caractères tapés depuis le dernier beginFrame(), dans leur ordre de saisie.
+const std::vector<wchar_t>& InputState::typedCharacters() const noexcept {
+    return _typedCharacters;
 }
 
 }  // namespace hmi

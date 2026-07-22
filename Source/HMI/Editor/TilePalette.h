@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 #include "Core/Levels/TileType.h"
@@ -25,13 +26,15 @@ namespace hmi {
  */
 class TilePalette {
 public:
-    /// Une entrée cliquable de la palette : son rectangle écran et le type qu'elle sélectionne.
+    /// Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et
+    /// son libellé court (découvrabilité, `EX-EDIT-015`) — dessin délégué à `EditorScreen`.
     struct Entry {
         core::TileType type;
         float x = 0.0f;
         float y = 0.0f;
         float width = 0.0f;
         float height = 0.0f;
+        std::string label;
     };
 
     /// Construit la palette, disposée en bande horizontale dans le coin haut-gauche de l'écran.

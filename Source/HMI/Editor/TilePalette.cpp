@@ -1,12 +1,10 @@
 #include "HMI/Editor/TilePalette.h"
 
+#include "HMI/Editor/EditorLayout.h"
+
 namespace hmi {
 
 namespace {
-
-constexpr float ENTRY_SIZE = 40.0f;
-constexpr float ENTRY_GAP = 6.0f;
-constexpr float MARGIN = 8.0f;
 
 // Types éditables, dans leur ordre d'affichage (cf. en-tête : limité à ce que Core gère).
 constexpr core::TileType PALETTE_TYPES[] = {
@@ -14,13 +12,38 @@ constexpr core::TileType PALETTE_TYPES[] = {
     core::TileType::Exit,  core::TileType::Switch, core::TileType::Door,
 };
 
+// Libellé court affiché sous chaque entrée (découvrabilité, EX-EDIT-015) — pas d'accent, cohérent
+// avec le reste des libellés affichés en jeu par cet ecran (police bitmap, place limitée).
+[[nodiscard]] std::string labelFor(core::TileType type) {
+    switch (type) {
+        case core::TileType::Empty:
+            return "Vide";
+        case core::TileType::Solid:
+            return "Plein";
+        case core::TileType::Danger:
+            return "Danger";
+        case core::TileType::Entry:
+            return "Entree";
+        case core::TileType::Exit:
+            return "Sortie";
+        case core::TileType::Switch:
+            return "Interr.";
+        case core::TileType::Door:
+            return "Porte";
+    }
+    return "";
+}
+
 }  // namespace
 
+// Disposition en colonne, dans le panneau lateral (LOT-15) : une ligne par type, icone + libelle
+// dessines cote a cote par EditorScreen (geometrie ici, rendu delegue comme documente en en-tete).
 TilePalette::TilePalette() {
-    float x = MARGIN;
+    float y = PALETTE_TOP;
     for (const core::TileType type : PALETTE_TYPES) {
-        _entries.push_back(Entry{type, x, MARGIN, ENTRY_SIZE, ENTRY_SIZE});
-        x += ENTRY_SIZE + ENTRY_GAP;
+        _entries.push_back(
+            Entry{type, PANEL_MARGIN, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE, labelFor(type)});
+        y += PANEL_ROW_PITCH;
     }
 }
 

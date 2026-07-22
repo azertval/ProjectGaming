@@ -17,9 +17,9 @@ namespace core {
 
 namespace {
 
-// Construit un résultat d'échec avec un message.
-[[nodiscard]] LevelLoadResult failure(std::string message) {
-    return LevelLoadResult{std::nullopt, std::move(message)};
+// Construit un résultat d'échec avec un message et un code categorise (LOT-15, EX-EDIT-012).
+[[nodiscard]] LevelLoadResult failure(std::string message, LevelValidationError code) {
+    return LevelLoadResult{std::nullopt, std::move(message), code};
 }
 
 // Convertit un nom de type de tuile du fichier en TileType (nullopt si inconnu).
@@ -62,16 +62,18 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         const nlohmann::json root = nlohmann::json::parse(json);
 
         if (!root.contains("width") || !root.contains("height") || !root.contains("tiles")) {
-            return failure("Champ obligatoire manquant (width, height ou tiles)");
+            return failure("Champ obligatoire manquant (width, height ou tiles)",
+                           LevelValidationError::ParseError);
         }
         if (!root.at("tiles").is_array()) {
-            return failure("Le champ 'tiles' doit etre une liste");
+            return failure("Le champ 'tiles' doit etre une liste", LevelValidationError::ParseError);
         }
 
         const int width = root.at("width").get<int>();
         const int height = root.at("height").get<int>();
         if (width <= 0 || height <= 0) {
-            return failure("Dimensions invalides (width et height doivent etre > 0)");
+            return failure("Dimensions invalides (width et height doivent etre > 0)",
+                           LevelValidationError::ParseError);
         }
 
         std::string name = root.value("name", std::string{});
@@ -96,15 +98,18 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
 
             const std::optional<TileType> type = parseTileType(typeName);
             if (!type) {
-                return failure("Type de tuile inconnu : " + typeName);
+                return failure("Type de tuile inconnu : " + typeName,
+                               LevelValidationError::UnknownTileType);
             }
             if (!map.inBounds(x, y)) {
                 return failure("Tuile hors bornes en (" + std::to_string(x) + ", " +
-                               std::to_string(y) + ")");
+                                   std::to_string(y) + ")",
+                               LevelValidationError::OutOfBounds);
             }
             if (!occupiedPositions.emplace(x, y).second) {
                 return failure("Deux tuiles a la meme position (" + std::to_string(x) + ", " +
-                               std::to_string(y) + ")");
+                                   std::to_string(y) + ")",
+                               LevelValidationError::DuplicatePosition);
             }
             map.setTile(x, y, *type);
 
@@ -118,10 +123,12 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                 const std::string id = tile.value("id", std::string{});
                 if (id.empty()) {
                     return failure("Interrupteur sans 'id' en (" + std::to_string(x) + ", " +
-                                   std::to_string(y) + ")");
+                                       std::to_string(y) + ")",
+                                   LevelValidationError::MissingSwitchId);
                 }
                 if (!switchesById.emplace(id, GridPosition{x, y}).second) {
-                    return failure("Identifiant d'interrupteur en double : " + id);
+                    return failure("Identifiant d'interrupteur en double : " + id,
+                                   LevelValidationError::DuplicateSwitchId);
                 }
             } else if (*type == TileType::Door) {
                 doors.push_back(
@@ -131,16 +138,20 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
 
         // Validation : exactement une entrée et une sortie (EX-LVL-004).
         if (entryCount == 0) {
-            return failure("Niveau sans entree (aucune tuile 'entry')");
+            return failure("Niveau sans entree (aucune tuile 'entry')",
+                           LevelValidationError::InvalidEntryCount);
         }
         if (entryCount > 1) {
-            return failure("Plusieurs entrees dans le niveau (une seule attendue)");
+            return failure("Plusieurs entrees dans le niveau (une seule attendue)",
+                           LevelValidationError::InvalidEntryCount);
         }
         if (exitCount == 0) {
-            return failure("Niveau sans sortie (aucune tuile 'exit')");
+            return failure("Niveau sans sortie (aucune tuile 'exit')",
+                           LevelValidationError::InvalidExitCount);
         }
         if (exitCount > 1) {
-            return failure("Plusieurs sorties dans le niveau (une seule attendue)");
+            return failure("Plusieurs sorties dans le niveau (une seule attendue)",
+                           LevelValidationError::InvalidExitCount);
         }
 
         // Résout les liaisons interrupteur↔porte par identifiant. Une porte sans 'opensWith'
@@ -152,7 +163,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             }
             const auto found = switchesById.find(door.opensWith);
             if (found == switchesById.end()) {
-                return failure("Porte liee a un interrupteur inexistant : " + door.opensWith);
+                return failure("Porte liee a un interrupteur inexistant : " + door.opensWith,
+                               LevelValidationError::UnresolvedMechanism);
             }
             mechanisms.push_back(Mechanism{found->second, door.position});
         }
@@ -161,7 +173,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                      std::move(mechanisms), jumpBudget, dashBudget),
                                {}};
     } catch (const nlohmann::json::exception& error) {
-        return failure(std::string("JSON invalide : ") + error.what());
+        return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);
     }
 }
 
@@ -169,7 +181,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
 LevelLoadResult LevelLoader::loadFromFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
     if (!file) {
-        return failure("Fichier de niveau introuvable : " + path.string());
+        return failure("Fichier de niveau introuvable : " + path.string(),
+                       LevelValidationError::FileNotFound);
     }
     std::ostringstream buffer;
     buffer << file.rdbuf();

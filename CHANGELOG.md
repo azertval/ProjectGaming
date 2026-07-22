@@ -7,6 +7,34 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-15 — Éditeur de niveaux : robustesse et confort d'édition** (`EX-EDIT-009`, `EX-EDIT-012` à
+  `EX-EDIT-016`). L'éditeur intégré (LOT-14) se rapproche d'un outil de production : créer un
+  niveau **demande un nom** (plus de collision silencieuse sur « Nouveau niveau.json ») et **F2**
+  le renomme en cours d'édition ; enregistrer sous un nom qui **écraserait** un autre fichier, un
+  **redimensionnement** qui supprimerait l'entrée/la sortie/une liaison, ou **Échap** avec des
+  modifications **non enregistrées**, sont désormais **confirmés** avant d'agir. La caméra se
+  **déplace** (glisser bouton droit) et **zoome** (molette) indépendamment du cadrage automatique
+  (« 0 » y revient), bornée entre ce cadrage (rien à voir au-delà du niveau) et un maximum de
+  **4 cases visibles** sur le plus petit axe (précision suffisante). Une **grille de repère**
+  (lignes fines sur chaque bord de case) bascule au clavier (`F10`) pour simplifier le repérage
+  d'une case avant d'y peindre. Deux nouveaux outils au-delà du pinceau : **Rectangle**
+  (remplissage d'une zone glissée) et **Sélection** (`Ctrl+C`/`Ctrl+V`, copier/coller une zone de
+  tuiles) — `Tab` fait défiler Pinceau/Rectangle/Sélection, la liaison de mécanismes (`Maj`+clic)
+  restant disponible quel que soit l'outil actif. Découvrabilité : la palette et la barre d'outils
+  rejoignent un **panneau latéral** vertical fixe (au lieu de bandes empilées pouvant se
+  superposer entre elles ou avec la grille), avec un libellé à côté de chaque entrée ; un aperçu
+  des raccourcis (`F1`) ; et des liaisons interrupteur↔porte teintées **différemment par
+  interrupteur** (au lieu d'une seule teinte cyan partagée).
+  Côté dette technique : l'essai immédiat (`P`) transmet désormais le niveau **directement en
+  mémoire** à une session de jeu interne (plus de fichier temporaire partagé), et les messages
+  d'erreur de validation s'appuient sur un **code d'erreur catégorisé** (`LevelValidationError`)
+  plutôt que sur une recherche de sous-chaîne dans le message technique. `LevelDraft::paintRegion`
+  (remplissage/collage) réutilise la sémantique cellule-par-cellule de `paintTile`, sans dupliquer
+  de règle de niveau (`EX-EDIT-010`), en un seul snapshot undo par opération. Couvert par tests
+  **unitaires** (`LevelDraft::paintRegion`/`wouldResizeDropContent`, `TextInputField`,
+  `LevelNameValidation`, `ToolBar`, `InputState` — molette/texte tapé, `LevelLoader` — codes
+  d'erreur) ; vérifié manuellement dans l'application pour la caméra et le glisser-déposer des
+  outils de zone (logique non testable hors GPU, comme le reste d'`EditorScreen`/`GameScreen`).
 - **LOT-14 — Éditeur de niveaux intégré** (`EX-EDIT-001` à `EX-EDIT-011`, `EX-EDIT-020` à
   `EX-EDIT-022`, `EX-EDIT-030`/`031`). Le menu **« Mode Édition »** ouvre désormais un véritable
   éditeur, intégré à l'application (même exécutable, même rendu Direct3D 11 que le jeu) : un
@@ -28,6 +56,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   un mécanisme, annuler, redimensionner, enregistrer, recharger, vérifier que le niveau produit est
   directement jouable). Vérifié manuellement dans l'application (peinture, palette, liaisons,
   redimensionnement, undo/redo, enregistrement sur disque, essai immédiat).
+
+### Corrigé
+- **`F10` (éditeur, LOT-15) ne déclenchait rien.** Win32 délivre cette touche (comme les
+  combinaisons `Alt`+quelque-chose) via `WM_SYSKEYDOWN`/`WM_SYSKEYUP`, jamais
+  `WM_KEYDOWN`/`WM_KEYUP` — une convention historique d'activation du menu, indépendante de
+  l'absence de menu dans cette fenêtre. `Window::handleMessage` capture désormais aussi ces deux
+  messages (comme les autres touches), en laissant `DefWindowProcW` traiter le comportement
+  système par défaut (`Alt+F4`, `Alt+Tab`) — sauf pour `F10` lui-même, absorbé pour éviter
+  l'activation visuelle, inutile ici, du (non-)système de menu au relâchement. Découvert lors d'un
+  essai interactif par l'utilisateur.
 
 ## [0.0.1] - 2026-07-18
 
