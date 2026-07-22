@@ -141,6 +141,28 @@ TEST(LevelDraftTest, LierPuisDelierUnMecanisme) {
 }
 
 /**
+ * @brief Lier une plaque de pression à une porte crée un mécanisme, comme un interrupteur
+ * (`EX-GP-025`).
+ * \castest{<b>Lier une plaque de pression à une porte crée un mécanisme.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Lier une plaque de pression à une porte crée un mécanisme, comme un interrupteur.
+ * }
+ */
+TEST(LevelDraftTest, LierUnePlaqueDePression) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::PressurePlate);
+    draft.paintTile(3, 3, TileType::Door);
+
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+    ASSERT_EQ(draft.mechanisms().size(), 1u);
+    EXPECT_EQ(draft.mechanisms().front().switchPosition, (GridPosition{0, 0}));
+    EXPECT_EQ(draft.mechanisms().front().doorPosition, (GridPosition{3, 3}));
+}
+
+/**
  * @brief Relier une porte déjà liée remplace la liaison précédente (une porte, un interrupteur).
  * \castest{<b>Relier une porte déjà liée remplace la liaison précédente (une porte, un
  * interrupteur).</b><br/>

@@ -130,6 +130,14 @@ std::optional<core::GridPosition> EditorScreen::hoveredCell(float mouseX, float 
     return core::GridPosition{column, row};
 }
 
+// Vrai pour les tuiles "declencheur" liables a une porte (interrupteur ou plaque de pression,
+// EX-GP-020/EX-GP-025) : les deux se lient au meme geste (Maj+clic).
+namespace {
+bool isTriggerTile(core::TileType type) {
+    return type == core::TileType::Switch || type == core::TileType::PressurePlate;
+}
+}  // namespace
+
 // Traite un clic Maj+souris pour la liaison de mecanismes (bascule si la paire est deja liee).
 void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
     const std::optional<core::GridPosition> cell = hoveredCell(mouseX, mouseY);
@@ -137,14 +145,14 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
         return;
     }
     const core::TileType type = _draft.tileMap().tile(cell->column, cell->row);
-    if (type != core::TileType::Switch && type != core::TileType::Door) {
+    if (!isTriggerTile(type) && type != core::TileType::Door) {
         return;  // rien a lier sur cette case
     }
 
     if (_pendingLink) {
         const core::TileType pendingType =
             _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
-        if (pendingType != core::TileType::Switch && pendingType != core::TileType::Door) {
+        if (!isTriggerTile(pendingType) && pendingType != core::TileType::Door) {
             _pendingLink.reset();  // la case en attente a change de type entre-temps
         }
     }
@@ -156,16 +164,16 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
 
     const core::TileType pendingType =
         _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
-    if (pendingType == type) {
-        // Deux cases du meme type (deux interrupteurs, deux portes) : on recommence avec
-        // la nouvelle case plutot que de rester bloque.
+    if (isTriggerTile(pendingType) == isTriggerTile(type)) {
+        // Deux cases de la meme categorie (deux declencheurs, quel que soit leur type exact, ou
+        // deux portes) : on recommence avec la nouvelle case plutot que de rester bloque.
         _pendingLink = cell;
         return;
     }
 
-    const bool pendingIsSwitch = pendingType == core::TileType::Switch;
-    const core::GridPosition switchPosition = pendingIsSwitch ? *_pendingLink : *cell;
-    const core::GridPosition doorPosition = pendingIsSwitch ? *cell : *_pendingLink;
+    const bool pendingIsTrigger = isTriggerTile(pendingType);
+    const core::GridPosition switchPosition = pendingIsTrigger ? *_pendingLink : *cell;
+    const core::GridPosition doorPosition = pendingIsTrigger ? *cell : *_pendingLink;
 
     const bool alreadyLinked =
         std::any_of(_draft.mechanisms().begin(), _draft.mechanisms().end(),

@@ -76,6 +76,42 @@ TEST(LevelWriterTest, RoundTripPreserveLeContenu) {
 }
 
 /**
+ * @brief Une plaque de pression survit au round-trip (sérialisation puis rechargement),
+ * `TileType` et liaison préservés (`EX-GP-025`).
+ * \castest{<b>Une plaque de pression survit au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une plaque de pression survit au round-trip : `TileType` et liaison préservés.
+ * }
+ */
+TEST(LevelWriterTest, PlaqueDePressionSurvitAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "Poids",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "pressurePlate", "id": "p1" },
+        { "x": 3, "y": 0, "type": "door", "opensWith": "p1" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), core::TileType::PressurePlate);
+    ASSERT_EQ(reloaded.level->mechanisms().size(), 1u);
+    EXPECT_EQ(reloaded.level->mechanisms().front().switchPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(reloaded.level->mechanisms().front().doorPosition, (core::GridPosition{3, 0}));
+}
+
+/**
  * @brief Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.
  * \castest{<b>Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.</b><br/>
  * \tcat Unitaire · Level Writer<br/>

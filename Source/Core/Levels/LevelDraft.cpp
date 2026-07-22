@@ -101,10 +101,12 @@ void LevelDraft::setExitInternal(int column, int row) {
 }
 
 void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition doorPosition) {
-    PROJECTGAMING_ASSERT(_tileMap.inBounds(switchPosition.column, switchPosition.row) &&
-                             _tileMap.tile(switchPosition.column, switchPosition.row) ==
-                                 TileType::Switch,
-                         "linkMechanism : la position source ne porte pas d'interrupteur");
+    const TileType switchTile = _tileMap.inBounds(switchPosition.column, switchPosition.row)
+                                    ? _tileMap.tile(switchPosition.column, switchPosition.row)
+                                    : TileType::Empty;
+    PROJECTGAMING_ASSERT(switchTile == TileType::Switch || switchTile == TileType::PressurePlate,
+                         "linkMechanism : la position source ne porte pas de declencheur "
+                         "(interrupteur ou plaque de pression)");
     PROJECTGAMING_ASSERT(_tileMap.inBounds(doorPosition.column, doorPosition.row) &&
                              _tileMap.tile(doorPosition.column, doorPosition.row) ==
                                  TileType::Door,

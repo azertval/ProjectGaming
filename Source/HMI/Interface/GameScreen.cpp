@@ -171,8 +171,10 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     const core::Collider& collider = _world.getComponent<core::Collider>(_player);
     const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
 
-    // 4. Mecanismes : contact des interrupteurs -> etat des portes (pour le pas suivant + visuel).
-    _mechanisms->update(box);
+    // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque de pression (continu,
+    //    EX-GP-025) -> etat des portes (pour le pas suivant + visuel).
+    const float playerMass = _world.getComponent<core::Player>(_player).mass;
+    _mechanisms->update(box, playerMass);
     refreshDoorVisuals();
 
     // 5. Issue du niveau.

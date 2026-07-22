@@ -7,6 +7,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-19 — Physique newtonienne et plaque de pression** (`EX-GP-019`, `EX-GP-025`). Deux
+  évolutions liées par le **poids** du personnage : la chute suit désormais un modèle
+  **newtonien** — masse (`core::Player::mass`) et traînée proportionnelle à la vitesse, dont
+  l'équilibre fait **émerger** une vitesse terminale progressive plutôt qu'un plafond arbitraire
+  (`std::min`) ; calibrée pour retomber sur l'ancienne vitesse terminale (25 unités/s) à masse par
+  défaut, seule la **courbe** change, pas le résultat final. La montée du saut reste inchangée
+  (ressenti LOT-11 non affecté). Nouveau mécanisme de puzzle, la **plaque de pression**
+  (`TileType::PressurePlate`) : ouvre la porte liée tant qu'un poids suffisant y repose,
+  la referme dès qu'il en part — activation **continue**, à la différence de l'interrupteur à
+  bascule (conservé tel quel). Réutilise l'infrastructure de liaison existante (identifiant/
+  `opensWith`, éditeur Maj+clic généralisé aux deux types de déclencheur). Niveau de démonstration
+  `demo5.json` ajouté à la séquence de jeu. **8 nouveaux tests** (305 au total, 297 au jalon
+  précédent) ; vérifié visuellement dans l'application (courbe de chute, plaque de pression,
+  éditeur).
 - **LOT-18 — Animation du personnage** (`EX-REN-012`). Le personnage anime désormais trois
   **clips** dérivés de son état physique (`core::Player::grounded`, `core::Velocity`) : `Idle`
   (repos, 2 images, au sol et immobile), `Run` (course, 4 images, au sol en mouvement), `Jump`

@@ -118,18 +118,30 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                 //   2. Gravité EFFECTIVE (EX-GP-018), y vers le bas → tomber = y positif :
                 //      base pour la montée ; × chute (plus rapide) ; × fast-fall si « bas » ;
                 //      × apex (flottement) quand la vitesse verticale est faible.
-                float gravity = _config.gravity;
+                float effectiveGravity = _config.gravity;
                 if (velocity.value.y > 0.0f) {  // en chute
-                    gravity *= _config.fallGravityMultiplier;
+                    effectiveGravity *= _config.fallGravityMultiplier;
                     if (input.moveY > 0.0f) {  // « bas » maintenu → chute accélérée
-                        gravity *= _config.fastFallMultiplier;
+                        effectiveGravity *= _config.fastFallMultiplier;
                     }
                 }
                 if (std::abs(velocity.value.y) < _config.apexThreshold) {  // proche de l'apex
-                    gravity *= _config.apexGravityMultiplier;
+                    effectiveGravity *= _config.apexGravityMultiplier;
                 }
-                velocity.value.y += gravity * fixedDelta;
-                velocity.value.y = std::min(velocity.value.y, _config.maxFallSpeed);
+                //   2bis. Chute NEWTONIENNE (EX-GP-019) : force nette = poids (masse × gravité
+                //   effective) MOINS une trainee proportionnelle a la vitesse ; la vitesse
+                //   terminale EMERGE de cet equilibre (poids = trainee) au lieu d'un plafond
+                //   arbitraire — une masse plus grande tombe plus vite (trainee relativement plus
+                //   faible). La MONTEE du saut reste a gravite simple, inchangee (EX-GP-011) : le
+                //   ressenti de saut deja regle en LOT-11 n'est pas affecte par ce lot.
+                if (velocity.value.y >= 0.0f) {
+                    const float netAcceleration =
+                        effectiveGravity -
+                        (_config.fallDragCoefficient * velocity.value.y) / player.mass;
+                    velocity.value.y += netAcceleration * fixedDelta;
+                } else {
+                    velocity.value.y += effectiveGravity * fixedDelta;
+                }
 
                 //   2b. Wall slide : contre un mur, en l'air et en descente → chute ralentie
                 //   (EX-GP-016).

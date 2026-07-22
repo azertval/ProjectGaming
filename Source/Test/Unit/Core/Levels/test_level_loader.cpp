@@ -59,6 +59,40 @@ TEST(LevelLoaderTest, ChargeUnNiveauValide) {
 }
 
 /**
+ * @brief Une plaque de pression se charge comme un interrupteur : même règle d'identifiant, même
+ * résolution de liaison vers une porte (`EX-GP-025`).
+ * \castest{<b>Une plaque de pression se charge comme un interrupteur.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une plaque de pression se charge comme un interrupteur : même règle d'identifiant,
+ * même résolution de liaison vers une porte.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnePlaqueDePression) {
+    constexpr const char* LEVEL = R"({
+      "name": "Poids",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "pressurePlate", "id": "p1" },
+        { "x": 3, "y": 0, "type": "door", "opensWith": "p1" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(2, 0), core::TileType::PressurePlate);
+    ASSERT_EQ(level.mechanisms().size(), 1u);
+    EXPECT_EQ(level.mechanisms().front().switchPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(level.mechanisms().front().doorPosition, (core::GridPosition{3, 0}));
+}
+
+/**
  * @brief Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
  * sinon.
  * \castest{<b>Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités

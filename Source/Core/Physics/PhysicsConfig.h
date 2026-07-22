@@ -19,8 +19,11 @@ struct PhysicsConfig {
     float moveSpeed = 3.0f;
     /// Accélération de la gravité, en unités/seconde². ⚠️ à affiner au ressenti.
     float gravity = 50.0f;
-    /// Vitesse de chute maximale (terminale), en unités/seconde : borne de confort et de sûreté.
-    float maxFallSpeed = 25.0f;
+    /// Coefficient de traînée verticale en chute, en 1/s (`EX-GP-019`). La vitesse terminale
+    /// **émerge** de l'équilibre poids/traînée (poids = masse × gravité effective) plutôt que
+    /// d'être plafonnée : à masse par défaut (1,0), `90 / 3.6 = 25` unités/s, continuité avec
+    /// l'ancien plafond fixe. ⚠️ à affiner.
+    float fallDragCoefficient = 3.6f;
     /// Vitesse verticale de l'impulsion de saut, en unités/seconde (montée). Avec `gravity = 50`,
     /// ~2,25 tuiles de hauteur / apex ~0,3 s. ⚠️ à affiner (viser ~2,5 tuiles, apex ~0,35 s).
     float jumpSpeed = 15.0f;

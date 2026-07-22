@@ -119,10 +119,34 @@ qu'une parabole physiquement pure et perçue comme molle :
   joueur une fenêtre plus généreuse pour ajuster sa trajectoire horizontale ou viser une plateforme
   précisément.
 
-La vitesse de chute est enfin bornée par `maxFallSpeed` (**vitesse terminale**) : sans cette borne,
-une chute prolongée accélérerait indéfiniment, ce qui rendrait le jeu injouable (le personnage
-traverserait plusieurs tuiles par pas, au risque de tunneling malgré le balayage continu, et le
-ressenti deviendrait imprévisible).
+### Vitesse terminale newtonienne (`EX-GP-019`)
+
+Sans borne, une chute prolongée accélérerait indéfiniment sous gravité constante — injouable (le
+personnage traverserait plusieurs tuiles par pas, au risque de *tunneling* malgré le balayage
+continu, et le ressenti deviendrait imprévisible). Plutôt qu'un plafond arbitraire (`std::min`), la
+chute intègre une **traînée** (résistance de l'air, proportionnelle à la vitesse) qui s'oppose au
+**poids** (masse `core::Player::mass` × gravité effective) — la même idée que la chute d'un
+parachutiste : au début, peu de vitesse, donc peu de traînée, donc la gravité l'emporte largement et
+la chute accélère franchement ; puis, la vitesse augmentant, la traînée grandit avec elle jusqu'à
+**égaler** le poids — l'accélération nette tombe alors à zéro, et la vitesse cesse de croître (la
+**vitesse terminale**) :
+
+```
+effectiveGravity = ...;  // multiplicateurs de chute/fast-fall/apex, inchanges (ci-dessus)
+netAcceleration = effectiveGravity - (fallDragCoefficient * velocity.y) / mass;
+velocity.y += netAcceleration * dt;   // seulement en chute (velocity.y >= 0) ; la montee du
+                                       // saut reste a gravite simple, sans trainee (LOT-11
+                                       // inchange, voir decision de cadrage de l'epic LOT-19)
+```
+
+La vitesse terminale émerge de l'équation à l'équilibre (`netAcceleration = 0`) :
+`vitesseTerminale = (masse × effectiveGravity) / fallDragCoefficient`. Le coefficient par défaut
+(`fallDragCoefficient = 3.6`) est calibré pour retomber sur l'ancienne borne fixe (25 unités/s) à
+masse par défaut (1,0) — la **valeur** finale ne change pas, seule la **courbe** pour y parvenir
+devient progressive plutôt que coupée net. Une masse plus grande fait pencher la balance vers le
+poids (traînée relativement plus faible) : elle tombe donc plus vite, à traînée égale — cohérent
+avec l'intuition (un objet lourd est moins freiné par l'air, à forme égale, que sa masse ne le fait
+tomber).
 
 ## 3. Saut et *game feel*
 
@@ -200,7 +224,8 @@ droite). Deux comportements en découlent :
 
 - **wall slide** (glissade contre le mur) : tant que ce contact persiste et que le personnage
   **descend**, sa vitesse de chute est **plafonnée** à `wallSlideSpeed` — nettement plus lente que
-  la chute libre normale (bornée, elle, par `maxFallSpeed`). Cela donne au joueur le temps de réagir
+  la chute libre normale (qui ne plafonne plus, elle s'approche d'une vitesse terminale émergente,
+  §2). Cela donne au joueur le temps de réagir
   (viser un wall jump, ou simplement ralentir sa chute contre un mur) plutôt que de tomber à pleine
   vitesse le long d'une paroi ;
 - **wall jump** : un saut déclenché dans cet état éjecte le personnage en **diagonale opposée** au

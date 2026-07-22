@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <functional>
+#include <limits>
 
 #include <gtest/gtest.h>
 
@@ -295,6 +296,111 @@ TEST(PhysiquePersonnageIntegration, TombeSousGraviteVitesseCroissante) {
 }
 
 /**
+ * @brief En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la
+ * dépasser (chute newtonienne, `EX-GP-019`).
+ * \castest{<b>En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la
+ * dépasser.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la
+ * dépasser.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ChuteConvergeVersUneVitesseTerminale) {
+    core::World world;
+    core::TileMap tiles(4, 1000);  // chute libre, très longue
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{};
+
+    // Vitesse terminale attendue a masse par defaut (1.0) : gravite effective en chute
+    // (config.gravity * config.fallGravityMultiplier) / config.fallDragCoefficient.
+    const core::PhysicsConfig config;
+    const float expectedTerminal = (config.gravity * config.fallGravityMultiplier) /
+                                   config.fallDragCoefficient;
+
+    float lastVy = 0.0f;
+    for (int i = 0; i < 2000; ++i) {
+        system.update(world, tiles, input, STEP);
+        lastVy = world.getComponent<core::Velocity>(player).value.y;
+        ASSERT_LE(lastVy, expectedTerminal + TOLERANCE);  // jamais depassee (asymptote)
+    }
+    EXPECT_NEAR(lastVy, expectedTerminal, 0.05f);  // convergence apres un temps suffisant
+}
+
+/**
+ * @brief L'accélération verticale décroît à mesure que la vitesse approche le régime permanent
+ * (courbe asymptotique, pas de plafond net).
+ * \castest{<b>L'accélération verticale décroît à mesure que la vitesse approche le régime
+ * permanent.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'accélération verticale décroît à mesure que la vitesse approche le régime permanent.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, AccelerationDeChuteDecroitVersLeRegimePermanent) {
+    core::World world;
+    core::TileMap tiles(4, 1000);
+    const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
+    // Flottement a l'apex desactive (apexThreshold = 0) : isole la traction newtonienne pure,
+    // sans le palier de gravite reduite pres de v=0 (EX-GP-018, comportement inchange par ailleurs).
+    core::PhysicsConfig config;
+    config.apexThreshold = 0.0f;
+    core::CharacterPhysicsSystem system(config);
+    const core::PlayerInput input{};
+
+    // Premier pas ecarte : au tout premier pas, la vitesse passe de 0 (aucun multiplicateur de
+    // chute, v <= 0) a positive (multiplicateur de chute applique des lors, EX-GP-018) — une
+    // marche haute intentionnelle, distincte de la traction newtonienne que ce test isole.
+    system.update(world, tiles, input, STEP);
+    float previousVy = world.getComponent<core::Velocity>(player).value.y;
+    float previousDelta = std::numeric_limits<float>::infinity();
+    for (int i = 0; i < 200; ++i) {
+        system.update(world, tiles, input, STEP);
+        const float vy = world.getComponent<core::Velocity>(player).value.y;
+        const float delta = vy - previousVy;
+        // Chaque pas gagne MOINS de vitesse que le precedent (accel. decroissante) : un plafond
+        // brutal produirait au contraire un delta constant puis soudainement nul.
+        EXPECT_LE(delta, previousDelta + TOLERANCE);
+        previousDelta = delta;
+        previousVy = vy;
+    }
+}
+
+/**
+ * @brief Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale.
+ * \castest{<b>Une masse plus grande produit une vitesse terminale plus élevée, à traînée
+ * égale.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, MasseSuperieureTombePlusVite) {
+    core::World world;
+    core::TileMap tiles(4, 1000);
+    const core::Entity light = spawnPlayer(world, 1.0f, 0.0f);
+    const core::Entity heavy = spawnPlayer(world, 2.0f, 0.0f);
+    world.getComponent<core::Player>(heavy).mass = 3.0f;  // trois fois plus lourd
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{};
+
+    for (int i = 0; i < 300; ++i) {
+        system.update(world, tiles, input, STEP);
+    }
+
+    const float lightVy = world.getComponent<core::Velocity>(light).value.y;
+    const float heavyVy = world.getComponent<core::Velocity>(heavy).value.y;
+    EXPECT_GT(heavyVy, lightVy);
+}
+
+/**
  * @brief Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.
  * \castest{<b>Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol »
  * vrai.</b><br/>
@@ -402,8 +508,8 @@ TEST(PhysiquePersonnageIntegration, NeTraversePasLeSolEnChuteRapide) {
     fillRow(tiles, 50);  // sol loin en bas
     const core::Entity player = spawnPlayer(world, 1.0f, 0.0f);
     core::PhysicsConfig fast;
-    fast.gravity = 2000.0f;      // accélération énorme
-    fast.maxFallSpeed = 1.0e6f;  // pas de borne : le pas dépasse une tuile
+    fast.gravity = 2000.0f;              // accélération énorme
+    fast.fallDragCoefficient = 1.0e-6f;  // trainee quasi nulle : pas de borne, le pas dépasse une tuile
     core::CharacterPhysicsSystem system(fast);
     const core::PlayerInput input{};
 
