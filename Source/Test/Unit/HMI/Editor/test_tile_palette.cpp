@@ -81,3 +81,20 @@ TEST(TilePaletteTest, ClicHorsPaletteNonConsomme) {
     EXPECT_FALSE(consumed);
     EXPECT_EQ(palette.selected(), before);
 }
+
+/**
+ * @brief Chaque entrée porte un libellé non vide (découvrabilité, LOT-15, EX-EDIT-015).
+ * \castest{<b>Chaque entrée porte un libellé non vide.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Chaque entrée porte un libellé non vide.
+ * }
+ */
+TEST(TilePaletteTest, ChaqueEntreePorteUnLibelle) {
+    const hmi::TilePalette palette;
+    for (const hmi::TilePalette::Entry& entry : palette.entries()) {
+        EXPECT_FALSE(entry.label.empty());
+    }
+}

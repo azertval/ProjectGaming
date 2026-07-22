@@ -9,9 +9,11 @@
 #include <vector>
 
 #include "Core/Levels/LevelDraft.h"
+#include "HMI/Editor/EditorTool.h"
 #include "HMI/Editor/LevelPicker.h"
 #include "HMI/Editor/TextInputField.h"
 #include "HMI/Editor/TilePalette.h"
+#include "HMI/Editor/ToolBar.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Interface/IScreen.h"
 
@@ -25,17 +27,6 @@ namespace hmi {
 class SpriteBatch;
 class TextureAtlas;
 class GameScreen;
-
-/**
- * @brief Outil actif dans la grille de l'éditeur (`EX-EDIT-014`), changé via `Tab` ou la barre
- *        d'outils (LOT-15 TACHE-06).
- *
- * `Paint` peint case par case au clic/glisser (comportement LOT-14, inchangé). `Rectangle` peint
- * un rectangle entier au relâchement d'un glisser. `Selection` définit une zone (glisser) dont le
- * contenu peut être copié (`Ctrl+C`) puis collé ailleurs (`Ctrl+V`), sans peindre directement. La
- * liaison de mécanismes (`Maj`+clic) reste disponible quel que soit l'outil actif.
- */
-enum class EditorTool { Paint, Rectangle, Selection };
 
 /**
  * @brief Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.
@@ -127,6 +118,12 @@ private:
     /// Écrit @p level à @p path, met à jour le message de statut et le drapeau `_dirty`.
     void writeLevelToDisk(const core::Level& level, const std::filesystem::path& path);
 
+    /// Dessine la barre d'outils (icônes + surbrillance de la sélection).
+    void renderToolBar(RenderContext& context);
+
+    /// Dessine l'aperçu des raccourcis (bascule `F1`) ou l'indice permanent replié.
+    void renderHelp(RenderContext& context);
+
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     int _viewportWidth;
@@ -169,10 +166,11 @@ private:
     float _cameraZoom = 1.0f;         ///< Zoom courant (manuel ou dernier calcul automatique).
     core::Vector2 _cameraCenter{};    ///< Centre courant (manuel ou dernier calcul automatique).
 
-    /// Outil actif (`EX-EDIT-014`), changé par `Tab` (ou la barre d'outils, TACHE-06).
-    EditorTool _tool = EditorTool::Paint;
+    /// Outil actif (`EX-EDIT-014`), changé par clic (barre) ou `Tab` (`selectNext`) ; source de
+    /// vérité de l'outil courant (comme `_palette` pour le type de tuile).
+    ToolBar _toolBar;
     /// `true` pendant un glisser Rectangle/Sélection en cours (mutuellement exclusif avec
-    /// `_paintingDrag`, actif seulement quand `_tool != Paint`).
+    /// `_paintingDrag`, actif seulement quand `_toolBar.selected() != EditorTool::Paint`).
     bool _areaDragActive = false;
     core::GridPosition _areaDragStart{};  ///< Case de départ du glisser Rectangle/Sélection en cours.
     /// Dernière sélection validée par l'outil Sélection (bornes inclusives min/max), pour `Ctrl+C`
@@ -180,6 +178,10 @@ private:
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
     /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
     std::vector<std::vector<core::TileType>> _clipboard;
+
+    /// `true` si l'aperçu des raccourcis (`F1`) est affiché ; sinon, un indice permanent discret
+    /// le rappelle en bas d'écran (`EX-EDIT-015`).
+    bool _showHelp = false;
 };
 
 }  // namespace hmi

@@ -14,12 +14,34 @@ constexpr core::TileType PALETTE_TYPES[] = {
     core::TileType::Exit,  core::TileType::Switch, core::TileType::Door,
 };
 
+// Libellé court affiché sous chaque entrée (découvrabilité, EX-EDIT-015) — pas d'accent, cohérent
+// avec le reste des libellés affichés en jeu par cet ecran (police bitmap, place limitée).
+[[nodiscard]] std::string labelFor(core::TileType type) {
+    switch (type) {
+        case core::TileType::Empty:
+            return "Vide";
+        case core::TileType::Solid:
+            return "Plein";
+        case core::TileType::Danger:
+            return "Danger";
+        case core::TileType::Entry:
+            return "Entree";
+        case core::TileType::Exit:
+            return "Sortie";
+        case core::TileType::Switch:
+            return "Interr.";
+        case core::TileType::Door:
+            return "Porte";
+    }
+    return "";
+}
+
 }  // namespace
 
 TilePalette::TilePalette() {
     float x = MARGIN;
     for (const core::TileType type : PALETTE_TYPES) {
-        _entries.push_back(Entry{type, x, MARGIN, ENTRY_SIZE, ENTRY_SIZE});
+        _entries.push_back(Entry{type, x, MARGIN, ENTRY_SIZE, ENTRY_SIZE, labelFor(type)});
         x += ENTRY_SIZE + ENTRY_GAP;
     }
 }

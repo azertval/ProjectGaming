@@ -56,6 +56,19 @@ constexpr int DEFAULT_HEIGHT = 8;
     return "Niveau invalide : " + technicalMessage;
 }
 
+// Libelle court affiche sous chaque icone de la barre d'outils (decouvrabilite, EX-EDIT-015).
+[[nodiscard]] std::string toolLabel(EditorTool tool) {
+    switch (tool) {
+        case EditorTool::Paint:
+            return "Pinceau";
+        case EditorTool::Rectangle:
+            return "Rectangle";
+        case EditorTool::Selection:
+            return "Selection";
+    }
+    return "";
+}
+
 // Construit un quad texture a partir d'une region d'atlas et d'un rectangle (espace quelconque,
 // pilote par la projection active du SpriteBatch), avec une teinte optionnelle.
 SpriteQuad quadFor(const core::AtlasRegion& region, float x, float y, float width, float height,
@@ -276,22 +289,17 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::none();
     }
 
-    // Changement d'outil (EX-EDIT-014) : Tab fait defiler Pinceau -> Rectangle -> Selection ->
-    // Pinceau. Changer d'outil pendant un glisser Rectangle/Selection en cours l'annule (aucune
-    // application partielle).
+    // Changement d'outil (EX-EDIT-014/015) : Tab fait defiler Pinceau -> Rectangle -> Selection ->
+    // Pinceau (clic sur la barre : voir plus bas). Changer d'outil pendant un glisser en cours
+    // l'annule (aucune application partielle).
     if (input.keyPressed(Key::Tab)) {
         _areaDragActive = false;
-        switch (_tool) {
-            case EditorTool::Paint:
-                _tool = EditorTool::Rectangle;
-                break;
-            case EditorTool::Rectangle:
-                _tool = EditorTool::Selection;
-                break;
-            case EditorTool::Selection:
-                _tool = EditorTool::Paint;
-                break;
-        }
+        _toolBar.selectNext();
+    }
+
+    // Aide des raccourcis (EX-EDIT-015) : bascule affichee/repliee.
+    if (input.keyPressed(Key::F1)) {
+        _showHelp = !_showHelp;
     }
 
     // Copier/coller de l'outil Selection (EX-EDIT-014) : Ctrl+C lit directement la grille (aucun
@@ -346,8 +354,8 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     _mouseY = newMouseY;
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
-        if (_palette.handleClick(_mouseX, _mouseY)) {
-            // La palette, dessinee par-dessus la grille, est prioritaire sur le reste.
+        if (_palette.handleClick(_mouseX, _mouseY) || _toolBar.handleClick(_mouseX, _mouseY)) {
+            // La palette et la barre d'outils, dessinees par-dessus la grille, sont prioritaires.
             _paintingDrag = false;
             _areaDragActive = false;
         } else if (input.keyDown(Key::Shift)) {
@@ -355,7 +363,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
             handleLinkClick(_mouseX, _mouseY);
             _paintingDrag = false;
             _areaDragActive = false;
-        } else if (_tool == EditorTool::Paint) {
+        } else if (_toolBar.selected() == EditorTool::Paint) {
             _paintingDrag = true;
         } else {
             _areaDragActive = true;
@@ -379,14 +387,14 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         const int maxColumn = (std::max)(_areaDragStart.column, end.column);
         const int minRow = (std::min)(_areaDragStart.row, end.row);
         const int maxRow = (std::max)(_areaDragStart.row, end.row);
-        if (_tool == EditorTool::Rectangle) {
+        if (_toolBar.selected() == EditorTool::Rectangle) {
             const std::vector<core::TileType> rowTiles(
                 static_cast<std::size_t>(maxColumn - minColumn + 1), _palette.selected());
             const std::vector<std::vector<core::TileType>> block(
                 static_cast<std::size_t>(maxRow - minRow + 1), rowTiles);
             _draft.paintRegion(minColumn, minRow, block);
             _dirty = true;
-        } else if (_tool == EditorTool::Selection) {
+        } else if (_toolBar.selected() == EditorTool::Selection) {
             _selection = std::make_pair(core::GridPosition{minColumn, minRow},
                                         core::GridPosition{maxColumn, maxRow});
         }
@@ -551,19 +559,41 @@ void EditorScreen::renderGrid(RenderContext& context) {
         }
     }
 
-    // Mecanismes lies : meme teinte cyan sur les deux tuiles d'une liaison (pas de primitive de
-    // ligne dans SpriteBatch — un quad ne peut pas etre incline — d'ou cette association par
-    // couleur plutot qu'un trait reliant les deux cases).
-    constexpr core::Color LINK_TINT{0.3f, 1.0f, 1.0f, 0.45f};
+    // Mecanismes lies : une teinte par interrupteur (pas de primitive de ligne dans SpriteBatch —
+    // un quad ne peut pas etre incline — d'ou cette association par couleur plutot qu'un trait
+    // reliant les deux cases). Plusieurs liaisons simultanees restent distinguables (EX-EDIT-016) :
+    // chaque porte reprend la teinte de son interrupteur, cycliquement au-dela de LINK_TINTS.
+    constexpr core::Color LINK_TINTS[] = {
+        core::Color{0.3f, 1.0f, 1.0f, 0.45f},   // cyan
+        core::Color{1.0f, 0.55f, 0.15f, 0.45f}, // orange
+        core::Color{0.55f, 1.0f, 0.35f, 0.45f}, // vert
+        core::Color{1.0f, 0.35f, 0.75f, 0.45f}, // rose
+        core::Color{0.75f, 0.55f, 1.0f, 0.45f}, // violet
+        core::Color{1.0f, 0.9f, 0.25f, 0.45f},  // jaune
+    };
+    constexpr std::size_t LINK_TINT_COUNT = sizeof(LINK_TINTS) / sizeof(LINK_TINTS[0]);
+
+    std::vector<core::GridPosition> uniqueSwitches;
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        if (std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition) ==
+            uniqueSwitches.end()) {
+            uniqueSwitches.push_back(mechanism.switchPosition);
+        }
+    }
+    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        const auto switchIt =
+            std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition);
+        const std::size_t index =
+            static_cast<std::size_t>(std::distance(uniqueSwitches.begin(), switchIt));
+        const core::Color tint = LINK_TINTS[index % LINK_TINT_COUNT];
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
                                          static_cast<float>(mechanism.switchPosition.column),
                                          static_cast<float>(mechanism.switchPosition.row), 1.0f,
-                                         1.0f, _atlas, LINK_TINT));
+                                         1.0f, _atlas, tint));
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
                                          static_cast<float>(mechanism.doorPosition.column),
                                          static_cast<float>(mechanism.doorPosition.row), 1.0f,
-                                         1.0f, _atlas, LINK_TINT));
+                                         1.0f, _atlas, tint));
     }
 
     // Case en attente de liaison (premier clic Maj+souris d'une paire), teinte magenta.
@@ -584,14 +614,14 @@ void EditorScreen::renderGrid(RenderContext& context) {
 
     // Previsualisation du glisser Rectangle/Selection en cours, ou selection validee restante
     // (outil Selection) — teintes distinctes pour ne pas les confondre (EX-EDIT-014).
-    if (_tool != EditorTool::Paint) {
+    if (_toolBar.selected() != EditorTool::Paint) {
         std::optional<core::GridPosition> rangeStart;
         std::optional<core::GridPosition> rangeEnd;
         core::Color tint{1.0f, 0.6f, 0.15f, 0.35f};  // orange : glisser en cours
         if (_areaDragActive) {
             rangeStart = _areaDragStart;
             rangeEnd = clampedCell(_mouseX, _mouseY);
-        } else if (_tool == EditorTool::Selection && _selection) {
+        } else if (_toolBar.selected() == EditorTool::Selection && _selection) {
             rangeStart = _selection->first;
             rangeEnd = _selection->second;
             tint = core::Color{0.4f, 0.7f, 1.0f, 0.30f};  // bleu : selection validee
@@ -613,7 +643,8 @@ void EditorScreen::renderGrid(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine la palette : une couleur par type, la selection encadree.
+// Dessine la palette : une couleur par type, la selection encadree, un libelle sous chaque entree
+// (decouvrabilite, EX-EDIT-015).
 void EditorScreen::renderPalette(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
@@ -631,6 +662,83 @@ void EditorScreen::renderPalette(RenderContext& context) {
         context.spriteBatch.draw(
             quadFor(regionForTile(entry.type, _atlas), entry.x, entry.y, entry.width,
                    entry.height, _atlas));
+    }
+    context.spriteBatch.end();
+
+    // Deuxieme passe (texture de police distincte de l'atlas de tuiles, cf. SpriteBatch) : un
+    // libelle court sous chaque icone.
+    context.spriteBatch.begin(projection, context.font.textureView());
+    constexpr float LABEL_SCALE = 1.0f;
+    for (const TilePalette::Entry& entry : _palette.entries()) {
+        context.font.drawText(context.spriteBatch, entry.label, entry.x, entry.y + entry.height + 2.0f,
+                              LABEL_SCALE, core::Color{0.85f, 0.85f, 0.90f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine la barre d'outils (une teinte par icone, la selection encadree, un libelle sous chaque
+// entree) — EX-EDIT-015.
+void EditorScreen::renderToolBar(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+
+    context.spriteBatch.begin(projection, _atlas.textureView());
+    constexpr float BORDER = 3.0f;
+    constexpr core::Color SELECTION_TINT{1.0f, 1.0f, 0.4f, 1.0f};
+    constexpr core::Color TOOL_TINT{0.55f, 0.55f, 0.68f, 1.0f};
+    for (const ToolBar::Entry& entry : _toolBar.entries()) {
+        if (entry.tool == _toolBar.selected()) {
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x - BORDER, entry.y - BORDER,
+                                             entry.width + 2.0f * BORDER,
+                                             entry.height + 2.0f * BORDER, _atlas, SELECTION_TINT));
+        }
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x, entry.y, entry.width,
+                                         entry.height, _atlas, TOOL_TINT));
+    }
+    context.spriteBatch.end();
+
+    context.spriteBatch.begin(projection, context.font.textureView());
+    constexpr float LABEL_SCALE = 1.0f;
+    for (const ToolBar::Entry& entry : _toolBar.entries()) {
+        context.font.drawText(context.spriteBatch, toolLabel(entry.tool), entry.x,
+                              entry.y + entry.height + 2.0f, LABEL_SCALE,
+                              core::Color{0.85f, 0.85f, 0.90f, 1.0f});
+    }
+    context.spriteBatch.end();
+}
+
+// Dessine l'apercu des raccourcis (bascule F1) ou, replie, un indice permanent discret en haut a
+// droite de l'ecran (decouvrabilite, EX-EDIT-015).
+void EditorScreen::renderHelp(RenderContext& context) {
+    const DirectX::XMFLOAT4X4 projection =
+        BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+    context.spriteBatch.begin(projection, context.font.textureView());
+
+    if (_showHelp) {
+        static const std::vector<std::string> LINES = {
+            "Clic gauche : peindre (outil actif)   |   Maj+clic : lier interrupteur/porte",
+            "Molette : zoom camera   |   Glisser bouton droit : deplacer la vue   |   0 : reinit.",
+            "Tab (ou barre d'outils) : changer d'outil (Pinceau / Rectangle / Selection)",
+            "Ctrl+C / Ctrl+V : copier / coller la selection",
+            "Fleches : redimensionner la grille   |   Ctrl+Z / Ctrl+Y : annuler / refaire",
+            "F2 : renommer   |   Ctrl+S : enregistrer   |   P : essai immediat",
+            "Echap : quitter (ou fin de l'essai)   |   F1 : fermer cette aide",
+        };
+        constexpr float SCALE = 1.6f;
+        constexpr float MARGIN_X = 12.0f;
+        float y = 92.0f;
+        for (const std::string& line : LINES) {
+            context.font.drawText(context.spriteBatch, line, MARGIN_X, y, SCALE,
+                                  core::Color{0.92f, 0.92f, 0.95f, 1.0f});
+            y += context.font.lineHeight(SCALE) + 4.0f;
+        }
+    } else {
+        constexpr float SCALE = 1.4f;
+        const std::string hint = "F1 : aide";
+        const float x = static_cast<float>(context.viewportWidth) -
+                       context.font.textWidth(hint, SCALE) - 10.0f;
+        context.font.drawText(context.spriteBatch, hint, x, 10.0f, SCALE,
+                              core::Color{0.7f, 0.7f, 0.75f, 0.85f});
     }
     context.spriteBatch.end();
 }
@@ -729,6 +837,8 @@ void EditorScreen::render(RenderContext& context) {
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
     renderGrid(context);
     renderPalette(context);
+    renderToolBar(context);
+    renderHelp(context);
     renderStatus(context);
 }
 
