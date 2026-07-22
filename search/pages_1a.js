@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['vérification_0',['vérification',['../lot-16-tache-04-documentation-verification.html',1,'TACHE-04 — Documentation et vérification'],['../lot-01-tache-05-integration.html',1,'TACHE-05 — Intégration `main` &amp; vérification']]],
+  ['vérification_0',['vérification',['../lot-17-tache-02-documentation-verification.html',1,'TACHE-02 — Documentation et vérification'],['../lot-16-tache-04-documentation-verification.html',1,'TACHE-04 — Documentation et vérification'],['../lot-01-tache-05-integration.html',1,'TACHE-05 — Intégration `main` &amp; vérification']]],
   ['validation_20«_20largeur_20x_20hauteur_20»_1',['TACHE-01 — Plafond de taille et validation « largeur x hauteur »',['../lot-16-tache-01-plafond-validation-taille.html',1,'lot-16']]],
   ['validation_20du_20niveau_2',['TACHE-04 — Validation du niveau',['../lot-07-tache-04-validation.html',1,'lot-07']]],
   ['validation_20essai_20immédiat_3',['TACHE-05 — Enregistrement, validation, essai immédiat',['../lot-14-tache-05-enregistrement-validation-essai.html',1,'lot-14']]],

@@ -8,5 +8,6 @@ var searchData=
   ['13_20—_20consolidation_20de_20la_20documentation_5',['LOT-13 — Consolidation de la documentation',['../lot-13.html',1,'lots']]],
   ['14_20—_20éditeur_20de_20niveaux_20intégré_20_3a_20édition_20de_20tuiles_20mécanismes_20essai_20immédiat_6',['LOT-14 — Éditeur de niveaux intégré : édition de tuiles, mécanismes, essai immédiat',['../lot-14.html',1,'lots']]],
   ['15_20—_20éditeur_20de_20niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_7',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],
-  ['16_20—_20niveaux_20de_20grande_20taille_8',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]]
+  ['16_20—_20niveaux_20de_20grande_20taille_8',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]],
+  ['17_20—_20sprite_20du_20personnage_20statique_9',['LOT-17 — Sprite du personnage (statique)',['../lot-17.html',1,'lots']]]
 ];

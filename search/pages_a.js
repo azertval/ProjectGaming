@@ -37,7 +37,7 @@ var searchData=
   ['et_20partager_20un_20niveau_20sans_20ligne_20de_20commande_34',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
   ['et_20pas_20de_20temps_20fixe_35',['Boucle de jeu et pas de temps fixe',['../guide-boucle.html',1,'guide']]],
   ['et_20texte_20tapé_36',['TACHE-01 — Entrées bas niveau : molette et texte tapé',['../lot-15-tache-01-entrees-molette-texte.html',1,'lot-15']]],
-  ['et_20vérification_37',['TACHE-04 — Documentation et vérification',['../lot-16-tache-04-documentation-verification.html',1,'lot-16']]],
+  ['et_20vérification_37',['et vérification',['../lot-17-tache-02-documentation-verification.html',1,'TACHE-02 — Documentation et vérification'],['../lot-16-tache-04-documentation-verification.html',1,'TACHE-04 — Documentation et vérification']]],
   ['et_20validation_20«_20largeur_20x_20hauteur_20»_38',['TACHE-01 — Plafond de taille et validation « largeur x hauteur »',['../lot-16-tache-01-plafond-validation-taille.html',1,'lot-16']]],
   ['et_20zoom_20manuels_39',['TACHE-04 — Caméra : pan et zoom manuels',['../lot-15-tache-04-camera-pan-zoom.html',1,'lot-15']]],
   ['exigences_20ids_20stables_20ancres_20doxygen_20lint_20ci_40',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],

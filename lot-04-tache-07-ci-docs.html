@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-04-tache-07-ci-docs.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-04-documentation-doxygen_2epic_8md.html">LOT-04</a> · <b>Emplacement :</b> <code>.github/workflows/docs.yml</code>, <code>Documentation/Doxyfile</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md380"></a>
+<h1><a class="anchor" id="autotoc_md381"></a>
 Contexte</h1>
 <p>La CI documentaire (<code>docs.yml</code>) génère la Doxygen sur <code>main</code> et la publie sur <code>gh-pages</code>. Une fois toutes les pages en place et propres, on ajoute un <b>garde-fou qualité</b> : la génération échoue au moindre avertissement, dans l'esprit du <code>/W4 /WX</code> côté code.</p>
-<h1><a class="anchor" id="autotoc_md381"></a>
+<h1><a class="anchor" id="autotoc_md382"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>Documentation/Doxyfile</code> : <code>WARN_AS_ERROR = YES</code> (ou <code>FAIL_ON_WARNINGS</code>), <code>QUIET = YES</code>, <code>WARN_NO_PARAMDOC = YES</code> selon le niveau d'exigence souhaité.</li>
@@ -105,14 +105,14 @@ Travail à réaliser</h1>
 <li>Corriger les éventuels avertissements résiduels révélés par le garde-fou (références, ancres, symboles non documentés).</li>
 <li>Vérifier que le site publié contient bien accueil + spécifications + lots + manuel + référence de code.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md382"></a>
+<h1><a class="anchor" id="autotoc_md383"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Documentation/Doxyfile</code>.</li>
 <li><code>.github/workflows/docs.yml</code>.</li>
 <li>Corrections de doc code révélées (voir ci-dessous).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md383"></a>
+<h1><a class="anchor" id="autotoc_md384"></a>
 Avertissements connus à corriger avant &lt;tt&gt;WARN_AS_ERROR&lt;/tt&gt; (relevés en TACHE-02)</h1>
 <p>Doxygen signale un même <code>@param</code> documenté <b>différemment</b> dans le <code>.h</code> et le <code>.cpp</code> (« multiple</p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -124,25 +124,25 @@ Avertissements connus à corriger avant &lt;tt&gt;WARN_AS_ERROR&lt;/tt&gt; (rele
   </table>
   </dd>
 </dl>
-<h1><a class="anchor" id="autotoc_md384"></a>
+<h1><a class="anchor" id="autotoc_md385"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>En local, <code>doxygen Doxyfile</code> avec <code>WARN_AS_ERROR</code> retourne un <b>code de sortie non nul</b> en présence d'un avertissement (test négatif), et <b>0</b> une fois tout propre.</li>
 <li>Le job <code>docs.yml</code> échoue si la génération avertit.</li>
 <li>Après merge sur <code>main</code>, <code>gh-pages</code> sert un site complet et navigable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md385"></a>
+<h1><a class="anchor" id="autotoc_md386"></a>
 Points d'attention</h1>
 <ul>
 <li>Activer <code>WARN_AS_ERROR</code> <b>en dernier</b>, une fois TACHE-02→06 terminées, pour ne pas bloquer le travail intermédiaire.</li>
 <li>Distinguer avertissements légitimes (à corriger) et bruit éventuel (ex. fichiers <code>Source/**/README.md</code> non voulus comme pages) — ajuster <code>INPUT</code>/<code>EXCLUDE</code> plutôt que de baisser le niveau d'exigence.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md386"></a>
+<h1><a class="anchor" id="autotoc_md387"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Génération sans avertissement, garde-fou actif en CI, site complet publié sur <code>gh-pages</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md387"></a>
+<h1><a class="anchor" id="autotoc_md388"></a>
 Exigences</h1>
 <p><code>EX-NFR-012</code>, <code>EX-NFR-013</code> (esprit « zéro avertissement »). </p>
 </div></div><!-- contents -->

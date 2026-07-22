@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('lot-08.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Ce lot rend le personnage <b>jouable</b> dans le niveau chargé au LOT-07 : il se déplace horizontalement, <b>tombe sous gravité</b>, entre en <b>collision</b> avec les tuiles solides, <b>gagne</b> en atteignant la sortie et <b>recommence</b> en cas d'échec (danger ou chute). Le <b>saut</b> et le <b>comportement des mécanismes</b> restent des lots ultérieurs. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md566"></a>
+<h1><a class="anchor" id="autotoc_md567"></a>
 Objectif</h1>
 <p>Faire du niveau statique du LOT-07 une <b>scène jouable</b>. Un personnage contrôlé au clavier se déplace horizontalement à vitesse constante (<code>EX-GP-010</code>), subit une <b>gravité continue</b> tant qu'il n'est pas au sol (<code>EX-GP-012</code>) et ne <b>traverse jamais</b> une tuile solide, même à vitesse élevée (<code>EX-GP-002</code>, <code>EX-GP-014</code>). Atteindre la <b>sortie</b> termine le niveau en succès (<code>EX-GP-030</code>) ; toucher un <b>danger</b> ou <b>sortir par le bas</b> provoque l'échec et le <b>redémarrage</b> du niveau à son état initial (<code>EX-GP-031</code>, <code>EX-GP-032</code>). Le jeu étant conçu <b>par tableaux</b> (un niveau = un écran), la <b>caméra reste fixe</b> et cadre le tableau entier, le personnage restant toujours visible (adaptation de <code>EX-REN-013</code>, cf. décisions de cadrage).</p>
 <p>Toute la logique de simulation (physique, collisions, règles de fin) vit dans **<code>Core</code>** comme <b>donnée + système purs</b>, à <b>pas de temps fixe et déterministe</b> (<code>EX-NFR-002</code>, <code>EX-ARCH-011</code>), donc testable sans fenêtre ni GPU (<code>EX-NFR-010</code>). La couche <code>HMI</code> ne fait que traduire les entrées en <b>actions logiques</b> (<code>EX-CTRL-010</code>) et afficher le résultat.</p>
-<h1><a class="anchor" id="autotoc_md567"></a>
+<h1><a class="anchor" id="autotoc_md568"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md568"></a>
+<h2><a class="anchor" id="autotoc_md569"></a>
 Inclus</h2>
 <ul>
 <li><b>Composants (Core)</b> : marqueur <code>Player</code> (avec état « au sol »), <code>Collider</code> (boîte englobante AABB en unités monde) ; réutilise <code>Transform</code> et <code>Velocity</code> (LOT-03).</li>
@@ -112,7 +112,7 @@ Inclus</h2>
 <li><b>Actions logiques (HMI)</b> : traduction de l'<code>InputState</code> en une <b>intention</b> de déplacement (<code>gauche</code> / <code>droite</code>), dissociée des touches physiques (<code>EX-CTRL-010</code>), échantillonnée une fois par frame en amont de la logique (<code>EX-CTRL-020</code>, <code>EX-CTRL-021</code>).</li>
 <li><b>Intégration jouable (HMI)</b> : le <code>GameScreen</code> fait apparaître le personnage à l'<b>entrée</b>, exécute physique + règles à chaque pas fixe, garde une <b>caméra fixe</b> cadrant le tableau (adaptation de <code>EX-REN-013</code>), affiche le sprite du personnage (<code>EX-REN-011</code>), revient au <b>menu</b> au succès et <b>réinitialise</b> le niveau à l'échec.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md569"></a>
+<h2><a class="anchor" id="autotoc_md570"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Saut</b> (<code>EX-GP-011</code>, <code>EX-GP-013</code>) : décision de cadrage — ce lot pose la gravité et les collisions ; le saut et le <em>game feel</em> (coyote time, jump buffering) viendront dans une passe <b>physique</b> ultérieure.</li>
@@ -121,7 +121,7 @@ Exclus (lots ultérieurs)</h2>
 <li><b>Manette et remappage</b> (<code>EX-CTRL-012</code>, manette) ; <b>animations</b> (<code>EX-REN-012</code>).</li>
 <li><b>Enchaînement multi-niveaux</b> (<code>EX-LVL-010</code>/<code>EX-LVL-011</code>) : un seul niveau, rejoué sur échec.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md570"></a>
+<h1><a class="anchor" id="autotoc_md571"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Collisions par balayage continu (swept AABB)</b> — choisi plutôt que la résolution par axe à pas fixe, pour permettre des niveaux exigeant <b>rapidité et précision</b> du joueur sans traversée de mur à vitesse élevée. Le balayage calcule le <b>temps d'impact</b> le long du déplacement et fait <b>glisser</b> la boîte le long des surfaces. Satisfait <code>EX-GP-014</code> au sens fort.</li>
@@ -131,7 +131,7 @@ Décisions de cadrage</h1>
 <li><b>Frontière Core/HMI</b> — toute la simulation (composants, physique, collisions, règles) est <b>pure</b> dans <code>Core/Ecs</code> / <code>Core/Physics</code>, alimentée par une <b>intention d'entrée</b> neutre (<code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code>). <code>HMI</code> ne fait que <b>mapper les touches</b> vers cette intention et <b>rendre</b> la scène. Cela garde la simulation déterministe et testable hors GPU.</li>
 <li><b>Réinitialisation</b> — le <code>Level</code> chargé est <b>conservé en mémoire</b> ; réinitialiser reconstruit la scène (monde ECS + personnage à l'entrée) à partir de ce modèle, sans relire le fichier.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md571"></a>
+<h1><a class="anchor" id="autotoc_md572"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-GP-010</code> (déplacement horizontal), <code>EX-GP-012</code> (gravité continue), <code>EX-GP-002</code>/<code>EX-GP-014</code> (collisions solides, pas de traversée), <code>EX-GP-030</code> (sortie = succès), <code>EX-GP-031</code> (danger / chute = échec), <code>EX-GP-032</code> (redémarrage à l'état initial).</li>
@@ -139,7 +139,7 @@ Exigences couvertes</h1>
 <li><code>EX-REN-013</code> (<b>adapté</b> : caméra fixe cadrant le tableau, personnage visible), <code>EX-REN-011</code> (sprite du personnage).</li>
 <li><code>EX-NFR-002</code> (pas fixe déterministe), <code>EX-NFR-010</code>/<code>EX-NFR-020</code> (testabilité, tests), <code>EX-ARCH-011</code> (composants = données pures).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md572"></a>
+<h1><a class="anchor" id="autotoc_md573"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -160,7 +160,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-06-integration-jouable_8md.html">TACHE-06</a>   </td><td class="markdownTableBodyNone">Intégration jouable dans <code>GameScreen</code> (cadrage fixe, succès/échec)   </td><td class="markdownTableBodyNone"><code>HMI/Interface</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md573"></a>
+<h1><a class="anchor" id="autotoc_md574"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage <b>se déplace</b> à gauche/droite à vitesse constante et <b>tombe</b> sous gravité ; il <b>repose</b> sur les tuiles solides et <b>ne les traverse pas</b>, même en chute rapide (test de non-tunneling vert).</li>
@@ -169,13 +169,13 @@ Critères d'acceptation du lot</h1>
 <li>La physique, le balayage, les règles de fin et le mapping d'actions sont <b>couverts par des tests</b> (unitaires + au moins un test d'<b>intégration</b> « entrées → monde → issue ») ; <code>ctest</code> vert.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, documentation Doxygen et <code>CHANGELOG.md</code> à jour, <code>lint</code> des exigences vert.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md574"></a>
+<h1><a class="anchor" id="autotoc_md575"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise l'<b>ECS</b> (<code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code>, <code>Transform</code>, <code>Velocity</code>, LOT-03), le <b>modèle de niveau</b> (<code>TileMap</code>/<code>Level</code>, LOT-07) comme source de vérité des collisions, le <b>rendu 2D</b> (<code>SpriteRenderer</code>, <code>Camera2D</code>, LOT-05) et l'**<code>InputState</code>** (LOT-06).</li>
 <li>S'intègre au <code>GameScreen</code> (LOT-07) : le niveau statique devient jouable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md575"></a>
+<h1><a class="anchor" id="autotoc_md576"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-08-tache-01-composants-personnage.html">TACHE-01 — Composants du personnage &amp; intention d'entrée</a></li>

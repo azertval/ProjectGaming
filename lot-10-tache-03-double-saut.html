@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-03-double-saut.html','');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md694"></a>
+<h1><a class="anchor" id="autotoc_md695"></a>
 Contexte</h1>
 <p>Première mécanique : autoriser un nombre <b>paramétrable</b> de sauts <b>aériens</b> en plus du saut au sol (<code>EX-GP-015</code>), rechargés au contact du sol. Étend la logique de saut du LOT-09 sans casser le coyote/buffer ni la hauteur variable.</p>
-<h1><a class="anchor" id="autotoc_md695"></a>
+<h1><a class="anchor" id="autotoc_md696"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code> :</p><ul>
 <li><b>Recharge</b> : quand le personnage est <b>au sol</b>, <code>airJumpsRemaining = _config.airJumps</code>.</li>
@@ -106,13 +106,13 @@ Travail à réaliser</h1>
 <li>Unifier avec le déclenchement existant : une <b>seule</b> décision « peut sauter maintenant ? » couvrant sol/coyote <b>ou</b> saut aérien restant.</li>
 <li>La <b>hauteur variable</b> s'applique aussi au saut aérien.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md696"></a>
+<h1><a class="anchor" id="autotoc_md697"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md697"></a>
+<h1><a class="anchor" id="autotoc_md698"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Double saut</b> : au sol → saut ; en l'air → un <b>second</b> saut fonctionne (regain de vitesse ascendante) ; un <b>troisième</b> en l'air ne fait rien (avec <code>airJumps = 1</code>).</li>
@@ -120,19 +120,19 @@ Tests (obligatoires)</h1>
 <li><b>Paramétrable</b> : avec <code>airJumps = 2</code>, trois sauts au total sont possibles avant de retoucher le sol.</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md698"></a>
+<h1><a class="anchor" id="autotoc_md699"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre</b> : recharge au sol avant l'évaluation du saut ; ne pas re-remplir en l'air.</li>
 <li>Ne pas régresser le <b>coyote time</b> : coyote et saut aérien sont deux sources d'autorisation distinctes ; le saut au sol/coyote ne doit pas consommer un saut aérien.</li>
 <li>Logique dans le système, état dans <code>Player</code> (<code>EX-ARCH-011</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md699"></a>
+<h1><a class="anchor" id="autotoc_md700"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Double saut fonctionnel et <b>testé</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md700"></a>
+<h1><a class="anchor" id="autotoc_md701"></a>
 Exigences</h1>
 <p><code>EX-GP-015</code>, <code>EX-GP-011</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->
