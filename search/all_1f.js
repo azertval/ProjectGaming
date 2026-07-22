@@ -99,7 +99,7 @@ var searchData=
   ['tache_2d01_2dcomposants_2dpersonnage_2emd_96',['tache-01-composants-personnage.md',['../tache-01-composants-personnage_8md.html',1,'']]],
   ['tache_2d01_2ddependance_2djson_2emd_97',['tache-01-dependance-json.md',['../tache-01-dependance-json_8md.html',1,'']]],
   ['tache_2d01_2ddonnees_2dsaut_2emd_98',['tache-01-donnees-saut.md',['../tache-01-donnees-saut_8md.html',1,'']]],
-  ['tache_2d01_2ddonnees_2emd_99',['tache-01-donnees.md',['../LOT-10-mecaniques-avancees_2tache-01-donnees_8md.html',1,'(Global Namespace)'],['../LOT-11-ressenti-avance_2tache-01-donnees_8md.html',1,'(Global Namespace)'],['../LOT-12-niveau-puzzle_2tache-01-donnees_8md.html',1,'(Global Namespace)']]],
+  ['tache_2d01_2ddonnees_2emd_99',['tache-01-donnees.md',['../LOT-12-niveau-puzzle_2tache-01-donnees_8md.html',1,'(Global Namespace)'],['../LOT-10-mecaniques-avancees_2tache-01-donnees_8md.html',1,'(Global Namespace)'],['../LOT-11-ressenti-avance_2tache-01-donnees_8md.html',1,'(Global Namespace)']]],
   ['tache_2d01_2dentrees_2dclavier_2dsouris_2emd_100',['tache-01-entrees-clavier-souris.md',['../tache-01-entrees-clavier-souris_8md.html',1,'']]],
   ['tache_2d01_2dentrees_2dmolette_2dtexte_2emd_101',['tache-01-entrees-molette-texte.md',['../tache-01-entrees-molette-texte_8md.html',1,'']]],
   ['tache_2d01_2dfenetre_2dwin32_2emd_102',['tache-01-fenetre-win32.md',['../tache-01-fenetre-win32_8md.html',1,'']]],
