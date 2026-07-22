@@ -17,6 +17,7 @@
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/EditorLayout.h"
 #include "HMI/Editor/LevelNameValidation.h"
+#include "HMI/Editor/LevelSizeValidation.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -476,7 +477,14 @@ core::GridPosition EditorScreen::clampedCell(float mouseX, float mouseY) const {
 // Redimensionne directement si l'opération est anodine ; sinon pose une confirmation et n'agit
 // qu'une fois acceptée (Entree), sans effet si annulée (Echap) — EX-EDIT-012. Une selection
 // Rectangle/Selection en cours devient potentiellement hors bornes : invalidee dans tous les cas.
-void EditorScreen::requestResize(int width, int height) {
+// Borne systematiquement au plafond (EX-EDIT-017) : seul point de passage des flèches et de la
+// boite de dialogue (Ctrl+R), aucune des deux voies ne peut donc le depasser.
+void EditorScreen::requestResize(int rawWidth, int rawHeight) {
+    const int width = std::clamp(rawWidth, 1, MAX_LEVEL_DIMENSION);
+    const int height = std::clamp(rawHeight, 1, MAX_LEVEL_DIMENSION);
+    if (width == _draft.tileMap().width() && height == _draft.tileMap().height()) {
+        return;  // deja a la cible (bornage a absorbe le changement demande) : rien a faire
+    }
     if (_draft.wouldResizeDropContent(width, height)) {
         _pendingConfirmation = PendingConfirmation{
             "Ce redimensionnement supprimerait l'entree, la sortie ou une liaison. "

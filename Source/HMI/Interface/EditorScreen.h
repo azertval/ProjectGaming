@@ -83,9 +83,10 @@ private:
     /// Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).
     void handleLinkClick(float mouseX, float mouseY);
 
-    /// Redimensionne si l'opération est anodine ; sinon pose une confirmation (`EX-EDIT-012`) et
-    /// n'applique rien tant qu'elle n'est pas acceptée.
-    void requestResize(int width, int height);
+    /// Borne la cible au plafond (`EX-EDIT-017`), puis redimensionne si l'opération est anodine ;
+    /// sinon pose une confirmation (`EX-EDIT-012`) et n'applique rien tant qu'elle n'est pas
+    /// acceptée. Seul point de passage des flèches et de la boîte de dialogue (`Ctrl+R`).
+    void requestResize(int rawWidth, int rawHeight);
 
     /// Convertit une position souris en case de grille, **bornée** à la grille courante (jamais
     /// `nullopt`) — utilisé par les outils Rectangle/Sélection, dont le glisser doit rester
