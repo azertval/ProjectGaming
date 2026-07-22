@@ -103,6 +103,24 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
         case WM_KEYUP:
             _input.onKeyUp(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
             return 0;
+        case WM_SYSKEYDOWN:
+            // F10 (et les touches Alt) empruntent WM_SYSKEYDOWN par convention Win32 historique
+            // (activation du menu), jamais WM_KEYDOWN — sans cette prise en charge, l'éditeur ne
+            // recevrait jamais F10 (LOT-15, bascule de la grille de repère). Cette fenêtre n'a pas
+            // de menu : on absorbe uniquement F10 (évite l'activation visuelle du système de menu
+            // au relâchement) et laisse le traitement système par défaut pour le reste (Alt+F4,
+            // Alt+Tab...).
+            _input.onKeyDown(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
+            if (static_cast<std::uint16_t>(wParam) == static_cast<std::uint16_t>(Key::F10)) {
+                return 0;
+            }
+            return DefWindowProcW(handle, message, wParam, lParam);
+        case WM_SYSKEYUP:
+            _input.onKeyUp(static_cast<Key>(static_cast<std::uint16_t>(wParam)));
+            if (static_cast<std::uint16_t>(wParam) == static_cast<std::uint16_t>(Key::F10)) {
+                return 0;
+            }
+            return DefWindowProcW(handle, message, wParam, lParam);
         case WM_CHAR:
             // Caractère déjà traduit selon la disposition clavier active par TranslateMessage
             // (appelé en amont dans pumpMessages) : distinct des codes virtuels de WM_KEYDOWN,
