@@ -178,6 +178,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                     _draft = core::LevelDraft::fromLevel(*loaded.level);
                     _loadedFrom = choice.path;
                     _dirty = false;
+                    _manualCamera = false;  // repart du cadrage automatique sur ce niveau
                     _picker.reset();
                 } else {
                     // Fichier corrompu : message recuperable (EX-NFR-040), on reste au selecteur.
@@ -203,6 +204,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 _draft = core::LevelDraft::empty(name, DEFAULT_WIDTH, DEFAULT_HEIGHT);
                 _loadedFrom.reset();
                 _dirty = false;
+                _manualCamera = false;  // repart du cadrage automatique sur ce niveau
             } else {
                 _draft.setName(name);
                 _dirty = true;  // renommer est une modification du brouillon comme une autre
@@ -272,8 +274,29 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::none();
     }
 
-    _mouseX = static_cast<float>(input.mouseX());
-    _mouseY = static_cast<float>(input.mouseY());
+    // Camera manuelle (EX-EDIT-013) : molette = zoom, glisser bouton droit = pan, "0" = retour au
+    // cadrage automatique. _mouseX/_mouseY portent encore la position de la frame precedente ici :
+    // le delta de glisser se calcule avant de les mettre a jour, plus bas.
+    if (input.keyPressed(Key::D0)) {
+        _manualCamera = false;
+    }
+    const int wheel = input.wheelDelta();
+    if (wheel != 0) {
+        constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
+        _cameraZoom = (std::max)(1.0f, _cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH));
+        _manualCamera = true;
+    }
+    const float newMouseX = static_cast<float>(input.mouseX());
+    const float newMouseY = static_cast<float>(input.mouseY());
+    if (input.mouseButtonDown(MouseButton::Right) && !input.mouseButtonPressed(MouseButton::Right)) {
+        // Glisser en cours (pas le tout premier frame du clic, pour eviter un saut initial).
+        const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
+        _cameraCenter.x -= (newMouseX - _mouseX) / scale;
+        _cameraCenter.y -= (newMouseY - _mouseY) / scale;
+        _manualCamera = true;
+    }
+    _mouseX = newMouseX;
+    _mouseY = newMouseY;
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
         if (_palette.handleClick(_mouseX, _mouseY)) {
@@ -405,20 +428,25 @@ void EditorScreen::startPlaytest() {
     HMI_LOG_INFO("Essai immediat demarre.");
 }
 
-// Dessine la grille du brouillon (tuiles non vides) et la case survolee en surbrillance.
+// Dessine la grille du brouillon (tuiles non vides) et la case survolee en surbrillance. Cadrage
+// automatique (ajuste a la fenetre) tant qu'aucun pan/zoom manuel n'est intervenu (EX-EDIT-013) ;
+// sinon _cameraCenter/_cameraZoom (pilotes par update()) restent tels quels.
 void EditorScreen::renderGrid(RenderContext& context) {
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
-    _camera.setCenter(
-        core::Vector2{static_cast<float>(width) * 0.5f, static_cast<float>(height) * 0.5f});
 
-    // Zoom pour faire tenir la grille dans la fenetre, en facteur entier (nettete pixel art).
-    const float fitX = static_cast<float>(context.viewportWidth) /
-                       (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
-    const float fitY = static_cast<float>(context.viewportHeight) /
-                       (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
-    const float zoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
-    _camera.setZoom(zoom);
+    if (!_manualCamera) {
+        _cameraCenter =
+            core::Vector2{static_cast<float>(width) * 0.5f, static_cast<float>(height) * 0.5f};
+        // Zoom pour faire tenir la grille dans la fenetre, en facteur entier (nettete pixel art).
+        const float fitX = static_cast<float>(context.viewportWidth) /
+                           (static_cast<float>(width) * Camera2D::PIXELS_PER_UNIT);
+        const float fitY = static_cast<float>(context.viewportHeight) /
+                           (static_cast<float>(height) * Camera2D::PIXELS_PER_UNIT);
+        _cameraZoom = (std::max)(1.0f, std::floor((std::min)(fitX, fitY) * 0.85f));
+    }
+    _camera.setCenter(_cameraCenter);
+    _camera.setZoom(_cameraZoom);
 
     context.spriteBatch.begin(_camera.projectionMatrix(), _atlas.textureView());
     for (int row = 0; row < height; ++row) {

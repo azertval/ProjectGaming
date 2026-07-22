@@ -144,6 +144,12 @@ private:
     /// Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau
     /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.
     std::optional<std::filesystem::path> _loadedFrom;
+
+    /// `true` si la caméra est pilotée manuellement (molette/glisser droit) ; `false` tant que le
+    /// cadrage automatique (LOT-14) s'applique — réinitialisable via `Key::D0` (`EX-EDIT-013`).
+    bool _manualCamera = false;
+    float _cameraZoom = 1.0f;         ///< Zoom courant (manuel ou dernier calcul automatique).
+    core::Vector2 _cameraCenter{};    ///< Centre courant (manuel ou dernier calcul automatique).
 };
 
 }  // namespace hmi
