@@ -3,7 +3,8 @@
 > Statut : **édition de tuiles de base et robustesse/confort d'édition validés et livrés**
 > (LOT-14 : peinture, mécanismes, entrée/sortie, redimensionnement, undo/redo,
 > enregistrement/validation, essai immédiat ; LOT-15 : nommage, garde-fous, caméra, outils de
-> zone, découvrabilité). Dépend de [`niveaux.md`](niveaux.md).
+> zone, découvrabilité). La section 7 (niveaux de grande taille, LOT-16) est en cours.
+> Dépend de [`niveaux.md`](niveaux.md).
 
 ## Objectif
 Permettre la **création et la modification de niveaux sans écrire de code**, afin que des membres de l'équipe **non-développeurs** (game design, level design) contribuent directement au contenu du jeu.
@@ -73,8 +74,19 @@ uniquement de la documentation externe.
   visibles simultanément, chacune doit être **visuellement distinguable** des autres (et non une
   teinte unique partagée par toutes les liaisons).
 
+## 7. Niveaux de grande taille (LOT-16)
+Le redimensionnement (`EX-EDIT-005`) se faisait jusqu'ici uniquement case par case (flèches),
+praticable pour de petits ajustements mais pas pour viser directement une grande taille. Aucune
+limite technique n'existe dans `Core` (`TileMap`/`LevelDraft` acceptent toute dimension positive) —
+seule l'ergonomie manquait.
+
+- \anchor EX-EDIT-017 **EX-EDIT-017** — L'éditeur doit permettre de **saisir directement** une
+  largeur et une hauteur cibles (plutôt que d'incrémenter case par case), sous un **plafond
+  généreux** (très au-delà des tailles livrées à ce jour) qui reste configurable au niveau du code,
+  pas une limite arbitraire de `Core`.
+
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
-la robustesse et le confort d'édition (section 6) font l'objet du lot **LOT-15**, planifié juste
-après.
+la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
+grandes tailles (section 7) du lot **LOT-16**, en cours.

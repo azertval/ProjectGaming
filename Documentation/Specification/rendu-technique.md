@@ -11,7 +11,12 @@
 - \anchor EX-REN-010 **EX-REN-010** — Le rendu doit afficher une grille de tuiles à partir d'un **atlas de textures** (spritesheet).
 - \anchor EX-REN-011 **EX-REN-011** — Le rendu doit afficher des **sprites** pour le personnage et les mécanismes, avec transparence.
 - \anchor EX-REN-012 **EX-REN-012** — Le rendu doit supporter des **animations** par séquence d'images (personnage : repos, course, saut).
-- \anchor EX-REN-013 **EX-REN-013** — Une **caméra 2D** doit suivre le personnage et rester bornée aux limites du niveau.
+- \anchor EX-REN-013 **EX-REN-013** — Une **caméra 2D** doit cadrer le niveau en jeu : elle reste
+  bornée aux limites du niveau, et pour un niveau plus grand que la fenêtre, elle **zoome pour
+  englober le niveau entier** plutôt que de suivre le personnage — aucune zone ne doit rester
+  invisible, quelle que soit la taille du niveau (précisé en LOT-16 ; la formulation initiale
+  « suivre le personnage » ne correspondait déjà plus à l'implémentation, une caméra fixe cadrant
+  le tableau depuis LOT-08).
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches** (fond, décor, entités, interface).
 
 ## 3. Boucle & temps

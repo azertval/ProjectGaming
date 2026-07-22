@@ -4,6 +4,7 @@
  */
 
 #include <DirectXMath.h>
+#include <cmath>
 #include <gtest/gtest.h>
 
 #include "Core/Math/Vector2.h"
@@ -144,4 +145,62 @@ TEST(Camera2DTest, BordEcranVersBordClip) {
     DirectX::XMFLOAT4 result;
     DirectX::XMStoreFloat4(&result, DirectX::XMVector4Transform(edge, matrix));
     EXPECT_NEAR(result.x, 1.0f, TOLERANCE);
+}
+
+/**
+ * @brief fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau).
+ * \castest{<b>fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit
+ * niveau).</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit
+ * niveau).
+ * }
+ */
+TEST(Camera2DTest, FitZoomEntierPourPetitNiveau) {
+    // 14x8 cases, 16 px/unite -> 224x128 px. Fenetre 1280x720 : le facteur brut est tres > 1.
+    const float zoom = hmi::Camera2D::fitZoom(1280.0f, 720.0f, 14.0f, 8.0f, 0.85f);
+    EXPECT_GE(zoom, 1.0f);
+    EXPECT_FLOAT_EQ(zoom, std::floor(zoom));  // valeur entiere
+}
+
+/**
+ * @brief fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.
+ * \castest{<b>fitZoom devient fractionnaire pour un niveau plus grand que la surface
+ * disponible.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.
+ * }
+ */
+TEST(Camera2DTest, FitZoomFractionnairePourGrandNiveau) {
+    // 100x100 cases, 16 px/unite -> 1600x1600 px. Fenetre 1280x720 : le facteur brut est < 1.
+    const float zoom = hmi::Camera2D::fitZoom(1280.0f, 720.0f, 100.0f, 100.0f, 1.0f);
+    EXPECT_GT(zoom, 0.0f);
+    EXPECT_LT(zoom, 1.0f);
+    // Le niveau entier doit tenir dans la surface disponible a ce zoom.
+    EXPECT_LE(100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom, 1280.0f + TOLERANCE);
+    EXPECT_LE(100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom, 720.0f + TOLERANCE);
+}
+
+/**
+ * @brief fitZoom applique la marge avant l'arrondi.
+ * \castest{<b>fitZoom applique la marge avant l'arrondi.</b><br/>
+ * \tcat Unitaire · Camera2 D<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu fitZoom applique la marge avant l'arrondi.
+ * }
+ */
+TEST(Camera2DTest, FitZoomAppliqueLaMarge) {
+    // Facteur brut exact = 5 (1280 / (16*16)) ; une marge de 0.85 le fait passer sous 5 -> floor 4.
+    const float zoomSansMarge = hmi::Camera2D::fitZoom(1280.0f, 1280.0f, 16.0f, 16.0f, 1.0f);
+    const float zoomAvecMarge = hmi::Camera2D::fitZoom(1280.0f, 1280.0f, 16.0f, 16.0f, 0.85f);
+    EXPECT_FLOAT_EQ(zoomSansMarge, 5.0f);
+    EXPECT_FLOAT_EQ(zoomAvecMarge, 4.0f);
 }

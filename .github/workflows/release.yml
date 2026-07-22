@@ -1,16 +1,21 @@
-name: Release Debug
+name: Release
 
-# À chaque intégration sur main, publie l'exécutable Debug pour les non-développeurs.
-# Le build est autonome (runtime statique /MTd) afin de tourner sans Visual Studio installé.
+# Deux déclencheurs distincts, deux jobs indépendants :
+# - push sur main  -> reconstruit la release "roulante" debug-latest (préversion Debug autonome,
+#   toujours à jour avec le dernier commit intégré).
+# - tag "vX.Y.Z"   -> publie une release versionnée (non préversion), avec les exécutables Debug
+#   ET Release, chacun autonome (runtime statique, aucune installation de Visual Studio requise).
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*.*.*' ]
 
 permissions:
   contents: write
 
 jobs:
-  build-and-release:
+  rolling-debug:
+    if: github.ref_type == 'branch'
     # Épinglé : windows-latest (image 2025) ne fournit pas le générateur VS 2022.
     runs-on: windows-2022
 
@@ -32,7 +37,10 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path package | Out-Null
           Copy-Item build-release/bin/Debug/ProjectGaming.exe package/
-          # Les assets de Source/Elements seront ajoutés ici quand ils existeront.
+          # Assets copiés par CMake à côté de l'exécutable (POST_BUILD, Source/HMI/CMakeLists.txt) :
+          # embarqués tels quels, chargés par l'exécutable relativement à son propre dossier.
+          Copy-Item build-release/bin/Debug/Levels package/Levels -Recurse
+          Copy-Item build-release/bin/Debug/Localization package/Localization -Recurse
           Compress-Archive -Path package/* -DestinationPath ProjectGaming-debug.zip -Force
 
       - name: Publish rolling release
@@ -46,3 +54,55 @@ jobs:
             --title "ProjectGaming — Debug (dernier main)" `
             --notes "Build Debug automatique du dernier commit sur main. Décompresser et lancer ProjectGaming.exe." `
             --prerelease
+
+  versioned-release:
+    if: github.ref_type == 'tag'
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure (Debug autonome, sans tests)
+        run: >
+          cmake -S . -B build-debug -G "Visual Studio 17 2022" -A x64
+          -DBUILD_TESTING=OFF
+          -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDebug
+
+      - name: Build (Debug)
+        run: cmake --build build-debug --config Debug
+
+      - name: Configure (Release autonome, sans tests)
+        run: >
+          cmake -S . -B build-prod -G "Visual Studio 17 2022" -A x64
+          -DBUILD_TESTING=OFF
+          -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build (Release)
+        run: cmake --build build-prod --config Release
+
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path package-debug, package-release | Out-Null
+
+          Copy-Item build-debug/bin/Debug/ProjectGaming.exe package-debug/
+          Copy-Item build-debug/bin/Debug/Levels package-debug/Levels -Recurse
+          Copy-Item build-debug/bin/Debug/Localization package-debug/Localization -Recurse
+          Compress-Archive -Path package-debug/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-debug.zip" -Force
+
+          Copy-Item build-prod/bin/Release/ProjectGaming.exe package-release/
+          Copy-Item build-prod/bin/Release/Levels package-release/Levels -Recurse
+          Copy-Item build-prod/bin/Release/Localization package-release/Localization -Recurse
+          Compress-Archive -Path package-release/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-release.zip" -Force
+
+      - name: Publish versioned release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" `
+            "ProjectGaming-${{ github.ref_name }}-debug.zip" `
+            "ProjectGaming-${{ github.ref_name }}-release.zip" `
+            --title "${{ github.ref_name }}" `
+            --generate-notes

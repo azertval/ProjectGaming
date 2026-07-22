@@ -39,6 +39,7 @@ enum class Key : std::uint16_t {
     D = 0x44,
     P = 0x50,  // Essai immédiat du niveau en cours d'édition (éditeur, LOT-14)
     Q = 0x51,
+    R = 0x52,  // Ctrl+R : redimensionner par saisie directe (éditeur, LOT-16)
     S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
     V = 0x56,  // Ctrl+V : coller une zone (éditeur, LOT-15)
     W = 0x57,

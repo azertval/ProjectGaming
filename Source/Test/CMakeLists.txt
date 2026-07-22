@@ -42,6 +42,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_text_input_field.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tool_bar.cpp
+    Unit/HMI/Editor/test_level_size_validation.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -72,6 +73,8 @@ add_executable(UnitTests
     ../HMI/Editor/LevelNameValidation.cpp
     # La barre d'outils de l'éditeur (géométrie/sélection) est pure, testable hors GPU.
     ../HMI/Editor/ToolBar.cpp
+    # La validation d'une taille de grille saisie est une fonction pure, testable hors GPU.
+    ../HMI/Editor/LevelSizeValidation.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

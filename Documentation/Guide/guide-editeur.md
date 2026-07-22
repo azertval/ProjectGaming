@@ -8,8 +8,9 @@ contenu**, sans écrire une seule ligne de nouveau moteur de rendu. Tout vit dan
 
 L'édition de tuiles de base (peindre, lier, redimensionner, annuler/refaire, enregistrer, essai
 immédiat) date de LOT-14 ; la robustesse et le confort d'édition (nommage, garde-fous contre la
-perte de travail, caméra manuelle, outils de zone, panneau latéral) datent de LOT-15 — cette page
-couvre l'ensemble, sans distinguer les deux lots dans le texte.
+perte de travail, caméra manuelle, outils de zone, panneau latéral) datent de LOT-15 ; la saisie
+directe d'une grande taille et le cadrage des niveaux plus grands que la fenêtre datent de LOT-16 —
+cette page couvre l'ensemble, sans distinguer les lots dans le texte.
 
 ## Le problème : éditer un niveau sans (re)coder le moteur
 
@@ -273,7 +274,7 @@ brouillon (peinture, liaison, redimensionnement, annuler/refaire, collage) et re
 un enregistrement réussi — `Échap` avec `_dirty == true` pose une confirmation au lieu de quitter
 directement.
 
-## Nommer un niveau : un champ de saisie minimal
+## Un champ de saisie de texte générique : nommer, renommer, redimensionner
 
 LOT-14 nommait tout nouveau brouillon `"Nouveau niveau"`, sans jamais appeler
 `LevelDraft::setName()` — deux niveaux créés sans charger de fichier existant s'écrasaient donc
@@ -286,15 +287,69 @@ Un **validateur** optionnel (`std::function<bool(const std::string&)>`) conditio
 : `hmi::isValidLevelName` refuse un nom vide ou contenant un caractère interdit par le système de
 fichiers Windows (antislash, barre oblique, deux-points, astérisque, point d'interrogation,
 guillemet droit, chevrons ouvrant/fermant, barre verticale) — une liste **noire** minimale, pas une
-liste blanche
-restrictive (les accents restent autorisés). Un nom refusé laisse le champ actif plutôt que de le
-fermer, avec un message affiché par l'appelant (le champ lui-même ignore tout de la sémantique
-« niveau », il ne fait que saisir et valider du texte).
+liste blanche restrictive (les accents restent autorisés). Un nom refusé laisse le champ actif
+plutôt que de le fermer, avec un message affiché par l'appelant (le champ lui-même ignore tout de
+la sémantique « niveau », il ne fait que saisir et valider du texte).
 
 Choisir « Nouveau niveau » dans le sélecteur ouvre ce champ **avant** de créer le brouillon — annuler
 (`Échap`) à ce stade revient au sélecteur sans rien avoir créé, puisqu'aucun brouillon n'existe
 encore. `F2`, en cours d'édition, ouvre le même champ pré-rempli du nom courant pour un renommage ;
 annuler y laisse le nom inchangé.
+
+**Un troisième usage, pas un troisième champ.** LOT-16 ajoute la saisie directe d'une taille
+(`Ctrl+R`, plutôt que d'incrémenter case par case aux flèches) — un besoin de saisie de texte
+**de plus**, structurellement identique aux deux premiers (texte pré-rempli, validé à la
+confirmation, refus avec message). Porter un second `std::optional<TextInputField>` dédié aurait
+dupliqué toute la plomberie déjà en place ; `EditorScreen` généralise à la place son unique champ
+(`_nameInput`/`_nameInputIsCreation` devient `_textPrompt`/`_textPromptPurpose`, un
+`enum class TextPromptPurpose { CreateLevelName, RenameLevel, ResizeGrid }`) — un seul champ actif
+à la fois, dont le titre affiché et le validateur dépendent de l'usage courant, mais dont la
+mécanique de saisie/confirmation/annulation reste unique.
+
+`hmi::isValidLevelSize`/`parseLevelSize` (`Source/HMI/Editor/LevelSizeValidation.h`, sur le modèle
+exact d'`isValidLevelName`) analysent le format `largeur x hauteur` (séparateur `x`/`X`, espaces
+tolérés) et rejettent toute dimension hors de `[1, MAX_LEVEL_DIMENSION]` (100 par défaut — un
+plafond **d'usage**, porté par `HMI`, très au-delà des tailles livrées à ce jour ; `TileMap`/
+`LevelDraft` restent sans limite, `EX-NFR-010`). `Ctrl+R` ouvre le champ pré-rempli de la taille
+courante (`"14x8"`) ; confirmer appelle `EditorScreen::requestResize` — le **même** point de
+passage que les flèches (@ref guide-physique n'a pas de rapport ici, mais le principe est identique
+à `paintTile`/`paintRegion` plus haut : un seul chemin de mutation, jamais deux à maintenir en
+cohérence). `requestResize` borne systématiquement sa cible à `MAX_LEVEL_DIMENSION` **avant**
+d'agir : ni les flèches ni la boîte de dialogue ne peuvent donc dépasser le plafond, et la même
+confirmation destructrice (`wouldResizeDropContent`, section précédente) s'applique aux deux
+voies sans code supplémentaire.
+
+## Cadrer un niveau plus grand que la fenêtre
+
+Le cadrage automatique de la caméra (§ « Un panneau plutôt que des bandes empilées ») et celui de
+`GameScreen` en jeu calculaient chacun un facteur d'ajustement à la fenêtre puis appliquaient
+`std::max(1.0f, std::floor(ajustement))` — un plancher qui empêche de **descendre** sous le zoom
+×1. Tant qu'un niveau tient dans la fenêtre à cette échelle, aucun problème ; mais un niveau plus
+grand (permis par LOT-16, voir plus haut) voudrait un zoom **inférieur** à 1 pour tenir tout
+entier à l'écran, et en était empêché — une partie de la grille restait invisible, sans aucun
+moyen de la voir (l'éditeur a un pan/zoom manuel depuis LOT-15, mais son zoom minimal héritait du
+même plancher ; le jeu n'a ni pan ni zoom manuel).
+
+`Camera2D::fitZoom(largeurDisponible, hauteurDisponible, largeurContenu, hauteurContenu, marge)`
+factorise la correction en une fonction **pure**, partagée par les trois emplacements qui en
+avaient besoin (cadrage automatique et zoom minimal manuel de l'éditeur, cadrage de `GameScreen`) :
+
+```cpp
+const float rawZoom = std::min(fitX, fitY) * margin;
+return rawZoom >= 1.0f ? std::floor(rawZoom) : rawZoom;
+```
+
+Zoom **entier** (nettete pixel art, `EX-ARCH-022`) tant que l'ajustement brut reste `≥ 1` —
+comportement inchangé pour tout niveau livré à ce jour, aucune régression ; zoom **fractionnaire**
+(la valeur brute, sans `floor`) uniquement lorsque c'est strictement nécessaire pour qu'un niveau
+plus grand tienne malgré tout. `EX-ARCH-022` dit déjà « zoom **de préférence** en facteurs
+entiers » — cette correction n'en change pas la politique par défaut, elle active l'exception que
+le mot « préférence » anticipait déjà pour le seul cas où elle s'impose. Placer cette règle dans
+`Camera2D` (@ref guide-rendu) plutôt que de la dupliquer dans `EditorScreen` et `GameScreen`
+signifie qu'un futur troisième écran cadrant un niveau en unités monde l'obtient gratuitement, sans
+rederiver le calcul — et, bénéfice pratique immédiat, la rend testable sans GPU (`Camera2D` est
+déjà compilé dans `UnitTests`, @ref guide-rendu), alors que ni `EditorScreen` ni `GameScreen` ne le
+sont.
 
 ## Un panneau plutôt que des bandes empilées
 
@@ -316,11 +371,12 @@ stricte si le calcul de décalage est correct, mais bon marché et robuste aux c
 
 **Caméra manuelle.** Molette (zoom) et glisser du bouton droit (pan) prennent le relais du cadrage
 automatique dès la première interaction (`_manualCamera`) ; `0` y revient. Le zoom est borné : au
-minimum le cadrage automatique lui-même (inutile de zoomer moins — il n'y a rien à voir au-delà du
-niveau), au maximum la valeur qui laisse encore **4 cases visibles** sur le plus petit axe de
-l'écran (une précision plus fine n'apporte rien pour poser un bloc). Ces deux bornes se recalculent
-sur les dimensions **courantes** du brouillon à chaque molette, donc s'adaptent sans changement à
-des niveaux plus grands (prévu pour un lot ultérieur).
+minimum le cadrage automatique lui-même — via `Camera2D::fitZoom` (§ suivante), donc capable de
+descendre sous ×1 pour un grand niveau depuis LOT-16, inutile de zoomer moins dans tous les cas :
+il n'y a rien à voir au-delà du niveau — au maximum la valeur qui laisse encore **4 cases
+visibles** sur le plus petit axe de l'écran (une précision plus fine n'apporte rien pour poser un
+bloc). Ces deux bornes se recalculent sur les dimensions **courantes** du brouillon à chaque
+molette, donc s'adaptent sans changement à un redimensionnement en cours d'édition.
 
 **Grille de repère.** `F10` bascule l'affichage de fines lignes sur chaque bord de case,
 par-dessus les tuiles déjà peintes — un repère visuel simple pour poser un bloc précisément, sans
@@ -352,7 +408,8 @@ de séparation que `LevelLoader`/`Core` appliquent déjà à la validation.
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
   `core::LevelLoader` (dont `LevelValidationError`), `core::Mechanism`.
 - `hmi::EditorScreen`, `hmi::TilePalette`, `hmi::ToolBar`, `hmi::EditorTool`, `hmi::LevelPicker`,
-  `hmi::TextInputField`, `hmi::isValidLevelName`.
+  `hmi::TextInputField`, `hmi::isValidLevelName`, `hmi::isValidLevelSize`/`parseLevelSize`.
+- `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
 - @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés
   sans duplication.
 - @ref guide-rendu — `SpriteBatch`/`Camera2D`/`TextureAtlas`, réutilisés tels quels pour dessiner

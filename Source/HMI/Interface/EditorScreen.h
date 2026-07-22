@@ -83,9 +83,10 @@ private:
     /// Traite un clic Maj+souris pour la liaison de mécanismes (voir la doc de la classe).
     void handleLinkClick(float mouseX, float mouseY);
 
-    /// Redimensionne si l'opération est anodine ; sinon pose une confirmation (`EX-EDIT-012`) et
-    /// n'applique rien tant qu'elle n'est pas acceptée.
-    void requestResize(int width, int height);
+    /// Borne la cible au plafond (`EX-EDIT-017`), puis redimensionne si l'opération est anodine ;
+    /// sinon pose une confirmation (`EX-EDIT-012`) et n'applique rien tant qu'elle n'est pas
+    /// acceptée. Seul point de passage des flèches et de la boîte de dialogue (`Ctrl+R`).
+    void requestResize(int rawWidth, int rawHeight);
 
     /// Convertit une position souris en case de grille, **bornée** à la grille courante (jamais
     /// `nullopt`) — utilisé par les outils Rectangle/Sélection, dont le glisser doit rester
@@ -111,9 +112,10 @@ private:
     /// Dessine le sélecteur de niveau (liste « Nouveau niveau » + fichiers existants).
     void renderPicker(RenderContext& context);
 
-    /// Dessine le champ de saisie du nom (création ou renommage `F2`), avec un message de refus
-    /// si la dernière tentative de confirmation a été invalide.
-    void renderNameInput(RenderContext& context);
+    /// Dessine le champ de saisie générique (nom à la création, renommage `F2`, ou taille
+    /// `Ctrl+R`), avec un message de refus si la dernière tentative de confirmation a été
+    /// invalide.
+    void renderTextPrompt(RenderContext& context);
 
     /// Écrit @p level à @p path, met à jour le message de statut et le drapeau `_dirty`.
     void writeLevelToDisk(const core::Level& level, const std::filesystem::path& path);
@@ -155,11 +157,14 @@ private:
     std::optional<PendingConfirmation> _pendingConfirmation;
     bool _dirty = false;  ///< `true` si le brouillon a des modifications non enregistrées.
 
-    /// Actif pendant la saisie du nom (création d'un niveau vierge ou renommage `F2`).
-    std::optional<TextInputField> _nameInput;
-    /// `true` si `_nameInput` sert à nommer un niveau tout juste créé (annuler revient au
-    /// sélecteur) ; `false` s'il s'agit d'un renommage en cours d'édition (annuler ne change rien).
-    bool _nameInputIsCreation = false;
+    /// Ce que sert `_textPrompt` (un seul champ, un seul usage actif à la fois) : nommer un niveau
+    /// tout juste créé (annuler revient au sélecteur), le renommer (`F2`, annuler ne change rien),
+    /// ou choisir sa taille (`Ctrl+R`, `EX-EDIT-017`, annuler ne change rien).
+    enum class TextPromptPurpose { CreateLevelName, RenameLevel, ResizeGrid };
+    /// Actif pendant une saisie de texte générique — nom à la création, renommage `F2`, ou taille
+    /// `Ctrl+R` ; la signification courante est portée par `_textPromptPurpose`.
+    std::optional<TextInputField> _textPrompt;
+    TextPromptPurpose _textPromptPurpose = TextPromptPurpose::CreateLevelName;
     /// Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau
     /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.
     std::optional<std::filesystem::path> _loadedFrom;

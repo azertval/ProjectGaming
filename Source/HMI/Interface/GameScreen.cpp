@@ -1,7 +1,5 @@
 #include "HMI/Interface/GameScreen.h"
 
-#include <algorithm>
-#include <cmath>
 #include <string>
 
 #include "Core/Ecs/Components/Collider.h"
@@ -209,12 +207,13 @@ void GameScreen::render(RenderContext& context) {
 
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
 
-    // Zoom pour faire tenir le niveau dans la fenetre, en facteur entier (nettete pixel art).
-    const float fitX = static_cast<float>(context.viewportWidth) /
-                       (static_cast<float>(_levelWidth) * Camera2D::PIXELS_PER_UNIT);
-    const float fitY = static_cast<float>(context.viewportHeight) /
-                       (static_cast<float>(_levelHeight) * Camera2D::PIXELS_PER_UNIT);
-    const float zoom = std::max(1.0f, std::floor(std::min(fitX, fitY) * 0.92f));
+    // Zoom pour faire tenir le niveau ENTIER dans la fenetre (LOT-16, EX-REN-013) : entier
+    // (nettete pixel art) tant qu'il tient a l'echelle x1, fractionnaire au-dela pour qu'aucune
+    // zone ne reste hors champ — la camera cadre le niveau, elle ne suit pas le personnage.
+    const float zoom =
+        Camera2D::fitZoom(static_cast<float>(context.viewportWidth),
+                          static_cast<float>(context.viewportHeight),
+                          static_cast<float>(_levelWidth), static_cast<float>(_levelHeight), 0.92f);
     _camera.setZoom(zoom);
 
     _renderer.render(_world, _camera);

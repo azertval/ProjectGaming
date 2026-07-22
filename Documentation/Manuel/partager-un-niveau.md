@@ -42,14 +42,17 @@ gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste co
 | Copier / coller une zone | Outil **Sélection** : cliquer-glisser pour définir la zone, puis **Ctrl+C** pour la copier ; **Ctrl+V** colle la copie à l'endroit survolé par la souris. |
 | Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** de la souris pour déplacer la vue ; **molette** pour zoomer/dézoomer ; touche **0** pour revenir au cadrage automatique. |
 | Afficher un quadrillage | **F10** — des lignes fines apparaissent sur chaque case, utile pour bien viser avant de peindre. |
-| Agrandir / réduire la grille | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (**Entrée** = confirmer, **Échap** = annuler) avant d'agir. |
+| Agrandir / réduire la grille (case par case) | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (**Entrée** = confirmer, **Échap** = annuler) avant d'agir. |
+| Choisir une taille précise | **Ctrl+R**, taper la nouvelle taille au format `largeurxhauteur` (ex. `60x40`), **Entrée** pour valider (**Échap** annule sans rien changer). Même plafond et même confirmation destructrice qu'aux flèches. |
 | Renommer le niveau | **F2**, taper le nouveau nom, **Entrée** pour valider (**Échap** pour annuler sans rien changer). |
 | Annuler / refaire | **Ctrl+Z** / **Ctrl+Y**. |
 | Tester le niveau | Touche **P** — le niveau se joue directement dans l'éditeur ; **Échap** pour revenir à l'édition, rien n'est perdu. |
 | Enregistrer | **Ctrl+S** — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). Si le nom correspond à un **autre** niveau déjà enregistré, une confirmation est demandée avant d'écraser ce fichier. |
 | Quitter l'éditeur | **Échap** (hors essai immédiat) — retour au menu. Si des modifications ne sont pas encore enregistrées, une confirmation est demandée avant de les perdre. |
 
-Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`.
+Le niveau est enregistré à côté de l'exécutable, dans le dossier `Levels`. Quelle que soit sa
+taille, un niveau reste **entièrement visible** à l'ouverture (la caméra dézoome automatiquement
+si besoin) — aussi bien dans l'éditeur qu'en jeu.
 
 ## 4. Publier votre niveau
 

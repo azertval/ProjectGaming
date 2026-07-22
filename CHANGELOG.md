@@ -7,6 +7,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-16 — Niveaux de grande taille** (`EX-EDIT-017`, `EX-REN-013` corrigée). L'éditeur permet
+  désormais de **saisir directement** une taille cible (**Ctrl+R**, format `largeurxhauteur`, ex.
+  `60x40`) plutôt que d'incrémenter case par case aux flèches (toujours disponibles pour l'ajustement
+  fin) — un **plafond généreux** (100 cases par axe, garde-fou d'usage côté `HMI`, sans limite dans
+  `Core`) s'applique aux deux voies, qui passent toutes deux par le même point de redimensionnement
+  (`EditorScreen::requestResize`, même confirmation destructrice qu'avant si la nouvelle taille
+  perdrait l'entrée/la sortie/une liaison). Le champ de saisie du nom (LOT-15) est généralisé pour
+  porter aussi cet usage — un seul mécanisme de saisie de texte, pas un second construit en
+  parallèle. **Un niveau plus grand que la fenêtre reste entièrement visible** : la caméra, qui ne
+  descendait jamais sous le zoom ×1 (une partie de la grille restait hors champ, dans l'éditeur
+  comme en jeu), zoome désormais **en dessous de ×1** quand c'est nécessaire pour cadrer le niveau
+  entier — correction unique (`Camera2D::fitZoom`, testée) partagée par l'éditeur et `GameScreen`,
+  sans dupliquer le calcul ; le zoom reste entier (netteté pixel art) pour tout niveau tenant déjà
+  dans la fenêtre, aucune régression sur les niveaux livrés à ce jour. `EX-REN-013` reformulée pour
+  refléter la stratégie réellement implémentée (caméra qui cadre le niveau, ne suit pas le
+  personnage — la formulation d'origine ne correspondait déjà plus au code depuis LOT-08). Couvert
+  par tests **unitaires** (`LevelSizeValidation`, `Camera2D::fitZoom`) ; vérifié manuellement dans
+  l'application (grand niveau entièrement visible à l'ouverture et en essai immédiat, niveaux
+  existants inchangés).
 - **LOT-15 — Éditeur de niveaux : robustesse et confort d'édition** (`EX-EDIT-009`, `EX-EDIT-012` à
   `EX-EDIT-016`). L'éditeur intégré (LOT-14) se rapproche d'un outil de production : créer un
   niveau **demande un nom** (plus de collision silencieuse sur « Nouveau niveau.json ») et **F2**

@@ -27,6 +27,7 @@ add_executable(ProjectGaming
     Editor/LevelPicker.cpp
     Editor/TextInputField.cpp
     Editor/LevelNameValidation.cpp
+    Editor/LevelSizeValidation.cpp
     Editor/ToolBar.cpp
 )
 
