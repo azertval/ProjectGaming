@@ -14,9 +14,9 @@ l'atlas, sans introduire de fichier image ni de dépendance externe (`EX-ARCH-05
 ## Périmètre
 
 ### Inclus
-- Une région dédiée de l'atlas (16×32 pixels, ratio 1:2 identique à `core::playerSize()`) dessinant
-  une silhouette humanoïde multi-couleurs (peau, cheveux, chemise/manches, pantalon, chaussures),
-  avec zones transparentes hors silhouette.
+- Une région dédiée de l'atlas (16×16 pixels, **carrée** comme une tuile — voir décision de
+  cadrage ci-dessous) dessinant une silhouette humanoïde multi-couleurs (peau, cheveux,
+  chemise/manches, pantalon, chaussures), avec zones transparentes hors silhouette.
 - Le branchement de cette région sur l'entité joueur (`GameScreen::spawnPlayer`), à la place de la
   tuile de couleur unie.
 
@@ -37,8 +37,18 @@ l'atlas, sans introduire de fichier image ni de dépendance externe (`EX-ARCH-05
   nouvelle région) ne touche **ni** `SpriteRenderer` **ni** le contrat `core::AtlasRegion` : la
   normalisation UV se fait déjà génériquement à partir de `atlas.width()`/`height()`.
 - **Silhouette par blocs rectangulaires**, pas par distance géométrique (à la différence de
-  `FlagIcons`) : plus simple à lire et à faire évoluer pour une forme humanoïde à cette résolution
-  (16×32), suffisant pour une silhouette reconnaissable à l'échelle du jeu (16 px/unité).
+  `FlagIcons`) : plus simple à lire et à faire évoluer pour une forme humanoïde à cette résolution,
+  suffisant pour une silhouette reconnaissable à l'échelle du jeu (16 px/unité).
+- **La région reste carrée (16×16), le ratio 1:2 vient de `Transform::scale`, pas de la région.**
+  Version initiale de ce lot : région déjà non carrée (16×32, reprenant directement le ratio de
+  `core::playerSize()`). Bug détecté immédiatement à la vérification visuelle en jeu — la
+  silhouette débordait largement de la boîte de collision et traversait les murs — car
+  `SpriteRenderer::render` multiplie **déjà** les dimensions de la région par `Transform::scale`
+  (lui-même égal à `core::playerSize()`, donc déjà non uniforme 0,4×0,8) : une région 16×32
+  appliquait le ratio 1:2 **deux fois** (0,4×1,6 à l'écran au lieu de 0,4×0,8). Corrigé en gardant
+  la région carrée (16×16, comme `tile()`) et en dessinant la silhouette **pré-compressée** de
+  moitié en hauteur dans ce canevas — l'étirement du `Transform` restitue les proportions
+  naturelles à l'écran, exactement comme pour une tuile normale.
 - **Un seul lot pour le statique, un second pour l'animation** (décision explicite, périmètre
   demandé) : évite de concevoir la structure de séquence d'images (`EX-REN-012`) avant d'avoir une
   pose de référence validée visuellement.

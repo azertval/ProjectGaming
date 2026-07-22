@@ -152,12 +152,16 @@ de la résolution réelle de l'atlas — c'est le rendu qui la normalise). La cl
 ### La région du personnage : pourquoi elle vit dans le même atlas
 
 Depuis LOT-17, `TextureAtlas` ne génère pas que la grille de tuiles : une bande supplémentaire de
-32 pixels de haut est ajoutée **sous** la grille (colonnes 0-15), où vit une **silhouette
-humanoïde** de 16×32 pixels (`playerRegion()`) — tête, cheveux, torse/manches, mains, jambes,
-chaussures, chacun une couleur distincte, le reste transparent. Le ratio 16:32 (1:2) n'est pas
-arbitraire : il reprend exactement celui de `core::playerSize()` (0,4×0,8 unité monde), pour que la
-silhouette ne subisse **aucune déformation** à l'écran (`SpriteRenderer` multiplie directement les
-pixels de la région par l'échelle du `Transform`, cf. plus bas).
+16 pixels de haut est ajoutée **sous** la grille (colonnes 0-15), où vit une **silhouette
+humanoïde** (`playerRegion()`) — tête, cheveux, torse/manches, mains, jambes, chaussures, chacun
+une couleur distincte, le reste transparent. Cette région reste **carrée** (16×16, exactement comme
+une tuile) : `SpriteRenderer::render` multiplie ses dimensions en pixels par `Transform::scale`
+(cf. plus bas), et c'est cette échelle — `core::playerSize()`, déjà non uniforme (0,4×0,8 unité
+monde) — qui donne à elle seule au personnage sa proportion finale deux fois plus haute que large.
+Une région déjà 16×32 **doublerait** cet effet (0,4×1,6 à l'écran, débordant largement de la boîte
+de collision 0,4×0,8 — bug réellement rencontré en LOT-17, corrigé aussitôt) : la silhouette est
+donc dessinée **pré-compressée** de moitié en hauteur dans le canevas carré, pour retrouver ses
+proportions naturelles une fois étirée par l'échelle du `Transform`.
 
 Ce choix — étendre l'atlas existant plutôt que créer une classe séparée sur le modèle de
 `SaveIcon`/`FlagIcons` (icônes de l'interface, @ref guide-journalisation, @ref guide-entrees) —

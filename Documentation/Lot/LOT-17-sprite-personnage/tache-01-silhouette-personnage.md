@@ -9,19 +9,20 @@ n'existe : ce que le joueur contrôle est visuellement indissociable d'un décor
 
 ## Travail à réaliser
 - **`hmi::TextureAtlas`** (`Source/HMI/Graphics/TextureAtlas.h`/`.cpp`) :
-  - Nouvelles constantes `PLAYER_REGION_WIDTH = 16`, `PLAYER_REGION_HEIGHT = 32` (ratio 1:2,
-    identique à `core::playerSize()` — évite toute déformation à l'affichage, cf.
-    `SpriteRenderer::render` qui dérive la taille écran directement des pixels de la région).
+  - Nouvelles constantes `PLAYER_REGION_WIDTH = 16`, `PLAYER_REGION_HEIGHT = TILE_SIZE` (16,
+    **carrée**, comme une tuile — voir « Points d'attention » : le ratio 1:2 final vient de
+    `Transform::scale`, pas de la région).
   - La texture générée grandit verticalement : la grille de tuiles (64×64, inchangée) est
-    complétée d'une bande de 32 pixels sous la grille, où vit la région du personnage (colonnes
+    complétée d'une bande de 16 pixels sous la grille, où vit la région du personnage (colonnes
     0-15) ; le reste de la bande (colonnes 16-63) reste transparent. `width()`/`height()`
     deviennent des membres stockés (`_width`/`_height`, calculés une fois au constructeur) au lieu
     d'une formule figée sur un atlas carré — sur le même principe que `FlagIcons`, déjà non carré.
   - Nouvelle fonction `playerPixel(x, y)` (namespace anonyme) : silhouette par blocs rectangulaires
     (comparaisons d'intervalles, pas de calcul géométrique) — tête (cheveux + peau + nuque),
     torse/manches (chemise), mains (peau) aux extrémités des manches, jambes (pantalon), pieds
-    (chaussures plus sombres). Transparent (`pack(0,0,0,0)`) hors silhouette.
-  - Nouvel accessseur `core::AtlasRegion playerRegion() const` — région fixe (0, 64, 16, 32).
+    (chaussures plus sombres), **pré-compressée de moitié en hauteur** dans le canevas 16×16 (voir
+    « Points d'attention »). Transparent (`pack(0,0,0,0)`) hors silhouette.
+  - Nouvel accessseur `core::AtlasRegion playerRegion() const` — région fixe (0, 64, 16, 16).
 - **`hmi::GameScreen::spawnPlayer`** (`Source/HMI/Interface/GameScreen.cpp`) : `sprite.region =
   _atlas.playerRegion();` à la place de `_atlas.tile(1, 1)`.
 
@@ -46,9 +47,15 @@ n'existe : ce que le joueur contrôle est visuellement indissociable d'un décor
   _atlas->textureView())`) : la région du personnage doit vivre dans la **même** texture que les
   tuiles, pas dans une ressource séparée — sans quoi le personnage et le niveau ne pourraient plus
   être dessinés dans la même passe sans restructurer `SpriteRenderer`.
-- Le ratio 16×32 (1:2) de la région suit `core::playerSize()` (0,4×0,8) : un ratio différent
-  étirerait la silhouette de façon non uniforme à l'écran (`SpriteRenderer` multiplie les pixels de
-  la région par l'échelle du `Transform`).
+- **La région doit rester carrée (16×16), ne pas encoder le ratio 1:2 dans ses dimensions.**
+  `SpriteRenderer::render` calcule `worldWidth = region.width / PIXELS_PER_UNIT * transform.scale.x`
+  (et l'équivalent en hauteur) : la région est donc **déjà** multipliée par `Transform::scale`, qui
+  vaut `core::playerSize()` (0,4×0,8, déjà non uniforme). Bug rencontré en implémentant ce lot :
+  une première version utilisait une région 16×32 (ratio 1:2 « en dur » dans les pixels), ce qui
+  appliquait le ratio **deux fois** — silhouette rendue à 0,4×1,6 au lieu de 0,4×0,8, débordant de
+  la boîte de collision et traversant les murs. Corrigé en gardant la région carrée (comme `tile()`)
+  et en pré-compressant la silhouette de moitié en hauteur dans `playerPixel` : l'étirement du
+  `Transform` restitue les proportions naturelles à l'écran.
 
 ## Définition de fait (DoD)
 - Silhouette humanoïde visible en jeu, remplaçant le rectangle uni ; build `/W4 /WX` sans
