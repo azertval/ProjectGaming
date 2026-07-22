@@ -191,7 +191,16 @@ exposent alors leur propre méthode `update(...)` avec une signature dédiée, a
 l'orchestration plutôt que via le mécanisme générique `addSystem`/`World::update`. Dans les deux
 cas, le principe reste identique : la logique parcourt des vues et modifie des composants.
 
+`core::AnimationSystem` (LOT-18) illustre concrètement pourquoi l'ordre compte : il lit
+`Player::grounded`, calculé par `CharacterPhysicsSystem` pour dériver le clip d'animation actif
+(repos/course/saut). `hmi::GameScreen::update` l'appelle donc **après** la physique, dans le même
+pas — l'inverser lirait l'état du pas précédent (décalage d'une frame). C'est aussi un exemple de
+système qui ne **modifie aucun état de simulation** au sens strict (position, vitesse) : il ne fait
+que projeter un état déjà déterminé (`Player`/`Velocity`) vers un état de présentation
+(`core::Animation`), consommé ensuite par `HMI` pour choisir la bonne région d'atlas
+(@ref guide-rendu).
+
 ## Voir aussi
 - `core::World`, `core::Entity`, `core::EntityManager`, `core::ComponentPool`, `core::View`.
-- `core::ISystem`, `core::MovementSystem`, `core::CharacterPhysicsSystem`.
+- `core::ISystem`, `core::MovementSystem`, `core::CharacterPhysicsSystem`, `core::AnimationSystem`.
 - @ref guide-physique (le système de physique), @ref guide-maths (les types de données des composants).

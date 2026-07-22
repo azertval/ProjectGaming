@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <wrl/client.h>
 
+#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Sprite.h"
 
 /**
@@ -17,14 +18,14 @@ namespace hmi {
  *
  * En l'absence d'asset graphique, l'atlas est produit en mémoire : une grille de tuiles
  * 16×16 de couleurs distinctes, dont une avec des zones **transparentes** (pour valider le
- * rendu alpha), complétée d'une **région dédiée au personnage** (silhouette humanoïde,
- * `EX-REN-011`) sous la grille. Cette région reste **carrée** (16×16, comme une tuile) : le
- * rendu (`SpriteRenderer`) la multiplie par `Transform::scale`, déjà non uniforme
- * (`core::playerSize()`), qui donne à elle seule la silhouette sa proportion finale deux fois
- * plus haute que large — une région déjà non carrée doublerait cet effet. La génération est
- * **déterministe**. La classe est conçue pour être remplaçable plus tard par un chargement
- * de fichier (l'interface — vue de texture, dimensions, régions — reste stable). Ressources
- * Direct3D en RAII (`ComPtr`).
+ * rendu alpha), complétée d'une **grille d'images du personnage** (silhouette humanoïde
+ * animée — repos, course, saut, `EX-REN-011`/`EX-REN-012`) sous la grille. Chaque image reste
+ * **carrée** (16×16, comme une tuile) : le rendu (`SpriteRenderer`) la multiplie par
+ * `Transform::scale`, déjà non uniforme (`core::playerSize()`), qui donne à elle seule la
+ * silhouette sa proportion finale deux fois plus haute que large — une région déjà non carrée
+ * doublerait cet effet. La génération est **déterministe**. La classe est conçue pour être
+ * remplaçable plus tard par un chargement de fichier (l'interface — vue de texture,
+ * dimensions, régions — reste stable). Ressources Direct3D en RAII (`ComPtr`).
  */
 class TextureAtlas {
 public:
@@ -32,11 +33,12 @@ public:
     static constexpr int TILE_SIZE = 16;
     /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée.
     static constexpr int TILES_PER_SIDE = 4;
-    /// Largeur de la région dédiée au personnage, en pixels.
-    static constexpr int PLAYER_REGION_WIDTH = 16;
-    /// Hauteur de la région dédiée au personnage, en pixels. **Carrée** (= `TILE_SIZE`) : le
+    /// Côté d'une image d'animation du personnage, en pixels. **Carrée** (= `TILE_SIZE`) : le
     /// ratio 1:2 final vient de `Transform::scale` (`core::playerSize`), pas de la région.
-    static constexpr int PLAYER_REGION_HEIGHT = TILE_SIZE;
+    static constexpr int PLAYER_FRAME_SIZE = TILE_SIZE;
+    /// Nombre de colonnes de la grille d'images du personnage (largeur de la grille de tuiles,
+    /// réutilisée telle quelle).
+    static constexpr int PLAYER_FRAME_COLUMNS = TILES_PER_SIDE;
 
     /**
      * @brief Génère l'atlas procédural et crée la ressource Direct3D associée.
@@ -68,10 +70,13 @@ public:
     [[nodiscard]] core::AtlasRegion tile(int column, int row) const;
 
     /**
-     * @brief Région (en pixels) de la silhouette du personnage, sous la grille de tuiles.
-     * @return La région d'atlas (16×16, carrée) du personnage (`EX-REN-011`).
+     * @brief Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.
+     * @param clip       Clip d'animation (`EX-REN-012`).
+     * @param frameIndex Index de l'image dans le clip (0-based).
+     * @return La région d'atlas (16×16, carrée) de cette image (`EX-REN-011`).
      */
-    [[nodiscard]] core::AtlasRegion playerRegion() const;
+    [[nodiscard]] core::AtlasRegion playerFrameRegion(core::AnimationClip clip,
+                                                       int frameIndex) const;
 
 private:
     int _width = 0;

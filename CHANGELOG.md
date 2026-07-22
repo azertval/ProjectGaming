@@ -7,6 +7,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-18 — Animation du personnage** (`EX-REN-012`). Le personnage anime désormais trois
+  **clips** dérivés de son état physique (`core::Player::grounded`, `core::Velocity`) : `Idle`
+  (repos, 2 images, au sol et immobile), `Run` (course, 4 images, au sol en mouvement), `Jump`
+  (saut, 1 pose fixe, en l'air) — un nouveau composant `core::Animation` et
+  `core::AnimationSystem` (logique pure, `Core`, testée sans GPU) déterminent le clip et l'image
+  courante chaque pas fixe, **après** `CharacterPhysicsSystem` (qui vient de calculer `grounded`
+  pour ce même pas). Côté rendu, `TextureAtlas` expose une grille de 7 images (16×16, toujours
+  **carrées** — non-régression du bug d'échelle de LOT-17) et `GameScreen` met à jour la région du
+  sprite **à chaque frame** (plus seulement au spawn). Second des deux lots dédiés au personnage
+  (`EX-REN-012`, après la silhouette statique de LOT-17). **5 nouveaux tests** d'intégration
+  (297 au total, 292 au jalon précédent) ; vérifié visuellement dans l'application (repos, course,
+  chute/saut).
 - **LOT-17 — Sprite du personnage (statique)** (`EX-REN-011`). Le personnage n'est plus une tuile
   de couleur unie (`_atlas.tile(1, 1)`, cyan) : il affiche désormais une **silhouette humanoïde**
   (tête, cheveux, torse/manches, mains, jambes, chaussures) générée en code, comme le reste de
