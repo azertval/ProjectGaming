@@ -1,6 +1,6 @@
 # TACHE-02 — Collision boîte-contre-boîte {#lot-24-tache-02-collision-boite-boite}
 
-**Lot :** [LOT-24](epic.md) · **Emplacement :** `Core/Physics` · **Statut :** à faire
+**Lot :** [LOT-24](epic.md) · **Emplacement :** `Core/Physics` · **Statut :** fait
 
 ## Contexte
 Un bloc réduit occupe sa case **partiellement** : `sweepAabb` (solide/vide par case entière, cf.
@@ -48,9 +48,30 @@ ce moteur (jusqu'ici, toute collision passe par la grille).
   faudra soit lui faire accepter une liste de boîtes en plus de la grille, soit garder la
   composition côté `GameScreen` après son appel. Documenter le choix retenu ici une fois tranché.
 
+### Décision retenue : composition côté `GameScreen`, `CharacterPhysicsSystem` inchangé
+
+`HMI::GameScreen::update` compose les deux passes **après** `_physics.update(...)` (grille) et
+**avant** `_animation.update(...)` (l'animation lit `Player::grounded`/`Velocity`, donc doit voir
+l'état **final**) : le déplacement **réel** obtenu par la grille
+(`transform.position - previousBox.min`) est retesté contre la boîte réelle de chaque bloc réduit
+(`BlockController::scales()`/`boxAt`) via `core::sweepAabbVsAabb`. Par construction, cette seconde
+passe ne peut que **réduire** le déplacement (jamais l'étendre) : elle part du résultat déjà
+restreint par la grille, donc « le plus restrictif des deux l'emporte » est garanti sans calcul
+supplémentaire. Si **plusieurs** blocs réduits se trouvent sur le chemin (cas rare, hors du
+périmètre normal de ce lot), le résultat le plus proche de la position de départ l'emporte **par
+axe**, pour rester sûr même dans ce cas non prioritaire.
+
+Alternative écartée : faire accepter à `CharacterPhysicsSystem` une liste de boîtes en plus de la
+grille. Rejetée pour ne **pas** faire dépendre le système ECS générique de `BlockController`
+(couplage `Core/Ecs` → `Core/Gameplay` inexistant ailleurs dans le moteur) et pour rester cohérent
+avec `LOT-21` : `BlockController` est déjà orchestré côté `GameScreen`, pas injecté dans la
+physique.
+
 ## Définition de fait (DoD)
 - Collision boîte-contre-boîte fonctionnelle et testée, composée correctement avec le balayage sur
-  grille ; **zéro régression** ; build `/W4 /WX` sans avertissement.
+  grille ; **zéro régression** ; build `/W4 /WX` sans avertissement. Vérifiée par 6 tests unitaires
+  (`sweepAabbVsAabb` seul) et 2 tests d'intégration rejouant l'orchestration exacte de
+  `GameScreen::update` (arrêt au bord réel, franchissement de l'espace autour).
 
 ## Exigences
 `EX-GP-005` (implémentation complète).

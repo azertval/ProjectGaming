@@ -23,6 +23,7 @@ add_executable(UnitTests
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp
+    Unit/Core/Physics/test_aabb_vs_aabb.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
     Unit/Core/Diagnostics/test_sinks.cpp
@@ -101,6 +102,7 @@ add_executable(IntegrationTests
     Integration/test_niveau_ecs.cpp
     Integration/test_physique_personnage.cpp
     Integration/test_animation_personnage.cpp
+    Integration/test_bloc_reduit.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

@@ -29,6 +29,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-24 — Blocs à taille fractionnaire** (`EX-GP-005`) : deux nouvelles tuiles, `BlockHalf`/
+  `BlockQuarter` (`×0.5`/`×0.25` d'une case), gérées par `core::BlockController` au même titre que
+  `Block` (poussée/chute identiques, toujours case par case) mais avec une boîte de collision
+  **réelle** plus petite et **centrée** dans leur case. La grille classique (`sweepAabb`) ne peut
+  pas représenter une occupation partielle de case : nouvelle routine `core::sweepAabbVsAabb`
+  (`Core/Physics/AabbVsAabb.h`, balayage continu boîte-contre-boîte, même méthode de clamp direct
+  que `SweptCollision.cpp`), composée par `hmi::GameScreen::update` **après** le balayage sur
+  grille — la restriction la plus stricte des deux l'emporte toujours. Rendu à l'échelle et centré
+  dans l'éditeur, avec exactement la même formule que la collision (aucune divergence possible
+  entre le sprite affiché et la boîte testée). **14 nouveaux tests** (unitaires et intégration),
+  aucune régression (364/364 tests verts).
 - **LOT-23 — Collision arrondie** (`EX-GP-004`) : deux nouvelles tuiles, `RoundedUpRight`/
   `RoundedUpLeft`, variante en **quart de cercle** des pentes de LOT-22 (`h(x) = 1 - sqrt(1 - (1 -
   x)²)` et sa symétrique). Réutilise intégralement l'infrastructure de suivi de surface posée par

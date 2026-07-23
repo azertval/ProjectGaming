@@ -124,6 +124,40 @@ TEST(LevelLoaderTest, ChargeUnBlocPoussable) {
 }
 
 /**
+ * @brief Les deux blocs à taille réduite se chargent comme de simples tuiles, sans identifiant ni
+ * liaison (`EX-GP-005`).
+ * \castest{<b>Les deux blocs à taille réduite se chargent comme de simples tuiles, sans
+ * identifiant ni liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux blocs à taille réduite se chargent comme de simples tuiles, sans identifiant
+ * ni liaison.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLesBlocsATailleReduite) {
+    constexpr const char* LEVEL = R"({
+      "name": "BlocsReduits",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "blockHalf" },
+        { "x": 1, "y": 0, "type": "blockQuarter" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(0, 0), core::TileType::BlockHalf);
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::BlockQuarter);
+    EXPECT_TRUE(level.mechanisms().empty());
+}
+
+/**
  * @brief Les deux orientations de pente se chargent comme de simples tuiles, sans identifiant ni
  * liaison (`EX-GP-003`).
  * \castest{<b>Les deux orientations de pente se chargent comme de simples tuiles, sans

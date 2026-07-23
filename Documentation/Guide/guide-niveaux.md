@@ -204,11 +204,40 @@ jamais à mi-chemin — pousser ou tomber le déplace d'une case entière, comme
   unités monde continues.
 
 `collisionMap(base)` complète une grille déjà résolue par `core::MechanismController` (portes) avec
-la position **courante** des blocs : chaque case marquée `Block` dans `base` — qui ne porte que la
-position de **départ**, jamais mise à jour — est d'abord effacée, puis chaque position **courante**
-est reposée comme solide. Sans cet effacement, une case quittée par un bloc resterait perçue comme
-un mur, indéfiniment (un bug réellement rencontré en écrivant ce contrôleur, corrigé avant
-livraison).
+la position **courante** des blocs **pleins** : chaque case marquée `Block`/`BlockHalf`/
+`BlockQuarter` dans `base` — qui ne porte que la position de **départ**, jamais mise à jour — est
+d'abord effacée, puis chaque position **courante** d'un bloc **plein** seulement est reposée comme
+solide. Sans cet effacement, une case quittée par un bloc resterait perçue comme un mur,
+indéfiniment (un bug réellement rencontré en écrivant ce contrôleur, corrigé avant livraison).
+
+### Blocs à taille réduite (`×0.5`/`×0.25`)
+
+`EX-GP-005` demande des blocs poussables plus **petits** qu'une case pleine (`TileType::BlockHalf`/
+`BlockQuarter`), pour des défis de précision (sauts millimétrés) en préparation de futurs blocs
+poussables **plus grands** qu'une case. `BlockController` les reconnaît au même titre que `Block`
+(même poussée, même chute, toujours **case par case** — `EX-GP-005` ne change jamais le
+déplacement, seulement la boîte de collision), avec un facteur de taille associé
+(`scales()`, même index que `positions()`) : `1` pour `Block`, `0.5`/`0.25` pour les tailles
+réduites. La boîte **réelle** d'un bloc (`boxAt(index)`) est **centrée** dans sa case : une marge
+`(1 - facteur) / 2` de chaque côté, laissant un espace vide symétrique tout autour.
+
+**Pourquoi une routine de collision séparée.** `core::sweepAabb` (le balayage sur grille, @ref
+guide-physique) raisonne en cases **entières** : solide ou vide, jamais « partiellement occupée ».
+Marquer la case d'un bloc réduit comme solide dans `collisionMap` bloquerait donc à tort l'espace
+vide qui l'entoure — exactement le défaut que `EX-GP-005` cherche à éviter (un bloc `×0.5` qui
+occupe toute sa case au sens de la collision ne serait, à l'usage, pas différent d'un bloc plein).
+`collisionMap` laisse donc les cases des blocs réduits **franches** dans la grille classique ; leur
+collision réelle est résolue par une seconde routine, `core::sweepAabbVsAabb`
+(`Core/Physics/AabbVsAabb.h`, quart de cercle mis à part — une simple boîte fixe, pas une surface),
+composée par `hmi::GameScreen::update` **après** le balayage sur grille : le déplacement réellement
+obtenu par la grille est retesté contre la boîte réelle de chaque bloc réduit, la restriction la
+plus stricte des deux l'emportant toujours (cette seconde passe ne peut que réduire davantage le
+déplacement, jamais l'étendre — la grille reste la référence pour les murs/blocs pleins).
+
+Cohérence stricte entre le rendu et la collision : `hmi::GameScreen::refreshBlockVisuals` calcule
+la **même** marge (`(1 - facteur) / 2`) pour positionner et mettre à l'échelle le sprite d'un bloc
+réduit — le sprite affiché correspond donc exactement, par construction, à la boîte réellement
+testée, sans risque de divergence entre deux calculs indépendants.
 
 ## Budget de mouvements
 

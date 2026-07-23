@@ -232,3 +232,133 @@ TEST(BlockControllerTest, CollisionMapEffaceLAncienneCase) {
     EXPECT_FALSE(collision.isSolid(2, 1));  // ancienne case : plus solide
     EXPECT_TRUE(collision.isSolid(3, 1));   // nouvelle case : solide
 }
+
+/**
+ * @brief Les trois types de bloc (plein, `×0.5`, `×0.25`) sont reconnus avec le facteur de taille
+ * attendu (`EX-GP-005`).
+ * \castest{<b>Les trois types de bloc sont reconnus avec le facteur de taille attendu.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Facteur 1 pour Block, 0,5 pour BlockHalf, 0,25 pour BlockQuarter, dans l'ordre de
+ * lecture de la grille.
+ * }
+ */
+TEST(BlockControllerTest, ReconnaitLesTroisFacteursDeTaille) {
+    core::TileMap map(6, 3);
+    for (int column = 0; column < 6; ++column) {
+        map.setTile(column, 2, core::TileType::Solid);
+    }
+    map.setTile(1, 1, core::TileType::Block);
+    map.setTile(2, 1, core::TileType::BlockHalf);
+    map.setTile(3, 1, core::TileType::BlockQuarter);
+    core::Level level("bloc-tailles", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 0}, std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    ASSERT_EQ(controller.positions().size(), 3u);
+    ASSERT_EQ(controller.scales().size(), 3u);
+    EXPECT_FLOAT_EQ(controller.scales()[0], 1.0f);
+    EXPECT_FLOAT_EQ(controller.scales()[1], 0.5f);
+    EXPECT_FLOAT_EQ(controller.scales()[2], 0.25f);
+}
+
+/**
+ * @brief `boxAt` renvoie une boîte centrée et réduite pour un bloc `×0.5`/`×0.25`, pleine case
+ * pour un bloc plein.
+ * \castest{<b>boxAt renvoie une boîte centrée et réduite pour un bloc réduit, pleine case pour un
+ * bloc plein.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Bloc plein : boîte occupant toute la case (2,1)-(3,2). Bloc ×0,5 en (3,1) : boîte
+ * centrée de 0,5×0,5, marge de 0,25 de chaque côté.
+ * }
+ */
+TEST(BlockControllerTest, BoxAtCentreEtReduitSelonLaTaille) {
+    core::TileMap map(6, 3);
+    map.setTile(2, 1, core::TileType::Block);
+    map.setTile(3, 1, core::TileType::BlockHalf);
+    core::Level level("bloc-box", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 0},
+                      std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    const core::Aabb fullBox = controller.boxAt(0);
+    EXPECT_FLOAT_EQ(fullBox.min.x, 2.0f);
+    EXPECT_FLOAT_EQ(fullBox.min.y, 1.0f);
+    EXPECT_FLOAT_EQ(fullBox.max.x, 3.0f);
+    EXPECT_FLOAT_EQ(fullBox.max.y, 2.0f);
+
+    const core::Aabb halfBox = controller.boxAt(1);
+    EXPECT_FLOAT_EQ(halfBox.min.x, 3.25f);  // 3 + (1 - 0.5) / 2
+    EXPECT_FLOAT_EQ(halfBox.min.y, 1.25f);
+    EXPECT_FLOAT_EQ(halfBox.max.x, 3.75f);
+    EXPECT_FLOAT_EQ(halfBox.max.y, 1.75f);
+}
+
+/**
+ * @brief `collisionMap` ne rend jamais solide la case d'un bloc réduit — elle doit rester
+ * franchissable autour de lui (`EX-GP-005`), à la différence d'un bloc plein.
+ * \castest{<b>collisionMap ne rend jamais solide la case d'un bloc réduit, à la différence d'un
+ * bloc plein.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Case du bloc plein solide, cases des blocs réduits (`×0,5`/`×0,25`) non solides.
+ * }
+ */
+TEST(BlockControllerTest, CollisionMapNeSolidifiePasLesBlocsReduits) {
+    core::TileMap map(6, 3);
+    map.setTile(1, 1, core::TileType::Block);
+    map.setTile(2, 1, core::TileType::BlockHalf);
+    map.setTile(3, 1, core::TileType::BlockQuarter);
+    core::Level level("bloc-reduit-grille", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 0}, std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    const core::TileMap collision = controller.collisionMap(level.tileMap());
+    EXPECT_TRUE(collision.isSolid(1, 1));   // bloc plein : solide dans la grille classique
+    EXPECT_FALSE(collision.isSolid(2, 1));  // bloc x0,5 : franc dans la grille (box-boite a part)
+    EXPECT_FALSE(collision.isSolid(3, 1));  // bloc x0,25 : idem
+}
+
+/**
+ * @brief Un bloc réduit (`×0.5`) se pousse exactement comme un bloc plein — case par case —, mais
+ * le contact déclencheur se teste contre sa boîte RÉDUITE, pas contre la case entière
+ * (`EX-GP-005`) : un personnage aligné sur le bord de la case (pas de la boîte réduite) ne le
+ * touche pas encore.
+ * \castest{<b>Un bloc réduit se pousse comme un bloc plein, mais le contact se teste contre sa
+ * boîte réduite, pas la case entière.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Aligné sur le bord de la CASE (2,0) : aucune poussée (l'espace vide autour du bloc
+ * réduit n'est pas un contact). Aligné sur le bord de sa boîte RÉDUITE (2,25) : poussée d'une case
+ * entière, comme un bloc plein.
+ * }
+ */
+TEST(BlockControllerTest, BlocReduitPousseSelonSaBoiteReelle) {
+    core::TileMap map(6, 3);
+    map.setTile(2, 1, core::TileType::BlockHalf);  // boîte réelle centrée : [2.25, 2.75] x [1.25, 1.75]
+    core::Level level("bloc-demi", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 1},
+                      std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    // Aligné sur le bord de la CASE entière (x max = 2.0) : encore dans le vide autour du bloc
+    // réduit (qui ne commence qu'à x = 2.25) — aucun contact, aucune poussée.
+    const core::Aabb atCellEdge =
+        core::Aabb::fromTopLeftSize(core::Vector2{1.0f, 1.25f}, core::Vector2{1.0f, 1.0f});
+    controller.update(atCellEdge, /*moveIntentX=*/1.0f, level.tileMap());
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 1}));  // pas encore pousse
+
+    // Aligné sur le bord de la boîte RÉDUITE (x max = 2.25) : contact réel, poussée d'une case
+    // entière (comme un bloc plein — seul le contact a changé, pas le déplacement).
+    const core::Aabb atReducedBoxEdge =
+        core::Aabb::fromTopLeftSize(core::Vector2{1.25f, 1.25f}, core::Vector2{1.0f, 1.0f});
+    controller.update(atReducedBoxEdge, /*moveIntentX=*/1.0f, level.tileMap());
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{3, 1}));  // pousse d'une case entiere
+}

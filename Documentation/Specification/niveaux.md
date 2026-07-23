@@ -15,7 +15,9 @@ repose), `door` (porte), `block` (bloc poussable, `EX-GP-022` — déplaçable p
 retombe sous gravité), `slopeUpRight` et `slopeUpLeft` (pentes à 45°, `EX-GP-003` — surface suivie,
 jamais solide pour la grille classique ; « Up » désigne le côté qui monte, `Right`/`Left`),
 `roundedUpRight` et `roundedUpLeft` (variante **courbe** — quart de cercle — des pentes, `EX-GP-004`,
-même orientation et même principe de suivi, formule de hauteur différente). Une case **vide** n'est
+même orientation et même principe de suivi, formule de hauteur différente), `blockHalf` et
+`blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` — `EX-GP-005`, mêmes règles
+de poussée/chute que `block`, boîte de collision centrée et plus petite). Une case **vide** n'est
 pas listée (absence = vide).
 ```json
 {

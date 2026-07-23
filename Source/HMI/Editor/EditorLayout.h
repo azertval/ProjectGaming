@@ -22,10 +22,10 @@ constexpr float PANEL_ROW_GAP = 6.0f;      ///< Espace vertical entre deux ligne
 constexpr float PANEL_ROW_PITCH = PANEL_ICON_SIZE + PANEL_ROW_GAP;  ///< Pas vertical d'une ligne.
 constexpr float PANEL_SECTION_GAP = 14.0f;  ///< Espace supplémentaire entre deux sections.
 
-constexpr float PALETTE_TOP = 8.0f;               ///< Haut de la première ligne (palette, 13 types).
+constexpr float PALETTE_TOP = 8.0f;               ///< Haut de la première ligne (palette, 15 types).
 /// Nombre de types de tuiles dans la palette (`TilePalette::PALETTE_TYPES`) — seule source de
 /// vérité de ce compte, partagée ici pour dimensionner le panneau sans dupliquer la liste.
-constexpr int PALETTE_TYPE_COUNT = 13;
+constexpr int PALETTE_TYPE_COUNT = 15;
 /// Haut de la première ligne de la barre d'outils (sous les lignes de la palette).
 constexpr float TOOLBAR_TOP =
     PALETTE_TOP + static_cast<float>(PALETTE_TYPE_COUNT) * PANEL_ROW_PITCH + PANEL_SECTION_GAP;

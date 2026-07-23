@@ -1,5 +1,7 @@
 #include "HMI/Interface/GameScreen.h"
 
+#include <cmath>
+#include <cstddef>
 #include <string>
 
 #include "Core/Ecs/Components/Animation.h"
@@ -16,6 +18,7 @@
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/BitmapFont.h"
@@ -162,14 +165,21 @@ void GameScreen::refreshDoorVisuals() {
 // Replace le sprite de chaque bloc a sa position courante (poussee/chute, EX-GP-022).
 void GameScreen::refreshBlockVisuals() {
     const std::vector<core::GridPosition>& positions = _blocks->positions();
+    const std::vector<float>& scales = _blocks->scales();
     for (std::size_t index = 0; index < _blockEntities.size(); ++index) {
         const core::Entity block = _blockEntities[index];
         if (!_world.hasComponent<core::Transform>(block)) {
             continue;  // entite-tuile non reperee (robustesse) : rien a faire
         }
         core::Transform& transform = _world.getComponent<core::Transform>(block);
-        transform.position = core::Vector2{static_cast<float>(positions[index].column),
-                                           static_cast<float>(positions[index].row)};
+        // Centre le sprite dans sa case selon son facteur de taille (EX-GP-005) : marge nulle
+        // pour un bloc plein (comportement inchange), sinon exactement la meme marge que la
+        // boite de collision reelle (BlockController::boxAt) -- coherence stricte visuel/collision.
+        const float scale = scales[index];
+        const float margin = (1.0f - scale) * 0.5f;
+        transform.position = core::Vector2{static_cast<float>(positions[index].column) + margin,
+                                           static_cast<float>(positions[index].row) + margin};
+        transform.scale = core::Vector2{scale, scale};
     }
 }
 
@@ -207,7 +217,57 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     //    position COURANTE des blocs (resolue ci-dessus).
     const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
     _physics.update(_world, collision, intent, fixedDelta);
-    // 2bis. Animation (EX-REN-012) : derivee de l'etat physique (Player::grounded, Velocity) qui
+
+    // 2bis. Blocs a TAILLE REDUITE (EX-GP-005) : leur boite REELLE (centree, plus petite qu'une
+    // case) n'est jamais posee dans `collision` ci-dessus (BlockController::collisionMap) -- sinon
+    // sa case entiere bloquerait a tort l'espace vide qui l'entoure. Composee ici via un balayage
+    // boite-boite dedie (core::sweepAabbVsAabb), sur le deplacement REEL obtenu par la physique sur
+    // grille : la restriction la plus stricte des deux l'emporte, jamais l'inverse (cette passe ne
+    // peut que reduire encore le deplacement, jamais l'etendre -- voir AabbVsAabb.h).
+    {
+        core::Transform& transform = _world.getComponent<core::Transform>(_player);
+        const core::Vector2 delta = transform.position - previousBox.min;
+        if (delta.x != 0.0f || delta.y != 0.0f) {
+            core::Vector2 bestPosition = transform.position;  // depart : resultat de la grille
+            core::Vector2 bestNormal{};
+            const std::vector<float>& scales = _blocks->scales();
+            for (std::size_t index = 0; index < scales.size(); ++index) {
+                if (scales[index] >= 1.0f) {
+                    continue;  // bloc plein : deja resolu par le balayage sur grille ci-dessus
+                }
+                const core::SweepResult result =
+                    core::sweepAabbVsAabb(previousBox, delta, _blocks->boxAt(index));
+                if (result.normal.x != 0.0f &&
+                    std::fabs(result.position.x - previousBox.min.x) <
+                        std::fabs(bestPosition.x - previousBox.min.x)) {
+                    bestPosition.x = result.position.x;
+                    bestNormal.x = result.normal.x;
+                }
+                if (result.normal.y != 0.0f &&
+                    std::fabs(result.position.y - previousBox.min.y) <
+                        std::fabs(bestPosition.y - previousBox.min.y)) {
+                    bestPosition.y = result.position.y;
+                    bestNormal.y = result.normal.y;
+                }
+            }
+            if (bestNormal.x != 0.0f || bestNormal.y != 0.0f) {
+                transform.position = bestPosition;
+                core::Velocity& velocity = _world.getComponent<core::Velocity>(_player);
+                core::Player& player = _world.getComponent<core::Player>(_player);
+                if (bestNormal.x != 0.0f) {
+                    velocity.value.x = 0.0f;
+                }
+                if (bestNormal.y != 0.0f) {
+                    velocity.value.y = 0.0f;
+                    if (bestNormal.y < 0.0f) {
+                        player.grounded = true;  // pose sur le dessus d'un bloc reduit
+                    }
+                }
+            }
+        }
+    }
+
+    // 2ter. Animation (EX-REN-012) : derivee de l'etat physique (Player::grounded, Velocity) qui
     // vient d'etre mis a jour pour CE pas — doit s'executer apres la physique, jamais avant.
     _animation.update(_world, fixedDelta);
 
