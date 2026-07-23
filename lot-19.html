@@ -96,29 +96,29 @@ $(document).ready(function(){initNavTree('lot-19.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Deux évolutions liées par un même concept — le <b>poids</b> du personnage : une chute qui suit un modèle <b>newtonien</b> (masse, traînée, vitesse terminale émergente) plutôt qu'un plafond arbitraire, et un nouveau mécanisme de puzzle qui <b>réagit à ce poids</b> (plaque de pression, à la différence de l'interrupteur à bascule existant). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1024"></a>
+<h1><a class="anchor" id="autotoc_md1026"></a>
 Objectif</h1>
 <p>Deux limites identifiées dans l'état actuel :</p><ul>
 <li><b>La chute est plafonnée artificiellement.</b> <code>CharacterPhysicsSystem</code> intègre déjà la gravité en continu (<code>velocity.y += gravity × dt</code>), mais la borne haute (<code>maxFallSpeed</code>) est un <code>std::min</code> brutal : la vitesse de chute grimpe linéairement puis se coupe net, sans traduire de notion de <b>masse</b> ni de <b>résistance</b>.</li>
 <li><b>Les mécanismes n'ont qu'un seul comportement.</b> L'interrupteur à bascule (<code>EX-GP-020</code>) est le seul moyen d'ouvrir une porte : aucun mécanisme ne réagit à une présence <b>continue</b>, ce qui limite les puzzles possibles (pas de « rester dessus pour garder la porte ouverte », pas de course contre la montre une fois la plaque relâchée).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1025"></a>
+<h1><a class="anchor" id="autotoc_md1027"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1026"></a>
+<h2><a class="anchor" id="autotoc_md1028"></a>
 Inclus</h2>
 <ul>
 <li><b>Masse du personnage</b> (<code><a class="el" href="structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6" title="Masse du personnage, en unité de jeu arbitraire (EX-GP-019).">core::Player::mass</a></code>) et <b>modèle de chute newtonien</b> : force nette de chute = poids (masse × gravité effective) <b>moins</b> une traînée proportionnelle à la vitesse ; la vitesse terminale <b>émerge</b> de cet équilibre (poids = traînée) au lieu d'être plafonnée — une masse plus grande tombe plus vite (traînée relativement plus faible). La <b>montée</b> du saut (impulsion, gravité simple) reste <b>inchangée</b> : seule la chute est concernée.</li>
 <li><b>Plaque de pression</b> (<code>TileType::PressurePlate</code>, nouveau) : ouvre la porte liée tant qu'un poids suffisant y repose, la referme dès qu'il en repart — activation <b>continue</b>, à la différence de l'interrupteur à bascule (conservé tel quel, comportement inchangé). Réutilise l'infrastructure de liaison existante (identifiant/<code>opensWith</code>, éditeur Maj+clic).</li>
 <li>Intégration éditeur (palette, rendu) et un niveau de démonstration exploitant la plaque.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1027"></a>
+<h2><a class="anchor" id="autotoc_md1029"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Blocs poussables</b> (<code>EX-GP-022</code>) : la plaque de pression pose les bases (poids, présence continue) mais aucune entité poussable n'est ajoutée — avec un seul acteur possible (le personnage) aujourd'hui, le seuil de poids de la plaque est vérifié mais ne <b>distingue</b> encore rien ; il devient réellement discriminant le jour où une seconde masse existe. Lot naturel à venir, non entamé ici.</li>
 <li><b>Traînée à la montée du saut</b> (impulsions de saut/wall jump/dash divisées par la masse) : le ressenti de saut a déjà été réglé et testé en LOT-11 ; le retoucher pour une demande centrée sur la <b>chute</b> serait un risque de régression hors sujet.</li>
 <li><b>Poids par tuile configurable</b> (ex. une plaque qui exige plus qu'un personnage seul) : <code>TileMap</code> ne porte qu'un <code>TileType</code> par case, aucune métadonnée numérique — un seuil <b>global</b> (constante) est utilisé à la place ; le rendre configurable par plaque est un changement de modèle de données plus large, hors périmètre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1028"></a>
+<h1><a class="anchor" id="autotoc_md1030"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>La traînée ne s'applique qu'en chute (<code>velocity.y ≥ 0</code>), jamais à la montée.** Séparer les deux intégrations (chute newtonienne / montée gravité simple, inchangée) garantit que le saut garde exactement le ressenti déjà validé en LOT-11 — aucune re-calibration de la hauteur/durée de saut.</b></li>
@@ -127,14 +127,14 @@ Décisions de cadrage</h1>
 <li><b>Seul le personnage compare son poids à la plaque pour l'instant</b> (constante <code>MIN_TRIGGER_MASS</code> dans <code>Core/Gameplay</code>, indépendante de <code>PhysicsConfig</code> pour ne pas coupler les deux modules) : calée par défaut sur la masse par défaut du personnage, pour qu'une plaque fonctionne « prête à l'emploi » comme un interrupteur classique tant qu'aucune autre masse n'existe dans le jeu.</li>
 <li><b>L'interrupteur à bascule n'est pas concerné par le poids</b> : sémantiquement, c'est un bouton/levier (contact suffit), pas un capteur de poids — seule la <b>nouvelle</b> plaque introduit cette vérification, pour ne rien changer au comportement ni aux niveaux existants utilisant des interrupteurs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1029"></a>
+<h1><a class="anchor" id="autotoc_md1031"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <code>EX-GP-019</code> (masse et chute newtonienne).</li>
 <li>Nouvelle : <code>EX-GP-025</code> (plaque de pression, activation continue).</li>
 <li>Réutilisées (inchangées) : <code>EX-GP-011</code>/<code>EX-GP-012</code> (saut, gravité continue), <code>EX-GP-018</code> (ressenti vertical), <code>EX-GP-020</code>/<code>EX-GP-021</code> (interrupteur/porte).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1030"></a>
+<h1><a class="anchor" id="autotoc_md1032"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="LOT-19-physique-newtonienne-mecanismes_2tache-04-documentation-verification_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1031"></a>
+<h1><a class="anchor" id="autotoc_md1033"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>La vitesse de chute part de 0 (ou de la vitesse courante) et s'approche <b>progressivement</b> d'une vitesse terminale, sans coude net perceptible dans la courbe (vérifié par test : accélération décroissante à mesure que la vitesse approche le régime permanent).</li>
@@ -162,12 +162,12 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau de démonstration illustre la plaque de pression, intégré à la séquence de jeu.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<code>ctest</code> vert), déterministe, sans GPU. Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1032"></a>
+<h1><a class="anchor" id="autotoc_md1034"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <code>CharacterPhysicsSystem</code>/<code>PhysicsConfig</code> (LOT-09/11), <code>MechanismController</code> (LOT-12), le pipeline de niveaux (<code>TileType</code>, <code>LevelLoader</code>/<code>LevelWriter</code>/<code>LevelDraft</code>, LOT-06/07/14) et l'éditeur (<code>TilePalette</code>, <code>EditorScreen</code>, LOT-14/15).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1033"></a>
+<h1><a class="anchor" id="autotoc_md1035"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-19-tache-01-masse-chute-newtonienne.html">TACHE-01 — Masse et chute newtonienne</a></li>

@@ -122,8 +122,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a17adb7f269e8e68ce29c9065c53507b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface la cible de rendu à une couleur.  <br /></td></tr>
 <tr class="separator:a17adb7f269e8e68ce29c9065c53507b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c884ac8ffdfbf82856ab657c7409c2a" id="r_a1c884ac8ffdfbf82856ab657c7409c2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a">present</a> ()</td></tr>
-<tr class="memdesc:a1c884ac8ffdfbf82856ab657c7409c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Présente l'image à l'écran avec synchronisation verticale (V-Sync).  <br /></td></tr>
+<tr class="memdesc:a1c884ac8ffdfbf82856ab657c7409c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Présente l'image à l'écran, synchronisée (V-Sync) selon <code><a class="el" href="classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a">vsyncEnabled()</a></code>.  <br /></td></tr>
 <tr class="separator:a1c884ac8ffdfbf82856ab657c7409c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49dd7ea62f2e8905c6f2384ae2aa421a" id="r_a49dd7ea62f2e8905c6f2384ae2aa421a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a">vsyncEnabled</a> () const noexcept</td></tr>
+<tr class="separator:a49dd7ea62f2e8905c6f2384ae2aa421a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3e7e3677462893edb3c85a9967d93c" id="r_a4d3e7e3677462893edb3c85a9967d93c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a4d3e7e3677462893edb3c85a9967d93c">setVSyncEnabled</a> (bool enabled) noexcept</td></tr>
+<tr class="memdesc:a4d3e7e3677462893edb3c85a9967d93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active ou désactive la synchronisation verticale (<code>EX-REN-022</code>), effective au prochain <code><a class="el" href="classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a" title="Présente l&#39;image à l&#39;écran, synchronisée (V-Sync) selon vsyncEnabled().">present()</a></code>.  <br /></td></tr>
+<tr class="separator:a4d3e7e3677462893edb3c85a9967d93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41a7bece5d4ff3bf2e1df97c669346ef" id="r_a41a7bece5d4ff3bf2e1df97c669346ef"><td class="memItemLeft" align="right" valign="top">ID3D11Device *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a41a7bece5d4ff3bf2e1df97c669346ef">device</a> () const</td></tr>
 <tr class="separator:a41a7bece5d4ff3bf2e1df97c669346ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ece76a44d20fa3b86902bb787a24b3d" id="r_a3ece76a44d20fa3b86902bb787a24b3d"><td class="memItemLeft" align="right" valign="top">ID3D11DeviceContext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a3ece76a44d20fa3b86902bb787a24b3d">context</a> () const</td></tr>
@@ -153,10 +158,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2a98524940e3bf0b564975b3c72a6739"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac60e2e0fd490d34deb85ecb4fa6bb0d7" id="r_ac60e2e0fd490d34deb85ecb4fa6bb0d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#ac60e2e0fd490d34deb85ecb4fa6bb0d7">_height</a></td></tr>
 <tr class="separator:ac60e2e0fd490d34deb85ecb4fa6bb0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03ad274303f3be6017bfb67df1dcb8d7" id="r_a03ad274303f3be6017bfb67df1dcb8d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GraphicsDevice.html#a03ad274303f3be6017bfb67df1dcb8d7">_vsyncEnabled</a> = true</td></tr>
+<tr class="separator:a03ad274303f3be6017bfb67df1dcb8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII). </p>
-<p>Toutes les ressources Direct3D sont gérées par des pointeurs intelligents COM (ComPtr) : leur libération est automatique. La classe fournit l'effacement de l'écran, la présentation synchronisée (V-Sync) et le redimensionnement. </p>
+<p>Toutes les ressources Direct3D sont gérées par des pointeurs intelligents COM (ComPtr) : leur libération est automatique. La classe fournit l'effacement de l'écran, la présentation synchronisée (V-Sync, activable/désactivable — <code>EX-REN-022</code>) et le redimensionnement. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab2f74262d1db46c396485185a6a069cc" name="ab2f74262d1db46c396485185a6a069cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab2f74262d1db46c396485185a6a069cc">&#9670;&#160;</a></span>GraphicsDevice() <span class="overload">[1/2]</span></h2>
@@ -451,7 +458,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Présente l'image à l'écran avec synchronisation verticale (V-Sync). </p>
+<p>Présente l'image à l'écran, synchronisée (V-Sync) selon <code><a class="el" href="classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a">vsyncEnabled()</a></code>. </p>
 
 </div>
 </div>
@@ -489,6 +496,66 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a4d3e7e3677462893edb3c85a9967d93c" name="a4d3e7e3677462893edb3c85a9967d93c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d3e7e3677462893edb3c85a9967d93c">&#9670;&#160;</a></span>setVSyncEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GraphicsDevice::setVSyncEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Active ou désactive la synchronisation verticale (<code>EX-REN-022</code>), effective au prochain <code><a class="el" href="classhmi_1_1GraphicsDevice.html#a1c884ac8ffdfbf82856ab657c7409c2a" title="Présente l&#39;image à l&#39;écran, synchronisée (V-Sync) selon vsyncEnabled().">present()</a></code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>true = présentation calée sur le rafraîchissement (pas de tearing) ; false = présentation immédiate. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a49dd7ea62f2e8905c6f2384ae2aa421a" name="a49dd7ea62f2e8905c6f2384ae2aa421a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49dd7ea62f2e8905c6f2384ae2aa421a">&#9670;&#160;</a></span>vsyncEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GraphicsDevice::vsyncEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si la présentation est synchronisée au rafraîchissement de l'écran (V-Sync). </dd></dl>
 
 </div>
 </div>
@@ -618,6 +685,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">Microsoft::WRL::ComPtr&lt;IDXGISwapChain&gt; hmi::GraphicsDevice::_swapChain</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a03ad274303f3be6017bfb67df1dcb8d7" name="a03ad274303f3be6017bfb67df1dcb8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ad274303f3be6017bfb67df1dcb8d7">&#9670;&#160;</a></span>_vsyncEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GraphicsDevice::_vsyncEnabled = true</td>
         </tr>
       </table>
   </td>

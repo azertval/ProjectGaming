@@ -10,7 +10,7 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="639,60,639,94,634,94,634,60"/>
 <area shape="rect" id="Node000019" href="$SaveLogButton_8h.html" title="Logique (testable) du bouton d&#39;enregistrement des logs, à gauche du bouton de langue." alt="" coords="1029,108,1253,133"/>
 <area shape="poly" id="edge23_Node000001_Node000019" title=" " alt="" coords="748,50,1060,103,1059,108,747,55"/>
-<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="47,262,215,287"/>
+<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="47,262,215,287"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="415,209,193,261,192,256,413,204"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="187,343,243,368"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,286,195,331,191,335,142,289"/>

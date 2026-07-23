@@ -108,13 +108,13 @@ Collaboration diagram for hmi::InputState:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1InputState__coll__graph.png" border="0" usemap="#ahmi_1_1InputState_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1InputState_coll__map" id="ahmi_1_1InputState_coll__map">
-<area shape="rect" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="363,77,485,102"/>
-<area shape="rect" title=" " alt="" coords="21,5,181,45"/>
-<area shape="poly" title=" " alt="" coords="195,28,266,37,339,52,398,74,396,79,338,57,265,42,194,34"/>
-<area shape="rect" title=" " alt="" coords="5,69,196,109"/>
-<area shape="poly" title=" " alt="" coords="210,87,363,87,363,92,210,92"/>
-<area shape="rect" title=" " alt="" coords="15,134,187,159"/>
-<area shape="poly" title=" " alt="" coords="200,130,338,107,372,99,373,105,339,112,201,135"/>
+<area shape="rect" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="369,107,492,133"/>
+<area shape="rect" title=" " alt="" coords="21,36,181,76"/>
+<area shape="poly" title=" " alt="" coords="194,59,269,67,346,83,404,105,403,110,345,88,268,73,194,64"/>
+<area shape="rect" title=" " alt="" coords="5,100,196,140"/>
+<area shape="poly" title=" " alt="" coords="210,117,369,117,369,123,210,123"/>
+<area shape="rect" title=" " alt="" coords="15,165,187,190"/>
+<area shape="poly" title=" " alt="" coords="200,161,345,137,378,130,379,135,346,143,201,167"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -127,11 +127,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a16d213c75c334aaaa040979aa2a116ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent.  <br /></td></tr>
 <tr class="separator:a16d213c75c334aaaa040979aa2a116ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ac64c54bed934b3dddbafe545adcd8d" id="r_a0ac64c54bed934b3dddbafe545adcd8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a0ac64c54bed934b3dddbafe545adcd8d">onKeyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
-<tr class="memdesc:a0ac64c54bed934b3dddbafe545adcd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme enfoncée dans l'état courant.  <br /></td></tr>
+<tr class="memdesc:a0ac64c54bed934b3dddbafe545adcd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme enfoncée dans l'état courant (source <b>clavier</b>).  <br /></td></tr>
 <tr class="separator:a0ac64c54bed934b3dddbafe545adcd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad760f16af7751f4627ffcfebb4723087" id="r_ad760f16af7751f4627ffcfebb4723087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#ad760f16af7751f4627ffcfebb4723087">onKeyUp</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
-<tr class="memdesc:ad760f16af7751f4627ffcfebb4723087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme relâchée dans l'état courant.  <br /></td></tr>
+<tr class="memdesc:ad760f16af7751f4627ffcfebb4723087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme relâchée dans l'état courant (source <b>clavier</b>).  <br /></td></tr>
 <tr class="separator:ad760f16af7751f4627ffcfebb4723087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cb5d25a39a4327cd74eae88a20d49ce" id="r_a7cb5d25a39a4327cd74eae88a20d49ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a7cb5d25a39a4327cd74eae88a20d49ce">onGamepadKeyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:a7cb5d25a39a4327cd74eae88a20d49ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme enfoncée dans l'état courant, source <b>manette</b>.  <br /></td></tr>
+<tr class="separator:a7cb5d25a39a4327cd74eae88a20d49ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93853c1b3089fe4fcc2f15b491008784" id="r_a93853c1b3089fe4fcc2f15b491008784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a93853c1b3089fe4fcc2f15b491008784">onGamepadKeyUp</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
+<tr class="memdesc:a93853c1b3089fe4fcc2f15b491008784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme relâchée dans l'état courant, source <b>manette</b> (voir <code>onGamepadKeyDown</code>).  <br /></td></tr>
+<tr class="separator:a93853c1b3089fe4fcc2f15b491008784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbd4df0d240a3683210015a31e183bc5" id="r_abbd4df0d240a3683210015a31e183bc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#abbd4df0d240a3683210015a31e183bc5">onMouseMove</a> (int x, int y) noexcept</td></tr>
 <tr class="memdesc:abbd4df0d240a3683210015a31e183bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la position de la souris.  <br /></td></tr>
 <tr class="separator:abbd4df0d240a3683210015a31e183bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,6 +153,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a50a35b2416ee847e1f772dbb9fea9b9c" id="r_a50a35b2416ee847e1f772dbb9fea9b9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a50a35b2416ee847e1f772dbb9fea9b9c">onCharTyped</a> (wchar_t character)</td></tr>
 <tr class="memdesc:a50a35b2416ee847e1f772dbb9fea9b9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre un caractère tapé pour la frame courante (<code>WM_CHAR</code>).  <br /></td></tr>
 <tr class="separator:a50a35b2416ee847e1f772dbb9fea9b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e92b0e87cef4fcbacfa6c729bfb8f8" id="r_ab6e92b0e87cef4fcbacfa6c729bfb8f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#ab6e92b0e87cef4fcbacfa6c729bfb8f8">setGamepadConnected</a> (bool connected) noexcept</td></tr>
+<tr class="memdesc:ab6e92b0e87cef4fcbacfa6c729bfb8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare l'état de connexion de la manette pour cette frame (<code>EX-CTRL-002</code>).  <br /></td></tr>
+<tr class="separator:ab6e92b0e87cef4fcbacfa6c729bfb8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833fa9bf0471616d04f6ab95568e90f4" id="r_a833fa9bf0471616d04f6ab95568e90f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a833fa9bf0471616d04f6ab95568e90f4">gamepadConnected</a> () const noexcept</td></tr>
+<tr class="separator:a833fa9bf0471616d04f6ab95568e90f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f60f694446239cdcc190b792c89d130" id="r_a1f60f694446239cdcc190b792c89d130"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a1f60f694446239cdcc190b792c89d130">keyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
 <tr class="separator:a1f60f694446239cdcc190b792c89d130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31d4d382e571e231ef0d13937e2b1f4f" id="r_a31d4d382e571e231ef0d13937e2b1f4f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a31d4d382e571e231ef0d13937e2b1f4f">keyPressed</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) const noexcept</td></tr>
@@ -176,6 +187,11 @@ Private Attributes</h2></td></tr>
 <tr class="separator:acc44c933a7b0873528148ea88efb3802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb67773da145934bbee587d60990f64f" id="r_acb67773da145934bbee587d60990f64f"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#acb67773da145934bbee587d60990f64f">_keysPrevious</a> {}</td></tr>
 <tr class="separator:acb67773da145934bbee587d60990f64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2bafb2610591e06b0e5664c633d236f" id="r_ad2bafb2610591e06b0e5664c633d236f"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#ad2bafb2610591e06b0e5664c633d236f">_gamepadCurrent</a> {}</td></tr>
+<tr class="memdesc:ad2bafb2610591e06b0e5664c633d236f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source manette, distincte du clavier.  <br /></td></tr>
+<tr class="separator:ad2bafb2610591e06b0e5664c633d236f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cefecbe49b1820ccce7fac106126dbe" id="r_a9cefecbe49b1820ccce7fac106126dbe"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a9cefecbe49b1820ccce7fac106126dbe">_gamepadPrevious</a> {}</td></tr>
+<tr class="separator:a9cefecbe49b1820ccce7fac106126dbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f0a7108d61b34be561c8566a3b3181e" id="r_a7f0a7108d61b34be561c8566a3b3181e"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a7f0a7108d61b34be561c8566a3b3181e">_buttonsCurrent</a> {}</td></tr>
 <tr class="separator:a7f0a7108d61b34be561c8566a3b3181e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add9f97042d722455e93b3a697bbeafa2" id="r_add9f97042d722455e93b3a697bbeafa2"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#add9f97042d722455e93b3a697bbeafa2">_buttonsPrevious</a> {}</td></tr>
@@ -190,6 +206,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a3b01814d775d50a0bfe24579be4c1dfb" id="r_a3b01814d775d50a0bfe24579be4c1dfb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; wchar_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a3b01814d775d50a0bfe24579be4c1dfb">_typedCharacters</a></td></tr>
 <tr class="memdesc:a3b01814d775d50a0bfe24579be4c1dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vidée à chaque <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code>.  <br /></td></tr>
 <tr class="separator:a3b01814d775d50a0bfe24579be4c1dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7153659001b4a27a1288bd4cf435caad" id="r_a7153659001b4a27a1288bd4cf435caad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a7153659001b4a27a1288bd4cf435caad">_gamepadConnected</a> = false</td></tr>
+<tr class="separator:a7153659001b4a27a1288bd4cf435caad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -207,7 +225,8 @@ Static Private Attributes</h2></td></tr>
 <li>la couche de capture (<code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">Window</a></code>) applique les événements via <code>onKeyDown</code>/<code>onKeyUp</code>/… ;</li>
 <li>la logique lit <code>keyPressed</code>/<code>keyReleased</code>/<code>keyDown</code> et les équivalents souris.</li>
 </ol>
-<p>L'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est <b>indépendant de toute fenêtre</b> (aucune dépendance <code>&lt;Windows.h&gt;</code>) : les événements peuvent être injectés directement, ce qui le rend testable en isolation (<code>EX-NFR-010</code>). L'échantillonnage une fois par frame, en amont de la logique, satisfait <code>EX-CTRL-021</code>. </p>
+<p><b>Manette (<code>EX-CTRL-002</code>)** : une seconde source, indépendante du clavier, alimentée par <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> — le même <code>Key</code> peut être enfoncé par le clavier, la manette, ou les deux à la fois. <code>keyDown</code>/<code>keyPressed</code>/<code>keyReleased</code> <b>combinent</b> les deux sources (OU logique) ; la manette ne s'écrit **jamais</b> dans les tableaux clavier, pour ne jamais effacer une touche clavier réellement maintenue quand la manette relâche le bouton correspondant (voir <code><a class="el" href="classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).">Window::pollGamepad</a></code>, LOT-20). Cette fusion en lecture, plutôt qu'une table d'actions logiques séparée, satisfait déjà <code>EX-CTRL-010</code> (action dissociée de la touche physique) : le <code>Key</code> <b>est</b> l'action logique, quelle que soit sa source.</p>
+<p>L'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est <b>indépendant de toute fenêtre</b> (aucune dépendance <code>&lt;Windows.h&gt;</code>, ni <code>&lt;Xinput.h&gt;</code>) : les événements peuvent être injectés directement, ce qui le rend testable en isolation (<code>EX-NFR-010</code>) — y compris la fusion manette, sans manette réelle. L'échantillonnage une fois par frame, en amont de la logique, satisfait <code>EX-CTRL-021</code>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2e64870c1d2ac0640668fcfdca3cb9ad" name="a2e64870c1d2ac0640668fcfdca3cb9ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e64870c1d2ac0640668fcfdca3cb9ad">&#9670;&#160;</a></span>InputState()</h2>
@@ -262,6 +281,32 @@ Static Private Attributes</h2></td></tr>
 
 <p>Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent. </p>
 <p>À appeler une fois par frame, avant d'appliquer les événements de la frame. Les fronts (<code>keyPressed</code>, <code>keyReleased</code>, …) se calculent ensuite par comparaison courant/précédent. </p>
+
+</div>
+</div>
+<a id="a833fa9bf0471616d04f6ab95568e90f4" name="a833fa9bf0471616d04f6ab95568e90f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833fa9bf0471616d04f6ab95568e90f4">&#9670;&#160;</a></span>gamepadConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::gamepadConnected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si une manette était connectée à la dernière frame sondée. </dd></dl>
 
 </div>
 </div>
@@ -505,6 +550,63 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7cb5d25a39a4327cd74eae88a20d49ce" name="a7cb5d25a39a4327cd74eae88a20d49ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cb5d25a39a4327cd74eae88a20d49ce">&#9670;&#160;</a></span>onGamepadKeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadKeyDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code>key</code> comme enfoncée dans l'état courant, source <b>manette</b>. </p>
+<p>Écrit dans un tableau <b>distinct</b> du clavier (voir en-tête) : n'affecte jamais <code>onKeyDown</code>/<code>onKeyUp</code>. <code>keyDown</code>/<code>keyPressed</code>/<code>keyReleased</code> combinent les deux sources. </p>
+
+</div>
+</div>
+<a id="a93853c1b3089fe4fcc2f15b491008784" name="a93853c1b3089fe4fcc2f15b491008784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93853c1b3089fe4fcc2f15b491008784">&#9670;&#160;</a></span>onGamepadKeyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::onGamepadKeyUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque <code>key</code> comme relâchée dans l'état courant, source <b>manette</b> (voir <code>onGamepadKeyDown</code>). </p>
+
+</div>
+</div>
 <a id="a0ac64c54bed934b3dddbafe545adcd8d" name="a0ac64c54bed934b3dddbafe545adcd8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ac64c54bed934b3dddbafe545adcd8d">&#9670;&#160;</a></span>onKeyDown()</h2>
 
@@ -529,7 +631,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Marque <code>key</code> comme enfoncée dans l'état courant. </p>
+<p>Marque <code>key</code> comme enfoncée dans l'état courant (source <b>clavier</b>). </p>
 
 </div>
 </div>
@@ -557,7 +659,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Marque <code>key</code> comme relâchée dans l'état courant. </p>
+<p>Marque <code>key</code> comme relâchée dans l'état courant (source <b>clavier</b>). </p>
 
 </div>
 </div>
@@ -696,6 +798,40 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab6e92b0e87cef4fcbacfa6c729bfb8f8" name="ab6e92b0e87cef4fcbacfa6c729bfb8f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6e92b0e87cef4fcbacfa6c729bfb8f8">&#9670;&#160;</a></span>setGamepadConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::setGamepadConnected </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>connected</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déclare l'état de connexion de la manette pour cette frame (<code>EX-CTRL-002</code>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connected</td><td>Vrai si <code>XInputGetState</code> a réussi ce pas-ci (voir <code><a class="el" href="classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).">Window::pollGamepad</a></code>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a65d50f70a43e38a66f9ea7e04429cb9d" name="a65d50f70a43e38a66f9ea7e04429cb9d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65d50f70a43e38a66f9ea7e04429cb9d">&#9670;&#160;</a></span>typedCharacters()</h2>
 
@@ -786,6 +922,74 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::array&lt;bool, <a class="el" href="classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb">BUTTON_COUNT</a>&gt; hmi::InputState::_buttonsPrevious {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7153659001b4a27a1288bd4cf435caad" name="a7153659001b4a27a1288bd4cf435caad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7153659001b4a27a1288bd4cf435caad">&#9670;&#160;</a></span>_gamepadConnected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::InputState::_gamepadConnected = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2bafb2610591e06b0e5664c633d236f" name="ad2bafb2610591e06b0e5664c633d236f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2bafb2610591e06b0e5664c633d236f">&#9670;&#160;</a></span>_gamepadCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_gamepadCurrent {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Source manette, distincte du clavier. </p>
+
+</div>
+</div>
+<a id="a9cefecbe49b1820ccce7fac106126dbe" name="a9cefecbe49b1820ccce7fac106126dbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cefecbe49b1820ccce7fac106126dbe">&#9670;&#160;</a></span>_gamepadPrevious</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="classhmi_1_1InputState.html#ae87822f9a9d0e59969b18d5fcb9a785a">KEY_COUNT</a>&gt; hmi::InputState::_gamepadPrevious {}</td>
         </tr>
       </table>
   </td>

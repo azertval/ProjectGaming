@@ -18,5 +18,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-16-niveaux-plus-grands", "dir_a8a579c8514154364e14fcf634ca6910.html", null ],
     [ "LOT-17-sprite-personnage", "dir_7cf981fad327d6d7b0e92a4c93f60063.html", null ],
     [ "LOT-18-animation-personnage", "dir_0d6e23667d2f12070992df02c81714a3.html", null ],
-    [ "LOT-19-physique-newtonienne-mecanismes", "dir_1341ef927df0e274c0553aa4e48f9dc2.html", null ]
+    [ "LOT-19-physique-newtonienne-mecanismes", "dir_1341ef927df0e274c0553aa4e48f9dc2.html", null ],
+    [ "LOT-20-manette-menu-options", "dir_a1106d0cff235f40d36447ea90fc039b.html", null ]
 ];

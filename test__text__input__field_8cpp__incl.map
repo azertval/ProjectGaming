@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,77,92,118,90,114,168,72"/>
 <area shape="rect" id="Node000003" href="$TextInputField_8h.html" title="Champ de saisie de texte minimal, pour le nommage de niveau dans l&#39;éditeur (LOT&#45;15)." alt="" coords="133,123,331,148"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,75,235,109,229,109,229,75"/>
-<area shape="rect" id="Node000006" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="355,123,523,148"/>
+<area shape="rect" id="Node000006" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="355,123,523,148"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="308,72,402,114,399,119,306,77"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="101,196,187,221"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="220,150,171,189,167,185,216,146"/>

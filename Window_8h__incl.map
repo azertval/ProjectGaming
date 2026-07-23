@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées." alt="" coords="19,5,240,60"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,108,99,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,62,74,99,70,96,104,58"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="123,108,291,133"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="123,108,291,133"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,58,189,96,185,99,151,62"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="44,181,100,207"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="186,136,107,177,105,172,184,131"/>

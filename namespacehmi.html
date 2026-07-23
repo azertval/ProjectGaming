@@ -143,6 +143,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1MenuScreen.html">MenuScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran d'accueil : titre et trois options (Charger niveau, Mode Edition, Quitter).  <a href="classhmi_1_1MenuScreen.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1OptionsModel.html">OptionsModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique du menu d'options, indépendante du dessin.  <a href="classhmi_1_1OptionsModel.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1OptionsScreen.html">OptionsScreen</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de réglages : bascule V-Sync, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, LOT-20).  <a href="classhmi_1_1OptionsScreen.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1RenderContext.html">RenderContext</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regroupe les ressources de rendu partagées mises à disposition des écrans.  <a href="structhmi_1_1RenderContext.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,9 +244,15 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a168b24f798c2e6d06beb9472a071528d" id="r_a168b24f798c2e6d06beb9472a071528d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> { <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">Menu</a>
 , <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">Game</a>
 , <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257">Editor</a>
+, <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">Options</a>
  }</td></tr>
 <tr class="memdesc:a168b24f798c2e6d06beb9472a071528d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran cible de l'application.  <a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">More...</a><br /></td></tr>
 <tr class="separator:a168b24f798c2e6d06beb9472a071528d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a001461460d9ba91885ad98efd4f7f673" id="r_a001461460d9ba91885ad98efd4f7f673"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">OptionsAction</a> { <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae">ToggleVSync</a>
+, <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f">Back</a>
+ }</td></tr>
+<tr class="memdesc:a001461460d9ba91885ad98efd4f7f673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action produite par la confirmation d'une option du menu d'options.  <a href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">More...</a><br /></td></tr>
+<tr class="separator:a001461460d9ba91885ad98efd4f7f673"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -420,6 +432,35 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a001461460d9ba91885ad98efd4f7f673" name="a001461460d9ba91885ad98efd4f7f673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a001461460d9ba91885ad98efd4f7f673">&#9670;&#160;</a></span>OptionsAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">hmi::OptionsAction</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Action produite par la confirmation d'une option du menu d'options. </p>
+<p><code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code> ne connaît ni <code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">GraphicsDevice</a></code> ni <code><a class="el" href="classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,...">Localization</a></code> en écriture (seulement en lecture, pour les libellés) : c'est <code><a class="el" href="classhmi_1_1OptionsScreen.html" title="Écran de réglages : bascule V-Sync, langue, état de la manette, retour au menu (EX-REN-022,...">OptionsScreen</a></code> qui interprète cette action et mute l'état réel (bascule V-Sync, retour au menu), sur le même principe que <code><a class="el" href="classhmi_1_1MenuModel.html#ac180265e018bd3fa1e2e9d2c4a64326c">MenuModel::actionFor</a></code> produit une <code><a class="el" href="structhmi_1_1ScreenTransition.html" title="Intention de transition renvoyée par un écran à l&#39;issue de sa mise à jour.">ScreenTransition</a></code> interprétée par <code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">ScreenManager</a></code>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae" name="a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae"></a>ToggleVSync&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f" name="a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f"></a>Back&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a168b24f798c2e6d06beb9472a071528d" name="a168b24f798c2e6d06beb9472a071528d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a168b24f798c2e6d06beb9472a071528d">&#9670;&#160;</a></span>ScreenId</h2>
 
@@ -441,11 +482,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Écran cible de l'application. </p>
-<p><code>Menu</code> est l'écran d'accueil ; <code>Game</code> lance la scène de jeu ; <code>Editor</code> l'écran d'édition. La fabrication de l'écran concret associé est déléguée (cf. <code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">ScreenManager</a></code>), pour garder la logique de navigation indépendante des écrans eux-mêmes. </p>
+<p><code>Menu</code> est l'écran d'accueil ; <code>Game</code> lance la scène de jeu ; <code>Editor</code> l'écran d'édition ; <code>Options</code> le menu de réglages (V-Sync, langue, LOT-20). La fabrication de l'écran concret associé est déléguée (cf. <code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">ScreenManager</a></code>), pour garder la logique de navigation indépendante des écrans eux-mêmes. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911" name="a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911"></a>Menu&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb" name="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb"></a>Game&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257" name="a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257"></a>Editor&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8" name="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8"></a>Options&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

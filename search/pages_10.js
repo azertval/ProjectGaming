@@ -49,6 +49,7 @@ var searchData=
   ['lot_2017_20—_20sprite_20du_20personnage_20statique_46',['LOT-17 — Sprite du personnage (statique)',['../lot-17.html',1,'lots']]],
   ['lot_2018_20—_20animation_20du_20personnage_20repos_20course_20saut_47',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
   ['lot_2019_20—_20physique_20newtonienne_20et_20plaque_20de_20pression_48',['LOT-19 — Physique newtonienne et plaque de pression',['../lot-19.html',1,'lots']]],
-  ['lots_49',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_50',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2020_20—_20manette_20et_20menu_20d_20options_49',['LOT-20 — Manette et menu d&apos;options',['../lot-20.html',1,'lots']]],
+  ['lots_50',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_51',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

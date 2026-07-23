@@ -14,6 +14,8 @@ var namespacehmi =
     [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
     [ "MenuModel", "classhmi_1_1MenuModel.html", "classhmi_1_1MenuModel" ],
     [ "MenuScreen", "classhmi_1_1MenuScreen.html", "classhmi_1_1MenuScreen" ],
+    [ "OptionsModel", "classhmi_1_1OptionsModel.html", "classhmi_1_1OptionsModel" ],
+    [ "OptionsScreen", "classhmi_1_1OptionsScreen.html", "classhmi_1_1OptionsScreen" ],
     [ "RenderContext", "structhmi_1_1RenderContext.html", "structhmi_1_1RenderContext" ],
     [ "SaveIcon", "classhmi_1_1SaveIcon.html", "classhmi_1_1SaveIcon" ],
     [ "SaveLogButton", "classhmi_1_1SaveLogButton.html", "classhmi_1_1SaveLogButton" ],
@@ -66,10 +68,15 @@ var namespacehmi =
       [ "Middle", "namespacehmi.html#a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05", null ],
       [ "Count", "namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9", null ]
     ] ],
+    [ "OptionsAction", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673", [
+      [ "ToggleVSync", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae", null ],
+      [ "Back", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f", null ]
+    ] ],
     [ "ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
       [ "Menu", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911", null ],
       [ "Game", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb", null ],
-      [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ]
+      [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ],
+      [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ]
     ] ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],

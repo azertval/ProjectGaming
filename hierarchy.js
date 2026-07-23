@@ -30,7 +30,8 @@ var hierarchy =
     [ "hmi::IScreen", "classhmi_1_1IScreen.html", [
       [ "hmi::EditorScreen", "classhmi_1_1EditorScreen.html", null ],
       [ "hmi::GameScreen", "classhmi_1_1GameScreen.html", null ],
-      [ "hmi::MenuScreen", "classhmi_1_1MenuScreen.html", null ]
+      [ "hmi::MenuScreen", "classhmi_1_1MenuScreen.html", null ],
+      [ "hmi::OptionsScreen", "classhmi_1_1OptionsScreen.html", null ]
     ] ],
     [ "core::ISystem", "classcore_1_1ISystem.html", [
       [ "core::AnimationSystem", "classcore_1_1AnimationSystem.html", null ],
@@ -51,6 +52,7 @@ var hierarchy =
     [ "core::Mechanism", "structcore_1_1Mechanism.html", null ],
     [ "core::MechanismController", "classcore_1_1MechanismController.html", null ],
     [ "hmi::MenuModel", "classhmi_1_1MenuModel.html", null ],
+    [ "hmi::OptionsModel", "classhmi_1_1OptionsModel.html", null ],
     [ "hmi::EditorScreen::PendingConfirmation", "structhmi_1_1EditorScreen_1_1PendingConfirmation.html", null ],
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],

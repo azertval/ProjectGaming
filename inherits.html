@@ -323,13 +323,15 @@ $(document).ready(function(){initNavTree('hierarchy.html',''); initResizable(); 
 </td></tr>
 <tr><td><img src="inherit_graph_43.png" border="0" usemap="#ahmi_1_1IScreen" alt=""/>
 <map name="ahmi_1_1IScreen" id="ahmi_1_1IScreen">
-<area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="5,55,108,80"/>
-<area shape="rect" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles." alt="" coords="157,5,294,31"/>
-<area shape="poly" title=" " alt="" coords="113,48,180,28,182,33,115,53"/>
-<area shape="rect" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers." alt="" coords="156,55,295,80"/>
-<area shape="poly" title=" " alt="" coords="122,65,156,65,156,70,122,70"/>
-<area shape="rect" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et trois options (Charger niveau, Mode Edition, Quitter)." alt="" coords="158,104,293,129"/>
-<area shape="poly" title=" " alt="" coords="115,81,182,101,180,106,113,87"/>
+<area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="5,80,108,105"/>
+<area shape="rect" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles." alt="" coords="162,5,299,31"/>
+<area shape="poly" title=" " alt="" coords="91,71,155,40,186,28,188,33,157,44,93,76"/>
+<area shape="rect" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers." alt="" coords="161,55,300,80"/>
+<area shape="poly" title=" " alt="" coords="121,81,161,75,161,80,122,86"/>
+<area shape="rect" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et trois options (Charger niveau, Mode Edition, Quitter)." alt="" coords="163,104,298,129"/>
+<area shape="poly" title=" " alt="" coords="122,99,163,105,163,110,121,104"/>
+<area shape="rect" href="classhmi_1_1OptionsScreen.html" title="Écran de réglages : bascule V&#45;Sync, langue, état de la manette, retour au menu (EX&#45;REN&#45;022,..." alt="" coords="156,153,305,179"/>
+<area shape="poly" title=" " alt="" coords="95,109,157,138,190,151,188,156,155,143,93,114"/>
 </map>
 </td></tr>
 <tr><td><img src="inherit_graph_44.png" border="0" usemap="#ahmi_1_1LanguageSelector" alt=""/>
@@ -372,92 +374,97 @@ $(document).ready(function(){initNavTree('hierarchy.html',''); initResizable(); 
 <area shape="rect" href="classhmi_1_1MenuModel.html" title="Logique du menu principal, indépendante du dessin." alt="" coords="5,5,136,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_52.png" border="0" usemap="#ahmi_1_1RenderContext" alt=""/>
+<tr><td><img src="inherit_graph_52.png" border="0" usemap="#ahmi_1_1OptionsModel" alt=""/>
+<map name="ahmi_1_1OptionsModel" id="ahmi_1_1OptionsModel">
+<area shape="rect" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin." alt="" coords="5,5,151,31"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_53.png" border="0" usemap="#ahmi_1_1RenderContext" alt=""/>
 <map name="ahmi_1_1RenderContext" id="ahmi_1_1RenderContext">
 <area shape="rect" href="structhmi_1_1RenderContext.html" title="Regroupe les ressources de rendu partagées mises à disposition des écrans." alt="" coords="5,5,157,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_53.png" border="0" usemap="#ahmi_1_1SaveIcon" alt=""/>
+<tr><td><img src="inherit_graph_54.png" border="0" usemap="#ahmi_1_1SaveIcon" alt=""/>
 <map name="ahmi_1_1SaveIcon" id="ahmi_1_1SaveIcon">
 <area shape="rect" href="classhmi_1_1SaveIcon.html" title="Icône d&#39;enregistrement générée en code : une flèche descendant vers un support." alt="" coords="5,5,120,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_54.png" border="0" usemap="#ahmi_1_1SaveLogButton" alt=""/>
+<tr><td><img src="inherit_graph_55.png" border="0" usemap="#ahmi_1_1SaveLogButton" alt=""/>
 <map name="ahmi_1_1SaveLogButton" id="ahmi_1_1SaveLogButton">
 <area shape="rect" href="classhmi_1_1SaveLogButton.html" title="Logique du bouton « enregistrer les logs » : un carré cliquable en bas à droite." alt="" coords="5,5,159,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_55.png" border="0" usemap="#ahmi_1_1SaveLogButton_1_1Rect" alt=""/>
+<tr><td><img src="inherit_graph_56.png" border="0" usemap="#ahmi_1_1SaveLogButton_1_1Rect" alt=""/>
 <map name="ahmi_1_1SaveLogButton_1_1Rect" id="ahmi_1_1SaveLogButton_1_1Rect">
 <area shape="rect" href="structhmi_1_1SaveLogButton_1_1Rect.html" title="Rectangle du bouton, en pixels d&#39;écran." alt="" coords="5,5,159,45"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_56.png" border="0" usemap="#ahmi_1_1ScreenManager" alt=""/>
+<tr><td><img src="inherit_graph_57.png" border="0" usemap="#ahmi_1_1ScreenManager" alt=""/>
 <map name="ahmi_1_1ScreenManager" id="ahmi_1_1ScreenManager">
 <area shape="rect" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées." alt="" coords="5,5,161,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_57.png" border="0" usemap="#ahmi_1_1ScreenTransition" alt=""/>
+<tr><td><img src="inherit_graph_58.png" border="0" usemap="#ahmi_1_1ScreenTransition" alt=""/>
 <map name="ahmi_1_1ScreenTransition" id="ahmi_1_1ScreenTransition">
 <area shape="rect" href="structhmi_1_1ScreenTransition.html" title="Intention de transition renvoyée par un écran à l&#39;issue de sa mise à jour." alt="" coords="5,5,168,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_58.png" border="0" usemap="#ahmi_1_1SpriteBatch" alt=""/>
+<tr><td><img src="inherit_graph_59.png" border="0" usemap="#ahmi_1_1SpriteBatch" alt=""/>
 <map name="ahmi_1_1SpriteBatch" id="ahmi_1_1SpriteBatch">
 <area shape="rect" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="5,5,136,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_59.png" border="0" usemap="#ahmi_1_1SpriteBatch_1_1Vertex" alt=""/>
+<tr><td><img src="inherit_graph_60.png" border="0" usemap="#ahmi_1_1SpriteBatch_1_1Vertex" alt=""/>
 <map name="ahmi_1_1SpriteBatch_1_1Vertex" id="ahmi_1_1SpriteBatch_1_1Vertex">
 <area shape="rect" href="structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,5,185,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_60.png" border="0" usemap="#ahmi_1_1SpriteQuad" alt=""/>
+<tr><td><img src="inherit_graph_61.png" border="0" usemap="#ahmi_1_1SpriteQuad" alt=""/>
 <map name="ahmi_1_1SpriteQuad" id="ahmi_1_1SpriteQuad">
 <area shape="rect" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e..." alt="" coords="5,5,132,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_61.png" border="0" usemap="#ahmi_1_1SpriteRenderer" alt=""/>
+<tr><td><img src="inherit_graph_62.png" border="0" usemap="#ahmi_1_1SpriteRenderer" alt=""/>
 <map name="ahmi_1_1SpriteRenderer" id="ahmi_1_1SpriteRenderer">
 <area shape="rect" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="5,5,157,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_62.png" border="0" usemap="#ahmi_1_1SpriteRenderer_1_1LayeredQuad" alt=""/>
+<tr><td><img src="inherit_graph_63.png" border="0" usemap="#ahmi_1_1SpriteRenderer_1_1LayeredQuad" alt=""/>
 <map name="ahmi_1_1SpriteRenderer_1_1LayeredQuad" id="ahmi_1_1SpriteRenderer_1_1LayeredQuad">
 <area shape="rect" href="structhmi_1_1SpriteRenderer_1_1LayeredQuad.html" title="Un quad prêt à dessiner, associé à sa couche (pour le tri)." alt="" coords="5,5,157,45"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_63.png" border="0" usemap="#ahmi_1_1TextInputField" alt=""/>
+<tr><td><img src="inherit_graph_64.png" border="0" usemap="#ahmi_1_1TextInputField" alt=""/>
 <map name="ahmi_1_1TextInputField" id="ahmi_1_1TextInputField">
 <area shape="rect" href="classhmi_1_1TextInputField.html" title="Champ de saisie de texte pur (aucune dépendance rendu), pilotable par InputState." alt="" coords="5,5,152,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_64.png" border="0" usemap="#ahmi_1_1TextureAtlas" alt=""/>
+<tr><td><img src="inherit_graph_65.png" border="0" usemap="#ahmi_1_1TextureAtlas" alt=""/>
 <map name="ahmi_1_1TextureAtlas" id="ahmi_1_1TextureAtlas">
 <area shape="rect" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="5,5,141,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_65.png" border="0" usemap="#ahmi_1_1TilePalette" alt=""/>
+<tr><td><img src="inherit_graph_66.png" border="0" usemap="#ahmi_1_1TilePalette" alt=""/>
 <map name="ahmi_1_1TilePalette" id="ahmi_1_1TilePalette">
 <area shape="rect" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="5,5,129,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_66.png" border="0" usemap="#ahmi_1_1TilePalette_1_1Entry" alt=""/>
+<tr><td><img src="inherit_graph_67.png" border="0" usemap="#ahmi_1_1TilePalette_1_1Entry" alt=""/>
 <map name="ahmi_1_1TilePalette_1_1Entry" id="ahmi_1_1TilePalette_1_1Entry">
 <area shape="rect" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="5,5,172,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_67.png" border="0" usemap="#ahmi_1_1ToolBar" alt=""/>
+<tr><td><img src="inherit_graph_68.png" border="0" usemap="#ahmi_1_1ToolBar" alt=""/>
 <map name="ahmi_1_1ToolBar" id="ahmi_1_1ToolBar">
 <area shape="rect" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif." alt="" coords="5,5,108,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_68.png" border="0" usemap="#ahmi_1_1ToolBar_1_1Entry" alt=""/>
+<tr><td><img src="inherit_graph_69.png" border="0" usemap="#ahmi_1_1ToolBar_1_1Entry" alt=""/>
 <map name="ahmi_1_1ToolBar_1_1Entry" id="ahmi_1_1ToolBar_1_1Entry">
 <area shape="rect" href="structhmi_1_1ToolBar_1_1Entry.html" title="Une entrée cliquable de la barre : son rectangle écran et l&#39;outil qu&#39;elle sélectionne." alt="" coords="5,5,151,31"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_69.png" border="0" usemap="#ahmi_1_1Window" alt=""/>
+<tr><td><img src="inherit_graph_70.png" border="0" usemap="#ahmi_1_1Window" alt=""/>
 <map name="ahmi_1_1Window" id="ahmi_1_1Window">
 <area shape="rect" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="5,5,112,31"/>
 </map>

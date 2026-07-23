@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="390,58,446,98,443,102,387,62"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="5,262,103,287"/>
 <area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="242,48,208,57,173,70,141,87,112,110,88,142,72,180,63,217,58,249,53,248,57,216,67,178,83,140,108,106,138,83,171,65,206,52,241,43"/>
-<area shape="rect" id="Node000013" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="873,262,1041,287"/>
+<area shape="rect" id="Node000013" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="873,262,1041,287"/>
 <area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="464,49,553,68,654,95,758,132,858,179,905,213,940,250,937,253,901,218,855,184,756,136,652,100,552,73,463,54"/>
 <area shape="rect" id="Node000017" href="$Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="122,108,346,133"/>
 <area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="318,62,263,102,260,98,315,58"/>

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-04-tache-04-pages-specification.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-04-documentation-doxygen_2epic_8md.html">LOT-04</a> · <b>Emplacement :</b> <code>Documentation/Specification/</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md361"></a>
+<h1><a class="anchor" id="autotoc_md363"></a>
 Contexte</h1>
 <p>Les spécifications (<code>vision</code> … <code>decors</code>, plus <code>conventions</code> intégré en TACHE-01) doivent former une <b>rubrique navigable</b> du site, et non une liste plate. On les structure sous une page « Spécifications » via <code>@page</code>/<code>@subpage</code>. Point clé de maintenabilité : <b>l'ordre d'affichage est porté par la liste <code>@subpage</code> de l'index</b> (source unique), et non par les noms de fichiers — insérer/réordonner une spec ne renumérote rien.</p>
-<h1><a class="anchor" id="autotoc_md362"></a>
+<h1><a class="anchor" id="autotoc_md364"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Faire de <code>Specification/README.md</code> la <b>page d'index</b> « Spécifications » (ancre <code>{#specifications}</code>) : elle liste les documents en <code>@subpage</code>, <b>dans l'ordre voulu</b>. Cet ordre est désormais l'unique source de vérité.</li>
@@ -107,19 +107,19 @@ Travail à réaliser</h1>
 <li>Préserver les renvois <code>EX-…</code> (identifiants d'exigences).</li>
 <li>(Optionnel, si retenu) Ajouter une exigence <code>EX-NFR</code> « documentation publiée et navigable » dans la spec des exigences non fonctionnelles.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md363"></a>
+<h1><a class="anchor" id="autotoc_md365"></a>
 Convention d'insertion d'une nouvelle spec (à documenter dans l'index)</h1>
 <ol type="1">
 <li>Créer <code>Documentation/Specification/&lt;nom&gt;.md</code> avec un en-tête <code>{#spec-&lt;nom&gt;}</code> + titre.</li>
 <li>Ajouter une ligne <code>@subpage spec-&lt;nom&gt;</code> <b>à la position voulue</b> dans <code>README.md</code>. → Aucune renumérotation, aucun lien à corriger.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md364"></a>
+<h1><a class="anchor" id="autotoc_md366"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Documentation/Specification/*.md</code> (en-têtes de page + ancres stables).</li>
 <li><code>Documentation/Specification/README.md</code> (page d'index de la rubrique, source de l'ordre).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md365"></a>
+<h1><a class="anchor" id="autotoc_md367"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>La rubrique « Spécifications » liste tous les documents (vision → decors + conventions) <b>dans l'ordre de l'index</b> et s'ouvre depuis l'accueil.</li>
@@ -127,18 +127,18 @@ Vérifications (obligatoires)</h1>
 <li>Chaque sous-page a un titre correct et est atteignable via la navigation (<code>@subpage</code>).</li>
 <li>Aucun avertissement Doxygen (ancres, liens).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md366"></a>
+<h1><a class="anchor" id="autotoc_md368"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas dénaturer le contenu des specs : on ajoute <b>structure et ancres</b>, pas de réécriture.</li>
 <li>Ancres de page (<code>{#spec-…}</code>) <b>stables et indépendantes de l'ordre</b> : c'est ce qui rend les liens robustes aux insertions/réordonnancements.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md367"></a>
+<h1><a class="anchor" id="autotoc_md369"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rubrique Spécifications hiérarchique, conventions comprises, navigable et sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md368"></a>
+<h1><a class="anchor" id="autotoc_md370"></a>
 Exigences</h1>
 <p><code>EX-NFR-012</code>. </p>
 </div></div><!-- contents -->

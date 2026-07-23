@@ -1,0 +1,26 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsScreen.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsScreen.h">
+<area shape="rect" id="Node000001" title="Écran du menu d&#39;options : dessine le menu et applique ses actions." alt="" coords="288,5,512,60"/>
+<area shape="rect" id="Node000002" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="81,108,255,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="330,63,213,106,211,101,328,58"/>
+<area shape="rect" id="Node000008" href="$LanguageSelector_8h.html" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="279,108,521,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="403,60,403,94,397,94,397,60"/>
+<area shape="rect" id="Node000011" href="$OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol et actions." alt="" coords="545,108,761,133"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="478,58,607,101,606,106,477,63"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="84,181,252,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="171,134,171,168,165,168,165,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,255,61,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="148,209,69,250,66,246,145,204"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="86,255,157,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="163,208,139,245,134,242,158,206"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="181,255,248,280"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="178,206,202,242,197,245,173,208"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="273,255,335,280"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="191,204,271,246,269,251,189,209"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="504,181,563,207"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="423,131,501,172,498,177,420,136"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="351,181,449,207"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="403,134,403,168,397,168,397,134"/>
+<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="635,136,566,176,564,172,633,131"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="616,181,691,207"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="656,134,656,168,651,168,651,134"/>
+</map>

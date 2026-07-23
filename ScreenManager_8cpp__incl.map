@@ -14,7 +14,7 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="347,132,361,154,375,180,393,252,400,314,395,315,387,253,369,182,357,156,343,135"/>
 <area shape="rect" id="Node000005" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="186,181,361,207"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="328,135,295,173,291,169,324,132"/>
-<area shape="rect" id="Node000006" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="131,255,299,280"/>
+<area shape="rect" id="Node000006" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="131,255,299,280"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="266,209,235,246,231,243,262,205"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="5,328,61,353"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="187,283,75,326,74,321,185,278"/>

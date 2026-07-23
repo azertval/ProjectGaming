@@ -8,7 +8,7 @@
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1003,58,1119,101,1117,106,1001,63"/>
 <area shape="rect" id="Node000009" href="$BitmapFont_8h.html" title="Police bitmap à chasse fixe, générée en code, et dessin de texte via SpriteBatch." alt="" coords="832,108,1032,133"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="935,60,935,94,929,94,929,60"/>
-<area shape="rect" id="Node000016" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="384,108,552,133"/>
+<area shape="rect" id="Node000016" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="384,108,552,133"/>
 <area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="821,57,544,108,543,103,820,52"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="88,189,179,214"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,136,162,183,159,178,223,131"/>

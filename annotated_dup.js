@@ -56,6 +56,8 @@ var annotated_dup =
       [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
       [ "MenuModel", "classhmi_1_1MenuModel.html", "classhmi_1_1MenuModel" ],
       [ "MenuScreen", "classhmi_1_1MenuScreen.html", "classhmi_1_1MenuScreen" ],
+      [ "OptionsModel", "classhmi_1_1OptionsModel.html", "classhmi_1_1OptionsModel" ],
+      [ "OptionsScreen", "classhmi_1_1OptionsScreen.html", "classhmi_1_1OptionsScreen" ],
       [ "RenderContext", "structhmi_1_1RenderContext.html", "structhmi_1_1RenderContext" ],
       [ "SaveIcon", "classhmi_1_1SaveIcon.html", "classhmi_1_1SaveIcon" ],
       [ "SaveLogButton", "classhmi_1_1SaveLogButton.html", "classhmi_1_1SaveLogButton" ],

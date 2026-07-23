@@ -1,11 +1,17 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/MenuModel.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/MenuModel.h">
-<area shape="rect" id="Node000001" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="251,5,472,60"/>
+<area shape="rect" id="Node000001" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="633,5,855,60"/>
 <area shape="rect" id="Node000002" href="$MenuModel_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,68,177,118,175,113,288,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="620,51,439,75,239,111,208,118,207,113,238,105,438,70,619,45"/>
 <area shape="rect" id="Node000003" href="$MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel." alt="" coords="251,115,472,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,74,364,115,359,115,359,74"/>
-<area shape="rect" id="Node000006" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="496,108,717,177"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="435,63,531,105,529,110,433,68"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="639,66,455,118,453,113,637,61"/>
+<area shape="rect" id="Node000006" href="$OptionsModel_8cpp.html" title=" " alt="" coords="496,115,731,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="703,71,647,117,644,113,700,67"/>
+<area shape="rect" id="Node000007" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="755,115,994,170"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="788,67,844,113,841,117,785,71"/>
+<area shape="rect" id="Node000008" href="$test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="1019,108,1240,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="852,61,1019,108,1018,113,850,66"/>
+<area shape="rect" id="Node000009" href="$test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation et actions." alt="" coords="1264,108,1485,177"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="869,45,1051,70,1253,105,1264,108,1263,113,1251,111,1050,75,868,50"/>
 <area shape="rect" id="Node000004" href="$MenuScreen_8cpp.html" title=" " alt="" coords="125,225,350,280"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="322,181,269,227,266,223,319,177"/>
 <area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="375,225,596,280"/>

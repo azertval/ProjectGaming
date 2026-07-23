@@ -21,7 +21,7 @@
 <area shape="rect" id="Node000010" href="$Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="654,181,818,221"/>
 <area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="460,131,646,176,644,181,459,136"/>
 <area shape="poly" id="edge10_Node000010_Node000004" title=" " alt="" coords="738,222,738,255,733,255,733,222"/>
-<area shape="rect" id="Node000012" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="842,189,1010,214"/>
+<area shape="rect" id="Node000012" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="842,189,1010,214"/>
 <area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="824,131,898,179,896,183,821,136"/>
 <area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="900,216,777,267,775,262,897,212"/>
 <area shape="rect" id="Node000013" title=" " alt="" coords="810,269,866,295"/>

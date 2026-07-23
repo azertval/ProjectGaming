@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-06-tache-05-ecran-menu-principal.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md489"></a>
+<h1><a class="anchor" id="autotoc_md491"></a>
 Contexte</h1>
 <p>L'écran d'accueil du jeu. Il présente les trois options et route l'application selon le choix de l'utilisateur (<code>EX-REN-030</code>), au clavier <b>et</b> à la souris.</p>
-<h1><a class="anchor" id="autotoc_md490"></a>
+<h1><a class="anchor" id="autotoc_md492"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>MenuScreen</code> (implémente <code>IScreen</code>) avec les trois entrées : <b>« Charger niveau »</b>, <b>« Mode Edition »</b>, <b>« Quitter »</b>.</li>
@@ -107,32 +107,32 @@ Travail à réaliser</h1>
 <li><b>Rendu</b> : titre + libellés via <code>BitmapFont</code> (TACHE-02), textes issus du catalogue ; l'option sélectionnée est mise en évidence (couleur/teinte ou surbrillance).</li>
 <li><b>Actions</b> (transitions, cf. TACHE-04) : « Charger niveau » → écran Jeu ; « Mode Edition » → écran Éditeur ; « Quitter » → demande de fermeture.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md491"></a>
+<h1><a class="anchor" id="autotoc_md493"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="MenuScreen_8h.html" title="Écran du menu principal : dessine le menu et délègue sa logique au MenuModel.">Source/HMI/Interface/MenuScreen.h</a></code>, <code><a class="el" href="MenuScreen_8cpp.html">MenuScreen.cpp</a></code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md492"></a>
+<h1><a class="anchor" id="autotoc_md494"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La navigation clavier fait défiler la sélection et <b>boucle</b> (ou se borne) aux extrémités, de façon déterministe.</li>
 <li>Valider une option produit la <b>transition attendue</b> (logique de sélection testable en injectant un <code>InputState</code>, sans fenêtre).</li>
 <li>Le survol souris d'une zone d'option sélectionne cette option.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md493"></a>
+<h1><a class="anchor" id="autotoc_md495"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer la <b>logique de sélection/transition</b> (testable) du <b>dessin</b> (visuel).</li>
 <li>Cohérence clavier/souris : le survol met à jour la même sélection que les flèches.</li>
 <li>En langue par défaut (français), le catalogue résout exactement « Charger niveau », « Mode Edition », « Quitter » ; le <code>MenuScreen</code> n'écrit aucun de ces littéraux directement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md494"></a>
+<h1><a class="anchor" id="autotoc_md496"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Menu navigable clavier + souris, actions câblées, logique testée (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md495"></a>
+<h1><a class="anchor" id="autotoc_md497"></a>
 Exigences</h1>
 <p><code>EX-REN-030</code>, <code>EX-REN-032</code>, <code>EX-CTRL-011</code>, <code>EX-CTRL-001</code>. </p>
 </div></div><!-- contents -->

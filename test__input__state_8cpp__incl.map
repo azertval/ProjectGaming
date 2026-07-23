@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position." alt="" coords="27,5,248,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,77,78,114,74,110,106,73"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,73,200,110,196,114,164,77"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="55,196,111,221"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,150,118,192,116,187,194,146"/>

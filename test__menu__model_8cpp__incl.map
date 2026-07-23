@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions." alt="" coords="259,5,480,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="103,123,207,148"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="293,77,195,120,193,115,291,72"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="37,277,205,302"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="37,277,205,302"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="337,77,145,268,141,265,333,73"/>
 <area shape="rect" id="Node000008" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="282,196,457,221"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="372,75,372,182,367,182,367,75"/>

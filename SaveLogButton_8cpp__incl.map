@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="216,5,459,60"/>
 <area shape="rect" id="Node000002" href="$SaveLogButton_8h.html" title="Logique (testable) du bouton d&#39;enregistrement des logs, à gauche du bouton de langue." alt="" coords="5,108,229,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,63,160,105,159,100,269,58"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="253,108,421,133"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="253,108,421,133"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="340,60,340,94,335,94,335,60"/>
 <area shape="rect" id="Node000008" href="$LanguageSelector_8h.html" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="446,108,687,133"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="408,58,524,101,522,106,406,63"/>

@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic." alt="" coords="107,5,328,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,77,90,118,87,113,158,72"/>
-<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,75,220,109,215,109,215,75"/>
 <area shape="rect" id="Node000008" href="$LanguageSelector_8h.html" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="326,123,567,148"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="301,72,407,115,405,120,299,77"/>

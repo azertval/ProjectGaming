@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,77,102,118,99,113,172,72"/>
 <area shape="rect" id="Node000003" href="$LevelPicker_8h.html" title="Sélection du niveau à éditer : nouveau brouillon ou fichier existant (LOT&#45;14 TACHE&#45;06)." alt="" coords="144,123,323,148"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="236,75,236,109,231,109,231,75"/>
-<area shape="rect" id="Node000008" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="347,123,515,148"/>
+<area shape="rect" id="Node000008" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="347,123,515,148"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="306,72,395,114,393,119,303,77"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="5,196,96,221"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="205,151,94,193,92,188,203,146"/>

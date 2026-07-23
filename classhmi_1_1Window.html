@@ -109,15 +109,15 @@ Collaboration diagram for hmi::Window:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1Window__coll__graph.png" border="0" usemap="#ahmi_1_1Window_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1Window_coll__map" id="ahmi_1_1Window_coll__map">
-<area shape="rect" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="579,77,685,102"/>
-<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="363,77,485,102"/>
-<area shape="poly" title=" " alt="" coords="499,87,579,87,579,92,499,92"/>
-<area shape="rect" title=" " alt="" coords="21,5,181,45"/>
-<area shape="poly" title=" " alt="" coords="195,28,266,37,339,52,398,74,396,79,338,57,265,42,194,34"/>
-<area shape="rect" title=" " alt="" coords="5,69,196,109"/>
-<area shape="poly" title=" " alt="" coords="210,87,363,87,363,92,210,92"/>
-<area shape="rect" title=" " alt="" coords="15,134,187,159"/>
-<area shape="poly" title=" " alt="" coords="200,130,338,107,372,99,373,105,339,112,201,135"/>
+<area shape="rect" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="585,107,692,133"/>
+<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="369,107,492,133"/>
+<area shape="poly" title=" " alt="" coords="506,117,585,117,585,123,506,123"/>
+<area shape="rect" title=" " alt="" coords="21,36,181,76"/>
+<area shape="poly" title=" " alt="" coords="194,59,269,67,346,83,404,105,403,110,345,88,268,73,194,64"/>
+<area shape="rect" title=" " alt="" coords="5,100,196,140"/>
+<area shape="poly" title=" " alt="" coords="210,117,369,117,369,123,210,123"/>
+<area shape="rect" title=" " alt="" coords="15,165,187,190"/>
+<area shape="poly" title=" " alt="" coords="200,161,345,137,378,130,379,135,346,143,201,167"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -161,6 +161,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a88972f628e55b2601d605191dd02ef75" id="r_a88972f628e55b2601d605191dd02ef75"><td class="memItemLeft" align="right" valign="top">LRESULT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75">handleMessage</a> (HWND <a class="el" href="classhmi_1_1Window.html#af8129c90a7b8fabebad8db3755551a59">handle</a>, UINT message, WPARAM wParam, LPARAM lParam)</td></tr>
 <tr class="memdesc:a88972f628e55b2601d605191dd02ef75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traite un message pour cette instance.  <br /></td></tr>
 <tr class="separator:a88972f628e55b2601d605191dd02ef75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abafa62f45f3d6b6b6f6c8bb7051bf44f" id="r_abafa62f45f3d6b6b6f6c8bb7051bf44f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f">pollGamepad</a> ()</td></tr>
+<tr class="memdesc:abafa62f45f3d6b6b6f6c8bb7051bf44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette (XInput, joueur 0) et fusionne son état dans <code>_input</code> (<code>EX-CTRL-002</code>).  <br /></td></tr>
+<tr class="separator:abafa62f45f3d6b6b6f6c8bb7051bf44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -185,7 +188,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII. </p>
-<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La traduction des entrées en actions de gameplay relèvera d'un module dédié. </p>
+<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris/manette dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La manette (XInput, <code>EX-CTRL-002</code>) est <b>sondée</b> (pas événementielle comme le clavier/la souris) : <code>pollGamepad</code>, appelée depuis <code>pumpMessages</code>, fusionne son état dans le même <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> via <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> (voir <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>, aucune touche clavier n'est jamais écrasée). La traduction des entrées en actions de gameplay relèvera d'un module dédié. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7091c512e24901972fdbed668a84939e" name="a7091c512e24901972fdbed668a84939e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7091c512e24901972fdbed668a84939e">&#9670;&#160;</a></span>Window() <span class="overload">[1/2]</span></h2>
@@ -464,6 +467,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="abafa62f45f3d6b6b6f6c8bb7051bf44f" name="abafa62f45f3d6b6b6f6c8bb7051bf44f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abafa62f45f3d6b6b6f6c8bb7051bf44f">&#9670;&#160;</a></span>pollGamepad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::Window::pollGamepad </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sonde la manette (XInput, joueur 0) et fusionne son état dans <code>_input</code> (<code>EX-CTRL-002</code>). </p>
 
 </div>
 </div>

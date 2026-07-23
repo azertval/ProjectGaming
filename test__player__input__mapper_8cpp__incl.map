@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,77,91,118,88,113,160,72"/>
 <area shape="rect" id="Node000003" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="115,196,309,221"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,76,183,99,173,123,171,135,173,147,182,167,194,184,190,187,178,169,168,149,166,135,168,122,178,97,192,74"/>
-<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="431,123,599,148"/>
+<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="431,123,599,148"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,72,466,116,464,121,326,77"/>
 <area shape="rect" id="Node000009" href="$PlayerInputMapper_8h.html" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="183,123,406,148"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="249,73,279,110,275,113,245,76"/>

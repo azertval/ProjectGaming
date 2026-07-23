@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['«_20éditeur_20intégré_20»_0',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md120',1,'']]],
-  ['«_20batcher_20»_20plutôt_20que_20dessiner_20un_20sprite_20à_20la_20fois_1',['Pourquoi « batcher » plutôt que dessiner un sprite à la fois',['../guide-rendu.html#autotoc_md98',1,'']]],
+  ['«_20éditeur_20intégré_20»_0',['10. Contrainte « éditeur intégré »',['../spec-architecture.html#autotoc_md122',1,'']]],
+  ['«_20batcher_20»_20plutôt_20que_20dessiner_20un_20sprite_20à_20la_20fois_1',['Pourquoi « batcher » plutôt que dessiner un sprite à la fois',['../guide-rendu.html#autotoc_md100',1,'']]],
   ['«_20charger_20niveau_20»_2',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
   ['«_20en_20dur_20»_20une_20touche_20dans_20le_20gameplay_3',['Le principe : ne jamais coder « en dur » une touche dans le gameplay',['../guide-entrees.html#autotoc_md41',1,'']]],
   ['«_20largeur_20x_20hauteur_20»_4',['TACHE-01 — Plafond de taille et validation « largeur x hauteur »',['../lot-16-tache-01-plafond-validation-taille.html',1,'lot-16']]],

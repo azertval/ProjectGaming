@@ -108,7 +108,7 @@ Include dependency graph for test_input_state.cpp:</div>
 <area shape="rect" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position." alt="" coords="27,5,248,75"/>
 <area shape="rect" title=" " alt="" coords="5,123,109,148"/>
 <area shape="poly" title=" " alt="" coords="110,77,78,114,74,110,106,73"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" title=" " alt="" coords="168,73,200,110,196,114,164,77"/>
 <area shape="rect" title=" " alt="" coords="55,196,111,221"/>
 <area shape="poly" title=" " alt="" coords="197,150,118,192,116,187,194,146"/>
@@ -147,12 +147,24 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8e6d3ad41aa204883ebcd46b5406b41" id="r_aa8e6d3ad41aa204883ebcd46b5406b41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#aa8e6d3ad41aa204883ebcd46b5406b41">TEST</a> (InputStateTest, CaracteresTapesAccumulesEtVides)</td></tr>
 <tr class="memdesc:aa8e6d3ad41aa204883ebcd46b5406b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.  <br /></td></tr>
 <tr class="separator:aa8e6d3ad41aa204883ebcd46b5406b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57915787a98a32bfb0d9684be82e96a" id="r_ae57915787a98a32bfb0d9684be82e96a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#ae57915787a98a32bfb0d9684be82e96a">TEST</a> (InputStateTest, ManetteSeuleActiveLaTouche)</td></tr>
+<tr class="memdesc:ae57915787a98a32bfb0d9684be82e96a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette seul rend <code>keyDown</code>/<code>keyPressed</code> vrais, comme au clavier (<code>EX-CTRL-002</code>).  <br /></td></tr>
+<tr class="separator:ae57915787a98a32bfb0d9684be82e96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c5319fd973997de0845a0a282b0284" id="r_a79c5319fd973997de0845a0a282b0284"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a79c5319fd973997de0845a0a282b0284">TEST</a> (InputStateTest, ClavierEtManetteMemeToucheUnSeulFront)</td></tr>
+<tr class="memdesc:a79c5319fd973997de0845a0a282b0284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clavier et manette combinés sur la même touche ne produisent pas de double front.  <br /></td></tr>
+<tr class="separator:a79c5319fd973997de0845a0a282b0284"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae21cb188be633f1aa74cf4ce20725d0d" id="r_ae21cb188be633f1aa74cf4ce20725d0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#ae21cb188be633f1aa74cf4ce20725d0d">TEST</a> (InputStateTest, ManetteRelacheeNeMasquePasLeClavier)</td></tr>
+<tr class="memdesc:ae21cb188be633f1aa74cf4ce20725d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La manette relâchée ne masque jamais une touche clavier réellement maintenue (non-stomping, décision de cadrage LOT-20).  <br /></td></tr>
+<tr class="separator:ae21cb188be633f1aa74cf4ce20725d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3512d9ab97fdf0700f1ea9234f2f4ef3" id="r_a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a3512d9ab97fdf0700f1ea9234f2f4ef3">TEST</a> (InputStateTest, GamepadConnecteReecrasable)</td></tr>
+<tr class="memdesc:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé.  <br /></td></tr>
+<tr class="separator:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de l'état des entrées : fronts clavier/souris et position. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a9673354fc013b4ab816c4cdb8422855f" name="a9673354fc013b4ab816c4cdb8422855f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +201,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8e6d3ad41aa204883ebcd46b5406b41" name="aa8e6d3ad41aa204883ebcd46b5406b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,8 +237,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a79c5319fd973997de0845a0a282b0284" name="a79c5319fd973997de0845a0a282b0284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClavierEtManetteMemeToucheUnSeulFront&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clavier et manette combinés sur la même touche ne produisent pas de double front. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000265">Cas de test:</a></b></dt><dd><b>Clavier et manette combinés sur la même touche ne produisent pas de double front.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Clavier et manette combinés sur la même touche ne produisent pas de double front.</dd></dl>
+
+</div>
+</div>
 <a id="a59ca224b39b7856470d0747f7900b16b" name="a59ca224b39b7856470d0747f7900b16b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,7 +312,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a45cf3dc465b7f8ead7c72522f7ac8198" name="a45cf3dc465b7f8ead7c72522f7ac8198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,8 +348,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3512d9ab97fdf0700f1ea9234f2f4ef3" name="a3512d9ab97fdf0700f1ea9234f2f4ef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GamepadConnecteReecrasable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000267">Cas de test:</a></b></dt><dd><b><code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> <code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé.</dd></dl>
+
+</div>
+</div>
 <a id="a81215d1d3cac78f80bac142dacc0b34c" name="a81215d1d3cac78f80bac142dacc0b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,8 +422,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae21cb188be633f1aa74cf4ce20725d0d" name="ae21cb188be633f1aa74cf4ce20725d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ManetteRelacheeNeMasquePasLeClavier&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La manette relâchée ne masque jamais une touche clavier réellement maintenue (non-stomping, décision de cadrage LOT-20). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000266">Cas de test:</a></b></dt><dd><b>La manette relâchée ne masque jamais une touche clavier réellement maintenue.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La manette relâchée ne masque jamais une touche clavier réellement maintenue.</dd></dl>
+
+</div>
+</div>
+<a id="ae57915787a98a32bfb0d9684be82e96a" name="ae57915787a98a32bfb0d9684be82e96a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ManetteSeuleActiveLaTouche&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bouton manette seul rend <code>keyDown</code>/<code>keyPressed</code> vrais, comme au clavier (<code>EX-CTRL-002</code>). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000264">Cas de test:</a></b></dt><dd><b>Un bouton manette seul rend <code>keyDown</code>/<code>keyPressed</code> vrais, comme au clavier.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un bouton manette seul rend <code>keyDown</code>/<code>keyPressed</code> vrais, comme au clavier.</dd></dl>
+
+</div>
+</div>
 <a id="a7efa418563f5fae1a48faf4078d6892f" name="a7efa418563f5fae1a48faf4078d6892f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,7 +534,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aed2efe7e5c68c8a62502bad7f424c558" name="aed2efe7e5c68c8a62502bad7f424c558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +571,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af9db81acd915bcdeb71f1ac1fafc3185" name="af9db81acd915bcdeb71f1ac1fafc3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

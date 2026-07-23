@@ -1,5 +1,5 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/InputState.h">
-<area shape="rect" id="Node000001" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="57,5,279,60"/>
+<area shape="rect" id="Node000001" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="57,5,279,60"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,108,61,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,62,64,103,61,98,125,58"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="86,108,157,133"/>

@@ -1,0 +1,50 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_options_model.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_options_model.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la logique du menu d&#39;options : navigation et actions." alt="" coords="336,5,557,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="48,123,152,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="336,74,156,122,155,117,335,68"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="37,277,205,302"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="392,77,307,131,216,198,176,234,143,268,139,264,173,230,213,194,304,127,389,73"/>
+<area shape="rect" id="Node000008" href="$MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="345,123,548,148"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="449,75,449,109,444,109,444,75"/>
+<area shape="rect" id="Node000018" href="$OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol et actions." alt="" coords="572,123,788,148"/>
+<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="532,72,640,115,638,120,530,77"/>
+<area shape="rect" id="Node000020" href="$Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="812,123,1036,148"/>
+<area shape="poly" id="edge23_Node000001_Node000020" title=" " alt="" coords="558,60,852,117,851,123,557,65"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,357,61,383"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="110,304,58,350,55,346,107,300"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="86,357,157,383"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="124,302,124,343,119,343,119,302"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="279,357,345,383"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="150,300,272,350,270,355,148,304"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="181,357,243,383"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="136,300,190,346,187,350,133,304"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="651,196,709,221"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="485,145,638,192,637,197,483,151"/>
+<area shape="rect" id="Node000010" href="$BitmapFont_8h.html" title="Police bitmap à chasse fixe, générée en code, et dessin de texte via SpriteBatch." alt="" coords="427,196,627,221"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="461,146,505,185,502,189,458,150"/>
+<area shape="rect" id="Node000017" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="227,196,402,221"/>
+<area shape="poly" id="edge18_Node000008_Node000017" title=" " alt="" coords="427,150,349,192,347,187,424,146"/>
+<area shape="poly" id="edge10_Node000010_Node000006" title=" " alt="" coords="515,224,468,264,407,312,345,352,342,348,404,307,465,259,512,220"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="826,277,923,302"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="591,219,696,240,814,267,827,270,826,275,813,272,695,245,590,224"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="947,277,1071,302"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="626,219,773,239,937,267,955,271,954,276,935,272,772,244,625,224"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="469,277,584,302"/>
+<area shape="poly" id="edge13_Node000010_Node000013" title=" " alt="" coords="529,222,529,263,524,263,524,222"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="608,277,683,302"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="546,219,618,267,615,271,543,224"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="707,277,802,302"/>
+<area shape="poly" id="edge15_Node000010_Node000015" title=" " alt="" coords="561,219,709,270,708,275,559,224"/>
+<area shape="rect" id="Node000016" href="$Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="230,269,394,309"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="496,224,377,267,376,262,495,219"/>
+<area shape="poly" id="edge17_Node000016_Node000006" title=" " alt="" coords="315,310,315,343,309,343,309,310"/>
+<area shape="poly" id="edge19_Node000017_Node000003" title=" " alt="" coords="288,224,163,274,161,269,286,219"/>
+<area shape="poly" id="edge22_Node000018_Node000009" title=" " alt="" coords="683,148,683,182,677,182,677,148"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="733,196,808,221"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="696,146,747,185,743,189,693,150"/>
+<area shape="poly" id="edge25_Node000020_Node000009" title=" " alt="" coords="886,151,724,197,722,192,884,145"/>
+<area shape="poly" id="edge26_Node000020_Node000011" title=" " alt="" coords="923,149,885,264,880,263,918,147"/>
+<area shape="poly" id="edge27_Node000020_Node000012" title=" " alt="" coords="929,148,937,181,953,220,970,244,988,265,985,269,966,247,948,223,932,183,923,149"/>
+<area shape="rect" id="Node000021" title=" " alt="" coords="963,196,1053,221"/>
+<area shape="poly" id="edge24_Node000020_Node000021" title=" " alt="" coords="939,146,985,185,982,189,936,150"/>
+</map>

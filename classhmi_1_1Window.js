@@ -10,6 +10,7 @@ var classhmi_1_1Window =
     [ "handleMessage", "classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75", null ],
     [ "input", "classhmi_1_1Window.html#a109b88a9b63f3f2723b7b040ab9a453a", null ],
     [ "operator=", "classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643", null ],
+    [ "pollGamepad", "classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f", null ],
     [ "pumpMessages", "classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000", null ],
     [ "requestClose", "classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead", null ],
     [ "shouldClose", "classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c", null ],

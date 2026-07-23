@@ -1,11 +1,11 @@
 <map id="hmi::Window" name="hmi::Window">
-<area shape="rect" id="Node000001" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="579,77,685,102"/>
-<area shape="rect" id="Node000002" href="$classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="363,77,485,102"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="499,87,579,87,579,92,499,92"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="21,5,181,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="195,28,266,37,339,52,398,74,396,79,338,57,265,42,194,34"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,69,196,109"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="210,87,363,87,363,92,210,92"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="15,134,187,159"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="200,130,338,107,372,99,373,105,339,112,201,135"/>
+<area shape="rect" id="Node000001" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="585,107,692,133"/>
+<area shape="rect" id="Node000002" href="$classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="369,107,492,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="506,117,585,117,585,123,506,123"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="21,36,181,76"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="194,59,269,67,346,83,404,105,403,110,345,88,268,73,194,64"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,100,196,140"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="210,117,369,117,369,123,210,123"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="15,165,187,190"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="200,161,345,137,378,130,379,135,346,143,201,167"/>
 </map>

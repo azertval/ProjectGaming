@@ -99,7 +99,7 @@
 <area shape="poly" id="edge59_Node000034_Node000035" title=" " alt="" coords="2410,297,2380,334,2376,330,2406,293"/>
 <area shape="rect" id="Node000036" title=" " alt="" coords="2422,343,2517,368"/>
 <area shape="poly" id="edge60_Node000034_Node000036" title=" " alt="" coords="2428,293,2455,330,2451,333,2424,297"/>
-<area shape="rect" id="Node000038" href="$InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="2592,269,2760,295"/>
+<area shape="rect" id="Node000038" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="2592,269,2760,295"/>
 <area shape="poly" id="edge62_Node000037_Node000038" title=" " alt="" coords="2644,140,2672,255,2667,256,2639,141"/>
 <area shape="poly" id="edge66_Node000038_Node000005" title=" " alt="" coords="2592,293,1962,345,1907,351,1906,346,1961,340,2591,287"/>
 <area shape="poly" id="edge64_Node000038_Node000017" title=" " alt="" coords="2592,295,2057,351,2057,346,2591,290"/>

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-19-tache-01-masse-chute-newtonienn
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-19-physique-newtonienne-mecanismes_2epic_8md.html">LOT-19</a> · <b>Emplacement :</b> <code>Core/Physics</code>, <code>Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1034"></a>
+<h1><a class="anchor" id="autotoc_md1036"></a>
 Contexte</h1>
 <p><code>CharacterPhysicsSystem</code> intègre déjà la gravité en continu, pondérée par des multiplicateurs de ressenti (chute renforcée, fast-fall, flottement à l'apex, <code>EX-GP-018</code>), mais la borne haute (<code>PhysicsConfig::maxFallSpeed</code>) est un <code>std::min</code> brutal — un plafond arbitraire, sans traduire de masse ni de résistance. Ce lot introduit une masse par personnage et remplace ce plafond par une <b>traînée</b> dont l'équilibre avec le poids fait émerger naturellement une vitesse terminale.</p>
-<h1><a class="anchor" id="autotoc_md1035"></a>
+<h1><a class="anchor" id="autotoc_md1037"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></code>** (<code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></code>) : nouveau champ <code>float mass = 1.0f;</code> (unité de jeu arbitraire).</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 </li>
 <li>**<code>EX-GP-019</code>** : nouvelle exigence dans <code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>, section 2 (juste après <code>EX-GP-018</code>) — masse du personnage et modèle de chute newtonien (poids − traînée, vitesse terminale émergente).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1036"></a>
+<h1><a class="anchor" id="autotoc_md1038"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></code>.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code> (<code>EX-GP-019</code>).</li>
 <li>Tests : <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code> (mise à jour du test existant utilisant <code>maxFallSpeed</code> + nouveaux tests), <code><a class="el" href="test__player__components_8cpp.html" title="Tests unitaires des composants du personnage (données pures) : valeurs par défaut.">Source/Test/Unit/Core/Ecs/test_player_components.cpp</a></code> (mise à jour de <code>PhysicsConfigParDefautPlausible</code>, ajout d'une assertion sur <code>Player::mass</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1037"></a>
+<h1><a class="anchor" id="autotoc_md1039"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Vitesse terminale émergente</b> : après une chute suffisamment longue, <code>velocity.y</code> converge vers <code>≈ 25</code> (masse par défaut) sans jamais la dépasser.</li>
@@ -128,19 +128,19 @@ Tests (obligatoires)</h1>
 <li><b>Non-régression du saut</b> : les tests existants sur la hauteur/durée de saut, l'apex, le fast-fall, le wall slide, le dash restent verts <b>sans modification</b> (seule la chute change).</li>
 <li>Test <code>NeTraversePasLeSolEnChuteRapide</code> (<code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></code>) : adapter la configuration « chute très rapide » (<code>fast.maxFallSpeed</code> n'existe plus) en fixant <code>fast.fallDragCoefficient</code> à une valeur quasi nulle (traînée négligeable → vitesse non bornée en pratique sur la durée du test), pour continuer à exercer le balayage continu (non-tunneling).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1038"></a>
+<h1><a class="anchor" id="autotoc_md1040"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas appliquer la traînée à la montée</b> : c'est la garantie de non-régression du ressenti de saut (LOT-11). Le test au <code>velocity.y == 0</code> exact (apex) doit être <b>continu</b> entre les deux branches (vérifié : à <code>v=0</code>, les deux formules donnent <code>effectiveGravity</code>).</li>
 <li><code>fallDragCoefficient</code> est en <b>1/s</b>, pas en unités/s² : une valeur trop grande sur-amortit la chute (vitesse terminale basse) ; trop petite, la traînée devient négligeable (comportement proche de l'ancien plafond, sans jamais le dépasser).</li>
 <li>La <b>division par <code>player.mass</code></b> suppose <code>mass &gt; 0</code> — aucune validation supplémentaire n'est ajoutée (donnée pure, <code>EX-ARCH-011</code> : la garantie relève de qui construit le composant, comme les autres champs de <code>Player</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1039"></a>
+<h1><a class="anchor" id="autotoc_md1041"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>Player::mass</code>, <code>PhysicsConfig::fallDragCoefficient</code> et le nouveau modèle de chute disponibles et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> sans avertissement ; Doxygen à jour ; <code>EX-GP-019</code> déclarée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1040"></a>
+<h1><a class="anchor" id="autotoc_md1042"></a>
 Exigences</h1>
 <p><code>EX-GP-019</code> (nouvelle). </p>
 </div></div><!-- contents -->
