@@ -82,7 +82,71 @@ composante de vitesse correspondante (on ne peut pas continuer d'accélérer con
 **déduire l'appui** — un contact bloquant sous la boîte signifie qu'elle repose au sol
 (`grounded`).
 
-## 2. Gravité et intégration
+## 2. Suivi de pente (EX-GP-003)
+
+### Pourquoi une pente n'est jamais solide
+
+Contrairement à un bloc plein, une tuile de pente (`core::TileType::SlopeUpRight` /
+`SlopeUpLeft`) renvoie **toujours** `false` pour `core::isSolid` — y compris pour le balayage
+classique du §1. Une pente couvre une case dont la hauteur **varie** entre `0` (bord haut) et `1`
+(bord bas) selon la position horizontale ; si elle était solide au sens classique, le balayage par
+axe la traiterait comme un bloc plein occupant **toute** la case, et son bord **haut** agirait comme
+un mur invisible bloquant le personnage bien avant qu'il n'atteigne la pente elle-même. Rendre la
+pente non solide et lui substituer un **suivi de surface** dédié (ci-dessous) évite ce piège par
+construction.
+
+### `core::slopeSurfaceHeight` et `core::resolveSlopeFollow`
+
+`Core/Physics/SlopeGeometry.h/.cpp` définit la géométrie d'une pente à 45° (montée pleine sur toute
+la largeur d'une case) :
+
+```
+slopeSurfaceHeight(SlopeUpRight, localX) = 1 - localX;  // haut a droite, bas a gauche
+slopeSurfaceHeight(SlopeUpLeft,  localX) = localX;      // haut a gauche, bas a droite
+```
+
+`localX ∈ [0, 1[` est la position horizontale **dans la case** (0 = bord gauche) ; le résultat, dans
+`[0, 1]`, se lit depuis le **haut** de la case (0 = haut, 1 = bas) — il faut l'additionner à la ligne
+(`row`) de la case pour obtenir la hauteur monde de la surface (`EX-ARCH-020`).
+
+`core::resolveSlopeFollow` est appelé **après** le balayage classique (§1), à chaque pas : il compare
+le bord bas de la boîte **avant** ce pas et **après**, et parcourt **toutes** les lignes traversées
+entre les deux (pas seulement la position finale) — le même principe anti-tunneling que le balayage
+lui-même, indispensable car une chute rapide pourrait sinon « sauter » une pente entière en un seul
+pas, la grille classique ne la voyant jamais comme solide. Si le bord bas se trouve **à ou sous** la
+surface suivable à sa colonne courante (`newBottomY >= surfaceY - tolérance`), la position verticale
+est **calée** exactement sur cette surface et la vitesse verticale annulée. Deux exceptions
+protègent les autres mécaniques :
+
+- **saut actif** (`velocityY < 0`, le personnage **monte**) : le suivi est **entièrement désactivé**
+  — sans cette exception, sauter depuis une pente serait immédiatement annulé par le calage,
+  neutralisant l'impulsion du saut (§4) ;
+- **colonne hors grille** : aucune surface n'est cherchée, le personnage tombe normalement.
+
+### Le piège du mur adjacent (correction du balayage horizontal)
+
+Suivre une pente signifie que le bord bas de la boîte peut se retrouver **à l'intérieur** d'une case
+(par exemple à mi-hauteur), et non plus seulement **effleurer** sa frontière comme sur un sol plat.
+Ce nouvel invariant a révélé un piège pendant les tests d'intégration de la TACHE-02 : une pente
+immédiatement suivie d'un bloc plein de **même hauteur** (le cas normal d'un raccord pente → palier)
+bloquait le personnage à mi-montée. La cause : le balayage horizontal (`sweepX`,
+`SweptCollision.cpp`) considère bloquante toute case solide chevauchée **verticalement** par la
+boîte ; or, à mi-pente, la boîte chevauche déjà la ligne de la pente — la même ligne que le bloc
+plein voisin — et s'y retrouve donc bloquée avant même d'avoir fini de la gravir. La fine « peau »
+`kSkin` qui règle ce problème pour un sol plat (§1) ne suffit pas ici : elle n'exclut que la ligne
+**exactement effleurée** à la frontière, alors qu'une pente fait chevaucher la boîte **franchement**
+à l'intérieur de sa case.
+
+La correction (`rowIsSlopeGround` dans `SweptCollision.cpp`) généralise le principe de `kSkin` : une
+ligne où l'empreinte horizontale **courante** de la boîte repose sur une pente n'est **jamais**
+considérée comme un mur par `sweepX`, même si un bloc plein voisin partage cette ligne. La
+résolution verticale (§1, `sweepY`) reste inchangée et corrige naturellement, une fois la case
+voisine atteinte, le léger reliquat d'enfoncement — un personnage nettement plus étroit qu'une case
+(taille réelle 0,4 × 0,8, @ref guide-niveaux) ne produit alors qu'un **rattrapage** borné et non
+bloquant au raccord, pas un à-coup perceptible ni un blocage (validé par les tests d'intégration
+`SuitUnePenteAscendanteEnMarchant`, `TransitionPenteSolPlatSansAACoup`).
+
+## 3. Gravité et intégration
 
 À chaque pas, la vitesse **verticale** est d'abord mise à jour sous l'effet de la gravité, puis
 cette vitesse sert à calculer le déplacement, qui est enfin résolu par balayage. Ce schéma —
@@ -148,7 +212,7 @@ poids (traînée relativement plus faible) : elle tombe donc plus vite, à traî
 avec l'intuition (un objet lourd est moins freiné par l'air, à forme égale, que sa masse ne le fait
 tomber).
 
-## 3. Saut et *game feel*
+## 4. Saut et *game feel*
 
 Le terme *game feel* désigne l'ensemble des petits ajustements, souvent invisibles et parfois
 « physiquement faux », qui rendent un contrôle agréable et réactif plutôt que strictement réaliste.
@@ -167,7 +231,7 @@ cet ordre de priorité :
    même si la simulation, au pixel près, l'en a déjà fait quitter. Sans cette tolérance, ce cas —
    pourtant fréquent et perçu comme injuste par le joueur — refuserait le saut. Le nom vient d'un
    gag de dessin animé : le coyote qui continue de courir dans le vide un instant avant de tomber ;
-2. **wall jump** (`EX-GP-016`, détaillé au §5) — contre un mur, en l'air, une éjection en diagonale
+2. **wall jump** (`EX-GP-016`, détaillé au §6) — contre un mur, en l'air, une éjection en diagonale
    opposée au mur ;
 3. **saut aérien** (`EX-GP-015`, double/multi-saut) — `airJumpsRemaining` autorise un nombre
    configurable de sauts supplémentaires **sans** retoucher le sol, rechargé uniquement au contact
@@ -194,7 +258,7 @@ Le **budget** de sauts du tableau (`EX-GP-024`, @ref guide-niveaux) s'ajoute par
 règles : `jumpsRemaining` peut **refuser** un saut par ailleurs autorisé, une fois épuisé (`-1`
 signifie illimité — aucune limite de budget, indépendamment des règles de *game feel* ci-dessus).
 
-## 4. Dash 8 directions
+## 5. Dash 8 directions
 
 `EX-GP-017`. Un **dash** est une ruée brève, à vitesse constante et élevée, dans une direction
 choisie par le joueur. Sur le **front** d'appui du bouton dédié (voir @ref guide-entrees), si le
@@ -215,7 +279,7 @@ constante `dashSpeed` :
   tunneling au §1 : le dash est précisément le cas de vitesse élevée que le balayage continu doit
   couvrir).
 
-## 5. Wall jump et wall slide
+## 6. Wall jump et wall slide
 
 `EX-GP-016`. **Après** résolution du balayage du pas (§1), le système détecte un **contact
 horizontal** : le personnage est en l'air et son mouvement voulu le pousse **contre** un mur
@@ -225,7 +289,7 @@ droite). Deux comportements en découlent :
 - **wall slide** (glissade contre le mur) : tant que ce contact persiste et que le personnage
   **descend**, sa vitesse de chute est **plafonnée** à `wallSlideSpeed` — nettement plus lente que
   la chute libre normale (qui ne plafonne plus, elle s'approche d'une vitesse terminale émergente,
-  §2). Cela donne au joueur le temps de réagir
+  §3). Cela donne au joueur le temps de réagir
   (viser un wall jump, ou simplement ralentir sa chute contre un mur) plutôt que de tomber à pleine
   vitesse le long d'une paroi ;
 - **wall jump** : un saut déclenché dans cet état éjecte le personnage en **diagonale opposée** au
@@ -245,16 +309,19 @@ chaque pas fixe :
 1. orientation (`facing`) ;
 2. minuteries (coyote time, jump buffer, verrou de wall jump) ;
 3. **dash** — démarrage sur front d'appui, ou maintien s'il est en cours ;
-4. sinon **saut** (selon les sources d'autorisation du §3) ;
+4. sinon **saut** (selon les sources d'autorisation du §4) ;
 5. hauteur de saut variable (coupe de vitesse si le bouton est relâché) ;
 6. vitesse horizontale (intention du joueur) ;
-7. **gravité effective** (intégration, phases du §2) ;
+7. **gravité effective** (intégration, phases du §3) ;
 8. wall slide (plafond de vitesse de chute contre un mur) ;
 9. **balayage** (résolution des collisions, §1) ;
 10. mise à jour de la position ;
-11. annulation des composantes de vitesse bloquées par le balayage ;
-12. recalcul de `grounded` ;
-13. détection du contact avec un mur (pour le wall jump/slide du pas **suivant**).
+11. **suivi de pente** (§2) — cale la position verticale sur une surface suivable franchie ce pas,
+    sauf en cas de saut (`velocity.y < 0`) ;
+12. annulation des composantes de vitesse bloquées par le balayage (sauf axe Y si calé sur une
+    pente) ;
+13. recalcul de `grounded` (contact bloquant sous la boîte **ou** calé sur une pente) ;
+14. détection du contact avec un mur (pour le wall jump/slide du pas **suivant**).
 
 Cet ordre précis est un **contrat** à respecter scrupuleusement dans toute évolution du système :
 c'est lui qui garantit à la fois le déterminisme (`EX-NFR-002`, @ref guide-boucle) et la
@@ -264,6 +331,8 @@ cours romprait la suspension de gravité du §4).
 
 ## Voir aussi
 - `core::sweepAabb`, `core::SweepResult`, `core::Aabb` — la primitive de collision.
+- `core::slopeSurfaceHeight`, `core::resolveSlopeFollow`, `core::isFollowableSurface` — le suivi de
+  pente (§2).
 - `core::CharacterPhysicsSystem`, `core::PhysicsConfig`, `core::Player`, `core::PlayerInput`.
 - @ref guide-maths pour `Vector2`, `Aabb` et les conventions d'unités/repère.
 - @ref guide-niveaux pour le budget de sauts/dashs et les mécanismes qui influent sur la grille de

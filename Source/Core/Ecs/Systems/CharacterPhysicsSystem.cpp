@@ -11,6 +11,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Physics/Aabb.h"
 #include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/SlopeGeometry.h"
 #include "Core/Physics/SweptCollision.h"
 
 namespace core {
@@ -159,19 +160,39 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             //   5. Résolution CONTINUE contre les tuiles solides :
             const SweepResult result = sweepAabb(box, delta, tiles);
 
-            //   6. Applique la position résolue :
+            //   6. Applique la position résolue (mur/sol/plafond, grille classique — une pente
+            //      n'y est jamais solide, voir isSolid) :
             transform.position = result.position;
+
+            //   6bis. Suivi de pente (EX-GP-003) : cale la position verticale sur la surface
+            //   d'une pente si le bord bas du personnage l'a franchie ce pas (marche dessus ou
+            //   tombe dessus) — jamais si `velocity.value.y < 0` (vient de sauter, voir
+            //   resolveSlopeFollow). Ajout APRÈS la résolution grille classique, sans la modifier :
+            //   isole le risque de régression sur la physique déjà testée (murs/sols plats).
+            bool onSlope = false;
+            {
+                const Aabb newBox = Aabb::fromTopLeftSize(transform.position, collider.size);
+                const float previousBottomY = box.min.y + collider.size.y;
+                const SlopeFollowResult follow =
+                    resolveSlopeFollow(previousBottomY, newBox, velocity.value.y, tiles);
+                if (follow.grounded) {
+                    transform.position.y = follow.bottomY - collider.size.y;
+                    velocity.value.y = 0.0f;
+                    onSlope = true;
+                }
+            }
 
             //   7. Annule la vitesse sur les axes bloqués (choc mur / sol / plafond) :
             if (result.normal.x != 0.0f) {
                 velocity.value.x = 0.0f;
             }
-            if (result.normal.y != 0.0f) {
+            if (!onSlope && result.normal.y != 0.0f) {
                 velocity.value.y = 0.0f;
             }
 
-            //   8. État « au sol » = contact SOUS le personnage (normale vers le haut, y < 0) :
-            player.grounded = (result.normal.y < 0.0f);
+            //   8. État « au sol » = contact SOUS le personnage (normale vers le haut, y < 0),
+            //      ou calé sur une pente :
+            player.grounded = onSlope || (result.normal.y < 0.0f);
 
             //   9. Contact MURAL : en l'air, blocage horizontal alors qu'on POUSSE vers le mur
             //      (EX-GP-016). wallDirection = sens du mur (opposé à la normale du contact).

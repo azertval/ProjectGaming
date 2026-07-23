@@ -1,6 +1,6 @@
 # TACHE-01 — Modèle de tuile et fonction de hauteur {#lot-22-tache-01-modele-tuile-pente}
 
-**Lot :** [LOT-22](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** à faire
+**Lot :** [LOT-22](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** fait
 
 ## Contexte
 Avant de toucher à la physique (TACHE-02), poser le vocabulaire : les deux nouvelles tuiles et la

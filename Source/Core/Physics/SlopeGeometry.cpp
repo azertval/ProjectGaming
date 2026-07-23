@@ -1,0 +1,82 @@
+#include "Core/Physics/SlopeGeometry.h"
+
+#include <cmath>
+
+#include "Core/Levels/TileMap.h"
+
+namespace core {
+namespace {
+
+// Tolérance de calage : comparable à kSkin (SweptCollision.cpp), évite qu'une comparaison
+// flottante stricte ne rate un contact exactement à la frontière.
+constexpr float kFollowTolerance = 1e-3f;
+
+}  // namespace
+
+// Hauteur de surface (voir en-tête pour le repère local). Pentes a 45° : fonction lineaire sur
+// toute la largeur de la case. Les arrondis (LOT-23) ajouteront leurs cas ici, sur le meme modele.
+std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
+    switch (type) {
+        case TileType::SlopeUpRight:
+            // Monte de gauche a droite : haut (0) a droite, bas (1) a gauche.
+            return 1.0f - localX;
+        case TileType::SlopeUpLeft:
+            // Monte de droite a gauche : haut (0) a gauche, bas (1) a droite.
+            return localX;
+        default:
+            return std::nullopt;
+    }
+}
+
+SlopeFollowResult resolveSlopeFollow(float previousBottomY, const Aabb& newBox, float velocityY,
+                                     const TileMap& tiles) noexcept {
+    SlopeFollowResult result;
+    if (velocityY < 0.0f) {
+        return result;  // monte (vient de sauter) : le suivi de pente ne s'applique jamais
+    }
+    const float newBottomY = newBox.max.y;
+    if (newBottomY < previousBottomY) {
+        return result;  // par construction ne devrait pas arriver (velocityY >= 0), robustesse
+    }
+
+    const float centerX = (newBox.min.x + newBox.max.x) * 0.5f;
+    const int column = static_cast<int>(std::floor(centerX));
+    if (column < 0 || column >= tiles.width()) {
+        return result;
+    }
+    const float localX = centerX - static_cast<float>(column);
+
+    // Parcourt TOUTES les lignes traversées par le bord bas pendant ce pas (pas seulement la
+    // position finale) : une chute rapide pourrait sinon « sauter » une pente en un seul pas, la
+    // grille classique ne la voyant pas comme solide (isSolid == false pour une pente).
+    // `- kFollowTolerance` avant le floor : si le bord bas est EXACTEMENT sur une frontière de case
+    // (ex. sortie d'un sol plat qui rejoint pile la base d'une pente montante située une ligne au-
+    // dessus), floor() l'attribue à la ligne du dessous et raterait la ligne de la pente — cas
+    // pourtant courant (une pente relie normalement deux paliers d'une ligne d'écart).
+    const int rowStart = static_cast<int>(std::floor(previousBottomY - kFollowTolerance));
+    const int rowEnd = static_cast<int>(std::floor(newBottomY));
+    for (int row = rowStart; row <= rowEnd; ++row) {
+        if (row < 0 || row >= tiles.height()) {
+            continue;
+        }
+        const std::optional<float> height = slopeSurfaceHeight(tiles.tile(column, row), localX);
+        if (!height) {
+            continue;
+        }
+        const float surfaceY = static_cast<float>(row) + *height;
+        // Calage dès que le bord bas est À ou SOUS la surface (comme un sol : jamais en-dessous),
+        // sans exiger d'être parti d'AU-DESSUS d'elle — un déplacement HORIZONTAL peut faire entrer
+        // dans une nouvelle colonne dont la pente exige une hauteur plus haute que la position
+        // précédente (qui appartenait à une autre colonne, sans rapport avec cette surface-ci).
+        // L'itération part de la ligne la plus haute du pas (rowStart) : la première surface
+        // valide rencontrée est la plus haute, donc la bonne (comme un balayage classique).
+        if (newBottomY >= surfaceY - kFollowTolerance) {
+            result.grounded = true;
+            result.bottomY = surfaceY;
+            return result;
+        }
+    }
+    return result;
+}
+
+}  // namespace core

@@ -124,6 +124,40 @@ TEST(LevelLoaderTest, ChargeUnBlocPoussable) {
 }
 
 /**
+ * @brief Les deux orientations de pente se chargent comme de simples tuiles, sans identifiant ni
+ * liaison (`EX-GP-003`).
+ * \castest{<b>Les deux orientations de pente se chargent comme de simples tuiles, sans
+ * identifiant ni liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux orientations de pente se chargent comme de simples tuiles, sans identifiant
+ * ni liaison.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLesDeuxPentes) {
+    constexpr const char* LEVEL = R"({
+      "name": "Pentes",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "slopeUpRight" },
+        { "x": 1, "y": 0, "type": "slopeUpLeft" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(0, 0), core::TileType::SlopeUpRight);
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::SlopeUpLeft);
+    EXPECT_TRUE(level.mechanisms().empty());
+}
+
+/**
  * @brief Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
  * sinon.
  * \castest{<b>Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités

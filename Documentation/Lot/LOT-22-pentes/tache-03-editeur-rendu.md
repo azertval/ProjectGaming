@@ -1,6 +1,6 @@
 # TACHE-03 — Éditeur et rendu {#lot-22-tache-03-editeur-rendu}
 
-**Lot :** [LOT-22](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-22](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Rendre les pentes **utilisables** : plaçables dans l'éditeur, visuellement distinguables d'une

@@ -1353,3 +1353,251 @@ TEST(PhysiquePersonnageIntegration, NiveauDemoEstFranchissableEnAllantADroite) {
 
     EXPECT_EQ(outcome, core::LevelOutcome::Won);  // franchi, jamais Lost
 }
+
+/**
+ * @brief Marcher sur une pente ascendante fait monter le personnage progressivement, sans
+ * traverser la surface (`EX-GP-003`).
+ * \castest{<b>Marcher sur une pente ascendante fait monter le personnage progressivement, sans
+ * traverser la surface.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Marcher sur une pente ascendante fait monter le personnage progressivement, sans
+ * traverser la surface.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, SuitUnePenteAscendanteEnMarchant) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {  // sol bas, avant la pente
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::SlopeUpRight);  // monte de gauche a droite
+    for (int col = 3; col <= 7; ++col) {                // sol haut, apres la pente
+        tiles.setTile(col, 5, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 0.3f, 5.0f);  // bord bas = 6.0 : posé au sol bas
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    bool sawSlopeSample = false;
+    float yEnterSlope = 0.0f;
+    float yExitSlope = 0.0f;
+    int guard = 0;
+    float centerX = 0.0f;
+    do {
+        const float previousBottom = world.getComponent<core::Transform>(player).position.y + 1.0f;
+        system.update(world, tiles, input, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        centerX = transform.position.x + 0.5f;
+        if (centerX >= 2.0f && centerX < 3.0f) {  // au-dessus de la case de la pente
+            const float bottom = transform.position.y + 1.0f;
+            EXPECT_LE(bottom, 6.0f + TOLERANCE);  // jamais sous la surface basse de la pente
+            EXPECT_GE(bottom, 5.0f - TOLERANCE);  // jamais au-dessus de sa surface haute
+            if (!sawSlopeSample) {
+                yEnterSlope = previousBottom;
+                sawSlopeSample = true;
+            }
+            yExitSlope = bottom;
+        }
+        ++guard;
+    } while (centerX < 3.5f && guard < 600);
+
+    ASSERT_TRUE(sawSlopeSample);
+    EXPECT_LT(yExitSlope, yEnterSlope - 0.5f);  // franchement monté en traversant la pente
+
+    ASSERT_LT(guard, 600);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+    EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 4.0f,
+                0.05f);  // posé sur le sol haut (bord bas = 5.0)
+}
+
+/**
+ * @brief Marcher sur une pente descendante fait descendre le personnage progressivement,
+ * symétrique de la montée (`EX-GP-003`).
+ * \castest{<b>Marcher sur une pente descendante fait descendre le personnage progressivement,
+ * symétrique de la montée.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Marcher sur une pente descendante fait descendre le personnage progressivement,
+ * symétrique de la montée.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {  // sol haut, avant la pente
+        tiles.setTile(col, 5, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::SlopeUpLeft);  // descend de gauche a droite
+    for (int col = 3; col <= 7; ++col) {               // sol bas, apres la pente
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 0.3f, 4.0f);  // bord bas = 5.0 : posé au sol haut
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    bool sawSlopeSample = false;
+    float yEnterSlope = 0.0f;
+    float yExitSlope = 0.0f;
+    int guard = 0;
+    float centerX = 0.0f;
+    do {
+        const float previousBottom = world.getComponent<core::Transform>(player).position.y + 1.0f;
+        system.update(world, tiles, input, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        centerX = transform.position.x + 0.5f;
+        if (centerX >= 2.0f && centerX < 3.0f) {
+            const float bottom = transform.position.y + 1.0f;
+            EXPECT_LE(bottom, 6.0f + TOLERANCE);
+            EXPECT_GE(bottom, 5.0f - TOLERANCE);
+            if (!sawSlopeSample) {
+                yEnterSlope = previousBottom;
+                sawSlopeSample = true;
+            }
+            yExitSlope = bottom;
+        }
+        ++guard;
+    } while (centerX < 3.5f && guard < 600);
+
+    ASSERT_TRUE(sawSlopeSample);
+    EXPECT_GT(yExitSlope, yEnterSlope + 0.5f);  // franchement descendu en traversant la pente
+
+    ASSERT_LT(guard, 600);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+    EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 5.0f,
+                0.05f);  // posé sur le sol bas (bord bas = 6.0)
+}
+
+/**
+ * @brief Même en chute très rapide, le personnage tombant sur une pente se pose sur sa surface au
+ * premier contact, sans la traverser (`EX-GP-003`).
+ * \castest{<b>Même en chute très rapide, le personnage tombant sur une pente se pose sur sa surface
+ * au premier contact, sans la traverser.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Même en chute très rapide, le personnage tombant sur une pente se pose sur sa surface
+ * au premier contact, sans la traverser.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ChuteRapideSurUnePenteSansLaTraverser) {
+    core::World world;
+    core::TileMap tiles(4, 60);
+    tiles.setTile(1, 50, core::TileType::SlopeUpRight);  // localX = 0.8 → hauteur = 0.2
+    const core::Entity player = spawnPlayer(world, 1.3f, 0.0f);  // tombe de haut, colonne 1
+    core::PhysicsConfig fast;
+    fast.gravity = 2000.0f;
+    fast.fallDragCoefficient = 1.0e-6f;  // pas fixe largement > une tuile (comme en chute sur sol)
+    core::CharacterPhysicsSystem system(fast);
+    const core::PlayerInput input{};
+
+    for (int i = 0; i < 300; ++i) {
+        system.update(world, tiles, input, STEP);
+    }
+
+    const core::Transform& transform = world.getComponent<core::Transform>(player);
+    EXPECT_NEAR(transform.position.y, 49.2f, TOLERANCE);  // posé sur la surface, non traversée
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+}
+
+/**
+ * @brief Sauter depuis une pente produit une impulsion identique à un saut depuis un sol plat : le
+ * suivi de pente ne l'absorbe pas (`EX-GP-003`).
+ * \castest{<b>Sauter depuis une pente produit une impulsion identique à un saut depuis un sol plat
+ * : le suivi de pente ne l'absorbe pas.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sauter depuis une pente produit une impulsion identique à un saut depuis un sol plat :
+ * le suivi de pente ne l'absorbe pas.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, SauteDepuisUnePenteImpulsionNormale) {
+    core::World world;
+    core::TileMap tiles(4, 60);
+    tiles.setTile(1, 50, core::TileType::SlopeUpRight);
+    const core::Entity player = spawnPlayer(world, 1.3f, 0.0f);
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput idle{};
+
+    int guard = 0;  // tombe puis se pose sur la pente
+    while (!world.getComponent<core::Player>(player).grounded && guard < 400) {
+        system.update(world, tiles, idle, STEP);
+        ++guard;
+    }
+    ASSERT_TRUE(world.getComponent<core::Player>(player).grounded);
+    const float landedY = world.getComponent<core::Transform>(player).position.y;
+
+    core::PlayerInput jump;
+    jump.jumpPressed = true;
+    jump.jumpHeld = true;
+    system.update(world, tiles, jump, STEP);
+    EXPECT_LT(world.getComponent<core::Velocity>(player).value.y,
+              -10.0f);  // impulsion pleine, pas amortie par le calage de pente
+    EXPECT_FALSE(world.getComponent<core::Player>(player).grounded);  // décollé, plus calé
+
+    core::PlayerInput hold;
+    hold.jumpHeld = true;
+    for (int i = 0; i < 5; ++i) {
+        system.update(world, tiles, hold, STEP);
+    }
+    EXPECT_LT(world.getComponent<core::Transform>(player).position.y, landedY);  // s'est élevé
+}
+
+/**
+ * @brief La transition entre une pente et le sol plat se fait sans à-coup ni blocage : la position
+ * verticale varie continûment (`EX-GP-003`).
+ * \castest{<b>La transition entre une pente et le sol plat se fait sans à-coup ni blocage : la
+ * position verticale varie continûment.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La transition entre une pente et le sol plat se fait sans à-coup ni blocage : la
+ * position verticale varie continûment.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::SlopeUpRight);
+    for (int col = 3; col <= 7; ++col) {
+        tiles.setTile(col, 5, core::TileType::Solid);
+    }
+    // Taille RÉELLE du personnage (0,4×0,8, `spawnHumanoid`) : bien plus étroite qu'une case, donc
+    // bien plus proche du jeu réel que la boîte 1×1 des autres tests de ce fichier — pertinent ici
+    // car la largeur influe directement sur l'ampleur du raccord pente → sol plat.
+    const core::Vector2 size = core::playerSize();
+    const core::Entity player = world.createEntity();
+    world.addComponent(player, core::Transform{core::Vector2{0.3f, 6.0f - size.y}, size, 0.0f});
+    world.addComponent(player, core::Velocity{});
+    world.addComponent(player, core::Collider{size});
+    world.addComponent(player, core::Player{});
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    float previousBottom = world.getComponent<core::Transform>(player).position.y + size.y;
+    float maxStep = 0.0f;
+    for (int i = 0; i < 300; ++i) {
+        system.update(world, tiles, input, STEP);
+        const float bottom = world.getComponent<core::Transform>(player).position.y + size.y;
+        maxStep = std::max(maxStep, std::abs(bottom - previousBottom));
+        previousBottom = bottom;
+    }
+
+    // Une variation d'un pas ~ vitesse horizontale × pas de temps (pente à 45°) : un à-coup (mur
+    // invisible, téléportation) produirait un saut bien plus grand qu'un seul pas de marche. Le
+    // raccord final (sortie de la pente vers le plein solide adjacent) produit un rattrapage un
+    // peu plus large qu'un pas normal (largeur du personnage < largeur d'une case) : on borne
+    // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1 case).
+    EXPECT_LT(maxStep, 0.5f);
+}

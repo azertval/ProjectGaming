@@ -55,6 +55,12 @@ namespace {
     if (name == "block") {
         return TileType::Block;
     }
+    if (name == "slopeUpRight") {
+        return TileType::SlopeUpRight;
+    }
+    if (name == "slopeUpLeft") {
+        return TileType::SlopeUpLeft;
+    }
     return std::nullopt;
 }
 

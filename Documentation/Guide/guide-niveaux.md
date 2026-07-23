@@ -36,10 +36,13 @@ Chaque case de la grille a l'un de ces types :
 | `PressurePlate` | Plaque de pression : ouvre une `Door` liée **tant qu'un poids y repose** (`EX-GP-025`) — activation **continue**, pas de bascule. |
 | `Door` | Porte : solide **fermée**, franchissable **ouverte** — son état dépend du `Switch`/`PressurePlate` lié. |
 | `Block` | Bloc poussable (`EX-GP-022`) : solide comme un mur tant qu'il n'a pas bougé, mais peut être **déplacé** par le personnage et **retombe** sous gravité (voir §« Blocs poussables »). |
+| `SlopeUpRight` | Pente à 45° (`EX-GP-003`) montant de **gauche à droite** : `Empty` pour toute autre logique (jamais solide), mais sa surface **inclinée** est suivie par la physique (@ref guide-physique). |
+| `SlopeUpLeft` | Symétrique de `SlopeUpRight` : pente montant de **droite à gauche**. |
 
 Notez que `Door` n'est **pas** statiquement solide au sens de `core::isSolid(TileType)` — sa
 solidité dépend de son **état**, calculé par le `MechanismController` (voir plus bas), pas du type
-de tuile seul.
+de tuile seul. Les deux pentes ne sont, elles, **jamais** solides (`core::isSolid` renvoie
+toujours faux) — voir @ref guide-physique pour le mécanisme de suivi qui les rend praticables.
 
 ### \ref core::TileMap "core::TileMap" : la grille
 

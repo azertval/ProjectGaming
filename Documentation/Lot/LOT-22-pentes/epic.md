@@ -1,6 +1,6 @@
 # LOT-22 — Pentes réelles {#lot-22}
 
-> Statut : **à faire**. Le personnage **suit** la surface d'une tuile en pente en marchant dessus
+> Statut : **terminé**. Le personnage **suit** la surface d'une tuile en pente en marchant dessus
 > (`EX-GP-003`), plutôt que d'être simplement bloqué ou arrêté à son pied — première brique d'une
 > collision **par forme de tuile**, pas seulement solide/vide.
 
@@ -56,6 +56,15 @@ traité **seul**, avant `LOT-23`/`LOT-24`, pour isoler ce risque.
   verticale positive (chute) proche de la surface est absorbée par le calage ; une vitesse
   verticale négative franche (le joueur vient de sauter) n'est **pas** rattrapée par la pente —
   sinon un saut depuis une pente serait immédiatement annulé.
+- **Découverte pendant la TACHE-02, hors périmètre initial** : une pente suivie d'un bloc plein de
+  même hauteur (le raccord pente → palier le plus courant) bloquait le personnage à mi-montée — le
+  balayage horizontal (`sweepX`) traite comme un mur toute case pleine partageant une ligne que la
+  boîte chevauche déjà, or suivre une pente fait légitimement chevaucher la boîte à l'intérieur de
+  sa case (pas seulement à sa frontière, comme sur un sol plat). Corrigé en généralisant le principe
+  de la « peau » (`kSkin`) déjà utilisée pour le sol plat : une ligne où l'empreinte horizontale
+  courante de la boîte repose sur une pente n'est jamais un mur pour `sweepX` (voir
+  `rowIsSlopeGround`, `SweptCollision.cpp`, et @ref guide-physique, section « Suivi de pente »).
+  Détaillé dans la TACHE-02.
 
 ## Exigences couvertes
 - `EX-GP-003` — implémentée (marqueur « non implémenté » retiré).
@@ -66,10 +75,10 @@ traité **seul**, avant `LOT-23`/`LOT-24`, pour isoler ce risque.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-tuile-pente.md) | Modèle de tuile et fonction de hauteur | `Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-collision-suivi-pente.md) | Collision et suivi de pente | `Core/Physics`, `Core/Ecs/Systems` | ⬜ |
-| [TACHE-03](tache-03-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ⬜ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-modele-tuile-pente.md) | Modèle de tuile et fonction de hauteur | `Core/Levels` | ✅ |
+| [TACHE-02](tache-02-collision-suivi-pente.md) | Collision et suivi de pente | `Core/Physics`, `Core/Ecs/Systems` | ✅ |
+| [TACHE-03](tache-03-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ✅ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage monte et descend une pente à 45° sans à-coup visible, sans se retrouver bloqué à

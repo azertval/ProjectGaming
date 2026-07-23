@@ -29,6 +29,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-22 — Pentes réelles** (`EX-GP-003`) : deux nouvelles tuiles, `SlopeUpRight`/`SlopeUpLeft`
+  (pente à 45°, montée pleine sur toute la largeur d'une case), disponibles dans l'éditeur. Jamais
+  solides pour le balayage classique (`core::isSolid`) — une nouvelle passe de résolution
+  (`core::resolveSlopeFollow`, `Core/Physics/SlopeGeometry.h/.cpp`) cale la position verticale du
+  personnage sur la surface de la pente à chaque pas fixe, sauf en cas de saut volontaire (vitesse
+  verticale négative). Corrige au passage un piège découvert par les tests d'intégration : le
+  balayage horizontal (`sweepX`) traitait comme un mur tout bloc plein partageant une ligne que le
+  personnage chevauche déjà en suivant une pente (raccord pente → palier, le cas le plus courant) —
+  généralise le principe de la « peau » (`kSkin`) déjà en place pour le sol plat
+  (`rowIsSlopeGround`, `Core/Physics/SweptCollision.cpp`). **12 nouveaux tests** (unitaires et
+  d'intégration), aucune régression sur la physique existante (343 tests, tous verts).
 - **LOT-21 — Bloc poussable** (`EX-GP-022`), nouvelle tuile disponible dans l'éditeur.
   `core::BlockController` (nouveau, `Core/Gameplay`) résout chaque pas fixe, avant la physique du
   personnage : **poussée** horizontale d'une case si la case suivante est libre (ni mur, ni autre
