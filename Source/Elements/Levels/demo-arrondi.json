@@ -1,5 +1,5 @@
 {
-  "name": "Demonstration 3",
+  "name": "Arrondi",
   "width": 14,
   "height": 8,
   "tiles": [
@@ -19,11 +19,11 @@
     { "x": 13, "y": 5, "type": "solid" },
     { "x": 13, "y": 6, "type": "solid" },
     { "x": 13, "y": 7, "type": "solid" },
-    { "x": 1, "y": 5, "type": "solid" },
-    { "x": 2, "y": 5, "type": "solid" },
-    { "x": 3, "y": 5, "type": "solid" },
-    { "x": 4, "y": 5, "type": "solid" },
-    { "x": 5, "y": 5, "type": "solid" },
+    { "x": 1, "y": 6, "type": "solid" },
+    { "x": 2, "y": 6, "type": "solid" },
+    { "x": 3, "y": 6, "type": "solid" },
+    { "x": 4, "y": 6, "type": "solid" },
+    { "x": 5, "y": 5, "type": "roundedUpRight" },
     { "x": 6, "y": 5, "type": "solid" },
     { "x": 7, "y": 5, "type": "solid" },
     { "x": 8, "y": 5, "type": "solid" },
@@ -31,19 +31,7 @@
     { "x": 10, "y": 5, "type": "solid" },
     { "x": 11, "y": 5, "type": "solid" },
     { "x": 12, "y": 5, "type": "solid" },
-    { "x": 1, "y": 7, "type": "solid" },
-    { "x": 2, "y": 7, "type": "solid" },
-    { "x": 3, "y": 7, "type": "solid" },
-    { "x": 4, "y": 7, "type": "solid" },
-    { "x": 5, "y": 7, "type": "solid" },
-    { "x": 6, "y": 7, "type": "solid" },
-    { "x": 7, "y": 7, "type": "danger" },
-    { "x": 8, "y": 7, "type": "solid" },
-    { "x": 9, "y": 7, "type": "solid" },
-    { "x": 10, "y": 7, "type": "solid" },
-    { "x": 11, "y": 7, "type": "solid" },
-    { "x": 12, "y": 7, "type": "solid" },
-    { "x": 1, "y": 6, "type": "entry" },
-    { "x": 12, "y": 6, "type": "exit" }
+    { "x": 1, "y": 5, "type": "entry" },
+    { "x": 11, "y": 4, "type": "exit" }
   ]
 }

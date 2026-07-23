@@ -1,6 +1,6 @@
 # TACHE-03 — Intégration séquence et tests système {#lot-25-tache-03-integration-sequence-tests}
 
-**Lot :** [LOT-25](epic.md) · **Emplacement :** `HMI/main.cpp`, `Test/Systeme` · **Statut :** à faire
+**Lot :** [LOT-25](epic.md) · **Emplacement :** `HMI/main.cpp`, `Test/Systeme` · **Statut :** fait
 
 ## Contexte
 Les niveaux de `TACHE-02` n'ont d'effet que si le jeu les charge **et** que le test système les
@@ -16,12 +16,14 @@ chargé en jeu) qui a déclenché ce lot ; cette tâche referme cet écart et em
   visée (sur le modèle des scénarios déjà écrits pour `demo.json`…`demo4.json`) — **le niveau final
   combiné (dernier de la séquence) inclus**, avec un scénario qui enchaîne réellement les
   mécaniques qu'il mélange (pas seulement un scénario générique qui le franchirait par chance).
-- **Garde-fou anti-divergence** (voir décision de cadrage de l'épic) : à concevoir en écrivant le
-  code — par exemple, un test qui compare la liste de fichiers de `Source/Elements/Levels/`
-  effectivement présents à la liste attendue, ou un fichier de configuration partagé entre
-  `main.cpp` et le test système plutôt que deux listes indépendantes à maintenir en synchronisation
-  manuelle. Trancher l'approche la plus simple à l'implémentation, documenter le choix ici une fois
-  fait.
+- **Garde-fou anti-divergence** (voir décision de cadrage de l'épic) : implémenté comme un script
+  Python, `scripts/check_demo_sequence.py`, exécuté en CI (job `lint-exigences`, aux côtés du lint
+  des exigences et du contrôle du cahier de test). Il extrait, par une simple recherche de motif
+  `"demo-*.json"`, la séquence de fichiers dans `Source/HMI/main.cpp` et dans
+  `Source/Test/Systeme/test_parcours_complet.cpp`, puis échoue (code de sortie 1) si les deux listes
+  diffèrent (contenu ou ordre). Choisi plutôt qu'un fichier de configuration partagé : ne demande
+  aucun refactoring des deux fichiers existants (qui restent lisibles en C++ pur, sans indirection
+  vers un fichier externe), et le script est trivial à maintenir (une seule expression régulière).
 
 ## Fichiers impactés
 - `Source/HMI/main.cpp`.

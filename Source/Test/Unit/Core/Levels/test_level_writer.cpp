@@ -298,18 +298,18 @@ TEST(LevelWriterTest, InterrupteurNonRelieRegenereUnIdentifiant) {
 }
 
 /**
- * @brief Le niveau puzzle livré (demo4.json) survit à un round-trip.
- * \castest{<b>Le niveau puzzle livré (demo4.json) survit à un round-trip.</b><br/>
+ * @brief Le niveau puzzle livré (demo-interrupteur.json) survit à un round-trip.
+ * \castest{<b>Le niveau puzzle livré (demo-interrupteur.json) survit à un round-trip.</b><br/>
  * \tcat Unitaire · Level Writer<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le niveau puzzle livré (demo4.json) survit à un round-trip.
+ * \tattendu Le niveau puzzle livré (demo-interrupteur.json) survit à un round-trip.
  * }
  */
 TEST(LevelWriterTest, NiveauPuzzleLivreSurvieAuRoundTrip) {
     const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo4.json";
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-interrupteur.json";
     const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
     ASSERT_TRUE(loaded.ok()) << loaded.error;
 

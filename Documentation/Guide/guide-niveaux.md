@@ -91,8 +91,8 @@ chargeur — le reste du moteur ne dépend jamais directement de cette biblioth�
 }
 ```
 
-(fichier réel, tronqué ici pour la lisibilité — voir `Source/Elements/Levels/demo4.json` pour la
-version complète). À lire ainsi :
+(exemple illustratif, inspiré de `Source/Elements/Levels/demo-interrupteur.json` — voir ce fichier
+pour la version réelle et complète). À lire ainsi :
 
 - `name`, `width`, `height` décrivent le niveau et les dimensions de sa grille ;
 - `jumpBudget`/`dashBudget` sont **optionnels** — absents, le budget correspondant est **illimité**

@@ -587,7 +587,7 @@ TEST(LevelLoaderTest, PorteSansLiaisonEstValide) {
  */
 TEST(LevelLoaderTest, NiveauDeDemoLivreValide) {
     const std::filesystem::path path =
-        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo.json";
+        std::filesystem::path(PROJECTGAMING_LEVELS_DIR) / "demo-deplacement.json";
     const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
     EXPECT_TRUE(result.ok()) << result.error;
 }

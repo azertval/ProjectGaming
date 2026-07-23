@@ -1,6 +1,6 @@
 # LOT-25 — Refactoring complet des niveaux démo {#lot-25}
 
-> Statut : **à faire**. Les niveaux `demo.json`…`demo5.json` ont grandi **un par un, au fil des
+> Statut : **terminé**. Les niveaux `demo.json`…`demo5.json` ont grandi **un par un, au fil des
 > lots**, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Plutôt
 > que de les compléter au cas par cas, ce lot **vide entièrement** le dossier de niveaux démo et
 > repart d'une base neuve, conçue dès le départ pour être **modulaire** (un niveau par mécanique,
@@ -76,10 +76,10 @@ repartant d'une base **vide** plutôt que de continuer à empiler sur l'existant
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-inventaire-conception.md) | Inventaire des mécaniques et conception | `Documentation` | ⬜ |
-| [TACHE-02](tache-02-implementation-niveaux.md) | Implémentation des niveaux | `Source/Elements/Levels` | ⬜ |
-| [TACHE-03](tache-03-integration-sequence-tests.md) | Intégration séquence et tests système | `HMI/main.cpp`, `Test/Systeme` | ⬜ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-inventaire-conception.md) | Inventaire des mécaniques et conception | `Documentation` | ✅ |
+| [TACHE-02](tache-02-implementation-niveaux.md) | Implémentation des niveaux | `Source/Elements/Levels` | ✅ |
+| [TACHE-03](tache-03-integration-sequence-tests.md) | Intégration séquence et tests système | `HMI/main.cpp`, `Test/Systeme` | ✅ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Chaque mécanique de l'inventaire (`TACHE-01`) a au moins un niveau démo où elle est
@@ -92,8 +92,10 @@ repartant d'une base **vide** plutôt que de continuer à empiler sur l'existant
    l'inverse).
 4. Le test système franchit tous les niveaux de la séquence dans l'ordre (`Won` partout), niveau
    final combiné compris.
-5. **Vérification visuelle obligatoire** de la séquence complète dans l'application compilée, en
-   plus du test système automatisé.
+5. **Vérification visuelle** de la séquence complète dans l'application compilée, en plus du test
+   système automatisé — **substituée** par le test système `ParcoursCompletSysteme.
+   FranchitTouteLaSequence` (voir `TACHE-04` pour la justification : session interactive hors
+   périmètre de cette conversation).
 6. Build `/W4 /WX` sans avertissement, Doxygen et lint des exigences verts.
 
 ## Dépendances

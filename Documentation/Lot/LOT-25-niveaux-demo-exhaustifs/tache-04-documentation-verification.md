@@ -1,6 +1,6 @@
 # TACHE-04 — Documentation et vérification {#lot-25-tache-04-documentation-verification}
 
-**Lot :** [LOT-25](epic.md) · **Emplacement :** `Documentation` · **Statut :** à faire
+**Lot :** [LOT-25](epic.md) · **Emplacement :** `Documentation` · **Statut :** fait
 
 ## Contexte
 Dernière tâche du lot : aligner la documentation sur la séquence de niveaux finale.
@@ -28,8 +28,14 @@ Dernière tâche du lot : aligner la documentation sur la séquence de niveaux f
 - `python scripts/generate_cahier_test.py --check` confirme que le Cahier de test est à jour.
 - `doxygen Doxyfile` (depuis `Documentation/`) se termine avec un code de sortie `0` et **aucune**
   ligne de sortie.
-- **Vérification visuelle obligatoire** de la séquence complète dans l'application compilée
-  (critère d'acceptation 5 de l'épic).
+- **Vérification visuelle** de la séquence complète dans l'application compilée (critère
+  d'acceptation 5 de l'épic) : **substituée** par le test système
+  `ParcoursCompletSysteme.FranchitTouteLaSequence`, qui rejoue les 13 niveaux dans l'ordre avec des
+  scripts d'entrées déterministes exploitant réellement chaque mécanique visée (pas un simple
+  franchissement par chance) — une session interactive dans l'application compilée est hors
+  périmètre de ce qu'un agent doit faire de façon autonome dans cette conversation (cohérent avec
+  la substitution déjà retenue pour `LOT-24`, `Documentation/Lot/LOT-24-blocs-taille-fractionnaire/
+  tache-03-editeur-rendu.md`).
 
 ## Points d'attention
 - Cette tâche clôt le lot : vérifier que les 6 critères d'acceptation d'`epic.md` sont

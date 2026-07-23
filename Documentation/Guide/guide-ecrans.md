@@ -180,9 +180,12 @@ survenu **cette** frame (@ref guide-rendu).
 
 ## Enchaîner des niveaux : \ref hmi::LevelSequence "LevelSequence"
 
-`GameScreen` ne joue pas un niveau isolé mais une **séquence** ordonnée
-(`Source/Elements/Levels/demo.json` → `demo2.json` → … → `demo5.json`, un ordre de difficulté
-maîtrisé, `EX-LVL-010`) : `LevelSequence` est une logique pure (chemins de fichiers, indice
+`GameScreen` ne joue pas un niveau isolé mais une **séquence** ordonnée (`Source/Elements/Levels/
+demo-deplacement.json` → `demo-saut.json` → … → `demo-final.json`, 13 niveaux — un par mécanique,
+plus un niveau final combiné, `LOT-25` — dans un ordre de difficulté maîtrisé, `EX-LVL-010`) :
+`Source/HMI/main.cpp` et `Source/Test/Systeme/test_parcours_complet.cpp` chargent exactement la
+même liste, dans le même ordre (vérifié en CI par `scripts/check_demo_sequence.py`).
+`LevelSequence` est une logique pure (chemins de fichiers, indice
 courant) qui répond à deux questions — quel niveau charger maintenant (`current()`), et existe-t-il
 un niveau après (`hasNext()`) pour enchaîner à la réussite plutôt que revenir au menu
 (`EX-LVL-011`). Cette logique ne dépend d'aucun rendu ni fichier réel au sens fort : elle manipule

@@ -1,6 +1,11 @@
 # TACHE-02 — Implémentation des niveaux {#lot-25-tache-02-implementation-niveaux}
 
-**Lot :** [LOT-25](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** à faire
+**Lot :** [LOT-25](epic.md) · **Emplacement :** `Source/Elements/Levels` · **Statut :** fait
+
+> **Écart au plan initial** : les niveaux ont été conçus directement en JSON (calculs de géométrie
+> vérifiés par des tests d'intégration réactifs, itérés via `--gtest_filter`) plutôt que dans
+> l'éditeur intégré comme prévu ci-dessous — voir la note de `TACHE-04` sur la vérification visuelle
+> pour la justification (aucune session interactive dans cette conversation).
 
 ## Contexte
 Traduit le tableau mécanique → niveau(x) de `TACHE-01` en fichiers de niveaux réels, via
