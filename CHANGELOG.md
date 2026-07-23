@@ -29,7 +29,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
-- **Bloc poussable** (`TileType::Block`, `EX-GP-022`), nouvelle tuile disponible dans l'éditeur.
+- **LOT-21 — Bloc poussable** (`EX-GP-022`), nouvelle tuile disponible dans l'éditeur.
   `core::BlockController` (nouveau, `Core/Gameplay`) résout chaque pas fixe, avant la physique du
   personnage : **poussée** horizontale d'une case si la case suivante est libre (ni mur, ni autre
   bloc), et **chute** discrète (une case toutes les `FALL_INTERVAL_STEPS` pas) si le bloc n'est
