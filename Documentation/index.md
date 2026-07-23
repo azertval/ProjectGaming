@@ -15,10 +15,6 @@ code** générée à partir des sources.
   (GoogleTest), documentation Doxygen et CI GitHub Actions.
 
 ## Avancement
-Les lots **LOT-01 à LOT-20** sont **terminés** : fenêtre/boucle Direct3D 11, journalisation,
-ECS et mathématiques, rendu 2D, menu principal, niveaux JSON, gameplay (déplacement, saut,
-mécaniques aériennes, ressenti), niveau puzzle, éditeur de niveaux intégré (édition, robustesse,
-grands niveaux), personnage (sprite, animation), physique newtonienne et manette/menu d'options.
 
 Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
 [Lots](@ref lots) ; l'historique des livraisons est dans `CHANGELOG.md`.
