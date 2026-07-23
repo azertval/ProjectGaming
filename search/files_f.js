@@ -1,19 +1,7 @@
 var searchData=
 [
-  ['saveicon_2ecpp_0',['SaveIcon.cpp',['../SaveIcon_8cpp.html',1,'']]],
-  ['saveicon_2eh_1',['SaveIcon.h',['../SaveIcon_8h.html',1,'']]],
-  ['savelogbutton_2ecpp_2',['SaveLogButton.cpp',['../SaveLogButton_8cpp.html',1,'']]],
-  ['savelogbutton_2eh_3',['SaveLogButton.h',['../SaveLogButton_8h.html',1,'']]],
-  ['screenmanager_2ecpp_4',['ScreenManager.cpp',['../ScreenManager_8cpp.html',1,'']]],
-  ['screenmanager_2eh_5',['ScreenManager.h',['../ScreenManager_8h.html',1,'']]],
-  ['sessionlog_2ecpp_6',['SessionLog.cpp',['../SessionLog_8cpp.html',1,'']]],
-  ['sessionlog_2eh_7',['SessionLog.h',['../SessionLog_8h.html',1,'']]],
-  ['specifications_2emd_8',['specifications.md',['../specifications_8md.html',1,'']]],
-  ['sprite_2eh_9',['Sprite.h',['../Sprite_8h.html',1,'']]],
-  ['spritebatch_2ecpp_10',['SpriteBatch.cpp',['../SpriteBatch_8cpp.html',1,'']]],
-  ['spritebatch_2eh_11',['SpriteBatch.h',['../SpriteBatch_8h.html',1,'']]],
-  ['spriterenderer_2ecpp_12',['SpriteRenderer.cpp',['../SpriteRenderer_8cpp.html',1,'']]],
-  ['spriterenderer_2eh_13',['SpriteRenderer.h',['../SpriteRenderer_8h.html',1,'']]],
-  ['sweptcollision_2ecpp_14',['SweptCollision.cpp',['../SweptCollision_8cpp.html',1,'']]],
-  ['sweptcollision_2eh_15',['SweptCollision.h',['../SweptCollision_8h.html',1,'']]]
+  ['rect_2ecpp_0',['Rect.cpp',['../Rect_8cpp.html',1,'']]],
+  ['rect_2eh_1',['Rect.h',['../Rect_8h.html',1,'']]],
+  ['rendercontext_2eh_2',['RenderContext.h',['../RenderContext_8h.html',1,'']]],
+  ['rendu_2dtechnique_2emd_3',['rendu-technique.md',['../rendu-technique_8md.html',1,'']]]
 ];

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,9 +94,9 @@ $(document).ready(function(){initNavTree('guide-niveaux.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Un niveau est une <b>grille de tuiles typées</b> plus des métadonnées (nom, entrée, sortie, mécanismes, budgets de mouvements). Tout vit dans <code>Source/Core/Levels</code> (le modèle en mémoire et son chargement) et <code>Source/Core/Gameplay</code> (le comportement des mécanismes).</p>
-<h1><a class="anchor" id="autotoc_md69"></a>
+<h1><a class="anchor" id="autotoc_md103"></a>
 Le modèle en mémoire</h1>
-<h2><a class="anchor" id="autotoc_md70"></a>
+<h2><a class="anchor" id="autotoc_md104"></a>
 Deux systèmes de coordonnées à ne pas confondre</h2>
 <p>Le moteur manipule <b>deux</b> représentations de position différentes, et le confondre est une source d'erreurs fréquente :</p>
 <ul>
@@ -104,8 +104,8 @@ Deux systèmes de coordonnées à ne pas confondre</h2>
 <li><code><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a></code> (<a class="el" href="guide-maths.html">Mathématiques du moteur</a>) : une paire de <b>flottants</b> — une position <b>continue</b> dans le monde physique, utilisée par la simulation (position du personnage, résultat d'un balayage).</li>
 </ul>
 <p>Comme une tuile = 1 unité monde, convertir l'un vers l'autre est une simple conversion de type (<code>column</code> devient <code>x</code>, <code>row</code> devient <code>y</code>) — mais les deux ne sont <b>jamais</b> interchangeables dans le code : une case n'a pas de position « à mi-chemin », un personnage si.</p>
-<h2><a class="anchor" id="autotoc_md71"></a>
-&lt;tt&gt;core::TileType&lt;/tt&gt; : le vocabulaire des cases</h2>
+<h2><a class="anchor" id="autotoc_md105"></a>
+\ref core::TileType "core::TileType" : le vocabulaire des cases</h2>
 <p>Chaque case de la grille a l'un de ces types :</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -128,16 +128,16 @@ Deux systèmes de coordonnées à ne pas confondre</h2>
 <td class="markdownTableBodyNone"><code>Door</code>   </td><td class="markdownTableBodyNone">Porte : solide <b>fermée</b>, franchissable <b>ouverte</b> — son état dépend du <code>Switch</code>/<code>PressurePlate</code> lié.   </td></tr>
 </table>
 <p>Notez que <code>Door</code> n'est <b>pas</b> statiquement solide au sens de <code>core::isSolid(TileType)</code> — sa solidité dépend de son <b>état</b>, calculé par le <code>MechanismController</code> (voir plus bas), pas du type de tuile seul.</p>
-<h2><a class="anchor" id="autotoc_md72"></a>
-&lt;tt&gt;core::TileMap&lt;/tt&gt; : la grille</h2>
+<h2><a class="anchor" id="autotoc_md106"></a>
+\ref core::TileMap "core::TileMap" : la grille</h2>
 <p><code><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></code> est une grille dense <code>width × height</code> de <code>TileType</code>, origine <b>haut-gauche</b> (même convention que tout le moteur, <a class="el" href="guide-maths.html">Mathématiques du moteur</a>). Elle expose <code>tile(colonne, ligne)</code> (lecture) et <code>isSolid(colonne, ligne)</code> (utilisée directement par le balayage de collision, <a class="el" href="guide-physique.html">Physique du personnage</a> §1). C'est une donnée pure, sans dépendance à un fichier ou à un rendu — testable isolément.</p>
-<h2><a class="anchor" id="autotoc_md73"></a>
-&lt;tt&gt;core::Level&lt;/tt&gt; : le niveau assemblé</h2>
+<h2><a class="anchor" id="autotoc_md107"></a>
+\ref core::Level "core::Level" : le niveau assemblé</h2>
 <p><code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code> regroupe : un nom, une <code>TileMap</code>, une position d'<b>entrée</b> et de <b>sortie</b> (<code>GridPosition</code>), une liste de <code><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></code> (liaisons interrupteur↔porte, résolues en positions) et des <b>budgets</b> de mouvements (<code>jumpBudget</code>/<code>dashBudget</code>, décrits plus bas). C'est l'objet que le chargeur produit et que le reste du moteur (rendu, gameplay) consomme en lecture seule — la <code>TileMap</code> d'un <code>Level</code> ne change <b>jamais</b> après le chargement ; c'est le contrôleur de mécanismes (voir plus loin) qui maintient sa <b>propre</b> copie mutable pour représenter les portes en cours de partie.</p>
-<h1><a class="anchor" id="autotoc_md74"></a>
+<h1><a class="anchor" id="autotoc_md108"></a>
 Chargement JSON</h1>
 <p>Un niveau est décrit dans un fichier texte au format <a href="https://www.json.org/json-fr.html">JSON</a> ⧉, parsé par la bibliothèque <b>nlohmann/json</b>, dont l'usage est confiné au fichier <code>.cpp</code> du chargeur — le reste du moteur ne dépend jamais directement de cette bibliothèque. La classe <code><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></code> expose deux points d'entrée statiques : <code>loadFromFile</code> (depuis un chemin) et <code>loadFromString</code> (depuis du texte déjà en mémoire, pratique pour les tests).</p>
-<h2><a class="anchor" id="autotoc_md75"></a>
+<h2><a class="anchor" id="autotoc_md109"></a>
 Exemple concret</h2>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;name&quot;: &quot;Demonstration 4 (puzzle)&quot;,</div>
@@ -161,15 +161,15 @@ Exemple concret</h2>
 <li><code>tiles</code> est une <b>liste éparse</b> : seules les cases <b>non vides</b> (différentes de <code>Empty</code>) sont listées, chacune par ses coordonnées <code>x</code>/<code>y</code> (colonne/ligne) et son <code>type</code>. Une case absente de la liste est implicitement <code>Empty</code> ;</li>
 <li>les tuiles <code>switch</code> et <code>door</code> portent en plus un identifiant textuel : <code>id</code> <b>nomme</b> l'interrupteur, <code>opensWith</code> d'une porte <b>référence</b> cet identifiant. C'est ainsi qu'un interrupteur et sa porte sont <b>liés</b> dans le fichier — par un nom partagé, pas par leur position. Le chargeur résout ensuite cette liaison en un <code><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></code> reliant les deux <code>GridPosition</code> (l'identifiant textuel <code>"s1"</code> n'existe que dans le fichier ; en mémoire, le lien est purement géométrique).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md76"></a>
+<h2><a class="anchor" id="autotoc_md110"></a>
 Validation</h2>
 <p>Le chargement <b>valide</b> le contenu (<code>EX-LVL-004</code>) avant de produire un <code>Level</code> utilisable : dimensions cohérentes avec les tuiles listées, tuiles toutes dans les bornes de la grille, aucune case dupliquée dans la liste, <b>exactement une</b> tuile <code>Entry</code> et <b>exactement une</b> tuile <code>Exit</code> (un niveau sans sortie, ou avec deux entrées, est une erreur de contenu, pas une situation ambiguë à tolérer), et chaque liaison de mécanisme <b>résolue</b> (un <code>opensWith</code> qui référence un <code>id</code> inexistant est une erreur).</p>
 <p>En cas d'échec — JSON malformé, champ manquant, type de tuile inconnu, échec d'une des validations ci-dessus — le chargeur ne lève <b>jamais d'exception</b> vers l'appelant (<code>EX-NFR-040</code>) : il renvoie un <code><a class="el" href="structcore_1_1LevelLoadResult.html" title="Résultat d&#39;un chargement de niveau : soit un Level, soit une erreur décrite.">core::LevelLoadResult</a></code>, une paire <code>{ optional&lt;Level&gt; level, std::string error }</code>. <code>ok()</code> indique le succès ; en cas d'échec, <code>level</code> est vide et <code>error</code> décrit le problème de façon exploitable (affichable au joueur ou au développeur). Ce choix — résultat récupérable plutôt qu'exception — garde la gestion d'erreur explicite à chaque site d'appel, cohérent avec le reste du moteur qui ne s'appuie pas sur les exceptions pour son flux de contrôle normal.</p>
-<h1><a class="anchor" id="autotoc_md77"></a>
-De la grille aux entités : &lt;tt&gt;buildLevelScene&lt;/tt&gt;</h1>
+<h1><a class="anchor" id="autotoc_md111"></a>
+De la grille aux entités : \ref core::buildLevelScene "buildLevelScene"</h1>
 <p>Le <code>TileMap</code> d'un niveau n'est, en lui-même, qu'un tableau de types — il ne peut pas être <b>affiché</b>. <code><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a>(world, level, régionParType)</code> fait le pont vers le rendu, en projetant chaque tuile <b>non vide</b> en une <b>entité ECS</b> (<a class="el" href="guide-ecs.html">ECS : entités, composants, systèmes</a>) portant un <code>Transform</code> (position = colonne, ligne, converties en unités monde) et un <code>Sprite</code> (l'image à afficher, choisie par la correspondance <code>régionParType</code> <b>injectée</b> en paramètre plutôt que codée en dur — ce qui permet de tester la projection sans dépendre du rendu réel ou du GPU).</p>
 <p>Point important : cette projection est <b>à sens unique</b> et n'a lieu <b>qu'une fois</b>, au chargement du niveau. Le <code>TileMap</code> reste la <b>source de vérité</b> pour tout ce qui touche à la <b>collision</b> — la physique (<a class="el" href="guide-physique.html">Physique du personnage</a>) interroge directement <code>isSolid(colonne, ligne)</code>, jamais les entités-sprites générées. Modifier une entité-sprite ne changerait donc rien à la collision ; c'est le mécanisme de portes ci-dessous qui montre comment un changement d'état du niveau doit réellement se propager.</p>
-<h1><a class="anchor" id="autotoc_md78"></a>
+<h1><a class="anchor" id="autotoc_md112"></a>
 Mécanismes déclencheur ↔ porte</h1>
 <p><code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (logique <b>pure</b>, dans <code>Core/Gameplay</code>, sans dépendance rendu) donne un <b>comportement</b> aux liaisons déclencheur↔porte que le modèle de niveau ne fait que <b>représenter</b> (<code>EX-GP-020</code>, <code>EX-GP-021</code>, <code>EX-GP-025</code>). Deux types de déclencheur, deux comportements — la nature de chacun est figée <b>une fois pour toutes</b> à la construction, d'après la tuile d'origine (<code>TileType::Switch</code> ou <code>TileType::PressurePlate</code> à sa position) :</p>
 <ul>
@@ -184,7 +184,7 @@ Mécanismes déclencheur ↔ porte</h1>
 </ul>
 <p>Concrètement, avec l'exemple JSON ci-dessus : la porte en <code>(7, 6)</code> est solide tant que l'interrupteur <code>s1</code> en <code>(3, 6)</code> n'a pas été touché ; dès que le personnage marche dessus, elle devient franchissable — et se refermerait si l'interrupteur était retouché après être sorti du contact (nouveau front). Une <b>plaque de pression</b> liée à la même porte, elle, la garderait ouverte pas à pas tant que le personnage y resterait, sans qu'un second passage soit nécessaire pour la refermer.</p>
 <p>Le seuil de poids ne <b>discrimine</b> encore rien tant qu'un seul acteur (le personnage) existe dans le jeu — toute plaque s'active « prête à l'emploi ». Il prend son sens dès qu'une seconde masse apparaîtrait dans une future évolution (ex. un bloc poussable, <code>EX-GP-022</code>, non couvert par ce lot) : l'infrastructure de comparaison de poids est déjà en place, sans qu'aucun code de mécanisme n'ait à changer.</p>
-<h1><a class="anchor" id="autotoc_md79"></a>
+<h1><a class="anchor" id="autotoc_md113"></a>
 Budget de mouvements</h1>
 <p>Un tableau <b>puzzle</b> peut vouloir limiter délibérément le nombre de sauts et/ou de dashs disponibles, pour forcer le joueur à les utiliser avec parcimonie plutôt que librement (<code>EX-GP-024</code>). Les compteurs eux-mêmes vivent dans le composant <code><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></code> (<code>jumpsRemaining</code>/<code>dashesRemaining</code>, <a class="el" href="guide-ecs.html">ECS : entités, composants, systèmes</a>) — pas dans le <code>Level</code> : le niveau ne fait que fournir la <b>valeur initiale</b> du budget (<code>jumpBudget</code>/<code>dashBudget</code>), copiée dans le composant au moment où le personnage apparaît (spawn). Ensuite :</p>
 <ul>
@@ -193,7 +193,7 @@ Budget de mouvements</h1>
 <li>la valeur spéciale **<code>-1</code>** signifie « illimité » — aucun décompte n'a lieu, et c'est la valeur par défaut d'un niveau qui ne précise pas de budget (voir l'exemple JSON : un niveau <b>sans</b> <code>jumpBudget</code>/<code>dashBudget</code> a des sauts et dashs illimités) ;</li>
 <li>les compteurs sont <b>réinitialisés</b> à chaque (re)chargement du niveau — un échec (retour au menu ou nouvelle tentative) rend donc le budget complet à nouveau, jamais définitivement épuisé d'une tentative à l'autre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md80"></a>
+<h1><a class="anchor" id="autotoc_md114"></a>
 Issue et enchaînement</h1>
 <p><code>core::evaluateOutcome(playerBox, level)</code> est une fonction <b>pure d'observation</b> (elle ne modifie rien, ne déclenche aucune transition) qui <b>classe</b> l'état courant du niveau à partir de la seule position du personnage, en trois issues possibles (<code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></code>) :</p>
 <ul>
@@ -203,7 +203,7 @@ Issue et enchaînement</h1>
 </ul>
 <p>L'ordre de classement est <b>déterministe et volontaire</b> : si, au même pas, le personnage se trouve à la fois sur la sortie et au contact d'un danger (situation limite mais possible géométriquement), l'<b>échec l'emporte sur le succès</b> — une règle simple et prévisible plutôt que dépendante de l'ordre de test interne.</p>
 <p>Cette fonction ne fait que <b>classer</b> l'état ; c'est côté écran que la transition a réellement lieu. <code><a class="el" href="classhmi_1_1LevelSequence.html" title="Liste ordonnée de niveaux et position courante dans la progression (EX-LVL-010).">hmi::LevelSequence</a></code> gère l'<b>ordre</b> des niveaux d'une session et l'enchaînement qui en découle : une issue <code>Won</code> avance vers le niveau suivant de la séquence ; après le <b>dernier</b> niveau, elle ramène à l'écran-titre plutôt que de tenter un niveau inexistant (<code>EX-LVL-010</code>/<code>EX-LVL-011</code>).</p>
-<h1><a class="anchor" id="autotoc_md81"></a>
+<h1><a class="anchor" id="autotoc_md115"></a>
 Voir aussi</h1>
 <ul>
 <li><code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code>, <code><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></code>, <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>, <code><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></code>, <code><a class="el" href="structcore_1_1LevelLoadResult.html" title="Résultat d&#39;un chargement de niveau : soit un Level, soit une erreur décrite.">core::LevelLoadResult</a></code>.</li>

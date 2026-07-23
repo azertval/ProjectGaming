@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,25 +96,25 @@ $(document).ready(function(){initNavTree('lot-17.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Premier de deux lots dédiés au visuel du personnage : celui-ci remplace le rectangle de couleur unie par une silhouette humanoïde statique (<code>EX-REN-011</code>). L'animation par séquence d'images (repos/course/saut, <code>EX-REN-012</code>) est <b>explicitement hors périmètre</b>, prévue comme un lot séparé. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md971"></a>
+<h1><a class="anchor" id="autotoc_md1005"></a>
 Objectif</h1>
 <p>Le personnage est aujourd'hui rendu comme une simple tuile de couleur (<code>_atlas.tile(1, 1)</code>, cyan uni) — aucune forme, aucune lecture visuelle. Ce lot livre une <b>silhouette humanoïde</b> simple (tête, cheveux, torse/manches, mains, jambes, chaussures) générée en code comme le reste de l'atlas, sans introduire de fichier image ni de dépendance externe (<code>EX-ARCH-050</code>).</p>
-<h1><a class="anchor" id="autotoc_md972"></a>
+<h1><a class="anchor" id="autotoc_md1006"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md973"></a>
+<h2><a class="anchor" id="autotoc_md1007"></a>
 Inclus</h2>
 <ul>
 <li>Une région dédiée de l'atlas (16×16 pixels, <b>carrée</b> comme une tuile — voir décision de cadrage ci-dessous) dessinant une silhouette humanoïde multi-couleurs (peau, cheveux, chemise/manches, pantalon, chaussures), avec zones transparentes hors silhouette.</li>
 <li>Le branchement de cette région sur l'entité joueur (<code>GameScreen::spawnPlayer</code>), à la place de la tuile de couleur unie.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md974"></a>
+<h2><a class="anchor" id="autotoc_md1008"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Animation</b> (repos/course/saut, <code>EX-REN-012</code>) — lot séparé à venir ; ce lot livre une <b>pose unique fixe</b>.</li>
 <li>Sprites des mécanismes (interrupteurs/portes) — déjà couverts par les tuiles existantes, inchangés.</li>
 <li>Tout pipeline photo → pixel art ou asset externe — toujours hors périmètre (<code>EX-DEC-*</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md975"></a>
+<h1><a class="anchor" id="autotoc_md1009"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>La silhouette vit dans <code>TextureAtlas</code>, pas dans une classe séparée</b> (à la différence de <code>SaveIcon</code>/<code>FlagIcons</code>). Raison : <code>SpriteRenderer::render</code> dessine <b>toutes</b> les entités <code>Transform</code>+<code>Sprite</code> du monde en <b>une seule passe</b>, liée à <b>une seule texture</b> (<code>_atlas</code>, cf. <code><a class="el" href="SpriteRenderer_8cpp.html">SpriteRenderer.cpp</a></code>). Une classe séparée aurait exigé soit une deuxième texture partagée par aucune entité de jeu actuelle, soit une restructuration de <code>SpriteRenderer</code> pour trier par texture — hors de proportion pour ce lot. Étendre l'atlas existant (texture plus haute, une nouvelle région) ne touche <b>ni</b> <code>SpriteRenderer</code> <b>ni</b> le contrat <code><a class="el" href="structcore_1_1AtlasRegion.html" title="Région source dans l&#39;atlas de textures, en pixels (origine haut-gauche).">core::AtlasRegion</a></code> : la normalisation UV se fait déjà génériquement à partir de <code>atlas.width()</code>/<code>height()</code>.</li>
@@ -122,13 +122,13 @@ Décisions de cadrage</h1>
 <li><b>La région reste carrée (16×16), le ratio 1:2 vient de <code>Transform::scale</code>, pas de la région.</b> Version initiale de ce lot : région déjà non carrée (16×32, reprenant directement le ratio de <code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code>). Bug détecté immédiatement à la vérification visuelle en jeu — la silhouette débordait largement de la boîte de collision et traversait les murs — car <code>SpriteRenderer::render</code> multiplie <b>déjà</b> les dimensions de la région par <code>Transform::scale</code> (lui-même égal à <code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code>, donc déjà non uniforme 0,4×0,8) : une région 16×32 appliquait le ratio 1:2 <b>deux fois</b> (0,4×1,6 à l'écran au lieu de 0,4×0,8). Corrigé en gardant la région carrée (16×16, comme <code>tile()</code>) et en dessinant la silhouette <b>pré-compressée</b> de moitié en hauteur dans ce canevas — l'étirement du <code>Transform</code> restitue les proportions naturelles à l'écran, exactement comme pour une tuile normale.</li>
 <li><b>Un seul lot pour le statique, un second pour l'animation</b> (décision explicite, périmètre demandé) : évite de concevoir la structure de séquence d'images (<code>EX-REN-012</code>) avant d'avoir une pose de référence validée visuellement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md976"></a>
+<h1><a class="anchor" id="autotoc_md1010"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-REN-011</code> (silhouette humanoïde avec transparence) — partie statique.</li>
 <li><code>EX-REN-012</code> (animation) — <b>non couverte</b>, prévue au lot suivant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md977"></a>
+<h1><a class="anchor" id="autotoc_md1011"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -141,7 +141,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-02-documentation-verification_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md978"></a>
+<h1><a class="anchor" id="autotoc_md1012"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage affiche une silhouette humanoïde reconnaissable (tête, torse, jambes) au lieu d'un rectangle de couleur unie, en jeu comme dans l'essai immédiat de l'éditeur.</li>
@@ -149,12 +149,12 @@ Critères d'acceptation du lot</h1>
 <li>Aucune régression : les tuiles existantes de l'atlas (niveau, mécanismes) restent inchangées à l'identique (mêmes régions, mêmes couleurs).</li>
 <li>Build <code>/W4 /WX</code> sans avertissement ; <code>ctest</code> vert (292 tests inchangés — aucune nouvelle logique testable hors GPU, cf. TACHE-01) ; Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md979"></a>
+<h1><a class="anchor" id="autotoc_md1013"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <code>TextureAtlas</code> (LOT-05, génération procédurale) et <code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code>/<code>PlayerSpawn</code> (LOT-09) pour le ratio de la région. Consommé par <code>GameScreen::spawnPlayer</code> (LOT-07/09).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md980"></a>
+<h1><a class="anchor" id="autotoc_md1014"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-17-tache-01-silhouette-personnage.html">TACHE-01 — Silhouette du personnage dans l'atlas</a></li>

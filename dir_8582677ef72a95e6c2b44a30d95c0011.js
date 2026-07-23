@@ -1,6 +1,7 @@
 var dir_8582677ef72a95e6c2b44a30d95c0011 =
 [
     [ "EditorLayout.h", "EditorLayout_8h.html", "EditorLayout_8h" ],
+    [ "EditorLog.h", "EditorLog_8h.html", "EditorLog_8h" ],
     [ "EditorTool.h", "EditorTool_8h.html", "EditorTool_8h" ],
     [ "LevelNameValidation.cpp", "LevelNameValidation_8cpp.html", null ],
     [ "LevelNameValidation.h", "LevelNameValidation_8h.html", "LevelNameValidation_8h" ],

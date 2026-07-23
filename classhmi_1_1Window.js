@@ -17,6 +17,7 @@ var classhmi_1_1Window =
     [ "windowProcedure", "classhmi_1_1Window.html#a84edce17a0339adcb5aa1fb6473fe4c0", null ],
     [ "_clientHeight", "classhmi_1_1Window.html#af736466ab0ddd704963d011277f3b993", null ],
     [ "_clientWidth", "classhmi_1_1Window.html#a734318f2dafe226f3efee88089790a6a", null ],
+    [ "_gamepadWasConnected", "classhmi_1_1Window.html#ae26d45d5de236bde84ecd6343b5d21df", null ],
     [ "_handle", "classhmi_1_1Window.html#aa1427e35a137aaebaebfec894efe1866", null ],
     [ "_input", "classhmi_1_1Window.html#a7f866e82cb3a0faac01f2ae0a8d03699", null ],
     [ "_resized", "classhmi_1_1Window.html#ad846994df75a64e3f547c04607bdc7f1", null ],

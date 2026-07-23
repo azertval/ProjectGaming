@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`)</title>
+<title>ProjectGaming: TACHE-01 — Données : budget (Player, Level, LevelLoader)</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -90,45 +90,45 @@ $(document).ready(function(){initNavTree('lot-12-tache-01-donnees.html',''); ini
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`)</div></div>
+  <div class="headertitle"><div class="title">TACHE-01 — Données : budget (Player, Level, LevelLoader)</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-12-niveau-puzzle_2epic_8md.html">LOT-12</a> · <b>Emplacement :</b> <code>Source/Core</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md775"></a>
+<h1><a class="anchor" id="autotoc_md809"></a>
 Contexte</h1>
 <p>On déclare le <b>budget de mouvements</b> (<code>EX-GP-024</code>) en données pures, et on l'expose depuis le niveau (format + chargement), avant la logique.</p>
-<h1><a class="anchor" id="autotoc_md776"></a>
+<h1><a class="anchor" id="autotoc_md810"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>Player</code>** (Core/Ecs/Components) : <code>jumpsRemaining</code> et <code>dashesRemaining</code> (<code>int</code>, <b>-1 = illimité</b>), initialisés au spawn depuis le niveau, décomptés par la physique (TACHE-03).</li>
 <li>**<code>Level</code>** (Core/Levels) : <code>jumpBudget</code> et <code>dashBudget</code> (<code>int</code>, défaut <b>-1</b>), accès en lecture ; ajout au constructeur avec <b>valeurs par défaut</b> (rétrocompatible).</li>
 <li>**<code>LevelLoader</code>** : parser les champs <b>optionnels</b> top-level <code>jumpBudget</code>/<code>dashBudget</code> (<code>root.value("jumpBudget", -1)</code>), les passer au <code>Level</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md777"></a>
+<h1><a class="anchor" id="autotoc_md811"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></code>, <code><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></code>, <code><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></code>.</li>
 <li>Tests unitaires (valeurs par défaut, parsing du budget).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md778"></a>
+<h1><a class="anchor" id="autotoc_md812"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>Player</code> par défaut : <code>jumpsRemaining == -1</code>, <code>dashesRemaining == -1</code> (illimité).</li>
 <li><code>Level</code> par défaut : budgets <b>-1</b> ; un <code>Level</code> construit avec budgets les restitue.</li>
 <li><code>LevelLoader</code> : un JSON <b>avec</b> <code>jumpBudget</code>/<code>dashBudget</code> les charge ; <b>sans</b>, ils valent -1.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md779"></a>
+<h1><a class="anchor" id="autotoc_md813"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> ; <code>-1</code> = illimité (convention documentée).</li>
 <li>Rétrocompatibilité : les niveaux existants (sans budget) restent valides et <b>illimités</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md780"></a>
+<h1><a class="anchor" id="autotoc_md814"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Champs + parsing ajoutés, documentés, <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md781"></a>
+<h1><a class="anchor" id="autotoc_md815"></a>
 Exigences</h1>
 <p><code>EX-GP-024</code>, <code>EX-LVL-002</code>, <code>EX-LVL-003</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

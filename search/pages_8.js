@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['câblage_20du_20world_20dans_20la_20boucle_20scène_20de_20démo_0',['TACHE-06 — Câblage du `World` dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
-  ['cadrage_20fixe_20succès_20échec_1',['TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
-  ['cahier_20de_20test_2',['Cahier de test',['../cahiertest.html',1,'']]],
+  ['câblage_20du_20world_20dans_20la_20boucle_20scène_20de_20démo_0',['TACHE-06 — Câblage du World dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
+  ['cadrage_20fixe_20succès_20échec_1',['TACHE-06 — Intégration jouable dans GameScreen (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
+  ['cahier_20de_20test_2',['Cahier de test',['../cahiertest.html',1,'index']]],
   ['caméra_3',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
   ['caméra_202d_20monde_20→_20écran_4',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]],
   ['caméra_20_3a_20englober_20tout_20le_20niveau_20éditeur_20et_20jeu_5',['TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)',['../lot-16-tache-03-camera-niveau-entier.html',1,'lot-16']]],
@@ -25,8 +25,8 @@ var searchData=
   ['collisions_22',['collisions',['../lot-08.html',1,'LOT-08 — Gameplay personnage : déplacement, gravité et collisions'],['../lot-08-tache-03-physique-personnage.html',1,'TACHE-03 — Physique du personnage (gravité + déplacement + collisions)']]],
   ['commande_23',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
   ['composant_20et_20système_20d_20animation_24',['TACHE-01 — Composant et système d&apos;animation',['../lot-18-tache-01-composant-systeme-animation.html',1,'lot-18']]],
-  ['composant_20sprite_20données_20pures_25',['TACHE-01 — Composant `Sprite` (données pures)',['../lot-05-tache-01-composant-sprite.html',1,'lot-05']]],
-  ['composant_20transform_20système_20de_20mouvement_20démo_26',['TACHE-06 — Composant `Transform` + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
+  ['composant_20sprite_20données_20pures_25',['TACHE-01 — Composant Sprite (données pures)',['../lot-05-tache-01-composant-sprite.html',1,'lot-05']]],
+  ['composant_20transform_20système_20de_20mouvement_20démo_26',['TACHE-06 — Composant Transform + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
   ['composants_27',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
   ['composants_20du_20personnage_20intention_20d_20entrée_28',['TACHE-01 — Composants du personnage &amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
   ['composants_20sparse_20set_20typé_29',['TACHE-03 — Stockage de composants (sparse set typé)',['../lot-03-tache-03-stockage-composants.html',1,'lot-03']]],
@@ -40,10 +40,10 @@ var searchData=
   ['conventions_20de_20code_37',['Conventions de code',['../spec-conventions.html',1,'specifications']]],
   ['conventions_20incluses_38',['TACHE-04 — Pages de spécification navigables (conventions incluses)',['../lot-04-tache-04-pages-specification.html',1,'lot-04']]],
   ['copier_20coller_39',['TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller',['../lot-15-tache-05-outils-rectangle-selection.html',1,'lot-15']]],
-  ['core_40',['core',['../lot-03.html',1,'LOT-03 — Fondation ECS &amp; mathématiques `Core`'],['../lot-03-tache-01-math-core.html',1,'TACHE-01 — Types mathématiques de `Core`']]],
+  ['core_40',['core',['../lot-03.html',1,'LOT-03 — Fondation ECS &amp; mathématiques Core'],['../lot-03-tache-01-math-core.html',1,'TACHE-01 — Types mathématiques de Core']]],
   ['course_20saut_41',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
   ['coyote_20time_20jump_20buffering_42',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
   ['créer_20et_20partager_20un_20niveau_20sans_20ligne_20de_20commande_43',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
-  ['ctrl_20r_44',['TACHE-02 — Boîte de dialogue de redimensionnement (`Ctrl+R`)',['../lot-16-tache-02-boite-dialogue-redimensionnement.html',1,'lot-16']]],
+  ['ctrl_20r_44',['TACHE-02 — Boîte de dialogue de redimensionnement (Ctrl+R)',['../lot-16-tache-02-boite-dialogue-redimensionnement.html',1,'lot-16']]],
   ['cycle_20de_20vie_45',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]]
 ];

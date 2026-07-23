@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -185,10 +185,13 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af736466ab0ddd704963d011277f3b993"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f866e82cb3a0faac01f2ae0a8d03699" id="r_a7f866e82cb3a0faac01f2ae0a8d03699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1InputState.html">InputState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a7f866e82cb3a0faac01f2ae0a8d03699">_input</a></td></tr>
 <tr class="separator:a7f866e82cb3a0faac01f2ae0a8d03699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26d45d5de236bde84ecd6343b5d21df" id="r_ae26d45d5de236bde84ecd6343b5d21df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#ae26d45d5de236bde84ecd6343b5d21df">_gamepadWasConnected</a> = false</td></tr>
+<tr class="memdesc:ae26d45d5de236bde84ecd6343b5d21df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour ne journaliser qu'un changement de connexion.  <br /></td></tr>
+<tr class="separator:ae26d45d5de236bde84ecd6343b5d21df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII. </p>
-<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris/manette dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La manette (XInput, <code>EX-CTRL-002</code>) est <b>sondée</b> (pas événementielle comme le clavier/la souris) : <code>pollGamepad</code>, appelée depuis <code>pumpMessages</code>, fusionne son état dans le même <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> via <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> (voir <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>, aucune touche clavier n'est jamais écrasée). La traduction des entrées en actions de gameplay relèvera d'un module dédié. </p>
+<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris/manette dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La manette (XInput, <code>EX-CTRL-002</code>) est <b>sondée</b> (pas événementielle comme le clavier/la souris) : <code>pollGamepad</code>, appelée depuis <code>pumpMessages</code>, fusionne son état dans le même <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> via <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> (voir <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>, aucune touche clavier n'est jamais écrasée). La traduction de l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> en actions de gameplay est un module dédié et indépendant de toute fenêtre (<code>HMI/Input/PlayerInputMapper</code>, <code><a class="el" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b" title="Traduit l&#39;état clavier en core::PlayerInput, dissocié des touches physiques (EX-CTRL-010).">hmi::toPlayerInput</a></code>). </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7091c512e24901972fdbed668a84939e" name="a7091c512e24901972fdbed668a84939e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7091c512e24901972fdbed668a84939e">&#9670;&#160;</a></span>Window() <span class="overload">[1/2]</span></h2>
@@ -649,6 +652,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae26d45d5de236bde84ecd6343b5d21df" name="ae26d45d5de236bde84ecd6343b5d21df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26d45d5de236bde84ecd6343b5d21df">&#9670;&#160;</a></span>_gamepadWasConnected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::Window::_gamepadWasConnected = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pour ne journaliser qu'un changement de connexion. </p>
 
 </div>
 </div>

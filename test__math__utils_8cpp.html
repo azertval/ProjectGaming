@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -163,12 +163,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Deux valeurs identiques sont approximativement égales. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000174">Cas de test:</a></b></dt><dd><b>approximatelyEqual : égalité exacte</b><br  />
+<p><b>Cas de test :</b> <b>approximatelyEqual : égalité exacte</b><br  />
  <b>Categorie :</b> Unitaire · Mathématiques<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Comparer des valeurs identiques (1, 0, -2,5).<br  />
- <b>Resultat attendu :</b> <code>approximatelyEqual</code> renvoie vrai. </dd></dl>
+ <b>Resultat attendu :</b> <code>approximatelyEqual</code> renvoie vrai. </p>
 
 </div>
 </div>
@@ -199,13 +199,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La tolérance est mise à l'échelle des grandes magnitudes (robustesse relative). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000176">Cas de test:</a></b></dt><dd><b>approximatelyEqual : mise à l'échelle des grandes magnitudes</b><br  />
+<p><b>Cas de test :</b> <b>approximatelyEqual : mise à l'échelle des grandes magnitudes</b><br  />
  <b>Categorie :</b> Unitaire · Mathématiques<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Comparer 1e6 et 1e6+1.<br  />
 2. Comparer 1e6 et 1e6+1000.<br  />
- <b>Resultat attendu :</b> Égal pour un petit écart relatif ; différent pour un grand. </dd></dl>
+ <b>Resultat attendu :</b> Égal pour un petit écart relatif ; différent pour un grand. </p>
 
 </div>
 </div>
@@ -236,12 +236,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Des signes opposés ne sont pas égaux. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000177">Cas de test:</a></b></dt><dd><b>approximatelyEqual : signes opposés</b><br  />
+<p><b>Cas de test :</b> <b>approximatelyEqual : signes opposés</b><br  />
  <b>Categorie :</b> Unitaire · Mathématiques<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Comparer 2 et -2.<br  />
- <b>Resultat attendu :</b> Non égaux. </dd></dl>
+ <b>Resultat attendu :</b> Non égaux. </p>
 
 </div>
 </div>
@@ -272,13 +272,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une tolérance explicite élargit l'égalité. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000178">Cas de test:</a></b></dt><dd><b>approximatelyEqual : tolérance explicite</b><br  />
+<p><b>Cas de test :</b> <b>approximatelyEqual : tolérance explicite</b><br  />
  <b>Categorie :</b> Unitaire · Mathématiques<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Comparer 1 et 1,5 sans tolérance.<br  />
 2. Recomparer avec une tolérance de 1.<br  />
- <b>Resultat attendu :</b> Différent par défaut ; égal avec la tolérance élargie. </dd></dl>
+ <b>Resultat attendu :</b> Différent par défaut ; égal avec la tolérance élargie. </p>
 
 </div>
 </div>
@@ -309,13 +309,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un écart en deçà de la tolérance est considéré comme égal, au-delà comme différent. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000175">Cas de test:</a></b></dt><dd><b>approximatelyEqual : tolérance par défaut</b><br  />
+<p><b>Cas de test :</b> <b>approximatelyEqual : tolérance par défaut</b><br  />
  <b>Categorie :</b> Unitaire · Mathématiques<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Comparer 1 et 1+1e-6.<br  />
 2. Comparer 1 et 1,1.<br  />
- <b>Resultat attendu :</b> Égal sous la tolérance ; différent au-delà. </dd></dl>
+ <b>Resultat attendu :</b> Égal sous la tolérance ; différent au-delà. </p>
 
 </div>
 </div>

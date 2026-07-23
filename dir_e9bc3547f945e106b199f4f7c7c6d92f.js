@@ -10,6 +10,7 @@ var dir_e9bc3547f945e106b199f4f7c7c6d92f =
     [ "LevelOutcome.h", "LevelOutcome_8h.html", "LevelOutcome_8h" ],
     [ "LevelScene.cpp", "LevelScene_8cpp.html", "LevelScene_8cpp" ],
     [ "LevelScene.h", "LevelScene_8h.html", "LevelScene_8h" ],
+    [ "LevelsLog.h", "LevelsLog_8h.html", "LevelsLog_8h" ],
     [ "LevelWriter.cpp", "LevelWriter_8cpp.html", null ],
     [ "LevelWriter.h", "LevelWriter_8h.html", "LevelWriter_8h" ],
     [ "TileMap.cpp", "TileMap_8cpp.html", null ],

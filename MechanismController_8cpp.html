@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,6 +96,8 @@ $(document).ready(function(){initNavTree('MechanismController_8cpp.html',''); in
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="GameplayLog_8h_source.html">Core/Gameplay/GameplayLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
@@ -104,34 +106,58 @@ Include dependency graph for MechanismController.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="MechanismController_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Gameplay_2MechanismController_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Gameplay_2MechanismController_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Gameplay_2MechanismController_8cpp">
-<area shape="rect" title=" " alt="" coords="481,5,777,60"/>
-<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="149,108,426,133"/>
-<area shape="poly" title=" " alt="" coords="525,63,347,107,345,102,524,57"/>
-<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="432,255,625,280"/>
-<area shape="poly" title=" " alt="" coords="620,61,542,243,537,241,615,59"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="410,328,578,353"/>
-<area shape="poly" title=" " alt="" coords="641,59,654,104,663,162,664,193,661,224,653,254,639,282,611,309,577,326,574,321,608,304,635,278,648,252,656,223,659,193,658,163,649,106,636,61"/>
-<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="701,108,855,133"/>
-<area shape="poly" title=" " alt="" coords="676,58,747,99,745,103,673,62"/>
-<area shape="rect" title=" " alt="" coords="252,181,323,207"/>
-<area shape="poly" title=" " alt="" coords="290,134,290,168,285,168,285,134"/>
-<area shape="rect" title=" " alt="" coords="5,328,68,353"/>
-<area shape="poly" title=" " alt="" coords="160,136,110,154,88,167,68,183,48,213,38,248,35,284,36,314,31,314,29,284,33,247,43,211,64,180,85,163,108,149,158,131"/>
-<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="78,181,227,207"/>
-<area shape="poly" title=" " alt="" coords="267,136,188,177,186,172,264,131"/>
-<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="241,255,408,280"/>
-<area shape="poly" title=" " alt="" coords="303,132,321,153,337,181,340,212,336,242,330,241,335,212,331,182,317,156,299,135"/>
-<area shape="poly" title=" " alt="" coords="127,209,94,228,64,256,50,285,42,315,37,314,45,283,60,253,91,224,124,204"/>
-<area shape="rect" title=" " alt="" coords="74,255,133,280"/>
-<area shape="poly" title=" " alt="" coords="147,209,121,245,117,242,142,205"/>
-<area shape="rect" title=" " alt="" coords="157,255,217,280"/>
-<area shape="poly" title=" " alt="" coords="161,206,178,241,173,243,156,208"/>
-<area shape="poly" title=" " alt="" coords="214,204,455,249,454,255,213,209"/>
-<area shape="poly" title=" " alt="" coords="181,204,285,247,283,252,179,209"/>
-<area shape="poly" title=" " alt="" coords="279,283,82,331,81,326,278,277"/>
-<area shape="poly" title=" " alt="" coords="353,278,455,320,453,325,351,282"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="701,181,855,207"/>
-<area shape="poly" title=" " alt="" coords="781,134,781,168,775,168,775,134"/>
+<area shape="rect" title=" " alt="" coords="552,5,848,60"/>
+<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="356,108,633,133"/>
+<area shape="poly" title=" " alt="" coords="638,63,536,105,534,100,636,58"/>
+<area shape="rect" title=" " alt="" coords="685,328,744,353"/>
+<area shape="poly" title=" " alt="" coords="704,60,716,314,711,314,699,60"/>
+<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="443,255,637,280"/>
+<area shape="poly" title=" " alt="" coords="690,61,648,135,602,196,561,246,557,242,598,193,643,132,685,59"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="5,328,173,353"/>
+<area shape="poly" title=" " alt="" coords="552,58,449,80,345,111,252,136,177,156,144,169,113,189,84,217,56,256,51,271,54,286,71,316,66,319,49,288,46,270,51,253,80,213,110,184,141,164,175,150,251,131,343,105,448,75,551,53"/>
+<area shape="rect" href="GameplayLog_8h.html" title="Macros de journalisation de la catégorie « Gameplay »." alt="" coords="763,108,992,133"/>
+<area shape="poly" title=" " alt="" coords="755,58,842,100,840,104,753,62"/>
+<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="1016,108,1171,133"/>
+<area shape="poly" title=" " alt="" coords="821,57,1029,103,1027,108,820,63"/>
+<area shape="rect" title=" " alt="" coords="459,181,530,207"/>
+<area shape="poly" title=" " alt="" coords="497,134,497,168,492,168,492,134"/>
+<area shape="rect" title=" " alt="" coords="455,328,518,353"/>
+<area shape="poly" title=" " alt="" coords="524,131,573,156,625,191,645,211,658,234,661,257,652,281,627,306,596,323,563,334,532,339,531,334,562,328,594,318,624,302,647,279,656,257,653,235,641,214,621,195,570,160,521,136"/>
+<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="283,181,432,207"/>
+<area shape="poly" title=" " alt="" coords="474,136,393,177,391,173,471,131"/>
+<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="66,255,233,280"/>
+<area shape="poly" title=" " alt="" coords="428,136,352,155,272,184,218,215,174,248,171,244,215,211,270,179,350,150,427,131"/>
+<area shape="poly" title=" " alt="" coords="361,206,370,241,378,261,389,278,415,302,445,320,442,324,412,306,385,282,373,263,364,243,356,208"/>
+<area shape="poly" title=" " alt="" coords="366,205,392,242,411,261,433,278,494,305,559,322,621,332,672,336,672,341,620,337,558,328,493,310,431,282,408,265,388,245,362,208"/>
+<area shape="rect" title=" " alt="" coords="257,255,317,280"/>
+<area shape="poly" title=" " alt="" coords="348,209,310,247,306,243,344,205"/>
+<area shape="poly" title=" " alt="" coords="388,204,498,247,496,252,386,209"/>
+<area shape="poly" title=" " alt="" coords="325,209,197,253,195,248,323,204"/>
+<area shape="poly" title=" " alt="" coords="204,277,442,327,441,333,203,283"/>
+<area shape="poly" title=" " alt="" coords="141,282,110,319,106,316,137,279"/>
+<area shape="rect" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="807,181,977,207"/>
+<area shape="poly" title=" " alt="" coords="882,133,889,167,884,168,877,134"/>
+<area shape="rect" href="LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="763,255,981,280"/>
+<area shape="poly" title=" " alt="" coords="891,208,881,242,876,241,886,206"/>
+<area shape="rect" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="1038,401,1245,427"/>
+<area shape="poly" title=" " alt="" coords="978,201,1109,221,1169,235,1209,252,1238,274,1259,297,1268,324,1265,339,1258,355,1234,381,1202,398,1200,394,1230,377,1254,352,1260,337,1262,324,1254,300,1234,278,1207,257,1167,240,1108,226,977,206"/>
+<area shape="rect" href="Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="1005,255,1195,280"/>
+<area shape="poly" title=" " alt="" coords="926,204,1054,248,1052,253,925,209"/>
+<area shape="poly" title=" " alt="" coords="848,282,754,325,752,320,846,278"/>
+<area shape="rect" title=" " alt="" coords="783,401,881,427"/>
+<area shape="poly" title=" " alt="" coords="857,282,834,302,816,329,812,344,813,359,822,388,817,389,808,359,807,343,811,327,830,299,853,278"/>
+<area shape="poly" title=" " alt="" coords="876,280,886,316,896,335,910,351,935,369,964,384,1025,402,1023,407,962,389,933,374,906,355,891,338,881,318,871,281"/>
+<area shape="poly" title=" " alt="" coords="1005,282,532,337,532,331,1004,277"/>
+<area shape="poly" title=" " alt="" coords="1034,283,971,301,939,314,910,330,875,360,849,391,845,388,871,356,906,326,937,309,969,296,1032,278"/>
+<area shape="poly" title=" " alt="" coords="1164,278,1205,296,1223,309,1238,327,1243,338,1243,349,1232,368,1211,385,1186,398,1184,394,1208,380,1228,365,1238,348,1238,339,1234,329,1220,313,1202,300,1162,283"/>
+<area shape="rect" title=" " alt="" coords="1147,328,1224,353"/>
+<area shape="poly" title=" " alt="" coords="1115,278,1163,317,1159,321,1112,282"/>
+<area shape="rect" href="ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="920,328,1123,353"/>
+<area shape="poly" title=" " alt="" coords="1089,282,1046,321,1042,317,1086,278"/>
+<area shape="poly" title=" " alt="" coords="992,356,877,399,875,394,990,351"/>
+<area shape="poly" title=" " alt="" coords="1042,351,1111,392,1108,396,1039,356"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="1016,181,1171,207"/>
+<area shape="poly" title=" " alt="" coords="1096,134,1096,168,1091,168,1091,134"/>
 </map>
 </div>
 </div><table class="memberdecls">

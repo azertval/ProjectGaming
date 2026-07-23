@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -192,13 +192,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000065">Cas de test:</a></b></dt><dd><b><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</b><br  />
+<p><b>Cas de test :</b> <b><code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> <code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent.</dd></dl>
+ <b>Resultat attendu :</b> <code>add</code> puis <code>get</code> renvoie la valeur stockée ; <code>has</code> est cohérent. </p>
 
 </div>
 </div>
@@ -229,13 +229,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>get</code> renvoie une référence modifiable sur le composant stocké. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000066">Cas de test:</a></b></dt><dd><b><code>get</code> renvoie une référence modifiable sur le composant stocké.</b><br  />
+<p><b>Cas de test :</b> <b><code>get</code> renvoie une référence modifiable sur le composant stocké.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> <code>get</code> renvoie une référence modifiable sur le composant stocké.</dd></dl>
+ <b>Resultat attendu :</b> <code>get</code> renvoie une référence modifiable sur le composant stocké. </p>
 
 </div>
 </div>
@@ -266,13 +266,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>get</code> sur une entité absente viole une précondition (assertion en Debug). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000071">Cas de test:</a></b></dt><dd><b><code>get</code> sur une entité absente viole une précondition (assertion en Debug).</b><br  />
+<p><b>Cas de test :</b> <b><code>get</code> sur une entité absente viole une précondition (assertion en Debug).</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> <code>get</code> sur une entité absente viole une précondition (assertion en Debug).</dd></dl>
+ <b>Resultat attendu :</b> <code>get</code> sur une entité absente viole une précondition (assertion en Debug). </p>
 
 </div>
 </div>
@@ -303,13 +303,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000069">Cas de test:</a></b></dt><dd><b>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</b><br  />
+<p><b>Cas de test :</b> <b>Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité.</dd></dl>
+ <b>Resultat attendu :</b> Un handle périmé (index recyclé, génération différente) ne possède pas le composant de l'ancienne entité. </p>
 
 </div>
 </div>
@@ -340,13 +340,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000067">Cas de test:</a></b></dt><dd><b><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</b><br  />
+<p><b>Cas de test :</b> <b><code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> <code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu.</dd></dl>
+ <b>Resultat attendu :</b> <code>remove</code> d'un élément au milieu (swap-and-pop) laisse les autres composants accessibles et corrects, et le stockage dense reste contigu. </p>
 
 </div>
 </div>
@@ -377,13 +377,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retirer le dernier élément ne perturbe pas les précédents. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000068">Cas de test:</a></b></dt><dd><b>Retirer le dernier élément ne perturbe pas les précédents.</b><br  />
+<p><b>Cas de test :</b> <b>Retirer le dernier élément ne perturbe pas les précédents.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Retirer le dernier élément ne perturbe pas les précédents.</dd></dl>
+ <b>Resultat attendu :</b> Retirer le dernier élément ne perturbe pas les précédents. </p>
 
 </div>
 </div>
@@ -414,13 +414,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000070">Cas de test:</a></b></dt><dd><b><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</b><br  />
+<p><b>Cas de test :</b> <b><code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</b><br  />
  <b>Categorie :</b> Unitaire · Component Pool<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> <code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien.</dd></dl>
+ <b>Resultat attendu :</b> <code>removeIfPresent</code> retire si le composant existe, sinon ne fait rien. </p>
 
 </div>
 </div>

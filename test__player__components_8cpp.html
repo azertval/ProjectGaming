@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -181,13 +181,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les composants sont des agrégats : l'initialisation par accolades renseigne les champs. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000083">Cas de test:</a></b></dt><dd><b>Agrégation des composants</b><br  />
+<p><b>Cas de test :</b> <b>Agrégation des composants</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Initialiser <code>Collider</code> et <code>PlayerInput</code> par accolades.<br  />
 2. Lire les champs.<br  />
- <b>Resultat attendu :</b> Les valeurs fournies sont bien affectées (agrégats). </dd></dl>
+ <b>Resultat attendu :</b> Les valeurs fournies sont bien affectées (agrégats). </p>
 
 </div>
 </div>
@@ -218,13 +218,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au spawn. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000078">Cas de test:</a></b></dt><dd><b>Collider par défaut nul</b><br  />
+<p><b>Cas de test :</b> <b>Collider par défaut nul</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Construire un <code><a class="el" href="structcore_1_1Collider.html" title="Étendue physique d&#39;une entité pour la collision : une boîte alignée aux axes (AABB).">core::Collider</a></code> par défaut.<br  />
 2. Lire <code>size.x</code> et <code>size.y</code>.<br  />
- <b>Resultat attendu :</b> La boîte est nulle, <code>size</code> vaut (0, 0). </dd></dl>
+ <b>Resultat attendu :</b> La boîte est nulle, <code>size</code> vaut (0, 0). </p>
 
 </div>
 </div>
@@ -255,13 +255,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000081">Cas de test:</a></b></dt><dd><b>PhysicsConfig par défaut plausible</b><br  />
+<p><b>Cas de test :</b> <b>PhysicsConfig par défaut plausible</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Construire un <code><a class="el" href="structcore_1_1PhysicsConfig.html" title="Paramètres réglables de la physique du personnage, regroupés pour faciliter le tuning.">core::PhysicsConfig</a></code> par défaut.<br  />
 2. Vérifier chaque réglage.<br  />
- <b>Resultat attendu :</b> Vitesses/temps &gt; 0 ; <code>jumpCutFactor</code> ∈ [0, 1] ; multiplicateurs de chute/fast-fall &gt; 1 ; apex ∈ ]0, 1[ ; au moins 1 saut aérien. </dd></dl>
+ <b>Resultat attendu :</b> Vitesses/temps &gt; 0 ; <code>jumpCutFactor</code> ∈ [0, 1] ; multiplicateurs de chute/fast-fall &gt; 1 ; apex ∈ ]0, 1[ ; au moins 1 saut aérien. </p>
 
 </div>
 </div>
@@ -292,13 +292,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000080">Cas de test:</a></b></dt><dd><b>PlayerInput par défaut neutre</b><br  />
+<p><b>Cas de test :</b> <b>PlayerInput par défaut neutre</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Construire un <code><a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a></code> par défaut.<br  />
 2. Lire ses champs.<br  />
- <b>Resultat attendu :</b> <code>moveX</code>/<code>moveY</code> nuls ; aucun front de saut ni de dash. </dd></dl>
+ <b>Resultat attendu :</b> <code>moveX</code>/<code>moveY</code> nuls ; aucun front de saut ni de dash. </p>
 
 </div>
 </div>
@@ -329,13 +329,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000079">Cas de test:</a></b></dt><dd><b>Player par défaut (en l'air, budgets illimités)</b><br  />
+<p><b>Cas de test :</b> <b>Player par défaut (en l'air, budgets illimités)</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Construire un <code><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></code> par défaut.<br  />
 2. Lire ses champs.<br  />
- <b>Resultat attendu :</b> Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ; budgets sauts/dashs à -1 (illimité) ; masse à 1,0 (<code>EX-GP-019</code>). </dd></dl>
+ <b>Resultat attendu :</b> Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ; budgets sauts/dashs à -1 (illimité) ; masse à 1,0 (<code>EX-GP-019</code>). </p>
 
 </div>
 </div>
@@ -366,13 +366,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000082">Cas de test:</a></b></dt><dd><b>Taille humanoïde et spawn centré</b><br  />
+<p><b>Cas de test :</b> <b>Taille humanoïde et spawn centré</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Lire <code>playerSize()</code>.<br  />
 2. Calculer <code>playerSpawnPosition(3, 5)</code>.<br  />
- <b>Resultat attendu :</b> Taille (0,4 ; 0,8) ; position centrée dans la tuile : (3,3 ; 5,1). </dd></dl>
+ <b>Resultat attendu :</b> Taille (0,4 ; 0,8) ; position centrée dans la tuile : (3,3 ; 5,1). </p>
 
 </div>
 </div>

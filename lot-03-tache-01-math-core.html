@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: TACHE-01 — Types mathématiques de `Core`</title>
+<title>ProjectGaming: TACHE-01 — Types mathématiques de Core</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -90,21 +90,21 @@ $(document).ready(function(){initNavTree('lot-03-tache-01-math-core.html',''); i
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">TACHE-01 — Types mathématiques de `Core`</div></div>
+  <div class="headertitle"><div class="title">TACHE-01 — Types mathématiques de Core</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Math</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md290"></a>
+<h1><a class="anchor" id="autotoc_md324"></a>
 Contexte</h1>
 <p>Les composants (à commencer par <code>Transform</code>) et la physique ont besoin de types mathématiques 2D. <code>Core</code> ne devant pas dépendre de DirectX (<code>EX-ARCH-040</code>), ces types sont <b>propres au projet</b>. La conversion vers <code>DirectXMath</code> se fera plus tard, uniquement dans <code>HMI</code>.</p>
-<h1><a class="anchor" id="autotoc_md291"></a>
+<h1><a class="anchor" id="autotoc_md325"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>Vector2</code> (composantes <code>float</code>) : addition, soustraction, multiplication/division par un scalaire, produit scalaire, longueur, normalisation, égalité.</li>
 <li><code>Rect</code> (position + dimensions en unités monde, origine haut-gauche, Y-bas) : test de <b>contenance</b> d'un point, test d'<b>intersection</b> avec un autre <code>Rect</code>.</li>
 <li>Constantes/utilitaires minimaux si nécessaires (ex. comparaison approchée de <code>float</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md292"></a>
+<h1><a class="anchor" id="autotoc_md326"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).">Source/Core/Math/Vector2.h</a></code>, <code><a class="el" href="Vector2_8cpp.html">Vector2.cpp</a></code> (nouveau).</li>
@@ -112,7 +112,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code> (ajout des sources).</li>
 <li><code>Source/Test/Unit/test_vector2.cpp</code>, <code><a class="el" href="test__rect_8cpp.html" title="Tests unitaires du rectangle aligné sur les axes de Core.">test_rect.cpp</a></code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md293"></a>
+<h1><a class="anchor" id="autotoc_md327"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Opérations vectorielles : résultats attendus (somme, échelle, produit scalaire, longueur d'un <code>(3,4)</code> = 5).</li>
@@ -120,20 +120,20 @@ Tests (obligatoires)</h1>
 <li><code>Rect::contains</code> : points intérieurs, sur les bords, extérieurs.</li>
 <li><code>Rect::intersects</code> : recouvrement, contact par un bord, disjonction.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md294"></a>
+<h1><a class="anchor" id="autotoc_md328"></a>
 Points d'attention</h1>
 <ul>
 <li>Types <b>sans dépendance système</b> ni DirectX.</li>
 <li>Comparaisons de <code>float</code> par tolérance (pas d'<code>==</code> brut sur des résultats calculés).</li>
 <li>Conventions : <code>_camelCase</code> pour d'éventuels membres, documentation <code>.h</code> + <code>.cpp</code>, <code>[[nodiscard]]</code> sur les accès purs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md295"></a>
+<h1><a class="anchor" id="autotoc_md329"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Types complets et testés (<code>ctest</code> vert), sans dépendance externe.</li>
 <li>Compile <code>/W4 /WX</code>, formaté clang-format, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md296"></a>
+<h1><a class="anchor" id="autotoc_md330"></a>
 Exigences</h1>
 <p><code>EX-ARCH-040</code>, <code>EX-NFR-010</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->
@@ -142,7 +142,7 @@ Exigences</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="index.html">ProjectGaming</a></li><li class="navelem"><a class="el" href="lots.html">Lots</a></li><li class="navelem"><a class="el" href="lot-03.html">LOT-03 — Fondation ECS &amp; mathématiques `Core`</a></li>
+    <li class="navelem"><a class="el" href="index.html">ProjectGaming</a></li><li class="navelem"><a class="el" href="lots.html">Lots</a></li><li class="navelem"><a class="el" href="lot-03.html">LOT-03 — Fondation ECS &amp; mathématiques Core</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

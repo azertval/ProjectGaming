@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -566,7 +566,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
-<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle (leur <b>comportement</b> relève d'un lot ultérieur, ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>

@@ -1,7 +1,7 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI">
 <area shape="rect" id="node1" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html" title="Core" alt="" coords="333,356,385,381"/>
 <area shape="poly" id="edge1" href="dir_000014_000001.html" alt="" coords="283,85,318,103,360,129,400,164,417,185,430,208,436,231,436,260,429,290,417,320,405,336,391,349,387,346,401,333,412,317,424,289,431,259,431,232,426,210,412,188,396,168,357,134,316,107,281,89"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000014_000001.html" title="59" alt="" coords="389,344,406,359"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000014_000001.html" title="60" alt="" coords="389,344,406,359"/>
 <area shape="rect" id="node4" href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html" title="Graphics" alt="" coords="159,283,238,308"/>
 <area shape="poly" id="edge2" href="dir_000014_000011.html" alt="" coords="234,86,192,102,141,127,91,163,70,185,53,210,49,225,51,237,59,247,72,257,107,273,147,283,145,288,105,278,69,262,55,251,46,239,43,224,48,208,66,182,88,159,138,123,190,97,232,81"/>
 <area shape="rect" id="edge2-headlabel" href="dir_000014_000011.html" title="32" alt="" coords="134,269,152,284"/>
@@ -16,7 +16,7 @@
 <area shape="rect" id="edge4-headlabel" href="dir_000014_000051.html" title="3" alt="" coords="351,182,361,196"/>
 <area shape="rect" id="node3" href="dir_8582677ef72a95e6c2b44a30d95c0011.html" title="Editor" alt="" coords="214,209,274,235"/>
 <area shape="poly" id="edge6" href="dir_000007_000001.html" alt="" coords="271,233,304,252,334,281,350,311,358,342,353,343,345,313,330,284,301,257,268,237"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000007_000001.html" title="1" alt="" coords="358,329,368,344"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000007_000001.html" title="2" alt="" coords="358,329,368,344"/>
 <area shape="poly" id="edge7" href="dir_000007_000011.html" alt="" coords="239,236,216,273,211,270,234,234"/>
 <area shape="rect" id="edge7-headlabel" href="dir_000007_000011.html" title="1" alt="" coords="218,265,228,279"/>
 <area shape="rect" id="node5" href="dir_76d97c54a16374659ce0f27a302675ee.html" title="Input" alt="" coords="265,283,319,308"/>
@@ -29,7 +29,7 @@
 <area shape="poly" id="edge11" href="dir_000019_000001.html" alt="" coords="295,159,371,184,403,197,419,208,428,226,431,245,422,283,403,318,381,347,377,344,398,315,417,281,425,244,423,227,415,211,400,202,369,189,294,164"/>
 <area shape="rect" id="edge11-headlabel" href="dir_000019_000001.html" title="35" alt="" coords="380,340,397,355"/>
 <area shape="poly" id="edge14" href="dir_000019_000007.html" alt="" coords="258,162,251,196,246,195,253,161"/>
-<area shape="rect" id="edge14-headlabel" href="dir_000019_000007.html" title="8" alt="" coords="253,186,262,200"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000019_000007.html" title="9" alt="" coords="253,186,262,200"/>
 <area shape="poly" id="edge12" href="dir_000019_000011.html" alt="" coords="243,164,221,184,204,210,197,240,198,269,192,269,192,239,199,208,217,180,239,160"/>
 <area shape="rect" id="edge12-headlabel" href="dir_000019_000011.html" title="25" alt="" coords="194,256,211,271"/>
 <area shape="poly" id="edge13" href="dir_000019_000016.html" alt="" coords="267,160,279,182,289,209,294,240,296,268,290,269,289,240,284,210,274,184,263,163"/>
