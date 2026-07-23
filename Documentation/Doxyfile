@@ -3,7 +3,7 @@
 # Les options non spécifiées gardent les valeurs par défaut de Doxygen.
 
 PROJECT_NAME           = "ProjectGaming"
-PROJECT_NUMBER         = 0.0.1
+PROJECT_NUMBER         = 0.0.3
 PROJECT_BRIEF          = "Jeu 2D de plateforme/puzzle en C++/DirectX"
 
 OUTPUT_DIRECTORY       = generated
