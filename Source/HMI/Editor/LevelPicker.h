@@ -15,11 +15,13 @@ namespace hmi {
 class InputState;
 
 /**
- * @brief Liste « Nouveau niveau » + les fichiers `.json` d'un dossier, navigable au clavier.
+ * @brief Liste « Nouveau niveau » + les fichiers `.json` d'un dossier, navigable au clavier et à
+ *        la souris.
  *
  * Affiché avant l'entrée en édition (`EX-EDIT-001`) : un non-codeur choisit de partir d'un
  * brouillon vierge ou de reprendre un niveau déjà enregistré, sans ligne de commande. Navigation
- * clavier (`↑`/`↓` + `Entrée`), à l'identique de `MenuModel`. Le constructeur public est **pur**
+ * clavier (`↑`/`↓` + `Entrée`) et souris (survol + clic gauche), à l'identique de `MenuModel`.
+ * Le constructeur public est **pur**
  * (liste de choix déjà résolue, testable sans système de fichiers, `EX-NFR-010`) ; `forDirectory`
  * fait le pont avec le disque (usage réel, non testé unitairement — comme le reste des accès
  * fichier de `HMI`).
@@ -61,13 +63,17 @@ public:
     }
 
     /**
-     * @brief Met à jour la sélection (`↑`/`↓`) et détecte la confirmation (`Entrée`).
+     * @brief Met à jour la sélection (`↑`/`↓`, survol souris) et détecte la confirmation
+     *        (`Entrée`, ou clic gauche sur un choix survolé).
      * @param input État des entrées de la frame.
      * @return L'indice confirmé ce pas-ci, ou `std::nullopt` si rien n'a été validé.
      */
     [[nodiscard]] std::optional<int> update(const InputState& input);
 
 private:
+    /// @return L'indice du choix dont le rectangle contient (@p x, @p y), ou -1.
+    [[nodiscard]] int optionAtPoint(int x, int y) const;
+
     std::vector<Choice> _choices;
     int _selected = 0;
 };

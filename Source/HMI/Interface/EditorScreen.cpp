@@ -926,8 +926,8 @@ void EditorScreen::renderTextPrompt(RenderContext& context) {
             break;
         case TextPromptPurpose::ResizeGrid:
             title = "Nouvelle taille (largeur x hauteur)";
-            rejectionMessage = "Taille invalide : format attendu \"largeurxhauteur\" (ex. 40x30), "
-                               "chaque valeur entre 1 et " +
+            rejectionMessage = "Taille invalide : format attendu \"largeurxhauteur\" (ex. 40x30 "
+                               "ou 40*30), chaque valeur entre 1 et " +
                                std::to_string(MAX_LEVEL_DIMENSION) + ".";
             break;
     }

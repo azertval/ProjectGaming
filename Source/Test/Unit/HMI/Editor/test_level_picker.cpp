@@ -18,6 +18,15 @@ namespace {
     };
 }
 
+// Point situe a l'interieur du rectangle du choix index (mise en page a chasse fixe).
+int choicePointX() {
+    return static_cast<int>(hmi::LevelPicker::MARGIN_X) + 5;
+}
+int choicePointY(int index) {
+    return static_cast<int>(hmi::LevelPicker::OPTIONS_TOP) +
+          index * static_cast<int>(hmi::LevelPicker::OPTION_SPACING) + 5;
+}
+
 }  // namespace
 
 /**
@@ -115,6 +124,75 @@ TEST(LevelPickerTest, SansAppuiAucuneConfirmation) {
     input.beginFrame();
 
     EXPECT_FALSE(picker.update(input).has_value());
+}
+
+/**
+ * @brief Survoler un choix à la souris déplace la sélection dessus (sans confirmer).
+ * \castest{<b>Survoler un choix à la souris déplace la sélection dessus (sans confirmer).</b><br/>
+ * \tcat Unitaire · Level Picker<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Survoler un choix à la souris déplace la sélection dessus (sans confirmer).
+ * }
+ */
+TEST(LevelPickerTest, SurvolSourisDeplaceLaSelection) {
+    hmi::LevelPicker picker(threeChoices());
+    hmi::InputState input;
+    input.beginFrame();
+    input.onMouseMove(choicePointX(), choicePointY(2));
+
+    const std::optional<int> confirmed = picker.update(input);
+
+    EXPECT_EQ(picker.selected(), 2);
+    EXPECT_FALSE(confirmed.has_value());
+}
+
+/**
+ * @brief Un clic gauche sur un choix survolé le confirme.
+ * \castest{<b>Un clic gauche sur un choix survolé le confirme.</b><br/>
+ * \tcat Unitaire · Level Picker<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un clic gauche sur un choix survolé le confirme.
+ * }
+ */
+TEST(LevelPickerTest, ClicGaucheConfirmeLeChoixSurvole) {
+    hmi::LevelPicker picker(threeChoices());
+    hmi::InputState input;
+    input.beginFrame();
+    input.onMouseMove(choicePointX(), choicePointY(1));
+    input.onMouseButtonDown(hmi::MouseButton::Left);
+
+    const std::optional<int> confirmed = picker.update(input);
+
+    ASSERT_TRUE(confirmed.has_value());
+    EXPECT_EQ(*confirmed, 1);
+    EXPECT_EQ(picker.choices()[*confirmed].path, std::filesystem::path("demo.json"));
+}
+
+/**
+ * @brief La souris hors de tout choix ne change ni la sélection ni la confirmation.
+ * \castest{<b>La souris hors de tout choix ne change ni la sélection ni la confirmation.</b><br/>
+ * \tcat Unitaire · Level Picker<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La souris hors de tout choix ne change ni la sélection ni la confirmation.
+ * }
+ */
+TEST(LevelPickerTest, SourisHorsChoixNeChangeRien) {
+    hmi::LevelPicker picker(threeChoices());
+    hmi::InputState input;
+    input.beginFrame();
+    input.onMouseMove(-100, -100);
+    input.onMouseButtonDown(hmi::MouseButton::Left);
+
+    const std::optional<int> confirmed = picker.update(input);
+
+    EXPECT_EQ(picker.selected(), 0);
+    EXPECT_FALSE(confirmed.has_value());
 }
 
 /**

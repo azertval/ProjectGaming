@@ -6,6 +6,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Corrigé
+- **Sélection de niveau à la souris** (`hmi::LevelPicker`) : le sélecteur de niveau de l'éditeur
+  (« Choisir un niveau ») ne répondait qu'au clavier (`↑`/`↓`/`Entrée`) — le survol et le clic
+  gauche sélectionnent et confirment désormais un choix, comme le menu principal
+  (`hmi::MenuModel`, même mise en page à chasse fixe).
+- **Séparateur `*` accepté pour la taille de grille** (`hmi::parseLevelSize`, `Ctrl+R`) : en plus
+  de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
+
 ### Ajouté
 - **LOT-19 — Physique newtonienne et plaque de pression** (`EX-GP-019`, `EX-GP-025`). Deux
   évolutions liées par le **poids** du personnage : la chute suit désormais un modèle

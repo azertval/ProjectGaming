@@ -43,6 +43,21 @@ TEST(LevelSizeValidationTest, EspacesEtCasseTolerees) {
 }
 
 /**
+ * @brief Le séparateur `*` est accepté comme alternative à `x`/`X`.
+ * \castest{<b>Le séparateur `*` est accepté comme alternative à `x`/`X`.</b><br/>
+ * \tcat Unitaire · Level Size Validation<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le séparateur `*` est accepté comme alternative à `x`/`X`.
+ * }
+ */
+TEST(LevelSizeValidationTest, SeparateurEtoileAccepte) {
+    EXPECT_EQ(hmi::parseLevelSize("40*30"), (std::make_pair(40, 30)));
+    EXPECT_EQ(hmi::parseLevelSize("40 * 30"), (std::make_pair(40, 30)));
+}
+
+/**
  * @brief Un texte sans séparateur est refusé.
  * \castest{<b>Un texte sans séparateur est refusé.</b><br/>
  * \tcat Unitaire · Level Size Validation<br/>

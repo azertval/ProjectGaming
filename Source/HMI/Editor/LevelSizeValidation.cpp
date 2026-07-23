@@ -38,7 +38,8 @@ std::optional<int> parseDimension(std::string_view text) {
 }  // namespace
 
 std::optional<std::pair<int, int>> parseLevelSize(const std::string& text) {
-    const std::size_t separator = text.find_first_of("xX");
+    // Separateur largeur/hauteur : x/X (historique) ou * (EX-EDIT-017, alternatif — ex. "60*40").
+    const std::size_t separator = text.find_first_of("xX*");
     if (separator == std::string::npos) {
         return std::nullopt;
     }

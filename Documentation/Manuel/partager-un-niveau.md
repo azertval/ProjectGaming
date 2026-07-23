@@ -43,7 +43,7 @@ gauche de l'écran ; appuyez sur **F1** à tout moment pour afficher la liste co
 | Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** de la souris pour déplacer la vue ; **molette** pour zoomer/dézoomer ; touche **0** pour revenir au cadrage automatique. |
 | Afficher un quadrillage | **F10** — des lignes fines apparaissent sur chaque case, utile pour bien viser avant de peindre. |
 | Agrandir / réduire la grille (case par case) | Flèches **←**/**→** pour la largeur, **↑**/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (**Entrée** = confirmer, **Échap** = annuler) avant d'agir. |
-| Choisir une taille précise | **Ctrl+R**, taper la nouvelle taille au format `largeurxhauteur` (ex. `60x40`), **Entrée** pour valider (**Échap** annule sans rien changer). Même plafond et même confirmation destructrice qu'aux flèches. |
+| Choisir une taille précise | **Ctrl+R**, taper la nouvelle taille au format `largeurxhauteur` (ex. `60x40`, ou `60*40`), **Entrée** pour valider (**Échap** annule sans rien changer). Même plafond et même confirmation destructrice qu'aux flèches. |
 | Renommer le niveau | **F2**, taper le nouveau nom, **Entrée** pour valider (**Échap** pour annuler sans rien changer). |
 | Annuler / refaire | **Ctrl+Z** / **Ctrl+Y**. |
 | Tester le niveau | Touche **P** — le niveau se joue directement dans l'éditeur ; **Échap** pour revenir à l'édition, rien n'est perdu. |

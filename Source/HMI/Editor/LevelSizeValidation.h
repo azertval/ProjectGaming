@@ -22,9 +22,9 @@ namespace hmi {
 constexpr int MAX_LEVEL_DIMENSION = 100;
 
 /**
- * @brief Analyse un texte au format « largeur x hauteur » (ex. `40x30`).
+ * @brief Analyse un texte au format « largeur x hauteur » (ex. `40x30`, ou `40*30`).
  *
- * Séparateur `x`/`X`, espaces tolérés autour de chaque valeur. Chaque dimension doit être un
+ * Séparateur `x`/`X`/`*`, espaces tolérés autour de chaque valeur. Chaque dimension doit être un
  * entier compris entre 1 et `MAX_LEVEL_DIMENSION` inclus.
  * @param text Texte saisi.
  * @return La paire (largeur, hauteur) si le texte est bien formé et dans les bornes ; sinon vide.
