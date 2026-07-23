@@ -89,6 +89,82 @@ def extract_assertions(body_text):
     return assertions
 
 
+def split_top_level_args(text):
+    """Découpe les arguments d'un appel de fonction par les virgules de premier niveau
+    (celles qui ne sont pas à l'intérieur d'une parenthèse/accolade/crochet imbriqué)."""
+    parts = []
+    depth = 0
+    current = []
+    index = 0
+    while index < len(text):
+        skip_to = skip_literal_or_comment(text, index)
+        if skip_to is not None:
+            current.append(text[index:skip_to])
+            index = skip_to
+            continue
+        char = text[index]
+        if char in '([{':
+            depth += 1
+            current.append(char)
+        elif char in ')]}':
+            depth -= 1
+            current.append(char)
+        elif char == ',' and depth == 0:
+            parts.append(''.join(current).strip())
+            current = []
+        else:
+            current.append(char)
+        index += 1
+    if current:
+        parts.append(''.join(current).strip())
+    return parts
+
+
+ASSERTION_CALL_RE = re.compile(r'^(?:EXPECT|ASSERT)_([A-Z_]+)\((.*)\)$')
+
+
+def code(fragment):
+    return f'`{fragment}`' if fragment else '`?`'
+
+
+# Traduction en français de l'intention de chaque macro GoogleTest : une phrase, pas du code brut.
+ASSERTION_TEMPLATES = {
+    'EQ': lambda a: f'{code(a[0])} égale {code(a[1])}',
+    'NE': lambda a: f'{code(a[0])} diffère de {code(a[1])}',
+    'TRUE': lambda a: f'{code(a[0])} est vrai',
+    'FALSE': lambda a: f'{code(a[0])} est faux',
+    'GT': lambda a: f'{code(a[0])} est supérieur à {code(a[1])}',
+    'LT': lambda a: f'{code(a[0])} est inférieur à {code(a[1])}',
+    'GE': lambda a: f'{code(a[0])} est supérieur ou égal à {code(a[1])}',
+    'LE': lambda a: f'{code(a[0])} est inférieur ou égal à {code(a[1])}',
+    'NEAR': lambda a: f'{code(a[0])} est proche de {code(a[1])} '
+                      f'(tolérance {code(a[2]) if len(a) > 2 else "?"})',
+    'FLOAT_EQ': lambda a: f'{code(a[0])} égale {code(a[1])} (comparaison flottante)',
+    'DOUBLE_EQ': lambda a: f'{code(a[0])} égale {code(a[1])} (comparaison flottante)',
+    'THROW': lambda a: f'l\'opération lève une exception {code(a[1]) if len(a) > 1 else "?"}',
+}
+
+
+def translate_assertion(call_text):
+    """Traduit un appel `EXPECT_*`/`ASSERT_*` en une phrase française décrivant l'état vérifié.
+
+    Repli sur le code brut (entre guillemets) si la macro n'est pas reconnue ou si l'analyse des
+    arguments échoue — mieux vaut du code affiché que rien, mais cela ne devrait pas arriver pour
+    les macros de comparaison/booléennes courantes déjà couvertes ci-dessus.
+    """
+    match = ASSERTION_CALL_RE.match(call_text)
+    if not match:
+        return code(call_text)
+    kind, args_text = match.groups()
+    template = ASSERTION_TEMPLATES.get(kind)
+    if template is None:
+        return code(call_text)
+    try:
+        return template(split_top_level_args(args_text))
+    except IndexError:
+        return code(call_text)
+
+
 def extract_test_body(content, search_from):
     """Renvoie le corps `{ ... }` du test dont la déclaration se termine juste avant `search_from`."""
     body_start = content.find('{', search_from)
@@ -177,10 +253,11 @@ def render_row(case):
     brief = case['title']
     etapes = case.get('etapes', '')
     # État attendu : les assertions GoogleTest réellement vérifiées par le test (extraites du
-    # corps de la fonction), pas une phrase qui ne ferait souvent que reformuler le brief.
+    # corps de la fonction), traduites en français — pas une phrase qui ne ferait souvent que
+    # reformuler le brief, pas du code brut non plus.
     assertions = case.get('assertions') or []
     if assertions:
-        attendu = '<br/>'.join(f'`{clean_fragment(a)}`' for a in assertions)
+        attendu = '<br/>'.join(clean_fragment(translate_assertion(a)) for a in assertions)
     else:
         attendu = case.get('attendu') or '*(aucune assertion trouvée)*'
     return f"| {title_cell} | {brief} | {etapes} | {attendu} |"
