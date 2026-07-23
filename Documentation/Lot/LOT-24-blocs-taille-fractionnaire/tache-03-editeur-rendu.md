@@ -31,9 +31,8 @@ bloc plein (`LOT-21`) pour que leur taille de collision réduite (TACHE-02) soit
   formule que `BlockController::boxAt` (`Core/Gameplay/BlockController.cpp`, fonction interne
   `blockBox`) utilisée par la collision réelle (TACHE-02). `SpriteRenderer` interprète
   `Transform.position` comme le coin haut-gauche du sprite et multiplie la région de base par
-  `Transform.scale` (`Core/Physics/Camera2D::PIXELS_PER_UNIT`) : la même paire
-  position/échelle pilote donc le rendu et la collision, par construction, sans code dupliqué qui
-  pourrait diverger.
+  `Transform.scale` : la même paire position/échelle pilote donc le rendu et la collision, par
+  construction, sans code dupliqué qui pourrait diverger.
 
 ## Points d'attention
 - **Cohérence visuel/collision stricte** : un décalage entre le sprite affiché et la boîte
