@@ -12,9 +12,14 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 | Danger | Provoque l'échec au contact (pics, vide mortel). |
 | Entrée | Position d'apparition du personnage. |
 | Sortie | Déclenche la victoire au contact. |
+| Pente (⚠️ non implémenté) | Solide, mais dont la surface est **inclinée** : le personnage suit le profil de la pente plutôt que d'être simplement bloqué ou arrêté à son pied. |
+| Arrondi (⚠️ non implémenté) | Solide, mais dont la surface est **courbe** (quart de cercle) plutôt que plane — même principe de suivi que la pente. |
 
 - \anchor EX-GP-001 **EX-GP-001** — Le niveau doit être représenté par une grille de tuiles typées.
 - \anchor EX-GP-002 **EX-GP-002** — Une tuile solide doit empêcher le personnage de la traverser.
+- \anchor EX-GP-003 **EX-GP-003** (⚠️ non implémenté) — Une tuile de **pente** doit être solide mais laisser le personnage **suivre** sa surface inclinée en marchant (la position verticale du personnage se cale sur la hauteur de la pente à sa position horizontale), pas seulement le bloquer ou l'arrêter à son pied.
+- \anchor EX-GP-004 **EX-GP-004** (⚠️ non implémenté) — Une tuile **arrondie** (quart de cercle) doit offrir le même suivi de surface que la pente (`EX-GP-003`), avec un profil **courbe** plutôt que linéaire.
+- \anchor EX-GP-005 **EX-GP-005** (⚠️ non implémenté) — Un **bloc poussable** (`EX-GP-022`) doit pouvoir avoir une taille **réduite** par rapport à une case pleine (facteurs `×0.5`/`×0.25`), pour permettre des défis de précision (sauts millimétrés) — en prévision de blocs poussables **plus grands** qu'une case (multi-cases), non couverts par cette exigence.
 
 ## 2. Personnage & déplacement
 - \anchor EX-GP-010 **EX-GP-010** — Le personnage doit se déplacer horizontalement à vitesse constante (⚠️ ~6 tuiles/s).
