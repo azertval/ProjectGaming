@@ -94,39 +94,39 @@ $(document).ready(function(){initNavTree('lot-23.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><blockquote class="doxtable">
-<p>&zwj;Statut : <b>à faire</b>. Une variante <b>courbe</b> de la pente de <code>LOT-22</code> (<code>EX-GP-004</code>) : un quart de cercle plutôt qu'un plan incliné, avec le même principe de suivi de surface. </p>
+<p>&zwj;Statut : <b>terminé</b>. Une variante <b>courbe</b> de la pente de <code>LOT-22</code> (<code>EX-GP-004</code>) : un quart de cercle plutôt qu'un plan incliné, avec le même principe de suivi de surface. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1203"></a>
+<h1><a class="anchor" id="autotoc_md1204"></a>
 Objectif</h1>
 <p><code>EX-GP-004</code> demande une tuile <b>arrondie</b> offrant le même suivi de surface que la pente (<code>EX-GP-003</code>), avec un profil <b>courbe</b>. Ce lot est délibérément séquencé <b>après</b> <code>LOT-22</code> : il réutilise l'infrastructure de suivi de surface (fonction de hauteur par type de tuile, passe de résolution après le balayage classique) posée par ce dernier, plutôt que d'en construire une seconde. Le risque physique propre à ce lot est donc <b>beaucoup plus faible</b> que celui de <code>LOT-22</code> — la partie déjà validée (isoler la pente/l'arrondi du balayage horizontal, caler la position verticale) ne change pas de principe, seule la <b>formule</b> de hauteur change.</p>
-<h1><a class="anchor" id="autotoc_md1204"></a>
+<h1><a class="anchor" id="autotoc_md1205"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1205"></a>
+<h2><a class="anchor" id="autotoc_md1206"></a>
 Inclus</h2>
 <ul>
 <li>Deux nouvelles tuiles : <code>RoundedUpRight</code> et <code>RoundedUpLeft</code> — même orientation que les pentes de <code>LOT-22</code>, mais un profil de <b>quart de cercle</b> plutôt que linéaire.</li>
 <li>Réutilisation de la passe de suivi de surface de <code>LOT-22</code> : <code>slopeSurfaceHeight</code> (ou son équivalent renommé) devient un point d'extension géré pour les quatre types (deux pentes, deux arrondis).</li>
 <li>Chargement/écriture JSON, palette de l'éditeur, rendu (approximation du quart de cercle en pixel art généré en code).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1206"></a>
+<h2><a class="anchor" id="autotoc_md1207"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Cercle complet ou rayon variable</b> — un seul rayon (celui d'une case pleine), comme pour les pentes à 45° de <code>LOT-22</code>.</li>
 <li><b>Arrondi en plafond</b> — uniquement au sol, symétrique à l'exclusion équivalente de <code>LOT-22</code>.</li>
 <li><b>Blocs à taille fractionnaire</b> (<code>EX-GP-005</code>, <code>LOT-24</code>) — lot séparé, sans lien direct avec la forme de la surface.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1207"></a>
+<h1><a class="anchor" id="autotoc_md1208"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Même architecture que <code>LOT-22</code>, seule la formule change.</b> La fonction de hauteur par type de tuile (introduite en <code>LOT-22-TACHE-01</code>) gagne deux nouveaux cas ; la passe de résolution ajoutée en <code>LOT-22-TACHE-02</code> n'est <b>pas réécrite</b>, seulement étendue à reconnaître ces nouveaux types comme « suivables ». Si ce lot demandait de retoucher la passe de résolution elle-même, ce serait le signe que l'abstraction posée par <code>LOT-22</code> était mal choisie — à corriger en priorité plutôt qu'à contourner.</li>
 <li><b>Formule du quart de cercle</b> : pour une case occupant <code>[0, 1]</code> en <code>x</code> et en <code>y</code> (repère local), <code>RoundedUpRight</code> (haut à droite, creux en bas à gauche) a pour hauteur de surface <code>h(x) = 1 - sqrt(1 - (1 - x)²)</code> ; <code>RoundedUpLeft</code> est le symétrique (<code>h(x) = 1 - sqrt(1 - x²)</code>). Ces formules sont à vérifier par un test unitaire dédié comparant quelques points remarquables (bords et centre) à des valeurs calculées à la main, avant de les faire confiance en jeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1208"></a>
+<h1><a class="anchor" id="autotoc_md1209"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-GP-004</code> — implémentée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1209"></a>
+<h1><a class="anchor" id="autotoc_md1210"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -135,25 +135,25 @@ Découpage</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Tâche   </th><th class="markdownTableHeadNone">Intitulé   </th><th class="markdownTableHeadNone">Emplacement   </th><th class="markdownTableHeadCenter">État    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="tache-01-modele-tuile-arrondie_8md.html">TACHE-01</a>   </td><td class="markdownTableBodyNone">Modèle de tuile et formule de courbe   </td><td class="markdownTableBodyNone"><code>Core/Levels</code>   </td><td class="markdownTableBodyCenter">⬜    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-01-modele-tuile-arrondie_8md.html">TACHE-01</a>   </td><td class="markdownTableBodyNone">Modèle de tuile et formule de courbe   </td><td class="markdownTableBodyNone"><code>Core/Levels</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="tache-02-editeur-rendu_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Éditeur et rendu   </td><td class="markdownTableBodyNone"><code>HMI/Editor</code>, <code>HMI/Graphics</code>   </td><td class="markdownTableBodyCenter">⬜    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-02-editeur-rendu_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Éditeur et rendu   </td><td class="markdownTableBodyNone"><code>HMI/Editor</code>, <code>HMI/Graphics</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="LOT-23-collision-arrondie_2tache-03-documentation-verification_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">⬜   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="LOT-23-collision-arrondie_2tache-03-documentation-verification_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1210"></a>
+<h1><a class="anchor" id="autotoc_md1211"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage suit une tuile arrondie en marchant dessus, avec une courbe visuellement et physiquement distincte d'une pente linéaire.</li>
 <li><b>Aucune régression</b> sur la physique existante, y compris les pentes de <code>LOT-22</code> (mêmes tests de non-régression que <code>LOT-22</code>, plus les siens propres).</li>
 <li>Logique nouvelle couverte par des tests (formule de courbe, suivi en jeu). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1211"></a>
+<h1><a class="anchor" id="autotoc_md1212"></a>
 Dépendances</h1>
 <ul>
 <li><b>Dépend de <code>LOT-22</code></b> (réutilise entièrement son infrastructure de suivi de surface) — ne doit pas être commencé avant que <code>LOT-22</code> soit terminé.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1212"></a>
+<h1><a class="anchor" id="autotoc_md1213"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-23-tache-01-modele-tuile-arrondie.html">TACHE-01 — Modèle de tuile et formule de courbe</a></li>

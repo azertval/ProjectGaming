@@ -94,17 +94,17 @@ $(document).ready(function(){initNavTree('manuel-partager-niveau.html',''); init
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Ce guide s'adresse aux <b>créateurs de niveaux</b> (level design) sans connaissance en programmation. Il explique comment créer un niveau dans l'éditeur intégré, puis le partager avec le reste de l'équipe via une interface Git graphique — <b>jamais de ligne de commande</b>.</p>
-<h1><a class="anchor" id="autotoc_md1315"></a>
+<h1><a class="anchor" id="autotoc_md1316"></a>
 1. Récupérer le projet</h1>
 <ol type="1">
 <li>Installer <a href="https://desktop.github.com/">GitHub Desktop</a> (gratuit).</li>
 <li>Ouvrir GitHub Desktop, se connecter avec un compte GitHub (en créer un si besoin — gratuit).</li>
 <li><b>File → Clone repository</b>, choisir <code>azertval/ProjectGaming</code>, puis un dossier sur votre ordinateur. Le bouton <b>Clone</b> télécharge tout le projet.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1316"></a>
+<h1><a class="anchor" id="autotoc_md1317"></a>
 2. Lancer l'éditeur</h1>
 <p>Récupérez l'exécutable du jeu (<code>ProjectGaming.exe</code>) — voir <a class="el" href="manuel-telecharger.html">Télécharger et lancer le jeu</a> si vous n'avez pas encore compilé le projet vous-même. Depuis le menu principal, choisissez <b>Mode Édition</b>.</p>
-<h1><a class="anchor" id="autotoc_md1317"></a>
+<h1><a class="anchor" id="autotoc_md1318"></a>
 3. Créer un niveau</h1>
 <p>À l'ouverture de l'éditeur, une liste apparaît : <b>Nouveau niveau</b>, ou l'un des niveaux déjà enregistrés. Naviguez avec les flèches <b>↑</b>/**↓**, validez avec <b>Entrée</b>.</p>
 <p>En choisissant <b>Nouveau niveau</b>, un champ vous demande un <b>nom</b> : tapez-le puis validez avec <b>Entrée</b> (<b>Échap</b> annule et revient à la liste). Un nom ne doit pas être vide, ni contenir d'antislash, de barre oblique, de deux-points, d'astérisque, de point d'interrogation, de guillemet droit, de chevron ou de barre verticale (caractères interdits par Windows dans un nom de fichier) — le champ vous le signale si besoin.</p>
@@ -123,32 +123,34 @@ $(document).ready(function(){initNavTree('manuel-partager-niveau.html',''); init
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Placer une pente   </td><td class="markdownTableBodyNone">Peindre <em>Pente D</em> (montante de gauche à droite) ou <em>Pente G</em> (montante de droite à gauche) comme n'importe quelle tuile. En jeu, le personnage suit sa surface inclinée en marchant, sans ressaut ; la faire déboucher sur une case <em>Pleine</em> de même hauteur (là où la pente atteint son bord haut) raccorde proprement à un palier plat.    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Placer un arrondi   </td><td class="markdownTableBodyNone">Peindre <em>Arrondi D</em> ou <em>Arrondi G</em> comme n'importe quelle tuile — même orientation que les pentes, mais surface <b>courbe</b> (quart de cercle) plutôt que rectiligne. Le personnage y ressent une accélération verticale progressive côté tangente verticale, à la différence d'une pente qui monte à vitesse constante.    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Changer d'outil   </td><td class="markdownTableBodyNone"><b>Tab</b> fait défiler <b>Pinceau</b> (case par case) → <b>Rectangle</b> (remplit toute une zone glissée) → <b>Sélection</b> (voir ci-dessous) → Pinceau ; ou cliquer directement l'outil voulu dans le panneau.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Remplir une zone   </td><td class="markdownTableBodyNone">Outil <b>Rectangle</b> : cliquer-glisser d'un coin à l'autre de la zone, relâcher pour la remplir du type choisi dans la palette.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Copier / coller une zone   </td><td class="markdownTableBodyNone">Outil <b>Sélection</b> : cliquer-glisser pour définir la zone, puis <b>Ctrl+C</b> pour la copier ; <b>Ctrl+V</b> colle la copie à l'endroit survolé par la souris.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Déplacer la vue / zoomer   </td><td class="markdownTableBodyNone">Cliquer-glisser avec le <b>bouton droit</b> de la souris pour déplacer la vue ; <b>molette</b> pour zoomer/dézoomer ; touche <b>0</b> pour revenir au cadrage automatique.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Afficher un quadrillage   </td><td class="markdownTableBodyNone"><b>F10</b> — des lignes fines apparaissent sur chaque case, utile pour bien viser avant de peindre.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Agrandir / réduire la grille (case par case)   </td><td class="markdownTableBodyNone">Flèches <b>←</b>/**→** pour la largeur, <b>↑</b>/**↓** pour la hauteur. Si la réduction supprimerait l'entrée, la sortie ou une liaison, une confirmation est demandée (<b>Entrée</b> = confirmer, <b>Échap</b> = annuler) avant d'agir.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Choisir une taille précise   </td><td class="markdownTableBodyNone"><b>Ctrl+R</b>, taper la nouvelle taille au format <code>largeurxhauteur</code> (ex. <code>60x40</code>, ou <code>60*40</code>), <b>Entrée</b> pour valider (<b>Échap</b> annule sans rien changer). Même plafond et même confirmation destructrice qu'aux flèches.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Renommer le niveau   </td><td class="markdownTableBodyNone"><b>F2</b>, taper le nouveau nom, <b>Entrée</b> pour valider (<b>Échap</b> pour annuler sans rien changer).    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Annuler / refaire   </td><td class="markdownTableBodyNone"><b>Ctrl+Z</b> / <b>Ctrl+Y</b>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Tester le niveau   </td><td class="markdownTableBodyNone">Touche <b>P</b> — le niveau se joue directement dans l'éditeur ; <b>Échap</b> pour revenir à l'édition, rien n'est perdu.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Enregistrer   </td><td class="markdownTableBodyNone"><b>Ctrl+S</b> — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). Si le nom correspond à un <b>autre</b> niveau déjà enregistré, une confirmation est demandée avant d'écraser ce fichier.    </td></tr>
+<td class="markdownTableBodyNone">Tester le niveau   </td><td class="markdownTableBodyNone">Touche <b>P</b> — le niveau se joue directement dans l'éditeur ; <b>Échap</b> pour revenir à l'édition, rien n'est perdu.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Enregistrer   </td><td class="markdownTableBodyNone"><b>Ctrl+S</b> — un message en bas de l'écran confirme l'enregistrement, ou explique le problème si le niveau n'est pas encore jouable (par exemple : il manque une sortie). Si le nom correspond à un <b>autre</b> niveau déjà enregistré, une confirmation est demandée avant d'écraser ce fichier.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Quitter l'éditeur   </td><td class="markdownTableBodyNone"><b>Échap</b> (hors essai immédiat) — retour au menu. Si des modifications ne sont pas encore enregistrées, une confirmation est demandée avant de les perdre.   </td></tr>
 </table>
 <p>Le niveau est enregistré à côté de l'exécutable, dans le dossier <code>Levels</code>. Quelle que soit sa taille, un niveau reste <b>entièrement visible</b> à l'ouverture (la caméra dézoome automatiquement si besoin) — aussi bien dans l'éditeur qu'en jeu.</p>
-<h1><a class="anchor" id="autotoc_md1318"></a>
+<h1><a class="anchor" id="autotoc_md1319"></a>
 4. Publier votre niveau</h1>
 <ol type="1">
 <li>Copiez le fichier de votre niveau (<code>Levels\&lt;nom&gt;.json</code>, à côté de <code>ProjectGaming.exe</code>) dans le dossier <code>Source/Elements/Levels/</code> de votre copie du projet (celle clonée à l'étape 1).</li>
@@ -156,10 +158,10 @@ $(document).ready(function(){initNavTree('manuel-partager-niveau.html',''); init
 <li>En bas à gauche, donnez un court résumé (ex. « Ajout du niveau Foret-1 ») et cliquez <b>Commit to main</b>.</li>
 <li>Cliquez <b>Push origin</b> (en haut) : votre niveau est envoyé sur GitHub, visible par toute l'équipe.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1319"></a>
+<h1><a class="anchor" id="autotoc_md1320"></a>
 5. Récupérer les niveaux des autres</h1>
 <p>Dans GitHub Desktop, cliquez <b>Fetch origin</b> puis <b>Pull origin</b> : les niveaux ajoutés par d'autres membres de l'équipe apparaissent dans votre dossier <code>Source/Elements/Levels/</code>, prêts à être ouverts dans l'éditeur.</p>
-<h1><a class="anchor" id="autotoc_md1320"></a>
+<h1><a class="anchor" id="autotoc_md1321"></a>
 En cas de problème</h1>
 <ul>
 <li><b>L'enregistrement affiche un message d'erreur</b> : le niveau n'a pas encore d'entrée et/ou de sortie, ou une porte n'est pas correctement reliée — le message précise le problème. Corrigez et recommencez <b>Ctrl+S</b>.</li>

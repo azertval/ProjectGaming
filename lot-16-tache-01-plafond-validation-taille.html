@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-16-tache-01-plafond-validation-tai
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-16-niveaux-plus-grands_2epic_8md.html">LOT-16</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Input</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md982"></a>
+<h1><a class="anchor" id="autotoc_md983"></a>
 Contexte</h1>
 <p><code>Core</code> (<code>TileMap</code>, <code>LevelDraft</code>) n'impose aucune taille maximale — seule l'ergonomie du redimensionnement (une case par appui de flèche) limitait de fait la taille atteignable. La boîte de dialogue de TACHE-02 a besoin d'analyser un texte libre (<code>largeur x hauteur</code>) et de le valider ; un plafond est nécessaire pour éviter qu'une saisie erronée (ou des flèches maintenues trop longtemps) ne produise une grille démesurée.</p>
-<h1><a class="anchor" id="autotoc_md983"></a>
+<h1><a class="anchor" id="autotoc_md984"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>hmi::LevelSizeValidation</code>** (nouveau, <code>Source/HMI/Editor/</code>, sur le modèle de <code>LevelNameValidation</code> de LOT-15) :<ul>
@@ -108,32 +108,32 @@ Travail à réaliser</h1>
 </li>
 <li>**<code>EditorScreen::requestResize</code>** (existant, LOT-15) : borne systématiquement <code>width</code>/<code>height</code> à <code>[1, MAX_LEVEL_DIMENSION]</code> avant tout appel à <code>LevelDraft::resize</code>/<code>wouldResizeDropContent</code> — les flèches ne doivent plus pouvoir dépasser le plafond (elles s'arrêtent silencieusement à la borne, comme elles s'arrêtent déjà silencieusement à <code>1</code> en réduisant).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md984"></a>
+<h1><a class="anchor" id="autotoc_md985"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelSizeValidation_8h.html" title="Analyse et validation d&#39;une taille de grille saisie dans l&#39;éditeur (LOT-16, EX-EDIT-017).">Source/HMI/Editor/LevelSizeValidation.h</a></code>/<code>.cpp</code> (nouveau).</li>
 <li><code><a class="el" href="EditorScreen_8cpp.html">Source/HMI/Interface/EditorScreen.cpp</a></code> (bornage dans <code>requestResize</code>).</li>
 <li>Tests unitaires (<code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a></code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md985"></a>
+<h1><a class="anchor" id="autotoc_md986"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>parseLevelSize</code> : <code>"40x30"</code>, <code>"40 x 30"</code>, <code>"40X30"</code> acceptés et renvoient <code>(40, 30)</code> ; texte vide, sans séparateur, avec une valeur non numérique, nulle, négative, ou dépassant <code>MAX_LEVEL_DIMENSION</code> refusés (<code>nullopt</code>).</li>
 <li><code>isValidLevelSize</code> cohérent avec <code>parseLevelSize</code> (vrai/faux selon la présence d'une valeur).</li>
 <li><code>requestResize</code> appelé avec une largeur/hauteur dépassant <code>MAX_LEVEL_DIMENSION</code> la borne à cette valeur avant d'agir (vérifiable via l'état résultant de <code>LevelDraft</code> — voir TACHE-02/03 pour le câblage complet de la boîte de dialogue qui consomme ce validateur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md986"></a>
+<h1><a class="anchor" id="autotoc_md987"></a>
 Points d'attention</h1>
 <ul>
 <li><code>MAX_LEVEL_DIMENSION</code> est <b>un seul</b> point de vérité, importé aussi bien par le validateur de la boîte de dialogue que par <code>requestResize</code> — ne pas dupliquer la constante.</li>
 <li>Le plafond ne touche à aucune règle de <code>Core</code> : <code>LevelDraft::resize</code>/<code>TileMap</code> restent inchangés et sans limite (<code>EX-NFR-010</code>), cohérent avec la décision de cadrage de l'épic (le plafond est un garde-fou d'usage porté par <code>HMI</code>, pas une invariante de donnée).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md987"></a>
+<h1><a class="anchor" id="autotoc_md988"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Plafond et validation du format disponibles et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md988"></a>
+<h1><a class="anchor" id="autotoc_md989"></a>
 Exigences</h1>
 <p><code>EX-EDIT-017</code> (partie « plafond »). </p>
 </div></div><!-- contents -->

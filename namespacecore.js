@@ -82,7 +82,9 @@ var namespacecore =
       [ "PressurePlate", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86", null ],
       [ "Block", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2", null ],
       [ "SlopeUpRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015", null ],
-      [ "SlopeUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df", null ]
+      [ "SlopeUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df", null ],
+      [ "RoundedUpRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4", null ],
+      [ "RoundedUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b", null ]
     ] ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#acb711314315ff134ed9c25c09b4cebe4", null ],

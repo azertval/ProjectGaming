@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-07-tache-03-chargement-json.html',
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-07-niveaux_2epic_8md.html">LOT-07</a> · <b>Emplacement :</b> <code>Source/Core/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md582"></a>
+<h1><a class="anchor" id="autotoc_md583"></a>
 Contexte</h1>
 <p>Un niveau est décrit par un <b>fichier externe</b> (<code>EX-LVL-001</code>) au format <b>JSON structuré</b> : un objet JSON (<code>name</code>, <code>width</code>, <code>height</code>) avec une <b>liste <code>tiles</code></b> d'objets <code>{x, y, type, …}</code> (<code>EX-LVL-003</code>). Cette tâche lit ce fichier et construit un <code>Level</code> (TACHE-02). La <b>validation</b> fait l'objet de la TACHE-04.</p>
-<h1><a class="anchor" id="autotoc_md583"></a>
+<h1><a class="anchor" id="autotoc_md584"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>LevelLoader</code>** : <code>loadFromString(json)</code> et <code>loadFromFile(path)</code> → un <b>résultat</b> (<code>Level</code> en cas de succès, description d'erreur sinon) — pas d'exception qui remonte (<code>EX-NFR-040</code>, politique d'erreurs des conventions).</li>
@@ -106,13 +106,13 @@ Travail à réaliser</h1>
 <li><b>Métadonnées</b> : <code>name</code>, dimensions ; <b>entrée/sortie</b> = tuiles de type <code>entry</code>/<code>exit</code> ; <b>mécanismes</b> = liaisons résolues à partir des <b>identifiants</b> (<code>switch.id</code> ↔ <code>door.opensWith</code>) vers les positions correspondantes.</li>
 <li>Erreurs récupérables couvertes : fichier absent, JSON malformé, champ manquant, <code>type</code> de tuile inconnu (la validation « métier » — bornes, entrée/sortie, liaisons — est en TACHE-04).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md584"></a>
+<h1><a class="anchor" id="autotoc_md585"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles-objets).">Source/Core/Levels/LevelLoader.h</a></code>/<code>.cpp</code> (nouveau) ; éventuel type de résultat d'erreur partagé (<code>Core/Diagnostics</code> ou <code>Core/Levels</code>).</li>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md585"></a>
+<h1><a class="anchor" id="autotoc_md586"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un JSON <b>valide</b> produit un <code>Level</code> correct : dimensions, quelques tuiles typées à des positions connues, entrée/sortie, mécanismes.</li>
@@ -120,19 +120,19 @@ Tests (obligatoires)</h1>
 <li>Un **<code>type</code> de tuile inconnu** renvoie une erreur exploitable.</li>
 <li>Un <b>champ manquant</b> (ex. <code>grid</code>) renvoie une erreur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md586"></a>
+<h1><a class="anchor" id="autotoc_md587"></a>
 Points d'attention</h1>
 <ul>
 <li>Le chargeur travaille sur une <b>chaîne</b> (testable sans fichier) ; <code>loadFromFile</code> n'ajoute que la lecture disque. Séparer les deux facilite les tests (<code>EX-NFR-010</code>).</li>
 <li><b>UTF-8</b> : lecture binaire du fichier, cohérente avec le reste du projet.</li>
 <li>Ne pas exposer <code>nlohmann/json</code> dans l'en-tête public de <code>LevelLoader</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md587"></a>
+<h1><a class="anchor" id="autotoc_md588"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chargement d'un niveau valide et gestion des erreurs de format, testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md588"></a>
+<h1><a class="anchor" id="autotoc_md589"></a>
 Exigences</h1>
 <p><code>EX-LVL-001</code>, <code>EX-LVL-003</code>, <code>EX-NFR-040</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

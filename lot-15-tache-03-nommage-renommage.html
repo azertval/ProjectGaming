@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-15-tache-03-nommage-renommage.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-15-editeur-industriel_2epic_8md.html">LOT-15</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md928"></a>
+<h1><a class="anchor" id="autotoc_md929"></a>
 Contexte</h1>
 <p>Aujourd'hui, tout nouveau brouillon s'appelle <code>"Nouveau niveau"</code> (constante figée dans <code>EditorScreen</code>) et <code>LevelDraft::setName()</code> n'est jamais appelé. Deux niveaux créés sans charger de fichier existant enregistrent donc tous les deux dans <code>Nouveau niveau.json</code> et <b>s'écrasent silencieusement</b> — le défaut le plus risqué relevé sur LOT-14 (<code>EX-EDIT-009</code>).</p>
-<h1><a class="anchor" id="autotoc_md929"></a>
+<h1><a class="anchor" id="autotoc_md930"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>TextInputField</code>** (nouveau, <code>Source/HMI/Editor/</code>) : widget de saisie de texte minimal et pur (pas de dépendance rendu), consommant <code>InputState::typedCharacters()</code> (TACHE-01) et <code>Key::Backspace</code>/<code>Key::Enter</code>/<code>Key::Escape</code> ; expose le texte courant, <code>confirmed()</code>/<code>cancelled()</code> une fois <code>Entrée</code>/<code>Échap</code> pressée. Le dessin (curseur, cadre) est délégué à <code>EditorScreen</code>, à l'identique du principe déjà suivi par <code>TilePalette</code>/<code>LevelPicker</code>.</li>
@@ -106,14 +106,14 @@ Travail à réaliser</h1>
 <li><b>Renommage</b> : <code>F2</code> (TACHE-01) en cours d'édition ouvre le même widget pré-rempli du nom courant ; confirmer appelle <code>LevelDraft::setName</code> (déjà existant, jamais câblé) ; <code>Échap</code> <b>annule le renommage</b> et conserve le nom précédent inchangé (aucun effet sur le brouillon).</li>
 <li><b>Avertissement d'écrasement</b> : <code>saveDraft()</code> détecte qu'un fichier <code>&lt;nom&gt;.json</code> existe déjà dans le dossier <code>Levels</code> <b>et</b> que ce n'est pas celui d'où le brouillon a été chargé (tracker le chemin d'origine, <code>std::optional&lt;std::filesystem::path&gt; _loadedFrom</code> dans <code>EditorScreen</code>) ; le cas échéant, affiche une confirmation avant d'écrire (réutilise le mécanisme générique de confirmation posé en TACHE-02). Ce contrôle porte sur le nom déjà validé ci-dessus — il ne revérifie pas les caractères.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md930"></a>
+<h1><a class="anchor" id="autotoc_md931"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TextInputField_8h.html" title="Champ de saisie de texte minimal, pour le nommage de niveau dans l&#39;éditeur (LOT-15).">Source/HMI/Editor/TextInputField.h</a></code>/<code>.cpp</code> (nouveau).</li>
 <li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code> (état de saisie, <code>_loadedFrom</code>, câblage <code>F2</code>, prompt post-picker avec retour au picker sur annulation, détection d'écrasement dans <code>saveDraft</code>).</li>
 <li>Tests unitaires (<code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a></code>), test système étendu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md931"></a>
+<h1><a class="anchor" id="autotoc_md932"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>TextInputField</code> : caractères tapés s'accumulent dans l'ordre, <code>Backspace</code> retire le dernier, <code>Entrée</code> confirme avec le texte courant (si valide), <code>Échap</code> annule sans modifier l'appelant.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><code>F2</code> puis renommage valide change <code>LevelDraft::name()</code> et le nom de fichier utilisé au prochain enregistrement.</li>
 <li>Enregistrer sous un nom correspondant à un fichier existant <b>différent</b> du niveau chargé déclenche la confirmation ; enregistrer sous le nom du fichier <b>d'origine</b> du brouillon n'en déclenche pas (c'est une mise à jour normale, pas un écrasement accidentel).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md932"></a>
+<h1><a class="anchor" id="autotoc_md933"></a>
 Points d'attention</h1>
 <ul>
 <li>Le nom par défaut proposé au renommage (<code>F2</code>) est le nom courant, pas une chaîne vide — évite de perdre le nom par une confirmation trop rapide.</li>
 <li><code>TextInputField</code> doit rester une classe de logique pure (comme <code>TilePalette</code>), testable sans fenêtre ni GPU (<code>EX-NFR-010</code>) : le rendu (cadre, curseur clignotant, message de refus) reste dans <code>EditorScreen</code>.</li>
 <li>La validation de caractères est volontairement une <b>liste noire</b> minimale (caractères strictement interdits par Windows), pas une liste blanche restrictive — un level designer non francophone doit pouvoir utiliser des accents/caractères Unicode dans le nom affiché.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md933"></a>
+<h1><a class="anchor" id="autotoc_md934"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Nommage à la création, renommage <code>F2</code>, avertissement d'écrasement opérationnels et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md934"></a>
+<h1><a class="anchor" id="autotoc_md935"></a>
 Exigences</h1>
 <p><code>EX-EDIT-009</code>. </p>
 </div></div><!-- contents -->

@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('test__slope__geometry_8cpp.html',''); 
 
 <p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SlopeGeometry_8h_source.html">Core/Physics/SlopeGeometry.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -106,20 +107,22 @@ Include dependency graph for test_slope_geometry.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__slope__geometry_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2Core_2Physics_2test__slope__geometry_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2Core_2Physics_2test__slope__geometry_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2Core_2Physics_2test__slope__geometry_8cpp">
-<area shape="rect" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,..." alt="" coords="36,5,257,75"/>
-<area shape="rect" title=" " alt="" coords="5,123,109,148"/>
-<area shape="poly" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="64,196,232,221"/>
-<area shape="poly" title=" " alt="" coords="150,75,150,182,145,182,144,75"/>
-<area shape="rect" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="185,123,405,148"/>
-<area shape="poly" title=" " alt="" coords="202,73,266,113,263,117,199,77"/>
-<area shape="poly" title=" " alt="" coords="272,150,185,192,183,188,270,146"/>
-<area shape="rect" title=" " alt="" coords="256,196,331,221"/>
-<area shape="poly" title=" " alt="" coords="297,148,296,183,291,182,292,148"/>
-<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="355,196,509,221"/>
-<area shape="poly" title=" " alt="" coords="318,146,399,187,396,192,316,150"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="355,269,509,295"/>
-<area shape="poly" title=" " alt="" coords="435,222,435,256,429,256,429,222"/>
+<area shape="rect" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,..." alt="" coords="78,5,299,75"/>
+<area shape="rect" title=" " alt="" coords="5,123,68,148"/>
+<area shape="poly" title=" " alt="" coords="135,77,69,118,66,113,132,73"/>
+<area shape="rect" title=" " alt="" coords="93,123,197,148"/>
+<area shape="poly" title=" " alt="" coords="175,76,158,111,154,109,170,74"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="151,196,319,221"/>
+<area shape="poly" title=" " alt="" coords="201,74,231,182,226,183,196,76"/>
+<area shape="rect" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="272,123,492,148"/>
+<area shape="poly" title=" " alt="" coords="260,72,347,114,345,119,257,77"/>
+<area shape="poly" title=" " alt="" coords="360,150,273,192,270,188,357,146"/>
+<area shape="rect" title=" " alt="" coords="343,196,418,221"/>
+<area shape="poly" title=" " alt="" coords="384,148,384,183,378,182,379,148"/>
+<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="442,196,597,221"/>
+<area shape="poly" title=" " alt="" coords="405,146,486,187,484,192,403,150"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="442,269,597,295"/>
+<area shape="poly" title=" " alt="" coords="522,222,522,256,517,256,517,222"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -140,12 +143,61 @@ Functions</h2></td></tr>
 <tr class="memitem:af9e7f31fd0771c2f2f47e7ddac430975" id="r_af9e7f31fd0771c2f2f47e7ddac430975"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#af9e7f31fd0771c2f2f47e7ddac430975">TEST</a> (SlopeGeometryTest, IsFollowableSurfaceDistingueLesTypes)</td></tr>
 <tr class="memdesc:af9e7f31fd0771c2f2f47e7ddac430975"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isFollowableSurface</code> distingue les tuiles suivables des autres.  <br /></td></tr>
 <tr class="separator:af9e7f31fd0771c2f2f47e7ddac430975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71c132bee5440e41d6b5a7f6dbfbed5b" id="r_a71c132bee5440e41d6b5a7f6dbfbed5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a71c132bee5440e41d6b5a7f6dbfbed5b">TEST</a> (SlopeGeometryTest, RoundedUpRightSuitUnQuartDeCercle)</td></tr>
+<tr class="memdesc:a71c132bee5440e41d6b5a7f6dbfbed5b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>RoundedUpRight</code> (quart de cercle, <code>EX-GP-004</code>) : hauteur 1 au bord gauche, 0 au bord droit, ~0,134 au centre (valeur calculée à la main : <code>1 - sqrt(1 - 0,5²)</code>).  <br /></td></tr>
+<tr class="separator:a71c132bee5440e41d6b5a7f6dbfbed5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbe32e16487d43ce29ab26d11be16a0" id="r_a9cbe32e16487d43ce29ab26d11be16a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a9cbe32e16487d43ce29ab26d11be16a0">TEST</a> (SlopeGeometryTest, RoundedUpLeftSuitUnQuartDeCercle)</td></tr>
+<tr class="memdesc:a9cbe32e16487d43ce29ab26d11be16a0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>RoundedUpLeft</code> (quart de cercle, <code>EX-GP-004</code>) : symétrique de <code>RoundedUpRight</code>.  <br /></td></tr>
+<tr class="separator:a9cbe32e16487d43ce29ab26d11be16a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03b4b4d0a361dc327429f09bda1bf006" id="r_a03b4b4d0a361dc327429f09bda1bf006"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a03b4b4d0a361dc327429f09bda1bf006">TEST</a> (SlopeGeometryTest, ArrondiNestPasSolideStatiquement)</td></tr>
+<tr class="memdesc:a03b4b4d0a361dc327429f09bda1bf006"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isSolid</code> renvoie <code>false</code> pour les deux orientations d'arrondi (même raisonnement que les pentes).  <br /></td></tr>
+<tr class="separator:a03b4b4d0a361dc327429f09bda1bf006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2bfcfa6b6230fdfaa5fcdbc736bc581" id="r_ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ac2bfcfa6b6230fdfaa5fcdbc736bc581">TEST</a> (SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis)</td></tr>
+<tr class="memdesc:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi.  <br /></td></tr>
+<tr class="separator:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a03b4b4d0a361dc327429f09bda1bf006" name="a03b4b4d0a361dc327429f09bda1bf006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b4b4d0a361dc327429f09bda1bf006">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArrondiNestPasSolideStatiquement&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isSolid</code> renvoie <code>false</code> pour les deux orientations d'arrondi (même raisonnement que les pentes). </p>
+<p><b>Cas de test :</b> <b>isSolid renvoie false pour les deux orientations d'arrondi.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> sur <code>RoundedUpRight</code> et <code>RoundedUpLeft</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>false</code> pour les deux. </p>
+
+</div>
+</div>
 <a id="af9e7f31fd0771c2f2f47e7ddac430975" name="af9e7f31fd0771c2f2f47e7ddac430975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,8 +233,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac2bfcfa6b6230fdfaa5fcdbc736bc581" name="ac2bfcfa6b6230fdfaa5fcdbc736bc581"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2bfcfa6b6230fdfaa5fcdbc736bc581">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsFollowableSurfaceReconnaitLesArrondis&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi. </p>
+<p><b>Cas de test :</b> <b>isFollowableSurface reconnaît les deux orientations d'arrondi.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isFollowableSurface</code> sur <code>RoundedUpRight</code> et <code>RoundedUpLeft</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>true</code> pour les deux. </p>
+
+</div>
+</div>
 <a id="a85597794d7e31cdf5cd89bcb61b48945" name="a85597794d7e31cdf5cd89bcb61b48945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,8 +307,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9cbe32e16487d43ce29ab26d11be16a0" name="a9cbe32e16487d43ce29ab26d11be16a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cbe32e16487d43ce29ab26d11be16a0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RoundedUpLeftSuitUnQuartDeCercle&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>RoundedUpLeft</code> (quart de cercle, <code>EX-GP-004</code>) : symétrique de <code>RoundedUpRight</code>. </p>
+<p><b>Cas de test :</b> <b>RoundedUpLeft suit un profil de quart de cercle, haut à gauche.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 0 au bord gauche, 1 au bord droit, environ 0,134 au centre. </p>
+
+</div>
+</div>
+<a id="a71c132bee5440e41d6b5a7f6dbfbed5b" name="a71c132bee5440e41d6b5a7f6dbfbed5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c132bee5440e41d6b5a7f6dbfbed5b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RoundedUpRightSuitUnQuartDeCercle&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>RoundedUpRight</code> (quart de cercle, <code>EX-GP-004</code>) : hauteur 1 au bord gauche, 0 au bord droit, ~0,134 au centre (valeur calculée à la main : <code>1 - sqrt(1 - 0,5²)</code>). </p>
+<p><b>Cas de test :</b> <b>RoundedUpRight suit un profil de quart de cercle, haut à droite.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 1 au bord gauche, 0 au bord droit, environ 0,134 au centre (courbe, pas 0,5 comme une pente linéaire). </p>
+
+</div>
+</div>
 <a id="a300f3ce26f91d356a06e3d663248a3d7" name="a300f3ce26f91d356a06e3d663248a3d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +419,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acbfff7dab2dfd0f96c5d98e36c364257" name="acbfff7dab2dfd0f96c5d98e36c364257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,7 +456,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a58550fe8acfcae9c70369ca28708cd44" name="a58550fe8acfcae9c70369ca28708cd44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

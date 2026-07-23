@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-05-tache-04-camera-2d.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-05-rendu-2d_2epic_8md.html">LOT-05</a> · <b>Emplacement :</b> <code>Source/HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md471"></a>
+<h1><a class="anchor" id="autotoc_md472"></a>
 Contexte</h1>
 <p>Les positions des entités sont en <b>unités monde</b> (<code>EX-ARCH-020</code>). Le rendu doit les convertir en pixels écran via une <b>caméra 2D</b>, en respectant l'échelle <b>16 px/unité</b> (<code>EX-ARCH-021</code>), l'origine haut-gauche et l'axe Y vers le bas.</p>
-<h1><a class="anchor" id="autotoc_md472"></a>
+<h1><a class="anchor" id="autotoc_md473"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>Camera2D</code> : position (centre, en unités monde), <b>zoom</b> (facteur, de préférence entier pour la netteté pixel art), et dimensions de la surface de rendu.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li>Conversions utilitaires : monde → écran et écran → monde (utile pour l'édition et les entrées plus tard).</li>
 <li>Prise en compte du <b>redimensionnement</b> de la fenêtre (mise à jour des dimensions).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md473"></a>
+<h1><a class="anchor" id="autotoc_md474"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran.">Source/HMI/Graphics/Camera2D.h</a></code>, <code><a class="el" href="Camera2D_8cpp.html">Camera2D.cpp</a></code> (nouveau).</li>
 <li><code>Source/Test/Unit/test_camera2d.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md474"></a>
+<h1><a class="anchor" id="autotoc_md475"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une entité à l'origine monde se projette au bon pixel selon le centre caméra et le zoom.</li>
 <li>Conversions monde↔écran réciproques (aller-retour ≈ identité).</li>
 <li>L'axe Y est bien orienté vers le bas ; un déplacement caméra décale la scène de façon cohérente.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md475"></a>
+<h1><a class="anchor" id="autotoc_md476"></a>
 Points d'attention</h1>
 <ul>
 <li>La caméra est un <b>objet de présentation</b> (<code>HMI</code>) : elle lit des positions monde mais ne modifie pas l'ECS.</li>
 <li>Zoom en facteurs entiers recommandé (<code>EX-ARCH-022</code>) ; comparaisons <code>float</code> par tolérance.</li>
 <li>Le <b>suivi</b> d'une cible et le <b>bornage</b> au niveau sont hors périmètre (lot ultérieur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md476"></a>
+<h1><a class="anchor" id="autotoc_md477"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Caméra correcte (projection + conversions), testée (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documentée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md477"></a>
+<h1><a class="anchor" id="autotoc_md478"></a>
 Exigences</h1>
 <p><code>EX-REN-013</code> (partiel : caméra basique), <code>EX-ARCH-020</code>, <code>EX-ARCH-021</code>, <code>EX-ARCH-022</code>. </p>
 </div></div><!-- contents -->

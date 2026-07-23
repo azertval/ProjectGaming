@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-07-tache-06-rendu-integration.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-07-niveaux_2epic_8md.html">LOT-07</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md603"></a>
+<h1><a class="anchor" id="autotoc_md604"></a>
 Contexte</h1>
 <p>Tâche d'assemblage : donner à voir le niveau chargé. Le <code>GameScreen</code> (LOT-06) construit aujourd'hui une scène codée en dur ; il doit désormais <b>charger le niveau de démonstration</b> (TACHE-05) et <b>afficher sa grille de tuiles</b> (<code>EX-REN-010</code>), en lecture seule de l'ECS (<code>EX-ARCH-012</code>).</p>
-<h1><a class="anchor" id="autotoc_md604"></a>
+<h1><a class="anchor" id="autotoc_md605"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>GameScreen</code> : au lieu de <code>buildDemoScene</code>, <b>charger</b> le niveau via <code>LevelLoader</code> (chemin relatif au binaire, cf. TACHE-05) et <b>peupler le <code>World</code></b> d'une <b>entité-tuile par tuile</b> non vide : <code>Transform</code> (position <code>[colonne, ligne]</code> en unités monde) + <code>Sprite</code> (région d'atlas / couleur selon le <code>TileType</code>).</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b>Échec de chargement récupérable</b> : si le niveau est introuvable/invalide, ne pas planter — journaliser l'erreur et afficher un état neutre (ex. message), <code>EX-NFR-040</code>.</li>
 <li>« Charger niveau » (menu) ouvre ce <code>GameScreen</code> ; <b>Échap</b> revient au menu (inchangé).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md605"></a>
+<h1><a class="anchor" id="autotoc_md606"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code>.</li>
 <li>Éventuel utilitaire de correspondance <code>TileType</code> → région d'atlas (dans <code>HMI</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md606"></a>
+<h1><a class="anchor" id="autotoc_md607"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li><b>« Charger niveau »</b> ouvre le niveau de démo et <b>sa grille s'affiche</b> (tuiles solides, danger, entrée, sortie, interrupteur/porte visibles) ; Échap revient au menu.</li>
 <li>Un niveau <b>invalide/introuvable</b> ne fait <b>pas planter</b> l'application (erreur journalisée).</li>
 <li>Vérification <b>visuelle</b> de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md607"></a>
+<h1><a class="anchor" id="autotoc_md608"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Réutiliser</b> le <code>SpriteRenderer</code>/<code>SpriteBatch</code>/<code>Camera2D</code> du LOT-05 : le niveau est rendu comme des sprites, sans nouveau pipeline. Lecture seule de l'ECS (<code>EX-ARCH-012</code>).</li>
 <li>La grille peut être grande : peupler les entités <b>au chargement</b> de l'écran (une fois), pas à chaque frame.</li>
 <li>Pas de <b>déplacement</b> ni de <b>collision</b> ici : uniquement l'affichage du niveau (le gameplay est un lot ultérieur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md608"></a>
+<h1><a class="anchor" id="autotoc_md609"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>« Charger niveau » ouvre le niveau chargé, la grille s'affiche, échec de chargement géré ; build <code>/W4 /WX</code>, CI verte, Doxygen et <code>CHANGELOG.md</code> à jour ; tous les critères d'acceptation de l'<a class="el" href="LOT-07-niveaux_2epic_8md.html">epic</a> satisfaits.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md609"></a>
+<h1><a class="anchor" id="autotoc_md610"></a>
 Exigences</h1>
 <p><code>EX-REN-010</code>, <code>EX-GP-001</code>, <code>EX-ARCH-012</code>, <code>EX-NFR-040</code>. </p>
 </div></div><!-- contents -->
