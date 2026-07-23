@@ -32,6 +32,73 @@ FIELD_RE = re.compile(r'\\t(cat|crit|etapes|attendu)\s+')
 TAG_RE = re.compile(r'</?b>')
 BR_RE = re.compile(r'<br\s*/?>')
 
+# Assertions GoogleTest : c'est l'état réellement vérifié par le test, plus fiable et plus
+# concis qu'une phrase de description (qui ne fait souvent que reformuler le brief).
+ASSERTION_RE = re.compile(r'\b(?:EXPECT|ASSERT)_[A-Z_]+\s*\(')
+
+
+def skip_literal_or_comment(text, index):
+    """Si `text[index:]` commence par une chaîne/caractère/commentaire C++, renvoie l'index juste
+    après cette construction (pour ne pas compter les accolades/parenthèses qu'elle contient) ;
+    sinon `None`."""
+    if text.startswith('//', index):
+        end = text.find('\n', index)
+        return len(text) if end == -1 else end + 1
+    if text.startswith('/*', index):
+        end = text.find('*/', index + 2)
+        return len(text) if end == -1 else end + 2
+    if text[index] in ('"', "'"):
+        quote = text[index]
+        cursor = index + 1
+        while cursor < len(text) and text[cursor] != quote:
+            cursor += 2 if text[cursor] == '\\' else 1
+        return cursor + 1
+    return None
+
+
+def find_matching(text, open_index, open_char, close_char):
+    """Renvoie l'index de `close_char` refermant `open_char` situé en `open_index` (profondeur),
+    en ignorant ce qui apparaît dans une chaîne/un commentaire. -1 si jamais refermé."""
+    depth = 0
+    cursor = open_index
+    while cursor < len(text):
+        skip_to = skip_literal_or_comment(text, cursor)
+        if skip_to is not None:
+            cursor = skip_to
+            continue
+        if text[cursor] == open_char:
+            depth += 1
+        elif text[cursor] == close_char:
+            depth -= 1
+            if depth == 0:
+                return cursor
+        cursor += 1
+    return -1
+
+
+def extract_assertions(body_text):
+    """Liste les appels `EXPECT_*`/`ASSERT_*` (texte brut, aplati) trouvés dans le corps d'un test."""
+    assertions = []
+    for match in ASSERTION_RE.finditer(body_text):
+        open_paren = match.end() - 1
+        close_paren = find_matching(body_text, open_paren, '(', ')')
+        if close_paren == -1:
+            continue
+        call_text = body_text[match.start():close_paren + 1]
+        assertions.append(re.sub(r'\s+', ' ', call_text).strip())
+    return assertions
+
+
+def extract_test_body(content, search_from):
+    """Renvoie le corps `{ ... }` du test dont la déclaration se termine juste avant `search_from`."""
+    body_start = content.find('{', search_from)
+    if body_start == -1:
+        return ''
+    body_end = find_matching(content, body_start, '{', '}')
+    if body_end == -1:
+        return ''
+    return content[body_start:body_end]
+
 
 def unwrap_comment_lines(text):
     """Recolle les lignes d'un commentaire Doxygen (` * suite...`) en un texte continu."""
@@ -72,11 +139,14 @@ def collect_cases(root):
             for match in CASTEST_RE.finditer(content):
                 line = content.count('\n', 0, match.start()) + 1
                 fields = parse_castest_content(match.group('content'))
+                body = extract_test_body(content, match.end())
+                assertions = extract_assertions(body)
                 cases.append({
                     'path': path.replace('\\', '/'),
                     'line': line,
                     'suite': match.group('suite').strip(),
                     'name': match.group('name').strip(),
+                    'assertions': assertions,
                     **fields,
                 })
     return cases
@@ -106,11 +176,13 @@ def render_row(case):
                   f"<br/><sub>`{case['path']}:{case['line']}`</sub>")
     brief = case['title']
     etapes = case.get('etapes', '')
-    # Le résultat attendu répète parfois mot pour mot le brief (convention de certaines suites) :
-    # l'afficher deux fois n'apporte rien, seul le cas où il diffère est utile au lecteur.
-    attendu = case.get('attendu', '')
-    if not attendu or attendu == brief:
-        attendu = '*(= brief)*'
+    # État attendu : les assertions GoogleTest réellement vérifiées par le test (extraites du
+    # corps de la fonction), pas une phrase qui ne ferait souvent que reformuler le brief.
+    assertions = case.get('assertions') or []
+    if assertions:
+        attendu = '<br/>'.join(f'`{clean_fragment(a)}`' for a in assertions)
+    else:
+        attendu = case.get('attendu') or '*(aucune assertion trouvée)*'
     return f"| {title_cell} | {brief} | {etapes} | {attendu} |"
 
 
