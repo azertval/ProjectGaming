@@ -13,7 +13,9 @@ chargé en jeu) qui a déclenché ce lot ; cette tâche referme cet écart et em
 - **`Source/Test/Systeme/test_parcours_complet.cpp`** : `sequence` (dans
   `ParcoursCompletSysteme.FranchitTouteLaSequence`) référence exactement les **mêmes** fichiers,
   dans le **même ordre**, chacun avec un scénario d'entrées déterministe qui exploite la mécanique
-  visée (sur le modèle des scénarios déjà écrits pour `demo.json`…`demo4.json`).
+  visée (sur le modèle des scénarios déjà écrits pour `demo.json`…`demo4.json`) — **le niveau final
+  combiné (dernier de la séquence) inclus**, avec un scénario qui enchaîne réellement les
+  mécaniques qu'il mélange (pas seulement un scénario générique qui le franchirait par chance).
 - **Garde-fou anti-divergence** (voir décision de cadrage de l'épic) : à concevoir en écrivant le
   code — par exemple, un test qui compare la liste de fichiers de `Source/Elements/Levels/`
   effectivement présents à la liste attendue, ou un fichier de configuration partagé entre

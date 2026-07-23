@@ -22,8 +22,13 @@ avant cette tâche (voir décision de cadrage de l'épic).
   niveaux à créer.
 - Trancher le **nombre final** de niveaux et leur **ordre** (difficulté croissante) : documenté ici
   avant que `TACHE-02` ne commence à produire des fichiers.
+- Concevoir le contenu du **niveau final combiné** (dernier de la séquence, voir `epic.md`) : choisir
+  quelles mécaniques il mélange et comment (ex. un dash au-dessus d'une pente, un bloc poussé sur
+  une plaque de pression, un mur à double saut suivi d'un wall jump) — un vrai enchaînement, pas une
+  simple juxtaposition d'obstacles isolés bout à bout.
 - Définir la **convention de nommage** des nouveaux fichiers (ex. `demo-double-saut.json`,
-  `demo-pente.json` — voir `TACHE-02`), pour que le tableau de cette tâche l'utilise directement.
+  `demo-pente.json`, `demo-final.json` pour le niveau combiné — voir `TACHE-02`), pour que le
+  tableau de cette tâche l'utilise directement.
 
 ## Fichiers impactés
 - `Documentation/Lot/LOT-25-niveaux-demo-exhaustifs/tache-01-inventaire-conception.md` (ce
@@ -44,8 +49,8 @@ avant cette tâche (voir décision de cadrage de l'épic).
   tableau final.
 
 ## Définition de fait (DoD)
-- Tableau mécanique → niveau(x) complet, nombre de niveaux final tranché et documenté, revu avant
-  le début de `TACHE-02`.
+- Tableau mécanique → niveau(x) complet, nombre de niveaux final tranché et documenté, contenu du
+  niveau final combiné décrit, revu avant le début de `TACHE-02`.
 
 ## Exigences
 Aucune exigence propre — tâche de conception, préalable à l'implémentation.

@@ -29,10 +29,10 @@ Dernière tâche du lot : aligner la documentation sur la séquence de niveaux f
 - `doxygen Doxyfile` (depuis `Documentation/`) se termine avec un code de sortie `0` et **aucune**
   ligne de sortie.
 - **Vérification visuelle obligatoire** de la séquence complète dans l'application compilée
-  (critère d'acceptation 4 de l'épic).
+  (critère d'acceptation 5 de l'épic).
 
 ## Points d'attention
-- Cette tâche clôt le lot : vérifier que les 5 critères d'acceptation d'`epic.md` sont
+- Cette tâche clôt le lot : vérifier que les 6 critères d'acceptation d'`epic.md` sont
   effectivement remplis avant de le marquer terminé.
 
 ## Définition de fait (DoD)
