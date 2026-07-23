@@ -7,6 +7,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Accumulateur à pas de temps fixe non utilisé dans `main`** (`EX-NFR-002`) : depuis
+  l'intégration du menu principal (LOT-06), la boucle appelait `ScreenManager::update` une seule
+  fois par frame réelle avec un delta constant, sans jamais mesurer le temps réel écoulé ni
+  appeler `core::FixedTimestep::advance` — la simulation ne restait déterministe que par
+  coïncidence, tant que le V-Sync cadençait l'affichage à 60 Hz. La mesure du temps réel
+  (`std::chrono::steady_clock`) et la boucle d'accumulateur (rattrapage de plusieurs pas sur une
+  frame lente, plafonné par `maximumStepsPerCall`) sont restaurées, conformément à
+  `Documentation/Guide/guide-boucle.md`.
 - **Sélection de niveau à la souris** (`hmi::LevelPicker`) : le sélecteur de niveau de l'éditeur
   (« Choisir un niveau ») ne répondait qu'au clavier (`↑`/`↓`/`Entrée`) — le survol et le clic
   gauche sélectionnent et confirment désormais un choix, comme le menu principal
