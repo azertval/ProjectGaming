@@ -72,6 +72,7 @@ Window::Window(const wchar_t* title, int width, int height)
 Window::~Window() {
     if (_handle != nullptr) {
         DestroyWindow(_handle);
+        PLATFORM_LOG_TRACE("Fenetre Win32 detruite");
     }
 }
 
@@ -192,6 +193,10 @@ void Window::pollGamepad() {
     XINPUT_STATE state{};
     const bool connected = XInputGetState(0, &state) == ERROR_SUCCESS;
     _input.setGamepadConnected(connected);
+    if (connected != _gamepadWasConnected) {
+        PLATFORM_LOG_INFO(connected ? "Manette connectee" : "Manette deconnectee");
+        _gamepadWasConnected = connected;
+    }
 
     const XINPUT_GAMEPAD& pad = state.Gamepad;
     const int stickX = stickDirection(pad.sThumbLX);

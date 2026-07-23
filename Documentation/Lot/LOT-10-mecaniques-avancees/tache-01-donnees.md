@@ -1,4 +1,4 @@
-# TACHE-01 — Données des mécaniques (`PlayerInput`, `Player`, `PhysicsConfig`) {#lot-10-tache-01-donnees}
+# TACHE-01 — Données des mécaniques (PlayerInput, Player, PhysicsConfig) {#lot-10-tache-01-donnees}
 
 **Lot :** [LOT-10](epic.md) · **Emplacement :** `Source/Core` · **Statut :** à faire
 

@@ -27,7 +27,7 @@ La solution retenue : un type **distinct**, `core::LevelDraft`, qui porte toute 
 qui ne redevient un `Level` **validé** qu'au moment décisif (l'enregistrement ou l'essai), en
 repassant par le chemin de validation déjà existant plutôt que d'en écrire un second.
 
-## `core::LevelDraft` : un niveau qu'on peut défaire
+## \ref core::LevelDraft "core::LevelDraft" : un niveau qu'on peut défaire
 
 `LevelDraft` reprend les mêmes données qu'un `Level` (nom, grille de tuiles, entrée, sortie,
 mécanismes, budgets) mais expose des **mutateurs** : `paintTile`, `setEntry`, `setExit`,
@@ -57,7 +57,7 @@ plusieurs portes — cette asymétrie découle directement du format de fichier 
 chaque tuile `door` porte un unique champ `opensWith`, mais plusieurs portes peuvent référencer le
 même `switch.id`.
 
-## `core::LevelWriter` : l'inverse du chargement, avec un piège
+## \ref core::LevelWriter "core::LevelWriter" : l'inverse du chargement, avec un piège
 
 Écrire un niveau est presque l'inverse exact de `LevelLoader::loadFromString` (@ref guide-niveaux)
 — parcourir la grille ligne par ligne, émettre un objet JSON par tuile non vide. Le piège tient
@@ -72,7 +72,7 @@ obtient tout de même un identifiant (le format l'exige), simplement absent de t
 Cette sérialisation sert `EX-EDIT-011` : sérialiser puis recharger un niveau produit un niveau
 **équivalent**, jamais un niveau différent — la propriété qui rend `toLevel()` fiable.
 
-## `EditorScreen` : peindre, c'est convertir un pixel en case
+## \ref hmi::EditorScreen "EditorScreen" : peindre, c'est convertir un pixel en case
 
 `hmi::EditorScreen` réutilise **exactement** l'infrastructure de rendu déjà vue en @ref
 guide-rendu (`SpriteBatch`, `TextureAtlas`, `Camera2D`) — aucun nouveau pipeline graphique n'existe
@@ -125,7 +125,7 @@ droite du panneau (voir plus bas) — sans ce garde-fou, un clic dans une zone v
 pourrait, selon la position de la caméra, correspondre à une case de la grille **visuellement
 cachée** sous le panneau, et la peindre à l'insu de l'utilisateur.
 
-### Trois outils, une même grille : `EditorTool`
+### Trois outils, une même grille : \ref hmi::EditorTool "EditorTool"
 
 Au-delà du pinceau (peindre case par case), l'éditeur propose **Rectangle** (glisser définit un
 rectangle, rempli du type sélectionné au relâchement) et **Sélection** (glisser mémorise une zone,
@@ -140,7 +140,7 @@ mute le brouillon immédiatement, Sélection se contente de retenir des coordonn
 **pendant** un glisser en cours l'annule plutôt que de l'appliquer à moitié — un choix délibéré
 pour qu'un changement d'avis ne produise jamais de mutation partielle et surprenante.
 
-### Peindre par lot sans dupliquer la logique de peinture : `LevelDraft::paintRegion`
+### Peindre par lot sans dupliquer la logique de peinture : \ref core::LevelDraft::paintRegion "LevelDraft::paintRegion"
 
 Remplissage rectangulaire et collage partagent le même besoin : appliquer un **bloc** de types de
 tuiles en une seule fois, plutôt qu'une case. Une implémentation naïve dupliquerait la sémantique
@@ -394,7 +394,7 @@ barre d'outils (texte dessiné par `EditorScreen`, la géométrie reste dans les
 bascule un aperçu compact de tous les raccourcis, dessiné dans le canevas plutôt que sous le
 panneau — un indice discret (« F1 : aide ») le rappelle en haut à droite quand il est replié.
 
-## Choisir un niveau à éditer : `hmi::LevelPicker`
+## Choisir un niveau à éditer : \ref hmi::LevelPicker "hmi::LevelPicker"
 
 Avant d'entrer réellement en édition, `EditorScreen` affiche une liste — « Nouveau niveau » suivi
 des fichiers `.json` déjà présents — navigable au clavier (`↑`/`↓`/`Entrée`) **et** à la souris

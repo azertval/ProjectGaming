@@ -7,6 +7,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Cahier de test illisible (page unique, 321 cas à plat)** : la page agrégeait tous les cas de
+  test sur un seul niveau (mécanisme Doxygen `\xrefitem`, sans aucune section). Remplacée par
+  `Documentation/CahierTest.md`, généré par le nouveau `scripts/generate_cahier_test.py` à partir
+  des mêmes blocs `\castest{...}` (source de vérité inchangée), structuré selon l'arborescence de
+  `Source/Test/` (Tests unitaires par module Core/HMI, Tests d'intégration et Système par fichier)
+  — navigable via l'arbre latéral comme toute autre page. Vérifié en CI (`--check`).
+- **Accumulateur à pas de temps fixe non utilisé dans `main`** (`EX-NFR-002`) : depuis
+  l'intégration du menu principal (LOT-06), la boucle appelait `ScreenManager::update` une seule
+  fois par frame réelle avec un delta constant, sans jamais mesurer le temps réel écoulé ni
+  appeler `core::FixedTimestep::advance` — la simulation ne restait déterministe que par
+  coïncidence, tant que le V-Sync cadençait l'affichage à 60 Hz. La mesure du temps réel
+  (`std::chrono::steady_clock`) et la boucle d'accumulateur (rattrapage de plusieurs pas sur une
+  frame lente, plafonné par `maximumStepsPerCall`) sont restaurées, conformément à
+  `Documentation/Guide/guide-boucle.md`.
 - **Sélection de niveau à la souris** (`hmi::LevelPicker`) : le sélecteur de niveau de l'éditeur
   (« Choisir un niveau ») ne répondait qu'au clavier (`↑`/`↓`/`Entrée`) — le survol et le clic
   gauche sélectionnent et confirment désormais un choix, comme le menu principal
@@ -15,6 +29,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **Journalisation étendue pour le diagnostic** : trois nouvelles catégories de log
+  (`Core/Gameplay/GameplayLog.h`, `Core/Levels/LevelsLog.h`, `HMI/Editor/EditorLog.h`), sur le
+  modèle déjà établi (voir `Documentation/Guide/guide-journalisation.md`). Journalise désormais les
+  bascules d'état des mécanismes (interrupteur/plaque de pression), le chargement d'un niveau et
+  chaque raison d'échec de validation (`Core/Levels/LevelLoader`), les actions de l'éditeur
+  (liaison/déliaison de mécanisme, annuler/refaire, redimensionnement), le nombre de niveaux trouvés
+  par le sélecteur, et la connexion/déconnexion de la manette — toujours en dehors des chemins
+  exécutés à chaque frame ou à chaque pas fixe (uniquement sur changement d'état réel).
 - **LOT-20 — Manette et menu d'options** (`EX-CTRL-002`). Le jeu, le menu et l'éditeur sont
   désormais jouables/navigables à la **manette** (XInput) : D-pad/stick gauche pilotent les mêmes
   directions que les flèches/`Q`/`D`, **A** valide (menu) et saute (jeu), **B**/**Start**

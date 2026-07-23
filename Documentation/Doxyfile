@@ -3,7 +3,7 @@
 # Les options non spécifiées gardent les valeurs par défaut de Doxygen.
 
 PROJECT_NAME           = "ProjectGaming"
-PROJECT_NUMBER         = 0.0.1
+PROJECT_NUMBER         = 0.0.3
 PROJECT_BRIEF          = "Jeu 2D de plateforme/puzzle en C++/DirectX"
 
 OUTPUT_DIRECTORY       = generated
@@ -12,6 +12,7 @@ CREATE_SUBDIRS         = NO
 # Entrées : documentation Markdown (accueil, spécifications, lots) + code source.
 # Les chemins sont relatifs à ce dossier (Documentation/).
 INPUT                  = index.md \
+                         CahierTest.md \
                          Guide \
                          Specification \
                          Lot \
@@ -48,11 +49,14 @@ WARN_IF_UNDOCUMENTED   = NO
 # FAIL_ON_WARNINGS : liste tous les avertissements puis retourne un code non nul.
 WARN_AS_ERROR          = FAIL_ON_WARNINGS
 
-# --- Cahier de test (LOT-13) ---
+# --- Cahier de test (LOT-13, restructure en LOT-20) ---
 # \castest{...} : UN seul argument (accolades) -> les virgules du contenu sont autorisees.
-# Agrege le cas dans la page "Cahier de test" (via \xrefitem) ET dans la doc du test.
+# Formate le cas directement dans la doc du test (pas d'agregation via \xrefitem : la page
+# "Cahier de test" agregee sur un seul niveau, illisible au-dela de quelques dizaines de cas,
+# est desormais reconstruite - structuree par module - par scripts/generate_cahier_test.py
+# a partir de ces memes blocs, dans Documentation/CahierTest.md).
 # Sous-commandes pour structurer le contenu (categorie, criticite, etapes, resultat attendu).
-ALIASES += "castest{1}=\xrefitem cahiertest \"Cas de test\" \"Cahier de test\" \1"
+ALIASES += "castest{1}=<b>Cas de test :</b> \1"
 ALIASES += "tcat=<b>Categorie :</b> "
 ALIASES += "tcrit=<b>Criticite :</b> "
 ALIASES += "tetapes=<b>Etapes :</b><br/>"

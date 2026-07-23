@@ -1,4 +1,4 @@
-# TACHE-02 — Mapping du saut (`Espace`/`W` → intention) {#lot-09-tache-02-mapping-saut}
+# TACHE-02 — Mapping du saut (Espace/W → intention) {#lot-09-tache-02-mapping-saut}
 
 **Lot :** [LOT-09](epic.md) · **Emplacement :** `Source/HMI/Input` · **Statut :** à faire
 

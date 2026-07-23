@@ -12,10 +12,10 @@ namespace core {
  *
  * `Empty` est la case traversable par défaut ; `Solid` bloque le déplacement ; `Danger`
  * provoque l'échec au contact ; `Entry`/`Exit` sont l'apparition et la sortie ; `Switch`,
- * `PressurePlate` et `Door` sont les mécanismes de puzzle (leur **comportement** relève d'un lot
- * ultérieur, ce modèle ne fait que les représenter) : `Switch` bascule au contact (front),
- * `PressurePlate` (`EX-GP-025`) reste active tant qu'un poids suffisant y repose — les deux
- * partagent la même infrastructure de liaison à une `Door`.
+ * `PressurePlate` et `Door` sont les mécanismes de puzzle, résolus chaque pas fixe par
+ * `core::MechanismController` (ce modèle ne fait que les représenter) : `Switch` bascule au
+ * contact (front), `PressurePlate` (`EX-GP-025`) reste active tant qu'un poids suffisant y
+ * repose — les deux partagent la même infrastructure de liaison à une `Door`.
  */
 enum class TileType {
     Empty,

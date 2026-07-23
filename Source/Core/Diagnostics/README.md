@@ -7,6 +7,8 @@ Outils transverses de diagnostic : **journalisation** et **assertions**.
 - `Logger` — filtre par niveau minimal et diffuse vers des sinks ; `defaultLogger()` est l'instance globale.
 - `ILogSink` — destination ; implémentations : `ConsoleLogSink` (console + débogueur), `MemoryLogSink` (tests).
 - `Log.h` — macros génériques capturant **catégorie**, niveau, fichier/ligne et horodatage.
+- `LogFormat.h` (`formatLogLine`) — compose une ligne de log (horodatage, niveau, catégorie, fichier/ligne, message), fonction pure et testable.
+- `LogLevelParse.h` (`parseLogLevel`) — convertit une chaîne (« trace », « info », « warning », « error ») en `LogLevel`, pour configurer le niveau minimal au lancement sans recompiler.
 
 ### Catégories (« sous-dossiers » de log)
 Chaque module possède son **en-tête de catégorie** définissant des macros courtes, par exemple `HMI/HmiLog.h` :

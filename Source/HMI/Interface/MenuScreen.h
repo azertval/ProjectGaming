@@ -17,7 +17,7 @@ class Localization;
  */
 
 /**
- * @brief Écran d'accueil : titre et trois options (Charger niveau, Mode Edition, Quitter).
+ * @brief Écran d'accueil : titre et quatre options (Jouer, Mode Edition, Options, Quitter).
  *
  * Fin habillage de `MenuModel` : `update` délègue la logique de sélection/transition au modèle
  * (testable), et `render` dessine le titre et les options via la police bitmap, en mettant en

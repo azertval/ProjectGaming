@@ -3,7 +3,7 @@
 > Statut : **édition de tuiles de base et robustesse/confort d'édition validés et livrés**
 > (LOT-14 : peinture, mécanismes, entrée/sortie, redimensionnement, undo/redo,
 > enregistrement/validation, essai immédiat ; LOT-15 : nommage, garde-fous, caméra, outils de
-> zone, découvrabilité). La section 7 (niveaux de grande taille, LOT-16) est en cours.
+> zone, découvrabilité ; LOT-16 : niveaux de grande taille, section 7).
 > Dépend de [`niveaux.md`](niveaux.md).
 
 ## Objectif
@@ -89,4 +89,4 @@ seule l'ergonomie manquait.
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
 la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
-grandes tailles (section 7) du lot **LOT-16**, en cours.
+grandes tailles (section 7) du lot **LOT-16** (terminé).

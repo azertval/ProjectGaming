@@ -1,4 +1,4 @@
-# TACHE-01 — Composant `Sprite` (données pures) {#lot-05-tache-01-composant-sprite}
+# TACHE-01 — Composant Sprite (données pures) {#lot-05-tache-01-composant-sprite}
 
 **Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/Core/Ecs/Components` · **Statut :** fait
 

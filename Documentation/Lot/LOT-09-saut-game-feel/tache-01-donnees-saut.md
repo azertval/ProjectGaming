@@ -1,4 +1,4 @@
-# TACHE-01 — Données du saut : `PlayerInput`, `Player`, `PhysicsConfig` {#lot-09-tache-01-donnees-saut}
+# TACHE-01 — Données du saut : PlayerInput, Player, PhysicsConfig {#lot-09-tache-01-donnees-saut}
 
 **Lot :** [LOT-09](epic.md) · **Emplacement :** `Source/Core` · **Statut :** à faire
 

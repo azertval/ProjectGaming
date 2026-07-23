@@ -1,13 +1,13 @@
 #pragma once
 
-namespace hmi {
-
-class InputState;
-
 /**
  * @file HMI/Interface/SaveLogButton.h
  * @brief Logique (testable) du bouton d'enregistrement des logs, à gauche du bouton de langue.
  */
+
+namespace hmi {
+
+class InputState;
 
 /**
  * @brief Logique du bouton « enregistrer les logs » : un carré cliquable en bas à droite.

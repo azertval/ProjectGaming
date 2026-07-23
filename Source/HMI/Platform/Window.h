@@ -20,8 +20,8 @@ namespace hmi {
  * (`EX-CTRL-021`). La manette (XInput, `EX-CTRL-002`) est **sondée** (pas événementielle comme le
  * clavier/la souris) : `pollGamepad`, appelée depuis `pumpMessages`, fusionne son état dans le
  * même `InputState` via `onGamepadKeyDown`/`onGamepadKeyUp` (voir `InputState`, aucune touche
- * clavier n'est jamais écrasée). La traduction des entrées en actions de gameplay relèvera d'un
- * module dédié.
+ * clavier n'est jamais écrasée). La traduction de l'`InputState` en actions de gameplay est un
+ * module dédié et indépendant de toute fenêtre (`HMI/Input/PlayerInputMapper`, `hmi::toPlayerInput`).
  */
 class Window {
 public:
@@ -101,6 +101,7 @@ private:
     int _clientWidth;
     int _clientHeight;
     InputState _input;
+    bool _gamepadWasConnected = false;  ///< Pour ne journaliser qu'un changement de connexion.
 };
 
 }  // namespace hmi

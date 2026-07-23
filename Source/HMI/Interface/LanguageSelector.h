@@ -3,14 +3,14 @@
 #include <string>
 #include <string_view>
 
-namespace hmi {
-
-class InputState;
-
 /**
  * @file HMI/Interface/LanguageSelector.h
  * @brief Logique (testable) du bouton de changement de langue en bas à droite.
  */
+
+namespace hmi {
+
+class InputState;
 
 /**
  * @brief Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.

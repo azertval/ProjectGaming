@@ -14,8 +14,9 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 | Aller à gauche | ← / Q | Stick gauche / D-pad gauche |
 | Aller à droite | → / D | Stick gauche / D-pad droite |
 | Sauter | Espace / W | A |
-| Interagir | E | X |
-| Pause | Échap | Start |
+| Dash (8 directions) | Maj | Épaule droite (RB) |
+| Interagir (⚠️ souhaité, non implémenté) | E | X |
+| Quitter vers le menu (jeu) | Échap | B / Start |
 | Valider (menu) | Entrée | A |
 | Retour (menu) | Échap | B |
 

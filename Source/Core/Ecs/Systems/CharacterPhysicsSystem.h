@@ -21,7 +21,9 @@ struct PlayerInput;
  * ::core::Collider, le système : applique la vitesse horizontale voulue (`EX-GP-010`), intègre la
  * gravité tant que le personnage n'est pas au sol (`EX-GP-012`), puis résout le déplacement par
  * balayage (`sweepAabb`, `EX-GP-014`) — aucune traversée de mur, glissement le long des surfaces.
- * Il n'y a **pas de saut** dans ce lot (hors périmètre) ; l'état `grounded` est néanmoins calculé.
+ * Le saut (hauteur variable, coyote time, jump buffering, double saut, wall jump/slide, dash) est
+ * également piloté par ce système à partir de `PlayerInput`/`PhysicsConfig` ; l'état `grounded`
+ * conditionne ces mécaniques et est recalculé chaque pas.
  *
  * Contrairement au ::core::MovementSystem générique, ce système a besoin de la grille de collision
  * et de l'intention d'entrée : il expose donc sa propre signature d'`update`. Toute la logique vit

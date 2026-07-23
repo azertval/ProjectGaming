@@ -1,4 +1,4 @@
-# TACHE-04 — Intégration `GameScreen` + niveau `demo4` + preuves {#lot-12-tache-04-integration-puzzle}
+# TACHE-04 — Intégration GameScreen + niveau demo4 + preuves {#lot-12-tache-04-integration-puzzle}
 
 **Lot :** [LOT-12](epic.md) · **Emplacement :** `Source/HMI`, `Source/Elements/Levels` · **Statut :** à faire
 

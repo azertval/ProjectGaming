@@ -1,4 +1,4 @@
-# TACHE-07 — Intégration `main` (boucle pilotée par l'écran) {#lot-06-tache-07-integration-main}
+# TACHE-07 — Intégration main (boucle pilotée par l'écran) {#lot-06-tache-07-integration-main}
 
 **Lot :** [LOT-06](epic.md) · **Emplacement :** `Source/HMI/main.cpp` · **Statut :** à faire
 

@@ -29,7 +29,7 @@ toPlayerInput` (traduction) → `core::PlayerInput` (intention) → `Core` (logi
 premières étapes vivent dans `HMI` (dépendantes de la plateforme), la dernière dans `Core`
 (indépendante).
 
-## Échantillonner plutôt que réagir : `hmi::InputState`
+## Échantillonner plutôt que réagir : \ref hmi::InputState "hmi::InputState"
 
 Deux façons classiques d'observer les entrées existent :
 
@@ -66,6 +66,27 @@ moment précis de transition (`keyPressed`/`keyReleased`) — pourtant essentiel
 saut et du dash (des actions **ponctuelles**, à déclencher une seule fois par appui, pas à chaque
 frame où la touche reste enfoncée).
 
+```cpp
+// keyDown : vraie si enfoncée maintenant, quelle que soit la source (clavier OU manette).
+bool InputState::keyDown(Key key) const noexcept {
+    return _keysCurrent[index] || _gamepadCurrent[index];
+}
+
+// keyPressed (front montant) : enfoncée maintenant, mais ne l'était sur AUCUNE source
+// à la frame précédente.
+bool InputState::keyPressed(Key key) const noexcept {
+    const bool keyboardEdge = _keysCurrent[index] && !_keysPrevious[index];
+    const bool gamepadEdge = _gamepadCurrent[index] && !_gamepadPrevious[index];
+    return keyboardEdge || gamepadEdge;
+}
+```
+
+Remarque sur la fusion manette (détaillée plus bas) : `keyPressed` calcule un front **par source**
+puis les combine par OU logique — un bouton manette pressé alors que la touche clavier équivalente
+était déjà maintenue produit bien un nouveau front (celui de la manette), sans que le clavier
+« masque » cette pression. C'est cette même logique de combinaison en lecture, jamais en écriture,
+qui protège de tout effacement accidentel d'une touche (voir « La manette » ci-dessous).
+
 ### Le cycle d'une frame
 
 1. `beginFrame()` recopie l'état **courant** vers l'état **précédent** — ouvre une nouvelle
@@ -79,7 +100,7 @@ frame où la touche reste enfoncée).
 son en-tête) : les événements peuvent être injectés directement en test, sans ouvrir de fenêtre ni
 passer par Win32, ce qui le rend testable en isolation (`EX-NFR-010`).
 
-### Un détail d'implémentation qui simplifie tout : `Key` réutilise les codes Win32
+### Un détail d'implémentation qui simplifie tout : \ref hmi::Key "Key" réutilise les codes Win32
 
 `hmi::Key` est une énumération dont les valeurs coïncident **volontairement** avec les codes
 virtuels (`VK_*`) de Win32. Ce choix n'a l'air que d'un détail, mais il évite une table de
@@ -87,7 +108,7 @@ correspondance entière : la couche de capture peut convertir un `WPARAM` Win32 
 simple `static_cast`, sans `switch` ni tableau de correspondance à maintenir. Ajouter le support
 d'une nouvelle touche revient alors à ajouter un énumérateur nommé — aucune autre modification.
 
-## Traduire l'état en intention : `hmi::toPlayerInput`
+## Traduire l'état en intention : \ref hmi::toPlayerInput "hmi::toPlayerInput"
 
 `hmi::toPlayerInput(input)` est la fonction qui **seule** connaît la correspondance entre touches et
 intentions ; elle produit un `core::PlayerInput` — le **contrat** de données entre `HMI` et `Core` :
@@ -114,7 +135,7 @@ minuteur, en construisant directement un `InputState` avec les touches voulues. 
 l'intérieur du pas fixe lui-même, pour que tous les pas exécutés dans une même frame (@ref
 guide-boucle) voient exactement la même intention.
 
-## La manette : une seconde source, fusionnée en lecture (`EX-CTRL-002`, LOT-20)
+## La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)
 
 `InputState` ne connaît qu'un seul `Key` par touche, mais **deux** sources indépendantes qui
 peuvent l'enfoncer : le clavier (`onKeyDown`/`onKeyUp`) et la manette (`onGamepadKeyDown`/
@@ -142,7 +163,7 @@ Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::Window` (`Platform`), 
 tester la fusion manette — les tests appellent `onGamepadKeyDown`/`onGamepadKeyUp` directement,
 sans manette réelle ni `<Windows.h>`.
 
-## Le menu d'options : la fusion manette à l'œuvre (`hmi::OptionsModel`/`OptionsScreen`)
+## Le menu d'options : la fusion manette à l'œuvre (\ref hmi::OptionsModel "hmi::OptionsModel"/\ref hmi::OptionsScreen "OptionsScreen")
 
 Le menu d'options (accessible depuis le menu principal) illustre concrètement la fusion
 ci-dessus : ses deux entrées (bascule **V-Sync**, **Retour**) se naviguent identiquement au
@@ -155,9 +176,28 @@ en ont besoin. `OptionsScreen` affiche aussi l'état de connexion de la manette
 (`InputState::gamepadConnected()`, capturé à `update()` puisque `render()` ne reçoit pas
 `InputState`) — purement informatif, non navigable.
 
+## La langue de l'interface : \ref hmi::Localization "hmi::Localization" et \ref hmi::LanguageSelector "hmi::LanguageSelector"
+
+Tous les textes d'interface (menus, options) passent par une **clé** stable (`EX-REN-033`) plutôt
+que par un libellé en dur : `hmi::Localization` résout une clé (« menu.jouer ») vers la chaîne de
+la **langue active**, chargée depuis un fichier `<langue>.lang` (format `clé = valeur`, un fichier
+par langue dans `Source/Elements/Localization/`). La résolution suit un **repli déterministe** —
+langue active, puis langue par défaut, puis la clé elle-même — pour ne jamais planter ni afficher
+un vide si une traduction manque (`EX-NFR-040`), au prix, dans ce dernier cas, d'un texte
+visiblement « brut » (la clé) plutôt qu'un texte manquant silencieux.
+
+Le **bouton de langue** (drapeau, ancré en bas à droite de l'écran) suit la même séparation
+logique/rendu que le reste de l'entrée : `hmi::LanguageSelector` est une géométrie pure (rectangle
+cliquable, bascule français ↔ anglais) testable sans fenêtre, tandis que le dessin de l'icône
+(`hmi::FlagIcons`, @ref guide-rendu) est une préoccupation strictement graphique. `MenuScreen`
+et `OptionsScreen` interrogent tous deux `LanguageSelector::update` et **rechargent** le catalogue
+(`Localization::loadLanguage`) au clic — un échec de chargement (fichier absent) est **récupérable** :
+la langue courante est simplement conservée plutôt que de planter.
+
 ## Voir aussi
 - `hmi::InputState`, `hmi::Key`, `hmi::toPlayerInput`, `core::PlayerInput`.
 - `hmi::Window::pollGamepad` — le sondage XInput et son intégration à `pumpMessages`.
 - `hmi::MenuModel`, `hmi::OptionsModel`, `hmi::OptionsScreen`.
+- `hmi::Localization`, `hmi::LanguageSelector`.
 - @ref guide-physique — comment la physique consomme `PlayerInput` (saut, dash, mouvement).
 - @ref guide-boucle — pourquoi l'entrée est échantillonnée une fois par frame et non par pas fixe.

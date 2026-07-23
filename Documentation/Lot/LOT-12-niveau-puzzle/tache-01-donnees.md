@@ -1,4 +1,4 @@
-# TACHE-01 — Données : budget (`Player`, `Level`, `LevelLoader`) {#lot-12-tache-01-donnees}
+# TACHE-01 — Données : budget (Player, Level, LevelLoader) {#lot-12-tache-01-donnees}
 
 **Lot :** [LOT-12](epic.md) · **Emplacement :** `Source/Core` · **Statut :** à faire
 

@@ -42,7 +42,7 @@ les composants, la logique vit dans les systèmes** ; un composant ne contient j
 comportement, un système ne stocke jamais d'état de jeu à demeure (il le lit/écrit dans les
 composants, qui restent la seule source de vérité).
 
-## L'entité : `core::Entity`
+## L'entité : \ref core::Entity "core::Entity"
 
 Une entité (`core::Entity`) est un **handle générationnel** : une paire `{index, generation}`.
 
@@ -61,7 +61,7 @@ Une entité (`core::Entity`) est un **handle générationnel** : une paire `{ind
 Une entité, à elle seule, ne « fait » rien : elle ne devient un personnage, un décor ou un
 interrupteur que par les composants qu'on lui attache.
 
-## Le `World`
+## Le \ref core::World "World"
 
 `core::World` est le point d'entrée unique de la simulation : il possède les entités, les
 composants et les systèmes. API essentielle :
@@ -79,7 +79,7 @@ Chaque type de composant obtient sa propre pool, créée **à la demande** au pr
 `addComponent<T>` : le `World` ne connaît pas à l'avance la liste des types de composants qui
 existeront, il les découvre à l'usage (via `std::type_index` comme clé).
 
-## Le stockage : sparse set (`core::ComponentPool<T>`)
+## Le stockage : sparse set (core::ComponentPool<T>)
 
 Le besoin est double et a priori contradictoire :
 
@@ -141,7 +141,7 @@ d'insertion : dense = `[Va, Vb, Vc]`, entités = `[A, B, C]`. On retire le compo
 > réallouer ou déplacer ses éléments). Ne jamais conserver une telle référence au-delà de telles
 > opérations.
 
-## Les vues : `core::View<Components...>`
+## Les vues : core::View<Components...>
 
 Un système a typiquement besoin d'itérer sur « toutes les entités qui ont **à la fois** tel et tel
 composant » (par exemple `Transform` **et** `Velocity` pour un déplacement). `World::view<A,

@@ -207,10 +207,13 @@ int main(int argc, char** argv) {
         hmi::ScreenManager screens(std::move(factory), hmi::ScreenId::Menu);
         HMI_LOG_INFO("Demarrage de la boucle principale");
 
-        const core::FixedTimestep timestep;
+        core::FixedTimestep timestep;
         const float fixedDelta = timestep.fixedDeltaSeconds();
+        using Clock = std::chrono::steady_clock;
+        Clock::time_point previousFrame = Clock::now();
 
-        while (!window.shouldClose()) {
+        bool quit = false;
+        while (!window.shouldClose() && !quit) {
             // 1. Entrées : échantillonnées une fois par frame (nouvelle frame + messages).
             window.pumpMessages();
 
@@ -224,12 +227,22 @@ int main(int argc, char** argv) {
                               std::to_string(resizedHeight));
             }
 
-            // 3. Met à jour l'écran courant ; une demande de fermeture arrête la boucle.
-            if (screens.update(window.input(), fixedDelta)) {
+            // 3. Accumulateur : convertit le temps réel écoulé en un nombre entier de pas fixes
+            //    (déterminisme, EX-NFR-002 ; voir Documentation/Guide/guide-boucle.md). Une
+            //    demande de fermeture arrête la boucle sans exécuter les pas restants.
+            const Clock::time_point now = Clock::now();
+            const float elapsedSeconds = std::chrono::duration<float>(now - previousFrame).count();
+            previousFrame = now;
+            const int steps = timestep.advance(elapsedSeconds);
+            for (int step = 0; step < steps && !quit; ++step) {
+                quit = screens.update(window.input(), fixedDelta);
+            }
+            if (quit) {
                 break;
             }
 
-            // 4. Rendu : efface, dessine l'écran courant, présente.
+            // 4. Rendu : efface, dessine l'écran courant, présente. Une seule fois par frame
+            //    réelle, quel que soit le nombre de pas de simulation exécutés ci-dessus.
             graphics.clear(0.10f, 0.12f, 0.16f, 1.0f);
             hmi::RenderContext context{spriteBatch,
                                        atlas,

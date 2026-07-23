@@ -9,7 +9,7 @@ de GLM) : un type minimal, écrit à la main, suffit aux besoins du jeu et garde
 indépendant de DirectX (`EX-ARCH-040`) — la conversion vers les types du GPU se fait uniquement côté
 `HMI`, au moment du rendu.
 
-## `Vector2` : un point ou une direction dans le monde
+## \ref core::Vector2 "Vector2" : un point ou une direction dans le monde
 
 Un **vecteur 2D** est simplement une paire de nombres `(x, y)`. Il sert à deux usages différents
 selon le contexte, qu'il faut garder à l'esprit en lisant le code :
@@ -43,7 +43,7 @@ selon le contexte, qu'il faut garder à l'esprit en lisant le code :
   quasi nulle) n'a pas de direction définie — `normalized()` renvoie alors le vecteur nul plutôt que
   de diviser par zéro.
 
-### `lengthSquared` : éviter la racine carrée
+### \ref core::Vector2::lengthSquared "lengthSquared" : éviter la racine carrée
 
 `lengthSquared()` renvoie `x*x + y*y`, **sans** appeler `sqrt`. La racine carrée est une opération
 relativement coûteuse comparée à une multiplication ; or, pour de nombreuses questions, on n'a pas
@@ -62,7 +62,7 @@ l'arithmétique flottante accumule de minuscules erreurs d'arrondi : deux calcul
 différents au dernier bit. Comparer de tels résultats avec `==` strict échouerait de façon
 imprévisible et intermittente — un piège classique documenté plus bas.
 
-## `Aabb` : la boîte englobante alignée aux axes
+## \ref core::Aabb "Aabb" : la boîte englobante alignée aux axes
 
 Une [AABB](https://en.wikipedia.org/wiki/Bounding_volume) ⧉ (*Axis-Aligned Bounding Box*, « boîte
 englobante alignée aux axes ») est la forme géométrique la plus simple pour représenter
@@ -115,7 +115,7 @@ plupart des signes rencontrés dans le code de physique et de niveau :
 Garder ces trois conventions en tête suffit à expliquer, sans avoir à les redériver, la quasi-
 totalité des signes et des sens de déplacement rencontrés dans le moteur.
 
-## Comparaison flottante : pourquoi `==` est dangereux
+## Comparaison flottante : pourquoi l'égalité stricte est dangereuse
 
 Les nombres à virgule flottante (`float`) ne représentent pas exactement toutes les valeurs
 réelles : ils utilisent une précision finie, et des opérations en apparence anodines (addition

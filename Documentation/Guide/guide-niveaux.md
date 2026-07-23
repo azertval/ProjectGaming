@@ -21,7 +21,7 @@ Comme une tuile = 1 unité monde, convertir l'un vers l'autre est une simple con
 (`column` devient `x`, `row` devient `y`) — mais les deux ne sont **jamais** interchangeables dans
 le code : une case n'a pas de position « à mi-chemin », un personnage si.
 
-### `core::TileType` : le vocabulaire des cases
+### \ref core::TileType "core::TileType" : le vocabulaire des cases
 
 Chaque case de la grille a l'un de ces types :
 
@@ -40,14 +40,14 @@ Notez que `Door` n'est **pas** statiquement solide au sens de `core::isSolid(Til
 solidité dépend de son **état**, calculé par le `MechanismController` (voir plus bas), pas du type
 de tuile seul.
 
-### `core::TileMap` : la grille
+### \ref core::TileMap "core::TileMap" : la grille
 
 `core::TileMap` est une grille dense `width × height` de `TileType`, origine **haut-gauche** (même
 convention que tout le moteur, @ref guide-maths). Elle expose `tile(colonne, ligne)` (lecture) et
 `isSolid(colonne, ligne)` (utilisée directement par le balayage de collision, @ref guide-physique
 §1). C'est une donnée pure, sans dépendance à un fichier ou à un rendu — testable isolément.
 
-### `core::Level` : le niveau assemblé
+### \ref core::Level "core::Level" : le niveau assemblé
 
 `core::Level` regroupe : un nom, une `TileMap`, une position d'**entrée** et de **sortie**
 (`GridPosition`), une liste de `core::Mechanism` (liaisons interrupteur↔porte, résolues en
@@ -118,7 +118,7 @@ le succès ; en cas d'échec, `level` est vide et `error` décrit le problème d
 garde la gestion d'erreur explicite à chaque site d'appel, cohérent avec le reste du moteur qui ne
 s'appuie pas sur les exceptions pour son flux de contrôle normal.
 
-## De la grille aux entités : `buildLevelScene`
+## De la grille aux entités : \ref core::buildLevelScene "buildLevelScene"
 
 Le `TileMap` d'un niveau n'est, en lui-même, qu'un tableau de types — il ne peut pas être
 **affiché**. `core::buildLevelScene(world, level, régionParType)` fait le pont vers le rendu, en

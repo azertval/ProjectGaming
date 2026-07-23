@@ -1,4 +1,4 @@
-# TACHE-04 — Assertions `PROJECTGAMING_ASSERT` {#lot-02-tache-04-assertions}
+# TACHE-04 — Assertions PROJECTGAMING_ASSERT {#lot-02-tache-04-assertions}
 
 **Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 

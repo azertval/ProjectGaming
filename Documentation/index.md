@@ -15,13 +15,9 @@ code** générée à partir des sources.
   (GoogleTest), documentation Doxygen et CI GitHub Actions.
 
 ## Avancement
-- **LOT-01** — fenêtre Win32, init Direct3D 11 (RAII), boucle à pas fixe. *(terminé)*
-- **LOT-02** — journalisation & diagnostics. *(terminé)*
-- **LOT-03** — fondation ECS & mathématiques `Core`. *(terminé)*
-- **LOT-04** — documentation Doxygen & réorganisation documentaire. *(en cours)*
 
 Le détail de chaque lot (objectifs, tâches, avancement) est dans la rubrique
-[Lots](@ref lots).
+[Lots](@ref lots) ; l'historique des livraisons est dans `CHANGELOG.md`.
 
 ## Navigation
 - @subpage guide — **Guide du développeur** : comprendre tout le moteur (concepts, code, maths).

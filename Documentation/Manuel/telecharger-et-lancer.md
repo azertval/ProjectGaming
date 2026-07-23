@@ -15,7 +15,8 @@ elle est **autonome** (aucune installation de Visual Studio requise).
 4. Ouvrir le dossier extrait et double-cliquer sur **`ProjectGaming.exe`**.
 
 Une fenêtre de jeu s'ouvre. Pour quitter : fermer la fenêtre (croix) ou appuyer
-sur **Échap**.
+sur **Échap**. Le jeu se joue au clavier et à la souris, ou à la **manette** (XInput) si une
+manette est branchée — voir [Jouer](@ref manuel-jouer) pour le détail des contrôles.
 
 ## Remarques
 - Cette version « roulante » (`debug-latest`) correspond toujours au **dernier
