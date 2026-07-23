@@ -307,7 +307,7 @@ dupliqué toute la plomberie déjà en place ; `EditorScreen` généralise à la
 mécanique de saisie/confirmation/annulation reste unique.
 
 `hmi::isValidLevelSize`/`parseLevelSize` (`Source/HMI/Editor/LevelSizeValidation.h`, sur le modèle
-exact d'`isValidLevelName`) analysent le format `largeur x hauteur` (séparateur `x`/`X`, espaces
+exact d'`isValidLevelName`) analysent le format `largeur x hauteur` (séparateur `x`/`X`/`*`, espaces
 tolérés) et rejettent toute dimension hors de `[1, MAX_LEVEL_DIMENSION]` (100 par défaut — un
 plafond **d'usage**, porté par `HMI`, très au-delà des tailles livrées à ce jour ; `TileMap`/
 `LevelDraft` restent sans limite, `EX-NFR-010`). `Ctrl+R` ouvre le champ pré-rempli de la taille
@@ -397,8 +397,11 @@ panneau — un indice discret (« F1 : aide ») le rappelle en haut à droite qu
 ## Choisir un niveau à éditer : `hmi::LevelPicker`
 
 Avant d'entrer réellement en édition, `EditorScreen` affiche une liste — « Nouveau niveau » suivi
-des fichiers `.json` déjà présents — navigable au clavier (`↑`/`↓`/`Entrée`), sur le même modèle
-que `hmi::MenuModel` (@ref guide-entrees). `LevelPicker::forDirectory` fait le pont avec le disque
+des fichiers `.json` déjà présents — navigable au clavier (`↑`/`↓`/`Entrée`) **et** à la souris
+(survol + clic gauche), sur le même modèle que `hmi::MenuModel` (@ref guide-entrees) :
+`optionAtPoint` déduit le rectangle de chaque choix de la mise en page à chasse fixe (position,
+largeur du libellé en code points UTF-8 × la chasse de la police), exactement comme
+`MenuModel::optionAtPoint`. `LevelPicker::forDirectory` fait le pont avec le disque
 (scan du dossier `Levels`) ; son constructeur public, lui, prend une liste déjà résolue — une
 séparation délibérée entre la **logique de navigation** (pure, testable sans système de fichiers)
 et l'**accès disque** (non testé unitairement, comme le reste des E/S de `HMI`), le même principe
