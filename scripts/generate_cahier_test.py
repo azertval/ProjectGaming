@@ -189,6 +189,10 @@ def clean_fragment(text, keep_breaks=False):
     text = BR_RE.sub('<br/>' if keep_breaks else ' ', text)
     text = re.sub(r'[ \t]+', ' ', text).strip()
     text = re.sub(r'(<br/>\s*)+$', '', text)  # pas de saut de ligne final superflu
+    # Un `\` littéral (ex. littéral C++ `L'\xE9'`) serait lu par Doxygen comme le début d'une
+    # commande (`\xE9` -> "commande inconnue", erreur bloquante avec WARN_AS_ERROR) : échapper
+    # AVANT le pipe, pour ne pas ré-échapper le `\` que l'échappement du pipe introduirait.
+    text = text.replace('\\', '\\\\')
     # Un `|` littéral casserait la cellule du tableau Markdown.
     return text.replace('|', '\\|')
 
