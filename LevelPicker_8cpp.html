@@ -96,35 +96,54 @@ $(document).ready(function(){initNavTree('LevelPicker_8cpp.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="LevelPicker_8h_source.html">HMI/Editor/LevelPicker.h</a>&quot;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;system_error&gt;</code><br />
+<code>#include &quot;<a class="el" href="BitmapFont_8h_source.html">HMI/Graphics/BitmapFont.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for LevelPicker.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="LevelPicker_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2LevelPicker_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2LevelPicker_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2LevelPicker_8cpp">
-<area shape="rect" title=" " alt="" coords="223,5,444,60"/>
-<area shape="rect" href="LevelPicker_8h.html" title="Sélection du niveau à éditer : nouveau brouillon ou fichier existant (LOT&#45;14 TACHE&#45;06)." alt="" coords="76,108,255,133"/>
-<area shape="poly" title=" " alt="" coords="283,62,201,104,199,99,281,58"/>
-<area shape="rect" title=" " alt="" coords="279,108,387,133"/>
-<area shape="poly" title=" " alt="" coords="336,60,336,94,331,94,331,60"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="412,108,580,133"/>
-<area shape="poly" title=" " alt="" coords="384,58,464,99,461,104,382,62"/>
-<area shape="rect" title=" " alt="" coords="5,181,96,207"/>
-<area shape="poly" title=" " alt="" coords="148,136,82,176,80,172,146,131"/>
-<area shape="rect" title=" " alt="" coords="120,181,195,207"/>
-<area shape="poly" title=" " alt="" coords="167,134,163,168,157,168,161,133"/>
-<area shape="rect" title=" " alt="" coords="219,181,277,207"/>
-<area shape="poly" title=" " alt="" coords="180,131,226,170,222,174,177,135"/>
-<area shape="rect" title=" " alt="" coords="302,181,365,207"/>
-<area shape="poly" title=" " alt="" coords="193,131,294,173,292,178,191,136"/>
-<area shape="poly" title=" " alt="" coords="471,136,374,178,371,173,469,131"/>
-<area shape="rect" title=" " alt="" coords="389,181,445,207"/>
-<area shape="poly" title=" " alt="" coords="485,135,442,174,438,170,482,131"/>
-<area shape="rect" title=" " alt="" coords="470,181,541,207"/>
-<area shape="poly" title=" " alt="" coords="500,133,505,167,499,168,495,134"/>
-<area shape="rect" title=" " alt="" coords="565,181,632,207"/>
-<area shape="poly" title=" " alt="" coords="514,131,572,171,569,175,511,136"/>
+<area shape="rect" title=" " alt="" coords="821,5,1043,60"/>
+<area shape="rect" href="LevelPicker_8h.html" title="Sélection du niveau à éditer : nouveau brouillon ou fichier existant (LOT&#45;14 TACHE&#45;06)." alt="" coords="151,108,329,133"/>
+<area shape="poly" title=" " alt="" coords="822,50,343,109,342,104,821,45"/>
+<area shape="rect" title=" " alt="" coords="1361,189,1458,214"/>
+<area shape="poly" title=" " alt="" coords="973,58,1041,101,1097,131,1166,152,1221,160,1278,165,1350,179,1363,182,1362,187,1349,184,1278,171,1221,165,1165,157,1095,136,1038,105,970,62"/>
+<area shape="rect" title=" " alt="" coords="1107,108,1215,133"/>
+<area shape="poly" title=" " alt="" coords="1003,58,1119,101,1117,106,1001,63"/>
+<area shape="rect" href="BitmapFont_8h.html" title="Police bitmap à chasse fixe, générée en code, et dessin de texte via SpriteBatch." alt="" coords="832,108,1032,133"/>
+<area shape="poly" title=" " alt="" coords="935,60,935,94,929,94,929,60"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris échantillonné une fois par frame." alt="" coords="384,108,552,133"/>
+<area shape="poly" title=" " alt="" coords="821,57,544,108,543,103,820,52"/>
+<area shape="rect" title=" " alt="" coords="88,189,179,214"/>
+<area shape="poly" title=" " alt="" coords="226,136,162,183,159,178,223,131"/>
+<area shape="rect" title=" " alt="" coords="203,189,277,214"/>
+<area shape="poly" title=" " alt="" coords="243,134,243,175,237,175,237,134"/>
+<area shape="rect" title=" " alt="" coords="5,189,64,214"/>
+<area shape="poly" title=" " alt="" coords="207,136,77,184,72,186,70,181,75,179,205,131"/>
+<area shape="rect" title=" " alt="" coords="302,189,365,214"/>
+<area shape="poly" title=" " alt="" coords="255,131,311,178,307,182,252,136"/>
+<area shape="poly" title=" " alt="" coords="1033,129,1183,148,1350,179,1364,182,1362,187,1349,184,1182,154,1032,134"/>
+<area shape="rect" title=" " alt="" coords="596,269,663,295"/>
+<area shape="poly" title=" " alt="" coords="832,135,728,154,684,167,656,183,645,199,637,218,631,256,626,255,632,216,640,196,653,179,682,162,726,149,831,130"/>
+<area shape="rect" title=" " alt="" coords="667,189,791,214"/>
+<area shape="poly" title=" " alt="" coords="903,136,772,186,770,181,902,131"/>
+<area shape="rect" title=" " alt="" coords="816,189,931,214"/>
+<area shape="poly" title=" " alt="" coords="925,135,892,179,888,176,921,132"/>
+<area shape="rect" title=" " alt="" coords="955,189,1029,214"/>
+<area shape="poly" title=" " alt="" coords="943,132,977,176,973,179,939,135"/>
+<area shape="rect" title=" " alt="" coords="1054,189,1149,214"/>
+<area shape="poly" title=" " alt="" coords="958,131,1066,181,1063,185,956,136"/>
+<area shape="rect" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="1173,181,1337,221"/>
+<area shape="poly" title=" " alt="" coords="980,131,1165,176,1163,181,978,136"/>
+<area shape="poly" title=" " alt="" coords="1173,222,1162,224,887,259,677,279,676,274,887,254,1161,219,1172,217"/>
+<area shape="poly" title=" " alt="" coords="449,136,366,184,364,179,447,131"/>
+<area shape="poly" title=" " alt="" coords="459,135,444,153,430,175,424,199,425,210,430,220,445,235,462,248,501,266,543,275,582,279,582,284,542,281,500,271,459,253,441,239,426,223,420,211,418,198,425,173,439,150,455,132"/>
+<area shape="rect" title=" " alt="" coords="440,189,496,214"/>
+<area shape="poly" title=" " alt="" coords="471,134,471,175,465,175,465,134"/>
+<area shape="rect" title=" " alt="" coords="521,189,591,214"/>
+<area shape="poly" title=" " alt="" coords="483,132,535,178,531,182,479,136"/>
 </map>
 </div>
 </div><table class="memberdecls">

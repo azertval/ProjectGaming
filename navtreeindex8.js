@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"lot-04-tache-05-pages-lots.html#autotoc_md375":[5,4,12,6],
+"lot-04-tache-06-manuel-utilisateur.html":[5,4,13],
 "lot-04-tache-06-manuel-utilisateur.html#autotoc_md376":[5,4,13,0],
 "lot-04-tache-06-manuel-utilisateur.html#autotoc_md377":[5,4,13,1],
 "lot-04-tache-06-manuel-utilisateur.html#autotoc_md378":[5,4,13,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "lot-08-tache-02-balayage-aabb.html#autotoc_md592":[5,8,9,6],
 "lot-08-tache-03-physique-personnage.html":[5,8,10],
 "lot-08-tache-03-physique-personnage.html#autotoc_md593":[5,8,10,0],
-"lot-08-tache-03-physique-personnage.html#autotoc_md594":[5,8,10,1],
-"lot-08-tache-03-physique-personnage.html#autotoc_md595":[5,8,10,2],
-"lot-08-tache-03-physique-personnage.html#autotoc_md596":[5,8,10,3]
+"lot-08-tache-03-physique-personnage.html#autotoc_md594":[5,8,10,1]
 };

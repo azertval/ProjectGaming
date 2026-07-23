@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"lot-13.html#autotoc_md806":[5,13,3],
+"lot-13.html#autotoc_md807":[5,13,4],
 "lot-13.html#autotoc_md808":[5,13,5],
 "lot-13.html#autotoc_md809":[5,13,6],
 "lot-14-tache-01-serialisation-modele-edition.html":[5,14,8],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "lot-19-tache-01-masse-chute-newtonienne.html":[5,19,8],
 "lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1034":[5,19,8,0],
 "lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1035":[5,19,8,1],
-"lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1036":[5,19,8,2],
-"lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1037":[5,19,8,3],
-"lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1038":[5,19,8,4]
+"lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1036":[5,19,8,2]
 };

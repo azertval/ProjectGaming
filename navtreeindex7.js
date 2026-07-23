@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"guide-maths.html#autotoc_md62":[3,5,0,1],
+"guide-maths.html#autotoc_md63":[3,5,1],
 "guide-maths.html#autotoc_md64":[3,5,2],
 "guide-maths.html#autotoc_md65":[3,5,3],
 "guide-maths.html#autotoc_md66":[3,5,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "lot-04-tache-05-pages-lots.html#autotoc_md371":[5,4,12,2],
 "lot-04-tache-05-pages-lots.html#autotoc_md372":[5,4,12,3],
 "lot-04-tache-05-pages-lots.html#autotoc_md373":[5,4,12,4],
-"lot-04-tache-05-pages-lots.html#autotoc_md374":[5,4,12,5],
-"lot-04-tache-05-pages-lots.html#autotoc_md375":[5,4,12,6],
-"lot-04-tache-06-manuel-utilisateur.html":[5,4,13]
+"lot-04-tache-05-pages-lots.html#autotoc_md374":[5,4,12,5]
 };

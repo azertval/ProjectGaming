@@ -148,7 +148,7 @@ var searchData=
   ['loadfromstring_145',['loadFromString',['../classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89',1,'core::LevelLoader']]],
   ['loadlanguage_146',['loadLanguage',['../classhmi_1_1Localization.html#a49f9ec81ff30f2eb405930ce13e36584',1,'hmi::Localization']]],
   ['loadlevel_147',['loadlevel',['../classhmi_1_1GameScreen.html#a65880fa25b1d6c65449aa5194c052be5',1,'hmi::GameScreen::loadLevel(core::Level level)'],['../classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f',1,'hmi::GameScreen::loadLevel(const std::filesystem::path &amp;path)']]],
-  ['localization_148',['localization',['../structhmi_1_1RenderContext.html#a321212b72a461aa175899f248e4e24f0',1,'hmi::RenderContext::localization'],['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization::Localization()'],['../classhmi_1_1Localization.html',1,'hmi::Localization']]],
+  ['localization_148',['localization',['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization::Localization()'],['../structhmi_1_1RenderContext.html#a321212b72a461aa175899f248e4e24f0',1,'hmi::RenderContext::localization'],['../classhmi_1_1Localization.html',1,'hmi::Localization']]],
   ['localization_2ecpp_149',['Localization.cpp',['../Localization_8cpp.html',1,'']]],
   ['localization_2eh_150',['Localization.h',['../Localization_8h.html',1,'']]],
   ['log_151',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger']]],

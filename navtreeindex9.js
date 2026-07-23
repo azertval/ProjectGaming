@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"lot-08-tache-03-physique-personnage.html#autotoc_md595":[5,8,10,2],
+"lot-08-tache-03-physique-personnage.html#autotoc_md596":[5,8,10,3],
 "lot-08-tache-03-physique-personnage.html#autotoc_md597":[5,8,10,4],
 "lot-08-tache-03-physique-personnage.html#autotoc_md598":[5,8,10,5],
 "lot-08-tache-03-physique-personnage.html#autotoc_md599":[5,8,10,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX9 =
 "lot-13.html#autotoc_md802":[5,13,1],
 "lot-13.html#autotoc_md803":[5,13,1,0],
 "lot-13.html#autotoc_md804":[5,13,1,1],
-"lot-13.html#autotoc_md805":[5,13,2],
-"lot-13.html#autotoc_md806":[5,13,3],
-"lot-13.html#autotoc_md807":[5,13,4]
+"lot-13.html#autotoc_md805":[5,13,2]
 };
