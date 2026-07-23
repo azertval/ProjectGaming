@@ -33,13 +33,14 @@ var searchData=
   ['shouldquit_30',['shouldQuit',['../classhmi_1_1ScreenManager.html#ab24b8140261ce6e630ba5e3dbdc5d46a',1,'hmi::ScreenManager']]],
   ['size_31',['size',['../classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7',1,'core::ComponentPool::size()'],['../classhmi_1_1LevelSequence.html#a1b281c38c118ed8f6254d7bfbb350dfc',1,'hmi::LevelSequence::size()']]],
   ['skiptomatch_32',['skipToMatch',['../classcore_1_1View_1_1Iterator.html#a8023ce2eabf79c007797ced3a5dc7e06',1,'core::View::Iterator']]],
-  ['smallestentities_33',['smallestEntities',['../classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce',1,'core::View']]],
-  ['snapshot_34',['snapshot',['../classcore_1_1LevelDraft.html#a89fced43d78e2f2fcd89fd03b75373bc',1,'core::LevelDraft']]],
-  ['spawnplayer_35',['spawnPlayer',['../classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9',1,'hmi::GameScreen']]],
-  ['spritebatch_36',['spritebatch',['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete'],['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)']]],
-  ['spriterenderer_37',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
-  ['startplaytest_38',['startPlaytest',['../classhmi_1_1EditorScreen.html#affd589aa8d71e4a5596c996ecf5242b5',1,'hmi::EditorScreen']]],
-  ['sweepaabb_39',['sweepAabb',['../namespacecore.html#a4ca635df367666624247837feb2af5a5',1,'core']]],
-  ['switchto_40',['switchTo',['../structhmi_1_1ScreenTransition.html#ab70f04892657b3e9f10ca3647ec8d4ef',1,'hmi::ScreenTransition']]],
-  ['systemcount_41',['systemCount',['../classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d',1,'core::World']]]
+  ['slopesurfaceheight_33',['slopeSurfaceHeight',['../namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb',1,'core']]],
+  ['smallestentities_34',['smallestEntities',['../classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce',1,'core::View']]],
+  ['snapshot_35',['snapshot',['../classcore_1_1LevelDraft.html#a89fced43d78e2f2fcd89fd03b75373bc',1,'core::LevelDraft']]],
+  ['spawnplayer_36',['spawnPlayer',['../classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9',1,'hmi::GameScreen']]],
+  ['spritebatch_37',['spritebatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
+  ['spriterenderer_38',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
+  ['startplaytest_39',['startPlaytest',['../classhmi_1_1EditorScreen.html#affd589aa8d71e4a5596c996ecf5242b5',1,'hmi::EditorScreen']]],
+  ['sweepaabb_40',['sweepAabb',['../namespacecore.html#a4ca635df367666624247837feb2af5a5',1,'core']]],
+  ['switchto_41',['switchTo',['../structhmi_1_1ScreenTransition.html#ab70f04892657b3e9f10ca3647ec8d4ef',1,'hmi::ScreenTransition']]],
+  ['systemcount_42',['systemCount',['../classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d',1,'core::World']]]
 ];

@@ -94,23 +94,23 @@ $(document).ready(function(){initNavTree('lot-24-tache-02-collision-boite-boite.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-24-blocs-taille-fractionnaire_2epic_8md.html">LOT-24</a> · <b>Emplacement :</b> <code>Core/Physics</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md1247"></a>
+<h1><a class="anchor" id="autotoc_md1251"></a>
 Contexte</h1>
 <p>Un bloc réduit occupe sa case <b>partiellement</b> : <code>sweepAabb</code> (solide/vide par case entière, cf. <code><a class="el" href="SweptCollision_8cpp.html">Core/Physics/SweptCollision.cpp</a></code>) ne peut pas l'exprimer. Cette tâche ajoute une résolution <b>boîte contre boîte</b>, plus simple qu'un suivi de surface (<code>LOT-22</code>/<code>LOT-23</code>) mais nouvelle dans ce moteur (jusqu'ici, toute collision passe par la grille).</p>
-<h1><a class="anchor" id="autotoc_md1248"></a>
+<h1><a class="anchor" id="autotoc_md1252"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Nouvelle fonction pure</b>, par exemple <code>core::sweepAabbVsAabb(box, delta, obstacle)</code> (<code><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">Core/Physics/SweptCollision.h</a></code>/<code>.cpp</code>, ou nouveau fichier dédié si le mélange grille/boîte nuit à la lisibilité) : balayage continu d'une boîte mobile contre une boîte <b>fixe</b> (l'obstacle résolu par l'axe de pénétration minimal, même esprit — clamp direct, pas d'interpolation — que <code>sweepX</code>/<code>sweepY</code> existants, pour éviter la même dérive flottante déjà écartée dans <code><a class="el" href="SweptCollision_8cpp.html">SweptCollision.cpp</a></code>).</li>
 <li>**<code><a class="el" href="CharacterPhysicsSystem_8cpp.html">Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></code>** (ou l'orchestration côté <code>HMI/GameScreen</code>, à trancher en implémentant selon où vivent déjà les positions de blocs) : après la résolution sur grille, pour chaque bloc réduit dont la boîte (centrée, taille <code>facteur × 1</code>) chevauche le chemin du personnage, appliquer <code>sweepAabbVsAabb</code> et composer le résultat avec celui du balayage sur grille (le plus restrictif des deux l'emporte).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1249"></a>
+<h1><a class="anchor" id="autotoc_md1253"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">Source/Core/Physics/SweptCollision.h</a></code>/<code>.cpp</code> (ou nouveau fichier dédié).</li>
 <li><code><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></code> et/ou <code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code> (selon l'endroit retenu pour composer grille + blocs réduits).</li>
 <li>Tests : nouveau <code>Source/Test/Unit/Core/Physics/test_sweep_aabb_vs_aabb.cpp</code> + nouveaux cas dans <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></code> (approche, contact, glissement le long d'un bloc réduit).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1250"></a>
+<h1><a class="anchor" id="autotoc_md1254"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le personnage est arrêté par un bloc réduit exactement à son bord (pas de pénétration, pas de saut de position).</li>
@@ -118,18 +118,18 @@ Tests (obligatoires)</h1>
 <li>Glissement le long d'un bloc réduit, comme contre un mur classique (cohérence de ressenti).</li>
 <li><b>Régression</b> : tous les tests existants (grille, blocs pleins de <code>LOT-21</code>) restent verts sans modification.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1251"></a>
+<h1><a class="anchor" id="autotoc_md1255"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Composer, ne pas remplacer.</b> Le résultat final doit être le plus restrictif entre le balayage sur grille (murs, blocs pleins, sol) et le balayage boîte-boîte (blocs réduits) — jamais l'un au détriment de l'autre. Un personnage ne doit jamais pouvoir traverser un mur classique sous prétexte qu'un bloc réduit était présent ailleurs sur le chemin.</li>
 <li><b>Où vit la composition</b> (<code>Core</code> vs <code>HMI</code>) mérite une vraie décision, pas un choix par défaut : <code>CharacterPhysicsSystem</code> ne connaît aujourd'hui que la grille (<code>TileMap</code>), pas les positions de blocs (portées par <code>BlockController</code>, côté <code>HMI/GameScreen</code> comme <code>LOT-21</code> l'a établi) — il faudra soit lui faire accepter une liste de boîtes en plus de la grille, soit garder la composition côté <code>GameScreen</code> après son appel. Documenter le choix retenu ici une fois tranché.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1252"></a>
+<h1><a class="anchor" id="autotoc_md1256"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Collision boîte-contre-boîte fonctionnelle et testée, composée correctement avec le balayage sur grille ; <b>zéro régression</b> ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1253"></a>
+<h1><a class="anchor" id="autotoc_md1257"></a>
 Exigences</h1>
 <p><code>EX-GP-005</code> (implémentation complète). </p>
 </div></div><!-- contents -->

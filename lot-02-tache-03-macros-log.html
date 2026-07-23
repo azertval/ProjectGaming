@@ -94,43 +94,43 @@ $(document).ready(function(){initNavTree('lot-02-tache-03-macros-log.html',''); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-02-journalisation_2epic_8md.html">LOT-02</a> · <b>Emplacement :</b> <code>Source/Core/Diagnostics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md295"></a>
+<h1><a class="anchor" id="autotoc_md299"></a>
 Contexte</h1>
 <p>Confort d'utilisation : des macros courtes pour journaliser, capturant automatiquement le contexte (fichier, ligne) et l'horodatage.</p>
-<h1><a class="anchor" id="autotoc_md296"></a>
+<h1><a class="anchor" id="autotoc_md300"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Macros <code>PROJECTGAMING_LOG_TRACE/INFO/WARNING/ERROR(message)</code> qui appellent le logger courant avec le niveau correspondant.</li>
 <li>Enrichissement du message : <b>horodatage</b>, <b>niveau</b>, et <b>fichier:ligne</b> (<code>__FILE__</code>, <code>__LINE__</code>).</li>
 <li>Format de ligne lisible et stable (ex. <code>[HH:MM:SS][INFO][fichier:ligne] message</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md297"></a>
+<h1><a class="anchor" id="autotoc_md301"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage).">Source/Core/Diagnostics/Log.h</a></code> (macros ; nouveau).</li>
 <li><code>Source/Core/Diagnostics/Logger.*</code> (formatage de ligne si nécessaire).</li>
 <li><code>Source/Test/Unit/test_log_format.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md298"></a>
+<h1><a class="anchor" id="autotoc_md302"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le message formaté contient le niveau et le texte fournis.</li>
 <li>Le formatage inclut la position source (fichier/ligne) transmise par la macro.</li>
 <li>La partie variable (horodatage) est isolée pour permettre un test déterministe du reste.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md299"></a>
+<h1><a class="anchor" id="autotoc_md303"></a>
 Points d'attention</h1>
 <ul>
 <li>Les macros doivent s'évaluer proprement (une seule évaluation des arguments, protection par <code>do { } while(0)</code> si besoin).</li>
 <li>Conventions : macros en <code>UPPER_SNAKE_CASE</code>, documentation <code>.h</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md300"></a>
+<h1><a class="anchor" id="autotoc_md304"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Macros fonctionnelles, formatage testé (<code>ctest</code> vert).</li>
 <li>Compile <code>/W4 /WX</code>, formaté, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md301"></a>
+<h1><a class="anchor" id="autotoc_md305"></a>
 Exigences</h1>
 <p>Conventions §10 ; <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

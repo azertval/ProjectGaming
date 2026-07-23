@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Dépend de <a class="el" href="vision_8md.html">`vision.md`</a>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md207"></a>
+<h1><a class="anchor" id="autotoc_md211"></a>
 1. Monde en tuiles</h1>
 <p>Le niveau est une <b>grille de tuiles</b> de taille fixe : <b>16 × 16 px</b> par tuile. Chaque cellule porte un type.</p>
 <table class="markdownTable">
@@ -113,18 +113,18 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Sortie   </td><td class="markdownTableBodyNone">Déclenche la victoire au contact.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Pente (⚠️ non implémenté)   </td><td class="markdownTableBodyNone">Solide, mais dont la surface est <b>inclinée</b> : le personnage suit le profil de la pente plutôt que d'être simplement bloqué ou arrêté à son pied.    </td></tr>
+<td class="markdownTableBodyNone">Pente   </td><td class="markdownTableBodyNone"><b>Non solide</b> pour la grille classique (<code>isSolid</code> renvoie faux), mais sa surface <b>inclinée</b> est suivie : la position verticale du personnage se cale sur le profil de la pente à sa position horizontale plutôt que d'être simplement bloqué ou arrêté à son pied.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Arrondi (⚠️ non implémenté)   </td><td class="markdownTableBodyNone">Solide, mais dont la surface est <b>courbe</b> (quart de cercle) plutôt que plane — même principe de suivi que la pente.   </td></tr>
 </table>
 <ul>
 <li><a class="anchor" id="EX-GP-001"></a><b>EX-GP-001</b> — Le niveau doit être représenté par une grille de tuiles typées.</li>
 <li><a class="anchor" id="EX-GP-002"></a><b>EX-GP-002</b> — Une tuile solide doit empêcher le personnage de la traverser.</li>
-<li><a class="anchor" id="EX-GP-003"></a><b>EX-GP-003</b> (⚠️ non implémenté) — Une tuile de <b>pente</b> doit être solide mais laisser le personnage <b>suivre</b> sa surface inclinée en marchant (la position verticale du personnage se cale sur la hauteur de la pente à sa position horizontale), pas seulement le bloquer ou l'arrêter à son pied.</li>
+<li><a class="anchor" id="EX-GP-003"></a><b>EX-GP-003</b> — Une tuile de <b>pente</b> doit laisser le personnage <b>suivre</b> sa surface inclinée en marchant (la position verticale du personnage se cale sur la hauteur de la pente à sa position horizontale), pas seulement le bloquer ou l'arrêter à son pied. Elle n'est <b>jamais solide</b> pour la grille classique (<code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>) — seul ce suivi de surface (<code><a class="el" href="namespacecore.html#a2920623584e25af83769e320830880d3" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code>, <a class="el" href="guide-physique.html">Physique du personnage</a>) la rend praticable, sans quoi son bord haut agirait comme un mur invisible.</li>
 <li><a class="anchor" id="EX-GP-004"></a><b>EX-GP-004</b> (⚠️ non implémenté) — Une tuile <b>arrondie</b> (quart de cercle) doit offrir le même suivi de surface que la pente (<code>EX-GP-003</code>), avec un profil <b>courbe</b> plutôt que linéaire.</li>
 <li><a class="anchor" id="EX-GP-005"></a><b>EX-GP-005</b> (⚠️ non implémenté) — Un <b>bloc poussable</b> (<code>EX-GP-022</code>) doit pouvoir avoir une taille <b>réduite</b> par rapport à une case pleine (facteurs <code>×0.5</code>/<code>×0.25</code>), pour permettre des défis de précision (sauts millimétrés) — en prévision de blocs poussables <b>plus grands</b> qu'une case (multi-cases), non couverts par cette exigence.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md208"></a>
+<h1><a class="anchor" id="autotoc_md212"></a>
 2. Personnage &amp; déplacement</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-010"></a><b>EX-GP-010</b> — Le personnage doit se déplacer horizontalement à vitesse constante (⚠️ ~6 tuiles/s).</li>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <li><a class="anchor" id="EX-GP-013"></a><b>EX-GP-013</b> — Le personnage ne doit pouvoir sauter que lorsqu'il est <b>au sol</b> (pas de double saut au MVP).</li>
 <li><a class="anchor" id="EX-GP-014"></a><b>EX-GP-014</b> — Les collisions personnage ↔ tuiles solides doivent être résolues sur les deux axes (pas de traversée à vitesse élevée — collision par balayage ou pas fixes).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md209"></a>
+<h2><a class="anchor" id="autotoc_md213"></a>
 Mécaniques aériennes avancées (au-delà du MVP)</h2>
 <blockquote class="doxtable">
 <p>&zwj;Ces exigences <b>étendent</b> le MVP et <b>assouplissent</b> <code>EX-GP-013</code> (qui interdit le double saut) : non requises au MVP, elles visent un platformer aux mécaniques riches. </p>
@@ -144,13 +144,13 @@ Mécaniques aériennes avancées (au-delà du MVP)</h2>
 <li><a class="anchor" id="EX-GP-018"></a><b>EX-GP-018</b> — Le ressenti vertical doit être affiné : <b>gravité de chute renforcée</b> (chute plus rapide que la montée), <b>flottement à l'apex</b> (gravité réduite quand la vitesse verticale est faible) et <b>fast-fall</b> (chute accélérée en maintenant « bas »). La retombée reste sous gravité <b>constante</b> (à multiplicateur près), conformément à <code>EX-GP-011</code>.</li>
 <li><a class="anchor" id="EX-GP-019"></a><b>EX-GP-019</b> — Le personnage doit avoir une <b>masse</b> ; la vitesse de chute doit résulter de l'équilibre entre le <b>poids</b> (masse × gravité effective) et une <b>traînée</b> proportionnelle à la vitesse, faisant émerger une <b>vitesse terminale</b> progressive plutôt qu'un plafond arbitraire. La montée du saut n'est pas concernée (gravité simple, <code>EX-GP-011</code>).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md210"></a>
+<h2><a class="anchor" id="autotoc_md214"></a>
 Ressenti (game feel) — ⚠️ à affiner par tests</h2>
 <ul>
 <li>Hauteur de saut : ~2,5 tuiles ; apex atteint en ~0,35 s.</li>
 <li>Tolérances de confort recommandées : <em>coyote time</em> (~80 ms) et <em>jump buffering</em> (~120 ms).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md211"></a>
+<h1><a class="anchor" id="autotoc_md215"></a>
 3. Mécanismes de puzzle</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-020"></a><b>EX-GP-020</b> — Un <b>interrupteur</b> doit changer d'état quand le personnage l'active (contact ou action dédiée).</li>
@@ -161,20 +161,20 @@ Ressenti (game feel) — ⚠️ à affiner par tests</h2>
 <li><a class="anchor" id="EX-GP-025"></a><b>EX-GP-025</b> — Une <b>plaque de pression</b> doit maintenir la porte liée <b>ouverte</b> tant qu'un poids suffisant y repose, et la <b>refermer</b> dès qu'il en repart — activation <b>continue</b>, à la différence de l'interrupteur à bascule (<code>EX-GP-020</code>), dont le comportement n'est pas affecté.</li>
 </ul>
 <p>Chaque mécanisme est déterministe : à état d'entrée identique, comportement identique (facilite tests et rejouabilité).</p>
-<h1><a class="anchor" id="autotoc_md212"></a>
+<h1><a class="anchor" id="autotoc_md216"></a>
 4. Conditions de fin de niveau</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-030"></a><b>EX-GP-030</b> — Atteindre la tuile de <b>sortie</b> termine le niveau en <b>succès</b>.</li>
 <li><a class="anchor" id="EX-GP-031"></a><b>EX-GP-031</b> — Le contact avec un <b>danger</b> ou la sortie des limites basses du niveau provoque l'<b>échec</b>.</li>
 <li><a class="anchor" id="EX-GP-032"></a><b>EX-GP-032</b> — En cas d'échec, le niveau doit <b>redémarrer</b> à son état initial sans quitter le jeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md213"></a>
+<h1><a class="anchor" id="autotoc_md217"></a>
 5. États de jeu</h1>
 <ul>
 <li><a class="anchor" id="EX-GP-040"></a><b>EX-GP-040</b> (⚠️ partiellement implémenté) — Le jeu doit gérer des états distincts : <code>Menu</code>, <code>EnJeu</code>, <code>Pause</code>, <code>NiveauTermine</code>. En l'état (<code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran cible de l&#39;application.">hmi::ScreenId</a></code>) : <code>Menu</code>, <code>Game</code>, <code>Editor</code>, <code>Options</code> — pas d'état <code>Pause</code> ni <code>NiveauTermine</code> dédiés (cf. <code>EX-REN-031</code>).</li>
 <li><a class="anchor" id="EX-GP-041"></a><b>EX-GP-041</b> — Les transitions entre états doivent être explicites et unidirectionnelles à chaque événement (machine à états).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md214"></a>
+<h1><a class="anchor" id="autotoc_md218"></a>
 Traçabilité</h1>
 <p>Contrôles associés : <a class="el" href="controles_8md.html">`controles.md`</a>. Format des niveaux : <a class="el" href="niveaux_8md.html">`niveaux.md`</a>. Ces exigences seront couvertes par des tests unitaires (<code>Core</code>) et système. </p>
 </div></div><!-- contents -->

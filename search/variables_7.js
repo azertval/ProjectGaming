@@ -4,5 +4,5 @@ var searchData=
   ['gap_1',['GAP',['../classhmi_1_1SaveLogButton.html#aaeda1ca332259231077bdec136aa9dc6',1,'hmi::SaveLogButton']]],
   ['generation_2',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity']]],
   ['gravity_3',['gravity',['../structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91',1,'core::PhysicsConfig']]],
-  ['grounded_4',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player']]]
+  ['grounded_4',['grounded',['../structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085',1,'core::Player::grounded'],['../structcore_1_1SlopeFollowResult.html#aae445ef115720b52473f467d1de25b8c',1,'core::SlopeFollowResult::grounded']]]
 ];

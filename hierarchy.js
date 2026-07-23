@@ -66,6 +66,7 @@ var hierarchy =
     [ "hmi::SaveLogButton", "classhmi_1_1SaveLogButton.html", null ],
     [ "hmi::ScreenManager", "classhmi_1_1ScreenManager.html", null ],
     [ "hmi::ScreenTransition", "structhmi_1_1ScreenTransition.html", null ],
+    [ "core::SlopeFollowResult", "structcore_1_1SlopeFollowResult.html", null ],
     [ "core::Sprite", "structcore_1_1Sprite.html", null ],
     [ "hmi::SpriteBatch", "classhmi_1_1SpriteBatch.html", null ],
     [ "hmi::SpriteQuad", "structhmi_1_1SpriteQuad.html", null ],

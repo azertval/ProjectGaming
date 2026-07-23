@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-16-tache-04-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-16-niveaux-plus-grands_2epic_8md.html">LOT-16</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md999"></a>
+<h1><a class="anchor" id="autotoc_md1003"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1><a class="anchor" id="autotoc_md1000"></a>
+<h1><a class="anchor" id="autotoc_md1004"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></code>** : nouvelle section décrivant la boîte de dialogue de redimensionnement (généralisation du slot de saisie de texte, réutilisation de <code>LevelSizeValidation</code> sur le modèle de <code>LevelNameValidation</code>) et la correction du cadrage caméra (pourquoi le zoom devient fractionnaire au-delà de l'ajustement ×1, et pourquoi c'est une exception locale à <code>EX-ARCH-022</code> plutôt qu'un changement de politique).</li>
@@ -107,31 +107,31 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<code>doxygen Doxyfile</code> depuis <code>Documentation/</code>) avant de pousser — LOT-15 a laissé un échec CI (caractères <code>&lt; &gt;</code> non échappés dans un span de code) qui aurait été attrapé par cette vérification ; ne pas s'y reprendre à deux fois.</li>
 <li>**<code>scripts/lint_exigences.py</code>** : doit rester vert (nouvelle exigence <code>EX-EDIT-017</code> déclarée une fois, <code>EX-REN-013</code> réutilisée sans nouvelle déclaration, aucune référence orpheline).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1001"></a>
+<h1><a class="anchor" id="autotoc_md1005"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></code>, potentiellement <code><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></code>.</li>
 <li><code><a class="el" href="partager-un-niveau_8md.html">Documentation/Manuel/partager-un-niveau.md</a></code>.</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1002"></a>
+<h1><a class="anchor" id="autotoc_md1006"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie (le <code>Doxyfile</code> du projet est configuré <code>QUIET=YES</code>, <code>WARN_AS_ERROR= FAIL_ON_WARNINGS</code> : un avertissement produirait une sortie non vide et ferait échouer le CI <code>docs.yml</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1003"></a>
+<h1><a class="anchor" id="autotoc_md1007"></a>
 Points d'attention</h1>
 <ul>
 <li>Si un passage nouvellement écrit doit montrer un caractère <code>&lt;</code>/<code>&gt;</code> littéral dans un span en accent grave, ne pas le faire — Doxygen l'interprète comme une balise HTML mal fermée à l'intérieur du <code>&lt;tt&gt;</code> qu'il génère (rencontré en LOT-15). Écrire le caractère en toutes lettres (« chevron ouvrant/fermant ») plutôt que par son glyphe.</li>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<code>epic.md</code> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1004"></a>
+<h1><a class="anchor" id="autotoc_md1008"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1005"></a>
+<h1><a class="anchor" id="autotoc_md1009"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

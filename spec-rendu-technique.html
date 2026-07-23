@@ -96,14 +96,14 @@ $(document).ready(function(){initNavTree('spec-rendu-technique.html',''); initRe
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Dépend de <a class="el" href="vision_8md.html">`vision.md`</a>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md220"></a>
+<h1><a class="anchor" id="autotoc_md224"></a>
 1. Cible technique</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-001"></a><b>EX-REN-001</b> — Le jeu doit fonctionner sous <b>Windows 10/11 (x64)</b>.</li>
 <li><a class="anchor" id="EX-REN-002"></a><b>EX-REN-002</b> — Le rendu doit s'appuyer sur <b>Direct3D 11</b> (bon compromis simplicité/capacités pour de la 2D ; Direct3D 12 écarté car surdimensionné au MVP).</li>
 <li><a class="anchor" id="EX-REN-003"></a><b>EX-REN-003</b> — La fenêtre doit être créée via l'API Win32, redimensionnable, avec titre et icône.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md221"></a>
+<h1><a class="anchor" id="autotoc_md225"></a>
 2. Rendu 2D</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-010"></a><b>EX-REN-010</b> — Le rendu doit afficher une grille de tuiles à partir d'un <b>atlas de textures</b> (spritesheet).</li>
@@ -112,14 +112,14 @@ $(document).ready(function(){initNavTree('spec-rendu-technique.html',''); initRe
 <li><a class="anchor" id="EX-REN-013"></a><b>EX-REN-013</b> — Une <b>caméra 2D</b> doit cadrer le niveau en jeu : elle reste bornée aux limites du niveau, et pour un niveau plus grand que la fenêtre, elle <b>zoome pour englober le niveau entier</b> plutôt que de suivre le personnage — aucune zone ne doit rester invisible, quelle que soit la taille du niveau (précisé en LOT-16 ; la formulation initiale « suivre le personnage » ne correspondait déjà plus à l'implémentation, une caméra fixe cadrant le tableau depuis LOT-08).</li>
 <li><a class="anchor" id="EX-REN-014"></a><b>EX-REN-014</b> — Le rendu doit gérer un ordre de dessin par <b>couches</b> (fond, décor, entités, interface).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md222"></a>
+<h1><a class="anchor" id="autotoc_md226"></a>
 3. Boucle &amp; temps</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-020"></a><b>EX-REN-020</b> — Le jeu doit tourner à <b>60 images/seconde</b> cible.</li>
 <li><a class="anchor" id="EX-REN-021"></a><b>EX-REN-021</b> — La logique doit être mise à jour à <b>pas de temps fixe</b> (simulation déterministe), le rendu pouvant être découplé.</li>
 <li><a class="anchor" id="EX-REN-022"></a><b>EX-REN-022</b> — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le <em>tearing</em>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md223"></a>
+<h1><a class="anchor" id="autotoc_md227"></a>
 4. Interface (HMI)</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-030"></a><b>EX-REN-030</b> — Le jeu doit afficher un <b>menu principal</b> (Jouer, Quitter).</li>
@@ -127,12 +127,12 @@ $(document).ready(function(){initNavTree('spec-rendu-technique.html',''); initRe
 <li><a class="anchor" id="EX-REN-032"></a><b>EX-REN-032</b> — Le jeu doit afficher du <b>texte</b> (titres, indications) via une police bitmap ou vectorielle.</li>
 <li><a class="anchor" id="EX-REN-033"></a><b>EX-REN-033</b> — Tout <b>texte affiché</b> doit passer par un <b>catalogue de traduction</b> : le code référence des <b>clés</b> stables, résolues vers une chaîne selon la <b>langue active</b>, chargée depuis un <b>fichier par langue</b> (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial (un fichier de plus, sans modification du code). Une clé ou un fichier de langue manquant est traité comme une <b>erreur récupérable</b> (repli déterministe), cf. <code>EX-NFR-040</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md224"></a>
+<h1><a class="anchor" id="autotoc_md228"></a>
 5. Audio (⚠️ minimal MVP)</h1>
 <ul>
 <li><a class="anchor" id="EX-REN-040"></a><b>EX-REN-040</b> (⚠️ souhaité) — Le jeu devrait jouer des <b>bruitages</b> (saut, interrupteur, victoire, échec).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md225"></a>
+<h1><a class="anchor" id="autotoc_md229"></a>
 Traçabilité</h1>
 <p>Tout ce qui touche fenêtre, rendu, entrées et interface relève de <code>Source/HMI</code> ; la logique de simulation reste dans <code>Source/Core</code>. Contraintes de performance : <a class="el" href="exigences-non-fonctionnelles_8md.html">`exigences-non-fonctionnelles.md`</a>. </p>
 </div></div><!-- contents -->

@@ -33,6 +33,7 @@ var annotated_dup =
       [ "Player", "structcore_1_1Player.html", "structcore_1_1Player" ],
       [ "PlayerInput", "structcore_1_1PlayerInput.html", "structcore_1_1PlayerInput" ],
       [ "Rect", "structcore_1_1Rect.html", "structcore_1_1Rect" ],
+      [ "SlopeFollowResult", "structcore_1_1SlopeFollowResult.html", "structcore_1_1SlopeFollowResult" ],
       [ "Sprite", "structcore_1_1Sprite.html", "structcore_1_1Sprite" ],
       [ "SweepResult", "structcore_1_1SweepResult.html", "structcore_1_1SweepResult" ],
       [ "TileMap", "classcore_1_1TileMap.html", "classcore_1_1TileMap" ],

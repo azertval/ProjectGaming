@@ -93,24 +93,24 @@ $(document).ready(function(){initNavTree('lot-22-tache-02-collision-suivi-pente.
   <div class="headertitle"><div class="title">TACHE-02 — Collision et suivi de pente</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-22-pentes_2epic_8md.html">LOT-22</a> · <b>Emplacement :</b> <code>Core/Physics</code>, <code>Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md1178"></a>
+<div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-22-pentes_2epic_8md.html">LOT-22</a> · <b>Emplacement :</b> <code>Core/Physics</code>, <code>Core/Ecs/Systems</code> · <b>Statut :</b> fait</p>
+<h1><a class="anchor" id="autotoc_md1182"></a>
 Contexte</h1>
 <p>La tâche la plus risquée du lot : ajouter une passe de résolution après le balayage <code>sweepAabb</code> existant, sans régresser la physique plate déjà testée (sauts, dash, wall jump…). Consomme le modèle posé en TACHE-01.</p>
-<h1><a class="anchor" id="autotoc_md1179"></a>
+<h1><a class="anchor" id="autotoc_md1183"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="SweptCollision_8cpp.html">Core/Physics/SweptCollision.cpp</a></code>/<code>.h</code>** : <code>SweepResult</code> gagne un indicateur optionnel (ou une fonction séparée est ajoutée) pour exposer, après le balayage classique, si la boîte chevauche une colonne de pente sous elle — nécessaire pour que <code>CharacterPhysicsSystem</code> sache s'il doit appliquer le suivi. Décision d'implémentation à trancher en écrivant le code : soit <code>sweepAabb</code> reste inchangée et une nouvelle fonction libre <code>resolveSlope(box, tiles)</code> est appelée séparément par <code>CharacterPhysicsSystem</code>, soit la logique est intégrée à <code>sweepAabb</code> elle-même. <b>Préférer la fonction séparée</b> : elle isole le risque (une régression dans le suivi de pente ne peut pas casser <code>sweepAabb</code>, testée et utilisée par tout le reste du moteur).</li>
 <li>**<code><a class="el" href="CharacterPhysicsSystem_8cpp.html">Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></code>** : après l'étape 5 (résolution <code>sweepAabb</code>, inchangée), nouvelle étape : si la case sous le centre horizontal du personnage (ou ses deux pieds, à trancher en implémentant) est une pente, et que le personnage est à une hauteur proche de la surface (tolérance dédiée) <b>et ne vient pas de sauter</b> (vitesse verticale non franchement négative), caler <code>transform.position.y</code> sur la hauteur de la pente et forcer <code>player.grounded = true</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1180"></a>
+<h1><a class="anchor" id="autotoc_md1184"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">Source/Core/Physics/SweptCollision.h</a></code>/<code>.cpp</code> (ou nouveau fichier dédié au suivi de pente, ex. <code>Core/Physics/SlopeFollow.h</code>/<code>.cpp</code>, si séparer le code réduit le risque de régression).</li>
 <li><code><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></code>.</li>
 <li>Tests : nouveau <code>Source/Test/Unit/Core/Physics/test_slope_follow.cpp</code> (ou équivalent) + nouveaux cas dans <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1181"></a>
+<h1><a class="anchor" id="autotoc_md1185"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Marcher horizontalement sur une pente ascendante fait monter le personnage progressivement (position Y qui suit la formule de hauteur), sans jamais passer au travers ni léviter au-dessus.</li>
@@ -120,19 +120,20 @@ Tests (obligatoires)</h1>
 <li>Transition pente → sol plat (et l'inverse) sans à-coup ni blocage.</li>
 <li><b>Suite de régression complète</b> : tous les tests existants de <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></code> et <code><a class="el" href="test__swept__collision_8cpp.html" title="Tests unitaires du balayage AABB continu (sweepAabb) contre une grille de tuiles.">test_swept_collision.cpp</a></code> restent verts, <b>sans modification</b> de leur code.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1182"></a>
+<h1><a class="anchor" id="autotoc_md1186"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Isoler le code de suivi de pente de <code>sweepAabb</code></b> (voir décision de cadrage de l'épic et discussion ci-dessus) : la fonction historique reste la référence testée pour les murs/sols plats ; le suivi de pente est une couche additive, jamais une modification en place.</li>
+<li><b>Écart constaté par rapport au plan initial</b> : <code>sweepAabb</code> n'est en fait <b>pas</b> restée totalement inchangée. Les tests d'intégration ont révélé qu'une pente suivie d'un bloc plein de même hauteur (le raccord le plus courant) bloquait le personnage à mi-montée : <code>sweepX</code> traite comme un mur toute case pleine partageant une ligne que la boîte chevauche déjà, or suivre une pente fait légitimement chevaucher la boîte à l'intérieur de sa case (contrairement au sol plat, où elle n'en effleure jamais que la frontière). Corrigé par une exclusion minimale et ciblée (<code>rowIsSlopeGround</code>) plutôt qu'une réécriture : généralise le principe déjà en place de <code>kSkin</code> sans toucher <code>sweepY</code> ni la logique de blocage des murs/sols pleins. Voir <a class="el" href="guide-physique.html">Physique du personnage</a>, section « Suivi de pente », pour le détail du raisonnement et le test qui l'a mis au jour (<code>SuitUnePenteAscendanteEnMarchant</code>).</li>
 <li><b>Tolérance de calage</b> : trop large, le personnage « collerait » à une pente même en sautant franchement au-dessus ; trop stricte, il risque de passer légèrement sous la surface à grande vitesse de chute avant que le calage ne s'applique. Choisir une valeur testée empiriquement (partir de <code>kSkin</code>/tolérances déjà en place dans <code><a class="el" href="SweptCollision_8cpp.html">SweptCollision.cpp</a></code>, ajuster si les tests de chute rapide échouent).</li>
 <li><b>Ne pas oublier le cas « pas de pente sous le personnage »</b> : le comportement doit rester strictement identique à aujourd'hui (aucun appel au suivi de pente, <code>grounded</code> décidé uniquement par <code>sweepAabb</code> comme actuellement) — c'est ce qui garantit la non-régression du critère d'acceptation 4 de l'épic.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1183"></a>
+<h1><a class="anchor" id="autotoc_md1187"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Suivi de pente fonctionnel et testé ; <b>zéro régression</b> sur la suite de tests physique existante ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1184"></a>
+<h1><a class="anchor" id="autotoc_md1188"></a>
 Exigences</h1>
 <p><code>EX-GP-003</code> (implémentation complète). </p>
 </div></div><!-- contents -->

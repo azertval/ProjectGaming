@@ -9,7 +9,9 @@ var TileType_8h =
       [ "Switch", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b", null ],
       [ "Door", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1", null ],
       [ "PressurePlate", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86", null ],
-      [ "Block", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2", null ]
+      [ "Block", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2", null ],
+      [ "SlopeUpRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015", null ],
+      [ "SlopeUpLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df", null ]
     ] ],
     [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ]
 ];

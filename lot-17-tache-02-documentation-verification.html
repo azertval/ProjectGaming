@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-17-tache-02-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-17-sprite-personnage_2epic_8md.html">LOT-17</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1023"></a>
+<h1><a class="anchor" id="autotoc_md1027"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1><a class="anchor" id="autotoc_md1024"></a>
+<h1><a class="anchor" id="autotoc_md1028"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></code>** : décrire la région dédiée au personnage (pourquoi elle vit dans <code>TextureAtlas</code> plutôt que dans une classe séparée façon <code>SaveIcon</code>/<code>FlagIcons</code> — la contrainte une-texture-par-passe de <code>SpriteRenderer</code>), et la technique de silhouette par blocs rectangulaires.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<code>doxygen Doxyfile</code> depuis <code>Documentation/</code>) avant de pousser.</li>
 <li>**<code>scripts/lint_exigences.py</code>** : doit rester vert (aucune nouvelle exigence déclarée — <code>EX-REN-011</code> déjà déclarée en LOT-05, seulement référencée à nouveau ici).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1025"></a>
+<h1><a class="anchor" id="autotoc_md1029"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></code>.</li>
@@ -114,23 +114,23 @@ Fichiers impactés</h1>
 <li><code>CHANGELOG.md</code>.</li>
 <li><code><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></code> (ajout de la ligne LOT-17).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1026"></a>
+<h1><a class="anchor" id="autotoc_md1030"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie (<code>QUIET=YES</code>, <code>WARN_AS_ERROR=FAIL_ON_WARNINGS</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1027"></a>
+<h1><a class="anchor" id="autotoc_md1031"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<code>epic.md</code> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1028"></a>
+<h1><a class="anchor" id="autotoc_md1032"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1029"></a>
+<h1><a class="anchor" id="autotoc_md1033"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

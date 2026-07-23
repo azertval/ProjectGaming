@@ -201,6 +201,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Rect.html">Rect</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle aligné sur les axes (AABB) en unités monde.  <a href="structcore_1_1Rect.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1SlopeFollowResult.html">SlopeFollowResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat de <code>resolveSlopeFollow</code> : la position verticale sur laquelle se caler, si une surface suivable a été franchie pendant le pas.  <a href="structcore_1_1SlopeFollowResult.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Sprite.html">Sprite</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence 2D d'une entité : quelle région de l'atlas dessiner, dans quelle couche et avec quelle teinte.  <a href="structcore_1_1Sprite.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +286,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">PressurePlate</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">Block</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">SlopeUpRight</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df">SlopeUpLeft</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>).  <a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
@@ -352,6 +357,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a478b06d0135ab7cd314b90791cfe7ba0" id="r_a478b06d0135ab7cd314b90791cfe7ba0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0">playerSpawnPosition</a> (int column, int row)</td></tr>
 <tr class="memdesc:a478b06d0135ab7cd314b90791cfe7ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coin haut-gauche du personnage <b>centré</b> dans la tuile (<code>column</code>, <code>row</code>).  <br /></td></tr>
 <tr class="separator:a478b06d0135ab7cd314b90791cfe7ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc2bbb5c0d097cee136a1aadee0afcb" id="r_afbc2bbb5c0d097cee136a1aadee0afcb"><td class="memItemLeft" align="right" valign="top">std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb">slopeSurfaceHeight</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, float localX) noexcept</td></tr>
+<tr class="memdesc:afbc2bbb5c0d097cee136a1aadee0afcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la surface d'une tuile <b>suivable</b> (pente, arrondi) à une position horizontale donnée.  <br /></td></tr>
+<tr class="separator:afbc2bbb5c0d097cee136a1aadee0afcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2920623584e25af83769e320830880d3" id="r_a2920623584e25af83769e320830880d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SlopeFollowResult.html">SlopeFollowResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2920623584e25af83769e320830880d3">resolveSlopeFollow</a> (float previousBottomY, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;newBox, float velocityY, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles) noexcept</td></tr>
+<tr class="memdesc:a2920623584e25af83769e320830880d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte si le bord bas d'une boîte a <b>franchi</b> une surface suivable (pente, arrondi) pendant un pas, et calcule la position à laquelle s'y caler.  <br /></td></tr>
+<tr class="separator:a2920623584e25af83769e320830880d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa7b295b62e61a2f387f7b2775836d90" id="r_aaa7b295b62e61a2f387f7b2775836d90"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">isFollowableSurface</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="separator:aaa7b295b62e61a2f387f7b2775836d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ca635df367666624247837feb2af5a5" id="r_a4ca635df367666624247837feb2af5a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5">sweepAabb</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;box, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;delta, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles)</td></tr>
 <tr class="memdesc:a4ca635df367666624247837feb2af5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec une tuile <b>solide</b>, puis en <b>glissant</b> le long de la surface pour le déplacement résiduel.  <br /></td></tr>
 <tr class="separator:a4ca635df367666624247837feb2af5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -571,7 +584,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
-<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX-GP-022).">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX-GP-022).">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. <code>SlopeUpRight</code>/ <code>SlopeUpLeft</code> (<code>EX-GP-003</code>) sont des <b>pentes</b> à 45° (montée sur toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est <b>inclinée</b>, décrite par <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> (<code><a class="el" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX-GP-003, EX-GP-004).">Core/Physics/SlopeGeometry.h</a></code>) et suivie par une passe de résolution dédiée (<a class="el" href="guide-physique.html">Physique du personnage</a>) — <b>pas</b> par <code>isSolid</code> (voir ci-dessous). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>
@@ -582,6 +595,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1" name="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"></a>Door&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86" name="ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86"></a>PressurePlate&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2" name="ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2"></a>Block&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015" name="ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015"></a>SlopeUpRight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df" name="ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df"></a>SlopeUpLeft&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -909,6 +924,33 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aaa7b295b62e61a2f387f7b2775836d90" name="aaa7b295b62e61a2f387f7b2775836d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa7b295b62e61a2f387f7b2775836d90">&#9670;&#160;</a></span>isFollowableSurface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool core::isFollowableSurface </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si <code>type</code> a une surface à suivre (pente ou arrondi) — le personnage s'y cale plutôt que d'être simplement bloqué ou de tomber au travers. </dd></dl>
+
+</div>
+</div>
 <a id="a105a7f2ca0f25e01231a9bc1bbc36ebb" name="a105a7f2ca0f25e01231a9bc1bbc36ebb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a105a7f2ca0f25e01231a9bc1bbc36ebb">&#9670;&#160;</a></span>isSolid()</h2>
 
@@ -940,7 +982,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code> et <code>Block</code> (un bloc non encore déplacé bloque comme un mur). La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et la position d'un bloc évolue en jeu : toutes deux sont gérées par la simulation, pas par ce test statique. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code> et <code>Block</code> (un bloc non encore déplacé bloque comme un mur). <code>false</code> pour les pentes (<code>SlopeUpRight</code>/<code>SlopeUpLeft</code>) : une pente n'est <b>jamais</b> solide pour le balayage classique (<code><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5" title="Déplace box de delta en s&#39;arrêtant au premier contact avec une tuile solide, puis en glissant le long...">core::sweepAabb</a></code>), sous peine de transformer son bord haut en mur invisible — sa solidité est entièrement gérée par la passe de suivi de surface (voir <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>). La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la simulation, pas par ce test statique. </dd></dl>
 
 </div>
 </div>
@@ -1342,6 +1384,68 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2920623584e25af83769e320830880d3" name="a2920623584e25af83769e320830880d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2920623584e25af83769e320830880d3">&#9670;&#160;</a></span>resolveSlopeFollow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SlopeFollowResult.html">SlopeFollowResult</a> core::resolveSlopeFollow </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>previousBottomY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
+          <td class="paramname"><em>newBox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>velocityY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>tiles</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Détecte si le bord bas d'une boîte a <b>franchi</b> une surface suivable (pente, arrondi) pendant un pas, et calcule la position à laquelle s'y caler. </p>
+<p>Compare le bord bas <b>avant</b> le pas (<code>previousBottomY</code>, avant le balayage classique sur grille) et <b>après</b> (<code>newBox.max.y</code>, une fois la grille résolue) : si ce bord a franchi la hauteur de surface d'une tuile suivable quelque part entre les deux (parcours de toutes les lignes concernées, pas seulement la position finale — pour ne jamais « sauter » une pente à grande vitesse de chute, même si le balayage classique ne la voit pas comme solide), renvoie la position de calage. Ignore toute surface si <code>velocityY</code> est <b>négative</b> (le personnage monte — vient de sauter) : le suivi de pente ne doit jamais annuler un saut volontaire.</p>
+<p>La colonne testée est celle du <b>centre horizontal</b> de <code>newBox</code> (limite connue : un déplacement horizontal très rapide au sein d'un même pas pourrait changer de colonne sans que cette fonction ne le détecte — acceptable pour une pente traversée en marchant, à revoir si des cas d'usage à grande vitesse horizontale combinée à une pente apparaissent).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">previousBottomY</td><td>Bord bas de la boîte avant le pas (avant le balayage sur grille). </td></tr>
+    <tr><td class="paramname">newBox</td><td>Boîte après résolution du balayage classique sur grille (murs/sols). </td></tr>
+    <tr><td class="paramname">velocityY</td><td>Vitesse verticale courante (<code>&gt; 0</code> = chute, <code>&lt; 0</code> = monte). </td></tr>
+    <tr><td class="paramname">tiles</td><td>Grille de niveau (pour lire le type de tuile aux positions testées). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le résultat du calage, ou <code>grounded == false</code> si aucune surface n'a été franchie. </dd></dl>
+
+</div>
+</div>
 <a id="a0b2fde01c38742c460acb176220332ff" name="a0b2fde01c38742c460acb176220332ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b2fde01c38742c460acb176220332ff">&#9670;&#160;</a></span>setAssertionHandler()</h2>
 
@@ -1365,6 +1469,54 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="afbc2bbb5c0d097cee136a1aadee0afcb" name="afbc2bbb5c0d097cee136a1aadee0afcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc2bbb5c0d097cee136a1aadee0afcb">&#9670;&#160;</a></span>slopeSurfaceHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; float &gt; core::slopeSurfaceHeight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>localX</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hauteur de la surface d'une tuile <b>suivable</b> (pente, arrondi) à une position horizontale donnée. </p>
+<p>Repère <b>local</b> à la case : <code>localX</code> dans <code>[0, 1[</code> (0 = bord gauche, proche de 1 = bord droit), hauteur renvoyée dans <code>[0, 1]</code> mesurée depuis le <b>haut</b> de la case (0 = haut, 1 = bas) — pour obtenir la position monde de la surface, ajouter le résultat à la ligne (<code>row</code>) de la case (<code>EX-ARCH-020</code>, origine haut-gauche, une case = une unité monde).</p>
+<p>Fonction <b>pure</b>, sans dépendance rendu ni physique : <code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></code> (via la passe de suivi de surface, <a class="el" href="guide-physique.html">Physique du personnage</a>) est seul à décider comment l'utiliser (tolérance de calage, cas du saut). Aucune tuile n'est retournée comme solide par cette fonction — voir <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>, qui exclut délibérément les tuiles suivables.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+    <tr><td class="paramname">localX</td><td>Position horizontale dans la case, <code>[0, 1[</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La hauteur de surface, ou <code>std::nullopt</code> si <code>type</code> n'a pas de surface à suivre. </dd></dl>
 
 </div>
 </div>

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-25-tache-01-inventaire-conception.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-25-niveaux-demo-exhaustifs_2epic_8md.html">LOT-25</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md1277"></a>
+<h1><a class="anchor" id="autotoc_md1281"></a>
 Contexte</h1>
 <p>Avant d'écrire un seul niveau (<code>TACHE-02</code>), établir la liste complète de ce qui doit être exercé et décider <b>combien</b> de niveaux couvrent cette liste — le nombre n'est volontairement pas fixé avant cette tâche (voir décision de cadrage de l'épic).</p>
-<h1><a class="anchor" id="autotoc_md1278"></a>
+<h1><a class="anchor" id="autotoc_md1282"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Dresser la liste des mécaniques jouables <b>par niveau</b> (exclut manette/menu d'options/ localisation, transverses et déjà testées ailleurs) à partir des spécifications (<code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>) et du CHANGELOG : mouvement, saut (simple, variable, coyote time, jump buffering), double saut, wall jump/wall slide, dash 8 directions, gravité asymétrique/apex/fast-fall, chute newtonienne, interrupteur↔porte, plaque de pression, bloc poussable, budgets de sauts/dashs, pentes (<code>LOT-22</code>), arrondi (<code>LOT-23</code>), blocs à taille fractionnaire (<code>LOT-24</code>).</li>
@@ -106,28 +106,28 @@ Travail à réaliser</h1>
 <li>Concevoir le contenu du <b>niveau final combiné</b> (dernier de la séquence, voir <code>epic.md</code>) : choisir quelles mécaniques il mélange et comment (ex. un dash au-dessus d'une pente, un bloc poussé sur une plaque de pression, un mur à double saut suivi d'un wall jump) — un vrai enchaînement, pas une simple juxtaposition d'obstacles isolés bout à bout.</li>
 <li>Définir la <b>convention de nommage</b> des nouveaux fichiers (ex. <code>demo-double-saut.json</code>, <code>demo-pente.json</code>, <code>demo-final.json</code> pour le niveau combiné — voir <code>TACHE-02</code>), pour que le tableau de cette tâche l'utilise directement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1279"></a>
+<h1><a class="anchor" id="autotoc_md1283"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="tache-01-inventaire-conception_8md.html">Documentation/Lot/LOT-25-niveaux-demo-exhaustifs/tache-01-inventaire-conception.md</a></code> (ce fichier, complété avec le tableau final) ou <code>epic.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1280"></a>
+<h1><a class="anchor" id="autotoc_md1284"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test automatisé propre à cette tâche (travail de conception) — la validation est la <b>revue</b> du tableau mécanique → niveau avant de passer à <code>TACHE-02</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1281"></a>
+<h1><a class="anchor" id="autotoc_md1285"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une mécanique par niveau reste un objectif, pas une règle rigide</b> : deux mécaniques très liées (ex. wall jump et wall slide, ou coyote time et jump buffering, déjà intriqués dans le <em>game feel</em> du saut) peuvent raisonnablement partager un seul niveau si les séparer produirait un niveau trivial ou artificiel.</li>
 <li><b>Ne pas oublier la plaque de pression</b> (mécanique de <code>demo5.json</code>, l'ancien niveau dont l'absence du test système est le symptôme déclencheur de ce lot) dans l'inventaire — la base repartant vide, rien ne garantit qu'elle soit couverte sans une vérification explicite du tableau final.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1282"></a>
+<h1><a class="anchor" id="autotoc_md1286"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tableau mécanique → niveau(x) complet, nombre de niveaux final tranché et documenté, contenu du niveau final combiné décrit, revu avant le début de <code>TACHE-02</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1283"></a>
+<h1><a class="anchor" id="autotoc_md1287"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de conception, préalable à l'implémentation. </p>
 </div></div><!-- contents -->

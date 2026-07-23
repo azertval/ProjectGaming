@@ -1,0 +1,11 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/SlopeGeometry.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/SlopeGeometry.h">
+<area shape="rect" id="Node000001" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="76,5,300,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,80,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,62,75,103,73,99,142,58"/>
+<area shape="rect" id="Node000003" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="104,108,272,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,60,191,94,185,94,185,60"/>
+<area shape="rect" id="Node000004" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="296,108,451,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="246,58,337,100,335,105,243,62"/>
+<area shape="rect" id="Node000005" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="296,181,451,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="376,134,376,168,371,168,371,134"/>
+</map>

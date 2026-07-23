@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-18-tache-02-frames-atlas-integrati
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-18-animation-personnage_2epic_8md.html">LOT-18</a> · <b>Emplacement :</b> <code>HMI/Graphics</code>, <code>HMI/Interface</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1047"></a>
+<h1><a class="anchor" id="autotoc_md1051"></a>
 Contexte</h1>
 <p><code>TextureAtlas</code> expose aujourd'hui une seule région carrée pour le personnage (<code>playerRegion()</code>, LOT-17). Ce lot la remplace par une <b>grille de 7 images</b> (<code>Idle</code>×2, <code>Run</code>×4, <code>Jump</code>×1) et branche le composant <code><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></code> (TACHE-01) sur le rendu, pour que le sprite change de région à chaque frame plutôt qu'une seule fois au spawn.</p>
-<h1><a class="anchor" id="autotoc_md1048"></a>
+<h1><a class="anchor" id="autotoc_md1052"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">hmi::TextureAtlas</a></code>** (<code><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">Source/HMI/Graphics/TextureAtlas.h</a></code>/<code>.cpp</code>) :<ul>
@@ -115,20 +115,20 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1049"></a>
+<h1><a class="anchor" id="autotoc_md1053"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">Source/HMI/Graphics/TextureAtlas.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1050"></a>
+<h1><a class="anchor" id="autotoc_md1054"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test unitaire nouveau côté <code>HMI</code> (génération de texture non testable hors GPU, comme LOT-17) : la logique de clip/image reste entièrement couverte côté <code>Core</code> (TACHE-01).</li>
 <li><code>ctest --preset ninja</code> reste vert (aucune régression sur les tests existants).</li>
 <li><b>Vérification visuelle obligatoire</b> dans l'application compilée (comme LOT-17) : capture d'écran de chaque état (immobile, en course, en l'air) confirmant une silhouette lisible, sans déformation, bornée à la boîte de collision.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1051"></a>
+<h1><a class="anchor" id="autotoc_md1055"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas répéter le bug de LOT-17</b> : chaque région de frame doit rester carrée (16×16) — c'est <code>Transform::scale</code> qui donne la proportion finale à l'écran, jamais la région elle-même.</li>
@@ -136,12 +136,12 @@ Points d'attention</h1>
 <li>L'entité joueur doit porter <code><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></code> <b>avant</b> le premier appel à <code>AnimationSystem::update</code> dans la boucle (ajouté dans <code>spawnPlayer</code>, avant que <code>update()</code> ne soit appelé) — sans quoi la vue <code>Player + Velocity + Animation</code> ne verrait pas l'entité et le sprite garderait une région par défaut (<code>AtlasRegion{}</code>, vide/invisible).</li>
 <li>Vérifier que le personnage <b>rechargé</b> (échec de niveau, <code>loadLevel</code>) reçoit bien un nouveau composant <code>Animation</code> à l'état initial (<code>spawnPlayer</code> est déjà appelé à chaque rechargement, cf. LOT-09) — pas d'état d'animation qui « fuit » d'un essai à l'autre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1052"></a>
+<h1><a class="anchor" id="autotoc_md1056"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Personnage animé (repos/course/saut) visible en jeu ; build <code>/W4 /WX</code> sans avertissement ; <code>ctest</code> vert ; Doxygen local sans sortie ; vérifié visuellement (captures des trois états).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1053"></a>
+<h1><a class="anchor" id="autotoc_md1057"></a>
 Exigences</h1>
 <p><code>EX-REN-012</code> (rendu des images, partie <code>HMI</code>). </p>
 </div></div><!-- contents -->
