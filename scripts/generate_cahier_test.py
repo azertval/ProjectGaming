@@ -38,10 +38,13 @@ def unwrap_comment_lines(text):
     return re.sub(r'\n\s*\*\s?', ' ', text)
 
 
-def clean_fragment(text):
+def clean_fragment(text, keep_breaks=False):
     text = TAG_RE.sub('', text)
-    text = BR_RE.sub(' ', text)
-    return re.sub(r'\s+', ' ', text).strip()
+    text = BR_RE.sub('<br/>' if keep_breaks else ' ', text)
+    text = re.sub(r'[ \t]+', ' ', text).strip()
+    text = re.sub(r'(<br/>\s*)+$', '', text)  # pas de saut de ligne final superflu
+    # Un `|` littéral casserait la cellule du tableau Markdown.
+    return text.replace('|', '\\|')
 
 
 def parse_castest_content(raw_content):
@@ -51,7 +54,8 @@ def parse_castest_content(raw_content):
     # pieces alterne : [avant_premier_marqueur, marqueur1, texte1, marqueur2, texte2, ...]
     fields = {'title': clean_fragment(pieces[0])}
     for index in range(1, len(pieces), 2):
-        fields[pieces[index]] = clean_fragment(pieces[index + 1])
+        keep_breaks = pieces[index] == 'etapes'
+        fields[pieces[index]] = clean_fragment(pieces[index + 1], keep_breaks=keep_breaks)
     return fields
 
 
@@ -91,17 +95,27 @@ CATEGORY_TITLES = {
 }
 
 
-def render_case(case):
-    lines = [f"- **{case['title']}** *(criticité : {case.get('crit', '?')})* — "
-             f"catégorie : {case.get('cat', '?')}"]
-    if case.get('etapes'):
-        lines.append(f"  - Étapes : {case['etapes']}")
-    # Le résultat attendu répète parfois mot pour mot le titre (convention de certaines suites) :
+TABLE_HEADER = ('| Titre (criticité) | Brief | Étapes | Résultat attendu |\n'
+                '|---|---|---|---|')
+
+
+def render_row(case):
+    # Colonne 1 : l'identifiant GoogleTest (retrouvable tel quel dans le code / le rapport ctest)
+    # et la criticité ; la référence fichier:ligne en petit, pour remonter au test en un clic d'œil.
+    title_cell = (f"**{case['suite']}.{case['name']}** ({case.get('crit', '?')})"
+                  f"<br/><sub>`{case['path']}:{case['line']}`</sub>")
+    brief = case['title']
+    etapes = case.get('etapes', '')
+    # Le résultat attendu répète parfois mot pour mot le brief (convention de certaines suites) :
     # l'afficher deux fois n'apporte rien, seul le cas où il diffère est utile au lecteur.
-    if case.get('attendu') and case['attendu'] != case['title']:
-        lines.append(f"  - Résultat attendu : {case['attendu']}")
-    lines.append(f"  - `{case['path']}:{case['line']}` — `{case['suite']}.{case['name']}`")
-    return '\n'.join(lines)
+    attendu = case.get('attendu', '')
+    if not attendu or attendu == brief:
+        attendu = '*(= brief)*'
+    return f"| {title_cell} | {brief} | {etapes} | {attendu} |"
+
+
+def render_table(cases):
+    return '\n'.join([TABLE_HEADER] + [render_row(case) for case in cases])
 
 
 def render_markdown(cases):
@@ -152,8 +166,7 @@ def render_markdown(cases):
                     for filename in sorted(by_file):
                         lines.append(f'**`{filename}`**')
                         lines.append('')
-                        for case in by_file[filename]:
-                            lines.append(render_case(case))
+                        lines.append(render_table(by_file[filename]))
                         lines.append('')
         else:
             # Integration/Systeme : pas de sous-dossiers, un groupe par fichier de test.
@@ -166,8 +179,7 @@ def render_markdown(cases):
                 subtitle = items[0].get('cat', filename).split('·')[-1].strip()
                 lines.append(f'### {subtitle} — `{filename}` ({len(items)})')
                 lines.append('')
-                for case in items:
-                    lines.append(render_case(case))
+                lines.append(render_table(items))
                 lines.append('')
 
     return '\n'.join(lines).rstrip() + '\n'
