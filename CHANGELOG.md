@@ -7,6 +7,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Cahier de test illisible (page unique, 321 cas à plat)** : la page agrégeait tous les cas de
+  test sur un seul niveau (mécanisme Doxygen `\xrefitem`, sans aucune section). Remplacée par
+  `Documentation/CahierTest.md`, généré par le nouveau `scripts/generate_cahier_test.py` à partir
+  des mêmes blocs `\castest{...}` (source de vérité inchangée), structuré selon l'arborescence de
+  `Source/Test/` (Tests unitaires par module Core/HMI, Tests d'intégration et Système par fichier)
+  — navigable via l'arbre latéral comme toute autre page. Vérifié en CI (`--check`).
 - **Accumulateur à pas de temps fixe non utilisé dans `main`** (`EX-NFR-002`) : depuis
   l'intégration du menu principal (LOT-06), la boucle appelait `ScreenManager::update` une seule
   fois par frame réelle avec un delta constant, sans jamais mesurer le temps réel écoulé ni
