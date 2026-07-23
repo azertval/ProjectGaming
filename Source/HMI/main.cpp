@@ -185,14 +185,31 @@ int main(int argc, char** argv) {
                 case hmi::ScreenId::Menu:
                     return std::make_unique<hmi::MenuScreen>(localization, saveLogAction);
                 case hmi::ScreenId::Game: {
-                    // Sequence de niveaux dans un ordre de difficulte maitrise (EX-LVL-010) :
-                    // demo (deplacement/chute) puis demo2 (saut requis).
+                    // Sequence de niveaux demo (LOT-25), un fichier par mecanique (ou petit groupe
+                    // coherent), ordre de difficulte croissante (EX-LVL-010), terminee par un
+                    // niveau final qui les combine. Cette liste DOIT rester identique, dans le
+                    // meme ordre, a celle rejouee par
+                    // Source/Test/Systeme/test_parcours_complet.cpp — verifie par
+                    // scripts/check_demo_sequence.py (CI), pour ne plus jamais laisser un niveau
+                    // charge en jeu mais absent du test système (cf. Documentation/Lot/LOT-25).
                     const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
                     return std::make_unique<hmi::GameScreen>(
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
                         std::vector<std::filesystem::path>{
-                            levels / "demo.json", levels / "demo2.json", levels / "demo3.json",
-                            levels / "demo4.json", levels / "demo5.json"});
+                            levels / "demo-deplacement.json",
+                            levels / "demo-saut.json",
+                            levels / "demo-double-saut.json",
+                            levels / "demo-wall-jump.json",
+                            levels / "demo-dash.json",
+                            levels / "demo-interrupteur.json",
+                            levels / "demo-plaque-pression.json",
+                            levels / "demo-bloc.json",
+                            levels / "demo-budget.json",
+                            levels / "demo-pente.json",
+                            levels / "demo-arrondi.json",
+                            levels / "demo-bloc-reduit.json",
+                            levels / "demo-final.json",
+                        });
                 }
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>(spriteBatch, atlas,

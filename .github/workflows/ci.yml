@@ -60,6 +60,9 @@ jobs:
       - name: Cahier de test a jour
         run: python3 scripts/generate_cahier_test.py --check
 
+      - name: Sequence de niveaux demo (LOT-25) synchronisee
+        run: python3 scripts/check_demo_sequence.py
+
   docs:
     # Génère la documentation Doxygen (garde-fou WARN_AS_ERROR) pour valider la
     # doc dès la PR, avec la même version de Doxygen que le déploiement (docs.yml).

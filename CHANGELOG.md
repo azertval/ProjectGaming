@@ -29,6 +29,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-25 — Refactoring complet des niveaux démo** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`/
+  `EX-GP-015`/`EX-GP-016`/`EX-GP-017`/`EX-GP-020`/`EX-GP-022`/`EX-GP-024`/`EX-GP-025`) : les
+  anciens niveaux (`demo.json`…`demo5.json`, accumulés au fil des lots sans repasse d'ensemble —
+  `demo5.json`, en particulier, était chargé en jeu mais absent du test système) sont supprimés et
+  remplacés par **13 niveaux**, un par mécanique (ou petit groupe cohérent), plus un niveau final
+  qui les combine (dash, pente, bloc poussable, interrupteur/porte, double saut). `Source/HMI/
+  main.cpp` et `Source/Test/Systeme/test_parcours_complet.cpp` chargent désormais exactement la
+  même liste, dans le même ordre — un nouveau script CI, `scripts/check_demo_sequence.py`, échoue
+  si les deux divergent de nouveau. La plaque de pression (`EX-GP-025`) a nécessité une conception
+  particulière : une géométrie plaque/porte/sortie empilées verticalement s'est révélée
+  infranchissable par construction (la porte se referme dès que la boîte du personnage — plus
+  petite qu'une case — quitte la plaque, avant d'avoir fini de la traverser) ; le niveau livré
+  ouvre à la place une porte au-dessus d'un mur d'une case, franchie par un saut pendant la fenêtre
+  où elle est ouverte. **2 nouveaux tests** (franchissement et nécessité du saut), aucune
+  régression (376/376 tests verts).
 - **LOT-24 — Blocs à taille fractionnaire** (`EX-GP-005`) : deux nouvelles tuiles, `BlockHalf`/
   `BlockQuarter` (`×0.5`/`×0.25` d'une case), gérées par `core::BlockController` au même titre que
   `Block` (poussée/chute identiques, toujours case par case) mais avec une boîte de collision

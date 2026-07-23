@@ -2,9 +2,13 @@
 
 Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
 
-- Un niveau est un objet JSON : `name`, `width`, `height`, et une liste **`tiles`** d'objets
+- Un niveau est un objet JSON : `name`, `width`, `height`, des budgets **optionnels**
+  `jumpBudget`/`dashBudget` (`EX-GP-024`, absents = illimité), et une liste **`tiles`** d'objets
   `{ "x", "y", "type", … }`. Les cases **vides** ne sont pas listées (absence = vide).
-- Types de tuiles : `entry`, `exit`, `solid`, `danger`, `switch`, `pressurePlate`, `door`.
+- Types de tuiles : `entry`, `exit`, `solid`, `danger`, `switch`, `pressurePlate`, `door`,
+  `block`/`blockHalf`/`blockQuarter` (blocs poussables, tailles pleine/`×0.5`/`×0.25`,
+  `EX-GP-022`/`EX-GP-005`), `slopeUpRight`/`slopeUpLeft` (pentes à 45°, `EX-GP-003`),
+  `roundedUpRight`/`roundedUpLeft` (variante en quart de cercle, `EX-GP-004`).
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,
@@ -14,5 +18,14 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   position, toute `door.opensWith` doit référencer un `switch`/`pressurePlate` existant.
 
 Chargés à l'exécution par `core::LevelLoader` (copiés à côté de l'exécutable par CMake).
+
+## Séquence démo (`LOT-25`)
+
+`demo-*.json` (13 fichiers) forme la séquence jouée par le jeu (`Source/HMI/main.cpp`,
+`ScreenId::Game`) : un niveau par mécanique (ou petit groupe cohérent), ordre de difficulté
+croissante, terminée par `demo-final.json` qui les combine. `Source/Test/Systeme/
+test_parcours_complet.cpp` rejoue exactement la même liste, dans le même ordre — un script CI,
+`scripts/check_demo_sequence.py`, échoue si les deux divergent. Détail du tableau mécanique →
+niveau : `Documentation/Lot/LOT-25-niveaux-demo-exhaustifs/tache-01-inventaire-conception.md`.
 
 Réf. specs : `EX-LVL-001` (fichier externe), `EX-LVL-003` (format), `EX-LVL-004` (validation).
