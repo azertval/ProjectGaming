@@ -1,6 +1,6 @@
 # TACHE-01 — Modèle de tuile et formule de courbe {#lot-23-tache-01-modele-tuile-arrondie}
 
-**Lot :** [LOT-23](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** à faire
+**Lot :** [LOT-23](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** fait
 
 ## Contexte
 Étend l'abstraction de suivi de surface posée par `LOT-22` (fonction de hauteur par type de

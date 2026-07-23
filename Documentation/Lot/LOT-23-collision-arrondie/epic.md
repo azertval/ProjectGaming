@@ -1,6 +1,6 @@
 # LOT-23 — Collision arrondie {#lot-23}
 
-> Statut : **à faire**. Une variante **courbe** de la pente de `LOT-22` (`EX-GP-004`) : un quart de
+> Statut : **terminé**. Une variante **courbe** de la pente de `LOT-22` (`EX-GP-004`) : un quart de
 > cercle plutôt qu'un plan incliné, avec le même principe de suivi de surface.
 
 ## Objectif
@@ -52,9 +52,9 @@ position verticale) ne change pas de principe, seule la **formule** de hauteur c
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-tuile-arrondie.md) | Modèle de tuile et formule de courbe | `Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-modele-tuile-arrondie.md) | Modèle de tuile et formule de courbe | `Core/Levels` | ✅ |
+| [TACHE-02](tache-02-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le personnage suit une tuile arrondie en marchant dessus, avec une courbe visuellement et

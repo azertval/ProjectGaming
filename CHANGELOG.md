@@ -29,6 +29,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-23 — Collision arrondie** (`EX-GP-004`) : deux nouvelles tuiles, `RoundedUpRight`/
+  `RoundedUpLeft`, variante en **quart de cercle** des pentes de LOT-22 (`h(x) = 1 - sqrt(1 - (1 -
+  x)²)` et sa symétrique). Réutilise intégralement l'infrastructure de suivi de surface posée par
+  LOT-22 (`core::resolveSlopeFollow`, la correction du balayage horizontal) : un nouveau `case`
+  dans `core::slopeSurfaceHeight`/`core::isFollowableSurface` suffit, aucune autre passe n'a été
+  modifiée. Palette de l'éditeur (`PALETTE_TYPE_COUNT` 11→13) et couleurs plates distinctes des
+  pentes. **7 nouveaux tests** (unitaires et intégration), aucune régression (350/350 tests verts).
 - **LOT-22 — Pentes réelles** (`EX-GP-003`) : deux nouvelles tuiles, `SlopeUpRight`/`SlopeUpLeft`
   (pente à 45°, montée pleine sur toute la largeur d'une case), disponibles dans l'éditeur. Jamais
   solides pour le balayage classique (`core::isSolid`) — une nouvelle passe de résolution

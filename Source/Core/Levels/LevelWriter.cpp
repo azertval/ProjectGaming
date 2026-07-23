@@ -39,6 +39,10 @@ namespace {
             return "slopeUpRight";
         case TileType::SlopeUpLeft:
             return "slopeUpLeft";
+        case TileType::RoundedUpRight:
+            return "roundedUpRight";
+        case TileType::RoundedUpLeft:
+            return "roundedUpLeft";
     }
     return "empty";
 }

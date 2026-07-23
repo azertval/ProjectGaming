@@ -38,10 +38,12 @@ Chaque case de la grille a l'un de ces types :
 | `Block` | Bloc poussable (`EX-GP-022`) : solide comme un mur tant qu'il n'a pas bougé, mais peut être **déplacé** par le personnage et **retombe** sous gravité (voir §« Blocs poussables »). |
 | `SlopeUpRight` | Pente à 45° (`EX-GP-003`) montant de **gauche à droite** : `Empty` pour toute autre logique (jamais solide), mais sa surface **inclinée** est suivie par la physique (@ref guide-physique). |
 | `SlopeUpLeft` | Symétrique de `SlopeUpRight` : pente montant de **droite à gauche**. |
+| `RoundedUpRight` | Variante **courbe** (quart de cercle, `EX-GP-004`) de `SlopeUpRight` : même orientation, même suivi de surface, formule de hauteur différente. |
+| `RoundedUpLeft` | Symétrique de `RoundedUpRight` : arrondi montant de **droite à gauche**. |
 
 Notez que `Door` n'est **pas** statiquement solide au sens de `core::isSolid(TileType)` — sa
 solidité dépend de son **état**, calculé par le `MechanismController` (voir plus bas), pas du type
-de tuile seul. Les deux pentes ne sont, elles, **jamais** solides (`core::isSolid` renvoie
+de tuile seul. Les pentes et arrondis ne sont, eux, **jamais** solides (`core::isSolid` renvoie
 toujours faux) — voir @ref guide-physique pour le mécanisme de suivi qui les rend praticables.
 
 ### \ref core::TileMap "core::TileMap" : la grille

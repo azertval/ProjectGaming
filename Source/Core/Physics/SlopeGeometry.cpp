@@ -1,5 +1,6 @@
 #include "Core/Physics/SlopeGeometry.h"
 
+#include <algorithm>
 #include <cmath>
 
 #include "Core/Levels/TileMap.h"
@@ -14,7 +15,10 @@ constexpr float kFollowTolerance = 1e-3f;
 }  // namespace
 
 // Hauteur de surface (voir en-tête pour le repère local). Pentes a 45° : fonction lineaire sur
-// toute la largeur de la case. Les arrondis (LOT-23) ajouteront leurs cas ici, sur le meme modele.
+// toute la largeur de la case. Arrondis (LOT-23) : quart de cercle de rayon 1 (une case), centre
+// au coin OPPOSE au coin haut de la pente equivalente — meme modele d'extension, un nouveau `case`
+// par type suivable plutot qu'une fonction parallele (la passe de resolution, LOT-22-TACHE-02,
+// n'a ainsi jamais besoin de connaitre le nombre ou la nature des familles de courbes geree ici).
 std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
     switch (type) {
         case TileType::SlopeUpRight:
@@ -23,6 +27,12 @@ std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
         case TileType::SlopeUpLeft:
             // Monte de droite a gauche : haut (0) a gauche, bas (1) a droite.
             return localX;
+        case TileType::RoundedUpRight:
+            // Haut a droite, creux en bas a gauche : centre du cercle en (0, 1) (coin bas-gauche).
+            return 1.0f - std::sqrt(std::max(0.0f, 1.0f - (1.0f - localX) * (1.0f - localX)));
+        case TileType::RoundedUpLeft:
+            // Symetrique : centre du cercle en (1, 1) (coin bas-droit).
+            return 1.0f - std::sqrt(std::max(0.0f, 1.0f - localX * localX));
         default:
             return std::nullopt;
     }

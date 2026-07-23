@@ -61,6 +61,12 @@ namespace {
     if (name == "slopeUpLeft") {
         return TileType::SlopeUpLeft;
     }
+    if (name == "roundedUpRight") {
+        return TileType::RoundedUpRight;
+    }
+    if (name == "roundedUpLeft") {
+        return TileType::RoundedUpLeft;
+    }
     return std::nullopt;
 }
 

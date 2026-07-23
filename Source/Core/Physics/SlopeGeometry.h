@@ -37,7 +37,8 @@ class TileMap;
 /// @return true si @p type a une surface à suivre (pente ou arrondi) — le personnage s'y cale
 ///         plutôt que d'être simplement bloqué ou de tomber au travers.
 [[nodiscard]] constexpr bool isFollowableSurface(TileType type) noexcept {
-    return type == TileType::SlopeUpRight || type == TileType::SlopeUpLeft;
+    return type == TileType::SlopeUpRight || type == TileType::SlopeUpLeft ||
+           type == TileType::RoundedUpRight || type == TileType::RoundedUpLeft;
 }
 
 /// @brief Résultat de `resolveSlopeFollow` : la position verticale sur laquelle se caler, si une
