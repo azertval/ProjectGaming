@@ -7,7 +7,8 @@ var TileType_8h =
       [ "Entry", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c", null ],
       [ "Exit", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d", null ],
       [ "Switch", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b", null ],
-      [ "Door", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1", null ]
+      [ "Door", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1", null ],
+      [ "PressurePlate", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86", null ]
     ] ],
     [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ]
 ];

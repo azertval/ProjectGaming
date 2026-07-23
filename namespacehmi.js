@@ -82,6 +82,7 @@ var namespacehmi =
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
     [ "MAX_LEVEL_DIMENSION", "namespacehmi.html#a3201578f409cccc5319bc31255846ec1", null ],
     [ "PALETTE_TOP", "namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a", null ],
+    [ "PALETTE_TYPE_COUNT", "namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9", null ],
     [ "PANEL_ICON_SIZE", "namespacehmi.html#a2a8862a219476b6895ad32ba251b6796", null ],
     [ "PANEL_MARGIN", "namespacehmi.html#afbd03b541899e96afe12467d40fa4996", null ],
     [ "PANEL_ROW_GAP", "namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882", null ],

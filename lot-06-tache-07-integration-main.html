@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-06-tache-07-integration-main.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md502"></a>
+<h1><a class="anchor" id="autotoc_md503"></a>
 Contexte</h1>
 <p>Tâche d'assemblage. <code>main</code> construit aujourd'hui la scène et la rend directement. On remplace cela par une boucle pilotée par le <b>gestionnaire d'écrans</b>, démarrant sur le <b>menu</b>.</p>
-<h1><a class="anchor" id="autotoc_md503"></a>
+<h1><a class="anchor" id="autotoc_md504"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Initialiser les ressources partagées (device, <code>SpriteBatch</code>, atlas, <code>BitmapFont</code>, <b>catalogue de traduction</b> chargé sur la langue par défaut, TACHE-03) et le gestionnaire d'écrans avec le <code>MenuScreen</code> comme écran de départ.</li>
@@ -105,12 +105,12 @@ Travail à réaliser</h1>
 <li>Répercuter le redimensionnement (swap chain + caméra des écrans concernés).</li>
 <li>Retirer de <code>main</code> la scène de démo (déplacée dans <code>GameScreen</code>, TACHE-06).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md504"></a>
+<h1><a class="anchor" id="autotoc_md505"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md505"></a>
+<h1><a class="anchor" id="autotoc_md506"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Au lancement, l'exécutable affiche le <b>menu</b> (et non la scène directement).</li>
@@ -118,19 +118,19 @@ Vérifications (obligatoires)</h1>
 <li>Entrées lues <b>une fois par frame</b>, avant la logique ; fermeture propre ; pas de fuite.</li>
 <li>Vérification <b>visuelle</b> de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md506"></a>
+<h1><a class="anchor" id="autotoc_md507"></a>
 Points d'attention</h1>
 <ul>
 <li>Ordre par frame : nouvelle frame d'entrées → messages → update écran → rendu.</li>
 <li>La demande de fermeture d'un écran (« Quitter ») doit atteindre la condition d'arrêt de la boucle.</li>
 <li>Gestion des exceptions inchangée (frontière de démarrage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md507"></a>
+<h1><a class="anchor" id="autotoc_md508"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'exécutable démarre sur le menu ; les trois options et Échap fonctionnent ; tous les critères d'acceptation de l'<a class="el" href="LOT-06-menu-principal_2epic_8md.html">epic</a> satisfaits ; build <code>/W4 /WX</code>, CI verte, Doxygen et <code>CHANGELOG.md</code> à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md508"></a>
+<h1><a class="anchor" id="autotoc_md509"></a>
 Exigences</h1>
 <p><code>EX-REN-030</code>, <code>EX-CTRL-021</code>, <code>EX-REN-020</code>, <code>EX-REN-021</code>. </p>
 </div></div><!-- contents -->

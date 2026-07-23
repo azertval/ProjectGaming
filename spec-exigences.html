@@ -96,14 +96,14 @@ $(document).ready(function(){initNavTree('spec-exigences.html',''); initResizabl
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Transverse à toutes les specs. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md163"></a>
+<h1><a class="anchor" id="autotoc_md164"></a>
 1. Performance</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-001"></a><b>EX-NFR-001</b> — Le jeu doit maintenir <b>60 images/seconde</b> sur une configuration de bureau récente pour les niveaux du MVP.</li>
 <li><a class="anchor" id="EX-NFR-002"></a><b>EX-NFR-002</b> — La simulation doit fonctionner à <b>pas de temps fixe</b> et rester déterministe (mêmes entrées → même résultat).</li>
 <li><a class="anchor" id="EX-NFR-003"></a><b>EX-NFR-003</b> — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md164"></a>
+<h1><a class="anchor" id="autotoc_md165"></a>
 2. Architecture &amp; maintenabilité</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-010"></a><b>EX-NFR-010</b> — La logique (<code>Core</code>) doit être <b>indépendante</b> de la présentation (<code>HMI</code>) et testable sans fenêtre ni GPU.</li>
@@ -111,27 +111,27 @@ $(document).ready(function(){initNavTree('spec-exigences.html',''); initResizabl
 <li><a class="anchor" id="EX-NFR-012"></a><b>EX-NFR-012</b> — Le code doit respecter le <a class="el" href="conventions_8md.html">guide de conventions</a> (nommage, RAII, documentation, gestion d'erreurs).</li>
 <li><a class="anchor" id="EX-NFR-013"></a><b>EX-NFR-013</b> — Le code livré doit compiler <b>sans avertissement</b> (<code>/W4 /WX</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md165"></a>
+<h1><a class="anchor" id="autotoc_md166"></a>
 3. Qualité &amp; vérification</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-020"></a><b>EX-NFR-020</b> — Toute logique de gameplay livrée dans <code>Core</code> doit être couverte par des <b>tests unitaires</b> (GoogleTest).</li>
 <li><a class="anchor" id="EX-NFR-021"></a><b>EX-NFR-021</b> — Les niveaux du MVP doivent être couverts par un <b>test système</b> vérifiant leur franchissabilité.</li>
 <li><a class="anchor" id="EX-NFR-022"></a><b>EX-NFR-022</b> — La <b>CI</b> doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md166"></a>
+<h1><a class="anchor" id="autotoc_md167"></a>
 4. Portabilité &amp; reproductibilité</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-030"></a><b>EX-NFR-030</b> — Le projet doit se construire <b>exclusivement via CMake</b>, reproductible sur plusieurs postes (cf. <code>README</code>).</li>
 <li><a class="anchor" id="EX-NFR-031"></a><b>EX-NFR-031</b> — Les dépendances tierces doivent être <b>épinglées</b> à une version (ex. GoogleTest).</li>
 <li><a class="anchor" id="EX-NFR-032"></a><b>EX-NFR-032</b> — Cible actuelle : <b>Windows/DirectX</b>. Le <code>Core</code> doit toutefois éviter toute dépendance système inutile pour préserver sa testabilité (et une portabilité future).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md167"></a>
+<h1><a class="anchor" id="autotoc_md168"></a>
 5. Robustesse</h1>
 <ul>
 <li><a class="anchor" id="EX-NFR-040"></a><b>EX-NFR-040</b> — Une erreur récupérable (fichier de niveau invalide, ressource manquante) ne doit pas faire planter le jeu : elle est signalée et gérée (cf. politique d'erreurs des conventions).</li>
 <li><a class="anchor" id="EX-NFR-041"></a><b>EX-NFR-041</b> — Les ressources (mémoire, handles DirectX) doivent être gérées en <b>RAII</b> (libération garantie).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md168"></a>
+<h1><a class="anchor" id="autotoc_md169"></a>
 Traçabilité</h1>
 <p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur l'outillage déjà en place (CMake, CI, clang-tidy, ASan, conventions). </p>
 </div></div><!-- contents -->

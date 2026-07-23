@@ -162,12 +162,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a703121b2b1a576161b54faa1e3b48675" id="r_a703121b2b1a576161b54faa1e3b48675"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a703121b2b1a576161b54faa1e3b48675">TEST</a> (MechanismControllerTest, SansContactRienNeChange)</td></tr>
 <tr class="memdesc:a703121b2b1a576161b54faa1e3b48675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loin de l'interrupteur, rien ne change (la porte reste fermée).  <br /></td></tr>
 <tr class="separator:a703121b2b1a576161b54faa1e3b48675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee7f442f4206905ddecd3e806361610" id="r_a6ee7f442f4206905ddecd3e806361610"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a6ee7f442f4206905ddecd3e806361610">TEST</a> (MechanismControllerTest, PlaqueDePressionActivationContinue)</td></tr>
+<tr class="memdesc:a6ee7f442f4206905ddecd3e806361610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une plaque de pression ouvre la porte tant que le poids y repose, et la referme dès qu'il en part — activation continue, sans effet de front (<code>EX-GP-025</code>).  <br /></td></tr>
+<tr class="separator:a6ee7f442f4206905ddecd3e806361610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f317530c36a6e4c5a34d91df3ff9bba" id="r_a8f317530c36a6e4c5a34d91df3ff9bba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a8f317530c36a6e4c5a34d91df3ff9bba">TEST</a> (MechanismControllerTest, PlaqueDePressionPoidsInsuffisant)</td></tr>
+<tr class="memdesc:a8f317530c36a6e4c5a34d91df3ff9bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un poids insuffisant sur la plaque de pression n'ouvre pas la porte.  <br /></td></tr>
+<tr class="separator:a8f317530c36a6e4c5a34d91df3ff9bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des mécanismes interrupteur↔porte (<code>MechanismController</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a559051c9aeba73678f0b9ec80aa6e233" name="a559051c9aeba73678f0b9ec80aa6e233"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +199,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La bascule est <b>sur front</b> : rester sur l'interrupteur ne re-bascule pas ; revenir bascule. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000097">Cas de test:</a></b></dt><dd><b>La bascule est <b>sur front</b> : rester sur l'interrupteur ne re-bascule pas ; revenir bascule.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000100">Cas de test:</a></b></dt><dd><b>La bascule est <b>sur front</b> : rester sur l'interrupteur ne re-bascule pas ; revenir bascule.</b><br  />
  <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -204,7 +210,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a49940b49e95c5c4cf1fa58f900bdd47f" name="a49940b49e95c5c4cf1fa58f900bdd47f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +236,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Au départ, la porte est <b>fermée</b> (solide) ; toucher l'interrupteur l'<b>ouvre</b>. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000096">Cas de test:</a></b></dt><dd><b>Au départ, la porte est <b>fermée</b> (solide) ; toucher l'interrupteur l'<b>ouvre</b>.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000099">Cas de test:</a></b></dt><dd><b>Au départ, la porte est <b>fermée</b> (solide) ; toucher l'interrupteur l'<b>ouvre</b>.</b><br  />
  <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -240,8 +246,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6ee7f442f4206905ddecd3e806361610" name="a6ee7f442f4206905ddecd3e806361610"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee7f442f4206905ddecd3e806361610">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PlaqueDePressionActivationContinue&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une plaque de pression ouvre la porte tant que le poids y repose, et la referme dès qu'il en part — activation continue, sans effet de front (<code>EX-GP-025</code>). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000102">Cas de test:</a></b></dt><dd><b>Une plaque de pression ouvre la porte tant que le poids y repose, et la referme dès qu'il en part.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une plaque de pression ouvre la porte tant que le poids y repose, et la referme dès qu'il en part.</dd></dl>
+
+</div>
+</div>
+<a id="a8f317530c36a6e4c5a34d91df3ff9bba" name="a8f317530c36a6e4c5a34d91df3ff9bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f317530c36a6e4c5a34d91df3ff9bba">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PlaqueDePressionPoidsInsuffisant&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un poids insuffisant sur la plaque de pression n'ouvre pas la porte. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000103">Cas de test:</a></b></dt><dd><b>Un poids insuffisant sur la plaque de pression n'ouvre pas la porte.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un poids insuffisant sur la plaque de pression n'ouvre pas la porte.</dd></dl>
+
+</div>
+</div>
 <a id="a703121b2b1a576161b54faa1e3b48675" name="a703121b2b1a576161b54faa1e3b48675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +347,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Loin de l'interrupteur, rien ne change (la porte reste fermée). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000098">Cas de test:</a></b></dt><dd><b>Loin de l'interrupteur, rien ne change (la porte reste fermée).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000101">Cas de test:</a></b></dt><dd><b>Loin de l'interrupteur, rien ne change (la porte reste fermée).</b><br  />
  <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('test__physique__personnage_8cpp.html',
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Collider_8h_source.html">Core/Ecs/Components/Collider.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Player_8h_source.html">Core/Ecs/Components/Player.h</a>&quot;</code><br />
@@ -124,116 +125,117 @@ Include dependency graph for test_physique_personnage.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__physique__personnage_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp">
-<area shape="rect" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="1907,5,2130,75"/>
+<area shape="rect" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="1529,5,1751,75"/>
 <area shape="rect" title=" " alt="" coords="5,130,91,155"/>
-<area shape="poly" title=" " alt="" coords="1907,45,1526,51,1007,64,738,75,488,88,273,105,110,125,94,129,93,124,109,120,272,100,488,83,738,69,1006,59,1526,46,1907,40"/>
-<area shape="rect" title=" " alt="" coords="1812,218,1903,243"/>
-<area shape="poly" title=" " alt="" coords="1908,65,1861,88,1840,104,1824,124,1817,144,1820,165,1829,186,1841,205,1836,208,1824,189,1815,167,1812,143,1819,121,1837,101,1858,84,1906,60"/>
-<area shape="rect" title=" " alt="" coords="151,445,238,471"/>
-<area shape="poly" title=" " alt="" coords="1907,43,1458,47,1166,55,866,70,584,93,459,108,349,126,258,148,189,172,164,185,145,199,134,214,131,230,131,312,135,347,147,380,179,433,175,436,143,382,130,348,125,313,125,229,130,212,142,196,161,181,187,167,257,142,348,121,459,103,584,88,865,64,1166,50,1458,42,1907,38"/>
-<area shape="rect" title=" " alt="" coords="1877,130,1981,155"/>
-<area shape="poly" title=" " alt="" coords="1990,77,1951,121,1947,117,1986,73"/>
-<area shape="rect" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="2090,211,2254,251"/>
-<area shape="poly" title=" " alt="" coords="2038,74,2064,117,2097,161,2138,200,2134,204,2093,164,2060,120,2034,76"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="2265,299,2420,324"/>
-<area shape="poly" title=" " alt="" coords="2021,75,2024,115,2032,162,2050,209,2063,230,2079,249,2107,265,2150,278,2252,297,2251,302,2148,283,2105,269,2076,253,2059,233,2045,211,2027,164,2018,116,2015,75"/>
-<area shape="rect" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="2997,123,3161,163"/>
-<area shape="poly" title=" " alt="" coords="2130,44,2505,69,2741,91,2983,120,2983,125,2741,96,2504,74,2130,49"/>
-<area shape="rect" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="2107,123,2271,163"/>
-<area shape="poly" title=" " alt="" coords="2077,73,2147,113,2144,118,2075,77"/>
-<area shape="rect" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="2295,123,2459,163"/>
-<area shape="poly" title=" " alt="" coords="2131,70,2298,116,2296,121,2129,75"/>
-<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="3236,123,3441,163"/>
-<area shape="poly" title=" " alt="" coords="2130,43,2604,68,2909,91,3218,120,3222,121,3222,126,3217,125,2909,96,2604,74,2130,48"/>
-<area shape="rect" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="3164,218,3375,243"/>
-<area shape="poly" title=" " alt="" coords="2130,42,2395,51,2718,67,3009,90,3112,104,3173,120,3200,138,3224,160,3258,205,3254,208,3220,163,3197,142,3171,125,3111,109,3008,95,2718,73,2394,57,2130,47"/>
-<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="611,130,741,155"/>
-<area shape="poly" title=" " alt="" coords="1907,52,755,138,755,133,1907,47"/>
-<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="1137,130,1415,155"/>
-<area shape="poly" title=" " alt="" coords="1907,59,1374,131,1374,125,1907,54"/>
-<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="1316,218,1465,243"/>
-<area shape="poly" title=" " alt="" coords="1907,52,1794,63,1672,78,1562,99,1518,111,1485,125,1460,143,1438,164,1406,208,1402,205,1434,161,1457,138,1483,120,1516,106,1560,94,1671,73,1794,57,1907,47"/>
-<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="1534,299,1701,324"/>
-<area shape="poly" title=" " alt="" coords="1907,49,1806,58,1701,72,1609,94,1574,108,1550,125,1526,154,1515,183,1516,214,1530,249,1550,273,1576,290,1573,295,1547,277,1526,252,1511,215,1509,182,1521,151,1546,121,1572,104,1607,89,1700,67,1806,53,1907,44"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="1695,372,1863,397"/>
-<area shape="poly" title=" " alt="" coords="1920,77,1890,97,1868,124,1862,142,1868,161,1878,176,1891,184,1905,193,1917,210,1923,231,1917,252,1896,288,1868,320,1839,346,1811,366,1808,362,1835,342,1865,316,1892,285,1912,250,1917,231,1912,212,1902,197,1889,189,1875,180,1863,164,1857,142,1863,121,1887,93,1917,73"/>
-<area shape="rect" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="1560,130,1752,155"/>
-<area shape="poly" title=" " alt="" coords="1908,75,1711,129,1710,124,1906,70"/>
-<area shape="rect" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="2535,130,2743,155"/>
-<area shape="poly" title=" " alt="" coords="2131,57,2555,125,2554,130,2130,62"/>
-<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="2420,218,2575,243"/>
-<area shape="poly" title=" " alt="" coords="2130,45,2226,54,2327,69,2414,91,2448,105,2472,121,2487,139,2495,161,2501,204,2496,205,2490,163,2482,142,2469,125,2446,109,2413,96,2326,74,2226,60,2130,50"/>
-<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="3465,130,3660,155"/>
-<area shape="poly" title=" " alt="" coords="2130,41,2370,48,2698,62,3074,85,3454,120,3490,125,3489,130,3453,125,3073,90,2698,67,2370,53,2130,46"/>
-<area shape="rect" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn." alt="" coords="2767,130,2972,155"/>
-<area shape="poly" title=" " alt="" coords="2131,49,2414,79,2755,120,2790,125,2790,131,2754,125,2414,84,2130,55"/>
-<area shape="poly" title=" " alt="" coords="2214,248,2306,290,2304,295,2212,253"/>
-<area shape="poly" title=" " alt="" coords="2215,161,2267,209,2301,249,2329,286,2325,289,2297,252,2263,213,2211,165"/>
-<area shape="poly" title=" " alt="" coords="2376,164,2350,286,2345,285,2371,162"/>
-<area shape="poly" title=" " alt="" coords="3325,165,3289,209,3285,205,3321,161"/>
-<area shape="rect" title=" " alt="" coords="637,218,715,243"/>
-<area shape="poly" title=" " alt="" coords="679,156,679,204,673,204,673,156"/>
-<area shape="rect" title=" " alt="" coords="739,218,826,243"/>
-<area shape="poly" title=" " alt="" coords="692,153,759,207,756,211,689,158"/>
-<area shape="rect" title=" " alt="" coords="850,218,974,243"/>
-<area shape="poly" title=" " alt="" coords="709,153,868,211,866,216,707,158"/>
-<area shape="rect" title=" " alt="" coords="1129,372,1191,397"/>
-<area shape="poly" title=" " alt="" coords="742,142,801,147,870,159,942,178,1009,208,1040,234,1078,275,1145,359,1141,362,1074,279,1037,238,1007,213,940,183,869,164,801,153,741,148"/>
-<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="165,372,355,397"/>
-<area shape="poly" title=" " alt="" coords="611,149,523,154,425,165,338,184,305,197,283,213,271,228,263,246,254,286,254,325,257,358,252,359,248,325,249,285,258,244,267,225,279,209,303,192,337,179,424,160,523,149,610,143"/>
-<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="317,299,515,324"/>
-<area shape="poly" title=" " alt="" coords="611,149,528,154,437,166,356,184,327,197,307,212,302,221,300,230,308,249,331,274,361,291,358,296,327,278,303,252,295,230,297,220,303,209,324,193,355,179,436,160,528,149,610,143"/>
-<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="379,372,509,397"/>
-<area shape="poly" title=" " alt="" coords="611,148,525,153,430,165,347,184,316,197,296,212,290,231,288,264,291,299,298,323,312,338,328,350,367,367,365,372,326,355,308,342,294,325,286,300,283,264,285,230,291,209,313,192,345,179,429,159,525,148,610,143"/>
-<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="794,299,982,324"/>
-<area shape="poly" title=" " alt="" coords="742,146,810,154,883,166,947,184,971,195,987,209,994,220,995,230,988,252,965,278,937,295,934,291,962,274,983,249,990,230,989,221,983,212,968,200,945,189,882,171,810,159,741,151"/>
-<area shape="rect" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="467,218,613,243"/>
-<area shape="poly" title=" " alt="" coords="659,158,571,213,568,208,656,153"/>
-<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="317,218,443,243"/>
-<area shape="poly" title=" " alt="" coords="637,158,433,217,432,212,635,153"/>
-<area shape="poly" title=" " alt="" coords="251,399,216,437,213,433,247,396"/>
-<area shape="poly" title=" " alt="" coords="515,320,527,321,1115,377,1115,382,526,327,515,325"/>
-<area shape="poly" title=" " alt="" coords="392,326,299,369,297,364,390,322"/>
-<area shape="rect" title=" " alt="" coords="679,372,750,397"/>
-<area shape="poly" title=" " alt="" coords="465,321,667,369,665,374,463,327"/>
-<area shape="poly" title=" " alt="" coords="423,323,437,358,432,360,418,325"/>
-<area shape="rect" title=" " alt="" coords="617,445,684,471"/>
-<area shape="poly" title=" " alt="" coords="478,395,605,438,603,443,476,400"/>
-<area shape="poly" title=" " alt="" coords="932,321,1116,369,1114,374,931,327"/>
-<area shape="poly" title=" " alt="" coords="817,327,523,373,522,368,816,321"/>
-<area shape="poly" title=" " alt="" coords="873,326,763,400,687,441,684,437,760,395,870,322"/>
-<area shape="poly" title=" " alt="" coords="388,242,407,285,403,287,383,245"/>
-<area shape="poly" title=" " alt="" coords="425,241,455,248,492,254,524,255,582,254,608,255,635,262,662,275,691,297,702,310,709,326,716,357,711,358,704,328,698,313,687,301,660,279,633,267,608,261,581,259,524,261,491,259,454,253,424,246"/>
-<area shape="poly" title=" " alt="" coords="360,246,337,261,316,280,304,301,303,312,308,323,334,348,367,365,365,370,330,353,303,325,298,313,298,300,312,277,334,257,357,241"/>
-<area shape="rect" title=" " alt="" coords="619,299,677,324"/>
-<area shape="poly" title=" " alt="" coords="420,241,606,295,605,300,418,246"/>
-<area shape="rect" title=" " alt="" coords="539,299,594,324"/>
-<area shape="poly" title=" " alt="" coords="408,241,528,291,526,296,406,246"/>
-<area shape="rect" title=" " alt="" coords="1130,299,1190,324"/>
-<area shape="poly" title=" " alt="" coords="421,241,455,248,756,276,1116,304,1116,309,756,281,454,253,420,246"/>
-<area shape="poly" title=" " alt="" coords="1275,156,1248,229,1204,325,1179,362,1175,360,1199,323,1243,227,1270,154"/>
-<area shape="poly" title=" " alt="" coords="1263,158,1156,237,1078,285,994,326,934,347,872,363,764,381,763,376,871,358,932,342,992,322,1076,281,1153,233,1260,154"/>
-<area shape="poly" title=" " alt="" coords="1293,153,1366,208,1363,212,1290,158"/>
-<area shape="poly" title=" " alt="" coords="1278,155,1282,201,1290,227,1306,249,1333,260,1386,272,1521,294,1520,300,1385,277,1332,265,1302,253,1286,229,1277,202,1273,156"/>
-<area shape="poly" title=" " alt="" coords="1375,246,1190,367,1187,362,1372,241"/>
-<area shape="poly" title=" " alt="" coords="1358,246,1204,298,1202,293,1356,241"/>
-<area shape="rect" title=" " alt="" coords="1725,299,1784,324"/>
-<area shape="poly" title=" " alt="" coords="1451,241,1712,296,1711,301,1450,246"/>
-<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="1317,299,1510,324"/>
-<area shape="poly" title=" " alt="" coords="1397,243,1409,285,1404,286,1391,244"/>
-<area shape="poly" title=" " alt="" coords="1424,241,1572,292,1571,297,1423,246"/>
-<area shape="poly" title=" " alt="" coords="1544,327,1205,379,1204,374,1543,321"/>
-<area shape="poly" title=" " alt="" coords="1644,322,1741,364,1739,369,1642,326"/>
-<area shape="poly" title=" " alt="" coords="1684,153,1818,210,1816,215,1682,158"/>
-<area shape="poly" title=" " alt="" coords="1621,158,1440,216,1438,211,1619,153"/>
-<area shape="poly" title=" " alt="" coords="1662,155,1678,198,1704,249,1734,287,1730,290,1699,252,1673,200,1657,157"/>
-<area shape="rect" title=" " alt="" coords="1713,218,1788,243"/>
-<area shape="poly" title=" " alt="" coords="1671,154,1729,206,1726,210,1667,157"/>
-<area shape="rect" title=" " alt="" coords="1541,218,1638,243"/>
-<area shape="poly" title=" " alt="" coords="1649,157,1609,208,1605,205,1645,154"/>
-<area shape="poly" title=" " alt="" coords="2621,158,2529,213,2527,209,2618,153"/>
-<area shape="poly" title=" " alt="" coords="2476,246,2379,295,2377,290,2473,241"/>
-<area shape="poly" title=" " alt="" coords="2843,158,2733,202,2587,253,2496,278,2412,298,2411,293,2495,273,2586,248,2731,197,2841,153"/>
+<area shape="poly" title=" " alt="" coords="1529,46,1217,55,807,71,404,94,236,108,110,125,94,129,93,124,109,120,236,103,403,88,807,65,1217,50,1529,41"/>
+<area shape="rect" title=" " alt="" coords="3183,218,3273,243"/>
+<area shape="poly" title=" " alt="" coords="1751,40,2087,46,2518,59,2728,70,2911,83,3052,100,3102,109,3134,120,3161,138,3185,160,3217,205,3213,208,3180,163,3158,142,3132,125,3100,115,3051,105,2911,88,2727,75,2518,64,2087,51,1751,45"/>
+<area shape="rect" title=" " alt="" coords="1739,445,1826,471"/>
+<area shape="poly" title=" " alt="" coords="1665,73,1683,105,1700,143,1713,185,1719,229,1719,312,1723,347,1735,380,1767,433,1763,436,1731,382,1718,348,1713,313,1713,229,1708,187,1695,145,1678,107,1660,76"/>
+<area shape="rect" title=" " alt="" coords="2071,299,2129,324"/>
+<area shape="poly" title=" " alt="" coords="1684,73,1737,121,1767,158,1787,190,1808,220,1844,248,1898,274,1955,291,2011,301,2057,306,2057,311,2010,306,1954,296,1896,279,1841,253,1804,224,1782,193,1763,161,1733,125,1680,77"/>
+<area shape="rect" title=" " alt="" coords="543,130,647,155"/>
+<area shape="poly" title=" " alt="" coords="1529,46,1360,52,1142,66,901,89,778,106,659,125,642,129,641,124,658,120,778,100,900,84,1142,60,1359,47,1529,41"/>
+<area shape="rect" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="1514,211,1678,251"/>
+<area shape="poly" title=" " alt="" coords="1645,75,1644,118,1636,163,1619,200,1614,198,1631,162,1638,117,1640,75"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="528,299,683,324"/>
+<area shape="poly" title=" " alt="" coords="1528,46,1177,54,732,69,520,80,341,93,213,108,174,116,155,125,139,145,133,164,134,181,142,197,156,212,177,225,232,249,300,268,374,282,515,300,514,306,374,288,299,273,230,254,174,230,153,216,137,200,129,183,127,163,135,143,152,121,172,111,212,103,340,88,520,75,732,64,1177,49,1528,41"/>
+<area shape="rect" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="954,123,1118,163"/>
+<area shape="poly" title=" " alt="" coords="1529,61,1132,125,1131,120,1528,55"/>
+<area shape="rect" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="166,123,330,163"/>
+<area shape="poly" title=" " alt="" coords="1528,46,1312,52,1020,66,686,89,344,125,344,120,685,84,1019,61,1312,47,1528,41"/>
+<area shape="rect" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="354,123,518,163"/>
+<area shape="poly" title=" " alt="" coords="1529,48,1342,56,1096,71,817,93,532,125,531,120,816,88,1095,65,1341,51,1528,42"/>
+<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="1372,123,1577,163"/>
+<area shape="poly" title=" " alt="" coords="1586,77,1519,118,1516,113,1583,73"/>
+<area shape="rect" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="1279,218,1489,243"/>
+<area shape="poly" title=" " alt="" coords="1636,76,1621,122,1608,145,1591,165,1567,183,1541,197,1486,217,1484,212,1539,193,1565,178,1587,161,1604,142,1616,119,1631,74"/>
+<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="2224,130,2355,155"/>
+<area shape="poly" title=" " alt="" coords="1752,56,2211,127,2210,132,1751,61"/>
+<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="2719,130,2996,155"/>
+<area shape="poly" title=" " alt="" coords="1752,48,2706,126,2706,132,1752,53"/>
+<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="2959,218,3108,243"/>
+<area shape="poly" title=" " alt="" coords="1752,38,2065,39,2460,48,2650,59,2815,73,2940,94,2983,106,3010,121,3024,139,3033,161,3038,204,3033,204,3028,162,3020,142,3006,125,2981,111,2939,99,2815,79,2650,64,2460,54,2065,44,1752,43"/>
+<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="3275,299,3442,324"/>
+<area shape="poly" title=" " alt="" coords="1752,41,2067,49,2467,64,2661,74,2831,87,2962,102,3008,111,3038,120,3063,134,3082,149,3108,182,3133,216,3149,232,3172,248,3229,275,3287,293,3286,298,3227,280,3169,253,3146,237,3129,219,3104,185,3078,153,3060,138,3036,125,3006,116,2961,108,2831,92,2661,80,2467,69,2067,54,1752,46"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="3420,372,3588,397"/>
+<area shape="poly" title=" " alt="" coords="1751,39,2208,43,2817,55,3112,65,3363,79,3543,97,3599,108,3627,121,3639,135,3646,151,3649,184,3641,219,3624,253,3602,287,3577,317,3529,365,3526,361,3573,314,3598,283,3620,251,3636,217,3644,184,3641,153,3634,138,3624,125,3597,113,3542,102,3362,84,3112,70,2817,60,2208,48,1751,44"/>
+<area shape="rect" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="3203,130,3395,155"/>
+<area shape="poly" title=" " alt="" coords="1752,40,2008,47,2363,60,2771,84,2980,100,3184,120,3223,125,3223,130,3184,125,2979,106,2770,89,2363,66,2008,52,1752,46"/>
+<area shape="rect" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="671,130,879,155"/>
+<area shape="poly" title=" " alt="" coords="1529,55,1242,84,898,125,860,131,859,125,897,120,1242,79,1528,49"/>
+<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="697,218,852,243"/>
+<area shape="poly" title=" " alt="" coords="1529,50,1380,59,1210,75,1053,97,990,110,942,125,927,133,917,143,892,165,810,214,807,209,889,161,913,139,924,129,940,120,989,105,1052,92,1210,70,1380,54,1528,44"/>
+<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="3419,130,3613,155"/>
+<area shape="poly" title=" " alt="" coords="1752,39,2040,43,2450,55,2925,79,3168,97,3407,120,3444,125,3444,130,3406,125,3168,103,2924,85,2450,60,2040,48,1751,44"/>
+<area shape="rect" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn." alt="" coords="1143,130,1348,155"/>
+<area shape="poly" title=" " alt="" coords="1529,72,1304,129,1303,124,1528,67"/>
+<area shape="poly" title=" " alt="" coords="1514,252,1502,253,1275,278,1050,295,697,310,697,305,1050,289,1275,272,1501,248,1513,246"/>
+<area shape="poly" title=" " alt="" coords="289,160,569,290,567,295,287,165"/>
+<area shape="poly" title=" " alt="" coords="457,161,586,287,582,291,454,165"/>
+<area shape="poly" title=" " alt="" coords="1456,165,1408,210,1405,206,1453,161"/>
+<area shape="rect" title=" " alt="" coords="1855,218,1932,243"/>
+<area shape="poly" title=" " alt="" coords="2224,156,2095,179,1946,213,1936,216,1935,211,1945,208,2094,174,2224,151"/>
+<area shape="rect" title=" " alt="" coords="1957,218,2043,243"/>
+<area shape="poly" title=" " alt="" coords="2248,158,2057,213,2047,216,2046,211,2055,208,2247,153"/>
+<area shape="rect" title=" " alt="" coords="2067,218,2191,243"/>
+<area shape="poly" title=" " alt="" coords="2269,158,2164,214,2162,209,2267,153"/>
+<area shape="rect" title=" " alt="" coords="2827,372,2890,397"/>
+<area shape="poly" title=" " alt="" coords="2355,142,2428,146,2516,157,2609,177,2700,208,2735,226,2761,245,2810,297,2832,328,2850,358,2845,361,2828,331,2806,300,2758,249,2733,231,2698,213,2608,182,2515,162,2428,152,2355,147"/>
+<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="1753,372,1943,397"/>
+<area shape="poly" title=" " alt="" coords="2224,146,2124,149,2010,159,1956,168,1908,179,1870,194,1845,212,1834,229,1828,247,1825,287,1831,326,1841,358,1836,360,1826,327,1819,287,1822,246,1829,226,1841,209,1867,189,1906,174,1955,162,2009,154,2124,144,2224,141"/>
+<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="2284,299,2481,324"/>
+<area shape="poly" title=" " alt="" coords="2356,147,2418,156,2484,168,2541,186,2562,196,2577,209,2586,226,2585,241,2577,255,2562,267,2522,285,2473,298,2471,293,2520,280,2560,262,2573,251,2580,240,2580,227,2573,212,2559,201,2539,191,2483,173,2417,161,2355,153"/>
+<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="2504,372,2635,397"/>
+<area shape="poly" title=" " alt="" coords="2355,146,2423,154,2496,166,2559,184,2583,195,2599,209,2605,221,2606,237,2602,278,2580,359,2575,358,2597,277,2601,237,2600,222,2595,212,2580,200,2557,189,2495,171,2422,159,2354,151"/>
+<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="2607,299,2795,324"/>
+<area shape="poly" title=" " alt="" coords="2355,145,2438,152,2531,164,2615,182,2648,194,2671,209,2685,225,2694,245,2703,284,2698,285,2689,247,2681,228,2668,213,2645,199,2614,187,2530,169,2438,157,2354,150"/>
+<area shape="rect" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="2216,218,2363,243"/>
+<area shape="poly" title=" " alt="" coords="2292,156,2292,204,2287,204,2287,156"/>
+<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="2437,218,2563,243"/>
+<area shape="poly" title=" " alt="" coords="2319,153,2460,210,2458,215,2317,158"/>
+<area shape="poly" title=" " alt="" coords="1839,399,1804,437,1801,433,1835,396"/>
+<area shape="poly" title=" " alt="" coords="2460,321,2814,374,2813,379,2459,327"/>
+<area shape="poly" title=" " alt="" coords="2297,327,1948,373,1948,367,2296,321"/>
+<area shape="rect" title=" " alt="" coords="2131,372,2202,397"/>
+<area shape="poly" title=" " alt="" coords="2349,327,2215,370,2214,365,2347,321"/>
+<area shape="poly" title=" " alt="" coords="2414,322,2527,365,2525,369,2412,327"/>
+<area shape="rect" title=" " alt="" coords="2601,445,2668,471"/>
+<area shape="poly" title=" " alt="" coords="2582,396,2617,433,2613,437,2578,399"/>
+<area shape="poly" title=" " alt="" coords="2728,322,2822,364,2820,369,2726,326"/>
+<area shape="poly" title=" " alt="" coords="2681,326,2604,368,2602,363,2679,322"/>
+<area shape="poly" title=" " alt="" coords="2698,326,2648,434,2643,432,2693,323"/>
+<area shape="poly" title=" " alt="" coords="2453,246,2419,253,2284,277,2149,301,2143,302,2142,297,2147,296,2283,272,2418,248,2452,241"/>
+<area shape="poly" title=" " alt="" coords="2484,246,2413,293,2410,289,2481,241"/>
+<area shape="poly" title=" " alt="" coords="2452,246,2419,253,2384,259,2352,260,2297,260,2272,262,2247,268,2222,280,2195,301,2185,313,2178,328,2171,359,2165,357,2173,326,2180,310,2191,297,2219,275,2246,263,2271,256,2297,254,2352,255,2383,254,2418,248,2450,241"/>
+<area shape="poly" title=" " alt="" coords="2508,242,2561,358,2556,360,2503,244"/>
+<area shape="rect" title=" " alt="" coords="2205,299,2259,324"/>
+<area shape="poly" title=" " alt="" coords="2462,246,2274,301,2272,296,2460,241"/>
+<area shape="rect" title=" " alt="" coords="2922,299,2982,324"/>
+<area shape="poly" title=" " alt="" coords="2563,240,2908,300,2908,305,2562,245"/>
+<area shape="poly" title=" " alt="" coords="2860,156,2861,358,2856,358,2855,156"/>
+<area shape="poly" title=" " alt="" coords="2719,150,2649,157,2575,169,2499,187,2426,213,2412,222,2402,233,2392,243,2376,253,2328,267,2283,270,2241,265,2202,258,2165,254,2129,256,2095,270,2061,300,2055,310,2055,318,2067,336,2090,352,2119,365,2117,370,2088,356,2063,340,2050,320,2050,308,2057,297,2092,266,2128,251,2165,248,2203,253,2242,260,2283,264,2327,262,2374,248,2388,239,2398,229,2408,218,2424,208,2497,182,2573,164,2649,152,2718,145"/>
+<area shape="poly" title=" " alt="" coords="2882,153,2998,209,2996,214,2880,158"/>
+<area shape="poly" title=" " alt="" coords="2865,154,2896,201,2920,227,2948,248,3066,269,3262,295,3261,300,3065,274,2946,253,2916,231,2892,204,2861,157"/>
+<area shape="poly" title=" " alt="" coords="3034,244,3023,283,3012,306,2997,326,2976,343,2952,357,2904,376,2902,371,2949,352,2972,339,2993,322,3007,303,3018,281,3029,243"/>
+<area shape="poly" title=" " alt="" coords="3023,245,2976,291,2972,287,3019,242"/>
+<area shape="rect" title=" " alt="" coords="3492,299,3551,324"/>
+<area shape="poly" title=" " alt="" coords="3107,241,3455,296,3478,300,3478,305,3454,301,3106,246"/>
+<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="3058,299,3251,324"/>
+<area shape="poly" title=" " alt="" coords="3053,241,3127,289,3124,293,3050,246"/>
+<area shape="poly" title=" " alt="" coords="3081,241,3299,293,3297,298,3080,246"/>
+<area shape="poly" title=" " alt="" coords="3279,327,2904,380,2903,374,3278,321"/>
+<area shape="poly" title=" " alt="" coords="3383,322,3469,364,3467,368,3381,326"/>
+<area shape="poly" title=" " alt="" coords="3291,157,3249,209,3244,205,3287,154"/>
+<area shape="poly" title=" " alt="" coords="3264,158,3083,216,3081,211,3262,153"/>
+<area shape="poly" title=" " alt="" coords="3357,153,3445,176,3484,192,3509,209,3519,227,3525,247,3527,285,3522,285,3520,248,3515,229,3505,212,3481,196,3444,181,3356,158"/>
+<area shape="rect" title=" " alt="" coords="3420,218,3495,243"/>
+<area shape="poly" title=" " alt="" coords="3321,153,3425,209,3422,214,3319,158"/>
+<area shape="rect" title=" " alt="" coords="3298,218,3395,243"/>
+<area shape="poly" title=" " alt="" coords="3307,154,3336,204,3331,207,3303,157"/>
+<area shape="poly" title=" " alt="" coords="777,156,777,204,772,204,772,156"/>
+<area shape="poly" title=" " alt="" coords="751,246,643,295,641,291,749,241"/>
+<area shape="poly" title=" " alt="" coords="1208,158,1058,201,865,253,672,298,671,293,863,248,1056,196,1206,153"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -242,6 +244,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a9239722c19f58e36db4963da1a741638" id="r_a9239722c19f58e36db4963da1a741638"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a9239722c19f58e36db4963da1a741638">TEST</a> (PhysiquePersonnageIntegration, TombeSousGraviteVitesseCroissante)</td></tr>
 <tr class="memdesc:a9239722c19f58e36db4963da1a741638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans sol, le personnage tombe et sa vitesse verticale croît (gravité continue).  <br /></td></tr>
 <tr class="separator:a9239722c19f58e36db4963da1a741638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac366c7c4e3234ff56137356dc2e3d9d3" id="r_ac366c7c4e3234ff56137356dc2e3d9d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#ac366c7c4e3234ff56137356dc2e3d9d3">TEST</a> (PhysiquePersonnageIntegration, ChuteConvergeVersUneVitesseTerminale)</td></tr>
+<tr class="memdesc:ac366c7c4e3234ff56137356dc2e3d9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la dépasser (chute newtonienne, <code>EX-GP-019</code>).  <br /></td></tr>
+<tr class="separator:ac366c7c4e3234ff56137356dc2e3d9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796bc6acbf10b2f6ae3eba936f06c3d7" id="r_a796bc6acbf10b2f6ae3eba936f06c3d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a796bc6acbf10b2f6ae3eba936f06c3d7">TEST</a> (PhysiquePersonnageIntegration, AccelerationDeChuteDecroitVersLeRegimePermanent)</td></tr>
+<tr class="memdesc:a796bc6acbf10b2f6ae3eba936f06c3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'accélération verticale décroît à mesure que la vitesse approche le régime permanent (courbe asymptotique, pas de plafond net).  <br /></td></tr>
+<tr class="separator:a796bc6acbf10b2f6ae3eba936f06c3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba8bfc6b678b0cc1176cc4b73afa6ad" id="r_a3ba8bfc6b678b0cc1176cc4b73afa6ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a3ba8bfc6b678b0cc1176cc4b73afa6ad">TEST</a> (PhysiquePersonnageIntegration, MasseSuperieureTombePlusVite)</td></tr>
+<tr class="memdesc:a3ba8bfc6b678b0cc1176cc4b73afa6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale.  <br /></td></tr>
+<tr class="separator:a3ba8bfc6b678b0cc1176cc4b73afa6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2b60fbf985dfdf4dc88bd86471e5ac" id="r_a5c2b60fbf985dfdf4dc88bd86471e5ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a5c2b60fbf985dfdf4dc88bd86471e5ac">TEST</a> (PhysiquePersonnageIntegration, AtterritSurLeSolEtEstAuSol)</td></tr>
 <tr class="memdesc:a5c2b60fbf985dfdf4dc88bd86471e5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.  <br /></td></tr>
 <tr class="separator:a5c2b60fbf985dfdf4dc88bd86471e5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -340,8 +351,45 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés. </p>
 <p>Le <code>CharacterPhysicsSystem</code> combine composants (<code>Player</code>/<code>Transform</code>/<code>Velocity</code>/<code>Collider</code>), grille de collision (<code>TileMap</code>) et résolution continue (<code>sweepAabb</code>). On vérifie de bout en bout la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le déterminisme. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a796bc6acbf10b2f6ae3eba936f06c3d7" name="a796bc6acbf10b2f6ae3eba936f06c3d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796bc6acbf10b2f6ae3eba936f06c3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[1/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccelerationDeChuteDecroitVersLeRegimePermanent&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'accélération verticale décroît à mesure que la vitesse approche le régime permanent (courbe asymptotique, pas de plafond net). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000016">Cas de test:</a></b></dt><dd><b>L'accélération verticale décroît à mesure que la vitesse approche le régime permanent.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> L'accélération verticale décroît à mesure que la vitesse approche le régime permanent.</dd></dl>
+
+</div>
+</div>
 <a id="ade4e2fcc468d2191931de65f1aeeff1d" name="ade4e2fcc468d2191931de65f1aeeff1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade4e2fcc468d2191931de65f1aeeff1d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4e2fcc468d2191931de65f1aeeff1d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,7 +415,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000025">Cas de test:</a></b></dt><dd><b>Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000028">Cas de test:</a></b></dt><dd><b>Apex hang : près du sommet du saut, la gravité est réduite (contrôle flottant).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -378,7 +426,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5c2b60fbf985dfdf4dc88bd86471e5ac" name="a5c2b60fbf985dfdf4dc88bd86471e5ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2b60fbf985dfdf4dc88bd86471e5ac">&#9670;&#160;</a></span>TEST() <span class="overload">[2/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c2b60fbf985dfdf4dc88bd86471e5ac">&#9670;&#160;</a></span>TEST() <span class="overload">[3/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -404,7 +452,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000015">Cas de test:</a></b></dt><dd><b>Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000018">Cas de test:</a></b></dt><dd><b>Le personnage se pose sur le sol : vitesse verticale annulée, état « au sol » vrai.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -415,7 +463,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a02e93a390f0992b27d62d3e6da643ad4" name="a02e93a390f0992b27d62d3e6da643ad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02e93a390f0992b27d62d3e6da643ad4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e93a390f0992b27d62d3e6da643ad4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +489,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000017">Cas de test:</a></b></dt><dd><b>Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000020">Cas de test:</a></b></dt><dd><b>Sur terrain libre, l'avancée horizontale vaut vitesse × temps (vitesse constante).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -452,7 +500,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae9fc72ddfcaa6189f4eade37bf8d204d" name="ae9fc72ddfcaa6189f4eade37bf8d204d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9fc72ddfcaa6189f4eade37bf8d204d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9fc72ddfcaa6189f4eade37bf8d204d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -478,7 +526,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000016">Cas de test:</a></b></dt><dd><b>Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000019">Cas de test:</a></b></dt><dd><b>Poussé contre un mur, le personnage s'arrête au ras du mur (blocage horizontal).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -489,7 +537,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afc7bc42f07c3a5c59a1f22f0da605677" name="afc7bc42f07c3a5c59a1f22f0da605677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc7bc42f07c3a5c59a1f22f0da605677">&#9670;&#160;</a></span>TEST() <span class="overload">[5/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afc7bc42f07c3a5c59a1f22f0da605677">&#9670;&#160;</a></span>TEST() <span class="overload">[6/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -515,7 +563,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000033">Cas de test:</a></b></dt><dd><b>Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000036">Cas de test:</a></b></dt><dd><b>Budget de dashs (EX-GP-024) : avec 1 dash, le premier fonctionne, le suivant est refusé.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -526,7 +574,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7a1fb8751e6ac726e6e35632dc9cad34" name="a7a1fb8751e6ac726e6e35632dc9cad34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1fb8751e6ac726e6e35632dc9cad34">&#9670;&#160;</a></span>TEST() <span class="overload">[6/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1fb8751e6ac726e6e35632dc9cad34">&#9670;&#160;</a></span>TEST() <span class="overload">[7/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -552,7 +600,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000032">Cas de test:</a></b></dt><dd><b>Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000035">Cas de test:</a></b></dt><dd><b>Budget de sauts (EX-GP-024) : avec 1 saut, le premier fonctionne, le suivant est refusé.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -562,8 +610,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac366c7c4e3234ff56137356dc2e3d9d3" name="ac366c7c4e3234ff56137356dc2e3d9d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac366c7c4e3234ff56137356dc2e3d9d3">&#9670;&#160;</a></span>TEST() <span class="overload">[8/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChuteConvergeVersUneVitesseTerminale&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la dépasser (chute newtonienne, <code>EX-GP-019</code>). </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000015">Cas de test:</a></b></dt><dd><b>En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la dépasser.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> En chute prolongée, la vitesse verticale converge vers une vitesse terminale sans la dépasser.</dd></dl>
+
+</div>
+</div>
 <a id="a87676eaa8b6cf66166cf9b8178c7b0ff" name="a87676eaa8b6cf66166cf9b8178c7b0ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87676eaa8b6cf66166cf9b8178c7b0ff">&#9670;&#160;</a></span>TEST() <span class="overload">[7/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a87676eaa8b6cf66166cf9b8178c7b0ff">&#9670;&#160;</a></span>TEST() <span class="overload">[9/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -589,7 +674,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000024">Cas de test:</a></b></dt><dd><b>Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000027">Cas de test:</a></b></dt><dd><b>Gravité asymétrique : la chute accélère plus vite que la montée ne décélère (EX-GP-018).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -600,7 +685,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af033aa2401067bfa3da0e6827d139dea" name="af033aa2401067bfa3da0e6827d139dea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af033aa2401067bfa3da0e6827d139dea">&#9670;&#160;</a></span>TEST() <span class="overload">[8/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af033aa2401067bfa3da0e6827d139dea">&#9670;&#160;</a></span>TEST() <span class="overload">[10/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -626,7 +711,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000043">Cas de test:</a></b></dt><dd><b>Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000046">Cas de test:</a></b></dt><dd><b>Coyote time : sauter juste après avoir quitté un bord fonctionne ; trop tard, non.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -637,7 +722,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abb82868fbf992267f7a9f1d1fffb204f" name="abb82868fbf992267f7a9f1d1fffb204f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb82868fbf992267f7a9f1d1fffb204f">&#9670;&#160;</a></span>TEST() <span class="overload">[9/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb82868fbf992267f7a9f1d1fffb204f">&#9670;&#160;</a></span>TEST() <span class="overload">[11/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -663,7 +748,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000028">Cas de test:</a></b></dt><dd><b>Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000031">Cas de test:</a></b></dt><dd><b>Dash diagonal (8 directions) : viser haut-droite envoie en +X et −Y.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -674,7 +759,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63d3caf4b93486172f860e10ad69adac" name="a63d3caf4b93486172f860e10ad69adac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63d3caf4b93486172f860e10ad69adac">&#9670;&#160;</a></span>TEST() <span class="overload">[10/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d3caf4b93486172f860e10ad69adac">&#9670;&#160;</a></span>TEST() <span class="overload">[12/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,7 +785,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000027">Cas de test:</a></b></dt><dd><b>Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000030">Cas de test:</a></b></dt><dd><b>Dash horizontal : une ruée rapide (≫ vitesse normale) fait parcourir une grande distance.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -711,7 +796,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2de52ed1329f04dd9b3fa9f1c5a1ea48" name="a2de52ed1329f04dd9b3fa9f1c5a1ea48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2de52ed1329f04dd9b3fa9f1c5a1ea48">&#9670;&#160;</a></span>TEST() <span class="overload">[11/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2de52ed1329f04dd9b3fa9f1c5a1ea48">&#9670;&#160;</a></span>TEST() <span class="overload">[13/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -737,7 +822,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un dash vers un mur ne le traverse pas (résolu par le balayage). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000031">Cas de test:</a></b></dt><dd><b>Un dash vers un mur ne le traverse pas (résolu par le balayage).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000034">Cas de test:</a></b></dt><dd><b>Un dash vers un mur ne le traverse pas (résolu par le balayage).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -748,7 +833,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a751be01bb7f0fa771480bc8e36a2d795" name="a751be01bb7f0fa771480bc8e36a2d795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a751be01bb7f0fa771480bc8e36a2d795">&#9670;&#160;</a></span>TEST() <span class="overload">[12/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a751be01bb7f0fa771480bc8e36a2d795">&#9670;&#160;</a></span>TEST() <span class="overload">[14/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -774,7 +859,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au sol. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000030">Cas de test:</a></b></dt><dd><b>Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au sol.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000033">Cas de test:</a></b></dt><dd><b>Une seule ruée par phase aérienne : le second dash en l'air est refusé jusqu'au retour au sol.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -785,7 +870,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a094667714339bf5e102e25fb0cd3a656" name="a094667714339bf5e102e25fb0cd3a656"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a094667714339bf5e102e25fb0cd3a656">&#9670;&#160;</a></span>TEST() <span class="overload">[13/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a094667714339bf5e102e25fb0cd3a656">&#9670;&#160;</a></span>TEST() <span class="overload">[15/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -811,7 +896,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Mêmes entrées → même résultat : la simulation est déterministe (pas fixe). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000019">Cas de test:</a></b></dt><dd><b>Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000022">Cas de test:</a></b></dt><dd><b>Mêmes entrées → même résultat : la simulation est déterministe (pas fixe).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -822,7 +907,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4732146b76b5d762fe72fd8e4b296852" name="a4732146b76b5d762fe72fd8e4b296852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4732146b76b5d762fe72fd8e4b296852">&#9670;&#160;</a></span>TEST() <span class="overload">[14/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4732146b76b5d762fe72fd8e4b296852">&#9670;&#160;</a></span>TEST() <span class="overload">[16/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -848,7 +933,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000023">Cas de test:</a></b></dt><dd><b>Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000026">Cas de test:</a></b></dt><dd><b>Double saut : 1 saut au sol + N sauts aériens (paramétrable), rechargés au contact du sol.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -859,7 +944,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3663b8b01f4a7b8e4509e28ea9c09c75" name="a3663b8b01f4a7b8e4509e28ea9c09c75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3663b8b01f4a7b8e4509e28ea9c09c75">&#9670;&#160;</a></span>TEST() <span class="overload">[15/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3663b8b01f4a7b8e4509e28ea9c09c75">&#9670;&#160;</a></span>TEST() <span class="overload">[17/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -885,7 +970,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000026">Cas de test:</a></b></dt><dd><b>Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000029">Cas de test:</a></b></dt><dd><b>Fast-fall : maintenir « bas » en l'air fait tomber plus loin qu'une chute libre normale.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -896,7 +981,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2bea6c836d4c3ebda627b84cd8efad13" name="a2bea6c836d4c3ebda627b84cd8efad13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bea6c836d4c3ebda627b84cd8efad13">&#9670;&#160;</a></span>TEST() <span class="overload">[16/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bea6c836d4c3ebda627b84cd8efad13">&#9670;&#160;</a></span>TEST() <span class="overload">[18/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -922,7 +1007,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste nulle). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000029">Cas de test:</a></b></dt><dd><b>Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste nulle).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000032">Cas de test:</a></b></dt><dd><b>Pendant un dash horizontal, la gravité est suspendue (la composante verticale reste nulle).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -933,7 +1018,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8989d5d7dcc9c50dee50e600f94ff651" name="a8989d5d7dcc9c50dee50e600f94ff651"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8989d5d7dcc9c50dee50e600f94ff651">&#9670;&#160;</a></span>TEST() <span class="overload">[17/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8989d5d7dcc9c50dee50e600f94ff651">&#9670;&#160;</a></span>TEST() <span class="overload">[19/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -959,7 +1044,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000022">Cas de test:</a></b></dt><dd><b>Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000025">Cas de test:</a></b></dt><dd><b>Hauteur de saut variable : maintenir le bouton saute plus haut que le relâcher tôt.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -970,7 +1055,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a93e29c0a42a2e589d7c199028f85b74d" name="a93e29c0a42a2e589d7c199028f85b74d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93e29c0a42a2e589d7c199028f85b74d">&#9670;&#160;</a></span>TEST() <span class="overload">[18/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93e29c0a42a2e589d7c199028f85b74d">&#9670;&#160;</a></span>TEST() <span class="overload">[20/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -996,7 +1081,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop tôt, non. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000044">Cas de test:</a></b></dt><dd><b>Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop tôt, non.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000047">Cas de test:</a></b></dt><dd><b>Jump buffering : un saut pré-appuyé peu avant l'atterrissage s'exécute à la pose ; trop tôt, non.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1006,8 +1091,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3ba8bfc6b678b0cc1176cc4b73afa6ad" name="a3ba8bfc6b678b0cc1176cc4b73afa6ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba8bfc6b678b0cc1176cc4b73afa6ad">&#9670;&#160;</a></span>TEST() <span class="overload">[21/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MasseSuperieureTombePlusVite&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale. </p>
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000017">Cas de test:</a></b></dt><dd><b>Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une masse plus grande produit une vitesse terminale plus élevée, à traînée égale.</dd></dl>
+
+</div>
+</div>
 <a id="a1c6273c36221a629c90a139d75cb1cbf" name="a1c6273c36221a629c90a139d75cb1cbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c6273c36221a629c90a139d75cb1cbf">&#9670;&#160;</a></span>TEST() <span class="overload">[19/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c6273c36221a629c90a139d75cb1cbf">&#9670;&#160;</a></span>TEST() <span class="overload">[22/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1033,7 +1155,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage continu). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000018">Cas de test:</a></b></dt><dd><b>Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage continu).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000021">Cas de test:</a></b></dt><dd><b>Même en chute très rapide (grand pas), le personnage ne traverse pas le sol (balayage continu).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1044,7 +1166,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="addc88f36477d3a63d54b15a7333e832a" name="addc88f36477d3a63d54b15a7333e832a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addc88f36477d3a63d54b15a7333e832a">&#9670;&#160;</a></span>TEST() <span class="overload">[20/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#addc88f36477d3a63d54b15a7333e832a">&#9670;&#160;</a></span>TEST() <span class="overload">[23/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1070,7 +1192,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000037">Cas de test:</a></b></dt><dd><b>Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000040">Cas de test:</a></b></dt><dd><b>Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1081,7 +1203,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a727c71a3ade7982c9ae8eb04669a7545" name="a727c71a3ade7982c9ae8eb04669a7545"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a727c71a3ade7982c9ae8eb04669a7545">&#9670;&#160;</a></span>TEST() <span class="overload">[21/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a727c71a3ade7982c9ae8eb04669a7545">&#9670;&#160;</a></span>TEST() <span class="overload">[24/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1107,7 +1229,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000038">Cas de test:</a></b></dt><dd><b>Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000041">Cas de test:</a></b></dt><dd><b>Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1118,7 +1240,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9477da806cbe7c9a10957f43a8c8b25b" name="a9477da806cbe7c9a10957f43a8c8b25b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9477da806cbe7c9a10957f43a8c8b25b">&#9670;&#160;</a></span>TEST() <span class="overload">[22/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9477da806cbe7c9a10957f43a8c8b25b">&#9670;&#160;</a></span>TEST() <span class="overload">[25/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1144,7 +1266,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000039">Cas de test:</a></b></dt><dd><b>Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000042">Cas de test:</a></b></dt><dd><b>Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1155,7 +1277,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a781fce7997057c9bcf7099d933c1cb17" name="a781fce7997057c9bcf7099d933c1cb17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781fce7997057c9bcf7099d933c1cb17">&#9670;&#160;</a></span>TEST() <span class="overload">[23/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a781fce7997057c9bcf7099d933c1cb17">&#9670;&#160;</a></span>TEST() <span class="overload">[26/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1181,7 +1303,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000040">Cas de test:</a></b></dt><dd><b>Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000043">Cas de test:</a></b></dt><dd><b>Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1192,7 +1314,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3e508644de4c4f901c0d9970e0d3b183" name="a3e508644de4c4f901c0d9970e0d3b183"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e508644de4c4f901c0d9970e0d3b183">&#9670;&#160;</a></span>TEST() <span class="overload">[24/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e508644de4c4f901c0d9970e0d3b183">&#9670;&#160;</a></span>TEST() <span class="overload">[27/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1218,7 +1340,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000041">Cas de test:</a></b></dt><dd><b>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000044">Cas de test:</a></b></dt><dd><b>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1229,7 +1351,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a59011ccd728436d7b107fec6fa841a4d" name="a59011ccd728436d7b107fec6fa841a4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59011ccd728436d7b107fec6fa841a4d">&#9670;&#160;</a></span>TEST() <span class="overload">[25/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59011ccd728436d7b107fec6fa841a4d">&#9670;&#160;</a></span>TEST() <span class="overload">[28/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1255,7 +1377,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau de démonstration livré est <b>franchissable</b> sans saut : en maintenant « droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000045">Cas de test:</a></b></dt><dd><b>Le niveau de démonstration livré est <b>franchissable</b> sans saut : en maintenant « droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000048">Cas de test:</a></b></dt><dd><b>Le niveau de démonstration livré est <b>franchissable</b> sans saut : en maintenant « droite », le personnage descend l'escalier de paliers et atteint la sortie sans jamais mourir.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1266,7 +1388,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a10c645fcf469946ac225661df5a85024" name="a10c645fcf469946ac225661df5a85024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c645fcf469946ac225661df5a85024">&#9670;&#160;</a></span>TEST() <span class="overload">[26/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c645fcf469946ac225661df5a85024">&#9670;&#160;</a></span>TEST() <span class="overload">[29/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1292,7 +1414,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>En l'air, une pression de saut n'a aucun effet : pas de double saut (<code>EX-GP-013</code>). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000021">Cas de test:</a></b></dt><dd><b>En l'air, une pression de saut n'a aucun effet : pas de double saut (<code>EX-GP-013</code>).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000024">Cas de test:</a></b></dt><dd><b>En l'air, une pression de saut n'a aucun effet : pas de double saut (<code>EX-GP-013</code>).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1303,7 +1425,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a029cff622b9b3330de8fd332e7d03f9a" name="a029cff622b9b3330de8fd332e7d03f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a029cff622b9b3330de8fd332e7d03f9a">&#9670;&#160;</a></span>TEST() <span class="overload">[27/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a029cff622b9b3330de8fd332e7d03f9a">&#9670;&#160;</a></span>TEST() <span class="overload">[30/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1329,7 +1451,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000036">Cas de test:</a></b></dt><dd><b>Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000039">Cas de test:</a></b></dt><dd><b>Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1340,7 +1462,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a41d8c2dcddf3c70a7121fefc740bf252" name="a41d8c2dcddf3c70a7121fefc740bf252"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41d8c2dcddf3c70a7121fefc740bf252">&#9670;&#160;</a></span>TEST() <span class="overload">[28/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d8c2dcddf3c70a7121fefc740bf252">&#9670;&#160;</a></span>TEST() <span class="overload">[31/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1366,7 +1488,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une porte <b>fermée</b> (interrupteur non touché) <b>bloque</b> : la sortie reste inatteignable. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000042">Cas de test:</a></b></dt><dd><b>Une porte <b>fermée</b> (interrupteur non touché) <b>bloque</b> : la sortie reste inatteignable.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000045">Cas de test:</a></b></dt><dd><b>Une porte <b>fermée</b> (interrupteur non touché) <b>bloque</b> : la sortie reste inatteignable.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1377,7 +1499,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab3b18642fa34bcef39e71b91553c794a" name="ab3b18642fa34bcef39e71b91553c794a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3b18642fa34bcef39e71b91553c794a">&#9670;&#160;</a></span>TEST() <span class="overload">[29/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b18642fa34bcef39e71b91553c794a">&#9670;&#160;</a></span>TEST() <span class="overload">[32/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1403,7 +1525,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000020">Cas de test:</a></b></dt><dd><b>Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000023">Cas de test:</a></b></dt><dd><b>Au sol, une pression de saut fait décoller le personnage (vitesse ascendante, il s'élève).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1414,7 +1536,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9239722c19f58e36db4963da1a741638" name="a9239722c19f58e36db4963da1a741638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9239722c19f58e36db4963da1a741638">&#9670;&#160;</a></span>TEST() <span class="overload">[30/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9239722c19f58e36db4963da1a741638">&#9670;&#160;</a></span>TEST() <span class="overload">[33/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1451,7 +1573,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa130da1cae0ca8429d5a819ed1f4d5d8" name="aa130da1cae0ca8429d5a819ed1f4d5d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa130da1cae0ca8429d5a819ed1f4d5d8">&#9670;&#160;</a></span>TEST() <span class="overload">[31/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa130da1cae0ca8429d5a819ed1f4d5d8">&#9670;&#160;</a></span>TEST() <span class="overload">[34/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1477,7 +1599,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000035">Cas de test:</a></b></dt><dd><b>Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000038">Cas de test:</a></b></dt><dd><b>Wall jump : contre un mur à droite, un saut éjecte vers la gauche et le haut.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -1488,7 +1610,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afad15f26b8debf94c98e4ce2ac1ca81c" name="afad15f26b8debf94c98e4ce2ac1ca81c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afad15f26b8debf94c98e4ce2ac1ca81c">&#9670;&#160;</a></span>TEST() <span class="overload">[32/32]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afad15f26b8debf94c98e4ce2ac1ca81c">&#9670;&#160;</a></span>TEST() <span class="overload">[35/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1514,7 +1636,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000034">Cas de test:</a></b></dt><dd><b>Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000037">Cas de test:</a></b></dt><dd><b>Wall slide : collé à un mur en l'air, la vitesse de chute est plafonnée (descente ralentie).</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

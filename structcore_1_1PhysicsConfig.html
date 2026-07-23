@@ -110,9 +110,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:abca056c01e3263ccc8d5e3adbd174e91" id="r_abca056c01e3263ccc8d5e3adbd174e91"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#abca056c01e3263ccc8d5e3adbd174e91">gravity</a> = 50.0f</td></tr>
 <tr class="memdesc:abca056c01e3263ccc8d5e3adbd174e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accélération de la gravité, en unités/seconde². ⚠️ à affiner au ressenti.  <br /></td></tr>
 <tr class="separator:abca056c01e3263ccc8d5e3adbd174e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acce6797219a5f1f1dc1bddb5a3f63705" id="r_acce6797219a5f1f1dc1bddb5a3f63705"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#acce6797219a5f1f1dc1bddb5a3f63705">maxFallSpeed</a> = 25.0f</td></tr>
-<tr class="memdesc:acce6797219a5f1f1dc1bddb5a3f63705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de chute maximale (terminale), en unités/seconde : borne de confort et de sûreté.  <br /></td></tr>
-<tr class="separator:acce6797219a5f1f1dc1bddb5a3f63705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad25df5ec421bb0425ed733998852678e" id="r_ad25df5ec421bb0425ed733998852678e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#ad25df5ec421bb0425ed733998852678e">fallDragCoefficient</a> = 3.6f</td></tr>
+<tr class="memdesc:ad25df5ec421bb0425ed733998852678e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficient de traînée verticale en chute, en 1/s (<code>EX-GP-019</code>).  <br /></td></tr>
+<tr class="separator:ad25df5ec421bb0425ed733998852678e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c37db23188588851424c06d9183bfa1" id="r_a0c37db23188588851424c06d9183bfa1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1PhysicsConfig.html#a0c37db23188588851424c06d9183bfa1">jumpSpeed</a> = 15.0f</td></tr>
 <tr class="memdesc:a0c37db23188588851424c06d9183bfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse verticale de l'impulsion de saut, en unités/seconde (montée).  <br /></td></tr>
 <tr class="separator:a0c37db23188588851424c06d9183bfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,6 +259,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad25df5ec421bb0425ed733998852678e" name="ad25df5ec421bb0425ed733998852678e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25df5ec421bb0425ed733998852678e">&#9670;&#160;</a></span>fallDragCoefficient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::PhysicsConfig::fallDragCoefficient = 3.6f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coefficient de traînée verticale en chute, en 1/s (<code>EX-GP-019</code>). </p>
+<p>La vitesse terminale <b>émerge</b> de l'équilibre poids/traînée (poids = masse × gravité effective) plutôt que d'être plafonnée : à masse par défaut (1,0), <code>90 / 3.6 = 25</code> unités/s, continuité avec l'ancien plafond fixe. ⚠️ à affiner. </p>
+
+</div>
+</div>
 <a id="a1d917394883028f145c989fd268e876c" name="a1d917394883028f145c989fd268e876c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d917394883028f145c989fd268e876c">&#9670;&#160;</a></span>fallGravityMultiplier</h2>
 
@@ -356,22 +373,6 @@ Public Attributes</h2></td></tr>
 
 <p>Vitesse verticale de l'impulsion de saut, en unités/seconde (montée). </p>
 <p>Avec <code>gravity = 50</code>, ~2,25 tuiles de hauteur / apex ~0,3 s. ⚠️ à affiner (viser ~2,5 tuiles, apex ~0,35 s). </p>
-
-</div>
-</div>
-<a id="acce6797219a5f1f1dc1bddb5a3f63705" name="acce6797219a5f1f1dc1bddb5a3f63705"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acce6797219a5f1f1dc1bddb5a3f63705">&#9670;&#160;</a></span>maxFallSpeed</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float core::PhysicsConfig::maxFallSpeed = 25.0f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Vitesse de chute maximale (terminale), en unités/seconde : borne de confort et de sûreté. </p>
 
 </div>
 </div>

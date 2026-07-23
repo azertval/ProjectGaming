@@ -94,24 +94,24 @@ $(document).ready(function(){initNavTree('lot-14-tache-04-undo-redo.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-14-editeur-niveaux_2epic_8md.html">LOT-14</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>HMI/Editor</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md840"></a>
+<h1><a class="anchor" id="autotoc_md841"></a>
 Contexte</h1>
 <p>Une erreur de peinture ou de liaison ne doit pas obliger à recommencer un niveau depuis le début — <code>EX-EDIT-005</code> demande <b>annuler/refaire</b>. Comme le reste de la logique du moteur, l'historique est porté par <code>Core</code> (donc pur et testable), <code>HMI</code> ne fait qu'y déclencher <code>undo()</code>/<code>redo()</code> sur un raccourci clavier.</p>
-<h1><a class="anchor" id="autotoc_md841"></a>
+<h1><a class="anchor" id="autotoc_md842"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Pile de commandes (Core)</b> : chaque mutation de <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> (TACHE-01 : <code>paintTile</code>/<code>setEntry</code>/<code>setExit</code>/<code>linkMechanism</code>/<code>unlinkMechanism</code>/<code>resize</code>) est enregistrée comme une <b>commande réversible</b> (état avant/après, ou delta minimal) dans une pile d'annulation portée par le <code>LevelDraft</code> (ou un objet dédié qui l'enveloppe, ex. <code>core::LevelEditHistory</code>).</li>
 <li>**<code>undo()</code>/<code>redo()</code>** : dépilent/repilent une commande et réappliquent l'état correspondant au <code>LevelDraft</code> ; une nouvelle mutation après un <code>undo()</code> <b>tronque</b> la pile de refaire (convention standard d'un historique linéaire).</li>
 <li><b>Raccourcis clavier (HMI)</b> : <code>Ctrl+Z</code> déclenche <code>undo()</code>, <code>Ctrl+Y</code> (ou <code>Ctrl+Maj+Z</code>) déclenche <code>redo()</code>, lus depuis l'<code>InputState</code> de l'écran éditeur (TACHE-02).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md842"></a>
+<h1><a class="anchor" id="autotoc_md843"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition.">Source/Core/Levels/LevelDraft.h</a></code>/<code>.cpp</code> (ou nouveau <code>LevelEditHistory.h</code>/<code>.cpp</code>).</li>
 <li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code> (câblage des raccourcis).</li>
 <li>Tests unitaires (<code>Source/Test/Unit/Core/Levels/</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md843"></a>
+<h1><a class="anchor" id="autotoc_md844"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une séquence de N mutations suivie de N <code>undo()</code> restitue l'état <b>initial</b> exact du <code>LevelDraft</code>.</li>
@@ -119,18 +119,18 @@ Tests (obligatoires)</h1>
 <li>Une nouvelle mutation après un <code>undo()</code> <b>invalide</b> la branche de refaire (un <code>redo()</code> ultérieur est sans effet ou refusé proprement).</li>
 <li><code>undo()</code>/<code>redo()</code> sur une pile <b>vide</b> est sans effet (pas de plantage, pas d'état incohérent).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md844"></a>
+<h1><a class="anchor" id="autotoc_md845"></a>
 Points d'attention</h1>
 <ul>
 <li>Éviter une complexité disproportionnée : un historique de <b>snapshots complets</b> du <code>LevelDraft</code> (probablement petit — une grille de niveau, pas un monde ouvert) est acceptable et plus simple à garantir correct qu'un delta fin par type de mutation ; à arbitrer selon la taille réelle des niveaux du projet (typiquement ≤ 14×8, cf. niveaux livrés).</li>
 <li>Logique <b>pure</b>, testable sans GPU (<code>EX-NFR-010</code>), comme <code>LevelDraft</code> lui-même.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md845"></a>
+<h1><a class="anchor" id="autotoc_md846"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>undo</code>/<code>redo</code> fonctionnels et testés (<code>ctest</code> vert) sur toutes les mutations de <code>LevelDraft</code>, raccourcis clavier opérationnels dans l'éditeur ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md846"></a>
+<h1><a class="anchor" id="autotoc_md847"></a>
 Exigences</h1>
 <p><code>EX-EDIT-005</code>, <code>EX-NFR-010</code>, <code>EX-NFR-002</code>. </p>
 </div></div><!-- contents -->

@@ -9,6 +9,7 @@ var structcore_1_1Player =
     [ "grounded", "structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085", null ],
     [ "jumpBufferTimer", "structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e", null ],
     [ "jumpsRemaining", "structcore_1_1Player.html#a99d532084d5856cea35317d60ded63e8", null ],
+    [ "mass", "structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6", null ],
     [ "wallDirection", "structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce", null ],
     [ "wallJumpLockTimer", "structcore_1_1Player.html#ab37e8efccea023b2f1d4f6adada4290b", null ]
 ];

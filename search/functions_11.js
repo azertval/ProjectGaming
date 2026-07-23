@@ -1,7 +1,7 @@
 var searchData=
 [
   ['readfile_0',['readFile',['../classhmi_1_1Localization.html#ae68549c47a1ee0e2668438131052d938',1,'hmi::Localization']]],
-  ['rect_1',['rect',['../classhmi_1_1LanguageSelector.html#a4f3fec17c6f6ca4f9d26b29295fc3a7d',1,'hmi::LanguageSelector::rect()'],['../classhmi_1_1SaveLogButton.html#a52ce78174386bbf4dc827f2f6cda5a99',1,'hmi::SaveLogButton::rect()'],['../structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031',1,'core::Rect::Rect()=default'],['../structcore_1_1Rect.html#a37db30b4d3a91d2c3b48c90a51cee1d1',1,'core::Rect::Rect(const Vector2 &amp;topLeft, const Vector2 &amp;dimensions)']]],
+  ['rect_1',['rect',['../structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031',1,'core::Rect::Rect()=default'],['../structcore_1_1Rect.html#a37db30b4d3a91d2c3b48c90a51cee1d1',1,'core::Rect::Rect(const Vector2 &amp;topLeft, const Vector2 &amp;dimensions)'],['../classhmi_1_1LanguageSelector.html#a4f3fec17c6f6ca4f9d26b29295fc3a7d',1,'hmi::LanguageSelector::rect()'],['../classhmi_1_1SaveLogButton.html#a52ce78174386bbf4dc827f2f6cda5a99',1,'hmi::SaveLogButton::rect()']]],
   ['redo_2',['redo',['../classcore_1_1LevelDraft.html#a4c48b964ac9310a3b90a3d364aae97aa',1,'core::LevelDraft']]],
   ['refreshdoorvisuals_3',['refreshDoorVisuals',['../classhmi_1_1GameScreen.html#a12b0dd458f1c9b31c762f4a0f3a0eaf4',1,'hmi::GameScreen']]],
   ['refreshplayersprite_4',['refreshPlayerSprite',['../classhmi_1_1GameScreen.html#a524e476eddbb1b0e5ca142dce5defdbb',1,'hmi::GameScreen']]],

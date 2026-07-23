@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('spec-niveaux.html',''); initResizable(
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Dépend de <a class="el" href="gameplay_8md.html">`gameplay.md`</a>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md177"></a>
+<h1><a class="anchor" id="autotoc_md178"></a>
 1. Représentation des niveaux</h1>
 <ul>
 <li><a class="anchor" id="EX-LVL-001"></a><b>EX-LVL-001</b> — Un niveau doit être décrit par un <b>fichier de données</b> externe (pas en dur dans le code), placé dans <code>Source/Elements</code>.</li>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('spec-niveaux.html',''); initResizable(
 <li><a class="anchor" id="EX-LVL-003"></a><b>EX-LVL-003</b> — Le format retenu est un <b>JSON structuré orienté objets</b> : un niveau est un objet JSON portant ses <b>métadonnées</b> (nom, dimensions) et une <b>liste de tuiles</b>, chaque tuile étant un <b>objet</b> <code>{x, y, type, …}</code> (les cases vides sont omises) pouvant porter des <b>champs spécifiques</b> à son type (ex. liaison interrupteur↔porte par identifiant). Choisi pour un moteur <b>extensible et réutilisable</b> (données riches par tuile, sérialisation et <em>round-trip</em> d'éditeur directs), au prix d'une lisibilité « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'<b>éditeur</b>, pas par le texte brut.</li>
 <li><a class="anchor" id="EX-LVL-004"></a><b>EX-LVL-004</b> — Le chargement d'un niveau doit <b>valider</b> les données (positions des tuiles <b>dans les bornes</b> <code>width × height</code>, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md178"></a>
+<h2><a class="anchor" id="autotoc_md179"></a>
 Format retenu (JSON, liste de tuiles-objets)</h2>
 <p>Types de tuiles : <code>entry</code> (entrée), <code>exit</code> (sortie), <code>solid</code> (solide), <code>danger</code>, <code>switch</code> (interrupteur), <code>door</code> (porte). Une case <b>vide</b> n'est pas listée (absence = vide). </p><div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;name&quot;: &quot;Tutoriel 1&quot;,</div>
@@ -119,21 +119,21 @@ Format retenu (JSON, liste de tuiles-objets)</h2>
 <div class="line">  ]</div>
 <div class="line">}</div>
 </div><!-- fragment --><p> Coordonnées <code>x</code> = colonne, <code>y</code> = ligne, origine <b>haut-gauche</b> ; toute tuile hors des bornes <code>width × height</code> est invalide. Les <b>liaisons</b> interrupteur↔porte se font par <b>identifiant</b> (un <code>switch</code> porte un <code>id</code>, une <code>door</code> le référence via <code>opensWith</code>), schéma extensible à d'autres mécanismes. L'exemple omet les tuiles <code>solid</code> des bords pour rester lisible.</p>
-<h1><a class="anchor" id="autotoc_md179"></a>
+<h1><a class="anchor" id="autotoc_md180"></a>
 2. Progression</h1>
 <ul>
 <li><a class="anchor" id="EX-LVL-010"></a><b>EX-LVL-010</b> — Le jeu doit charger les niveaux dans un <b>ordre défini</b> (liste ordonnée).</li>
 <li><a class="anchor" id="EX-LVL-011"></a><b>EX-LVL-011</b> — À la réussite d'un niveau, le jeu doit charger automatiquement le suivant ; après le dernier, revenir au menu (ou écran de fin).</li>
 <li><a class="anchor" id="EX-LVL-012"></a><b>EX-LVL-012</b> — Le MVP doit fournir <b>3 niveaux</b> de difficulté croissante illustrant : déplacement/saut, danger, puzzle interrupteur↔porte.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md180"></a>
+<h1><a class="anchor" id="autotoc_md181"></a>
 3. Conception (lignes directrices)</h1>
 <ul>
 <li>Introduire une mécanique à la fois ; le premier niveau sert de tutoriel implicite (sans texte).</li>
 <li>Aucune situation sans issue (le joueur ne doit jamais être bloqué définitivement sans échec possible).</li>
 <li>Chaque niveau doit être <b>franchissable</b> — vérifié par un test système sur les niveaux du MVP.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md181"></a>
+<h1><a class="anchor" id="autotoc_md182"></a>
 Traçabilité</h1>
 <p>Le chargement et la validation relèvent de <code>Source/Core</code> ; les fichiers de niveaux et l'atlas sont dans <code>Source/Elements</code>. Types de tuiles : <a class="el" href="gameplay_8md.html">`gameplay.md`</a>. </p>
 </div></div><!-- contents -->

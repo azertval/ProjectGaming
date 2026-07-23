@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les composants sont des agrégats : l'initialisation par accolades renseigne les champs. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000080">Cas de test:</a></b></dt><dd><b>Agrégation des composants</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000083">Cas de test:</a></b></dt><dd><b>Agrégation des composants</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un Collider par défaut a une boîte nulle : ses dimensions sont fixées au spawn. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000075">Cas de test:</a></b></dt><dd><b>Collider par défaut nul</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000078">Cas de test:</a></b></dt><dd><b>Collider par défaut nul</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
@@ -255,7 +255,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les réglages de physique par défaut sont plausibles et non nuls (garde-fou de cohérence). </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000078">Cas de test:</a></b></dt><dd><b>PhysicsConfig par défaut plausible</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000081">Cas de test:</a></b></dt><dd><b>PhysicsConfig par défaut plausible</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -292,7 +292,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'intention d'entrée par défaut est neutre : immobile, aucun saut, aucun dash. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000077">Cas de test:</a></b></dt><dd><b>PlayerInput par défaut neutre</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000080">Cas de test:</a></b></dt><dd><b>PlayerInput par défaut neutre</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
@@ -329,13 +329,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le personnage démarre en l'air, minuteries/compteurs à zéro, orienté à droite. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000076">Cas de test:</a></b></dt><dd><b>Player par défaut (en l'air, budgets illimités)</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000079">Cas de test:</a></b></dt><dd><b>Player par défaut (en l'air, budgets illimités)</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Construire un <code><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></code> par défaut.<br  />
 2. Lire ses champs.<br  />
- <b>Resultat attendu :</b> Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ; budgets sauts/dashs à -1 (illimité). </dd></dl>
+ <b>Resultat attendu :</b> Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ; budgets sauts/dashs à -1 (illimité) ; masse à 1,0 (<code>EX-GP-019</code>). </dd></dl>
 
 </div>
 </div>
@@ -366,7 +366,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La taille du personnage est humanoïde (0,4 × 0,8) et le spawn le centre dans la tuile. </p>
-<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000079">Cas de test:</a></b></dt><dd><b>Taille humanoïde et spawn centré</b><br  />
+<dl class="cahiertest"><dt><b><a class="el" href="cahiertest.html#_cahiertest000082">Cas de test:</a></b></dt><dd><b>Taille humanoïde et spawn centré</b><br  />
  <b>Categorie :</b> Unitaire · Composants du personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />

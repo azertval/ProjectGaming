@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('classcore_1_1MechanismController.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Fait vivre les mécanismes <b>interrupteur ↔ porte</b> d'un niveau (<code>EX-GP-020</code>, <code>EX-GP-021</code>).  
+<p>Fait vivre les mécanismes <b>interrupteur/plaque ↔ porte</b> d'un niveau (<code>EX-GP-020</code>, <code>EX-GP-021</code>, <code>EX-GP-025</code>).  
  <a href="classcore_1_1MechanismController.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="MechanismController_8h_source.html">MechanismController.h</a>&gt;</code></p>
@@ -107,21 +107,21 @@ Collaboration diagram for core::MechanismController:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1MechanismController__coll__graph.png" border="0" usemap="#acore_1_1MechanismController_coll__map" alt="Collaboration graph"/></div>
 <map name="acore_1_1MechanismController_coll__map" id="acore_1_1MechanismController_coll__map">
-<area shape="rect" title="Fait vivre les mécanismes interrupteur ↔ porte d&#39;un niveau (EX&#45;GP&#45;020, EX&#45;GP&#45;021)." alt="" coords="169,313,366,339"/>
+<area shape="rect" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX&#45;GP&#45;020, EX&#45;GP&#45;021,..." alt="" coords="169,328,366,353"/>
 <area shape="rect" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="57,203,168,229"/>
-<area shape="poly" title=" " alt="" coords="136,237,198,287,242,311,239,316,195,292,133,241"/>
+<area shape="poly" title=" " alt="" coords="133,238,162,270,198,302,241,326,238,330,195,306,158,274,129,242"/>
 <area shape="rect" title=" " alt="" coords="5,108,180,133"/>
 <area shape="poly" title=" " alt="" coords="101,146,113,203,108,204,95,147"/>
 <area shape="rect" title=" " alt="" coords="55,5,131,31"/>
 <area shape="poly" title=" " alt="" coords="95,45,95,108,90,108,90,45"/>
 <area shape="rect" title=" " alt="" coords="196,196,339,236"/>
-<area shape="poly" title=" " alt="" coords="270,250,270,313,265,313,265,250"/>
+<area shape="poly" title=" " alt="" coords="270,250,270,328,265,328,265,250"/>
 <area shape="rect" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="205,108,338,133"/>
 <area shape="poly" title=" " alt="" coords="273,147,271,196,265,196,268,147"/>
 <area shape="rect" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="203,5,340,31"/>
 <area shape="poly" title=" " alt="" coords="274,45,274,108,269,108,269,45"/>
 <area shape="rect" title=" " alt="" coords="363,203,513,229"/>
-<area shape="poly" title=" " alt="" coords="423,241,399,267,369,292,342,306,314,316,312,311,340,301,366,287,395,263,419,238"/>
+<area shape="poly" title=" " alt="" coords="426,242,402,275,369,306,344,320,317,330,315,325,341,316,366,302,398,271,422,239"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -130,9 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af0a5619d75dbb52d9cb0f27b8d524864" id="r_af0a5619d75dbb52d9cb0f27b8d524864"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#af0a5619d75dbb52d9cb0f27b8d524864">MechanismController</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:af0a5619d75dbb52d9cb0f27b8d524864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur depuis <code>level</code> : portes <b>fermées</b> (solides) au départ.  <br /></td></tr>
 <tr class="separator:af0a5619d75dbb52d9cb0f27b8d524864"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9b16255760be18dca5debdfb694f1cc" id="r_ab9b16255760be18dca5debdfb694f1cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#ab9b16255760be18dca5debdfb694f1cc">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox)</td></tr>
-<tr class="memdesc:ab9b16255760be18dca5debdfb694f1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front) et applique l'état des portes dans la grille de collision.  <br /></td></tr>
-<tr class="separator:ab9b16255760be18dca5debdfb694f1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b1a329fda4104534e1e54402ddf528c" id="r_a1b1a329fda4104534e1e54402ddf528c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#a1b1a329fda4104534e1e54402ddf528c">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float playerMass=1.0f)</td></tr>
+<tr class="memdesc:a1b1a329fda4104534e1e54402ddf528c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front), ouvre/referme les plaques de pression selon le poids présent, applique l'état des portes dans la grille de collision.  <br /></td></tr>
+<tr class="separator:a1b1a329fda4104534e1e54402ddf528c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a465aa3ad3194fcb485d656dbe0b292c2" id="r_a465aa3ad3194fcb485d656dbe0b292c2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2">collisionMap</a> () const noexcept</td></tr>
 <tr class="separator:a465aa3ad3194fcb485d656dbe0b292c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb0a0f83d8a5302a84bc3c67386c09e7" id="r_adb0a0f83d8a5302a84bc3c67386c09e7"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1Mechanism.html">Mechanism</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#adb0a0f83d8a5302a84bc3c67386c09e7">mechanisms</a> () const noexcept</td></tr>
@@ -146,18 +146,25 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab5263ae67a408e39332909d5fb974e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copie mutable : portes Solid (fermées) / Door (ouvertes).  <br /></td></tr>
 <tr class="separator:ab5263ae67a408e39332909d5fb974e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf4ca1b8a0181ab0b29ccc494bf5be3e" id="r_aaf4ca1b8a0181ab0b29ccc494bf5be3e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structcore_1_1Mechanism.html">Mechanism</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#aaf4ca1b8a0181ab0b29ccc494bf5be3e">_mechanisms</a></td></tr>
-<tr class="memdesc:aaf4ca1b8a0181ab0b29ccc494bf5be3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaisons interrupteur↔porte (positions).  <br /></td></tr>
+<tr class="memdesc:aaf4ca1b8a0181ab0b29ccc494bf5be3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaisons déclencheur↔porte (positions).  <br /></td></tr>
 <tr class="separator:aaf4ca1b8a0181ab0b29ccc494bf5be3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e47d5dd2d42858c06f2920c7c42cdee" id="r_a1e47d5dd2d42858c06f2920c7c42cdee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#a1e47d5dd2d42858c06f2920c7c42cdee">_switchOn</a></td></tr>
-<tr class="memdesc:a1e47d5dd2d42858c06f2920c7c42cdee"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de chaque interrupteur (porte ouverte ?).  <br /></td></tr>
+<tr class="memdesc:a1e47d5dd2d42858c06f2920c7c42cdee"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de chaque déclencheur (porte ouverte ?).  <br /></td></tr>
 <tr class="separator:a1e47d5dd2d42858c06f2920c7c42cdee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fa8f13181226a5ac87f4d6be9902227" id="r_a8fa8f13181226a5ac87f4d6be9902227"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#a8fa8f13181226a5ac87f4d6be9902227">_playerOnSwitchPrev</a></td></tr>
-<tr class="memdesc:a8fa8f13181226a5ac87f4d6be9902227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage était-il sur l'interrupteur au pas précédent ?  <br /></td></tr>
+<tr class="memdesc:a8fa8f13181226a5ac87f4d6be9902227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage était-il sur le déclencheur au pas précédent ?  <br /></td></tr>
 <tr class="separator:a8fa8f13181226a5ac87f4d6be9902227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1931cd8166cc70b22896b338017a538" id="r_ab1931cd8166cc70b22896b338017a538"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1MechanismController.html#ab1931cd8166cc70b22896b338017a538">_continuous</a></td></tr>
+<tr class="memdesc:ab1931cd8166cc70b22896b338017a538"><td class="mdescLeft">&#160;</td><td class="mdescRight">true = plaque de pression (activation continue), figé au chargement ; false = interrupteur à bascule classique.  <br /></td></tr>
+<tr class="separator:ab1931cd8166cc70b22896b338017a538"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fait vivre les mécanismes <b>interrupteur ↔ porte</b> d'un niveau (<code>EX-GP-020</code>, <code>EX-GP-021</code>). </p>
-<p>Logique <b>pure</b> (aucun rendu ni fenêtre) : quand la boîte du personnage <b>recouvre</b> un interrupteur (au <b>front</b> — première frame de contact), l'état de la <b>porte</b> liée <b>bascule</b>. Une porte <b>fermée</b> est <b>solide</b> (bloque), <b>ouverte</b> est franchissable. Le contrôleur maintient une <b>copie mutable</b> du <code><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">TileMap</a></code> (grille de <b>collision</b>) que la physique consomme, laissant la carte du <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code> intacte (source de vérité). Déterministe au pas fixe (<code>EX-NFR-002</code>). </p>
+<div class="textblock"><p>Fait vivre les mécanismes <b>interrupteur/plaque ↔ porte</b> d'un niveau (<code>EX-GP-020</code>, <code>EX-GP-021</code>, <code>EX-GP-025</code>). </p>
+<p>Logique <b>pure</b> (aucun rendu ni fenêtre). Deux comportements de déclencheur, selon la tuile d'origine (figée au chargement) :</p><ul>
+<li><b>Interrupteur</b> (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">TileType::Switch</a></code>) : quand la boîte du personnage <b>recouvre</b> la case au <b>front</b> (première frame de contact), l'état de la porte liée <b>bascule</b> et persiste.</li>
+<li><b>Plaque de pression</b> (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">TileType::PressurePlate</a></code>, <code>EX-GP-025</code>) : la porte reste <b>ouverte</b> tant qu'un poids suffisant y repose (comparé à <code>MIN_TRIGGER_MASS</code>), et se <b>referme</b> dès que ce n'est plus le cas — activation <b>continue</b>, pas de front.</li>
+</ul>
+<p>Une porte <b>fermée</b> est <b>solide</b> (bloque), <b>ouverte</b> est franchissable. Le contrôleur maintient une <b>copie mutable</b> du <code><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">TileMap</a></code> (grille de <b>collision</b>) que la physique consomme, laissant la carte du <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code> intacte (source de vérité). Déterministe au pas fixe (<code>EX-NFR-002</code>). </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af0a5619d75dbb52d9cb0f27b8d524864" name="af0a5619d75dbb52d9cb0f27b8d524864"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0a5619d75dbb52d9cb0f27b8d524864">&#9670;&#160;</a></span>MechanismController()</h2>
@@ -267,8 +274,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab9b16255760be18dca5debdfb694f1cc" name="ab9b16255760be18dca5debdfb694f1cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9b16255760be18dca5debdfb694f1cc">&#9670;&#160;</a></span>update()</h2>
+<a id="a1b1a329fda4104534e1e54402ddf528c" name="a1b1a329fda4104534e1e54402ddf528c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b1a329fda4104534e1e54402ddf528c">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,16 +284,27 @@ Private Attributes</h2></td></tr>
           <td class="memname">void core::MechanismController::update </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
-          <td class="paramname"><em>playerBox</em></td><td>)</td>
+          <td class="paramname"><em>playerBox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>playerMass</em> = <code>1.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front) et applique l'état des portes dans la grille de collision. </p>
+<p>Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front), ouvre/referme les plaques de pression selon le poids présent, applique l'état des portes dans la grille de collision. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">playerBox</td><td>Boîte englobante du personnage, en unités monde. </td></tr>
+    <tr><td class="paramname">playerMass</td><td>Masse du personnage (<code><a class="el" href="structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6" title="Masse du personnage, en unité de jeu arbitraire (EX-GP-019).">core::Player::mass</a></code>, <code>EX-GP-019</code>), comparée au seuil des plaques de pression (<code>MIN_TRIGGER_MASS</code>) ; sans effet sur les interrupteurs classiques. Valeur par défaut = masse par défaut du personnage (compatibilité des appels existants). </td></tr>
   </table>
   </dd>
 </dl>
@@ -318,6 +336,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab1931cd8166cc70b22896b338017a538" name="ab1931cd8166cc70b22896b338017a538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1931cd8166cc70b22896b338017a538">&#9670;&#160;</a></span>_continuous</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;bool&gt; core::MechanismController::_continuous</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>true = plaque de pression (activation continue), figé au chargement ; false = interrupteur à bascule classique. </p>
+
+</div>
+</div>
 <a id="aaf4ca1b8a0181ab0b29ccc494bf5be3e" name="aaf4ca1b8a0181ab0b29ccc494bf5be3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf4ca1b8a0181ab0b29ccc494bf5be3e">&#9670;&#160;</a></span>_mechanisms</h2>
 
@@ -338,7 +380,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Liaisons interrupteur↔porte (positions). </p>
+<p>Liaisons déclencheur↔porte (positions). </p>
 
 </div>
 </div>
@@ -362,7 +404,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le personnage était-il sur l'interrupteur au pas précédent ? </p>
+<p>Le personnage était-il sur le déclencheur au pas précédent ? </p>
 
 </div>
 </div>
@@ -386,7 +428,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>État de chaque interrupteur (porte ouverte ?). </p>
+<p>État de chaque déclencheur (porte ouverte ?). </p>
 
 </div>
 </div>

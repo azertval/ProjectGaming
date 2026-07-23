@@ -1,6 +1,7 @@
 var EditorLayout_8h =
 [
     [ "PALETTE_TOP", "EditorLayout_8h.html#ae106af4848582a6f2c2f44525a602d2a", null ],
+    [ "PALETTE_TYPE_COUNT", "EditorLayout_8h.html#ae22e59cbd273028d896997a9a6eccfd9", null ],
     [ "PANEL_ICON_SIZE", "EditorLayout_8h.html#a2a8862a219476b6895ad32ba251b6796", null ],
     [ "PANEL_MARGIN", "EditorLayout_8h.html#afbd03b541899e96afe12467d40fa4996", null ],
     [ "PANEL_ROW_GAP", "EditorLayout_8h.html#a2dbd25134826e84a7feae8757ae3c882", null ],
