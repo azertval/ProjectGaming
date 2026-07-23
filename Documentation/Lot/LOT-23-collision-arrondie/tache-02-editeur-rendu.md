@@ -1,6 +1,6 @@
 # TACHE-02 — Éditeur et rendu {#lot-23-tache-02-editeur-rendu}
 
-**Lot :** [LOT-23](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-23](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Rendre les tuiles arrondies utilisables : plaçables dans l'éditeur, visuellement distinctes des
@@ -28,10 +28,16 @@ pentes linéaires de `LOT-22` malgré la même orientation générale.
 ## Points d'attention
 - Vérifier que les couleurs choisies restent **distinctes** de celles des pentes de `LOT-22` dans
   la palette — un niveau qui mélange les deux doit rester lisible pour qui le conçoit.
+- **Décision retenue** : couleur plate (option repli), comme pour les pentes de `LOT-22-TACHE-03` —
+  bleu violet pour `RoundedUpRight` (`atlas.tile(3, 2)`), magenta pour `RoundedUpLeft`
+  (`atlas.tile(0, 1)`), distinctes entre elles et des pentes (vert sarcelle/vieux rose). Un rendu
+  fidèle à la courbe est un raffinement possible d'un lot ultérieur, non fait ici (même arbitrage
+  que `LOT-22`, documenté explicitement plutôt que laissé non dit).
 
 ## Définition de fait (DoD)
 - Tuiles arrondies plaçables et visuellement identifiables ; aucune régression sur les entrées
-  existantes de la palette (pentes incluses).
+  existantes de la palette (pentes incluses). Vérifié visuellement dans l'application compilée
+  (palette à 13 entrées, couleurs distinctes, aucun chevauchement ni troncature).
 
 ## Exigences
 Aucune exigence propre — intégration de `EX-GP-004` (TACHE-01) dans `HMI`.

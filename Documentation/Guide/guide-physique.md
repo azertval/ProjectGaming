@@ -82,32 +82,42 @@ composante de vitesse correspondante (on ne peut pas continuer d'accélérer con
 **déduire l'appui** — un contact bloquant sous la boîte signifie qu'elle repose au sol
 (`grounded`).
 
-## 2. Suivi de pente (EX-GP-003)
+## 2. Suivi de pente et d'arrondi (EX-GP-003, EX-GP-004)
 
-### Pourquoi une pente n'est jamais solide
+### Pourquoi une pente (ou un arrondi) n'est jamais solide
 
-Contrairement à un bloc plein, une tuile de pente (`core::TileType::SlopeUpRight` /
-`SlopeUpLeft`) renvoie **toujours** `false` pour `core::isSolid` — y compris pour le balayage
-classique du §1. Une pente couvre une case dont la hauteur **varie** entre `0` (bord haut) et `1`
-(bord bas) selon la position horizontale ; si elle était solide au sens classique, le balayage par
-axe la traiterait comme un bloc plein occupant **toute** la case, et son bord **haut** agirait comme
-un mur invisible bloquant le personnage bien avant qu'il n'atteigne la pente elle-même. Rendre la
-pente non solide et lui substituer un **suivi de surface** dédié (ci-dessous) évite ce piège par
-construction.
+Contrairement à un bloc plein, une tuile de pente ou d'arrondi (`core::TileType::SlopeUpRight` /
+`SlopeUpLeft` / `RoundedUpRight` / `RoundedUpLeft`) renvoie **toujours** `false` pour
+`core::isSolid` — y compris pour le balayage classique du §1. Une telle tuile couvre une case dont
+la hauteur **varie** entre `0` (bord haut) et `1` (bord bas) selon la position horizontale ; si elle
+était solide au sens classique, le balayage par axe la traiterait comme un bloc plein occupant
+**toute** la case, et son bord **haut** agirait comme un mur invisible bloquant le personnage bien
+avant qu'il n'atteigne la surface elle-même. Rendre la tuile non solide et lui substituer un
+**suivi de surface** dédié (ci-dessous) évite ce piège par construction.
 
 ### `core::slopeSurfaceHeight` et `core::resolveSlopeFollow`
 
 `Core/Physics/SlopeGeometry.h/.cpp` définit la géométrie d'une pente à 45° (montée pleine sur toute
-la largeur d'une case) :
+la largeur d'une case) et, symétriquement, celle d'un arrondi en quart de cercle de même rayon (une
+case) :
 
 ```
-slopeSurfaceHeight(SlopeUpRight, localX) = 1 - localX;  // haut a droite, bas a gauche
-slopeSurfaceHeight(SlopeUpLeft,  localX) = localX;      // haut a gauche, bas a droite
+slopeSurfaceHeight(SlopeUpRight,   localX) = 1 - localX;                       // lineaire
+slopeSurfaceHeight(SlopeUpLeft,    localX) = localX;                           // lineaire
+slopeSurfaceHeight(RoundedUpRight, localX) = 1 - sqrt(1 - (1 - localX)^2);     // quart de cercle
+slopeSurfaceHeight(RoundedUpLeft,  localX) = 1 - sqrt(1 - localX^2);           // quart de cercle
 ```
 
 `localX ∈ [0, 1[` est la position horizontale **dans la case** (0 = bord gauche) ; le résultat, dans
 `[0, 1]`, se lit depuis le **haut** de la case (0 = haut, 1 = bas) — il faut l'additionner à la ligne
-(`row`) de la case pour obtenir la hauteur monde de la surface (`EX-ARCH-020`).
+(`row`) de la case pour obtenir la hauteur monde de la surface (`EX-ARCH-020`). L'arrondi (`LOT-23`,
+`EX-GP-004`) **réutilise** intégralement l'infrastructure de la pente (`LOT-22`, `EX-GP-003`) : un
+nouveau `case` dans `slopeSurfaceHeight` et dans `isFollowableSurface` suffit — ni
+`resolveSlopeFollow` (ci-dessous) ni la correction du balayage horizontal (§ suivante) n'ont besoin
+de connaître la nature (linéaire ou courbe) de la surface suivie, seulement qu'elle **existe**
+(`isFollowableSurface`). C'est délibéré (voir la décision de cadrage de `LOT-23` dans son épic) :
+si l'ajout d'une nouvelle forme de surface avait exigé de retoucher la passe de résolution
+elle-même, ç'aurait été le signe que l'abstraction posée par `LOT-22` était mal choisie.
 
 `core::resolveSlopeFollow` est appelé **après** le balayage classique (§1), à chaque pas : il compare
 le bord bas de la boîte **avant** ce pas et **après**, et parcourt **toutes** les lignes traversées
@@ -144,7 +154,21 @@ résolution verticale (§1, `sweepY`) reste inchangée et corrige naturellement,
 voisine atteinte, le léger reliquat d'enfoncement — un personnage nettement plus étroit qu'une case
 (taille réelle 0,4 × 0,8, @ref guide-niveaux) ne produit alors qu'un **rattrapage** borné et non
 bloquant au raccord, pas un à-coup perceptible ni un blocage (validé par les tests d'intégration
-`SuitUnePenteAscendanteEnMarchant`, `TransitionPenteSolPlatSansAACoup`).
+`SuitUnePenteAscendanteEnMarchant`, `TransitionPenteSolPlatSansAACoup`). Cette correction ne cible
+pas spécifiquement la pente : elle interroge `core::isFollowableSurface`, donc s'applique **sans
+modification** à l'arrondi (`LOT-23`) et à toute future surface suivable.
+
+### Particularité de l'arrondi : tangente verticale à une extrémité
+
+Contrairement à la pente (pente **constante**, `±1` sur toute la case), la dérivée de la formule du
+quart de cercle **tend vers l'infini** à l'extrémité où la hauteur approche `1` (tangente
+verticale) — géométriquement inévitable pour un quart de cercle raccordant une tangente horizontale
+à une tangente verticale. Cela n'affecte ni la justesse de `slopeSurfaceHeight` (la formule reste
+exacte à tout `localX`, y compris tout près de cette extrémité) ni le suivi (`resolveSlopeFollow`
+cale la position sur la valeur **exacte** de la formule, quelle que soit sa pente locale) ; c'est
+une caractéristique du **ressenti** à connaître pour le *level design* (§4, *game feel*) : un
+personnage qui approche cette extrémité en marchant y ressent une accélération verticale
+perceptible, à la différence d'une pente linéaire (progression strictement uniforme).
 
 ## 3. Gravité et intégration
 

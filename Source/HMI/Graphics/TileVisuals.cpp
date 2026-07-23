@@ -27,6 +27,10 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             return atlas.tile(1, 2);  // vert sarcelle (couleur plate : pas de forme triangulaire)
         case core::TileType::SlopeUpLeft:
             return atlas.tile(2, 2);  // vieux rose (couleur plate, distincte de SlopeUpRight)
+        case core::TileType::RoundedUpRight:
+            return atlas.tile(3, 2);  // bleu violet (couleur plate : pas de forme courbe)
+        case core::TileType::RoundedUpLeft:
+            return atlas.tile(0, 1);  // magenta (couleur plate, distincte de RoundedUpRight)
         case core::TileType::Empty:
             break;
     }

@@ -1601,3 +1601,63 @@ TEST(PhysiquePersonnageIntegration, TransitionPenteSolPlatSansAACoup) {
     // large (une demi-case) pour couvrir ce rattrapage sans laisser passer un vrai à-coup (≥ 1 case).
     EXPECT_LT(maxStep, 0.5f);
 }
+
+/**
+ * @brief Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe
+ * distincte d'une pente linéaire, sans le traverser (`EX-GP-004`).
+ * \castest{<b>Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe
+ * distincte d'une pente linéaire, sans le traverser.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe
+ * distincte d'une pente linéaire, sans le traverser.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que la pente)
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::RoundedUpRight);  // quart de cercle, meme orientation
+    for (int col = 3; col <= 7; ++col) {                  // sol haut, apres l'arrondi
+        tiles.setTile(col, 5, core::TileType::Solid);
+    }
+    const core::Entity player = spawnPlayer(world, 0.3f, 5.0f);  // bord bas = 6.0 : pose au sol bas
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    bool sawMidSample = false;
+    float midBottom = 0.0f;
+    int guard = 0;
+    float centerX = 0.0f;
+    do {
+        system.update(world, tiles, input, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        centerX = transform.position.x + 0.5f;
+        if (centerX >= 2.0f && centerX < 3.0f) {  // au-dessus de la case de l'arrondi
+            const float bottom = transform.position.y + 1.0f;
+            EXPECT_LE(bottom, 6.0f + TOLERANCE);  // jamais sous la surface basse
+            EXPECT_GE(bottom, 5.0f - TOLERANCE);  // jamais au-dessus de la surface haute
+            if (!sawMidSample && centerX >= 2.5f) {
+                midBottom = bottom;  // localX ~ 0.5 : premier echantillon a mi-case
+                sawMidSample = true;
+            }
+        }
+        ++guard;
+    } while (centerX < 3.5f && guard < 600);
+
+    ASSERT_TRUE(sawMidSample);
+    // Valeur EXACTE d'une pente lineaire a mi-case : bas + 0,5 = 5,5. La courbe (quart de cercle,
+    // concave, tangente verticale cote bas) est deja BEAUCOUP plus haute a ce stade (hauteur
+    // theorique ~0,134, soit bord bas ~5,134) : un ecart net avec 5,5 prouve que la formule courbe
+    // est reellement utilisee, pas une pente lineaire deguisee.
+    EXPECT_LT(midBottom, 5.3f);
+
+    ASSERT_LT(guard, 600);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+    EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 4.0f,
+                0.05f);  // pose sur le sol haut (bord bas = 5.0), comme pour une pente
+}

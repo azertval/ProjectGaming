@@ -14,6 +14,7 @@ constexpr core::TileType PALETTE_TYPES[] = {
     core::TileType::Entry,          core::TileType::Exit,         core::TileType::Switch,
     core::TileType::PressurePlate,  core::TileType::Door,         core::TileType::Block,
     core::TileType::SlopeUpRight,   core::TileType::SlopeUpLeft,
+    core::TileType::RoundedUpRight, core::TileType::RoundedUpLeft,
 };
 // Garde-fou : EditorLayout::PALETTE_TYPE_COUNT dimensionne le panneau (haut de la barre d'outils,
 // EditorLayout.h) a partir de ce meme compte, sans pouvoir le deriver directement (constexpr
@@ -47,6 +48,10 @@ static_assert(std::size(PALETTE_TYPES) == PALETTE_TYPE_COUNT,
             return "Pente D";
         case core::TileType::SlopeUpLeft:
             return "Pente G";
+        case core::TileType::RoundedUpRight:
+            return "Arrondi D";
+        case core::TileType::RoundedUpLeft:
+            return "Arrondi G";
     }
     return "";
 }

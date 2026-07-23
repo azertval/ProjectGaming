@@ -4,6 +4,8 @@
  *        `EX-GP-003`).
  */
 
+#include <cmath>
+
 #include <gtest/gtest.h>
 
 #include "Core/Levels/TileType.h"
@@ -101,4 +103,87 @@ TEST(SlopeGeometryTest, IsFollowableSurfaceDistingueLesTypes) {
     EXPECT_TRUE(core::isFollowableSurface(core::TileType::SlopeUpRight));
     EXPECT_TRUE(core::isFollowableSurface(core::TileType::SlopeUpLeft));
     EXPECT_FALSE(core::isFollowableSurface(core::TileType::Solid));
+}
+
+/**
+ * @brief `RoundedUpRight` (quart de cercle, `EX-GP-004`) : hauteur 1 au bord gauche, 0 au bord
+ * droit, ~0,134 au centre (valeur calculée à la main : `1 - sqrt(1 - 0,5²)`).
+ * \castest{<b>RoundedUpRight suit un profil de quart de cercle, haut à droite.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, environ 0,134 au centre (courbe, pas 0,5
+ * comme une pente linéaire).
+ * }
+ */
+TEST(SlopeGeometryTest, RoundedUpRightSuitUnQuartDeCercle) {
+    const auto left = core::slopeSurfaceHeight(core::TileType::RoundedUpRight, 0.0f);
+    const auto center = core::slopeSurfaceHeight(core::TileType::RoundedUpRight, 0.5f);
+    const auto right = core::slopeSurfaceHeight(core::TileType::RoundedUpRight, 0.999f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 1.0f, 1e-6f);
+    EXPECT_NEAR(*center, 1.0f - std::sqrt(0.75f), 1e-4f);  // ~0,1339746
+    EXPECT_NEAR(*right, 0.0f, 1e-3f);
+}
+
+/**
+ * @brief `RoundedUpLeft` (quart de cercle, `EX-GP-004`) : symétrique de `RoundedUpRight`.
+ * \castest{<b>RoundedUpLeft suit un profil de quart de cercle, haut à gauche.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, environ 0,134 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, RoundedUpLeftSuitUnQuartDeCercle) {
+    const auto left = core::slopeSurfaceHeight(core::TileType::RoundedUpLeft, 0.0f);
+    const auto center = core::slopeSurfaceHeight(core::TileType::RoundedUpLeft, 0.5f);
+    // Bord droit évalué exactement en 1,0 (et non 0,999 comme pour la pente linéaire) : la
+    // tangente y est VERTICALE (dérivée infinie, cercle) — à 0,999 la hauteur ne vaut encore
+    // qu'environ 0,955, loin de 1 (contrairement à une pente linéaire, à pente bornée). Seule la
+    // valeur EXACTE au bord (formule pure, sans restriction de domaine) est fiable ici.
+    const auto right = core::slopeSurfaceHeight(core::TileType::RoundedUpLeft, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 0.0f, 1e-6f);
+    EXPECT_NEAR(*center, 1.0f - std::sqrt(0.75f), 1e-4f);
+    EXPECT_NEAR(*right, 1.0f, 1e-6f);
+}
+
+/**
+ * @brief `isSolid` renvoie `false` pour les deux orientations d'arrondi (même raisonnement que les
+ * pentes).
+ * \castest{<b>isSolid renvoie false pour les deux orientations d'arrondi.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appeler `core::isSolid` sur `RoundedUpRight` et `RoundedUpLeft`.<br/>2. Vérifier
+ * l'assertion.<br/>
+ * \tattendu `false` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, ArrondiNestPasSolideStatiquement) {
+    EXPECT_FALSE(core::isSolid(core::TileType::RoundedUpRight));
+    EXPECT_FALSE(core::isSolid(core::TileType::RoundedUpLeft));
+}
+
+/**
+ * @brief `isFollowableSurface` reconnaît aussi les deux orientations d'arrondi.
+ * \castest{<b>isFollowableSurface reconnaît les deux orientations d'arrondi.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `isFollowableSurface` sur `RoundedUpRight` et `RoundedUpLeft`.<br/>2. Vérifier
+ * l'assertion.<br/>
+ * \tattendu `true` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis) {
+    EXPECT_TRUE(core::isFollowableSurface(core::TileType::RoundedUpRight));
+    EXPECT_TRUE(core::isFollowableSurface(core::TileType::RoundedUpLeft));
 }
