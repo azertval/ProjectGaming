@@ -26,6 +26,11 @@ namespace core {
  * `RoundedUpLeft` (`EX-GP-004`) sont la variante **courbe** (quart de cercle) des pentes : même
  * orientation, même infrastructure de suivi (`core::slopeSurfaceHeight`, non solides), seule la
  * formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi).
+ * `BlockHalf`/`BlockQuarter` (`EX-GP-005`) sont des **blocs poussables réduits** (facteurs `×0.5`/
+ * `×0.25`, `core::BlockController`) : mêmes règles de poussée/chute que `Block` (case par case),
+ * mais leur boîte de collision **réelle** (testée contre le personnage) est plus petite que la
+ * case et **centrée** dedans — résolue par une routine dédiée boîte-contre-boîte
+ * (`core::sweepAabbVsAabb`, @ref guide-physique), pas par la grille classique.
  */
 enum class TileType {
     Empty,
@@ -41,22 +46,28 @@ enum class TileType {
     SlopeUpLeft,
     RoundedUpRight,
     RoundedUpLeft,
+    BlockHalf,
+    BlockQuarter,
 };
 
 /**
  * @brief Indique si un type de tuile bloque le déplacement de manière **statique**.
  * @param type Type de tuile.
- * @return true pour `Solid` et `Block` (un bloc non encore déplacé bloque comme un mur). `false`
- *         pour les pentes et arrondis (`SlopeUpRight`/`SlopeUpLeft`/`RoundedUpRight`/
- *         `RoundedUpLeft`) : une surface suivable n'est **jamais** solide pour le balayage
- *         classique (`core::sweepAabb`), sous peine de transformer son bord haut en mur invisible
- *         — sa solidité est entièrement gérée par la passe de suivi de surface (voir
+ * @return true pour `Solid` et les trois tailles de bloc (`Block`/`BlockHalf`/`BlockQuarter`, non
+ *         encore déplacés bloquent comme un mur — `core::BlockController` gère leur position
+ *         réelle et, pour les tailles réduites, leur boîte de collision **plus petite que la
+ *         case** via `core::sweepAabbVsAabb`, jamais via ce test statique). `false` pour les
+ *         pentes et arrondis (`SlopeUpRight`/`SlopeUpLeft`/`RoundedUpRight`/`RoundedUpLeft`) : une
+ *         surface suivable n'est **jamais** solide pour le balayage classique
+ *         (`core::sweepAabb`), sous peine de transformer son bord haut en mur invisible — sa
+ *         solidité est entièrement gérée par la passe de suivi de surface (voir
  *         `core::slopeSurfaceHeight`). La solidité d'une porte dépend de son **état**
  *         (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la
  *         simulation, pas par ce test statique.
  */
 [[nodiscard]] constexpr bool isSolid(TileType type) noexcept {
-    return type == TileType::Solid || type == TileType::Block;
+    return type == TileType::Solid || type == TileType::Block || type == TileType::BlockHalf ||
+           type == TileType::BlockQuarter;
 }
 
 }  // namespace core

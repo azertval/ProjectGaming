@@ -145,6 +145,40 @@ TEST(LevelWriterTest, BlocPoussableSurvitAuRoundTrip) {
 }
 
 /**
+ * @brief Les deux blocs à taille réduite survivent à un aller-retour JSON (écriture puis
+ * rechargement, `EX-GP-005`).
+ * \castest{<b>Les deux blocs à taille réduite survivent à un aller-retour JSON.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux blocs à taille réduite survivent à un aller-retour JSON.
+ * }
+ */
+TEST(LevelWriterTest, BlocsATailleReduiteSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "BlocsReduits",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "blockHalf" },
+        { "x": 1, "y": 0, "type": "blockQuarter" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(0, 0), core::TileType::BlockHalf);
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 0), core::TileType::BlockQuarter);
+}
+
+/**
  * @brief Les deux orientations de pente survivent au round-trip (`EX-GP-003`).
  * \castest{<b>Les deux orientations de pente survivent au round-trip.</b><br/>
  * \tcat Unitaire · Level Writer<br/>

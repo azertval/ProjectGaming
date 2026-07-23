@@ -18,6 +18,7 @@ add_library(Core STATIC
     Gameplay/BlockController.cpp
     Physics/SweptCollision.cpp
     Physics/SlopeGeometry.cpp
+    Physics/AabbVsAabb.cpp
     Time/FixedTimestep.cpp
     Diagnostics/LogFormat.cpp
     Diagnostics/Logger.cpp

@@ -67,6 +67,12 @@ namespace {
     if (name == "roundedUpLeft") {
         return TileType::RoundedUpLeft;
     }
+    if (name == "blockHalf") {
+        return TileType::BlockHalf;
+    }
+    if (name == "blockQuarter") {
+        return TileType::BlockQuarter;
+    }
     return std::nullopt;
 }
 

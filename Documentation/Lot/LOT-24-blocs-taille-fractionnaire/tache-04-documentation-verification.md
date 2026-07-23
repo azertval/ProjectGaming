@@ -1,6 +1,6 @@
 # TACHE-04 — Documentation et vérification {#lot-24-tache-04-documentation-verification}
 
-**Lot :** [LOT-24](epic.md) · **Emplacement :** `Documentation` · **Statut :** à faire
+**Lot :** [LOT-24](epic.md) · **Emplacement :** `Documentation` · **Statut :** fait
 
 ## Contexte
 Dernière tâche du lot : aligner la documentation sur ce qui a été livré.

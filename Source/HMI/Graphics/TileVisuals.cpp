@@ -31,6 +31,10 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             return atlas.tile(3, 2);  // bleu violet (couleur plate : pas de forme courbe)
         case core::TileType::RoundedUpLeft:
             return atlas.tile(0, 1);  // magenta (couleur plate, distincte de RoundedUpRight)
+        case core::TileType::BlockHalf:
+            return atlas.tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
+        case core::TileType::BlockQuarter:
+            return atlas.tile(0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
         case core::TileType::Empty:
             break;
     }

@@ -1,6 +1,6 @@
 # TACHE-01 — Modèle de bloc réduit {#lot-24-tache-01-modele-bloc-reduit}
 
-**Lot :** [LOT-24](epic.md) · **Emplacement :** `Core/Levels`, `Core/Gameplay` · **Statut :** à faire
+**Lot :** [LOT-24](epic.md) · **Emplacement :** `Core/Levels`, `Core/Gameplay` · **Statut :** fait
 
 ## Contexte
 Pose le vocabulaire (types de tuiles, facteur de taille) avant la routine de collision propre

@@ -43,6 +43,10 @@ namespace {
             return "roundedUpRight";
         case TileType::RoundedUpLeft:
             return "roundedUpLeft";
+        case TileType::BlockHalf:
+            return "blockHalf";
+        case TileType::BlockQuarter:
+            return "blockQuarter";
     }
     return "empty";
 }

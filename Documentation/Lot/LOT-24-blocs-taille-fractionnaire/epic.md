@@ -1,6 +1,6 @@
 # LOT-24 — Blocs à taille fractionnaire {#lot-24}
 
-> Statut : **à faire**. Des blocs poussables plus **petits** qu'une case pleine (`×0.5`, `×0.25`,
+> Statut : **terminé**. Des blocs poussables plus **petits** qu'une case pleine (`×0.5`, `×0.25`,
 > `EX-GP-005`), pour des défis de précision — en préparation de blocs poussables **plus grands**
 > qu'une case (multi-cases), envisagés pour un lot ultérieur non encore planifié.
 
@@ -62,10 +62,10 @@ modification de celui-ci.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-bloc-reduit.md) | Modèle de bloc réduit | `Core/Levels`, `Core/Gameplay` | ⬜ |
-| [TACHE-02](tache-02-collision-boite-boite.md) | Collision boîte-contre-boîte | `Core/Physics` | ⬜ |
-| [TACHE-03](tache-03-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ⬜ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-01](tache-01-modele-bloc-reduit.md) | Modèle de bloc réduit | `Core/Levels`, `Core/Gameplay` | ✅ |
+| [TACHE-02](tache-02-collision-boite-boite.md) | Collision boîte-contre-boîte | `Core/Physics` | ✅ |
+| [TACHE-03](tache-03-editeur-rendu.md) | Éditeur et rendu | `HMI/Editor`, `HMI/Graphics` | ✅ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un bloc `×0.5`/`×0.25` est poussable et tombe exactement comme un bloc plein (`LOT-21`),
