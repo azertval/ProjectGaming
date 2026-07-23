@@ -33,6 +33,8 @@ namespace {
             return "door";
         case TileType::PressurePlate:
             return "pressurePlate";
+        case TileType::Block:
+            return "block";
     }
     return "empty";
 }

@@ -21,8 +21,8 @@ namespace hmi {
  * `entries()`/`selected()`.
  *
  * Types proposés : ceux que `Core` sait réellement gérer aujourd'hui (`Empty`, `Solid`, `Danger`,
- * `Entry`, `Exit`, `Switch`, `Door`) — ni bloc poussable ni clé/porte verrouillée, non implémentés
- * côté gameplay (hors périmètre du LOT-14, voir `epic.md`).
+ * `Entry`, `Exit`, `Switch`, `PressurePlate`, `Door`, `Block`) — pas de clé/porte verrouillée,
+ * non implémentée côté gameplay (`EX-GP-023`, optionnelle au MVP).
  */
 class TilePalette {
 public:

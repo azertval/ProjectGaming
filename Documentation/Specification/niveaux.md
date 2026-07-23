@@ -11,7 +11,8 @@
 ### Format retenu (JSON, liste de tuiles-objets)
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`
 (interrupteur), `pressurePlate` (plaque de pression, activation continue tant qu'un poids y
-repose), `door` (porte). Une case **vide** n'est pas listée (absence = vide).
+repose), `door` (porte), `block` (bloc poussable, `EX-GP-022` — déplaçable par le personnage,
+retombe sous gravité). Une case **vide** n'est pas listée (absence = vide).
 ```json
 {
   "name": "Tutoriel 1",

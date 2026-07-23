@@ -21,6 +21,8 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             return atlas.tile(1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
         case core::TileType::Door:
             return atlas.tile(2, 1);  // orange
+        case core::TileType::Block:
+            return atlas.tile(3, 1);  // violet
         case core::TileType::Empty:
             break;
     }

@@ -112,6 +112,39 @@ TEST(LevelWriterTest, PlaqueDePressionSurvitAuRoundTrip) {
 }
 
 /**
+ * @brief Un bloc poussable survit au round-trip (sérialisation puis rechargement), `TileType`
+ * préservé (`EX-GP-022`).
+ * \castest{<b>Un bloc poussable survit au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un bloc poussable survit au round-trip : `TileType` préservé.
+ * }
+ */
+TEST(LevelWriterTest, BlocPoussableSurvitAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "Bloc",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "block" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), core::TileType::Block);
+    EXPECT_TRUE(reloaded.level->mechanisms().empty());
+}
+
+/**
  * @brief Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.
  * \castest{<b>Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.</b><br/>
  * \tcat Unitaire · Level Writer<br/>

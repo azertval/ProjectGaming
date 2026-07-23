@@ -35,6 +35,7 @@ Chaque case de la grille a l'un de ces types :
 | `Switch` | Interrupteur : son activation **bascule** l'état d'une `Door` liée (voir §« Mécanismes »). |
 | `PressurePlate` | Plaque de pression : ouvre une `Door` liée **tant qu'un poids y repose** (`EX-GP-025`) — activation **continue**, pas de bascule. |
 | `Door` | Porte : solide **fermée**, franchissable **ouverte** — son état dépend du `Switch`/`PressurePlate` lié. |
+| `Block` | Bloc poussable (`EX-GP-022`) : solide comme un mur tant qu'il n'a pas bougé, mais peut être **déplacé** par le personnage et **retombe** sous gravité (voir §« Blocs poussables »). |
 
 Notez que `Door` n'est **pas** statiquement solide au sens de `core::isSolid(TileType)` — sa
 solidité dépend de son **état**, calculé par le `MechanismController` (voir plus bas), pas du type
@@ -171,11 +172,38 @@ contact (nouveau front). Une **plaque de pression** liée à la même porte, ell
 ouverte pas à pas tant que le personnage y resterait, sans qu'un second passage soit nécessaire
 pour la refermer.
 
-Le seuil de poids ne **discrimine** encore rien tant qu'un seul acteur (le personnage) existe dans
-le jeu — toute plaque s'active « prête à l'emploi ». Il prend son sens dès qu'une seconde masse
-apparaîtrait dans une future évolution (ex. un bloc poussable, `EX-GP-022`, non couvert par ce
-lot) : l'infrastructure de comparaison de poids est déjà en place, sans qu'aucun code de mécanisme
-n'ait à changer.
+Le seuil de poids ne **discrimine** encore rien tant qu'un seul acteur (le personnage) pèse sur une
+plaque — toute plaque s'active « prête à l'emploi ». Les blocs poussables (ci-dessous) existent
+désormais, mais `MechanismController` ne les interroge pas encore : un bloc posé sur une plaque de
+pression ne l'active pas — l'infrastructure de comparaison de poids est prête à l'accueillir, mais
+le câblage bloc → plaque reste une évolution à venir.
+
+## Blocs poussables
+
+`core::BlockController` (logique **pure**, dans `Core/Gameplay`, sans dépendance rendu) fait vivre
+les tuiles `TileType::Block` (`EX-GP-022`) : contrairement aux mécanismes ci-dessus, dont seul
+**l'état** change, un bloc change de **position**. Chaque bloc occupe exactement **une case**,
+jamais à mi-chemin — pousser ou tomber le déplace d'une case entière, comme une porte bascule d'un
+état à l'autre sans étape intermédiaire.
+
+- **Poussée** : `update(playerBox, moveIntentX, baseCollision)` teste si la boîte du personnage
+  touche un bloc du côté vers lequel `moveIntentX` (@ref guide-entrees) l'entraîne ; si la case
+  suivante dans cette direction est libre (ni solide, ni un autre bloc), le bloc avance d'une case.
+  Appelé **avant** la physique du personnage (`hmi::GameScreen::update`), avec la boîte **laissée
+  par le pas précédent** : un bloc qui vient de se dégager ne bloque donc jamais le personnage sur
+  ce même pas — la case est déjà libre quand le balayage de collision (@ref guide-physique) s'exécute.
+- **Chute** : un bloc dont la case du dessous est libre tombe d'une case, au rythme d'une case
+  toutes les `BlockController::FALL_INTERVAL_STEPS` pas fixes — une chute **discrète** (case par
+  case), pas une intégration continue comme celle du personnage (@ref guide-physique §2) :
+  cohérent avec le reste des mécanismes de ce moteur, tous résolus case par case plutôt qu'en
+  unités monde continues.
+
+`collisionMap(base)` complète une grille déjà résolue par `core::MechanismController` (portes) avec
+la position **courante** des blocs : chaque case marquée `Block` dans `base` — qui ne porte que la
+position de **départ**, jamais mise à jour — est d'abord effacée, puis chaque position **courante**
+est reposée comme solide. Sans cet effacement, une case quittée par un bloc resterait perçue comme
+un mur, indéfiniment (un bug réellement rencontré en écrivant ce contrôleur, corrigé avant
+livraison).
 
 ## Budget de mouvements
 
@@ -221,6 +249,6 @@ elle ramène à l'écran-titre plutôt que de tenter un niveau inexistant (`EX-L
 
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
-- `core::buildLevelScene`, `core::MechanismController`, `core::evaluateOutcome`, `hmi::LevelSequence`.
+- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::evaluateOutcome`, `hmi::LevelSequence`.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.

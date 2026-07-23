@@ -52,6 +52,9 @@ namespace {
     if (name == "pressurePlate") {
         return TileType::PressurePlate;
     }
+    if (name == "block") {
+        return TileType::Block;
+    }
     return std::nullopt;
 }
 
