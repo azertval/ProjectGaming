@@ -21,6 +21,7 @@
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Editor/EditorLog.h"
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
@@ -181,10 +182,16 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
                        return mechanism.switchPosition == switchPosition &&
                               mechanism.doorPosition == doorPosition;
                    });
+    const std::string switchLabel = "(" + std::to_string(switchPosition.column) + ", " +
+                                    std::to_string(switchPosition.row) + ")";
+    const std::string doorLabel =
+        "(" + std::to_string(doorPosition.column) + ", " + std::to_string(doorPosition.row) + ")";
     if (alreadyLinked) {
         _draft.unlinkMechanism(doorPosition);
+        EDITOR_LOG_TRACE("Mecanisme delie : declencheur " + switchLabel + " / porte " + doorLabel);
     } else {
         _draft.linkMechanism(switchPosition, doorPosition);
+        EDITOR_LOG_TRACE("Mecanisme lie : declencheur " + switchLabel + " / porte " + doorLabel);
     }
     _dirty = true;
     _pendingLink.reset();
@@ -465,9 +472,15 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
 
     // Annuler/refaire (EX-EDIT-005) : Ctrl+Z / Ctrl+Y.
     if (input.keyDown(Key::Control) && input.keyPressed(Key::Z)) {
-        _dirty = _draft.undo() || _dirty;
+        if (_draft.undo()) {
+            _dirty = true;
+            EDITOR_LOG_TRACE("Annuler (Ctrl+Z)");
+        }
     } else if (input.keyDown(Key::Control) && input.keyPressed(Key::Y)) {
-        _dirty = _draft.redo() || _dirty;
+        if (_draft.redo()) {
+            _dirty = true;
+            EDITOR_LOG_TRACE("Refaire (Ctrl+Y)");
+        }
     }
 
     // Redimensionnement (EX-EDIT-005) : largeur par Gauche/Droite, hauteur par Haut/Bas ;
@@ -508,17 +521,25 @@ core::GridPosition EditorScreen::clampedCell(float mouseX, float mouseY) const {
 void EditorScreen::requestResize(int rawWidth, int rawHeight) {
     const int width = std::clamp(rawWidth, 1, MAX_LEVEL_DIMENSION);
     const int height = std::clamp(rawHeight, 1, MAX_LEVEL_DIMENSION);
-    if (width == _draft.tileMap().width() && height == _draft.tileMap().height()) {
+    const int previousWidth = _draft.tileMap().width();
+    const int previousHeight = _draft.tileMap().height();
+    if (width == previousWidth && height == previousHeight) {
         return;  // deja a la cible (bornage a absorbe le changement demande) : rien a faire
     }
+    const std::string resizeLabel = std::to_string(previousWidth) + "x" +
+                                    std::to_string(previousHeight) + " -> " +
+                                    std::to_string(width) + "x" + std::to_string(height);
     if (_draft.wouldResizeDropContent(width, height)) {
+        EDITOR_LOG_TRACE("Redimensionnement destructeur en attente de confirmation (" +
+                         resizeLabel + ")");
         _pendingConfirmation = PendingConfirmation{
             "Ce redimensionnement supprimerait l'entree, la sortie ou une liaison. "
             "Confirmer ? (Entree = oui, Echap = non)",
-            [this, width, height]() {
+            [this, width, height, resizeLabel]() {
                 _draft.resize(width, height);
                 _dirty = true;
                 _selection.reset();
+                EDITOR_LOG_TRACE("Redimensionnement confirme (" + resizeLabel + ")");
                 return ScreenTransition::none();
             }};
         return;
@@ -526,6 +547,7 @@ void EditorScreen::requestResize(int rawWidth, int rawHeight) {
     _draft.resize(width, height);
     _dirty = true;
     _selection.reset();
+    EDITOR_LOG_TRACE("Redimensionnement (" + resizeLabel + ")");
 }
 
 // Valide le brouillon puis l'ecrit dans le dossier Levels de l'application (EX-EDIT-006/007).

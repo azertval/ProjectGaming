@@ -23,6 +23,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **Journalisation étendue pour le diagnostic** : trois nouvelles catégories de log
+  (`Core/Gameplay/GameplayLog.h`, `Core/Levels/LevelsLog.h`, `HMI/Editor/EditorLog.h`), sur le
+  modèle déjà établi (voir `Documentation/Guide/guide-journalisation.md`). Journalise désormais les
+  bascules d'état des mécanismes (interrupteur/plaque de pression), le chargement d'un niveau et
+  chaque raison d'échec de validation (`Core/Levels/LevelLoader`), les actions de l'éditeur
+  (liaison/déliaison de mécanisme, annuler/refaire, redimensionnement), le nombre de niveaux trouvés
+  par le sélecteur, et la connexion/déconnexion de la manette — toujours en dehors des chemins
+  exécutés à chaque frame ou à chaque pas fixe (uniquement sur changement d'état réel).
 - **LOT-20 — Manette et menu d'options** (`EX-CTRL-002`). Le jeu, le menu et l'éditeur sont
   désormais jouables/navigables à la **manette** (XInput) : D-pad/stick gauche pilotent les mêmes
   directions que les flèches/`Q`/`D`, **A** valide (menu) et saute (jeu), **B**/**Start**

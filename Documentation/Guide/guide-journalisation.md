@@ -110,10 +110,14 @@ raccourcis — le **modèle** à dupliquer pour un nouveau module est `HMI/HmiLo
 #define HMI_LOG_ERROR(message)   PROJECTGAMING_LOG_ERROR("HMI", message)
 ```
 
-`Core/CoreLog.h` (catégorie `"Core"`) et `HMI/Graphics/GraphicsLog.h` (catégorie `"Graphics"`)
-suivent exactement le même modèle. La **catégorie** apparaît ensuite dans chaque ligne journalisée
-(voir le format ci-dessous), ce qui permet, en lisant un journal, de savoir immédiatement quel
-sous-système a émis un message donné — utile dès qu'un jeu grandit au-delà de quelques fichiers.
+`Core/CoreLog.h` (catégorie `"Core"`), `Core/Ecs/EcsLog.h` (`"Ecs"`), `Core/Gameplay/GameplayLog.h`
+(`"Gameplay"`), `Core/Levels/LevelsLog.h` (`"Levels"`), `HMI/Graphics/GraphicsLog.h` (`"Graphics"`),
+`HMI/Platform/PlatformLog.h` (`"Platform"`) et `HMI/Editor/EditorLog.h` (`"Editor"`) suivent
+exactement le même modèle. La **catégorie** apparaît ensuite dans chaque ligne journalisée (voir le
+format ci-dessous), ce qui permet, en lisant un journal, de savoir immédiatement quel sous-système a
+émis un message donné — utile dès qu'un jeu grandit au-delà de quelques fichiers, et pour filtrer un
+journal verbeux en ne gardant que la catégorie qui intéresse un diagnostic précis (par exemple
+`grep "\[Gameplay\]"` pour ne voir que les bascules de mécanismes).
 
 ### Une règle de performance à respecter
 

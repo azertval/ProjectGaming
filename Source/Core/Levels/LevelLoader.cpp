@@ -10,6 +10,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Levels/LevelsLog.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 
@@ -18,7 +19,10 @@ namespace core {
 namespace {
 
 // Construit un résultat d'échec avec un message et un code categorise (LOT-15, EX-EDIT-012).
+// Journalise systematiquement la raison ici (point unique) : chaque site d'appel n'a pas a le
+// refaire, et un echec de chargement reste tracable meme hors du contexte HMI (tests, outillage).
 [[nodiscard]] LevelLoadResult failure(std::string message, LevelValidationError code) {
+    LEVELS_LOG_WARNING("Echec du chargement : " + message);
     return LevelLoadResult{std::nullopt, std::move(message), code};
 }
 
@@ -180,6 +184,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             mechanisms.push_back(Mechanism{found->second, door.position});
         }
 
+        LEVELS_LOG_TRACE("Niveau charge : '" + name + "' (" + std::to_string(width) + "x" +
+                         std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
+                         " mecanisme(s))");
         return LevelLoadResult{Level(std::move(name), std::move(map), entry, exit,
                                      std::move(mechanisms), jumpBudget, dashBudget),
                                {}};

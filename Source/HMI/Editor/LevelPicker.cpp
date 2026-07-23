@@ -1,8 +1,10 @@
 #include "HMI/Editor/LevelPicker.h"
 
+#include <string>
 #include <string_view>
 #include <system_error>
 
+#include "HMI/Editor/EditorLog.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Input/InputState.h"
 
@@ -40,6 +42,11 @@ LevelPicker LevelPicker::forDirectory(const std::filesystem::path& levelsDirecto
                 choices.push_back(Choice{entry.path().stem().string(), entry.path()});
             }
         }
+        EDITOR_LOG_TRACE("Niveaux trouves dans " + levelsDirectory.string() + " : " +
+                         std::to_string(choices.size() - 1));
+    } else {
+        EDITOR_LOG_TRACE("Dossier de niveaux absent (" + levelsDirectory.string() +
+                         ") : liste reduite a 'Nouveau niveau'");
     }
     return LevelPicker(std::move(choices));
 }

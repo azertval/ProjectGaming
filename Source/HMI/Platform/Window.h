@@ -101,6 +101,7 @@ private:
     int _clientWidth;
     int _clientHeight;
     InputState _input;
+    bool _gamepadWasConnected = false;  ///< Pour ne journaliser qu'un changement de connexion.
 };
 
 }  // namespace hmi

@@ -1,5 +1,8 @@
 #include "Core/Gameplay/MechanismController.h"
 
+#include <string>
+
+#include "Core/Gameplay/GameplayLog.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Physics/Aabb.h"
@@ -56,6 +59,9 @@ void MechanismController::update(const Aabb& playerBox, float playerMass) {
                 _switchOn[index] = shouldBeOpen;
                 _collision.setTile(door.column, door.row,
                                    _switchOn[index] ? TileType::Door : TileType::Solid);
+                GAMEPLAY_LOG_TRACE("Plaque de pression #" + std::to_string(index) + " -> porte (" +
+                                   std::to_string(door.column) + ", " + std::to_string(door.row) +
+                                   ") " + (_switchOn[index] ? "ouverte" : "fermee"));
             }
         } else {
             // Interrupteur a bascule (EX-GP-020) : bascule au FRONT seulement, comportement
@@ -64,6 +70,9 @@ void MechanismController::update(const Aabb& playerBox, float playerMass) {
                 _switchOn[index] = !_switchOn[index];
                 _collision.setTile(door.column, door.row,
                                    _switchOn[index] ? TileType::Door : TileType::Solid);
+                GAMEPLAY_LOG_TRACE("Interrupteur #" + std::to_string(index) + " -> porte (" +
+                                   std::to_string(door.column) + ", " + std::to_string(door.row) +
+                                   ") " + (_switchOn[index] ? "ouverte" : "fermee"));
             }
         }
         _playerOnSwitchPrev[index] = onSwitch;
