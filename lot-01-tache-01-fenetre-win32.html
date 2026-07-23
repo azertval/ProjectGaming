@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-01-tache-01-fenetre-win32.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-01-fenetre-boucle-jeu_2epic_8md.html">LOT-01</a> · <b>Module :</b> <code>Source/HMI</code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md241"></a>
+<h1><a class="anchor" id="autotoc_md242"></a>
 Contexte</h1>
 <p>Le jeu a besoin d'une fenêtre native Windows comme surface de rendu et source d'événements. Cette tâche pose la fenêtre et sa boucle de messages, sans encore de rendu.</p>
-<h1><a class="anchor" id="autotoc_md242"></a>
+<h1><a class="anchor" id="autotoc_md243"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer une classe <code>Window</code> (RAII) encapsulant la fenêtre Win32 :<ul>
@@ -109,27 +109,27 @@ Travail à réaliser</h1>
 <li>Exposer les événements utiles à la boucle : <b>demande de fermeture</b>, <b>redimensionnement</b> (nouvelle taille du client), sans traiter encore les entrées de gameplay.</li>
 <li>Fournir un accès au <b>handle</b> de fenêtre (<code>HWND</code>) pour l'initialisation Direct3D (TACHE-02).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md243"></a>
+<h1><a class="anchor" id="autotoc_md244"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Window.h</code>, <code>Source/HMI/Window.cpp</code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code> (ajout des sources ; liaison <code>user32</code>/<code>gdi32</code> si nécessaire).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md244"></a>
+<h1><a class="anchor" id="autotoc_md245"></a>
 Points d'attention</h1>
 <ul>
 <li>Respect des conventions : membres <code>_camelCase</code>, RAII (pas d'<code>init()</code>/<code>cleanup()</code> manuels), documentation <code>.h</code> + <code>.cpp</code>.</li>
 <li>La fenêtre ne doit <b>pas</b> dépendre de <code>Core</code> (sens des dépendances : <code>HMI → Core</code>).</li>
 <li>Isoler la <code>WndProc</code> (statique) de l'état d'instance proprement (pointeur utilisateur via <code>GWLP_USERDATA</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md245"></a>
+<h1><a class="anchor" id="autotoc_md246"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La fenêtre s'ouvre, se déplace, se redimensionne et se ferme (croix) sans erreur.</li>
 <li>Aucune fuite de handle à la fermeture.</li>
 <li>Compile <code>/W4 /WX</code>, formaté clang-format, API documentée en Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md246"></a>
+<h1><a class="anchor" id="autotoc_md247"></a>
 Exigences</h1>
 <p><code>EX-REN-003</code>, <code>EX-REN-001</code>. </p>
 </div></div><!-- contents -->

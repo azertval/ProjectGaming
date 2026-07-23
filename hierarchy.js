@@ -4,6 +4,7 @@ var hierarchy =
     [ "core::Animation", "structcore_1_1Animation.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
+    [ "core::BlockController", "classcore_1_1BlockController.html", null ],
     [ "hmi::Camera2D", "classhmi_1_1Camera2D.html", null ],
     [ "core::CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", null ],
     [ "hmi::LevelPicker::Choice", "structhmi_1_1LevelPicker_1_1Choice.html", null ],

@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>321 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>331 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (271)</h1>
+Tests unitaires (281)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -478,7 +478,51 @@ Vérifie que <code>log</code> vaut <code>(std::vector&lt;int&gt;{1, 2, 3})</code
 Vérifie que <code>visited.front()</code> vaut <code>both</code>.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md8"></a>
-Gameplay (5)</h3>
+Gameplay (13)</h3>
+<p>**<code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">test_block_controller.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.PositionInitiale</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:42</code></sub>   </td><td class="markdownTableBodyNone">À la construction, le bloc est à sa position du niveau, et cette case est solide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions().size()</code> vaut <code>1u</code>.<br  />
+Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.<br  />
+Vérifie que <code>controller.collisionMap(level.tileMap()).isSolid(2, 1)</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.PousseVersLaDroiteSiLibre</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:63</code></sub>   </td><td class="markdownTableBodyNone">Toucher un bloc à droite en se déplaçant vers la droite le pousse d'une case, si la case suivante est libre.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions().size()</code> vaut <code>1u</code>.<br  />
+Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{3, 1})</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.PousseeRefuseeContreUnMur</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:86</code></sub>   </td><td class="markdownTableBodyNone">Un bloc ne peut pas être poussé à travers un mur.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.PousseeRefuseeContreUnAutreBloc</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:112</code></sub>   </td><td class="markdownTableBodyNone">Un bloc ne peut pas être poussé sur un autre bloc.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.<br  />
+Vérifie que <code>controller.positions()[1]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{3, 1})</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.ContactSansIntentionNePousseRien</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:139</code></sub>   </td><td class="markdownTableBodyNone">Sans intention de déplacement horizontal, un bloc touché ne bouge pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.BlocSoutenuNeTombePas</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:158</code></sub>   </td><td class="markdownTableBodyNone">Un bloc posé sur le sol, non poussé, ne tombe jamais.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.BlocNonSoutenuTombe</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:179</code></sub>   </td><td class="markdownTableBodyNone">Un bloc sans support tombe d'une case toutes les FALL_INTERVAL_STEPS mises à jour.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 0})</code>.<br  />
+Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.<br  />
+Vérifie que <code>controller.positions()[0]</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 1})</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>BlockControllerTest.CollisionMapEffaceLAncienneCase</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a>:216</code></sub>   </td><td class="markdownTableBodyNone">collisionMap efface la case d'origine d'un bloc déplacé (pas de mur fantôme).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>collision.isSolid(2, 1)</code> est faux.<br  />
+Vérifie que <code>collision.isSolid(3, 1)</code> est vrai.   </td></tr>
+</table>
 <p>**<code><a class="el" href="test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController).">test_mechanism_controller.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -520,7 +564,7 @@ Vérifie que <code>controller.isDoorOpen(0)</code> est vrai.    </td></tr>
 Vérifie que <code>controller.collisionMap().isSolid(4, 1)</code> est vrai.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md9"></a>
-Levels (70)</h3>
+Levels (72)</h3>
 <p>**<code><a class="el" href="test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level.">test_level.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -805,101 +849,107 @@ Vérifie que <code>level.mechanisms().size()</code> vaut <code>1u</code>.<br  />
 Vérifie que <code>level.mechanisms().front().switchPosition</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 0})</code>.<br  />
 Vérifie que <code>level.mechanisms().front().doorPosition</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{3, 0})</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelLoaderTest.ChargeUnBlocPoussable</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:98</code></sub>   </td><td class="markdownTableBodyNone">Un bloc poussable se charge comme une simple tuile, sans identifiant ni liaison.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.<br  />
+Vérifie que <code>level.tileMap().tile(2, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">core::TileType::Block</a></code>.<br  />
+Vérifie que <code>level.mechanisms().empty()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.BudgetsOptionnels</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:98</code></sub>   </td><td class="markdownTableBodyNone">Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:129</code></sub>   </td><td class="markdownTableBodyNone">Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>withBudget.ok()</code> est vrai.<br  />
 Vérifie que <code>withBudget.level-&gt;jumpBudget()</code> vaut <code>2</code>.<br  />
 Vérifie que <code>withBudget.level-&gt;dashBudget()</code> vaut <code>1</code>.<br  />
 Vérifie que <code>noBudget.ok()</code> est vrai.<br  />
 Vérifie que <code>noBudget.level-&gt;jumpBudget()</code> vaut <code>-1</code>.<br  />
 Vérifie que <code>noBudget.level-&gt;dashBudget()</code> vaut <code>-1</code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.JsonMalformeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:126</code></sub>   </td><td class="markdownTableBodyNone">Un JSON syntaxiquement invalide est rejeté sans plantage.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:157</code></sub>   </td><td class="markdownTableBodyNone">Un JSON syntaxiquement invalide est rejeté sans plantage.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.ChampManquantRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:143</code></sub>   </td><td class="markdownTableBodyNone">Un champ obligatoire manquant est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:174</code></sub>   </td><td class="markdownTableBodyNone">Un champ obligatoire manquant est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TypeDeTuileInconnuRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:160</code></sub>   </td><td class="markdownTableBodyNone">Un type de tuile inconnu est rejeté avec un message.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:191</code></sub>   </td><td class="markdownTableBodyNone">Un type de tuile inconnu est rejeté avec un message.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e" title="Type de tuile non reconnu.">core::LevelValidationError::UnknownTileType</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TuileHorsBornesRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:178</code></sub>   </td><td class="markdownTableBodyNone">Une tuile hors des bornes est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:209</code></sub>   </td><td class="markdownTableBodyNone">Une tuile hors des bornes est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f" title="Tuile positionnée hors des dimensions déclarées.">core::LevelValidationError::OutOfBounds</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.LiaisonMecanismeNonResolueRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:195</code></sub>   </td><td class="markdownTableBodyNone">Une porte liée à un interrupteur inexistant est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:226</code></sub>   </td><td class="markdownTableBodyNone">Une porte liée à un interrupteur inexistant est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" title="Porte liée à un identifiant d&#39;interrupteur inexistant.">core::LevelValidationError::UnresolvedMechanism</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PlusieursEntreesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:219</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs entrées sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:250</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs entrées sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff" title="Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).">core::LevelValidationError::InvalidEntryCount</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PlusieursSortiesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:242</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs sorties sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:273</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs sorties sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" title="Zéro ou plusieurs tuiles de sortie (une seule attendue).">core::LevelValidationError::InvalidExitCount</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PositionEnDoubleRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:265</code></sub>   </td><td class="markdownTableBodyNone">Deux tuiles à la même position sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:296</code></sub>   </td><td class="markdownTableBodyNone">Deux tuiles à la même position sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba" title="Deux tuiles à la même position.">core::LevelValidationError::DuplicatePosition</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TilesNonListeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:289</code></sub>   </td><td class="markdownTableBodyNone">Un champ 'tiles' qui n'est pas une liste est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:320</code></sub>   </td><td class="markdownTableBodyNone">Un champ 'tiles' qui n'est pas une liste est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
+Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelLoaderTest.DimensionsNonPositivesRejetees</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:337</code></sub>   </td><td class="markdownTableBodyNone">Des dimensions non positives sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelLoaderTest.DimensionsNonPositivesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:306</code></sub>   </td><td class="markdownTableBodyNone">Des dimensions non positives sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
-Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.InterrupteurSansIdRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:323</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur sans 'id' est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:354</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur sans 'id' est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3" title="Interrupteur sans identifiant.">core::LevelValidationError::MissingSwitchId</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.IdentifiantInterrupteurEnDoubleRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:346</code></sub>   </td><td class="markdownTableBodyNone">Deux interrupteurs avec le même identifiant sont rejetés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:377</code></sub>   </td><td class="markdownTableBodyNone">Deux interrupteurs avec le même identifiant sont rejetés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb" title="Deux interrupteurs partagent le même identifiant.">core::LevelValidationError::DuplicateSwitchId</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauSansEntreeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:370</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans entrée est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:401</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans entrée est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff" title="Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).">core::LevelValidationError::InvalidEntryCount</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauSansSortieRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:387</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans sortie est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:418</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans sortie est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" title="Zéro ou plusieurs tuiles de sortie (une seule attendue).">core::LevelValidationError::InvalidExitCount</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.FichierIntrouvableRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:404</code></sub>   </td><td class="markdownTableBodyNone">Charger un fichier inexistant échoue proprement (récupérable).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:435</code></sub>   </td><td class="markdownTableBodyNone">Charger un fichier inexistant échoue proprement (récupérable).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" title="Fichier de niveau introuvable sur disque.">core::LevelValidationError::FileNotFound</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PorteSansLiaisonEstValide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:422</code></sub>   </td><td class="markdownTableBodyNone">Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:453</code></sub>   </td><td class="markdownTableBodyNone">Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.<br  />
 Vérifie que <code>result.level-&gt;mechanisms().empty()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauDeDemoLivreValide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:446</code></sub>   </td><td class="markdownTableBodyNone">Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:477</code></sub>   </td><td class="markdownTableBodyNone">Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.   </td></tr>
 </table>
 <p>**<code><a class="el" href="test__level__outcome_8cpp.html" title="Tests unitaires de l&#39;évaluation d&#39;issue de niveau (evaluateOutcome).">test_level_outcome.cpp</a></code>**</p>
@@ -957,40 +1007,47 @@ Vérifie que <code>reloaded.level-&gt;mechanisms().size()</code> vaut <code>1u</
 Vérifie que <code>reloaded.level-&gt;mechanisms().front().switchPosition</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{2, 0})</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;mechanisms().front().doorPosition</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{3, 0})</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelWriterTest.BlocPoussableSurvitAuRoundTrip</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:117</code></sub>   </td><td class="markdownTableBodyNone">Un bloc poussable survit au round-trip.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
+Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
+Vérifie que <code>reloaded.level-&gt;tileMap().tile(2, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">core::TileType::Block</a></code>.<br  />
+Vérifie que <code>reloaded.level-&gt;mechanisms().empty()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.BudgetsIllimitesOmisDuJson</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:116</code></sub>   </td><td class="markdownTableBodyNone">Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:149</code></sub>   </td><td class="markdownTableBodyNone">Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>json.find("jumpBudget")</code> vaut <code>std::string::npos</code>.<br  />
 Vérifie que <code>json.find("dashBudget")</code> vaut <code>std::string::npos</code>.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;jumpBudget()</code> vaut <code>-1</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;dashBudget()</code> vaut <code>-1</code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.InterrupteurNonRelieRegenereUnIdentifiant</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:142</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:175</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;tileMap().tile(1, 1)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a></code>.<br  />
 Vérifie que <code>reloaded.level-&gt;mechanisms().empty()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.NiveauPuzzleLivreSurvieAuRoundTrip</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:168</code></sub>   </td><td class="markdownTableBodyNone">Le niveau puzzle livré (demo4.json) survit à un round-trip.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:201</code></sub>   </td><td class="markdownTableBodyNone">Le niveau puzzle livré (demo4.json) survit à un round-trip.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;mechanisms().size()</code> vaut <code>loaded.level-&gt;mechanisms().size()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;exit()</code> vaut <code>loaded.level-&gt;exit()</code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileEcritUnFichierRechargeable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:192</code></sub>   </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:225</code></sub>   </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;name()</code> vaut <code>loaded.level-&gt;name()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:219</code></sub>   </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:252</code></sub>   </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</code> est faux.   </td></tr>
 </table>

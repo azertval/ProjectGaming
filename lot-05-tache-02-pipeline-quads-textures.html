@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-05-tache-02-pipeline-quads-texture
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-05-rendu-2d_2epic_8md.html">LOT-05</a> · <b>Emplacement :</b> <code>Source/HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md452"></a>
+<h1><a class="anchor" id="autotoc_md453"></a>
 Contexte</h1>
 <p><code>GraphicsDevice</code> sait effacer et présenter, mais ne dessine rien. Cette tâche pose le <b>pipeline de rendu 2D</b> : dessiner des rectangles texturés (quads) avec transparence et un échantillonnage adapté au pixel art.</p>
-<h1><a class="anchor" id="autotoc_md453"></a>
+<h1><a class="anchor" id="autotoc_md454"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Shaders HLSL</b> (vertex + pixel) compilés à l'exécution via <code>D3DCompile</code> : le vertex shader applique une matrice (projection écran + caméra) ; le pixel shader échantillonne la texture d'atlas et applique la teinte.</li>
@@ -105,33 +105,33 @@ Travail à réaliser</h1>
 <li><b>États</b> : <em>blend state</em> alpha (transparence, <code>EX-REN-011</code>), <em>sampler</em> <b>point/nearest</b> (<code>EX-ARCH-022</code>), rasterizer 2D (pas de depth test, ou depth désactivé).</li>
 <li>Une classe <code>SpriteBatch</code> (ou <code>QuadRenderer</code>) : <code>begin()/draw(quad)/end()</code> accumulant les quads et émettant les <em>draw calls</em> (batch par texture d'atlas).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md454"></a>
+<h1><a class="anchor" id="autotoc_md455"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots.">Source/HMI/Graphics/SpriteBatch.h</a></code>, <code><a class="el" href="SpriteBatch_8cpp.html">SpriteBatch.cpp</a></code> (nouveau).</li>
 <li>Shaders HLSL (inline dans le <code>.cpp</code> ou <code>Source/HMI/Graphics/*.hlsl</code>).</li>
 <li><code>Source/HMI/CMakeLists.txt</code> (nouvelles sources).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md455"></a>
+<h1><a class="anchor" id="autotoc_md456"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Un quad texturé s'affiche à une position/taille données (vérification visuelle via la démo de TACHE-06).</li>
 <li>La transparence fonctionne (zones alpha de l'atlas) ; l'échantillonnage est net (nearest).</li>
 <li>Aucune fuite de ressource DirectX (RAII, <code>ComPtr</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md456"></a>
+<h1><a class="anchor" id="autotoc_md457"></a>
 Points d'attention</h1>
 <ul>
 <li>RAII obligatoire sur toutes les ressources D3D (<code>ID3D11Buffer</code>, shaders, states) via <code>Microsoft::WRL::ComPtr</code> ; aucun <code>init()</code>/<code>cleanup()</code> manuel.</li>
 <li><code>Core</code> reste ignorant de ce pipeline (dépendance <code>HMI → Core</code> uniquement).</li>
 <li>Gérer les erreurs d'initialisation (device, compilation shader) par exception à la frontière de démarrage (cf. politique d'erreurs).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md457"></a>
+<h1><a class="anchor" id="autotoc_md458"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Pipeline de quads texturés fonctionnel (blend + nearest), RAII, documenté ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md458"></a>
+<h1><a class="anchor" id="autotoc_md459"></a>
 Exigences</h1>
 <p><code>EX-REN-002</code>, <code>EX-REN-011</code>, <code>EX-ARCH-022</code>, <code>EX-NFR-041</code>. </p>
 </div></div><!-- contents -->

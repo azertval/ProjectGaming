@@ -117,6 +117,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région source dans l'atlas de textures, en <b>pixels</b> (origine haut-gauche).  <a href="structcore_1_1AtlasRegion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html">BlockController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>, <code>EX-GP-022</code>).  <a href="classcore_1_1BlockController.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">CharacterPhysicsSystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité continue, collisions <b>continues</b> contre les tuiles solides, et état « au sol ».  <a href="classcore_1_1CharacterPhysicsSystem.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,6 +281,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">Switch</a>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">Door</a>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">PressurePlate</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">Block</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>).  <a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
@@ -566,7 +571,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
-<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX-GP-022).">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>
@@ -576,6 +581,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b" name="ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b"></a>Switch&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1" name="ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"></a>Door&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86" name="ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86"></a>PressurePlate&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2" name="ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2"></a>Block&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -934,7 +940,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code>. La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et sera gérée par la simulation ; elle n'est donc pas statiquement solide ici. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code> et <code>Block</code> (un bloc non encore déplacé bloque comme un mur). La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et la position d'un bloc évolue en jeu : toutes deux sont gérées par la simulation, pas par ce test statique. </dd></dl>
 
 </div>
 </div>

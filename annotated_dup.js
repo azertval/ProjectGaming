@@ -5,6 +5,7 @@ var annotated_dup =
       [ "Animation", "structcore_1_1Animation.html", "structcore_1_1Animation" ],
       [ "AnimationSystem", "classcore_1_1AnimationSystem.html", "classcore_1_1AnimationSystem" ],
       [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
+      [ "BlockController", "classcore_1_1BlockController.html", "classcore_1_1BlockController" ],
       [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
       [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],
       [ "Color", "structcore_1_1Color.html", "structcore_1_1Color" ],

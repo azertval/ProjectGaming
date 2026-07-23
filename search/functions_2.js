@@ -13,7 +13,7 @@ var searchData=
   ['clicked_10',['clicked',['../classhmi_1_1SaveLogButton.html#a44859a1e388ac6ac2744d1dfe86a60de',1,'hmi::SaveLogButton']]],
   ['clientheight_11',['clientHeight',['../classhmi_1_1Window.html#a7148c686704cd642e1cfa569a4d779bf',1,'hmi::Window']]],
   ['clientwidth_12',['clientWidth',['../classhmi_1_1Window.html#a50f797c1303da7e49b09ef544a7d465c',1,'hmi::Window']]],
-  ['collisionmap_13',['collisionMap',['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController']]],
+  ['collisionmap_13',['collisionmap',['../classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08',1,'core::BlockController::collisionMap()'],['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController::collisionMap()']]],
   ['componentof_14',['componentOf',['../classcore_1_1View.html#a097f64b75500842306575f65d5ff7ad2',1,'core::View']]],
   ['components_15',['components',['../classcore_1_1ComponentPool.html#a6877fc8d758f4e70c682a8e3aca9e832',1,'core::ComponentPool']]],
   ['confirmed_16',['confirmed',['../classhmi_1_1TextInputField.html#ae2cac76d1d70fadfb2a8341e0dee5599',1,'hmi::TextInputField']]],

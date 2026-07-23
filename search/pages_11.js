@@ -35,11 +35,12 @@ var searchData=
   ['modèle_20d_20édition_20mutable_32',['TACHE-01 — Sérialisation JSON + modèle d&apos;édition mutable',['../lot-14-tache-01-serialisation-modele-edition.html',1,'lot-14']]],
   ['modèle_20de_20tuiles_20et_20de_20niveau_33',['TACHE-02 — Modèle de tuiles et de niveau',['../lot-07-tache-02-modele-niveau.html',1,'lot-07']]],
   ['modèle_20et_20chargement_34',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
-  ['molette_20et_20texte_20tapé_35',['TACHE-01 — Entrées bas niveau : molette et texte tapé',['../lot-15-tache-01-entrees-molette-texte.html',1,'lot-15']]],
-  ['monde_20→_20écran_36',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]],
-  ['moteur_37',['Mathématiques du moteur',['../guide-maths.html',1,'guide']]],
-  ['mouvement_20démo_38',['TACHE-06 — Composant Transform + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
-  ['mouvements_39',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
-  ['multi_20composants_40',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
-  ['mutable_41',['TACHE-01 — Sérialisation JSON + modèle d&apos;édition mutable',['../lot-14-tache-01-serialisation-modele-edition.html',1,'lot-14']]]
+  ['modèle_20et_20contrôleur_20core_35',['TACHE-01 — Modèle et contrôleur (Core)',['../lot-21-tache-01-controleur-blocs.html',1,'lot-21']]],
+  ['molette_20et_20texte_20tapé_36',['TACHE-01 — Entrées bas niveau : molette et texte tapé',['../lot-15-tache-01-entrees-molette-texte.html',1,'lot-15']]],
+  ['monde_20→_20écran_37',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]],
+  ['moteur_38',['Mathématiques du moteur',['../guide-maths.html',1,'guide']]],
+  ['mouvement_20démo_39',['TACHE-06 — Composant Transform + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
+  ['mouvements_40',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
+  ['multi_20composants_41',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
+  ['mutable_42',['TACHE-01 — Sérialisation JSON + modèle d&apos;édition mutable',['../lot-14-tache-01-serialisation-modele-edition.html',1,'lot-14']]]
 ];

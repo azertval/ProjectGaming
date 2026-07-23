@@ -4,6 +4,7 @@ var namespacecore =
     [ "Animation", "structcore_1_1Animation.html", "structcore_1_1Animation" ],
     [ "AnimationSystem", "classcore_1_1AnimationSystem.html", "classcore_1_1AnimationSystem" ],
     [ "AtlasRegion", "structcore_1_1AtlasRegion.html", "structcore_1_1AtlasRegion" ],
+    [ "BlockController", "classcore_1_1BlockController.html", "classcore_1_1BlockController" ],
     [ "CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", "classcore_1_1CharacterPhysicsSystem" ],
     [ "Collider", "structcore_1_1Collider.html", "structcore_1_1Collider" ],
     [ "Color", "structcore_1_1Color.html", "structcore_1_1Color" ],
@@ -77,7 +78,8 @@ var namespacecore =
       [ "Exit", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d", null ],
       [ "Switch", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b", null ],
       [ "Door", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1", null ],
-      [ "PressurePlate", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86", null ]
+      [ "PressurePlate", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86", null ],
+      [ "Block", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2", null ]
     ] ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#acb711314315ff134ed9c25c09b4cebe4", null ],

@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes." alt="" coords="5,5,99,31"/>
+<area shape="rect" id="Node000000" href="$classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="5,31,116,56"/>
+<area shape="rect" id="Node000001" href="$classcore_1_1AnimationSystem.html" title="Fait évoluer l&#39;état d&#39;animation (core::Animation) de chaque personnage, au pas fixe." alt="" coords="165,5,340,31"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="129,32,165,27,166,32,130,37"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1MovementSystem.html" title="Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe." alt="" coords="164,55,341,80"/>
+<area shape="poly" id="edge5_Node000000_Node000002" title=" " alt="" coords="130,49,164,54,163,59,129,55"/>
 </map>

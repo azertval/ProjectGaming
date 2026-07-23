@@ -96,41 +96,41 @@ $(document).ready(function(){initNavTree('lot-13.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Lot de <b>consolidation documentaire</b> (sans nouvelle fonctionnalité moteur) : mise à jour des pages existantes, <b>Guide du développeur</b> exhaustif, et <b>Cahier de test</b> généré depuis les sources. Clôt la première phase du moteur physique et pose le jalon <b>v0.0.1</b>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md837"></a>
+<h1><a class="anchor" id="autotoc_md838"></a>
 Objectif</h1>
 <ul>
 <li><b>Mettre à jour</b> les pages Doxygen existantes et le <code>README.md</code> pour refléter l'état réel du moteur (personnage humanoïde, gravité asymétrique, mécaniques aériennes, mécanismes puzzle).</li>
 <li><b>Guide du développeur</b> : une nouvelle rubrique expliquant <b>toutes les notions</b> couvertes par le moteur — fonctions détaillées, liens vers les explications <b>mathématiques</b> sous-jacentes — pour qu'un dev ayant des notions de C++ comprenne l'intégralité du code <b>en autonomie</b>.</li>
 <li><b>Cahier de test</b> : documenter <b>chaque test</b> (titre, catégorie unitaire/intégration/système, sous-catégorie, criticité, étapes détaillées, résultat attendu) via des <b>balises Doxygen avancées</b> (<code>\castest</code>) afin d'en faciliter la <b>maintenabilité</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md838"></a>
+<h1><a class="anchor" id="autotoc_md839"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md839"></a>
+<h2><a class="anchor" id="autotoc_md840"></a>
 Inclus</h2>
 <ul>
 <li><b>Doxygen / README</b> : section « Fonctionnalités du moteur (état actuel) », tableau des cibles de test (unitaire/intégration/**système**), renvois vers le Guide et le Cahier de test.</li>
 <li><b>Guide du développeur</b> (<code>Documentation/Guide/</code>) : page d'accueil + pages par domaine (physique, boucle de simulation, ECS, mathématiques, niveaux, entrées), avec liens vers le code et les concepts mathématiques.</li>
 <li><b>Cahier de test</b> : mécanisme Doxygen <code>\castest</code> (alias + <code>\xrefitem</code> agrégeant une page unique) et <b>annotation des 215 cas</b> de <code>Source/Test/</code> (unitaires, intégration, système).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md840"></a>
+<h2><a class="anchor" id="autotoc_md841"></a>
 Exclus</h2>
 <ul>
 <li>Toute évolution du <b>code moteur</b> (comportement inchangé — lot purement documentaire).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md841"></a>
+<h1><a class="anchor" id="autotoc_md842"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Cahier de test généré à la source</b> : chaque test porte un bloc <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> (argument <b>unique</b> délimité par accolades pour tolérer les virgules), avec sous-champs <code>&lt;b&gt;Categorie :&lt;/b&gt;</code>, <code>&lt;b&gt;Criticite :&lt;/b&gt;</code>, <code>&lt;b&gt;Etapes :&lt;/b&gt;&lt;br/&gt;</code>, <code>&lt;b&gt;Resultat attendu :&lt;/b&gt;</code>. <code>\xrefitem</code> <b>agrège</b> tous les cas sur la page « Cahier de test ». La documentation vit <b>à côté du test</b> → maintenue avec lui.</li>
 <li><b>Rollout</b> : les cas <b>critiques</b> (balayage AABB, composants, maths) sont enrichis <b>à la main</b> ; le reste est annoté par un <b>script consistant</b> (<code>&lt;b&gt;Categorie :&lt;/b&gt;</code> déduit de la suite GoogleTest), puis <code>clang-format</code>.</li>
 <li><b>Version</b> : jalon <b>v0.0.1</b> (<code>PROJECT_NUMBER</code> Doxygen aligné), première base stable du moteur physique.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md842"></a>
+<h1><a class="anchor" id="autotoc_md843"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-NFR-020</code> (qualité/documentation), <code>EX-NFR-021</code> (traçabilité des tests).</li>
 <li>Consolidation transverse des lots <b>LOT-01 → LOT-12</b> (aucune nouvelle exigence fonctionnelle).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md843"></a>
+<h1><a class="anchor" id="autotoc_md844"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait. </p>
@@ -145,7 +145,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">TACHE-03   </td><td class="markdownTableBodyNone">Cahier de test : mécanisme <code>\castest</code> + 215 cas annotés   </td><td class="markdownTableBodyNone"><code>Documentation/Doxyfile</code>, <code>Source/Test</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md844"></a>
+<h1><a class="anchor" id="autotoc_md845"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><code>README.md</code> et les pages Doxygen reflètent l'<b>état réel</b> du moteur.</li>
@@ -154,7 +154,7 @@ Critères d'acceptation du lot</h1>
 <li>Doxygen <b>vert</b> (<code>WARN_AS_ERROR</code>), build <code>/W4 /WX</code> sans avertissement, <b>215 tests verts</b>.</li>
 <li>Jalon <b>v0.0.1</b> posé.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md845"></a>
+<h1><a class="anchor" id="autotoc_md846"></a>
 Dépendances</h1>
 <ul>
 <li>Consolide l'ensemble des lots précédents ; aucun changement de comportement moteur. </li>
