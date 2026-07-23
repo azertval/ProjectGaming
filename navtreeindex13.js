@@ -1,5 +1,7 @@
 var NAVTREEINDEX13 =
 {
+"namespacecore.html#a0019562e8e9658def020086ee4d49425":[8,0,0,74],
+"namespacecore.html#a012cb92b3c5a0eb04cc159a2f34ba405":[8,0,0,51],
 "namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95":[8,0,0,66],
 "namespacecore.html#a0b2fde01c38742c460acb176220332ff":[8,0,0,71],
 "namespacecore.html#a0bc000366ab7d8c9d1a897385b813a68":[8,0,0,61],
@@ -246,8 +248,6 @@ var NAVTREEINDEX13 =
 "spec-vision.html#autotoc_md240":[5,1,5],
 "specifications.html":[5],
 "specifications.html#autotoc_md233":[5,0],
-"structcore_1_1Aabb.html":[9,0,0,0],
 "structcore_1_1Aabb.html":[8,0,0,0],
-"structcore_1_1Aabb.html#a2997b415856d8782b84bad849cf29301":[9,0,0,0,1],
-"structcore_1_1Aabb.html#a2997b415856d8782b84bad849cf29301":[8,0,0,0,1]
+"structcore_1_1Aabb.html":[9,0,0,0]
 };

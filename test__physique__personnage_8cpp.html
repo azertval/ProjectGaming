@@ -99,6 +99,8 @@ $(document).ready(function(){initNavTree('test__physique__personnage_8cpp.html',
 <p>Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
@@ -109,6 +111,7 @@ $(document).ready(function(){initNavTree('test__physique__personnage_8cpp.html',
 <code>#include &quot;<a class="el" href="Velocity_8h_source.html">Core/Ecs/Components/Velocity.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CharacterPhysicsSystem_8h_source.html">Core/Ecs/Systems/CharacterPhysicsSystem.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BlockController_8h_source.html">Core/Gameplay/BlockController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
@@ -117,6 +120,7 @@ $(document).ready(function(){initNavTree('test__physique__personnage_8cpp.html',
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="AabbVsAabb_8h_source.html">Core/Physics/AabbVsAabb.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PhysicsConfig_8h_source.html">Core/Physics/PhysicsConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerInput_8h_source.html">Core/Physics/PlayerInput.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerSpawn_8h_source.html">Core/Physics/PlayerSpawn.h</a>&quot;</code><br />
@@ -125,117 +129,135 @@ Include dependency graph for test_physique_personnage.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__physique__personnage_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Integration_2test__physique__personnage_8cpp">
-<area shape="rect" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="1529,5,1751,75"/>
+<area shape="rect" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="2361,5,2583,75"/>
 <area shape="rect" title=" " alt="" coords="5,130,91,155"/>
-<area shape="poly" title=" " alt="" coords="1529,46,1217,55,807,71,404,94,236,108,110,125,94,129,93,124,109,120,236,103,403,88,807,65,1217,50,1529,41"/>
-<area shape="rect" title=" " alt="" coords="3183,218,3273,243"/>
-<area shape="poly" title=" " alt="" coords="1751,40,2087,46,2518,59,2728,70,2911,83,3052,100,3102,109,3134,120,3161,138,3185,160,3217,205,3213,208,3180,163,3158,142,3132,125,3100,115,3051,105,2911,88,2727,75,2518,64,2087,51,1751,45"/>
-<area shape="rect" title=" " alt="" coords="1739,445,1826,471"/>
-<area shape="poly" title=" " alt="" coords="1665,73,1683,105,1700,143,1713,185,1719,229,1719,312,1723,347,1735,380,1767,433,1763,436,1731,382,1718,348,1713,313,1713,229,1708,187,1695,145,1678,107,1660,76"/>
-<area shape="rect" title=" " alt="" coords="2071,299,2129,324"/>
-<area shape="poly" title=" " alt="" coords="1684,73,1737,121,1767,158,1787,190,1808,220,1844,248,1898,274,1955,291,2011,301,2057,306,2057,311,2010,306,1954,296,1896,279,1841,253,1804,224,1782,193,1763,161,1733,125,1680,77"/>
-<area shape="rect" title=" " alt="" coords="543,130,647,155"/>
-<area shape="poly" title=" " alt="" coords="1529,46,1360,52,1142,66,901,89,778,106,659,125,642,129,641,124,658,120,778,100,900,84,1142,60,1359,47,1529,41"/>
-<area shape="rect" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="1514,211,1678,251"/>
-<area shape="poly" title=" " alt="" coords="1645,75,1644,118,1636,163,1619,200,1614,198,1631,162,1638,117,1640,75"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="528,299,683,324"/>
-<area shape="poly" title=" " alt="" coords="1528,46,1177,54,732,69,520,80,341,93,213,108,174,116,155,125,139,145,133,164,134,181,142,197,156,212,177,225,232,249,300,268,374,282,515,300,514,306,374,288,299,273,230,254,174,230,153,216,137,200,129,183,127,163,135,143,152,121,172,111,212,103,340,88,520,75,732,64,1177,49,1528,41"/>
-<area shape="rect" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="954,123,1118,163"/>
-<area shape="poly" title=" " alt="" coords="1529,61,1132,125,1131,120,1528,55"/>
-<area shape="rect" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="166,123,330,163"/>
-<area shape="poly" title=" " alt="" coords="1528,46,1312,52,1020,66,686,89,344,125,344,120,685,84,1019,61,1312,47,1528,41"/>
-<area shape="rect" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="354,123,518,163"/>
-<area shape="poly" title=" " alt="" coords="1529,48,1342,56,1096,71,817,93,532,125,531,120,816,88,1095,65,1341,51,1528,42"/>
-<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="1372,123,1577,163"/>
-<area shape="poly" title=" " alt="" coords="1586,77,1519,118,1516,113,1583,73"/>
-<area shape="rect" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="1279,218,1489,243"/>
-<area shape="poly" title=" " alt="" coords="1636,76,1621,122,1608,145,1591,165,1567,183,1541,197,1486,217,1484,212,1539,193,1565,178,1587,161,1604,142,1616,119,1631,74"/>
-<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="2224,130,2355,155"/>
-<area shape="poly" title=" " alt="" coords="1752,56,2211,127,2210,132,1751,61"/>
-<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="2719,130,2996,155"/>
-<area shape="poly" title=" " alt="" coords="1752,48,2706,126,2706,132,1752,53"/>
-<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="2959,218,3108,243"/>
-<area shape="poly" title=" " alt="" coords="1752,38,2065,39,2460,48,2650,59,2815,73,2940,94,2983,106,3010,121,3024,139,3033,161,3038,204,3033,204,3028,162,3020,142,3006,125,2981,111,2939,99,2815,79,2650,64,2460,54,2065,44,1752,43"/>
-<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="3275,299,3442,324"/>
-<area shape="poly" title=" " alt="" coords="1752,41,2067,49,2467,64,2661,74,2831,87,2962,102,3008,111,3038,120,3063,134,3082,149,3108,182,3133,216,3149,232,3172,248,3229,275,3287,293,3286,298,3227,280,3169,253,3146,237,3129,219,3104,185,3078,153,3060,138,3036,125,3006,116,2961,108,2831,92,2661,80,2467,69,2067,54,1752,46"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="3420,372,3588,397"/>
-<area shape="poly" title=" " alt="" coords="1751,39,2208,43,2817,55,3112,65,3363,79,3543,97,3599,108,3627,121,3639,135,3646,151,3649,184,3641,219,3624,253,3602,287,3577,317,3529,365,3526,361,3573,314,3598,283,3620,251,3636,217,3644,184,3641,153,3634,138,3624,125,3597,113,3542,102,3362,84,3112,70,2817,60,2208,48,1751,44"/>
-<area shape="rect" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="3203,130,3395,155"/>
-<area shape="poly" title=" " alt="" coords="1752,40,2008,47,2363,60,2771,84,2980,100,3184,120,3223,125,3223,130,3184,125,2979,106,2770,89,2363,66,2008,52,1752,46"/>
-<area shape="rect" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="671,130,879,155"/>
-<area shape="poly" title=" " alt="" coords="1529,55,1242,84,898,125,860,131,859,125,897,120,1242,79,1528,49"/>
-<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="697,218,852,243"/>
-<area shape="poly" title=" " alt="" coords="1529,50,1380,59,1210,75,1053,97,990,110,942,125,927,133,917,143,892,165,810,214,807,209,889,161,913,139,924,129,940,120,989,105,1052,92,1210,70,1380,54,1528,44"/>
-<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="3419,130,3613,155"/>
-<area shape="poly" title=" " alt="" coords="1752,39,2040,43,2450,55,2925,79,3168,97,3407,120,3444,125,3444,130,3406,125,3168,103,2924,85,2450,60,2040,48,1751,44"/>
-<area shape="rect" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn." alt="" coords="1143,130,1348,155"/>
-<area shape="poly" title=" " alt="" coords="1529,72,1304,129,1303,124,1528,67"/>
-<area shape="poly" title=" " alt="" coords="1514,252,1502,253,1275,278,1050,295,697,310,697,305,1050,289,1275,272,1501,248,1513,246"/>
-<area shape="poly" title=" " alt="" coords="289,160,569,290,567,295,287,165"/>
-<area shape="poly" title=" " alt="" coords="457,161,586,287,582,291,454,165"/>
-<area shape="poly" title=" " alt="" coords="1456,165,1408,210,1405,206,1453,161"/>
-<area shape="rect" title=" " alt="" coords="1855,218,1932,243"/>
-<area shape="poly" title=" " alt="" coords="2224,156,2095,179,1946,213,1936,216,1935,211,1945,208,2094,174,2224,151"/>
-<area shape="rect" title=" " alt="" coords="1957,218,2043,243"/>
-<area shape="poly" title=" " alt="" coords="2248,158,2057,213,2047,216,2046,211,2055,208,2247,153"/>
-<area shape="rect" title=" " alt="" coords="2067,218,2191,243"/>
-<area shape="poly" title=" " alt="" coords="2269,158,2164,214,2162,209,2267,153"/>
-<area shape="rect" title=" " alt="" coords="2827,372,2890,397"/>
-<area shape="poly" title=" " alt="" coords="2355,142,2428,146,2516,157,2609,177,2700,208,2735,226,2761,245,2810,297,2832,328,2850,358,2845,361,2828,331,2806,300,2758,249,2733,231,2698,213,2608,182,2515,162,2428,152,2355,147"/>
-<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="1753,372,1943,397"/>
-<area shape="poly" title=" " alt="" coords="2224,146,2124,149,2010,159,1956,168,1908,179,1870,194,1845,212,1834,229,1828,247,1825,287,1831,326,1841,358,1836,360,1826,327,1819,287,1822,246,1829,226,1841,209,1867,189,1906,174,1955,162,2009,154,2124,144,2224,141"/>
-<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="2284,299,2481,324"/>
-<area shape="poly" title=" " alt="" coords="2356,147,2418,156,2484,168,2541,186,2562,196,2577,209,2586,226,2585,241,2577,255,2562,267,2522,285,2473,298,2471,293,2520,280,2560,262,2573,251,2580,240,2580,227,2573,212,2559,201,2539,191,2483,173,2417,161,2355,153"/>
-<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="2504,372,2635,397"/>
-<area shape="poly" title=" " alt="" coords="2355,146,2423,154,2496,166,2559,184,2583,195,2599,209,2605,221,2606,237,2602,278,2580,359,2575,358,2597,277,2601,237,2600,222,2595,212,2580,200,2557,189,2495,171,2422,159,2354,151"/>
-<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="2607,299,2795,324"/>
-<area shape="poly" title=" " alt="" coords="2355,145,2438,152,2531,164,2615,182,2648,194,2671,209,2685,225,2694,245,2703,284,2698,285,2689,247,2681,228,2668,213,2645,199,2614,187,2530,169,2438,157,2354,150"/>
-<area shape="rect" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="2216,218,2363,243"/>
-<area shape="poly" title=" " alt="" coords="2292,156,2292,204,2287,204,2287,156"/>
-<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="2437,218,2563,243"/>
-<area shape="poly" title=" " alt="" coords="2319,153,2460,210,2458,215,2317,158"/>
-<area shape="poly" title=" " alt="" coords="1839,399,1804,437,1801,433,1835,396"/>
-<area shape="poly" title=" " alt="" coords="2460,321,2814,374,2813,379,2459,327"/>
-<area shape="poly" title=" " alt="" coords="2297,327,1948,373,1948,367,2296,321"/>
-<area shape="rect" title=" " alt="" coords="2131,372,2202,397"/>
-<area shape="poly" title=" " alt="" coords="2349,327,2215,370,2214,365,2347,321"/>
-<area shape="poly" title=" " alt="" coords="2414,322,2527,365,2525,369,2412,327"/>
-<area shape="rect" title=" " alt="" coords="2601,445,2668,471"/>
-<area shape="poly" title=" " alt="" coords="2582,396,2617,433,2613,437,2578,399"/>
-<area shape="poly" title=" " alt="" coords="2728,322,2822,364,2820,369,2726,326"/>
-<area shape="poly" title=" " alt="" coords="2681,326,2604,368,2602,363,2679,322"/>
-<area shape="poly" title=" " alt="" coords="2698,326,2648,434,2643,432,2693,323"/>
-<area shape="poly" title=" " alt="" coords="2453,246,2419,253,2284,277,2149,301,2143,302,2142,297,2147,296,2283,272,2418,248,2452,241"/>
-<area shape="poly" title=" " alt="" coords="2484,246,2413,293,2410,289,2481,241"/>
-<area shape="poly" title=" " alt="" coords="2452,246,2419,253,2384,259,2352,260,2297,260,2272,262,2247,268,2222,280,2195,301,2185,313,2178,328,2171,359,2165,357,2173,326,2180,310,2191,297,2219,275,2246,263,2271,256,2297,254,2352,255,2383,254,2418,248,2450,241"/>
-<area shape="poly" title=" " alt="" coords="2508,242,2561,358,2556,360,2503,244"/>
-<area shape="rect" title=" " alt="" coords="2205,299,2259,324"/>
-<area shape="poly" title=" " alt="" coords="2462,246,2274,301,2272,296,2460,241"/>
-<area shape="rect" title=" " alt="" coords="2922,299,2982,324"/>
-<area shape="poly" title=" " alt="" coords="2563,240,2908,300,2908,305,2562,245"/>
-<area shape="poly" title=" " alt="" coords="2860,156,2861,358,2856,358,2855,156"/>
-<area shape="poly" title=" " alt="" coords="2719,150,2649,157,2575,169,2499,187,2426,213,2412,222,2402,233,2392,243,2376,253,2328,267,2283,270,2241,265,2202,258,2165,254,2129,256,2095,270,2061,300,2055,310,2055,318,2067,336,2090,352,2119,365,2117,370,2088,356,2063,340,2050,320,2050,308,2057,297,2092,266,2128,251,2165,248,2203,253,2242,260,2283,264,2327,262,2374,248,2388,239,2398,229,2408,218,2424,208,2497,182,2573,164,2649,152,2718,145"/>
-<area shape="poly" title=" " alt="" coords="2882,153,2998,209,2996,214,2880,158"/>
-<area shape="poly" title=" " alt="" coords="2865,154,2896,201,2920,227,2948,248,3066,269,3262,295,3261,300,3065,274,2946,253,2916,231,2892,204,2861,157"/>
-<area shape="poly" title=" " alt="" coords="3034,244,3023,283,3012,306,2997,326,2976,343,2952,357,2904,376,2902,371,2949,352,2972,339,2993,322,3007,303,3018,281,3029,243"/>
-<area shape="poly" title=" " alt="" coords="3023,245,2976,291,2972,287,3019,242"/>
-<area shape="rect" title=" " alt="" coords="3492,299,3551,324"/>
-<area shape="poly" title=" " alt="" coords="3107,241,3455,296,3478,300,3478,305,3454,301,3106,246"/>
-<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="3058,299,3251,324"/>
-<area shape="poly" title=" " alt="" coords="3053,241,3127,289,3124,293,3050,246"/>
-<area shape="poly" title=" " alt="" coords="3081,241,3299,293,3297,298,3080,246"/>
-<area shape="poly" title=" " alt="" coords="3279,327,2904,380,2903,374,3278,321"/>
-<area shape="poly" title=" " alt="" coords="3383,322,3469,364,3467,368,3381,326"/>
-<area shape="poly" title=" " alt="" coords="3291,157,3249,209,3244,205,3287,154"/>
-<area shape="poly" title=" " alt="" coords="3264,158,3083,216,3081,211,3262,153"/>
-<area shape="poly" title=" " alt="" coords="3357,153,3445,176,3484,192,3509,209,3519,227,3525,247,3527,285,3522,285,3520,248,3515,229,3505,212,3481,196,3444,181,3356,158"/>
-<area shape="rect" title=" " alt="" coords="3420,218,3495,243"/>
-<area shape="poly" title=" " alt="" coords="3321,153,3425,209,3422,214,3319,158"/>
-<area shape="rect" title=" " alt="" coords="3298,218,3395,243"/>
-<area shape="poly" title=" " alt="" coords="3307,154,3336,204,3331,207,3303,157"/>
-<area shape="poly" title=" " alt="" coords="777,156,777,204,772,204,772,156"/>
-<area shape="poly" title=" " alt="" coords="751,246,643,295,641,291,749,241"/>
-<area shape="poly" title=" " alt="" coords="1208,158,1058,201,865,253,672,298,671,293,863,248,1056,196,1206,153"/>
+<area shape="poly" title=" " alt="" coords="2360,43,1898,44,1244,54,904,63,584,78,310,98,197,111,103,125,90,128,89,123,102,120,196,106,309,93,584,73,903,58,1244,48,1898,39,2360,38"/>
+<area shape="rect" title=" " alt="" coords="115,130,178,155"/>
+<area shape="poly" title=" " alt="" coords="2360,43,1914,44,1288,53,962,63,657,77,395,98,287,111,198,125,186,128,185,123,197,120,286,105,395,93,657,72,962,57,1288,47,1914,38,2360,38"/>
+<area shape="rect" title=" " alt="" coords="575,387,646,412"/>
+<area shape="poly" title=" " alt="" coords="2361,44,1864,46,1190,57,864,67,585,81,384,100,323,112,293,125,261,156,248,173,241,193,243,217,255,248,282,288,326,337,342,348,365,358,428,374,499,385,562,392,561,397,498,390,427,379,364,363,339,353,322,341,278,291,251,251,237,218,236,192,244,170,257,153,291,120,322,107,383,95,584,76,864,61,1190,51,1864,41,2361,39"/>
+<area shape="rect" title=" " alt="" coords="2311,218,2401,243"/>
+<area shape="poly" title=" " alt="" coords="2446,76,2412,124,2369,206,2364,204,2407,121,2442,73"/>
+<area shape="rect" title=" " alt="" coords="2202,460,2289,485"/>
+<area shape="poly" title=" " alt="" coords="2467,75,2443,171,2416,252,2380,312,2340,369,2268,452,2264,449,2336,365,2376,309,2411,250,2438,169,2462,74"/>
+<area shape="rect" title=" " alt="" coords="1053,306,1112,331"/>
+<area shape="poly" title=" " alt="" coords="2361,47,2183,54,1954,68,1698,91,1440,125,1384,132,1333,133,1245,133,1205,138,1168,151,1130,175,1093,212,1083,231,1078,251,1080,292,1074,292,1073,251,1078,229,1089,209,1127,171,1165,146,1204,133,1245,128,1333,127,1384,126,1440,120,1697,86,1953,62,2183,48,2360,41"/>
+<area shape="rect" title=" " alt="" coords="2465,130,2569,155"/>
+<area shape="poly" title=" " alt="" coords="2490,74,2509,116,2504,118,2485,76"/>
+<area shape="rect" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="3185,299,3349,339"/>
+<area shape="poly" title=" " alt="" coords="2584,38,2739,41,2916,53,3001,64,3078,78,3141,97,3187,121,3208,148,3229,192,3260,284,3255,286,3224,194,3204,151,3184,125,3139,102,3076,83,3000,69,2916,59,2739,47,2583,43"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="2999,387,3153,412"/>
+<area shape="poly" title=" " alt="" coords="2584,40,2676,46,2782,60,2893,84,2947,100,3000,120,3038,137,3068,153,3093,175,3116,209,3131,243,3137,273,3134,303,3124,340,3114,360,3100,378,3096,375,3109,358,3119,338,3129,302,3132,273,3126,245,3111,212,3089,178,3065,157,3036,142,2998,125,2946,105,2892,89,2781,65,2676,52,2584,45"/>
+<area shape="rect" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures)." alt="" coords="3357,123,3521,163"/>
+<area shape="poly" title=" " alt="" coords="2584,46,2921,73,3129,94,3338,120,3343,121,3342,126,3337,125,3129,100,2921,79,2583,51"/>
+<area shape="rect" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="3373,299,3537,339"/>
+<area shape="poly" title=" " alt="" coords="2584,42,2743,49,2927,63,3098,86,3167,102,3218,120,3242,134,3260,149,3286,180,3309,213,3344,249,3407,290,3404,294,3341,253,3305,217,3281,183,3256,152,3239,138,3216,125,3165,107,3097,92,2927,69,2743,55,2583,47"/>
+<area shape="rect" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures)." alt="" coords="3355,211,3519,251"/>
+<area shape="poly" title=" " alt="" coords="2584,43,2757,52,2960,67,3151,89,3229,104,3288,120,3401,200,3398,205,3286,125,3228,109,3150,95,2960,72,2757,57,2583,48"/>
+<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="3596,123,3801,163"/>
+<area shape="poly" title=" " alt="" coords="2584,44,3020,70,3298,92,3578,120,3582,121,3582,126,3577,125,3297,98,3019,76,2584,49"/>
+<area shape="rect" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="3568,218,3779,243"/>
+<area shape="poly" title=" " alt="" coords="2583,39,2807,44,3082,56,3219,66,3345,80,3452,98,3533,120,3550,129,3561,138,3586,161,3648,208,3645,212,3582,165,3558,142,3547,133,3531,125,3451,103,3345,85,3219,72,3082,61,2807,49,2583,45"/>
+<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="1452,130,1583,155"/>
+<area shape="poly" title=" " alt="" coords="2361,56,1597,136,1596,130,2360,50"/>
+<area shape="rect" href="BlockController_8h.html" title="Comportement des blocs poussables : position, poussée et chute (EX&#45;GP&#45;022)." alt="" coords="666,130,905,155"/>
+<area shape="poly" title=" " alt="" coords="2361,48,1766,75,1370,98,968,125,902,131,901,126,968,120,1370,92,1766,70,2360,43"/>
+<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="856,218,1005,243"/>
+<area shape="poly" title=" " alt="" coords="2360,46,2039,54,1631,69,1432,80,1258,92,1125,108,1078,116,1048,125,1017,142,990,164,949,209,945,205,987,160,1014,138,1046,120,1077,111,1124,102,1258,87,1432,74,1630,64,2039,49,2360,41"/>
+<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="406,306,573,331"/>
+<area shape="poly" title=" " alt="" coords="2361,45,1960,51,1428,64,1166,75,935,88,758,105,695,115,654,125,597,166,543,212,518,254,500,294,495,292,513,251,539,209,594,162,652,120,694,109,757,100,935,83,1166,70,1428,59,1960,46,2361,40"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="257,387,425,412"/>
+<area shape="poly" title=" " alt="" coords="2361,44,1856,47,1169,59,836,69,550,83,344,102,281,113,250,125,228,152,222,180,227,212,237,250,252,288,274,322,321,376,317,379,270,325,248,290,232,252,222,213,217,180,223,150,246,121,279,108,343,96,550,78,835,63,1169,53,1856,42,2361,39"/>
+<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="304,130,581,155"/>
+<area shape="poly" title=" " alt="" coords="2361,46,2057,53,1622,68,1116,91,600,125,542,131,541,126,600,120,1115,86,1621,62,2057,48,2360,41"/>
+<area shape="rect" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="2091,130,2283,155"/>
+<area shape="poly" title=" " alt="" coords="2377,77,2233,128,2231,123,2376,72"/>
+<area shape="rect" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="2871,218,3079,243"/>
+<area shape="poly" title=" " alt="" coords="2584,48,2647,57,2716,72,2786,92,2853,120,2885,139,2914,162,2958,206,2954,210,2910,166,2882,144,2851,125,2785,97,2715,77,2646,62,2583,53"/>
+<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="2725,306,2880,331"/>
+<area shape="poly" title=" " alt="" coords="2584,51,2652,62,2719,77,2775,96,2795,108,2810,121,2822,141,2830,164,2833,211,2826,257,2815,294,2810,292,2820,256,2827,211,2824,165,2818,144,2806,124,2792,112,2772,101,2717,82,2651,67,2583,56"/>
+<area shape="rect" href="AabbVsAabb_8h.html" title="Collision continue d&#39;une boîte AABB mobile contre une boîte AABB fixe (EX&#45;GP&#45;005),..." alt="" coords="2593,130,2796,155"/>
+<area shape="poly" title=" " alt="" coords="2548,72,2658,122,2656,127,2546,77"/>
+<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="3825,130,4020,155"/>
+<area shape="poly" title=" " alt="" coords="2584,41,2809,49,3115,63,3462,87,3814,120,3850,125,3849,130,3813,125,3462,92,3114,69,2809,54,2584,47"/>
+<area shape="rect" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn." alt="" coords="2904,306,3109,331"/>
+<area shape="poly" title=" " alt="" coords="2584,52,2724,73,2878,106,2950,127,3012,151,3061,178,3080,193,3093,209,3100,230,3093,252,3072,280,3044,301,3041,297,3068,276,3088,249,3095,230,3088,212,3076,197,3058,183,3010,156,2948,132,2877,111,2723,78,2583,57"/>
+<area shape="poly" title=" " alt="" coords="3222,341,3118,384,3116,379,3220,336"/>
+<area shape="poly" title=" " alt="" coords="3373,340,3145,387,3144,381,3372,334"/>
+<area shape="poly" title=" " alt="" coords="3482,248,3515,266,3543,288,3553,300,3558,314,3558,327,3550,341,3531,351,3497,360,3397,376,3167,396,3167,390,3397,371,3496,355,3529,346,3546,337,3553,326,3553,314,3548,303,3539,292,3512,271,3480,253"/>
+<area shape="poly" title=" " alt="" coords="3696,164,3683,205,3678,204,3690,162"/>
+<area shape="rect" title=" " alt="" coords="1775,218,1852,243"/>
+<area shape="poly" title=" " alt="" coords="1564,153,1657,177,1763,208,1771,211,1770,216,1762,213,1655,182,1563,158"/>
+<area shape="rect" title=" " alt="" coords="1877,218,1963,243"/>
+<area shape="poly" title=" " alt="" coords="1584,151,1714,174,1865,208,1876,211,1875,216,1863,213,1713,180,1583,157"/>
+<area shape="rect" title=" " alt="" coords="1455,218,1579,243"/>
+<area shape="poly" title=" " alt="" coords="1520,156,1520,204,1515,204,1515,156"/>
+<area shape="rect" title=" " alt="" coords="899,387,962,412"/>
+<area shape="poly" title=" " alt="" coords="1453,152,1421,160,1390,171,1361,189,1338,212,1331,228,1330,244,1341,275,1351,307,1349,324,1339,340,1314,359,1276,373,1229,384,1176,391,1067,399,976,401,976,396,1067,394,1175,386,1228,378,1274,368,1311,354,1335,337,1344,322,1346,307,1336,277,1325,245,1326,227,1334,209,1358,184,1387,166,1420,154,1451,147"/>
+<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="1957,387,2147,412"/>
+<area shape="poly" title=" " alt="" coords="1583,143,1683,148,1799,160,1905,179,1946,192,1976,209,1994,226,2010,246,2032,290,2045,335,2052,372,2047,373,2040,336,2027,292,2005,249,1990,229,1973,213,1944,197,1903,184,1798,165,1683,154,1583,148"/>
+<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="1451,306,1648,331"/>
+<area shape="poly" title=" " alt="" coords="1464,158,1415,173,1371,193,1355,205,1345,219,1343,233,1350,249,1369,264,1401,278,1479,300,1477,305,1399,283,1366,269,1346,252,1338,234,1340,217,1351,202,1368,188,1413,168,1462,153"/>
+<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="1599,387,1729,412"/>
+<area shape="poly" title=" " alt="" coords="1500,158,1475,177,1451,200,1438,226,1438,238,1445,249,1469,271,1494,286,1519,293,1546,296,1600,288,1657,272,1713,256,1769,248,1796,251,1823,259,1849,274,1874,297,1885,315,1883,332,1872,347,1854,359,1802,377,1744,390,1743,385,1801,372,1851,354,1869,343,1878,330,1879,317,1870,300,1846,278,1821,264,1795,256,1769,254,1714,261,1658,277,1602,294,1546,301,1518,299,1492,290,1466,275,1441,252,1433,239,1433,225,1447,197,1471,172,1497,153"/>
+<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="1673,306,1861,331"/>
+<area shape="poly" title=" " alt="" coords="1487,158,1450,175,1415,197,1402,210,1395,223,1394,236,1400,249,1689,301,1689,306,1397,253,1389,237,1390,221,1398,207,1412,193,1448,170,1485,153"/>
+<area shape="rect" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="1604,218,1751,243"/>
+<area shape="poly" title=" " alt="" coords="1540,153,1645,209,1642,214,1538,158"/>
+<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="1103,218,1228,243"/>
+<area shape="poly" title=" " alt="" coords="1471,158,1226,217,1225,212,1470,153"/>
+<area shape="poly" title=" " alt="" coords="2084,410,2202,453,2200,458,2082,415"/>
+<area shape="poly" title=" " alt="" coords="1451,331,1338,341,660,397,659,391,1337,336,1450,326"/>
+<area shape="poly" title=" " alt="" coords="1460,334,976,395,975,390,1459,329"/>
+<area shape="poly" title=" " alt="" coords="1616,329,1660,336,1961,382,1960,387,1660,341,1615,334"/>
+<area shape="poly" title=" " alt="" coords="1568,329,1637,377,1634,381,1565,334"/>
+<area shape="rect" title=" " alt="" coords="1683,460,1749,485"/>
+<area shape="poly" title=" " alt="" coords="1675,411,1702,447,1697,450,1670,414"/>
+<area shape="poly" title=" " alt="" coords="1708,334,1660,341,1461,363,1264,380,976,398,975,393,1264,375,1460,358,1660,336,1707,329"/>
+<area shape="poly" title=" " alt="" coords="1753,334,1692,380,1689,376,1750,329"/>
+<area shape="poly" title=" " alt="" coords="1767,332,1744,413,1730,449,1725,447,1739,411,1761,331"/>
+<area shape="poly" title=" " alt="" coords="1167,244,1157,292,1145,318,1126,341,1099,351,1054,361,924,377,660,398,659,393,923,372,1053,356,1098,346,1122,336,1141,316,1152,290,1162,243"/>
+<area shape="poly" title=" " alt="" coords="1156,245,1106,297,1102,294,1152,242"/>
+<area shape="poly" title=" " alt="" coords="1217,241,1486,300,1485,306,1216,246"/>
+<area shape="poly" title=" " alt="" coords="1196,241,1338,296,1389,317,1439,336,1601,381,1600,386,1438,341,1387,322,1336,301,1194,246"/>
+<area shape="rect" title=" " alt="" coords="1187,306,1242,331"/>
+<area shape="poly" title=" " alt="" coords="1174,242,1203,292,1199,295,1170,245"/>
+<area shape="rect" title=" " alt="" coords="969,306,1029,331"/>
+<area shape="poly" title=" " alt="" coords="1144,246,1035,302,1032,297,1142,241"/>
+<area shape="poly" title=" " alt="" coords="761,158,722,180,686,212,660,253,640,297,618,374,613,373,635,296,655,250,682,209,719,176,758,153"/>
+<area shape="poly" title=" " alt="" coords="773,157,737,190,699,237,685,263,677,289,677,314,689,337,701,347,720,357,772,372,886,391,885,396,771,378,718,362,698,352,685,340,672,315,671,288,680,261,694,234,733,187,769,153"/>
+<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="699,306,893,331"/>
+<area shape="poly" title=" " alt="" coords="789,155,797,292,792,292,783,156"/>
+<area shape="poly" title=" " alt="" coords="806,153,900,209,898,213,804,158"/>
+<area shape="poly" title=" " alt="" coords="732,158,663,179,627,194,593,213,568,232,545,254,508,296,504,293,541,250,565,228,591,208,625,190,662,174,730,153"/>
+<area shape="poly" title=" " alt="" coords="933,243,933,373,928,373,928,243"/>
+<area shape="poly" title=" " alt="" coords="942,242,983,293,978,296,938,245"/>
+<area shape="poly" title=" " alt="" coords="914,246,827,301,824,296,911,241"/>
+<area shape="rect" title=" " alt="" coords="1267,306,1325,331"/>
+<area shape="poly" title=" " alt="" coords="1006,240,1124,262,1254,296,1261,298,1259,303,1253,301,1122,267,1005,246"/>
+<area shape="poly" title=" " alt="" coords="872,246,562,306,561,301,871,241"/>
+<area shape="poly" title=" " alt="" coords="554,329,886,387,886,393,553,334"/>
+<area shape="poly" title=" " alt="" coords="469,334,377,382,374,378,466,329"/>
+<area shape="poly" title=" " alt="" coords="416,158,380,179,364,194,352,212,336,247,329,277,333,306,351,337,365,348,385,358,440,373,504,385,562,391,561,397,503,390,439,379,383,363,362,352,347,340,328,308,324,277,331,245,347,209,360,191,377,175,413,153"/>
+<area shape="poly" title=" " alt="" coords="436,157,412,192,388,240,381,266,378,292,383,316,395,337,420,349,467,360,606,377,761,388,886,394,885,399,761,393,605,382,466,365,418,354,392,341,378,318,373,292,375,265,383,238,407,189,431,154"/>
+<area shape="poly" title=" " alt="" coords="508,153,853,213,852,218,508,158"/>
+<area shape="poly" title=" " alt="" coords="448,155,485,292,480,293,443,156"/>
+<area shape="poly" title=" " alt="" coords="2211,153,2322,209,2320,214,2208,158"/>
+<area shape="poly" title=" " alt="" coords="2091,151,1657,173,1376,191,1091,213,1019,221,1019,215,1090,208,1375,186,1657,168,2090,145"/>
+<area shape="poly" title=" " alt="" coords="2171,158,2089,206,2034,232,1975,253,1896,273,1828,285,1767,290,1710,292,1590,292,1521,294,1439,301,1339,314,1339,309,1438,296,1520,289,1590,287,1710,287,1767,285,1827,280,1895,268,1974,248,2032,227,2087,201,2168,153"/>
+<area shape="rect" title=" " alt="" coords="2212,218,2287,243"/>
+<area shape="poly" title=" " alt="" coords="2197,154,2235,205,2230,208,2193,157"/>
+<area shape="rect" title=" " alt="" coords="2090,218,2187,243"/>
+<area shape="poly" title=" " alt="" coords="2183,157,2154,207,2150,204,2178,154"/>
+<area shape="poly" title=" " alt="" coords="2953,246,2839,302,2837,297,2950,241"/>
+<area shape="poly" title=" " alt="" coords="2843,329,3024,380,3022,385,2842,334"/>
+<area shape="poly" title=" " alt="" coords="2631,158,2582,172,2539,191,2523,204,2514,217,2511,232,2517,249,2547,288,2579,308,2669,336,2751,359,2835,376,2915,386,2985,392,2985,397,2914,391,2834,381,2749,365,2667,341,2577,313,2543,291,2512,252,2506,233,2509,215,2520,200,2536,187,2580,167,2629,153"/>
+<area shape="poly" title=" " alt="" coords="2710,154,2734,178,2758,209,2781,252,2797,292,2792,294,2776,254,2754,212,2730,182,2706,158"/>
+<area shape="rect" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides." alt="" coords="2527,218,2745,243"/>
+<area shape="poly" title=" " alt="" coords="2689,157,2654,208,2650,205,2685,154"/>
+<area shape="poly" title=" " alt="" coords="2643,242,2669,289,2689,315,2715,336,2762,355,2831,369,2985,388,2984,394,2830,375,2761,360,2712,341,2686,319,2664,292,2638,245"/>
+<area shape="poly" title=" " alt="" coords="2660,241,2769,297,2767,302,2657,246"/>
+<area shape="poly" title=" " alt="" coords="3019,330,3059,375,3055,378,3015,333"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -320,19 +342,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:a029cff622b9b3330de8fd332e7d03f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans mur, la logique de wall jump ne s'active pas (et sans saut aérien, aucun saut en l'air).  <br /></td></tr>
 <tr class="separator:a029cff622b9b3330de8fd332e7d03f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addc88f36477d3a63d54b15a7333e832a" id="r_addc88f36477d3a63d54b15a7333e832a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#addc88f36477d3a63d54b15a7333e832a">TEST</a> (PhysiquePersonnageIntegration, Niveau2FranchissableAvecSaut)</td></tr>
-<tr class="memdesc:addc88f36477d3a63d54b15a7333e832a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.  <br /></td></tr>
+<tr class="memdesc:addc88f36477d3a63d54b15a7333e832a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau saut est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.  <br /></td></tr>
 <tr class="separator:addc88f36477d3a63d54b15a7333e832a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a727c71a3ade7982c9ae8eb04669a7545" id="r_a727c71a3ade7982c9ae8eb04669a7545"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a727c71a3ade7982c9ae8eb04669a7545">TEST</a> (PhysiquePersonnageIntegration, Niveau2RequiertLeSaut)</td></tr>
-<tr class="memdesc:a727c71a3ade7982c9ae8eb04669a7545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.  <br /></td></tr>
+<tr class="memdesc:a727c71a3ade7982c9ae8eb04669a7545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau saut <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.  <br /></td></tr>
 <tr class="separator:a727c71a3ade7982c9ae8eb04669a7545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9477da806cbe7c9a10957f43a8c8b25b" id="r_a9477da806cbe7c9a10957f43a8c8b25b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a9477da806cbe7c9a10957f43a8c8b25b">TEST</a> (PhysiquePersonnageIntegration, Niveau3FranchissableAvecDash)</td></tr>
-<tr class="memdesc:a9477da806cbe7c9a10957f43a8c8b25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.  <br /></td></tr>
+<tr class="memdesc:a9477da806cbe7c9a10957f43a8c8b25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau dash (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.  <br /></td></tr>
 <tr class="separator:a9477da806cbe7c9a10957f43a8c8b25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a781fce7997057c9bcf7099d933c1cb17" id="r_a781fce7997057c9bcf7099d933c1cb17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a781fce7997057c9bcf7099d933c1cb17">TEST</a> (PhysiquePersonnageIntegration, Niveau3RequiertLeDash)</td></tr>
-<tr class="memdesc:a781fce7997057c9bcf7099d933c1cb17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.  <br /></td></tr>
+<tr class="memdesc:a781fce7997057c9bcf7099d933c1cb17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau dash <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.  <br /></td></tr>
 <tr class="separator:a781fce7997057c9bcf7099d933c1cb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e508644de4c4f901c0d9970e0d3b183" id="r_a3e508644de4c4f901c0d9970e0d3b183"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a3e508644de4c4f901c0d9970e0d3b183">TEST</a> (PhysiquePersonnageIntegration, Niveau4FranchissableAvecInterrupteur)</td></tr>
-<tr class="memdesc:a3e508644de4c4f901c0d9970e0d3b183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.  <br /></td></tr>
+<tr class="memdesc:a3e508644de4c4f901c0d9970e0d3b183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.  <br /></td></tr>
 <tr class="separator:a3e508644de4c4f901c0d9970e0d3b183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41d8c2dcddf3c70a7121fefc740bf252" id="r_a41d8c2dcddf3c70a7121fefc740bf252"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a41d8c2dcddf3c70a7121fefc740bf252">TEST</a> (PhysiquePersonnageIntegration, PorteFermeeBloque)</td></tr>
 <tr class="memdesc:a41d8c2dcddf3c70a7121fefc740bf252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une porte <b>fermée</b> (interrupteur non touché) <b>bloque</b> : la sortie reste inatteignable.  <br /></td></tr>
@@ -364,13 +386,49 @@ Functions</h2></td></tr>
 <tr class="memitem:ae53032cbae45c9d877b519b2cdea39d0" id="r_ae53032cbae45c9d877b519b2cdea39d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#ae53032cbae45c9d877b519b2cdea39d0">TEST</a> (PhysiquePersonnageIntegration, SuitUnArrondiAscendantEnMarchant)</td></tr>
 <tr class="memdesc:ae53032cbae45c9d877b519b2cdea39d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe distincte d'une pente linéaire, sans le traverser (<code>EX-GP-004</code>).  <br /></td></tr>
 <tr class="separator:ae53032cbae45c9d877b519b2cdea39d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c76fbac75e8e93a3fcc0cf43aa2fa8" id="r_a51c76fbac75e8e93a3fcc0cf43aa2fa8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a51c76fbac75e8e93a3fcc0cf43aa2fa8">TEST</a> (PhysiquePersonnageIntegration, NiveauPenteFranchissable)</td></tr>
+<tr class="memdesc:a51c76fbac75e8e93a3fcc0cf43aa2fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau pente est franchissable en marchant : la pente mène au palier surélevé sans saut (<code>EX-GP-003</code>).  <br /></td></tr>
+<tr class="separator:a51c76fbac75e8e93a3fcc0cf43aa2fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f81ce05ad74458cdb3e141a4568d61d" id="r_a3f81ce05ad74458cdb3e141a4568d61d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a3f81ce05ad74458cdb3e141a4568d61d">TEST</a> (PhysiquePersonnageIntegration, NiveauPlaquePressionFranchissable)</td></tr>
+<tr class="memdesc:a3f81ce05ad74458cdb3e141a4568d61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau plaque de pression est franchissable : marcher dessus ouvre la porte qui surplombe le mur bloquant, le temps de sauter par-dessus (<code>EX-GP-025</code>).  <br /></td></tr>
+<tr class="separator:a3f81ce05ad74458cdb3e141a4568d61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870828bbb17a11560278ee683247d3d1" id="r_a870828bbb17a11560278ee683247d3d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a870828bbb17a11560278ee683247d3d1">TEST</a> (PhysiquePersonnageIntegration, NiveauPlaquePressionExigeUnSaut)</td></tr>
+<tr class="memdesc:a870828bbb17a11560278ee683247d3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau plaque de pression <b>exige</b> de sauter par-dessus le mur : marcher seul (sans jamais sauter) reste bloqué contre le mur, même une fois la plaque activée (<code>EX-GP-025</code>).  <br /></td></tr>
+<tr class="separator:a870828bbb17a11560278ee683247d3d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3c4738505b10744ad3c9f3bad09a3bd" id="r_aa3c4738505b10744ad3c9f3bad09a3bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#aa3c4738505b10744ad3c9f3bad09a3bd">TEST</a> (PhysiquePersonnageIntegration, NiveauArrondiFranchissable)</td></tr>
+<tr class="memdesc:aa3c4738505b10744ad3c9f3bad09a3bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau arrondi est franchissable en marchant : la courbe mène au palier surélevé sans saut (<code>EX-GP-004</code>).  <br /></td></tr>
+<tr class="separator:aa3c4738505b10744ad3c9f3bad09a3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc962a63bd3c6829b39e69417d1a20f" id="r_a7cc962a63bd3c6829b39e69417d1a20f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a7cc962a63bd3c6829b39e69417d1a20f">TEST</a> (PhysiquePersonnageIntegration, NiveauDoubleSautFranchissable)</td></tr>
+<tr class="memdesc:a7cc962a63bd3c6829b39e69417d1a20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien (<code>EX-GP-015</code>) : un mur trop haut pour un seul saut devient franchissable.  <br /></td></tr>
+<tr class="separator:a7cc962a63bd3c6829b39e69417d1a20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e09736da7a7bcb1a4681d553c23f77" id="r_aa3e09736da7a7bcb1a4681d553c23f77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#aa3e09736da7a7bcb1a4681d553c23f77">TEST</a> (PhysiquePersonnageIntegration, NiveauDoubleSautRequiertLeSautAerien)</td></tr>
+<tr class="memdesc:aa3e09736da7a7bcb1a4681d553c23f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau double saut <b>exige</b> le saut aérien : un seul saut (au sol) ne suffit pas à franchir le mur (<code>EX-GP-015</code>).  <br /></td></tr>
+<tr class="separator:aa3e09736da7a7bcb1a4681d553c23f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08ee34d13498299b259686d74eb0cfa2" id="r_a08ee34d13498299b259686d74eb0cfa2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a08ee34d13498299b259686d74eb0cfa2">TEST</a> (PhysiquePersonnageIntegration, NiveauWallJumpFranchissable)</td></tr>
+<tr class="memdesc:a08ee34d13498299b259686d74eb0cfa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau wall jump est franchissable en enchaînant wall slide et wall jump entre les deux parois du puits (<code>EX-GP-016</code>).  <br /></td></tr>
+<tr class="separator:a08ee34d13498299b259686d74eb0cfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd727be344e888007f94813e4267795" id="r_a8cd727be344e888007f94813e4267795"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a8cd727be344e888007f94813e4267795">TEST</a> (PhysiquePersonnageIntegration, NiveauBlocFranchissable)</td></tr>
+<tr class="memdesc:a8cd727be344e888007f94813e4267795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche (<code>EX-GP-022</code>).  <br /></td></tr>
+<tr class="separator:a8cd727be344e888007f94813e4267795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2e21fdcba7cf609189b3bbb58110fed" id="r_af2e21fdcba7cf609189b3bbb58110fed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#af2e21fdcba7cf609189b3bbb58110fed">TEST</a> (PhysiquePersonnageIntegration, NiveauBlocReduitFranchissable)</td></tr>
+<tr class="memdesc:af2e21fdcba7cf609189b3bbb58110fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau bloc à taille réduite est franchissable : poussé dans la fosse, il la comble à la hauteur du chemin, laissant l'espace franchissable autour (<code>EX-GP-005</code>).  <br /></td></tr>
+<tr class="separator:af2e21fdcba7cf609189b3bbb58110fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a243dee5840c029a98caa42c95f9f04d5" id="r_a243dee5840c029a98caa42c95f9f04d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#a243dee5840c029a98caa42c95f9f04d5">TEST</a> (PhysiquePersonnageIntegration, NiveauBudgetFranchissable)</td></tr>
+<tr class="memdesc:a243dee5840c029a98caa42c95f9f04d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau budget est franchissable avec exactement le budget de sauts prévu (<code>EX-GP-024</code>) : deux marches ascendantes, un saut par atterrissage sur terrain plat compris.  <br /></td></tr>
+<tr class="separator:a243dee5840c029a98caa42c95f9f04d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd1a980bce387c44b9e55aabfcd70e09" id="r_afd1a980bce387c44b9e55aabfcd70e09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#afd1a980bce387c44b9e55aabfcd70e09">TEST</a> (PhysiquePersonnageIntegration, NiveauBudgetRequiertLesDeuxSauts)</td></tr>
+<tr class="memdesc:afd1a980bce387c44b9e55aabfcd70e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau budget <b>exige</b> son budget de deux sauts : avec un seul saut autorisé, la seconde marche reste hors d'atteinte (<code>EX-GP-024</code>).  <br /></td></tr>
+<tr class="separator:afd1a980bce387c44b9e55aabfcd70e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87669cd84f84d1fc06d77f87a5fe6a8" id="r_ae87669cd84f84d1fc06d77f87a5fe6a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__physique__personnage_8cpp.html#ae87669cd84f84d1fc06d77f87a5fe6a8">TEST</a> (PhysiquePersonnageIntegration, NiveauFinalFranchissable)</td></tr>
+<tr class="memdesc:ae87669cd84f84d1fc06d77f87a5fe6a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau final combine dash, pente, bloc poussable, interrupteur/porte et double saut en un seul parcours cohérent, et reste franchissable de bout en bout.  <br /></td></tr>
+<tr class="separator:ae87669cd84f84d1fc06d77f87a5fe6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests d'intégration de la physique du personnage : ECS + grille + balayage assemblés. </p>
 <p>Le <code>CharacterPhysicsSystem</code> combine composants (<code>Player</code>/<code>Transform</code>/<code>Velocity</code>/<code>Collider</code>), grille de collision (<code>TileMap</code>) et résolution continue (<code>sweepAabb</code>). On vérifie de bout en bout la gravité, l'atterrissage, le blocage, la vitesse constante, le non-tunneling et le déterminisme. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a796bc6acbf10b2f6ae3eba936f06c3d7" name="a796bc6acbf10b2f6ae3eba936f06c3d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a796bc6acbf10b2f6ae3eba936f06c3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[1/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a796bc6acbf10b2f6ae3eba936f06c3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[1/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -407,7 +465,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ade4e2fcc468d2191931de65f1aeeff1d" name="ade4e2fcc468d2191931de65f1aeeff1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade4e2fcc468d2191931de65f1aeeff1d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4e2fcc468d2191931de65f1aeeff1d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -444,7 +502,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5c2b60fbf985dfdf4dc88bd86471e5ac" name="a5c2b60fbf985dfdf4dc88bd86471e5ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2b60fbf985dfdf4dc88bd86471e5ac">&#9670;&#160;</a></span>TEST() <span class="overload">[3/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c2b60fbf985dfdf4dc88bd86471e5ac">&#9670;&#160;</a></span>TEST() <span class="overload">[3/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,7 +539,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a02e93a390f0992b27d62d3e6da643ad4" name="a02e93a390f0992b27d62d3e6da643ad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02e93a390f0992b27d62d3e6da643ad4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e93a390f0992b27d62d3e6da643ad4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -518,7 +576,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae9fc72ddfcaa6189f4eade37bf8d204d" name="ae9fc72ddfcaa6189f4eade37bf8d204d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9fc72ddfcaa6189f4eade37bf8d204d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9fc72ddfcaa6189f4eade37bf8d204d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +613,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afc7bc42f07c3a5c59a1f22f0da605677" name="afc7bc42f07c3a5c59a1f22f0da605677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc7bc42f07c3a5c59a1f22f0da605677">&#9670;&#160;</a></span>TEST() <span class="overload">[6/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afc7bc42f07c3a5c59a1f22f0da605677">&#9670;&#160;</a></span>TEST() <span class="overload">[6/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +650,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7a1fb8751e6ac726e6e35632dc9cad34" name="a7a1fb8751e6ac726e6e35632dc9cad34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a1fb8751e6ac726e6e35632dc9cad34">&#9670;&#160;</a></span>TEST() <span class="overload">[7/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1fb8751e6ac726e6e35632dc9cad34">&#9670;&#160;</a></span>TEST() <span class="overload">[7/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,7 +687,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac366c7c4e3234ff56137356dc2e3d9d3" name="ac366c7c4e3234ff56137356dc2e3d9d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac366c7c4e3234ff56137356dc2e3d9d3">&#9670;&#160;</a></span>TEST() <span class="overload">[8/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac366c7c4e3234ff56137356dc2e3d9d3">&#9670;&#160;</a></span>TEST() <span class="overload">[8/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,7 +724,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a87676eaa8b6cf66166cf9b8178c7b0ff" name="a87676eaa8b6cf66166cf9b8178c7b0ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87676eaa8b6cf66166cf9b8178c7b0ff">&#9670;&#160;</a></span>TEST() <span class="overload">[9/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a87676eaa8b6cf66166cf9b8178c7b0ff">&#9670;&#160;</a></span>TEST() <span class="overload">[9/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -703,7 +761,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa95ec480a2c91bd5fbbe114560de2c17" name="aa95ec480a2c91bd5fbbe114560de2c17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa95ec480a2c91bd5fbbe114560de2c17">&#9670;&#160;</a></span>TEST() <span class="overload">[10/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95ec480a2c91bd5fbbe114560de2c17">&#9670;&#160;</a></span>TEST() <span class="overload">[10/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -740,7 +798,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af033aa2401067bfa3da0e6827d139dea" name="af033aa2401067bfa3da0e6827d139dea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af033aa2401067bfa3da0e6827d139dea">&#9670;&#160;</a></span>TEST() <span class="overload">[11/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af033aa2401067bfa3da0e6827d139dea">&#9670;&#160;</a></span>TEST() <span class="overload">[11/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -777,7 +835,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abb82868fbf992267f7a9f1d1fffb204f" name="abb82868fbf992267f7a9f1d1fffb204f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb82868fbf992267f7a9f1d1fffb204f">&#9670;&#160;</a></span>TEST() <span class="overload">[12/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb82868fbf992267f7a9f1d1fffb204f">&#9670;&#160;</a></span>TEST() <span class="overload">[12/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -814,7 +872,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63d3caf4b93486172f860e10ad69adac" name="a63d3caf4b93486172f860e10ad69adac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63d3caf4b93486172f860e10ad69adac">&#9670;&#160;</a></span>TEST() <span class="overload">[13/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63d3caf4b93486172f860e10ad69adac">&#9670;&#160;</a></span>TEST() <span class="overload">[13/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -851,7 +909,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2de52ed1329f04dd9b3fa9f1c5a1ea48" name="a2de52ed1329f04dd9b3fa9f1c5a1ea48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2de52ed1329f04dd9b3fa9f1c5a1ea48">&#9670;&#160;</a></span>TEST() <span class="overload">[14/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2de52ed1329f04dd9b3fa9f1c5a1ea48">&#9670;&#160;</a></span>TEST() <span class="overload">[14/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -888,7 +946,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a751be01bb7f0fa771480bc8e36a2d795" name="a751be01bb7f0fa771480bc8e36a2d795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a751be01bb7f0fa771480bc8e36a2d795">&#9670;&#160;</a></span>TEST() <span class="overload">[15/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a751be01bb7f0fa771480bc8e36a2d795">&#9670;&#160;</a></span>TEST() <span class="overload">[15/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -925,7 +983,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a094667714339bf5e102e25fb0cd3a656" name="a094667714339bf5e102e25fb0cd3a656"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a094667714339bf5e102e25fb0cd3a656">&#9670;&#160;</a></span>TEST() <span class="overload">[16/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a094667714339bf5e102e25fb0cd3a656">&#9670;&#160;</a></span>TEST() <span class="overload">[16/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -962,7 +1020,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4732146b76b5d762fe72fd8e4b296852" name="a4732146b76b5d762fe72fd8e4b296852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4732146b76b5d762fe72fd8e4b296852">&#9670;&#160;</a></span>TEST() <span class="overload">[17/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4732146b76b5d762fe72fd8e4b296852">&#9670;&#160;</a></span>TEST() <span class="overload">[17/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -999,7 +1057,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3663b8b01f4a7b8e4509e28ea9c09c75" name="a3663b8b01f4a7b8e4509e28ea9c09c75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3663b8b01f4a7b8e4509e28ea9c09c75">&#9670;&#160;</a></span>TEST() <span class="overload">[18/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3663b8b01f4a7b8e4509e28ea9c09c75">&#9670;&#160;</a></span>TEST() <span class="overload">[18/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1036,7 +1094,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2bea6c836d4c3ebda627b84cd8efad13" name="a2bea6c836d4c3ebda627b84cd8efad13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bea6c836d4c3ebda627b84cd8efad13">&#9670;&#160;</a></span>TEST() <span class="overload">[19/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bea6c836d4c3ebda627b84cd8efad13">&#9670;&#160;</a></span>TEST() <span class="overload">[19/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1073,7 +1131,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8989d5d7dcc9c50dee50e600f94ff651" name="a8989d5d7dcc9c50dee50e600f94ff651"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8989d5d7dcc9c50dee50e600f94ff651">&#9670;&#160;</a></span>TEST() <span class="overload">[20/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8989d5d7dcc9c50dee50e600f94ff651">&#9670;&#160;</a></span>TEST() <span class="overload">[20/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1110,7 +1168,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a93e29c0a42a2e589d7c199028f85b74d" name="a93e29c0a42a2e589d7c199028f85b74d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93e29c0a42a2e589d7c199028f85b74d">&#9670;&#160;</a></span>TEST() <span class="overload">[21/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93e29c0a42a2e589d7c199028f85b74d">&#9670;&#160;</a></span>TEST() <span class="overload">[21/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1147,7 +1205,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3ba8bfc6b678b0cc1176cc4b73afa6ad" name="a3ba8bfc6b678b0cc1176cc4b73afa6ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ba8bfc6b678b0cc1176cc4b73afa6ad">&#9670;&#160;</a></span>TEST() <span class="overload">[22/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba8bfc6b678b0cc1176cc4b73afa6ad">&#9670;&#160;</a></span>TEST() <span class="overload">[22/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1184,7 +1242,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1c6273c36221a629c90a139d75cb1cbf" name="a1c6273c36221a629c90a139d75cb1cbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c6273c36221a629c90a139d75cb1cbf">&#9670;&#160;</a></span>TEST() <span class="overload">[23/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c6273c36221a629c90a139d75cb1cbf">&#9670;&#160;</a></span>TEST() <span class="overload">[23/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1221,7 +1279,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="addc88f36477d3a63d54b15a7333e832a" name="addc88f36477d3a63d54b15a7333e832a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addc88f36477d3a63d54b15a7333e832a">&#9670;&#160;</a></span>TEST() <span class="overload">[24/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#addc88f36477d3a63d54b15a7333e832a">&#9670;&#160;</a></span>TEST() <span class="overload">[24/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1246,19 +1304,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie. </p>
-<p><b>Cas de test :</b> <b>Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.</b><br  />
+<p>Le niveau saut est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie. </p>
+<p><b>Cas de test :</b> <b>Le niveau saut est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le niveau 2 est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie. </p>
+ <b>Resultat attendu :</b> Le niveau saut est franchissable <b>avec le saut</b> : en avançant et sautant, on atteint la sortie. </p>
 
 </div>
 </div>
 <a id="a727c71a3ade7982c9ae8eb04669a7545" name="a727c71a3ade7982c9ae8eb04669a7545"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a727c71a3ade7982c9ae8eb04669a7545">&#9670;&#160;</a></span>TEST() <span class="overload">[25/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a727c71a3ade7982c9ae8eb04669a7545">&#9670;&#160;</a></span>TEST() <span class="overload">[25/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1283,19 +1341,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque. </p>
-<p><b>Cas de test :</b> <b>Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.</b><br  />
+<p>Le niveau saut <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque. </p>
+<p><b>Cas de test :</b> <b>Le niveau saut <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le niveau 2 <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque. </p>
+ <b>Resultat attendu :</b> Le niveau saut <b>exige</b> le saut : en avançant seulement (sans sauter), la marche bloque. </p>
 
 </div>
 </div>
 <a id="a9477da806cbe7c9a10957f43a8c8b25b" name="a9477da806cbe7c9a10957f43a8c8b25b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9477da806cbe7c9a10957f43a8c8b25b">&#9670;&#160;</a></span>TEST() <span class="overload">[26/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9477da806cbe7c9a10957f43a8c8b25b">&#9670;&#160;</a></span>TEST() <span class="overload">[26/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1320,19 +1378,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit. </p>
-<p><b>Cas de test :</b> <b>Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.</b><br  />
+<p>Le niveau dash (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit. </p>
+<p><b>Cas de test :</b> <b>Le niveau dash (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le niveau 3 (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit. </p>
+ <b>Resultat attendu :</b> Le niveau dash (couloir bas + fosse) est franchissable <b>au dash</b> : avancer + dasher franchit. </p>
 
 </div>
 </div>
 <a id="a781fce7997057c9bcf7099d933c1cb17" name="a781fce7997057c9bcf7099d933c1cb17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781fce7997057c9bcf7099d933c1cb17">&#9670;&#160;</a></span>TEST() <span class="overload">[27/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a781fce7997057c9bcf7099d933c1cb17">&#9670;&#160;</a></span>TEST() <span class="overload">[27/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1357,19 +1415,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger. </p>
-<p><b>Cas de test :</b> <b>Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.</b><br  />
+<p>Le niveau dash <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger. </p>
+<p><b>Cas de test :</b> <b>Le niveau dash <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le niveau 3 <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger. </p>
+ <b>Resultat attendu :</b> Le niveau dash <b>exige</b> le dash : en avançant seulement, on tombe dans la fosse de danger. </p>
 
 </div>
 </div>
 <a id="a3e508644de4c4f901c0d9970e0d3b183" name="a3e508644de4c4f901c0d9970e0d3b183"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e508644de4c4f901c0d9970e0d3b183">&#9670;&#160;</a></span>TEST() <span class="overload">[28/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e508644de4c4f901c0d9970e0d3b183">&#9670;&#160;</a></span>TEST() <span class="overload">[28/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1394,19 +1452,204 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable. </p>
-<p><b>Cas de test :</b> <b>Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.</b><br  />
+<p>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable. </p>
+<p><b>Cas de test :</b> <b>Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable.</b><br  />
  <b>Categorie :</b> Integration · Physique Personnage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Niveau 4 (puzzle) : toucher l'interrupteur ouvre la porte → la sortie devient atteignable. </p>
+ <b>Resultat attendu :</b> Le niveau interrupteur : toucher l'interrupteur ouvre la porte → la sortie devient atteignable. </p>
+
+</div>
+</div>
+<a id="aa3c4738505b10744ad3c9f3bad09a3bd" name="aa3c4738505b10744ad3c9f3bad09a3bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3c4738505b10744ad3c9f3bad09a3bd">&#9670;&#160;</a></span>TEST() <span class="overload">[29/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauArrondiFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau arrondi est franchissable en marchant : la courbe mène au palier surélevé sans saut (<code>EX-GP-004</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau arrondi est franchissable en marchant, sans saut.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau arrondi est franchissable en marchant, sans saut. </p>
+
+</div>
+</div>
+<a id="a8cd727be344e888007f94813e4267795" name="a8cd727be344e888007f94813e4267795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd727be344e888007f94813e4267795">&#9670;&#160;</a></span>TEST() <span class="overload">[30/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauBlocFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche (<code>EX-GP-022</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche. </p>
+
+</div>
+</div>
+<a id="af2e21fdcba7cf609189b3bbb58110fed" name="af2e21fdcba7cf609189b3bbb58110fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2e21fdcba7cf609189b3bbb58110fed">&#9670;&#160;</a></span>TEST() <span class="overload">[31/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauBlocReduitFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau bloc à taille réduite est franchissable : poussé dans la fosse, il la comble à la hauteur du chemin, laissant l'espace franchissable autour (<code>EX-GP-005</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la hauteur du chemin.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la hauteur du chemin. </p>
+
+</div>
+</div>
+<a id="a243dee5840c029a98caa42c95f9f04d5" name="a243dee5840c029a98caa42c95f9f04d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a243dee5840c029a98caa42c95f9f04d5">&#9670;&#160;</a></span>TEST() <span class="overload">[32/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauBudgetFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau budget est franchissable avec exactement le budget de sauts prévu (<code>EX-GP-024</code>) : deux marches ascendantes, un saut par atterrissage sur terrain plat compris. </p>
+<p><b>Cas de test :</b> <b>Le niveau budget est franchissable avec exactement le budget de sauts prévu.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau budget est franchissable avec exactement le budget de sauts prévu. </p>
+
+</div>
+</div>
+<a id="afd1a980bce387c44b9e55aabfcd70e09" name="afd1a980bce387c44b9e55aabfcd70e09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd1a980bce387c44b9e55aabfcd70e09">&#9670;&#160;</a></span>TEST() <span class="overload">[33/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauBudgetRequiertLesDeuxSauts&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau budget <b>exige</b> son budget de deux sauts : avec un seul saut autorisé, la seconde marche reste hors d'atteinte (<code>EX-GP-024</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau budget exige ses deux sauts : un seul saut autorisé ne suffit pas.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau budget exige ses deux sauts : un seul saut autorisé ne suffit pas. </p>
 
 </div>
 </div>
 <a id="a59011ccd728436d7b107fec6fa841a4d" name="a59011ccd728436d7b107fec6fa841a4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59011ccd728436d7b107fec6fa841a4d">&#9670;&#160;</a></span>TEST() <span class="overload">[29/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59011ccd728436d7b107fec6fa841a4d">&#9670;&#160;</a></span>TEST() <span class="overload">[34/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1442,8 +1685,267 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7cc962a63bd3c6829b39e69417d1a20f" name="a7cc962a63bd3c6829b39e69417d1a20f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc962a63bd3c6829b39e69417d1a20f">&#9670;&#160;</a></span>TEST() <span class="overload">[35/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauDoubleSautFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien (<code>EX-GP-015</code>) : un mur trop haut pour un seul saut devient franchissable. </p>
+<p><b>Cas de test :</b> <b>Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien. </p>
+
+</div>
+</div>
+<a id="aa3e09736da7a7bcb1a4681d553c23f77" name="aa3e09736da7a7bcb1a4681d553c23f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e09736da7a7bcb1a4681d553c23f77">&#9670;&#160;</a></span>TEST() <span class="overload">[36/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauDoubleSautRequiertLeSautAerien&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau double saut <b>exige</b> le saut aérien : un seul saut (au sol) ne suffit pas à franchir le mur (<code>EX-GP-015</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau double saut exige le saut aérien : un seul saut ne suffit pas.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau double saut exige le saut aérien : un seul saut ne suffit pas. </p>
+
+</div>
+</div>
+<a id="ae87669cd84f84d1fc06d77f87a5fe6a8" name="ae87669cd84f84d1fc06d77f87a5fe6a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87669cd84f84d1fc06d77f87a5fe6a8">&#9670;&#160;</a></span>TEST() <span class="overload">[37/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauFinalFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau final combine dash, pente, bloc poussable, interrupteur/porte et double saut en un seul parcours cohérent, et reste franchissable de bout en bout. </p>
+<p><b>Cas de test :</b> <b>Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable. </p>
+
+</div>
+</div>
+<a id="a51c76fbac75e8e93a3fcc0cf43aa2fa8" name="a51c76fbac75e8e93a3fcc0cf43aa2fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c76fbac75e8e93a3fcc0cf43aa2fa8">&#9670;&#160;</a></span>TEST() <span class="overload">[38/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauPenteFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau pente est franchissable en marchant : la pente mène au palier surélevé sans saut (<code>EX-GP-003</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau pente est franchissable en marchant, sans saut.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau pente est franchissable en marchant, sans saut. </p>
+
+</div>
+</div>
+<a id="a870828bbb17a11560278ee683247d3d1" name="a870828bbb17a11560278ee683247d3d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870828bbb17a11560278ee683247d3d1">&#9670;&#160;</a></span>TEST() <span class="overload">[39/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauPlaquePressionExigeUnSaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau plaque de pression <b>exige</b> de sauter par-dessus le mur : marcher seul (sans jamais sauter) reste bloqué contre le mur, même une fois la plaque activée (<code>EX-GP-025</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre le mur.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre le mur. </p>
+
+</div>
+</div>
+<a id="a3f81ce05ad74458cdb3e141a4568d61d" name="a3f81ce05ad74458cdb3e141a4568d61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f81ce05ad74458cdb3e141a4568d61d">&#9670;&#160;</a></span>TEST() <span class="overload">[40/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauPlaquePressionFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau plaque de pression est franchissable : marcher dessus ouvre la porte qui surplombe le mur bloquant, le temps de sauter par-dessus (<code>EX-GP-025</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut par-dessus le mur permet de rejoindre la sortie.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut par-dessus le mur permet de rejoindre la sortie. </p>
+
+</div>
+</div>
+<a id="a08ee34d13498299b259686d74eb0cfa2" name="a08ee34d13498299b259686d74eb0cfa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ee34d13498299b259686d74eb0cfa2">&#9670;&#160;</a></span>TEST() <span class="overload">[41/53]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PhysiquePersonnageIntegration&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiveauWallJumpFranchissable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau wall jump est franchissable en enchaînant wall slide et wall jump entre les deux parois du puits (<code>EX-GP-016</code>). </p>
+<p><b>Cas de test :</b> <b>Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.</b><br  />
+ <b>Categorie :</b> Integration · Physique Personnage<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le niveau wall jump est franchissable en enchaînant wall slide et wall jump. </p>
+
+</div>
+</div>
 <a id="a10c645fcf469946ac225661df5a85024" name="a10c645fcf469946ac225661df5a85024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c645fcf469946ac225661df5a85024">&#9670;&#160;</a></span>TEST() <span class="overload">[30/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c645fcf469946ac225661df5a85024">&#9670;&#160;</a></span>TEST() <span class="overload">[42/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1480,7 +1982,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a029cff622b9b3330de8fd332e7d03f9a" name="a029cff622b9b3330de8fd332e7d03f9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a029cff622b9b3330de8fd332e7d03f9a">&#9670;&#160;</a></span>TEST() <span class="overload">[31/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a029cff622b9b3330de8fd332e7d03f9a">&#9670;&#160;</a></span>TEST() <span class="overload">[43/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1517,7 +2019,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a41d8c2dcddf3c70a7121fefc740bf252" name="a41d8c2dcddf3c70a7121fefc740bf252"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41d8c2dcddf3c70a7121fefc740bf252">&#9670;&#160;</a></span>TEST() <span class="overload">[32/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d8c2dcddf3c70a7121fefc740bf252">&#9670;&#160;</a></span>TEST() <span class="overload">[44/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1554,7 +2056,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab3b18642fa34bcef39e71b91553c794a" name="ab3b18642fa34bcef39e71b91553c794a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3b18642fa34bcef39e71b91553c794a">&#9670;&#160;</a></span>TEST() <span class="overload">[33/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b18642fa34bcef39e71b91553c794a">&#9670;&#160;</a></span>TEST() <span class="overload">[45/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1591,7 +2093,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a84ab4833fc86ba2213294a88882ceb6d" name="a84ab4833fc86ba2213294a88882ceb6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84ab4833fc86ba2213294a88882ceb6d">&#9670;&#160;</a></span>TEST() <span class="overload">[34/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ab4833fc86ba2213294a88882ceb6d">&#9670;&#160;</a></span>TEST() <span class="overload">[46/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1628,7 +2130,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae53032cbae45c9d877b519b2cdea39d0" name="ae53032cbae45c9d877b519b2cdea39d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae53032cbae45c9d877b519b2cdea39d0">&#9670;&#160;</a></span>TEST() <span class="overload">[35/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53032cbae45c9d877b519b2cdea39d0">&#9670;&#160;</a></span>TEST() <span class="overload">[47/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1665,7 +2167,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4ea3f9916aa18f1e816027e1c13875b4" name="a4ea3f9916aa18f1e816027e1c13875b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ea3f9916aa18f1e816027e1c13875b4">&#9670;&#160;</a></span>TEST() <span class="overload">[36/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ea3f9916aa18f1e816027e1c13875b4">&#9670;&#160;</a></span>TEST() <span class="overload">[48/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1702,7 +2204,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af861523c0c31bfd7d52801d62e3c0e67" name="af861523c0c31bfd7d52801d62e3c0e67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af861523c0c31bfd7d52801d62e3c0e67">&#9670;&#160;</a></span>TEST() <span class="overload">[37/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af861523c0c31bfd7d52801d62e3c0e67">&#9670;&#160;</a></span>TEST() <span class="overload">[49/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1739,7 +2241,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9239722c19f58e36db4963da1a741638" name="a9239722c19f58e36db4963da1a741638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9239722c19f58e36db4963da1a741638">&#9670;&#160;</a></span>TEST() <span class="overload">[38/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9239722c19f58e36db4963da1a741638">&#9670;&#160;</a></span>TEST() <span class="overload">[50/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1776,7 +2278,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a16447b6f1402d63824db38f1e7da2142" name="a16447b6f1402d63824db38f1e7da2142"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16447b6f1402d63824db38f1e7da2142">&#9670;&#160;</a></span>TEST() <span class="overload">[39/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a16447b6f1402d63824db38f1e7da2142">&#9670;&#160;</a></span>TEST() <span class="overload">[51/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1813,7 +2315,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa130da1cae0ca8429d5a819ed1f4d5d8" name="aa130da1cae0ca8429d5a819ed1f4d5d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa130da1cae0ca8429d5a819ed1f4d5d8">&#9670;&#160;</a></span>TEST() <span class="overload">[40/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa130da1cae0ca8429d5a819ed1f4d5d8">&#9670;&#160;</a></span>TEST() <span class="overload">[52/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1850,7 +2352,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afad15f26b8debf94c98e4ce2ac1ca81c" name="afad15f26b8debf94c98e4ce2ac1ca81c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afad15f26b8debf94c98e4ce2ac1ca81c">&#9670;&#160;</a></span>TEST() <span class="overload">[41/41]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afad15f26b8debf94c98e4ce2ac1ca81c">&#9670;&#160;</a></span>TEST() <span class="overload">[53/53]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

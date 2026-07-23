@@ -9,7 +9,7 @@ var searchData=
   ['1_20monde_20en_20tuiles_6',['1. Monde en tuiles',['../spec-gameplay.html#autotoc_md214',1,'']]],
   ['1_20périphériques_7',['1. Périphériques',['../spec-controles.html#autotoc_md167',1,'']]],
   ['1_20performance_8',['1. Performance',['../spec-exigences.html#autotoc_md208',1,'']]],
-  ['1_20récupérer_20le_20projet_9',['1. Récupérer le projet',['../manuel-partager-niveau.html#autotoc_md1319',1,'']]],
+  ['1_20récupérer_20le_20projet_9',['1. Récupérer le projet',['../manuel-partager-niveau.html#autotoc_md1321',1,'']]],
   ['1_20représentation_20des_20niveaux_10',['1. Représentation des niveaux',['../spec-niveaux.html#autotoc_md222',1,'']]],
   ['1_20système_20de_20décors_11',['1. Système de décors',['../spec-decors.html#autotoc_md191',1,'']]],
   ['10_20—_20mécaniques_20aériennes_20avancées_20_3a_20double_20saut_20wall_20jump_20dash_12',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],

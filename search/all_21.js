@@ -44,7 +44,7 @@ var searchData=
   ['vocabulaire_20de_20base_20_3a_20gpu_20swap_20chain_20back_20buffer_41',['Vocabulaire de base : GPU, swap chain, back buffer',['../guide-rendu.html#autotoc_md137',1,'']]],
   ['vocabulaire_20des_20cases_42',['\ref core::TileType &quot;core::TileType&quot; : le vocabulaire des cases',['../guide-niveaux.html#autotoc_md106',1,'']]],
   ['voir_20aussi_43',['voir aussi',['../guide-niveaux.html#autotoc_md118',1,'Voir aussi'],['../guide-boucle.html#autotoc_md37',1,'Voir aussi'],['../guide-ecrans.html#autotoc_md46',1,'Voir aussi'],['../guide-ecs.html#autotoc_md55',1,'Voir aussi'],['../guide-editeur.html#autotoc_md74',1,'Voir aussi'],['../guide-entrees.html#autotoc_md84',1,'Voir aussi'],['../guide-journalisation.html#autotoc_md96',1,'Voir aussi'],['../guide-maths.html#autotoc_md103',1,'Voir aussi'],['../guide-rendu.html#autotoc_md151',1,'Voir aussi'],['../guide-physique.html#autotoc_md136',1,'Voir aussi']]],
-  ['votre_20niveau_44',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md1322',1,'']]],
+  ['votre_20niveau_44',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md1324',1,'']]],
   ['vraie_20taille_45',['TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille',['../lot-11-tache-04-reequilibrage.html',1,'lot-11']]],
   ['vs_20bibliothèque_46',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md323',1,'']]],
   ['vsyncenabled_47',['vsyncEnabled',['../classhmi_1_1GraphicsDevice.html#a49dd7ea62f2e8905c6f2384ae2aa421a',1,'hmi::GraphicsDevice']]],

@@ -211,13 +211,13 @@ var NAVTREE =
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (56)", "cahiertest.html#autotoc_md19", [
+      [ "Tests d'intégration (68)", "cahiertest.html#autotoc_md19", [
         [ "Animation Personnage — <tt>test_animation_personnage.cpp</tt> (5)", "cahiertest.html#autotoc_md20", null ],
         [ "Bloc Réduit — <tt>test_bloc_reduit.cpp</tt> (2)", "cahiertest.html#autotoc_md21", null ],
         [ "Boucle Simulation — <tt>test_boucle_simulation.cpp</tt> (2)", "cahiertest.html#autotoc_md22", null ],
         [ "Ecs Mouvement — <tt>test_ecs_mouvement.cpp</tt> (4)", "cahiertest.html#autotoc_md23", null ],
         [ "Niveau Ecs — <tt>test_niveau_ecs.cpp</tt> (2)", "cahiertest.html#autotoc_md24", null ],
-        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (41)", "cahiertest.html#autotoc_md25", null ]
+        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (53)", "cahiertest.html#autotoc_md25", null ]
       ] ],
       [ "Tests système (2)", "cahiertest.html#autotoc_md26", [
         [ "Parcours Complet — <tt>test_parcours_complet.cpp</tt> (1)", "cahiertest.html#autotoc_md27", null ],
@@ -339,7 +339,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md1313", null ],
+      [ "Lots", "lots.html#autotoc_md1315", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md241", null ],
         [ "Périmètre", "lot-01.html#autotoc_md242", [
@@ -1694,57 +1694,59 @@ var NAVTREE =
           [ "Tests (obligatoires)", "lot-25-tache-01-inventaire-conception.html#autotoc_md1288", null ],
           [ "Points d'attention", "lot-25-tache-01-inventaire-conception.html#autotoc_md1289", null ],
           [ "Définition de fait (DoD)", "lot-25-tache-01-inventaire-conception.html#autotoc_md1290", null ],
-          [ "Exigences", "lot-25-tache-01-inventaire-conception.html#autotoc_md1291", null ]
+          [ "Tableau mécanique → niveau (final)", "lot-25-tache-01-inventaire-conception.html#autotoc_md1291", null ],
+          [ "Niveau final combiné (<tt>demo-final.json</tt>)", "lot-25-tache-01-inventaire-conception.html#autotoc_md1292", null ],
+          [ "Exigences", "lot-25-tache-01-inventaire-conception.html#autotoc_md1293", null ]
         ] ],
         [ "TACHE-02 — Implémentation des niveaux", "lot-25-tache-02-implementation-niveaux.html", [
-          [ "Contexte", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1292", null ],
-          [ "Travail à réaliser", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1293", null ],
-          [ "Fichiers impactés", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1294", null ],
-          [ "Tests (obligatoires)", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1295", null ],
-          [ "Points d'attention", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1296", null ],
-          [ "Définition de fait (DoD)", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1297", null ],
-          [ "Exigences", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1298", null ]
+          [ "Contexte", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1294", null ],
+          [ "Travail à réaliser", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1295", null ],
+          [ "Fichiers impactés", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1296", null ],
+          [ "Tests (obligatoires)", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1297", null ],
+          [ "Points d'attention", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1298", null ],
+          [ "Définition de fait (DoD)", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1299", null ],
+          [ "Exigences", "lot-25-tache-02-implementation-niveaux.html#autotoc_md1300", null ]
         ] ],
         [ "TACHE-03 — Intégration séquence et tests système", "lot-25-tache-03-integration-sequence-tests.html", [
-          [ "Contexte", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1299", null ],
-          [ "Travail à réaliser", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1300", null ],
-          [ "Fichiers impactés", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1301", null ],
-          [ "Tests (obligatoires)", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1302", null ],
-          [ "Points d'attention", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1303", null ],
-          [ "Définition de fait (DoD)", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1304", null ],
-          [ "Exigences", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1305", null ]
+          [ "Contexte", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1301", null ],
+          [ "Travail à réaliser", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1302", null ],
+          [ "Fichiers impactés", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1303", null ],
+          [ "Tests (obligatoires)", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1304", null ],
+          [ "Points d'attention", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1305", null ],
+          [ "Définition de fait (DoD)", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1306", null ],
+          [ "Exigences", "lot-25-tache-03-integration-sequence-tests.html#autotoc_md1307", null ]
         ] ],
         [ "TACHE-04 — Documentation et vérification", "lot-25-tache-04-documentation-verification.html", [
-          [ "Contexte", "lot-25-tache-04-documentation-verification.html#autotoc_md1306", null ],
-          [ "Travail à réaliser", "lot-25-tache-04-documentation-verification.html#autotoc_md1307", null ],
-          [ "Fichiers impactés", "lot-25-tache-04-documentation-verification.html#autotoc_md1308", null ],
-          [ "Tests (obligatoires)", "lot-25-tache-04-documentation-verification.html#autotoc_md1309", null ],
-          [ "Points d'attention", "lot-25-tache-04-documentation-verification.html#autotoc_md1310", null ],
-          [ "Définition de fait (DoD)", "lot-25-tache-04-documentation-verification.html#autotoc_md1311", null ],
-          [ "Exigences", "lot-25-tache-04-documentation-verification.html#autotoc_md1312", null ]
+          [ "Contexte", "lot-25-tache-04-documentation-verification.html#autotoc_md1308", null ],
+          [ "Travail à réaliser", "lot-25-tache-04-documentation-verification.html#autotoc_md1309", null ],
+          [ "Fichiers impactés", "lot-25-tache-04-documentation-verification.html#autotoc_md1310", null ],
+          [ "Tests (obligatoires)", "lot-25-tache-04-documentation-verification.html#autotoc_md1311", null ],
+          [ "Points d'attention", "lot-25-tache-04-documentation-verification.html#autotoc_md1312", null ],
+          [ "Définition de fait (DoD)", "lot-25-tache-04-documentation-verification.html#autotoc_md1313", null ],
+          [ "Exigences", "lot-25-tache-04-documentation-verification.html#autotoc_md1314", null ]
         ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md1318", null ],
+      [ "Pages", "manuel.html#autotoc_md1320", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md1325", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md1326", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md1327", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md1327", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md1328", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md1329", null ]
       ] ],
       [ "Jouer", "manuel-jouer.html", [
-        [ "Le menu principal", "manuel-jouer.html#autotoc_md1314", null ],
-        [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md1315", null ],
-        [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md1316", null ],
-        [ "Le menu d'options", "manuel-jouer.html#autotoc_md1317", null ]
+        [ "Le menu principal", "manuel-jouer.html#autotoc_md1316", null ],
+        [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md1317", null ],
+        [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md1318", null ],
+        [ "Le menu d'options", "manuel-jouer.html#autotoc_md1319", null ]
       ] ],
       [ "Créer et partager un niveau (sans ligne de commande)", "manuel-partager-niveau.html", [
-        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md1319", null ],
-        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md1320", null ],
-        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md1321", null ],
-        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md1322", null ],
-        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md1323", null ],
-        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md1324", null ]
+        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md1321", null ],
+        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md1322", null ],
+        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md1323", null ],
+        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md1324", null ],
+        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md1325", null ],
+        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md1326", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -1797,11 +1799,11 @@ var NAVTREEINDEX =
 "lot-09-tache-02-mapping-saut.html",
 "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md902",
 "lot-20-tache-02-menu-options.html#autotoc_md1123",
-"namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95",
-"structcore_1_1Aabb.html#a5ac2bfbdb6dd36daa5527db035c80c1f",
-"structcore_1_1Velocity.html",
-"test__level_8cpp.html#a0196ba361c49491a85084322ad54109b",
-"test__session__log_8cpp.html#a4374385e295526de5641fc77765bbae6"
+"namespacecore.html#a0019562e8e9658def020086ee4d49425",
+"structcore_1_1Aabb.html#a2997b415856d8782b84bad849cf29301",
+"structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60",
+"test__language__selector_8cpp.html#a93dfcc00e83e4e1e23b85711ea1b1b50",
+"test__rect_8cpp.html#ab37a2a977314627cc6696c1832926703"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

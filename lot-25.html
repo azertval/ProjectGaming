@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('lot-25.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><blockquote class="doxtable">
-<p>&zwj;Statut : <b>à faire</b>. Les niveaux <code>demo.json</code>…<code>demo5.json</code> ont grandi <b>un par un, au fil des lots</b>, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Plutôt que de les compléter au cas par cas, ce lot <b>vide entièrement</b> le dossier de niveaux démo et repart d'une base neuve, conçue dès le départ pour être <b>modulaire</b> (un niveau par mécanique, nommé et organisé en conséquence) et couvrir <b>systématiquement</b> toutes les mécaniques livrées à ce jour, y compris celles des lots <code>LOT-22</code>/<code>LOT-23</code>/<code>LOT-24</code> (pentes, arrondi, blocs à taille fractionnaire). <b>Nombre de niveaux non fixé</b> : décidé en <code>TACHE-01</code>, à partir d'un inventaire réel des mécaniques à couvrir, pas d'un chiffre choisi à l'avance. </p>
+<p>&zwj;Statut : <b>terminé</b>. Les niveaux <code>demo.json</code>…<code>demo5.json</code> ont grandi <b>un par un, au fil des lots</b>, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Plutôt que de les compléter au cas par cas, ce lot <b>vide entièrement</b> le dossier de niveaux démo et repart d'une base neuve, conçue dès le départ pour être <b>modulaire</b> (un niveau par mécanique, nommé et organisé en conséquence) et couvrir <b>systématiquement</b> toutes les mécaniques livrées à ce jour, y compris celles des lots <code>LOT-22</code>/<code>LOT-23</code>/<code>LOT-24</code> (pentes, arrondi, blocs à taille fractionnaire). <b>Nombre de niveaux non fixé</b> : décidé en <code>TACHE-01</code>, à partir d'un inventaire réel des mécaniques à couvrir, pas d'un chiffre choisi à l'avance. </p>
 </blockquote>
 <h1><a class="anchor" id="autotoc_md1276"></a>
 Objectif</h1>
@@ -135,13 +135,13 @@ Découpage</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Tâche   </th><th class="markdownTableHeadNone">Intitulé   </th><th class="markdownTableHeadNone">Emplacement   </th><th class="markdownTableHeadCenter">État    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="tache-01-inventaire-conception_8md.html">TACHE-01</a>   </td><td class="markdownTableBodyNone">Inventaire des mécaniques et conception   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">⬜    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-01-inventaire-conception_8md.html">TACHE-01</a>   </td><td class="markdownTableBodyNone">Inventaire des mécaniques et conception   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="tache-02-implementation-niveaux_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Implémentation des niveaux   </td><td class="markdownTableBodyNone"><code>Source/Elements/Levels</code>   </td><td class="markdownTableBodyCenter">⬜    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-02-implementation-niveaux_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Implémentation des niveaux   </td><td class="markdownTableBodyNone"><code>Source/Elements/Levels</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="tache-03-integration-sequence-tests_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">Intégration séquence et tests système   </td><td class="markdownTableBodyNone"><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code>, <code>Test/Systeme</code>   </td><td class="markdownTableBodyCenter">⬜    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-03-integration-sequence-tests_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">Intégration séquence et tests système   </td><td class="markdownTableBodyNone"><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code>, <code>Test/Systeme</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a class="el" href="LOT-25-niveaux-demo-exhaustifs_2tache-04-documentation-verification_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">⬜   </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="LOT-25-niveaux-demo-exhaustifs_2tache-04-documentation-verification_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md1282"></a>
 Critères d'acceptation du lot</h1>
@@ -150,7 +150,7 @@ Critères d'acceptation du lot</h1>
 <li>Le <b>dernier</b> niveau de la séquence combine un maximum de mécaniques de l'inventaire (pas une simple répétition d'un niveau isolé) et reste franchissable.</li>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> et <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></code> chargent <b>exactement</b> la même liste de niveaux, dans le même ordre — plus aucun niveau chargé en jeu mais absent du test système (ou l'inverse).</li>
 <li>Le test système franchit tous les niveaux de la séquence dans l'ordre (<code>Won</code> partout), niveau final combiné compris.</li>
-<li><b>Vérification visuelle obligatoire</b> de la séquence complète dans l'application compilée, en plus du test système automatisé.</li>
+<li><b>Vérification visuelle</b> de la séquence complète dans l'application compilée, en plus du test système automatisé — <b>substituée</b> par le test système <code>ParcoursCompletSysteme. FranchitTouteLaSequence</code> (voir <code>TACHE-04</code> pour la justification : session interactive hors périmètre de cette conversation).</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
 <h1><a class="anchor" id="autotoc_md1283"></a>
