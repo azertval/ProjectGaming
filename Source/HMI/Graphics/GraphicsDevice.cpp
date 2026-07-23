@@ -108,11 +108,11 @@ void GraphicsDevice::clear(float red, float green, float blue, float alpha) {
     _context->ClearRenderTargetView(_renderTargetView.Get(), color);
 }
 
-// Présente l'image à l'écran avec synchronisation verticale (V-Sync).
+// Présente l'image à l'écran, synchronisée (V-Sync) selon vsyncEnabled() (EX-REN-022).
 void GraphicsDevice::present() {
-    // Intervalle de synchronisation = 1 : présentation calée sur le rafraîchissement
-    // de l'écran, ce qui supprime le tearing.
-    _swapChain->Present(1, 0);
+    // Intervalle de synchronisation 1 = calée sur le rafraîchissement de l'écran (pas de
+    // tearing) ; 0 = présentation immédiate.
+    _swapChain->Present(_vsyncEnabled ? 1 : 0, 0);
 }
 
 }  // namespace hmi

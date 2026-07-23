@@ -20,6 +20,7 @@ namespace {
 // souris) persiste d'une frame à l'autre jusqu'au prochain événement de relâchement.
 void InputState::beginFrame() noexcept {
     _keysPrevious = _keysCurrent;
+    _gamepadPrevious = _gamepadCurrent;
     _buttonsPrevious = _buttonsCurrent;
     _wheelDelta = 0;
     _typedCharacters.clear();
@@ -40,6 +41,22 @@ void InputState::onKeyUp(Key key) noexcept {
     const std::size_t index = keyIndex(key);
     if (index < KEY_COUNT) {
         _keysCurrent[index] = false;
+    }
+}
+
+// Marque key comme enfoncée dans l'état courant, source manette (voir en-tête : tableau
+// distinct du clavier, jamais fusionné en écriture).
+void InputState::onGamepadKeyDown(Key key) noexcept {
+    const std::size_t index = keyIndex(key);
+    if (index < KEY_COUNT) {
+        _gamepadCurrent[index] = true;
+    }
+}
+
+void InputState::onGamepadKeyUp(Key key) noexcept {
+    const std::size_t index = keyIndex(key);
+    if (index < KEY_COUNT) {
+        _gamepadCurrent[index] = false;
     }
 }
 
@@ -76,24 +93,44 @@ void InputState::onCharTyped(wchar_t character) {
     _typedCharacters.push_back(character);
 }
 
-// true si key est enfoncée à cette frame (maintenue ou vient d'être pressée).
+// Declare l'etat de connexion de la manette pour cette frame.
+void InputState::setGamepadConnected(bool connected) noexcept {
+    _gamepadConnected = connected;
+}
+
+// true si une manette etait connectee a la derniere frame sondee.
+bool InputState::gamepadConnected() const noexcept {
+    return _gamepadConnected;
+}
+
+// true si key est enfoncée à cette frame (maintenue ou vient d'être pressée), clavier OU
+// manette (voir en-tête : deux sources indépendantes, combinées ici en lecture).
 bool InputState::keyDown(Key key) const noexcept {
     const std::size_t index = keyIndex(key);
-    return index < KEY_COUNT && _keysCurrent[index];
+    return index < KEY_COUNT && (_keysCurrent[index] || _gamepadCurrent[index]);
 }
 
-// Indique si key vient d'être pressée cette frame (front montant).
-// true si la touche est enfoncée maintenant mais ne l'était pas à la frame précédente.
+// Indique si key vient d'être pressée cette frame (front montant), sur l'une ou l'autre source.
 bool InputState::keyPressed(Key key) const noexcept {
     const std::size_t index = keyIndex(key);
-    return index < KEY_COUNT && _keysCurrent[index] && !_keysPrevious[index];
+    if (index >= KEY_COUNT) {
+        return false;
+    }
+    const bool keyboardEdge = _keysCurrent[index] && !_keysPrevious[index];
+    const bool gamepadEdge = _gamepadCurrent[index] && !_gamepadPrevious[index];
+    return keyboardEdge || gamepadEdge;
 }
 
-// Indique si key vient d'être relâchée cette frame (front descendant).
-// true si la touche n'est plus enfoncée mais l'était à la frame précédente.
+// Indique si key vient d'être relâchée cette frame (front descendant) : plus enfoncée sur
+// AUCUNE source maintenant, mais l'était sur l'une d'elles a la frame precedente.
 bool InputState::keyReleased(Key key) const noexcept {
     const std::size_t index = keyIndex(key);
-    return index < KEY_COUNT && !_keysCurrent[index] && _keysPrevious[index];
+    if (index >= KEY_COUNT) {
+        return false;
+    }
+    const bool downNow = _keysCurrent[index] || _gamepadCurrent[index];
+    const bool downBefore = _keysPrevious[index] || _gamepadPrevious[index];
+    return !downNow && downBefore;
 }
 
 // Abscisse de la souris, en pixels de la zone client.

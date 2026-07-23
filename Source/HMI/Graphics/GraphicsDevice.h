@@ -16,7 +16,8 @@ namespace hmi {
  *
  * Toutes les ressources Direct3D sont gérées par des pointeurs intelligents COM
  * (ComPtr) : leur libération est automatique. La classe fournit l'effacement de
- * l'écran, la présentation synchronisée (V-Sync) et le redimensionnement.
+ * l'écran, la présentation synchronisée (V-Sync, activable/désactivable — `EX-REN-022`) et le
+ * redimensionnement.
  */
 class GraphicsDevice {
 public:
@@ -49,8 +50,23 @@ public:
      */
     void clear(float red, float green, float blue, float alpha);
 
-    /// Présente l'image à l'écran avec synchronisation verticale (V-Sync).
+    /// Présente l'image à l'écran, synchronisée (V-Sync) selon `vsyncEnabled()`.
     void present();
+
+    /// @return true si la présentation est synchronisée au rafraîchissement de l'écran (V-Sync).
+    [[nodiscard]] bool vsyncEnabled() const noexcept {
+        return _vsyncEnabled;
+    }
+
+    /**
+     * @brief Active ou désactive la synchronisation verticale (`EX-REN-022`), effective au
+     *        prochain `present()`.
+     * @param enabled true = présentation calée sur le rafraîchissement (pas de tearing) ;
+     *                false = présentation immédiate.
+     */
+    void setVSyncEnabled(bool enabled) noexcept {
+        _vsyncEnabled = enabled;
+    }
 
     /// @return Le device Direct3D 11 (non possédé par l'appelant), pour créer des ressources.
     [[nodiscard]] ID3D11Device* device() const {
@@ -82,6 +98,7 @@ private:
     Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _renderTargetView;
     int _width;
     int _height;
+    bool _vsyncEnabled = true;
 };
 
 }  // namespace hmi

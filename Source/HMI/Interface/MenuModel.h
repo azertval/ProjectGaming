@@ -17,7 +17,7 @@ class Localization;
 /**
  * @brief Logique du menu principal, indépendante du dessin.
  *
- * Modélise les trois options du menu (Charger niveau, Mode Edition, Quitter), la **sélection**
+ * Modélise les quatre options du menu (Charger niveau, Mode Edition, Options, Quitter), la **sélection**
  * courante et sa mise à jour au **clavier** (flèches + Entrée) et à la **souris** (survol +
  * clic), puis produit la **transition** correspondante. Les libellés proviennent du catalogue
  * de traduction par leur **clé** (`EX-REN-033`) : aucun texte en dur. La mise en page (chasse
@@ -27,7 +27,7 @@ class Localization;
 class MenuModel {
 public:
     /// Nombre d'options du menu.
-    static constexpr int OPTION_COUNT = 3;
+    static constexpr int OPTION_COUNT = 4;
 
     // Mise en page en pixels (espace écran), partagée par la logique et le dessin.
     static constexpr float MARGIN_X = 80.0f;        ///< Marge gauche des textes.

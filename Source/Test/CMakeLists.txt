@@ -34,6 +34,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_screen_manager.cpp
     Unit/HMI/Interface/test_level_sequence.cpp
     Unit/HMI/Interface/test_menu_model.cpp
+    Unit/HMI/Interface/test_options_model.cpp
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp
     Unit/HMI/Interface/test_session_log.cpp
@@ -57,6 +58,8 @@ add_executable(UnitTests
     ../HMI/Interface/ScreenManager.cpp
     # La logique du menu (sélection, survol, transitions) est pure, testable hors GPU.
     ../HMI/Interface/MenuModel.cpp
+    # La logique du menu d'options (sélection, survol, actions) est pure, testable hors GPU.
+    ../HMI/Interface/OptionsModel.cpp
     # Le bouton de langue (ancrage, bascule, clic) est une logique pure, testable hors GPU.
     ../HMI/Interface/LanguageSelector.cpp
     # Le bouton d'enregistrement des logs (ancrage, clic) est pur, testable hors GPU.

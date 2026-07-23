@@ -4,7 +4,7 @@
 
 ## 1. Périphériques
 - \anchor EX-CTRL-001 **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.
-- \anchor EX-CTRL-002 **EX-CTRL-002** (⚠️ souhaité) — Le jeu devrait supporter une **manette** (XInput).
+- \anchor EX-CTRL-002 **EX-CTRL-002** — Le jeu doit supporter une **manette** (XInput).
 
 ## 2. Actions du jeu (mapping logique)
 Les entrées sont traduites en **actions logiques** (pas de code métier lié à une touche physique), pour rendre le remappage et la manette possibles.

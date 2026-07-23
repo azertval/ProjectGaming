@@ -17,6 +17,8 @@ namespace {
             return "Jeu";
         case ScreenId::Editor:
             return "Editeur";
+        case ScreenId::Options:
+            return "Options";
     }
     return "Inconnu";
 }

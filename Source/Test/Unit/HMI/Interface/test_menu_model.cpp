@@ -18,6 +18,7 @@ hmi::Localization frenchCatalog() {
     localization.setDefaultCatalog("fr", {{"menu.titre", "ProjectGaming"},
                                           {"menu.jouer", "Charger niveau"},
                                           {"menu.mode_edition", "Mode Edition"},
+                                          {"menu.options", "Options"},
                                           {"menu.quitter", "Quitter"}});
     return localization;
 }
@@ -133,20 +134,43 @@ TEST(MenuModelTest, FlecheHautBoucleSurQuitter) {
     hmi::MenuModel menu(catalog);
 
     (void)menu.update(keyPress(hmi::Key::Up));
-    EXPECT_EQ(menu.selectedIndex(), 2);
+    EXPECT_EQ(menu.selectedIndex(), 3);
 
     const hmi::ScreenTransition transition = menu.update(keyPress(hmi::Key::Enter));
     EXPECT_EQ(transition.kind, hmi::ScreenTransition::Kind::Quit);
 }
 
 /**
- * @brief Trois flèches bas ramènent à la première option (bouclage déterministe).
- * \castest{<b>Trois flèches bas ramènent à la première option (bouclage déterministe).</b><br/>
+ * @brief La troisième option (Options) bascule vers l'écran de réglages.
+ * \castest{<b>La troisième option (Options) bascule vers l'écran de réglages.</b><br/>
  * \tcat Unitaire · Menu Model<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Trois flèches bas ramènent à la première option (bouclage déterministe).
+ * \tattendu La troisième option (Options) bascule vers l'écran de réglages.
+ * }
+ */
+TEST(MenuModelTest, OptionOptionsBasculeVersEcranOptions) {
+    hmi::Localization catalog = frenchCatalog();
+    hmi::MenuModel menu(catalog);
+
+    (void)menu.update(keyPress(hmi::Key::Down));
+    (void)menu.update(keyPress(hmi::Key::Down));
+    EXPECT_EQ(menu.selectedIndex(), 2);
+
+    const hmi::ScreenTransition transition = menu.update(keyPress(hmi::Key::Enter));
+    EXPECT_EQ(transition.kind, hmi::ScreenTransition::Kind::Switch);
+    EXPECT_EQ(transition.target, hmi::ScreenId::Options);
+}
+
+/**
+ * @brief Quatre flèches bas ramènent à la première option (bouclage déterministe).
+ * \castest{<b>Quatre flèches bas ramènent à la première option (bouclage déterministe).</b><br/>
+ * \tcat Unitaire · Menu Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Quatre flèches bas ramènent à la première option (bouclage déterministe).
  * }
  */
 TEST(MenuModelTest, BouclageBasComplet) {
@@ -157,6 +181,8 @@ TEST(MenuModelTest, BouclageBasComplet) {
     EXPECT_EQ(menu.selectedIndex(), 1);
     (void)menu.update(keyPress(hmi::Key::Down));
     EXPECT_EQ(menu.selectedIndex(), 2);
+    (void)menu.update(keyPress(hmi::Key::Down));
+    EXPECT_EQ(menu.selectedIndex(), 3);
     (void)menu.update(keyPress(hmi::Key::Down));
     EXPECT_EQ(menu.selectedIndex(), 0);
 }
@@ -195,8 +221,8 @@ TEST(MenuModelTest, ClicValideOption) {
     hmi::MenuModel menu(catalog);
 
     const hmi::ScreenTransition transition =
-        menu.update(mouseClick(optionPointX(), optionPointY(2)));
-    EXPECT_EQ(menu.selectedIndex(), 2);
+        menu.update(mouseClick(optionPointX(), optionPointY(3)));
+    EXPECT_EQ(menu.selectedIndex(), 3);
     EXPECT_EQ(transition.kind, hmi::ScreenTransition::Kind::Quit);
 }
 

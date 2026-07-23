@@ -15,6 +15,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-20 — Manette et menu d'options** (`EX-CTRL-002`). Le jeu, le menu et l'éditeur sont
+  désormais jouables/navigables à la **manette** (XInput) : D-pad/stick gauche pilotent les mêmes
+  directions que les flèches/`Q`/`D`, **A** valide (menu) et saute (jeu), **B**/**Start**
+  reviennent/échappent, l'épaule droite dashe. La manette est **fusionnée** dans `InputState` au
+  niveau des mêmes touches déjà lues par tout le code existant (deux sources indépendantes
+  combinées en lecture, jamais en écriture, pour ne jamais effacer une touche clavier réellement
+  maintenue) : aucun consommateur (`MenuModel`, `PlayerInputMapper`, raccourcis de l'éditeur…) n'a
+  été modifié. Nouveau **menu d'options** (4ᵉ entrée du menu principal) : bascule **V-Sync**
+  (jusqu'ici fixée en dur), bouton de langue, état de connexion de la manette, retour au menu.
+  **12 nouveaux tests** (321 au total, 309 au jalon précédent) ; vérifié visuellement dans
+  l'application (menu, options, bascule V-Sync/langue).
 - **LOT-19 — Physique newtonienne et plaque de pression** (`EX-GP-019`, `EX-GP-025`). Deux
   évolutions liées par le **poids** du personnage : la chute suit désormais un modèle
   **newtonien** — masse (`core::Player::mass`) et traînée proportionnelle à la vitesse, dont

@@ -101,10 +101,11 @@ intentions ; elle produit un `core::PlayerInput` — le **contrat** de données 
 - `jumpPressed` (front) / `jumpHeld` (maintenu) : `Espace` ou `W` ;
 - `dashPressed` (front) : `Maj` (`EX-CTRL-013`), une action dédiée et distincte du saut.
 
-`Core` ne reçoit **que** cette structure : il ignore totalement l'existence des touches physiques. Un
-futur remappage clavier, ou l'ajout d'une manette (`EX-CTRL-012`), ne modifierait **que**
-`toPlayerInput` (ou son équivalent pour une manette) — c'est précisément ce que cette dissociation
-achète : un seul point de changement, à l'écart de toute la logique de simulation déjà testée.
+`Core` ne reçoit **que** cette structure : il ignore totalement l'existence des touches physiques.
+C'est précisément ce que cette dissociation a permis à la manette (`EX-CTRL-002`, ci-dessous) de
+coûter **zéro** ligne dans `toPlayerInput` : la manette synthétise les **mêmes** `Key` que le
+clavier, en amont, dans `InputState` lui-même — `toPlayerInput` continue de lire `Key::Space`,
+`Key::Left`, etc. sans jamais savoir d'où ils viennent.
 
 `toPlayerInput` est une fonction **pure** (aucun état interne, aucun effet de bord) : lui passer le
 même `InputState` produit toujours le même `PlayerInput`, ce qui la rend testable sans fenêtre ni
@@ -113,7 +114,50 @@ minuteur, en construisant directement un `InputState` avec les touches voulues. 
 l'intérieur du pas fixe lui-même, pour que tous les pas exécutés dans une même frame (@ref
 guide-boucle) voient exactement la même intention.
 
+## La manette : une seconde source, fusionnée en lecture (`EX-CTRL-002`, LOT-20)
+
+`InputState` ne connaît qu'un seul `Key` par touche, mais **deux** sources indépendantes qui
+peuvent l'enfoncer : le clavier (`onKeyDown`/`onKeyUp`) et la manette (`onGamepadKeyDown`/
+`onGamepadKeyUp`), chacune avec sa propre paire courant/précédent. `keyDown`/`keyPressed`/
+`keyReleased` **combinent** les deux (OU logique) au moment de la lecture — jamais à l'écriture.
+
+**Pourquoi pas une seule table partagée ?** Parce que la manette est **sondée**, pas événementielle
+: `Window::pollGamepad` interroge XInput une fois par frame et doit explicitement relâcher
+(`onGamepadKeyUp`) chaque touche dont le bouton correspondant n'est plus enfoncé — y compris quand
+la manette est débranchée. Si ce relâchement écrivait dans la **même** table que le clavier, il
+effacerait une touche clavier réellement maintenue dès que la manette (absente ou relâchée) ne la
+tient plus. Deux tables, combinées seulement en lecture, rendent ce bug structurellement
+impossible plutôt que de compter sur la discipline du code appelant.
+
+Chaque bouton/direction manette synthétise le **même** `Key` que son équivalent clavier (D-pad/
+stick gauche → `Left`/`Right`/`Up`/`Down` ; **A** → `Enter` **et** `Space` ; **B**/**Start** →
+`Escape` ; épaule droite → `Shift`, le dash). Conséquence directe de la fusion : **aucun**
+consommateur de `Key` — `toPlayerInput` ci-dessus, `MenuModel`, `LevelPicker`, les raccourcis de
+l'éditeur — n'a eu besoin d'être modifié pour « apprendre » la manette. C'est `EX-CTRL-010` (action
+logique dissociée de la touche physique) satisfait par construction : le `Key` **est** déjà
+l'action logique, sa source n'a jamais d'importance pour qui le lit.
+
+Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::Window` (`Platform`), jamais dans
+`InputState` : `InputState` reste indépendant de toute fenêtre (`EX-NFR-010`), y compris pour
+tester la fusion manette — les tests appellent `onGamepadKeyDown`/`onGamepadKeyUp` directement,
+sans manette réelle ni `<Windows.h>`.
+
+## Le menu d'options : la fusion manette à l'œuvre (`hmi::OptionsModel`/`OptionsScreen`)
+
+Le menu d'options (accessible depuis le menu principal) illustre concrètement la fusion
+ci-dessus : ses deux entrées (bascule **V-Sync**, **Retour**) se naviguent identiquement au
+clavier, à la souris et à la manette, sans un seul `if` dédié à cette dernière dans
+`OptionsModel::update` — il lit `Key::Up`/`Key::Down`/`Key::Enter` comme `MenuModel` l'a toujours
+fait. `OptionsModel` réutilise d'ailleurs directement les constantes de mise en page **publiques**
+de `MenuModel` (`MARGIN_X`, `OPTIONS_TOP`, `OPTION_SPACING`, `OPTION_SCALE`) plutôt que d'en
+dupliquer un second jeu : un seul style de liste verticale à chasse fixe pour tous les écrans qui
+en ont besoin. `OptionsScreen` affiche aussi l'état de connexion de la manette
+(`InputState::gamepadConnected()`, capturé à `update()` puisque `render()` ne reçoit pas
+`InputState`) — purement informatif, non navigable.
+
 ## Voir aussi
 - `hmi::InputState`, `hmi::Key`, `hmi::toPlayerInput`, `core::PlayerInput`.
+- `hmi::Window::pollGamepad` — le sondage XInput et son intégration à `pumpMessages`.
+- `hmi::MenuModel`, `hmi::OptionsModel`, `hmi::OptionsScreen`.
 - @ref guide-physique — comment la physique consomme `PlayerInput` (saut, dash, mouvement).
 - @ref guide-boucle — pourquoi l'entrée est échantillonnée une fois par frame et non par pas fixe.

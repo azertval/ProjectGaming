@@ -1,5 +1,6 @@
 #include "HMI/Platform/Window.h"
 
+#include <Xinput.h>
 #include <windowsx.h>
 
 #include <cstdint>
@@ -12,6 +13,18 @@ namespace hmi {
 namespace {
 // Nom de la classe de fenêtre Win32, partagé par toutes les instances.
 constexpr const wchar_t* WINDOW_CLASS_NAME = L"ProjectGamingWindowClass";
+
+// Sens du stick gauche sur un axe, au-dela de la zone morte XInput ; 0 si dans la zone morte
+// (evite un deplacement fantome au repos, jitter materiel).
+[[nodiscard]] int stickDirection(SHORT axis) noexcept {
+    if (axis > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
+        return 1;
+    }
+    if (axis < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
+        return -1;
+    }
+    return 0;
+}
 }  // namespace
 
 // Crée et affiche la fenêtre.
@@ -166,12 +179,57 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
     }
 }
 
+// Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).
+//
+// XInput est interroge (pas evenementiel comme le clavier/la souris) : appelee une fois par
+// frame, elle doit explicitement liberer (onGamepadKeyUp) chaque touche synthetique dont le
+// bouton/la direction correspondante n'est plus enfonce ce pas-ci — y compris quand la manette
+// est absente/debranchee (ERROR_DEVICE_NOT_CONNECTED), auquel cas pad reste a zero (state a ete
+// initialise a zero avant l'appel) et tout est relache, sans qu'aucune touche ne reste "collee".
+// Chaque bouton n'est JAMAIS ecrit via onKeyDown/onKeyUp (clavier) : voir InputState pour la
+// fusion en lecture qui evite d'effacer une touche clavier reellement maintenue.
+void Window::pollGamepad() {
+    XINPUT_STATE state{};
+    const bool connected = XInputGetState(0, &state) == ERROR_SUCCESS;
+    _input.setGamepadConnected(connected);
+
+    const XINPUT_GAMEPAD& pad = state.Gamepad;
+    const int stickX = stickDirection(pad.sThumbLX);
+    const int stickY = stickDirection(pad.sThumbLY);  // XInput : Y positif = vers le haut
+
+    auto setKey = [this](Key key, bool pressed) {
+        if (pressed) {
+            _input.onGamepadKeyDown(key);
+        } else {
+            _input.onGamepadKeyUp(key);
+        }
+    };
+
+    // D-pad ou stick gauche : les deux pilotent les memes directions (EX-CTRL-002).
+    setKey(Key::Left, (pad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) != 0 || stickX < 0);
+    setKey(Key::Right, (pad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) != 0 || stickX > 0);
+    setKey(Key::Up, (pad.wButtons & XINPUT_GAMEPAD_DPAD_UP) != 0 || stickY > 0);
+    setKey(Key::Down, (pad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) != 0 || stickY < 0);
+    // A valide (menu) ET saute (jeu) : meme bouton physique pour les deux usages, comme au
+    // clavier (Entree/Espace sont deja deux touches distinctes pour la meme intention).
+    const bool aHeld = (pad.wButtons & XINPUT_GAMEPAD_A) != 0;
+    setKey(Key::Enter, aHeld);
+    setKey(Key::Space, aHeld);
+    // B et Start reproduisent tous deux Echap (retour/pause) : pas d'ecran de pause dedie.
+    setKey(Key::Escape,
+          (pad.wButtons & XINPUT_GAMEPAD_B) != 0 || (pad.wButtons & XINPUT_GAMEPAD_START) != 0);
+    setKey(Key::Shift, (pad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0);  // dash, EX-CTRL-013
+}
+
 // Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
 //
 // `beginFrame` fige l'état d'entrées de la frame précédente **avant** de drainer les messages,
-// afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante.
+// afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante. La manette
+// est sondée juste après : ses événements atterrissent dans le nouvel état courant, comme ceux
+// du clavier/de la souris drainés par la boucle de messages qui suit.
 void Window::pumpMessages() {
     _input.beginFrame();
+    pollGamepad();
 
     MSG message{};
     while (PeekMessageW(&message, nullptr, 0, 0, PM_REMOVE) != FALSE) {
