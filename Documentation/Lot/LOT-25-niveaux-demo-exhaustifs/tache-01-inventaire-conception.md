@@ -15,15 +15,15 @@ avant cette tâche (voir décision de cadrage de l'épic).
   asymétrique/apex/fast-fall, chute newtonienne, interrupteur↔porte, plaque de pression, bloc
   poussable, budgets de sauts/dashs, pentes (`LOT-22`), arrondi (`LOT-23`), blocs à taille
   fractionnaire (`LOT-24`).
-- Pour chaque mécanique, décider si un niveau **existant** (`demo.json`…`demo5.json`) l'exerce déjà
-  de façon **nécessaire**, ou si un niveau **nouveau** est requis — un tableau
-  mécanique → niveau(s), consigné dans ce fichier ou dans `epic.md` une fois complété.
-- Trancher le **nombre final** de niveaux et leur **ordre** (difficulté croissante, cohérent avec
-  la progression déjà en place) : documenté ici avant que `TACHE-02` ne commence à produire des
-  fichiers.
-- Identifier les niveaux existants qui peuvent rester **inchangés**, ceux à **compléter** (ex.
-  ajouter une plateforme nécessitant le double saut à un niveau déjà consacré au saut), et ceux à
-  **créer** entièrement.
+- Pour chaque mécanique de la liste, prévoir un niveau **nouveau** qui l'exerce de façon
+  **nécessaire** — un tableau mécanique → niveau(s), consigné dans ce fichier ou dans `epic.md`
+  une fois complété. Les niveaux existants (`demo.json`…`demo5.json`) ne sont **pas repris** : la
+  base repart vide (voir décision de cadrage de l'épic), ce tableau ne porte donc que sur des
+  niveaux à créer.
+- Trancher le **nombre final** de niveaux et leur **ordre** (difficulté croissante) : documenté ici
+  avant que `TACHE-02` ne commence à produire des fichiers.
+- Définir la **convention de nommage** des nouveaux fichiers (ex. `demo-double-saut.json`,
+  `demo-pente.json` — voir `TACHE-02`), pour que le tableau de cette tâche l'utilise directement.
 
 ## Fichiers impactés
 - `Documentation/Lot/LOT-25-niveaux-demo-exhaustifs/tache-01-inventaire-conception.md` (ce
@@ -38,9 +38,10 @@ avant cette tâche (voir décision de cadrage de l'épic).
   (ex. wall jump et wall slide, ou coyote time et jump buffering, déjà intriqués dans le
   *game feel* du saut) peuvent raisonnablement partager un seul niveau si les séparer produirait un
   niveau trivial ou artificiel.
-- **Ne pas oublier `demo5.json`** dans l'inventaire — l'écart constaté avec le test système
-  (absent de `test_parcours_complet.cpp`) est le symptôme déclencheur de ce lot ; s'assurer que le
-  tableau final le couvre explicitement.
+- **Ne pas oublier la plaque de pression** (mécanique de `demo5.json`, l'ancien niveau dont
+  l'absence du test système est le symptôme déclencheur de ce lot) dans l'inventaire — la base
+  repartant vide, rien ne garantit qu'elle soit couverte sans une vérification explicite du
+  tableau final.
 
 ## Définition de fait (DoD)
 - Tableau mécanique → niveau(x) complet, nombre de niveaux final tranché et documenté, revu avant

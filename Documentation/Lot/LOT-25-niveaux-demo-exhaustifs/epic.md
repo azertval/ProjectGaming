@@ -1,11 +1,13 @@
 # LOT-25 — Refactoring complet des niveaux démo {#lot-25}
 
 > Statut : **à faire**. Les niveaux `demo.json`…`demo5.json` ont grandi **un par un, au fil des
-> lots**, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Ce
-> lot reconstruit un jeu de niveaux démo qui couvre **systématiquement** toutes les mécaniques
-> livrées à ce jour, y compris celles des lots `LOT-22`/`LOT-23`/`LOT-24` (pentes, arrondi, blocs à
-> taille fractionnaire). **Nombre de niveaux non fixé** : décidé en `TACHE-01`, à partir d'un
-> inventaire réel des mécaniques à couvrir, pas d'un chiffre choisi à l'avance.
+> lots**, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Plutôt
+> que de les compléter au cas par cas, ce lot **vide entièrement** le dossier de niveaux démo et
+> repart d'une base neuve, conçue dès le départ pour être **modulaire** (un niveau par mécanique,
+> nommé et organisé en conséquence) et couvrir **systématiquement** toutes les mécaniques livrées à
+> ce jour, y compris celles des lots `LOT-22`/`LOT-23`/`LOT-24` (pentes, arrondi, blocs à taille
+> fractionnaire). **Nombre de niveaux non fixé** : décidé en `TACHE-01`, à partir d'un inventaire
+> réel des mécaniques à couvrir, pas d'un chiffre choisi à l'avance.
 
 ## Objectif
 Constat déclencheur : le test système `test_parcours_complet.cpp` (`ParcoursCompletSysteme.
@@ -14,7 +16,8 @@ pression, `LOT-19`) n'y figure **pas**, alors qu'il est bien chargé par le jeu 
 main.cpp`). Plus largement, aucun niveau démo n'exerce le double saut, le wall jump/wall slide, ni
 les budgets de sauts/dashs (`EX-GP-024`) de façon isolée et identifiable — ils sont vérifiés par
 les tests **unitaires**/**intégration** (`test_physique_personnage.cpp`), jamais par un niveau
-**jouable**. Ce lot répare cet écart et anticipe les mécaniques des lots `LOT-22` à `LOT-24`.
+**jouable**. Ce lot répare cet écart et anticipe les mécaniques des lots `LOT-22` à `LOT-24`, en
+repartant d'une base **vide** plutôt que de continuer à empiler sur l'existant.
 
 ## Périmètre
 
@@ -25,9 +28,12 @@ les tests **unitaires**/**intégration** (`test_physique_personnage.cpp`), jamai
   sauts/dashs, **pentes**, **arrondi**, **blocs à taille fractionnaire**) et des mécaniques
   **transverses** non spécifiques à un niveau (manette, menu d'options, localisation — non
   couvertes par des niveaux, hors périmètre de ce lot).
-- **Refonte du jeu de niveaux démo** : un ensemble de niveaux où chaque mécanique (ou petit groupe
-  de mécaniques apparentées) a **au moins un niveau dédié** qui la rend nécessaire pour franchir la
-  sortie — pas seulement présente en décor.
+- **Suppression de tous les niveaux démo existants** (`demo.json`…`demo5.json`) : base **vide**,
+  reconstruite entièrement à partir de l'inventaire de `TACHE-01`, plutôt qu'un mélange de niveaux
+  conservés/complétés/ajoutés.
+- **Refonte du jeu de niveaux démo** : un ensemble de niveaux, tous nouveaux, où chaque mécanique
+  (ou petit groupe de mécaniques apparentées) a **au moins un niveau dédié** qui la rend nécessaire
+  pour franchir la sortie — pas seulement présente en décor.
 - **Mise à jour de la séquence** jouée par le jeu (`Source/HMI/main.cpp`) et du test système
   (`test_parcours_complet.cpp`), pour que les deux restent des reflets fidèles l'un de l'autre.
 
@@ -44,10 +50,13 @@ les tests **unitaires**/**intégration** (`test_physique_personnage.cpp`), jamai
 - **Le nombre de niveaux n'est pas fixé a priori.** `TACHE-01` produit un tableau
   mécanique → niveau(x) avant toute création de fichier ; le nombre qui en résulte est documenté
   dans cette tâche, pas deviné ici.
+- **Base vide plutôt que complétion au cas par cas.** Les niveaux existants ont grandi de façon
+  organique (un ajout par lot, jamais repensés ensemble) ; les vider entièrement et repartir d'un
+  inventaire complet (`TACHE-01`) évite d'hériter de leurs compromis successifs et donne, dès le
+  départ, une organisation **modulaire** (un fichier par mécanique, nommé en conséquence — voir
+  `TACHE-02`) plutôt qu'une numérotation `demoN.json` qui ne dit rien du contenu.
 - **Un niveau démo par mécanique (ou petit groupe cohérent), pas un « niveau vitrine » unique.**
-  Cohérent avec la progression déjà en place (`demo.json` = mouvement/chute, `demo2.json` = saut,
-  `demo3.json` = dash, `demo4.json` = interrupteur/porte, `demo5.json` = plaque de pression) : plus
-  facile à déboguer (un niveau qui échoue pointe directement vers la mécanique en cause) et à
+  Plus facile à déboguer (un niveau qui échoue pointe directement vers la mécanique en cause) et à
   maintenir (ajouter une mécanique = ajouter un niveau, jamais retoucher les autres).
 - **`main.cpp` et `test_parcours_complet.cpp` doivent lister exactement les mêmes fichiers, dans le
   même ordre.** Le décalage constaté avec `demo5.json` (chargé en jeu, absent du test système) ne
