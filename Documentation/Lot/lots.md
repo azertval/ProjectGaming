@@ -32,3 +32,7 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-19
 - @subpage lot-20
 - @subpage lot-21
+- @subpage lot-22
+- @subpage lot-23
+- @subpage lot-24
+- @subpage lot-25
