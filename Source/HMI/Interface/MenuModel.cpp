@@ -16,10 +16,11 @@ struct Option {
     bool quit;
 };
 
-// Les trois options, dans l'ordre d'affichage. Libellés résolus par clé (aucun texte en dur).
+// Les quatre options, dans l'ordre d'affichage. Libellés résolus par clé (aucun texte en dur).
 constexpr Option OPTIONS[MenuModel::OPTION_COUNT] = {
     {"menu.jouer", ScreenId::Game, false},
     {"menu.mode_edition", ScreenId::Editor, false},
+    {"menu.options", ScreenId::Options, false},
     {"menu.quitter", ScreenId::Menu, true},
 };
 

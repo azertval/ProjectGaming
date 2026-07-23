@@ -14,11 +14,12 @@ struct RenderContext;
 /**
  * @brief Écran cible de l'application.
  *
- * `Menu` est l'écran d'accueil ; `Game` lance la scène de jeu ; `Editor` l'écran d'édition.
- * La fabrication de l'écran concret associé est déléguée (cf. `ScreenManager`), pour garder
- * la logique de navigation indépendante des écrans eux-mêmes.
+ * `Menu` est l'écran d'accueil ; `Game` lance la scène de jeu ; `Editor` l'écran d'édition ;
+ * `Options` le menu de réglages (V-Sync, langue, LOT-20). La fabrication de l'écran concret
+ * associé est déléguée (cf. `ScreenManager`), pour garder la logique de navigation indépendante
+ * des écrans eux-mêmes.
  */
-enum class ScreenId { Menu, Game, Editor };
+enum class ScreenId { Menu, Game, Editor, Options };
 
 /**
  * @brief Intention de transition renvoyée par un écran à l'issue de sa mise à jour.

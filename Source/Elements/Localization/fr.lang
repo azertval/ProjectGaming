@@ -7,7 +7,16 @@
 menu.titre = ProjectGaming
 menu.jouer = Jouer
 menu.mode_edition = Mode Edition
+menu.options = Options
 menu.quitter = Quitter
+
+# Menu d'options (LOT-20)
+options.titre = Options
+options.vsync_on = V-Sync : Activé
+options.vsync_off = V-Sync : Désactivé
+options.retour = Retour
+options.manette_connectee = Manette : connectée
+options.manette_absente = Manette : non connectée
 
 # Ecran editeur (mode edition, a venir)
 editeur.a_venir = Mode Edition — à venir

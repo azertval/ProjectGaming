@@ -7,7 +7,7 @@
 
 /**
  * @file HMI/Input/InputState.h
- * @brief État des entrées clavier/souris échantillonné une fois par frame.
+ * @brief État des entrées clavier/souris/manette échantillonné une fois par frame.
  */
 
 namespace hmi {
@@ -73,10 +73,19 @@ enum class MouseButton : std::uint8_t {
  * 2. la couche de capture (`Window`) applique les événements via `onKeyDown`/`onKeyUp`/… ;
  * 3. la logique lit `keyPressed`/`keyReleased`/`keyDown` et les équivalents souris.
  *
- * L'`InputState` est **indépendant de toute fenêtre** (aucune dépendance `<Windows.h>`) : les
- * événements peuvent être injectés directement, ce qui le rend testable en isolation
- * (`EX-NFR-010`). L'échantillonnage une fois par frame, en amont de la logique, satisfait
- * `EX-CTRL-021`.
+ * **Manette (`EX-CTRL-002`)** : une seconde source, indépendante du clavier, alimentée par
+ * `onGamepadKeyDown`/`onGamepadKeyUp` — le même `Key` peut être enfoncé par le clavier, la
+ * manette, ou les deux à la fois. `keyDown`/`keyPressed`/`keyReleased` **combinent** les deux
+ * sources (OU logique) ; la manette ne s'écrit **jamais** dans les tableaux clavier, pour ne
+ * jamais effacer une touche clavier réellement maintenue quand la manette relâche le bouton
+ * correspondant (voir `Window::pollGamepad`, LOT-20). Cette fusion en lecture, plutôt qu'une
+ * table d'actions logiques séparée, satisfait déjà `EX-CTRL-010` (action dissociée de la touche
+ * physique) : le `Key` **est** l'action logique, quelle que soit sa source.
+ *
+ * L'`InputState` est **indépendant de toute fenêtre** (aucune dépendance `<Windows.h>`, ni
+ * `<Xinput.h>`) : les événements peuvent être injectés directement, ce qui le rend testable en
+ * isolation (`EX-NFR-010`) — y compris la fusion manette, sans manette réelle. L'échantillonnage
+ * une fois par frame, en amont de la logique, satisfait `EX-CTRL-021`.
  */
 class InputState {
 public:
@@ -91,11 +100,23 @@ public:
      */
     void beginFrame() noexcept;
 
-    /// Marque @p key comme enfoncée dans l'état courant.
+    /// Marque @p key comme enfoncée dans l'état courant (source **clavier**).
     void onKeyDown(Key key) noexcept;
 
-    /// Marque @p key comme relâchée dans l'état courant.
+    /// Marque @p key comme relâchée dans l'état courant (source **clavier**).
     void onKeyUp(Key key) noexcept;
+
+    /**
+     * @brief Marque @p key comme enfoncée dans l'état courant, source **manette**.
+     *
+     * Écrit dans un tableau **distinct** du clavier (voir en-tête) : n'affecte jamais
+     * `onKeyDown`/`onKeyUp`. `keyDown`/`keyPressed`/`keyReleased` combinent les deux sources.
+     */
+    void onGamepadKeyDown(Key key) noexcept;
+
+    /// Marque @p key comme relâchée dans l'état courant, source **manette** (voir
+    /// `onGamepadKeyDown`).
+    void onGamepadKeyUp(Key key) noexcept;
 
     /**
      * @brief Met à jour la position de la souris.
@@ -122,6 +143,15 @@ public:
      * @param character Caractère déjà traduit selon la disposition clavier active.
      */
     void onCharTyped(wchar_t character);
+
+    /**
+     * @brief Déclare l'état de connexion de la manette pour cette frame (`EX-CTRL-002`).
+     * @param connected Vrai si `XInputGetState` a réussi ce pas-ci (voir `Window::pollGamepad`).
+     */
+    void setGamepadConnected(bool connected) noexcept;
+
+    /// @return true si une manette était connectée à la dernière frame sondée.
+    [[nodiscard]] bool gamepadConnected() const noexcept;
 
     /// @return true si @p key est enfoncée à cette frame (maintenue ou vient d'être pressée).
     [[nodiscard]] bool keyDown(Key key) const noexcept;
@@ -169,12 +199,15 @@ private:
 
     std::array<bool, KEY_COUNT> _keysCurrent{};
     std::array<bool, KEY_COUNT> _keysPrevious{};
+    std::array<bool, KEY_COUNT> _gamepadCurrent{};   ///< Source manette, distincte du clavier.
+    std::array<bool, KEY_COUNT> _gamepadPrevious{};
     std::array<bool, BUTTON_COUNT> _buttonsCurrent{};
     std::array<bool, BUTTON_COUNT> _buttonsPrevious{};
     int _mouseX = 0;
     int _mouseY = 0;
     int _wheelDelta = 0;                    ///< Remis à zéro à chaque `beginFrame()`.
     std::vector<wchar_t> _typedCharacters;  ///< Vidée à chaque `beginFrame()`.
+    bool _gamepadConnected = false;
 };
 
 }  // namespace hmi

@@ -16,8 +16,12 @@ namespace hmi {
  *
  * La fenêtre est créée à la construction et détruite au destructeur. Elle expose les
  * événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et **capture
- * les entrées** clavier/souris dans un `InputState` échantillonné une fois par frame
- * (`EX-CTRL-021`). La traduction des entrées en actions de gameplay relèvera d'un module dédié.
+ * les entrées** clavier/souris/manette dans un `InputState` échantillonné une fois par frame
+ * (`EX-CTRL-021`). La manette (XInput, `EX-CTRL-002`) est **sondée** (pas événementielle comme le
+ * clavier/la souris) : `pollGamepad`, appelée depuis `pumpMessages`, fusionne son état dans le
+ * même `InputState` via `onGamepadKeyDown`/`onGamepadKeyUp` (voir `InputState`, aucune touche
+ * clavier n'est jamais écrasée). La traduction des entrées en actions de gameplay relèvera d'un
+ * module dédié.
  */
 class Window {
 public:
@@ -87,6 +91,9 @@ private:
 
     /// Traite un message pour cette instance.
     LRESULT handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
+
+    /// Sonde la manette (XInput, joueur 0) et fusionne son état dans `_input` (`EX-CTRL-002`).
+    void pollGamepad();
 
     HWND _handle;
     bool _shouldClose;

@@ -208,3 +208,118 @@ TEST(InputStateTest, CaracteresTapesAccumulesEtVides) {
     input.beginFrame();
     EXPECT_TRUE(input.typedCharacters().empty());
 }
+
+/**
+ * @brief Un bouton manette seul rend `keyDown`/`keyPressed` vrais, comme au clavier
+ * (`EX-CTRL-002`).
+ * \castest{<b>Un bouton manette seul rend `keyDown`/`keyPressed` vrais, comme au clavier.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un bouton manette seul rend `keyDown`/`keyPressed` vrais, comme au clavier.
+ * }
+ */
+TEST(InputStateTest, ManetteSeuleActiveLaTouche) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    input.onGamepadKeyDown(hmi::Key::Enter);
+    EXPECT_TRUE(input.keyDown(hmi::Key::Enter));
+    EXPECT_TRUE(input.keyPressed(hmi::Key::Enter));
+
+    input.beginFrame();  // maintenue, plus de front
+    EXPECT_TRUE(input.keyDown(hmi::Key::Enter));
+    EXPECT_FALSE(input.keyPressed(hmi::Key::Enter));
+
+    input.beginFrame();
+    input.onGamepadKeyUp(hmi::Key::Enter);
+    EXPECT_FALSE(input.keyDown(hmi::Key::Enter));
+    EXPECT_TRUE(input.keyReleased(hmi::Key::Enter));
+}
+
+/**
+ * @brief Clavier et manette combinés sur la même touche ne produisent pas de double front.
+ * \castest{<b>Clavier et manette combinés sur la même touche ne produisent pas de double
+ * front.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Clavier et manette combinés sur la même touche ne produisent pas de double front.
+ * }
+ */
+TEST(InputStateTest, ClavierEtManetteMemeToucheUnSeulFront) {
+    hmi::InputState input;
+
+    // Les deux sources s'enfoncent la même frame : un seul front "pressée".
+    input.beginFrame();
+    input.onKeyDown(hmi::Key::Space);
+    input.onGamepadKeyDown(hmi::Key::Space);
+    EXPECT_TRUE(input.keyPressed(hmi::Key::Space));
+
+    input.beginFrame();
+    EXPECT_FALSE(input.keyPressed(hmi::Key::Space));  // toujours maintenue, plus de front
+
+    // Le clavier relâche seul : la manette tient encore la touche, pas de relâchement.
+    input.beginFrame();
+    input.onKeyUp(hmi::Key::Space);
+    EXPECT_TRUE(input.keyDown(hmi::Key::Space));
+    EXPECT_FALSE(input.keyReleased(hmi::Key::Space));
+
+    // La manette relâche à son tour : relâchement détecté cette fois.
+    input.beginFrame();
+    input.onGamepadKeyUp(hmi::Key::Space);
+    EXPECT_FALSE(input.keyDown(hmi::Key::Space));
+    EXPECT_TRUE(input.keyReleased(hmi::Key::Space));
+}
+
+/**
+ * @brief La manette relâchée ne masque jamais une touche clavier réellement maintenue
+ * (non-stomping, décision de cadrage LOT-20).
+ * \castest{<b>La manette relâchée ne masque jamais une touche clavier réellement
+ * maintenue.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La manette relâchée ne masque jamais une touche clavier réellement maintenue.
+ * }
+ */
+TEST(InputStateTest, ManetteRelacheeNeMasquePasLeClavier) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    input.onKeyDown(hmi::Key::Left);  // clavier seul, jamais touché par la manette
+    EXPECT_TRUE(input.keyDown(hmi::Key::Left));
+
+    // Sondage manette d'une frame sans manette connectee : relache la touche cote manette
+    // (comme le ferait Window::pollGamepad), le clavier ne doit pas en être affecté.
+    for (int frame = 0; frame < 3; ++frame) {
+        input.beginFrame();
+        input.onGamepadKeyUp(hmi::Key::Left);
+        EXPECT_TRUE(input.keyDown(hmi::Key::Left));
+        EXPECT_FALSE(input.keyReleased(hmi::Key::Left));
+    }
+}
+
+/**
+ * @brief `gamepadConnected` reflète le dernier `setGamepadConnected` appelé.
+ * \castest{<b>`gamepadConnected` reflète le dernier `setGamepadConnected` appelé.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu `gamepadConnected` reflète le dernier `setGamepadConnected` appelé.
+ * }
+ */
+TEST(InputStateTest, GamepadConnecteReecrasable) {
+    hmi::InputState input;
+    EXPECT_FALSE(input.gamepadConnected());
+
+    input.setGamepadConnected(true);
+    EXPECT_TRUE(input.gamepadConnected());
+
+    input.setGamepadConnected(false);
+    EXPECT_FALSE(input.gamepadConnected());
+}

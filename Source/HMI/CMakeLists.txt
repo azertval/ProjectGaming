@@ -18,6 +18,8 @@ add_executable(ProjectGaming
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
     Interface/MenuScreen.cpp
+    Interface/OptionsModel.cpp
+    Interface/OptionsScreen.cpp
     Interface/GameScreen.cpp
     Interface/EditorScreen.cpp
     Interface/LanguageSelector.cpp
@@ -38,6 +40,7 @@ target_link_libraries(ProjectGaming PRIVATE
     d3d11
     dxgi
     d3dcompiler
+    xinput
 )
 
 # Réduit la surface de Windows.h et évite les macros min/max ; API Unicode.

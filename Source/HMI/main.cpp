@@ -31,6 +31,7 @@
 #include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/MenuScreen.h"
+#include "HMI/Interface/OptionsScreen.h"
 #include "HMI/Interface/RenderContext.h"
 #include "HMI/Interface/ScreenManager.h"
 #include "HMI/Interface/SessionLog.h"
@@ -197,6 +198,8 @@ int main(int argc, char** argv) {
                     return std::make_unique<hmi::EditorScreen>(spriteBatch, atlas,
                                                               window.clientWidth(),
                                                               window.clientHeight());
+                case hmi::ScreenId::Options:
+                    return std::make_unique<hmi::OptionsScreen>(localization, graphics);
             }
             return nullptr;
         };
