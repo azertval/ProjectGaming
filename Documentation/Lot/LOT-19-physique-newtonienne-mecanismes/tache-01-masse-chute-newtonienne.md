@@ -51,7 +51,7 @@ masse ni de résistance. Ce lot introduit une masse par personnage et remplace c
   différente après un temps de chute identique).
 - **Non-régression du saut** : les tests existants sur la hauteur/durée de saut, l'apex, le
   fast-fall, le wall slide, le dash restent verts **sans modification** (seule la chute change).
-- `Source/Test/Integration/test_physique_personnage.cpp::NeTraversePasLeSolEnChuteRapide` : adapter
+- Test `NeTraversePasLeSolEnChuteRapide` (`test_physique_personnage.cpp`) : adapter
   la configuration « chute très rapide » (`fast.maxFallSpeed` n'existe plus) en fixant
   `fast.fallDragCoefficient` à une valeur quasi nulle (traînée négligeable → vitesse non bornée en
   pratique sur la durée du test), pour continuer à exercer le balayage continu (non-tunneling).
