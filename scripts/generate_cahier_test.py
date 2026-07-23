@@ -127,21 +127,24 @@ def code(fragment):
     return f'`{fragment}`' if fragment else '`?`'
 
 
-# Traduction en français de l'intention de chaque macro GoogleTest : une phrase, pas du code brut.
+# Traduction en français de l'intention de chaque macro GoogleTest, phrasée comme le serait un
+# commentaire écrit à la main au-dessus de l'assertion (« Vérifie que... »), pas une transcription
+# mécanique de l'opérateur de comparaison.
 ASSERTION_TEMPLATES = {
-    'EQ': lambda a: f'{code(a[0])} égale {code(a[1])}',
-    'NE': lambda a: f'{code(a[0])} diffère de {code(a[1])}',
-    'TRUE': lambda a: f'{code(a[0])} est vrai',
-    'FALSE': lambda a: f'{code(a[0])} est faux',
-    'GT': lambda a: f'{code(a[0])} est supérieur à {code(a[1])}',
-    'LT': lambda a: f'{code(a[0])} est inférieur à {code(a[1])}',
-    'GE': lambda a: f'{code(a[0])} est supérieur ou égal à {code(a[1])}',
-    'LE': lambda a: f'{code(a[0])} est inférieur ou égal à {code(a[1])}',
-    'NEAR': lambda a: f'{code(a[0])} est proche de {code(a[1])} '
-                      f'(tolérance {code(a[2]) if len(a) > 2 else "?"})',
-    'FLOAT_EQ': lambda a: f'{code(a[0])} égale {code(a[1])} (comparaison flottante)',
-    'DOUBLE_EQ': lambda a: f'{code(a[0])} égale {code(a[1])} (comparaison flottante)',
-    'THROW': lambda a: f'l\'opération lève une exception {code(a[1]) if len(a) > 1 else "?"}',
+    'EQ': lambda a: f'Vérifie que {code(a[0])} vaut {code(a[1])}.',
+    'NE': lambda a: f'Vérifie que {code(a[0])} diffère de {code(a[1])}.',
+    'TRUE': lambda a: f'Vérifie que {code(a[0])} est vrai.',
+    'FALSE': lambda a: f'Vérifie que {code(a[0])} est faux.',
+    'GT': lambda a: f'Vérifie que {code(a[0])} est strictement supérieur à {code(a[1])}.',
+    'LT': lambda a: f'Vérifie que {code(a[0])} est strictement inférieur à {code(a[1])}.',
+    'GE': lambda a: f'Vérifie que {code(a[0])} est supérieur ou égal à {code(a[1])}.',
+    'LE': lambda a: f'Vérifie que {code(a[0])} est inférieur ou égal à {code(a[1])}.',
+    'NEAR': lambda a: f'Vérifie que {code(a[0])} vaut {code(a[1])}, à '
+                      f'{code(a[2]) if len(a) > 2 else "?"} près.',
+    'FLOAT_EQ': lambda a: f'Vérifie que {code(a[0])} vaut {code(a[1])} (comparaison flottante).',
+    'DOUBLE_EQ': lambda a: f'Vérifie que {code(a[0])} vaut {code(a[1])} (comparaison flottante).',
+    'THROW': lambda a: f'Vérifie que l\'opération lève bien une exception '
+                       f'{code(a[1]) if len(a) > 1 else "?"}.',
 }
 
 
