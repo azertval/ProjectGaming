@@ -8,6 +8,7 @@
 #include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Gameplay/BlockController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
@@ -38,7 +39,9 @@ class TextureAtlas;
  * **redémarre** le niveau courant à l'entrée (`EX-GP-031`, `EX-GP-032`). La caméra reste **fixe**
  * et cadre le tableau ; **Échap** revient au menu. Les mécanismes interrupteur/porte et plaque de
  * pression (`core::MechanismController`) sont résolus chaque pas fixe et pris en compte par la
- * carte de collision et le rendu des portes.
+ * carte de collision et le rendu des portes. Les blocs poussables (`core::BlockController`,
+ * `EX-GP-022`) sont résolus **avant** la physique du personnage (poussée), leur position courante
+ * complétant la carte de collision au même titre que les portes.
  */
 class GameScreen : public IScreen {
 public:
@@ -90,6 +93,9 @@ private:
     /// opaque).
     void refreshDoorVisuals();
 
+    /// Repositionne les sprites des blocs poussables sur leur position courante (`_blocks`).
+    void refreshBlockVisuals();
+
     /// Met à jour la région d'atlas du sprite du personnage depuis son état d'animation
     /// courant (`core::Animation`) — appelé à chaque frame de rendu, pas seulement au spawn.
     void refreshPlayerSprite();
@@ -106,6 +112,9 @@ private:
     std::optional<core::MechanismController>
         _mechanisms;                          ///< Interrupteurs/portes du niveau courant.
     std::vector<core::Entity> _doorEntities;  ///< Entités-tuiles des portes (retour visuel d'état).
+    std::optional<core::BlockController> _blocks;  ///< Blocs poussables du niveau courant.
+    std::vector<core::Entity> _blockEntities;      ///< Entités-tuiles des blocs (même ordre que
+                                                    ///< `_blocks->positions()`).
     core::CharacterPhysicsSystem _physics;
     core::AnimationSystem _animation;
     core::Entity _player{};  ///< Entité du personnage jouable (valide si `_level`).

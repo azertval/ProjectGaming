@@ -33,7 +33,10 @@ Certains niveaux ajoutent des **mécanismes** à résoudre :
 - un **interrupteur** ouvre durablement la **porte** à laquelle il est relié (bascule : reste
   ouverte une fois activée) ;
 - une **plaque de pression** ouvre la porte lui étant reliée **tant qu'un poids** (le personnage)
-  y repose, et la referme dès qu'il en part.
+  y repose, et la referme dès qu'il en part ;
+- un **bloc** peut être poussé horizontalement en marchant contre lui (s'il y a de la place pour
+  qu'il avance), et tombe s'il n'est plus soutenu par le dessous — utile pour franchir un
+  obstacle ou atteindre un endroit hors de portée du saut seul.
 
 ## Le menu d'options
 

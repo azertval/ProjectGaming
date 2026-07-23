@@ -99,6 +99,23 @@ void GameScreen::loadLevel(core::Level level) {
             });
         _doorEntities.push_back(doorEntity);
     }
+    // Blocs poussables (EX-GP-022) : memes principes que les portes ci-dessus, une entite-tuile
+    // par bloc, reperee a sa position de depart.
+    _blocks.emplace(levelRef);
+    _blockEntities.clear();
+    for (const core::GridPosition& position : _blocks->positions()) {
+        core::Entity blockEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == position.column &&
+                    static_cast<int>(transform.position.y) == position.row) {
+                    blockEntity = entity;
+                    found = true;
+                }
+            });
+        _blockEntities.push_back(blockEntity);
+    }
     spawnPlayer(levelRef.entry());
     HMI_LOG_INFO("Niveau charge : " + levelRef.name() + " (" + std::to_string(_levelWidth) + "x" +
                  std::to_string(_levelHeight) + ")");
@@ -142,6 +159,20 @@ void GameScreen::refreshDoorVisuals() {
     }
 }
 
+// Replace le sprite de chaque bloc a sa position courante (poussee/chute, EX-GP-022).
+void GameScreen::refreshBlockVisuals() {
+    const std::vector<core::GridPosition>& positions = _blocks->positions();
+    for (std::size_t index = 0; index < _blockEntities.size(); ++index) {
+        const core::Entity block = _blockEntities[index];
+        if (!_world.hasComponent<core::Transform>(block)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(block);
+        transform.position = core::Vector2{static_cast<float>(positions[index].column),
+                                           static_cast<float>(positions[index].row)};
+    }
+}
+
 // Met a jour la region d'atlas du sprite du personnage depuis son etat d'animation courant.
 void GameScreen::refreshPlayerSprite() {
     const core::Animation& animation = _world.getComponent<core::Animation>(_player);
@@ -159,9 +190,23 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
         return ScreenTransition::none();  // chargement echoue : rien a simuler
     }
 
-    // 1. Entrees -> intention, 2. physique sur la grille des MECANISMES (portes fermees = solides).
+    // 1. Entrees -> intention.
     const core::PlayerInput intent = toPlayerInput(input);
-    _physics.update(_world, _mechanisms->collisionMap(), intent, fixedDelta);
+
+    // 1bis. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
+    // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent — pour qu'un bloc qui vient
+    // de se degager ne bloque jamais le personnage sur ce meme pas.
+    const core::Transform& previousTransform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& previousCollider = _world.getComponent<core::Collider>(_player);
+    const core::Aabb previousBox =
+        core::Aabb::fromTopLeftSize(previousTransform.position, previousCollider.size);
+    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap());
+    refreshBlockVisuals();
+
+    // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la
+    //    position COURANTE des blocs (resolue ci-dessus).
+    const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    _physics.update(_world, collision, intent, fixedDelta);
     // 2bis. Animation (EX-REN-012) : derivee de l'etat physique (Player::grounded, Velocity) qui
     // vient d'etre mis a jour pour CE pas — doit s'executer apres la physique, jamais avant.
     _animation.update(_world, fixedDelta);

@@ -29,6 +29,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-21 — Bloc poussable** (`EX-GP-022`), nouvelle tuile disponible dans l'éditeur.
+  `core::BlockController` (nouveau, `Core/Gameplay`) résout chaque pas fixe, avant la physique du
+  personnage : **poussée** horizontale d'une case si la case suivante est libre (ni mur, ni autre
+  bloc), et **chute** discrète (une case toutes les `FALL_INTERVAL_STEPS` pas) si le bloc n'est
+  plus soutenu par le dessous. Un bloc occupe toujours exactement une case entière, comme les
+  autres mécanismes de ce moteur — jamais de position intermédiaire. Un bloc posé sur une plaque
+  de pression ne l'active pas encore (évolution à venir, voir `Documentation/Guide/guide-niveaux.md`).
+  **10 nouveaux tests unitaires** (331 au total, 321 au jalon précédent).
 - **Journalisation étendue pour le diagnostic** : trois nouvelles catégories de log
   (`Core/Gameplay/GameplayLog.h`, `Core/Levels/LevelsLog.h`, `HMI/Editor/EditorLog.h`), sur le
   modèle déjà établi (voir `Documentation/Guide/guide-journalisation.md`). Journalise désormais les
