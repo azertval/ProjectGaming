@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('lot-14.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Ce lot remplace le placeholder « à venir » de <code>EditorScreen</code> par un <b>véritable mode éditeur</b>, intégré à l'application (<code>EX-EDIT-030</code>), permettant à un <b>non-développeur</b> de créer et modifier des niveaux <b>sans écrire de code</b> (<code>EX-EDIT-001</code>). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md852"></a>
+<h1><a class="anchor" id="autotoc_md854"></a>
 Objectif</h1>
 <ul>
 <li>Peindre la grille de tuiles (vide, solide, danger, entrée, sortie, interrupteur, porte) à la souris depuis une <b>palette</b>, en WYSIWYG (<code>EX-EDIT-002</code>).</li>
@@ -107,9 +107,9 @@ Objectif</h1>
 <li>Documenter le <b>partage des niveaux</b> entre non-codeurs via une interface Git graphique (<code>EX-EDIT-022</code>).</li>
 </ul>
 <p>Toute la logique de modèle/validation/sérialisation reste dans <code>Core</code>, pure et testable sans GPU (<code>EX-NFR-010</code>) ; <code>HMI/Editor</code> n'orchestre que l'interaction souris et l'affichage, conformément à la séparation <code>Core</code>/<code>HMI</code> de tout le moteur.</p>
-<h1><a class="anchor" id="autotoc_md853"></a>
+<h1><a class="anchor" id="autotoc_md855"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md854"></a>
+<h2><a class="anchor" id="autotoc_md856"></a>
 Inclus</h2>
 <ul>
 <li><b>Spec</b> : correction d'<code>EX-EDIT-006</code> dans <code><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></code> — le format réellement défini par <code>EX-LVL-003</code> est du <b>JSON pur</b> (liste de tuiles-objets), pas le « format hybride ASCII + JSON » actuellement écrit dans la spec (texte obsolète, jamais implémenté ; <code>LevelLoader</code> ne charge que du JSON). Le brouillon est mis à jour pour refléter l'implémentation réelle.</li>
@@ -120,7 +120,7 @@ Inclus</h2>
 <li><b>Sélection du niveau à éditer</b> : nouveau niveau vierge ou fichier existant de <code>Source/Elements/Levels</code>.</li>
 <li><b>Guide non-codeur</b> (<code>Documentation/Manuel/</code>) : publier/récupérer un niveau via une interface Git graphique (type GitHub Desktop), sans ligne de commande (<code>EX-EDIT-022</code>).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md855"></a>
+<h2><a class="anchor" id="autotoc_md857"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Décors &amp; pipeline photo → pixel art</b> (<code>EX-DEC-*</code>) — explicitement post-MVP de l'éditeur dans la spec (§4bis de <code><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></code>), livré après l'édition de tuiles de base.</li>
@@ -128,7 +128,7 @@ Exclus (lots ultérieurs)</h2>
 <li><b>Édition collaborative temps réel</b> et <b>édition d'assets graphiques/sonores</b> — non-objectifs explicites de la spec (l'éditeur agence des tuiles existantes, il ne dessine pas les sprites).</li>
 <li><b>Animation</b> d'ouverture de porte au-delà du retour visuel déjà existant (teinte, LOT-12).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md856"></a>
+<h1><a class="anchor" id="autotoc_md858"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Où vit le modèle d'édition</b> : dans <code>Core</code> (nouveau, ex. <code>core::LevelEditor</code> ou extension de <code>Core/Levels</code>), <b>pas</b> en HMI — cohérent avec <code>EX-EDIT-010</code> (réutilisation, source unique de vérité) et le reste du moteur (logique dans <code>Core</code>, <code>HMI</code> orchestre). <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code> reste immuable une fois construit (design actuel, LOT-07) ; le modèle d'édition est un type <b>distinct</b>, qui se convertit vers un <code>Level</code> <b>validé</b> à l'enregistrement — pas de mutabilité ajoutée à <code>Level</code> lui-même.</li>
@@ -138,13 +138,13 @@ Décisions de cadrage</h1>
 <li>**<code>EX-EDIT-020</code>** (outil exécutable sans étape de build) est déjà satisfait par l'approche éditeur <b>intégré</b> actée dans la spec (<code>EX-EDIT-030</code>) : c'est le même exécutable du jeu, en mode éditeur — aucune tâche dédiée.</li>
 <li><b>Essai immédiat, implémentation retenue</b> (précisée en TACHE-05) : une session de jeu <b>intégrée</b> — un <code>GameScreen</code> embarqué dans <code>EditorScreen</code>, piloté par délégation d'<code>update</code>/<code>render</code> — plutôt qu'une transition <code>ScreenManager</code> vers <code>ScreenId::Game</code>. <code>ScreenManager</code> détruit l'écran quitté à chaque transition (<code>_current = factory(target)</code>), ce qui aurait perdu le brouillon et l'historique undo/redo à chaque essai ; la délégation interne les préserve intégralement, sans changement d'architecture de <code>ScreenManager</code>/<code>ScreenTransition</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md857"></a>
+<h1><a class="anchor" id="autotoc_md859"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-EDIT-001</code> à <code>EX-EDIT-008</code>, <code>EX-EDIT-010</code>, <code>EX-EDIT-011</code>, <code>EX-EDIT-020</code> à <code>EX-EDIT-022</code>, <code>EX-EDIT-030</code>, <code>EX-EDIT-031</code>.</li>
 <li><code>EX-LVL-002</code>, <code>EX-LVL-003</code> (corrigée), <code>EX-LVL-004</code> (validation réutilisée), <code>EX-NFR-002</code>, <code>EX-NFR-010</code>, <code>EX-NFR-040</code>, <code>EX-ARCH-011</code>, <code>EX-ARCH-012</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md858"></a>
+<h1><a class="anchor" id="autotoc_md860"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -165,7 +165,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-06-integration-guide-non-codeur_8md.html">TACHE-06</a>   </td><td class="markdownTableBodyNone">Intégration menu, tests système, guide non-codeur Git   </td><td class="markdownTableBodyNone"><code>HMI</code>, <code>Documentation/Manuel</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md859"></a>
+<h1><a class="anchor" id="autotoc_md861"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Depuis le menu (« Mode Édition »), un non-codeur peut créer un <b>nouveau</b> niveau ou en <b>ouvrir</b> un existant, <b>peindre</b> la grille à la souris depuis une palette, placer entrée/sortie, <b>lier</b> un interrupteur à une porte, <b>redimensionner</b> la grille — sans écrire de code ni ligne de commande.</li>
@@ -175,12 +175,12 @@ Critères d'acceptation du lot</h1>
 <li>Un guide non-codeur explique, sans ligne de commande, comment <b>publier</b>/**récupérer** un niveau via une interface Git graphique.</li>
 <li>Logique de modèle/sérialisation/validation <b>couverte par des tests</b> (<code>ctest</code> vert), déterministe, sans GPU. Build <code>/W4 /WX</code> sans avertissement, Doxygen et <code>CHANGELOG.md</code> à jour, <code>lint</code> des exigences vert.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md860"></a>
+<h1><a class="anchor" id="autotoc_md862"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise le modèle et la validation de niveau (LOT-07), les mécanismes interrupteur↔porte (LOT-12), le rendu 2D et la caméra (LOT-05), les écrans/<code>ScreenManager</code> et le placeholder <code>EditorScreen</code> (LOT-06), le <code>GameScreen</code>/<code>LevelSequence</code> pour l'essai immédiat (LOT-09).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md861"></a>
+<h1><a class="anchor" id="autotoc_md863"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-14-tache-01-serialisation-modele-edition.html">TACHE-01 — Sérialisation JSON + modèle d'édition mutable</a></li>

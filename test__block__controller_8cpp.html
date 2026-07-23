@@ -178,12 +178,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a768e7670b979ea682145f2c48adbbabb" id="r_a768e7670b979ea682145f2c48adbbabb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#a768e7670b979ea682145f2c48adbbabb">TEST</a> (BlockControllerTest, CollisionMapEffaceLAncienneCase)</td></tr>
 <tr class="memdesc:a768e7670b979ea682145f2c48adbbabb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>collisionMap</code> efface la case d'origine d'un bloc déplacé (pas de mur fantôme).  <br /></td></tr>
 <tr class="separator:a768e7670b979ea682145f2c48adbbabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7676cb1ee4fb2ea0df50f863df252ea3" id="r_a7676cb1ee4fb2ea0df50f863df252ea3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#a7676cb1ee4fb2ea0df50f863df252ea3">TEST</a> (BlockControllerTest, ReconnaitLesTroisFacteursDeTaille)</td></tr>
+<tr class="memdesc:a7676cb1ee4fb2ea0df50f863df252ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois types de bloc (plein, <code>×0.5</code>, <code>×0.25</code>) sont reconnus avec le facteur de taille attendu (<code>EX-GP-005</code>).  <br /></td></tr>
+<tr class="separator:a7676cb1ee4fb2ea0df50f863df252ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc2231ae3476ebc62acabd6688cf939" id="r_afbc2231ae3476ebc62acabd6688cf939"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#afbc2231ae3476ebc62acabd6688cf939">TEST</a> (BlockControllerTest, BoxAtCentreEtReduitSelonLaTaille)</td></tr>
+<tr class="memdesc:afbc2231ae3476ebc62acabd6688cf939"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>boxAt</code> renvoie une boîte centrée et réduite pour un bloc <code>×0.5</code>/<code>×0.25</code>, pleine case pour un bloc plein.  <br /></td></tr>
+<tr class="separator:afbc2231ae3476ebc62acabd6688cf939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afff25e4db7cce4d834f735194a4588c7" id="r_afff25e4db7cce4d834f735194a4588c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#afff25e4db7cce4d834f735194a4588c7">TEST</a> (BlockControllerTest, CollisionMapNeSolidifiePasLesBlocsReduits)</td></tr>
+<tr class="memdesc:afff25e4db7cce4d834f735194a4588c7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>collisionMap</code> ne rend jamais solide la case d'un bloc réduit — elle doit rester franchissable autour de lui (<code>EX-GP-005</code>), à la différence d'un bloc plein.  <br /></td></tr>
+<tr class="separator:afff25e4db7cce4d834f735194a4588c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d0f8d0063ce11205800bbeb5e89962" id="r_a72d0f8d0063ce11205800bbeb5e89962"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#a72d0f8d0063ce11205800bbeb5e89962">TEST</a> (BlockControllerTest, BlocReduitPousseSelonSaBoiteReelle)</td></tr>
+<tr class="memdesc:a72d0f8d0063ce11205800bbeb5e89962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc réduit (<code>×0.5</code>) se pousse exactement comme un bloc plein — case par case —, mais le contact déclencheur se teste contre sa boîte RÉDUITE, pas contre la case entière (<code>EX-GP-005</code>) : un personnage aligné sur le bord de la case (pas de la boîte réduite) ne le touche pas encore.  <br /></td></tr>
+<tr class="separator:a72d0f8d0063ce11205800bbeb5e89962"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des blocs poussables (<code>BlockController</code>, <code>EX-GP-022</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a2c5f29dd67710f684c698614df86101d" name="a2c5f29dd67710f684c698614df86101d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,8 +231,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a72d0f8d0063ce11205800bbeb5e89962" name="a72d0f8d0063ce11205800bbeb5e89962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d0f8d0063ce11205800bbeb5e89962">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BlocReduitPousseSelonSaBoiteReelle&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bloc réduit (<code>×0.5</code>) se pousse exactement comme un bloc plein — case par case —, mais le contact déclencheur se teste contre sa boîte RÉDUITE, pas contre la case entière (<code>EX-GP-005</code>) : un personnage aligné sur le bord de la case (pas de la boîte réduite) ne le touche pas encore. </p>
+<p><b>Cas de test :</b> <b>Un bloc réduit se pousse comme un bloc plein, mais le contact se teste contre sa boîte réduite, pas la case entière.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Aligné sur le bord de la CASE (2,0) : aucune poussée (l'espace vide autour du bloc réduit n'est pas un contact). Aligné sur le bord de sa boîte RÉDUITE (2,25) : poussée d'une case entière, comme un bloc plein. </p>
+
+</div>
+</div>
 <a id="a34441bb332f84a91da0d68fcfbc2a09b" name="a34441bb332f84a91da0d68fcfbc2a09b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,8 +305,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="afbc2231ae3476ebc62acabd6688cf939" name="afbc2231ae3476ebc62acabd6688cf939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc2231ae3476ebc62acabd6688cf939">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BoxAtCentreEtReduitSelonLaTaille&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>boxAt</code> renvoie une boîte centrée et réduite pour un bloc <code>×0.5</code>/<code>×0.25</code>, pleine case pour un bloc plein. </p>
+<p><b>Cas de test :</b> <b>boxAt renvoie une boîte centrée et réduite pour un bloc réduit, pleine case pour un bloc plein.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Bloc plein : boîte occupant toute la case (2,1)-(3,2). Bloc ×0,5 en (3,1) : boîte centrée de 0,5×0,5, marge de 0,25 de chaque côté. </p>
+
+</div>
+</div>
 <a id="a768e7670b979ea682145f2c48adbbabb" name="a768e7670b979ea682145f2c48adbbabb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,8 +379,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="afff25e4db7cce4d834f735194a4588c7" name="afff25e4db7cce4d834f735194a4588c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff25e4db7cce4d834f735194a4588c7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CollisionMapNeSolidifiePasLesBlocsReduits&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>collisionMap</code> ne rend jamais solide la case d'un bloc réduit — elle doit rester franchissable autour de lui (<code>EX-GP-005</code>), à la différence d'un bloc plein. </p>
+<p><b>Cas de test :</b> <b>collisionMap ne rend jamais solide la case d'un bloc réduit, à la différence d'un bloc plein.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Case du bloc plein solide, cases des blocs réduits (<code>×0,5</code>/<code>×0,25</code>) non solides. </p>
+
+</div>
+</div>
 <a id="a4728b9449283958e3563f8e3b8ee5965" name="a4728b9449283958e3563f8e3b8ee5965"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +454,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a01798e04d2b97be2f9e3f9976594062a" name="a01798e04d2b97be2f9e3f9976594062a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +491,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a728f144e68c90c36cb053c00e4d88fa7" name="a728f144e68c90c36cb053c00e4d88fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +528,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae52d78664f175d7f1c3e3b5343e7a24c" name="ae52d78664f175d7f1c3e3b5343e7a24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -442,7 +565,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aceb5e1e5ce1c6a77c277c4390d52763d" name="aceb5e1e5ce1c6a77c277c4390d52763d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -475,6 +598,43 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Toucher un bloc à droite en se déplaçant vers la droite le pousse d'une case, si la case suivante est libre. </p>
+
+</div>
+</div>
+<a id="a7676cb1ee4fb2ea0df50f863df252ea3" name="a7676cb1ee4fb2ea0df50f863df252ea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7676cb1ee4fb2ea0df50f863df252ea3">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ReconnaitLesTroisFacteursDeTaille&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les trois types de bloc (plein, <code>×0.5</code>, <code>×0.25</code>) sont reconnus avec le facteur de taille attendu (<code>EX-GP-005</code>). </p>
+<p><b>Cas de test :</b> <b>Les trois types de bloc sont reconnus avec le facteur de taille attendu.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Facteur 1 pour Block, 0,5 pour BlockHalf, 0,25 pour BlockQuarter, dans l'ordre de lecture de la grille. </p>
 
 </div>
 </div>

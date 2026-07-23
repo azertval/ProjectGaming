@@ -84,7 +84,9 @@ var namespacecore =
       [ "SlopeUpRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015", null ],
       [ "SlopeUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df", null ],
       [ "RoundedUpRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4", null ],
-      [ "RoundedUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b", null ]
+      [ "RoundedUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b", null ],
+      [ "BlockHalf", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107", null ],
+      [ "BlockQuarter", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9", null ]
     ] ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#acb711314315ff134ed9c25c09b4cebe4", null ],
@@ -113,6 +115,7 @@ var namespacecore =
     [ "setAssertionHandler", "namespacecore.html#a0b2fde01c38742c460acb176220332ff", null ],
     [ "slopeSurfaceHeight", "namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb", null ],
     [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],
+    [ "sweepAabbVsAabb", "namespacecore.html#a0019562e8e9658def020086ee4d49425", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
     [ "IDLE_FRAME_COUNT", "namespacecore.html#a572ec27480068f4deb0511ed85244e68", null ],

@@ -1,9 +1,11 @@
 <map id="core::BlockController" name="core::BlockController">
-<area shape="rect" id="Node000001" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX&#45;GP&#45;022)." alt="" coords="80,196,239,221"/>
+<area shape="rect" id="Node000001" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,..." alt="" coords="168,196,327,221"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,93,148,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,142,151,194,147,197,101,146"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,138,173,170,222,194,220,198,170,174,116,143"/>
 <area shape="rect" id="Node000003" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="8,5,145,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,44,79,93,74,93,74,44"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="173,101,311,126"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,140,204,174,177,198,173,194,200,170,226,136"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="172,101,323,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="250,140,250,196,245,196,245,140"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="347,101,486,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="385,135,270,198,267,194,383,130"/>
 </map>

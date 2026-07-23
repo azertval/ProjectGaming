@@ -1,9 +1,9 @@
 var searchData=
 [
   ['0_204×0_208_20sprite_0',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
-  ['002_20lot_2020_1',['La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)',['../guide-entrees.html#autotoc_md80',1,'']]],
-  ['003_20ex_20gp_20004_2',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md123',1,'']]],
-  ['004_3',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md123',1,'']]],
+  ['002_20lot_2020_1',['La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)',['../guide-entrees.html#autotoc_md81',1,'']]],
+  ['003_20ex_20gp_20004_2',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md125',1,'']]],
+  ['004_3',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md125',1,'']]],
   ['01_20—_20composant_20et_20système_20d_20animation_4',['TACHE-01 — Composant et système d&apos;animation',['../lot-18-tache-01-composant-systeme-animation.html',1,'lot-18']]],
   ['01_20—_20composant_20sprite_20données_20pures_5',['TACHE-01 — Composant Sprite (données pures)',['../lot-05-tache-01-composant-sprite.html',1,'lot-05']]],
   ['01_20—_20composants_20du_20personnage_20intention_20d_20entrée_6',['TACHE-01 — Composants du personnage &amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
@@ -29,8 +29,8 @@ var searchData=
   ['01_20—_20sérialisation_20json_20modèle_20d_20édition_20mutable_26',['TACHE-01 — Sérialisation JSON + modèle d&apos;édition mutable',['../lot-14-tache-01-serialisation-modele-edition.html',1,'lot-14']]],
   ['01_20—_20silhouette_20du_20personnage_20dans_20l_20atlas_27',['TACHE-01 — Silhouette du personnage dans l&apos;atlas',['../lot-17-tache-01-silhouette-personnage.html',1,'lot-17']]],
   ['01_20—_20types_20mathématiques_20de_20core_28',['TACHE-01 — Types mathématiques de Core',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
-  ['019_29',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md129',1,'']]],
-  ['02_30',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md428',1,'']]],
+  ['019_29',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md131',1,'']]],
+  ['02_30',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md430',1,'']]],
   ['02_20—_20écran_20éditeur_20_3a_20grille_20cliquable_20palette_20de_20tuiles_31',['TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles',['../lot-14-tache-02-ecran-editeur-palette.html',1,'lot-14']]],
   ['02_20—_20éditeur_20et_20rendu_32',['TACHE-02 — Éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'lot-23']]],
   ['02_20—_20balayage_20aabb_20contre_20la_20grille_20géométrie_20pure_33',['TACHE-02 — Balayage AABB contre la grille (géométrie pure)',['../lot-08-tache-02-balayage-aabb.html',1,'lot-08']]],

@@ -118,7 +118,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région source dans l'atlas de textures, en <b>pixels</b> (origine haut-gauche).  <a href="structcore_1_1AtlasRegion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html">BlockController</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>, <code>EX-GP-022</code>).  <a href="classcore_1_1BlockController.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>/<code>BlockHalf</code>/ <code>BlockQuarter</code>, <code>EX-GP-022</code>/<code>EX-GP-005</code>).  <a href="classcore_1_1BlockController.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">CharacterPhysicsSystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité continue, collisions <b>continues</b> contre les tuiles solides, et état « au sol ».  <a href="classcore_1_1CharacterPhysicsSystem.html#details">More...</a><br /></td></tr>
@@ -291,6 +291,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4">RoundedUpRight</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b">RoundedUpLeft</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107">BlockHalf</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9">BlockQuarter</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>).  <a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
@@ -355,6 +357,9 @@ Functions</h2></td></tr>
 <tr class="separator:a78fa4a986a900f73517454f7c1eff774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a197b5bff2c73896fbfb05df9ea6419b9" id="r_a197b5bff2c73896fbfb05df9ea6419b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a197b5bff2c73896fbfb05df9ea6419b9">operator!=</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
 <tr class="separator:a197b5bff2c73896fbfb05df9ea6419b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0019562e8e9658def020086ee4d49425" id="r_a0019562e8e9658def020086ee4d49425"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425">sweepAabbVsAabb</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;box, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;delta, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;obstacle) noexcept</td></tr>
+<tr class="memdesc:a0019562e8e9658def020086ee4d49425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec <code>obstacle</code>, une boîte <b>fixe</b> unique (pas une grille), puis en <b>glissant</b> le long de sa surface pour le déplacement résiduel.  <br /></td></tr>
+<tr class="separator:a0019562e8e9658def020086ee4d49425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b2b8e5dc4a0b610cc1225c14e1ce5cb" id="r_a6b2b8e5dc4a0b610cc1225c14e1ce5cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">playerSize</a> ()</td></tr>
 <tr class="separator:a6b2b8e5dc4a0b610cc1225c14e1ce5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a478b06d0135ab7cd314b90791cfe7ba0" id="r_a478b06d0135ab7cd314b90791cfe7ba0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0">playerSpawnPosition</a> (int column, int row)</td></tr>
@@ -587,7 +592,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
-<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX-GP-022).">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. <code>SlopeUpRight</code>/ <code>SlopeUpLeft</code> (<code>EX-GP-003</code>) sont des <b>pentes</b> à 45° (montée sur toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est <b>inclinée</b>, décrite par <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> (<code><a class="el" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX-GP-003, EX-GP-004).">Core/Physics/SlopeGeometry.h</a></code>) et suivie par une passe de résolution dédiée (<a class="el" href="guide-physique.html">Physique du personnage</a>) — <b>pas</b> par <code>isSolid</code> (voir ci-dessous). <code>RoundedUpRight</code>/ <code>RoundedUpLeft</code> (<code>EX-GP-004</code>) sont la variante <b>courbe</b> (quart de cercle) des pentes : même orientation, même infrastructure de suivi (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, non solides), seule la formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi). </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. <code>SlopeUpRight</code>/ <code>SlopeUpLeft</code> (<code>EX-GP-003</code>) sont des <b>pentes</b> à 45° (montée sur toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est <b>inclinée</b>, décrite par <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> (<code><a class="el" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX-GP-003, EX-GP-004).">Core/Physics/SlopeGeometry.h</a></code>) et suivie par une passe de résolution dédiée (<a class="el" href="guide-physique.html">Physique du personnage</a>) — <b>pas</b> par <code>isSolid</code> (voir ci-dessous). <code>RoundedUpRight</code>/ <code>RoundedUpLeft</code> (<code>EX-GP-004</code>) sont la variante <b>courbe</b> (quart de cercle) des pentes : même orientation, même infrastructure de suivi (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, non solides), seule la formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi). <code>BlockHalf</code>/<code>BlockQuarter</code> (<code>EX-GP-005</code>) sont des <b>blocs poussables réduits</b> (facteurs <code>×0.5</code>/ <code>×0.25</code>, <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code>) : mêmes règles de poussée/chute que <code>Block</code> (case par case), mais leur boîte de collision <b>réelle</b> (testée contre le personnage) est plus petite que la case et <b>centrée</b> dedans — résolue par une routine dédiée boîte-contre-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>, <a class="el" href="guide-physique.html">Physique du personnage</a>), pas par la grille classique. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>
@@ -602,6 +607,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df" name="ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df"></a>SlopeUpLeft&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4" name="ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4"></a>RoundedUpRight&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b" name="ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b"></a>RoundedUpLeft&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107" name="ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107"></a>BlockHalf&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9" name="ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9"></a>BlockQuarter&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -987,7 +994,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code> et <code>Block</code> (un bloc non encore déplacé bloque comme un mur). <code>false</code> pour les pentes et arrondis (<code>SlopeUpRight</code>/<code>SlopeUpLeft</code>/<code>RoundedUpRight</code>/ <code>RoundedUpLeft</code>) : une surface suivable n'est <b>jamais</b> solide pour le balayage classique (<code><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5" title="Déplace box de delta en s&#39;arrêtant au premier contact avec une tuile solide, puis en glissant le long...">core::sweepAabb</a></code>), sous peine de transformer son bord haut en mur invisible — sa solidité est entièrement gérée par la passe de suivi de surface (voir <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>). La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la simulation, pas par ce test statique. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <code>Solid</code> et les trois tailles de bloc (<code>Block</code>/<code>BlockHalf</code>/<code>BlockQuarter</code>, non encore déplacés bloquent comme un mur — <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code> gère leur position réelle et, pour les tailles réduites, leur boîte de collision <b>plus petite que la case</b> via <code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>, jamais via ce test statique). <code>false</code> pour les pentes et arrondis (<code>SlopeUpRight</code>/<code>SlopeUpLeft</code>/<code>RoundedUpRight</code>/<code>RoundedUpLeft</code>) : une surface suivable n'est <b>jamais</b> solide pour le balayage classique (<code><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5" title="Déplace box de delta en s&#39;arrêtant au premier contact avec une tuile solide, puis en glissant le long...">core::sweepAabb</a></code>), sous peine de transformer son bord haut en mur invisible — sa solidité est entièrement gérée par la passe de suivi de surface (voir <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>). La solidité d'une porte dépend de son <b>état</b> (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la simulation, pas par ce test statique. </dd></dl>
 
 </div>
 </div>
@@ -1569,6 +1576,62 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position finale, l'indicateur de blocage par axe et l'occurrence d'un contact. </dd></dl>
+
+</div>
+</div>
+<a id="a0019562e8e9658def020086ee4d49425" name="a0019562e8e9658def020086ee4d49425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0019562e8e9658def020086ee4d49425">&#9670;&#160;</a></span>sweepAabbVsAabb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SweepResult.html">SweepResult</a> core::sweepAabbVsAabb </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;&#160;</td>
+          <td class="paramname"><em>delta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;&#160;</td>
+          <td class="paramname"><em>obstacle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déplace <code>box</code> de <code>delta</code> en s'arrêtant au premier contact avec <code>obstacle</code>, une boîte <b>fixe</b> unique (pas une grille), puis en <b>glissant</b> le long de sa surface pour le déplacement résiduel. </p>
+<p>Complément de <code><a class="el" href="namespacecore.html#a4ca635df367666624247837feb2af5a5" title="Déplace box de delta en s&#39;arrêtant au premier contact avec une tuile solide, puis en glissant le long...">core::sweepAabb</a></code> (<code><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">SweptCollision.h</a></code>), pas une extension : <code>sweepAabb</code> résout la collision sur la <b>grille</b> (murs, sols, blocs pleins — solide/vide par case entière) ; <code>sweepAabbVsAabb</code> résout la collision contre un obstacle dont la boîte réelle est plus <b>petite</b> qu'une case (les blocs réduits <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107">TileType::BlockHalf</a></code>/<code>BlockQuarter</code>, <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code>) et ne peut donc pas être représentée sur la grille sans bloquer à tort l'espace vide qui l'entoure. Un appelant qui doit composer les deux (<code>HMI::GameScreen</code>) applique <code>sweepAabb</code> puis, sur le déplacement réellement obtenu, <code>sweepAabbVsAabb</code> pour chaque bloc réduit concerné — la restriction la plus stricte des deux l'emporte, par construction (chaque passe ne peut que réduire encore le déplacement, jamais l'étendre).</p>
+<p>Même méthode que <code>sweepX</code>/<code>sweepY</code> (résolution <b>par axe</b>, clamp direct sur la coordonnée de contact plutôt qu'une interpolation <code>position + delta * t</code>) : évite la dérive flottante qui a fait abandonner l'approche « somme de Minkowski » historique de <code><a class="el" href="SweptCollision_8cpp.html">SweptCollision.cpp</a></code> (voir <a class="el" href="guide-physique.html">Physique du personnage</a>). L'axe X est résolu en premier à partir de la position de départ, puis l'axe Y à partir de la position <b>déjà résolue</b> en X — ce qui produit le même glissement le long de l'obstacle qu'un mur classique.</p>
+<p>Précondition : <code>box</code> ne <b>chevauche</b> pas <code>obstacle</code> au départ (état non pénétrant), comme pour <code>sweepAabb</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>Boîte mobile avant déplacement (coin haut-gauche = position de l'entité). </td></tr>
+    <tr><td class="paramname">delta</td><td>Déplacement voulu sur le pas, en unités monde. </td></tr>
+    <tr><td class="paramname">obstacle</td><td>Boîte fixe contre laquelle résoudre la collision (déjà réduite/centrée si pertinent — cette fonction ne connaît ni les tuiles ni les blocs, une boîte quelconque suffit). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position finale, l'indicateur de blocage par axe et l'occurrence d'un contact — même structure <code><a class="el" href="structcore_1_1SweepResult.html" title="Résultat d&#39;un balayage : où la boîte s&#39;arrête et sur quels axes elle a été bloquée.">core::SweepResult</a></code> que <code>sweepAabb</code>, pour une composition directe côté appelant. </dd></dl>
 
 </div>
 </div>

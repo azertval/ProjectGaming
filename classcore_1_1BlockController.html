@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('classcore_1_1BlockController.html','')
 </div><!--header-->
 <div class="contents">
 
-<p>Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>, <code>EX-GP-022</code>).  
+<p>Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>/<code>BlockHalf</code>/ <code>BlockQuarter</code>, <code>EX-GP-022</code>/<code>EX-GP-005</code>).  
  <a href="classcore_1_1BlockController.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="BlockController_8h_source.html">BlockController.h</a>&gt;</code></p>
@@ -109,20 +109,22 @@ Collaboration diagram for core::BlockController:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1BlockController__coll__graph.png" border="0" usemap="#acore_1_1BlockController_coll__map" alt="Collaboration graph"/></div>
 <map name="acore_1_1BlockController_coll__map" id="acore_1_1BlockController_coll__map">
-<area shape="rect" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block, EX&#45;GP&#45;022)." alt="" coords="80,196,239,221"/>
+<area shape="rect" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,..." alt="" coords="168,196,327,221"/>
 <area shape="rect" title=" " alt="" coords="5,93,148,133"/>
-<area shape="poly" title=" " alt="" coords="105,142,151,194,147,197,101,146"/>
+<area shape="poly" title=" " alt="" coords="119,138,173,170,222,194,220,198,170,174,116,143"/>
 <area shape="rect" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="8,5,145,31"/>
 <area shape="poly" title=" " alt="" coords="79,44,79,93,74,93,74,44"/>
-<area shape="rect" title=" " alt="" coords="173,101,311,126"/>
-<area shape="poly" title=" " alt="" coords="230,140,204,174,177,198,173,194,200,170,226,136"/>
+<area shape="rect" title=" " alt="" coords="172,101,323,126"/>
+<area shape="poly" title=" " alt="" coords="250,140,250,196,245,196,245,140"/>
+<area shape="rect" title=" " alt="" coords="347,101,486,126"/>
+<area shape="poly" title=" " alt="" coords="385,135,270,198,267,194,383,130"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a012115e6f36b5808a1e18fd840589f53" id="r_a012115e6f36b5808a1e18fd840589f53"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a012115e6f36b5808a1e18fd840589f53">BlockController</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
-<tr class="memdesc:a012115e6f36b5808a1e18fd840589f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur : repère chaque tuile <code>Block</code> du niveau comme un bloc mobile.  <br /></td></tr>
+<tr class="memdesc:a012115e6f36b5808a1e18fd840589f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le contrôleur : repère chaque tuile de bloc (<code>Block</code>/<code>BlockHalf</code>/<code>BlockQuarter</code>) du niveau comme un bloc mobile, avec son facteur de taille (<code>1</code>/<code>0.5</code>/<code>0.25</code>).  <br /></td></tr>
 <tr class="separator:a012115e6f36b5808a1e18fd840589f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38dd7d13518168abfbe6d56b11cf279f" id="r_a38dd7d13518168abfbe6d56b11cf279f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a38dd7d13518168abfbe6d56b11cf279f">update</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, float moveIntentX, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;baseCollision)</td></tr>
 <tr class="memdesc:a38dd7d13518168abfbe6d56b11cf279f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les blocs pour un pas : tente une poussée puis fait avancer les chutes.  <br /></td></tr>
@@ -131,6 +133,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a76514947992556f8b153ac603d58dc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c99052caaca4ae7ac2e9f461856ff66" id="r_a8c99052caaca4ae7ac2e9f461856ff66"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a8c99052caaca4ae7ac2e9f461856ff66">positions</a> () const noexcept</td></tr>
 <tr class="separator:a8c99052caaca4ae7ac2e9f461856ff66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201e8be3e68dba9199b0177230e3201f" id="r_a201e8be3e68dba9199b0177230e3201f"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a201e8be3e68dba9199b0177230e3201f">scales</a> () const noexcept</td></tr>
+<tr class="separator:a201e8be3e68dba9199b0177230e3201f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9150fb416f7dae1e95b6eb1b7225fe" id="r_ace9150fb416f7dae1e95b6eb1b7225fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe">boxAt</a> (std::size_t index) const</td></tr>
+<tr class="separator:ace9150fb416f7dae1e95b6eb1b7225fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -147,17 +153,20 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a46d53ba8cd8cc0538ef4ad1f25340636" id="r_a46d53ba8cd8cc0538ef4ad1f25340636"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a46d53ba8cd8cc0538ef4ad1f25340636">_positions</a></td></tr>
 <tr class="separator:a46d53ba8cd8cc0538ef4ad1f25340636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6819eaeeb9a5d5ea940ce9220a3af585" id="r_a6819eaeeb9a5d5ea940ce9220a3af585"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a6819eaeeb9a5d5ea940ce9220a3af585">_scales</a></td></tr>
+<tr class="memdesc:a6819eaeeb9a5d5ea940ce9220a3af585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de taille (<code>1</code>/<code>0.5</code>/<code>0.25</code>), même index.  <br /></td></tr>
+<tr class="separator:a6819eaeeb9a5d5ea940ce9220a3af585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9306bb0b35c21394aeba8b93da0f44f5" id="r_a9306bb0b35c21394aeba8b93da0f44f5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1BlockController.html#a9306bb0b35c21394aeba8b93da0f44f5">_fallTimers</a></td></tr>
 <tr class="memdesc:a9306bb0b35c21394aeba8b93da0f44f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas écoulés depuis que ce bloc est non soutenu.  <br /></td></tr>
 <tr class="separator:a9306bb0b35c21394aeba8b93da0f44f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>, <code>EX-GP-022</code>). </p>
-<p>Logique <b>pure</b> (aucun rendu ni fenêtre), sur le modèle de <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></code> : chaque bloc occupe exactement <b>une case</b>, sans position continue — pousser ou tomber le déplace d'une case entière, jamais à mi-chemin. Deux comportements, résolus chaque pas fixe :</p><ul>
-<li><b>Poussée</b> : si la boîte du personnage touche un bloc du côté vers lequel il se déplace et que la case suivante dans cette direction est libre (ni solide, ni un autre bloc), le bloc avance d'une case.</li>
+<div class="textblock"><p>Fait vivre les <b>blocs poussables</b> d'un niveau (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">TileType::Block</a></code>/<code>BlockHalf</code>/ <code>BlockQuarter</code>, <code>EX-GP-022</code>/<code>EX-GP-005</code>). </p>
+<p>Logique <b>pure</b> (aucun rendu ni fenêtre), sur le modèle de <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></code> : chaque bloc occupe exactement <b>une case</b>, sans position continue — pousser ou tomber le déplace d'une case entière, jamais à mi-chemin, <b>quelle que soit sa taille</b> (<code>EX-GP-005</code> ne change que la boîte de collision <b>testée contre le personnage</b>, jamais la logique de déplacement). Deux comportements, résolus chaque pas fixe :</p><ul>
+<li><b>Poussée</b> : si la boîte (réelle, réduite pour <code>BlockHalf</code>/<code>BlockQuarter</code>) du bloc touche celle du personnage du côté vers lequel il se déplace et que la case suivante dans cette direction est libre (ni solide, ni un autre bloc), le bloc avance d'une case.</li>
 <li><b>Chute</b> : un bloc dont la case du dessous est libre tombe d'une case, au rythme de <code>FALL_INTERVAL_STEPS</code> pas fixes par case (chute discrète plutôt que continue — cohérent avec le reste des mécanismes de ce moteur, tous résolus case par case).</li>
 </ul>
-<p>Le contrôleur ne connaît pas les mécanismes interrupteur/porte : <code><a class="el" href="classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08">collisionMap()</a></code> complète une grille de collision <b>déjà résolue</b> par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></code> (portes ouvertes/fermées) avec la position <b>courante</b> des blocs, sans jamais modifier la carte statique du <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code>. </p>
+<p>Le contrôleur ne connaît pas les mécanismes interrupteur/porte : <code><a class="el" href="classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08">collisionMap()</a></code> complète une grille de collision <b>déjà résolue</b> par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">MechanismController</a></code> (portes ouvertes/fermées) avec la position <b>courante</b> des blocs <b>pleins</b> (<code>Block</code>), sans jamais modifier la carte statique du <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></code>. Les blocs <b>réduits</b> (<code>BlockHalf</code>/<code>BlockQuarter</code>) ne sont <b>jamais</b> marqués solides dans cette grille — leur case doit rester franchissable <b>autour</b> d'eux (<code>EX-GP-005</code>) ; leur collision réelle avec le personnage est résolue à part, par <code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code> (<a class="el" href="guide-physique.html">Physique du personnage</a>), composée par l'appelant (<code>HMI::GameScreen</code>) après le balayage sur grille. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a012115e6f36b5808a1e18fd840589f53" name="a012115e6f36b5808a1e18fd840589f53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a012115e6f36b5808a1e18fd840589f53">&#9670;&#160;</a></span>BlockController()</h2>
@@ -183,11 +192,30 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construit le contrôleur : repère chaque tuile <code>Block</code> du niveau comme un bloc mobile. </p>
+<p>Construit le contrôleur : repère chaque tuile de bloc (<code>Block</code>/<code>BlockHalf</code>/<code>BlockQuarter</code>) du niveau comme un bloc mobile, avec son facteur de taille (<code>1</code>/<code>0.5</code>/<code>0.25</code>). </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ace9150fb416f7dae1e95b6eb1b7225fe" name="ace9150fb416f7dae1e95b6eb1b7225fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9150fb416f7dae1e95b6eb1b7225fe">&#9670;&#160;</a></span>boxAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Aabb.html">Aabb</a> core::BlockController::boxAt </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La boîte de collision <b>réelle</b> du bloc d'indice <code>index</code> à sa position courante : pleine case si <code><a class="el" href="classcore_1_1BlockController.html#a201e8be3e68dba9199b0177230e3201f">scales()</a>[index] == 1</code>, sinon centrée et réduite (<code>EX-GP-005</code>). </dd></dl>
+
+</div>
+</div>
 <a id="a76514947992556f8b153ac603d58dc08" name="a76514947992556f8b153ac603d58dc08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a76514947992556f8b153ac603d58dc08">&#9670;&#160;</a></span>collisionMap()</h2>
 
@@ -203,7 +231,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Une copie de <code>base</code> où chaque case occupée par un bloc est rendue solide. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Une copie de <code>base</code> où chaque case occupée par un bloc <b>plein</b> (<code>Block</code>) est rendue solide. Les blocs réduits (<code>BlockHalf</code>/<code>BlockQuarter</code>) restent francs dans cette grille (voir en-tête de la classe) — utiliser <code>boxAt</code>/<code>scales</code> pour leur collision réelle. </dd></dl>
 
 </div>
 </div>
@@ -273,6 +301,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les positions courantes des blocs (pour le rendu : une entité-tuile par bloc). </dd></dl>
+
+</div>
+</div>
+<a id="a201e8be3e68dba9199b0177230e3201f" name="a201e8be3e68dba9199b0177230e3201f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a201e8be3e68dba9199b0177230e3201f">&#9670;&#160;</a></span>scales()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; float &gt; &amp; core::BlockController::scales </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de taille de chaque bloc, même index que <code><a class="el" href="classcore_1_1BlockController.html#a8c99052caaca4ae7ac2e9f461856ff66">positions()</a></code> (<code>1</code> = <code>Block</code>, <code>0.5</code> = <code>BlockHalf</code>, <code>0.25</code> = <code>BlockQuarter</code>). </dd></dl>
 
 </div>
 </div>
@@ -364,6 +418,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6819eaeeb9a5d5ea940ce9220a3af585" name="a6819eaeeb9a5d5ea940ce9220a3af585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6819eaeeb9a5d5ea940ce9220a3af585">&#9670;&#160;</a></span>_scales</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; core::BlockController::_scales</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de taille (<code>1</code>/<code>0.5</code>/<code>0.25</code>), même index. </p>
 
 </div>
 </div>
