@@ -46,6 +46,11 @@ struct Player {
     int jumpsRemaining = -1;
     /// Dashs **restants** dans le tableau (budget, `EX-GP-024`) ; **-1 = illimité**.
     int dashesRemaining = -1;
+    /// Masse du personnage, en unité de jeu arbitraire (`EX-GP-019`). Détermine, avec la traînée
+    /// de `PhysicsConfig`, la vitesse terminale de chute (poids = masse × gravité effective) ; une
+    /// masse plus grande tombe plus vite. Sert aussi de seuil pour les mécanismes sensibles au
+    /// poids (plaque de pression, `EX-GP-025`).
+    float mass = 1.0f;
 };
 
 }  // namespace core

@@ -11,9 +11,11 @@ namespace core {
  * @brief Type d'une tuile de la grille d'un niveau (`EX-GP-001`).
  *
  * `Empty` est la case traversable par défaut ; `Solid` bloque le déplacement ; `Danger`
- * provoque l'échec au contact ; `Entry`/`Exit` sont l'apparition et la sortie ; `Switch` et
- * `Door` sont les mécanismes de puzzle (leur **comportement** relève d'un lot ultérieur, ce
- * modèle ne fait que les représenter).
+ * provoque l'échec au contact ; `Entry`/`Exit` sont l'apparition et la sortie ; `Switch`,
+ * `PressurePlate` et `Door` sont les mécanismes de puzzle (leur **comportement** relève d'un lot
+ * ultérieur, ce modèle ne fait que les représenter) : `Switch` bascule au contact (front),
+ * `PressurePlate` (`EX-GP-025`) reste active tant qu'un poids suffisant y repose — les deux
+ * partagent la même infrastructure de liaison à une `Door`.
  */
 enum class TileType {
     Empty,
@@ -23,6 +25,7 @@ enum class TileType {
     Exit,
     Switch,
     Door,
+    PressurePlate,
 };
 
 /**

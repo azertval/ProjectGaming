@@ -32,8 +32,9 @@ Chaque case de la grille a l'un de ces types :
 | `Danger` | Traversable, mais son contact déclenche l'échec du niveau (`EX-GP-031`). |
 | `Entry` | Position d'apparition du personnage au chargement du niveau. |
 | `Exit` | Recouvrir cette case déclenche la réussite du niveau (`EX-GP-030`). |
-| `Switch` | Interrupteur : son activation change l'état d'une `Door` liée (voir §« Mécanismes »). |
-| `Door` | Porte : solide **fermée**, franchissable **ouverte** — son état dépend d'un `Switch` lié. |
+| `Switch` | Interrupteur : son activation **bascule** l'état d'une `Door` liée (voir §« Mécanismes »). |
+| `PressurePlate` | Plaque de pression : ouvre une `Door` liée **tant qu'un poids y repose** (`EX-GP-025`) — activation **continue**, pas de bascule. |
+| `Door` | Porte : solide **fermée**, franchissable **ouverte** — son état dépend du `Switch`/`PressurePlate` lié. |
 
 Notez que `Door` n'est **pas** statiquement solide au sens de `core::isSolid(TileType)` — sa
 solidité dépend de son **état**, calculé par le `MechanismController` (voir plus bas), pas du type
@@ -133,21 +134,30 @@ entités-sprites générées. Modifier une entité-sprite ne changerait donc rie
 le mécanisme de portes ci-dessous qui montre comment un changement d'état du niveau doit réellement
 se propager.
 
-## Mécanismes interrupteur ↔ porte
+## Mécanismes déclencheur ↔ porte
 
 `core::MechanismController` (logique **pure**, dans `Core/Gameplay`, sans dépendance rendu) donne
-un **comportement** aux liaisons interrupteur↔porte que le modèle de niveau ne fait que
-**représenter** (`EX-GP-020`, `EX-GP-021`) :
+un **comportement** aux liaisons déclencheur↔porte que le modèle de niveau ne fait que
+**représenter** (`EX-GP-020`, `EX-GP-021`, `EX-GP-025`). Deux types de déclencheur, deux
+comportements — la nature de chacun est figée **une fois pour toutes** à la construction, d'après
+la tuile d'origine (`TileType::Switch` ou `TileType::PressurePlate` à sa position) :
 
-- à sa construction, il **copie** la `TileMap` du niveau dans une grille de collision **mutable**
-  qui lui est propre (`_collision`) — le `Level` d'origine, lui, ne change jamais. Chaque porte y
-  est posée **fermée**, c'est-à-dire remplacée par `TileType::Solid`, au départ ;
-- `update(playerBox)` est appelé chaque pas fixe avec la boîte englobante du personnage : si elle
-  **recouvre** un interrupteur, et que ce recouvrement vient de **commencer** ce pas-ci (un
-  **front** — pas un contact déjà en cours, sinon rester debout sur l'interrupteur ferait
-  osciller la porte à chaque pas), l'état de la porte **liée** **bascule** (ouverte ↔ fermée) ;
-- à chaque bascule, la grille `_collision` est mise à jour en conséquence : porte ouverte →
-  `TileType::Door` (franchissable), porte fermée → `TileType::Solid` (bloquante) ;
+- à sa construction, le contrôleur **copie** la `TileMap` du niveau dans une grille de collision
+  **mutable** qui lui est propre (`_collision`) — le `Level` d'origine, lui, ne change jamais.
+  Chaque porte y est posée **fermée**, c'est-à-dire remplacée par `TileType::Solid`, au départ ;
+- `update(playerBox, playerMass)` est appelé chaque pas fixe avec la boîte englobante du
+  personnage et sa masse (`core::Player::mass`, `EX-GP-019`) :
+  - **interrupteur** (`Switch`) : si la boîte **recouvre** la case, et que ce recouvrement vient de
+    **commencer** ce pas-ci (un **front** — pas un contact déjà en cours, sinon rester debout sur
+    l'interrupteur ferait osciller la porte à chaque pas), l'état de la porte **liée** **bascule**
+    (ouverte ↔ fermée) — inchangé depuis LOT-12 ;
+  - **plaque de pression** (`PressurePlate`) : la porte liée est ouverte **si et seulement si** la
+    boîte recouvre la plaque **et** que la masse du personnage atteint le seuil `MIN_TRIGGER_MASS`
+    (constante interne, calée par défaut sur la masse par défaut du personnage) — réévalué à
+    **chaque** pas, sans notion de front : rester dessus la garde ouverte, en partir la referme
+    **immédiatement**.
+- à chaque changement d'état, la grille `_collision` est mise à jour en conséquence : porte
+  ouverte → `TileType::Door` (franchissable), porte fermée → `TileType::Solid` (bloquante) ;
 - la **physique** ne consomme jamais directement la `TileMap` du `Level` : elle reçoit
   `collisionMap()`, la grille du contrôleur. C'est ce fil qui fait qu'une porte fermée **bloque**
   réellement le personnage, sans jamais muter la carte d'origine du niveau — le `Level` reste la
@@ -157,7 +167,15 @@ un **comportement** aux liaisons interrupteur↔porte que le modèle de niveau n
 Concrètement, avec l'exemple JSON ci-dessus : la porte en `(7, 6)` est solide tant que
 l'interrupteur `s1` en `(3, 6)` n'a pas été touché ; dès que le personnage marche dessus, elle
 devient franchissable — et se refermerait si l'interrupteur était retouché après être sorti du
-contact (nouveau front).
+contact (nouveau front). Une **plaque de pression** liée à la même porte, elle, la garderait
+ouverte pas à pas tant que le personnage y resterait, sans qu'un second passage soit nécessaire
+pour la refermer.
+
+Le seuil de poids ne **discrimine** encore rien tant qu'un seul acteur (le personnage) existe dans
+le jeu — toute plaque s'active « prête à l'emploi ». Il prend son sens dès qu'une seconde masse
+apparaîtrait dans une future évolution (ex. un bloc poussable, `EX-GP-022`, non couvert par ce
+lot) : l'infrastructure de comparaison de poids est déjà en place, sans qu'aucun code de mécanisme
+n'ait à changer.
 
 ## Budget de mouvements
 

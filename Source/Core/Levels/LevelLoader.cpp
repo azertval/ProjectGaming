@@ -45,7 +45,16 @@ namespace {
     if (name == "door") {
         return TileType::Door;
     }
+    if (name == "pressurePlate") {
+        return TileType::PressurePlate;
+    }
     return std::nullopt;
+}
+
+// Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
+// EX-GP-020/EX-GP-025) : les deux partagent la même règle d'identifiant.
+[[nodiscard]] bool isTriggerType(TileType type) {
+    return type == TileType::Switch || type == TileType::PressurePlate;
 }
 
 // Une porte lue, avec la référence (opensWith) à résoudre en position d'interrupteur.
@@ -119,15 +128,17 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             } else if (*type == TileType::Exit) {
                 exit = GridPosition{x, y};
                 ++exitCount;
-            } else if (*type == TileType::Switch) {
+            } else if (isTriggerType(*type)) {
+                // Interrupteur ou plaque de pression (EX-GP-020/EX-GP-025) : meme regle
+                // d'identifiant, partagee avec les portes via 'opensWith'.
                 const std::string id = tile.value("id", std::string{});
                 if (id.empty()) {
-                    return failure("Interrupteur sans 'id' en (" + std::to_string(x) + ", " +
+                    return failure("Declencheur sans 'id' en (" + std::to_string(x) + ", " +
                                        std::to_string(y) + ")",
                                    LevelValidationError::MissingSwitchId);
                 }
                 if (!switchesById.emplace(id, GridPosition{x, y}).second) {
-                    return failure("Identifiant d'interrupteur en double : " + id,
+                    return failure("Identifiant de declencheur en double : " + id,
                                    LevelValidationError::DuplicateSwitchId);
                 }
             } else if (*type == TileType::Door) {

@@ -33,7 +33,7 @@ TEST(PlayerComponentsTest, ColliderParDefautEstNul) {
  * \tcrit Mineur<br/>
  * \tetapes 1. Construire un `core::Player` par défaut.<br/>2. Lire ses champs.<br/>
  * \tattendu Pas au sol ; minuteries et compteurs à 0 ; orienté à droite ; dash indisponible ;
- * budgets sauts/dashs à -1 (illimité).}
+ * budgets sauts/dashs à -1 (illimité) ; masse à 1,0 (`EX-GP-019`).}
  */
 TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     const core::Player player;
@@ -48,6 +48,7 @@ TEST(PlayerComponentsTest, PlayerParDefautPasAuSol) {
     EXPECT_FLOAT_EQ(player.dashTimer, 0.0f);
     EXPECT_EQ(player.jumpsRemaining, -1);  // budget illimité par défaut
     EXPECT_EQ(player.dashesRemaining, -1);
+    EXPECT_FLOAT_EQ(player.mass, 1.0f);
 }
 
 /**
@@ -80,7 +81,7 @@ TEST(PlayerComponentsTest, PhysicsConfigParDefautPlausible) {
     const core::PhysicsConfig config;
     EXPECT_GT(config.moveSpeed, 0.0f);
     EXPECT_GT(config.gravity, 0.0f);
-    EXPECT_GT(config.maxFallSpeed, 0.0f);
+    EXPECT_GT(config.fallDragCoefficient, 0.0f);
     EXPECT_GT(config.jumpSpeed, 0.0f);
     EXPECT_GT(config.coyoteTime, 0.0f);
     EXPECT_GT(config.jumpBufferTime, 0.0f);

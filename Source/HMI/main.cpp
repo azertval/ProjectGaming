@@ -191,7 +191,7 @@ int main(int argc, char** argv) {
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
                         std::vector<std::filesystem::path>{
                             levels / "demo.json", levels / "demo2.json", levels / "demo3.json",
-                            levels / "demo4.json"});
+                            levels / "demo4.json", levels / "demo5.json"});
                 }
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>(spriteBatch, atlas,

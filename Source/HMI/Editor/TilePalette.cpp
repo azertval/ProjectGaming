@@ -1,5 +1,7 @@
 #include "HMI/Editor/TilePalette.h"
 
+#include <iterator>
+
 #include "HMI/Editor/EditorLayout.h"
 
 namespace hmi {
@@ -8,9 +10,15 @@ namespace {
 
 // Types éditables, dans leur ordre d'affichage (cf. en-tête : limité à ce que Core gère).
 constexpr core::TileType PALETTE_TYPES[] = {
-    core::TileType::Empty, core::TileType::Solid,  core::TileType::Danger, core::TileType::Entry,
-    core::TileType::Exit,  core::TileType::Switch, core::TileType::Door,
+    core::TileType::Empty,        core::TileType::Solid, core::TileType::Danger,
+    core::TileType::Entry,        core::TileType::Exit,  core::TileType::Switch,
+    core::TileType::PressurePlate, core::TileType::Door,
 };
+// Garde-fou : EditorLayout::PALETTE_TYPE_COUNT dimensionne le panneau (haut de la barre d'outils,
+// EditorLayout.h) a partir de ce meme compte, sans pouvoir le deriver directement (constexpr
+// inter-fichiers) — cette assertion empeche les deux de diverger silencieusement.
+static_assert(std::size(PALETTE_TYPES) == PALETTE_TYPE_COUNT,
+             "PALETTE_TYPE_COUNT (EditorLayout.h) doit suivre le nombre d'entrees de PALETTE_TYPES");
 
 // Libellé court affiché sous chaque entrée (découvrabilité, EX-EDIT-015) — pas d'accent, cohérent
 // avec le reste des libellés affichés en jeu par cet ecran (police bitmap, place limitée).
@@ -28,6 +36,8 @@ constexpr core::TileType PALETTE_TYPES[] = {
             return "Sortie";
         case core::TileType::Switch:
             return "Interr.";
+        case core::TileType::PressurePlate:
+            return "Plaque";
         case core::TileType::Door:
             return "Porte";
     }

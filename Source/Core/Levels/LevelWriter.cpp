@@ -31,8 +31,16 @@ namespace {
             return "switch";
         case TileType::Door:
             return "door";
+        case TileType::PressurePlate:
+            return "pressurePlate";
     }
     return "empty";
+}
+
+// Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
+// EX-GP-020/EX-GP-025) : les deux partagent la même règle d'identifiant (LevelLoader.cpp).
+[[nodiscard]] bool isTriggerType(TileType type) {
+    return type == TileType::Switch || type == TileType::PressurePlate;
 }
 
 }  // namespace
@@ -66,13 +74,14 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
         root["dashBudget"] = dashBudget;
     }
 
-    // Identifiants d'interrupteurs régénérés de façon déterministe (balayage ligne par ligne) :
-    // ni Level ni LevelDraft ne conservent les identifiants du fichier d'origine.
+    // Identifiants de déclencheurs (interrupteur ou plaque de pression) régénérés de façon
+    // déterministe (balayage ligne par ligne) : ni Level ni LevelDraft ne conservent les
+    // identifiants du fichier d'origine.
     std::map<std::pair<int, int>, std::string> switchIds;
     int nextSwitchId = 0;
     for (int row = 0; row < tileMap.height(); ++row) {
         for (int column = 0; column < tileMap.width(); ++column) {
-            if (tileMap.tile(column, row) == TileType::Switch) {
+            if (isTriggerType(tileMap.tile(column, row))) {
                 switchIds.emplace(std::make_pair(column, row),
                                   "s" + std::to_string(nextSwitchId++));
             }
@@ -102,7 +111,7 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
             tile["x"] = column;
             tile["y"] = row;
             tile["type"] = tileTypeName(type);
-            if (type == TileType::Switch) {
+            if (isTriggerType(type)) {
                 const auto found = switchIds.find(std::make_pair(column, row));
                 if (found != switchIds.end()) {
                     tile["id"] = found->second;
