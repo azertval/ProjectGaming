@@ -3,7 +3,7 @@ var searchData=
   ['3_20boucle_20temps_0',['3. Boucle &amp; temps',['../spec-rendu-technique.html#autotoc_md222',1,'']]],
   ['3_20conception_20lignes_20directrices_1',['3. Conception (lignes directrices)',['../spec-niveaux.html#autotoc_md218',1,'']]],
   ['3_20coordonnées_20unités_20—_20trois_20espaces_20distincts_2',['3. Coordonnées &amp; unités — trois espaces distincts',['../spec-architecture.html#autotoc_md150',1,'']]],
-  ['3_20créer_20un_20niveau_3',['3. Créer un niveau',['../manuel-partager-niveau.html#autotoc_md1169',1,'']]],
+  ['3_20créer_20un_20niveau_3',['3. Créer un niveau',['../manuel-partager-niveau.html#autotoc_md1313',1,'']]],
   ['3_20distribution_20collaboration_4',['3. Distribution &amp; collaboration',['../spec-editeur.html#autotoc_md194',1,'']]],
   ['3_20mécanismes_20de_20puzzle_5',['3. Mécanismes de puzzle',['../spec-gameplay.html#autotoc_md211',1,'']]],
   ['3_20mise_20en_20forme_6',['3. Mise en forme',['../spec-conventions.html#autotoc_md167',1,'']]],

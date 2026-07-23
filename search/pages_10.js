@@ -51,6 +51,10 @@ var searchData=
   ['lot_2019_20—_20physique_20newtonienne_20et_20plaque_20de_20pression_48',['LOT-19 — Physique newtonienne et plaque de pression',['../lot-19.html',1,'lots']]],
   ['lot_2020_20—_20manette_20et_20menu_20d_20options_49',['LOT-20 — Manette et menu d&apos;options',['../lot-20.html',1,'lots']]],
   ['lot_2021_20—_20bloc_20poussable_50',['LOT-21 — Bloc poussable',['../lot-21.html',1,'lots']]],
-  ['lots_51',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_52',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2022_20—_20pentes_20réelles_51',['LOT-22 — Pentes réelles',['../lot-22.html',1,'lots']]],
+  ['lot_2023_20—_20collision_20arrondie_52',['LOT-23 — Collision arrondie',['../lot-23.html',1,'lots']]],
+  ['lot_2024_20—_20blocs_20à_20taille_20fractionnaire_53',['LOT-24 — Blocs à taille fractionnaire',['../lot-24.html',1,'lots']]],
+  ['lot_2025_20—_20refactoring_20complet_20des_20niveaux_20démo_54',['LOT-25 — Refactoring complet des niveaux démo',['../lot-25.html',1,'lots']]],
+  ['lots_55',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_56',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

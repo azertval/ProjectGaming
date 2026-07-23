@@ -12,7 +12,7 @@ var searchData=
   ['un_20clic_20plusieurs_20significations_20possibles_9',['Un clic, plusieurs significations possibles',['../guide-editeur.html#autotoc_md61',1,'']]],
   ['un_20détail_20d_20implémentation_20qui_20simplifie_20tout_20_3a_20ref_20hmi_3a_3akey_20key_20réutilise_20les_20codes_20win32_10',['Un détail d&apos;implémentation qui simplifie tout : \ref hmi::Key &quot;Key&quot; réutilise les codes Win32',['../guide-entrees.html#autotoc_md78',1,'']]],
   ['un_20jeu_20vidéo_11',['Pourquoi journaliser dans un jeu vidéo',['../guide-journalisation.html#autotoc_md84',1,'']]],
-  ['un_20niveau_12',['un niveau',['../manuel-partager-niveau.html#autotoc_md1169',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md1164',1,'Objectif d&apos;un niveau']]],
+  ['un_20niveau_12',['un niveau',['../manuel-partager-niveau.html#autotoc_md1313',1,'3. Créer un niveau'],['../manuel-jouer.html#autotoc_md1308',1,'Objectif d&apos;un niveau']]],
   ['un_20niveau_20à_20éditer_20_3a_20ref_20hmi_3a_3alevelpicker_20hmi_3a_3alevelpicker_13',['Choisir un niveau à éditer : \ref hmi::LevelPicker &quot;hmi::LevelPicker&quot;',['../guide-editeur.html#autotoc_md72',1,'']]],
   ['un_20niveau_20plus_20grand_20que_20la_20fenêtre_14',['Cadrer un niveau plus grand que la fenêtre',['../guide-editeur.html#autotoc_md70',1,'']]],
   ['un_20niveau_20qu_20on_20peut_20défaire_15',['\ref core::LevelDraft &quot;core::LevelDraft&quot; : un niveau qu&apos;on peut défaire',['../guide-editeur.html#autotoc_md56',1,'']]],

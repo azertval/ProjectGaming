@@ -1,5 +1,9 @@
 var NAVTREEINDEX8 =
 {
+"lot-01-tache-04-effacement-presentation.html#autotoc_md260":[6,1,9,0],
+"lot-01-tache-04-effacement-presentation.html#autotoc_md261":[6,1,9,1],
+"lot-01-tache-04-effacement-presentation.html#autotoc_md262":[6,1,9,2],
+"lot-01-tache-04-effacement-presentation.html#autotoc_md263":[6,1,9,3],
 "lot-01-tache-04-effacement-presentation.html#autotoc_md264":[6,1,9,4],
 "lot-01-tache-04-effacement-presentation.html#autotoc_md265":[6,1,9,5],
 "lot-01-tache-05-integration.html":[6,1,10],
@@ -245,9 +249,5 @@ var NAVTREEINDEX8 =
 "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md479":[6,5,12,5],
 "lot-05-tache-05-systeme-rendu-sprites.html#autotoc_md480":[6,5,12,6],
 "lot-05-tache-06-cablage-world-demo.html":[6,5,13],
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md481":[6,5,13,0],
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md482":[6,5,13,1],
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md483":[6,5,13,2],
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md484":[6,5,13,3],
-"lot-05-tache-06-cablage-world-demo.html#autotoc_md485":[6,5,13,4]
+"lot-05-tache-06-cablage-world-demo.html#autotoc_md481":[6,5,13,0]
 };

@@ -2,7 +2,7 @@ var searchData=
 [
   ['jamais_20coder_20«_20en_20dur_20»_20une_20touche_20dans_20le_20gameplay_0',['Le principe : ne jamais coder « en dur » une touche dans le gameplay',['../guide-entrees.html#autotoc_md74',1,'']]],
   ['jamais_20l_20inverse_1',['Enregistrer : valider avant d&apos;écrire, jamais l&apos;inverse',['../guide-editeur.html#autotoc_md67',1,'']]],
-  ['jeu_2',['jeu',['../spec-gameplay.html#autotoc_md213',1,'5. États de jeu'],['../manuel-jouer.html#autotoc_md1163',1,'Contrôles en jeu'],['../guide-ecrans.html#autotoc_md41',1,'Où ça s&apos;insère dans la boucle de jeu'],['../guide-boucle.html#autotoc_md28',1,'Qu&apos;est-ce qu&apos;une boucle de jeu ?'],['../manuel-telecharger.html',1,'Télécharger et lancer le jeu'],['../lot-16-tache-03-camera-niveau-entier.html',1,'TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)']]],
+  ['jeu_2',['jeu',['../spec-gameplay.html#autotoc_md213',1,'5. États de jeu'],['../manuel-jouer.html#autotoc_md1307',1,'Contrôles en jeu'],['../guide-ecrans.html#autotoc_md41',1,'Où ça s&apos;insère dans la boucle de jeu'],['../guide-boucle.html#autotoc_md28',1,'Qu&apos;est-ce qu&apos;une boucle de jeu ?'],['../manuel-telecharger.html',1,'Télécharger et lancer le jeu'],['../lot-16-tache-03-camera-niveau-entier.html',1,'TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)']]],
   ['jeu_20décidée_3',['Mécanique de jeu (décidée)',['../spec-vision.html#autotoc_md228',1,'']]],
   ['jeu_20démo_20éditeur_20placeholder_4',['TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)',['../lot-06-tache-06-ecrans-cibles.html',1,'lot-06']]],
   ['jeu_20direct3d_2011_5',['LOT-01 — Fenêtre &amp; boucle de jeu (Direct3D 11)',['../lot-01.html',1,'lots']]],

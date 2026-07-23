@@ -20,5 +20,9 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-18-animation-personnage", "dir_0d6e23667d2f12070992df02c81714a3.html", null ],
     [ "LOT-19-physique-newtonienne-mecanismes", "dir_1341ef927df0e274c0553aa4e48f9dc2.html", null ],
     [ "LOT-20-manette-menu-options", "dir_a1106d0cff235f40d36447ea90fc039b.html", null ],
-    [ "LOT-21-bloc-poussable", "dir_6b291a504d31f639e5c71947a516e13b.html", null ]
+    [ "LOT-21-bloc-poussable", "dir_6b291a504d31f639e5c71947a516e13b.html", null ],
+    [ "LOT-22-pentes", "dir_65f8f8ebe1ea923151772f4ad72bd955.html", null ],
+    [ "LOT-23-collision-arrondie", "dir_e58606d9a50c58cb7b2ce1b9f298f986.html", null ],
+    [ "LOT-24-blocs-taille-fractionnaire", "dir_0b5265d79a1134723a4ae3337be64a23.html", null ],
+    [ "LOT-25-niveaux-demo-exhaustifs", "dir_7948254dd9a8fc91331a4d5422a690cb.html", null ]
 ];

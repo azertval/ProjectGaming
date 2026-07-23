@@ -111,11 +111,18 @@ $(document).ready(function(){initNavTree('spec-gameplay.html',''); initResizable
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Entrée   </td><td class="markdownTableBodyNone">Position d'apparition du personnage.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Sortie   </td><td class="markdownTableBodyNone">Déclenche la victoire au contact.   </td></tr>
+<td class="markdownTableBodyNone">Sortie   </td><td class="markdownTableBodyNone">Déclenche la victoire au contact.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Pente (⚠️ non implémenté)   </td><td class="markdownTableBodyNone">Solide, mais dont la surface est <b>inclinée</b> : le personnage suit le profil de la pente plutôt que d'être simplement bloqué ou arrêté à son pied.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Arrondi (⚠️ non implémenté)   </td><td class="markdownTableBodyNone">Solide, mais dont la surface est <b>courbe</b> (quart de cercle) plutôt que plane — même principe de suivi que la pente.   </td></tr>
 </table>
 <ul>
 <li><a class="anchor" id="EX-GP-001"></a><b>EX-GP-001</b> — Le niveau doit être représenté par une grille de tuiles typées.</li>
 <li><a class="anchor" id="EX-GP-002"></a><b>EX-GP-002</b> — Une tuile solide doit empêcher le personnage de la traverser.</li>
+<li><a class="anchor" id="EX-GP-003"></a><b>EX-GP-003</b> (⚠️ non implémenté) — Une tuile de <b>pente</b> doit être solide mais laisser le personnage <b>suivre</b> sa surface inclinée en marchant (la position verticale du personnage se cale sur la hauteur de la pente à sa position horizontale), pas seulement le bloquer ou l'arrêter à son pied.</li>
+<li><a class="anchor" id="EX-GP-004"></a><b>EX-GP-004</b> (⚠️ non implémenté) — Une tuile <b>arrondie</b> (quart de cercle) doit offrir le même suivi de surface que la pente (<code>EX-GP-003</code>), avec un profil <b>courbe</b> plutôt que linéaire.</li>
+<li><a class="anchor" id="EX-GP-005"></a><b>EX-GP-005</b> (⚠️ non implémenté) — Un <b>bloc poussable</b> (<code>EX-GP-022</code>) doit pouvoir avoir une taille <b>réduite</b> par rapport à une case pleine (facteurs <code>×0.5</code>/<code>×0.25</code>), pour permettre des défis de précision (sauts millimétrés) — en prévision de blocs poussables <b>plus grands</b> qu'une case (multi-cases), non couverts par cette exigence.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md208"></a>
 2. Personnage &amp; déplacement</h1>

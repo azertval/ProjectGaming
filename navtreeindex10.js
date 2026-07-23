@@ -1,5 +1,9 @@
 var NAVTREEINDEX10 =
 {
+"lot-09-tache-06-niveaux-demo.html":[6,9,13],
+"lot-09-tache-06-niveaux-demo.html#autotoc_md703":[6,9,13,0],
+"lot-09-tache-06-niveaux-demo.html#autotoc_md704":[6,9,13,1],
+"lot-09-tache-06-niveaux-demo.html#autotoc_md705":[6,9,13,2],
 "lot-09-tache-06-niveaux-demo.html#autotoc_md706":[6,9,13,3],
 "lot-09-tache-06-niveaux-demo.html#autotoc_md707":[6,9,13,4],
 "lot-09-tache-06-niveaux-demo.html#autotoc_md708":[6,9,13,5],
@@ -245,9 +249,5 @@ var NAVTREEINDEX10 =
 "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md920":[6,15,9,3],
 "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md921":[6,15,9,4],
 "lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md922":[6,15,9,5],
-"lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md923":[6,15,9,6],
-"lot-15-tache-03-nommage-renommage.html":[6,15,10],
-"lot-15-tache-03-nommage-renommage.html#autotoc_md924":[6,15,10,0],
-"lot-15-tache-03-nommage-renommage.html#autotoc_md925":[6,15,10,1],
-"lot-15-tache-03-nommage-renommage.html#autotoc_md926":[6,15,10,2]
+"lot-15-tache-02-garde-fous-perte-donnees.html#autotoc_md923":[6,15,9,6]
 };

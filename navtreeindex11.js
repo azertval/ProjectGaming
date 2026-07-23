@@ -1,5 +1,9 @@
 var NAVTREEINDEX11 =
 {
+"lot-15-tache-03-nommage-renommage.html":[6,15,10],
+"lot-15-tache-03-nommage-renommage.html#autotoc_md924":[6,15,10,0],
+"lot-15-tache-03-nommage-renommage.html#autotoc_md925":[6,15,10,1],
+"lot-15-tache-03-nommage-renommage.html#autotoc_md926":[6,15,10,2],
 "lot-15-tache-03-nommage-renommage.html#autotoc_md927":[6,15,10,3],
 "lot-15-tache-03-nommage-renommage.html#autotoc_md928":[6,15,10,4],
 "lot-15-tache-03-nommage-renommage.html#autotoc_md929":[6,15,10,5],
@@ -245,9 +249,5 @@ var NAVTREEINDEX11 =
 "lot-21-tache-01-controleur-blocs.html#autotoc_md1141":[6,21,8,1],
 "lot-21-tache-01-controleur-blocs.html#autotoc_md1142":[6,21,8,2],
 "lot-21-tache-01-controleur-blocs.html#autotoc_md1143":[6,21,8,3],
-"lot-21-tache-01-controleur-blocs.html#autotoc_md1144":[6,21,8,4],
-"lot-21-tache-01-controleur-blocs.html#autotoc_md1145":[6,21,8,5],
-"lot-21-tache-01-controleur-blocs.html#autotoc_md1146":[6,21,8,6],
-"lot-21-tache-02-integration-editeur-jeu.html":[6,21,9],
-"lot-21-tache-02-integration-editeur-jeu.html#autotoc_md1147":[6,21,9,0]
+"lot-21-tache-01-controleur-blocs.html#autotoc_md1144":[6,21,8,4]
 };

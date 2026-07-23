@@ -12,7 +12,10 @@ var searchData=
   ['fixe_9',['fixe',['../guide-boucle.html',1,'Boucle de jeu et pas de temps fixe'],['../lot-03-tache-05-systemes-world.html',1,'TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)']]],
   ['fixe_20succès_20échec_10',['TACHE-06 — Intégration jouable dans GameScreen (cadrage fixe, succès / échec)',['../lot-08-tache-06-integration-jouable.html',1,'lot-08']]],
   ['fixe_20testable_11',['TACHE-03 — Boucle à pas de temps fixe (testable)',['../lot-01-tache-03-boucle-pas-fixe.html',1,'lot-01']]],
-  ['fonctionnelles_12',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
-  ['fondation_20ecs_20mathématiques_20core_13',['LOT-03 — Fondation ECS &amp; mathématiques Core',['../lot-03.html',1,'lots']]],
-  ['fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_14',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]]
+  ['fonction_20de_20hauteur_12',['TACHE-01 — Modèle de tuile et fonction de hauteur',['../lot-22-tache-01-modele-tuile-pente.html',1,'lot-22']]],
+  ['fonctionnelles_13',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
+  ['fondation_20ecs_20mathématiques_20core_14',['LOT-03 — Fondation ECS &amp; mathématiques Core',['../lot-03.html',1,'lots']]],
+  ['formule_20de_20courbe_15',['TACHE-01 — Modèle de tuile et formule de courbe',['../lot-23-tache-01-modele-tuile-arrondie.html',1,'lot-23']]],
+  ['fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_16',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
+  ['fractionnaire_17',['LOT-24 — Blocs à taille fractionnaire',['../lot-24.html',1,'lots']]]
 ];
