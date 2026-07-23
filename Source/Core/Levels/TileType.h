@@ -18,7 +18,11 @@ namespace core {
  * repose — les deux partagent la même infrastructure de liaison à une `Door`. `Block` (`EX-GP-022`)
  * est un **bloc poussable** : sa position initiale est celle du fichier, mais `core::BlockController`
  * la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour
- * les mécanismes, ce modèle ne fait que représenter sa position de **départ**.
+ * les mécanismes, ce modèle ne fait que représenter sa position de **départ**. `SlopeUpRight`/
+ * `SlopeUpLeft` (`EX-GP-003`) sont des **pentes** à 45° (montée sur toute la largeur d'une case,
+ * respectivement vers la droite et vers la gauche) : leur surface est **inclinée**, décrite par
+ * `core::slopeSurfaceHeight` (`Core/Physics/SlopeGeometry.h`) et suivie par une passe de
+ * résolution dédiée (@ref guide-physique) — **pas** par `isSolid` (voir ci-dessous).
  */
 enum class TileType {
     Empty,
@@ -30,14 +34,20 @@ enum class TileType {
     Door,
     PressurePlate,
     Block,
+    SlopeUpRight,
+    SlopeUpLeft,
 };
 
 /**
  * @brief Indique si un type de tuile bloque le déplacement de manière **statique**.
  * @param type Type de tuile.
- * @return true pour `Solid` et `Block` (un bloc non encore déplacé bloque comme un mur). La
- *         solidité d'une porte dépend de son **état** (ouverte/fermée) et la position d'un bloc
- *         évolue en jeu : toutes deux sont gérées par la simulation, pas par ce test statique.
+ * @return true pour `Solid` et `Block` (un bloc non encore déplacé bloque comme un mur). `false`
+ *         pour les pentes (`SlopeUpRight`/`SlopeUpLeft`) : une pente n'est **jamais** solide pour
+ *         le balayage classique (`core::sweepAabb`), sous peine de transformer son bord haut en
+ *         mur invisible — sa solidité est entièrement gérée par la passe de suivi de surface
+ *         (voir `core::slopeSurfaceHeight`). La solidité d'une porte dépend de son **état**
+ *         (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la
+ *         simulation, pas par ce test statique.
  */
 [[nodiscard]] constexpr bool isSolid(TileType type) noexcept {
     return type == TileType::Solid || type == TileType::Block;

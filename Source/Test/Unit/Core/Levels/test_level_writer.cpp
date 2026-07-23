@@ -145,6 +145,39 @@ TEST(LevelWriterTest, BlocPoussableSurvitAuRoundTrip) {
 }
 
 /**
+ * @brief Les deux orientations de pente survivent au round-trip (`EX-GP-003`).
+ * \castest{<b>Les deux orientations de pente survivent au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les deux orientations de pente survivent au round-trip.
+ * }
+ */
+TEST(LevelWriterTest, PentesSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "Pentes",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "slopeUpRight" },
+        { "x": 1, "y": 0, "type": "slopeUpLeft" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(0, 0), core::TileType::SlopeUpRight);
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 0), core::TileType::SlopeUpLeft);
+}
+
+/**
  * @brief Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.
  * \castest{<b>Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.</b><br/>
  * \tcat Unitaire · Level Writer<br/>

@@ -1,6 +1,6 @@
 # TACHE-02 — Collision et suivi de pente {#lot-22-tache-02-collision-suivi-pente}
 
-**Lot :** [LOT-22](epic.md) · **Emplacement :** `Core/Physics`, `Core/Ecs/Systems` · **Statut :** à faire
+**Lot :** [LOT-22](epic.md) · **Emplacement :** `Core/Physics`, `Core/Ecs/Systems` · **Statut :** fait
 
 ## Contexte
 La tâche la plus risquée du lot : ajouter une passe de résolution après le balayage `sweepAabb`
@@ -46,6 +46,16 @@ modèle posé en TACHE-01.
 - **Isoler le code de suivi de pente de `sweepAabb`** (voir décision de cadrage de l'épic et
   discussion ci-dessus) : la fonction historique reste la référence testée pour les murs/sols
   plats ; le suivi de pente est une couche additive, jamais une modification en place.
+- **Écart constaté par rapport au plan initial** : `sweepAabb` n'est en fait **pas** restée
+  totalement inchangée. Les tests d'intégration ont révélé qu'une pente suivie d'un bloc plein de
+  même hauteur (le raccord le plus courant) bloquait le personnage à mi-montée : `sweepX` traite
+  comme un mur toute case pleine partageant une ligne que la boîte chevauche déjà, or suivre une
+  pente fait légitimement chevaucher la boîte à l'intérieur de sa case (contrairement au sol plat,
+  où elle n'en effleure jamais que la frontière). Corrigé par une exclusion minimale et ciblée
+  (`rowIsSlopeGround`) plutôt qu'une réécriture : généralise le principe déjà en place de `kSkin`
+  sans toucher `sweepY` ni la logique de blocage des murs/sols pleins. Voir @ref guide-physique,
+  section « Suivi de pente », pour le détail du raisonnement et le test qui l'a mis au jour
+  (`SuitUnePenteAscendanteEnMarchant`).
 - **Tolérance de calage** : trop large, le personnage « collerait » à une pente même en sautant
   franchement au-dessus ; trop stricte, il risque de passer légèrement sous la surface à grande
   vitesse de chute avant que le calage ne s'applique. Choisir une valeur testée empiriquement

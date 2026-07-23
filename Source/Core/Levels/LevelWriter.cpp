@@ -35,6 +35,10 @@ namespace {
             return "pressurePlate";
         case TileType::Block:
             return "block";
+        case TileType::SlopeUpRight:
+            return "slopeUpRight";
+        case TileType::SlopeUpLeft:
+            return "slopeUpLeft";
     }
     return "empty";
 }

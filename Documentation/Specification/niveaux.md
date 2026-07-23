@@ -12,7 +12,9 @@
 Types de tuiles : `entry` (entrée), `exit` (sortie), `solid` (solide), `danger`, `switch`
 (interrupteur), `pressurePlate` (plaque de pression, activation continue tant qu'un poids y
 repose), `door` (porte), `block` (bloc poussable, `EX-GP-022` — déplaçable par le personnage,
-retombe sous gravité). Une case **vide** n'est pas listée (absence = vide).
+retombe sous gravité), `slopeUpRight` et `slopeUpLeft` (pentes à 45°, `EX-GP-003` — surface suivie,
+jamais solide pour la grille classique ; « Up » désigne le côté qui monte, `Right`/`Left`). Une case
+**vide** n'est pas listée (absence = vide).
 ```json
 {
   "name": "Tutoriel 1",
