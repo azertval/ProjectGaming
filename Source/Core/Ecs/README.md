@@ -14,7 +14,7 @@ Implémenté (LOT-03) :
 - `View<Components...>` — vue multi-composants itérant l'intersection (pilotée par la plus petite pool), API `for (auto [entity, ...] : view)` et `view.each(...)`.
 - `ISystem` — interface d'un système (`update(World&, float fixedDelta)`).
 - `World` — façade : `createEntity` / `destroyEntity` (purge toutes les pools), `addComponent` / `getComponent` / `hasComponent` / `removeComponent`, `view<...>()`, `addSystem` / `update` (exécution ordonnée au pas fixe).
-- `Components/` — composants données pures : `Transform` (position, échelle, rotation), `Velocity` (vitesse en unités monde/s), `Sprite` (région d'atlas, couche, teinte — lu par le rendu de `HMI`).
-- `Systems/` — systèmes : `MovementSystem` (intègre `position += velocity * fixedDelta` sur les entités `Transform + Velocity`).
+- `Components/` — composants données pures : `Transform` (position, échelle, rotation), `Velocity` (vitesse en unités monde/s), `Sprite` (région d'atlas, couche, teinte — lu par le rendu de `HMI`), `Collider` (boîte AABB de collision), `Player` (marqueur du personnage jouable + état de contact au sol), `Animation` (clip/image courante du personnage, `EX-REN-012`).
+- `Systems/` — systèmes : `MovementSystem` (intègre `position += velocity * fixedDelta` sur les entités `Transform + Velocity`), `CharacterPhysicsSystem` (déplacement, gravité et collisions du personnage par pas fixe), `AnimationSystem` (dérive le clip/l'image d'animation de l'état physique du personnage).
 
 Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.

@@ -38,9 +38,9 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 - Longueur de ligne indicative : **100 colonnes**.
 - Include guard : **`#pragma once`** (pas de macros de garde manuelles).
 
-## 4. Inclusions (`#include`)
+## 4. Inclusions (\#include)
 
-### Chemins complets depuis `Source/`
+### Chemins complets depuis Source/
 Les en-têtes du projet s'incluent par leur **chemin complet depuis la racine `Source/`**, jamais par nom seul :
 
 ```cpp
@@ -80,7 +80,7 @@ Dans un `.cpp`, du plus proche au plus général, chaque groupe trié et sépar�
 ## 6. Documentation Doxygen
 Tout élément public (fichier, type, fonction) est documenté **en français**. `JAVADOC_AUTOBRIEF` est actif : la première phrase sert de description courte.
 
-### Doxygen dans le header, commentaires simples `//` dans le `.cpp`
+### Doxygen dans le header, commentaires simples // dans le .cpp
 La documentation Doxygen (exportée vers le site) vit **uniquement dans les en-têtes** (`.h`) :
 - Dans le **`.h`** : le bloc Doxygen `/** … */` complet — contrat de la fonction (rôle,
   `@param`, `@return`), lu par les appelants et exporté sur le site. C'est la **source unique**.
@@ -127,7 +127,7 @@ bool updatePhysics(Entity& entity, float deltaTime) {
 > ex. une interface) n'a pas besoin d'être redocumentée : Doxygen hérite de la doc de base.
 > Les fonctions **internes** au `.cpp` (espace de noms anonyme) se contentent aussi de `//`.
 
-### Documentation du corps (`.cpp`)
+### Documentation du corps (.cpp)
 Dans les définitions, commenter en français avec des `//` :
 - Le rôle de chaque **branche `if`/`else`** non triviale (pourquoi cette condition).
 - Le principe de tout **algorithme complexe** (intention, invariants, cas limites), pas la paraphrase ligne à ligne.
@@ -207,7 +207,7 @@ Ces règles sont appliquées par des outils, pas seulement par relecture :
 
 Le code livré compile **sans aucun avertissement**. Un avertissement légitime et inévitable est neutralisé localement et commenté (jamais désactivé globalement).
 
-## 12. Identifiants d'exigences (`EX-…`)
+## 12. Identifiants d'exigences (EX-…)
 Les exigences sont identifiées par un code `EX-<CAT>-<NNN>` (ex. `EX-ARCH-011`),
 déclaré dans les [spécifications](@ref specifications) et référencé depuis les
 lots **et** le code. Ces identifiants sont **stables** : ils servent de handles

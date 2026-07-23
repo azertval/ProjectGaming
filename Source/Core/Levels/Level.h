@@ -18,8 +18,8 @@ namespace core {
  * @brief Liaison d'un **interrupteur** à une **porte**, par positions résolues.
  *
  * Dans le fichier, la liaison est exprimée par identifiant (`switch.id` ↔ `door.opensWith`) ;
- * le chargeur la résout en positions de grille. Le **comportement** (l'interrupteur ouvre la
- * porte) relève d'un lot de gameplay ultérieur.
+ * le chargeur la résout en positions de grille. Le **comportement** (l'interrupteur ou la plaque
+ * de pression ouvre la porte) est résolu chaque pas fixe par `core::MechanismController`.
  */
 struct Mechanism {
     GridPosition switchPosition;

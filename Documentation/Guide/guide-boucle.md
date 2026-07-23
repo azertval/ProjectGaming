@@ -63,7 +63,7 @@ Le rendu, lui, n'a pas besoin de cette contrainte : dessiner une fois de plus ou
 seconde ne casse aucun invariant logique. Il reste donc cadencé sur le temps réel, une fois par
 frame — c'est le **découplage** entre logique (fixe) et rendu (variable).
 
-## L'accumulateur : `core::FixedTimestep`
+## L'accumulateur : \ref core::FixedTimestep "core::FixedTimestep"
 
 Le mécanisme qui convertit un temps réel variable en un nombre entier de pas fixes s'appelle un
 **accumulateur**. Principe :
@@ -110,7 +110,7 @@ son tour rattraper encore plus de pas — un cercle vicieux appelé la **spirale
 `maximumStepsPerCall` : le nombre de pas renvoyé par `advance()` est **plafonné** (5 par défaut),
 quitte à ce que la simulation « perde » du temps réel dans un cas extrême plutôt que de bloquer.
 
-### `interpolationAlpha`
+### \ref core::FixedTimestep::interpolationAlpha "interpolationAlpha"
 
 Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans
 l'accumulateur (entre 0 et 1 pas). `interpolationAlpha()` l'expose comme un facteur dans `[0, 1[` :

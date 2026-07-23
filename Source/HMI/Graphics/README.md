@@ -10,5 +10,6 @@ Rendu Direct3D 11 (wrapper mince, pas de couche multi-backend).
 - `BitmapFont` — police bitmap monospace générée en code (glyphes 5×7, accents français composés) ; `drawText` dessine du texte UTF-8 en espace écran via `SpriteBatch`, et `screenProjection` fournit la projection pixels → clip de l'interface.
 - `FlagIcons` — icônes de drapeaux générées en code (France, Royaume-Uni) pour le sélecteur de langue ; expose la région de texture par langue.
 - `SaveIcon` — icône « enregistrer » (flèche de téléchargement) générée en code pour le bouton d'enregistrement des logs.
+- `TileVisuals` — correspondance type de tuile → région d'atlas (couleur procédurale), partagée entre le jeu et l'éditeur.
 
 Réf. specs : `EX-REN-002`, `EX-REN-010`…`EX-REN-022`, `EX-REN-032`, `EX-REN-033`, `EX-ARCH-022`, `EX-ARCH-050`.

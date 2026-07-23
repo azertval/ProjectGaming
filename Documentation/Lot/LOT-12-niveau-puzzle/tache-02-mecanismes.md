@@ -1,4 +1,4 @@
-# TACHE-02 — Mécanismes interrupteur/porte (`MechanismController`) {#lot-12-tache-02-mecanismes}
+# TACHE-02 — Mécanismes interrupteur/porte (MechanismController) {#lot-12-tache-02-mecanismes}
 
 **Lot :** [LOT-12](epic.md) · **Emplacement :** `Source/Core/Gameplay` · **Statut :** à faire
 

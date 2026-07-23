@@ -71,7 +71,7 @@ librement. Caler sur la coordonnée **entière** du mur donne une position **exa
 > mouvement évite de confondre deux situations proches : *marcher sur* un sol (contact attendu, pas
 > un blocage) et *buter contre* lui (blocage réel).
 
-### Lire le résultat : `core::SweepResult`
+### Lire le résultat : \ref core::SweepResult "core::SweepResult"
 
 `SweepResult` porte la **position** finale de la boîte après résolution, et une **normale
 indicatrice** par axe (`normal.x`, `normal.y`), chacune valant `-1`, `+1` ou `0` — pas un vecteur
@@ -119,7 +119,7 @@ qu'une parabole physiquement pure et perçue comme molle :
   joueur une fenêtre plus généreuse pour ajuster sa trajectoire horizontale ou viser une plateforme
   précisément.
 
-### Vitesse terminale newtonienne (`EX-GP-019`)
+### Vitesse terminale newtonienne (EX-GP-019)
 
 Sans borne, une chute prolongée accélérerait indéfiniment sous gravité constante — injouable (le
 personnage traverserait plusieurs tuiles par pas, au risque de *tunneling* malgré le balayage

@@ -1,4 +1,4 @@
-# TACHE-06 — Intégration jouable dans `GameScreen` (cadrage fixe, succès / échec) {#lot-08-tache-06-integration-jouable}
+# TACHE-06 — Intégration jouable dans GameScreen (cadrage fixe, succès / échec) {#lot-08-tache-06-integration-jouable}
 
 **Lot :** [LOT-08](epic.md) · **Emplacement :** `Source/HMI/Interface` · **Statut :** à faire
 

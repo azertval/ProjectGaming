@@ -21,8 +21,9 @@ ProjectGaming est un moteur de jeu 2D maison. Ses partis pris :
 - **ECS maison** (sparse sets) : entités = identifiants, composants = données pures,
   systèmes = logique, exécutés à **pas de temps fixe déterministe**.
 - **Rendu pixel art** en Direct3D 11 (tuiles 16 px, échantillonnage *nearest*).
-- **Éditeur de niveaux** intégré (à venir) pour permettre à des non-développeurs de
-  créer du contenu, et **décors issus de photos converties en pixel art** (post-MVP).
+- **Éditeur de niveaux** intégré pour permettre à des non-développeurs de créer du
+  contenu (peinture, mécanismes, undo/redo, essai immédiat), et **décors issus de
+  photos converties en pixel art** (post-MVP).
 
 Le *quoi* et le *pourquoi* sont décrits dans les
 [spécifications](https://azertval.github.io/ProjectGaming/) ; le *comment* dans le
@@ -32,15 +33,21 @@ Le *quoi* et le *pourquoi* sont décrits dans les
 
 Le moteur physique est complet et **jouable** :
 
-- **Personnage de plateforme** (silhouette humanoïde 0,4 × 0,8) : déplacement horizontal,
-  **saut** avec *game feel* (hauteur variable, coyote time, jump buffering), **double saut**,
-  **wall jump** + wall slide, **dash** 8 directions.
-- **Gravité** asymétrique (chute plus lourde que la montée), flottement à l'apex, *fast-fall*.
+- **Personnage de plateforme** (silhouette humanoïde animée : repos, course, saut) :
+  déplacement horizontal, **saut** avec *game feel* (hauteur variable, coyote time, jump
+  buffering), **double saut**, **wall jump** + wall slide, **dash** 8 directions.
+- **Gravité** asymétrique (chute plus lourde que la montée), flottement à l'apex, *fast-fall*,
+  chute **newtonienne** (masse/traînée) au-delà du *game feel* de base.
 - **Collisions** par **balayage continu** (swept AABB) : aucune traversée à vitesse élevée.
-- **Niveaux** en tuiles typées, chargés depuis des fichiers **JSON**, avec **validation**.
-- **Mécanismes** interrupteur ↔ porte et **budget de mouvements** (sauts/dashs limités par tableau)
-  pour des tableaux **puzzle**.
-- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en).
+- **Niveaux** en tuiles typées, de taille arbitraire, chargés depuis des fichiers **JSON**, avec
+  **validation**.
+- **Mécanismes** interrupteur ↔ porte, **plaque de pression**, et **budget de mouvements**
+  (sauts/dashs limités par tableau) pour des tableaux **puzzle**.
+- **Éditeur de niveaux** intégré : peinture à la souris, outils rectangle/sélection, liaison de
+  mécanismes, undo/redo, essai immédiat, guide non-codeur pour partager un niveau via Git.
+- **Enchaînement de niveaux** en séquence (titre → niveaux → titre), **menu** multilingue (fr/en),
+  **menu d'options** (V-Sync, langue), jouable/navigable au **clavier, à la souris et à la
+  manette** (XInput).
 
 Toute la simulation vit dans `Core` (pure, déterministe au pas fixe) et est **couverte par des
 tests** (unitaires, intégration, système) — voir le **Cahier de test**.

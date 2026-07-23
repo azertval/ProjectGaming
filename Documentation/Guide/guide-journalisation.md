@@ -21,7 +21,7 @@ faits pour un usage **ultérieur** et humain (diagnostic après coup), sans jama
 programme ; une assertion vérifie un invariant **immédiatement** et signale un **bug** s'il est
 violé.
 
-## Les niveaux de gravité : `core::LogLevel`
+## Les niveaux de gravité : \ref core::LogLevel "core::LogLevel"
 
 Tous les messages ne se valent pas : un message peut être un détail de mise au point sans intérêt
 en usage normal, ou au contraire signaler une erreur qu'il faut voir absolument. `core::LogLevel`
@@ -39,7 +39,7 @@ généralement tout voir (`Trace` et au-dessus) ; pour une session de test plus 
 `Warning` et `Error` évite de noyer les messages importants dans le bruit des détails `Trace`/`Info`.
 C'est le rôle du `Logger`, ci-dessous.
 
-## `core::Logger` : filtrer puis diffuser
+## \ref core::Logger "core::Logger" : filtrer puis diffuser
 
 `core::Logger` a exactement deux responsabilités, séparées volontairement de toute écriture réelle
 sur un support (fichier, console, etc.) :
@@ -124,7 +124,7 @@ dans un chemin exécuté à chaque frame ou à chaque pas fixe** (@ref guide-bou
 (construction de chaînes, appel de fonction, éventuelle écriture) et pourrait à lui seul dégrader le
 *framerate* — le symptôme inverse de ce que la journalisation est censée aider à diagnostiquer.
 
-## Le format d'une ligne : `core::formatLogLine`
+## Le format d'une ligne : \ref core::formatLogLine "core::formatLogLine"
 
 `core::formatLogLine(timestamp, level, category, file, line, message)` compose une ligne de la
 forme :
@@ -172,7 +172,13 @@ journalise, lui, reste **identique** dans les deux configurations : `HMI_LOG_INF
 s'exécute pareil des deux côtés — c'est le nombre de sinks enregistrés, décidé une fois au
 démarrage, qui change ce qu'il en advient.
 
-## Assertions : `PROJECTGAMING_ASSERT`, un outil différent
+Le bouton d'enregistrement lui-même (`hmi::SaveIcon`, dessiné en coin d'écran en build
+développement) n'est qu'une petite icône **générée en code** — une flèche blanche teintable, sans
+aucun asset graphique — dont le clic écrit `MemoryLogSink::entries()` sur disque
+(`hmi::saveSessionLog`) : la couche `HMI` ne fait qu'exposer, via un pixel cliquable, ce que
+`Core` a déjà collecté.
+
+## Assertions : \ref PROJECTGAMING_ASSERT "PROJECTGAMING_ASSERT", un outil différent
 
 Une **assertion** vérifie qu'une condition, censée être **toujours vraie** si le code est correct
 (une précondition, un invariant), l'est effectivement à un point précis de l'exécution — sa

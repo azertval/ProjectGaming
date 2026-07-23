@@ -5,7 +5,7 @@
 ## Contexte
 Les identifiants d'exigences (`EX-VIS-001`, `EX-ARCH-011`, …) sont référencés à la fois dans les **lots** (epics + tâches) et dans le **code** (commentaires Doxygen de `Core`). Les renuméroter casserait ces références. Un ID d'exigence doit donc être un **identifiant permanent**, pas un marqueur de position. Cette tâche grave cette règle, sécurise les références et outille l'allocation. **Aucun ID existant n'est renuméroté** (y compris `EX-VIS`, laissé tel quel) : à la création d'une exigence, l'utilisateur choisit un numéro libre et le **lint CI garantit l'unicité** (un doublon fait échouer la CI).
 
-## Règle à formaliser (dans `conventions.md`)
+## Règle à formaliser (dans conventions.md)
 - Un `EX-…` est **immuable** : alloué une fois, **jamais renuméroté**, **jamais réutilisé**.
 - Allocation au **prochain numéro libre**.
 - Le numéro **n'encode pas l'ordre** : l'ordre de lecture est celui du document, indépendant de l'ID.

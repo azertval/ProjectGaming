@@ -1,6 +1,6 @@
 # LOT-02 — Journalisation & diagnostics {#lot-02}
 
-> Statut : **à faire**. Infrastructure **transverse** : utilisée par tous les modules (y compris l'ECS du LOT-03). À réaliser avant les lots de gameplay.
+> Statut : **terminé**. Infrastructure **transverse** : utilisée par tous les modules (y compris l'ECS du LOT-03).
 
 ## Objectif
 Fournir, dans `Core/Diagnostics`, un **système de journalisation** (log par niveaux, vers des sorties configurables) et un **mécanisme d'assertions** (`PROJECTGAMING_ASSERT`), utilisables partout dans le code et testables. Remplace les `std::cout` / `std::fprintf` provisoires.

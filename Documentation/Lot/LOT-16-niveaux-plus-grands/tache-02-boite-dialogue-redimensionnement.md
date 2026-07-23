@@ -1,4 +1,4 @@
-# TACHE-02 — Boîte de dialogue de redimensionnement (`Ctrl+R`) {#lot-16-tache-02-boite-dialogue-redimensionnement}
+# TACHE-02 — Boîte de dialogue de redimensionnement (Ctrl+R) {#lot-16-tache-02-boite-dialogue-redimensionnement}
 
 **Lot :** [LOT-16](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait
 

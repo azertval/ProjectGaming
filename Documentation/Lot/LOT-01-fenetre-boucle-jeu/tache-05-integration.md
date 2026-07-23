@@ -1,4 +1,4 @@
-# TACHE-05 — Intégration `main` & vérification {#lot-01-tache-05-integration}
+# TACHE-05 — Intégration main & vérification {#lot-01-tache-05-integration}
 
 **Lot :** [LOT-01](epic.md) · **Module :** `Source/HMI` · **Statut :** terminé
 

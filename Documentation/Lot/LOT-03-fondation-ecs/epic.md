@@ -1,4 +1,4 @@
-# LOT-03 — Fondation ECS & mathématiques `Core` {#lot-03}
+# LOT-03 — Fondation ECS & mathématiques Core {#lot-03}
 
 > Statut : **terminé**. Substrat de la simulation : gameplay, tuiles et décors en dépendent. Décision ⚠️ tranchée : **ECS maison** (sparse sets).
 

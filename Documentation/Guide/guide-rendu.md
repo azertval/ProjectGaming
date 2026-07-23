@@ -27,7 +27,7 @@ l'écran finit de rafraîchir l'image précédente, ce qui s'appelle la **synchr
 l'écran, au prix d'attendre ce moment si le jeu est plus rapide que l'écran. L'ensemble
 « back buffer(s) + mécanisme d'échange » s'appelle une **swap chain**.
 
-## `hmi::GraphicsDevice` : initialiser Direct3D 11 et présenter l'image
+## \ref hmi::GraphicsDevice "hmi::GraphicsDevice" : initialiser Direct3D 11 et présenter l'image
 
 **Direct3D 11** est l'API bas niveau, fournie par Windows, qui permet de piloter le GPU (créer des
 ressources, envoyer des commandes de dessin, présenter l'image). `hmi::GraphicsDevice` encapsule les
@@ -52,7 +52,7 @@ leur libération est automatique à la destruction, exactement comme un `std::un
 mémoire ordinaire — c'est ce qui permet à `GraphicsDevice` de n'avoir aucun destructeur explicite à
 écrire (`~GraphicsDevice() = default`).
 
-## `hmi::Window` : la fenêtre, prérequis du rendu
+## \ref hmi::Window "hmi::Window" : la fenêtre, prérequis du rendu
 
 Direct3D a besoin d'une surface Windows où dessiner : c'est `hmi::Window` (`Source/HMI/Platform`)
 qui crée et possède cette fenêtre Win32, et fournit son handle natif (`HWND`, littéralement
@@ -66,7 +66,7 @@ traite ces messages et, au passage, met à jour l'`hmi::InputState` de la fenêt
 guide-entrees) — c'est pour cela que la capture d'entrée est fenêtrée, plutôt qu'un module
 totalement séparé.
 
-## Unités monde et pixels : `hmi::Camera2D`
+## Unités monde et pixels : \ref hmi::Camera2D "hmi::Camera2D"
 
 `Core` ne connaît que des **unités monde** (une tuile = 1 unité, @ref guide-maths) — jamais de
 pixels. Le rendu doit donc **convertir** une position monde en position d'écran avant de dessiner
@@ -88,7 +88,7 @@ cette matrice, et non une conversion manuelle pixel par pixel, que le pipeline d
 chaque sommet ; `worldToScreen`/`screenToWorld` exposent la même conversion côté CPU, pour des
 besoins hors dessin (par exemple convertir une position de souris en position monde).
 
-## Le pipeline de dessin de sprites : `hmi::SpriteBatch`
+## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
 
 ### Pourquoi « batcher » plutôt que dessiner un sprite à la fois
 
@@ -101,7 +101,7 @@ un grand nombre de sprites partageant la **même texture** en un minimum d'appel
 seul appel, au moment de `flush()`/`end()` — l'usage est `begin(projection, texture)`, puis un ou
 plusieurs `draw(quad)`, puis `end()`.
 
-### `SpriteQuad` : un rectangle texturé
+### \ref hmi::SpriteQuad "SpriteQuad" : un rectangle texturé
 
 Un **quad** est simplement un rectangle (deux triangles, en pratique — un GPU ne sait dessiner que
 des triangles). `hmi::SpriteQuad` en décrit un par sa position/taille en **unités monde** (`x, y,
@@ -132,7 +132,7 @@ Le pipeline gère aussi la **transparence** (`_blendState`) : sans un état de *
 le canal alpha d'un quad (utile pour les zones transparentes de l'atlas, voir plus bas) serait
 ignoré et chaque sprite dessinerait un rectangle plein.
 
-## `hmi::TextureAtlas` : un spritesheet, généré en code
+## \ref hmi::TextureAtlas "hmi::TextureAtlas" : un spritesheet, généré en code
 
 Un **atlas de texture** (ou *spritesheet*) regroupe **plusieurs** images dans une **seule** grande
 texture, à des positions connues. C'est ce qui permet le batching décrit plus haut :
@@ -164,8 +164,13 @@ donc dessinée **pré-compressée** de moitié en hauteur dans son canevas carr�
 proportions naturelles une fois étirée par l'échelle du `Transform`.
 
 Ce choix — étendre l'atlas existant plutôt que créer une classe séparée sur le modèle de
-`SaveIcon`/`FlagIcons` (icônes de l'interface, @ref guide-journalisation, @ref guide-entrees) —
-découle directement de la contrainte de batching énoncée plus haut : `SpriteBatch::begin` (et donc
+`hmi::SaveIcon` (icône d'enregistrement de session de logs, @ref guide-journalisation) ou
+`hmi::FlagIcons` (drapeaux du sélecteur de langue, @ref guide-entrees) — découle directement de
+la contrainte de batching énoncée plus haut : chacune de ces deux petites icônes, **générée en
+code** comme le reste de l'atlas, possède sa **propre** texture Direct3D dessinée hors du lot
+principal de sprites (elle n'a pas besoin d'être batchée avec les tuiles/le personnage) ; le
+personnage, lui, est dessiné à **chaque** frame parmi des centaines d'autres sprites, d'où
+l'obligation de partager la texture de `TextureAtlas`. `SpriteBatch::begin` (et donc
 `SpriteRenderer::render`, qui ne fait qu'**un seul** `begin`/`end` pour **toutes** les entités du
 monde) ne lie qu'**une seule** texture par lot. Une région de personnage dans une texture séparée
 aurait exigé de restructurer `SpriteRenderer` pour trier les entités par texture et faire plusieurs
@@ -198,7 +203,7 @@ au spawn, à la différence de LOT-17) : elle lit `core::Animation` du personnag
 séparation que partout ailleurs dans le rendu : `Core` décide **quoi** afficher (quel clip, quelle
 image), `HMI` sait seule **à quoi ça ressemble** (quels pixels).
 
-## `hmi::SpriteRenderer` : le pont ECS → écran
+## \ref hmi::SpriteRenderer "hmi::SpriteRenderer" : le pont ECS → écran
 
 C'est ici que les fils se rejoignent : `SpriteRenderer::render(world, camera)` parcourt le `World`
 (@ref guide-ecs) par une **vue** sur les entités possédant à la fois `core::Transform` (position,
@@ -219,7 +224,7 @@ au pas fixe (`EX-REN-021`), cohérent avec la séparation décrite en @ref guide
 avance par pas fixes, discrets ; le rendu, lui, redessine l'état courant une fois par **frame**
 réelle, qu'un pas fixe ait eu lieu ou non entre deux frames.
 
-## `hmi::BitmapFont` : dessiner du texte
+## \ref hmi::BitmapFont "hmi::BitmapFont" : dessiner du texte
 
 Le texte (menus, libellés) ne peut pas se dessiner avec `sweepAabb` ni un `Transform` monde : c'est
 une préoccupation entièrement différente, à la fois dans son espace de coordonnées et dans sa

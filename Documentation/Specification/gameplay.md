@@ -51,7 +51,7 @@ Chaque mécanisme est déterministe : à état d'entrée identique, comportement
 - \anchor EX-GP-032 **EX-GP-032** — En cas d'échec, le niveau doit **redémarrer** à son état initial sans quitter le jeu.
 
 ## 5. États de jeu
-- \anchor EX-GP-040 **EX-GP-040** — Le jeu doit gérer des états distincts : `Menu`, `EnJeu`, `Pause`, `NiveauTermine`.
+- \anchor EX-GP-040 **EX-GP-040** (⚠️ partiellement implémenté) — Le jeu doit gérer des états distincts : `Menu`, `EnJeu`, `Pause`, `NiveauTermine`. En l'état (`hmi::ScreenId`) : `Menu`, `Game`, `Editor`, `Options` — pas d'état `Pause` ni `NiveauTermine` dédiés (cf. `EX-REN-031`).
 - \anchor EX-GP-041 **EX-GP-041** — Les transitions entre états doivent être explicites et unidirectionnelles à chaque événement (machine à états).
 
 ## Traçabilité

@@ -2,6 +2,9 @@
 
 Intégration au système d'exploitation.
 
-- `Window` — fenêtre Win32, pompe de messages, événements (fermeture, redimensionnement).
+- `Window` — fenêtre Win32, pompe de messages, événements (fermeture, redimensionnement), sondage
+  manette XInput (`pollGamepad`) fusionné dans l'`InputState` de la fenêtre.
+- `ExecutableDirectory` — dossier contenant l'exécutable en cours, pour localiser les ressources
+  copiées à côté (niveaux, catalogues de langue) indépendamment du répertoire de travail.
 
-Réf. specs : `EX-REN-001`, `EX-REN-003`.
+Réf. specs : `EX-REN-001`, `EX-REN-003`, `EX-CTRL-002`.

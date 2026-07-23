@@ -13,6 +13,11 @@ Livré (LOT-14, LOT-15) :
 - Panneau latéral fixe (`EditorLayout.h`, constantes de disposition partagées par `TilePalette`,
   `ToolBar` et `EditorScreen`) — la grille se cadre dans le canevas à droite, jamais dessous.
 
+Livré (LOT-16) :
+
+- `LevelSizeValidation` — analyse et validation d'une taille de grille saisie directement
+  (`Ctrl+R`, format `largeurxhauteur`), plafond par axe.
+
 À venir (post-MVP, cf. `editeur-niveaux.md` §4bis) : placement/transform des **décors** (couches) et
 pipeline **photo → pixel art** intégré — dépendent d'un lot dédié (`decors.md`, `EX-DEC-*`,
 `EX-EDIT-040`/`041`), non commencés.

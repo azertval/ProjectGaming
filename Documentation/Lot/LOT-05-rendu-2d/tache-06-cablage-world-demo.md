@@ -1,4 +1,4 @@
-# TACHE-06 — Câblage du `World` dans la boucle + scène de démo {#lot-05-tache-06-cablage-world-demo}
+# TACHE-06 — Câblage du World dans la boucle + scène de démo {#lot-05-tache-06-cablage-world-demo}
 
 **Lot :** [LOT-05](epic.md) · **Emplacement :** `Source/HMI/main.cpp` · **Statut :** fait
 

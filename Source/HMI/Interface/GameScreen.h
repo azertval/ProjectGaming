@@ -36,8 +36,9 @@ class TextureAtlas;
  * Atteindre la **sortie** (`EX-GP-030`) **enchaîne le niveau suivant** de la séquence ; après le
  * **dernier**, retour au menu/titre (`EX-LVL-010`, `EX-LVL-011`). Toucher un **danger** ou tomber
  * **redémarre** le niveau courant à l'entrée (`EX-GP-031`, `EX-GP-032`). La caméra reste **fixe**
- * et cadre le tableau ; **Échap** revient au menu. Le comportement des mécanismes relève d'un lot
- * ultérieur.
+ * et cadre le tableau ; **Échap** revient au menu. Les mécanismes interrupteur/porte et plaque de
+ * pression (`core::MechanismController`) sont résolus chaque pas fixe et pris en compte par la
+ * carte de collision et le rendu des portes.
  */
 class GameScreen : public IScreen {
 public:

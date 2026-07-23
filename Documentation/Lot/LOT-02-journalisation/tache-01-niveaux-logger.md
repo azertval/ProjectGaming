@@ -1,4 +1,4 @@
-# TACHE-01 — Niveaux de log & interface `Logger` {#lot-02-tache-01-niveaux-logger}
+# TACHE-01 — Niveaux de log & interface Logger {#lot-02-tache-01-niveaux-logger}
 
 **Lot :** [LOT-02](epic.md) · **Emplacement :** `Source/Core/Diagnostics` · **Statut :** fait
 
