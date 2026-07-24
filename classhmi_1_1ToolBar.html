@@ -125,8 +125,11 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a418e11790f0164e2abd8273f81b8e42f" id="r_a418e11790f0164e2abd8273f81b8e42f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1ToolBar.html#a418e11790f0164e2abd8273f81b8e42f">ToolBar</a> ()</td></tr>
-<tr class="memdesc:a418e11790f0164e2abd8273f81b8e42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la barre, disposée en bande horizontale sous la palette de tuiles.  <br /></td></tr>
+<tr class="memdesc:a418e11790f0164e2abd8273f81b8e42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la barre, disposée en bande horizontale sous la palette de tuiles (position de départ provisoire — <code>relayout</code> la corrige avant le premier rendu, voir en-tête).  <br /></td></tr>
 <tr class="separator:a418e11790f0164e2abd8273f81b8e42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69370bf389747a3c2d5d05a594044ba0" id="r_a69370bf389747a3c2d5d05a594044ba0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1ToolBar.html#a69370bf389747a3c2d5d05a594044ba0">relayout</a> (float top)</td></tr>
+<tr class="memdesc:a69370bf389747a3c2d5d05a594044ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule les rectangles des entrées pour que la première commence à <code>top</code> (en pixels écran), sans changer l'outil sélectionné — appelé par <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> chaque frame avec <code><a class="el" href="classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012">TilePalette::bottom()</a> + PANEL_SECTION_GAP</code>.  <br /></td></tr>
+<tr class="separator:a69370bf389747a3c2d5d05a594044ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a986e6e39c5ec863b5d2479a4a9730651" id="r_a986e6e39c5ec863b5d2479a4a9730651"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structhmi_1_1ToolBar_1_1Entry.html">Entry</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1ToolBar.html#a986e6e39c5ec863b5d2479a4a9730651">entries</a> () const noexcept</td></tr>
 <tr class="separator:a986e6e39c5ec863b5d2479a4a9730651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb106876150ff93d8843cddc434b290f" id="r_abb106876150ff93d8843cddc434b290f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1ToolBar.html#abb106876150ff93d8843cddc434b290f">selected</a> () const noexcept</td></tr>
@@ -147,7 +150,8 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bande d'icônes cliquables sélectionnant l'<code>EditorTool</code> actif. </p>
-<p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>), même esprit que <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>. Le dessin (icônes, libellés, surbrillance de la sélection) est délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1ToolBar.html#a986e6e39c5ec863b5d2479a4a9730651">entries()</a></code>/<code><a class="el" href="classhmi_1_1ToolBar.html#abb106876150ff93d8843cddc434b290f">selected()</a></code>. <code>Tab</code> (dans <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>) fait défiler les outils via <code><a class="el" href="classhmi_1_1ToolBar.html#a6694c3d9761a3236ac3c4ea52660dd56" title="Fait défiler l&#39;outil actif dans l&#39;ordre Pinceau → Rectangle → Sélection → Pinceau.">selectNext()</a></code>, indépendamment d'un clic sur la barre. </p>
+<p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>), même esprit que <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>. Le dessin (icônes, libellés, surbrillance de la sélection) est délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1ToolBar.html#a986e6e39c5ec863b5d2479a4a9730651">entries()</a></code>/<code><a class="el" href="classhmi_1_1ToolBar.html#abb106876150ff93d8843cddc434b290f">selected()</a></code>. <code>Tab</code> (dans <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>) fait défiler les outils via <code><a class="el" href="classhmi_1_1ToolBar.html#a6694c3d9761a3236ac3c4ea52660dd56" title="Fait défiler l&#39;outil actif dans l&#39;ordre Pinceau → Rectangle → Sélection → Pinceau.">selectNext()</a></code>, indépendamment d'un clic sur la barre.</p>
+<p>Depuis que <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code> est un accordéon à hauteur variable (<code>LOT-27</code>), la barre ne peut plus supposer une position de départ fixe sous la palette : <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> appelle <code>relayout(top)</code> chaque frame avec <code><a class="el" href="classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012">TilePalette::bottom()</a></code> pour la repositionner juste en dessous. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a418e11790f0164e2abd8273f81b8e42f" name="a418e11790f0164e2abd8273f81b8e42f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a418e11790f0164e2abd8273f81b8e42f">&#9670;&#160;</a></span>ToolBar()</h2>
@@ -164,7 +168,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construit la barre, disposée en bande horizontale sous la palette de tuiles. </p>
+<p>Construit la barre, disposée en bande horizontale sous la palette de tuiles (position de départ provisoire — <code>relayout</code> la corrige avant le premier rendu, voir en-tête). </p>
 
 </div>
 </div>
@@ -230,6 +234,26 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> si le clic a touché la barre (sélection changée ou confirmée) ; <code>false</code> s'il est en dehors — l'appelant doit alors le traiter comme un clic sur la grille. </dd></dl>
+
+</div>
+</div>
+<a id="a69370bf389747a3c2d5d05a594044ba0" name="a69370bf389747a3c2d5d05a594044ba0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69370bf389747a3c2d5d05a594044ba0">&#9670;&#160;</a></span>relayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ToolBar::relayout </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>top</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recalcule les rectangles des entrées pour que la première commence à <code>top</code> (en pixels écran), sans changer l'outil sélectionné — appelé par <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> chaque frame avec <code><a class="el" href="classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012">TilePalette::bottom()</a> + PANEL_SECTION_GAP</code>. </p>
 
 </div>
 </div>

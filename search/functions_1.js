@@ -4,7 +4,7 @@ var searchData=
   ['beginframe_1',['beginFrame',['../classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab',1,'hmi::InputState']]],
   ['bitmapfont_2',['bitmapfont',['../classhmi_1_1BitmapFont.html#a02df5ed7b73fa5bd98ca8fc1f00e6616',1,'hmi::BitmapFont::BitmapFont(ID3D11Device *device)'],['../classhmi_1_1BitmapFont.html#aceb78d34e59c4d1b32e1647a4ed4a2b6',1,'hmi::BitmapFont::BitmapFont(const BitmapFont &amp;)=delete']]],
   ['blockcontroller_3',['BlockController',['../classcore_1_1BlockController.html#a012115e6f36b5808a1e18fd840589f53',1,'core::BlockController']]],
-  ['bottom_4',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect']]],
+  ['bottom_4',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect::bottom()'],['../classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012',1,'hmi::TilePalette::bottom()']]],
   ['boxat_5',['boxAt',['../classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe',1,'core::BlockController']]],
   ['buildjson_6',['buildJson',['../classcore_1_1LevelWriter.html#a9158ba1687451a6a0a4c5526efd271b0',1,'core::LevelWriter']]],
   ['buildlevelscene_7',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]]

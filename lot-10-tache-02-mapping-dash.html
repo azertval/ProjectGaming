@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-02-mapping-dash.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/HMI/Input</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md734"></a>
+<h1><a class="anchor" id="autotoc_md735"></a>
 Contexte</h1>
 <p>Le dash a besoin d'une <b>action dédiée</b> (<code>EX-CTRL-013</code>) et d'une <b>direction de visée</b> à 8 directions. <code>toPlayerInput</code> (LOT-08/09) traduit déjà déplacement et saut ; on ajoute le dash et la visée verticale, sans lier le gameplay aux touches (<code>EX-CTRL-010</code>).</p>
-<h1><a class="anchor" id="autotoc_md735"></a>
+<h1><a class="anchor" id="autotoc_md736"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Étendre l'énumération <code>Key</code> : ajouter **<code>Shift</code>** (<code>VK_SHIFT = 0x10</code>) et les flèches <b>Up/Down</b> existent déjà (<code>0x26</code>/<code>0x28</code>).</li>
@@ -109,32 +109,32 @@ Travail à réaliser</h1>
 </li>
 <li>L'<b>orientation</b> (<code>Player::facing</code>) est mise à jour <b>par le système</b> au déplacement, pas par le mapper (le mapper reste sans état).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md736"></a>
+<h1><a class="anchor" id="autotoc_md737"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code> (énumérateur <code>Shift</code>), <code><a class="el" href="PlayerInputMapper_8cpp.html">Source/HMI/Input/PlayerInputMapper.cpp</a></code>.</li>
 <li>Test unitaire du mapping.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md737"></a>
+<h1><a class="anchor" id="autotoc_md738"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>Shift</code> pressée → <code>dashPressed == true</code> ; maintenue sans nouveau front → <code>false</code>.</li>
 <li><code>Down</code> → <code>moveY == +1</code> ; <code>Up</code> → <code>moveY == −1</code> ; haut+bas simultanés → <code>0</code>.</li>
 <li>Déplacement (<code>moveX</code>) et dash restent indépendants (axes distincts).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md738"></a>
+<h1><a class="anchor" id="autotoc_md739"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Front vs maintenu</b> : le dash se déclenche au <b>front</b> (<code>keyPressed</code>), comme le saut.</li>
 <li><b>Repère</b> : <code>y</code> vers le bas → <code>bas = +1</code>, <code>haut = −1</code> (cohérent avec la physique).</li>
 <li><b>Pur et testable</b> : le mapper lit un <code>InputState</code> injecté, sans fenêtre (<code>EX-NFR-010</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md739"></a>
+<h1><a class="anchor" id="autotoc_md740"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Dash et visée mappés, <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md740"></a>
+<h1><a class="anchor" id="autotoc_md741"></a>
 Exigences</h1>
 <p><code>EX-CTRL-013</code>, <code>EX-CTRL-010</code>, <code>EX-CTRL-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

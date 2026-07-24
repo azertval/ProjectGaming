@@ -96,9 +96,11 @@ $(document).ready(function(){initNavTree('test__tile__palette_8cpp.html',''); in
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de la palette de tuiles de l'éditeur (LOT-14, EX-EDIT-002).  
+<p>Tests unitaires de la palette de tuiles de l'éditeur, organisée en catégories/sous-groupes repliables (<code>LOT-27</code>, <code>EX-EDIT-018</code>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TilePalette_8h_source.html">HMI/Editor/TilePalette.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -106,44 +108,116 @@ Include dependency graph for test_tile_palette.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__tile__palette_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Editor_2test__tile__palette_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Editor_2test__tile__palette_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Editor_2test__tile__palette_8cpp">
-<area shape="rect" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT&#45;14, EX&#45;EDIT&#45;002)." alt="" coords="36,5,257,75"/>
+<area shape="rect" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous&#45;groupes repliables..." alt="" coords="135,5,356,75"/>
 <area shape="rect" title=" " alt="" coords="5,123,109,148"/>
-<area shape="poly" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="59,196,227,221"/>
-<area shape="poly" title=" " alt="" coords="149,75,146,182,141,182,143,75"/>
-<area shape="rect" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002)." alt="" coords="190,123,365,148"/>
-<area shape="poly" title=" " alt="" coords="195,73,251,112,248,117,192,77"/>
-<area shape="poly" title=" " alt="" coords="257,150,178,192,176,187,254,146"/>
-<area shape="rect" title=" " alt="" coords="251,196,309,221"/>
-<area shape="poly" title=" " alt="" coords="280,148,282,182,276,183,275,148"/>
-<area shape="rect" title=" " alt="" coords="334,196,397,221"/>
-<area shape="poly" title=" " alt="" coords="293,146,342,185,339,189,290,150"/>
+<area shape="poly" title=" " alt="" coords="179,77,94,119,92,114,176,72"/>
+<area shape="rect" title=" " alt="" coords="133,123,208,148"/>
+<area shape="poly" title=" " alt="" coords="220,76,191,113,186,110,216,73"/>
+<area shape="rect" title=" " alt="" coords="172,196,231,221"/>
+<area shape="poly" title=" " alt="" coords="241,76,223,149,212,183,207,182,217,147,235,74"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="255,196,423,221"/>
+<area shape="poly" title=" " alt="" coords="267,74,328,183,323,185,262,76"/>
+<area shape="rect" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX&#45;EDIT&#45;002), organisée en catégori..." alt="" coords="334,123,509,148"/>
+<area shape="poly" title=" " alt="" coords="310,72,389,114,386,118,308,77"/>
+<area shape="poly" title=" " alt="" coords="387,151,245,196,243,191,385,145"/>
+<area shape="poly" title=" " alt="" coords="410,150,364,189,361,185,406,146"/>
+<area shape="rect" title=" " alt="" coords="447,196,503,221"/>
+<area shape="poly" title=" " alt="" coords="432,147,460,184,456,187,428,150"/>
+<area shape="rect" title=" " alt="" coords="527,196,590,221"/>
+<area shape="poly" title=" " alt="" coords="445,146,525,187,523,192,442,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8386bf542e50f2bcec436064fc03a967" id="r_a8386bf542e50f2bcec436064fc03a967"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a8386bf542e50f2bcec436064fc03a967">TEST</a> (TilePaletteTest, ExposeUneEntreeParType)</td></tr>
-<tr class="memdesc:a8386bf542e50f2bcec436064fc03a967"><td class="mdescLeft">&#160;</td><td class="mdescRight">La palette expose au moins une entrée par type de tuile éditable.  <br /></td></tr>
-<tr class="separator:a8386bf542e50f2bcec436064fc03a967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f5c6aad65c214f74ed55f4b6d1ac7d" id="r_a09f5c6aad65c214f74ed55f4b6d1ac7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a09f5c6aad65c214f74ed55f4b6d1ac7d">TEST</a> (TilePaletteTest, EtatInitialCinqEntreesVisibles)</td></tr>
+<tr class="memdesc:a09f5c6aad65c214f74ed55f4b6d1ac7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">À l'état initial (tout replié), seules les catégories et entrées autonomes sont visibles.  <br /></td></tr>
+<tr class="separator:a09f5c6aad65c214f74ed55f4b6d1ac7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3ce7930a954de0d87ecc16fe2e8e8a5" id="r_ad3ce7930a954de0d87ecc16fe2e8e8a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ad3ce7930a954de0d87ecc16fe2e8e8a5">TEST</a> (TilePaletteTest, SelectionParDefautEstSolid)</td></tr>
 <tr class="memdesc:ad3ce7930a954de0d87ecc16fe2e8e8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection par défaut est Solid.  <br /></td></tr>
 <tr class="separator:ad3ce7930a954de0d87ecc16fe2e8e8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf0a26cdbb87effe6864b4c756289f99" id="r_abf0a26cdbb87effe6864b4c756289f99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#abf0a26cdbb87effe6864b4c756289f99">TEST</a> (TilePaletteTest, ClicSurUneEntreeSelectionneSonType)</td></tr>
-<tr class="memdesc:abf0a26cdbb87effe6864b4c756289f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer une entrée de la palette sélectionne son type et signale le clic consommé.  <br /></td></tr>
-<tr class="separator:abf0a26cdbb87effe6864b4c756289f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4508cb42ae2176c27980bed9176295da" id="r_a4508cb42ae2176c27980bed9176295da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a4508cb42ae2176c27980bed9176295da">TEST</a> (TilePaletteTest, ClicSurEntreeAutonomeSelectionneSonType)</td></tr>
+<tr class="memdesc:a4508cb42ae2176c27980bed9176295da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer une entrée autonome (Piège) sélectionne son type et signale le clic consommé.  <br /></td></tr>
+<tr class="separator:a4508cb42ae2176c27980bed9176295da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a177a49a311fc252f8c49e0530e2c475b" id="r_a177a49a311fc252f8c49e0530e2c475b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a177a49a311fc252f8c49e0530e2c475b">TEST</a> (TilePaletteTest, ClicHorsPaletteNonConsomme)</td></tr>
 <tr class="memdesc:a177a49a311fc252f8c49e0530e2c475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.  <br /></td></tr>
 <tr class="separator:a177a49a311fc252f8c49e0530e2c475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac63e8ba3bf04058acb82c190579342df" id="r_ac63e8ba3bf04058acb82c190579342df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ac63e8ba3bf04058acb82c190579342df">TEST</a> (TilePaletteTest, ChaqueEntreePorteUnLibelle)</td></tr>
-<tr class="memdesc:ac63e8ba3bf04058acb82c190579342df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque entrée porte un libellé non vide (découvrabilité, LOT-15, EX-EDIT-015).  <br /></td></tr>
+<tr class="memdesc:ac63e8ba3bf04058acb82c190579342df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque entrée visible porte un libellé non vide (découvrabilité, <code>EX-EDIT-015</code>).  <br /></td></tr>
 <tr class="separator:ac63e8ba3bf04058acb82c190579342df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2baa5a8bd1c9ece2d574703314160522" id="r_a2baa5a8bd1c9ece2d574703314160522"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a2baa5a8bd1c9ece2d574703314160522">TEST</a> (TilePaletteTest, ClicSurEnTeteDeCategorieLaDeplie)</td></tr>
+<tr class="memdesc:a2baa5a8bd1c9ece2d574703314160522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer l'en-tête d'une catégorie repliée la déplie sans changer la sélection.  <br /></td></tr>
+<tr class="separator:a2baa5a8bd1c9ece2d574703314160522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02cac3d0498c759a4c171915d375a805" id="r_a02cac3d0498c759a4c171915d375a805"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a02cac3d0498c759a4c171915d375a805">TEST</a> (TilePaletteTest, SecondClicSurEnTeteDeCategorieLaReplie)</td></tr>
+<tr class="memdesc:a02cac3d0498c759a4c171915d375a805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer à nouveau l'en-tête d'une catégorie dépliée la replie (toutes ses entrées redeviennent invisibles, y compris celles d'un sous-groupe resté déplié).  <br /></td></tr>
+<tr class="separator:a02cac3d0498c759a4c171915d375a805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3de75a19d75b27d384473f566118e9a3" id="r_a3de75a19d75b27d384473f566118e9a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a3de75a19d75b27d384473f566118e9a3">TEST</a> (TilePaletteTest, ClicSurFeuilleDirecteSelectionneSonType)</td></tr>
+<tr class="memdesc:a3de75a19d75b27d384473f566118e9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fois la catégorie Tuile dépliée, cliquer sa feuille directe (Plein) sélectionne Solid.  <br /></td></tr>
+<tr class="separator:a3de75a19d75b27d384473f566118e9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8e9bea8a184ba7e4c5e86eb24268cbb" id="r_aa8e9bea8a184ba7e4c5e86eb24268cbb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#aa8e9bea8a184ba7e4c5e86eb24268cbb">TEST</a> (TilePaletteTest, SousGroupeBlocPoussableDeplieExposeSesTailles)</td></tr>
+<tr class="memdesc:aa8e9bea8a184ba7e4c5e86eb24268cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sous-groupe Bloc poussable, imbriqué dans Interactif, expose ses trois tailles une fois déplié — troisième niveau d'accordéon (<code>EX-EDIT-018</code>).  <br /></td></tr>
+<tr class="separator:aa8e9bea8a184ba7e4c5e86eb24268cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2ea86d760fefd1b50503b22fc7b9b6d" id="r_ac2ea86d760fefd1b50503b22fc7b9b6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ac2ea86d760fefd1b50503b22fc7b9b6d">TEST</a> (TilePaletteTest, SousGroupePenteDeplieExposeSesOrientations)</td></tr>
+<tr class="memdesc:ac2ea86d760fefd1b50503b22fc7b9b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sous-groupe Pente, imbriqué dans Tuile, expose ses quatre orientations une fois déplié.  <br /></td></tr>
+<tr class="separator:ac2ea86d760fefd1b50503b22fc7b9b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeedf3e3ddf4eee2bdb81b8a771af556d" id="r_aeedf3e3ddf4eee2bdb81b8a771af556d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#aeedf3e3ddf4eee2bdb81b8a771af556d">TEST</a> (TilePaletteTest, BottomSuitLEtatDeDepliage)</td></tr>
+<tr class="memdesc:aeedf3e3ddf4eee2bdb81b8a771af556d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>bottom()</code> augmente quand une catégorie se déplie, et revient à sa valeur initiale quand elle se replie — la barre d'outils (<code>ToolBar::relayout</code>) s'appuie sur cette valeur.  <br /></td></tr>
+<tr class="separator:aeedf3e3ddf4eee2bdb81b8a771af556d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dccce8d9db071333607e7e317572718" id="r_a1dccce8d9db071333607e7e317572718"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a1dccce8d9db071333607e7e317572718">TEST</a> (TilePaletteTest, FenetreReduiteLimiteLesEntreesVisibles)</td></tr>
+<tr class="memdesc:a1dccce8d9db071333607e7e317572718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fenêtre trop petite pour tout afficher ne montre qu'une fenêtre visible réduite, sans jamais dépasser une ligne (au moins 1).  <br /></td></tr>
+<tr class="separator:a1dccce8d9db071333607e7e317572718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac06e6a332c717c5cbf4c8bfe5de1f3b1" id="r_ac06e6a332c717c5cbf4c8bfe5de1f3b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ac06e6a332c717c5cbf4c8bfe5de1f3b1">TEST</a> (TilePaletteTest, ScrollChangeLaFenetreSansChangerLaSelection)</td></tr>
+<tr class="memdesc:ac06e6a332c717c5cbf4c8bfe5de1f3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faire défiler à la molette change l'entrée affichée sans changer la sélection ni l'état de dépliage.  <br /></td></tr>
+<tr class="separator:ac06e6a332c717c5cbf4c8bfe5de1f3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5763f5a42e0715e24339205e4e374ff0" id="r_a5763f5a42e0715e24339205e4e374ff0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a5763f5a42e0715e24339205e4e374ff0">TEST</a> (TilePaletteTest, ScrollBorneAuxExtremites)</td></tr>
+<tr class="memdesc:a5763f5a42e0715e24339205e4e374ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le défilement est borné : il ne peut ni descendre sous 0, ni dépasser la dernière page.  <br /></td></tr>
+<tr class="separator:a5763f5a42e0715e24339205e4e374ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5a7106965e12be920de83483ce76f0" id="r_abb5a7106965e12be920de83483ce76f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#abb5a7106965e12be920de83483ce76f0">TEST</a> (TilePaletteTest, EnTeteDeplieResteVisibleDansUneFenetreEtroite)</td></tr>
+<tr class="memdesc:abb5a7106965e12be920de83483ce76f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplier un en-tête proche du bord de la fenêtre visible ne le fait jamais disparaître : la palette défile automatiquement pour le garder visible (comme le clavier de <code>LevelPicker</code> suit la sélection).  <br /></td></tr>
+<tr class="separator:abb5a7106965e12be920de83483ce76f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de la palette de tuiles de l'éditeur (LOT-14, EX-EDIT-002). </p>
+<div class="textblock"><p>Tests unitaires de la palette de tuiles de l'éditeur, organisée en catégories/sous-groupes repliables (<code>LOT-27</code>, <code>EX-EDIT-018</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aeedf3e3ddf4eee2bdb81b8a771af556d" name="aeedf3e3ddf4eee2bdb81b8a771af556d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedf3e3ddf4eee2bdb81b8a771af556d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BottomSuitLEtatDeDepliage&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>bottom()</code> augmente quand une catégorie se déplie, et revient à sa valeur initiale quand elle se replie — la barre d'outils (<code>ToolBar::relayout</code>) s'appuie sur cette valeur. </p>
+<p><b>Cas de test :</b> <b><code>bottom()</code> suit l'état de dépliage courant.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> <code>bottom()</code> grandit au dépliage puis revient à sa valeur initiale au repliage. </p>
+
+</div>
+</div>
 <a id="ac63e8ba3bf04058acb82c190579342df" name="ac63e8ba3bf04058acb82c190579342df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac63e8ba3bf04058acb82c190579342df">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63e8ba3bf04058acb82c190579342df">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,8 +242,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Chaque entrée porte un libellé non vide (découvrabilité, LOT-15, EX-EDIT-015). </p>
-<p><b>Cas de test :</b> <b>Chaque entrée porte un libellé non vide.</b><br  />
+<p>Chaque entrée visible porte un libellé non vide (découvrabilité, <code>EX-EDIT-015</code>). </p>
+<p><b>Cas de test :</b> <b>Chaque entrée visible porte un libellé non vide.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
@@ -180,7 +254,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a177a49a311fc252f8c49e0530e2c475b" name="a177a49a311fc252f8c49e0530e2c475b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +290,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abf0a26cdbb87effe6864b4c756289f99" name="abf0a26cdbb87effe6864b4c756289f99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf0a26cdbb87effe6864b4c756289f99">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<a id="a2baa5a8bd1c9ece2d574703314160522" name="a2baa5a8bd1c9ece2d574703314160522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2baa5a8bd1c9ece2d574703314160522">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +305,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ClicSurUneEntreeSelectionneSonType&#160;</td>
+          <td class="paramtype">ClicSurEnTeteDeCategorieLaDeplie&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -242,19 +316,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cliquer une entrée de la palette sélectionne son type et signale le clic consommé. </p>
-<p><b>Cas de test :</b> <b>Cliquer une entrée de la palette sélectionne son type et signale le clic consommé.</b><br  />
+<p>Cliquer l'en-tête d'une catégorie repliée la déplie sans changer la sélection. </p>
+<p><b>Cas de test :</b> <b>Cliquer l'en-tête d'une catégorie repliée la déplie sans changer la sélection.</b> <br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Cliquer une entrée de la palette sélectionne son type et signale le clic consommé. </p>
+ <b>Resultat attendu :</b> La catégorie Tuile dépliée expose sa feuille directe (Plein) et ses deux sous-groupes (Pente, Arrondi), la sélection reste inchangée, le clic est consommé. </p>
 
 </div>
 </div>
-<a id="a8386bf542e50f2bcec436064fc03a967" name="a8386bf542e50f2bcec436064fc03a967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8386bf542e50f2bcec436064fc03a967">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<a id="a4508cb42ae2176c27980bed9176295da" name="a4508cb42ae2176c27980bed9176295da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4508cb42ae2176c27980bed9176295da">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,7 +342,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ExposeUneEntreeParType&#160;</td>
+          <td class="paramtype">ClicSurEntreeAutonomeSelectionneSonType&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -279,19 +353,278 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La palette expose au moins une entrée par type de tuile éditable. </p>
-<p><b>Cas de test :</b> <b>La palette expose au moins une entrée par type de tuile éditable.</b><br  />
+<p>Cliquer une entrée autonome (Piège) sélectionne son type et signale le clic consommé. </p>
+<p><b>Cas de test :</b> <b>Cliquer une entrée autonome sélectionne son type et signale le clic consommé.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le type Danger est sélectionné, le clic est consommé. </p>
+
+</div>
+</div>
+<a id="a3de75a19d75b27d384473f566118e9a3" name="a3de75a19d75b27d384473f566118e9a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3de75a19d75b27d384473f566118e9a3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClicSurFeuilleDirecteSelectionneSonType&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une fois la catégorie Tuile dépliée, cliquer sa feuille directe (Plein) sélectionne Solid. </p>
+<p><b>Cas de test :</b> <b>Cliquer la feuille directe d'une catégorie dépliée sélectionne son type.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le type Solid est sélectionné, le clic est consommé. </p>
+
+</div>
+</div>
+<a id="abb5a7106965e12be920de83483ce76f0" name="abb5a7106965e12be920de83483ce76f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb5a7106965e12be920de83483ce76f0">&#9670;&#160;</a></span>TEST() <span class="overload">[7/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EnTeteDeplieResteVisibleDansUneFenetreEtroite&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplier un en-tête proche du bord de la fenêtre visible ne le fait jamais disparaître : la palette défile automatiquement pour le garder visible (comme le clavier de <code>LevelPicker</code> suit la sélection). </p>
+<p><b>Cas de test :</b> <b>Un en-tête déplié reste visible même dans une fenêtre étroite.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Avec une fenêtre ne montrant que 6 lignes, déplier Interactif (dont l'en-tête occupe alors la dernière ligne visible) ajoute 4 lignes sans faire disparaître son propre en-tête. </p>
+
+</div>
+</div>
+<a id="a09f5c6aad65c214f74ed55f4b6d1ac7d" name="a09f5c6aad65c214f74ed55f4b6d1ac7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f5c6aad65c214f74ed55f4b6d1ac7d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EtatInitialCinqEntreesVisibles&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>À l'état initial (tout replié), seules les catégories et entrées autonomes sont visibles. </p>
+<p><b>Cas de test :</b> <b>À l'état initial, seules les catégories et entrées autonomes sont visibles.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Cinq entrées visibles : Vide, Tuile, Interactif, Piège, Jalon (catégories repliées). </p>
+
+</div>
+</div>
+<a id="a1dccce8d9db071333607e7e317572718" name="a1dccce8d9db071333607e7e317572718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dccce8d9db071333607e7e317572718">&#9670;&#160;</a></span>TEST() <span class="overload">[9/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FenetreReduiteLimiteLesEntreesVisibles&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une fenêtre trop petite pour tout afficher ne montre qu'une fenêtre visible réduite, sans jamais dépasser une ligne (au moins 1). </p>
+<p><b>Cas de test :</b> <b>Une fenêtre réduite limite le nombre d'entrées visibles simultanément.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Avec tout déplié (25 lignes) et une fenêtre de 200px, une seule entrée est visible ; <code>totalRowCount()</code> reste 25. </p>
+
+</div>
+</div>
+<a id="a5763f5a42e0715e24339205e4e374ff0" name="a5763f5a42e0715e24339205e4e374ff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5763f5a42e0715e24339205e4e374ff0">&#9670;&#160;</a></span>TEST() <span class="overload">[10/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ScrollBorneAuxExtremites&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le défilement est borné : il ne peut ni descendre sous 0, ni dépasser la dernière page. </p>
+<p><b>Cas de test :</b> <b>Le défilement est borné aux deux extrémités de la liste.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> La palette expose au moins une entrée par type de tuile éditable. </p>
+ <b>Resultat attendu :</b> Un défilement massif vers le bas se borne à <code>totalRowCount() - 1</code> (fenêtre d'une ligne) ; un défilement massif vers le haut revient à 0. </p>
+
+</div>
+</div>
+<a id="ac06e6a332c717c5cbf4c8bfe5de1f3b1" name="ac06e6a332c717c5cbf4c8bfe5de1f3b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac06e6a332c717c5cbf4c8bfe5de1f3b1">&#9670;&#160;</a></span>TEST() <span class="overload">[11/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ScrollChangeLaFenetreSansChangerLaSelection&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Faire défiler à la molette change l'entrée affichée sans changer la sélection ni l'état de dépliage. </p>
+<p><b>Cas de test :</b> <b>Le défilement change la fenêtre visible sans changer la sélection.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Après un cran de molette vers le bas, <code>scrollOffset()</code> vaut 1 et l'entrée visible a changé ; la sélection reste inchangée. </p>
+
+</div>
+</div>
+<a id="a02cac3d0498c759a4c171915d375a805" name="a02cac3d0498c759a4c171915d375a805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02cac3d0498c759a4c171915d375a805">&#9670;&#160;</a></span>TEST() <span class="overload">[12/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SecondClicSurEnTeteDeCategorieLaReplie&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cliquer à nouveau l'en-tête d'une catégorie dépliée la replie (toutes ses entrées redeviennent invisibles, y compris celles d'un sous-groupe resté déplié). </p>
+<p><b>Cas de test :</b> <b>Cliquer à nouveau l'en-tête d'une catégorie dépliée la replie.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Après un second clic sur l'en-tête, la palette retrouve exactement ses 5 entrées initiales. </p>
 
 </div>
 </div>
 <a id="ad3ce7930a954de0d87ecc16fe2e8e8a5" name="ad3ce7930a954de0d87ecc16fe2e8e8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,6 +657,80 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> La sélection par défaut est Solid. </p>
+
+</div>
+</div>
+<a id="aa8e9bea8a184ba7e4c5e86eb24268cbb" name="aa8e9bea8a184ba7e4c5e86eb24268cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e9bea8a184ba7e4c5e86eb24268cbb">&#9670;&#160;</a></span>TEST() <span class="overload">[14/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SousGroupeBlocPoussableDeplieExposeSesTailles&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sous-groupe Bloc poussable, imbriqué dans Interactif, expose ses trois tailles une fois déplié — troisième niveau d'accordéon (<code>EX-EDIT-018</code>). </p>
+<p><b>Cas de test :</b> <b>Le sous-groupe Bloc poussable déplié expose ses trois tailles.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Cliquer la taille « 1/2 » du sous-groupe déplié sélectionne BlockHalf. </p>
+
+</div>
+</div>
+<a id="ac2ea86d760fefd1b50503b22fc7b9b6d" name="ac2ea86d760fefd1b50503b22fc7b9b6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ea86d760fefd1b50503b22fc7b9b6d">&#9670;&#160;</a></span>TEST() <span class="overload">[15/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SousGroupePenteDeplieExposeSesOrientations&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sous-groupe Pente, imbriqué dans Tuile, expose ses quatre orientations une fois déplié. </p>
+<p><b>Cas de test :</b> <b>Le sous-groupe Pente déplié expose ses quatre orientations.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Cliquer l'orientation « Plaf D » du sous-groupe Pente déplié sélectionne SlopeDownRight ; le sous-groupe Arrondi voisin reste replié et n'expose pas ses propres entrées. </p>
 
 </div>
 </div>

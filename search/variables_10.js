@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['palette_5ftop_0',['PALETTE_TOP',['../namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a',1,'hmi']]],
-  ['palette_5ftype_5fcount_1',['PALETTE_TYPE_COUNT',['../namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9',1,'hmi']]],
+  ['palette_5findent_5fstep_0',['PALETTE_INDENT_STEP',['../namespacehmi.html#a49bd615b891f2304f7a0aa6d6029f27c',1,'hmi']]],
+  ['palette_5ftop_1',['PALETTE_TOP',['../namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a',1,'hmi']]],
   ['panel_5ficon_5fsize_2',['PANEL_ICON_SIZE',['../namespacehmi.html#a2a8862a219476b6895ad32ba251b6796',1,'hmi']]],
   ['panel_5fmargin_3',['PANEL_MARGIN',['../namespacehmi.html#afbd03b541899e96afe12467d40fa4996',1,'hmi']]],
   ['panel_5frow_5fgap_4',['PANEL_ROW_GAP',['../namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882',1,'hmi']]],

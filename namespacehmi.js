@@ -90,13 +90,12 @@ var namespacehmi =
     [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ],
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
     [ "MAX_LEVEL_DIMENSION", "namespacehmi.html#a3201578f409cccc5319bc31255846ec1", null ],
+    [ "PALETTE_INDENT_STEP", "namespacehmi.html#a49bd615b891f2304f7a0aa6d6029f27c", null ],
     [ "PALETTE_TOP", "namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a", null ],
-    [ "PALETTE_TYPE_COUNT", "namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9", null ],
     [ "PANEL_ICON_SIZE", "namespacehmi.html#a2a8862a219476b6895ad32ba251b6796", null ],
     [ "PANEL_MARGIN", "namespacehmi.html#afbd03b541899e96afe12467d40fa4996", null ],
     [ "PANEL_ROW_GAP", "namespacehmi.html#a2dbd25134826e84a7feae8757ae3c882", null ],
     [ "PANEL_ROW_PITCH", "namespacehmi.html#a4a292daeddb3354429e60223e3e818c8", null ],
     [ "PANEL_SECTION_GAP", "namespacehmi.html#a9c7ebaa378e443f0111ae16621bdc67b", null ],
-    [ "PANEL_WIDTH", "namespacehmi.html#a3a2548dda58563a7daa1697ae663322f", null ],
-    [ "TOOLBAR_TOP", "namespacehmi.html#af30cf5856c8e2d19b71c5844ada586ae", null ]
+    [ "PANEL_WIDTH", "namespacehmi.html#a3a2548dda58563a7daa1697ae663322f", null ]
 ];

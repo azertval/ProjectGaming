@@ -93,7 +93,11 @@ $(document).ready(function(){initNavTree('classhmi_1_1TilePalette.html',''); ini
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classhmi_1_1TilePalette-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">hmi::TilePalette Class Reference</div></div>
 </div><!--header-->
@@ -108,52 +112,232 @@ Collaboration diagram for hmi::TilePalette:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1TilePalette__coll__graph.png" border="0" usemap="#ahmi_1_1TilePalette_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1TilePalette_coll__map" id="ahmi_1_1TilePalette_coll__map">
-<area shape="rect" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="9,373,133,399"/>
-<area shape="rect" title=" " alt="" coords="63,271,271,311"/>
-<area shape="poly" title=" " alt="" coords="140,322,85,375,82,371,136,318"/>
-<area shape="rect" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="73,183,240,208"/>
-<area shape="poly" title=" " alt="" coords="162,221,168,270,163,271,157,222"/>
-<area shape="rect" title=" " alt="" coords="5,95,81,120"/>
-<area shape="poly" title=" " alt="" coords="45,134,46,213,54,310,70,373,65,374,49,311,40,213,40,134"/>
-<area shape="poly" title=" " alt="" coords="71,126,143,180,140,185,68,130"/>
-<area shape="rect" title=" " alt="" coords="113,95,200,120"/>
-<area shape="poly" title=" " alt="" coords="159,134,159,182,154,182,154,134"/>
-<area shape="rect" title=" " alt="" coords="87,5,226,45"/>
-<area shape="poly" title=" " alt="" coords="159,59,159,94,154,94,154,59"/>
+<area shape="rect" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="1040,127,1164,153"/>
+<area shape="rect" title=" " alt="" coords="647,120,855,160"/>
+<area shape="poly" title=" " alt="" coords="869,137,1040,137,1040,143,869,143"/>
+<area shape="rect" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu&#39;elle sélectionne..." alt="" coords="365,127,532,153"/>
+<area shape="poly" title=" " alt="" coords="546,137,647,137,647,143,546,143"/>
+<area shape="rect" title=" " alt="" coords="199,70,275,95"/>
+<area shape="poly" title=" " alt="" coords="289,82,533,90,856,105,936,109,1016,117,1053,125,1052,130,1016,123,936,114,856,111,533,95,289,87"/>
+<area shape="poly" title=" " alt="" coords="272,99,305,113,366,128,365,133,303,119,270,104"/>
+<area shape="rect" href="structhmi_1_1TilePalette_1_1Row.html" title=" " alt="" coords="369,17,529,42"/>
+<area shape="poly" title=" " alt="" coords="287,66,303,61,392,39,393,45,305,67,289,71"/>
+<area shape="rect" title=" " alt="" coords="193,150,280,175"/>
+<area shape="poly" title=" " alt="" coords="294,161,341,159,394,150,395,155,342,164,294,166"/>
+<area shape="rect" title=" " alt="" coords="5,143,144,183"/>
+<area shape="poly" title=" " alt="" coords="157,160,193,160,193,165,157,165"/>
+<area shape="rect" title=" " alt="" coords="647,5,855,45"/>
+<area shape="poly" title=" " alt="" coords="870,25,944,37,981,48,1017,62,1041,76,1062,93,1093,125,1089,129,1058,97,1038,80,1015,66,980,53,943,42,869,31"/>
+<area shape="poly" title=" " alt="" coords="542,25,647,24,647,29,542,31"/>
+<area shape="rect" title=" " alt="" coords="649,184,853,224"/>
+<area shape="poly" title=" " alt="" coords="867,184,1015,157,1049,150,1050,155,1017,163,868,189"/>
+<area shape="rect" title=" " alt="" coords="647,248,856,288"/>
+<area shape="poly" title=" " alt="" coords="868,248,942,229,1015,202,1055,177,1086,151,1089,155,1058,181,1017,206,944,234,870,253"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html">Entry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran, le type qu'elle sélectionne et son libellé court (découvrabilité, <code>EX-EDIT-015</code>) — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu'elle sélectionne pour une feuille ; un type représentatif, non sélectionnable directement, pour l'icône d'une entrée d'en-tête) et son libellé — dessin délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>.  <a href="structhmi_1_1TilePalette_1_1Entry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TilePalette_1_1Row.html">Row</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad27da99e240b358a4c4703081238e512" id="r_ad27da99e240b358a4c4703081238e512"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ad27da99e240b358a4c4703081238e512">TilePalette</a> ()</td></tr>
-<tr class="memdesc:ad27da99e240b358a4c4703081238e512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la palette, disposée en bande horizontale dans le coin haut-gauche de l'écran.  <br /></td></tr>
+<tr class="memdesc:ad27da99e240b358a4c4703081238e512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la palette : catégories/sous-groupes tous repliés, sélection initiale <code>Solid</code>.  <br /></td></tr>
 <tr class="separator:ad27da99e240b358a4c4703081238e512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a491606766e039bf588714c9582294a14" id="r_a491606766e039bf588714c9582294a14"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structhmi_1_1TilePalette_1_1Entry.html">Entry</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries</a> () const noexcept</td></tr>
 <tr class="separator:a491606766e039bf588714c9582294a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8b0a532bf775db098660afc01b8e01d" id="r_af8b0a532bf775db098660afc01b8e01d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#af8b0a532bf775db098660afc01b8e01d">selected</a> () const noexcept</td></tr>
 <tr class="separator:af8b0a532bf775db098660afc01b8e01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c52afbd1ec8a1a8eec98ed25c637012" id="r_a0c52afbd1ec8a1a8eec98ed25c637012"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012">bottom</a> () const noexcept</td></tr>
+<tr class="separator:a0c52afbd1ec8a1a8eec98ed25c637012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd162ef69b96639fcd746637084ff646" id="r_acd162ef69b96639fcd746637084ff646"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#acd162ef69b96639fcd746637084ff646">scrollOffset</a> () const noexcept</td></tr>
+<tr class="separator:acd162ef69b96639fcd746637084ff646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1972cb4a603d52c1e72f94ae5c04a0d7" id="r_a1972cb4a603d52c1e72f94ae5c04a0d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a1972cb4a603d52c1e72f94ae5c04a0d7">totalRowCount</a> () const noexcept</td></tr>
+<tr class="separator:a1972cb4a603d52c1e72f94ae5c04a0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8c16a4e3be8fa071ca95b00c185db9" id="r_a3b8c16a4e3be8fa071ca95b00c185db9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a3b8c16a4e3be8fa071ca95b00c185db9">setViewportHeight</a> (float viewportHeight)</td></tr>
+<tr class="memdesc:a3b8c16a4e3be8fa071ca95b00c185db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronise la hauteur de fenêtre connue (fenêtrage du défilement) — à appeler chaque frame, avant tout clic ou défilement : un redimensionnement change le nombre de lignes visibles sans qu'aucun clic ni dépliage n'ait eu lieu.  <br /></td></tr>
+<tr class="separator:a3b8c16a4e3be8fa071ca95b00c185db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a871ad057e0382fafbf06e0abd43fcf34" id="r_a871ad057e0382fafbf06e0abd43fcf34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a871ad057e0382fafbf06e0abd43fcf34">scroll</a> (int wheelDelta)</td></tr>
+<tr class="memdesc:a871ad057e0382fafbf06e0abd43fcf34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait défiler la fenêtre visible (molette), sans changer la sélection ni l'état de dépliage — même esprit que <code><a class="el" href="classhmi_1_1LevelPicker.html#a2fad5be1bb025c029f38c08306a2f131" title="Met à jour la sélection (↑/↓, survol souris, molette) et détecte la confirmation (Entrée,...">LevelPicker::update</a></code> (la molette parcourt la liste sans jamais la modifier).  <br /></td></tr>
+<tr class="separator:a871ad057e0382fafbf06e0abd43fcf34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d1b4a3102e16bbed9cc8d8ae692d0a5" id="r_a5d1b4a3102e16bbed9cc8d8ae692d0a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a5d1b4a3102e16bbed9cc8d8ae692d0a5">handleClick</a> (float x, float y)</td></tr>
-<tr class="memdesc:a5d1b4a3102e16bbed9cc8d8ae692d0a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traite un clic en position écran : sélectionne l'entrée couverte, s'il y en a une.  <br /></td></tr>
+<tr class="memdesc:a5d1b4a3102e16bbed9cc8d8ae692d0a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traite un clic en position écran : sélectionne l'entrée couverte, s'il y en a une — replie/déplie un en-tête, ou sélectionne le type d'une feuille.  <br /></td></tr>
 <tr class="separator:a5d1b4a3102e16bbed9cc8d8ae692d0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a311b10b776506ff2b8a5f9f98a70727b" id="r_a311b10b776506ff2b8a5f9f98a70727b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a311b10b776506ff2b8a5f9f98a70727b">visibleRowCount</a> (float viewportHeight)</td></tr>
+<tr class="memdesc:a311b10b776506ff2b8a5f9f98a70727b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — réserve la place occupée par <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code> (3 lignes) sous la palette.  <br /></td></tr>
+<tr class="separator:a311b10b776506ff2b8a5f9f98a70727b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:ae134a9bb3efc57df212c205b62c5b83e" id="r_ae134a9bb3efc57df212c205b62c5b83e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83e">Category</a> { <a class="el" href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea1705ec94ac6549a8c694994957b9fa31">Tuile</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea975fbdcca491ff917db4b3fb740cc010">Interactif</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83eaf3dc90c1cd3e3a102d8c5080c54b8172">Jalon</a>
+ }</td></tr>
+<tr class="memdesc:ae134a9bb3efc57df212c205b62c5b83e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégories repliables de premier niveau (l'ordre suit <code>CATEGORY_COUNT</code>).  <a href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83e">More...</a><br /></td></tr>
+<tr class="separator:ae134a9bb3efc57df212c205b62c5b83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a2230ea4446ad8ad74609597f7f9a78" id="r_a8a2230ea4446ad8ad74609597f7f9a78"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78">Subgroup</a> { <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8">Pente</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46">Arrondi</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c">Bloc</a>
+ }</td></tr>
+<tr class="memdesc:a8a2230ea4446ad8ad74609597f7f9a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-groupes repliables de second niveau (une famille à plusieurs formes/tailles).  <a href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78">More...</a><br /></td></tr>
+<tr class="separator:a8a2230ea4446ad8ad74609597f7f9a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f57fb32ba3365ac1bd36f8a1b616135" id="r_a2f57fb32ba3365ac1bd36f8a1b616135"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135">RowAction</a> { <a class="el" href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a7fafcdde6b0aa924f709e34735aca4ed">SelectType</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a363b6d198d5395ca897015d68d335af5">ToggleCategory</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a7fc6a597cf12ba9a7f3b0c91a2dc1cd5">ToggleSubgroup</a>
+ }</td></tr>
+<tr class="memdesc:a2f57fb32ba3365ac1bd36f8a1b616135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action déclenchée par un clic sur une entrée ; parallèle à <code>_entries</code> (même index).  <a href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135">More...</a><br /></td></tr>
+<tr class="separator:a2f57fb32ba3365ac1bd36f8a1b616135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aefb6c85032f9fdd173df8c1135593c0f" id="r_aefb6c85032f9fdd173df8c1135593c0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#aefb6c85032f9fdd173df8c1135593c0f">relayout</a> ()</td></tr>
+<tr class="memdesc:aefb6c85032f9fdd173df8c1135593c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste complète (état de dépliage courant), borne <code>_scrollOffset</code> à son intervalle valide pour <code>_viewportHeight</code>, puis découpe <code>_entries</code>/<code>_rows</code>/<code>_bottom</code>/ <code>_totalRows</code> sur la fenêtre visible qui en résulte — seul point de passage qui pose les positions écran ; appelé à la construction et après toute bascule/défilement/redimensionnement.  <br /></td></tr>
+<tr class="separator:aefb6c85032f9fdd173df8c1135593c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef9875a96288521cf0f2c9d3f693dae1" id="r_aef9875a96288521cf0f2c9d3f693dae1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#aef9875a96288521cf0f2c9d3f693dae1">followRow</a> (int absoluteIndex)</td></tr>
+<tr class="memdesc:aef9875a96288521cf0f2c9d3f693dae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajuste <code>_scrollOffset</code> pour que la ligne d'indice absolu <code>absoluteIndex</code> (dans la liste complète, indépendante du défilement) reste dans la fenêtre visible, puis redécoupe — appelé juste après avoir replié/déplié un en-tête, sinon un en-tête proche du bas de la liste pourrait se retrouver hors fenêtre (ou pousser un en-tête plus bas hors fenêtre) sans aucun indice visuel, la seule barre de défilement ne suffisant pas à le deviner.  <br /></td></tr>
+<tr class="separator:aef9875a96288521cf0f2c9d3f693dae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a3f931c489289c7ef06393f53a44df614" id="r_a3f931c489289c7ef06393f53a44df614"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structhmi_1_1TilePalette_1_1Entry.html">Entry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a3f931c489289c7ef06393f53a44df614">_entries</a></td></tr>
+<tr class="memdesc:a3f931c489289c7ef06393f53a44df614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre visible seulement (défilement compris).  <br /></td></tr>
 <tr class="separator:a3f931c489289c7ef06393f53a44df614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5e591db75621cf99958e8cc75250174" id="r_ad5e591db75621cf99958e8cc75250174"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structhmi_1_1TilePalette_1_1Row.html">Row</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ad5e591db75621cf99958e8cc75250174">_rows</a></td></tr>
+<tr class="memdesc:ad5e591db75621cf99958e8cc75250174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Même index que <code>_entries</code> : ce que fait un clic sur chaque ligne.  <br /></td></tr>
+<tr class="separator:ad5e591db75621cf99958e8cc75250174"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b8756eab46e67594c71161ce1aed78c" id="r_a7b8756eab46e67594c71161ce1aed78c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a7b8756eab46e67594c71161ce1aed78c">_selected</a> = <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></td></tr>
 <tr class="separator:a7b8756eab46e67594c71161ce1aed78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70fa1d0ad686ebe7ee2c46e24527686" id="r_ae70fa1d0ad686ebe7ee2c46e24527686"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ae70fa1d0ad686ebe7ee2c46e24527686">_bottom</a> = 0.0f</td></tr>
+<tr class="separator:ae70fa1d0ad686ebe7ee2c46e24527686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e4914e5978f7123c5e6609956f56a6" id="r_a46e4914e5978f7123c5e6609956f56a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a46e4914e5978f7123c5e6609956f56a6">_totalRows</a> = 0</td></tr>
+<tr class="memdesc:a46e4914e5978f7123c5e6609956f56a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de lignes dépliées, défilement mis à part.  <br /></td></tr>
+<tr class="separator:a46e4914e5978f7123c5e6609956f56a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d926b0573118c1182b84ab9ee7fe3e3" id="r_a7d926b0573118c1182b84ab9ee7fe3e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a7d926b0573118c1182b84ab9ee7fe3e3">_scrollOffset</a> = 0</td></tr>
+<tr class="memdesc:a7d926b0573118c1182b84ab9ee7fe3e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indice de la première ligne affichée (défilement).  <br /></td></tr>
+<tr class="separator:a7d926b0573118c1182b84ab9ee7fe3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafa57da3a0d51f2bec1fdb1797ca205c" id="r_aafa57da3a0d51f2bec1fdb1797ca205c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#aafa57da3a0d51f2bec1fdb1797ca205c">_viewportHeight</a> = 720.0f</td></tr>
+<tr class="memdesc:aafa57da3a0d51f2bec1fdb1797ca205c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière hauteur connue (<code>setViewportHeight</code>).  <br /></td></tr>
+<tr class="separator:aafa57da3a0d51f2bec1fdb1797ca205c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ebae08bfab94e32a25a42d71830009" id="r_ad4ebae08bfab94e32a25a42d71830009"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1TilePalette.html#ae598122e72209de693ecd8bc0ef437a7">CATEGORY_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ad4ebae08bfab94e32a25a42d71830009">_categoryExpanded</a> {}</td></tr>
+<tr class="separator:ad4ebae08bfab94e32a25a42d71830009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae05a57489a279184d74006ca942d1474" id="r_ae05a57489a279184d74006ca942d1474"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, <a class="el" href="classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b">SUBGROUP_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ae05a57489a279184d74006ca942d1474">_subgroupExpanded</a> {}</td></tr>
+<tr class="separator:ae05a57489a279184d74006ca942d1474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:ae598122e72209de693ecd8bc0ef437a7" id="r_ae598122e72209de693ecd8bc0ef437a7"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ae598122e72209de693ecd8bc0ef437a7">CATEGORY_COUNT</a> = 3</td></tr>
+<tr class="separator:ae598122e72209de693ecd8bc0ef437a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4823e83930866fa10b1ac8e70fcd259b" id="r_a4823e83930866fa10b1ac8e70fcd259b"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b">SUBGROUP_COUNT</a> = 3</td></tr>
+<tr class="separator:a4823e83930866fa10b1ac8e70fcd259b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre. </p>
-<p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>). Le dessin des entrées (couleurs d'atlas, surbrillance de la sélection) est délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code>/<code><a class="el" href="classhmi_1_1TilePalette.html#af8b0a532bf775db098660afc01b8e01d">selected()</a></code>.</p>
-<p>Types proposés : ceux que <code>Core</code> sait réellement gérer aujourd'hui (<code>Empty</code>, <code>Solid</code>, <code>Danger</code>, <code><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ...">Entry</a></code>, <code>Exit</code>, <code>Switch</code>, <code>PressurePlate</code>, <code>Door</code>, <code>Block</code>) — pas de clé/porte verrouillée, non implémentée côté gameplay (<code>EX-GP-023</code>, optionnelle au MVP). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection/dépliage, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>). Le dessin des entrées (icônes d'atlas, surbrillance de la sélection) reste délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code>/<code><a class="el" href="classhmi_1_1TilePalette.html#af8b0a532bf775db098660afc01b8e01d">selected()</a></code> exactement comme avant <code>LOT-27</code> : chaque <code><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu&#39;elle sélectionne...">Entry</a></code> porte toujours un <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code> valide (le type sélectionnable pour une entrée-feuille, ou un type <b>représentatif</b> pour une entrée d'en-tête, utilisé uniquement pour son icône) et un rectangle écran — <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> n'a donc rien à changer pour dessiner la nouvelle disposition.</p>
+<p><b>Trois niveaux d'accordéon</b> (<code>EX-EDIT-018</code>), reflétés uniquement par la position/visibilité des entrées (<code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code> n'expose jamais une entrée actuellement repliée) :</p><ol type="1">
+<li>Deux entrées <b>autonomes</b> toujours visibles (Vide, Piège — sélection directe, pas de dépliage) et trois <b>catégories</b> repliables (Tuile, Interactif, Jalon).</li>
+<li>Une catégorie dépliée expose ses tuiles <b>directes</b> (ex. Porte, Plaque, Interrupteur) et, pour Tuile/Interactif, des <b>sous-groupes</b> repliables (Pente, Arrondi, Bloc poussable — familles à plusieurs formes/tailles).</li>
+<li>Un sous-groupe déplié expose ses variantes (orientations, tailles).</li>
+</ol>
+<p>Cliquer une entrée d'en-tête (catégorie ou sous-groupe) <b>replie/déplie</b> ce niveau sans changer la sélection courante ; cliquer une entrée-feuille <b>sélectionne</b> son type. Dans les deux cas, <code>handleClick</code> renvoie <code>true</code> (clic consommé par la palette) — l'appelant (<code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>) n'a pas à distinguer les deux cas.</p>
+<p>La hauteur totale de la palette variant désormais avec l'état de dépliage (plus de compte fixe comme avant <code>LOT-27</code>), <code><a class="el" href="classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012">bottom()</a></code> donne la position <code>y</code> courante juste sous la dernière entrée visible — <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> l'utilise pour repositionner dynamiquement <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code> (<code><a class="el" href="classhmi_1_1ToolBar.html#a69370bf389747a3c2d5d05a594044ba0" title="Recalcule les rectangles des entrées pour que la première commence à top (en pixels écran),...">ToolBar::relayout</a></code>) en dessous, à chaque frame.</p>
+<p><b>Défilement</b> (<code>EX-EDIT-018</code>) : tout déplier en même temps (jusqu'à 26 lignes) peut dépasser la hauteur de fenêtre disponible. <code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code> n'expose donc que la <b>fenêtre visible</b> courante (au plus <code>visibleRowCount(viewportHeight)</code> lignes, jamais moins d'une) ; <code>scroll</code> la fait défiler (molette, sans changer la sélection ni l'état de dépliage), sur le modèle de <code><a class="el" href="classhmi_1_1LevelPicker.html" title="Liste « Nouveau niveau » + les fichiers .json d&#39;un dossier, navigable au clavier et à la souris.">LevelPicker</a></code>. Sans cela, un long dépliage rendrait les dernières entrées définitivement inaccessibles derrière le bas de l'écran, sans aucun moyen de les atteindre. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ae134a9bb3efc57df212c205b62c5b83e" name="ae134a9bb3efc57df212c205b62c5b83e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae134a9bb3efc57df212c205b62c5b83e">&#9670;&#160;</a></span>Category</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83e">hmi::TilePalette::Category</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégories repliables de premier niveau (l'ordre suit <code>CATEGORY_COUNT</code>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae134a9bb3efc57df212c205b62c5b83ea1705ec94ac6549a8c694994957b9fa31" name="ae134a9bb3efc57df212c205b62c5b83ea1705ec94ac6549a8c694994957b9fa31"></a>Tuile&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae134a9bb3efc57df212c205b62c5b83ea975fbdcca491ff917db4b3fb740cc010" name="ae134a9bb3efc57df212c205b62c5b83ea975fbdcca491ff917db4b3fb740cc010"></a>Interactif&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae134a9bb3efc57df212c205b62c5b83eaf3dc90c1cd3e3a102d8c5080c54b8172" name="ae134a9bb3efc57df212c205b62c5b83eaf3dc90c1cd3e3a102d8c5080c54b8172"></a>Jalon&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a2f57fb32ba3365ac1bd36f8a1b616135" name="a2f57fb32ba3365ac1bd36f8a1b616135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f57fb32ba3365ac1bd36f8a1b616135">&#9670;&#160;</a></span>RowAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135">hmi::TilePalette::RowAction</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Action déclenchée par un clic sur une entrée ; parallèle à <code>_entries</code> (même index). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2f57fb32ba3365ac1bd36f8a1b616135a7fafcdde6b0aa924f709e34735aca4ed" name="a2f57fb32ba3365ac1bd36f8a1b616135a7fafcdde6b0aa924f709e34735aca4ed"></a>SelectType&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f57fb32ba3365ac1bd36f8a1b616135a363b6d198d5395ca897015d68d335af5" name="a2f57fb32ba3365ac1bd36f8a1b616135a363b6d198d5395ca897015d68d335af5"></a>ToggleCategory&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f57fb32ba3365ac1bd36f8a1b616135a7fc6a597cf12ba9a7f3b0c91a2dc1cd5" name="a2f57fb32ba3365ac1bd36f8a1b616135a7fc6a597cf12ba9a7f3b0c91a2dc1cd5"></a>ToggleSubgroup&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a8a2230ea4446ad8ad74609597f7f9a78" name="a8a2230ea4446ad8ad74609597f7f9a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a2230ea4446ad8ad74609597f7f9a78">&#9670;&#160;</a></span>Subgroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78">hmi::TilePalette::Subgroup</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sous-groupes repliables de second niveau (une famille à plusieurs formes/tailles). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8" name="a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8"></a>Pente&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46" name="a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46"></a>Arrondi&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c" name="a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c"></a>Bloc&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad27da99e240b358a4c4703081238e512" name="ad27da99e240b358a4c4703081238e512"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad27da99e240b358a4c4703081238e512">&#9670;&#160;</a></span>TilePalette()</h2>
 
@@ -169,11 +353,37 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construit la palette, disposée en bande horizontale dans le coin haut-gauche de l'écran. </p>
+<p>Construit la palette : catégories/sous-groupes tous repliés, sélection initiale <code>Solid</code>. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0c52afbd1ec8a1a8eec98ed25c637012" name="a0c52afbd1ec8a1a8eec98ed25c637012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c52afbd1ec8a1a8eec98ed25c637012">&#9670;&#160;</a></span>bottom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::TilePalette::bottom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La position <code>y</code>, en pixels écran, juste sous la dernière entrée <b>visible</b> de la fenêtre courante — dépend de l'état de dépliage et de défilement (varie d'un clic sur un en-tête, ou d'un défilement à la molette, à l'autre). </dd></dl>
+
+</div>
+</div>
 <a id="a491606766e039bf588714c9582294a14" name="a491606766e039bf588714c9582294a14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a491606766e039bf588714c9582294a14">&#9670;&#160;</a></span>entries()</h2>
 
@@ -196,7 +406,35 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les entrées de la palette, dans leur ordre d'affichage. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les entrées <b>actuellement visibles</b> de la palette, dans leur ordre d'affichage (une entrée sous une catégorie/un sous-groupe replié n'y figure pas). </dd></dl>
+
+</div>
+</div>
+<a id="aef9875a96288521cf0f2c9d3f693dae1" name="aef9875a96288521cf0f2c9d3f693dae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef9875a96288521cf0f2c9d3f693dae1">&#9670;&#160;</a></span>followRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TilePalette::followRow </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>absoluteIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajuste <code>_scrollOffset</code> pour que la ligne d'indice absolu <code>absoluteIndex</code> (dans la liste complète, indépendante du défilement) reste dans la fenêtre visible, puis redécoupe — appelé juste après avoir replié/déplié un en-tête, sinon un en-tête proche du bas de la liste pourrait se retrouver hors fenêtre (ou pousser un en-tête plus bas hors fenêtre) sans aucun indice visuel, la seule barre de défilement ne suffisant pas à le deviner. </p>
 
 </div>
 </div>
@@ -226,15 +464,94 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Traite un clic en position écran : sélectionne l'entrée couverte, s'il y en a une. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Traite un clic en position écran : sélectionne l'entrée couverte, s'il y en a une — replie/déplie un en-tête, ou sélectionne le type d'une feuille. </p>
+<p>Seule la fenêtre visible courante (défilement compris) est testée. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>Abscisse écran du clic, en pixels. </td></tr>
     <tr><td class="paramname">y</td><td>Ordonnée écran du clic, en pixels. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> si le clic a touché la palette (sélection changée ou confirmée) ; <code>false</code> s'il est en dehors — l'appelant doit alors le traiter comme un clic sur la grille. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> si le clic a touché la palette (en-tête replié/déplié, ou sélection changée/ confirmée) ; <code>false</code> s'il est en dehors — l'appelant doit alors le traiter comme un clic sur la grille. </dd></dl>
+
+</div>
+</div>
+<a id="aefb6c85032f9fdd173df8c1135593c0f" name="aefb6c85032f9fdd173df8c1135593c0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefb6c85032f9fdd173df8c1135593c0f">&#9670;&#160;</a></span>relayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TilePalette::relayout </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit la liste complète (état de dépliage courant), borne <code>_scrollOffset</code> à son intervalle valide pour <code>_viewportHeight</code>, puis découpe <code>_entries</code>/<code>_rows</code>/<code>_bottom</code>/ <code>_totalRows</code> sur la fenêtre visible qui en résulte — seul point de passage qui pose les positions écran ; appelé à la construction et après toute bascule/défilement/redimensionnement. </p>
+
+</div>
+</div>
+<a id="a871ad057e0382fafbf06e0abd43fcf34" name="a871ad057e0382fafbf06e0abd43fcf34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a871ad057e0382fafbf06e0abd43fcf34">&#9670;&#160;</a></span>scroll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TilePalette::scroll </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>wheelDelta</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait défiler la fenêtre visible (molette), sans changer la sélection ni l'état de dépliage — même esprit que <code><a class="el" href="classhmi_1_1LevelPicker.html#a2fad5be1bb025c029f38c08306a2f131" title="Met à jour la sélection (↑/↓, survol souris, molette) et détecte la confirmation (Entrée,...">LevelPicker::update</a></code> (la molette parcourt la liste sans jamais la modifier). </p>
+<p>Utilise la dernière hauteur de fenêtre connue (<code>setViewportHeight</code>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">wheelDelta</td><td>Cumul de molette de la frame (<code><a class="el" href="classhmi_1_1InputState.html#a8168408e70f27916878b8057227ef7ff" title="Somme des incréments de molette accumulés depuis le dernier beginFrame().">InputState::wheelDelta</a></code>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acd162ef69b96639fcd746637084ff646" name="acd162ef69b96639fcd746637084ff646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd162ef69b96639fcd746637084ff646">&#9670;&#160;</a></span>scrollOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TilePalette::scrollOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'indice de la première ligne affichée (défilement) — les lignes d'indice inférieur sont défilées au-dessus du haut de la palette, invisibles. </dd></dl>
 
 </div>
 </div>
@@ -264,7 +581,132 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3b8c16a4e3be8fa071ca95b00c185db9" name="a3b8c16a4e3be8fa071ca95b00c185db9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b8c16a4e3be8fa071ca95b00c185db9">&#9670;&#160;</a></span>setViewportHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TilePalette::setViewportHeight </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>viewportHeight</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Synchronise la hauteur de fenêtre connue (fenêtrage du défilement) — à appeler chaque frame, avant tout clic ou défilement : un redimensionnement change le nombre de lignes visibles sans qu'aucun clic ni dépliage n'ait eu lieu. </p>
+
+</div>
+</div>
+<a id="a1972cb4a603d52c1e72f94ae5c04a0d7" name="a1972cb4a603d52c1e72f94ae5c04a0d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1972cb4a603d52c1e72f94ae5c04a0d7">&#9670;&#160;</a></span>totalRowCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TilePalette::totalRowCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre total de lignes actuellement dépliées (feuilles + en-têtes visibles selon l'état de dépliage), défilement mis à part — sert, comparé à <code>visibleRowCount</code>, à savoir si une barre de défilement doit être dessinée. </dd></dl>
+
+</div>
+</div>
+<a id="a311b10b776506ff2b8a5f9f98a70727b" name="a311b10b776506ff2b8a5f9f98a70727b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311b10b776506ff2b8a5f9f98a70727b">&#9670;&#160;</a></span>visibleRowCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TilePalette::visibleRowCount </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>viewportHeight</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — réserve la place occupée par <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code> (3 lignes) sous la palette. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewportHeight</td><td>Hauteur de la surface de rendu, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Au moins 1 (une fenêtre trop petite pour une seule ligne reste franchissable). </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae70fa1d0ad686ebe7ee2c46e24527686" name="ae70fa1d0ad686ebe7ee2c46e24527686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae70fa1d0ad686ebe7ee2c46e24527686">&#9670;&#160;</a></span>_bottom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::TilePalette::_bottom = 0.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4ebae08bfab94e32a25a42d71830009" name="ad4ebae08bfab94e32a25a42d71830009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4ebae08bfab94e32a25a42d71830009">&#9670;&#160;</a></span>_categoryExpanded</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="classhmi_1_1TilePalette.html#ae598122e72209de693ecd8bc0ef437a7">CATEGORY_COUNT</a>&gt; hmi::TilePalette::_categoryExpanded {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3f931c489289c7ef06393f53a44df614" name="a3f931c489289c7ef06393f53a44df614"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f931c489289c7ef06393f53a44df614">&#9670;&#160;</a></span>_entries</h2>
 
@@ -285,6 +727,56 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Fenêtre visible seulement (défilement compris). </p>
+
+</div>
+</div>
+<a id="ad5e591db75621cf99958e8cc75250174" name="ad5e591db75621cf99958e8cc75250174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5e591db75621cf99958e8cc75250174">&#9670;&#160;</a></span>_rows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1TilePalette_1_1Row.html">Row</a>&gt; hmi::TilePalette::_rows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Même index que <code>_entries</code> : ce que fait un clic sur chaque ligne. </p>
+
+</div>
+</div>
+<a id="a7d926b0573118c1182b84ab9ee7fe3e3" name="a7d926b0573118c1182b84ab9ee7fe3e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d926b0573118c1182b84ab9ee7fe3e3">&#9670;&#160;</a></span>_scrollOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TilePalette::_scrollOffset = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indice de la première ligne affichée (défilement). </p>
+
 </div>
 </div>
 <a id="a7b8756eab46e67594c71161ce1aed78c" name="a7b8756eab46e67594c71161ce1aed78c"></a>
@@ -303,6 +795,120 @@ Private Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae05a57489a279184d74006ca942d1474" name="ae05a57489a279184d74006ca942d1474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae05a57489a279184d74006ca942d1474">&#9670;&#160;</a></span>_subgroupExpanded</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;bool, <a class="el" href="classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b">SUBGROUP_COUNT</a>&gt; hmi::TilePalette::_subgroupExpanded {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a46e4914e5978f7123c5e6609956f56a6" name="a46e4914e5978f7123c5e6609956f56a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e4914e5978f7123c5e6609956f56a6">&#9670;&#160;</a></span>_totalRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TilePalette::_totalRows = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de lignes dépliées, défilement mis à part. </p>
+
+</div>
+</div>
+<a id="aafa57da3a0d51f2bec1fdb1797ca205c" name="aafa57da3a0d51f2bec1fdb1797ca205c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafa57da3a0d51f2bec1fdb1797ca205c">&#9670;&#160;</a></span>_viewportHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::TilePalette::_viewportHeight = 720.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernière hauteur connue (<code>setViewportHeight</code>). </p>
+
+</div>
+</div>
+<a id="ae598122e72209de693ecd8bc0ef437a7" name="ae598122e72209de693ecd8bc0ef437a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae598122e72209de693ecd8bc0ef437a7">&#9670;&#160;</a></span>CATEGORY_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t hmi::TilePalette::CATEGORY_COUNT = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4823e83930866fa10b1ac8e70fcd259b" name="a4823e83930866fa10b1ac8e70fcd259b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4823e83930866fa10b1ac8e70fcd259b">&#9670;&#160;</a></span>SUBGROUP_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t hmi::TilePalette::SUBGROUP_COUNT = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

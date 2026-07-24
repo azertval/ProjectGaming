@@ -18,7 +18,7 @@ var searchData=
   ['niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_15',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
   ['niveau_20sans_20ligne_20de_20commande_16',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
   ['niveau_20succès_20échec_17',['TACHE-04 — Règles de fin de niveau (succès / échec)',['../lot-08-tache-04-regles-fin-niveau.html',1,'lot-08']]],
-  ['niveaux_18',['niveaux',['../spec-editeur.html',1,'Éditeur de niveaux'],['../lot-09.html',1,'LOT-09 — Saut, game feel et enchaînement de niveaux'],['../lot-25-tache-02-implementation-niveaux.html',1,'TACHE-02 — Implémentation des niveaux']]],
+  ['niveaux_18',['niveaux',['../spec-editeur.html',1,'Éditeur de niveaux'],['../lot-09.html',1,'LOT-09 — Saut, game feel et enchaînement de niveaux'],['../lot-27-tache-01-palette-accordeon.html',1,'TACHE-01 — Palette en accordéon à trois niveaux'],['../lot-25-tache-02-implementation-niveaux.html',1,'TACHE-02 — Implémentation des niveaux']]],
   ['niveaux_20_3a_20modèle_20chargement_20mécanismes_20budgets_19',['Niveaux : modèle, chargement, mécanismes, budgets',['../guide-niveaux.html',1,'guide']]],
   ['niveaux_20_3a_20modèle_20et_20chargement_20',['LOT-07 — Niveaux : modèle et chargement',['../lot-07.html',1,'lots']]],
   ['niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_21',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],

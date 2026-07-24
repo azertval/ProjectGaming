@@ -1,14 +1,23 @@
 <map id="hmi::TilePalette" name="hmi::TilePalette">
-<area shape="rect" id="Node000001" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="9,373,133,399"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="63,271,271,311"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,322,85,375,82,371,136,318"/>
-<area shape="rect" id="Node000003" href="$structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="73,183,240,208"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="162,221,168,270,163,271,157,222"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,95,81,120"/>
-<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="45,134,46,213,54,310,70,373,65,374,49,311,40,213,40,134"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="71,126,143,180,140,185,68,130"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="113,95,200,120"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="159,134,159,182,154,182,154,134"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="87,5,226,45"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="159,59,159,94,154,94,154,59"/>
+<area shape="rect" id="Node000001" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre." alt="" coords="1040,127,1164,153"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="647,120,855,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="869,137,1040,137,1040,143,869,143"/>
+<area shape="rect" id="Node000003" href="$structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu&#39;elle sélectionne..." alt="" coords="365,127,532,153"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="546,137,647,137,647,143,546,143"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="199,70,275,95"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="289,82,533,90,856,105,936,109,1016,117,1053,125,1052,130,1016,123,936,114,856,111,533,95,289,87"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="272,99,305,113,366,128,365,133,303,119,270,104"/>
+<area shape="rect" id="Node000008" href="$structhmi_1_1TilePalette_1_1Row.html" title=" " alt="" coords="369,17,529,42"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="287,66,303,61,392,39,393,45,305,67,289,71"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="193,150,280,175"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="294,161,341,159,394,150,395,155,342,164,294,166"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,143,144,183"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="157,160,193,160,193,165,157,165"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="647,5,855,45"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="870,25,944,37,981,48,1017,62,1041,76,1062,93,1093,125,1089,129,1058,97,1038,80,1015,66,980,53,943,42,869,31"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="542,25,647,24,647,29,542,31"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="649,184,853,224"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="867,184,1015,157,1049,150,1050,155,1017,163,868,189"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="647,248,856,288"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="868,248,942,229,1015,202,1055,177,1086,151,1089,155,1058,181,1017,206,944,234,870,253"/>
 </map>

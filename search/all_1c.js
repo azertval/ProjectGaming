@@ -7,7 +7,7 @@ var searchData=
   ['quad_4',['quad',['../structhmi_1_1SpriteRenderer_1_1LayeredQuad.html#a10b7a486b74827ac1d3d6a0c58efe78f',1,'hmi::SpriteRenderer::LayeredQuad']]],
   ['quads_20texturés_20hlsl_20blend_20nearest_5',['TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)',['../lot-05-tache-02-pipeline-quads-textures.html',1,'lot-05']]],
   ['qualité_20automatisé_6',['11. Outillage qualité (automatisé)',['../spec-conventions.html#autotoc_md188',1,'']]],
-  ['qualité_20vérification_7',['3. Qualité &amp; vérification',['../spec-exigences.html#autotoc_md210',1,'']]],
+  ['qualité_20vérification_7',['3. Qualité &amp; vérification',['../spec-exigences.html#autotoc_md211',1,'']]],
   ['que_20d_20interpoler_8',['Pourquoi caler directement plutôt que d&apos;interpoler',['../guide-physique.html#autotoc_md123',1,'']]],
   ['que_20des_20bandes_20empilées_9',['Un panneau plutôt que des bandes empilées',['../guide-editeur.html#autotoc_md72',1,'']]],
   ['que_20dessiner_20un_20sprite_20à_20la_20fois_10',['Pourquoi « batcher » plutôt que dessiner un sprite à la fois',['../guide-rendu.html#autotoc_md142',1,'']]],
@@ -18,7 +18,7 @@ var searchData=
   ['qui_20a_20le_20droit_20de_20se_20lier_20à_20qui_15',['Mécanismes : qui a le droit de se lier à qui',['../guide-editeur.html#autotoc_md58',1,'']]],
   ['qui_20applique_20les_20transitions_20_3a_20ref_20hmi_3a_3ascreenmanager_20screenmanager_16',['Qui applique les transitions : \ref hmi::ScreenManager &quot;ScreenManager&quot;',['../guide-ecrans.html#autotoc_md40',1,'']]],
   ['qui_20simplifie_20tout_20_3a_20ref_20hmi_3a_3akey_20key_20réutilise_20les_20codes_20win32_17',['Un détail d&apos;implémentation qui simplifie tout : \ref hmi::Key &quot;Key&quot; réutilise les codes Win32',['../guide-entrees.html#autotoc_md79',1,'']]],
-  ['quit_18',['quit',['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6',1,'hmi::ScreenTransition::Quit'],['../structhmi_1_1ScreenTransition.html#ad4f11ec8a242950a505a5db7962f02aa',1,'hmi::ScreenTransition::quit() noexcept']]],
+  ['quit_18',['quit',['../structhmi_1_1ScreenTransition.html#ad4f11ec8a242950a505a5db7962f02aa',1,'hmi::ScreenTransition::quit() noexcept'],['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6',1,'hmi::ScreenTransition::Quit']]],
   ['quitter_20l_20éditeur_19',['Essai immédiat : jouer sans quitter l&apos;éditeur',['../guide-editeur.html#autotoc_md67',1,'']]],
   ['quitter_20sans_20enregistrer_20',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]]
 ];

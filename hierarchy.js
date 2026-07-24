@@ -64,6 +64,7 @@ var hierarchy =
     [ "hmi::LanguageSelector::Rect", "structhmi_1_1LanguageSelector_1_1Rect.html", null ],
     [ "hmi::SaveLogButton::Rect", "structhmi_1_1SaveLogButton_1_1Rect.html", null ],
     [ "hmi::RenderContext", "structhmi_1_1RenderContext.html", null ],
+    [ "hmi::TilePalette::Row", "structhmi_1_1TilePalette_1_1Row.html", null ],
     [ "hmi::SaveIcon", "classhmi_1_1SaveIcon.html", null ],
     [ "hmi::SaveLogButton", "classhmi_1_1SaveLogButton.html", null ],
     [ "hmi::ScreenManager", "classhmi_1_1ScreenManager.html", null ],

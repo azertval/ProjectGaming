@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>395 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>406 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (323)</h1>
+Tests unitaires (334)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -1533,7 +1533,7 @@ Vérifie que <code>timestep.advance(0.0f)</code> vaut <code>0</code>.    </td></
 <h2><a class="anchor" id="autotoc_md13"></a>
 HMI</h2>
 <h3><a class="anchor" id="autotoc_md14"></a>
-Editor (43)</h3>
+Editor (54)</h3>
 <p>**<code><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1737,32 +1737,96 @@ Vérifie que <code>field.text()</code> vaut <code>"Niveau"</code>.    </td></tr>
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.confirmed()</code> est vrai.<br  />
 Vérifie que <code>field.text()</code> vaut <code>"Niveau"</code>.   </td></tr>
 </table>
-<p>**<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">test_tile_palette.cpp</a></code>**</p>
+<p>**<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">test_tile_palette.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ExposeUneEntreeParType</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:13</code></sub>   </td><td class="markdownTableBodyNone">La palette expose au moins une entrée par type de tuile éditable.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.entries().size()</code> est supérieur ou égal à <code>7u</code>.    </td></tr>
+<td class="markdownTableBodyNone"><b>TilePaletteTest.EtatInitialCinqEntreesVisibles</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:38</code></sub>   </td><td class="markdownTableBodyNone">À l'état initial, seules les catégories et entrées autonomes sont visibles.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.entries().size()</code> vaut <code>5u</code>.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.SelectionParDefautEstSolid</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:28</code></sub>   </td><td class="markdownTableBodyNone">La sélection par défaut est Solid.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:53</code></sub>   </td><td class="markdownTableBodyNone">La sélection par défaut est Solid.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></code>.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurUneEntreeSelectionneSonType</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:43</code></sub>   </td><td class="markdownTableBodyNone">Cliquer une entrée de la palette sélectionne son type et signale le clic consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code>target.type</code>.    </td></tr>
+<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurEntreeAutonomeSelectionneSonType</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:68</code></sub>   </td><td class="markdownTableBodyNone">Cliquer une entrée autonome sélectionne son type et signale le clic consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>target.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.ClicHorsPaletteNonConsomme</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:66</code></sub>   </td><td class="markdownTableBodyNone">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:89</code></sub>   </td><td class="markdownTableBodyNone">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>consumed</code> est faux.<br  />
 Vérifie que <code>palette.selected()</code> vaut <code>before</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.ChaqueEntreePorteUnLibelle</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur (LOT-14, EX-EDIT-002).">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:87</code></sub>   </td><td class="markdownTableBodyNone">Chaque entrée porte un libellé non vide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>entry.label.empty()</code> est faux.   </td></tr>
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:110</code></sub>   </td><td class="markdownTableBodyNone">Chaque entrée visible porte un libellé non vide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>entry.label.empty()</code> est faux.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurEnTeteDeCategorieLaDeplie</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:127</code></sub>   </td><td class="markdownTableBodyNone">Cliquer l'en-tête d'une catégorie repliée la déplie sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>header.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code>before</code>.<br  />
+Vérifie que <code>findByLabel(palette, "v Tuile").has_value()</code> est vrai.<br  />
+Vérifie que <code>findByLabel(palette, "Plein").has_value()</code> est vrai.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Pente").has_value()</code> est vrai.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.SecondClicSurEnTeteDeCategorieLaReplie</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:156</code></sub>   </td><td class="markdownTableBodyNone">Cliquer à nouveau l'en-tête d'une catégorie dépliée la replie.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.entries().size()</code> vaut <code>5u</code>.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Tuile").has_value()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurFeuilleDirecteSelectionneSonType</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:177</code></sub>   </td><td class="markdownTableBodyNone">Cliquer la feuille directe d'une catégorie dépliée sélectionne son type.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>door.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupeBlocPoussableDeplieExposeSesTailles</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:200</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Bloc poussable déplié expose ses trois tailles.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>findByLabel(palette, "&gt; Bloc poussable").has_value()</code> est vrai.<br  />
+Vérifie que <code>half.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107">core::TileType::BlockHalf</a></code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupePenteDeplieExposeSesOrientations</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:225</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Pente déplié expose ses quatre orientations.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>ceilingRight.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></code>.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.BottomSuitLEtatDeDepliage</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:253</code></sub>   </td><td class="markdownTableBodyNone"><code>bottom()</code> suit l'état de dépliage courant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.bottom()</code> est strictement supérieur à <code>collapsedBottom</code>.<br  />
+Vérifie que <code>palette.bottom()</code> vaut <code>collapsedBottom</code> (comparaison flottante).    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.FenetreReduiteLimiteLesEntreesVisibles</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:293</code></sub>   </td><td class="markdownTableBodyNone">Une fenêtre réduite limite le nombre d'entrées visibles simultanément.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.totalRowCount()</code> vaut <code>25</code>.<br  />
+Vérifie que <code>palette.entries().size()</code> vaut <code>1u</code>.<br  />
+Vérifie que <code>palette.totalRowCount()</code> vaut <code>25</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollChangeLaFenetreSansChangerLaSelection</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:316</code></sub>   </td><td class="markdownTableBodyNone">Le défilement change la fenêtre visible sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>1</code>.<br  />
+Vérifie que <code>palette.entries().front().label</code> diffère de <code>firstLabel</code>.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code>before</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollBorneAuxExtremites</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:341</code></sub>   </td><td class="markdownTableBodyNone">Le défilement est borné aux deux extrémités de la liste.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>palette.totalRowCount() - 1</code>.<br  />
+Vérifie que <code>palette.scrollOffset()</code> vaut <code>0</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.EnTeteDeplieResteVisibleDansUneFenetreEtroite</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:366</code></sub>   </td><td class="markdownTableBodyNone">Un en-tête déplié reste visible même dans une fenêtre étroite.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1TilePalette.html#a311b10b776506ff2b8a5f9f98a70727b" title="Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — rése...">hmi::TilePalette::visibleRowCount</a>(350.0f)</code> vaut <code>6</code>.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Interactif").has_value()</code> est vrai.<br  />
+Vérifie que <code>findByLabel(palette, "v Interactif").has_value()</code> est vrai.   </td></tr>
 </table>
 <p>**<code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">test_tool_bar.cpp</a></code>**</p>
 <table class="markdownTable">
@@ -1792,7 +1856,13 @@ Vérifie que <code>toolBar.selected()</code> vaut <code>before</code>.    </td><
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.<br  />
 Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e">hmi::EditorTool::Rectangle</a></code>.<br  />
 Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de">hmi::EditorTool::Selection</a></code>.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.   </td></tr>
+Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ToolBarTest.RelayoutRepositionneSansChangerLaSelection</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:113</code></sub>   </td><td class="markdownTableBodyNone"><code>relayout(top)</code> repositionne les entrées sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.entries().size()</code> vaut <code>countBefore</code>.<br  />
+Vérifie que <code>toolBar.selected()</code> vaut <code>selectedBefore</code>.<br  />
+Vérifie que <code>toolBar.entries().front().y</code> vaut <code>250.0f</code> (comparaison flottante).   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md15"></a>
 Graphics (9)</h3>

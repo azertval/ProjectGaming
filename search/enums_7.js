@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['textpromptpurpose_0',['TextPromptPurpose',['../classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364',1,'hmi::EditorScreen']]],
-  ['tiletype_1',['TileType',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875',1,'core']]]
+  ['rowaction_0',['RowAction',['../classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135',1,'hmi::TilePalette']]]
 ];

@@ -1,5 +1,5 @@
 <map id="hmi::TilePalette::Entry" name="hmi::TilePalette::Entry">
-<area shape="rect" id="Node000001" title="Une entrée cliquable de la palette : son rectangle écran, le type qu&#39;elle sélectionne et son libellé ..." alt="" coords="5,183,172,208"/>
+<area shape="rect" id="Node000001" title="Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu&#39;elle sélectionne..." alt="" coords="5,183,172,208"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="9,95,85,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,132,71,157,84,181,79,184,66,160,55,134"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="109,95,196,120"/>

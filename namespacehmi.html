@@ -311,14 +311,11 @@ Variables</h2></td></tr>
 <tr class="memdesc:a9c7ebaa378e443f0111ae16621bdc67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace supplémentaire entre deux sections.  <br /></td></tr>
 <tr class="separator:a9c7ebaa378e443f0111ae16621bdc67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae106af4848582a6f2c2f44525a602d2a" id="r_ae106af4848582a6f2c2f44525a602d2a"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">PALETTE_TOP</a> = 8.0f</td></tr>
-<tr class="memdesc:ae106af4848582a6f2c2f44525a602d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Haut de la première ligne (palette, 19 types).  <br /></td></tr>
+<tr class="memdesc:ae106af4848582a6f2c2f44525a602d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Haut de la première ligne (palette).  <br /></td></tr>
 <tr class="separator:ae106af4848582a6f2c2f44525a602d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae22e59cbd273028d896997a9a6eccfd9" id="r_ae22e59cbd273028d896997a9a6eccfd9"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9">PALETTE_TYPE_COUNT</a> = 19</td></tr>
-<tr class="memdesc:ae22e59cbd273028d896997a9a6eccfd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de types de tuiles dans la palette (<code>TilePalette::PALETTE_TYPES</code>) — seule source de vérité de ce compte, partagée ici pour dimensionner le panneau sans dupliquer la liste.  <br /></td></tr>
-<tr class="separator:ae22e59cbd273028d896997a9a6eccfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af30cf5856c8e2d19b71c5844ada586ae" id="r_af30cf5856c8e2d19b71c5844ada586ae"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#af30cf5856c8e2d19b71c5844ada586ae">TOOLBAR_TOP</a></td></tr>
-<tr class="memdesc:af30cf5856c8e2d19b71c5844ada586ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Haut de la première ligne de la barre d'outils (sous les lignes de la palette).  <br /></td></tr>
-<tr class="separator:af30cf5856c8e2d19b71c5844ada586ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49bd615b891f2304f7a0aa6d6029f27c" id="r_a49bd615b891f2304f7a0aa6d6029f27c"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a49bd615b891f2304f7a0aa6d6029f27c">PALETTE_INDENT_STEP</a> = 14.0f</td></tr>
+<tr class="memdesc:a49bd615b891f2304f7a0aa6d6029f27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage horizontal d'un niveau d'imbrication de la palette en accordéon (<code>LOT-27</code>, <code>EX-EDIT-018</code>) : une entrée sous une catégorie ou un sous-groupe replié se décale d'un cran de cette largeur, sans changer sa taille d'icône — seule sa position <code>x</code> en tient compte.  <br /></td></tr>
+<tr class="separator:a49bd615b891f2304f7a0aa6d6029f27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3201578f409cccc5319bc31255846ec1" id="r_a3201578f409cccc5319bc31255846ec1"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3201578f409cccc5319bc31255846ec1">MAX_LEVEL_DIMENSION</a> = 100</td></tr>
 <tr class="memdesc:a3201578f409cccc5319bc31255846ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plafond de taille par axe (largeur, hauteur), en cases.  <br /></td></tr>
 <tr class="separator:a3201578f409cccc5319bc31255846ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -812,6 +809,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a49bd615b891f2304f7a0aa6d6029f27c" name="a49bd615b891f2304f7a0aa6d6029f27c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49bd615b891f2304f7a0aa6d6029f27c">&#9670;&#160;</a></span>PALETTE_INDENT_STEP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float hmi::PALETTE_INDENT_STEP = 14.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décalage horizontal d'un niveau d'imbrication de la palette en accordéon (<code>LOT-27</code>, <code>EX-EDIT-018</code>) : une entrée sous une catégorie ou un sous-groupe replié se décale d'un cran de cette largeur, sans changer sa taille d'icône — seule sa position <code>x</code> en tient compte. </p>
+
+</div>
+</div>
 <a id="ae106af4848582a6f2c2f44525a602d2a" name="ae106af4848582a6f2c2f44525a602d2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae106af4848582a6f2c2f44525a602d2a">&#9670;&#160;</a></span>PALETTE_TOP</h2>
 
@@ -832,31 +853,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Haut de la première ligne (palette, 19 types). </p>
-
-</div>
-</div>
-<a id="ae22e59cbd273028d896997a9a6eccfd9" name="ae22e59cbd273028d896997a9a6eccfd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae22e59cbd273028d896997a9a6eccfd9">&#9670;&#160;</a></span>PALETTE_TYPE_COUNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int hmi::PALETTE_TYPE_COUNT = 19</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nombre de types de tuiles dans la palette (<code>TilePalette::PALETTE_TYPES</code>) — seule source de vérité de ce compte, partagée ici pour dimensionner le panneau sans dupliquer la liste. </p>
+<p>Haut de la première ligne (palette). </p>
 
 </div>
 </div>
@@ -1002,34 +999,6 @@ Variables</h2></td></tr>
 
 <p>Constantes de disposition du panneau latéral de l'éditeur (LOT-15, <code>EX-EDIT-015</code>). </p>
 <p><code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>, <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">ToolBar</a></code> et <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> (bouton grille, décalage de la caméra) partagent ces constantes pour rester cohérents : un <b>panneau vertical</b> fixe sur le bord gauche de l'écran, plutôt que des bandes empilées en haut-gauche pouvant se superposer entre elles ou avec la grille (LOT-14/LOT-15 TACHE-06 initiales). Largeur totale du panneau, en pixels écran. </p>
-
-</div>
-</div>
-<a id="af30cf5856c8e2d19b71c5844ada586ae" name="af30cf5856c8e2d19b71c5844ada586ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af30cf5856c8e2d19b71c5844ada586ae">&#9670;&#160;</a></span>TOOLBAR_TOP</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr float hmi::TOOLBAR_TOP</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    <a class="code hl_variable" href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">PALETTE_TOP</a> + <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9">PALETTE_TYPE_COUNT</a>) * PANEL_ROW_PITCH + PANEL_SECTION_GAP</div>
-<div class="ttc" id="anamespacehmi_html_ae106af4848582a6f2c2f44525a602d2a"><div class="ttname"><a href="namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a">hmi::PALETTE_TOP</a></div><div class="ttdeci">constexpr float PALETTE_TOP</div><div class="ttdoc">Haut de la première ligne (palette, 19 types).</div><div class="ttdef"><b>Definition</b> EditorLayout.h:25</div></div>
-<div class="ttc" id="anamespacehmi_html_ae22e59cbd273028d896997a9a6eccfd9"><div class="ttname"><a href="namespacehmi.html#ae22e59cbd273028d896997a9a6eccfd9">hmi::PALETTE_TYPE_COUNT</a></div><div class="ttdeci">constexpr int PALETTE_TYPE_COUNT</div><div class="ttdoc">Nombre de types de tuiles dans la palette (TilePalette::PALETTE_TYPES) — seule source de vérité de ce...</div><div class="ttdef"><b>Definition</b> EditorLayout.h:28</div></div>
-</div><!-- fragment -->
-<p>Haut de la première ligne de la barre d'outils (sous les lignes de la palette). </p>
 
 </div>
 </div>

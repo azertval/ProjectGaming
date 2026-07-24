@@ -136,12 +136,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a1782353a3d47c400186e71619f562926" id="r_a1782353a3d47c400186e71619f562926"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tool__bar_8cpp.html#a1782353a3d47c400186e71619f562926">TEST</a> (ToolBarTest, SelectNextDefileEnBoucle)</td></tr>
 <tr class="memdesc:a1782353a3d47c400186e71619f562926"><td class="mdescLeft">&#160;</td><td class="mdescRight">selectNext() fait défiler les outils dans l'ordre Pinceau → Rectangle → Sélection → Pinceau.  <br /></td></tr>
 <tr class="separator:a1782353a3d47c400186e71619f562926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71f72a500b0b0f13647971c12363753" id="r_ab71f72a500b0b0f13647971c12363753"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tool__bar_8cpp.html#ab71f72a500b0b0f13647971c12363753">TEST</a> (ToolBarTest, RelayoutRepositionneSansChangerLaSelection)</td></tr>
+<tr class="memdesc:ab71f72a500b0b0f13647971c12363753"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>relayout(top)</code> repositionne la première entrée à <code>top</code>, sans changer la sélection ni le nombre d'entrées — la palette (<code>LOT-27</code>, accordéon à hauteur variable) l'appelle chaque frame avec sa position basse courante.  <br /></td></tr>
+<tr class="separator:ab71f72a500b0b0f13647971c12363753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la barre d'outils de l'éditeur (LOT-15, EX-EDIT-014/015). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a9e191becaf2a0cecb9403f28ff6adf20" name="a9e191becaf2a0cecb9403f28ff6adf20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e191becaf2a0cecb9403f28ff6adf20">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e191becaf2a0cecb9403f28ff6adf20">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +181,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7500eba73ca847b052d3f72cc9c559db" name="a7500eba73ca847b052d3f72cc9c559db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7500eba73ca847b052d3f72cc9c559db">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7500eba73ca847b052d3f72cc9c559db">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +218,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a23275dbc7108d5d6e49e9e607e244e2d" name="a23275dbc7108d5d6e49e9e607e244e2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23275dbc7108d5d6e49e9e607e244e2d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a23275dbc7108d5d6e49e9e607e244e2d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,8 +254,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab71f72a500b0b0f13647971c12363753" name="ab71f72a500b0b0f13647971c12363753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab71f72a500b0b0f13647971c12363753">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ToolBarTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RelayoutRepositionneSansChangerLaSelection&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>relayout(top)</code> repositionne la première entrée à <code>top</code>, sans changer la sélection ni le nombre d'entrées — la palette (<code>LOT-27</code>, accordéon à hauteur variable) l'appelle chaque frame avec sa position basse courante. </p>
+<p><b>Cas de test :</b> <b><code>relayout(top)</code> repositionne les entrées sans changer la sélection.</b><br  />
+ <b>Categorie :</b> Unitaire · Tool Bar<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La première entrée commence exactement à <code>top</code>, le nombre d'entrées et la sélection sont inchangés. </p>
+
+</div>
+</div>
 <a id="a2bcee7174c3d4d867d5a6e882e358f91" name="a2bcee7174c3d4d867d5a6e882e358f91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bcee7174c3d4d867d5a6e882e358f91">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bcee7174c3d4d867d5a6e882e358f91">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +329,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1782353a3d47c400186e71619f562926" name="a1782353a3d47c400186e71619f562926"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1782353a3d47c400186e71619f562926">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1782353a3d47c400186e71619f562926">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

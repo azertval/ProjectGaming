@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-08-tache-01-composants-personnage.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-08-gameplay-personnage_2epic_8md.html">LOT-08</a> · <b>Emplacement :</b> <code>Source/Core/Ecs</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md623"></a>
+<h1><a class="anchor" id="autotoc_md624"></a>
 Contexte</h1>
 <p>La physique (TACHE-03) opère sur des <b>données pures</b> (<code>EX-ARCH-011</code>). Avant de la coder, il faut décrire le personnage comme un jeu de composants et définir la <b>frontière d'entrée</b> neutre que <code>HMI</code> remplira (TACHE-05) et que <code>Core</code> consommera, sans que <code>Core</code> ne dépende de <code>HMI</code>.</p>
-<h1><a class="anchor" id="autotoc_md624"></a>
+<h1><a class="anchor" id="autotoc_md625"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>Collider</code>** (composant) : boîte englobante <b>AABB</b> en unités monde (<code>Vector2 size</code>, ancrée sur la position du <code>Transform</code>). Donnée pure.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li>**<code>PlayerInput</code>** (struct pure, <code>Core/Ecs</code> ou <code>Core/Physics</code>) : <b>intention</b> de déplacement neutre — <code>float moveX</code> dans <code>[-1, 1]</code> (négatif = gauche, positif = droite). Aucune notion de touche ni de manette : c'est le contrat que <code>HMI</code> traduit (<code>EX-CTRL-010</code>). Un champ de saut n'est <b>pas</b> ajouté ici (hors périmètre), mais la structure est prévue pour évoluer.</li>
 <li>Réutilise <code>Transform</code> (position) et <code>Velocity</code> (vitesse) existants (LOT-03).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md625"></a>
+<h1><a class="anchor" id="autotoc_md626"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Collider_8h.html" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures).">Source/Core/Ecs/Components/Collider.h</a></code>, <code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Player.h</a></code> (nouveaux).</li>
 <li><code><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></code> (nouveau) — ou <code>Core/Ecs/Components/</code> selon cohérence.</li>
 <li><code>Source/Core/CMakeLists.txt</code> (si sources), <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md626"></a>
+<h1><a class="anchor" id="autotoc_md627"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes (<code>Collider::size</code> nul, <code>Player::grounded == false</code>, <code>PlayerInput::moveX == 0</code>).</li>
 <li>Construction/agrégation des composants (structs agrégats), lecture des champs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md627"></a>
+<h1><a class="anchor" id="autotoc_md628"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucun type DirectX, aucune logique, aucun accès fichier ni <code>&lt;Windows.h&gt;</code>.</li>
 <li><code>PlayerInput</code> doit rester <b>agnostique de l'entrée physique</b> : c'est ce qui rend la simulation testable et permettra manette/remappage plus tard sans toucher <code>Core</code>.</li>
 <li>Repère du projet : origine <b>haut-gauche</b>, <code>[colonne, ligne]</code>, <code>y</code> croissant vers le bas — la gravité pousse donc vers les <code>y</code> <b>positifs</b> (cohérent avec <code>EX-ARCH-020</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md628"></a>
+<h1><a class="anchor" id="autotoc_md629"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Composants et <code>PlayerInput</code> définis, documentés (Doxygen en en-tête) et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md629"></a>
+<h1><a class="anchor" id="autotoc_md630"></a>
 Exigences</h1>
 <p><code>EX-ARCH-011</code>, <code>EX-CTRL-010</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->
