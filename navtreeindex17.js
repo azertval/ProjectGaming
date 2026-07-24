@@ -1,5 +1,8 @@
 var NAVTREEINDEX17 =
 {
+"test__player__input__mapper_8cpp.html#a7db08aeca730e98a9d9c850799724c94":[10,0,3,2,2,1,2,1,8],
+"test__player__input__mapper_8cpp.html#aae9903c7d9e3cde20427f3b04f1d0d4f":[10,0,3,2,2,1,2,1,11],
+"test__player__input__mapper_8cpp.html#aaf54df2bc4c9ad041ba9e4c2d6f69c37":[10,0,3,2,2,1,2,1,7],
 "test__player__input__mapper_8cpp.html#ab37328126b238599bfb953984a6a7102":[10,0,3,2,2,1,2,1,1],
 "test__player__input__mapper_8cpp.html#abfe237996cd027a26b6ee9be30a3f86d":[10,0,3,2,2,1,2,1,9],
 "test__player__input__mapper_8cpp.html#ae2af958d2fb47fd5b3ab86db447fd00c":[10,0,3,2,2,1,2,1,4],

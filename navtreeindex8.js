@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"guide-rendu.html#autotoc_md147":[3,9,5,1],
+"guide-rendu.html#autotoc_md148":[3,9,6],
 "guide-rendu.html#autotoc_md149":[3,9,7],
 "guide-rendu.html#autotoc_md150":[3,9,8],
 "guide-rendu.html#autotoc_md151":[3,9,9],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "lot-05-tache-01-composant-sprite.html#autotoc_md454":[6,5,8,1],
 "lot-05-tache-01-composant-sprite.html#autotoc_md455":[6,5,8,2],
 "lot-05-tache-01-composant-sprite.html#autotoc_md456":[6,5,8,3],
-"lot-05-tache-01-composant-sprite.html#autotoc_md457":[6,5,8,4],
-"lot-05-tache-01-composant-sprite.html#autotoc_md458":[6,5,8,5],
-"lot-05-tache-01-composant-sprite.html#autotoc_md459":[6,5,8,6]
+"lot-05-tache-01-composant-sprite.html#autotoc_md457":[6,5,8,4]
 };
