@@ -7,6 +7,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Blocs poussables traversant les pentes/arrondis** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/
+  `EX-GP-022`) : `BlockController` ne connaît que la solidité statique (`core::isSolid`) pour
+  décider si une case est libre — or une pente/arrondi (sol ou plafond) n'est **jamais** solide
+  (sa collision passe par un suivi de surface propre au personnage, que `BlockController` ignore
+  entièrement). Un bloc suspendu au-dessus d'une pente la traversait donc en tombant, et pouvait
+  être poussé dedans. `isFree` traite désormais une case de pente/arrondi comme un **obstacle
+  simple** (comme une case solide), cohérent avec le modèle case-par-case des blocs. **2 nouveaux
+  tests**, aucune régression (395/395 tests verts).
 - **Sélecteur de niveau de l'éditeur illisible au-delà d'une poignée de fichiers** (`EX-EDIT-001`) :
   la liste (« Nouveau niveau » + fichiers `.json` du dossier) s'affichait entièrement, sans
   défilement — au-delà de la hauteur de fenêtre (13 niveaux démo depuis `LOT-25`), les entrées

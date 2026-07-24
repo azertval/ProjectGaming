@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**393 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**395 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (321)
+## Tests unitaires (323)
 
 ### Core
 
@@ -119,7 +119,7 @@
 | **WorldTest.FixedDeltaTransmisAuxSystemes** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_world.cpp:166`</sub> | Le `fixedDelta` passé à `update` est transmis tel quel aux systèmes. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `observed` vaut `0.25f` (comparaison flottante). |
 | **WorldTest.ViewViaWorld** (Majeur)<br/><sub>`Source/Test/Unit/Core/Ecs/test_world.cpp:186`</sub> | La vue exposée par le `World` itère l'intersection des composants. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `visited.size()` vaut `1u`.<br/>Vérifie que `visited.front()` vaut `both`. |
 
-#### Gameplay (17)
+#### Gameplay (19)
 
 **`test_block_controller.cpp`**
 
@@ -137,6 +137,8 @@
 | **BlockControllerTest.BoxAtCentreEtReduitSelonLaTaille** (Majeur)<br/><sub>`Source/Test/Unit/Core/Gameplay/test_block_controller.cpp:270`</sub> | boxAt renvoie une boîte centrée et réduite pour un bloc réduit, pleine case pour un bloc plein. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `fullBox.min.x` vaut `2.0f` (comparaison flottante).<br/>Vérifie que `fullBox.min.y` vaut `1.0f` (comparaison flottante).<br/>Vérifie que `fullBox.max.x` vaut `3.0f` (comparaison flottante).<br/>Vérifie que `fullBox.max.y` vaut `2.0f` (comparaison flottante).<br/>Vérifie que `halfBox.min.x` vaut `3.25f` (comparaison flottante).<br/>Vérifie que `halfBox.min.y` vaut `1.25f` (comparaison flottante).<br/>Vérifie que `halfBox.max.x` vaut `3.75f` (comparaison flottante).<br/>Vérifie que `halfBox.max.y` vaut `1.75f` (comparaison flottante). |
 | **BlockControllerTest.CollisionMapNeSolidifiePasLesBlocsReduits** (Majeur)<br/><sub>`Source/Test/Unit/Core/Gameplay/test_block_controller.cpp:304`</sub> | collisionMap ne rend jamais solide la case d'un bloc réduit, à la différence d'un bloc plein. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `collision.isSolid(1, 1)` est vrai.<br/>Vérifie que `collision.isSolid(2, 1)` est faux.<br/>Vérifie que `collision.isSolid(3, 1)` est faux. |
 | **BlockControllerTest.BlocReduitPousseSelonSaBoiteReelle** (Majeur)<br/><sub>`Source/Test/Unit/Core/Gameplay/test_block_controller.cpp:333`</sub> | Un bloc réduit se pousse comme un bloc plein, mais le contact se teste contre sa boîte réduite, pas la case entière. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `controller.positions()[0]` vaut `(core::GridPosition{2, 1})`.<br/>Vérifie que `controller.positions()[0]` vaut `(core::GridPosition{3, 1})`. |
+| **BlockControllerTest.BlocNeTombePasATraversUnePente** (Bloquant)<br/><sub>`Source/Test/Unit/Core/Gameplay/test_block_controller.cpp:370`</sub> | Un bloc suspendu au-dessus d'une pente ne tombe pas au travers. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `controller.positions()[0]` vaut `(core::GridPosition{2, 0})`. |
+| **BlockControllerTest.PousseeRefuseeContreUnePente** (Majeur)<br/><sub>`Source/Test/Unit/Core/Gameplay/test_block_controller.cpp:403`</sub> | Un bloc ne peut pas être poussé sur une pente. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `controller.positions()[0]` vaut `(core::GridPosition{2, 1})`. |
 
 **`test_mechanism_controller.cpp`**
 

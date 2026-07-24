@@ -27,10 +27,17 @@ struct Aabb;
  * comportements, résolus chaque pas fixe :
  * - **Poussée** : si la boîte (réelle, réduite pour `BlockHalf`/`BlockQuarter`) du bloc touche
  *   celle du personnage du côté vers lequel il se déplace et que la case suivante dans cette
- *   direction est libre (ni solide, ni un autre bloc), le bloc avance d'une case.
+ *   direction est libre (ni solide, ni un autre bloc, ni une pente/arrondi — voir `isFree`), le
+ *   bloc avance d'une case.
  * - **Chute** : un bloc dont la case du dessous est libre tombe d'une case, au rythme de
  *   `FALL_INTERVAL_STEPS` pas fixes par case (chute discrète plutôt que continue — cohérent avec
  *   le reste des mécanismes de ce moteur, tous résolus case par case).
+ *
+ * **Pentes/arrondis** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`, sol ou plafond) : ce contrôleur n'a
+ * **aucune** notion de suivi de surface (contrairement au personnage, `core::resolveSlopeFollow`)
+ * — une case de pente/arrondi est donc traitée comme un **obstacle simple**, comme un `Solid`
+ * ordinaire (ni poussable dedans, ni traversée en tombant), plutôt que comme une case libre. Sans
+ * cette règle, un bloc glisserait au travers d'une pente au lieu de s'y arrêter.
  *
  * Le contrôleur ne connaît pas les mécanismes interrupteur/porte : `collisionMap()` complète une
  * grille de collision **déjà résolue** par `MechanismController` (portes ouvertes/fermées) avec
@@ -81,8 +88,9 @@ public:
     [[nodiscard]] Aabb boxAt(std::size_t index) const;
 
 private:
-    /// @return true si @p target est dans les bornes, non solide dans @p base, et non occupée par
-    ///         un bloc autre que celui d'indice @p excluding.
+    /// @return true si @p target est dans les bornes, non solide et non pente/arrondi
+    ///         (`core::isFollowableSurface`/`core::isCeilingSlope`, voir en-tête de la classe)
+    ///         dans @p base, et non occupée par un bloc autre que celui d'indice @p excluding.
     [[nodiscard]] bool isFree(GridPosition target, const TileMap& base,
                               std::size_t excluding) const;
 
