@@ -61,18 +61,20 @@ std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRo
 }
 
 // Couleur du pixel (localX, localY) d'une case a profil suivable (pente/arrondi), 0-based dans
-// la case 16x16 : plein (couleur de base) sous la surface suivie par la physique
-// (core::slopeSurfaceHeight), transparent au-dessus — l'affichage reproduit ainsi exactement la
-// hitbox reelle (EX-GP-003/EX-GP-004), plutot qu'un carre plein qui la masquerait.
-std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY,
-                              std::uint32_t baseColor) {
+// la case 16x16 : plein (gris, meme couleur que Solid — EX-GP-003/EX-GP-004 restent un materiau
+// de plateforme comme un autre, pas une famille de couleurs distinctes) sous la surface suivie par
+// la physique (core::slopeSurfaceHeight), transparent au-dessus — l'affichage reproduit ainsi
+// exactement la hitbox reelle, plutot qu'un carre plein qui la masquerait.
+std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
     const float normalizedX = (static_cast<float>(localX) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
     const float normalizedY = (static_cast<float>(localY) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
     const std::optional<float> surfaceHeight = core::slopeSurfaceHeight(type, normalizedX);
     if (surfaceHeight && normalizedY >= *surfaceHeight) {
-        return baseColor;  // sous (ou sur) la surface : matiere pleine
+        // Meme case que Solid (colonne 0, ligne 2 — TileVisuals.cpp::regionForTile) : gris,
+        // reutilise ici comme indice de palette plutot que la couleur propre de `type`.
+        return tileColor(2 * TextureAtlas::TILES_PER_SIDE);
     }
     return pack(0, 0, 0, 0);  // au-dessus de la surface : vide, transparent
 }
@@ -233,9 +235,10 @@ TextureAtlas::TextureAtlas(ID3D11Device* device) {
                 color = transparent ? pack(0, 0, 0, 0) : pack(240, 240, 240, 255);
             } else if (const std::optional<core::TileType> slopeType =
                            slopeTypeAtGridPosition(tileColumn, tileRow)) {
-                // Pente/arrondi (EX-GP-003/EX-GP-004) : masque de forme plutot qu'un carre plein,
-                // pour que l'affichage corresponde a la hitbox reelle (core::slopeSurfaceHeight).
-                color = slopeShapePixel(*slopeType, x % TILE_SIZE, y % TILE_SIZE, color);
+                // Pente/arrondi (EX-GP-003/EX-GP-004) : masque de forme (gris, comme Solid)
+                // plutot qu'un carre plein d'une couleur distincte, pour que l'affichage
+                // corresponde a la hitbox reelle (core::slopeSurfaceHeight).
+                color = slopeShapePixel(*slopeType, x % TILE_SIZE, y % TILE_SIZE);
             }
             pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(_width) +
                    static_cast<std::size_t>(x)] = color;

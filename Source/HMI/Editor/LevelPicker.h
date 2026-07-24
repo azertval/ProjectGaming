@@ -62,20 +62,49 @@ public:
         return _selected;
     }
 
+    /// @return L'indice du premier choix affiché (défilement, `EX-EDIT-001`) — les choix
+    ///         d'indice inférieur sont défilés au-dessus du haut de la liste, invisibles.
+    [[nodiscard]] int scrollOffset() const noexcept {
+        return _scrollOffset;
+    }
+
     /**
-     * @brief Met à jour la sélection (`↑`/`↓`, survol souris) et détecte la confirmation
+     * @brief Nombre de choix affichables simultanément sans défilement, pour une hauteur de
+     *        fenêtre donnée — partagé entre la logique (défilement) et le rendu (fenêtre visible).
+     * @param viewportHeight Hauteur de la surface de rendu, en pixels.
+     * @return Au moins 1 (une liste trop petite pour afficher une seule ligne reste
+     *         franchissable, jamais un fenêtrage vide).
+     */
+    [[nodiscard]] static int visibleCount(float viewportHeight);
+
+    /**
+     * @brief Met à jour la sélection (`↑`/`↓`, survol souris, molette) et détecte la confirmation
      *        (`Entrée`, ou clic gauche sur un choix survolé).
-     * @param input État des entrées de la frame.
+     * @param input          État des entrées de la frame.
+     * @param viewportHeight Hauteur de la surface de rendu, en pixels (fenêtrage du défilement).
      * @return L'indice confirmé ce pas-ci, ou `std::nullopt` si rien n'a été validé.
      */
-    [[nodiscard]] std::optional<int> update(const InputState& input);
+    [[nodiscard]] std::optional<int> update(const InputState& input, float viewportHeight);
 
 private:
-    /// @return L'indice du choix dont le rectangle contient (@p x, @p y), ou -1.
-    [[nodiscard]] int optionAtPoint(int x, int y) const;
+    /// @return L'indice du choix dont le rectangle **affiché** (donc dans la fenêtre visible du
+    ///         défilement courant) contient (@p x, @p y), ou -1.
+    [[nodiscard]] int optionAtPoint(int x, int y, int visibleCount) const;
+
+    /// Borne `_scrollOffset` à l'intervalle valide `[0, max(0, compte - visibleCount)]`, sans
+    /// autre effet — utilisé après un défilement à la molette, qui ne doit **pas** forcer la
+    /// fenêtre à revenir sur la sélection courante (l'utilisateur parcourt la liste sans changer
+    /// son choix).
+    void clampScrollRange(int visibleCount) noexcept;
+
+    /// Recale `_scrollOffset` pour que `_selected` reste dans la fenêtre visible (suit la
+    /// sélection) — appelé seulement quand le **clavier** vient de déplacer la sélection ; un
+    /// défilement à la molette seul ne doit jamais être annulé par ce recalage.
+    void followSelection(int visibleCount) noexcept;
 
     std::vector<Choice> _choices;
     int _selected = 0;
+    int _scrollOffset = 0;
 };
 
 }  // namespace hmi

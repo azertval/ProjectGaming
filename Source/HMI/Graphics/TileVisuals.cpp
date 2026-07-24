@@ -27,8 +27,9 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::SlopeUpLeft:
         case core::TileType::RoundedUpRight:
         case core::TileType::RoundedUpLeft: {
-            // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe) : voir
-            // slopeTileGridPosition, seule source de vérité pour ces coordonnées.
+            // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe, rempli en
+            // gris — même matériau qu'un `Solid` standard, cf. TextureAtlas::slopeShapePixel) :
+            // voir slopeTileGridPosition, seule source de vérité pour ces coordonnées.
             const AtlasGridPosition position = *slopeTileGridPosition(type);
             return atlas.tile(position.column, position.row);
         }
@@ -42,35 +43,18 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
     return atlas.tile(0, 0);
 }
 
-// Region d'atlas pour le canevas de l'editeur : Solid standard pour les tuiles a forme fine ou a
-// taille reduite (moins lisible qu'un carre plein dans une grille dense en cours d'edition), sinon
-// identique a regionForTile — voir la documentation de l'en-tete.
-core::AtlasRegion editorCanvasRegionForTile(core::TileType type, const TextureAtlas& atlas) {
-    switch (type) {
-        case core::TileType::SlopeUpRight:
-        case core::TileType::SlopeUpLeft:
-        case core::TileType::RoundedUpRight:
-        case core::TileType::RoundedUpLeft:
-        case core::TileType::BlockHalf:
-        case core::TileType::BlockQuarter:
-            return regionForTile(core::TileType::Solid, atlas);
-        default:
-            return regionForTile(type, atlas);
-    }
-}
-
 // Position dans la grille de tuiles reservee a un type de tuile a profil suivable — voir la
 // documentation de l'en-tete (seule source de verite pour ces coordonnees).
 std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
     switch (type) {
         case core::TileType::SlopeUpRight:
-            return AtlasGridPosition{1, 2};  // vert sarcelle
+            return AtlasGridPosition{1, 2};
         case core::TileType::SlopeUpLeft:
-            return AtlasGridPosition{2, 2};  // vieux rose
+            return AtlasGridPosition{2, 2};
         case core::TileType::RoundedUpRight:
-            return AtlasGridPosition{3, 2};  // bleu violet
+            return AtlasGridPosition{3, 2};
         case core::TileType::RoundedUpLeft:
-            return AtlasGridPosition{0, 1};  // magenta
+            return AtlasGridPosition{0, 1};
         default:
             return std::nullopt;
     }

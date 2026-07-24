@@ -70,4 +70,27 @@ enum class TileType {
            type == TileType::BlockQuarter;
 }
 
+/**
+ * @brief Facteur de taille **visuel/collision** d'une tuile bloc réduite (`EX-GP-005`).
+ *
+ * `1.0f` pour tout type qui n'est pas un bloc réduit (y compris `Block`, plein) : un appelant qui
+ * calcule systématiquement `margin = (1 - scale) * 0.5` et dessine/teste à `scale × scale` obtient
+ * ainsi le comportement plein-case habituel sans cas particulier. Seule source de vérité pour ce
+ * facteur, partagée par `core::BlockController` (collision réelle, `core::sweepAabbVsAabb`) et le
+ * rendu (`hmi::TileVisuals`, éditeur **et** jeu) — la même formule des deux côtés garantit qu'un
+ * bloc réduit s'affiche exactement comme sa hitbox, sans pouvoir diverger.
+ * @param type Type de tuile.
+ * @return `0.5f` pour `BlockHalf`, `0.25f` pour `BlockQuarter`, `1.0f` sinon.
+ */
+[[nodiscard]] constexpr float tileVisualScale(TileType type) noexcept {
+    switch (type) {
+        case TileType::BlockHalf:
+            return 0.5f;
+        case TileType::BlockQuarter:
+            return 0.25f;
+        default:
+            return 1.0f;
+    }
+}
+
 }  // namespace core
