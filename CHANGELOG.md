@@ -7,6 +7,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Niveaux difficiles à lire dans l'éditeur** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`) : le canevas
+  de l'éditeur (grille du niveau en cours d'édition) affichait les pentes/arrondis avec leur forme
+  précise (triangle/courbe, cf. correction précédente) et les blocs réduits (`BlockHalf`/
+  `BlockQuarter`) à taille pleine (non réduite ni recentrée, contrairement au jeu) — une grille
+  dense mélangeant formes fines et tailles trompeuses rendait la disposition d'ensemble d'un
+  niveau difficile à lire pendant l'édition. Nouvelle fonction
+  `hmi::editorCanvasRegionForTile` (`HMI/Graphics/TileVisuals.h`) : le canevas affiche désormais
+  ces six tuiles comme un `Solid` standard (case pleine grise), la forme/taille précise restant
+  visible en jouant le niveau (`P`) et dans la palette d'outils (icône dédiée + libellé, inchangée).
 - **Pentes et arrondis affichés comme des carrés pleins** (`EX-GP-003`/`EX-GP-004`) : l'atlas
   procédural peignait ces quatre tuiles d'une simple couleur plate, sans rapport avec leur
   hitbox réelle (surface inclinée ou courbe, `core::slopeSurfaceHeight`) — visuellement un mur
