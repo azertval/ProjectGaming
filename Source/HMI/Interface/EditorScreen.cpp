@@ -205,7 +205,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         if (input.keyPressed(Key::Escape)) {
             return ScreenTransition::switchTo(ScreenId::Menu);
         }
-        const std::optional<int> confirmed = _picker->update(input);
+        const std::optional<int> confirmed = _picker->update(input, static_cast<float>(_viewportHeight));
         if (confirmed) {
             const LevelPicker::Choice& choice = _picker->choices()[*confirmed];
             if (choice.path) {
@@ -900,22 +900,62 @@ void EditorScreen::renderStatus(RenderContext& context) {
     context.spriteBatch.end();
 }
 
-// Dessine la liste "Nouveau niveau" + fichiers existants, la selection en surbrillance.
+// Dessine la liste "Nouveau niveau" + fichiers existants, la selection en surbrillance. Une
+// liste plus longue que la fenetre visible ne dessine que cette fenetre (defilement, EX-EDIT-001)
+// et une barre de defilement (piste + curseur), pour rester utilisable quel que soit le nombre de
+// niveaux dans le dossier.
 void EditorScreen::renderPicker(RenderContext& context) {
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
+
+    const std::vector<LevelPicker::Choice>& choices = _picker->choices();
+    const int visible = LevelPicker::visibleCount(static_cast<float>(context.viewportHeight));
+    const int total = static_cast<int>(choices.size());
+    const int scrollOffset = _picker->scrollOffset();
+    const int lastVisible = (std::min)(total, scrollOffset + visible);
+
+    // Barre de defilement (piste + curseur), uniquement si tous les choix ne tiennent pas dans
+    // la fenetre visible -- passe distincte (texture d'atlas, teintee) de celle du texte ci-apres.
+    if (total > visible) {
+        constexpr float SCROLLBAR_WIDTH = 10.0f;
+        constexpr float SCROLLBAR_MARGIN_RIGHT = 24.0f;
+        const float trackX =
+            static_cast<float>(context.viewportWidth) - SCROLLBAR_MARGIN_RIGHT - SCROLLBAR_WIDTH;
+        const float trackTop = LevelPicker::OPTIONS_TOP;
+        const float trackHeight = static_cast<float>(visible) * LevelPicker::OPTION_SPACING;
+        const float thumbHeight =
+            (std::max)(trackHeight * static_cast<float>(visible) / static_cast<float>(total),
+                      SCROLLBAR_WIDTH * 2.0f);
+        const float maxThumbTravel = trackHeight - thumbHeight;
+        const int maxOffset = total - visible;
+        const float thumbY = trackTop + (maxOffset > 0 ? maxThumbTravel *
+                                                             static_cast<float>(scrollOffset) /
+                                                             static_cast<float>(maxOffset)
+                                                       : 0.0f);
+
+        context.spriteBatch.begin(projection, _atlas.textureView());
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, trackTop, SCROLLBAR_WIDTH,
+                                         trackHeight, _atlas,
+                                         core::Color{1.0f, 1.0f, 1.0f, 0.12f}));
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, thumbY, SCROLLBAR_WIDTH,
+                                         thumbHeight, _atlas,
+                                         core::Color{1.0f, 1.0f, 1.0f, 0.45f}));
+        context.spriteBatch.end();
+    }
+
     context.spriteBatch.begin(projection, context.font.textureView());
 
     context.font.drawText(context.spriteBatch, "Choisir un niveau", LevelPicker::MARGIN_X,
                           LevelPicker::TITLE_Y, 4.0f, core::Color{0.90f, 0.90f, 0.95f, 1.0f});
 
-    const std::vector<LevelPicker::Choice>& choices = _picker->choices();
-    for (std::size_t index = 0; index < choices.size(); ++index) {
-        const bool isSelected = static_cast<int>(index) == _picker->selected();
+    for (int index = scrollOffset; index < lastVisible; ++index) {
+        const bool isSelected = index == _picker->selected();
         const core::Color color = isSelected ? core::Color{1.0f, 0.85f, 0.35f, 1.0f}
                                               : core::Color{0.75f, 0.75f, 0.80f, 1.0f};
-        const std::string label = (isSelected ? "> " : "  ") + choices[index].label;
-        const float y = LevelPicker::OPTIONS_TOP + static_cast<float>(index) * LevelPicker::OPTION_SPACING;
+        const std::string label =
+            (isSelected ? "> " : "  ") + choices[static_cast<std::size_t>(index)].label;
+        const float y = LevelPicker::OPTIONS_TOP +
+                       static_cast<float>(index - scrollOffset) * LevelPicker::OPTION_SPACING;
         context.font.drawText(context.spriteBatch, label, LevelPicker::MARGIN_X, y,
                               LevelPicker::OPTION_SCALE, color);
     }

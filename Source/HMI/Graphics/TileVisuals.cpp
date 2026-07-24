@@ -27,8 +27,9 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::SlopeUpLeft:
         case core::TileType::RoundedUpRight:
         case core::TileType::RoundedUpLeft: {
-            // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe) : voir
-            // slopeTileGridPosition, seule source de vérité pour ces coordonnées.
+            // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe, rempli en
+            // gris — même matériau qu'un `Solid` standard, cf. TextureAtlas::slopeShapePixel) :
+            // voir slopeTileGridPosition, seule source de vérité pour ces coordonnées.
             const AtlasGridPosition position = *slopeTileGridPosition(type);
             return atlas.tile(position.column, position.row);
         }
@@ -64,13 +65,13 @@ core::AtlasRegion editorCanvasRegionForTile(core::TileType type, const TextureAt
 std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
     switch (type) {
         case core::TileType::SlopeUpRight:
-            return AtlasGridPosition{1, 2};  // vert sarcelle
+            return AtlasGridPosition{1, 2};
         case core::TileType::SlopeUpLeft:
-            return AtlasGridPosition{2, 2};  // vieux rose
+            return AtlasGridPosition{2, 2};
         case core::TileType::RoundedUpRight:
-            return AtlasGridPosition{3, 2};  // bleu violet
+            return AtlasGridPosition{3, 2};
         case core::TileType::RoundedUpLeft:
-            return AtlasGridPosition{0, 1};  // magenta
+            return AtlasGridPosition{0, 1};
         default:
             return std::nullopt;
     }

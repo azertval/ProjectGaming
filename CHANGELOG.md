@@ -7,6 +7,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Sélecteur de niveau de l'éditeur illisible au-delà d'une poignée de fichiers** (`EX-EDIT-001`) :
+  la liste (« Nouveau niveau » + fichiers `.json` du dossier) s'affichait entièrement, sans
+  défilement — au-delà de la hauteur de fenêtre (13 niveaux démo depuis `LOT-25`), les entrées
+  en trop restaient invisibles et donc inaccessibles à la souris. `LevelPicker` ne dessine
+  désormais que la fenêtre visible (le défilement suit la sélection au clavier, ou la molette
+  sans changer la sélection), avec une barre de défilement (piste + curseur) indiquant la
+  position dans la liste. 5 nouveaux tests.
+- **Pentes/arrondis en jeu dans des couleurs disparates** (`EX-GP-003`/`EX-GP-004`) : la forme
+  suit désormais la hitbox réelle (triangle/courbe, correction précédente) mais chaque variante
+  gardait sa propre teinte (vert sarcelle, vieux rose, bleu violet, magenta) — incohérent avec un
+  simple matériau de plateforme. Rempli en gris (même couleur que `Solid`), comme les blocs
+  réduits (`BlockHalf`/`BlockQuarter`, déjà gris) ; la forme (triangle/courbe) reste inchangée.
 - **Niveaux difficiles à lire dans l'éditeur** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`) : le canevas
   de l'éditeur (grille du niveau en cours d'édition) affichait les pentes/arrondis avec leur forme
   précise (triangle/courbe, cf. correction précédente) et les blocs réduits (`BlockHalf`/
