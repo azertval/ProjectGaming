@@ -59,6 +59,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **Pentes/arrondis de plafond** (`EX-GP-006`) : quatre nouvelles tuiles, `SlopeDownRight`/
+  `SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft` — miroir vertical exact des pentes/arrondis
+  de sol existants (`EX-GP-003`/`EX-GP-004`, matière pleine en haut de la case plutôt qu'en bas),
+  mais **solides** (`core::isSolid`) : un mur incliné/courbe qui bloque comme un `Solid` ordinaire,
+  jamais suivi par `core::resolveSlopeFollow` (silhouette purement visuelle, la collision réelle
+  reste une case pleine — choix délibéré, plus simple qu'une résolution de suivi symétrique par le
+  haut, cohérent avec un usage décoratif/obstacle plutôt qu'une surface parcourue). Réutilise
+  `core::slopeSurfaceHeight` de la variante de sol miroir pour générer le masque de forme (aucune
+  nouvelle formule physique), avec la comparaison inversée. Grille de tuiles de l'atlas procédural
+  agrandie (`TextureAtlas::TILES_PER_SIDE` `4→5`) pour loger les quatre nouvelles silhouettes, sans
+  décaler les couleurs des tuiles existantes (jeu de couleurs recalé explicitement). Placeables
+  depuis la palette de l'éditeur (19 types désormais). **9 nouveaux tests** (classification
+  `isSolid`/`isFollowableSurface`, aller-retour JSON), aucune régression (385/385 tests verts).
 - **LOT-25 — Refactoring complet des niveaux démo** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`/
   `EX-GP-015`/`EX-GP-016`/`EX-GP-017`/`EX-GP-020`/`EX-GP-022`/`EX-GP-024`/`EX-GP-025`) : les
   anciens niveaux (`demo.json`…`demo5.json`, accumulés au fil des lots sans repasse d'ensemble —

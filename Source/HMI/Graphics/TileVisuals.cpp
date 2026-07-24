@@ -26,7 +26,11 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::SlopeUpRight:
         case core::TileType::SlopeUpLeft:
         case core::TileType::RoundedUpRight:
-        case core::TileType::RoundedUpLeft: {
+        case core::TileType::RoundedUpLeft:
+        case core::TileType::SlopeDownRight:
+        case core::TileType::SlopeDownLeft:
+        case core::TileType::RoundedDownRight:
+        case core::TileType::RoundedDownLeft: {
             // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe, rempli en
             // gris — même matériau qu'un `Solid` standard, cf. TextureAtlas::slopeShapePixel) :
             // voir slopeTileGridPosition, seule source de vérité pour ces coordonnées.
@@ -55,6 +59,14 @@ std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
             return AtlasGridPosition{3, 2};
         case core::TileType::RoundedUpLeft:
             return AtlasGridPosition{0, 1};
+        case core::TileType::SlopeDownRight:
+            return AtlasGridPosition{2, 3};
+        case core::TileType::SlopeDownLeft:
+            return AtlasGridPosition{3, 3};
+        case core::TileType::RoundedDownRight:
+            return AtlasGridPosition{0, 4};
+        case core::TileType::RoundedDownLeft:
+            return AtlasGridPosition{1, 4};
         default:
             return std::nullopt;
     }

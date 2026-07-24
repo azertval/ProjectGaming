@@ -8,7 +8,9 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
 - Types de tuiles : `entry`, `exit`, `solid`, `danger`, `switch`, `pressurePlate`, `door`,
   `block`/`blockHalf`/`blockQuarter` (blocs poussables, tailles pleine/`×0.5`/`×0.25`,
   `EX-GP-022`/`EX-GP-005`), `slopeUpRight`/`slopeUpLeft` (pentes à 45°, `EX-GP-003`),
-  `roundedUpRight`/`roundedUpLeft` (variante en quart de cercle, `EX-GP-004`).
+  `roundedUpRight`/`roundedUpLeft` (variante en quart de cercle, `EX-GP-004`),
+  `slopeDownRight`/`slopeDownLeft`/`roundedDownRight`/`roundedDownLeft` (variantes de **plafond**
+  des quatre précédentes — miroir vertical, mais **solides**, jamais suivies, `EX-GP-006`).
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,

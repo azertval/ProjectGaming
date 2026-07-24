@@ -73,6 +73,18 @@ namespace {
     if (name == "blockQuarter") {
         return TileType::BlockQuarter;
     }
+    if (name == "slopeDownRight") {
+        return TileType::SlopeDownRight;
+    }
+    if (name == "slopeDownLeft") {
+        return TileType::SlopeDownLeft;
+    }
+    if (name == "roundedDownRight") {
+        return TileType::RoundedDownRight;
+    }
+    if (name == "roundedDownLeft") {
+        return TileType::RoundedDownLeft;
+    }
     return std::nullopt;
 }
 

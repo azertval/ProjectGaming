@@ -187,3 +187,45 @@ TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis) {
     EXPECT_TRUE(core::isFollowableSurface(core::TileType::RoundedUpRight));
     EXPECT_TRUE(core::isFollowableSurface(core::TileType::RoundedUpLeft));
 }
+
+/**
+ * @brief Les pentes/arrondis de **plafond** (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/
+ * `RoundedDownLeft`, `EX-GP-006`) sont solides, contrairement à leurs équivalents de sol.
+ * \castest{<b>Les pentes/arrondis de plafond sont solides, contrairement à leurs équivalents de
+ * sol.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appeler `core::isSolid` sur les quatre types de plafond.<br/>2. Vérifier
+ * l'assertion.<br/>
+ * \tattendu `true` pour les quatre — un mur incliné/courbe qui bloque comme un `Solid` ordinaire.
+ * }
+ */
+TEST(SlopeGeometryTest, PenteEtArrondiDePlafondSontSolides) {
+    EXPECT_TRUE(core::isSolid(core::TileType::SlopeDownRight));
+    EXPECT_TRUE(core::isSolid(core::TileType::SlopeDownLeft));
+    EXPECT_TRUE(core::isSolid(core::TileType::RoundedDownRight));
+    EXPECT_TRUE(core::isSolid(core::TileType::RoundedDownLeft));
+}
+
+/**
+ * @brief Les pentes/arrondis de plafond ne sont **jamais** suivis par le personnage (`EX-GP-006`)
+ * : `isFollowableSurface` reste `false`, et `slopeSurfaceHeight` (physique) ne les connaît pas —
+ * leur silhouette inclinée/courbe n'a de valeur que visuelle (`hmi::TileVisuals`), la collision
+ * réelle est un carré plein comme n'importe quel `Solid`.
+ * \castest{<b>Les pentes/arrondis de plafond ne sont jamais suivis par le personnage.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appeler `isFollowableSurface` et `slopeSurfaceHeight` sur les quatre types de
+ * plafond.<br/>2. Vérifier l'absence de suivi.<br/>
+ * \tattendu `isFollowableSurface` renvoie `false` et `slopeSurfaceHeight` renvoie `std::nullopt`
+ * pour les quatre types.
+ * }
+ */
+TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivis) {
+    for (const core::TileType type :
+         {core::TileType::SlopeDownRight, core::TileType::SlopeDownLeft,
+          core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft}) {
+        EXPECT_FALSE(core::isFollowableSurface(type));
+        EXPECT_FALSE(core::slopeSurfaceHeight(type, 0.5f).has_value());
+    }
+}

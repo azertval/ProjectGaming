@@ -226,6 +226,44 @@ TEST(LevelLoaderTest, ChargeLesDeuxArrondis) {
 }
 
 /**
+ * @brief Les quatre pentes/arrondis de plafond se chargent comme de simples tuiles, sans
+ * identifiant ni liaison (`EX-GP-006`).
+ * \castest{<b>Les quatre pentes/arrondis de plafond se chargent comme de simples tuiles, sans
+ * identifiant ni liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les quatre pentes/arrondis de plafond se chargent comme de simples tuiles, sans
+ * identifiant ni liaison.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLesQuatrePentesEtArrondisDePlafond) {
+    constexpr const char* LEVEL = R"({
+      "name": "Plafond",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "slopeDownRight" },
+        { "x": 1, "y": 0, "type": "slopeDownLeft" },
+        { "x": 2, "y": 0, "type": "roundedDownRight" },
+        { "x": 3, "y": 0, "type": "roundedDownLeft" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(0, 0), core::TileType::SlopeDownRight);
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::SlopeDownLeft);
+    EXPECT_EQ(level.tileMap().tile(2, 0), core::TileType::RoundedDownRight);
+    EXPECT_EQ(level.tileMap().tile(3, 0), core::TileType::RoundedDownLeft);
+    EXPECT_TRUE(level.mechanisms().empty());
+}
+
+/**
  * @brief Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
  * sinon.
  * \castest{<b>Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités

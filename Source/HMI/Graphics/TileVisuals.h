@@ -38,16 +38,19 @@ struct AtlasGridPosition {
 };
 
 /**
- * @brief Position, dans la grille de tuiles procédurale, réservée à un type de tuile à profil
- *        **suivable** (pente/arrondi, `core::isFollowableSurface`, `EX-GP-003`/`EX-GP-004`).
+ * @brief Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette
+ *        inclinée/courbe : pentes/arrondis de **sol**, suivables (`core::isFollowableSurface`,
+ *        `EX-GP-003`/`EX-GP-004`) ou de **plafond**, solides (`EX-GP-006`).
  *
  * Seule source de vérité pour cette association : utilisée par `regionForTile` (couleur) **et**
  * par `TextureAtlas` (génération d'un masque de forme triangulaire/courbe à cet emplacement,
- * plutôt qu'un carré plein, pour que l'affichage corresponde à la hitbox réelle décrite par
- * `core::slopeSurfaceHeight`) — dupliquer ces coordonnées aux deux endroits risquerait de les
- * laisser diverger silencieusement.
+ * plutôt qu'un carré plein, pour que l'affichage corresponde à la silhouette réelle — hitbox pour
+ * les variantes de sol via `core::slopeSurfaceHeight`, silhouette purement visuelle pour les
+ * variantes de plafond, solides par ailleurs) — dupliquer ces coordonnées aux deux endroits
+ * risquerait de les laisser diverger silencieusement.
  * @param type Type de tuile.
- * @return La position dans la grille, ou `std::nullopt` si @p type n'a pas de profil suivable.
+ * @return La position dans la grille, ou `std::nullopt` si @p type n'a pas de silhouette inclinée/
+ *         courbe.
  */
 [[nodiscard]] std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type);
 

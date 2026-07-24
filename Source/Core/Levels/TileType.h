@@ -30,7 +30,13 @@ namespace core {
  * `×0.25`, `core::BlockController`) : mêmes règles de poussée/chute que `Block` (case par case),
  * mais leur boîte de collision **réelle** (testée contre le personnage) est plus petite que la
  * case et **centrée** dedans — résolue par une routine dédiée boîte-contre-boîte
- * (`core::sweepAabbVsAabb`, @ref guide-physique), pas par la grille classique.
+ * (`core::sweepAabbVsAabb`, @ref guide-physique), pas par la grille classique. `SlopeDownRight`/
+ * `SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft` (`EX-GP-006`) sont les variantes de
+ * **plafond** des pentes/arrondis ci-dessus : miroir vertical de la même silhouette (matière
+ * pleine en haut de la case plutôt qu'en bas), mais **solides** (contrairement à leurs équivalents
+ * de sol) — un mur incliné/courbe qui bloque par le dessus comme un `Solid` ordinaire, jamais une
+ * surface suivie par le personnage (`core::isFollowableSurface` reste `false` pour ces quatre
+ * types ; leur silhouette n'a donc de valeur que visuelle, voir `hmi::TileVisuals`).
  */
 enum class TileType {
     Empty,
@@ -48,26 +54,34 @@ enum class TileType {
     RoundedUpLeft,
     BlockHalf,
     BlockQuarter,
+    SlopeDownRight,
+    SlopeDownLeft,
+    RoundedDownRight,
+    RoundedDownLeft,
 };
 
 /**
  * @brief Indique si un type de tuile bloque le déplacement de manière **statique**.
  * @param type Type de tuile.
- * @return true pour `Solid` et les trois tailles de bloc (`Block`/`BlockHalf`/`BlockQuarter`, non
+ * @return true pour `Solid`, les trois tailles de bloc (`Block`/`BlockHalf`/`BlockQuarter`, non
  *         encore déplacés bloquent comme un mur — `core::BlockController` gère leur position
  *         réelle et, pour les tailles réduites, leur boîte de collision **plus petite que la
- *         case** via `core::sweepAabbVsAabb`, jamais via ce test statique). `false` pour les
- *         pentes et arrondis (`SlopeUpRight`/`SlopeUpLeft`/`RoundedUpRight`/`RoundedUpLeft`) : une
- *         surface suivable n'est **jamais** solide pour le balayage classique
- *         (`core::sweepAabb`), sous peine de transformer son bord haut en mur invisible — sa
- *         solidité est entièrement gérée par la passe de suivi de surface (voir
- *         `core::slopeSurfaceHeight`). La solidité d'une porte dépend de son **état**
- *         (ouverte/fermée) et la position d'un bloc évolue en jeu : les deux sont gérées par la
- *         simulation, pas par ce test statique.
+ *         case** via `core::sweepAabbVsAabb`, jamais via ce test statique) et les quatre pentes/
+ *         arrondis de **plafond** (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/
+ *         `RoundedDownLeft`, `EX-GP-006` — solides comme un mur, leur silhouette inclinée/courbe
+ *         n'est que visuelle, voir `hmi::TileVisuals`). `false` pour les pentes et arrondis de
+ *         **sol** (`SlopeUpRight`/`SlopeUpLeft`/`RoundedUpRight`/`RoundedUpLeft`) : une surface
+ *         suivable n'est **jamais** solide pour le balayage classique (`core::sweepAabb`), sous
+ *         peine de transformer son bord haut en mur invisible — sa solidité est entièrement gérée
+ *         par la passe de suivi de surface (voir `core::slopeSurfaceHeight`). La solidité d'une
+ *         porte dépend de son **état** (ouverte/fermée) et la position d'un bloc évolue en jeu :
+ *         les deux sont gérées par la simulation, pas par ce test statique.
  */
 [[nodiscard]] constexpr bool isSolid(TileType type) noexcept {
     return type == TileType::Solid || type == TileType::Block || type == TileType::BlockHalf ||
-           type == TileType::BlockQuarter;
+           type == TileType::BlockQuarter || type == TileType::SlopeDownRight ||
+           type == TileType::SlopeDownLeft || type == TileType::RoundedDownRight ||
+           type == TileType::RoundedDownLeft;
 }
 
 /**
