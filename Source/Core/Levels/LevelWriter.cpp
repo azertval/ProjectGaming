@@ -47,6 +47,14 @@ namespace {
             return "blockHalf";
         case TileType::BlockQuarter:
             return "blockQuarter";
+        case TileType::SlopeDownRight:
+            return "slopeDownRight";
+        case TileType::SlopeDownLeft:
+            return "slopeDownLeft";
+        case TileType::RoundedDownRight:
+            return "roundedDownRight";
+        case TileType::RoundedDownLeft:
+            return "roundedDownLeft";
     }
     return "empty";
 }

@@ -34,12 +34,41 @@ class TileMap;
  */
 [[nodiscard]] std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept;
 
-/// @return true si @p type a une surface à suivre (pente ou arrondi) — le personnage s'y cale
-///         plutôt que d'être simplement bloqué ou de tomber au travers.
+/// @return true si @p type a une surface à suivre (pente ou arrondi de **sol**) — le personnage
+///         s'y cale en marchant, plutôt que d'être simplement bloqué ou de tomber au travers.
+///         `false` pour les variantes de **plafond** (`isCeilingSlope`) : on ne « marche » jamais
+///         sous un plafond (pas de déplacement latéral calé dessus), seul le fait de ne pas le
+///         traverser en sautant compte (`resolveCeilingSlopeFollow`).
 [[nodiscard]] constexpr bool isFollowableSurface(TileType type) noexcept {
     return type == TileType::SlopeUpRight || type == TileType::SlopeUpLeft ||
            type == TileType::RoundedUpRight || type == TileType::RoundedUpLeft;
 }
+
+/// @return true si @p type est une pente/arrondi de **plafond** (`EX-GP-006`) — miroir vertical
+///         d'une surface de sol suivable, mais dont le personnage ne peut jamais franchir la
+///         silhouette en sautant (`resolveCeilingSlopeFollow`), sans pour autant y « marcher »
+///         (`isFollowableSurface` reste `false` pour ces types).
+[[nodiscard]] constexpr bool isCeilingSlope(TileType type) noexcept {
+    return type == TileType::SlopeDownRight || type == TileType::SlopeDownLeft ||
+           type == TileType::RoundedDownRight || type == TileType::RoundedDownLeft;
+}
+
+/**
+ * @brief Hauteur de la silhouette d'une pente/arrondi de **plafond** (`EX-GP-006`), au même repère
+ *        que `slopeSurfaceHeight` (mesurée depuis le haut de la case, `[0, 1]`), mais avec la
+ *        sémantique **inversée** : la matière pleine remplit `[0, hauteur]` (le **haut** de la
+ *        case), pas `[hauteur, 1]` (le bas) comme pour une surface de sol.
+ *
+ * Calculée comme le **miroir vertical exact** de la surface de sol de même orientation (`1 -
+ * slopeSurfaceHeight(type miroir, localX)`), pas une famille de formules dupliquée — un plafond
+ * `SlopeDownRight` a exactement le profil horizontal de `SlopeUpRight`, silhouette retournée.
+ *
+ * @param type   Type de tuile.
+ * @param localX Position horizontale dans la case, `[0, 1[`.
+ * @return La hauteur de la silhouette, ou `std::nullopt` si @p type n'est pas une pente/arrondi de
+ *         plafond (`isCeilingSlope`).
+ */
+[[nodiscard]] std::optional<float> ceilingSlopeHeight(TileType type, float localX) noexcept;
 
 /// @brief Résultat de `resolveSlopeFollow` : la position verticale sur laquelle se caler, si une
 ///        surface suivable a été franchie pendant le pas.
@@ -76,5 +105,44 @@ struct SlopeFollowResult {
 [[nodiscard]] SlopeFollowResult resolveSlopeFollow(float previousBottomY, const Aabb& newBox,
                                                     float velocityY,
                                                     const TileMap& tiles) noexcept;
+
+/// @brief Résultat de `resolveCeilingSlopeFollow` : la position verticale à laquelle bloquer le
+///        bord haut, si une silhouette de plafond a été franchie pendant le pas.
+struct CeilingSlopeFollowResult {
+    /// true si une silhouette de plafond a été franchie et doit bloquer l'ascension ce pas.
+    bool blocked = false;
+    /// Position Y du bord haut de la boîte, calée sur la silhouette (valide si `blocked`).
+    float topY = 0.0f;
+};
+
+/**
+ * @brief Détecte si le bord haut d'une boîte a **franchi** une silhouette de pente/arrondi de
+ *        plafond (`EX-GP-006`) pendant un pas, et calcule la position à laquelle s'y bloquer.
+ *
+ * **Miroir exact** de `resolveSlopeFollow`, pour le bord **haut** plutôt que bas, déclenché en
+ * **montant** (`velocityY < 0`, saut) plutôt qu'en tombant : compare le bord haut **avant** le pas
+ * (@p previousTopY) et **après** (`newBox.min.y`) ; si ce bord a franchi la hauteur de silhouette
+ * d'une tuile de plafond quelque part entre les deux (parcours de toutes les lignes concernées,
+ * pas seulement la position finale — un saut rapide ne doit jamais « traverser » un plafond
+ * incliné/courbe), renvoie la position de blocage. Ignore toute silhouette si @p velocityY est
+ * **positive ou nulle** (le personnage tombe ou est immobile) : contrairement à une surface de
+ * sol, une silhouette de plafond ne fait **jamais** marcher le personnage — elle ne fait que
+ * bloquer une ascension, jamais autre chose (`core::isFollowableSurface` reste `false` pour ces
+ * types).
+ *
+ * La colonne testée est celle du **centre horizontal** de @p newBox (même limite connue que
+ * `resolveSlopeFollow`).
+ *
+ * @param previousTopY Bord haut de la boîte avant le pas (avant le balayage sur grille).
+ * @param newBox       Boîte après résolution du balayage classique sur grille (murs/sols/plafonds
+ *                      plats).
+ * @param velocityY    Vitesse verticale courante (`> 0` = chute, `< 0` = monte).
+ * @param tiles        Grille de niveau (pour lire le type de tuile aux positions testées).
+ * @return Le résultat du blocage, ou `blocked == false` si aucune silhouette n'a été franchie.
+ */
+[[nodiscard]] CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY,
+                                                                 const Aabb& newBox,
+                                                                 float velocityY,
+                                                                 const TileMap& tiles) noexcept;
 
 }  // namespace core

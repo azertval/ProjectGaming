@@ -59,6 +59,22 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   de `x`/`X`, un niveau peut être redimensionné en tapant `largeur*hauteur` (ex. `60*40`).
 
 ### Ajouté
+- **LOT-26 — Pentes/arrondis de plafond** (`EX-GP-006`) : quatre nouvelles tuiles,
+  `SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft` — miroir vertical exact des
+  pentes/arrondis de sol existants (`EX-GP-003`/`EX-GP-004`, matière pleine en haut de la case
+  plutôt qu'en bas). Comme leurs équivalents de sol, elles ne sont **jamais solides**
+  (`core::isSolid`) pour la grille classique : leur collision est résolue par une passe de suivi
+  dédiée, miroir de `resolveSlopeFollow` (`core::resolveCeilingSlopeFollow`, déclenchée en
+  **montant** plutôt qu'en tombant) — le personnage ne peut **jamais franchir** leur silhouette en
+  sautant (bonk précis contre le profil incliné/courbe réel, pas une case pleine uniforme), mais ne
+  « marche » jamais dessus non plus (pas de déplacement latéral calé sous un plafond). Réutilise
+  `core::slopeSurfaceHeight`/`core::resolveSlopeFollow` de la variante de sol miroir (aucune formule
+  dupliquée, comparaison inversée). Grille de tuiles de l'atlas procédural agrandie
+  (`TextureAtlas::TILES_PER_SIDE` `4→5`) pour loger les quatre nouvelles silhouettes, sans décaler
+  les couleurs des tuiles existantes (jeu de couleurs recalé explicitement). Placeables depuis la
+  palette de l'éditeur (19 types désormais). **11 nouveaux tests** (géométrie miroir, classification
+  `isSolid`/`isFollowableSurface`, aller-retour JSON, physique de blocage selon la silhouette),
+  aucune régression (392/392 tests verts).
 - **LOT-25 — Refactoring complet des niveaux démo** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`/
   `EX-GP-015`/`EX-GP-016`/`EX-GP-017`/`EX-GP-020`/`EX-GP-022`/`EX-GP-024`/`EX-GP-025`) : les
   anciens niveaux (`demo.json`…`demo5.json`, accumulés au fil des lots sans repasse d'ensemble —

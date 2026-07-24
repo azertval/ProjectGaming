@@ -15,10 +15,14 @@ repose), `door` (porte), `block` (bloc poussable, `EX-GP-022` — déplaçable p
 retombe sous gravité), `slopeUpRight` et `slopeUpLeft` (pentes à 45°, `EX-GP-003` — surface suivie,
 jamais solide pour la grille classique ; « Up » désigne le côté qui monte, `Right`/`Left`),
 `roundedUpRight` et `roundedUpLeft` (variante **courbe** — quart de cercle — des pentes, `EX-GP-004`,
-même orientation et même principe de suivi, formule de hauteur différente), `blockHalf` et
-`blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` — `EX-GP-005`, mêmes règles
-de poussée/chute que `block`, boîte de collision centrée et plus petite). Une case **vide** n'est
-pas listée (absence = vide).
+même orientation et même principe de suivi, formule de hauteur différente), `slopeDownRight`,
+`slopeDownLeft`, `roundedDownRight` et `roundedDownLeft` (variantes de **plafond** des quatre
+tuiles précédentes, `EX-GP-006` — miroir vertical de la même silhouette ; comme leurs équivalents
+de sol, jamais solides pour la grille classique, mais une passe de suivi dédiée bloque précisément
+un saut qui franchit leur profil incliné/courbe, sans jamais y faire « marcher » le personnage),
+`blockHalf` et `blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` —
+`EX-GP-005`, mêmes règles de poussée/chute que `block`, boîte de collision centrée et plus
+petite). Une case **vide** n'est pas listée (absence = vide).
 ```json
 {
   "name": "Tutoriel 1",

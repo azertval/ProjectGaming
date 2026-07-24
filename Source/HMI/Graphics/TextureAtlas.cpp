@@ -20,15 +20,31 @@ std::uint32_t pack(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std:
            (static_cast<std::uint32_t>(blue) << 16) | (static_cast<std::uint32_t>(alpha) << 24);
 }
 
-// Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe).
+// Couleur opaque de base d'une tuile, selon son index dans la grille (déterministe). Rangée
+// (`TextureAtlas::TILES_PER_SIDE` par ligne, actuellement `5`) : les quatre premières colonnes de
+// chaque ligne reprennent **exactement** les couleurs historiques (`TILES_PER_SIDE == 4`, avant
+// l'ajout des pentes/arrondis de plafond, `EX-GP-006`) — un simple agrandissement de la grille ne
+// doit jamais redécaler silencieusement les couleurs des tuiles existantes. Les cases au-delà de
+// la colonne 4 (ou de la ligne 4) sont soit réservées (damier de transparence, dernière case),
+// soit remplacées par un masque de forme (`slopeShapePixel`) : leur couleur de base ici n'a pas
+// d'importance, remplie de noir par convention.
 std::uint32_t tileColor(int tileIndex) {
     static const std::uint32_t palette[] = {
-        pack(200, 60, 60, 255),   pack(60, 200, 60, 255),  pack(60, 60, 200, 255),
-        pack(200, 200, 60, 255),  pack(200, 60, 200, 255), pack(60, 200, 200, 255),
-        pack(230, 140, 40, 255),  pack(140, 40, 230, 255), pack(120, 120, 120, 255),
-        pack(80, 160, 120, 255),  pack(160, 80, 120, 255), pack(120, 80, 160, 255),
-        pack(200, 200, 200, 255), pack(90, 90, 90, 255),   pack(40, 120, 200, 255),
-        pack(200, 120, 40, 255),
+        // Ligne 0
+        pack(200, 60, 60, 255), pack(60, 200, 60, 255), pack(60, 60, 200, 255),
+        pack(200, 200, 60, 255), pack(0, 0, 0, 255),
+        // Ligne 1
+        pack(200, 60, 200, 255), pack(60, 200, 200, 255), pack(230, 140, 40, 255),
+        pack(140, 40, 230, 255), pack(0, 0, 0, 255),
+        // Ligne 2
+        pack(120, 120, 120, 255), pack(80, 160, 120, 255), pack(160, 80, 120, 255),
+        pack(120, 80, 160, 255), pack(0, 0, 0, 255),
+        // Ligne 3
+        pack(200, 200, 200, 255), pack(90, 90, 90, 255), pack(0, 0, 0, 255), pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
+        // Ligne 4
+        pack(0, 0, 0, 255), pack(0, 0, 0, 255), pack(0, 0, 0, 255), pack(0, 0, 0, 255),
+        pack(0, 0, 0, 255),
     };
     const int count = static_cast<int>(std::size(palette));
     return palette[((tileIndex % count) + count) % count];
@@ -39,17 +55,19 @@ bool inRange(int value, int low, int high) {
     return value >= low && value <= high;
 }
 
-// Les quatre types a profil suivable (pente/arrondi) dont la case d'atlas recoit un masque de
-// forme (triangle/courbe) plutot qu'un carre plein — la seule liste a parcourir, TileType n'etant
-// pas enumerable directement en C++.
+// Les huit types a silhouette inclinee/courbe (pente/arrondi de sol, suivables, EX-GP-003/
+// EX-GP-004 ; ou de plafond, solides, EX-GP-006) dont la case d'atlas recoit un masque de forme
+// (triangle/courbe) plutot qu'un carre plein — la seule liste a parcourir, TileType n'etant pas
+// enumerable directement en C++.
 constexpr core::TileType kSlopeTileTypes[] = {
-    core::TileType::SlopeUpRight,
-    core::TileType::SlopeUpLeft,
-    core::TileType::RoundedUpRight,
-    core::TileType::RoundedUpLeft,
+    core::TileType::SlopeUpRight,     core::TileType::SlopeUpLeft,
+    core::TileType::RoundedUpRight,   core::TileType::RoundedUpLeft,
+    core::TileType::SlopeDownRight,   core::TileType::SlopeDownLeft,
+    core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft,
 };
 
-// Type de tuile a profil suivable dont la case d'atlas est (tileColumn, tileRow), s'il y en a un.
+// Type de tuile a silhouette inclinee/courbe dont la case d'atlas est (tileColumn, tileRow), s'il
+// y en a un.
 std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRow) {
     for (const core::TileType type : kSlopeTileTypes) {
         const std::optional<hmi::AtlasGridPosition> position = hmi::slopeTileGridPosition(type);
@@ -60,23 +78,37 @@ std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRo
     return std::nullopt;
 }
 
-// Couleur du pixel (localX, localY) d'une case a profil suivable (pente/arrondi), 0-based dans
-// la case 16x16 : plein (gris, meme couleur que Solid — EX-GP-003/EX-GP-004 restent un materiau
-// de plateforme comme un autre, pas une famille de couleurs distinctes) sous la surface suivie par
-// la physique (core::slopeSurfaceHeight), transparent au-dessus — l'affichage reproduit ainsi
-// exactement la hitbox reelle, plutot qu'un carre plein qui la masquerait.
+// Couleur du pixel (localX, localY) d'une case a silhouette inclinee/courbe, 0-based dans la case
+// 16x16 : plein (gris, meme couleur que Solid — ces tuiles restent un materiau de plateforme comme
+// un autre, pas une famille de couleurs distinctes) d'un cote de la surface, transparent de
+// l'autre — l'affichage reproduit ainsi la silhouette reelle plutot qu'un carre plein qui la
+// masquerait.
+//
+// Pente/arrondi de SOL (EX-GP-003/EX-GP-004) : plein SOUS la surface suivie par la physique
+// (core::slopeSurfaceHeight). Pente/arrondi de PLAFOND (EX-GP-006) : plein AU-DESSUS de la
+// silhouette (core::ceilingSlopeHeight, miroir vertical de la variante de sol) — dans les deux
+// cas, l'affichage correspond exactement a la hitbox reelle (core::resolveSlopeFollow /
+// core::resolveCeilingSlopeFollow, pas de solidite statique via core::isSolid).
 std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
     const float normalizedX = (static_cast<float>(localX) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
     const float normalizedY = (static_cast<float>(localY) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
-    const std::optional<float> surfaceHeight = core::slopeSurfaceHeight(type, normalizedX);
-    if (surfaceHeight && normalizedY >= *surfaceHeight) {
+    const bool isCeiling = core::isCeilingSlope(type);
+    const std::optional<float> surfaceHeight = isCeiling
+                                                    ? core::ceilingSlopeHeight(type, normalizedX)
+                                                    : core::slopeSurfaceHeight(type, normalizedX);
+    if (!surfaceHeight) {
+        return pack(0, 0, 0, 0);
+    }
+    const bool solid =
+        isCeiling ? normalizedY <= *surfaceHeight : normalizedY >= *surfaceHeight;
+    if (solid) {
         // Meme case que Solid (colonne 0, ligne 2 — TileVisuals.cpp::regionForTile) : gris,
         // reutilise ici comme indice de palette plutot que la couleur propre de `type`.
         return tileColor(2 * TextureAtlas::TILES_PER_SIDE);
     }
-    return pack(0, 0, 0, 0);  // au-dessus de la surface : vide, transparent
+    return pack(0, 0, 0, 0);  // du cote vide de la silhouette : transparent
 }
 
 // Largeur des bras : ecartes du corps ou resserres (variation de pose entre images d'un meme

@@ -10,12 +10,14 @@ namespace {
 
 // Types éditables, dans leur ordre d'affichage (cf. en-tête : limité à ce que Core gère).
 constexpr core::TileType PALETTE_TYPES[] = {
-    core::TileType::Empty,          core::TileType::Solid,        core::TileType::Danger,
-    core::TileType::Entry,          core::TileType::Exit,         core::TileType::Switch,
-    core::TileType::PressurePlate,  core::TileType::Door,         core::TileType::Block,
-    core::TileType::SlopeUpRight,   core::TileType::SlopeUpLeft,
-    core::TileType::RoundedUpRight, core::TileType::RoundedUpLeft,
-    core::TileType::BlockHalf,      core::TileType::BlockQuarter,
+    core::TileType::Empty,           core::TileType::Solid,           core::TileType::Danger,
+    core::TileType::Entry,           core::TileType::Exit,            core::TileType::Switch,
+    core::TileType::PressurePlate,   core::TileType::Door,            core::TileType::Block,
+    core::TileType::SlopeUpRight,    core::TileType::SlopeUpLeft,
+    core::TileType::RoundedUpRight,  core::TileType::RoundedUpLeft,
+    core::TileType::SlopeDownRight,  core::TileType::SlopeDownLeft,
+    core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft,
+    core::TileType::BlockHalf,       core::TileType::BlockQuarter,
 };
 // Garde-fou : EditorLayout::PALETTE_TYPE_COUNT dimensionne le panneau (haut de la barre d'outils,
 // EditorLayout.h) a partir de ce meme compte, sans pouvoir le deriver directement (constexpr
@@ -53,6 +55,14 @@ static_assert(std::size(PALETTE_TYPES) == PALETTE_TYPE_COUNT,
             return "Arrondi D";
         case core::TileType::RoundedUpLeft:
             return "Arrondi G";
+        case core::TileType::SlopeDownRight:
+            return "Pente D Plaf";
+        case core::TileType::SlopeDownLeft:
+            return "Pente G Plaf";
+        case core::TileType::RoundedDownRight:
+            return "Arrondi D Plaf";
+        case core::TileType::RoundedDownLeft:
+            return "Arrondi G Plaf";
         case core::TileType::BlockHalf:
             return "Bloc 1/2";
         case core::TileType::BlockQuarter:

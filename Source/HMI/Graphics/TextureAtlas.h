@@ -31,8 +31,10 @@ class TextureAtlas {
 public:
     /// Côté d'une tuile, en pixels (`EX-ARCH-021`).
     static constexpr int TILE_SIZE = 16;
-    /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée.
-    static constexpr int TILES_PER_SIDE = 4;
+    /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée. `5` depuis
+    /// l'ajout des pentes/arrondis de plafond (`EX-GP-006`) : `4` (16 cases) ne laissait qu'une
+    /// case libre, insuffisant pour leurs quatre nouvelles silhouettes.
+    static constexpr int TILES_PER_SIDE = 5;
     /// Côté d'une image d'animation du personnage, en pixels. **Carrée** (= `TILE_SIZE`) : le
     /// ratio 1:2 final vient de `Transform::scale` (`core::playerSize`), pas de la région.
     static constexpr int PLAYER_FRAME_SIZE = TILE_SIZE;
