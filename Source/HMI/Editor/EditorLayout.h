@@ -22,12 +22,15 @@ constexpr float PANEL_ROW_GAP = 6.0f;      ///< Espace vertical entre deux ligne
 constexpr float PANEL_ROW_PITCH = PANEL_ICON_SIZE + PANEL_ROW_GAP;  ///< Pas vertical d'une ligne.
 constexpr float PANEL_SECTION_GAP = 14.0f;  ///< Espace supplémentaire entre deux sections.
 
-constexpr float PALETTE_TOP = 8.0f;               ///< Haut de la première ligne (palette, 19 types).
-/// Nombre de types de tuiles dans la palette (`TilePalette::PALETTE_TYPES`) — seule source de
-/// vérité de ce compte, partagée ici pour dimensionner le panneau sans dupliquer la liste.
-constexpr int PALETTE_TYPE_COUNT = 19;
-/// Haut de la première ligne de la barre d'outils (sous les lignes de la palette).
-constexpr float TOOLBAR_TOP =
-    PALETTE_TOP + static_cast<float>(PALETTE_TYPE_COUNT) * PANEL_ROW_PITCH + PANEL_SECTION_GAP;
+constexpr float PALETTE_TOP = 8.0f;  ///< Haut de la première ligne (palette).
+
+/// Décalage horizontal d'un niveau d'imbrication de la palette en accordéon (`LOT-27`,
+/// `EX-EDIT-018`) : une entrée sous une catégorie ou un sous-groupe replié se décale d'un cran de
+/// cette largeur, sans changer sa taille d'icône — seule sa position `x` en tient compte.
+constexpr float PALETTE_INDENT_STEP = 14.0f;
+
+/// La hauteur du panneau (palette en accordéon, `LOT-27`) varie désormais selon les catégories/
+/// sous-groupes dépliés — plus de compte fixe ni de `TOOLBAR_TOP` constant : `TilePalette::bottom()`
+/// donne la position courante, que `EditorScreen` répercute sur `ToolBar::relayout` chaque frame.
 
 }  // namespace hmi

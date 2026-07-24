@@ -6,6 +6,30 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+- **LOT-27 — Palette de l'éditeur organisée par catégories** (`EX-EDIT-018`) : la palette de
+  tuiles, jusqu'ici une liste plate de 19 types, devient un **accordéon à trois niveaux**. Premier
+  niveau : deux entrées autonomes toujours visibles (Vide, Piège — ex-Danger, renommé à l'affichage
+  seulement) et trois catégories repliables (Tuile, Interactif, Jalon). Deuxième niveau : une
+  catégorie dépliée expose ses tuiles directes (ex. Porte, Plaque, Interrupteur) et, pour Tuile/
+  Interactif, des **sous-groupes** repliables (Pente, Arrondi, Bloc poussable — familles à
+  plusieurs formes/tailles). Troisième niveau : un sous-groupe déplié expose ses variantes
+  (orientations, tailles). La hauteur du panneau étant désormais variable, `TilePalette::bottom()`
+  remplace le compte fixe (`EditorLayout::PALETTE_TYPE_COUNT`/`TOOLBAR_TOP`, supprimés) ;
+  `ToolBar::relayout(top)` repositionne la barre d'outils juste sous la palette à chaque frame,
+  quel que soit son état de dépliage. Un mockup HTML/CSS interactif a été itéré avec le demandeur
+  (position du dépliage, choix des quatre catégories, troisième niveau d'accordéon) **avant**
+  l'implémentation. **Défilement** ajouté après une première revue (« n'est pas complet ») : tout
+  déplier en même temps (25 lignes au maximum) pouvait dépasser la hauteur de fenêtre disponible,
+  rendant les dernières entrées définitivement inaccessibles à la souris — `TilePalette` expose
+  désormais une **fenêtre visible** (`scroll`/`setViewportHeight`), la molette au-dessus du panneau
+  latéral la fait défiler (plutôt que de zoomer la caméra), et une barre de défilement (piste +
+  curseur, même principe que `LevelPicker`, `LOT-15`) apparaît si le contenu déplié déborde.
+  Replier/déplier un en-tête ne le fait **jamais** disparaître de la fenêtre
+  (`TilePalette::followRow`, suit automatiquement l'en-tête tout juste basculé — sans quoi le
+  défilement aurait simplement déplacé le problème plutôt que de le résoudre). **11 nouveaux
+  tests** (10 `TilePalette`, 1 `ToolBar`), aucune régression (406/406 tests verts).
+
 ### Corrigé
 - **Blocs poussables traversant les pentes/arrondis** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/
   `EX-GP-022`) : `BlockController` ne connaît que la solidité statique (`core::isSolid`) pour

@@ -112,6 +112,10 @@ EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int vi
       _picker(LevelPicker::forDirectory(hmi::executableDirectory() / "Levels")),
       _draft(core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT)),
       _camera(viewportWidth, viewportHeight) {
+    // La palette est un accordéon à hauteur variable, pouvant déborder de la fenêtre (défilement,
+    // LOT-27) : connaît la hauteur disponible dès la construction, avant tout rendu ou clic.
+    _palette.setViewportHeight(static_cast<float>(_viewportHeight));
+    _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
     HMI_LOG_TRACE("EditorScreen cree (selecteur : " +
                  std::to_string(_picker->choices().size()) + " choix)");
 }
@@ -384,8 +388,21 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     if (input.keyPressed(Key::D0)) {
         _manualCamera = false;
     }
+
+    // Fenetrage du defilement de la palette (LOT-27) : synchronise avant tout clic/molette de
+    // cette frame, un redimensionnement de fenetre pouvant changer le nombre de lignes visibles
+    // sans qu'aucun clic ni depliage n'ait eu lieu.
+    _palette.setViewportHeight(static_cast<float>(_viewportHeight));
+    _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
+
     const int wheel = input.wheelDelta();
-    if (wheel != 0) {
+    if (wheel != 0 && static_cast<float>(input.mouseX()) < PANEL_WIDTH) {
+        // Molette au-dessus du panneau lateral (LOT-27, EX-EDIT-018) : fait defiler la palette
+        // (accordeon pouvant depasser la hauteur de fenetre une fois largement depliee), plutot
+        // que de zoomer la camera comme au-dessus du canevas.
+        _palette.scroll(wheel);
+        _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
+    } else if (wheel != 0) {
         constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
         constexpr float MIN_VISIBLE_TILES = 4.0f;  // zoom max : au moins 4 cases visibles.
         const float canvasWidth =
@@ -419,7 +436,12 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     _mouseY = newMouseY;
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
-        if (_palette.handleClick(_mouseX, _mouseY) || _toolBar.handleClick(_mouseX, _mouseY)) {
+        const bool paletteHit = _palette.handleClick(_mouseX, _mouseY);
+        // La palette peut venir de replier/deplier une categorie ou un sous-groupe (LOT-27), donc
+        // changer de hauteur : repositionne la barre d'outils AVANT son propre test de clic, pour
+        // qu'un second clic dans la meme frame (rare) et le rendu qui suit visent la bonne case.
+        _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
+        if (paletteHit || _toolBar.handleClick(_mouseX, _mouseY)) {
             // La palette et la barre d'outils, dans le panneau lateral, sont prioritaires.
             _paintingDrag = false;
             _areaDragActive = false;
@@ -795,6 +817,31 @@ void EditorScreen::renderPalette(RenderContext& context) {
         context.spriteBatch.draw(
             quadFor(regionForTile(entry.type, _atlas), entry.x, entry.y, entry.width,
                    entry.height, _atlas));
+    }
+
+    // Barre de defilement (piste + curseur), uniquement si l'accordeon deplie deborde de la
+    // fenetre visible (LOT-27, EX-EDIT-018) -- meme principe que LevelPicker::renderPicker.
+    const int totalRows = _palette.totalRowCount();
+    const int visibleRows = TilePalette::visibleRowCount(static_cast<float>(context.viewportHeight));
+    if (totalRows > visibleRows) {
+        constexpr float SCROLLBAR_WIDTH = 5.0f;
+        constexpr float SCROLLBAR_MARGIN_RIGHT = 4.0f;
+        const float trackX = PANEL_WIDTH - SCROLLBAR_MARGIN_RIGHT - SCROLLBAR_WIDTH;
+        const float trackTop = PALETTE_TOP;
+        const float trackHeight = static_cast<float>(visibleRows) * PANEL_ROW_PITCH;
+        const float thumbHeight =
+            (std::max)(trackHeight * static_cast<float>(visibleRows) / static_cast<float>(totalRows),
+                      SCROLLBAR_WIDTH * 2.0f);
+        const float maxThumbTravel = trackHeight - thumbHeight;
+        const int maxOffset = totalRows - visibleRows;
+        const float thumbY =
+            trackTop + (maxOffset > 0 ? maxThumbTravel * static_cast<float>(_palette.scrollOffset()) /
+                                            static_cast<float>(maxOffset)
+                                      : 0.0f);
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, trackTop, SCROLLBAR_WIDTH,
+                                         trackHeight, _atlas, core::Color{1.0f, 1.0f, 1.0f, 0.12f}));
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, thumbY, SCROLLBAR_WIDTH,
+                                         thumbHeight, _atlas, core::Color{1.0f, 1.0f, 1.0f, 0.45f}));
     }
     context.spriteBatch.end();
 

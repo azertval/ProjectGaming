@@ -3,7 +3,8 @@
 > Statut : **édition de tuiles de base et robustesse/confort d'édition validés et livrés**
 > (LOT-14 : peinture, mécanismes, entrée/sortie, redimensionnement, undo/redo,
 > enregistrement/validation, essai immédiat ; LOT-15 : nommage, garde-fous, caméra, outils de
-> zone, découvrabilité ; LOT-16 : niveaux de grande taille, section 7).
+> zone, découvrabilité ; LOT-16 : niveaux de grande taille, section 7 ; LOT-27 : palette organisée
+> par catégories repliables, section 8).
 > Dépend de [`niveaux.md`](niveaux.md).
 
 ## Objectif
@@ -85,8 +86,28 @@ seule l'ergonomie manquait.
   généreux** (très au-delà des tailles livrées à ce jour) qui reste configurable au niveau du code,
   pas une limite arbitraire de `Core`.
 
+## 8. Palette organisée par catégories (LOT-27)
+La palette (`EX-EDIT-002`) affichait ses types de tuiles en **liste plate** : 19 lignes, chacune
+son propre libellé, où les huit variantes de pente/arrondi et les trois tailles de bloc poussable
+noyaient les huit types simples au milieu d'orientations presque identiques visuellement. Aucun
+souci de compréhension du type lui-même (chaque icône reste le rendu réel de la tuile), mais un
+défilement long avant de repérer le bon type.
+
+- \anchor EX-EDIT-018 **EX-EDIT-018** — La palette doit regrouper les types de tuiles en
+  **catégories repliables** plutôt qu'en liste plate : quatre catégories (Tuile, Interactif,
+  Piège, Jalon) plus une entrée autonome (Vide), chacune dépliable indépendamment sans jamais
+  recouvrir le canevas d'édition. Une famille regroupant **plusieurs formes ou tailles d'un même
+  type d'usage** (Pente, Arrondi, Bloc poussable) doit être elle-même un **sous-groupe repliable**
+  imbriqué dans sa catégorie — trois niveaux d'accordéon au maximum jusqu'à une variante précise,
+  plutôt qu'une seconde liste plate cachée sous la première. Si tout déplier en même temps dépasse
+  la hauteur de fenêtre disponible, la palette doit rester entièrement accessible par
+  **défilement** (molette, barre de défilement) plutôt que de rendre ses dernières entrées
+  inaccessibles à la souris ; déplier ou replier un en-tête ne doit jamais le faire disparaître de
+  la fenêtre visible.
+
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
 la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
-grandes tailles (section 7) du lot **LOT-16** (terminé).
+grandes tailles (section 7) du lot **LOT-16** (terminé) ; la palette organisée par catégories
+(section 8) du lot **LOT-27** (terminé).

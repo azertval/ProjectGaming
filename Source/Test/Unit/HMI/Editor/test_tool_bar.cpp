@@ -105,3 +105,29 @@ TEST(ToolBarTest, SelectNextDefileEnBoucle) {
     toolBar.selectNext();
     EXPECT_EQ(toolBar.selected(), hmi::EditorTool::Paint);
 }
+
+/**
+ * @brief `relayout(top)` repositionne la première entrée à `top`, sans changer la sélection ni le
+ *        nombre d'entrées — la palette (`LOT-27`, accordéon à hauteur variable) l'appelle chaque
+ *        frame avec sa position basse courante.
+ * \castest{<b>`relayout(top)` repositionne les entrées sans changer la sélection.</b><br/>
+ * \tcat Unitaire · Tool Bar<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La première entrée commence exactement à `top`, le nombre d'entrées et la sélection
+ * sont inchangés.
+ * }
+ */
+TEST(ToolBarTest, RelayoutRepositionneSansChangerLaSelection) {
+    hmi::ToolBar toolBar;
+    toolBar.selectNext();
+    const hmi::EditorTool selectedBefore = toolBar.selected();
+    const std::size_t countBefore = toolBar.entries().size();
+
+    toolBar.relayout(250.0f);
+
+    EXPECT_EQ(toolBar.entries().size(), countBefore);
+    EXPECT_EQ(toolBar.selected(), selectedBefore);
+    EXPECT_FLOAT_EQ(toolBar.entries().front().y, 250.0f);
+}
