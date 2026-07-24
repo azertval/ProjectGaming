@@ -123,6 +123,7 @@ Décisions de cadrage</h1>
 <li><b>Jamais suivies en marchant</b> (<code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code> reste <code>false</code> pour les quatre types) : contrairement à une pente de sol, on ne « marche » jamais sous un plafond (pas de déplacement latéral calé dessus) — seul le fait de ne pas le traverser en sautant compte.</li>
 <li><b>Rendu en gris uniforme</b>, pas une couleur distincte par variante : décision reprise de la correction apportée aux pentes/arrondis de sol dans la même conversation (cohérence de « matériau de plateforme » plutôt qu'une famille de teintes).</li>
 <li><b>Grille de tuiles de l'atlas procédural agrandie</b> (<code>TextureAtlas::TILES_PER_SIDE</code> <code>4→5</code>, 16→25 cases) pour loger les quatre nouvelles silhouettes ; le jeu de couleurs (<code>tileColor</code>) a été explicitement recalé pour qu'un simple agrandissement de grille ne décale <b>aucune</b> couleur des tuiles existantes (l'index linéaire d'une case dépend de la largeur de la grille).</li>
+<li><b>Gap découvert après la première passe de revue</b> : la physique ne gérait que le franchissement <b>par en dessous</b> (saut bloqué contre la silhouette). Un personnage tombant sur le <b>dessus</b> d'une pente/arrondi de plafond (accessible depuis une zone praticable au-dessus, ex. un couloir entre deux niveaux) tombait au travers, faute de toute résolution pour ce cas — ni solide (<code>isSolid</code>), ni suivie par aucune passe existante. Corrigé en étendant <code>slopeSurfaceHeight</code> (physique de <b>sol</b>) pour reconnaître aussi ces quatre types, avec une hauteur <b>constante 0</b> (leur face du haut est toujours plate, au sommet de la case, quel que soit <code>localX</code>) : <code> resolveSlopeFollow</code> les prend alors en charge tel quel, sans aucun code de résolution supplémentaire — un personnage qui tombe dessus s'y pose désormais normalement.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md1320"></a>
 Exigences couvertes</h1>
@@ -147,16 +148,17 @@ Découpage</h1>
 <h1><a class="anchor" id="autotoc_md1322"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
-<li>Un saut qui franchit une pente/arrondi de plafond est bloqué précisément selon sa silhouette (bord fin = monte plus haut, bord épais = bloqué plus tôt) — pas comme un carré plein uniforme.</li>
+<li>Un saut qui franchit une pente/arrondi de plafond <b>par en dessous</b> est bloqué précisément selon sa silhouette (bord fin = monte plus haut, bord épais = bloqué plus tôt) — pas comme un carré plein uniforme.</li>
 <li>Le personnage ne peut <b>jamais</b> franchir la silhouette en sautant, quelle que soit la vitesse d'ascension (chevauchement de plusieurs lignes en un seul pas inclus, comme pour le sol).</li>
+<li>Un personnage qui tombe sur le <b>dessus</b> d'une pente/arrondi de plafond s'y pose normalement (face du haut plate), sans tomber au travers.</li>
 <li>Aucune régression sur la physique existante (sol, pentes/arrondis de sol, murs, sauts) : tous les tests existants restent verts sans modification.</li>
 <li>Placeables depuis la palette de l'éditeur, sérialisables (JSON), rendues avec leur silhouette réelle en gris.</li>
-<li>Logique nouvelle <b>couverte par des tests</b> dédiés (géométrie miroir, classification statique, aller-retour JSON, physique de blocage selon la silhouette). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
+<li>Logique nouvelle <b>couverte par des tests</b> dédiés (géométrie miroir, classification statique, aller-retour JSON, physique de blocage par en dessous <b>et</b> de support par au-dessus). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
 <h1><a class="anchor" id="autotoc_md1323"></a>
 Dépendances</h1>
 <ul>
-<li>Étend <code>TileType</code> (<code>LOT-03</code>/<code>LOT-07</code>) et réutilise directement l'infrastructure de suivi de surface posée par <code>LOT-22</code> (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, <code><a class="el" href="namespacecore.html#a2920623584e25af83769e320830880d3" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code>) et étendue par <code>LOT-23</code> (arrondis) — aucune modification de ces fonctions existantes, seulement de nouvelles fonctions miroir qui les appellent.</li>
+<li>Étend <code>TileType</code> (<code>LOT-03</code>/<code>LOT-07</code>) et réutilise directement l'infrastructure de suivi de surface posée par <code>LOT-22</code> (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, <code><a class="el" href="namespacecore.html#a2920623584e25af83769e320830880d3" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code>) et étendue par <code>LOT-23</code> (arrondis) — aucune modification de ces fonctions existantes (hormis l'extension du <code>switch</code> de <code>slopeSurfaceHeight</code> pour la face du haut, voir décisions de cadrage), seulement de nouvelles fonctions miroir qui les appellent.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md1324"></a>
 Navigation des tâches</h1>

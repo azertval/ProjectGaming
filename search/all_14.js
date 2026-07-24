@@ -46,7 +46,7 @@ var searchData=
   ['intégration_20«_20charger_20niveau_20»_43',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
   ['intégration_20éditeur_20et_20jeu_20hmi_44',['TACHE-02 — Intégration éditeur et jeu (HMI)',['../lot-21-tache-02-integration-editeur-jeu.html',1,'lot-21']]],
   ['intégration_20éditeur_20et_20niveau_20de_20démonstration_45',['TACHE-03 — Intégration éditeur et niveau de démonstration',['../lot-19-tache-03-editeur-niveau-demo.html',1,'lot-19']]],
-  ['intégration_2069_46',['Tests d&apos;intégration (69)',['../cahiertest.html#autotoc_md19',1,'']]],
+  ['intégration_2070_46',['Tests d&apos;intégration (70)',['../cahiertest.html#autotoc_md19',1,'']]],
   ['intégration_20au_20rendu_47',['TACHE-02 — Images dans l&apos;atlas et intégration au rendu',['../lot-18-tache-02-frames-atlas-integration.html',1,'lot-18']]],
   ['intégration_20dans_20main_20documentation_48',['TACHE-05 — Intégration dans main &amp; documentation',['../lot-02-tache-05-integration.html',1,'lot-02']]],
   ['intégration_20gamescreen_20niveau_20demo4_20preuves_49',['TACHE-04 — Intégration GameScreen + niveau demo4 + preuves',['../lot-12-tache-04-integration-puzzle.html',1,'lot-12']]],

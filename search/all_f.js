@@ -50,7 +50,7 @@ var searchData=
   ['d_20implémentation_20décidée_47',['4. Approche d&apos;implémentation (décidée)',['../spec-editeur.html#autotoc_md202',1,'']]],
   ['d_20implémentation_20qui_20simplifie_20tout_20_3a_20ref_20hmi_3a_3akey_20key_20réutilise_20les_20codes_20win32_48',['Un détail d&apos;implémentation qui simplifie tout : \ref hmi::Key &quot;Key&quot; réutilise les codes Win32',['../guide-entrees.html#autotoc_md79',1,'']]],
   ['d_20insertion_20d_20une_20nouvelle_20spec_20à_20documenter_20dans_20l_20index_49',['Convention d&apos;insertion d&apos;une nouvelle spec (à documenter dans l&apos;index)',['../lot-04-tache-04-pages-specification.html#autotoc_md407',1,'']]],
-  ['d_20intégration_2069_50',['Tests d&apos;intégration (69)',['../cahiertest.html#autotoc_md19',1,'']]],
+  ['d_20intégration_2070_50',['Tests d&apos;intégration (70)',['../cahiertest.html#autotoc_md19',1,'']]],
   ['d_20interpoler_51',['Pourquoi caler directement plutôt que d&apos;interpoler',['../guide-physique.html#autotoc_md123',1,'']]],
   ['d_20options_52',['d options',['../manuel-jouer.html#autotoc_md1350',1,'Le menu d&apos;options'],['../lot-20.html',1,'LOT-20 — Manette et menu d&apos;options'],['../lot-20-tache-02-menu-options.html',1,'TACHE-02 — Menu d&apos;options']]],
   ['d_20options_20_3a_20la_20fusion_20manette_20à_20l_20œuvre_20ref_20hmi_3a_3aoptionsmodel_20hmi_3a_3aoptionsmodel_20ref_20hmi_3a_3aoptionsscreen_20optionsscreen_53',['Le menu d&apos;options : la fusion manette à l&apos;œuvre (\ref hmi::OptionsModel &quot;hmi::OptionsModel&quot;/\ref hmi::OptionsScreen &quot;OptionsScreen&quot;)',['../guide-entrees.html#autotoc_md82',1,'']]],

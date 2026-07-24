@@ -158,9 +158,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a69b891b5eca41594e3aec64fc9ea6157" id="r_a69b891b5eca41594e3aec64fc9ea6157"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a69b891b5eca41594e3aec64fc9ea6157">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondNeSontPasSolidesStatiquement)</td></tr>
 <tr class="memdesc:a69b891b5eca41594e3aec64fc9ea6157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>.  <br /></td></tr>
 <tr class="separator:a69b891b5eca41594e3aec64fc9ea6157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae69a95c6f03781c54223bc4f639086f8" id="r_ae69a95c6f03781c54223bc4f639086f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ae69a95c6f03781c54223bc4f639086f8">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant)</td></tr>
-<tr class="memdesc:ae69a95c6f03781c54223bc4f639086f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de plafond ne sont <b>jamais suivis en marchant</b> (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code> (pas de déplacement latéral calé dessus) et <code>slopeSurfaceHeight</code> (formule de <b>sol</b>) ne les connaît pas — seul <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code> (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut.  <br /></td></tr>
-<tr class="separator:ae69a95c6f03781c54223bc4f639086f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ebb1443aaf4fbcc2049bb3d37f1cff9" id="r_a3ebb1443aaf4fbcc2049bb3d37f1cff9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a3ebb1443aaf4fbcc2049bb3d37f1cff9">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondOntUneFaceDuHautPlate)</td></tr>
+<tr class="memdesc:a3ebb1443aaf4fbcc2049bb3d37f1cff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de plafond n'offrent <b>jamais de déplacement latéral calé</b> en marchant (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code>.  <br /></td></tr>
+<tr class="separator:a3ebb1443aaf4fbcc2049bb3d37f1cff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ee91c52de634f8064b4d45eb49903fd" id="r_a7ee91c52de634f8064b4d45eb49903fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a7ee91c52de634f8064b4d45eb49903fd">TEST</a> (SlopeGeometryTest, IsCeilingSlopeReconnaitExactementLesQuatreTypes)</td></tr>
 <tr class="memdesc:a7ee91c52de634f8064b4d45eb49903fd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isCeilingSlope</code> reconnaît exactement les quatre types de plafond, aucun autre (<code>EX-GP-006</code>).  <br /></td></tr>
 <tr class="separator:a7ee91c52de634f8064b4d45eb49903fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -518,45 +518,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae69a95c6f03781c54223bc4f639086f8" name="ae69a95c6f03781c54223bc4f639086f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae69a95c6f03781c54223bc4f639086f8">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">SlopeGeometryTest&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les pentes/arrondis de plafond ne sont <b>jamais suivis en marchant</b> (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code> (pas de déplacement latéral calé dessus) et <code>slopeSurfaceHeight</code> (formule de <b>sol</b>) ne les connaît pas — seul <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code> (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut. </p>
-<p><b>Cas de test :</b> <b>Les pentes/arrondis de plafond ne sont jamais suivis en marchant.</b><br  />
- <b>Categorie :</b> Unitaire · Slope Geometry<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Appeler <code>isFollowableSurface</code> et <code>slopeSurfaceHeight</code> sur les quatre types de plafond.<br  />
-2. Vérifier l'absence de suivi de sol.<br  />
- <b>Resultat attendu :</b> <code>isFollowableSurface</code> renvoie <code>false</code> et <code>slopeSurfaceHeight</code> renvoie <code>std::nullopt</code> pour les quatre types. </p>
-
-</div>
-</div>
 <a id="a69b891b5eca41594e3aec64fc9ea6157" name="a69b891b5eca41594e3aec64fc9ea6157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69b891b5eca41594e3aec64fc9ea6157">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b891b5eca41594e3aec64fc9ea6157">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -589,6 +552,43 @@ Functions</h2></td></tr>
  1. Appeler <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> sur les quatre types de plafond.<br  />
 2. Vérifier l'assertion.<br  />
  <b>Resultat attendu :</b> <code>false</code> pour les quatre — sous peine de transformer leur bord bas en mur invisible pour le balayage classique. </p>
+
+</div>
+</div>
+<a id="a3ebb1443aaf4fbcc2049bb3d37f1cff9" name="a3ebb1443aaf4fbcc2049bb3d37f1cff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebb1443aaf4fbcc2049bb3d37f1cff9">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PenteEtArrondiDePlafondOntUneFaceDuHautPlate&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les pentes/arrondis de plafond n'offrent <b>jamais de déplacement latéral calé</b> en marchant (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code>. </p>
+<p>Leur <b>face du haut</b> est en revanche une surface plate au sommet de la case (<code>slopeSurfaceHeight</code> y renvoie <code>0.0f</code>, constant) — un personnage qui tombe <b>dessus</b> (par le dessus, pas en sautant depuis en dessous) s'y pose comme sur un sol normal, sans quoi il tomberait au travers. <b>Cas de test :</b> <b>Les pentes/arrondis de plafond ont une face du haut plate (0,0), sans déplacement latéral calé.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isFollowableSurface</code> et <code>slopeSurfaceHeight</code> sur les quatre types de plafond.<br  />
+2. Vérifier les valeurs.<br  />
+ <b>Resultat attendu :</b> <code>isFollowableSurface</code> renvoie <code>false</code> ; <code>slopeSurfaceHeight</code> renvoie <code>0.0f</code> (face du haut plate) pour les quatre types. </p>
 
 </div>
 </div>

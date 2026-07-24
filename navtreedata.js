@@ -211,13 +211,13 @@ var NAVTREE =
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (69)", "cahiertest.html#autotoc_md19", [
+      [ "Tests d'intégration (70)", "cahiertest.html#autotoc_md19", [
         [ "Animation Personnage — <tt>test_animation_personnage.cpp</tt> (5)", "cahiertest.html#autotoc_md20", null ],
         [ "Bloc Réduit — <tt>test_bloc_reduit.cpp</tt> (2)", "cahiertest.html#autotoc_md21", null ],
         [ "Boucle Simulation — <tt>test_boucle_simulation.cpp</tt> (2)", "cahiertest.html#autotoc_md22", null ],
         [ "Ecs Mouvement — <tt>test_ecs_mouvement.cpp</tt> (4)", "cahiertest.html#autotoc_md23", null ],
         [ "Niveau Ecs — <tt>test_niveau_ecs.cpp</tt> (2)", "cahiertest.html#autotoc_md24", null ],
-        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (54)", "cahiertest.html#autotoc_md25", null ]
+        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (55)", "cahiertest.html#autotoc_md25", null ]
       ] ],
       [ "Tests système (2)", "cahiertest.html#autotoc_md26", [
         [ "Parcours Complet — <tt>test_parcours_complet.cpp</tt> (1)", "cahiertest.html#autotoc_md27", null ],
