@@ -93,6 +93,7 @@ void TilePalette::relayout() {
     const bool jalonOpen = _categoryExpanded[static_cast<std::size_t>(Category::Jalon)];
     const bool penteOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Pente)];
     const bool arrondiOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Arrondi)];
+    const bool concaveOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Concave)];
     const bool blocOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Bloc)];
 
     // ---- Vide (autonome) ----
@@ -119,6 +120,15 @@ void TilePalette::relayout() {
             pushLeaf(core::TileType::RoundedUpLeft, "Sol G", indent);
             pushLeaf(core::TileType::RoundedDownRight, "Plaf D", indent);
             pushLeaf(core::TileType::RoundedDownLeft, "Plaf G", indent);
+        }
+
+        pushSubgroupHeader(Subgroup::Concave, core::TileType::ConcaveUpRight, "Concave", concaveOpen);
+        if (concaveOpen) {
+            const float indent = PALETTE_INDENT_STEP * 2.0f;
+            pushLeaf(core::TileType::ConcaveUpRight, "Sol D", indent);
+            pushLeaf(core::TileType::ConcaveUpLeft, "Sol G", indent);
+            pushLeaf(core::TileType::ConcaveDownRight, "Plaf D", indent);
+            pushLeaf(core::TileType::ConcaveDownLeft, "Plaf G", indent);
         }
     }
 

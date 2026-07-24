@@ -85,6 +85,18 @@ namespace {
     if (name == "roundedDownLeft") {
         return TileType::RoundedDownLeft;
     }
+    if (name == "concaveUpRight") {
+        return TileType::ConcaveUpRight;
+    }
+    if (name == "concaveUpLeft") {
+        return TileType::ConcaveUpLeft;
+    }
+    if (name == "concaveDownRight") {
+        return TileType::ConcaveDownRight;
+    }
+    if (name == "concaveDownLeft") {
+        return TileType::ConcaveDownLeft;
+    }
     return std::nullopt;
 }
 

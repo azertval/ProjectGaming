@@ -30,8 +30,8 @@ namespace hmi {
  * 1. Deux entrées **autonomes** toujours visibles (Vide, Piège — sélection directe, pas de
  *    dépliage) et trois **catégories** repliables (Tuile, Interactif, Jalon).
  * 2. Une catégorie dépliée expose ses tuiles **directes** (ex. Porte, Plaque, Interrupteur) et,
- *    pour Tuile/Interactif, des **sous-groupes** repliables (Pente, Arrondi, Bloc poussable —
- *    familles à plusieurs formes/tailles).
+ *    pour Tuile/Interactif, des **sous-groupes** repliables (Pente, Arrondi, Concave, Bloc
+ *    poussable — familles à plusieurs formes/tailles).
  * 3. Un sous-groupe déplié expose ses variantes (orientations, tailles).
  *
  * Cliquer une entrée d'en-tête (catégorie ou sous-groupe) **replie/déplie** ce niveau sans changer
@@ -140,8 +140,8 @@ private:
     static constexpr std::size_t CATEGORY_COUNT = 3;
 
     /// Sous-groupes repliables de second niveau (une famille à plusieurs formes/tailles).
-    enum class Subgroup { Pente, Arrondi, Bloc };
-    static constexpr std::size_t SUBGROUP_COUNT = 3;
+    enum class Subgroup { Pente, Arrondi, Concave, Bloc };
+    static constexpr std::size_t SUBGROUP_COUNT = 4;
 
     /// Action déclenchée par un clic sur une entrée ; parallèle à `_entries` (même index).
     enum class RowAction { SelectType, ToggleCategory, ToggleSubgroup };

@@ -22,6 +22,9 @@ de sol, jamais solides pour la grille classique, mais une passe de suivi dédié
 un saut qui franchit leur profil incliné/courbe par en dessous, sans jamais y faire « marcher » le
 personnage — leur face du haut, toujours plate, supporte normalement un personnage qui tombe
 dessus par au-dessus),
+`concaveUpRight`, `concaveUpLeft`, `concaveDownRight` et `concaveDownLeft` (variante **concave**
+des arrondis, `EX-GP-007` — même principe de suivi/silhouette, sol et plafond, mais courbure
+**inversée** : centre du cercle du côté plein plutôt que du côté creux),
 `blockHalf` et `blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` —
 `EX-GP-005`, mêmes règles de poussée/chute que `block`, boîte de collision centrée et plus
 petite). Une case **vide** n'est pas listée (absence = vide).

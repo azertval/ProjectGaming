@@ -39,8 +39,9 @@ struct AtlasGridPosition {
 
 /**
  * @brief Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette
- *        inclinée/courbe : pentes/arrondis de **sol**, suivables (`core::isFollowableSurface`,
- *        `EX-GP-003`/`EX-GP-004`) ou de **plafond**, solides (`EX-GP-006`).
+ *        inclinée/courbe : pentes/arrondis convexes ou concaves de **sol**, suivables
+ *        (`core::isFollowableSurface`, `EX-GP-003`/`EX-GP-004`/`EX-GP-007`) ou de **plafond**,
+ *        solides (`EX-GP-006`/`EX-GP-007`).
  *
  * Seule source de vérité pour cette association : utilisée par `regionForTile` (couleur) **et**
  * par `TextureAtlas` (génération d'un masque de forme triangulaire/courbe à cet emplacement,

@@ -38,3 +38,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-25
 - @subpage lot-26
 - @subpage lot-27
+- @subpage lot-28

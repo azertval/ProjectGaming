@@ -7,7 +7,8 @@
 
 /**
  * @file Core/Physics/SlopeGeometry.h
- * @brief Hauteur de surface des tuiles à profil incliné ou courbe (`EX-GP-003`, `EX-GP-004`).
+ * @brief Hauteur de surface des tuiles à profil incliné ou courbe (`EX-GP-003`, `EX-GP-004`,
+ *        `EX-GP-007`).
  */
 
 namespace core {
@@ -41,23 +42,25 @@ class TileMap;
  */
 [[nodiscard]] std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept;
 
-/// @return true si @p type a une surface à suivre (pente ou arrondi de **sol**) — le personnage
-///         s'y cale en marchant, plutôt que d'être simplement bloqué ou de tomber au travers.
-///         `false` pour les variantes de **plafond** (`isCeilingSlope`) : on ne « marche » jamais
-///         sous un plafond (pas de déplacement latéral calé dessus), seul le fait de ne pas le
-///         traverser en sautant compte (`resolveCeilingSlopeFollow`).
+/// @return true si @p type a une surface à suivre (pente ou arrondi, convexe ou **concave**, de
+///         **sol**) — le personnage s'y cale en marchant, plutôt que d'être simplement bloqué ou de
+///         tomber au travers. `false` pour les variantes de **plafond** (`isCeilingSlope`) : on ne
+///         « marche » jamais sous un plafond (pas de déplacement latéral calé dessus), seul le fait
+///         de ne pas le traverser en sautant compte (`resolveCeilingSlopeFollow`).
 [[nodiscard]] constexpr bool isFollowableSurface(TileType type) noexcept {
     return type == TileType::SlopeUpRight || type == TileType::SlopeUpLeft ||
-           type == TileType::RoundedUpRight || type == TileType::RoundedUpLeft;
+           type == TileType::RoundedUpRight || type == TileType::RoundedUpLeft ||
+           type == TileType::ConcaveUpRight || type == TileType::ConcaveUpLeft;
 }
 
-/// @return true si @p type est une pente/arrondi de **plafond** (`EX-GP-006`) — miroir vertical
-///         d'une surface de sol suivable, mais dont le personnage ne peut jamais franchir la
-///         silhouette en sautant (`resolveCeilingSlopeFollow`), sans pour autant y « marcher »
+/// @return true si @p type est une pente/arrondi de **plafond** (`EX-GP-006`/`EX-GP-007`) — miroir
+///         vertical d'une surface de sol suivable, mais dont le personnage ne peut jamais franchir
+///         la silhouette en sautant (`resolveCeilingSlopeFollow`), sans pour autant y « marcher »
 ///         (`isFollowableSurface` reste `false` pour ces types).
 [[nodiscard]] constexpr bool isCeilingSlope(TileType type) noexcept {
     return type == TileType::SlopeDownRight || type == TileType::SlopeDownLeft ||
-           type == TileType::RoundedDownRight || type == TileType::RoundedDownLeft;
+           type == TileType::RoundedDownRight || type == TileType::RoundedDownLeft ||
+           type == TileType::ConcaveDownRight || type == TileType::ConcaveDownLeft;
 }
 
 /**
@@ -90,26 +93,29 @@ struct SlopeFollowResult {
  * @brief Détecte si le bord bas d'une boîte a **franchi** une surface suivable (pente, arrondi)
  *        pendant un pas, et calcule la position à laquelle s'y caler.
  *
- * Compare le bord bas **avant** le pas (@p previousBottomY, avant le balayage classique sur
- * grille) et **après** (`newBox.max.y`, une fois la grille résolue) : si ce bord a franchi la
- * hauteur de surface d'une tuile suivable quelque part entre les deux (parcours de toutes les
- * lignes concernées, pas seulement la position finale — pour ne jamais « sauter » une pente à
- * grande vitesse de chute, même si le balayage classique ne la voit pas comme solide), renvoie la
- * position de calage. Ignore toute surface si @p velocityY est **négative** (le personnage monte
- * — vient de sauter) : le suivi de pente ne doit jamais annuler un saut volontaire.
+ * Compare le bord bas **avant** le pas (@p previousBox, avant le balayage classique sur grille) et
+ * **après** (`newBox.max.y`, une fois la grille résolue) : si ce bord a franchi la hauteur de
+ * surface d'une tuile suivable quelque part entre les deux (parcours de toutes les lignes
+ * concernées, pas seulement la position finale — pour ne jamais « sauter » une pente à grande
+ * vitesse de chute, même si le balayage classique ne la voit pas comme solide), renvoie la position
+ * de calage. Ignore toute surface si @p velocityY est **négative** (le personnage monte — vient de
+ * sauter) : le suivi de pente ne doit jamais annuler un saut volontaire.
  *
- * La colonne testée est celle du **centre horizontal** de @p newBox (limite connue : un
- * déplacement horizontal très rapide au sein d'un même pas pourrait changer de colonne sans que
- * cette fonction ne le détecte — acceptable pour une pente traversée en marchant, à revoir si des
- * cas d'usage à grande vitesse horizontale combinée à une pente apparaissent).
+ * Les colonnes testées sont celles réellement couvertes par la **largeur** de la boîte — à la fois
+ * @p previousBox (position avant le pas) et @p newBox (après), pas seulement son centre final : un
+ * déplacement horizontal (marche) pendant le même pas qu'une ascension/chute peut faire sortir la
+ * boîte d'une colonne pertinente avant que le seuil vertical ne soit atteint ; ignorer @p
+ * previousBox manquerait alors la case, qui reste pourtant celle qui aurait dû bloquer/porter le
+ * personnage.
  *
- * @param previousBottomY Bord bas de la boîte avant le pas (avant le balayage sur grille).
- * @param newBox          Boîte après résolution du balayage classique sur grille (murs/sols).
- * @param velocityY       Vitesse verticale courante (`> 0` = chute, `< 0` = monte).
- * @param tiles           Grille de niveau (pour lire le type de tuile aux positions testées).
+ * @param previousBox Boîte avant le pas (avant le balayage sur grille) — sert à la fois pour son
+ *                     bord bas et pour l'étendue horizontale qu'elle couvrait.
+ * @param newBox      Boîte après résolution du balayage classique sur grille (murs/sols).
+ * @param velocityY   Vitesse verticale courante (`> 0` = chute, `< 0` = monte).
+ * @param tiles       Grille de niveau (pour lire le type de tuile aux positions testées).
  * @return Le résultat du calage, ou `grounded == false` si aucune surface n'a été franchie.
  */
-[[nodiscard]] SlopeFollowResult resolveSlopeFollow(float previousBottomY, const Aabb& newBox,
+[[nodiscard]] SlopeFollowResult resolveSlopeFollow(const Aabb& previousBox, const Aabb& newBox,
                                                     float velocityY,
                                                     const TileMap& tiles) noexcept;
 
@@ -128,7 +134,7 @@ struct CeilingSlopeFollowResult {
  *
  * **Miroir exact** de `resolveSlopeFollow`, pour le bord **haut** plutôt que bas, déclenché en
  * **montant** (`velocityY < 0`, saut) plutôt qu'en tombant : compare le bord haut **avant** le pas
- * (@p previousTopY) et **après** (`newBox.min.y`) ; si ce bord a franchi la hauteur de silhouette
+ * (@p previousBox) et **après** (`newBox.min.y`) ; si ce bord a franchi la hauteur de silhouette
  * d'une tuile de plafond quelque part entre les deux (parcours de toutes les lignes concernées,
  * pas seulement la position finale — un saut rapide ne doit jamais « traverser » un plafond
  * incliné/courbe), renvoie la position de blocage. Ignore toute silhouette si @p velocityY est
@@ -137,10 +143,19 @@ struct CeilingSlopeFollowResult {
  * bloquer une ascension, jamais autre chose (`core::isFollowableSurface` reste `false` pour ces
  * types).
  *
- * La colonne testée est celle du **centre horizontal** de @p newBox (même limite connue que
- * `resolveSlopeFollow`).
+ * Les colonnes testées sont celles réellement couvertes par la largeur de @p newBox **et** par
+ * l'intervalle [@p sweptMinX, @p sweptMaxX] (même principe que `resolveSlopeFollow`, mais avec un
+ * intervalle fourni par l'appelant plutôt qu'une seule boîte précédente) : sauter tout en marchant
+ * peut faire sortir la boîte d'une colonne pertinente avant que le seuil vertical de blocage n'y
+ * soit atteint — parfois sur PLUSIEURS pas (une montée lente combinée à une marche rapide), pas
+ * seulement le pas immédiatement précédent. L'appelant (`CharacterPhysicsSystem`) est donc
+ * responsable d'accumuler cet intervalle sur toute la montée courante (depuis le dernier contact au
+ * sol ou le dernier pas où `velocityY >= 0`), pas seulement de fournir la boîte du pas précédent.
  *
  * @param previousTopY Bord haut de la boîte avant le pas (avant le balayage sur grille).
+ * @param sweptMinX    Bord gauche le plus à gauche couvert par la boîte depuis le début de la
+ *                      montée courante (avant ce pas) — unioné avec @p newBox en interne.
+ * @param sweptMaxX    Bord droit le plus à droite couvert, symétrique de @p sweptMinX.
  * @param newBox       Boîte après résolution du balayage classique sur grille (murs/sols/plafonds
  *                      plats).
  * @param velocityY    Vitesse verticale courante (`> 0` = chute, `< 0` = monte).
@@ -148,6 +163,7 @@ struct CeilingSlopeFollowResult {
  * @return Le résultat du blocage, ou `blocked == false` si aucune silhouette n'a été franchie.
  */
 [[nodiscard]] CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY,
+                                                                 float sweptMinX, float sweptMaxX,
                                                                  const Aabb& newBox,
                                                                  float velocityY,
                                                                  const TileMap& tiles) noexcept;

@@ -55,6 +55,14 @@ namespace {
             return "roundedDownRight";
         case TileType::RoundedDownLeft:
             return "roundedDownLeft";
+        case TileType::ConcaveUpRight:
+            return "concaveUpRight";
+        case TileType::ConcaveUpLeft:
+            return "concaveUpLeft";
+        case TileType::ConcaveDownRight:
+            return "concaveDownRight";
+        case TileType::ConcaveDownLeft:
+            return "concaveDownLeft";
     }
     return "empty";
 }

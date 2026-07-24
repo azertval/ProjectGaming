@@ -1,7 +1,7 @@
 /**
  * @file test_slope_geometry.cpp
  * @brief Tests unitaires de la fonction de hauteur des tuiles suivables (`slopeSurfaceHeight`,
- *        `EX-GP-003`).
+ *        `EX-GP-003`/`EX-GP-004`/`EX-GP-007`).
  */
 
 #include <cmath>
@@ -374,4 +374,179 @@ TEST(SlopeGeometryTest, CeilingRoundedDownLeftEstLeMiroirDeRoundedUpLeft) {
 TEST(SlopeGeometryTest, CeilingSlopeHeightNulloptSiPasDePlafond) {
     EXPECT_FALSE(core::ceilingSlopeHeight(core::TileType::Solid, 0.5f).has_value());
     EXPECT_FALSE(core::ceilingSlopeHeight(core::TileType::SlopeUpRight, 0.5f).has_value());
+}
+
+/**
+ * @brief `ConcaveUpRight` (quart de cercle **concave**, `EX-GP-007`) : mêmes bords que
+ * `RoundedUpRight` (1 à gauche, 0 à droite), mais courbure inversée — au centre, `sqrt(0,75) ≈
+ * 0,866`, bien distinct du `1 - sqrt(0,75) ≈ 0,134` de l'arrondi convexe (les deux valeurs sont
+ * complémentaires, somme 1, ce qui rend une inversion accidentelle de formule facile à détecter).
+ * \castest{<b>ConcaveUpRight suit un profil de quart de cercle concave, mêmes bords que
+ * RoundedUpRight, courbure inversée.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, environ 0,866 au centre — distinct du 0,134
+ * de l'arrondi convexe de même orientation.
+ * }
+ */
+TEST(SlopeGeometryTest, ConcaveUpRightSuitUnQuartDeCercleConcave) {
+    const auto left = core::slopeSurfaceHeight(core::TileType::ConcaveUpRight, 0.0f);
+    const auto center = core::slopeSurfaceHeight(core::TileType::ConcaveUpRight, 0.5f);
+    const auto right = core::slopeSurfaceHeight(core::TileType::ConcaveUpRight, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 1.0f, 1e-6f);
+    EXPECT_NEAR(*center, std::sqrt(0.75f), 1e-4f);  // ~0,8660254
+    EXPECT_NEAR(*right, 0.0f, 1e-6f);
+}
+
+/**
+ * @brief `ConcaveUpLeft` (`EX-GP-007`) : symétrique de `ConcaveUpRight`, mêmes bords que
+ * `RoundedUpLeft`.
+ * \castest{<b>ConcaveUpLeft suit un profil de quart de cercle concave, haut à gauche.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `slopeSurfaceHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, environ 0,866 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, ConcaveUpLeftSuitUnQuartDeCercleConcave) {
+    const auto left = core::slopeSurfaceHeight(core::TileType::ConcaveUpLeft, 0.0f);
+    const auto center = core::slopeSurfaceHeight(core::TileType::ConcaveUpLeft, 0.5f);
+    const auto right = core::slopeSurfaceHeight(core::TileType::ConcaveUpLeft, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 0.0f, 1e-6f);
+    EXPECT_NEAR(*center, std::sqrt(0.75f), 1e-4f);
+    EXPECT_NEAR(*right, 1.0f, 1e-6f);
+}
+
+/**
+ * @brief `isSolid` renvoie `false` pour les deux orientations d'arrondi concave (même raisonnement
+ * que l'arrondi convexe).
+ * \castest{<b>isSolid renvoie false pour les deux orientations d'arrondi concave.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appeler `core::isSolid` sur `ConcaveUpRight` et `ConcaveUpLeft`.<br/>2. Vérifier
+ * l'assertion.<br/>
+ * \tattendu `false` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, ConcaveNestPasSolideStatiquement) {
+    EXPECT_FALSE(core::isSolid(core::TileType::ConcaveUpRight));
+    EXPECT_FALSE(core::isSolid(core::TileType::ConcaveUpLeft));
+}
+
+/**
+ * @brief `isFollowableSurface` reconnaît aussi les deux orientations d'arrondi concave.
+ * \castest{<b>isFollowableSurface reconnaît les deux orientations d'arrondi concave.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `isFollowableSurface` sur `ConcaveUpRight` et `ConcaveUpLeft`.<br/>2. Vérifier
+ * l'assertion.<br/>
+ * \tattendu `true` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesConcaves) {
+    EXPECT_TRUE(core::isFollowableSurface(core::TileType::ConcaveUpRight));
+    EXPECT_TRUE(core::isFollowableSurface(core::TileType::ConcaveUpLeft));
+}
+
+/**
+ * @brief Les arrondis concaves de **plafond** (`ConcaveDownRight`/`ConcaveDownLeft`, `EX-GP-007`)
+ * ne sont **jamais solides** pour la grille classique, comme leurs équivalents de sol, et n'offrent
+ * jamais de déplacement latéral calé — leur face du haut, en revanche, est plate (`0.0f`), comme
+ * les autres variantes de plafond (`EX-GP-006`).
+ * \castest{<b>Les arrondis concaves de plafond ne sont pas solides, n'offrent pas de déplacement
+ * latéral calé, et ont une face du haut plate.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appeler `isSolid`/`isFollowableSurface`/`slopeSurfaceHeight` sur les deux types.<br/>
+ * 2. Vérifier les valeurs.<br/>
+ * \tattendu `isSolid` et `isFollowableSurface` renvoient `false` ; `slopeSurfaceHeight` renvoie
+ * `0.0f` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, ConcaveDePlafondNeSontPasSolidesEtOntUneFaceDuHautPlate) {
+    for (const core::TileType type :
+         {core::TileType::ConcaveDownRight, core::TileType::ConcaveDownLeft}) {
+        EXPECT_FALSE(core::isSolid(type));
+        EXPECT_FALSE(core::isFollowableSurface(type));
+        const auto height = core::slopeSurfaceHeight(type, 0.5f);
+        ASSERT_TRUE(height.has_value());
+        EXPECT_FLOAT_EQ(*height, 0.0f);
+    }
+}
+
+/**
+ * @brief `isCeilingSlope` reconnaît aussi les deux types de plafond concave (`EX-GP-007`).
+ * \castest{<b>isCeilingSlope reconnaît les deux types de plafond concave.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `isCeilingSlope` sur `ConcaveDownRight`/`ConcaveDownLeft` et sur
+ * `ConcaveUpRight`.<br/>2. Vérifier l'assertion.<br/>
+ * \tattendu `true` pour les deux types de plafond, `false` pour `ConcaveUpRight` (variante de sol).
+ * }
+ */
+TEST(SlopeGeometryTest, IsCeilingSlopeReconnaitAussiLesConcaves) {
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::ConcaveDownRight));
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::ConcaveDownLeft));
+    EXPECT_FALSE(core::isCeilingSlope(core::TileType::ConcaveUpRight));
+}
+
+/**
+ * @brief `ceilingSlopeHeight(ConcaveDownRight)` est le miroir vertical exact de
+ * `slopeSurfaceHeight(ConcaveUpRight)` (`EX-GP-007`).
+ * \castest{<b>ceilingSlopeHeight(ConcaveDownRight) est le miroir vertical exact de
+ * slopeSurfaceHeight(ConcaveUpRight).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, environ 0,134 au centre (`1 - sqrt(0,75)`).
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingConcaveDownRightEstLeMiroirDeConcaveUpRight) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::ConcaveDownRight, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::ConcaveDownRight, 0.5f);
+    const auto right = core::ceilingSlopeHeight(core::TileType::ConcaveDownRight, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 0.0f, 1e-6f);
+    EXPECT_NEAR(*center, 1.0f - std::sqrt(0.75f), 1e-4f);  // ~0,1339746
+    EXPECT_NEAR(*right, 1.0f, 1e-6f);
+}
+
+/**
+ * @brief `ceilingSlopeHeight(ConcaveDownLeft)` est le miroir vertical exact de
+ * `slopeSurfaceHeight(ConcaveUpLeft)`.
+ * \castest{<b>ceilingSlopeHeight(ConcaveDownLeft) est le miroir vertical exact de
+ * slopeSurfaceHeight(ConcaveUpLeft).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, environ 0,134 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingConcaveDownLeftEstLeMiroirDeConcaveUpLeft) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::ConcaveDownLeft, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::ConcaveDownLeft, 0.5f);
+    const auto right = core::ceilingSlopeHeight(core::TileType::ConcaveDownLeft, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 1.0f, 1e-6f);
+    EXPECT_NEAR(*center, 1.0f - std::sqrt(0.75f), 1e-4f);
+    EXPECT_NEAR(*right, 0.0f, 1e-6f);
 }

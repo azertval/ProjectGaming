@@ -283,6 +283,44 @@ TEST(LevelWriterTest, PentesEtArrondisDePlafondSurviventAuRoundTrip) {
 }
 
 /**
+ * @brief Les quatre arrondis concaves (sol et plafond) survivent à un aller-retour JSON
+ * (`EX-GP-007`).
+ * \castest{<b>Les quatre arrondis concaves survivent à un aller-retour JSON.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les quatre arrondis concaves survivent à un aller-retour JSON.
+ * }
+ */
+TEST(LevelWriterTest, ArrondisConcavesSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "name": "Concave",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "concaveUpRight" },
+        { "x": 1, "y": 0, "type": "concaveUpLeft" },
+        { "x": 2, "y": 0, "type": "concaveDownRight" },
+        { "x": 3, "y": 0, "type": "concaveDownLeft" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(0, 0), core::TileType::ConcaveUpRight);
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 0), core::TileType::ConcaveUpLeft);
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), core::TileType::ConcaveDownRight);
+    EXPECT_EQ(reloaded.level->tileMap().tile(3, 0), core::TileType::ConcaveDownLeft);
+}
+
+/**
  * @brief Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.
  * \castest{<b>Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.</b><br/>
  * \tcat Unitaire · Level Writer<br/>

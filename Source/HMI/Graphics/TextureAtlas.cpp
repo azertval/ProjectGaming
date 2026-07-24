@@ -55,15 +55,17 @@ bool inRange(int value, int low, int high) {
     return value >= low && value <= high;
 }
 
-// Les huit types a silhouette inclinee/courbe (pente/arrondi de sol, suivables, EX-GP-003/
-// EX-GP-004 ; ou de plafond, solides, EX-GP-006) dont la case d'atlas recoit un masque de forme
-// (triangle/courbe) plutot qu'un carre plein — la seule liste a parcourir, TileType n'etant pas
-// enumerable directement en C++.
+// Les douze types a silhouette inclinee/courbe (pente/arrondi convexe ou concave de sol,
+// suivables, EX-GP-003/EX-GP-004/EX-GP-007 ; ou de plafond, solides, EX-GP-006/EX-GP-007) dont la
+// case d'atlas recoit un masque de forme (triangle/courbe) plutot qu'un carre plein — la seule
+// liste a parcourir, TileType n'etant pas enumerable directement en C++.
 constexpr core::TileType kSlopeTileTypes[] = {
     core::TileType::SlopeUpRight,     core::TileType::SlopeUpLeft,
     core::TileType::RoundedUpRight,   core::TileType::RoundedUpLeft,
     core::TileType::SlopeDownRight,   core::TileType::SlopeDownLeft,
     core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft,
+    core::TileType::ConcaveUpRight,   core::TileType::ConcaveUpLeft,
+    core::TileType::ConcaveDownRight, core::TileType::ConcaveDownLeft,
 };
 
 // Type de tuile a silhouette inclinee/courbe dont la case d'atlas est (tileColumn, tileRow), s'il
@@ -90,10 +92,17 @@ std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRo
 // cas, l'affichage correspond exactement a la hitbox reelle (core::resolveSlopeFollow /
 // core::resolveCeilingSlopeFollow, pas de solidite statique via core::isSolid).
 std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
-    const float normalizedX = (static_cast<float>(localX) + 0.5f) /
-                              static_cast<float>(TextureAtlas::TILE_SIZE);
-    const float normalizedY = (static_cast<float>(localY) + 0.5f) /
-                              static_cast<float>(TextureAtlas::TILE_SIZE);
+    // Échantillonne au bord des pixels de coin (0 et TILE_SIZE-1 atteignent exactement 0,0/1,0),
+    // pas à leur centre (`(localX+0.5)/TILE_SIZE` ne dépasse jamais 0,969 pour le dernier pixel) :
+    // sans ça, la colonne de pixels la plus proche du bord « plein » d'un arrondi CONCAVE (tangente
+    // quasi verticale à cet endroit précis, EX-GP-007) manque la vraie valeur de bord par une marge
+    // significative (~0,25 de hauteur de case) — visible comme une encoche grossière juste là où la
+    // silhouette doit au contraire être quasiment pleine. Négligeable pour les pentes/arrondis
+    // convexes existants (tangente raide du côté CREUX plutôt que du côté plein, donc jamais à un
+    // bord critique pour le raccord entre deux cases).
+    constexpr float LAST_INDEX = static_cast<float>(TextureAtlas::TILE_SIZE - 1);
+    const float normalizedX = static_cast<float>(localX) / LAST_INDEX;
+    const float normalizedY = static_cast<float>(localY) / LAST_INDEX;
     const bool isCeiling = core::isCeilingSlope(type);
     const std::optional<float> surfaceHeight = isCeiling
                                                     ? core::ceilingSlopeHeight(type, normalizedX)

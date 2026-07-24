@@ -1511,7 +1511,11 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteAscendanteEnMarchant) {
         system.update(world, tiles, input, STEP);
         const core::Transform& transform = world.getComponent<core::Transform>(player);
         centerX = transform.position.x + 0.5f;
-        if (centerX >= 2.0f && centerX < 3.0f) {  // au-dessus de la case de la pente
+        // Fenêtre d'échantillonnage élargie à [1.5, 3.5) plutôt que [2.0, 3.0) : la boîte du
+        // personnage (1×1, une case entière) peut chevaucher la case de la pente dès que son bord
+        // AVANT l'atteint (x ≥ 1.0, soit centerX ≥ 1.5) — la case de suivi la plus haute touchée
+        // par l'empreinte de la boîte gouverne (voir SlopeGeometry.cpp), pas seulement son centre.
+        if (centerX >= 1.5f && centerX < 3.5f) {  // au-dessus ou chevauchant la case de la pente
             const float bottom = transform.position.y + 1.0f;
             EXPECT_LE(bottom, 6.0f + TOLERANCE);  // jamais sous la surface basse de la pente
             EXPECT_GE(bottom, 5.0f - TOLERANCE);  // jamais au-dessus de sa surface haute
@@ -1522,7 +1526,7 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteAscendanteEnMarchant) {
             yExitSlope = bottom;
         }
         ++guard;
-    } while (centerX < 3.5f && guard < 600);
+    } while (centerX < 4.0f && guard < 600);
 
     ASSERT_TRUE(sawSlopeSample);
     EXPECT_LT(yExitSlope, yEnterSlope - 0.5f);  // franchement monté en traversant la pente
@@ -1581,7 +1585,12 @@ TEST(PhysiquePersonnageIntegration, SuitUnePenteDescendanteEnMarchant) {
             yExitSlope = bottom;
         }
         ++guard;
-    } while (centerX < 3.5f && guard < 600);
+    // Seuil à 4.0 plutôt que 3.5 (juste après la pente) : la boîte 1×1 chevauche encore brièvement
+    // la pente et le sol bas juste après la transition, un « rattrapage » de contact (grounded
+    // oscille sol/chute sur quelques pas, comme `TransitionPenteSolPlatSansAACoup`) le temps que la
+    // boîte tienne entièrement dans une colonne de sol plat — laisser un peu plus de marge avant de
+    // vérifier l'état final évite un pas malchanceux pris en plein rattrapage.
+    } while (centerX < 4.0f && guard < 600);
 
     ASSERT_TRUE(sawSlopeSample);
     EXPECT_GT(yExitSlope, yEnterSlope + 0.5f);  // franchement descendu en traversant la pente
@@ -1959,6 +1968,479 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus)
     const core::Transform& transform = world.getComponent<core::Transform>(player);
     EXPECT_TRUE(player_.grounded);
     EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::kPlayerHeight, 0.05f);
+}
+
+/**
+ * @brief Marcher sur un arrondi **concave** ascendant (`ConcaveUpRight`, `EX-GP-007`) fait monter
+ * le personnage en suivant une courbe **inversée** par rapport à l'arrondi convexe : la hauteur
+ * reste proche du palier bas sur l'essentiel de la case (tangente horizontale côté creux), puis
+ * grimpe brutalement près du bord droit (tangente verticale côté plein) — l'inverse exact de
+ * `SuitUnArrondiAscendantEnMarchant`.
+ * \castest{<b>Marcher sur un arrondi concave ascendant suit une courbe inversée par rapport à
+ * l'arrondi convexe, sans le traverser.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu À mi-case, le personnage reste bien plus proche du palier bas qu'avec l'arrondi
+ * convexe (qui y est déjà bien plus haut) ; il se pose au final sur le palier haut, sans jamais
+ * traverser la surface.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, SuitUnArrondiConcaveAscendantEnMarchant) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {  // sol bas, avant l'arrondi (meme disposition que RoundedUpRight)
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::ConcaveUpRight);  // quart de cercle concave, meme orientation
+    for (int col = 3; col <= 7; ++col) {                  // sol haut, apres l'arrondi
+        tiles.setTile(col, 5, core::TileType::Solid);
+    }
+    // Taille RÉELLE du personnage (0,4×0,8, comme `TransitionPenteSolPlatSansAACoup`), pas la boîte
+    // 1×1 des autres tests de ce fichier : une boîte pleine case chevauche déjà le sol haut adjacent
+    // (colonne 3, plein) au moment même de l'échantillon à mi-case (x=2,5, bord droit de la boîte
+    // atteignant x=3,0), déclenchant le rattrapage de raccord pente→sol documenté par
+    // `TransitionPenteSolPlatSansAACoup` avant que le suivi de la courbe concave n'ait eu la chance
+    // de s'exprimer — non spécifique à cette formule, mais bien plus visible ici (courbe concave
+    // restant proche du palier bas jusque tard) qu'avec la formule convexe (déjà proche du palier
+    // haut à ce stade, `SuitUnArrondiAscendantEnMarchant`).
+    const core::Vector2 size = core::playerSize();
+    const core::Entity player = world.createEntity();
+    world.addComponent(player, core::Transform{core::Vector2{0.3f, 6.0f - size.y}, size, 0.0f});
+    world.addComponent(player, core::Velocity{});
+    world.addComponent(player, core::Collider{size});
+    world.addComponent(player, core::Player{});
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    bool sawMidSample = false;
+    float midBottom = 0.0f;
+    int guard = 0;
+    float centerX = 0.0f;
+    do {
+        system.update(world, tiles, input, STEP);
+        const core::Transform& transform = world.getComponent<core::Transform>(player);
+        centerX = transform.position.x + size.x * 0.5f;
+        if (centerX >= 2.0f && centerX < 3.0f) {  // au-dessus de la case de l'arrondi
+            const float bottom = transform.position.y + size.y;
+            EXPECT_LE(bottom, 6.0f + TOLERANCE);  // jamais sous la surface basse
+            EXPECT_GE(bottom, 5.0f - TOLERANCE);  // jamais au-dessus de la surface haute
+            if (!sawMidSample && centerX >= 2.5f) {
+                midBottom = bottom;  // localX ~ 0.5 : premier echantillon a mi-case
+                sawMidSample = true;
+            }
+        }
+        ++guard;
+    } while (centerX < 3.5f && guard < 600);
+
+    ASSERT_TRUE(sawMidSample);
+    // Valeur theorique a mi-case : hauteur ~0,866 (sqrt(0,75)), soit bord bas ~5,866 — bien plus
+    // proche du palier BAS (6,0) que l'arrondi convexe a ce meme stade (~5,134, voir
+    // SuitUnArrondiAscendantEnMarchant) : un ecart net avec cette valeur convexe prouve que la
+    // courbe CONCAVE est reellement utilisee, pas la formule convexe deguisee.
+    EXPECT_GT(midBottom, 5.7f);
+
+    ASSERT_LT(guard, 600);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+    EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 5.0f - size.y,
+                0.05f);  // pose sur le sol haut (bord bas = 5.0), comme pour l'arrondi convexe
+}
+
+/**
+ * @brief Un arrondi concave de **plafond** (`ConcaveDownRight`, `EX-GP-007`) bloque un saut selon
+ * sa silhouette réelle, pas comme un carré plein uniforme : sous son bord fin (silhouette quasi
+ * vide), le personnage monte bien plus haut que sous son bord épais (silhouette quasi pleine) —
+ * même principe que `PlafondInclineBloqueSelonSaSilhouette`, formule concave.
+ * \castest{<b>Un arrondi concave de plafond bloque un saut selon sa silhouette réelle, pas comme un
+ * carré plein uniforme.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage monte nettement plus haut sous le bord fin de l'arrondi concave de
+ * plafond que sous son bord épais — la collision suit sa silhouette courbe, pas une case pleine.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueSelonSaSilhouette) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FLOOR_ROW = 5;
+
+    const auto minYReached = [](float startX) {
+        core::TileMap map(10, 6);
+        for (int col = 0; col < 10; ++col) {
+            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        }
+        map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
+
+        core::World world;
+        const core::Entity player =
+            spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+        world.getComponent<core::Transform>(player).position.x = startX;
+        core::CharacterPhysicsSystem system;
+
+        bool jumped = false;
+        float minY = 100.0f;
+        for (int step = 0; step < 90; ++step) {
+            const core::Player& pl = world.getComponent<core::Player>(player);
+            core::PlayerInput in;
+            if (!jumped && pl.grounded) {
+                in.jumpPressed = true;
+                jumped = true;
+            }
+            if (jumped) {
+                in.jumpHeld = true;
+            }
+            system.update(world, map, in, STEP);
+            minY = std::min(minY, world.getComponent<core::Transform>(player).position.y);
+        }
+        return minY;
+    };
+
+    // core::ceilingSlopeHeight(ConcaveDownRight, x) = 1 - sqrt(1 - x^2) : silhouette quasi vide
+    // (h~0, tangente horizontale) sur l'essentiel du bord GAUCHE, quasi pleine (h~1, tangente
+    // verticale) tres pres du bord DROIT. Decalage (comme `PlafondInclineBloqueSelonSaSilhouette`)
+    // : `startX` est le bord GAUCHE de la boite (largeur 0,4, `spawnHumanoid`), pas son centre —
+    // +0.95 placerait le CENTRE (+0,2 de plus) a x=3,95+0,2=4,15, hors de la colonne du plafond
+    // (colonne 4, vide) plutot que pres de son bord droit ; +0.55 garde le centre a 3,75, bien
+    // dans la colonne 3.
+    const float thinSideMinY = minYReached(static_cast<float>(CEILING_COLUMN) + 0.05f);
+    const float thickSideMinY = minYReached(static_cast<float>(CEILING_COLUMN) + 0.55f);
+
+    EXPECT_LT(thinSideMinY, thickSideMinY - 0.3f);
+}
+
+/**
+ * @brief La **face du haut** d'un arrondi concave de plafond (`ConcaveDownRight`, `EX-GP-007`) est
+ * plate et supporte le personnage qui tombe dessus **par le dessus** — il ne tombe pas au travers
+ * jusqu'au sol lointain en dessous (même principe que
+ * `PlafondInclineSupportePersonnageParLeDessus`).
+ * \castest{<b>La face du haut d'un arrondi concave de plafond supporte le personnage qui tombe
+ * dessus par le dessus.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage se pose sur la face du haut de la tuile (au sommet de sa case),
+ * `grounded` devient vrai — il ne tombe pas au travers jusqu'au sol lointain en dessous.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ConcaveDePlafondSupportePersonnageParLeDessus) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FAR_FLOOR_ROW = 9;  // tres eloigne : prouve qu'il ne s'agit pas d'une coincidence
+
+    core::TileMap map(10, 10);
+    for (int col = 0; col < 10; ++col) {
+        map.setTile(col, FAR_FLOOR_ROW, core::TileType::Solid);
+    }
+    map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
+
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, 0});
+    core::CharacterPhysicsSystem system;
+
+    for (int step = 0; step < 150; ++step) {
+        system.update(world, map, core::PlayerInput{}, STEP);  // pas d'entree : chute libre
+    }
+
+    const core::Player& player_ = world.getComponent<core::Player>(player);
+    const core::Transform& transform = world.getComponent<core::Transform>(player);
+    EXPECT_TRUE(player_.grounded);
+    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::kPlayerHeight, 0.05f);
+}
+
+/**
+ * @brief Deux arrondis concaves de **sol** posés côte à côte, orientations opposées
+ * (`ConcaveUpRight` puis `ConcaveUpLeft`), forment un pic continu à leur jointure (les deux bords
+ * « pleins » se touchent) : le personnage la franchit en marchant sans jamais chuter jusqu'au fond
+ * de la vallée voisine (`EX-GP-007`). La jointure entre deux cases non solides doit être vérifiée
+ * sur toute la **largeur** de la boîte du personnage, pas seulement son centre — sinon la boîte
+ * glisse dans la case voisine (vide de tout appui à cet endroit précis) avant même que son bord
+ * n'ait fini de traverser le bord raide (tangente quasi verticale du côté plein) de la case
+ * courante, ce qui provoquerait une chute jusqu'au fond de la case suivante.
+ * \castest{<b>Deux arrondis concaves de sol adjacents restent praticables à leur jointure, sans
+ * chute jusqu'au fond de la case voisine.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage franchit la jointure entre les deux arrondis concaves sans jamais
+ * chuter jusqu'au fond de la case voisine (à peine à mi-hauteur, jamais au-delà) et se pose
+ * normalement sur le palier bas de l'autre côté.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ArrondisConcavesDeSolAdjacentsSansChuteALaJointure) {
+    core::World world;
+    core::TileMap tiles(8, 8);
+    for (int col = 0; col <= 1; ++col) {
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    tiles.setTile(2, 5, core::TileType::ConcaveUpRight);
+    tiles.setTile(3, 5, core::TileType::ConcaveUpLeft);
+    for (int col = 4; col <= 7; ++col) {
+        tiles.setTile(col, 6, core::TileType::Solid);
+    }
+    const core::Vector2 size = core::playerSize();
+    const core::Entity player = world.createEntity();
+    world.addComponent(player, core::Transform{core::Vector2{0.3f, 6.0f - size.y}, size, 0.0f});
+    world.addComponent(player, core::Velocity{});
+    world.addComponent(player, core::Collider{size});
+    world.addComponent(player, core::Player{});
+    core::CharacterPhysicsSystem system;
+    const core::PlayerInput input{1.0f};
+
+    float centerX = 0.0f;
+    float maxBottomNearPeak = 0.0f;
+    int guard = 0;
+    do {
+        system.update(world, tiles, input, STEP);
+        const core::Transform& t = world.getComponent<core::Transform>(player);
+        centerX = t.position.x + size.x * 0.5f;
+        const float bottom = t.position.y + size.y;
+        // Fenêtre resserrée autour du pic (x = 3, jointure des deux arrondis) : le fond de la case
+        // voisine (6,0) est la valeur NORMALE en dehors de cette fenêtre — l'arrondi de droite
+        // rejoint par construction le sol bas continuant après lui (colonnes 4-7, même hauteur),
+        // donc `bottom` s'en approche légitimement en la quittant. Seule la zone proche du pic doit
+        // rester proche de sa hauteur théorique — une chute jusqu'au fond dès la jointure y serait
+        // anormale.
+        if (centerX >= 2.8f && centerX < 3.2f) {
+            maxBottomNearPeak = (std::max)(maxBottomNearPeak, bottom);
+        }
+        ++guard;
+    } while (centerX < 5.0f && guard < 600);
+
+    ASSERT_LT(guard, 600);
+    // Valeur théorique au pic (x=3, jointure) : 5,0 pile. Une légère « décroche » près du pic
+    // (tangente quasi verticale, courante pour toute courbe aussi raide, voir
+    // `TransitionPenteSolPlatSansAACoup`) reste ici sous 5,4 — bien avant le fond de la case voisine
+    // (6,0, qui signalerait une chute complète).
+    EXPECT_LT(maxBottomNearPeak, 5.4f);
+    EXPECT_TRUE(world.getComponent<core::Player>(player).grounded);
+    EXPECT_NEAR(world.getComponent<core::Transform>(player).position.y, 6.0f - size.y, 0.05f);
+}
+
+/**
+ * @brief Un arrondi concave de **plafond**, seul sur sa case (voisine vide), bloque toujours un
+ * saut visant son bord « plein » (silhouette la plus épaisse, tout près de son propre bord de
+ * case). Même exigence que pour le sol (largeur complète de la boîte, pas seulement son centre) :
+ * sinon le centre de la boîte glisse dans la case voisine vide (aucune silhouette à vérifier là)
+ * avant que son bord n'ait fini de traverser la portion la plus épaisse, laissant un saut passer
+ * au travers par en dessous sans être bloqué du tout.
+ * \castest{<b>Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près
+ * du bord de sa propre case.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut est bloqué par la silhouette épaisse près du bord de case, bien avant
+ * d'atteindre l'apogée libre d'un saut totalement non bloqué.
+ * }
+ */
+/**
+ * @brief Sauter tout en marchant (les deux à la fois, comme un joueur réel) **vers son propre bord
+ * épais** sous un arrondi concave de plafond bloque toujours le saut, y compris quand marcher
+ * pendant la montée déplace la boîte plus vite que le seuil vertical de blocage n'est atteint : la
+ * colonne pertinente peut alors « disparaître » d'un pas à l'autre — voire sur PLUSIEURS pas
+ * consécutifs quand le seuil est manqué de peu à chaque fois (une mémoire limitée au seul pas
+ * précédent ne suffit pas). `core::CharacterPhysicsSystem` mémorise l'étendue horizontale couverte
+ * par la boîte depuis le **début de la montée courante** (`Player::ascentSweepMinX/MaxX`), pas
+ * seulement le pas précédent. Testé dans les deux orientations (`ConcaveDownRight` en marchant vers
+ * la droite, son bord épais ; `ConcaveDownLeft` en marchant vers la gauche, symétrique) — marcher
+ * vers son propre bord **fin** n'est volontairement PAS testé ici : s'en éloigner en marchant y
+ * ramène légitimement vers une silhouette quasi vide (`EX-GP-007`).
+ * \castest{<b>Sauter tout en marchant vers le bord épais d'un arrondi concave de plafond bloque
+ * toujours le saut, en combinant les deux mouvements.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le saut reste bloqué par la silhouette épaisse en marchant vers elle pendant la montée
+ * — jamais un passage complet jusqu'à l'apogée libre d'un saut non bloqué.
+ * }
+ */
+/**
+ * @brief Un saut bloqué près du bord **fin** (silhouette quasi vide) d'un arrondi concave de
+ * plafond reste bloqué DURABLEMENT — le personnage retombe normalement ensuite, il ne se
+ * téléporte jamais au-dessus du plafond. Près du bord fin, le blocage a lieu tout près du sommet
+ * de la case (silhouette peu épaisse) : le bord bas du personnage reste alors, du fait de sa propre
+ * hauteur, encore DANS la même case après le blocage. `core::resolveSlopeFollow` doit donc, sur le
+ * pas suivant, distinguer ce chevauchement résiduel d'un véritable atterrissage sur la face du haut
+ * de la tuile de plafond (qui ne devrait porter un personnage que tombant dessus **par
+ * au-dessus**) — sans cette distinction, le personnage se retrouverait téléporté tout AU-DESSUS du
+ * plafond. Vérifie l'invariant à CHAQUE pas (pas seulement au minimum global), puisque ce cas ne se
+ * manifeste qu'un pas après le blocage, contrairement à `minY`/`minTopY`.
+ * \castest{<b>Un saut bloqué près du bord fin d'un arrondi concave de plafond reste bloqué
+ * durablement, sans téléportation au-dessus du plafond au pas suivant.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Après le blocage, le personnage retombe normalement vers le sol lointain en dessous ;
+ * sa position ne remonte jamais au-dessus de la ligne de la tuile de plafond.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBordFinResteBloqueSansTeleportation) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FLOOR_ROW = 5;
+
+    core::TileMap map(10, 6);
+    for (int col = 0; col < 10; ++col) {
+        map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+    }
+    map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
+
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    // offset=0.20 : bord FIN (silhouette quasi vide), le blocage a lieu tout pres du sommet de la
+    // case — c'est justement la ou le bord bas du personnage (hauteur 0,8) reste encore dans la
+    // meme case apres le blocage (voir la doc du test).
+    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.20f;
+    core::CharacterPhysicsSystem system;
+
+    for (int i = 0; i < 10; ++i) {  // se poser au sol avant de sauter
+        system.update(world, map, core::PlayerInput{}, STEP);
+    }
+
+    bool jumped = false;
+    for (int step = 0; step < 30; ++step) {
+        const core::Player& pl = world.getComponent<core::Player>(player);
+        core::PlayerInput in;
+        if (!jumped && pl.grounded) {
+            in.jumpPressed = true;
+            jumped = true;
+        }
+        if (jumped) {
+            in.jumpHeld = true;
+        }
+        system.update(world, map, in, STEP);
+        // Invariant a chaque pas, pas seulement au minimum global : le personnage ne doit JAMAIS
+        // se retrouver au-dessus de la ligne de plafond (row=3) une fois le saut lance.
+        const float y = world.getComponent<core::Transform>(player).position.y;
+        ASSERT_GT(y, static_cast<float>(CEILING_ROW) - 0.5f) << "step=" << step;
+    }
+    SUCCEED();
+}
+
+TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemeEnMarchantPendantLeSaut) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FLOOR_ROW = 5;
+
+    const auto minTopYReached = [](core::TileType ceilingType, float startX, float moveX) {
+        core::TileMap map(10, 6);
+        for (int col = 0; col < 10; ++col) {
+            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        }
+        map.setTile(CEILING_COLUMN, CEILING_ROW, ceilingType);
+
+        core::World world;
+        const core::Entity player =
+            spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+        world.getComponent<core::Transform>(player).position.x = startX;
+        core::CharacterPhysicsSystem system;
+
+        // Se poser au sol AVANT de marcher/sauter : sinon la chute initiale (spawn en l'air, voir
+        // GridPosition ci-dessus) déplace déjà le personnage horizontalement avant même le premier
+        // saut, faussant la position de départ voulue par ce test.
+        for (int i = 0; i < 10; ++i) {
+            system.update(world, map, core::PlayerInput{}, STEP);
+        }
+
+        bool jumped = false;
+        float minTopY = 100.0f;
+        for (int step = 0; step < 90; ++step) {
+            const core::Player& pl = world.getComponent<core::Player>(player);
+            core::PlayerInput in;
+            in.moveX = moveX;  // marche PENDANT le saut, comme un joueur réel
+            if (!jumped && pl.grounded) {
+                in.jumpPressed = true;
+                jumped = true;
+            }
+            if (jumped) {
+                in.jumpHeld = true;
+            }
+            system.update(world, map, in, STEP);
+            minTopY = (std::min)(minTopY, world.getComponent<core::Transform>(player).position.y);
+        }
+        return minTopY;
+    };
+
+    // Un saut totalement non bloqué atteindrait ~1,96 à 2,2 (apogée libre) ; bloqué par la
+    // silhouette épaisse (h ≳ 0,55 sur ce sous-intervalle), minTopY doit rester nettement en
+    // dessous de cette hauteur libre (valeur numériquement plus grande = moins haut).
+    // `ConcaveDownRight` (épais à DROITE, x=1) en marchant vers la droite : offsets proches de 1.
+    for (float offset = 0.60f; offset <= 0.95f; offset += 0.05f) {
+        const float startX = static_cast<float>(CEILING_COLUMN) + offset;
+        const float minTop = minTopYReached(core::TileType::ConcaveDownRight, startX, 1.0f);
+        EXPECT_GT(minTop, 2.9f) << "ConcaveDownRight, offset=" << offset << " (marche a droite)";
+    }
+    // `ConcaveDownLeft` (épais à GAUCHE, x=0) en marchant vers la gauche : symétrique.
+    for (float offset = 0.05f; offset <= 0.40f; offset += 0.05f) {
+        const float startX = static_cast<float>(CEILING_COLUMN) + offset;
+        const float minTop = minTopYReached(core::TileType::ConcaveDownLeft, startX, -1.0f);
+        EXPECT_GT(minTop, 2.9f) << "ConcaveDownLeft, offset=" << offset << " (marche a gauche)";
+    }
+    // Même défaut, même correctif générique (indépendant du type de tuile) : vérifié aussi sur les
+    // pentes LINÉAIRES de plafond (`EX-GP-006`, `LOT-26`), pas seulement les arrondis concaves de ce
+    // lot — `SlopeDownRight`/`SlopeDownLeft` ont la même silhouette « épaisse d'un côté, fine de
+    // l'autre » (`h = x` / `h = 1 - x`), même mécanisme de disparition de colonne en marchant.
+    for (float offset = 0.60f; offset <= 0.95f; offset += 0.05f) {
+        const float startX = static_cast<float>(CEILING_COLUMN) + offset;
+        const float minTop = minTopYReached(core::TileType::SlopeDownRight, startX, 1.0f);
+        EXPECT_GT(minTop, 2.9f) << "SlopeDownRight, offset=" << offset << " (marche a droite)";
+    }
+    for (float offset = 0.05f; offset <= 0.40f; offset += 0.05f) {
+        const float startX = static_cast<float>(CEILING_COLUMN) + offset;
+        const float minTop = minTopYReached(core::TileType::SlopeDownLeft, startX, -1.0f);
+        EXPECT_GT(minTop, 2.9f) << "SlopeDownLeft, offset=" << offset << " (marche a gauche)";
+    }
+}
+
+TEST(PhysiquePersonnageIntegration, ConcaveDePlafondBloqueMemePresDuBordDeSaPropreCase) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FLOOR_ROW = 5;
+
+    core::TileMap map(10, 6);
+    for (int col = 0; col < 10; ++col) {
+        map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+    }
+    map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::ConcaveDownRight);
+    // Colonne 4 (au-delà du bord droit, le plus epais) volontairement VIDE : sans appui voisin, rien
+    // ne peut compenser une colonne mal choisie.
+
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+    // Bord droit de la boîte (largeur 0,4) à x=4,2 : centre à x=4,0, PILE sur la frontière de case
+    // — la colonne qui doit bloquer le saut est la colonne 3 (la vraie tuile, dont le bord PLEIN,
+    // silhouette la plus épaisse, touche justement cette frontière), pas la colonne 4 (vide).
+    world.getComponent<core::Transform>(player).position.x = static_cast<float>(CEILING_COLUMN) + 0.8f;
+    core::CharacterPhysicsSystem system;
+
+    bool jumped = false;
+    float minY = 100.0f;
+    for (int step = 0; step < 90; ++step) {
+        const core::Player& pl = world.getComponent<core::Player>(player);
+        core::PlayerInput in;
+        if (!jumped && pl.grounded) {
+            in.jumpPressed = true;
+            jumped = true;
+        }
+        if (jumped) {
+            in.jumpHeld = true;
+        }
+        system.update(world, map, in, STEP);
+        minY = (std::min)(minY, world.getComponent<core::Transform>(player).position.y);
+    }
+
+    // Un saut totalement non bloqué atteindrait ~2,2 (apogée libre, mesuré sans aucun plafond) ;
+    // bloqué par la silhouette épaisse de ce bord (h ≈ 0,4, donc autour de y ≈ 3,4), minY doit
+    // rester nettement au-dessus (valeur numériquement plus grande = moins haut) de cet apogée
+    // libre.
+    EXPECT_GT(minY, 3.0f);
 }
 
 /**

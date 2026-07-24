@@ -2,6 +2,7 @@
 
 #include <algorithm>  // std::min / std::max (borne de chute, coupe de saut)
 #include <cmath>      // std::abs (détection de l'apex)
+#include <string>
 
 #include "Core/Ecs/Components/Collider.h"
 #include "Core/Ecs/Components/Player.h"
@@ -10,6 +11,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/PhysicsLog.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/SlopeGeometry.h"
 #include "Core/Physics/SweptCollision.h"
@@ -173,13 +175,27 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             bool ceilingSlopeBlocked = false;
             {
                 const Aabb newBox = Aabb::fromTopLeftSize(transform.position, collider.size);
-                const float previousBottomY = box.min.y + collider.size.y;
                 const SlopeFollowResult follow =
-                    resolveSlopeFollow(previousBottomY, newBox, velocity.value.y, tiles);
+                    resolveSlopeFollow(box, newBox, velocity.value.y, tiles);
                 if (follow.grounded) {
                     transform.position.y = follow.bottomY - collider.size.y;
                     velocity.value.y = 0.0f;
                     onSlope = true;
+                    // Événement rare et notable (pas par-frame) : un calage de sol via une tuile
+                    // de PLAFOND ne devrait arriver que pour un atterrissage sur sa face du haut
+                    // en tombant depuis au-dessus (voir le garde-fou de `resolveSlopeFollow` contre
+                    // un chevauchement résiduel après un blocage par en dessous, EX-GP-007).
+                    const int centerColumn =
+                        static_cast<int>(std::floor((newBox.min.x + newBox.max.x) * 0.5f));
+                    const int landedRow = static_cast<int>(std::floor(follow.bottomY - 1e-4f));
+                    if (centerColumn >= 0 && centerColumn < tiles.width() && landedRow >= 0 &&
+                        landedRow < tiles.height() &&
+                        isCeilingSlope(tiles.tile(centerColumn, landedRow))) {
+                        PHYSICS_LOG_TRACE(
+                            "Calage au sol sur une tuile de plafond (face du haut) : colonne=" +
+                            std::to_string(centerColumn) + " ligne=" + std::to_string(landedRow) +
+                            " bottomY=" + std::to_string(follow.bottomY));
+                    }
                 }
             }
 
@@ -188,16 +204,31 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             //   déplacement latéral (contrairement au sol), seulement un blocage (bonk), comme un
             //   plafond classique. Vérifié APRÈS le suivi de sol (indépendant : l'un agit sur le
             //   bord bas en tombant, l'autre sur le bord haut en montant, jamais simultanément).
+            //
+            //   Suivi d'ascension (EX-GP-007) : `resolveCeilingSlopeFollow` a besoin de l'étendue
+            //   horizontale couverte par la boîte depuis le DÉBUT de la montée courante, pas
+            //   seulement ce pas — marcher tout en sautant peut faire franchir le seuil vertical de
+            //   blocage sur un pas où la colonne pertinente n'est plus couverte par la boîte, alors
+            //   qu'elle l'était sur un pas antérieur de la MÊME montée (le seuil peut être manqué de
+            //   peu sur plusieurs pas successifs avant d'être enfin atteint). Remis à l'étendue
+            //   courante dès que le personnage était au sol ou ne montait pas avant ce pas — sans
+            //   cette remise, une vieille montée laisserait une trace non pertinente.
+            if (player.grounded || velocity.value.y >= 0.0f) {
+                player.ascentSweepMinX = box.min.x;
+                player.ascentSweepMaxX = box.max.x;
+            }
             if (!onSlope) {
                 const Aabb newBox = Aabb::fromTopLeftSize(transform.position, collider.size);
-                const float previousTopY = box.min.y;
-                const CeilingSlopeFollowResult ceilingFollow =
-                    resolveCeilingSlopeFollow(previousTopY, newBox, velocity.value.y, tiles);
+                const CeilingSlopeFollowResult ceilingFollow = resolveCeilingSlopeFollow(
+                    box.min.y, player.ascentSweepMinX, player.ascentSweepMaxX, newBox,
+                    velocity.value.y, tiles);
                 if (ceilingFollow.blocked) {
                     transform.position.y = ceilingFollow.topY;
                     velocity.value.y = 0.0f;
                     ceilingSlopeBlocked = true;
                 }
+                player.ascentSweepMinX = (std::min)(player.ascentSweepMinX, newBox.min.x);
+                player.ascentSweepMaxX = (std::max)(player.ascentSweepMaxX, newBox.max.x);
             }
 
             //   7. Annule la vitesse sur les axes bloqués (choc mur / sol / plafond) :
