@@ -19,8 +19,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `ToolBar::relayout(top)` repositionne la barre d'outils juste sous la palette à chaque frame,
   quel que soit son état de dépliage. Un mockup HTML/CSS interactif a été itéré avec le demandeur
   (position du dépliage, choix des quatre catégories, troisième niveau d'accordéon) **avant**
-  l'implémentation. **7 nouveaux tests** (6 `TilePalette`, 1 `ToolBar`), aucune régression
-  (402/402 tests verts).
+  l'implémentation. **Défilement** ajouté après une première revue (« n'est pas complet ») : tout
+  déplier en même temps (25 lignes au maximum) pouvait dépasser la hauteur de fenêtre disponible,
+  rendant les dernières entrées définitivement inaccessibles à la souris — `TilePalette` expose
+  désormais une **fenêtre visible** (`scroll`/`setViewportHeight`), la molette au-dessus du panneau
+  latéral la fait défiler (plutôt que de zoomer la caméra), et une barre de défilement (piste +
+  curseur, même principe que `LevelPicker`, `LOT-15`) apparaît si le contenu déplié déborde.
+  Replier/déplier un en-tête ne le fait **jamais** disparaître de la fenêtre (`TilePalette::
+  followRow`, suit automatiquement l'en-tête tout juste basculé — sans quoi le défilement aurait
+  simplement déplacé le problème plutôt que de le résoudre). **11 nouveaux tests** (10
+  `TilePalette`, 1 `ToolBar`), aucune régression (406/406 tests verts).
 
 ### Corrigé
 - **Blocs poussables traversant les pentes/arrondis** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/

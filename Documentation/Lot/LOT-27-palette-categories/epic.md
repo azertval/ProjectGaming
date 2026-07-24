@@ -34,6 +34,14 @@ fixe, pas de rendu de survol/animation).
 - Hauteur de panneau **dynamique** : `TilePalette::bottom()` remplace le compte fixe
   (`EditorLayout::PALETTE_TYPE_COUNT`/`TOOLBAR_TOP`, supprimés) ; `ToolBar::relayout(top)` se
   repositionne chaque frame juste sous la palette, quel que soit son état de dépliage courant.
+- **Défilement** de la palette (molette au-dessus du panneau latéral) et barre de défilement
+  (piste + curseur), sur le modèle de `LevelPicker` (`LOT-15`) : tout déplier en même temps (25
+  lignes au maximum) peut dépasser la hauteur de fenêtre disponible, une fois `ToolBar` réservée en
+  dessous. Un en-tête replié/déplié reste **toujours visible** après son propre clic (la palette
+  défile automatiquement pour le garder à l'écran, comme `LevelPicker` suit sa sélection au
+  clavier) — sans quoi déplier une catégorie proche du bas de la liste pourrait faire disparaître
+  son propre en-tête (ou un autre plus bas) derrière le bord de l'écran, sans aucun moyen évident
+  de le retrouver.
 - Renommage d'affichage « Danger » → « Piège » (libellé seulement ; le type `core::TileType::Danger`
   et son identifiant JSON restent inchangés — aucune migration de niveau nécessaire).
 
@@ -74,6 +82,14 @@ fixe, pas de rendu de survol/animation).
 - **`TilePalette` reste une logique pure** (aucune dépendance de rendu), dans l'esprit déjà établi
   par `ToolBar` : seule la géométrie écran et l'état de dépliage/sélection lui appartiennent,
   testable sans GPU (`EX-NFR-010`).
+- **Gap découvert après la livraison initiale de TACHE-01** (revue : « rajouter un scroll barre
+  dans le menu, n'est pas complet ») : sans défilement, un dépliage cumulé dépassant la hauteur de
+  fenêtre rendait les dernières entrées **définitivement inaccessibles** à la souris (aucune ligne
+  ne dépasse `entries()`, donc rien à cliquer en dehors de la fenêtre) — corrigé en ajoutant le
+  défilement (molette + barre) décrit ci-dessus, complété par le suivi automatique d'un en-tête
+  qui vient d'être replié/déplié (`TilePalette::followRow`), sans quoi le correctif aurait
+  simplement déplacé le problème (déplier une catégorie aurait pu faire disparaître son propre
+  en-tête plutôt que la solution).
 
 ## Exigences couvertes
 - `EX-EDIT-018` — nouvelle exigence, implémentée.
@@ -99,7 +115,10 @@ fixe, pas de rendu de survol/animation).
    sans jamais se superposer à elle ni laisser un vide incohérent.
 5. Aucune régression fonctionnelle : les 19 types restent tous accessibles et sélectionnables, le
    canevas d'édition n'est jamais recouvert (`EX-EDIT-015`).
-6. Logique nouvelle couverte par des tests. Build `/W4 /WX` sans avertissement, Doxygen et lint des
+6. Un dépliage cumulé dépassant la hauteur de fenêtre reste entièrement accessible : une barre de
+   défilement apparaît, la molette au-dessus du panneau fait défiler la palette (sans zoomer la
+   caméra), et déplier/replier un en-tête ne le fait jamais disparaître de la fenêtre visible.
+7. Logique nouvelle couverte par des tests. Build `/W4 /WX` sans avertissement, Doxygen et lint des
    exigences verts.
 
 ## Dépendances

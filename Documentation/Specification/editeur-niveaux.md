@@ -99,7 +99,11 @@ défilement long avant de repérer le bon type.
   recouvrir le canevas d'édition. Une famille regroupant **plusieurs formes ou tailles d'un même
   type d'usage** (Pente, Arrondi, Bloc poussable) doit être elle-même un **sous-groupe repliable**
   imbriqué dans sa catégorie — trois niveaux d'accordéon au maximum jusqu'à une variante précise,
-  plutôt qu'une seconde liste plate cachée sous la première.
+  plutôt qu'une seconde liste plate cachée sous la première. Si tout déplier en même temps dépasse
+  la hauteur de fenêtre disponible, la palette doit rester entièrement accessible par
+  **défilement** (molette, barre de défilement) plutôt que de rendre ses dernières entrées
+  inaccessibles à la souris ; déplier ou replier un en-tête ne doit jamais le faire disparaître de
+  la fenêtre visible.
 
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de

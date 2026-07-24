@@ -43,6 +43,13 @@ namespace hmi {
  * comme avant `LOT-27`), `bottom()` donne la position `y` courante juste sous la dernière entrée
  * visible — `EditorScreen` l'utilise pour repositionner dynamiquement `ToolBar` (`ToolBar::relayout`)
  * en dessous, à chaque frame.
+ *
+ * **Défilement** (`EX-EDIT-018`) : tout déplier en même temps (jusqu'à 26 lignes) peut dépasser la
+ * hauteur de fenêtre disponible. `entries()` n'expose donc que la **fenêtre visible** courante
+ * (au plus `visibleRowCount(viewportHeight)` lignes, jamais moins d'une) ; `scroll` la fait défiler
+ * (molette, sans changer la sélection ni l'état de dépliage), sur le modèle de `LevelPicker`. Sans
+ * cela, un long dépliage rendrait les dernières entrées définitivement inaccessibles derrière le
+ * bas de l'écran, sans aucun moyen de les atteindre.
  */
 class TilePalette {
 public:
@@ -73,15 +80,52 @@ public:
         return _selected;
     }
 
-    /// @return La position `y`, en pixels écran, juste sous la dernière entrée visible — dépend de
-    ///         l'état de dépliage courant (varie d'un clic sur un en-tête à l'autre).
+    /// @return La position `y`, en pixels écran, juste sous la dernière entrée **visible** de la
+    ///         fenêtre courante — dépend de l'état de dépliage et de défilement (varie d'un clic
+    ///         sur un en-tête, ou d'un défilement à la molette, à l'autre).
     [[nodiscard]] float bottom() const noexcept {
         return _bottom;
     }
 
+    /// @return L'indice de la première ligne affichée (défilement) — les lignes d'indice inférieur
+    ///         sont défilées au-dessus du haut de la palette, invisibles.
+    [[nodiscard]] int scrollOffset() const noexcept {
+        return _scrollOffset;
+    }
+
+    /// @return Le nombre total de lignes actuellement dépliées (feuilles + en-têtes visibles selon
+    ///         l'état de dépliage), défilement mis à part — sert, comparé à `visibleRowCount`, à
+    ///         savoir si une barre de défilement doit être dessinée.
+    [[nodiscard]] int totalRowCount() const noexcept {
+        return _totalRows;
+    }
+
+    /**
+     * @brief Nombre de lignes affichables simultanément sans défilement, pour une hauteur de
+     *        fenêtre donnée — réserve la place occupée par `ToolBar` (3 lignes) sous la palette.
+     * @param viewportHeight Hauteur de la surface de rendu, en pixels.
+     * @return Au moins 1 (une fenêtre trop petite pour une seule ligne reste franchissable).
+     */
+    [[nodiscard]] static int visibleRowCount(float viewportHeight);
+
+    /// Synchronise la hauteur de fenêtre connue (fenêtrage du défilement) — à appeler chaque
+    /// frame, avant tout clic ou défilement : un redimensionnement change le nombre de lignes
+    /// visibles sans qu'aucun clic ni dépliage n'ait eu lieu.
+    void setViewportHeight(float viewportHeight);
+
+    /**
+     * @brief Fait défiler la fenêtre visible (molette), sans changer la sélection ni l'état de
+     *        dépliage — même esprit que `LevelPicker::update` (la molette parcourt la liste sans
+     *        jamais la modifier). Utilise la dernière hauteur de fenêtre connue
+     *        (`setViewportHeight`).
+     * @param wheelDelta Cumul de molette de la frame (`InputState::wheelDelta`).
+     */
+    void scroll(int wheelDelta);
+
     /**
      * @brief Traite un clic en position écran : sélectionne l'entrée couverte, s'il y en a une —
-     *        replie/déplie un en-tête, ou sélectionne le type d'une feuille.
+     *        replie/déplie un en-tête, ou sélectionne le type d'une feuille. Seule la fenêtre
+     *        visible courante (défilement compris) est testée.
      * @param x Abscisse écran du clic, en pixels.
      * @param y Ordonnée écran du clic, en pixels.
      * @return `true` si le clic a touché la palette (en-tête replié/déplié, ou sélection changée/
@@ -108,14 +152,26 @@ private:
         Subgroup subgroup = Subgroup::Pente;            ///< Valide seulement si `ToggleSubgroup`.
     };
 
-    /// Reconstruit `_entries`/`_rows`/`_bottom` d'après l'état de dépliage courant — seul point de
-    /// passage qui pose les positions écran ; appelé à la construction et après chaque bascule.
+    /// Reconstruit la liste complète (état de dépliage courant), borne `_scrollOffset` à son
+    /// intervalle valide pour `_viewportHeight`, puis découpe `_entries`/`_rows`/`_bottom`/
+    /// `_totalRows` sur la fenêtre visible qui en résulte — seul point de passage qui pose les
+    /// positions écran ; appelé à la construction et après toute bascule/défilement/redimensionnement.
     void relayout();
 
-    std::vector<Entry> _entries;
+    /// Ajuste `_scrollOffset` pour que la ligne d'indice absolu @p absoluteIndex (dans la liste
+    /// complète, indépendante du défilement) reste dans la fenêtre visible, puis redécoupe —
+    /// appelé juste après avoir replié/déplié un en-tête, sinon un en-tête proche du bas de la
+    /// liste pourrait se retrouver hors fenêtre (ou pousser un en-tête plus bas hors fenêtre) sans
+    /// aucun indice visuel, la seule barre de défilement ne suffisant pas à le deviner.
+    void followRow(int absoluteIndex);
+
+    std::vector<Entry> _entries;  ///< Fenêtre visible seulement (défilement compris).
     std::vector<Row> _rows;  ///< Même index que `_entries` : ce que fait un clic sur chaque ligne.
     core::TileType _selected = core::TileType::Solid;
     float _bottom = 0.0f;
+    int _totalRows = 0;        ///< Nombre de lignes dépliées, défilement mis à part.
+    int _scrollOffset = 0;     ///< Indice de la première ligne affichée (défilement).
+    float _viewportHeight = 720.0f;  ///< Dernière hauteur connue (`setViewportHeight`).
 
     std::array<bool, CATEGORY_COUNT> _categoryExpanded{};
     std::array<bool, SUBGROUP_COUNT> _subgroupExpanded{};

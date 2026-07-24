@@ -268,3 +268,118 @@ TEST(TilePaletteTest, BottomSuitLEtatDeDepliage) {
     clickEntry(palette, *findByLabel(palette, "v Tuile"));
     EXPECT_FLOAT_EQ(palette.bottom(), collapsedBottom);
 }
+
+namespace {
+
+// Deplie Tuile (+ Pente + Arrondi) et Interactif (+ Bloc poussable) : 25 lignes au total, de quoi
+// depasser largement une petite fenetre et exercer le defilement. Fenetre volontairement genereuse
+// pendant le depliage : un en-tete a deplier peut sinon se retrouver hors fenetre visible avant
+// meme d'avoir ete clique (le point precis que ce correctif de defilement corrige cote reel).
+void expandEverything(hmi::TilePalette& palette) {
+    palette.setViewportHeight(2000.0f);
+    clickEntry(palette, *findByLabel(palette, "> Tuile"));
+    clickEntry(palette, *findByLabel(palette, "> Pente"));
+    clickEntry(palette, *findByLabel(palette, "> Arrondi"));
+    clickEntry(palette, *findByLabel(palette, "> Interactif"));
+    clickEntry(palette, *findByLabel(palette, "> Bloc poussable"));
+    clickEntry(palette, *findByLabel(palette, "> Jalon"));
+}
+
+}  // namespace
+
+/**
+ * @brief Une fenêtre trop petite pour tout afficher ne montre qu'une fenêtre visible réduite,
+ *        sans jamais dépasser une ligne (au moins 1).
+ * \castest{<b>Une fenêtre réduite limite le nombre d'entrées visibles simultanément.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Avec tout déplié (25 lignes) et une fenêtre de 200px, une seule entrée est visible ;
+ * `totalRowCount()` reste 25.
+ * }
+ */
+TEST(TilePaletteTest, FenetreReduiteLimiteLesEntreesVisibles) {
+    hmi::TilePalette palette;
+    expandEverything(palette);
+    ASSERT_EQ(palette.totalRowCount(), 25);
+
+    palette.setViewportHeight(200.0f);
+
+    EXPECT_EQ(palette.entries().size(), 1u);
+    EXPECT_EQ(palette.totalRowCount(), 25);
+}
+
+/**
+ * @brief Faire défiler à la molette change l'entrée affichée sans changer la sélection ni l'état
+ *        de dépliage.
+ * \castest{<b>Le défilement change la fenêtre visible sans changer la sélection.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Après un cran de molette vers le bas, `scrollOffset()` vaut 1 et l'entrée visible a
+ * changé ; la sélection reste inchangée.
+ * }
+ */
+TEST(TilePaletteTest, ScrollChangeLaFenetreSansChangerLaSelection) {
+    hmi::TilePalette palette;
+    expandEverything(palette);
+    palette.setViewportHeight(200.0f);
+    const std::string firstLabel = palette.entries().front().label;
+    const core::TileType before = palette.selected();
+
+    palette.scroll(-120);
+
+    EXPECT_EQ(palette.scrollOffset(), 1);
+    EXPECT_NE(palette.entries().front().label, firstLabel);
+    EXPECT_EQ(palette.selected(), before);
+}
+
+/**
+ * @brief Le défilement est borné : il ne peut ni descendre sous 0, ni dépasser la dernière page.
+ * \castest{<b>Le défilement est borné aux deux extrémités de la liste.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un défilement massif vers le bas se borne à `totalRowCount() - 1` (fenêtre d'une
+ * ligne) ; un défilement massif vers le haut revient à 0.
+ * }
+ */
+TEST(TilePaletteTest, ScrollBorneAuxExtremites) {
+    hmi::TilePalette palette;
+    expandEverything(palette);
+    palette.setViewportHeight(200.0f);
+
+    palette.scroll(-120 * 100);
+    EXPECT_EQ(palette.scrollOffset(), palette.totalRowCount() - 1);
+
+    palette.scroll(120 * 100);
+    EXPECT_EQ(palette.scrollOffset(), 0);
+}
+
+/**
+ * @brief Déplier un en-tête proche du bord de la fenêtre visible ne le fait jamais disparaître :
+ *        la palette défile automatiquement pour le garder visible (comme le clavier de
+ *        `LevelPicker` suit la sélection).
+ * \castest{<b>Un en-tête déplié reste visible même dans une fenêtre étroite.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Avec une fenêtre ne montrant que 6 lignes, déplier Interactif (dont l'en-tête occupe
+ * alors la dernière ligne visible) ajoute 4 lignes sans faire disparaître son propre en-tête.
+ * }
+ */
+TEST(TilePaletteTest, EnTeteDeplieResteVisibleDansUneFenetreEtroite) {
+    hmi::TilePalette palette;
+    palette.setViewportHeight(350.0f);  // visibleRowCount(350) == 6
+    ASSERT_EQ(hmi::TilePalette::visibleRowCount(350.0f), 6);
+    clickEntry(palette, *findByLabel(palette, "> Tuile"));
+    ASSERT_TRUE(findByLabel(palette, "> Interactif").has_value());
+
+    clickEntry(palette, *findByLabel(palette, "> Interactif"));
+
+    EXPECT_TRUE(findByLabel(palette, "v Interactif").has_value());
+}

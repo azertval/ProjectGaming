@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**402 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**406 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (330)
+## Tests unitaires (334)
 
 ### Core
 
@@ -357,7 +357,7 @@
 
 ### HMI
 
-#### Editor (50)
+#### Editor (54)
 
 **`test_level_name_validation.cpp`**
 
@@ -427,6 +427,10 @@
 | **TilePaletteTest.SousGroupeBlocPoussableDeplieExposeSesTailles** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:200`</sub> | Le sous-groupe Bloc poussable déplié expose ses trois tailles. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `findByLabel(palette, "> Bloc poussable").has_value()` est vrai.<br/>Vérifie que `half.has_value()` est vrai.<br/>Vérifie que `consumed` est vrai.<br/>Vérifie que `palette.selected()` vaut `core::TileType::BlockHalf`. |
 | **TilePaletteTest.SousGroupePenteDeplieExposeSesOrientations** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:225`</sub> | Le sous-groupe Pente déplié expose ses quatre orientations. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `ceilingRight.has_value()` est vrai.<br/>Vérifie que `consumed` est vrai.<br/>Vérifie que `palette.selected()` vaut `core::TileType::SlopeDownRight`.<br/>Vérifie que `findByLabel(palette, "> Arrondi").has_value()` est vrai. |
 | **TilePaletteTest.BottomSuitLEtatDeDepliage** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:253`</sub> | `bottom()` suit l'état de dépliage courant. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `palette.bottom()` est strictement supérieur à `collapsedBottom`.<br/>Vérifie que `palette.bottom()` vaut `collapsedBottom` (comparaison flottante). |
+| **TilePaletteTest.FenetreReduiteLimiteLesEntreesVisibles** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:293`</sub> | Une fenêtre réduite limite le nombre d'entrées visibles simultanément. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `palette.totalRowCount()` vaut `25`.<br/>Vérifie que `palette.entries().size()` vaut `1u`.<br/>Vérifie que `palette.totalRowCount()` vaut `25`. |
+| **TilePaletteTest.ScrollChangeLaFenetreSansChangerLaSelection** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:316`</sub> | Le défilement change la fenêtre visible sans changer la sélection. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `palette.scrollOffset()` vaut `1`.<br/>Vérifie que `palette.entries().front().label` diffère de `firstLabel`.<br/>Vérifie que `palette.selected()` vaut `before`. |
+| **TilePaletteTest.ScrollBorneAuxExtremites** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:341`</sub> | Le défilement est borné aux deux extrémités de la liste. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `palette.scrollOffset()` vaut `palette.totalRowCount() - 1`.<br/>Vérifie que `palette.scrollOffset()` vaut `0`. |
+| **TilePaletteTest.EnTeteDeplieResteVisibleDansUneFenetreEtroite** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tile_palette.cpp:366`</sub> | Un en-tête déplié reste visible même dans une fenêtre étroite. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::TilePalette::visibleRowCount(350.0f)` vaut `6`.<br/>Vérifie que `findByLabel(palette, "> Interactif").has_value()` est vrai.<br/>Vérifie que `findByLabel(palette, "v Interactif").has_value()` est vrai. |
 
 **`test_tool_bar.cpp`**
 

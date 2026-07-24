@@ -31,10 +31,25 @@ demandeur (voir `epic.md`). La hauteur du panneau devenant variable, `hmi::ToolB
   inchangé (mêmes champs d'`Entry` qu'avant ce lot).
 - Libellé « Danger » → « Piège » (affichage seulement ; `core::TileType::Danger` et son identifiant
   JSON inchangés).
+- **Défilement** (gap découvert après la première revue, voir `epic.md`) : `relayout()` reconstruit
+  désormais la liste complète des entrées dépliées puis la **découpe** sur une fenêtre visible
+  (`visibleRowCount(viewportHeight)`, réserve la place de `ToolBar` sous la palette) déterminée par
+  `_scrollOffset`/`_viewportHeight` ; `setViewportHeight(viewportHeight)` synchronise la hauteur
+  connue (appelé chaque frame par `EditorScreen`) et `scroll(wheelDelta)` fait défiler la fenêtre
+  (molette, sans toucher à la sélection ni à l'état de dépliage), sur le modèle de
+  `LevelPicker::update`. Nouvelle méthode privée `followRow(absoluteIndex)` : après tout
+  repliage/dépliage, ajuste `_scrollOffset` pour que l'en-tête qui vient d'être cliqué reste dans la
+  fenêtre visible — sans quoi replier/déplier un en-tête proche du bord de la fenêtre pourrait le
+  faire disparaître derrière elle, sans aucun moyen de revenir dessus autrement qu'en devinant qu'il
+  faut faire défiler. `EditorScreen::update` route la molette vers `_palette.scroll` quand la souris
+  survole le panneau latéral (`input.mouseX() < PANEL_WIDTH`), vers le zoom caméra sinon ;
+  `renderPalette` dessine une barre de défilement (piste + curseur), même principe que
+  `EditorScreen::renderPicker` (`LevelPicker`, LOT-15), uniquement si `totalRowCount() >
+  visibleRowCount(viewportHeight)`.
 
 ## Fichiers impactés
 - `Source/HMI/Editor/TilePalette.h`/`.cpp`, `EditorLayout.h`, `ToolBar.h`/`.cpp`.
-- `Source/HMI/Interface/EditorScreen.cpp` (constructeur, `update()`).
+- `Source/HMI/Interface/EditorScreen.cpp` (constructeur, `update()`, `renderPalette`).
 - `Source/Test/Unit/HMI/Editor/test_tile_palette.cpp`, `test_tool_bar.cpp`.
 
 ## Tests (obligatoires)
@@ -53,7 +68,14 @@ demandeur (voir `epic.md`). La hauteur du panneau devenant variable, `hmi::ToolB
 - `bottom()` suit l'état de dépliage courant (`BottomSuitLEtatDeDepliage`).
 - `ToolBar::relayout` repositionne sans changer la sélection ni le nombre d'entrées
   (`RelayoutRepositionneSansChangerLaSelection`).
-- Build `/W4 /WX` sans avertissement ; suite complète (330 tests unitaires, 70 tests d'intégration,
+- Une fenêtre trop petite limite les entrées visibles sans jamais dépasser le total réel
+  (`FenetreReduiteLimiteLesEntreesVisibles`).
+- Le défilement change la fenêtre visible sans changer la sélection
+  (`ScrollChangeLaFenetreSansChangerLaSelection`), et se borne aux deux extrémités
+  (`ScrollBorneAuxExtremites`).
+- Un en-tête déplié/replié reste visible même dans une fenêtre étroite
+  (`EnTeteDeplieResteVisibleDansUneFenetreEtroite`) — couvre `followRow`.
+- Build `/W4 /WX` sans avertissement ; suite complète (334 tests unitaires, 70 tests d'intégration,
   2 tests système) verte sans régression.
 
 ## Points d'attention
@@ -65,6 +87,13 @@ demandeur (voir `epic.md`). La hauteur du panneau devenant variable, `hmi::ToolB
   l'a causé** : sans le second appel à `ToolBar::relayout` juste après `_palette.handleClick`, la
   barre serait restée à son ancienne position jusqu'à la frame suivante (décalage visuel d'une
   frame après chaque clic sur un en-tête).
+- **Le défilement seul ne suffisait pas** : ajouté seul (sans `followRow`), un dépliage cumulé
+  dépassant la fenêtre visible aurait simplement déplacé le problème plutôt que de le résoudre —
+  déplier une catégorie proche du bas de la liste pouvait faire disparaître **son propre en-tête**
+  de la fenêtre (`_scrollOffset` restant inchangé alors que le total de lignes grandissait sous
+  lui). `followRow` calcule l'indice **absolu** (indépendant du défilement) de la ligne cliquée
+  avant `relayout()` — cet indice reste valide après le clic, seul ce qui suit la ligne dans la
+  liste changeant — puis ajuste `_scrollOffset` pour qu'il reste dans la fenêtre.
 
 ## Définition de fait (DoD)
 - Palette en accordéon à trois niveaux, panneau latéral jamais superposé au canevas, aucune

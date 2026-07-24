@@ -1,5 +1,7 @@
 #include "HMI/Editor/TilePalette.h"
 
+#include <algorithm>
+
 #include "HMI/Editor/EditorLayout.h"
 
 namespace hmi {
@@ -12,6 +14,10 @@ namespace {
     return (expanded ? "v " : "> ") + name;
 }
 
+// Place reservee sous la fenetre visible de la palette pour ToolBar (3 lignes) et une marge basse
+// -- la barre d'outils reste toujours juste sous la fenetre, jamais hors ecran ni chevauchee.
+constexpr float RESERVED_BELOW_PALETTE = PANEL_SECTION_GAP + 3.0f * PANEL_ROW_PITCH + 24.0f;
+
 }  // namespace
 
 // Disposition en colonne (LOT-15/LOT-27), dans le panneau lateral : une ligne par entree
@@ -19,16 +25,46 @@ namespace {
 // rendu delegue comme documente en en-tete). Categories/sous-groupes tous replies au depart.
 TilePalette::TilePalette() { relayout(); }
 
+int TilePalette::visibleRowCount(float viewportHeight) {
+    const int rows =
+        static_cast<int>((viewportHeight - PALETTE_TOP - RESERVED_BELOW_PALETTE) / PANEL_ROW_PITCH);
+    return (std::max)(1, rows);
+}
+
+void TilePalette::setViewportHeight(float viewportHeight) {
+    _viewportHeight = viewportHeight;
+    relayout();
+}
+
+void TilePalette::scroll(int wheelDelta) {
+    constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
+    _scrollOffset -= static_cast<int>(static_cast<float>(wheelDelta) / WHEEL_NOTCH);
+    relayout();
+}
+
+void TilePalette::followRow(int absoluteIndex) {
+    const int visible = visibleRowCount(_viewportHeight);
+    if (absoluteIndex < _scrollOffset) {
+        _scrollOffset = absoluteIndex;
+    } else if (absoluteIndex >= _scrollOffset + visible) {
+        _scrollOffset = absoluteIndex - visible + 1;
+    }
+    relayout();
+}
+
+// Reconstruit la liste complete (etat de depliage courant, positions absolues), puis decoupe sur
+// la fenetre visible determinee par _scrollOffset/_viewportHeight -- seul point de passage qui
+// pose les positions ecran finales de _entries/_rows (voir la doc de l'en-tete).
 void TilePalette::relayout() {
-    _entries.clear();
-    _rows.clear();
+    std::vector<Entry> fullEntries;
+    std::vector<Row> fullRows;
 
     float y = PALETTE_TOP;
 
     // Ajoute une entree-feuille (selectionnable) a l'indentation donnee.
     const auto pushLeaf = [&](core::TileType type, const std::string& label, float indent) {
-        _entries.push_back(Entry{type, PANEL_MARGIN + indent, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE, label});
-        _rows.push_back(Row{RowAction::SelectType, type, Category::Tuile, Subgroup::Pente});
+        fullEntries.push_back(Entry{type, PANEL_MARGIN + indent, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE, label});
+        fullRows.push_back(Row{RowAction::SelectType, type, Category::Tuile, Subgroup::Pente});
         y += PANEL_ROW_PITCH;
     };
     // Ajoute une entree autonome (Vide, Piege) : selectionnable directement, jamais repliable.
@@ -38,17 +74,17 @@ void TilePalette::relayout() {
     // Ajoute un en-tete de categorie (niveau 1, jamais indente) : replie/deplie au clic.
     const auto pushCategoryHeader = [&](Category category, core::TileType icon,
                                         const std::string& name, bool expanded) {
-        _entries.push_back(
+        fullEntries.push_back(
             Entry{icon, PANEL_MARGIN, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE, headerLabel(name, expanded)});
-        _rows.push_back(Row{RowAction::ToggleCategory, core::TileType::Empty, category, Subgroup::Pente});
+        fullRows.push_back(Row{RowAction::ToggleCategory, core::TileType::Empty, category, Subgroup::Pente});
         y += PANEL_ROW_PITCH;
     };
     // Ajoute un en-tete de sous-groupe (niveau 2, indente d'un cran sous sa categorie).
     const auto pushSubgroupHeader = [&](Subgroup subgroup, core::TileType icon,
                                         const std::string& name, bool expanded) {
-        _entries.push_back(Entry{icon, PANEL_MARGIN + PALETTE_INDENT_STEP, y, PANEL_ICON_SIZE,
-                                 PANEL_ICON_SIZE, headerLabel(name, expanded)});
-        _rows.push_back(Row{RowAction::ToggleSubgroup, core::TileType::Empty, Category::Tuile, subgroup});
+        fullEntries.push_back(Entry{icon, PANEL_MARGIN + PALETTE_INDENT_STEP, y, PANEL_ICON_SIZE,
+                                    PANEL_ICON_SIZE, headerLabel(name, expanded)});
+        fullRows.push_back(Row{RowAction::ToggleSubgroup, core::TileType::Empty, Category::Tuile, subgroup});
         y += PANEL_ROW_PITCH;
     };
 
@@ -112,7 +148,22 @@ void TilePalette::relayout() {
         pushLeaf(core::TileType::Exit, "Sortie", PALETTE_INDENT_STEP);
     }
 
-    _bottom = y;
+    // ---- Decoupage sur la fenetre visible (defilement, EX-EDIT-018) ----
+    _totalRows = static_cast<int>(fullEntries.size());
+    const int visible = visibleRowCount(_viewportHeight);
+    const int maxOffset = (std::max)(0, _totalRows - visible);
+    _scrollOffset = std::clamp(_scrollOffset, 0, maxOffset);
+    const int lastVisible = (std::min)(_totalRows, _scrollOffset + visible);
+
+    _entries.clear();
+    _rows.clear();
+    for (int index = _scrollOffset; index < lastVisible; ++index) {
+        Entry entry = fullEntries[static_cast<std::size_t>(index)];
+        entry.y = PALETTE_TOP + static_cast<float>(index - _scrollOffset) * PANEL_ROW_PITCH;
+        _entries.push_back(std::move(entry));
+        _rows.push_back(fullRows[static_cast<std::size_t>(index)]);
+    }
+    _bottom = PALETTE_TOP + static_cast<float>(_entries.size()) * PANEL_ROW_PITCH;
 }
 
 bool TilePalette::handleClick(float x, float y) {
@@ -122,6 +173,10 @@ bool TilePalette::handleClick(float x, float y) {
             continue;
         }
         const Row& row = _rows[index];
+        // Indice ABSOLU (independant du defilement) de la ligne cliquee : reste valide apres le
+        // depliage/repliage ci-dessous (seul ce qui la SUIT dans la liste change, voir followRow),
+        // donc calcule avant relayout(), qui reconstruit _entries/_rows sur une nouvelle fenetre.
+        const int absoluteIndex = _scrollOffset + static_cast<int>(index);
         switch (row.action) {
             case RowAction::SelectType:
                 _selected = row.type;
@@ -129,13 +184,13 @@ bool TilePalette::handleClick(float x, float y) {
             case RowAction::ToggleCategory: {
                 bool& expanded = _categoryExpanded[static_cast<std::size_t>(row.category)];
                 expanded = !expanded;
-                relayout();
+                followRow(absoluteIndex);
                 break;
             }
             case RowAction::ToggleSubgroup: {
                 bool& expanded = _subgroupExpanded[static_cast<std::size_t>(row.subgroup)];
                 expanded = !expanded;
-                relayout();
+                followRow(absoluteIndex);
                 break;
             }
         }
