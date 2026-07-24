@@ -43,23 +43,6 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
     return atlas.tile(0, 0);
 }
 
-// Region d'atlas pour le canevas de l'editeur : Solid standard pour les tuiles a forme fine ou a
-// taille reduite (moins lisible qu'un carre plein dans une grille dense en cours d'edition), sinon
-// identique a regionForTile — voir la documentation de l'en-tete.
-core::AtlasRegion editorCanvasRegionForTile(core::TileType type, const TextureAtlas& atlas) {
-    switch (type) {
-        case core::TileType::SlopeUpRight:
-        case core::TileType::SlopeUpLeft:
-        case core::TileType::RoundedUpRight:
-        case core::TileType::RoundedUpLeft:
-        case core::TileType::BlockHalf:
-        case core::TileType::BlockQuarter:
-            return regionForTile(core::TileType::Solid, atlas);
-        default:
-            return regionForTile(type, atlas);
-    }
-}
-
 // Position dans la grille de tuiles reservee a un type de tuile a profil suivable — voir la
 // documentation de l'en-tete (seule source de verite pour ces coordonnees).
 std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {

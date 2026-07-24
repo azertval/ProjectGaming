@@ -648,9 +648,15 @@ void EditorScreen::renderGrid(RenderContext& context) {
             if (type == core::TileType::Empty) {
                 continue;
             }
-            context.spriteBatch.draw(quadFor(editorCanvasRegionForTile(type, _atlas),
-                                             static_cast<float>(column),
-                                             static_cast<float>(row), 1.0f, 1.0f, _atlas));
+            // Aperçu fidèle (EX-GP-005) : un bloc réduit se dessine centré et à l'échelle, comme
+            // sa boîte de collision réelle (core::BlockController::boxAt, même formule de marge)
+            // — pas un carré plein, pour que l'éditeur reflète exactement ce que le jeu affichera.
+            const float scale = core::tileVisualScale(type);
+            const float margin = (1.0f - scale) * 0.5f;
+            context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
+                                             static_cast<float>(column) + margin,
+                                             static_cast<float>(row) + margin, scale, scale,
+                                             _atlas));
         }
     }
 

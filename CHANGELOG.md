@@ -19,15 +19,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   gardait sa propre teinte (vert sarcelle, vieux rose, bleu violet, magenta) — incohérent avec un
   simple matériau de plateforme. Rempli en gris (même couleur que `Solid`), comme les blocs
   réduits (`BlockHalf`/`BlockQuarter`, déjà gris) ; la forme (triangle/courbe) reste inchangée.
-- **Niveaux difficiles à lire dans l'éditeur** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`) : le canevas
-  de l'éditeur (grille du niveau en cours d'édition) affichait les pentes/arrondis avec leur forme
-  précise (triangle/courbe, cf. correction précédente) et les blocs réduits (`BlockHalf`/
-  `BlockQuarter`) à taille pleine (non réduite ni recentrée, contrairement au jeu) — une grille
-  dense mélangeant formes fines et tailles trompeuses rendait la disposition d'ensemble d'un
-  niveau difficile à lire pendant l'édition. Nouvelle fonction
-  `hmi::editorCanvasRegionForTile` (`HMI/Graphics/TileVisuals.h`) : le canevas affiche désormais
-  ces six tuiles comme un `Solid` standard (case pleine grise), la forme/taille précise restant
-  visible en jouant le niveau (`P`) et dans la palette d'outils (icône dédiée + libellé, inchangée).
+- **Blocs réduits affichés à taille pleine dans l'éditeur** (`EX-GP-005`) : le canevas de l'éditeur
+  (grille du niveau en cours d'édition) dessinait `BlockHalf`/`BlockQuarter` en carré plein
+  (1×1 case), sans rapport avec leur boîte de collision réelle (`×0.5`/`×0.25`, centrée) — l'éditeur
+  devait rester un aperçu **fidèle** de ce que le jeu affiche, pas une approximation. Réutilise
+  désormais la même formule que `core::BlockController::boxAt` (nouvelle fonction partagée
+  `core::tileVisualScale`, `Core/Levels/TileType.h`) pour centrer et mettre à l'échelle le sprite,
+  côté éditeur **et** côté jeu (`GameScreen::refreshBlockVisuals`, inchangé) — aucune divergence
+  possible entre les deux par construction. Les pentes/arrondis, déjà fidèles à leur forme réelle
+  (correction précédente), sont inchangés.
 - **Pentes et arrondis affichés comme des carrés pleins** (`EX-GP-003`/`EX-GP-004`) : l'atlas
   procédural peignait ces quatre tuiles d'une simple couleur plate, sans rapport avec leur
   hitbox réelle (surface inclinée ou courbe, `core::slopeSurfaceHeight`) — visuellement un mur

@@ -18,20 +18,6 @@ constexpr float PUSH_TOUCH_TOLERANCE = 0.05f;
     return type == TileType::Block || type == TileType::BlockHalf || type == TileType::BlockQuarter;
 }
 
-// Facteur de taille d'un type de bloc (1/0.5/0.25), ou 0 si `type` n'est pas un bloc.
-[[nodiscard]] float scaleForBlockTile(TileType type) {
-    switch (type) {
-        case TileType::Block:
-            return 1.0f;
-        case TileType::BlockHalf:
-            return 0.5f;
-        case TileType::BlockQuarter:
-            return 0.25f;
-        default:
-            return 0.0f;
-    }
-}
-
 // Boîte RÉELLE occupée par un bloc à sa position courante : pleine case si `scale == 1`, sinon
 // centrée et réduite (`EX-GP-005`) — une case = une unité monde (`EX-ARCH-021`).
 [[nodiscard]] Aabb blockBox(GridPosition position, float scale) {
@@ -55,7 +41,7 @@ BlockController::BlockController(const Level& level) {
             const TileType tile = map.tile(column, row);
             if (isBlockTile(tile)) {
                 _positions.push_back(GridPosition{column, row});
-                _scales.push_back(scaleForBlockTile(tile));
+                _scales.push_back(tileVisualScale(tile));
             }
         }
     }
