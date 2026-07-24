@@ -42,12 +42,13 @@ var searchData=
   ['stockage_20de_20composants_20sparse_20set_20typé_39',['TACHE-03 — Stockage de composants (sparse set typé)',['../lot-03-tache-03-stockage-composants.html',1,'lot-03']]],
   ['structurées_40',['TACHE-07 — Essai immédiat en mémoire, erreurs de validation structurées',['../lot-15-tache-07-essai-memoire-erreurs-structurees.html',1,'lot-15']]],
   ['succès_20échec_41',['succès échec',['../lot-08-tache-04-regles-fin-niveau.html',1,'TACHE-04 — Règles de fin de niveau (succès / échec)'],['../lot-08-tache-06-integration-jouable.html',1,'TACHE-06 — Intégration jouable dans GameScreen (cadrage fixe, succès / échec)']]],
-  ['suivi_20de_20pente_42',['TACHE-02 — Collision et suivi de pente',['../lot-22-tache-02-collision-suivi-pente.html',1,'lot-22']]],
-  ['système_43',['système',['../lot-25-tache-03-integration-sequence-tests.html',1,'TACHE-03 — Intégration séquence et tests système'],['../lot-10-tache-06-niveau-parkour.html',1,'TACHE-06 — Niveau de démo « parkour » + preuve système']]],
-  ['système_20d_20animation_44',['TACHE-01 — Composant et système d&apos;animation',['../lot-18-tache-01-composant-systeme-animation.html',1,'lot-18']]],
-  ['système_20de_20mouvement_20démo_45',['TACHE-06 — Composant Transform + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
-  ['système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_46',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
-  ['système_20guide_20non_20codeur_20git_47',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
-  ['systèmes_48',['ECS : entités, composants, systèmes',['../guide-ecs.html',1,'guide']]],
-  ['systèmes_20world_20orchestration_20au_20pas_20fixe_49',['TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['suivi_42',['TACHE-01 — Modèle de tuile et physique de suivi',['../lot-26-tache-01-modele-physique-plafond.html',1,'lot-26']]],
+  ['suivi_20de_20pente_43',['TACHE-02 — Collision et suivi de pente',['../lot-22-tache-02-collision-suivi-pente.html',1,'lot-22']]],
+  ['système_44',['système',['../lot-25-tache-03-integration-sequence-tests.html',1,'TACHE-03 — Intégration séquence et tests système'],['../lot-10-tache-06-niveau-parkour.html',1,'TACHE-06 — Niveau de démo « parkour » + preuve système']]],
+  ['système_20d_20animation_45',['TACHE-01 — Composant et système d&apos;animation',['../lot-18-tache-01-composant-systeme-animation.html',1,'lot-18']]],
+  ['système_20de_20mouvement_20démo_46',['TACHE-06 — Composant Transform + système de mouvement (démo)',['../lot-03-tache-06-transform-demo.html',1,'lot-03']]],
+  ['système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_47',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
+  ['système_20guide_20non_20codeur_20git_48',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
+  ['systèmes_49',['ECS : entités, composants, systèmes',['../guide-ecs.html',1,'guide']]],
+  ['systèmes_20world_20orchestration_20au_20pas_20fixe_50',['TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
 ];

@@ -15,7 +15,11 @@ var TileType_8h =
       [ "RoundedUpRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4", null ],
       [ "RoundedUpLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b", null ],
       [ "BlockHalf", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107", null ],
-      [ "BlockQuarter", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9", null ]
+      [ "BlockQuarter", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9", null ],
+      [ "SlopeDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b", null ],
+      [ "SlopeDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7", null ],
+      [ "RoundedDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f", null ],
+      [ "RoundedDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf", null ]
     ] ],
     [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "tileVisualScale", "TileType_8h.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ]

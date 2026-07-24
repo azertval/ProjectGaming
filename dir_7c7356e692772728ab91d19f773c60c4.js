@@ -24,5 +24,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-22-pentes", "dir_65f8f8ebe1ea923151772f4ad72bd955.html", null ],
     [ "LOT-23-collision-arrondie", "dir_e58606d9a50c58cb7b2ce1b9f298f986.html", null ],
     [ "LOT-24-blocs-taille-fractionnaire", "dir_0b5265d79a1134723a4ae3337be64a23.html", null ],
-    [ "LOT-25-niveaux-demo-exhaustifs", "dir_7948254dd9a8fc91331a4d5422a690cb.html", null ]
+    [ "LOT-25-niveaux-demo-exhaustifs", "dir_7948254dd9a8fc91331a4d5422a690cb.html", null ],
+    [ "LOT-26-pentes-arrondis-plafond", "dir_6f073fb43d5276a75c75681f0b9c807e.html", null ]
 ];

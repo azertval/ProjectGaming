@@ -127,7 +127,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:aacbd0307d4440f04585dee673ca56d9d" id="r_aacbd0307d4440f04585dee673ca56d9d"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d">TILE_SIZE</a> = 16</td></tr>
 <tr class="memdesc:aacbd0307d4440f04585dee673ca56d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'une tuile, en pixels (<code>EX-ARCH-021</code>).  <br /></td></tr>
 <tr class="separator:aacbd0307d4440f04585dee673ca56d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4e63cbf4c417709c3a22399de752c67" id="r_af4e63cbf4c417709c3a22399de752c67"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67">TILES_PER_SIDE</a> = 4</td></tr>
+<tr class="memitem:af4e63cbf4c417709c3a22399de752c67" id="r_af4e63cbf4c417709c3a22399de752c67"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67">TILES_PER_SIDE</a> = 5</td></tr>
 <tr class="memdesc:af4e63cbf4c417709c3a22399de752c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée.  <br /></td></tr>
 <tr class="separator:af4e63cbf4c417709c3a22399de752c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a54a37b7f1e32434c9dca034e03ed1a" id="r_a7a54a37b7f1e32434c9dca034e03ed1a"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a">PLAYER_FRAME_SIZE</a> = <a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d">TILE_SIZE</a></td></tr>
@@ -513,7 +513,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr int hmi::TextureAtlas::TILES_PER_SIDE = 4</td>
+          <td class="memname">constexpr int hmi::TextureAtlas::TILES_PER_SIDE = 5</td>
         </tr>
       </table>
   </td>
@@ -524,6 +524,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée. </p>
+<p><code>5</code> depuis l'ajout des pentes/arrondis de plafond (<code>EX-GP-006</code>) : <code>4</code> (16 cases) ne laissait qu'une case libre, insuffisant pour leurs quatre nouvelles silhouettes. </p>
 
 </div>
 </div>

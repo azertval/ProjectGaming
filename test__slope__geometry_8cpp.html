@@ -155,12 +155,36 @@ Functions</h2></td></tr>
 <tr class="memitem:ac2bfcfa6b6230fdfaa5fcdbc736bc581" id="r_ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ac2bfcfa6b6230fdfaa5fcdbc736bc581">TEST</a> (SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis)</td></tr>
 <tr class="memdesc:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi.  <br /></td></tr>
 <tr class="separator:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b891b5eca41594e3aec64fc9ea6157" id="r_a69b891b5eca41594e3aec64fc9ea6157"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a69b891b5eca41594e3aec64fc9ea6157">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondNeSontPasSolidesStatiquement)</td></tr>
+<tr class="memdesc:a69b891b5eca41594e3aec64fc9ea6157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>.  <br /></td></tr>
+<tr class="separator:a69b891b5eca41594e3aec64fc9ea6157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae69a95c6f03781c54223bc4f639086f8" id="r_ae69a95c6f03781c54223bc4f639086f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ae69a95c6f03781c54223bc4f639086f8">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant)</td></tr>
+<tr class="memdesc:ae69a95c6f03781c54223bc4f639086f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de plafond ne sont <b>jamais suivis en marchant</b> (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code> (pas de déplacement latéral calé dessus) et <code>slopeSurfaceHeight</code> (formule de <b>sol</b>) ne les connaît pas — seul <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code> (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut.  <br /></td></tr>
+<tr class="separator:ae69a95c6f03781c54223bc4f639086f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee91c52de634f8064b4d45eb49903fd" id="r_a7ee91c52de634f8064b4d45eb49903fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a7ee91c52de634f8064b4d45eb49903fd">TEST</a> (SlopeGeometryTest, IsCeilingSlopeReconnaitExactementLesQuatreTypes)</td></tr>
+<tr class="memdesc:a7ee91c52de634f8064b4d45eb49903fd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isCeilingSlope</code> reconnaît exactement les quatre types de plafond, aucun autre (<code>EX-GP-006</code>).  <br /></td></tr>
+<tr class="separator:a7ee91c52de634f8064b4d45eb49903fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace13ea4fad7ac0c11150e68210f4505f" id="r_ace13ea4fad7ac0c11150e68210f4505f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ace13ea4fad7ac0c11150e68210f4505f">TEST</a> (SlopeGeometryTest, CeilingSlopeDownRightEstLeMiroirDeSlopeUpRight)</td></tr>
+<tr class="memdesc:ace13ea4fad7ac0c11150e68210f4505f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight</code> est le miroir vertical exact de <code>slopeSurfaceHeight</code> pour les quatre types de plafond (<code>EX-GP-006</code>) : <code>SlopeDownRight</code> (miroir de <code>SlopeUpRight</code>) monte en épaisseur de gauche à droite.  <br /></td></tr>
+<tr class="separator:ace13ea4fad7ac0c11150e68210f4505f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe667ecc179c6240fe26c06be513c3fe" id="r_abe667ecc179c6240fe26c06be513c3fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#abe667ecc179c6240fe26c06be513c3fe">TEST</a> (SlopeGeometryTest, CeilingSlopeDownLeftEstLeMiroirDeSlopeUpLeft)</td></tr>
+<tr class="memdesc:abe667ecc179c6240fe26c06be513c3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight(SlopeDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(SlopeUpLeft)</code>.  <br /></td></tr>
+<tr class="separator:abe667ecc179c6240fe26c06be513c3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4a532f9045fcecefd1839050fbe5e3f" id="r_ae4a532f9045fcecefd1839050fbe5e3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ae4a532f9045fcecefd1839050fbe5e3f">TEST</a> (SlopeGeometryTest, CeilingRoundedDownRightEstLeMiroirDeRoundedUpRight)</td></tr>
+<tr class="memdesc:ae4a532f9045fcecefd1839050fbe5e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight(RoundedDownRight)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(RoundedUpRight)</code> (quart de cercle).  <br /></td></tr>
+<tr class="separator:ae4a532f9045fcecefd1839050fbe5e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfa7547558d7550253ac9c046b8acf8d" id="r_acfa7547558d7550253ac9c046b8acf8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#acfa7547558d7550253ac9c046b8acf8d">TEST</a> (SlopeGeometryTest, CeilingRoundedDownLeftEstLeMiroirDeRoundedUpLeft)</td></tr>
+<tr class="memdesc:acfa7547558d7550253ac9c046b8acf8d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight(RoundedDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(RoundedUpLeft)</code>.  <br /></td></tr>
+<tr class="separator:acfa7547558d7550253ac9c046b8acf8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2e0c3035a1e4008fd36ad15942a133" id="r_a0c2e0c3035a1e4008fd36ad15942a133"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a0c2e0c3035a1e4008fd36ad15942a133">TEST</a> (SlopeGeometryTest, CeilingSlopeHeightNulloptSiPasDePlafond)</td></tr>
+<tr class="memdesc:a0c2e0c3035a1e4008fd36ad15942a133"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight</code> renvoie <code>std::nullopt</code> pour un type sans silhouette de plafond.  <br /></td></tr>
+<tr class="separator:a0c2e0c3035a1e4008fd36ad15942a133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a03b4b4d0a361dc327429f09bda1bf006" name="a03b4b4d0a361dc327429f09bda1bf006"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03b4b4d0a361dc327429f09bda1bf006">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b4b4d0a361dc327429f09bda1bf006">&#9670;&#160;</a></span>TEST() <span class="overload">[1/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,8 +220,232 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acfa7547558d7550253ac9c046b8acf8d" name="acfa7547558d7550253ac9c046b8acf8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfa7547558d7550253ac9c046b8acf8d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingRoundedDownLeftEstLeMiroirDeRoundedUpLeft&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight(RoundedDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(RoundedUpLeft)</code>. </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(RoundedDownLeft) est le miroir vertical exact de slopeSurfaceHeight(RoundedUpLeft).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 1 au bord gauche, 0 au bord droit, environ 0,866 au centre. </p>
+
+</div>
+</div>
+<a id="ae4a532f9045fcecefd1839050fbe5e3f" name="ae4a532f9045fcecefd1839050fbe5e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4a532f9045fcecefd1839050fbe5e3f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingRoundedDownRightEstLeMiroirDeRoundedUpRight&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight(RoundedDownRight)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(RoundedUpRight)</code> (quart de cercle). </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(RoundedDownRight) est le miroir vertical exact de slopeSurfaceHeight(RoundedUpRight).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 0 au bord gauche, 1 au bord droit, environ 0,866 au centre (<code>sqrt(0,75)</code>). </p>
+
+</div>
+</div>
+<a id="abe667ecc179c6240fe26c06be513c3fe" name="abe667ecc179c6240fe26c06be513c3fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe667ecc179c6240fe26c06be513c3fe">&#9670;&#160;</a></span>TEST() <span class="overload">[4/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingSlopeDownLeftEstLeMiroirDeSlopeUpLeft&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight(SlopeDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(SlopeUpLeft)</code>. </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(SlopeDownLeft) est le miroir vertical exact de slopeSurfaceHeight(SlopeUpLeft).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs attendues.<br  />
+ <b>Resultat attendu :</b> Hauteur 1 au bord gauche, 0 au bord droit, 0,5 au centre. </p>
+
+</div>
+</div>
+<a id="ace13ea4fad7ac0c11150e68210f4505f" name="ace13ea4fad7ac0c11150e68210f4505f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace13ea4fad7ac0c11150e68210f4505f">&#9670;&#160;</a></span>TEST() <span class="overload">[5/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingSlopeDownRightEstLeMiroirDeSlopeUpRight&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight</code> est le miroir vertical exact de <code>slopeSurfaceHeight</code> pour les quatre types de plafond (<code>EX-GP-006</code>) : <code>SlopeDownRight</code> (miroir de <code>SlopeUpRight</code>) monte en épaisseur de gauche à droite. </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(SlopeDownRight) est le miroir vertical exact de slopeSurfaceHeight(SlopeUpRight).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs attendues.<br  />
+ <b>Resultat attendu :</b> Hauteur 0 au bord gauche, 1 au bord droit, 0,5 au centre. </p>
+
+</div>
+</div>
+<a id="a0c2e0c3035a1e4008fd36ad15942a133" name="a0c2e0c3035a1e4008fd36ad15942a133"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c2e0c3035a1e4008fd36ad15942a133">&#9670;&#160;</a></span>TEST() <span class="overload">[6/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingSlopeHeightNulloptSiPasDePlafond&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight</code> renvoie <code>std::nullopt</code> pour un type sans silhouette de plafond. </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight renvoie nullopt pour un type sans silhouette de plafond.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> pour <code>Solid</code> et <code>SlopeUpRight</code> (variante de sol).<br  />
+</p><ol type="1">
+<li>Vérifier l'absence de valeur.<br  />
+ <b>Resultat attendu :</b> <code>std::nullopt</code> pour les deux. </li>
+</ol>
+
+</div>
+</div>
+<a id="a7ee91c52de634f8064b4d45eb49903fd" name="a7ee91c52de634f8064b4d45eb49903fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee91c52de634f8064b4d45eb49903fd">&#9670;&#160;</a></span>TEST() <span class="overload">[7/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsCeilingSlopeReconnaitExactementLesQuatreTypes&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isCeilingSlope</code> reconnaît exactement les quatre types de plafond, aucun autre (<code>EX-GP-006</code>). </p>
+<p><b>Cas de test :</b> <b>isCeilingSlope reconnaît exactement les quatre types de plafond, aucun autre.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isCeilingSlope</code> sur les quatre types de plafond et sur <code>SlopeUpRight</code>/ <code>Solid</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>true</code> pour les quatre types de plafond, <code>false</code> pour <code>SlopeUpRight</code> et <code>Solid</code>. </p>
+
+</div>
+</div>
 <a id="af9e7f31fd0771c2f2f47e7ddac430975" name="af9e7f31fd0771c2f2f47e7ddac430975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[8/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +482,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac2bfcfa6b6230fdfaa5fcdbc736bc581" name="ac2bfcfa6b6230fdfaa5fcdbc736bc581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2bfcfa6b6230fdfaa5fcdbc736bc581">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2bfcfa6b6230fdfaa5fcdbc736bc581">&#9670;&#160;</a></span>TEST() <span class="overload">[9/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,8 +518,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae69a95c6f03781c54223bc4f639086f8" name="ae69a95c6f03781c54223bc4f639086f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae69a95c6f03781c54223bc4f639086f8">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les pentes/arrondis de plafond ne sont <b>jamais suivis en marchant</b> (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code> (pas de déplacement latéral calé dessus) et <code>slopeSurfaceHeight</code> (formule de <b>sol</b>) ne les connaît pas — seul <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code> (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut. </p>
+<p><b>Cas de test :</b> <b>Les pentes/arrondis de plafond ne sont jamais suivis en marchant.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isFollowableSurface</code> et <code>slopeSurfaceHeight</code> sur les quatre types de plafond.<br  />
+2. Vérifier l'absence de suivi de sol.<br  />
+ <b>Resultat attendu :</b> <code>isFollowableSurface</code> renvoie <code>false</code> et <code>slopeSurfaceHeight</code> renvoie <code>std::nullopt</code> pour les quatre types. </p>
+
+</div>
+</div>
+<a id="a69b891b5eca41594e3aec64fc9ea6157" name="a69b891b5eca41594e3aec64fc9ea6157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b891b5eca41594e3aec64fc9ea6157">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PenteEtArrondiDePlafondNeSontPasSolidesStatiquement&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>. </p>
+<p><b>Cas de test :</b> <b>Les pentes/arrondis de plafond ne sont pas solides pour la grille classique, comme leurs équivalents de sol.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> sur les quatre types de plafond.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>false</code> pour les quatre — sous peine de transformer leur bord bas en mur invisible pour le balayage classique. </p>
+
+</div>
+</div>
 <a id="a85597794d7e31cdf5cd89bcb61b48945" name="a85597794d7e31cdf5cd89bcb61b48945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[12/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +630,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9cbe32e16487d43ce29ab26d11be16a0" name="a9cbe32e16487d43ce29ab26d11be16a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cbe32e16487d43ce29ab26d11be16a0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cbe32e16487d43ce29ab26d11be16a0">&#9670;&#160;</a></span>TEST() <span class="overload">[13/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,7 +667,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a71c132bee5440e41d6b5a7f6dbfbed5b" name="a71c132bee5440e41d6b5a7f6dbfbed5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71c132bee5440e41d6b5a7f6dbfbed5b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c132bee5440e41d6b5a7f6dbfbed5b">&#9670;&#160;</a></span>TEST() <span class="overload">[14/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -382,7 +704,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a300f3ce26f91d356a06e3d663248a3d7" name="a300f3ce26f91d356a06e3d663248a3d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[15/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -419,7 +741,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acbfff7dab2dfd0f96c5d98e36c364257" name="acbfff7dab2dfd0f96c5d98e36c364257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[16/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,7 +778,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a58550fe8acfcae9c70369ca28708cd44" name="a58550fe8acfcae9c70369ca28708cd44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[17/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

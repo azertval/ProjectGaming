@@ -7,12 +7,13 @@ var searchData=
   ['interpolationalpha_4',['interpolationAlpha',['../classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56',1,'core::FixedTimestep']]],
   ['intersects_5',['intersects',['../structcore_1_1Rect.html#af2fe91e439799d0aa9dccc32296e8e3e',1,'core::Rect']]],
   ['isalive_6',['isalive',['../classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a',1,'core::EntityManager::isAlive()'],['../classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f',1,'core::World::isAlive()']]],
-  ['isdooropen_7',['isDoorOpen',['../classcore_1_1MechanismController.html#af75b708d821d8c882969d7bac6ea2e41',1,'core::MechanismController']]],
-  ['isenabled_8',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]],
-  ['isfollowablesurface_9',['isFollowableSurface',['../namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90',1,'core']]],
-  ['isfree_10',['isFree',['../classcore_1_1BlockController.html#ae5d19a4dc18ad9c51e5bc78623df190b',1,'core::BlockController']]],
-  ['issolid_11',['issolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
-  ['isvalidlevelname_12',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
-  ['isvalidlevelsize_13',['isValidLevelSize',['../namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430',1,'hmi']]],
-  ['iterator_14',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['isceilingslope_7',['isCeilingSlope',['../namespacecore.html#a391389199b2161535d2aa57f225ef65f',1,'core']]],
+  ['isdooropen_8',['isDoorOpen',['../classcore_1_1MechanismController.html#af75b708d821d8c882969d7bac6ea2e41',1,'core::MechanismController']]],
+  ['isenabled_9',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]],
+  ['isfollowablesurface_10',['isFollowableSurface',['../namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90',1,'core']]],
+  ['isfree_11',['isFree',['../classcore_1_1BlockController.html#ae5d19a4dc18ad9c51e5bc78623df190b',1,'core::BlockController']]],
+  ['issolid_12',['issolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
+  ['isvalidlevelname_13',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
+  ['isvalidlevelsize_14',['isValidLevelSize',['../namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430',1,'hmi']]],
+  ['iterator_15',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

@@ -7,6 +7,7 @@ var hierarchy =
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],
     [ "hmi::Camera2D", "classhmi_1_1Camera2D.html", null ],
+    [ "core::CeilingSlopeFollowResult", "structcore_1_1CeilingSlopeFollowResult.html", null ],
     [ "core::CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", null ],
     [ "hmi::LevelPicker::Choice", "structhmi_1_1LevelPicker_1_1Choice.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],

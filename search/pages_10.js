@@ -55,6 +55,7 @@ var searchData=
   ['lot_2023_20—_20collision_20arrondie_52',['LOT-23 — Collision arrondie',['../lot-23.html',1,'lots']]],
   ['lot_2024_20—_20blocs_20à_20taille_20fractionnaire_53',['LOT-24 — Blocs à taille fractionnaire',['../lot-24.html',1,'lots']]],
   ['lot_2025_20—_20refactoring_20complet_20des_20niveaux_20démo_54',['LOT-25 — Refactoring complet des niveaux démo',['../lot-25.html',1,'lots']]],
-  ['lots_55',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_56',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2026_20—_20pentes_20et_20arrondis_20de_20plafond_55',['LOT-26 — Pentes et arrondis de plafond',['../lot-26.html',1,'lots']]],
+  ['lots_56',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_57',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

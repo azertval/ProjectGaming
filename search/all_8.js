@@ -5,5 +5,6 @@ var searchData=
   ['8_20directions_2',['5. Dash 8 directions',['../guide-physique.html#autotoc_md133',1,'']]],
   ['8_20directions_20burst_20durée_20recharge_20au_20sol_3',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]],
   ['8_20sprite_4',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
-  ['8_20tests_5',['8. Tests',['../spec-conventions.html#autotoc_md185',1,'']]]
+  ['8_20tests_5',['8. Tests',['../spec-conventions.html#autotoc_md185',1,'']]],
+  ['80_6',['Levels (80)',['../cahiertest.html#autotoc_md9',1,'']]]
 ];

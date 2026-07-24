@@ -17,7 +17,7 @@ var searchData=
   ['refactoring_20complet_20des_20niveaux_20démo_14',['LOT-25 — Refactoring complet des niveaux démo',['../lot-25.html',1,'lots']]],
   ['refaire_15',['TACHE-04 — Historique annuler/refaire',['../lot-14-tache-04-undo-redo.html',1,'lot-14']]],
   ['remplissage_20rectangulaire_20sélection_20copier_20coller_16',['TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller',['../lot-15-tache-05-outils-rectangle-selection.html',1,'lot-15']]],
-  ['rendu_17',['rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-18-tache-02-frames-atlas-integration.html',1,'TACHE-02 — Images dans l&apos;atlas et intégration au rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
+  ['rendu_17',['rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-18-tache-02-frames-atlas-integration.html',1,'TACHE-02 — Images dans l&apos;atlas et intégration au rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
   ['rendu_202d_20_3a_20atlas_20sprites_20caméra_18',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
   ['rendu_202d_20_3a_20de_20l_20ecs_20à_20l_20écran_19',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
   ['rendu_20cible_20technique_20',['Rendu &amp; cible technique',['../spec-rendu-technique.html',1,'specifications']]],

@@ -13,7 +13,7 @@ var searchData=
   ['removecomponent_10',['removeComponent',['../classcore_1_1World.html#acee09d7b00169a19e1bd2d9247b6bce5',1,'core::World']]],
   ['removeifpresent_11',['removeifpresent',['../classcore_1_1IComponentPool.html#ab0b1a9b6d1ab67638c268e1dd678a90b',1,'core::IComponentPool::removeIfPresent()'],['../classcore_1_1ComponentPool.html#aefef3a7d8666a0722e213684ab287f31',1,'core::ComponentPool::removeIfPresent()']]],
   ['removemechanismsat_12',['removeMechanismsAt',['../classcore_1_1LevelDraft.html#a3d95955ffb6dc3429930c63e8b786869',1,'core::LevelDraft']]],
-  ['render_13',['render',['../classhmi_1_1ScreenManager.html#a31c3392dff4858fb83152823b4a8422e',1,'hmi::ScreenManager::render()'],['../classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf',1,'hmi::OptionsScreen::render()'],['../classhmi_1_1IScreen.html#ade8abd0be2bad0bc763c3aed40ad0bfc',1,'hmi::IScreen::render()'],['../classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2',1,'hmi::GameScreen::render()'],['../classhmi_1_1EditorScreen.html#ab20ee1eccc18221d1bb8ce0a21af06bd',1,'hmi::EditorScreen::render()'],['../classhmi_1_1MenuScreen.html#a316a50b4f496c288165509945fe462a5',1,'hmi::MenuScreen::render()'],['../classhmi_1_1SpriteRenderer.html#a13c7c3aeb64ac64d653b3385fb399527',1,'hmi::SpriteRenderer::render()']]],
+  ['render_13',['render',['../classhmi_1_1ScreenManager.html#a31c3392dff4858fb83152823b4a8422e',1,'hmi::ScreenManager::render()'],['../classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf',1,'hmi::OptionsScreen::render()'],['../classhmi_1_1MenuScreen.html#a316a50b4f496c288165509945fe462a5',1,'hmi::MenuScreen::render()'],['../classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2',1,'hmi::GameScreen::render()'],['../classhmi_1_1EditorScreen.html#ab20ee1eccc18221d1bb8ce0a21af06bd',1,'hmi::EditorScreen::render()'],['../classhmi_1_1IScreen.html#ade8abd0be2bad0bc763c3aed40ad0bfc',1,'hmi::IScreen::render()'],['../classhmi_1_1SpriteRenderer.html#a13c7c3aeb64ac64d653b3385fb399527',1,'hmi::SpriteRenderer::render()']]],
   ['rendergrid_14',['renderGrid',['../classhmi_1_1EditorScreen.html#a08788a9e0d8d4c68b99735193dbfdf60',1,'hmi::EditorScreen']]],
   ['renderhelp_15',['renderHelp',['../classhmi_1_1EditorScreen.html#a3e38294ee7e7807046ba5daee533cb63',1,'hmi::EditorScreen']]],
   ['renderpalette_16',['renderPalette',['../classhmi_1_1EditorScreen.html#a789e85309b32e3cde348a55f00233449',1,'hmi::EditorScreen']]],
@@ -25,7 +25,8 @@ var searchData=
   ['requestclose_22',['requestClose',['../classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead',1,'hmi::Window']]],
   ['requestresize_23',['requestResize',['../classhmi_1_1EditorScreen.html#a925a1d81bf6ac6f6afc9c09cf928c125',1,'hmi::EditorScreen']]],
   ['resize_24',['resize',['../classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af',1,'core::LevelDraft::resize()'],['../classhmi_1_1GraphicsDevice.html#ab21b773d7079c0f42fad09278d514b4c',1,'hmi::GraphicsDevice::resize()']]],
-  ['resolveslopefollow_25',['resolveSlopeFollow',['../namespacecore.html#a2920623584e25af83769e320830880d3',1,'core']]],
-  ['restore_26',['restore',['../classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93',1,'core::LevelDraft']]],
-  ['right_27',['right',['../structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8',1,'core::Rect']]]
+  ['resolveceilingslopefollow_25',['resolveCeilingSlopeFollow',['../namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3',1,'core']]],
+  ['resolveslopefollow_26',['resolveSlopeFollow',['../namespacecore.html#a2920623584e25af83769e320830880d3',1,'core']]],
+  ['restore_27',['restore',['../classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93',1,'core::LevelDraft']]],
+  ['right_28',['right',['../structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8',1,'core::Rect']]]
 ];

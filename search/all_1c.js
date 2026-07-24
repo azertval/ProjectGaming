@@ -18,7 +18,7 @@ var searchData=
   ['qui_20a_20le_20droit_20de_20se_20lier_20à_20qui_15',['Mécanismes : qui a le droit de se lier à qui',['../guide-editeur.html#autotoc_md58',1,'']]],
   ['qui_20applique_20les_20transitions_20_3a_20ref_20hmi_3a_3ascreenmanager_20screenmanager_16',['Qui applique les transitions : \ref hmi::ScreenManager &quot;ScreenManager&quot;',['../guide-ecrans.html#autotoc_md40',1,'']]],
   ['qui_20simplifie_20tout_20_3a_20ref_20hmi_3a_3akey_20key_20réutilise_20les_20codes_20win32_17',['Un détail d&apos;implémentation qui simplifie tout : \ref hmi::Key &quot;Key&quot; réutilise les codes Win32',['../guide-entrees.html#autotoc_md79',1,'']]],
-  ['quit_18',['quit',['../structhmi_1_1ScreenTransition.html#ad4f11ec8a242950a505a5db7962f02aa',1,'hmi::ScreenTransition::quit() noexcept'],['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6',1,'hmi::ScreenTransition::Quit']]],
+  ['quit_18',['quit',['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6',1,'hmi::ScreenTransition::Quit'],['../structhmi_1_1ScreenTransition.html#ad4f11ec8a242950a505a5db7962f02aa',1,'hmi::ScreenTransition::quit() noexcept']]],
   ['quitter_20l_20éditeur_19',['Essai immédiat : jouer sans quitter l&apos;éditeur',['../guide-editeur.html#autotoc_md67',1,'']]],
   ['quitter_20sans_20enregistrer_20',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]]
 ];

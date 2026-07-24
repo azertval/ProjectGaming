@@ -1,5 +1,15 @@
 var NAVTREEINDEX12 =
 {
+"lot-19-tache-04-documentation-verification.html#autotoc_md1103":[6,19,11,4],
+"lot-19-tache-04-documentation-verification.html#autotoc_md1104":[6,19,11,5],
+"lot-19-tache-04-documentation-verification.html#autotoc_md1105":[6,19,11,6],
+"lot-19.html":[6,19],
+"lot-19.html#autotoc_md1068":[6,19,0],
+"lot-19.html#autotoc_md1069":[6,19,1],
+"lot-19.html#autotoc_md1070":[6,19,1,0],
+"lot-19.html#autotoc_md1071":[6,19,1,1],
+"lot-19.html#autotoc_md1072":[6,19,2],
+"lot-19.html#autotoc_md1073":[6,19,3],
 "lot-19.html#autotoc_md1074":[6,19,4],
 "lot-19.html#autotoc_md1075":[6,19,5],
 "lot-19.html#autotoc_md1076":[6,19,6],
@@ -239,15 +249,5 @@ var NAVTREEINDEX12 =
 "lot-25.html#autotoc_md1281":[6,25,3],
 "lot-25.html#autotoc_md1282":[6,25,4],
 "lot-25.html#autotoc_md1283":[6,25,5],
-"lot-25.html#autotoc_md1284":[6,25,6],
-"lots.html":[6],
-"lots.html#autotoc_md1315":[6,0],
-"main_8cpp.html":[10,0,3,1,7],
-"main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[10,0,3,1,7,0],
-"manuel-jouer.html":[7,2],
-"manuel-jouer.html#autotoc_md1316":[7,2,0],
-"manuel-jouer.html#autotoc_md1317":[7,2,1],
-"manuel-jouer.html#autotoc_md1318":[7,2,2],
-"manuel-jouer.html#autotoc_md1319":[7,2,3],
-"manuel-partager-niveau.html":[7,3]
+"lot-25.html#autotoc_md1284":[6,25,6]
 };
