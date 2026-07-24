@@ -17,15 +17,33 @@ class TextureAtlas;
 /**
  * @brief Région d'atlas (couleur procédurale) associée à un type de tuile.
  *
- * Utilisée à la fois par `GameScreen` (rendu d'un niveau joué) et `EditorScreen` (rendu du
- * niveau en cours d'édition, LOT-14) : une **unique** correspondance type → couleur garantit que
- * l'aperçu dans l'éditeur correspond exactement à ce que le joueur verra en jeu.
+ * Utilisée par `GameScreen` (rendu d'un niveau joué, fidèle à la hitbox réelle) et par la palette
+ * de l'éditeur (`hmi::TilePalette`, sélection d'un outil — chaque entrée porte aussi un libellé
+ * textuel, donc pas d'ambiguïté à garder des couleurs/formes distinctes). Pour le **canevas**
+ * de l'éditeur (la grille du niveau en cours d'édition), voir `editorCanvasRegionForTile`, qui
+ * simplifie délibérément certains types pour rester lisible.
  * @param type  Type de tuile (`Empty` renvoie une région arbitraire, jamais dessinée en pratique
  *              — les cases vides ne sont pas rendues par l'appelant).
  * @param atlas Atlas fournissant les régions.
  * @return La région d'atlas à échantillonner pour ce type.
  */
 [[nodiscard]] core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas);
+
+/**
+ * @brief Région d'atlas pour le **canevas** de l'éditeur (grille du niveau en cours d'édition).
+ *
+ * Identique à `regionForTile`, sauf pour les tuiles à forme fine ou à taille réduite (pentes,
+ * arrondis, `BlockHalf`/`BlockQuarter`) : ce canevas les affiche comme un `Solid` standard (gris,
+ * case pleine) plutôt qu'avec leur forme précise (triangle/courbe) ou leur taille réelle
+ * (`×0.5`/`×0.25`) — une grille dense mélangeant des formes fines masque plus qu'elle n'aide à
+ * lire la disposition d'ensemble d'un niveau pendant l'édition. La forme/taille exacte reste
+ * visible en jouant le niveau (`P`, `GameScreen`) et dans la palette (icône dédiée + libellé).
+ * @param type  Type de tuile.
+ * @param atlas Atlas fournissant les régions.
+ * @return La région d'atlas à échantillonner pour ce type, dans le canevas de l'éditeur.
+ */
+[[nodiscard]] core::AtlasRegion editorCanvasRegionForTile(core::TileType type,
+                                                          const TextureAtlas& atlas);
 
 /// Position (colonne, ligne) d'une tuile dans la grille procédurale de `TextureAtlas`.
 struct AtlasGridPosition {

@@ -648,7 +648,7 @@ void EditorScreen::renderGrid(RenderContext& context) {
             if (type == core::TileType::Empty) {
                 continue;
             }
-            context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
+            context.spriteBatch.draw(quadFor(editorCanvasRegionForTile(type, _atlas),
                                              static_cast<float>(column),
                                              static_cast<float>(row), 1.0f, 1.0f, _atlas));
         }
