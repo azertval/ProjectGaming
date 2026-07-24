@@ -211,25 +211,29 @@ TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontPasSolidesStatiquement) {
 }
 
 /**
- * @brief Les pentes/arrondis de plafond ne sont **jamais suivis en marchant** (`EX-GP-006`) :
- * `isFollowableSurface` reste `false` (pas de déplacement latéral calé dessus) et
- * `slopeSurfaceHeight` (formule de **sol**) ne les connaît pas — seul `core::ceilingSlopeHeight`
- * (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut.
- * \castest{<b>Les pentes/arrondis de plafond ne sont jamais suivis en marchant.</b><br/>
+ * @brief Les pentes/arrondis de plafond n'offrent **jamais de déplacement latéral calé** en
+ * marchant (`EX-GP-006`) : `isFollowableSurface` reste `false`. Leur **face du haut** est en
+ * revanche une surface plate au sommet de la case (`slopeSurfaceHeight` y renvoie `0.0f`,
+ * constant) — un personnage qui tombe **dessus** (par le dessus, pas en sautant depuis en dessous)
+ * s'y pose comme sur un sol normal, sans quoi il tomberait au travers.
+ * \castest{<b>Les pentes/arrondis de plafond ont une face du haut plate (0,0), sans déplacement
+ * latéral calé.</b><br/>
  * \tcat Unitaire · Slope Geometry<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Appeler `isFollowableSurface` et `slopeSurfaceHeight` sur les quatre types de
- * plafond.<br/>2. Vérifier l'absence de suivi de sol.<br/>
- * \tattendu `isFollowableSurface` renvoie `false` et `slopeSurfaceHeight` renvoie `std::nullopt`
- * pour les quatre types.
+ * plafond.<br/>2. Vérifier les valeurs.<br/>
+ * \tattendu `isFollowableSurface` renvoie `false` ; `slopeSurfaceHeight` renvoie `0.0f` (face du
+ * haut plate) pour les quatre types.
  * }
  */
-TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant) {
+TEST(SlopeGeometryTest, PenteEtArrondiDePlafondOntUneFaceDuHautPlate) {
     for (const core::TileType type :
          {core::TileType::SlopeDownRight, core::TileType::SlopeDownLeft,
           core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft}) {
         EXPECT_FALSE(core::isFollowableSurface(type));
-        EXPECT_FALSE(core::slopeSurfaceHeight(type, 0.5f).has_value());
+        const auto height = core::slopeSurfaceHeight(type, 0.5f);
+        ASSERT_TRUE(height.has_value());
+        EXPECT_FLOAT_EQ(*height, 0.0f);
     }
 }
 

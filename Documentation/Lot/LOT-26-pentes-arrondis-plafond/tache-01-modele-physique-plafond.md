@@ -21,7 +21,12 @@ l'infrastructure de suivi de surface posée par `LOT-22` (`core::slopeSurfaceHei
     `resolveSlopeFollow` : bord **haut** plutôt que bas, déclenché si `velocityY < 0` (monte,
     plutôt que `>= 0`, tombe), parcourt les lignes traversées par le bord haut pendant le pas
     (comme le sol, pour ne jamais « traverser » un plafond incliné à grande vitesse d'ascension),
-    bloque dès que le bord haut atteint la silhouette.
+    bloque dès que le bord haut atteint la silhouette — gère le franchissement **par en dessous**.
+  - **`slopeSurfaceHeight` étendue** pour reconnaître aussi les quatre types de plafond, avec une
+    hauteur **constante `0.0f`** (leur face du haut est toujours plate, au sommet de la case, quel
+    que soit `localX`) : gère le cas **par au-dessus** (tomber sur le dessus d'un plafond incliné)
+    en réutilisant `resolveSlopeFollow` tel quel, sans nouveau code de résolution — un gap découvert
+    après la première passe de revue (voir la décision de cadrage de l'épic).
 - **`Core/Ecs/Systems/CharacterPhysicsSystem.cpp`** : nouvelle étape (6ter), après le suivi de sol
   existant (6bis) — si non calé sur une pente de sol, appelle `resolveCeilingSlopeFollow` ; si
   bloqué, cale `transform.position.y` sur la silhouette et annule `velocity.value.y` (comme un
@@ -46,6 +51,9 @@ l'infrastructure de suivi de surface posée par `LOT-22` (`core::slopeSurfaceHei
 - **Un saut qui franchit une pente/arrondi de plafond est bloqué selon sa silhouette réelle, pas
   comme un carré plein** : sous le bord fin (silhouette quasi vide), le personnage monte nettement
   plus haut que sous le bord épais (silhouette quasi pleine) — `PlafondInclineBloqueSelonSaSilhouette`.
+- **Un personnage qui tombe sur le dessus d'une pente/arrondi de plafond s'y pose normalement**
+  (face du haut plate), sans tomber au travers jusqu'à un sol lointain en dessous —
+  `PlafondInclineSupportePersonnageParLeDessus`.
 - Aller-retour JSON (chargement puis écriture) pour les quatre nouveaux types.
 - **Suite de régression complète** : tous les tests physique existants (sol, pentes/arrondis de
   sol, murs, sauts, dash, wall jump…) restent verts, sans modification.
@@ -60,6 +68,14 @@ l'infrastructure de suivi de surface posée par `LOT-22` (`core::slopeSurfaceHei
   arrondi — l'ajustement `- kFollowTolerance` du sol répond à un problème spécifique à l'ordre
   **croissant** de son propre parcours, qui ne se pose pas ici. Détaillé en commentaire dans
   `SlopeGeometry.cpp`.
+- **Deuxième écart, découvert après une première revue de la tâche** : `resolveCeilingSlopeFollow`
+  ne couvre que le franchissement par en dessous (saut) ; rien ne gérait un personnage tombant sur
+  le **dessus** d'une pente/arrondi de plafond, qui tombait au travers faute de toute résolution
+  (ni `isSolid`, ni aucune passe existante). Corrigé en étendant le `switch` de `slopeSurfaceHeight`
+  (physique de **sol**, pas plafond) pour reconnaître aussi ces quatre types avec une hauteur
+  **constante `0.0f`** — leur face du haut est toujours plate, au sommet de la case, donc
+  `resolveSlopeFollow` (déjà appelé chaque pas, sans changement) les traite correctement comme un
+  sol normal, sans aucun code de résolution supplémentaire.
 
 ## Définition de fait (DoD)
 - Physique de blocage fonctionnelle et testée (précision de silhouette démontrée par un test

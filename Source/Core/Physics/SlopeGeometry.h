@@ -28,6 +28,13 @@ class TileMap;
  * (tolérance de calage, cas du saut). Aucune tuile n'est retournée comme solide par cette
  * fonction — voir `core::isSolid`, qui exclut délibérément les tuiles suivables.
  *
+ * Couvre aussi la **face du haut** des pentes/arrondis de **plafond** (`isCeilingSlope`,
+ * `EX-GP-006`) : toujours `0.0f` (constante, quel que soit `localX`) — leur matière pleine
+ * commence **toujours** au sommet de la case, seule sa profondeur vers le bas varie (silhouette
+ * inclinée/courbe gérée séparément par `ceilingSlopeHeight`/`resolveCeilingSlopeFollow`, pour un
+ * saut qui la franchit par en dessous). Sans ce cas, un personnage tombant sur le dessus d'un
+ * plafond incliné (accessible par au-dessus) tomberait au travers plutôt que de s'y poser.
+ *
  * @param type   Type de tuile.
  * @param localX Position horizontale dans la case, `[0, 1[`.
  * @return La hauteur de surface, ou `std::nullopt` si @p type n'a pas de surface à suivre.

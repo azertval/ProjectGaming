@@ -19,6 +19,13 @@ constexpr float kFollowTolerance = 1e-3f;
 // au coin OPPOSE au coin haut de la pente equivalente — meme modele d'extension, un nouveau `case`
 // par type suivable plutot qu'une fonction parallele (la passe de resolution, LOT-22-TACHE-02,
 // n'a ainsi jamais besoin de connaitre le nombre ou la nature des familles de courbes geree ici).
+//
+// Pentes/arrondis de PLAFOND (EX-GP-006) : leur FACE DU HAUT (celle qu'on foule en tombant dessus
+// PAR-DESSUS, pas la silhouette inclinee/courbe du dessous geree par resolveCeilingSlopeFollow)
+// est toujours PLATE, exactement au sommet de la case — la matiere pleine y commence toujours,
+// quel que soit x (seule sa profondeur vers le bas varie). Une hauteur CONSTANTE de 0 suffit donc
+// ici : reutilise resolveSlopeFollow tel quel (aucun code de resolution supplementaire), pour que
+// le personnage ne tombe pas au travers d'un plafond incline accessible par le dessus.
 std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
     switch (type) {
         case TileType::SlopeUpRight:
@@ -33,6 +40,11 @@ std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
         case TileType::RoundedUpLeft:
             // Symetrique : centre du cercle en (1, 1) (coin bas-droit).
             return 1.0f - std::sqrt(std::max(0.0f, 1.0f - localX * localX));
+        case TileType::SlopeDownRight:
+        case TileType::SlopeDownLeft:
+        case TileType::RoundedDownRight:
+        case TileType::RoundedDownLeft:
+            return 0.0f;  // face du haut plate, voir le commentaire ci-dessus
         default:
             return std::nullopt;
     }
