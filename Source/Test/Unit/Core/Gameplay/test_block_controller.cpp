@@ -362,3 +362,64 @@ TEST(BlockControllerTest, BlocReduitPousseSelonSaBoiteReelle) {
     controller.update(atReducedBoxEdge, /*moveIntentX=*/1.0f, level.tileMap());
     EXPECT_EQ(controller.positions()[0], (core::GridPosition{3, 1}));  // pousse d'une case entiere
 }
+
+/**
+ * @brief Un bloc suspendu au-dessus d'une pente ne tombe pas au travers (`EX-GP-003`/`EX-GP-022`)
+ * : `BlockController` n'a aucune notion de suivi de surface, une pente est donc traitée comme un
+ * obstacle simple (case par case), pas comme une case libre.
+ * \castest{<b>Un bloc suspendu au-dessus d'une pente ne tombe pas au travers.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bloc reste posé sur la pente (une case au-dessus), même après largement plus que
+ * `FALL_INTERVAL_STEPS` pas.
+ * }
+ */
+TEST(BlockControllerTest, BlocNeTombePasATraversUnePente) {
+    // Bloc en (2, 0) ; pente en (2, 1), juste en dessous ; sol tres eloigne (rangee 5), pour
+    // prouver qu'un bloc qui traverserait la pente tomberait bien plus bas, pas seulement d'une
+    // case par coincidence.
+    core::TileMap map(6, 6);
+    for (int column = 0; column < 6; ++column) {
+        map.setTile(column, 5, core::TileType::Solid);
+    }
+    map.setTile(2, 1, core::TileType::SlopeUpRight);
+    map.setTile(2, 0, core::TileType::Block);
+    core::Level level("bloc-pente", std::move(map), core::GridPosition{0, 0}, core::GridPosition{5, 0},
+                      std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    for (int step = 0; step < core::BlockController::FALL_INTERVAL_STEPS * 3; ++step) {
+        controller.update(boxAt(5, 0), 0.0f, level.tileMap());
+    }
+
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 0}));  // n'a pas bouge
+}
+
+/**
+ * @brief Un bloc ne peut pas être poussé sur une pente (`EX-GP-003`/`EX-GP-022`) : traitée comme
+ * un obstacle simple, pas comme une case libre.
+ * \castest{<b>Un bloc ne peut pas être poussé sur une pente.</b><br/>
+ * \tcat Unitaire · Block Controller<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le bloc n'a pas bougé, la case de la pente reste occupée par la pente.
+ * }
+ */
+TEST(BlockControllerTest, PousseeRefuseeContreUnePente) {
+    core::TileMap map(6, 3);
+    for (int column = 0; column < 6; ++column) {
+        map.setTile(column, 2, core::TileType::Solid);
+    }
+    map.setTile(2, 1, core::TileType::Block);
+    map.setTile(3, 1, core::TileType::SlopeUpRight);  // pente juste a droite du bloc
+    core::Level level("bloc-pente-poussee", std::move(map), core::GridPosition{0, 0},
+                      core::GridPosition{5, 1}, std::vector<core::Mechanism>{});
+    core::BlockController controller(level);
+
+    controller.update(boxAt(1, 1), /*moveIntentX=*/1.0f, level.tileMap());
+
+    EXPECT_EQ(controller.positions()[0], (core::GridPosition{2, 1}));  // n'a pas bouge
+}

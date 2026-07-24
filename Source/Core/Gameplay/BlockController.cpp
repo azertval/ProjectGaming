@@ -5,6 +5,7 @@
 
 #include "Core/Gameplay/GameplayLog.h"
 #include "Core/Physics/Aabb.h"
+#include "Core/Physics/SlopeGeometry.h"
 
 namespace core {
 namespace {
@@ -60,6 +61,15 @@ bool BlockController::isFree(GridPosition target, const TileMap& base,
     // par un bloc — sinon une case quittée par un bloc resterait perçue comme solide indéfiniment.
     const TileType tile = base.tile(target.column, target.row);
     if (!isBlockTile(tile) && core::isSolid(tile)) {
+        return false;
+    }
+    // Pentes/arrondis (sol ou plafond, EX-GP-003/EX-GP-004/EX-GP-006) : jamais solides pour la
+    // grille classique (`core::isSolid`), mais `BlockController` n'a aucune notion de suivi de
+    // surface — un bloc n'y "glisse" pas le long d'une pente comme le personnage. Sans cette
+    // exclusion, une case de pente serait perçue "libre" et un bloc la traverserait en tombant ou
+    // en se faisant pousser dedans. Traitée ici comme un obstacle simple (case par case, comme un
+    // `Solid`), pas suivie.
+    if (core::isFollowableSurface(tile) || core::isCeilingSlope(tile)) {
         return false;
     }
     for (std::size_t index = 0; index < _positions.size(); ++index) {

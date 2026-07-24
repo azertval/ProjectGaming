@@ -45,7 +45,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 ## 3. Mécanismes de puzzle
 - \anchor EX-GP-020 **EX-GP-020** — Un **interrupteur** doit changer d'état quand le personnage l'active (contact ou action dédiée).
 - \anchor EX-GP-021 **EX-GP-021** — Une **porte** liée à un interrupteur doit s'ouvrir/se fermer selon l'état de celui-ci.
-- \anchor EX-GP-022 **EX-GP-022** — Un **bloc poussable** doit pouvoir être déplacé horizontalement par le personnage et retomber sous gravité.
+- \anchor EX-GP-022 **EX-GP-022** — Un **bloc poussable** doit pouvoir être déplacé horizontalement par le personnage et retomber sous gravité. Une case de pente/arrondi (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`) est traitée comme un **obstacle simple** (comme une case solide) pour la poussée et la chute — le contrôleur de blocs n'a aucune notion de suivi de surface, contrairement au personnage.
 - \anchor EX-GP-023 **EX-GP-023** (⚠️ optionnel MVP) — Une **clé** collectée doit ouvrir une **porte verrouillée** correspondante.
 - \anchor EX-GP-024 **EX-GP-024** — Un **tableau** peut **limiter** le nombre de **sauts** et/ou de **dashs** disponibles (budget de mouvements, défini par le niveau) ; à budget épuisé, l'action est **refusée**. Le budget est **réinitialisé** au (re)chargement du niveau. Contrainte de **puzzle**.
 - \anchor EX-GP-025 **EX-GP-025** — Une **plaque de pression** doit maintenir la porte liée **ouverte** tant qu'un poids suffisant y repose, et la **refermer** dès qu'il en repart — activation **continue**, à la différence de l'interrupteur à bascule (`EX-GP-020`), dont le comportement n'est pas affecté.
