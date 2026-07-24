@@ -24,11 +24,11 @@ demandeur (voir `epic.md`). La hauteur du panneau devenant variable, `hmi::ToolB
 - **`HMI/Editor/ToolBar.h`/`.cpp`** : nouvelle méthode `relayout(float top)` qui recalcule les
   rectangles des entrées sans toucher à la sélection ; le constructeur l'appelle avec `PALETTE_TOP`
   comme position provisoire.
-- **`HMI/Interface/EditorScreen.cpp`** : le constructeur appelle `_toolBar.relayout(_palette.bottom()
-  + PANEL_SECTION_GAP)` une première fois ; dans `update()`, le même appel est répété juste après
-  `_palette.handleClick(...)` (avant le test de clic de `_toolBar`), pour qu'un dépliage/repliage se
-  répercute sur la position de la barre d'outils **dans la même frame**. `renderPalette` reste
-  inchangé (mêmes champs d'`Entry` qu'avant ce lot).
+- **`HMI/Interface/EditorScreen.cpp`** : le constructeur appelle
+  `_toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP)` une première fois ; dans `update()`, le
+  même appel est répété juste après `_palette.handleClick(...)` (avant le test de clic de
+  `_toolBar`), pour qu'un dépliage/repliage se répercute sur la position de la barre d'outils
+  **dans la même frame**. `renderPalette` reste inchangé (mêmes champs d'`Entry` qu'avant ce lot).
 - Libellé « Danger » → « Piège » (affichage seulement ; `core::TileType::Danger` et son identifiant
   JSON inchangés).
 - **Défilement** (gap découvert après la première revue, voir `epic.md`) : `relayout()` reconstruit
@@ -44,8 +44,8 @@ demandeur (voir `epic.md`). La hauteur du panneau devenant variable, `hmi::ToolB
   faut faire défiler. `EditorScreen::update` route la molette vers `_palette.scroll` quand la souris
   survole le panneau latéral (`input.mouseX() < PANEL_WIDTH`), vers le zoom caméra sinon ;
   `renderPalette` dessine une barre de défilement (piste + curseur), même principe que
-  `EditorScreen::renderPicker` (`LevelPicker`, LOT-15), uniquement si `totalRowCount() >
-  visibleRowCount(viewportHeight)`.
+  `EditorScreen::renderPicker` (`LevelPicker`, LOT-15), uniquement si
+  `totalRowCount() > visibleRowCount(viewportHeight)`.
 
 ## Fichiers impactés
 - `Source/HMI/Editor/TilePalette.h`/`.cpp`, `EditorLayout.h`, `ToolBar.h`/`.cpp`.

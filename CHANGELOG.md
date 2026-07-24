@@ -25,10 +25,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   désormais une **fenêtre visible** (`scroll`/`setViewportHeight`), la molette au-dessus du panneau
   latéral la fait défiler (plutôt que de zoomer la caméra), et une barre de défilement (piste +
   curseur, même principe que `LevelPicker`, `LOT-15`) apparaît si le contenu déplié déborde.
-  Replier/déplier un en-tête ne le fait **jamais** disparaître de la fenêtre (`TilePalette::
-  followRow`, suit automatiquement l'en-tête tout juste basculé — sans quoi le défilement aurait
-  simplement déplacé le problème plutôt que de le résoudre). **11 nouveaux tests** (10
-  `TilePalette`, 1 `ToolBar`), aucune régression (406/406 tests verts).
+  Replier/déplier un en-tête ne le fait **jamais** disparaître de la fenêtre
+  (`TilePalette::followRow`, suit automatiquement l'en-tête tout juste basculé — sans quoi le
+  défilement aurait simplement déplacé le problème plutôt que de le résoudre). **11 nouveaux
+  tests** (10 `TilePalette`, 1 `ToolBar`), aucune régression (406/406 tests verts).
 
 ### Corrigé
 - **Blocs poussables traversant les pentes/arrondis** (`EX-GP-003`/`EX-GP-004`/`EX-GP-006`/

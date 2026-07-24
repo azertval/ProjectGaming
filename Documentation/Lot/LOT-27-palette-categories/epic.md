@@ -76,9 +76,9 @@ fixe, pas de rendu de survol/animation).
   l'en-tête reçoit la même surbrillance qu'une feuille sélectionnée — indicateur utile (« la
   sélection active se trouve dans cette catégorie »), pas un bug.
 - **Dépliage/repliage signalé par un préfixe textuel** (`> `/`v `) plutôt qu'une icône de chevron
-  dédiée — la police bitmap ne gère que de l'ASCII imprimable en chasse fixe (`HMI/Graphics/
-  BitmapFont`), un glyphe de chevron aurait demandé une police ou un atlas dédié pour un gain
-  cosmétique mineur.
+  dédiée — la police bitmap ne gère que de l'ASCII imprimable en chasse fixe
+  (`HMI/Graphics/BitmapFont`), un glyphe de chevron aurait demandé une police ou un atlas dédié
+  pour un gain cosmétique mineur.
 - **`TilePalette` reste une logique pure** (aucune dépendance de rendu), dans l'esprit déjà établi
   par `ToolBar` : seule la géométrie écran et l'état de dépliage/sélection lui appartiennent,
   testable sans GPU (`EX-NFR-010`).
