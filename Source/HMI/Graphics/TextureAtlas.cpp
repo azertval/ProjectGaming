@@ -78,33 +78,6 @@ std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRo
     return std::nullopt;
 }
 
-// Vrai pour les quatre pentes/arrondis de PLAFOND (EX-GP-006) : matiere pleine en HAUT de la case
-// (miroir vertical de leur equivalent de sol), pas en bas — voir slopeShapePixel.
-bool isCeilingSlopeType(core::TileType type) {
-    return type == core::TileType::SlopeDownRight || type == core::TileType::SlopeDownLeft ||
-           type == core::TileType::RoundedDownRight || type == core::TileType::RoundedDownLeft;
-}
-
-// Pente/arrondi de SOL dont @p ceilingType est le miroir vertical exact (meme profil horizontal,
-// silhouette juste retournee haut/bas) — reutilise core::slopeSurfaceHeight (deja teste, deja la
-// source de verite physique) plutot que dupliquer une deuxieme famille de formules pour le
-// plafond, qui n'a de toute facon qu'une valeur visuelle ici (EX-GP-006, jamais suivi par
-// core::resolveSlopeFollow : ces quatre types sont solides, cf. core::isSolid).
-core::TileType mirrorFloorType(core::TileType ceilingType) {
-    switch (ceilingType) {
-        case core::TileType::SlopeDownRight:
-            return core::TileType::SlopeUpRight;
-        case core::TileType::SlopeDownLeft:
-            return core::TileType::SlopeUpLeft;
-        case core::TileType::RoundedDownRight:
-            return core::TileType::RoundedUpRight;
-        case core::TileType::RoundedDownLeft:
-            return core::TileType::RoundedUpLeft;
-        default:
-            return ceilingType;  // ne devrait jamais arriver (appele apres isCeilingSlopeType)
-    }
-}
-
 // Couleur du pixel (localX, localY) d'une case a silhouette inclinee/courbe, 0-based dans la case
 // 16x16 : plein (gris, meme couleur que Solid — ces tuiles restent un materiau de plateforme comme
 // un autre, pas une famille de couleurs distinctes) d'un cote de la surface, transparent de
@@ -112,23 +85,24 @@ core::TileType mirrorFloorType(core::TileType ceilingType) {
 // masquerait.
 //
 // Pente/arrondi de SOL (EX-GP-003/EX-GP-004) : plein SOUS la surface suivie par la physique
-// (core::slopeSurfaceHeight), correspond exactement a la hitbox reelle. Pente/arrondi de PLAFOND
-// (EX-GP-006, solides) : miroir vertical du profil de sol equivalent (mirrorFloorType) — plein
-// AU-DESSUS de cette silhouette retournee ; purement visuel, la collision reelle est un carre
-// plein comme n'importe quel Solid (core::isSolid), pas suivie au pixel pres.
+// (core::slopeSurfaceHeight). Pente/arrondi de PLAFOND (EX-GP-006) : plein AU-DESSUS de la
+// silhouette (core::ceilingSlopeHeight, miroir vertical de la variante de sol) — dans les deux
+// cas, l'affichage correspond exactement a la hitbox reelle (core::resolveSlopeFollow /
+// core::resolveCeilingSlopeFollow, pas de solidite statique via core::isSolid).
 std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
     const float normalizedX = (static_cast<float>(localX) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
     const float normalizedY = (static_cast<float>(localY) + 0.5f) /
                               static_cast<float>(TextureAtlas::TILE_SIZE);
-    const bool isCeiling = isCeilingSlopeType(type);
-    const core::TileType floorType = isCeiling ? mirrorFloorType(type) : type;
-    const std::optional<float> floorSurfaceHeight = core::slopeSurfaceHeight(floorType, normalizedX);
-    if (!floorSurfaceHeight) {
+    const bool isCeiling = core::isCeilingSlope(type);
+    const std::optional<float> surfaceHeight = isCeiling
+                                                    ? core::ceilingSlopeHeight(type, normalizedX)
+                                                    : core::slopeSurfaceHeight(type, normalizedX);
+    if (!surfaceHeight) {
         return pack(0, 0, 0, 0);
     }
-    const bool solid = isCeiling ? normalizedY <= (1.0f - *floorSurfaceHeight)
-                                 : normalizedY >= *floorSurfaceHeight;
+    const bool solid =
+        isCeiling ? normalizedY <= *surfaceHeight : normalizedY >= *surfaceHeight;
     if (solid) {
         // Meme case que Solid (colonne 0, ligne 2 — TileVisuals.cpp::regionForTile) : gris,
         // reutilise ici comme indice de palette plutot que la couleur propre de `type`.

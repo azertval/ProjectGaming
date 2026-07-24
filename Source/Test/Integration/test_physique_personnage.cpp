@@ -1865,6 +1865,64 @@ TEST(PhysiquePersonnageIntegration, NiveauArrondiFranchissable) {
 }
 
 /**
+ * @brief Une pente de **plafond** (`SlopeDownRight`, `EX-GP-006`) bloque un saut selon sa
+ * silhouette réelle, pas comme un carré plein uniforme : sous son bord fin (silhouette quasi
+ * vide), le personnage monte bien plus haut que sous son bord épais (silhouette quasi pleine).
+ * \castest{<b>Une pente de plafond bloque un saut selon sa silhouette réelle, pas comme un carré
+ * plein uniforme.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage monte nettement plus haut sous le bord fin de la pente de plafond que
+ * sous son bord épais — la collision suit sa silhouette inclinée, pas une case pleine.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, PlafondInclineBloqueSelonSaSilhouette) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FLOOR_ROW = 5;
+
+    const auto minYReached = [](float startX) {
+        core::TileMap map(10, 6);
+        for (int col = 0; col < 10; ++col) {
+            map.setTile(col, FLOOR_ROW, core::TileType::Solid);
+        }
+        map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::SlopeDownRight);
+
+        core::World world;
+        const core::Entity player =
+            spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, FLOOR_ROW - 1});
+        world.getComponent<core::Transform>(player).position.x = startX;
+        core::CharacterPhysicsSystem system;
+
+        bool jumped = false;
+        float minY = 100.0f;
+        for (int step = 0; step < 90; ++step) {
+            const core::Player& pl = world.getComponent<core::Player>(player);
+            core::PlayerInput in;
+            if (!jumped && pl.grounded) {
+                in.jumpPressed = true;
+                jumped = true;
+            }
+            if (jumped) {
+                in.jumpHeld = true;
+            }
+            system.update(world, map, in, STEP);
+            minY = std::min(minY, world.getComponent<core::Transform>(player).position.y);
+        }
+        return minY;
+    };
+
+    // core::ceilingSlopeHeight(SlopeDownRight, x) = x : silhouette quasi vide (h~0) près du bord
+    // GAUCHE de la case, quasi pleine (h~1) près du bord DROIT.
+    const float thinSideMinY = minYReached(static_cast<float>(CEILING_COLUMN) + 0.05f);
+    const float thickSideMinY = minYReached(static_cast<float>(CEILING_COLUMN) + 0.55f);
+
+    EXPECT_LT(thinSideMinY, thickSideMinY - 0.3f);
+}
+
+/**
  * @brief Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien
  * (`EX-GP-015`) : un mur trop haut pour un seul saut devient franchissable.
  * \castest{<b>Le niveau double saut est franchissable en enchaînant saut au sol et saut

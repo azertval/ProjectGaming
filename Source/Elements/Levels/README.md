@@ -10,7 +10,8 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   `EX-GP-022`/`EX-GP-005`), `slopeUpRight`/`slopeUpLeft` (pentes à 45°, `EX-GP-003`),
   `roundedUpRight`/`roundedUpLeft` (variante en quart de cercle, `EX-GP-004`),
   `slopeDownRight`/`slopeDownLeft`/`roundedDownRight`/`roundedDownLeft` (variantes de **plafond**
-  des quatre précédentes — miroir vertical, mais **solides**, jamais suivies, `EX-GP-006`).
+  des quatre précédentes — miroir vertical, jamais solides non plus, mais bloquent précisément un
+  saut qui franchit leur profil incliné/courbe, `EX-GP-006`).
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,

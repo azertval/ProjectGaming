@@ -190,42 +190,184 @@ TEST(SlopeGeometryTest, IsFollowableSurfaceReconnaitLesArrondis) {
 
 /**
  * @brief Les pentes/arrondis de **plafond** (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/
- * `RoundedDownLeft`, `EX-GP-006`) sont solides, contrairement à leurs équivalents de sol.
- * \castest{<b>Les pentes/arrondis de plafond sont solides, contrairement à leurs équivalents de
- * sol.</b><br/>
+ * `RoundedDownLeft`, `EX-GP-006`) ne sont **jamais solides** pour la grille classique, comme leurs
+ * équivalents de sol — leur collision est résolue par une passe de suivi dédiée
+ * (`core::resolveCeilingSlopeFollow`), pas par `core::isSolid`.
+ * \castest{<b>Les pentes/arrondis de plafond ne sont pas solides pour la grille classique, comme
+ * leurs équivalents de sol.</b><br/>
  * \tcat Unitaire · Slope Geometry<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Appeler `core::isSolid` sur les quatre types de plafond.<br/>2. Vérifier
  * l'assertion.<br/>
- * \tattendu `true` pour les quatre — un mur incliné/courbe qui bloque comme un `Solid` ordinaire.
+ * \tattendu `false` pour les quatre — sous peine de transformer leur bord bas en mur invisible
+ * pour le balayage classique.
  * }
  */
-TEST(SlopeGeometryTest, PenteEtArrondiDePlafondSontSolides) {
-    EXPECT_TRUE(core::isSolid(core::TileType::SlopeDownRight));
-    EXPECT_TRUE(core::isSolid(core::TileType::SlopeDownLeft));
-    EXPECT_TRUE(core::isSolid(core::TileType::RoundedDownRight));
-    EXPECT_TRUE(core::isSolid(core::TileType::RoundedDownLeft));
+TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontPasSolidesStatiquement) {
+    EXPECT_FALSE(core::isSolid(core::TileType::SlopeDownRight));
+    EXPECT_FALSE(core::isSolid(core::TileType::SlopeDownLeft));
+    EXPECT_FALSE(core::isSolid(core::TileType::RoundedDownRight));
+    EXPECT_FALSE(core::isSolid(core::TileType::RoundedDownLeft));
 }
 
 /**
- * @brief Les pentes/arrondis de plafond ne sont **jamais** suivis par le personnage (`EX-GP-006`)
- * : `isFollowableSurface` reste `false`, et `slopeSurfaceHeight` (physique) ne les connaît pas —
- * leur silhouette inclinée/courbe n'a de valeur que visuelle (`hmi::TileVisuals`), la collision
- * réelle est un carré plein comme n'importe quel `Solid`.
- * \castest{<b>Les pentes/arrondis de plafond ne sont jamais suivis par le personnage.</b><br/>
+ * @brief Les pentes/arrondis de plafond ne sont **jamais suivis en marchant** (`EX-GP-006`) :
+ * `isFollowableSurface` reste `false` (pas de déplacement latéral calé dessus) et
+ * `slopeSurfaceHeight` (formule de **sol**) ne les connaît pas — seul `core::ceilingSlopeHeight`
+ * (miroir, section suivante) leur donne une hauteur, réservée au blocage d'un saut.
+ * \castest{<b>Les pentes/arrondis de plafond ne sont jamais suivis en marchant.</b><br/>
  * \tcat Unitaire · Slope Geometry<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Appeler `isFollowableSurface` et `slopeSurfaceHeight` sur les quatre types de
- * plafond.<br/>2. Vérifier l'absence de suivi.<br/>
+ * plafond.<br/>2. Vérifier l'absence de suivi de sol.<br/>
  * \tattendu `isFollowableSurface` renvoie `false` et `slopeSurfaceHeight` renvoie `std::nullopt`
  * pour les quatre types.
  * }
  */
-TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivis) {
+TEST(SlopeGeometryTest, PenteEtArrondiDePlafondNeSontJamaisSuivisEnMarchant) {
     for (const core::TileType type :
          {core::TileType::SlopeDownRight, core::TileType::SlopeDownLeft,
           core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft}) {
         EXPECT_FALSE(core::isFollowableSurface(type));
         EXPECT_FALSE(core::slopeSurfaceHeight(type, 0.5f).has_value());
     }
+}
+
+/**
+ * @brief `isCeilingSlope` reconnaît exactement les quatre types de plafond, aucun autre
+ * (`EX-GP-006`).
+ * \castest{<b>isCeilingSlope reconnaît exactement les quatre types de plafond, aucun autre.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Appeler `isCeilingSlope` sur les quatre types de plafond et sur `SlopeUpRight`/
+ * `Solid`.<br/>2. Vérifier l'assertion.<br/>
+ * \tattendu `true` pour les quatre types de plafond, `false` pour `SlopeUpRight` et `Solid`.
+ * }
+ */
+TEST(SlopeGeometryTest, IsCeilingSlopeReconnaitExactementLesQuatreTypes) {
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::SlopeDownRight));
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::SlopeDownLeft));
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::RoundedDownRight));
+    EXPECT_TRUE(core::isCeilingSlope(core::TileType::RoundedDownLeft));
+    EXPECT_FALSE(core::isCeilingSlope(core::TileType::SlopeUpRight));
+    EXPECT_FALSE(core::isCeilingSlope(core::TileType::Solid));
+}
+
+/**
+ * @brief `ceilingSlopeHeight` est le miroir vertical exact de `slopeSurfaceHeight` pour les quatre
+ * types de plafond (`EX-GP-006`) : `SlopeDownRight` (miroir de `SlopeUpRight`) monte en épaisseur
+ * de gauche à droite.
+ * \castest{<b>ceilingSlopeHeight(SlopeDownRight) est le miroir vertical exact de
+ * slopeSurfaceHeight(SlopeUpRight).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs attendues.<br/>
+ * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, 0,5 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingSlopeDownRightEstLeMiroirDeSlopeUpRight) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::SlopeDownRight, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::SlopeDownRight, 0.5f);
+    const auto right = core::ceilingSlopeHeight(core::TileType::SlopeDownRight, 0.999f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 0.0f, 1e-6f);
+    EXPECT_FLOAT_EQ(*center, 0.5f);
+    EXPECT_NEAR(*right, 1.0f, 1e-3f);
+}
+
+/**
+ * @brief `ceilingSlopeHeight(SlopeDownLeft)` est le miroir vertical exact de
+ * `slopeSurfaceHeight(SlopeUpLeft)`.
+ * \castest{<b>ceilingSlopeHeight(SlopeDownLeft) est le miroir vertical exact de
+ * slopeSurfaceHeight(SlopeUpLeft).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs attendues.<br/>
+ * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, 0,5 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingSlopeDownLeftEstLeMiroirDeSlopeUpLeft) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::SlopeDownLeft, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::SlopeDownLeft, 0.5f);
+    const auto right = core::ceilingSlopeHeight(core::TileType::SlopeDownLeft, 0.999f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 1.0f, 1e-6f);
+    EXPECT_FLOAT_EQ(*center, 0.5f);
+    EXPECT_NEAR(*right, 0.0f, 1e-3f);
+}
+
+/**
+ * @brief `ceilingSlopeHeight(RoundedDownRight)` est le miroir vertical exact de
+ * `slopeSurfaceHeight(RoundedUpRight)` (quart de cercle).
+ * \castest{<b>ceilingSlopeHeight(RoundedDownRight) est le miroir vertical exact de
+ * slopeSurfaceHeight(RoundedUpRight).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 0 au bord gauche, 1 au bord droit, environ 0,866 au centre (`sqrt(0,75)`).
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingRoundedDownRightEstLeMiroirDeRoundedUpRight) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::RoundedDownRight, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::RoundedDownRight, 0.5f);
+    const auto right = core::ceilingSlopeHeight(core::TileType::RoundedDownRight, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 0.0f, 1e-6f);
+    EXPECT_NEAR(*center, std::sqrt(0.75f), 1e-4f);  // ~0,8660254
+    EXPECT_NEAR(*right, 1.0f, 1e-6f);
+}
+
+/**
+ * @brief `ceilingSlopeHeight(RoundedDownLeft)` est le miroir vertical exact de
+ * `slopeSurfaceHeight(RoundedUpLeft)`.
+ * \castest{<b>ceilingSlopeHeight(RoundedDownLeft) est le miroir vertical exact de
+ * slopeSurfaceHeight(RoundedUpLeft).</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` aux deux bords et au centre de la case.<br/>2. Comparer
+ * aux valeurs calculées à la main.<br/>
+ * \tattendu Hauteur 1 au bord gauche, 0 au bord droit, environ 0,866 au centre.
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingRoundedDownLeftEstLeMiroirDeRoundedUpLeft) {
+    const auto left = core::ceilingSlopeHeight(core::TileType::RoundedDownLeft, 0.0f);
+    const auto center = core::ceilingSlopeHeight(core::TileType::RoundedDownLeft, 0.5f);
+    // Bord droit évalué exactement en 1,0 (comme slopeSurfaceHeight(RoundedUpLeft), voir son test
+    // dédié) : la tangente y est VERTICALE (cercle), à 0,999 la hauteur ne vaut encore qu'environ
+    // 0,045, loin de 0 — seule la valeur EXACTE au bord (formule pure) est fiable ici.
+    const auto right = core::ceilingSlopeHeight(core::TileType::RoundedDownLeft, 1.0f);
+
+    ASSERT_TRUE(left.has_value());
+    ASSERT_TRUE(center.has_value());
+    ASSERT_TRUE(right.has_value());
+    EXPECT_NEAR(*left, 1.0f, 1e-6f);
+    EXPECT_NEAR(*center, std::sqrt(0.75f), 1e-4f);
+    EXPECT_NEAR(*right, 0.0f, 1e-6f);
+}
+
+/**
+ * @brief `ceilingSlopeHeight` renvoie `std::nullopt` pour un type sans silhouette de plafond.
+ * \castest{<b>ceilingSlopeHeight renvoie nullopt pour un type sans silhouette de plafond.</b><br/>
+ * \tcat Unitaire · Slope Geometry<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Évaluer `ceilingSlopeHeight` pour `Solid` et `SlopeUpRight` (variante de sol).<br/>
+ * 2. Vérifier l'absence de valeur.<br/>
+ * \tattendu `std::nullopt` pour les deux.
+ * }
+ */
+TEST(SlopeGeometryTest, CeilingSlopeHeightNulloptSiPasDePlafond) {
+    EXPECT_FALSE(core::ceilingSlopeHeight(core::TileType::Solid, 0.5f).has_value());
+    EXPECT_FALSE(core::ceilingSlopeHeight(core::TileType::SlopeUpRight, 0.5f).has_value());
 }

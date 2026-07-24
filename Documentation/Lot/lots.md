@@ -36,3 +36,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-23
 - @subpage lot-24
 - @subpage lot-25
+- @subpage lot-26

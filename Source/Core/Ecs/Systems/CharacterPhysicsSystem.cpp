@@ -170,6 +170,7 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
             //   resolveSlopeFollow). Ajout APRÈS la résolution grille classique, sans la modifier :
             //   isole le risque de régression sur la physique déjà testée (murs/sols plats).
             bool onSlope = false;
+            bool ceilingSlopeBlocked = false;
             {
                 const Aabb newBox = Aabb::fromTopLeftSize(transform.position, collider.size);
                 const float previousBottomY = box.min.y + collider.size.y;
@@ -182,11 +183,28 @@ void CharacterPhysicsSystem::update(World& world, const TileMap& tiles, const Pl
                 }
             }
 
+            //   6ter. Pente/arrondi de PLAFOND (EX-GP-006) : miroir de 6bis, bloque le bord haut
+            //   si une silhouette de plafond a été franchie en sautant — jamais de suivi de
+            //   déplacement latéral (contrairement au sol), seulement un blocage (bonk), comme un
+            //   plafond classique. Vérifié APRÈS le suivi de sol (indépendant : l'un agit sur le
+            //   bord bas en tombant, l'autre sur le bord haut en montant, jamais simultanément).
+            if (!onSlope) {
+                const Aabb newBox = Aabb::fromTopLeftSize(transform.position, collider.size);
+                const float previousTopY = box.min.y;
+                const CeilingSlopeFollowResult ceilingFollow =
+                    resolveCeilingSlopeFollow(previousTopY, newBox, velocity.value.y, tiles);
+                if (ceilingFollow.blocked) {
+                    transform.position.y = ceilingFollow.topY;
+                    velocity.value.y = 0.0f;
+                    ceilingSlopeBlocked = true;
+                }
+            }
+
             //   7. Annule la vitesse sur les axes bloqués (choc mur / sol / plafond) :
             if (result.normal.x != 0.0f) {
                 velocity.value.x = 0.0f;
             }
-            if (!onSlope && result.normal.y != 0.0f) {
+            if (!onSlope && !ceilingSlopeBlocked && result.normal.y != 0.0f) {
                 velocity.value.y = 0.0f;
             }
 

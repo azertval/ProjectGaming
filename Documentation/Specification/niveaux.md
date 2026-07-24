@@ -17,8 +17,9 @@ jamais solide pour la grille classique ; « Up » désigne le côté qui monte, 
 `roundedUpRight` et `roundedUpLeft` (variante **courbe** — quart de cercle — des pentes, `EX-GP-004`,
 même orientation et même principe de suivi, formule de hauteur différente), `slopeDownRight`,
 `slopeDownLeft`, `roundedDownRight` et `roundedDownLeft` (variantes de **plafond** des quatre
-tuiles précédentes, `EX-GP-006` — miroir vertical de la même silhouette, mais **solides**,
-jamais suivies : un mur incliné/courbe qui bloque par le dessus, silhouette purement visuelle),
+tuiles précédentes, `EX-GP-006` — miroir vertical de la même silhouette ; comme leurs équivalents
+de sol, jamais solides pour la grille classique, mais une passe de suivi dédiée bloque précisément
+un saut qui franchit leur profil incliné/courbe, sans jamais y faire « marcher » le personnage),
 `blockHalf` et `blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` —
 `EX-GP-005`, mêmes règles de poussée/chute que `block`, boîte de collision centrée et plus
 petite). Une case **vide** n'est pas listée (absence = vide).

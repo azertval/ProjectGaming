@@ -38,6 +38,31 @@ std::optional<float> slopeSurfaceHeight(TileType type, float localX) noexcept {
     }
 }
 
+// Hauteur de silhouette d'une pente/arrondi de plafond (EX-GP-006) : miroir vertical exact de la
+// surface de sol de meme orientation (1 - hauteur du miroir), pas une famille de formules
+// dupliquee -- voir la documentation de l'en-tete.
+std::optional<float> ceilingSlopeHeight(TileType type, float localX) noexcept {
+    TileType floorMirror{};
+    switch (type) {
+        case TileType::SlopeDownRight:
+            floorMirror = TileType::SlopeUpRight;
+            break;
+        case TileType::SlopeDownLeft:
+            floorMirror = TileType::SlopeUpLeft;
+            break;
+        case TileType::RoundedDownRight:
+            floorMirror = TileType::RoundedUpRight;
+            break;
+        case TileType::RoundedDownLeft:
+            floorMirror = TileType::RoundedUpLeft;
+            break;
+        default:
+            return std::nullopt;
+    }
+    const std::optional<float> floorHeight = slopeSurfaceHeight(floorMirror, localX);
+    return floorHeight ? std::optional<float>(1.0f - *floorHeight) : std::nullopt;
+}
+
 SlopeFollowResult resolveSlopeFollow(float previousBottomY, const Aabb& newBox, float velocityY,
                                      const TileMap& tiles) noexcept {
     SlopeFollowResult result;
@@ -83,6 +108,53 @@ SlopeFollowResult resolveSlopeFollow(float previousBottomY, const Aabb& newBox, 
         if (newBottomY >= surfaceY - kFollowTolerance) {
             result.grounded = true;
             result.bottomY = surfaceY;
+            return result;
+        }
+    }
+    return result;
+}
+
+// Miroir exact de resolveSlopeFollow ci-dessus, pour le bord HAUT plutot que bas, declenche en
+// MONTANT (saut) plutot qu'en tombant -- voir la documentation de l'en-tete (EX-GP-006).
+CeilingSlopeFollowResult resolveCeilingSlopeFollow(float previousTopY, const Aabb& newBox,
+                                                   float velocityY, const TileMap& tiles) noexcept {
+    CeilingSlopeFollowResult result;
+    if (velocityY >= 0.0f) {
+        return result;  // tombe ou immobile : un plafond ne bloque jamais autre chose qu'un saut
+    }
+    const float newTopY = newBox.min.y;
+    if (newTopY > previousTopY) {
+        return result;  // par construction ne devrait pas arriver (velocityY < 0), robustesse
+    }
+
+    const float centerX = (newBox.min.x + newBox.max.x) * 0.5f;
+    const int column = static_cast<int>(std::floor(centerX));
+    if (column < 0 || column >= tiles.width()) {
+        return result;
+    }
+    const float localX = centerX - static_cast<float>(column);
+
+    // Parcourt TOUTES les lignes traversees par le bord haut pendant ce pas (comme
+    // resolveSlopeFollow, symetrique) : un saut rapide ne doit jamais "traverser" un plafond
+    // incline/courbe en un seul pas. Contrairement au sol, aucun ajustement de tolerance n'est
+    // necessaire avant le floor() ici : le parcours DECROISSANT (rowStart >= rowEnd, on monte)
+    // inclut deja naturellement la ligne d'entree sans risque de l'omettre par arrondi.
+    const int rowStart = static_cast<int>(std::floor(previousTopY));
+    const int rowEnd = static_cast<int>(std::floor(newTopY));
+    for (int row = rowStart; row >= rowEnd; --row) {
+        if (row < 0 || row >= tiles.height()) {
+            continue;
+        }
+        const std::optional<float> height = ceilingSlopeHeight(tiles.tile(column, row), localX);
+        if (!height) {
+            continue;
+        }
+        const float surfaceY = static_cast<float>(row) + *height;
+        // Blocage des que le bord haut est A ou SOUS la silhouette (jamais au-dessus) : symetrique
+        // du calage "a ou sous la surface" du sol, miroir verticalement.
+        if (newTopY <= surfaceY + kFollowTolerance) {
+            result.blocked = true;
+            result.topY = surfaceY;
             return result;
         }
     }
