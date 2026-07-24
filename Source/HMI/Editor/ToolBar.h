@@ -19,6 +19,10 @@ namespace hmi {
  * `TilePalette`. Le dessin (icônes, libellés, surbrillance de la sélection) est délégué à
  * `EditorScreen`, qui lit `entries()`/`selected()`. `Tab` (dans `EditorScreen`) fait défiler les
  * outils via `selectNext()`, indépendamment d'un clic sur la barre.
+ *
+ * Depuis que `TilePalette` est un accordéon à hauteur variable (`LOT-27`), la barre ne peut plus
+ * supposer une position de départ fixe sous la palette : `EditorScreen` appelle `relayout(top)`
+ * chaque frame avec `TilePalette::bottom()` pour la repositionner juste en dessous.
  */
 class ToolBar {
 public:
@@ -31,8 +35,14 @@ public:
         float height = 0.0f;
     };
 
-    /// Construit la barre, disposée en bande horizontale sous la palette de tuiles.
+    /// Construit la barre, disposée en bande horizontale sous la palette de tuiles (position de
+    /// départ provisoire — `relayout` la corrige avant le premier rendu, voir en-tête).
     ToolBar();
+
+    /// Recalcule les rectangles des entrées pour que la première commence à @p top (en pixels
+    /// écran), sans changer l'outil sélectionné — appelé par `EditorScreen` chaque frame avec
+    /// `TilePalette::bottom() + PANEL_SECTION_GAP`.
+    void relayout(float top);
 
     /// @return Les entrées de la barre, dans leur ordre d'affichage.
     [[nodiscard]] const std::vector<Entry>& entries() const noexcept {

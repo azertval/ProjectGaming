@@ -11,9 +11,14 @@ constexpr EditorTool TOOLS[] = {EditorTool::Paint, EditorTool::Rectangle, Editor
 
 }  // namespace
 
-// Disposition en colonne dans le panneau lateral (LOT-15), sous la palette de tuiles.
-ToolBar::ToolBar() {
-    float y = TOOLBAR_TOP;
+// Disposition en colonne dans le panneau lateral (LOT-15), sous la palette de tuiles. Position de
+// depart provisoire (PALETTE_TOP) : EditorScreen appelle relayout() avant le premier rendu, la
+// palette n'ayant plus de hauteur fixe depuis LOT-27.
+ToolBar::ToolBar() { relayout(PALETTE_TOP); }
+
+void ToolBar::relayout(float top) {
+    _entries.clear();
+    float y = top;
     for (const EditorTool tool : TOOLS) {
         _entries.push_back(Entry{tool, PANEL_MARGIN, y, PANEL_ICON_SIZE, PANEL_ICON_SIZE});
         y += PANEL_ROW_PITCH;

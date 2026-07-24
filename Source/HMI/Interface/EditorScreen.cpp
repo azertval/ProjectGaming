@@ -112,6 +112,9 @@ EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int vi
       _picker(LevelPicker::forDirectory(hmi::executableDirectory() / "Levels")),
       _draft(core::LevelDraft::empty("Nouveau niveau", DEFAULT_WIDTH, DEFAULT_HEIGHT)),
       _camera(viewportWidth, viewportHeight) {
+    // La palette est un accordéon à hauteur variable (LOT-27) : positionne la barre d'outils juste
+    // en dessous dès la construction, avant tout rendu ou clic.
+    _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
     HMI_LOG_TRACE("EditorScreen cree (selecteur : " +
                  std::to_string(_picker->choices().size()) + " choix)");
 }
@@ -419,7 +422,12 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     _mouseY = newMouseY;
 
     if (input.mouseButtonPressed(MouseButton::Left)) {
-        if (_palette.handleClick(_mouseX, _mouseY) || _toolBar.handleClick(_mouseX, _mouseY)) {
+        const bool paletteHit = _palette.handleClick(_mouseX, _mouseY);
+        // La palette peut venir de replier/deplier une categorie ou un sous-groupe (LOT-27), donc
+        // changer de hauteur : repositionne la barre d'outils AVANT son propre test de clic, pour
+        // qu'un second clic dans la meme frame (rare) et le rendu qui suit visent la bonne case.
+        _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
+        if (paletteHit || _toolBar.handleClick(_mouseX, _mouseY)) {
             // La palette et la barre d'outils, dans le panneau lateral, sont prioritaires.
             _paintingDrag = false;
             _areaDragActive = false;
