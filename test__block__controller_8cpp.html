@@ -190,12 +190,55 @@ Functions</h2></td></tr>
 <tr class="memitem:a72d0f8d0063ce11205800bbeb5e89962" id="r_a72d0f8d0063ce11205800bbeb5e89962"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#a72d0f8d0063ce11205800bbeb5e89962">TEST</a> (BlockControllerTest, BlocReduitPousseSelonSaBoiteReelle)</td></tr>
 <tr class="memdesc:a72d0f8d0063ce11205800bbeb5e89962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc réduit (<code>×0.5</code>) se pousse exactement comme un bloc plein — case par case —, mais le contact déclencheur se teste contre sa boîte RÉDUITE, pas contre la case entière (<code>EX-GP-005</code>) : un personnage aligné sur le bord de la case (pas de la boîte réduite) ne le touche pas encore.  <br /></td></tr>
 <tr class="separator:a72d0f8d0063ce11205800bbeb5e89962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad824d6f72d10ba2a1ff73df98f516f01" id="r_ad824d6f72d10ba2a1ff73df98f516f01"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#ad824d6f72d10ba2a1ff73df98f516f01">TEST</a> (BlockControllerTest, BlocNeTombePasATraversUnePente)</td></tr>
+<tr class="memdesc:ad824d6f72d10ba2a1ff73df98f516f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc suspendu au-dessus d'une pente ne tombe pas au travers (<code>EX-GP-003</code>/<code>EX-GP-022</code>) : <code>BlockController</code> n'a aucune notion de suivi de surface, une pente est donc traitée comme un obstacle simple (case par case), pas comme une case libre.  <br /></td></tr>
+<tr class="separator:ad824d6f72d10ba2a1ff73df98f516f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d96d9beab18fa34143bca3bf0b32020" id="r_a4d96d9beab18fa34143bca3bf0b32020"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__block__controller_8cpp.html#a4d96d9beab18fa34143bca3bf0b32020">TEST</a> (BlockControllerTest, PousseeRefuseeContreUnePente)</td></tr>
+<tr class="memdesc:a4d96d9beab18fa34143bca3bf0b32020"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc ne peut pas être poussé sur une pente (<code>EX-GP-003</code>/<code>EX-GP-022</code>) : traitée comme un obstacle simple, pas comme une case libre.  <br /></td></tr>
+<tr class="separator:a4d96d9beab18fa34143bca3bf0b32020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des blocs poussables (<code>BlockController</code>, <code>EX-GP-022</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ad824d6f72d10ba2a1ff73df98f516f01" name="ad824d6f72d10ba2a1ff73df98f516f01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad824d6f72d10ba2a1ff73df98f516f01">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BlocNeTombePasATraversUnePente&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bloc suspendu au-dessus d'une pente ne tombe pas au travers (<code>EX-GP-003</code>/<code>EX-GP-022</code>) : <code>BlockController</code> n'a aucune notion de suivi de surface, une pente est donc traitée comme un obstacle simple (case par case), pas comme une case libre. </p>
+<p><b>Cas de test :</b> <b>Un bloc suspendu au-dessus d'une pente ne tombe pas au travers.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le bloc reste posé sur la pente (une case au-dessus), même après largement plus que <code>FALL_INTERVAL_STEPS</code> pas. </p>
+
+</div>
+</div>
 <a id="a2c5f29dd67710f684c698614df86101d" name="a2c5f29dd67710f684c698614df86101d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5f29dd67710f684c698614df86101d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +275,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a72d0f8d0063ce11205800bbeb5e89962" name="a72d0f8d0063ce11205800bbeb5e89962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d0f8d0063ce11205800bbeb5e89962">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d0f8d0063ce11205800bbeb5e89962">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,7 +312,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a34441bb332f84a91da0d68fcfbc2a09b" name="a34441bb332f84a91da0d68fcfbc2a09b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34441bb332f84a91da0d68fcfbc2a09b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +349,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afbc2231ae3476ebc62acabd6688cf939" name="afbc2231ae3476ebc62acabd6688cf939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc2231ae3476ebc62acabd6688cf939">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc2231ae3476ebc62acabd6688cf939">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,7 +386,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a768e7670b979ea682145f2c48adbbabb" name="a768e7670b979ea682145f2c48adbbabb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a768e7670b979ea682145f2c48adbbabb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +423,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afff25e4db7cce4d834f735194a4588c7" name="afff25e4db7cce4d834f735194a4588c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afff25e4db7cce4d834f735194a4588c7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afff25e4db7cce4d834f735194a4588c7">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +460,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4728b9449283958e3563f8e3b8ee5965" name="a4728b9449283958e3563f8e3b8ee5965"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4728b9449283958e3563f8e3b8ee5965">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,7 +497,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a01798e04d2b97be2f9e3f9976594062a" name="a01798e04d2b97be2f9e3f9976594062a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a01798e04d2b97be2f9e3f9976594062a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -491,7 +534,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a728f144e68c90c36cb053c00e4d88fa7" name="a728f144e68c90c36cb053c00e4d88fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a728f144e68c90c36cb053c00e4d88fa7">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -527,8 +570,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4d96d9beab18fa34143bca3bf0b32020" name="a4d96d9beab18fa34143bca3bf0b32020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d96d9beab18fa34143bca3bf0b32020">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BlockControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PousseeRefuseeContreUnePente&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bloc ne peut pas être poussé sur une pente (<code>EX-GP-003</code>/<code>EX-GP-022</code>) : traitée comme un obstacle simple, pas comme une case libre. </p>
+<p><b>Cas de test :</b> <b>Un bloc ne peut pas être poussé sur une pente.</b><br  />
+ <b>Categorie :</b> Unitaire · Block Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le bloc n'a pas bougé, la case de la pente reste occupée par la pente. </p>
+
+</div>
+</div>
 <a id="ae52d78664f175d7f1c3e3b5343e7a24c" name="ae52d78664f175d7f1c3e3b5343e7a24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52d78664f175d7f1c3e3b5343e7a24c">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -565,7 +645,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aceb5e1e5ce1c6a77c277c4390d52763d" name="aceb5e1e5ce1c6a77c277c4390d52763d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb5e1e5ce1c6a77c277c4390d52763d">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -602,7 +682,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7676cb1ee4fb2ea0df50f863df252ea3" name="a7676cb1ee4fb2ea0df50f863df252ea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7676cb1ee4fb2ea0df50f863df252ea3">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7676cb1ee4fb2ea0df50f863df252ea3">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

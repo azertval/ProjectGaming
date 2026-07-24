@@ -30,8 +30,8 @@ var searchData=
   ['15_20—_20éditeur_20de_20niveaux_20_3a_20robustesse_20et_20confort_20d_20édition_27',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],
   ['16_28',['7. Niveaux de grande taille (LOT-16)',['../spec-editeur.html#autotoc_md206',1,'']]],
   ['16_20—_20niveaux_20de_20grande_20taille_29',['LOT-16 — Niveaux de grande taille',['../lot-16.html',1,'lots']]],
-  ['17_30',['Gameplay (17)',['../cahiertest.html#autotoc_md8',1,'']]],
-  ['17_20—_20sprite_20du_20personnage_20statique_31',['LOT-17 — Sprite du personnage (statique)',['../lot-17.html',1,'lots']]],
-  ['18_20—_20animation_20du_20personnage_20repos_20course_20saut_32',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
+  ['17_20—_20sprite_20du_20personnage_20statique_30',['LOT-17 — Sprite du personnage (statique)',['../lot-17.html',1,'lots']]],
+  ['18_20—_20animation_20du_20personnage_20repos_20course_20saut_31',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
+  ['19_32',['Gameplay (19)',['../cahiertest.html#autotoc_md8',1,'']]],
   ['19_20—_20physique_20newtonienne_20et_20plaque_20de_20pression_33',['LOT-19 — Physique newtonienne et plaque de pression',['../lot-19.html',1,'lots']]]
 ];

@@ -11,7 +11,7 @@ var searchData=
   ['game_20feel_20et_20enchaînement_20de_20niveaux_8',['LOT-09 — Saut, game feel et enchaînement de niveaux',['../lot-09.html',1,'lots']]],
   ['gamepadconnected_9',['gamepadConnected',['../classhmi_1_1InputState.html#a833fa9bf0471616d04f6ab95568e90f4',1,'hmi::InputState']]],
   ['gameplay_10',['gameplay',['../spec-vision.html#autotoc_md236',1,'Boucle de gameplay'],['../spec-gameplay.html',1,'Gameplay'],['../guide-entrees.html#autotoc_md75',1,'Le principe : ne jamais coder « en dur » une touche dans le gameplay']]],
-  ['gameplay_2017_11',['Gameplay (17)',['../cahiertest.html#autotoc_md8',1,'']]],
+  ['gameplay_2019_11',['Gameplay (19)',['../cahiertest.html#autotoc_md8',1,'']]],
   ['gameplay_20personnage_20_3a_20déplacement_20gravité_20et_20collisions_12',['LOT-08 — Gameplay personnage : déplacement, gravité et collisions',['../lot-08.html',1,'lots']]],
   ['gameplay_2emd_13',['gameplay.md',['../gameplay_8md.html',1,'']]],
   ['gameplay_5flog_5ferror_14',['GAMEPLAY_LOG_ERROR',['../GameplayLog_8h.html#a3642b9797558286415285c8ac3ff244e',1,'GameplayLog.h']]],
