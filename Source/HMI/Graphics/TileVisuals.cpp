@@ -24,13 +24,14 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::Block:
             return atlas.tile(3, 1);  // violet
         case core::TileType::SlopeUpRight:
-            return atlas.tile(1, 2);  // vert sarcelle (couleur plate : pas de forme triangulaire)
         case core::TileType::SlopeUpLeft:
-            return atlas.tile(2, 2);  // vieux rose (couleur plate, distincte de SlopeUpRight)
         case core::TileType::RoundedUpRight:
-            return atlas.tile(3, 2);  // bleu violet (couleur plate : pas de forme courbe)
-        case core::TileType::RoundedUpLeft:
-            return atlas.tile(0, 1);  // magenta (couleur plate, distincte de RoundedUpRight)
+        case core::TileType::RoundedUpLeft: {
+            // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe) : voir
+            // slopeTileGridPosition, seule source de vérité pour ces coordonnées.
+            const AtlasGridPosition position = *slopeTileGridPosition(type);
+            return atlas.tile(position.column, position.row);
+        }
         case core::TileType::BlockHalf:
             return atlas.tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
         case core::TileType::BlockQuarter:
@@ -39,6 +40,23 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             break;
     }
     return atlas.tile(0, 0);
+}
+
+// Position dans la grille de tuiles reservee a un type de tuile a profil suivable — voir la
+// documentation de l'en-tete (seule source de verite pour ces coordonnees).
+std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
+    switch (type) {
+        case core::TileType::SlopeUpRight:
+            return AtlasGridPosition{1, 2};  // vert sarcelle
+        case core::TileType::SlopeUpLeft:
+            return AtlasGridPosition{2, 2};  // vieux rose
+        case core::TileType::RoundedUpRight:
+            return AtlasGridPosition{3, 2};  // bleu violet
+        case core::TileType::RoundedUpLeft:
+            return AtlasGridPosition{0, 1};  // magenta
+        default:
+            return std::nullopt;
+    }
 }
 
 }  // namespace hmi

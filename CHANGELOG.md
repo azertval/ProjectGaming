@@ -7,6 +7,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Corrigé
+- **Pentes et arrondis affichés comme des carrés pleins** (`EX-GP-003`/`EX-GP-004`) : l'atlas
+  procédural peignait ces quatre tuiles d'une simple couleur plate, sans rapport avec leur
+  hitbox réelle (surface inclinée ou courbe, `core::slopeSurfaceHeight`) — visuellement un mur
+  plein là où le personnage pouvait en fait marcher en diagonale au-dessus du vide. `TextureAtlas`
+  peint désormais ces quatre cases avec un masque de forme (opaque sous la surface suivie par la
+  physique, transparent au-dessus), calculé avec la **même** fonction que la physique : l'affichage
+  correspond par construction à la hitbox, sans pouvoir diverger. `hmi::slopeTileGridPosition`
+  (`HMI/Graphics/TileVisuals.h`) devient la source de vérité unique des coordonnées d'atlas de ces
+  quatre tuiles, partagée entre le rendu (couleur) et la génération du masque.
 - **Cahier de test illisible (page unique, 321 cas à plat)** : la page agrégeait tous les cas de
   test sur un seul niveau (mécanisme Doxygen `\xrefitem`, sans aucune section). Remplacée par
   `Documentation/CahierTest.md`, généré par le nouveau `scripts/generate_cahier_test.py` à partir

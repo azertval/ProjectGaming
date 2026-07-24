@@ -1,11 +1,15 @@
 #include "HMI/Graphics/TextureAtlas.h"
 
 #include <cstdint>
+#include <optional>
 #include <stdexcept>
 #include <vector>
 
 #include "Core/Ecs/Components/Animation.h"
+#include "Core/Levels/TileType.h"
+#include "Core/Physics/SlopeGeometry.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/TileVisuals.h"
 
 namespace hmi {
 
@@ -33,6 +37,44 @@ std::uint32_t tileColor(int tileIndex) {
 // Vrai si value est dans l'intervalle ferme [low, high] (bornes des zones du personnage).
 bool inRange(int value, int low, int high) {
     return value >= low && value <= high;
+}
+
+// Les quatre types a profil suivable (pente/arrondi) dont la case d'atlas recoit un masque de
+// forme (triangle/courbe) plutot qu'un carre plein — la seule liste a parcourir, TileType n'etant
+// pas enumerable directement en C++.
+constexpr core::TileType kSlopeTileTypes[] = {
+    core::TileType::SlopeUpRight,
+    core::TileType::SlopeUpLeft,
+    core::TileType::RoundedUpRight,
+    core::TileType::RoundedUpLeft,
+};
+
+// Type de tuile a profil suivable dont la case d'atlas est (tileColumn, tileRow), s'il y en a un.
+std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRow) {
+    for (const core::TileType type : kSlopeTileTypes) {
+        const std::optional<hmi::AtlasGridPosition> position = hmi::slopeTileGridPosition(type);
+        if (position && position->column == tileColumn && position->row == tileRow) {
+            return type;
+        }
+    }
+    return std::nullopt;
+}
+
+// Couleur du pixel (localX, localY) d'une case a profil suivable (pente/arrondi), 0-based dans
+// la case 16x16 : plein (couleur de base) sous la surface suivie par la physique
+// (core::slopeSurfaceHeight), transparent au-dessus — l'affichage reproduit ainsi exactement la
+// hitbox reelle (EX-GP-003/EX-GP-004), plutot qu'un carre plein qui la masquerait.
+std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY,
+                              std::uint32_t baseColor) {
+    const float normalizedX = (static_cast<float>(localX) + 0.5f) /
+                              static_cast<float>(TextureAtlas::TILE_SIZE);
+    const float normalizedY = (static_cast<float>(localY) + 0.5f) /
+                              static_cast<float>(TextureAtlas::TILE_SIZE);
+    const std::optional<float> surfaceHeight = core::slopeSurfaceHeight(type, normalizedX);
+    if (surfaceHeight && normalizedY >= *surfaceHeight) {
+        return baseColor;  // sous (ou sur) la surface : matiere pleine
+    }
+    return pack(0, 0, 0, 0);  // au-dessus de la surface : vide, transparent
 }
 
 // Largeur des bras : ecartes du corps ou resserres (variation de pose entre images d'un meme
@@ -189,6 +231,11 @@ TextureAtlas::TextureAtlas(ID3D11Device* device) {
                 // Un damier 4×4 pixels : une case sur deux est entièrement transparente.
                 const bool transparent = (((x / 4) + (y / 4)) % 2) == 0;
                 color = transparent ? pack(0, 0, 0, 0) : pack(240, 240, 240, 255);
+            } else if (const std::optional<core::TileType> slopeType =
+                           slopeTypeAtGridPosition(tileColumn, tileRow)) {
+                // Pente/arrondi (EX-GP-003/EX-GP-004) : masque de forme plutot qu'un carre plein,
+                // pour que l'affichage corresponde a la hitbox reelle (core::slopeSurfaceHeight).
+                color = slopeShapePixel(*slopeType, x % TILE_SIZE, y % TILE_SIZE, color);
             }
             pixels[static_cast<std::size_t>(y) * static_cast<std::size_t>(_width) +
                    static_cast<std::size_t>(x)] = color;
