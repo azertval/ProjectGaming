@@ -1923,6 +1923,45 @@ TEST(PhysiquePersonnageIntegration, PlafondInclineBloqueSelonSaSilhouette) {
 }
 
 /**
+ * @brief La **face du haut** d'une pente de plafond (`SlopeDownRight`, `EX-GP-006`) est plate et
+ * supporte le personnage qui tombe dessus **par le dessus** — il ne tombe pas au travers jusqu'au
+ * sol lointain en dessous.
+ * \castest{<b>La face du haut d'une pente de plafond supporte le personnage qui tombe dessus par
+ * le dessus.</b><br/>
+ * \tcat Integration · Physique Personnage<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le personnage se pose sur la face du haut de la tuile (au sommet de sa case),
+ * `grounded` devient vrai — il ne tombe pas au travers jusqu'au sol lointain en dessous.
+ * }
+ */
+TEST(PhysiquePersonnageIntegration, PlafondInclineSupportePersonnageParLeDessus) {
+    constexpr int CEILING_COLUMN = 3;
+    constexpr int CEILING_ROW = 3;
+    constexpr int FAR_FLOOR_ROW = 9;  // tres eloigne : prouve qu'il ne s'agit pas d'une coincidence
+
+    core::TileMap map(10, 10);
+    for (int col = 0; col < 10; ++col) {
+        map.setTile(col, FAR_FLOOR_ROW, core::TileType::Solid);
+    }
+    map.setTile(CEILING_COLUMN, CEILING_ROW, core::TileType::SlopeDownRight);
+
+    core::World world;
+    const core::Entity player = spawnHumanoid(world, core::GridPosition{CEILING_COLUMN, 0});
+    core::CharacterPhysicsSystem system;
+
+    for (int step = 0; step < 150; ++step) {
+        system.update(world, map, core::PlayerInput{}, STEP);  // pas d'entree : chute libre
+    }
+
+    const core::Player& player_ = world.getComponent<core::Player>(player);
+    const core::Transform& transform = world.getComponent<core::Transform>(player);
+    EXPECT_TRUE(player_.grounded);
+    EXPECT_NEAR(transform.position.y, static_cast<float>(CEILING_ROW) - core::kPlayerHeight, 0.05f);
+}
+
+/**
  * @brief Le niveau double saut est franchissable en enchaînant un saut au sol puis un saut aérien
  * (`EX-GP-015`) : un mur trop haut pour un seul saut devient franchissable.
  * \castest{<b>Le niveau double saut est franchissable en enchaînant saut au sol et saut

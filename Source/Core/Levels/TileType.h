@@ -35,10 +35,13 @@ namespace core {
  * **plafond** des pentes/arrondis ci-dessus : miroir vertical de la même silhouette (matière
  * pleine en haut de la case plutôt qu'en bas). Comme leurs équivalents de sol, elles ne sont
  * **jamais solides** pour la grille classique (`core::isSolid`) — leur collision est résolue par
- * une passe de suivi dédiée, miroir de celle des pentes de sol (`core::resolveCeilingSlopeFollow`,
- * @ref guide-physique) : le personnage ne les **traverse** jamais en montant (saut), mais ne
- * « marche » jamais dessus non plus (`core::isFollowableSurface` reste `false` — pas de
- * déplacement latéral en étant calé sous un plafond, contrairement à une pente de sol).
+ * deux passes de suivi symétriques : `core::resolveCeilingSlopeFollow` bloque un saut qui
+ * franchirait leur silhouette **par en dessous** (miroir de celle des pentes de sol), tandis que
+ * leur **face du haut** (toujours plate, au sommet de la case — `core::slopeSurfaceHeight` y
+ * renvoie `0`) supporte normalement un personnage qui tombe dessus **par au-dessus**, via
+ * `core::resolveSlopeFollow` réutilisé tel quel. Le personnage ne « marche » en revanche jamais
+ * **latéralement** le long de leur silhouette inclinée (`core::isFollowableSurface` reste `false`
+ * — pas de déplacement calé en suivant la pente, contrairement à une pente de sol).
  */
 enum class TileType {
     Empty,

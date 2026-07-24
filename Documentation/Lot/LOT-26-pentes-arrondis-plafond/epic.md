@@ -59,6 +59,15 @@ plutôt qu'en dupliquant une deuxième famille de formules ou de mécanique.
   16→25 cases) pour loger les quatre nouvelles silhouettes ; le jeu de couleurs (`tileColor`) a été
   explicitement recalé pour qu'un simple agrandissement de grille ne décale **aucune** couleur des
   tuiles existantes (l'index linéaire d'une case dépend de la largeur de la grille).
+- **Gap découvert après la première passe de revue** : la physique ne gérait que le franchissement
+  **par en dessous** (saut bloqué contre la silhouette). Un personnage tombant sur le **dessus**
+  d'une pente/arrondi de plafond (accessible depuis une zone praticable au-dessus, ex. un couloir
+  entre deux niveaux) tombait au travers, faute de toute résolution pour ce cas — ni solide
+  (`isSolid`), ni suivie par aucune passe existante. Corrigé en étendant `slopeSurfaceHeight`
+  (physique de **sol**) pour reconnaître aussi ces quatre types, avec une hauteur **constante 0**
+  (leur face du haut est toujours plate, au sommet de la case, quel que soit `localX`) : `
+  resolveSlopeFollow` les prend alors en charge tel quel, sans aucun code de résolution
+  supplémentaire — un personnage qui tombe dessus s'y pose désormais normalement.
 
 ## Exigences couvertes
 - `EX-GP-006` — nouvelle exigence, implémentée.
@@ -74,23 +83,27 @@ plutôt qu'en dupliquant une deuxième famille de formules ou de mécanique.
 | [TACHE-03](tache-03-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
-1. Un saut qui franchit une pente/arrondi de plafond est bloqué précisément selon sa silhouette
-   (bord fin = monte plus haut, bord épais = bloqué plus tôt) — pas comme un carré plein uniforme.
+1. Un saut qui franchit une pente/arrondi de plafond **par en dessous** est bloqué précisément
+   selon sa silhouette (bord fin = monte plus haut, bord épais = bloqué plus tôt) — pas comme un
+   carré plein uniforme.
 2. Le personnage ne peut **jamais** franchir la silhouette en sautant, quelle que soit la vitesse
    d'ascension (chevauchement de plusieurs lignes en un seul pas inclus, comme pour le sol).
-3. Aucune régression sur la physique existante (sol, pentes/arrondis de sol, murs, sauts) : tous
+3. Un personnage qui tombe sur le **dessus** d'une pente/arrondi de plafond s'y pose normalement
+   (face du haut plate), sans tomber au travers.
+4. Aucune régression sur la physique existante (sol, pentes/arrondis de sol, murs, sauts) : tous
    les tests existants restent verts sans modification.
-4. Placeables depuis la palette de l'éditeur, sérialisables (JSON), rendues avec leur silhouette
+5. Placeables depuis la palette de l'éditeur, sérialisables (JSON), rendues avec leur silhouette
    réelle en gris.
-5. Logique nouvelle **couverte par des tests** dédiés (géométrie miroir, classification statique,
-   aller-retour JSON, physique de blocage selon la silhouette). Build `/W4 /WX` sans avertissement,
-   Doxygen et lint des exigences verts.
+6. Logique nouvelle **couverte par des tests** dédiés (géométrie miroir, classification statique,
+   aller-retour JSON, physique de blocage par en dessous **et** de support par au-dessus). Build
+   `/W4 /WX` sans avertissement, Doxygen et lint des exigences verts.
 
 ## Dépendances
 - Étend `TileType` (`LOT-03`/`LOT-07`) et réutilise directement l'infrastructure de suivi de
   surface posée par `LOT-22` (`core::slopeSurfaceHeight`, `core::resolveSlopeFollow`) et étendue
-  par `LOT-23` (arrondis) — aucune modification de ces fonctions existantes, seulement de nouvelles
-  fonctions miroir qui les appellent.
+  par `LOT-23` (arrondis) — aucune modification de ces fonctions existantes (hormis l'extension du
+  `switch` de `slopeSurfaceHeight` pour la face du haut, voir décisions de cadrage), seulement de
+  nouvelles fonctions miroir qui les appellent.
 
 ## Navigation des tâches
 - @subpage lot-26-tache-01-modele-physique-plafond

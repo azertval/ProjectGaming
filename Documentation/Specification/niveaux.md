@@ -19,7 +19,9 @@ même orientation et même principe de suivi, formule de hauteur différente), `
 `slopeDownLeft`, `roundedDownRight` et `roundedDownLeft` (variantes de **plafond** des quatre
 tuiles précédentes, `EX-GP-006` — miroir vertical de la même silhouette ; comme leurs équivalents
 de sol, jamais solides pour la grille classique, mais une passe de suivi dédiée bloque précisément
-un saut qui franchit leur profil incliné/courbe, sans jamais y faire « marcher » le personnage),
+un saut qui franchit leur profil incliné/courbe par en dessous, sans jamais y faire « marcher » le
+personnage — leur face du haut, toujours plate, supporte normalement un personnage qui tombe
+dessus par au-dessus),
 `blockHalf` et `blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` —
 `EX-GP-005`, mêmes règles de poussée/chute que `block`, boîte de collision centrée et plus
 petite). Une case **vide** n'est pas listée (absence = vide).

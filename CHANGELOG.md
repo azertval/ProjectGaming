@@ -67,14 +67,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   dédiée, miroir de `resolveSlopeFollow` (`core::resolveCeilingSlopeFollow`, déclenchée en
   **montant** plutôt qu'en tombant) — le personnage ne peut **jamais franchir** leur silhouette en
   sautant (bonk précis contre le profil incliné/courbe réel, pas une case pleine uniforme), mais ne
-  « marche » jamais dessus non plus (pas de déplacement latéral calé sous un plafond). Réutilise
+  « marche » jamais dessus non plus (pas de déplacement latéral calé sous un plafond). Leur **face
+  du haut**, toujours plate au sommet de la case, supporte normalement un personnage qui tombe
+  dessus **par au-dessus** (`core::slopeSurfaceHeight` étendu, hauteur constante `0`, réutilise
+  `resolveSlopeFollow` tel quel — sans quoi il serait tombé au travers). Réutilise
   `core::slopeSurfaceHeight`/`core::resolveSlopeFollow` de la variante de sol miroir (aucune formule
   dupliquée, comparaison inversée). Grille de tuiles de l'atlas procédural agrandie
   (`TextureAtlas::TILES_PER_SIDE` `4→5`) pour loger les quatre nouvelles silhouettes, sans décaler
   les couleurs des tuiles existantes (jeu de couleurs recalé explicitement). Placeables depuis la
-  palette de l'éditeur (19 types désormais). **11 nouveaux tests** (géométrie miroir, classification
-  `isSolid`/`isFollowableSurface`, aller-retour JSON, physique de blocage selon la silhouette),
-  aucune régression (392/392 tests verts).
+  palette de l'éditeur (19 types désormais). **12 nouveaux tests** (géométrie miroir, classification
+  `isSolid`/`isFollowableSurface`, aller-retour JSON, physique de blocage par en dessous et de
+  support par au-dessus), aucune régression (393/393 tests verts).
 - **LOT-25 — Refactoring complet des niveaux démo** (`EX-GP-003`/`EX-GP-004`/`EX-GP-005`/
   `EX-GP-015`/`EX-GP-016`/`EX-GP-017`/`EX-GP-020`/`EX-GP-022`/`EX-GP-024`/`EX-GP-025`) : les
   anciens niveaux (`demo.json`…`demo5.json`, accumulés au fil des lots sans repasse d'ensemble —
