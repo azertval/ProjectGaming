@@ -17,5 +17,6 @@ var TileType_8h =
       [ "BlockHalf", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107", null ],
       [ "BlockQuarter", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9", null ]
     ] ],
-    [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ]
+    [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
+    [ "tileVisualScale", "TileType_8h.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ]
 ];

@@ -116,6 +116,7 @@ var namespacecore =
     [ "slopeSurfaceHeight", "namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb", null ],
     [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],
     [ "sweepAabbVsAabb", "namespacecore.html#a0019562e8e9658def020086ee4d49425", null ],
+    [ "tileVisualScale", "namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
     [ "IDLE_FRAME_COUNT", "namespacecore.html#a572ec27480068f4deb0511ed85244e68", null ],

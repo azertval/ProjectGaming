@@ -337,6 +337,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a105a7f2ca0f25e01231a9bc1bbc36ebb" id="r_a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb">isSolid</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile bloque le déplacement de manière <b>statique</b>.  <br /></td></tr>
 <tr class="separator:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b733af18a1507c5dc7b4ffdd88d8b6a" id="r_a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a">tileVisualScale</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de taille <b>visuel/collision</b> d'une tuile bloc réduite (<code>EX-GP-005</code>).  <br /></td></tr>
+<tr class="separator:a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
 <tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
 <tr class="separator:a69640dd3c9f3f8778a7c7621839c3794"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1632,6 +1635,41 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position finale, l'indicateur de blocage par axe et l'occurrence d'un contact — même structure <code><a class="el" href="structcore_1_1SweepResult.html" title="Résultat d&#39;un balayage : où la boîte s&#39;arrête et sur quels axes elle a été bloquée.">core::SweepResult</a></code> que <code>sweepAabb</code>, pour une composition directe côté appelant. </dd></dl>
+
+</div>
+</div>
+<a id="a9b733af18a1507c5dc7b4ffdd88d8b6a" name="a9b733af18a1507c5dc7b4ffdd88d8b6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b733af18a1507c5dc7b4ffdd88d8b6a">&#9670;&#160;</a></span>tileVisualScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::tileVisualScale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de taille <b>visuel/collision</b> d'une tuile bloc réduite (<code>EX-GP-005</code>). </p>
+<p><code>1.0f</code> pour tout type qui n'est pas un bloc réduit (y compris <code>Block</code>, plein) : un appelant qui calcule systématiquement <code>margin = (1 - scale) * 0.5</code> et dessine/teste à <code>scale × scale</code> obtient ainsi le comportement plein-case habituel sans cas particulier. Seule source de vérité pour ce facteur, partagée par <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code> (collision réelle, <code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>) et le rendu (<code>hmi::TileVisuals</code>, éditeur <b>et</b> jeu) — la même formule des deux côtés garantit qu'un bloc réduit s'affiche exactement comme sa hitbox, sans pouvoir diverger. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>0.5f</code> pour <code>BlockHalf</code>, <code>0.25f</code> pour <code>BlockQuarter</code>, <code>1.0f</code> sinon. </dd></dl>
 
 </div>
 </div>

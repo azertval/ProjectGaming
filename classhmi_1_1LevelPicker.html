@@ -138,15 +138,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac25b2b6dadec39f47c867e06f6410ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cccc300525edeec26fa1485dcad3fde" id="r_a6cccc300525edeec26fa1485dcad3fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a6cccc300525edeec26fa1485dcad3fde">selected</a> () const noexcept</td></tr>
 <tr class="separator:a6cccc300525edeec26fa1485dcad3fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6945da27a2fbfcc4e0bba699f7f40dd1" id="r_a6945da27a2fbfcc4e0bba699f7f40dd1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a6945da27a2fbfcc4e0bba699f7f40dd1">update</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
-<tr class="memdesc:a6945da27a2fbfcc4e0bba699f7f40dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la sélection (<code>↑</code>/<code>↓</code>, survol souris) et détecte la confirmation (<code>Entrée</code>, ou clic gauche sur un choix survolé).  <br /></td></tr>
-<tr class="separator:a6945da27a2fbfcc4e0bba699f7f40dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9460967c16269862f4a3ff0078f2770" id="r_ac9460967c16269862f4a3ff0078f2770"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#ac9460967c16269862f4a3ff0078f2770">scrollOffset</a> () const noexcept</td></tr>
+<tr class="separator:ac9460967c16269862f4a3ff0078f2770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fad5be1bb025c029f38c08306a2f131" id="r_a2fad5be1bb025c029f38c08306a2f131"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a2fad5be1bb025c029f38c08306a2f131">update</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, float viewportHeight)</td></tr>
+<tr class="memdesc:a2fad5be1bb025c029f38c08306a2f131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la sélection (<code>↑</code>/<code>↓</code>, survol souris, molette) et détecte la confirmation (<code>Entrée</code>, ou clic gauche sur un choix survolé).  <br /></td></tr>
+<tr class="separator:a2fad5be1bb025c029f38c08306a2f131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a67ec81b36b642c81ad26dc2161b0c0db" id="r_a67ec81b36b642c81ad26dc2161b0c0db"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classhmi_1_1LevelPicker.html">LevelPicker</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a67ec81b36b642c81ad26dc2161b0c0db">forDirectory</a> (const std::filesystem::path &amp;levelsDirectory)</td></tr>
 <tr class="memdesc:a67ec81b36b642c81ad26dc2161b0c0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scanne <code>levelsDirectory</code> pour ses fichiers <code>.json</code> et construit la liste correspondante, précédée de « Nouveau niveau ».  <br /></td></tr>
 <tr class="separator:a67ec81b36b642c81ad26dc2161b0c0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25c9011a432f6ac874e3cab6a1980e4d" id="r_a25c9011a432f6ac874e3cab6a1980e4d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a25c9011a432f6ac874e3cab6a1980e4d">visibleCount</a> (float viewportHeight)</td></tr>
+<tr class="memdesc:a25c9011a432f6ac874e3cab6a1980e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de choix affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — partagé entre la logique (défilement) et le rendu (fenêtre visible).  <br /></td></tr>
+<tr class="separator:a25c9011a432f6ac874e3cab6a1980e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -163,8 +168,14 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a18d2f5d3332e7f6def8e9265f1e6c423" id="r_a18d2f5d3332e7f6def8e9265f1e6c423"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a18d2f5d3332e7f6def8e9265f1e6c423">optionAtPoint</a> (int x, int y) const</td></tr>
-<tr class="separator:a18d2f5d3332e7f6def8e9265f1e6c423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa341376f7271d075582eaac0fa38c79d" id="r_aa341376f7271d075582eaac0fa38c79d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#aa341376f7271d075582eaac0fa38c79d">optionAtPoint</a> (int x, int y, int <a class="el" href="classhmi_1_1LevelPicker.html#a25c9011a432f6ac874e3cab6a1980e4d">visibleCount</a>) const</td></tr>
+<tr class="separator:aa341376f7271d075582eaac0fa38c79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52aa6f300cc378d76552e564a02134b6" id="r_a52aa6f300cc378d76552e564a02134b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a52aa6f300cc378d76552e564a02134b6">clampScrollRange</a> (int <a class="el" href="classhmi_1_1LevelPicker.html#a25c9011a432f6ac874e3cab6a1980e4d">visibleCount</a>) noexcept</td></tr>
+<tr class="memdesc:a52aa6f300cc378d76552e564a02134b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borne <code>_scrollOffset</code> à l'intervalle valide <code>[0, max(0, compte - visibleCount)]</code>, sans autre effet — utilisé après un défilement à la molette, qui ne doit <b>pas</b> forcer la fenêtre à revenir sur la sélection courante (l'utilisateur parcourt la liste sans changer son choix).  <br /></td></tr>
+<tr class="separator:a52aa6f300cc378d76552e564a02134b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfcce1d413338b251b2436d1b6e156ea" id="r_acfcce1d413338b251b2436d1b6e156ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#acfcce1d413338b251b2436d1b6e156ea">followSelection</a> (int <a class="el" href="classhmi_1_1LevelPicker.html#a25c9011a432f6ac874e3cab6a1980e4d">visibleCount</a>) noexcept</td></tr>
+<tr class="memdesc:acfcce1d413338b251b2436d1b6e156ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recale <code>_scrollOffset</code> pour que <code>_selected</code> reste dans la fenêtre visible (suit la sélection) — appelé seulement quand le <b>clavier</b> vient de déplacer la sélection ; un défilement à la molette seul ne doit jamais être annulé par ce recalage.  <br /></td></tr>
+<tr class="separator:acfcce1d413338b251b2436d1b6e156ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -172,6 +183,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a37db960db811b2fe9f457e1f6766ca6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2089816b1d68f47bb07b34547f401533" id="r_a2089816b1d68f47bb07b34547f401533"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a2089816b1d68f47bb07b34547f401533">_selected</a> = 0</td></tr>
 <tr class="separator:a2089816b1d68f47bb07b34547f401533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296836926317c2b2dee28a89cb5970bb" id="r_a296836926317c2b2dee28a89cb5970bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1LevelPicker.html#a296836926317c2b2dee28a89cb5970bb">_scrollOffset</a> = 0</td></tr>
+<tr class="separator:a296836926317c2b2dee28a89cb5970bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Liste « Nouveau niveau » + les fichiers <code>.json</code> d'un dossier, navigable au clavier et à la souris. </p>
@@ -232,6 +245,62 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a52aa6f300cc378d76552e564a02134b6" name="a52aa6f300cc378d76552e564a02134b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52aa6f300cc378d76552e564a02134b6">&#9670;&#160;</a></span>clampScrollRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelPicker::clampScrollRange </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>visibleCount</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Borne <code>_scrollOffset</code> à l'intervalle valide <code>[0, max(0, compte - visibleCount)]</code>, sans autre effet — utilisé après un défilement à la molette, qui ne doit <b>pas</b> forcer la fenêtre à revenir sur la sélection courante (l'utilisateur parcourt la liste sans changer son choix). </p>
+
+</div>
+</div>
+<a id="acfcce1d413338b251b2436d1b6e156ea" name="acfcce1d413338b251b2436d1b6e156ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfcce1d413338b251b2436d1b6e156ea">&#9670;&#160;</a></span>followSelection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LevelPicker::followSelection </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>visibleCount</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recale <code>_scrollOffset</code> pour que <code>_selected</code> reste dans la fenêtre visible (suit la sélection) — appelé seulement quand le <b>clavier</b> vient de déplacer la sélection ; un défilement à la molette seul ne doit jamais être annulé par ce recalage. </p>
+
+</div>
+</div>
 <a id="a67ec81b36b642c81ad26dc2161b0c0db" name="a67ec81b36b642c81ad26dc2161b0c0db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67ec81b36b642c81ad26dc2161b0c0db">&#9670;&#160;</a></span>forDirectory()</h2>
 
@@ -266,8 +335,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a18d2f5d3332e7f6def8e9265f1e6c423" name="a18d2f5d3332e7f6def8e9265f1e6c423"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18d2f5d3332e7f6def8e9265f1e6c423">&#9670;&#160;</a></span>optionAtPoint()</h2>
+<a id="aa341376f7271d075582eaac0fa38c79d" name="aa341376f7271d075582eaac0fa38c79d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa341376f7271d075582eaac0fa38c79d">&#9670;&#160;</a></span>optionAtPoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +354,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>visibleCount</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -299,7 +374,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'indice du choix dont le rectangle contient (<code>x</code>, <code>y</code>), ou -1. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>L'indice du choix dont le rectangle <b>affiché</b> (donc dans la fenêtre visible du défilement courant) contient (<code>x</code>, <code>y</code>), ou -1. </dd></dl>
+
+</div>
+</div>
+<a id="ac9460967c16269862f4a3ff0078f2770" name="ac9460967c16269862f4a3ff0078f2770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9460967c16269862f4a3ff0078f2770">&#9670;&#160;</a></span>scrollOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LevelPicker::scrollOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'indice du premier choix affiché (défilement, <code>EX-EDIT-001</code>) — les choix d'indice inférieur sont défilés au-dessus du haut de la liste, invisibles. </dd></dl>
 
 </div>
 </div>
@@ -329,8 +430,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6945da27a2fbfcc4e0bba699f7f40dd1" name="a6945da27a2fbfcc4e0bba699f7f40dd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6945da27a2fbfcc4e0bba699f7f40dd1">&#9670;&#160;</a></span>update()</h2>
+<a id="a2fad5be1bb025c029f38c08306a2f131" name="a2fad5be1bb025c029f38c08306a2f131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fad5be1bb025c029f38c08306a2f131">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,20 +440,66 @@ Private Attributes</h2></td></tr>
           <td class="memname">std::optional&lt; int &gt; hmi::LevelPicker::update </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>viewportHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Met à jour la sélection (<code>↑</code>/<code>↓</code>, survol souris) et détecte la confirmation (<code>Entrée</code>, ou clic gauche sur un choix survolé). </p>
+<p>Met à jour la sélection (<code>↑</code>/<code>↓</code>, survol souris, molette) et détecte la confirmation (<code>Entrée</code>, ou clic gauche sur un choix survolé). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>État des entrées de la frame. </td></tr>
+    <tr><td class="paramname">viewportHeight</td><td>Hauteur de la surface de rendu, en pixels (fenêtrage du défilement). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'indice confirmé ce pas-ci, ou <code>std::nullopt</code> si rien n'a été validé. </dd></dl>
+
+</div>
+</div>
+<a id="a25c9011a432f6ac874e3cab6a1980e4d" name="a25c9011a432f6ac874e3cab6a1980e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c9011a432f6ac874e3cab6a1980e4d">&#9670;&#160;</a></span>visibleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LevelPicker::visibleCount </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>viewportHeight</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de choix affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — partagé entre la logique (défilement) et le rendu (fenêtre visible). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewportHeight</td><td>Hauteur de la surface de rendu, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Au moins 1 (une liste trop petite pour afficher une seule ligne reste franchissable, jamais un fenêtrage vide). </dd></dl>
 
 </div>
 </div>
@@ -368,6 +515,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1LevelPicker_1_1Choice.html">Choice</a>&gt; hmi::LevelPicker::_choices</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a296836926317c2b2dee28a89cb5970bb" name="a296836926317c2b2dee28a89cb5970bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296836926317c2b2dee28a89cb5970bb">&#9670;&#160;</a></span>_scrollOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LevelPicker::_scrollOffset = 0</td>
         </tr>
       </table>
   </td>

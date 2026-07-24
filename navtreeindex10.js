@@ -1,5 +1,14 @@
 var NAVTREEINDEX10 =
 {
+"lot-08.html#autotoc_md618":[6,8,3],
+"lot-08.html#autotoc_md619":[6,8,4],
+"lot-08.html#autotoc_md620":[6,8,5],
+"lot-08.html#autotoc_md621":[6,8,6],
+"lot-08.html#autotoc_md622":[6,8,7],
+"lot-09-tache-01-donnees-saut.html":[6,9,8],
+"lot-09-tache-01-donnees-saut.html#autotoc_md675":[6,9,8,0],
+"lot-09-tache-01-donnees-saut.html#autotoc_md676":[6,9,8,1],
+"lot-09-tache-01-donnees-saut.html#autotoc_md677":[6,9,8,2],
 "lot-09-tache-01-donnees-saut.html#autotoc_md678":[6,9,8,3],
 "lot-09-tache-01-donnees-saut.html#autotoc_md679":[6,9,8,4],
 "lot-09-tache-01-donnees-saut.html#autotoc_md680":[6,9,8,5],
@@ -240,14 +249,5 @@ var NAVTREEINDEX10 =
 "lot-14-tache-04-undo-redo.html#autotoc_md887":[6,14,11,2],
 "lot-14-tache-04-undo-redo.html#autotoc_md888":[6,14,11,3],
 "lot-14-tache-04-undo-redo.html#autotoc_md889":[6,14,11,4],
-"lot-14-tache-04-undo-redo.html#autotoc_md890":[6,14,11,5],
-"lot-14-tache-04-undo-redo.html#autotoc_md891":[6,14,11,6],
-"lot-14-tache-05-enregistrement-validation-essai.html":[6,14,12],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md892":[6,14,12,0],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md893":[6,14,12,1],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md894":[6,14,12,2],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md895":[6,14,12,3],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md896":[6,14,12,4],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md897":[6,14,12,5],
-"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md898":[6,14,12,6]
+"lot-14-tache-04-undo-redo.html#autotoc_md890":[6,14,11,5]
 };

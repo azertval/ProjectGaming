@@ -79,7 +79,6 @@ var namespacehmi =
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ],
       [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ]
     ] ],
-    [ "editorCanvasRegionForTile", "namespacehmi.html#a9eaa0194fd39a384f93104d2d20abaa0", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],
     [ "isValidLevelSize", "namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430", null ],

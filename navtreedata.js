@@ -193,7 +193,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (306)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (311)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -204,7 +204,7 @@ var NAVTREE =
           [ "Time (6)", "cahiertest.html#autotoc_md12", null ]
         ] ],
         [ "HMI", "cahiertest.html#autotoc_md13", [
-          [ "Editor (38)", "cahiertest.html#autotoc_md14", null ],
+          [ "Editor (43)", "cahiertest.html#autotoc_md14", null ],
           [ "Graphics (9)", "cahiertest.html#autotoc_md15", null ],
           [ "Input (24)", "cahiertest.html#autotoc_md16", null ],
           [ "Interface (34)", "cahiertest.html#autotoc_md17", null ],
@@ -1788,22 +1788,22 @@ var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
 "LevelsLog_8h_source.html",
-"classcore_1_1BlockController.html#a9306bb0b35c21394aeba8b93da0f44f5",
-"classcore_1_1Logger.html#a4e5846a9e46e15964cfbf3ae7282f813",
+"classcore_1_1BlockController.html#acd1cddbdd727d33c3815491e5d7de8b1",
+"classcore_1_1Logger.html#a6b94a49154efabb17a720d59cb0b241e",
 "classhmi_1_1EditorScreen.html#a3e38294ee7e7807046ba5daee533cb63",
 "classhmi_1_1InputState.html#acc44c933a7b0873528148ea88efb3802",
-"classhmi_1_1ScreenManager.html#a31c3392dff4858fb83152823b4a8422e",
-"dir_9b3320635a3fce7e119923fb643adc2f.html",
-"guide-rendu.html#autotoc_md147",
-"lot-05-tache-01-composant-sprite.html#autotoc_md458",
-"lot-09-tache-01-donnees-saut.html#autotoc_md678",
-"lot-14-tache-06-integration-guide-non-codeur.html",
-"lot-20-tache-01-integration-manette.html#autotoc_md1120",
-"manuel-telecharger.html#autotoc_md1329",
-"spec-vision.html#autotoc_md239",
-"structcore_1_1Vector2.html#a9ddd3b555ac4e050f00c3ab9954d7844",
-"test__input__state_8cpp.html#a81215d1d3cac78f80bac142dacc0b34c",
-"test__player__input__mapper_8cpp.html#a7db08aeca730e98a9d9c850799724c94"
+"classhmi_1_1SaveLogButton.html#ad86733f6e69cfb6b3a04882e1fe67741",
+"dir_7948254dd9a8fc91331a4d5422a690cb.html",
+"guide-rendu.html#autotoc_md138",
+"lot-04.html#autotoc_md381",
+"lot-08.html#autotoc_md618",
+"lot-14-tache-04-undo-redo.html#autotoc_md891",
+"lot-19.html#autotoc_md1074",
+"manuel-partager-niveau.html#autotoc_md1321",
+"spec-rendu-technique.html#autotoc_md230",
+"structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160",
+"test__fixed__timestep_8cpp.html#aa6e4fd7eb8dafac4afa24c41aacfdc66",
+"test__physique__personnage_8cpp.html#afd1a980bce387c44b9e55aabfcd70e09"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

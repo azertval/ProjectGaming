@@ -11,7 +11,6 @@ var searchData=
   ['3_20pipeline_20photo_20→_20pixel_20art_20intégré_20à_20l_20éditeur_8',['3. Pipeline photo → pixel art (intégré à l&apos;éditeur)',['../spec-decors.html#autotoc_md195',1,'']]],
   ['3_20qualité_20vérification_9',['3. Qualité &amp; vérification',['../spec-exigences.html#autotoc_md210',1,'']]],
   ['3_20réactivité_10',['3. Réactivité',['../spec-controles.html#autotoc_md169',1,'']]],
-  ['306_11',['Tests unitaires (306)',['../cahiertest.html#autotoc_md4',1,'']]],
-  ['34_12',['34',['../cahiertest.html#autotoc_md7',1,'Ecs (34)'],['../cahiertest.html#autotoc_md17',1,'Interface (34)']]],
-  ['38_13',['Editor (38)',['../cahiertest.html#autotoc_md14',1,'']]]
+  ['311_11',['Tests unitaires (311)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['34_12',['34',['../cahiertest.html#autotoc_md7',1,'Ecs (34)'],['../cahiertest.html#autotoc_md17',1,'Interface (34)']]]
 ];

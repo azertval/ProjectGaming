@@ -1,5 +1,14 @@
 var NAVTREEINDEX11 =
 {
+"lot-14-tache-04-undo-redo.html#autotoc_md891":[6,14,11,6],
+"lot-14-tache-05-enregistrement-validation-essai.html":[6,14,12],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md892":[6,14,12,0],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md893":[6,14,12,1],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md894":[6,14,12,2],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md895":[6,14,12,3],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md896":[6,14,12,4],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md897":[6,14,12,5],
+"lot-14-tache-05-enregistrement-validation-essai.html#autotoc_md898":[6,14,12,6],
 "lot-14-tache-06-integration-guide-non-codeur.html":[6,14,13],
 "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md899":[6,14,13,0],
 "lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md900":[6,14,13,1],
@@ -240,14 +249,5 @@ var NAVTREEINDEX11 =
 "lot-19.html#autotoc_md1070":[6,19,1,0],
 "lot-19.html#autotoc_md1071":[6,19,1,1],
 "lot-19.html#autotoc_md1072":[6,19,2],
-"lot-19.html#autotoc_md1073":[6,19,3],
-"lot-19.html#autotoc_md1074":[6,19,4],
-"lot-19.html#autotoc_md1075":[6,19,5],
-"lot-19.html#autotoc_md1076":[6,19,6],
-"lot-19.html#autotoc_md1077":[6,19,7],
-"lot-20-tache-01-integration-manette.html":[6,20,8],
-"lot-20-tache-01-integration-manette.html#autotoc_md1116":[6,20,8,0],
-"lot-20-tache-01-integration-manette.html#autotoc_md1117":[6,20,8,1],
-"lot-20-tache-01-integration-manette.html#autotoc_md1118":[6,20,8,2],
-"lot-20-tache-01-integration-manette.html#autotoc_md1119":[6,20,8,3]
+"lot-19.html#autotoc_md1073":[6,19,3]
 };

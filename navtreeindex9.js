@@ -1,5 +1,14 @@
 var NAVTREEINDEX9 =
 {
+"lot-04.html#autotoc_md381":[6,4,5],
+"lot-04.html#autotoc_md382":[6,4,6],
+"lot-04.html#autotoc_md383":[6,4,7],
+"lot-05-tache-01-composant-sprite.html":[6,5,8],
+"lot-05-tache-01-composant-sprite.html#autotoc_md453":[6,5,8,0],
+"lot-05-tache-01-composant-sprite.html#autotoc_md454":[6,5,8,1],
+"lot-05-tache-01-composant-sprite.html#autotoc_md455":[6,5,8,2],
+"lot-05-tache-01-composant-sprite.html#autotoc_md456":[6,5,8,3],
+"lot-05-tache-01-composant-sprite.html#autotoc_md457":[6,5,8,4],
 "lot-05-tache-01-composant-sprite.html#autotoc_md458":[6,5,8,5],
 "lot-05-tache-01-composant-sprite.html#autotoc_md459":[6,5,8,6],
 "lot-05-tache-02-pipeline-quads-textures.html":[6,5,9],
@@ -240,14 +249,5 @@ var NAVTREEINDEX9 =
 "lot-08.html#autotoc_md614":[6,8,1],
 "lot-08.html#autotoc_md615":[6,8,1,0],
 "lot-08.html#autotoc_md616":[6,8,1,1],
-"lot-08.html#autotoc_md617":[6,8,2],
-"lot-08.html#autotoc_md618":[6,8,3],
-"lot-08.html#autotoc_md619":[6,8,4],
-"lot-08.html#autotoc_md620":[6,8,5],
-"lot-08.html#autotoc_md621":[6,8,6],
-"lot-08.html#autotoc_md622":[6,8,7],
-"lot-09-tache-01-donnees-saut.html":[6,9,8],
-"lot-09-tache-01-donnees-saut.html#autotoc_md675":[6,9,8,0],
-"lot-09-tache-01-donnees-saut.html#autotoc_md676":[6,9,8,1],
-"lot-09-tache-01-donnees-saut.html#autotoc_md677":[6,9,8,2]
+"lot-08.html#autotoc_md617":[6,8,2]
 };

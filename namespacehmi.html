@@ -274,9 +274,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="separator:a2c8e7957dacab70252bf7edbdc80422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eaa0194fd39a384f93104d2d20abaa0" id="r_a9eaa0194fd39a384f93104d2d20abaa0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a9eaa0194fd39a384f93104d2d20abaa0">editorCanvasRegionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
-<tr class="memdesc:a9eaa0194fd39a384f93104d2d20abaa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas pour le <b>canevas</b> de l'éditeur (grille du niveau en cours d'édition).  <br /></td></tr>
-<tr class="separator:a9eaa0194fd39a384f93104d2d20abaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1">slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a3a1050ef6cc138977442e9d4206cb3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, dans la grille de tuiles procédurale, réservée à un type de tuile à profil <b>suivable</b> (pente/arrondi, <code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>).  <br /></td></tr>
 <tr class="separator:a3a1050ef6cc138977442e9d4206cb3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -502,44 +499,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a9eaa0194fd39a384f93104d2d20abaa0" name="a9eaa0194fd39a384f93104d2d20abaa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9eaa0194fd39a384f93104d2d20abaa0">&#9670;&#160;</a></span>editorCanvasRegionForTile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::editorCanvasRegionForTile </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;&#160;</td>
-          <td class="paramname"><em>atlas</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Région d'atlas pour le <b>canevas</b> de l'éditeur (grille du niveau en cours d'édition). </p>
-<p>Identique à <code>regionForTile</code>, sauf pour les tuiles à forme fine ou à taille réduite (pentes, arrondis, <code>BlockHalf</code>/<code>BlockQuarter</code>) : ce canevas les affiche comme un <code>Solid</code> standard (gris, case pleine) plutôt qu'avec leur forme précise (triangle/courbe) ou leur taille réelle (<code>×0.5</code>/<code>×0.25</code>) — une grille dense mélangeant des formes fines masque plus qu'elle n'aide à lire la disposition d'ensemble d'un niveau pendant l'édition. La forme/taille exacte reste visible en jouant le niveau (<code>P</code>, <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">GameScreen</a></code>) et dans la palette (icône dédiée + libellé). </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
-    <tr><td class="paramname">atlas</td><td>Atlas fournissant les régions. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>La région d'atlas à échantillonner pour ce type, dans le canevas de l'éditeur. </dd></dl>
-
-</div>
-</div>
 <a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
 
@@ -669,7 +628,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Région d'atlas (couleur procédurale) associée à un type de tuile. </p>
-<p>Utilisée par <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">GameScreen</a></code> (rendu d'un niveau joué, fidèle à la hitbox réelle) et par la palette de l'éditeur (<code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">hmi::TilePalette</a></code>, sélection d'un outil — chaque entrée porte aussi un libellé textuel, donc pas d'ambiguïté à garder des couleurs/formes distinctes). Pour le <b>canevas</b> de l'éditeur (la grille du niveau en cours d'édition), voir <code>editorCanvasRegionForTile</code>, qui simplifie délibérément certains types pour rester lisible. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><b>Unique</b> correspondance type → région, utilisée par <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">GameScreen</a></code> (rendu d'un niveau joué), <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> (canevas de l'éditeur, LOT-14) et la palette de l'éditeur (<code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">hmi::TilePalette</a></code>) : le canevas de l'éditeur est un aperçu <b>fidèle</b> (même forme — triangle/courbe pour les pentes/ arrondis, <code>EX-GP-003</code>/<code>EX-GP-004</code>, <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> — et, combinée à <code><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></code> côté appelant, même taille pour les blocs réduits, <code>EX-GP-005</code>) de ce que le joueur verra en jouant le niveau (<code>P</code>), sans simplification qui pourrait induire en erreur pendant l'édition. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>Type de tuile (<code>Empty</code> renvoie une région arbitraire, jamais dessinée en pratique — les cases vides ne sont pas rendues par l'appelant). </td></tr>
     <tr><td class="paramname">atlas</td><td>Atlas fournissant les régions. </td></tr>

@@ -157,12 +157,64 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ecb70040b141199fcde1d81de797551" id="r_a4ecb70040b141199fcde1d81de797551"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#a4ecb70040b141199fcde1d81de797551">TEST</a> (LevelPickerTest, ForDirectoryDossierInexistantNeProposeQueNouveauNiveau)</td></tr>
 <tr class="memdesc:a4ecb70040b141199fcde1d81de797551"><td class="mdescLeft">&#160;</td><td class="mdescRight">forDirectory sur un dossier inexistant ne propose que « Nouveau niveau ».  <br /></td></tr>
 <tr class="separator:a4ecb70040b141199fcde1d81de797551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cc6ad974988dd05c2c99e9ed937dafa" id="r_a2cc6ad974988dd05c2c99e9ed937dafa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#a2cc6ad974988dd05c2c99e9ed937dafa">TEST</a> (LevelPickerTest, VisibleCountAuMoinsUn)</td></tr>
+<tr class="memdesc:a2cc6ad974988dd05c2c99e9ed937dafa"><td class="mdescLeft">&#160;</td><td class="mdescRight">visibleCount() renvoie au moins 1, même pour une hauteur de viewport minuscule.  <br /></td></tr>
+<tr class="separator:a2cc6ad974988dd05c2c99e9ed937dafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6b7dc7fd6fa2504807b6e424684dac0" id="r_af6b7dc7fd6fa2504807b6e424684dac0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#af6b7dc7fd6fa2504807b6e424684dac0">TEST</a> (LevelPickerTest, DefilementSuitLaSelectionVersLeBas)</td></tr>
+<tr class="memdesc:af6b7dc7fd6fa2504807b6e424684dac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une liste plus longue que la fenêtre visible défile pour suivre la sélection vers le bas (<code>EX-EDIT-001</code>) : les choix au-delà de la fenêtre visible restent atteignables.  <br /></td></tr>
+<tr class="separator:af6b7dc7fd6fa2504807b6e424684dac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a604c65d41ebb9ad36c9c7ae08cc14101" id="r_a604c65d41ebb9ad36c9c7ae08cc14101"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#a604c65d41ebb9ad36c9c7ae08cc14101">TEST</a> (LevelPickerTest, DefilementSuitLaSelectionVersLeHaut)</td></tr>
+<tr class="memdesc:a604c65d41ebb9ad36c9c7ae08cc14101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depuis une position défilée, remonter la sélection jusqu'en haut ramène le défilement à zéro.  <br /></td></tr>
+<tr class="separator:a604c65d41ebb9ad36c9c7ae08cc14101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404932eb92d7dd73a8df5433b3e9a2c9" id="r_a404932eb92d7dd73a8df5433b3e9a2c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#a404932eb92d7dd73a8df5433b3e9a2c9">TEST</a> (LevelPickerTest, MoletteDefileSansChangerLaSelection)</td></tr>
+<tr class="memdesc:a404932eb92d7dd73a8df5433b3e9a2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La molette défile la liste sans changer la sélection courante.  <br /></td></tr>
+<tr class="separator:a404932eb92d7dd73a8df5433b3e9a2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681d3f4a5cace57c78c1dc7a99754a00" id="r_a681d3f4a5cace57c78c1dc7a99754a00"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__picker_8cpp.html#a681d3f4a5cace57c78c1dc7a99754a00">TEST</a> (LevelPickerTest, ChoixDefileHorsFenetreNestPasCliquable)</td></tr>
+<tr class="memdesc:a681d3f4a5cace57c78c1dc7a99754a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un choix défilé hors de la fenêtre visible n'est pas cliquable à son ancienne position écran (seule la fenêtre affichée l'est).  <br /></td></tr>
+<tr class="separator:a681d3f4a5cace57c78c1dc7a99754a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a681d3f4a5cace57c78c1dc7a99754a00" name="a681d3f4a5cace57c78c1dc7a99754a00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681d3f4a5cace57c78c1dc7a99754a00">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelPickerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChoixDefileHorsFenetreNestPasCliquable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un choix défilé hors de la fenêtre visible n'est pas cliquable à son ancienne position écran (seule la fenêtre affichée l'est). </p>
+<p><b>Cas de test :</b> <b>Un choix défilé hors de la fenêtre visible n'est pas cliquable à son ancienne position écran.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Picker<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un choix défilé hors de la fenêtre visible n'est pas cliquable à son ancienne position écran. </p>
+
+</div>
+</div>
 <a id="a6bce0806120e69d289d725e8bf56184b" name="a6bce0806120e69d289d725e8bf56184b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bce0806120e69d289d725e8bf56184b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bce0806120e69d289d725e8bf56184b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +250,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af6b7dc7fd6fa2504807b6e424684dac0" name="af6b7dc7fd6fa2504807b6e424684dac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6b7dc7fd6fa2504807b6e424684dac0">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelPickerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DefilementSuitLaSelectionVersLeBas&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une liste plus longue que la fenêtre visible défile pour suivre la sélection vers le bas (<code>EX-EDIT-001</code>) : les choix au-delà de la fenêtre visible restent atteignables. </p>
+<p><b>Cas de test :</b> <b>Une liste plus longue que la fenêtre visible défile pour suivre la sélection vers le bas.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Picker<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une liste plus longue que la fenêtre visible défile pour suivre la sélection vers le bas. </p>
+
+</div>
+</div>
+<a id="a604c65d41ebb9ad36c9c7ae08cc14101" name="a604c65d41ebb9ad36c9c7ae08cc14101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a604c65d41ebb9ad36c9c7ae08cc14101">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelPickerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DefilementSuitLaSelectionVersLeHaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Depuis une position défilée, remonter la sélection jusqu'en haut ramène le défilement à zéro. </p>
+<p><b>Cas de test :</b> <b>Depuis une position défilée, remonter la sélection jusqu'en haut ramène le défilement à zéro.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Picker<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Depuis une position défilée, remonter la sélection jusqu'en haut ramène le défilement à zéro. </p>
+
+</div>
+</div>
 <a id="a8f2e5b987b5b492d67df2aa747e29e80" name="a8f2e5b987b5b492d67df2aa747e29e80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f2e5b987b5b492d67df2aa747e29e80">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f2e5b987b5b492d67df2aa747e29e80">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +362,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a78415b682611d2ddde31728cdb6ac2e4" name="a78415b682611d2ddde31728cdb6ac2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78415b682611d2ddde31728cdb6ac2e4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78415b682611d2ddde31728cdb6ac2e4">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,7 +399,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4ecb70040b141199fcde1d81de797551" name="a4ecb70040b141199fcde1d81de797551"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ecb70040b141199fcde1d81de797551">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ecb70040b141199fcde1d81de797551">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,8 +435,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a404932eb92d7dd73a8df5433b3e9a2c9" name="a404932eb92d7dd73a8df5433b3e9a2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a404932eb92d7dd73a8df5433b3e9a2c9">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelPickerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MoletteDefileSansChangerLaSelection&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La molette défile la liste sans changer la sélection courante. </p>
+<p><b>Cas de test :</b> <b>La molette défile la liste sans changer la sélection courante.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Picker<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La molette défile la liste sans changer la sélection courante. </p>
+
+</div>
+</div>
 <a id="a0405f419b0ef151bbd84e4373c3cb7db" name="a0405f419b0ef151bbd84e4373c3cb7db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0405f419b0ef151bbd84e4373c3cb7db">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0405f419b0ef151bbd84e4373c3cb7db">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +510,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4b87f4eced7c78d29fe2b3da8d057d43" name="a4b87f4eced7c78d29fe2b3da8d057d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b87f4eced7c78d29fe2b3da8d057d43">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b87f4eced7c78d29fe2b3da8d057d43">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -384,7 +547,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7cc1a8afc20c0098fb082ca37ff901fa" name="a7cc1a8afc20c0098fb082ca37ff901fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cc1a8afc20c0098fb082ca37ff901fa">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc1a8afc20c0098fb082ca37ff901fa">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -421,7 +584,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af4cde8c821fb5837f5d24ef4318a4aba" name="af4cde8c821fb5837f5d24ef4318a4aba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4cde8c821fb5837f5d24ef4318a4aba">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af4cde8c821fb5837f5d24ef4318a4aba">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,6 +617,43 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Survoler un choix à la souris déplace la sélection dessus (sans confirmer). </p>
+
+</div>
+</div>
+<a id="a2cc6ad974988dd05c2c99e9ed937dafa" name="a2cc6ad974988dd05c2c99e9ed937dafa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cc6ad974988dd05c2c99e9ed937dafa">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelPickerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VisibleCountAuMoinsUn&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>visibleCount() renvoie au moins 1, même pour une hauteur de viewport minuscule. </p>
+<p><b>Cas de test :</b> <b>visibleCount() renvoie au moins 1, même pour une hauteur de viewport minuscule.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Picker<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> visibleCount() renvoie au moins 1, même pour une hauteur de viewport minuscule. </p>
 
 </div>
 </div>

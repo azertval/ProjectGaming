@@ -1,5 +1,14 @@
 var NAVTREEINDEX12 =
 {
+"lot-19.html#autotoc_md1074":[6,19,4],
+"lot-19.html#autotoc_md1075":[6,19,5],
+"lot-19.html#autotoc_md1076":[6,19,6],
+"lot-19.html#autotoc_md1077":[6,19,7],
+"lot-20-tache-01-integration-manette.html":[6,20,8],
+"lot-20-tache-01-integration-manette.html#autotoc_md1116":[6,20,8,0],
+"lot-20-tache-01-integration-manette.html#autotoc_md1117":[6,20,8,1],
+"lot-20-tache-01-integration-manette.html#autotoc_md1118":[6,20,8,2],
+"lot-20-tache-01-integration-manette.html#autotoc_md1119":[6,20,8,3],
 "lot-20-tache-01-integration-manette.html#autotoc_md1120":[6,20,8,4],
 "lot-20-tache-01-integration-manette.html#autotoc_md1121":[6,20,8,5],
 "lot-20-tache-01-integration-manette.html#autotoc_md1122":[6,20,8,6],
@@ -240,14 +249,5 @@ var NAVTREEINDEX12 =
 "manuel-jouer.html#autotoc_md1317":[7,2,1],
 "manuel-jouer.html#autotoc_md1318":[7,2,2],
 "manuel-jouer.html#autotoc_md1319":[7,2,3],
-"manuel-partager-niveau.html":[7,3],
-"manuel-partager-niveau.html#autotoc_md1321":[7,3,0],
-"manuel-partager-niveau.html#autotoc_md1322":[7,3,1],
-"manuel-partager-niveau.html#autotoc_md1323":[7,3,2],
-"manuel-partager-niveau.html#autotoc_md1324":[7,3,3],
-"manuel-partager-niveau.html#autotoc_md1325":[7,3,4],
-"manuel-partager-niveau.html#autotoc_md1326":[7,3,5],
-"manuel-telecharger.html":[7,1],
-"manuel-telecharger.html#autotoc_md1327":[7,1,0],
-"manuel-telecharger.html#autotoc_md1328":[7,1,1]
+"manuel-partager-niveau.html":[7,3]
 };
