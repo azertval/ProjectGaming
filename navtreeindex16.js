@@ -1,5 +1,14 @@
 var NAVTREEINDEX16 =
 {
+"test__input__state_8cpp.html#ae21cb188be633f1aa74cf4ce20725d0d":[10,0,3,2,2,1,2,0,7],
+"test__input__state_8cpp.html#ae57915787a98a32bfb0d9684be82e96a":[10,0,3,2,2,1,2,0,8],
+"test__input__state_8cpp.html#aed2efe7e5c68c8a62502bad7f424c558":[10,0,3,2,2,1,2,0,10],
+"test__input__state_8cpp.html#af9db81acd915bcdeb71f1ac1fafc3185":[10,0,3,2,2,1,2,0,11],
+"test__language__selector_8cpp.html":[10,0,3,2,2,1,3,0],
+"test__language__selector_8cpp.html#a1a6fb77ea2fde51a132a11c43a8b6114":[10,0,3,2,2,1,3,0,2],
+"test__language__selector_8cpp.html#a277fa3c641ecf0819c9534582434be9c":[10,0,3,2,2,1,3,0,0],
+"test__language__selector_8cpp.html#a79f60231b3b0bc2e7338594157b979d3":[10,0,3,2,2,1,3,0,4],
+"test__language__selector_8cpp.html#a856a105637d07dbd4f88a902de54a5c2":[10,0,3,2,2,1,3,0,3],
 "test__language__selector_8cpp.html#a93dfcc00e83e4e1e23b85711ea1b1b50":[10,0,3,2,2,1,3,0,1],
 "test__level_8cpp.html":[10,0,3,2,2,0,3,0],
 "test__level_8cpp.html#a0196ba361c49491a85084322ad54109b":[10,0,3,2,2,0,3,0,0],
@@ -240,14 +249,5 @@ var NAVTREEINDEX16 =
 "test__player__input__mapper_8cpp.html#a7c81e1f4894e2b29de37883269ff434d":[10,0,3,2,2,1,2,1,3],
 "test__player__input__mapper_8cpp.html#a7db08aeca730e98a9d9c850799724c94":[10,0,3,2,2,1,2,1,8],
 "test__player__input__mapper_8cpp.html#aae9903c7d9e3cde20427f3b04f1d0d4f":[10,0,3,2,2,1,2,1,11],
-"test__player__input__mapper_8cpp.html#aaf54df2bc4c9ad041ba9e4c2d6f69c37":[10,0,3,2,2,1,2,1,7],
-"test__player__input__mapper_8cpp.html#ab37328126b238599bfb953984a6a7102":[10,0,3,2,2,1,2,1,1],
-"test__player__input__mapper_8cpp.html#abfe237996cd027a26b6ee9be30a3f86d":[10,0,3,2,2,1,2,1,9],
-"test__player__input__mapper_8cpp.html#ae2af958d2fb47fd5b3ab86db447fd00c":[10,0,3,2,2,1,2,1,4],
-"test__player__input__mapper_8cpp.html#afca598fc0a899decb05b6add9dbafec9":[10,0,3,2,2,1,2,1,6],
-"test__rect_8cpp.html":[10,0,3,2,2,0,4,1],
-"test__rect_8cpp.html#a262502d213bb9ba3744c7ea4cffe6f8c":[10,0,3,2,2,0,4,1,0],
-"test__rect_8cpp.html#a33f6ef1dffcd1a6f2b7618b57e12c359":[10,0,3,2,2,0,4,1,2],
-"test__rect_8cpp.html#a3cb1bb4936179858bc32dc4e32649b33":[10,0,3,2,2,0,4,1,1],
-"test__rect_8cpp.html#a73da28c8c5d8ed609e8f51c31dcdabc4":[10,0,3,2,2,0,4,1,4]
+"test__player__input__mapper_8cpp.html#aaf54df2bc4c9ad041ba9e4c2d6f69c37":[10,0,3,2,2,1,2,1,7]
 };

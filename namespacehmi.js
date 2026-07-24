@@ -1,5 +1,6 @@
 var namespacehmi =
 [
+    [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
     [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
     [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
     [ "EditorScreen", "classhmi_1_1EditorScreen.html", "classhmi_1_1EditorScreen" ],
@@ -85,6 +86,7 @@ var namespacehmi =
     [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
+    [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],
     [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ],
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
     [ "MAX_LEVEL_DIMENSION", "namespacehmi.html#a3201578f409cccc5319bc31255846ec1", null ],

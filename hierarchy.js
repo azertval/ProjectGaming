@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "core::Aabb", "structcore_1_1Aabb.html", null ],
     [ "core::Animation", "structcore_1_1Animation.html", null ],
+    [ "hmi::AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "hmi::BitmapFont", "classhmi_1_1BitmapFont.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],

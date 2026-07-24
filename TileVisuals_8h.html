@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('TileVisuals_8h.html',''); initResizabl
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">TileVisuals.h File Reference</div></div>
@@ -99,20 +100,23 @@ $(document).ready(function(){initNavTree('TileVisuals_8h.html',''); initResizabl
 
 <p>Correspondance type de tuile → région d'atlas, partagée entre le jeu et l'éditeur.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TileVisuals.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="TileVisuals_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8h">
-<area shape="rect" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="71,5,293,60"/>
-<area shape="rect" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="5,108,169,148"/>
-<area shape="poly" title=" " alt="" coords="157,62,118,100,114,96,153,58"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="194,115,362,141"/>
-<area shape="poly" title=" " alt="" coords="211,58,258,104,254,107,207,62"/>
-<area shape="rect" title=" " alt="" coords="54,196,121,221"/>
-<area shape="poly" title=" " alt="" coords="90,148,90,182,85,182,85,148"/>
+<area shape="rect" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="76,5,297,60"/>
+<area shape="rect" title=" " alt="" coords="5,115,80,141"/>
+<area shape="poly" title=" " alt="" coords="148,62,73,110,70,106,145,58"/>
+<area shape="rect" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="105,108,269,148"/>
+<area shape="poly" title=" " alt="" coords="189,60,189,94,184,94,184,60"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="293,115,461,141"/>
+<area shape="poly" title=" " alt="" coords="241,58,343,107,341,112,239,62"/>
+<area shape="rect" title=" " alt="" coords="153,196,220,221"/>
+<area shape="poly" title=" " alt="" coords="189,148,189,182,184,182,184,148"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -120,18 +124,26 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="TileVisuals_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8hdep" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8hdep" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Graphics_2TileVisuals_8hdep">
-<area shape="rect" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="253,5,475,60"/>
-<area shape="rect" href="TileVisuals_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
-<area shape="poly" title=" " alt="" coords="288,68,182,110,180,105,286,63"/>
-<area shape="rect" href="EditorScreen_8cpp.html" title=" " alt="" coords="251,108,477,163"/>
-<area shape="poly" title=" " alt="" coords="367,74,367,108,361,108,361,74"/>
-<area shape="rect" href="GameScreen_8cpp.html" title=" " alt="" coords="502,108,730,163"/>
-<area shape="poly" title=" " alt="" coords="443,62,551,105,549,110,441,67"/>
+<area shape="rect" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="379,5,601,60"/>
+<area shape="rect" href="TextureAtlas_8cpp.html" title=" " alt="" coords="5,108,231,163"/>
+<area shape="poly" title=" " alt="" coords="381,66,216,111,214,105,379,61"/>
+<area shape="rect" href="TileVisuals_8cpp.html" title=" " alt="" coords="255,108,477,163"/>
+<area shape="poly" title=" " alt="" coords="448,71,400,110,397,106,445,67"/>
+<area shape="rect" href="EditorScreen_8cpp.html" title=" " alt="" coords="501,108,727,163"/>
+<area shape="poly" title=" " alt="" coords="535,67,583,106,580,110,532,71"/>
+<area shape="rect" href="GameScreen_8cpp.html" title=" " alt="" coords="752,108,980,163"/>
+<area shape="poly" title=" " alt="" coords="601,61,769,105,767,111,600,66"/>
 </map>
 </div>
 </div>
 <p><a href="TileVisuals_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1AtlasGridPosition.html">hmi::AtlasGridPosition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (colonne, ligne) d'une tuile dans la grille procédurale de <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">TextureAtlas</a></code>.  <a href="structhmi_1_1AtlasGridPosition.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacehmi" id="r_namespacehmi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
@@ -142,6 +154,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e">hmi::regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="separator:a2c8e7957dacab70252bf7edbdc80422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1">hmi::slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
+<tr class="memdesc:a3a1050ef6cc138977442e9d4206cb3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, dans la grille de tuiles procédurale, réservée à un type de tuile à profil <b>suivable</b> (pente/arrondi, <code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>).  <br /></td></tr>
+<tr class="separator:a3a1050ef6cc138977442e9d4206cb3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Correspondance type de tuile → région d'atlas, partagée entre le jeu et l'éditeur. </p>

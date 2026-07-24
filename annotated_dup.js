@@ -44,6 +44,7 @@ var annotated_dup =
       [ "World", "classcore_1_1World.html", "classcore_1_1World" ]
     ] ],
     [ "hmi", "namespacehmi.html", [
+      [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
       [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
       [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
       [ "EditorScreen", "classhmi_1_1EditorScreen.html", "classhmi_1_1EditorScreen" ],

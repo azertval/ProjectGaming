@@ -1,5 +1,7 @@
 var NAVTREEINDEX12 =
 {
+"lot-20-tache-01-integration-manette.html#autotoc_md1122":[6,20,8,6],
+"lot-20-tache-02-menu-options.html":[6,20,9],
 "lot-20-tache-02-menu-options.html#autotoc_md1123":[6,20,9,0],
 "lot-20-tache-02-menu-options.html#autotoc_md1124":[6,20,9,1],
 "lot-20-tache-02-menu-options.html#autotoc_md1125":[6,20,9,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX12 =
 "manuel-telecharger.html#autotoc_md1327":[7,1,0],
 "manuel-telecharger.html#autotoc_md1328":[7,1,1],
 "manuel-telecharger.html#autotoc_md1329":[7,1,2],
-"manuel.html":[7],
-"manuel.html#autotoc_md1320":[7,0],
-"namespacecore.html":[8,0,0]
+"manuel.html":[7]
 };

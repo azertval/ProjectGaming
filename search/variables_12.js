@@ -4,6 +4,6 @@ var searchData=
   ['region_1',['region',['../structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c',1,'core::Sprite']]],
   ['requested_2',['requested',['../structhmi_1_1LanguageSelector_1_1Toggle.html#acf9979738588d50f1bdfd7633de70ee1',1,'hmi::LanguageSelector::Toggle']]],
   ['rotation_3',['rotation',['../structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f',1,'core::Transform']]],
-  ['row_4',['row',['../structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589',1,'core::GridPosition']]],
+  ['row_4',['row',['../structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589',1,'core::GridPosition::row'],['../structhmi_1_1AtlasGridPosition.html#acc93aa984a8ce2639e60970b35a59d77',1,'hmi::AtlasGridPosition::row']]],
   ['run_5fframe_5fcount_5',['RUN_FRAME_COUNT',['../namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d',1,'core']]]
 ];

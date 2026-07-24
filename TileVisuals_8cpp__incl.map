@@ -1,20 +1,22 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/TileVisuals.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/TileVisuals.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="240,5,461,60"/>
-<area shape="rect" id="Node000002" href="$TileVisuals_8h.html" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="141,108,337,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="318,62,266,102,263,97,315,58"/>
-<area shape="rect" id="Node000006" href="$TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles." alt="" coords="361,108,567,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="387,58,439,97,436,102,384,62"/>
-<area shape="rect" id="Node000003" href="$Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="198,181,362,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="247,132,266,168,261,170,242,135"/>
-<area shape="rect" id="Node000005" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="5,189,173,214"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="218,136,125,185,122,180,215,131"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="247,269,313,295"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="283,222,283,255,277,255,277,222"/>
-<area shape="poly" id="edge9_Node000006_Node000003" title=" " alt="" coords="438,136,338,178,336,174,436,131"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="387,189,461,214"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="460,135,438,178,434,175,456,132"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="486,189,581,214"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="476,132,516,177,512,180,472,135"/>
-<area shape="rect" id="Node000009" href="$Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures)." alt="" coords="605,181,769,221"/>
-<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="497,131,621,174,619,179,495,136"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="244,5,465,60"/>
+<area shape="rect" id="Node000002" href="$TileVisuals_8h.html" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur." alt="" coords="145,108,341,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="322,62,270,102,267,97,319,58"/>
+<area shape="rect" id="Node000007" href="$TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles." alt="" coords="419,108,626,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="407,58,489,99,487,104,405,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,189,80,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,136,86,186,84,181,213,131"/>
+<area shape="rect" id="Node000004" href="$Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="297,181,461,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="264,131,335,172,332,177,261,136"/>
+<area shape="rect" id="Node000006" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="104,189,272,214"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="237,135,206,179,202,176,232,132"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="345,269,412,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="381,222,381,255,376,255,376,222"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="503,136,426,177,424,172,500,131"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="485,189,560,214"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="525,134,525,175,520,175,520,134"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="585,189,679,214"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="540,131,606,178,603,183,537,136"/>
+<area shape="rect" id="Node000010" href="$Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures)." alt="" coords="703,181,867,221"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="562,131,710,175,708,180,560,136"/>
 </map>
