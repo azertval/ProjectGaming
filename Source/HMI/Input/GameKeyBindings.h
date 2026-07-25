@@ -16,10 +16,11 @@ namespace hmi {
 /**
  * @brief Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.
  *
- * Miroir des six lectures de `PlayerInputMapper.cpp`. Chaque action a une touche unique et
- * pleinement remappable — aucun alias fixe (`Q`/`D`/`W`, envisagés puis retirés en cours de
- * `LOT-29` : câblés en dur, ils entraient en collision avec un remap d'une **autre** action sur
- * cette même touche, s'annulant silencieusement pour Gauche/Droite, voir `PlayerInputMapper.cpp`).
+ * Miroir des six lectures de `PlayerInputMapper.cpp`. Chaque action a une touche **unique** et
+ * pleinement remappable — aucun alias fixe : un alias câblé en dur sur une touche donnée entrerait
+ * en collision dès qu'une **autre** action est remappée sur cette même touche, les deux se
+ * déclenchant à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite, voir
+ * `PlayerInputMapper.cpp`).
  */
 enum class GameAction {
     MoveLeft,

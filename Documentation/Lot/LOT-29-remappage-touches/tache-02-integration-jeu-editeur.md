@@ -33,7 +33,7 @@ Avec les valeurs par défaut de TACHE-01, le comportement observable doit rester
   - `Key::F2` → `EditorAction::Rename`.
   - `EditorScreen::startPlaytest()` : le `GameScreen` construit en interne reçoit `_gameBindings`
     (l'essai immédiat doit respecter le remap courant, pas des valeurs par défaut figées).
-- **Panneau d'aide (`EditorScreen::renderHelp`, raccourcis `F1`)** : les lignes actuellement
+- **Panneau d'aide** (`EditorScreen::renderHelp`, raccourcis `F1`) : les lignes actuellement
   câblées en dur (« Ctrl+C / Ctrl+V… », « F2 : renommer… », etc.) interpolent désormais
   `keyName(_editorBindings.key(EditorAction::…))`, pour rester correctes après un remap.
 - **`Source/HMI/main.cpp`** : les deux constructions de `GameScreen`/`EditorScreen` dans la

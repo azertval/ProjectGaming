@@ -35,7 +35,7 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
   d'actions avec la touche courante, capture d'une nouvelle touche à la confirmation,
   réinitialisation, retour aux Options. `OptionsModel`/`OptionsScreen` étendus de deux entrées
   ouvrant ces écrans.
-- **Panneau d'aide de l'éditeur (`F1`)** dynamisé pour refléter les touches réellement liées, au
+- **Panneau d'aide de l'éditeur** (`F1`) dynamisé pour refléter les touches réellement liées, au
   lieu des libellés câblés en dur actuels (deviendraient faux après un remap).
 
 ### Exclus (hors périmètre de ce lot)

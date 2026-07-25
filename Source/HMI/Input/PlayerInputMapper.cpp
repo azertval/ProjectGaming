@@ -7,11 +7,10 @@ namespace hmi {
 
 namespace {
 
-// Touche par defaut de action, seulement si aucune AUTRE action ne se l'est appropriee entre-temps
-// (sinon elle appartient desormais exclusivement a cette autre action - la revalider ferait
-// declencher les deux a la fois, silencieusement annule pour une paire opposee comme
-// Gauche/Droite : c'est exactement le bug reproduit et corrige en cours de LOT-29). Filet de
-// securite manette (EX-CTRL-002) : Window::pollGamepad n'ecrit que dans les touches par defaut.
+// Filet de securite manette (EX-CTRL-002) : Window::pollGamepad n'ecrit que dans les touches par
+// defaut d'une action, jamais dans sa touche remappee. Ne revalide la touche par defaut que si
+// aucune AUTRE action ne se l'est appropriee entre-temps (sinon elle appartient desormais
+// exclusivement a cette autre action, et la revalider ferait declencher les deux a la fois).
 [[nodiscard]] bool safeDefaultDown(const InputState& input, const GameKeyBindings& bindings,
                                    GameAction action) {
     const Key def = GameKeyBindings::defaultKey(action);

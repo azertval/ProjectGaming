@@ -39,7 +39,6 @@ namespace {
 
 }  // namespace
 
-// Touche par defaut de chaque action : identique au comportement d'EditorScreen avant LOT-29.
 Key EditorKeyBindings::defaultKey(EditorAction action) noexcept {
     switch (action) {
         case EditorAction::Save:
@@ -73,7 +72,7 @@ Key EditorKeyBindings::key(EditorAction action) const noexcept {
 }
 
 // Echange avec l'action qui detenait deja newKey, s'il y en a une : jamais deux actions sur la
-// meme touche a l'issue de l'appel (decision de cadrage LOT-29, plutot qu'un rejet).
+// meme touche a l'issue de l'appel.
 void EditorKeyBindings::setKey(EditorAction action, Key newKey) noexcept {
     const std::size_t index = static_cast<std::size_t>(action);
     for (std::size_t other = 0; other < _keys.size(); ++other) {

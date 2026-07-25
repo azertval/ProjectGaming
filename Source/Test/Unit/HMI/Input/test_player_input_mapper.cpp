@@ -249,10 +249,10 @@ TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier)
 }
 
 /**
- * @brief Régression réelle (usage en jeu) : remapper Gauche sur `D` et Droite sur `Q` produit un
+ * @brief Remapper Gauche et Droite chacune sur une touche arbitraire et distincte produit un
  *        mouvement dans le bon sens pour chacune, sans neutralisation croisée.
- * \castest{<b>Régression réelle : remapper Gauche sur D et Droite sur Q ne se neutralisent plus
- * mutuellement.</b><br/>
+ * \castest{<b>Remapper Gauche et Droite sur des touches distinctes ne les neutralise pas l'une
+ * l'autre.</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
@@ -260,12 +260,10 @@ TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier)
  * \tattendu Remapper Gauche sur D et Droite sur Q produit le mouvement attendu pour chacune.
  * }
  */
-TEST(PlayerInputMapperTest, RemapperGaucheSurDEtDroiteSurQNeSeNeutralisentPlus) {
-    // Reproduit le scenario signale en usage reel (Settings/keybindings.json observe) : avant le
-    // retrait des alias fixes Q/D/W, D restait cable en dur sur Droite et Q sur Gauche, si bien
-    // que remapper Gauche->D et Droite->Q declenchait les DEUX actions a la fois sur chaque
-    // touche (l'alias fixe ET le remap), les neutralisant silencieusement (moveX == 0 dans les
-    // deux cas) : aucun mouvement possible, quelle que soit la touche pressee.
+TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteSurDesTouchesDistinctesNeLesAnnulePas) {
+    // Aucune touche n'est jamais partagee par deux actions : chaque action ne repond qu'a sa
+    // propre touche liee (plus sa touche par defaut si elle reste libre, voir toPlayerInput) ;
+    // deux touches distinctes pour deux actions opposees ne peuvent donc jamais s'annuler.
     hmi::GameKeyBindings bindings;
     bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::D);
     bindings.setKey(hmi::GameAction::MoveRight, hmi::Key::Q);

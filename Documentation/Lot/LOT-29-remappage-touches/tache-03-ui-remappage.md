@@ -76,7 +76,7 @@ navigable au clavier/souris, action confirmée par Entrée/clic).
   `EditorScreen`, les deux nouveaux écrans (comme `OptionsScreen`, déjà ainsi) ne quittent que par
   la ligne « Retour » sélectionnée + validée — `OptionsModel` ne gère déjà pas `Échap` non plus,
   décision reconduite à l'identique plutôt que réinventée.
-- **Mise en page dédiée, pas celle de `MenuModel`** : `MenuModel::OPTIONS_TOP`/`OPTION_SPACING`
+- **Mise en page dédiée**, pas celle de `MenuModel` : `MenuModel::OPTIONS_TOP`/`OPTION_SPACING`
   (pensés pour 2 à 4 lignes) déborderait largement une fenêtre 720p avec 8 ou 11 lignes —
   `GameKeybindingsModel` définit ses propres constantes compactes (`ROWS_TOP=110`,
   `ROW_SPACING=40`, `ROW_SCALE=2.4`), réutilisées telles quelles par `EditorKeybindingsModel`
