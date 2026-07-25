@@ -1,6 +1,8 @@
 var structcore_1_1Player =
 [
     [ "airJumpsRemaining", "structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9", null ],
+    [ "ascentSweepMaxX", "structcore_1_1Player.html#a1364add72d943586ebc6b36e790bbc58", null ],
+    [ "ascentSweepMinX", "structcore_1_1Player.html#a303e707a1ca641a73738871981824cdb", null ],
     [ "coyoteTimer", "structcore_1_1Player.html#a69f291499ab2b7c27220c071a590b97a", null ],
     [ "dashAvailable", "structcore_1_1Player.html#a7ab08163c367d65f04dfefee21b59529", null ],
     [ "dashesRemaining", "structcore_1_1Player.html#ab09b332bfac288bad194d1ca3ecae3ba", null ],

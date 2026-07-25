@@ -3,7 +3,7 @@ var searchData=
   ['2_0',['2',['../cahiertest.html#autotoc_md21',1,'Bloc Réduit — &lt;tt&gt;test_bloc_reduit.cpp&lt;/tt&gt; (2)'],['../cahiertest.html#autotoc_md22',1,'Boucle Simulation — &lt;tt&gt;test_boucle_simulation.cpp&lt;/tt&gt; (2)'],['../cahiertest.html#autotoc_md24',1,'Niveau Ecs — &lt;tt&gt;test_niveau_ecs.cpp&lt;/tt&gt; (2)'],['../cahiertest.html#autotoc_md26',1,'Tests système (2)']]],
   ['2_20actions_20du_20jeu_20mapping_20logique_1',['2. Actions du jeu (mapping logique)',['../spec-controles.html#autotoc_md168',1,'']]],
   ['2_20architecture_20maintenabilité_2',['2. Architecture &amp; maintenabilité',['../spec-exigences.html#autotoc_md210',1,'']]],
-  ['2_20lancer_20l_20éditeur_3',['2. Lancer l&apos;éditeur',['../manuel-partager-niveau.html#autotoc_md1377',1,'']]],
+  ['2_20lancer_20l_20éditeur_3',['2. Lancer l&apos;éditeur',['../manuel-partager-niveau.html#autotoc_md1408',1,'']]],
   ['2_20manipulation_4',['2. Manipulation',['../spec-decors.html#autotoc_md192',1,'']]],
   ['2_20modèle_20d_20entités_20_3a_20ecs_5',['2. Modèle d&apos;entités : ECS',['../spec-architecture.html#autotoc_md156',1,'']]],
   ['2_20nommage_6',['2. Nommage',['../spec-conventions.html#autotoc_md173',1,'']]],
@@ -24,8 +24,9 @@ var searchData=
   ['26_20—_20pentes_20et_20arrondis_20de_20plafond_21',['LOT-26 — Pentes et arrondis de plafond',['../lot-26.html',1,'lots']]],
   ['27_22',['8. Palette organisée par catégories (LOT-27)',['../spec-editeur.html#autotoc_md207',1,'']]],
   ['27_20—_20palette_20de_20l_20éditeur_20organisée_20par_20catégories_23',['LOT-27 — Palette de l&apos;éditeur organisée par catégories',['../lot-27.html',1,'lots']]],
-  ['2d_24',['2. Rendu 2D',['../spec-rendu-technique.html#autotoc_md229',1,'']]],
-  ['2d_20_3a_20atlas_20sprites_20caméra_25',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
-  ['2d_20_3a_20de_20l_20ecs_20à_20l_20écran_26',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
-  ['2d_20monde_20→_20écran_27',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]]
+  ['28_20—_20arrondis_20concaves_24',['LOT-28 — Arrondis concaves',['../lot-28.html',1,'lots']]],
+  ['2d_25',['2. Rendu 2D',['../spec-rendu-technique.html#autotoc_md229',1,'']]],
+  ['2d_20_3a_20atlas_20sprites_20caméra_26',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
+  ['2d_20_3a_20de_20l_20ecs_20à_20l_20écran_27',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
+  ['2d_20monde_20→_20écran_28',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]]
 ];

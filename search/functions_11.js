@@ -26,8 +26,8 @@ var searchData=
   ['requestclose_23',['requestClose',['../classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead',1,'hmi::Window']]],
   ['requestresize_24',['requestResize',['../classhmi_1_1EditorScreen.html#a925a1d81bf6ac6f6afc9c09cf928c125',1,'hmi::EditorScreen']]],
   ['resize_25',['resize',['../classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af',1,'core::LevelDraft::resize()'],['../classhmi_1_1GraphicsDevice.html#ab21b773d7079c0f42fad09278d514b4c',1,'hmi::GraphicsDevice::resize()']]],
-  ['resolveceilingslopefollow_26',['resolveCeilingSlopeFollow',['../namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3',1,'core']]],
-  ['resolveslopefollow_27',['resolveSlopeFollow',['../namespacecore.html#a2920623584e25af83769e320830880d3',1,'core']]],
+  ['resolveceilingslopefollow_26',['resolveCeilingSlopeFollow',['../namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1',1,'core']]],
+  ['resolveslopefollow_27',['resolveSlopeFollow',['../namespacecore.html#a467a4de3899a77b3500f043561e51b3f',1,'core']]],
   ['restore_28',['restore',['../classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93',1,'core::LevelDraft']]],
   ['right_29',['right',['../structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8',1,'core::Rect']]]
 ];

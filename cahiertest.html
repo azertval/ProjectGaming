@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>406 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>422 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (334)</h1>
+Tests unitaires (345)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -602,7 +602,7 @@ Vérifie que <code>controller.isDoorOpen(0)</code> est vrai.    </td></tr>
 Vérifie que <code>controller.collisionMap().isSolid(4, 1)</code> est vrai.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md9"></a>
-Levels (80)</h3>
+Levels (82)</h3>
 <p>**<code><a class="el" href="test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level.">test_level.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -923,101 +923,110 @@ Vérifie que <code>level.tileMap().tile(2, 0)</code> vaut <code><a class="el" hr
 Vérifie que <code>level.tileMap().tile(3, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a></code>.<br  />
 Vérifie que <code>level.mechanisms().empty()</code> est vrai.    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelLoaderTest.ChargeLesQuatreArrondisConcaves</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:269</code></sub>   </td><td class="markdownTableBodyNone">Les quatre arrondis concaves se chargent comme de simples tuiles, sans identifiant ni liaison.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.<br  />
+Vérifie que <code>level.tileMap().tile(0, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></code>.<br  />
+Vérifie que <code>level.tileMap().tile(1, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a></code>.<br  />
+Vérifie que <code>level.tileMap().tile(2, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a></code>.<br  />
+Vérifie que <code>level.tileMap().tile(3, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a></code>.<br  />
+Vérifie que <code>level.mechanisms().empty()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.BudgetsOptionnels</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:269</code></sub>   </td><td class="markdownTableBodyNone">Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:307</code></sub>   </td><td class="markdownTableBodyNone">Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1) sinon.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>withBudget.ok()</code> est vrai.<br  />
 Vérifie que <code>withBudget.level-&gt;jumpBudget()</code> vaut <code>2</code>.<br  />
 Vérifie que <code>withBudget.level-&gt;dashBudget()</code> vaut <code>1</code>.<br  />
 Vérifie que <code>noBudget.ok()</code> est vrai.<br  />
 Vérifie que <code>noBudget.level-&gt;jumpBudget()</code> vaut <code>-1</code>.<br  />
 Vérifie que <code>noBudget.level-&gt;dashBudget()</code> vaut <code>-1</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.JsonMalformeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:297</code></sub>   </td><td class="markdownTableBodyNone">Un JSON syntaxiquement invalide est rejeté sans plantage.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:335</code></sub>   </td><td class="markdownTableBodyNone">Un JSON syntaxiquement invalide est rejeté sans plantage.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.ChampManquantRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:314</code></sub>   </td><td class="markdownTableBodyNone">Un champ obligatoire manquant est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:352</code></sub>   </td><td class="markdownTableBodyNone">Un champ obligatoire manquant est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TypeDeTuileInconnuRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:331</code></sub>   </td><td class="markdownTableBodyNone">Un type de tuile inconnu est rejeté avec un message.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:369</code></sub>   </td><td class="markdownTableBodyNone">Un type de tuile inconnu est rejeté avec un message.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e" title="Type de tuile non reconnu.">core::LevelValidationError::UnknownTileType</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TuileHorsBornesRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:349</code></sub>   </td><td class="markdownTableBodyNone">Une tuile hors des bornes est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:387</code></sub>   </td><td class="markdownTableBodyNone">Une tuile hors des bornes est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f" title="Tuile positionnée hors des dimensions déclarées.">core::LevelValidationError::OutOfBounds</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.LiaisonMecanismeNonResolueRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:366</code></sub>   </td><td class="markdownTableBodyNone">Une porte liée à un interrupteur inexistant est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:404</code></sub>   </td><td class="markdownTableBodyNone">Une porte liée à un interrupteur inexistant est rejetée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" title="Porte liée à un identifiant d&#39;interrupteur inexistant.">core::LevelValidationError::UnresolvedMechanism</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PlusieursEntreesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:390</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs entrées sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:428</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs entrées sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff" title="Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).">core::LevelValidationError::InvalidEntryCount</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PlusieursSortiesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:413</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs sorties sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:451</code></sub>   </td><td class="markdownTableBodyNone">Plusieurs sorties sont rejetées (une seule attendue).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" title="Zéro ou plusieurs tuiles de sortie (une seule attendue).">core::LevelValidationError::InvalidExitCount</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PositionEnDoubleRejetee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:436</code></sub>   </td><td class="markdownTableBodyNone">Deux tuiles à la même position sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:474</code></sub>   </td><td class="markdownTableBodyNone">Deux tuiles à la même position sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba" title="Deux tuiles à la même position.">core::LevelValidationError::DuplicatePosition</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.TilesNonListeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:460</code></sub>   </td><td class="markdownTableBodyNone">Un champ 'tiles' qui n'est pas une liste est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:498</code></sub>   </td><td class="markdownTableBodyNone">Un champ 'tiles' qui n'est pas une liste est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
+Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>LevelLoaderTest.DimensionsNonPositivesRejetees</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:515</code></sub>   </td><td class="markdownTableBodyNone">Des dimensions non positives sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelLoaderTest.DimensionsNonPositivesRejetees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:477</code></sub>   </td><td class="markdownTableBodyNone">Des dimensions non positives sont rejetées.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
-Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165" title="JSON malformé, champ obligatoire manquant, ou de mauvais type.">core::LevelValidationError::ParseError</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.InterrupteurSansIdRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:494</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur sans 'id' est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:532</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur sans 'id' est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3" title="Interrupteur sans identifiant.">core::LevelValidationError::MissingSwitchId</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.IdentifiantInterrupteurEnDoubleRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:517</code></sub>   </td><td class="markdownTableBodyNone">Deux interrupteurs avec le même identifiant sont rejetés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:555</code></sub>   </td><td class="markdownTableBodyNone">Deux interrupteurs avec le même identifiant sont rejetés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a835bdc9a85fa21f0e6b00dd269e179bb" title="Deux interrupteurs partagent le même identifiant.">core::LevelValidationError::DuplicateSwitchId</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauSansEntreeRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:541</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans entrée est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:579</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans entrée est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff" title="Zéro ou plusieurs tuiles d&#39;entrée (une seule attendue).">core::LevelValidationError::InvalidEntryCount</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauSansSortieRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:558</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans sortie est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:596</code></sub>   </td><td class="markdownTableBodyNone">Un niveau sans sortie est rejeté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" title="Zéro ou plusieurs tuiles de sortie (une seule attendue).">core::LevelValidationError::InvalidExitCount</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.FichierIntrouvableRejete</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:575</code></sub>   </td><td class="markdownTableBodyNone">Charger un fichier inexistant échoue proprement (récupérable).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:613</code></sub>   </td><td class="markdownTableBodyNone">Charger un fichier inexistant échoue proprement (récupérable).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est faux.<br  />
 Vérifie que <code>result.error.empty()</code> est faux.<br  />
 Vérifie que <code>result.errorCode</code> vaut <code><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" title="Fichier de niveau introuvable sur disque.">core::LevelValidationError::FileNotFound</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.PorteSansLiaisonEstValide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:593</code></sub>   </td><td class="markdownTableBodyNone">Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:631</code></sub>   </td><td class="markdownTableBodyNone">Une porte sans 'opensWith' est une simple tuile : chargement valide, aucun mécanisme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.<br  />
 Vérifie que <code>result.level-&gt;mechanisms().empty()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelLoaderTest.NiveauDeDemoLivreValide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:617</code></sub>   </td><td class="markdownTableBodyNone">Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a>:655</code></sub>   </td><td class="markdownTableBodyNone">Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.ok()</code> est vrai.   </td></tr>
 </table>
 <p>**<code><a class="el" href="test__level__outcome_8cpp.html" title="Tests unitaires de l&#39;évaluation d&#39;issue de niveau (evaluateOutcome).">test_level_outcome.cpp</a></code>**</p>
@@ -1112,40 +1121,49 @@ Vérifie que <code>reloaded.level-&gt;tileMap().tile(1, 0)</code> vaut <code><a 
 Vérifie que <code>reloaded.level-&gt;tileMap().tile(2, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f">core::TileType::RoundedDownRight</a></code>.<br  />
 Vérifie que <code>reloaded.level-&gt;tileMap().tile(3, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>LevelWriterTest.ArrondisConcavesSurviventAuRoundTrip</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:288</code></sub>   </td><td class="markdownTableBodyNone">Les quatre arrondis concaves survivent à un aller-retour JSON.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
+Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
+Vérifie que <code>reloaded.level-&gt;tileMap().tile(0, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></code>.<br  />
+Vérifie que <code>reloaded.level-&gt;tileMap().tile(1, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a></code>.<br  />
+Vérifie que <code>reloaded.level-&gt;tileMap().tile(2, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a></code>.<br  />
+Vérifie que <code>reloaded.level-&gt;tileMap().tile(3, 0)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a></code>.    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.BudgetsIllimitesOmisDuJson</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:287</code></sub>   </td><td class="markdownTableBodyNone">Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:325</code></sub>   </td><td class="markdownTableBodyNone">Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>json.find("jumpBudget")</code> vaut <code>std::string::npos</code>.<br  />
 Vérifie que <code>json.find("dashBudget")</code> vaut <code>std::string::npos</code>.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;jumpBudget()</code> vaut <code>-1</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;dashBudget()</code> vaut <code>-1</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.InterrupteurNonRelieRegenereUnIdentifiant</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:313</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:351</code></sub>   </td><td class="markdownTableBodyNone">Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;tileMap().tile(1, 1)</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a></code>.<br  />
 Vérifie que <code>reloaded.level-&gt;mechanisms().empty()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.NiveauPuzzleLivreSurvieAuRoundTrip</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:339</code></sub>   </td><td class="markdownTableBodyNone">Le niveau puzzle livré (demo-interrupteur.json) survit à un round-trip.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:377</code></sub>   </td><td class="markdownTableBodyNone">Le niveau puzzle livré (demo-interrupteur.json) survit à un round-trip.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;mechanisms().size()</code> vaut <code>loaded.level-&gt;mechanisms().size()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;exit()</code> vaut <code>loaded.level-&gt;exit()</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileEcritUnFichierRechargeable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:363</code></sub>   </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:401</code></sub>   </td><td class="markdownTableBodyNone">saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</code> est vrai.<br  />
 Vérifie que <code>reloaded.ok()</code> est vrai.<br  />
 Vérifie que <code>reloaded.level-&gt;name()</code> vaut <code>loaded.level-&gt;name()</code>.<br  />
 Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:390</code></sub>   </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a>:428</code></sub>   </td><td class="markdownTableBodyNone">saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code><a class="el" href="classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6" title="Écrit un niveau au format JSON dans un fichier (EX-EDIT-006).">core::LevelWriter::saveToFile</a>(*loaded.level, path)</code> est faux.   </td></tr>
 </table>
@@ -1264,7 +1282,7 @@ Vérifie que <code>normalized</code> vaut <code><a class="el" href="structcore_1
 Vérifie que <code><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a>(0.0f, 0.0f)</code> diffère de <code><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a>(1.0f, 0.0f)</code>.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md11"></a>
-Physics (31)</h3>
+Physics (39)</h3>
 <p>**<code><a class="el" href="test__aabb__vs__aabb_8cpp.html" title="Tests unitaires du balayage AABB continu contre une boîte fixe unique (sweepAabbVsAabb,...">test_aabb_vs_aabb.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1436,7 +1454,66 @@ Vérifie que <code>*right</code> vaut <code>0.0f</code>, à <code>1e-6f</code> p
 <td class="markdownTableBodyNone"><b>SlopeGeometryTest.CeilingSlopeHeightNulloptSiPasDePlafond</b> (Mineur)<br  />
 <sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:366</code></sub>   </td><td class="markdownTableBodyNone">ceilingSlopeHeight renvoie nullopt pour un type sans silhouette de plafond.   </td><td class="markdownTableBodyNone">1. Évaluer <code>ceilingSlopeHeight</code> pour <code>Solid</code> et <code>SlopeUpRight</code> (variante de sol).<br  />
  2. Vérifier l'absence de valeur.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a>, 0.5f).has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a>, 0.5f).has_value()</code> est faux.   </td></tr>
+Vérifie que <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a>, 0.5f).has_value()</code> est faux.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.ConcaveUpRightSuitUnQuartDeCercleConcave</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:384</code></sub>   </td><td class="markdownTableBodyNone">ConcaveUpRight suit un profil de quart de cercle concave, mêmes bords que RoundedUpRight, courbure inversée.   </td><td class="markdownTableBodyNone">1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.   </td><td class="markdownTableBodyNone">Vérifie que <code>left.has_value()</code> est vrai.<br  />
+Vérifie que <code>center.has_value()</code> est vrai.<br  />
+Vérifie que <code>right.has_value()</code> est vrai.<br  />
+Vérifie que <code>*left</code> vaut <code>1.0f</code>, à <code>1e-6f</code> près.<br  />
+Vérifie que <code>*center</code> vaut <code>std::sqrt(0.75f)</code>, à <code>1e-4f</code> près.<br  />
+Vérifie que <code>*right</code> vaut <code>0.0f</code>, à <code>1e-6f</code> près.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.ConcaveUpLeftSuitUnQuartDeCercleConcave</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:410</code></sub>   </td><td class="markdownTableBodyNone">ConcaveUpLeft suit un profil de quart de cercle concave, haut à gauche.   </td><td class="markdownTableBodyNone">1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.   </td><td class="markdownTableBodyNone">Vérifie que <code>left.has_value()</code> est vrai.<br  />
+Vérifie que <code>center.has_value()</code> est vrai.<br  />
+Vérifie que <code>right.has_value()</code> est vrai.<br  />
+Vérifie que <code>*left</code> vaut <code>0.0f</code>, à <code>1e-6f</code> près.<br  />
+Vérifie que <code>*center</code> vaut <code>std::sqrt(0.75f)</code>, à <code>1e-4f</code> près.<br  />
+Vérifie que <code>*right</code> vaut <code>1.0f</code>, à <code>1e-6f</code> près.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.ConcaveNestPasSolideStatiquement</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:434</code></sub>   </td><td class="markdownTableBodyNone">isSolid renvoie false pour les deux orientations d'arrondi concave.   </td><td class="markdownTableBodyNone">1. Appeler <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> sur <code>ConcaveUpRight</code> et <code>ConcaveUpLeft</code>.<br  />
+2. Vérifier l'assertion.   </td><td class="markdownTableBodyNone">Vérifie que <code>core::isSolid(core::TileType::ConcaveUpRight)</code> est faux.<br  />
+Vérifie que <code>core::isSolid(core::TileType::ConcaveUpLeft)</code> est faux.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.IsFollowableSurfaceReconnaitLesConcaves</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:449</code></sub>   </td><td class="markdownTableBodyNone">isFollowableSurface reconnaît les deux orientations d'arrondi concave.   </td><td class="markdownTableBodyNone">1. Appeler <code>isFollowableSurface</code> sur <code>ConcaveUpRight</code> et <code>ConcaveUpLeft</code>.<br  />
+2. Vérifier l'assertion.   </td><td class="markdownTableBodyNone">Vérifie que <code>core::isFollowableSurface(core::TileType::ConcaveUpRight)</code> est vrai.<br  />
+Vérifie que <code>core::isFollowableSurface(core::TileType::ConcaveUpLeft)</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.ConcaveDePlafondNeSontPasSolidesEtOntUneFaceDuHautPlate</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:467</code></sub>   </td><td class="markdownTableBodyNone">Les arrondis concaves de plafond ne sont pas solides, n'offrent pas de déplacement latéral calé, et ont une face du haut plate.   </td><td class="markdownTableBodyNone">1. Appeler <code>isSolid</code>/<code>isFollowableSurface</code>/<code>slopeSurfaceHeight</code> sur les deux types.<br  />
+ 2. Vérifier les valeurs.   </td><td class="markdownTableBodyNone">Vérifie que <code>core::isSolid(type)</code> est faux.<br  />
+Vérifie que <code>core::isFollowableSurface(type)</code> est faux.<br  />
+Vérifie que <code>height.has_value()</code> est vrai.<br  />
+Vérifie que <code>*height</code> vaut <code>0.0f</code> (comparaison flottante).    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.IsCeilingSlopeReconnaitAussiLesConcaves</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:490</code></sub>   </td><td class="markdownTableBodyNone">isCeilingSlope reconnaît les deux types de plafond concave.   </td><td class="markdownTableBodyNone">1. Appeler <code>isCeilingSlope</code> sur <code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> et sur <code>ConcaveUpRight</code>.<br  />
+2. Vérifier l'assertion.   </td><td class="markdownTableBodyNone">Vérifie que <code>core::isCeilingSlope(core::TileType::ConcaveDownRight)</code> est vrai.<br  />
+Vérifie que <code>core::isCeilingSlope(core::TileType::ConcaveDownLeft)</code> est vrai.<br  />
+Vérifie que <code>core::isCeilingSlope(core::TileType::ConcaveUpRight)</code> est faux.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.CeilingConcaveDownRightEstLeMiroirDeConcaveUpRight</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:507</code></sub>   </td><td class="markdownTableBodyNone">ceilingSlopeHeight(ConcaveDownRight) est le miroir vertical exact de slopeSurfaceHeight(ConcaveUpRight).   </td><td class="markdownTableBodyNone">1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.   </td><td class="markdownTableBodyNone">Vérifie que <code>left.has_value()</code> est vrai.<br  />
+Vérifie que <code>center.has_value()</code> est vrai.<br  />
+Vérifie que <code>right.has_value()</code> est vrai.<br  />
+Vérifie que <code>*left</code> vaut <code>0.0f</code>, à <code>1e-6f</code> près.<br  />
+Vérifie que <code>*center</code> vaut <code>1.0f - std::sqrt(0.75f)</code>, à <code>1e-4f</code> près.<br  />
+Vérifie que <code>*right</code> vaut <code>1.0f</code>, à <code>1e-6f</code> près.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeGeometryTest.CeilingConcaveDownLeftEstLeMiroirDeConcaveUpLeft</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a>:532</code></sub>   </td><td class="markdownTableBodyNone">ceilingSlopeHeight(ConcaveDownLeft) est le miroir vertical exact de slopeSurfaceHeight(ConcaveUpLeft).   </td><td class="markdownTableBodyNone">1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.   </td><td class="markdownTableBodyNone">Vérifie que <code>left.has_value()</code> est vrai.<br  />
+Vérifie que <code>center.has_value()</code> est vrai.<br  />
+Vérifie que <code>right.has_value()</code> est vrai.<br  />
+Vérifie que <code>*left</code> vaut <code>1.0f</code>, à <code>1e-6f</code> près.<br  />
+Vérifie que <code>*center</code> vaut <code>1.0f - std::sqrt(0.75f)</code>, à <code>1e-4f</code> près.<br  />
+Vérifie que <code>*right</code> vaut <code>0.0f</code>, à <code>1e-6f</code> près.   </td></tr>
 </table>
 <p>**<code><a class="el" href="test__swept__collision_8cpp.html" title="Tests unitaires du balayage AABB continu (sweepAabb) contre une grille de tuiles.">test_swept_collision.cpp</a></code>**</p>
 <table class="markdownTable">
@@ -1533,7 +1610,7 @@ Vérifie que <code>timestep.advance(0.0f)</code> vaut <code>0</code>.    </td></
 <h2><a class="anchor" id="autotoc_md13"></a>
 HMI</h2>
 <h3><a class="anchor" id="autotoc_md14"></a>
-Editor (54)</h3>
+Editor (55)</h3>
 <p>**<code><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1800,31 +1877,38 @@ Vérifie que <code>consumed</code> est vrai.<br  />
 Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></code>.<br  />
 Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupeConcaveDeplieExposeSesOrientations</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:253</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Concave déplié expose ses quatre orientations.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>floorRight.has_value()</code> est vrai.<br  />
+Vérifie que <code>consumed</code> est vrai.<br  />
+Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></code>.<br  />
+Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.BottomSuitLEtatDeDepliage</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:253</code></sub>   </td><td class="markdownTableBodyNone"><code>bottom()</code> suit l'état de dépliage courant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:281</code></sub>   </td><td class="markdownTableBodyNone"><code>bottom()</code> suit l'état de dépliage courant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.bottom()</code> est strictement supérieur à <code>collapsedBottom</code>.<br  />
 Vérifie que <code>palette.bottom()</code> vaut <code>collapsedBottom</code> (comparaison flottante).    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.FenetreReduiteLimiteLesEntreesVisibles</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:293</code></sub>   </td><td class="markdownTableBodyNone">Une fenêtre réduite limite le nombre d'entrées visibles simultanément.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.totalRowCount()</code> vaut <code>25</code>.<br  />
-Vérifie que <code>palette.entries().size()</code> vaut <code>1u</code>.<br  />
-Vérifie que <code>palette.totalRowCount()</code> vaut <code>25</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TilePaletteTest.FenetreReduiteLimiteLesEntreesVisibles</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:323</code></sub>   </td><td class="markdownTableBodyNone">Une fenêtre réduite limite le nombre d'entrées visibles simultanément.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.totalRowCount()</code> vaut <code>30</code>.<br  />
+Vérifie que <code>palette.entries().size()</code> vaut <code>1u</code>.<br  />
+Vérifie que <code>palette.totalRowCount()</code> vaut <code>30</code>.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollChangeLaFenetreSansChangerLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:316</code></sub>   </td><td class="markdownTableBodyNone">Le défilement change la fenêtre visible sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:346</code></sub>   </td><td class="markdownTableBodyNone">Le défilement change la fenêtre visible sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>1</code>.<br  />
 Vérifie que <code>palette.entries().front().label</code> diffère de <code>firstLabel</code>.<br  />
 Vérifie que <code>palette.selected()</code> vaut <code>before</code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollBorneAuxExtremites</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:341</code></sub>   </td><td class="markdownTableBodyNone">Le défilement est borné aux deux extrémités de la liste.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:371</code></sub>   </td><td class="markdownTableBodyNone">Le défilement est borné aux deux extrémités de la liste.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>palette.totalRowCount() - 1</code>.<br  />
 Vérifie que <code>palette.scrollOffset()</code> vaut <code>0</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>TilePaletteTest.EnTeteDeplieResteVisibleDansUneFenetreEtroite</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:366</code></sub>   </td><td class="markdownTableBodyNone">Un en-tête déplié reste visible même dans une fenêtre étroite.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1TilePalette.html#a311b10b776506ff2b8a5f9f98a70727b" title="Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — rése...">hmi::TilePalette::visibleRowCount</a>(350.0f)</code> vaut <code>6</code>.<br  />
+<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:396</code></sub>   </td><td class="markdownTableBodyNone">Un en-tête déplié reste visible même dans une fenêtre étroite.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1TilePalette.html#a311b10b776506ff2b8a5f9f98a70727b" title="Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — rése...">hmi::TilePalette::visibleRowCount</a>(370.0f)</code> vaut <code>7</code>.<br  />
 Vérifie que <code>findByLabel(palette, "&gt; Interactif").has_value()</code> est vrai.<br  />
 Vérifie que <code>findByLabel(palette, "v Interactif").has_value()</code> est vrai.   </td></tr>
 </table>
@@ -2317,7 +2401,7 @@ Vérifie que <code>localization.text("menu.quitter")</code> vaut <code>"Quitter"
 Vérifie que <code>localization.text("menu.jouer")</code> vaut <code>"Jouer"</code>.   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md19"></a>
-Tests d'intégration (70)</h1>
+Tests d'intégration (75)</h1>
 <h2><a class="anchor" id="autotoc_md20"></a>
 Animation Personnage — &lt;tt&gt;test_animation_personnage.cpp&lt;/tt&gt; (5)</h2>
 <table class="markdownTable">
@@ -2435,7 +2519,7 @@ Vérifie que <code>nonEmptyTiles</code> est strictement supérieur à <code>0</c
 Vérifie que <code>entities</code> vaut <code>nonEmptyTiles</code>.   </td></tr>
 </table>
 <h2><a class="anchor" id="autotoc_md25"></a>
-Physique Personnage — &lt;tt&gt;test_physique_personnage.cpp&lt;/tt&gt; (55)</h2>
+Physique Personnage — &lt;tt&gt;test_physique_personnage.cpp&lt;/tt&gt; (60)</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
@@ -2630,7 +2714,7 @@ Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Playe
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> vaut <code>4.0f</code>, à <code>0.05f</code> près.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.SuitUnePenteDescendanteEnMarchant</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1539</code></sub>   </td><td class="markdownTableBodyNone">Marcher sur une pente descendante fait descendre le personnage progressivement, symétrique de la montée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1543</code></sub>   </td><td class="markdownTableBodyNone">Marcher sur une pente descendante fait descendre le personnage progressivement, symétrique de la montée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>bottom</code> est inférieur ou égal à <code>6.0f + TOLERANCE</code>.<br  />
 Vérifie que <code>bottom</code> est supérieur ou égal à <code>5.0f - TOLERANCE</code>.<br  />
 Vérifie que <code>sawSlopeSample</code> est vrai.<br  />
@@ -2640,23 +2724,23 @@ Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Playe
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> vaut <code>5.0f</code>, à <code>0.05f</code> près.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.ChuteRapideSurUnePenteSansLaTraverser</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1598</code></sub>   </td><td class="markdownTableBodyNone">Même en chute très rapide, le personnage tombant sur une pente se pose sur sa surface au premier contact, sans la traverser.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1607</code></sub>   </td><td class="markdownTableBodyNone">Même en chute très rapide, le personnage tombant sur une pente se pose sur sa surface au premier contact, sans la traverser.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>transform.position.y</code> vaut <code>49.2f</code>, à <code>TOLERANCE</code> près.<br  />
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).grounded</code> est vrai.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.SauteDepuisUnePenteImpulsionNormale</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1631</code></sub>   </td><td class="markdownTableBodyNone">Sauter depuis une pente produit une impulsion identique à un saut depuis un sol plat : le suivi de pente ne l'absorbe pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1640</code></sub>   </td><td class="markdownTableBodyNone">Sauter depuis une pente produit une impulsion identique à un saut depuis un sol plat : le suivi de pente ne l'absorbe pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).grounded</code> est vrai.<br  />
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a>&gt;(player).value.y</code> est strictement inférieur à <code>-10.0f</code>.<br  />
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).grounded</code> est faux.<br  />
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> est strictement inférieur à <code>landedY</code>.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.TransitionPenteSolPlatSansAACoup</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1676</code></sub>   </td><td class="markdownTableBodyNone">La transition entre une pente et le sol plat se fait sans à-coup ni blocage : la position verticale varie continûment.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1685</code></sub>   </td><td class="markdownTableBodyNone">La transition entre une pente et le sol plat se fait sans à-coup ni blocage : la position verticale varie continûment.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>maxStep</code> est strictement inférieur à <code>0.5f</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.SuitUnArrondiAscendantEnMarchant</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1728</code></sub>   </td><td class="markdownTableBodyNone">Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe distincte d'une pente linéaire, sans le traverser.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1737</code></sub>   </td><td class="markdownTableBodyNone">Marcher sur un arrondi ascendant fait monter le personnage en suivant une courbe distincte d'une pente linéaire, sans le traverser.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>bottom</code> est inférieur ou égal à <code>6.0f + TOLERANCE</code>.<br  />
 Vérifie que <code>bottom</code> est supérieur ou égal à <code>5.0f - TOLERANCE</code>.<br  />
 Vérifie que <code>sawMidSample</code> est vrai.<br  />
@@ -2666,62 +2750,92 @@ Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Playe
 Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> vaut <code>4.0f</code>, à <code>0.05f</code> près.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauPenteFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1788</code></sub>   </td><td class="markdownTableBodyNone">Le niveau pente est franchissable en marchant, sans saut.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1797</code></sub>   </td><td class="markdownTableBodyNone">Le niveau pente est franchissable en marchant, sans saut.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playLevelFile("demo-pente.json", rightOnly)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauPlaquePressionFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1804</code></sub>   </td><td class="markdownTableBodyNone">Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut par-dessus le mur permet de rejoindre la sortie.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1813</code></sub>   </td><td class="markdownTableBodyNone">Le niveau plaque de pression est franchissable : la plaque ouvre la porte, un saut par-dessus le mur permet de rejoindre la sortie.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-plaque-pression.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauPlaquePressionExigeUnSaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1836</code></sub>   </td><td class="markdownTableBodyNone">Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre le mur.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1845</code></sub>   </td><td class="markdownTableBodyNone">Le niveau plaque de pression exige un saut : marcher sans sauter reste bloqué contre le mur.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playLevelFile("demo-plaque-pression.json", rightOnly)</code> diffère de <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauArrondiFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1854</code></sub>   </td><td class="markdownTableBodyNone">Le niveau arrondi est franchissable en marchant, sans saut.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1863</code></sub>   </td><td class="markdownTableBodyNone">Le niveau arrondi est franchissable en marchant, sans saut.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playLevelFile("demo-arrondi.json", rightOnly)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.PlafondInclineBloqueSelonSaSilhouette</b> (Bloquant)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1871</code></sub>   </td><td class="markdownTableBodyNone">Une pente de plafond bloque un saut selon sa silhouette réelle, pas comme un carré plein uniforme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1880</code></sub>   </td><td class="markdownTableBodyNone">Une pente de plafond bloque un saut selon sa silhouette réelle, pas comme un carré plein uniforme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>thinSideMinY</code> est strictement inférieur à <code>thickSideMinY - 0.3f</code>.    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.PlafondInclineSupportePersonnageParLeDessus</b> (Bloquant)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1929</code></sub>   </td><td class="markdownTableBodyNone">La face du haut d'une pente de plafond supporte le personnage qui tombe dessus par le dessus.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1938</code></sub>   </td><td class="markdownTableBodyNone">La face du haut d'une pente de plafond supporte le personnage qui tombe dessus par le dessus.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>player_.grounded</code> est vrai.<br  />
 Vérifie que <code>transform.position.y</code> vaut <code>static_cast&lt;float&gt;(CEILING_ROW) - <a class="el" href="namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a" title="Hauteur du personnage, en unités monde.">core::kPlayerHeight</a></code>, à <code>0.05f</code> près.    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.SuitUnArrondiConcaveAscendantEnMarchant</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1979</code></sub>   </td><td class="markdownTableBodyNone">Marcher sur un arrondi concave ascendant suit une courbe inversée par rapport à l'arrondi convexe, sans le traverser.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>bottom</code> est inférieur ou égal à <code>6.0f + TOLERANCE</code>.<br  />
+Vérifie que <code>bottom</code> est supérieur ou égal à <code>5.0f - TOLERANCE</code>.<br  />
+Vérifie que <code>sawMidSample</code> est vrai.<br  />
+Vérifie que <code>midBottom</code> est strictement supérieur à <code>5.7f</code>.<br  />
+Vérifie que <code>guard</code> est strictement inférieur à <code>600</code>.<br  />
+Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).grounded</code> est vrai.<br  />
+Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> vaut <code>5.0f - size.y</code>, à <code>0.05f</code> près.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.ConcaveDePlafondBloqueSelonSaSilhouette</b> (Bloquant)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2055</code></sub>   </td><td class="markdownTableBodyNone">Un arrondi concave de plafond bloque un saut selon sa silhouette réelle, pas comme un carré plein uniforme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>thinSideMinY</code> est strictement inférieur à <code>thickSideMinY - 0.3f</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.ConcaveDePlafondSupportePersonnageParLeDessus</b> (Bloquant)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2119</code></sub>   </td><td class="markdownTableBodyNone">La face du haut d'un arrondi concave de plafond supporte le personnage qui tombe dessus par le dessus.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>player_.grounded</code> est vrai.<br  />
+Vérifie que <code>transform.position.y</code> vaut <code>static_cast&lt;float&gt;(CEILING_ROW) - <a class="el" href="namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a" title="Hauteur du personnage, en unités monde.">core::kPlayerHeight</a></code>, à <code>0.05f</code> près.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.ArrondisConcavesDeSolAdjacentsSansChuteALaJointure</b> (Bloquant)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2163</code></sub>   </td><td class="markdownTableBodyNone">Deux arrondis concaves de sol adjacents restent praticables à leur jointure, sans chute jusqu'au fond de la case voisine.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>guard</code> est strictement inférieur à <code>600</code>.<br  />
+Vérifie que <code>maxBottomNearPeak</code> est strictement inférieur à <code>5.4f</code>.<br  />
+Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a>&gt;(player).grounded</code> est vrai.<br  />
+Vérifie que <code>world.getComponent&lt;<a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a>&gt;(player).position.y</code> vaut <code>6.0f - size.y</code>, à <code>0.05f</code> près.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.ConcaveDePlafondBordFinResteBloqueSansTeleportation</b> (Bloquant)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2231</code></sub>   </td><td class="markdownTableBodyNone">Un arrondi concave de plafond bloque un saut visant son bord plein, même tout près du bord de sa propre case.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>y</code> est strictement supérieur à <code>static_cast&lt;float&gt;(CEILING_ROW) - 0.5f</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauDoubleSautFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1967</code></sub>   </td><td class="markdownTableBodyNone">Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2449</code></sub>   </td><td class="markdownTableBodyNone">Le niveau double saut est franchissable en enchaînant saut au sol et saut aérien.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactivePhysicsOnly("demo-double-saut.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauDoubleSautRequiertLeSautAerien</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:1999</code></sub>   </td><td class="markdownTableBodyNone">Le niveau double saut exige le saut aérien : un seul saut ne suffit pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2481</code></sub>   </td><td class="markdownTableBodyNone">Le niveau double saut exige le saut aérien : un seul saut ne suffit pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactivePhysicsOnly("demo-double-saut.json", script)</code> diffère de <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauWallJumpFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2021</code></sub>   </td><td class="markdownTableBodyNone">Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2503</code></sub>   </td><td class="markdownTableBodyNone">Le niveau wall jump est franchissable en enchaînant wall slide et wall jump.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactivePhysicsOnly("demo-wall-jump.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBlocFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2047</code></sub>   </td><td class="markdownTableBodyNone">Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-bloc.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBlocReduitFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2079</code></sub>   </td><td class="markdownTableBodyNone">Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la hauteur du chemin.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-bloc-reduit.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBlocFranchissable</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2529</code></sub>   </td><td class="markdownTableBodyNone">Le niveau bloc poussable est franchissable en poussant le bloc contre le mur pour s'en servir de marche.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-bloc.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBlocReduitFranchissable</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2561</code></sub>   </td><td class="markdownTableBodyNone">Le niveau bloc à taille réduite est franchissable, le bloc comblant la fosse à la hauteur du chemin.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-bloc-reduit.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBudgetFranchissable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2103</code></sub>   </td><td class="markdownTableBodyNone">Le niveau budget est franchissable avec exactement le budget de sauts prévu.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2585</code></sub>   </td><td class="markdownTableBodyNone">Le niveau budget est franchissable avec exactement le budget de sauts prévu.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>outcome</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauBudgetRequiertLesDeuxSauts</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2141</code></sub>   </td><td class="markdownTableBodyNone">Le niveau budget exige ses deux sauts : un seul saut autorisé ne suffit pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2623</code></sub>   </td><td class="markdownTableBodyNone">Le niveau budget exige ses deux sauts : un seul saut autorisé ne suffit pas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>loaded.ok()</code> est vrai.<br  />
 Vérifie que <code>outcome</code> diffère de <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>PhysiquePersonnageIntegration.NiveauFinalFranchissable</b> (Bloquant)<br  />
-<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2179</code></sub>   </td><td class="markdownTableBodyNone">Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a>:2661</code></sub>   </td><td class="markdownTableBodyNone">Le niveau final combine plusieurs mécaniques en un seul parcours cohérent et reste franchissable.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>playReactiveFile("demo-final.json", script)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md26"></a>

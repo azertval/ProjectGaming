@@ -140,6 +140,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a1cdc8a540dc2c37ec5413e40afdac7f6" id="r_a1cdc8a540dc2c37ec5413e40afdac7f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6">mass</a> = 1.0f</td></tr>
 <tr class="memdesc:a1cdc8a540dc2c37ec5413e40afdac7f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masse du personnage, en unité de jeu arbitraire (<code>EX-GP-019</code>).  <br /></td></tr>
 <tr class="separator:a1cdc8a540dc2c37ec5413e40afdac7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303e707a1ca641a73738871981824cdb" id="r_a303e707a1ca641a73738871981824cdb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a303e707a1ca641a73738871981824cdb">ascentSweepMinX</a> = 0.0f</td></tr>
+<tr class="memdesc:a303e707a1ca641a73738871981824cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étendue horizontale (bords gauche/droit, unité monde) couverte par la boîte depuis le <b>début de la montée courante</b> (dernier saut), pas seulement le pas précédent — remise à l'étendue courante à chaque pas où le personnage est au sol ou ne monte pas (<code>velocity.y &gt;= 0</code>), puis étendue à chaque pas de montée.  <br /></td></tr>
+<tr class="separator:a303e707a1ca641a73738871981824cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1364add72d943586ebc6b36e790bbc58" id="r_a1364add72d943586ebc6b36e790bbc58"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Player.html#a1364add72d943586ebc6b36e790bbc58">ascentSweepMaxX</a> = 0.0f</td></tr>
+<tr class="separator:a1364add72d943586ebc6b36e790bbc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Marque l'entité <b>contrôlable par le joueur</b> et porte son état de contact au sol. </p>
@@ -158,6 +163,37 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sauts <b>aériens</b> restants (double/multi saut, <code>EX-GP-015</code>) ; rechargé au contact du sol. </p>
+
+</div>
+</div>
+<a id="a1364add72d943586ebc6b36e790bbc58" name="a1364add72d943586ebc6b36e790bbc58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1364add72d943586ebc6b36e790bbc58">&#9670;&#160;</a></span>ascentSweepMaxX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::ascentSweepMaxX = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a303e707a1ca641a73738871981824cdb" name="a303e707a1ca641a73738871981824cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a303e707a1ca641a73738871981824cdb">&#9670;&#160;</a></span>ascentSweepMinX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Player::ascentSweepMinX = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Étendue horizontale (bords gauche/droit, unité monde) couverte par la boîte depuis le <b>début de la montée courante</b> (dernier saut), pas seulement le pas précédent — remise à l'étendue courante à chaque pas où le personnage est au sol ou ne monte pas (<code>velocity.y &gt;= 0</code>), puis étendue à chaque pas de montée. </p>
+<p>Sans cette mémoire, marcher tout en sautant sous un arrondi de plafond peut faire « disparaître » une colonne pourtant franchie plus tôt dans la même montée, avant que le seuil vertical de blocage n'y soit atteint (<code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>, <code>EX-GP-007</code>). </p>
 
 </div>
 </div>

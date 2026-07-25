@@ -91,7 +91,11 @@ var namespacecore =
       [ "SlopeDownRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b", null ],
       [ "SlopeDownLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7", null ],
       [ "RoundedDownRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f", null ],
-      [ "RoundedDownLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf", null ]
+      [ "RoundedDownLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf", null ],
+      [ "ConcaveUpRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60", null ],
+      [ "ConcaveUpLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55", null ],
+      [ "ConcaveDownRight", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a", null ],
+      [ "ConcaveDownLeft", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7", null ]
     ] ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#acb711314315ff134ed9c25c09b4cebe4", null ],
@@ -118,8 +122,8 @@ var namespacecore =
     [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
     [ "playerSize", "namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb", null ],
     [ "playerSpawnPosition", "namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0", null ],
-    [ "resolveCeilingSlopeFollow", "namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3", null ],
-    [ "resolveSlopeFollow", "namespacecore.html#a2920623584e25af83769e320830880d3", null ],
+    [ "resolveCeilingSlopeFollow", "namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1", null ],
+    [ "resolveSlopeFollow", "namespacecore.html#a467a4de3899a77b3500f043561e51b3f", null ],
     [ "setAssertionHandler", "namespacecore.html#a0b2fde01c38742c460acb176220332ff", null ],
     [ "slopeSurfaceHeight", "namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb", null ],
     [ "sweepAabb", "namespacecore.html#a4ca635df367666624247837feb2af5a5", null ],

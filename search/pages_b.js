@@ -16,6 +16,7 @@ var searchData=
   ['fonctionnelles_13',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
   ['fondation_20ecs_20mathématiques_20core_14',['LOT-03 — Fondation ECS &amp; mathématiques Core',['../lot-03.html',1,'lots']]],
   ['formule_20de_20courbe_15',['TACHE-01 — Modèle de tuile et formule de courbe',['../lot-23-tache-01-modele-tuile-arrondie.html',1,'lot-23']]],
-  ['fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_16',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
-  ['fractionnaire_17',['LOT-24 — Blocs à taille fractionnaire',['../lot-24.html',1,'lots']]]
+  ['formule_20de_20courbe_20concave_16',['TACHE-01 — Modèle de tuile et formule de courbe concave',['../lot-28-tache-01-modele-physique-concave.html',1,'lot-28']]],
+  ['fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_17',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
+  ['fractionnaire_18',['LOT-24 — Blocs à taille fractionnaire',['../lot-24.html',1,'lots']]]
 ];

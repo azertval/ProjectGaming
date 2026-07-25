@@ -17,7 +17,7 @@ var searchData=
   ['éditeur_20et_20jeu_14',['TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)',['../lot-16-tache-03-camera-niveau-entier.html',1,'lot-16']]],
   ['éditeur_20et_20jeu_20hmi_15',['TACHE-02 — Intégration éditeur et jeu (HMI)',['../lot-21-tache-02-integration-editeur-jeu.html',1,'lot-21']]],
   ['éditeur_20et_20niveau_20de_20démonstration_16',['TACHE-03 — Intégration éditeur et niveau de démonstration',['../lot-19-tache-03-editeur-niveau-demo.html',1,'lot-19']]],
-  ['éditeur_20et_20rendu_17',['éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
+  ['éditeur_20et_20rendu_17',['éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
   ['éditeur_20organisée_20par_20catégories_18',['LOT-27 — Palette de l&apos;éditeur organisée par catégories',['../lot-27.html',1,'lots']]],
   ['éditeur_20placeholder_19',['TACHE-06 — Écrans cibles (jeu démo + éditeur placeholder)',['../lot-06-tache-06-ecrans-cibles.html',1,'lot-06']]],
   ['édition_20',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],

@@ -28,7 +28,7 @@ var searchData=
   ['gap_25',['GAP',['../classhmi_1_1SaveLogButton.html#aaeda1ca332259231077bdec136aa9dc6',1,'hmi::SaveLogButton']]],
   ['garde_20fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_26',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
   ['garde_20fous_20contre_20la_20perte_20de_20travail_27',['Garde-fous contre la perte de travail',['../guide-editeur.html#autotoc_md69',1,'']]],
-  ['generation_28',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity::generation'],['../structcore_1_1Entity.html#a7e90cbccd752d760b3e0757dcfbeeec8',1,'core::Entity::Generation']]],
+  ['generation_28',['generation',['../structcore_1_1Entity.html#a7e90cbccd752d760b3e0757dcfbeeec8',1,'core::Entity::Generation'],['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity::generation']]],
   ['gestion_20des_20erreurs_29',['9. Gestion des erreurs',['../spec-conventions.html#autotoc_md186',1,'']]],
   ['gestion_20des_20ressources_30',['9. Gestion des ressources',['../spec-architecture.html#autotoc_md163',1,'']]],
   ['get_31',['get',['../classcore_1_1ComponentPool.html#a4ccf1839af203e6487c32b9a8c1ae00a',1,'core::ComponentPool::get(Entity entity) const'],['../classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08',1,'core::ComponentPool::get(Entity entity)']]],

@@ -26,5 +26,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-24-blocs-taille-fractionnaire", "dir_0b5265d79a1134723a4ae3337be64a23.html", null ],
     [ "LOT-25-niveaux-demo-exhaustifs", "dir_7948254dd9a8fc91331a4d5422a690cb.html", null ],
     [ "LOT-26-pentes-arrondis-plafond", "dir_6f073fb43d5276a75c75681f0b9c807e.html", null ],
-    [ "LOT-27-palette-categories", "dir_89d758090369483b3401e240ba9ea8f4.html", null ]
+    [ "LOT-27-palette-categories", "dir_89d758090369483b3401e240ba9ea8f4.html", null ],
+    [ "LOT-28-arrondis-concaves", "dir_8b45a94cde361c841ff5018bc9a1de3b.html", null ]
 ];

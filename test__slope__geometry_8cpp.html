@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('test__slope__geometry_8cpp.html',''); 
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>).  
+<p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>/<code>EX-GP-007</code>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
@@ -114,7 +114,7 @@ Include dependency graph for test_slope_geometry.cpp:</div>
 <area shape="poly" title=" " alt="" coords="175,76,158,111,154,109,170,74"/>
 <area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="151,196,319,221"/>
 <area shape="poly" title=" " alt="" coords="201,74,231,182,226,183,196,76"/>
-<area shape="rect" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="272,123,492,148"/>
+<area shape="rect" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="272,123,492,148"/>
 <area shape="poly" title=" " alt="" coords="260,72,347,114,345,119,257,77"/>
 <area shape="poly" title=" " alt="" coords="360,150,273,192,270,188,357,146"/>
 <area shape="rect" title=" " alt="" coords="343,196,418,221"/>
@@ -156,7 +156,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi.  <br /></td></tr>
 <tr class="separator:ac2bfcfa6b6230fdfaa5fcdbc736bc581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69b891b5eca41594e3aec64fc9ea6157" id="r_a69b891b5eca41594e3aec64fc9ea6157"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a69b891b5eca41594e3aec64fc9ea6157">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondNeSontPasSolidesStatiquement)</td></tr>
-<tr class="memdesc:a69b891b5eca41594e3aec64fc9ea6157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>.  <br /></td></tr>
+<tr class="memdesc:a69b891b5eca41594e3aec64fc9ea6157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>.  <br /></td></tr>
 <tr class="separator:a69b891b5eca41594e3aec64fc9ea6157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ebb1443aaf4fbcc2049bb3d37f1cff9" id="r_a3ebb1443aaf4fbcc2049bb3d37f1cff9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a3ebb1443aaf4fbcc2049bb3d37f1cff9">TEST</a> (SlopeGeometryTest, PenteEtArrondiDePlafondOntUneFaceDuHautPlate)</td></tr>
 <tr class="memdesc:a3ebb1443aaf4fbcc2049bb3d37f1cff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pentes/arrondis de plafond n'offrent <b>jamais de déplacement latéral calé</b> en marchant (<code>EX-GP-006</code>) : <code>isFollowableSurface</code> reste <code>false</code>.  <br /></td></tr>
@@ -179,12 +179,36 @@ Functions</h2></td></tr>
 <tr class="memitem:a0c2e0c3035a1e4008fd36ad15942a133" id="r_a0c2e0c3035a1e4008fd36ad15942a133"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a0c2e0c3035a1e4008fd36ad15942a133">TEST</a> (SlopeGeometryTest, CeilingSlopeHeightNulloptSiPasDePlafond)</td></tr>
 <tr class="memdesc:a0c2e0c3035a1e4008fd36ad15942a133"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight</code> renvoie <code>std::nullopt</code> pour un type sans silhouette de plafond.  <br /></td></tr>
 <tr class="separator:a0c2e0c3035a1e4008fd36ad15942a133"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7119f0cecd90122791c95f75d65117" id="r_aba7119f0cecd90122791c95f75d65117"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#aba7119f0cecd90122791c95f75d65117">TEST</a> (SlopeGeometryTest, ConcaveUpRightSuitUnQuartDeCercleConcave)</td></tr>
+<tr class="memdesc:aba7119f0cecd90122791c95f75d65117"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ConcaveUpRight</code> (quart de cercle <b>concave</b>, <code>EX-GP-007</code>) : mêmes bords que <code>RoundedUpRight</code> (1 à gauche, 0 à droite), mais courbure inversée — au centre, <code>sqrt(0,75) ≈ 0,866</code>, bien distinct du <code>1 - sqrt(0,75) ≈ 0,134</code> de l'arrondi convexe (les deux valeurs sont complémentaires, somme 1, ce qui rend une inversion accidentelle de formule facile à détecter).  <br /></td></tr>
+<tr class="separator:aba7119f0cecd90122791c95f75d65117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a6e430d6deb6fbdd8d0897898df469" id="r_a40a6e430d6deb6fbdd8d0897898df469"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a40a6e430d6deb6fbdd8d0897898df469">TEST</a> (SlopeGeometryTest, ConcaveUpLeftSuitUnQuartDeCercleConcave)</td></tr>
+<tr class="memdesc:a40a6e430d6deb6fbdd8d0897898df469"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ConcaveUpLeft</code> (<code>EX-GP-007</code>) : symétrique de <code>ConcaveUpRight</code>, mêmes bords que <code>RoundedUpLeft</code>.  <br /></td></tr>
+<tr class="separator:a40a6e430d6deb6fbdd8d0897898df469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab59e498096032e0eb6c42489e87183f8" id="r_ab59e498096032e0eb6c42489e87183f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ab59e498096032e0eb6c42489e87183f8">TEST</a> (SlopeGeometryTest, ConcaveNestPasSolideStatiquement)</td></tr>
+<tr class="memdesc:ab59e498096032e0eb6c42489e87183f8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isSolid</code> renvoie <code>false</code> pour les deux orientations d'arrondi concave (même raisonnement que l'arrondi convexe).  <br /></td></tr>
+<tr class="separator:ab59e498096032e0eb6c42489e87183f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644d1892909b405a5f43bbf34f2b6655" id="r_a644d1892909b405a5f43bbf34f2b6655"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a644d1892909b405a5f43bbf34f2b6655">TEST</a> (SlopeGeometryTest, IsFollowableSurfaceReconnaitLesConcaves)</td></tr>
+<tr class="memdesc:a644d1892909b405a5f43bbf34f2b6655"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi concave.  <br /></td></tr>
+<tr class="separator:a644d1892909b405a5f43bbf34f2b6655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6159a9ce21ecf126272abe03b0278d5e" id="r_a6159a9ce21ecf126272abe03b0278d5e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a6159a9ce21ecf126272abe03b0278d5e">TEST</a> (SlopeGeometryTest, ConcaveDePlafondNeSontPasSolidesEtOntUneFaceDuHautPlate)</td></tr>
+<tr class="memdesc:a6159a9ce21ecf126272abe03b0278d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les arrondis concaves de <b>plafond</b> (<code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code>, <code>EX-GP-007</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol, et n'offrent jamais de déplacement latéral calé — leur face du haut, en revanche, est plate (<code>0.0f</code>), comme les autres variantes de plafond (<code>EX-GP-006</code>).  <br /></td></tr>
+<tr class="separator:a6159a9ce21ecf126272abe03b0278d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d6fe47797d48fa09fa42fb57f41acb" id="r_a02d6fe47797d48fa09fa42fb57f41acb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a02d6fe47797d48fa09fa42fb57f41acb">TEST</a> (SlopeGeometryTest, IsCeilingSlopeReconnaitAussiLesConcaves)</td></tr>
+<tr class="memdesc:a02d6fe47797d48fa09fa42fb57f41acb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isCeilingSlope</code> reconnaît aussi les deux types de plafond concave (<code>EX-GP-007</code>).  <br /></td></tr>
+<tr class="separator:a02d6fe47797d48fa09fa42fb57f41acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bbd6f12698ba82bf6a520ac13886a07" id="r_a4bbd6f12698ba82bf6a520ac13886a07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#a4bbd6f12698ba82bf6a520ac13886a07">TEST</a> (SlopeGeometryTest, CeilingConcaveDownRightEstLeMiroirDeConcaveUpRight)</td></tr>
+<tr class="memdesc:a4bbd6f12698ba82bf6a520ac13886a07"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight(ConcaveDownRight)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(ConcaveUpRight)</code> (<code>EX-GP-007</code>).  <br /></td></tr>
+<tr class="separator:a4bbd6f12698ba82bf6a520ac13886a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58261249d1c15bcf974f3b324998fbb" id="r_ad58261249d1c15bcf974f3b324998fbb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__slope__geometry_8cpp.html#ad58261249d1c15bcf974f3b324998fbb">TEST</a> (SlopeGeometryTest, CeilingConcaveDownLeftEstLeMiroirDeConcaveUpLeft)</td></tr>
+<tr class="memdesc:ad58261249d1c15bcf974f3b324998fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ceilingSlopeHeight(ConcaveDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(ConcaveUpLeft)</code>.  <br /></td></tr>
+<tr class="separator:ad58261249d1c15bcf974f3b324998fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>). </p>
+<div class="textblock"><p>Tests unitaires de la fonction de hauteur des tuiles suivables (<code>slopeSurfaceHeight</code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>/<code>EX-GP-007</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a03b4b4d0a361dc327429f09bda1bf006" name="a03b4b4d0a361dc327429f09bda1bf006"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03b4b4d0a361dc327429f09bda1bf006">&#9670;&#160;</a></span>TEST() <span class="overload">[1/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a03b4b4d0a361dc327429f09bda1bf006">&#9670;&#160;</a></span>TEST() <span class="overload">[1/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,8 +244,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad58261249d1c15bcf974f3b324998fbb" name="ad58261249d1c15bcf974f3b324998fbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58261249d1c15bcf974f3b324998fbb">&#9670;&#160;</a></span>TEST() <span class="overload">[2/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingConcaveDownLeftEstLeMiroirDeConcaveUpLeft&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight(ConcaveDownLeft)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(ConcaveUpLeft)</code>. </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(ConcaveDownLeft) est le miroir vertical exact de slopeSurfaceHeight(ConcaveUpLeft).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 1 au bord gauche, 0 au bord droit, environ 0,134 au centre. </p>
+
+</div>
+</div>
+<a id="a4bbd6f12698ba82bf6a520ac13886a07" name="a4bbd6f12698ba82bf6a520ac13886a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bbd6f12698ba82bf6a520ac13886a07">&#9670;&#160;</a></span>TEST() <span class="overload">[3/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeilingConcaveDownRightEstLeMiroirDeConcaveUpRight&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ceilingSlopeHeight(ConcaveDownRight)</code> est le miroir vertical exact de <code>slopeSurfaceHeight(ConcaveUpRight)</code> (<code>EX-GP-007</code>). </p>
+<p><b>Cas de test :</b> <b>ceilingSlopeHeight(ConcaveDownRight) est le miroir vertical exact de slopeSurfaceHeight(ConcaveUpRight).</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>ceilingSlopeHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 0 au bord gauche, 1 au bord droit, environ 0,134 au centre (<code>1 - sqrt(0,75)</code>). </p>
+
+</div>
+</div>
 <a id="acfa7547558d7550253ac9c046b8acf8d" name="acfa7547558d7550253ac9c046b8acf8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfa7547558d7550253ac9c046b8acf8d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acfa7547558d7550253ac9c046b8acf8d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +356,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae4a532f9045fcecefd1839050fbe5e3f" name="ae4a532f9045fcecefd1839050fbe5e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4a532f9045fcecefd1839050fbe5e3f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4a532f9045fcecefd1839050fbe5e3f">&#9670;&#160;</a></span>TEST() <span class="overload">[5/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +393,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe667ecc179c6240fe26c06be513c3fe" name="abe667ecc179c6240fe26c06be513c3fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe667ecc179c6240fe26c06be513c3fe">&#9670;&#160;</a></span>TEST() <span class="overload">[4/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe667ecc179c6240fe26c06be513c3fe">&#9670;&#160;</a></span>TEST() <span class="overload">[6/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,7 +430,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ace13ea4fad7ac0c11150e68210f4505f" name="ace13ea4fad7ac0c11150e68210f4505f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace13ea4fad7ac0c11150e68210f4505f">&#9670;&#160;</a></span>TEST() <span class="overload">[5/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ace13ea4fad7ac0c11150e68210f4505f">&#9670;&#160;</a></span>TEST() <span class="overload">[7/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +467,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0c2e0c3035a1e4008fd36ad15942a133" name="a0c2e0c3035a1e4008fd36ad15942a133"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c2e0c3035a1e4008fd36ad15942a133">&#9670;&#160;</a></span>TEST() <span class="overload">[6/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c2e0c3035a1e4008fd36ad15942a133">&#9670;&#160;</a></span>TEST() <span class="overload">[8/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -407,8 +505,195 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6159a9ce21ecf126272abe03b0278d5e" name="a6159a9ce21ecf126272abe03b0278d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6159a9ce21ecf126272abe03b0278d5e">&#9670;&#160;</a></span>TEST() <span class="overload">[9/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConcaveDePlafondNeSontPasSolidesEtOntUneFaceDuHautPlate&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les arrondis concaves de <b>plafond</b> (<code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code>, <code>EX-GP-007</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol, et n'offrent jamais de déplacement latéral calé — leur face du haut, en revanche, est plate (<code>0.0f</code>), comme les autres variantes de plafond (<code>EX-GP-006</code>). </p>
+<p><b>Cas de test :</b> <b>Les arrondis concaves de plafond ne sont pas solides, n'offrent pas de déplacement latéral calé, et ont une face du haut plate.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isSolid</code>/<code>isFollowableSurface</code>/<code>slopeSurfaceHeight</code> sur les deux types.<br  />
+</p><ol type="1">
+<li>Vérifier les valeurs.<br  />
+ <b>Resultat attendu :</b> <code>isSolid</code> et <code>isFollowableSurface</code> renvoient <code>false</code> ; <code>slopeSurfaceHeight</code> renvoie <code>0.0f</code> pour les deux. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab59e498096032e0eb6c42489e87183f8" name="ab59e498096032e0eb6c42489e87183f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab59e498096032e0eb6c42489e87183f8">&#9670;&#160;</a></span>TEST() <span class="overload">[10/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConcaveNestPasSolideStatiquement&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isSolid</code> renvoie <code>false</code> pour les deux orientations d'arrondi concave (même raisonnement que l'arrondi convexe). </p>
+<p><b>Cas de test :</b> <b>isSolid renvoie false pour les deux orientations d'arrondi concave.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> sur <code>ConcaveUpRight</code> et <code>ConcaveUpLeft</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>false</code> pour les deux. </p>
+
+</div>
+</div>
+<a id="a40a6e430d6deb6fbdd8d0897898df469" name="a40a6e430d6deb6fbdd8d0897898df469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a6e430d6deb6fbdd8d0897898df469">&#9670;&#160;</a></span>TEST() <span class="overload">[11/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConcaveUpLeftSuitUnQuartDeCercleConcave&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ConcaveUpLeft</code> (<code>EX-GP-007</code>) : symétrique de <code>ConcaveUpRight</code>, mêmes bords que <code>RoundedUpLeft</code>. </p>
+<p><b>Cas de test :</b> <b>ConcaveUpLeft suit un profil de quart de cercle concave, haut à gauche.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 0 au bord gauche, 1 au bord droit, environ 0,866 au centre. </p>
+
+</div>
+</div>
+<a id="aba7119f0cecd90122791c95f75d65117" name="aba7119f0cecd90122791c95f75d65117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7119f0cecd90122791c95f75d65117">&#9670;&#160;</a></span>TEST() <span class="overload">[12/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConcaveUpRightSuitUnQuartDeCercleConcave&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>ConcaveUpRight</code> (quart de cercle <b>concave</b>, <code>EX-GP-007</code>) : mêmes bords que <code>RoundedUpRight</code> (1 à gauche, 0 à droite), mais courbure inversée — au centre, <code>sqrt(0,75) ≈ 0,866</code>, bien distinct du <code>1 - sqrt(0,75) ≈ 0,134</code> de l'arrondi convexe (les deux valeurs sont complémentaires, somme 1, ce qui rend une inversion accidentelle de formule facile à détecter). </p>
+<p><b>Cas de test :</b> <b>ConcaveUpRight suit un profil de quart de cercle concave, mêmes bords que RoundedUpRight, courbure inversée.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Évaluer <code>slopeSurfaceHeight</code> aux deux bords et au centre de la case.<br  />
+2. Comparer aux valeurs calculées à la main.<br  />
+ <b>Resultat attendu :</b> Hauteur 1 au bord gauche, 0 au bord droit, environ 0,866 au centre — distinct du 0,134 de l'arrondi convexe de même orientation. </p>
+
+</div>
+</div>
+<a id="a02d6fe47797d48fa09fa42fb57f41acb" name="a02d6fe47797d48fa09fa42fb57f41acb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d6fe47797d48fa09fa42fb57f41acb">&#9670;&#160;</a></span>TEST() <span class="overload">[13/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsCeilingSlopeReconnaitAussiLesConcaves&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isCeilingSlope</code> reconnaît aussi les deux types de plafond concave (<code>EX-GP-007</code>). </p>
+<p><b>Cas de test :</b> <b>isCeilingSlope reconnaît les deux types de plafond concave.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isCeilingSlope</code> sur <code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> et sur <code>ConcaveUpRight</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>true</code> pour les deux types de plafond, <code>false</code> pour <code>ConcaveUpRight</code> (variante de sol). </p>
+
+</div>
+</div>
 <a id="a7ee91c52de634f8064b4d45eb49903fd" name="a7ee91c52de634f8064b4d45eb49903fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ee91c52de634f8064b4d45eb49903fd">&#9670;&#160;</a></span>TEST() <span class="overload">[7/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee91c52de634f8064b4d45eb49903fd">&#9670;&#160;</a></span>TEST() <span class="overload">[14/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,7 +730,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af9e7f31fd0771c2f2f47e7ddac430975" name="af9e7f31fd0771c2f2f47e7ddac430975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[8/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e7f31fd0771c2f2f47e7ddac430975">&#9670;&#160;</a></span>TEST() <span class="overload">[15/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,7 +767,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac2bfcfa6b6230fdfaa5fcdbc736bc581" name="ac2bfcfa6b6230fdfaa5fcdbc736bc581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2bfcfa6b6230fdfaa5fcdbc736bc581">&#9670;&#160;</a></span>TEST() <span class="overload">[9/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2bfcfa6b6230fdfaa5fcdbc736bc581">&#9670;&#160;</a></span>TEST() <span class="overload">[16/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -518,8 +803,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a644d1892909b405a5f43bbf34f2b6655" name="a644d1892909b405a5f43bbf34f2b6655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a644d1892909b405a5f43bbf34f2b6655">&#9670;&#160;</a></span>TEST() <span class="overload">[17/25]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SlopeGeometryTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsFollowableSurfaceReconnaitLesConcaves&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isFollowableSurface</code> reconnaît aussi les deux orientations d'arrondi concave. </p>
+<p><b>Cas de test :</b> <b>isFollowableSurface reconnaît les deux orientations d'arrondi concave.</b><br  />
+ <b>Categorie :</b> Unitaire · Slope Geometry<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Appeler <code>isFollowableSurface</code> sur <code>ConcaveUpRight</code> et <code>ConcaveUpLeft</code>.<br  />
+2. Vérifier l'assertion.<br  />
+ <b>Resultat attendu :</b> <code>true</code> pour les deux. </p>
+
+</div>
+</div>
 <a id="a69b891b5eca41594e3aec64fc9ea6157" name="a69b891b5eca41594e3aec64fc9ea6157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69b891b5eca41594e3aec64fc9ea6157">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b891b5eca41594e3aec64fc9ea6157">&#9670;&#160;</a></span>TEST() <span class="overload">[18/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +866,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>. </p>
+<p>Les pentes/arrondis de <b>plafond</b> (<code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/ <code>RoundedDownLeft</code>, <code>EX-GP-006</code>) ne sont <b>jamais solides</b> pour la grille classique, comme leurs équivalents de sol — leur collision est résolue par une passe de suivi dédiée (<code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code>), pas par <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>. </p>
 <p><b>Cas de test :</b> <b>Les pentes/arrondis de plafond ne sont pas solides pour la grille classique, comme leurs équivalents de sol.</b><br  />
  <b>Categorie :</b> Unitaire · Slope Geometry<br  />
  <b>Criticite :</b> Majeur<br  />
@@ -556,7 +878,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3ebb1443aaf4fbcc2049bb3d37f1cff9" name="a3ebb1443aaf4fbcc2049bb3d37f1cff9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ebb1443aaf4fbcc2049bb3d37f1cff9">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebb1443aaf4fbcc2049bb3d37f1cff9">&#9670;&#160;</a></span>TEST() <span class="overload">[19/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -593,7 +915,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a85597794d7e31cdf5cd89bcb61b48945" name="a85597794d7e31cdf5cd89bcb61b48945"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[12/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85597794d7e31cdf5cd89bcb61b48945">&#9670;&#160;</a></span>TEST() <span class="overload">[20/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -630,7 +952,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9cbe32e16487d43ce29ab26d11be16a0" name="a9cbe32e16487d43ce29ab26d11be16a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cbe32e16487d43ce29ab26d11be16a0">&#9670;&#160;</a></span>TEST() <span class="overload">[13/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cbe32e16487d43ce29ab26d11be16a0">&#9670;&#160;</a></span>TEST() <span class="overload">[21/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,7 +989,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a71c132bee5440e41d6b5a7f6dbfbed5b" name="a71c132bee5440e41d6b5a7f6dbfbed5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71c132bee5440e41d6b5a7f6dbfbed5b">&#9670;&#160;</a></span>TEST() <span class="overload">[14/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c132bee5440e41d6b5a7f6dbfbed5b">&#9670;&#160;</a></span>TEST() <span class="overload">[22/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -704,7 +1026,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a300f3ce26f91d356a06e3d663248a3d7" name="a300f3ce26f91d356a06e3d663248a3d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[15/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a300f3ce26f91d356a06e3d663248a3d7">&#9670;&#160;</a></span>TEST() <span class="overload">[23/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -741,7 +1063,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acbfff7dab2dfd0f96c5d98e36c364257" name="acbfff7dab2dfd0f96c5d98e36c364257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[16/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbfff7dab2dfd0f96c5d98e36c364257">&#9670;&#160;</a></span>TEST() <span class="overload">[24/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -778,7 +1100,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a58550fe8acfcae9c70369ca28708cd44" name="a58550fe8acfcae9c70369ca28708cd44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[17/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a58550fe8acfcae9c70369ca28708cd44">&#9670;&#160;</a></span>TEST() <span class="overload">[25/25]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

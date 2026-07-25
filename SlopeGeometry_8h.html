@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('SlopeGeometry_8h.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 
-<p>Hauteur de surface des tuiles à profil incliné ou courbe (<code>EX-GP-003</code>, <code>EX-GP-004</code>).  
+<p>Hauteur de surface des tuiles à profil incliné ou courbe (<code>EX-GP-003</code>, <code>EX-GP-004</code>, <code>EX-GP-007</code>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
@@ -108,7 +108,7 @@ Include dependency graph for SlopeGeometry.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="SlopeGeometry_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8h">
-<area shape="rect" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="76,5,300,60"/>
+<area shape="rect" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="76,5,300,60"/>
 <area shape="rect" title=" " alt="" coords="5,108,80,133"/>
 <area shape="poly" title=" " alt="" coords="145,62,75,103,73,99,142,58"/>
 <area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="104,108,272,133"/>
@@ -124,7 +124,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="SlopeGeometry_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8hdep" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8hdep" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Core_2Physics_2SlopeGeometry_8hdep">
-<area shape="rect" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="708,5,932,60"/>
+<area shape="rect" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="708,5,932,60"/>
 <area shape="rect" href="CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,108,264,177"/>
 <area shape="poly" title=" " alt="" coords="694,50,497,75,276,111,265,113,264,108,276,105,497,70,694,45"/>
 <area shape="rect" href="BlockController_8cpp.html" title=" " alt="" coords="289,115,546,170"/>
@@ -169,15 +169,15 @@ Functions</h2></td></tr>
 <tr class="memitem:aef7136a2093c38f28dc2f24fedfae124" id="r_aef7136a2093c38f28dc2f24fedfae124"><td class="memItemLeft" align="right" valign="top">std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124">core::ceilingSlopeHeight</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, float localX) noexcept</td></tr>
 <tr class="memdesc:aef7136a2093c38f28dc2f24fedfae124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la silhouette d'une pente/arrondi de <b>plafond</b> (<code>EX-GP-006</code>), au même repère que <code>slopeSurfaceHeight</code> (mesurée depuis le haut de la case, <code>[0, 1]</code>), mais avec la sémantique <b>inversée</b> : la matière pleine remplit <code>[0, hauteur]</code> (le <b>haut</b> de la case), pas <code>[hauteur, 1]</code> (le bas) comme pour une surface de sol.  <br /></td></tr>
 <tr class="separator:aef7136a2093c38f28dc2f24fedfae124"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2920623584e25af83769e320830880d3" id="r_a2920623584e25af83769e320830880d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SlopeFollowResult.html">SlopeFollowResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2920623584e25af83769e320830880d3">core::resolveSlopeFollow</a> (float previousBottomY, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;newBox, float velocityY, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles) noexcept</td></tr>
-<tr class="memdesc:a2920623584e25af83769e320830880d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte si le bord bas d'une boîte a <b>franchi</b> une surface suivable (pente, arrondi) pendant un pas, et calcule la position à laquelle s'y caler.  <br /></td></tr>
-<tr class="separator:a2920623584e25af83769e320830880d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae60e1d5d3de4a5f3ae9c814eb057efe3" id="r_ae60e1d5d3de4a5f3ae9c814eb057efe3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1CeilingSlopeFollowResult.html">CeilingSlopeFollowResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ae60e1d5d3de4a5f3ae9c814eb057efe3">core::resolveCeilingSlopeFollow</a> (float previousTopY, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;newBox, float velocityY, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles) noexcept</td></tr>
-<tr class="memdesc:ae60e1d5d3de4a5f3ae9c814eb057efe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte si le bord haut d'une boîte a <b>franchi</b> une silhouette de pente/arrondi de plafond (<code>EX-GP-006</code>) pendant un pas, et calcule la position à laquelle s'y bloquer.  <br /></td></tr>
-<tr class="separator:ae60e1d5d3de4a5f3ae9c814eb057efe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467a4de3899a77b3500f043561e51b3f" id="r_a467a4de3899a77b3500f043561e51b3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1SlopeFollowResult.html">SlopeFollowResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f">core::resolveSlopeFollow</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;previousBox, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;newBox, float velocityY, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles) noexcept</td></tr>
+<tr class="memdesc:a467a4de3899a77b3500f043561e51b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte si le bord bas d'une boîte a <b>franchi</b> une surface suivable (pente, arrondi) pendant un pas, et calcule la position à laquelle s'y caler.  <br /></td></tr>
+<tr class="separator:a467a4de3899a77b3500f043561e51b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1cccb4ee1491e658a3af9705f20b5e1" id="r_af1cccb4ee1491e658a3af9705f20b5e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1CeilingSlopeFollowResult.html">CeilingSlopeFollowResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1">core::resolveCeilingSlopeFollow</a> (float previousTopY, float sweptMinX, float sweptMaxX, const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;newBox, float velocityY, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;tiles) noexcept</td></tr>
+<tr class="memdesc:af1cccb4ee1491e658a3af9705f20b5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détecte si le bord haut d'une boîte a <b>franchi</b> une silhouette de pente/arrondi de plafond (<code>EX-GP-006</code>) pendant un pas, et calcule la position à laquelle s'y bloquer.  <br /></td></tr>
+<tr class="separator:af1cccb4ee1491e658a3af9705f20b5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Hauteur de surface des tuiles à profil incliné ou courbe (<code>EX-GP-003</code>, <code>EX-GP-004</code>). </p>
+<div class="textblock"><p>Hauteur de surface des tuiles à profil incliné ou courbe (<code>EX-GP-003</code>, <code>EX-GP-004</code>, <code>EX-GP-007</code>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

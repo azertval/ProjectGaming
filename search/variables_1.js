@@ -7,5 +7,7 @@ var searchData=
   ['airjumpsremaining_4',['airJumpsRemaining',['../structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9',1,'core::Player']]],
   ['apexgravitymultiplier_5',['apexGravityMultiplier',['../structcore_1_1PhysicsConfig.html#ac393eb19e1428343e98922bcdd1451ab',1,'core::PhysicsConfig']]],
   ['apexthreshold_6',['apexThreshold',['../structcore_1_1PhysicsConfig.html#a7e782cd22d0d68a6e918286166fab6f4',1,'core::PhysicsConfig']]],
-  ['atlas_7',['atlas',['../structhmi_1_1RenderContext.html#ac44122085f888756bb571d7baf2391fe',1,'hmi::RenderContext']]]
+  ['ascentsweepmaxx_7',['ascentSweepMaxX',['../structcore_1_1Player.html#a1364add72d943586ebc6b36e790bbc58',1,'core::Player']]],
+  ['ascentsweepminx_8',['ascentSweepMinX',['../structcore_1_1Player.html#a303e707a1ca641a73738871981824cdb',1,'core::Player']]],
+  ['atlas_9',['atlas',['../structhmi_1_1RenderContext.html#ac44122085f888756bb571d7baf2391fe',1,'hmi::RenderContext']]]
 ];

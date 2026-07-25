@@ -9,7 +9,7 @@ var searchData=
   ['4_20interface_20hmi_6',['4. Interface (HMI)',['../spec-rendu-technique.html#autotoc_md231',1,'']]],
   ['4_20périmètre_20séquencement_7',['4. Périmètre &amp; séquencement',['../spec-decors.html#autotoc_md196',1,'']]],
   ['4_20portabilité_20reproductibilité_8',['4. Portabilité &amp; reproductibilité',['../spec-exigences.html#autotoc_md212',1,'']]],
-  ['4_20publier_20votre_20niveau_9',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md1379',1,'']]],
+  ['4_20publier_20votre_20niveau_9',['4. Publier votre niveau',['../manuel-partager-niveau.html#autotoc_md1410',1,'']]],
   ['4_20saut_20et_20em_20game_20feel_20em_10',['4. Saut et &lt;em&gt;game feel&lt;/em&gt;',['../guide-physique.html#autotoc_md132',1,'']]],
   ['4bis_20décors_20pixel_20art_20post_20mvp_20intégré_20à_20l_20éditeur_11',['4bis. Décors &amp; pixel art (post-MVP, intégré à l&apos;éditeur)',['../spec-editeur.html#autotoc_md203',1,'']]]
 ];

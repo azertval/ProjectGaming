@@ -19,7 +19,11 @@ var TileType_8h =
       [ "SlopeDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b", null ],
       [ "SlopeDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7", null ],
       [ "RoundedDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f", null ],
-      [ "RoundedDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf", null ]
+      [ "RoundedDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf", null ],
+      [ "ConcaveUpRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60", null ],
+      [ "ConcaveUpLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55", null ],
+      [ "ConcaveDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a", null ],
+      [ "ConcaveDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7", null ]
     ] ],
     [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "tileVisualScale", "TileType_8h.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ]

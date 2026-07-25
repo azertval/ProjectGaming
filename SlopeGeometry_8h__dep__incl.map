@@ -1,5 +1,5 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/SlopeGeometry.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/SlopeGeometry.h">
-<area shape="rect" id="Node000001" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004)." alt="" coords="708,5,932,60"/>
+<area shape="rect" id="Node000001" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="708,5,932,60"/>
 <area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,108,264,177"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="694,50,497,75,276,111,265,113,264,108,276,105,497,70,694,45"/>
 <area shape="rect" id="Node000003" href="$BlockController_8cpp.html" title=" " alt="" coords="289,115,546,170"/>

@@ -193,31 +193,31 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (334)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (345)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
           [ "Gameplay (19)", "cahiertest.html#autotoc_md8", null ],
-          [ "Levels (80)", "cahiertest.html#autotoc_md9", null ],
+          [ "Levels (82)", "cahiertest.html#autotoc_md9", null ],
           [ "Math (20)", "cahiertest.html#autotoc_md10", null ],
-          [ "Physics (31)", "cahiertest.html#autotoc_md11", null ],
+          [ "Physics (39)", "cahiertest.html#autotoc_md11", null ],
           [ "Time (6)", "cahiertest.html#autotoc_md12", null ]
         ] ],
         [ "HMI", "cahiertest.html#autotoc_md13", [
-          [ "Editor (54)", "cahiertest.html#autotoc_md14", null ],
+          [ "Editor (55)", "cahiertest.html#autotoc_md14", null ],
           [ "Graphics (9)", "cahiertest.html#autotoc_md15", null ],
           [ "Input (24)", "cahiertest.html#autotoc_md16", null ],
           [ "Interface (34)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (70)", "cahiertest.html#autotoc_md19", [
+      [ "Tests d'intégration (75)", "cahiertest.html#autotoc_md19", [
         [ "Animation Personnage — <tt>test_animation_personnage.cpp</tt> (5)", "cahiertest.html#autotoc_md20", null ],
         [ "Bloc Réduit — <tt>test_bloc_reduit.cpp</tt> (2)", "cahiertest.html#autotoc_md21", null ],
         [ "Boucle Simulation — <tt>test_boucle_simulation.cpp</tt> (2)", "cahiertest.html#autotoc_md22", null ],
         [ "Ecs Mouvement — <tt>test_ecs_mouvement.cpp</tt> (4)", "cahiertest.html#autotoc_md23", null ],
         [ "Niveau Ecs — <tt>test_niveau_ecs.cpp</tt> (2)", "cahiertest.html#autotoc_md24", null ],
-        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (55)", "cahiertest.html#autotoc_md25", null ]
+        [ "Physique Personnage — <tt>test_physique_personnage.cpp</tt> (60)", "cahiertest.html#autotoc_md25", null ]
       ] ],
       [ "Tests système (2)", "cahiertest.html#autotoc_md26", [
         [ "Parcours Complet — <tt>test_parcours_complet.cpp</tt> (1)", "cahiertest.html#autotoc_md27", null ],
@@ -340,7 +340,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Lots", "lots.html", [
-      [ "Lots", "lots.html#autotoc_md1370", null ],
+      [ "Lots", "lots.html#autotoc_md1401", null ],
       [ "LOT-01 — Fenêtre & boucle de jeu (Direct3D 11)", "lot-01.html", [
         [ "Objectif", "lot-01.html#autotoc_md242", null ],
         [ "Périmètre", "lot-01.html#autotoc_md243", [
@@ -1796,28 +1796,68 @@ var NAVTREE =
           [ "Définition de fait (DoD)", "lot-27-tache-02-documentation-verification.html#autotoc_md1368", null ],
           [ "Exigences", "lot-27-tache-02-documentation-verification.html#autotoc_md1369", null ]
         ] ]
+      ] ],
+      [ "LOT-28 — Arrondis concaves", "lot-28.html", [
+        [ "Objectif", "lot-28.html#autotoc_md1370", null ],
+        [ "Périmètre", "lot-28.html#autotoc_md1371", [
+          [ "Inclus", "lot-28.html#autotoc_md1372", null ],
+          [ "Exclus (hors périmètre de ce lot)", "lot-28.html#autotoc_md1373", null ]
+        ] ],
+        [ "Décisions de cadrage", "lot-28.html#autotoc_md1374", null ],
+        [ "Exigences couvertes", "lot-28.html#autotoc_md1375", null ],
+        [ "Découpage", "lot-28.html#autotoc_md1376", null ],
+        [ "Critères d'acceptation du lot", "lot-28.html#autotoc_md1377", null ],
+        [ "Dépendances", "lot-28.html#autotoc_md1378", null ],
+        [ "Navigation des tâches", "lot-28.html#autotoc_md1379", null ],
+        [ "TACHE-01 — Modèle de tuile et formule de courbe concave", "lot-28-tache-01-modele-physique-concave.html", [
+          [ "Contexte", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1380", null ],
+          [ "Travail à réaliser", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1381", null ],
+          [ "Fichiers impactés", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1382", null ],
+          [ "Tests (obligatoires)", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1383", null ],
+          [ "Points d'attention", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1384", null ],
+          [ "Définition de fait (DoD)", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1385", null ],
+          [ "Exigences", "lot-28-tache-01-modele-physique-concave.html#autotoc_md1386", null ]
+        ] ],
+        [ "TACHE-02 — Éditeur et rendu", "lot-28-tache-02-editeur-rendu.html", [
+          [ "Contexte", "lot-28-tache-02-editeur-rendu.html#autotoc_md1387", null ],
+          [ "Travail à réaliser", "lot-28-tache-02-editeur-rendu.html#autotoc_md1388", null ],
+          [ "Fichiers impactés", "lot-28-tache-02-editeur-rendu.html#autotoc_md1389", null ],
+          [ "Tests (obligatoires)", "lot-28-tache-02-editeur-rendu.html#autotoc_md1390", null ],
+          [ "Points d'attention", "lot-28-tache-02-editeur-rendu.html#autotoc_md1391", null ],
+          [ "Définition de fait (DoD)", "lot-28-tache-02-editeur-rendu.html#autotoc_md1392", null ],
+          [ "Exigences", "lot-28-tache-02-editeur-rendu.html#autotoc_md1393", null ]
+        ] ],
+        [ "TACHE-03 — Documentation et vérification", "lot-28-tache-03-documentation-verification.html", [
+          [ "Contexte", "lot-28-tache-03-documentation-verification.html#autotoc_md1394", null ],
+          [ "Travail à réaliser", "lot-28-tache-03-documentation-verification.html#autotoc_md1395", null ],
+          [ "Fichiers impactés", "lot-28-tache-03-documentation-verification.html#autotoc_md1396", null ],
+          [ "Tests (obligatoires)", "lot-28-tache-03-documentation-verification.html#autotoc_md1397", null ],
+          [ "Points d'attention", "lot-28-tache-03-documentation-verification.html#autotoc_md1398", null ],
+          [ "Définition de fait (DoD)", "lot-28-tache-03-documentation-verification.html#autotoc_md1399", null ],
+          [ "Exigences", "lot-28-tache-03-documentation-verification.html#autotoc_md1400", null ]
+        ] ]
       ] ]
     ] ],
     [ "Manuel utilisateur", "manuel.html", [
-      [ "Pages", "manuel.html#autotoc_md1375", null ],
+      [ "Pages", "manuel.html#autotoc_md1406", null ],
       [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-        [ "Prérequis", "manuel-telecharger.html#autotoc_md1382", null ],
-        [ "Étapes", "manuel-telecharger.html#autotoc_md1383", null ],
-        [ "Remarques", "manuel-telecharger.html#autotoc_md1384", null ]
+        [ "Prérequis", "manuel-telecharger.html#autotoc_md1413", null ],
+        [ "Étapes", "manuel-telecharger.html#autotoc_md1414", null ],
+        [ "Remarques", "manuel-telecharger.html#autotoc_md1415", null ]
       ] ],
       [ "Jouer", "manuel-jouer.html", [
-        [ "Le menu principal", "manuel-jouer.html#autotoc_md1371", null ],
-        [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md1372", null ],
-        [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md1373", null ],
-        [ "Le menu d'options", "manuel-jouer.html#autotoc_md1374", null ]
+        [ "Le menu principal", "manuel-jouer.html#autotoc_md1402", null ],
+        [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md1403", null ],
+        [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md1404", null ],
+        [ "Le menu d'options", "manuel-jouer.html#autotoc_md1405", null ]
       ] ],
       [ "Créer et partager un niveau (sans ligne de commande)", "manuel-partager-niveau.html", [
-        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md1376", null ],
-        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md1377", null ],
-        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md1378", null ],
-        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md1379", null ],
-        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md1380", null ],
-        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md1381", null ]
+        [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md1407", null ],
+        [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md1408", null ],
+        [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md1409", null ],
+        [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md1410", null ],
+        [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md1411", null ],
+        [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md1412", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -1859,23 +1899,23 @@ var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
 "Localization_8cpp.html",
-"classcore_1_1BlockController.html#a6819eaeeb9a5d5ea940ce9220a3af585",
-"classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2",
-"classhmi_1_1EditorScreen.html#a28689a88815be22a377c3ad144cabfd6",
-"classhmi_1_1InputState.html#ab129c79e0d8cf79448425c3a8d984e0e",
-"classhmi_1_1SaveLogButton.html",
-"classhmi_1_1Window.html#a734318f2dafe226f3efee88089790a6a",
-"guide-editeur.html#autotoc_md74",
-"lot-04-tache-01-reorganisation-arbo.html#autotoc_md389",
-"lot-07-tache-06-rendu-integration.html#autotoc_md609",
-"lot-12-tache-02-mecanismes.html#autotoc_md830",
-"lot-18-tache-01-composant-systeme-animation.html#autotoc_md1051",
-"lot-24-tache-04-documentation-verification.html#autotoc_md1272",
-"namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1",
-"structcore_1_1Mechanism.html#aff8f5698a02356618c67d7fafae8b2b7",
-"structhmi_1_1SpriteBatch_1_1Vertex.html#a159fa9be9305ea7dcf1e051c61649762",
-"test__level__outcome_8cpp.html",
-"test__tile__palette_8cpp.html#a3de75a19d75b27d384473f566118e9a3"
+"classcore_1_1BlockController.html",
+"classcore_1_1LevelWriter.html#a388600fd0af9ddeed6675704125ce6f6",
+"classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a",
+"classhmi_1_1InputState.html#a88513d390fb0d8d31a142cbf501ecc1b",
+"classhmi_1_1SaveIcon.html#a19ae609a8e30fcd6fef1ec4e1ffeb955",
+"classhmi_1_1Window.html",
+"guide-editeur.html#autotoc_md61",
+"lot-03.html#autotoc_md325",
+"lot-07-tache-04-validation.html#autotoc_md598",
+"lot-12-tache-01-donnees.html#autotoc_md818",
+"lot-17.html#autotoc_md1015",
+"lot-24-tache-02-collision-boite-boite.html#autotoc_md1261",
+"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df",
+"structcore_1_1Entity.html",
+"structhmi_1_1LevelPicker_1_1Choice.html",
+"test__level__draft_8cpp.html#a399d3c283c1ace5b25f7a14299ba2fd9",
+"test__rect_8cpp.html#a73da28c8c5d8ed609e8f51c31dcdabc4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

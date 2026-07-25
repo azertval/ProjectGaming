@@ -185,6 +185,7 @@ Private Types</h2></td></tr>
 <tr class="separator:ae134a9bb3efc57df212c205b62c5b83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a2230ea4446ad8ad74609597f7f9a78" id="r_a8a2230ea4446ad8ad74609597f7f9a78"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78">Subgroup</a> { <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8">Pente</a>
 , <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46">Arrondi</a>
+, <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a1cb290ed5917afdbf2532bb2bf6f0192">Concave</a>
 , <a class="el" href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c">Bloc</a>
  }</td></tr>
 <tr class="memdesc:a8a2230ea4446ad8ad74609597f7f9a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-groupes repliables de second niveau (une famille à plusieurs formes/tailles).  <a href="classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78">More...</a><br /></td></tr>
@@ -235,7 +236,7 @@ Private Attributes</h2></td></tr>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:ae598122e72209de693ecd8bc0ef437a7" id="r_ae598122e72209de693ecd8bc0ef437a7"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#ae598122e72209de693ecd8bc0ef437a7">CATEGORY_COUNT</a> = 3</td></tr>
 <tr class="separator:ae598122e72209de693ecd8bc0ef437a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4823e83930866fa10b1ac8e70fcd259b" id="r_a4823e83930866fa10b1ac8e70fcd259b"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b">SUBGROUP_COUNT</a> = 3</td></tr>
+<tr class="memitem:a4823e83930866fa10b1ac8e70fcd259b" id="r_a4823e83930866fa10b1ac8e70fcd259b"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b">SUBGROUP_COUNT</a> = 4</td></tr>
 <tr class="separator:a4823e83930866fa10b1ac8e70fcd259b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -243,7 +244,7 @@ Static Private Attributes</h2></td></tr>
 <p>Logique <b>pure</b> : ne connaît que la géométrie écran (rectangles en pixels) et l'état de sélection/dépliage, sans dépendance de rendu — testable sans GPU (<code>EX-NFR-010</code>). Le dessin des entrées (icônes d'atlas, surbrillance de la sélection) reste délégué à <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>, qui lit <code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code>/<code><a class="el" href="classhmi_1_1TilePalette.html#af8b0a532bf775db098660afc01b8e01d">selected()</a></code> exactement comme avant <code>LOT-27</code> : chaque <code><a class="el" href="structhmi_1_1TilePalette_1_1Entry.html" title="Une entrée cliquable de la palette : son rectangle écran, un type de tuile (celui qu&#39;elle sélectionne...">Entry</a></code> porte toujours un <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code> valide (le type sélectionnable pour une entrée-feuille, ou un type <b>représentatif</b> pour une entrée d'en-tête, utilisé uniquement pour son icône) et un rectangle écran — <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code> n'a donc rien à changer pour dessiner la nouvelle disposition.</p>
 <p><b>Trois niveaux d'accordéon</b> (<code>EX-EDIT-018</code>), reflétés uniquement par la position/visibilité des entrées (<code><a class="el" href="classhmi_1_1TilePalette.html#a491606766e039bf588714c9582294a14">entries()</a></code> n'expose jamais une entrée actuellement repliée) :</p><ol type="1">
 <li>Deux entrées <b>autonomes</b> toujours visibles (Vide, Piège — sélection directe, pas de dépliage) et trois <b>catégories</b> repliables (Tuile, Interactif, Jalon).</li>
-<li>Une catégorie dépliée expose ses tuiles <b>directes</b> (ex. Porte, Plaque, Interrupteur) et, pour Tuile/Interactif, des <b>sous-groupes</b> repliables (Pente, Arrondi, Bloc poussable — familles à plusieurs formes/tailles).</li>
+<li>Une catégorie dépliée expose ses tuiles <b>directes</b> (ex. Porte, Plaque, Interrupteur) et, pour Tuile/Interactif, des <b>sous-groupes</b> repliables (Pente, Arrondi, Concave, Bloc poussable — familles à plusieurs formes/tailles).</li>
 <li>Un sous-groupe déplié expose ses variantes (orientations, tailles).</li>
 </ol>
 <p>Cliquer une entrée d'en-tête (catégorie ou sous-groupe) <b>replie/déplie</b> ce niveau sans changer la sélection courante ; cliquer une entrée-feuille <b>sélectionne</b> son type. Dans les deux cas, <code>handleClick</code> renvoie <code>true</code> (clic consommé par la palette) — l'appelant (<code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">EditorScreen</a></code>) n'a pas à distinguer les deux cas.</p>
@@ -332,6 +333,7 @@ Static Private Attributes</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8" name="a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8"></a>Pente&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46" name="a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46"></a>Arrondi&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78a1cb290ed5917afdbf2532bb2bf6f0192" name="a8a2230ea4446ad8ad74609597f7f9a78a1cb290ed5917afdbf2532bb2bf6f0192"></a>Concave&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c" name="a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c"></a>Bloc&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -903,7 +905,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::size_t hmi::TilePalette::SUBGROUP_COUNT = 3</td>
+          <td class="memname">constexpr std::size_t hmi::TilePalette::SUBGROUP_COUNT = 4</td>
         </tr>
       </table>
   </td>

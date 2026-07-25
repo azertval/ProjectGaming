@@ -7,5 +7,5 @@ var searchData=
   ['8_20palette_20organisée_20par_20catégories_20lot_2027_4',['8. Palette organisée par catégories (LOT-27)',['../spec-editeur.html#autotoc_md207',1,'']]],
   ['8_20sprite_5',['TACHE-03 — Personnage humanoïde (spawn 0,4×0,8, sprite)',['../lot-11-tache-03-personnage-humanoide.html',1,'lot-11']]],
   ['8_20tests_6',['8. Tests',['../spec-conventions.html#autotoc_md185',1,'']]],
-  ['80_7',['Levels (80)',['../cahiertest.html#autotoc_md9',1,'']]]
+  ['82_7',['Levels (82)',['../cahiertest.html#autotoc_md9',1,'']]]
 ];

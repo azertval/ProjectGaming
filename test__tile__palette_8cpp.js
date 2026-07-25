@@ -14,5 +14,6 @@ var test__tile__palette_8cpp =
     [ "TEST", "test__tile__palette_8cpp.html#a02cac3d0498c759a4c171915d375a805", null ],
     [ "TEST", "test__tile__palette_8cpp.html#ad3ce7930a954de0d87ecc16fe2e8e8a5", null ],
     [ "TEST", "test__tile__palette_8cpp.html#aa8e9bea8a184ba7e4c5e86eb24268cbb", null ],
+    [ "TEST", "test__tile__palette_8cpp.html#a61ca4e1cded1151bce931bf0b5ce9704", null ],
     [ "TEST", "test__tile__palette_8cpp.html#ac2ea86d760fefd1b50503b22fc7b9b6d", null ]
 ];

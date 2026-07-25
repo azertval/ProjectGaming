@@ -15,6 +15,7 @@ var classhmi_1_1TilePalette =
     [ "Subgroup", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78", [
       [ "Pente", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8", null ],
       [ "Arrondi", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46", null ],
+      [ "Concave", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a1cb290ed5917afdbf2532bb2bf6f0192", null ],
       [ "Bloc", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c", null ]
     ] ],
     [ "TilePalette", "classhmi_1_1TilePalette.html#ad27da99e240b358a4c4703081238e512", null ],
