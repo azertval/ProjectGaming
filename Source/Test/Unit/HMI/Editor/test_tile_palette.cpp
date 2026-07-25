@@ -248,6 +248,34 @@ TEST(TilePaletteTest, SousGroupePenteDeplieExposeSesOrientations) {
 }
 
 /**
+ * @brief Le sous-groupe Concave, imbriqué dans Tuile, expose ses quatre orientations une fois
+ * déplié — nouvelle famille de courbe (`EX-GP-007`), frère du sous-groupe Arrondi.
+ * \castest{<b>Le sous-groupe Concave déplié expose ses quatre orientations.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Cliquer l'orientation « Sol D » du sous-groupe Concave déplié sélectionne
+ * ConcaveUpRight ; le sous-groupe Arrondi voisin reste replié et n'expose pas ses propres entrées.
+ * }
+ */
+TEST(TilePaletteTest, SousGroupeConcaveDeplieExposeSesOrientations) {
+    hmi::TilePalette palette;
+    clickEntry(palette, *findByLabel(palette, "> Tuile"));
+    clickEntry(palette, *findByLabel(palette, "> Concave"));
+    const std::optional<hmi::TilePalette::Entry> floorRight = findByLabel(palette, "Sol D");
+    ASSERT_TRUE(floorRight.has_value());
+
+    const bool consumed = clickEntry(palette, *floorRight);
+
+    EXPECT_TRUE(consumed);
+    EXPECT_EQ(palette.selected(), core::TileType::ConcaveUpRight);
+    // Arrondi reste replie : ses propres feuilles (memes libelles que Concave) ne sont pas
+    // visibles en double, seul son en-tete "> Arrondi" figure dans la vue courante.
+    EXPECT_TRUE(findByLabel(palette, "> Arrondi").has_value());
+}
+
+/**
  * @brief `bottom()` augmente quand une catégorie se déplie, et revient à sa valeur initiale quand
  *        elle se replie — la barre d'outils (`ToolBar::relayout`) s'appuie sur cette valeur.
  * \castest{<b>`bottom()` suit l'état de dépliage courant.</b><br/>
@@ -271,15 +299,17 @@ TEST(TilePaletteTest, BottomSuitLEtatDeDepliage) {
 
 namespace {
 
-// Deplie Tuile (+ Pente + Arrondi) et Interactif (+ Bloc poussable) : 25 lignes au total, de quoi
-// depasser largement une petite fenetre et exercer le defilement. Fenetre volontairement genereuse
-// pendant le depliage : un en-tete a deplier peut sinon se retrouver hors fenetre visible avant
-// meme d'avoir ete clique (le point precis que ce correctif de defilement corrige cote reel).
+// Deplie Tuile (+ Pente + Arrondi + Concave) et Interactif (+ Bloc poussable) : 30 lignes au
+// total, de quoi depasser largement une petite fenetre et exercer le defilement. Fenetre
+// volontairement genereuse pendant le depliage : un en-tete a deplier peut sinon se retrouver hors
+// fenetre visible avant meme d'avoir ete clique (le point precis que ce correctif de defilement
+// corrige cote reel).
 void expandEverything(hmi::TilePalette& palette) {
     palette.setViewportHeight(2000.0f);
     clickEntry(palette, *findByLabel(palette, "> Tuile"));
     clickEntry(palette, *findByLabel(palette, "> Pente"));
     clickEntry(palette, *findByLabel(palette, "> Arrondi"));
+    clickEntry(palette, *findByLabel(palette, "> Concave"));
     clickEntry(palette, *findByLabel(palette, "> Interactif"));
     clickEntry(palette, *findByLabel(palette, "> Bloc poussable"));
     clickEntry(palette, *findByLabel(palette, "> Jalon"));
@@ -295,19 +325,19 @@ void expandEverything(hmi::TilePalette& palette) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Avec tout déplié (25 lignes) et une fenêtre de 200px, une seule entrée est visible ;
- * `totalRowCount()` reste 25.
+ * \tattendu Avec tout déplié (30 lignes) et une fenêtre de 200px, une seule entrée est visible ;
+ * `totalRowCount()` reste 30.
  * }
  */
 TEST(TilePaletteTest, FenetreReduiteLimiteLesEntreesVisibles) {
     hmi::TilePalette palette;
     expandEverything(palette);
-    ASSERT_EQ(palette.totalRowCount(), 25);
+    ASSERT_EQ(palette.totalRowCount(), 30);
 
     palette.setViewportHeight(200.0f);
 
     EXPECT_EQ(palette.entries().size(), 1u);
-    EXPECT_EQ(palette.totalRowCount(), 25);
+    EXPECT_EQ(palette.totalRowCount(), 30);
 }
 
 /**
@@ -368,14 +398,17 @@ TEST(TilePaletteTest, ScrollBorneAuxExtremites) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Avec une fenêtre ne montrant que 6 lignes, déplier Interactif (dont l'en-tête occupe
+ * \tattendu Avec une fenêtre ne montrant que 7 lignes, déplier Interactif (dont l'en-tête occupe
  * alors la dernière ligne visible) ajoute 4 lignes sans faire disparaître son propre en-tête.
  * }
  */
 TEST(TilePaletteTest, EnTeteDeplieResteVisibleDansUneFenetreEtroite) {
     hmi::TilePalette palette;
-    palette.setViewportHeight(350.0f);  // visibleRowCount(350) == 6
-    ASSERT_EQ(hmi::TilePalette::visibleRowCount(350.0f), 6);
+    // Tuile deplie expose desormais 4 rangees (Plein, Pente, Arrondi, Concave) avant Interactif :
+    // 7 lignes au total (Vide, vTuile, Plein, >Pente, >Arrondi, >Concave, >Interactif) tiennent
+    // exactement dans une fenetre de 7 lignes, l'en-tete Interactif occupant la derniere.
+    palette.setViewportHeight(370.0f);  // visibleRowCount(370) == 7
+    ASSERT_EQ(hmi::TilePalette::visibleRowCount(370.0f), 7);
     clickEntry(palette, *findByLabel(palette, "> Tuile"));
     ASSERT_TRUE(findByLabel(palette, "> Interactif").has_value());
 

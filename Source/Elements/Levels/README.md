@@ -12,7 +12,10 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   `slopeDownRight`/`slopeDownLeft`/`roundedDownRight`/`roundedDownLeft` (variantes de **plafond**
   des quatre précédentes — miroir vertical, jamais solides non plus, mais bloquent précisément un
   saut qui franchit leur profil incliné/courbe par en dessous ; leur face du haut, toujours plate,
-  supporte un personnage qui tombe dessus par au-dessus, `EX-GP-006`).
+  supporte un personnage qui tombe dessus par au-dessus, `EX-GP-006`),
+  `concaveUpRight`/`concaveUpLeft`/`concaveDownRight`/`concaveDownLeft` (variante **concave** des
+  arrondis, sol et plafond — même suivi/silhouette, courbure inversée : centre du cercle du côté
+  plein plutôt que du côté creux, `EX-GP-007`).
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,

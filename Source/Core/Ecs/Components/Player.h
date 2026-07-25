@@ -51,6 +51,15 @@ struct Player {
     /// masse plus grande tombe plus vite. Sert aussi de seuil pour les mécanismes sensibles au
     /// poids (plaque de pression, `EX-GP-025`).
     float mass = 1.0f;
+    /// Étendue horizontale (bords gauche/droit, unité monde) couverte par la boîte depuis le
+    /// **début de la montée courante** (dernier saut), pas seulement le pas précédent — remise à
+    /// l'étendue courante à chaque pas où le personnage est au sol ou ne monte pas
+    /// (`velocity.y >= 0`), puis étendue à chaque pas de montée. Sans cette mémoire, marcher tout
+    /// en sautant sous un arrondi de plafond peut faire « disparaître » une colonne pourtant
+    /// franchie plus tôt dans la même montée, avant que le seuil vertical de blocage n'y soit
+    /// atteint (`core::resolveCeilingSlopeFollow`, `EX-GP-007`).
+    float ascentSweepMinX = 0.0f;
+    float ascentSweepMaxX = 0.0f;
 };
 
 }  // namespace core

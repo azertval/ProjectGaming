@@ -7,6 +7,61 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-28 — Arrondis concaves** (`EX-GP-007`) : quatre nouvelles tuiles, `ConcaveUpRight`/
+  `ConcaveUpLeft` (sol) et `ConcaveDownRight`/`ConcaveDownLeft` (plafond) — une seconde famille de
+  quart de cercle, **concave** plutôt que **convexe** (`RoundedUpRight`/`RoundedUpLeft` et leurs
+  variantes de plafond, `EX-GP-004`/`EX-GP-006`) : centre du cercle du côté **plein** plutôt que du
+  côté creux, courbure inversée (tangente horizontale côté creux, verticale côté plein), utile pour
+  un raccord en creux entre deux surfaces perpendiculaires. Réutilise l'infrastructure de suivi de
+  surface/silhouette posée par `LOT-22`/`LOT-23`/`LOT-26` — la formule de hauteur
+  (`core::slopeSurfaceHeight`, deux nouveaux `case` ; `core::ceilingSlopeHeight`, mapping miroir
+  étendu) change comme prévu. Sol **et** plafond dans un seul lot (le plafond ne coûtant qu'un
+  mapping de deux lignes, infrastructure déjà générique depuis `LOT-26`). Nouveau sous-groupe de
+  palette **Concave**, frère de **Arrondi** sous la catégorie **Tuile** (`LOT-27`) ; rendu avec la
+  silhouette réelle en gris, logé dans quatre des cases déjà réservées de l'atlas procédural
+  (`TextureAtlas::TILES_PER_SIDE` inchangé à `5`).
+- **Corrigé en cours de lot (LOT-28)** : `ConcaveDownLeft` visait initialement la case d'atlas
+  `(4,4)`, en réalité réservée au damier de transparence (affichait le damier au lieu de sa
+  silhouette) — réassignée à `(2,4)`, authentiquement libre.
+- **Corrigé en cours de lot (LOT-28), défaut antérieur à ce lot** : `core::resolveSlopeFollow`/
+  `core::resolveCeilingSlopeFollow` sélectionnaient la case à consulter uniquement par le **centre**
+  de la boîte du personnage — pour la dernière fraction (environ la moitié de la largeur de la
+  boîte) de la largeur de toute case pente/arrondi/concave, ce centre atterrit déjà dans la case
+  **voisine** ; si celle-ci est non solide (typiquement deux arrondis/concaves posés côte à côte —
+  un arc, une voûte), aucun filet ne rattrape le personnage, qui tombe ou saute au travers sans être
+  bloqué. Reproduit sur `SlopeDownRight` (`LOT-26`) avec le même symptôme exact : le défaut était
+  **latent depuis `LOT-22`**, jamais exposé faute d'avoir déjà chaîné deux tuiles non solides
+  adjacentes (une case solide voisine masquait silencieusement le même défaut via la collision
+  classique sur grille). Corrigé en élargissant la sélection aux colonnes réellement couvertes par
+  la largeur de la boîte, la colonne centrale gardant exactement son calcul d'origine (aucune
+  régression pour tout appelant dont la boîte ne dépasse pas d'une seule colonne pertinente).
+- **Corrigé en cours de lot (LOT-28), second défaut plus profond** : le correctif ci-dessus ne
+  suffisait pas quand le personnage **marche pendant qu'il saute** — la case qui aurait dû bloquer
+  pouvait redevenir invisible sur PLUSIEURS pas consécutifs (pas seulement le précédent) avant que
+  le seuil vertical de blocage n'y soit atteint, laissant un saut traverser un plafond incliné/
+  courbe malgré le premier correctif. Corrigé en faisant mémoriser à `core::CharacterPhysicsSystem`
+  l'étendue horizontale couverte par la boîte depuis le **début de la montée courante**
+  (`Player::ascentSweepMinX`/`ascentSweepMaxX`), pas seulement le pas précédent. Vérifié généralisé
+  aux pentes linéaires de plafond (`LOT-26`), pas spécifique aux arrondis concaves de ce lot. Zéro
+  régression sur la suite complète après les deux correctifs.
+- **Corrigé en cours de lot (LOT-28), troisième défaut, distinct des deux précédents** : un saut
+  bloqué tout près du bord **fin** (silhouette quasi vide) d'un arrondi concave de plafond se
+  retrouvait, un pas après le blocage, téléporté au-dessus du plafond — `core::resolveSlopeFollow`
+  interprétait à tort le chevauchement résiduel (bord bas du personnage encore dans la case de
+  plafond après un blocage par en dessous) comme un atterrissage sur la face du haut de la tuile.
+  Corrigé en exigeant que le bord bas ait déjà été au-dessus de la case avant le pas pour qu'un tel
+  calage soit accepté (garde-fou restreint aux tuiles de plafond, sans effet sur le calage normal
+  d'un atterrissage sur sol plat). Nouvelle infrastructure de journalisation réutilisable
+  (`Source/Core/Physics/PhysicsLog.h`, macros `PHYSICS_LOG_*`, réservées aux événements rares) pour
+  faciliter le diagnostic d'anomalies similaires à l'avenir. Zéro régression sur la suite complète
+  après les trois correctifs.
+- **Corrigé en cours de lot (LOT-28)** : `slopeShapePixel` (`TextureAtlas.cpp`) échantillonnait au
+  **centre** de chaque pixel, qui n'atteint jamais exactement les bords `0`/`1` de la case (dernier
+  pixel plafonné à `≈0,969`) — sans conséquence pour les pentes/arrondis existants, mais visible
+  comme une encoche près du bord **plein** (tangente raide) d'un arrondi concave, à l'endroit
+  précis où la silhouette doit au contraire être la plus pleine. Corrigé en échantillonnant au bord
+  des pixels de coin plutôt qu'à leur centre. Vérifié en jeu : deux arrondis concaves adjacents
+  (arche/pic) se traversent désormais en marchant sans chute, silhouette rendue comme un pic net.
 - **LOT-27 — Palette de l'éditeur organisée par catégories** (`EX-EDIT-018`) : la palette de
   tuiles, jusqu'ici une liste plate de 19 types, devient un **accordéon à trois niveaux**. Premier
   niveau : deux entrées autonomes toujours visibles (Vide, Piège — ex-Danger, renommé à l'affichage

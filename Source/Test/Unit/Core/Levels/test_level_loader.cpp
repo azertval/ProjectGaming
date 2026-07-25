@@ -264,6 +264,44 @@ TEST(LevelLoaderTest, ChargeLesQuatrePentesEtArrondisDePlafond) {
 }
 
 /**
+ * @brief Les quatre arrondis concaves (sol et plafond) se chargent comme de simples tuiles, sans
+ * identifiant ni liaison (`EX-GP-007`).
+ * \castest{<b>Les quatre arrondis concaves se chargent comme de simples tuiles, sans identifiant ni
+ * liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les quatre arrondis concaves se chargent comme de simples tuiles, sans identifiant ni
+ * liaison.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLesQuatreArrondisConcaves) {
+    constexpr const char* LEVEL = R"({
+      "name": "Concave",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "concaveUpRight" },
+        { "x": 1, "y": 0, "type": "concaveUpLeft" },
+        { "x": 2, "y": 0, "type": "concaveDownRight" },
+        { "x": 3, "y": 0, "type": "concaveDownLeft" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(0, 0), core::TileType::ConcaveUpRight);
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::ConcaveUpLeft);
+    EXPECT_EQ(level.tileMap().tile(2, 0), core::TileType::ConcaveDownRight);
+    EXPECT_EQ(level.tileMap().tile(3, 0), core::TileType::ConcaveDownLeft);
+    EXPECT_TRUE(level.mechanisms().empty());
+}
+
+/**
  * @brief Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités (-1)
  * sinon.
  * \castest{<b>Les budgets de mouvements (EX-GP-024) sont chargés s'ils sont présents, illimités

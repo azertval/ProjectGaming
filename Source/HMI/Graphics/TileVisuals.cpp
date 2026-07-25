@@ -30,7 +30,11 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::SlopeDownRight:
         case core::TileType::SlopeDownLeft:
         case core::TileType::RoundedDownRight:
-        case core::TileType::RoundedDownLeft: {
+        case core::TileType::RoundedDownLeft:
+        case core::TileType::ConcaveUpRight:
+        case core::TileType::ConcaveUpLeft:
+        case core::TileType::ConcaveDownRight:
+        case core::TileType::ConcaveDownLeft: {
             // Position partagée avec TextureAtlas (masque de forme triangulaire/courbe, rempli en
             // gris — même matériau qu'un `Solid` standard, cf. TextureAtlas::slopeShapePixel) :
             // voir slopeTileGridPosition, seule source de vérité pour ces coordonnées.
@@ -67,6 +71,19 @@ std::optional<AtlasGridPosition> slopeTileGridPosition(core::TileType type) {
             return AtlasGridPosition{0, 4};
         case core::TileType::RoundedDownLeft:
             return AtlasGridPosition{1, 4};
+        case core::TileType::ConcaveUpRight:
+            return AtlasGridPosition{4, 1};
+        case core::TileType::ConcaveUpLeft:
+            return AtlasGridPosition{4, 2};
+        case core::TileType::ConcaveDownRight:
+            return AtlasGridPosition{4, 3};
+        case core::TileType::ConcaveDownLeft:
+            // (4, 4) est réservée au damier de transparence (TextureAtlas::transparentTileIndex,
+            // vérifiée AVANT le masque de forme) — l'utiliser ici afficherait le damier au lieu de
+            // la silhouette concave. (2, 4) est la seule des « sept cases libres » de l'épic qui
+            // était en réalité disponible (l'épic comptait par erreur la case réservée parmi les
+            // sept, qui n'en laissait donc que six réellement libres).
+            return AtlasGridPosition{2, 4};
         default:
             return std::nullopt;
     }

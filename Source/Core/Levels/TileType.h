@@ -41,7 +41,15 @@ namespace core {
  * renvoie `0`) supporte normalement un personnage qui tombe dessus **par au-dessus**, via
  * `core::resolveSlopeFollow` réutilisé tel quel. Le personnage ne « marche » en revanche jamais
  * **latéralement** le long de leur silhouette inclinée (`core::isFollowableSurface` reste `false`
- * — pas de déplacement calé en suivant la pente, contrairement à une pente de sol).
+ * — pas de déplacement calé en suivant la pente, contrairement à une pente de sol). `ConcaveUpRight`/
+ * `ConcaveUpLeft`/`ConcaveDownRight`/`ConcaveDownLeft` (`EX-GP-007`) sont une **seconde famille** de
+ * quart de cercle, **concave** plutôt que **convexe** (`RoundedUpRight`/`RoundedUpLeft` et leurs
+ * variantes de plafond ci-dessus) : le centre du cercle est du côté de la **matière** plutôt que du
+ * côté creux, ce qui inverse la courbure — tangente **horizontale** du côté bas/creux, **verticale**
+ * du côté haut/plein (l'inverse exact de l'arrondi convexe). Mêmes orientations (`Up`/`Down`,
+ * `Right`/`Left`) et même infrastructure de suivi que les arrondis convexes (`core::slopeSurfaceHeight`,
+ * `core::resolveSlopeFollow` pour le sol ; `core::ceilingSlopeHeight`, `core::resolveCeilingSlopeFollow`
+ * pour le plafond) — seule la formule de hauteur change.
  */
 enum class TileType {
     Empty,
@@ -63,6 +71,10 @@ enum class TileType {
     SlopeDownLeft,
     RoundedDownRight,
     RoundedDownLeft,
+    ConcaveUpRight,
+    ConcaveUpLeft,
+    ConcaveDownRight,
+    ConcaveDownLeft,
 };
 
 /**
