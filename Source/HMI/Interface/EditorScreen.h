@@ -15,6 +15,8 @@
 #include "HMI/Editor/TilePalette.h"
 #include "HMI/Editor/ToolBar.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Input/EditorKeyBindings.h"
+#include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Interface/IScreen.h"
 
 /**
@@ -43,6 +45,10 @@ class GameScreen;
  * hauteur, ←/→ la largeur. **Annuler/refaire** (`EX-EDIT-005`) : `Ctrl+Z`/`Ctrl+Y`, délégués à
  * `core::LevelDraft::undo`/`redo`.
  *
+ * Les touches par défaut ci-dessus (hors `Ctrl`, `Maj`, `Échap`, flèches, `Tab`) sont
+ * **remappables** depuis Options → Touches de l'éditeur (`_editorBindings`, `EX-CTRL-012`,
+ * `LOT-29`) ; le panneau d'aide (`F1` par défaut) reflète toujours la touche réellement liée.
+ *
  * **Enregistrement** (`Ctrl+S`, `EX-EDIT-006`/`007`) : convertit le brouillon en `core::Level`
  * validé (`LevelDraft::toLevel`) et l'écrit dans le dossier `Levels` de l'application ; un
  * brouillon invalide affiche un message d'erreur compréhensible, **aucun fichier n'est écrit**.
@@ -64,9 +70,14 @@ public:
      * @param atlas          Atlas de tuiles fournissant les régions de sprites.
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
+     * @param editorBindings Association action d'éditeur -> touche courante (`EX-CTRL-012`,
+     *                       référence conservée, doit survivre à l'écran).
+     * @param gameBindings   Association action de jeu -> touche courante, relayée telle quelle au
+     *                       `GameScreen` de l'essai immédiat (`startPlaytest`).
      */
     EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                int viewportHeight);
+                int viewportHeight, const EditorKeyBindings& editorBindings,
+                const GameKeyBindings& gameBindings);
 
     /// Nécessaire : `_playtest` est un `unique_ptr` sur un type incomplet dans cet en-tête.
     ~EditorScreen() override;
@@ -132,6 +143,8 @@ private:
 
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
+    const EditorKeyBindings& _editorBindings;  ///< Touches d'éditeur courantes (`EX-CTRL-012`).
+    const GameKeyBindings& _gameBindings;  ///< Relayées au `GameScreen` de l'essai immédiat.
     int _viewportWidth;
     int _viewportHeight;
     /// Actif tant qu'aucun choix n'a été confirmé ; l'édition ne démarre qu'après.

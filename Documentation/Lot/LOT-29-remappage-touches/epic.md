@@ -84,7 +84,7 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-modele-bindings.md) | Modèle de bindings et persistance JSON | `HMI/Input` | ✅ |
-| [TACHE-02](tache-02-integration-jeu-editeur.md) | Intégration jeu/éditeur | `HMI/Input`, `HMI/Interface` | ⬜ |
+| [TACHE-02](tache-02-integration-jeu-editeur.md) | Intégration jeu/éditeur | `HMI/Input`, `HMI/Interface` | ✅ |
 | [TACHE-03](tache-03-ui-remappage.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ⬜ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
 

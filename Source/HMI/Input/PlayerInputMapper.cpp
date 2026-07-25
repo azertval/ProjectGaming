@@ -6,24 +6,26 @@
 namespace hmi {
 
 // Traduit l'etat clavier en intention de deplacement (voir en-tete).
-core::PlayerInput toPlayerInput(const InputState& input) {
-    // Actions logiques (dissociees des touches) : chaque sens accepte deux touches.
-    const bool left = input.keyDown(Key::Left) || input.keyDown(Key::Q);
-    const bool right = input.keyDown(Key::Right) || input.keyDown(Key::D);
+core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& bindings) {
+    // Actions logiques (dissociees des touches, EX-CTRL-012) : gauche/droite/sauter conservent en
+    // plus un alias fixe non remappable (Q/D/W), le reste passe entierement par les bindings.
+    const bool left = input.keyDown(bindings.key(GameAction::MoveLeft)) || input.keyDown(Key::Q);
+    const bool right = input.keyDown(bindings.key(GameAction::MoveRight)) || input.keyDown(Key::D);
 
     core::PlayerInput result;
     // Gauche et droite se neutralisent (-1 + 1 = 0) : comportement deterministe.
     result.moveX = (right ? 1.0f : 0.0f) - (left ? 1.0f : 0.0f);
-    // Saut : Espace ou W. jumpPressed = front (declenche/bufferise), jumpHeld = maintenu
+    // Saut : touche liee ou W. jumpPressed = front (declenche/bufferise), jumpHeld = maintenu
     // (hauteur variable). keyPressed = front d'une frame, keyDown = maintenu.
-    result.jumpPressed = input.keyPressed(Key::Space) || input.keyPressed(Key::W);
-    result.jumpHeld = input.keyDown(Key::Space) || input.keyDown(Key::W);
+    const Key jumpKey = bindings.key(GameAction::Jump);
+    result.jumpPressed = input.keyPressed(jumpKey) || input.keyPressed(Key::W);
+    result.jumpHeld = input.keyDown(jumpKey) || input.keyDown(Key::W);
     // Visee verticale du dash (y vers le bas) : Bas = +1, Haut = -1, sinon 0.
-    const bool aimDown = input.keyDown(Key::Down);
-    const bool aimUp = input.keyDown(Key::Up);
+    const bool aimDown = input.keyDown(bindings.key(GameAction::AimDown));
+    const bool aimUp = input.keyDown(bindings.key(GameAction::AimUp));
     result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
-    // Dash : Maj, au front (`EX-CTRL-013`).
-    result.dashPressed = input.keyPressed(Key::Shift);
+    // Dash : touche liee, au front (`EX-CTRL-013`).
+    result.dashPressed = input.keyPressed(bindings.key(GameAction::Dash));
     return result;
 }
 

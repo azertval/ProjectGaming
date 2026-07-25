@@ -1,6 +1,6 @@
 # TACHE-02 — Intégration jeu/éditeur {#lot-29-tache-02-integration-jeu-editeur}
 
-**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Input`, `HMI/Interface` · **Statut :** ⬜
+**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Input`, `HMI/Interface` · **Statut :** ✅
 
 ## Contexte
 Branche le jeu et l'éditeur sur les classes de TACHE-01, en remplaçant les lectures directes de
@@ -64,6 +64,14 @@ identique** à avant ce lot.
   remappée, depuis l'essai immédiat).
 
 ## Points d'attention
+- **Écart constaté (TACHE-01)** : `GameKeyBindings.cpp`/`EditorKeyBindings.cpp` sont compilés
+  directement dans les cibles `ProjectGaming` et `UnitTests` (comme `PlayerInputMapper.cpp`),
+  pas dans la bibliothèque `Core` — `Core` lie `nlohmann_json` en `PRIVATE`, ce lien ne se propage
+  donc pas. Corrigé en ajoutant `nlohmann_json::nlohmann_json` directement aux deux cibles
+  (`Source/HMI/CMakeLists.txt`, `Source/Test/CMakeLists.txt`).
+- **Échap pendant la capture, cadrage définitif** : `Échap` annule la capture en cours (binding
+  inchangé), cohérent avec la convention déjà en place ailleurs (`TextInputField`, dialogues de
+  confirmation) — voir TACHE-03.
 - Cette tâche ne touche **aucune** UI de remappage (TACHE-03) : les bindings sont pour l'instant
   fixes (valeurs par défaut, ou construites en dur temporairement dans `main.cpp` si menée avant
   TACHE-03) — seul le **branchement** de lecture change, pas encore la possibilité de le modifier

@@ -44,6 +44,9 @@ target_link_libraries(ProjectGaming PRIVATE
     dxgi
     d3dcompiler
     xinput
+    # GameKeyBindings.cpp/EditorKeyBindings.cpp persistent en JSON : besoin direct de
+    # nlohmann_json, que Core ne propage pas (lien PRIVATE cote Core).
+    nlohmann_json::nlohmann_json
 )
 
 # Réduit la surface de Windows.h et évite les macros min/max ; API Unicode.

@@ -14,6 +14,7 @@
 #include "Core/Levels/Level.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/SpriteRenderer.h"
+#include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/LevelSequence.h"
 
@@ -52,9 +53,11 @@ public:
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
      * @param levels         Liste **ordonnée** des chemins de niveaux à enchaîner.
+     * @param gameBindings   Association action de jeu -> touche courante (`EX-CTRL-012`,
+     *                       référence conservée, doit survivre à l'écran).
      */
     GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
-               std::vector<std::filesystem::path> levels);
+               std::vector<std::filesystem::path> levels, const GameKeyBindings& gameBindings);
 
     /**
      * @brief Construit l'écran pour un **niveau unique déjà en mémoire**, sans fichier ni
@@ -67,9 +70,11 @@ public:
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
      * @param level          Niveau déjà validé à jouer.
+     * @param gameBindings   Association action de jeu -> touche courante (`EX-CTRL-012`,
+     *                       référence conservée, doit survivre à l'écran).
      */
     GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
-               core::Level level);
+               core::Level level, const GameKeyBindings& gameBindings);
 
     [[nodiscard]] ScreenTransition update(const InputState& input, float fixedDelta) override;
 
@@ -101,6 +106,7 @@ private:
     void refreshPlayerSprite();
 
     const TextureAtlas& _atlas;  ///< Atlas conservé pour reconstruire la scène à chaque niveau.
+    const GameKeyBindings& _gameBindings;  ///< Touches de jeu courantes (`EX-CTRL-012`).
     core::World _world;
     Camera2D _camera;
     SpriteRenderer _renderer;

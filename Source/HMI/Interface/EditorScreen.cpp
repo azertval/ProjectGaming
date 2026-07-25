@@ -25,6 +25,7 @@
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
+#include "HMI/Input/KeyName.h"
 #include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/RenderContext.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -104,9 +105,12 @@ SpriteQuad quadFor(const core::AtlasRegion& region, float x, float y, float widt
 
 // Construit l'editeur : affiche d'abord le selecteur nouveau/existant (EX-EDIT-001).
 EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                           int viewportHeight)
+                           int viewportHeight, const EditorKeyBindings& editorBindings,
+                           const GameKeyBindings& gameBindings)
     : _atlas(atlas),
       _batch(batch),
+      _editorBindings(editorBindings),
+      _gameBindings(gameBindings),
       _viewportWidth(viewportWidth),
       _viewportHeight(viewportHeight),
       _picker(LevelPicker::forDirectory(hmi::executableDirectory() / "Levels")),
@@ -314,13 +318,13 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         return ScreenTransition::switchTo(ScreenId::Menu);
     }
 
-    if (input.keyDown(Key::Control) && input.keyPressed(Key::S)) {
+    if (input.keyDown(Key::Control) && input.keyPressed(_editorBindings.key(EditorAction::Save))) {
         saveDraft();
     }
-    if (input.keyPressed(Key::P)) {
+    if (input.keyPressed(_editorBindings.key(EditorAction::Playtest))) {
         startPlaytest();
     }
-    if (input.keyPressed(Key::F2)) {
+    if (input.keyPressed(_editorBindings.key(EditorAction::Rename))) {
         // Renommage (EX-EDIT-009) : le champ est pre-rempli du nom courant ; annuler le laisse
         // inchange (traite par le bloc _textPrompt ci-dessus a la prochaine frame).
         _textPrompt = TextInputField(_draft.name(), &isValidLevelName);
@@ -346,18 +350,18 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
     }
 
     // Aide des raccourcis (EX-EDIT-015) : bascule affichee/repliee.
-    if (input.keyPressed(Key::F1)) {
+    if (input.keyPressed(_editorBindings.key(EditorAction::ToggleHelp))) {
         _showHelp = !_showHelp;
     }
 
     // Grille de repere (EX-EDIT-015) : raccourci clavier, pas un bouton du panneau d'edition.
-    if (input.keyPressed(Key::F10)) {
+    if (input.keyPressed(_editorBindings.key(EditorAction::ToggleGrid))) {
         _showGridLines = !_showGridLines;
     }
 
     // Copier/coller de l'outil Selection (EX-EDIT-014) : Ctrl+C lit directement la grille (aucun
     // ajout Core necessaire cote copie) ; Ctrl+V colle via paintRegion (un seul undo).
-    if (input.keyDown(Key::Control) && input.keyPressed(Key::C)) {
+    if (input.keyDown(Key::Control) && input.keyPressed(_editorBindings.key(EditorAction::Copy))) {
         if (_selection) {
             _clipboard.clear();
             for (int row = _selection->first.row; row <= _selection->second.row; ++row) {
@@ -371,7 +375,8 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
                 _clipboard.push_back(std::move(rowTiles));
             }
         }
-    } else if (input.keyDown(Key::Control) && input.keyPressed(Key::V)) {
+    } else if (input.keyDown(Key::Control) &&
+              input.keyPressed(_editorBindings.key(EditorAction::Paste))) {
         if (!_clipboard.empty()) {
             // Position souris de la frame courante (pas _mouseX/_mouseY, pas encore mis a jour a
             // ce point de la frame — voir le bloc camera plus bas).
@@ -492,13 +497,14 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         }
     }
 
-    // Annuler/refaire (EX-EDIT-005) : Ctrl+Z / Ctrl+Y.
-    if (input.keyDown(Key::Control) && input.keyPressed(Key::Z)) {
+    // Annuler/refaire (EX-EDIT-005) : Ctrl+ la touche liee (par defaut Z/Y).
+    if (input.keyDown(Key::Control) && input.keyPressed(_editorBindings.key(EditorAction::Undo))) {
         if (_draft.undo()) {
             _dirty = true;
             EDITOR_LOG_TRACE("Annuler (Ctrl+Z)");
         }
-    } else if (input.keyDown(Key::Control) && input.keyPressed(Key::Y)) {
+    } else if (input.keyDown(Key::Control) &&
+              input.keyPressed(_editorBindings.key(EditorAction::Redo))) {
         if (_draft.redo()) {
             _dirty = true;
             EDITOR_LOG_TRACE("Refaire (Ctrl+Y)");
@@ -630,7 +636,7 @@ void EditorScreen::startPlaytest() {
     }
 
     _playtest = std::make_unique<GameScreen>(_batch, _atlas, _viewportWidth, _viewportHeight,
-                                             *result.level);
+                                             *result.level, _gameBindings);
     _statusMessage.clear();
     HMI_LOG_INFO("Essai immediat demarre.");
 }
@@ -901,15 +907,30 @@ void EditorScreen::renderHelp(RenderContext& context) {
     context.spriteBatch.begin(projection, context.font.textureView());
 
     if (_showHelp) {
-        static const std::vector<std::string> LINES = {
+        // Noms de touches interpoles depuis les bindings courants (pas des libelles fixes) :
+        // resteraient faux apres un remappage sinon (LOT-29, Options -> Touches de l'editeur).
+        const std::string ctrlCopy = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Copy));
+        const std::string ctrlPaste =
+            "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Paste));
+        const std::string ctrlUndo = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Undo));
+        const std::string ctrlRedo = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Redo));
+        const std::string renameKey = keyDisplayName(_editorBindings.key(EditorAction::Rename));
+        const std::string ctrlSave = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Save));
+        const std::string playtestKey = keyDisplayName(_editorBindings.key(EditorAction::Playtest));
+        const std::string gridKey = keyDisplayName(_editorBindings.key(EditorAction::ToggleGrid));
+        const std::string helpKey = keyDisplayName(_editorBindings.key(EditorAction::ToggleHelp));
+
+        const std::vector<std::string> LINES = {
             "Clic gauche : peindre (outil actif)   |   Maj+clic : lier interrupteur/porte",
             "Molette : zoom camera   |   Glisser bouton droit : deplacer la vue   |   0 : reinit.",
             "Tab (ou barre d'outils) : changer d'outil (Pinceau / Rectangle / Selection)",
-            "Ctrl+C / Ctrl+V : copier / coller la selection",
-            "Fleches : redimensionner la grille   |   Ctrl+Z / Ctrl+Y : annuler / refaire",
-            "F2 : renommer   |   Ctrl+S : enregistrer   |   P : essai immediat",
-            "F10 : grille de repere   |   Echap : quitter (ou fin de l'essai)",
-            "F1 : fermer cette aide",
+            ctrlCopy + " / " + ctrlPaste + " : copier / coller la selection",
+            "Fleches : redimensionner la grille   |   " + ctrlUndo + " / " + ctrlRedo +
+                " : annuler / refaire",
+            renameKey + " : renommer   |   " + ctrlSave + " : enregistrer   |   " + playtestKey +
+                " : essai immediat",
+            gridKey + " : grille de repere   |   Echap : quitter (ou fin de l'essai)",
+            helpKey + " : fermer cette aide",
         };
         constexpr float SCALE = 1.6f;
         // A droite du panneau lateral (pas x = 12) : eviter tout chevauchement avec la palette et
@@ -923,7 +944,8 @@ void EditorScreen::renderHelp(RenderContext& context) {
         }
     } else {
         constexpr float SCALE = 1.4f;
-        const std::string hint = "F1 : aide";
+        const std::string hint = keyDisplayName(_editorBindings.key(EditorAction::ToggleHelp)) +
+                                 " : aide";
         const float x = static_cast<float>(context.viewportWidth) -
                        context.font.textWidth(hint, SCALE) - 10.0f;
         context.font.drawText(context.spriteBatch, hint, x, 10.0f, SCALE,
