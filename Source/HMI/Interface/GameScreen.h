@@ -113,6 +113,17 @@ private:
     /// Repositionne les sprites des blocs poussables sur leur position courante (`_blocks`).
     void refreshBlockVisuals();
 
+    /// Repositionne les sprites des dangers mobiles sur leur position courante (`_dangers`,
+    /// `EX-GP-051`) — sans quoi la tuile resterait visuellement figée à sa position de départ,
+    /// alors que sa boîte mortelle, elle, se déplace bien (`collectActiveDangerBoxes`).
+    void refreshDangerVisuals();
+
+    /// Teinte les dangers commuté/temporisé selon leur état actif/inactif courant
+    /// (`EX-GP-052`/`EX-GP-053`) — même principe que `refreshDoorVisuals` (alpha atténué =
+    /// inactif/inoffensif, opaque = actif/mortel) : sans ce retour visuel, l'activation ne se
+    /// verrait jamais, alors qu'elle affecte bien `collectActiveDangerBoxes`.
+    void refreshDangerStateVisuals();
+
     /// Assemble les boîtes **actuellement mortelles** des dangers à état (mobile/commuté/
     /// temporisé, `EX-GP-051`/`052`/`053`), à passer à `core::evaluateOutcome` — cf. en-tête de
     /// `core::LevelOutcome.h` (cette composition vit en `HMI` car `Core/Levels` ne connaît pas les
@@ -140,6 +151,18 @@ private:
     std::optional<core::BlockController> _blocks;  ///< Blocs poussables du niveau courant.
     std::optional<core::DangerController>
         _dangers;  ///< Dangers mobile/temporisé du niveau courant (`EX-GP-051`/`EX-GP-053`).
+    std::vector<core::Entity>
+        _moverEntities;  ///< Entités-tuiles des dangers mobiles (même ordre que
+                        ///< `_dangers->moverBox(index)`), repositionnées chaque pas
+                        ///< (`refreshDangerVisuals`).
+    std::vector<core::Entity>
+        _dangerSwitchedEntities;  ///< Entités-tuiles des dangers commutés (même ordre que
+                                 ///< `_level->dangerLinks()`), teinte rafraîchie chaque pas
+                                 ///< (`refreshDangerStateVisuals`).
+    std::vector<core::Entity>
+        _dangerBlinkEntities;  ///< Entités-tuiles des dangers temporisés (même ordre que
+                              ///< `_level->blinkConfigs()`), teinte rafraîchie chaque pas
+                              ///< (`refreshDangerStateVisuals`).
     std::vector<core::Entity> _blockEntities;      ///< Entités-tuiles des blocs (même ordre que
                                                     ///< `_blocks->positions()`).
     core::CharacterPhysicsSystem _physics;

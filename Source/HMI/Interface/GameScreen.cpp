@@ -114,6 +114,56 @@ void GameScreen::loadLevel(core::Level level) {
     }
     // Dangers mobile/temporise (EX-GP-051/053) : compteur de pas fixes a zero pour ce niveau.
     _dangers.emplace(levelRef);
+    // Repere l'entite-tuile de chaque danger mobile (a sa position de DEPART, avant tout
+    // deplacement) pour pouvoir la repositionner chaque pas (refreshDangerVisuals) -- sans quoi la
+    // tuile resterait affichee a sa position de depart alors que sa boite mortelle reelle bouge.
+    _moverEntities.clear();
+    for (const core::DangerMoverConfig& config : levelRef.moverConfigs()) {
+        core::Entity moverEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == config.startPosition.column &&
+                    static_cast<int>(transform.position.y) == config.startPosition.row) {
+                    moverEntity = entity;
+                    found = true;
+                }
+            });
+        _moverEntities.push_back(moverEntity);
+    }
+    // Dangers commute/temporise (EX-GP-052/053) : meme principe que les portes ci-dessus, une
+    // entite-tuile par danger, pour pouvoir teinter selon son etat actif/inactif
+    // (refreshDangerStateVisuals) -- sans quoi l'activation ne se verrait jamais.
+    _dangerSwitchedEntities.clear();
+    for (const core::DangerLink& link : levelRef.dangerLinks()) {
+        core::Entity dangerEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == link.dangerPosition.column &&
+                    static_cast<int>(transform.position.y) == link.dangerPosition.row) {
+                    dangerEntity = entity;
+                    found = true;
+                }
+            });
+        _dangerSwitchedEntities.push_back(dangerEntity);
+    }
+    _dangerBlinkEntities.clear();
+    for (const core::DangerBlinkConfig& config : levelRef.blinkConfigs()) {
+        core::Entity dangerEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == config.position.column &&
+                    static_cast<int>(transform.position.y) == config.position.row) {
+                    dangerEntity = entity;
+                    found = true;
+                }
+            });
+        _dangerBlinkEntities.push_back(dangerEntity);
+    }
     // Blocs poussables (EX-GP-022) : memes principes que les portes ci-dessus, une entite-tuile
     // par bloc, reperee a sa position de depart.
     _blocks.emplace(levelRef);
@@ -192,6 +242,49 @@ void GameScreen::refreshBlockVisuals() {
         transform.position = core::Vector2{static_cast<float>(positions[index].column) + margin,
                                            static_cast<float>(positions[index].row) + margin};
         transform.scale = core::Vector2{scale, scale};
+    }
+}
+
+// Replace le sprite de chaque danger mobile a sa position courante (EX-GP-051) -- meme principe
+// que refreshBlockVisuals ci-dessus : sans cette mise a jour, la tuile resterait affichee a sa
+// position de depart alors que sa boite mortelle reelle (_dangers->moverBox) se deplace bien.
+void GameScreen::refreshDangerVisuals() {
+    for (std::size_t index = 0; index < _moverEntities.size(); ++index) {
+        const core::Entity mover = _moverEntities[index];
+        if (!_world.hasComponent<core::Transform>(mover)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(mover);
+        transform.position = _dangers->moverBox(index).min;
+    }
+}
+
+// Teinte chaque danger commute/temporise selon son etat courant -- alpha attenue (inoffensif) ou
+// opaque (mortel), meme principe que refreshDoorVisuals ci-dessus.
+void GameScreen::refreshDangerStateVisuals() {
+    constexpr float INACTIVE_ALPHA = 0.35f;
+    constexpr float ACTIVE_ALPHA = 1.0f;
+
+    const std::vector<core::DangerLink>& links = _level->dangerLinks();
+    for (std::size_t index = 0; index < _dangerSwitchedEntities.size(); ++index) {
+        const core::Entity entity = _dangerSwitchedEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        const bool active = _mechanisms->isDangerActive(links[index].dangerPosition);
+        _world.getComponent<core::Sprite>(entity).tint =
+            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
+    }
+
+    const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
+    for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
+        const core::Entity entity = _dangerBlinkEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;
+        }
+        const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
+        _world.getComponent<core::Sprite>(entity).tint =
+            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
     }
 }
 
@@ -322,8 +415,13 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     refreshDoorVisuals();
 
     // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur de pas fixes qui pilote
-    // leur position/activation (purement deterministe, EX-NFR-002).
+    // leur position/activation (purement deterministe, EX-NFR-002), puis replace les sprites des
+    // dangers mobiles sur leur position ainsi mise a jour.
     _dangers->update();
+    refreshDangerVisuals();
+    // Dangers commute/temporise (EX-GP-052/053) : teinte selon l'etat courant (mecanismes deja mis
+    // a jour juste au-dessus pour les commutes ; le controleur de dangers, pour les temporises).
+    refreshDangerStateVisuals();
 
     // 5. Issue du niveau.
     switch (core::evaluateOutcome(box, *_level, collectActiveDangerBoxes())) {
