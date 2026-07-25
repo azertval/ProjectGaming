@@ -1,8 +1,8 @@
 # LOT-31 — Blocs de danger avancés {#lot-31}
 
-> Statut : ⬜ **non commencé**. Quatre nouvelles variantes de la tuile `Danger` (`EX-GP-031`) :
-> directionnel (pics), mobile (va-et-vient autonome), commuté (lié à un interrupteur/plaque) et
-> temporisé (clignotant) — un seul lot, une tâche par variante.
+> Statut : 🔄 **en cours** (TACHE-01 faite). Quatre nouvelles variantes de la tuile `Danger`
+> (`EX-GP-031`) : directionnel (pics), mobile (va-et-vient autonome), commuté (lié à un
+> interrupteur/plaque) et temporisé (clignotant) — un seul lot, une tâche par variante.
 
 ## Objectif
 La tuile `Danger` (`core::TileType::Danger`) est aujourd'hui **unique** : case pleine, statique,
@@ -65,10 +65,11 @@ l'**activation** du danger varient.
   `core::BlockController` : la sémantique (poussée par le personnage, chute sous gravité) ne
   correspond pas à un mouvement autonome sur rail, imposer l'abstraction commune aurait forcé des
   branches mortes dans `BlockController`.
-- **Danger commuté généralise la liaison existante (`core::Mechanism`, `opensWith`)** plutôt que
-  d'introduire un schéma de liaison parallèle : une liaison cible soit une porte (comportement
-  inchangé) soit un danger commuté (mortel quand actif) — détail de généralisation cadré en
-  TACHE-01.
+- **Danger commuté réutilise le même schéma de liaison par identifiant** (`switch.id` ↔
+  `opensWith`) que l'interrupteur/porte, mais via une struct **dupliquée** (`core::DangerLink`,
+  résolue dans une liste séparée) plutôt qu'une généralisation de `core::Mechanism` — tranché en
+  TACHE-01 une fois constaté que `Mechanism::doorPosition` est consommé par nom dans une trentaine
+  de sites (contrôleur, éditeur, tests), tous spécifiques à une porte.
 - **Danger temporisé n'a aucune dépendance à un interrupteur** : sa période/déphasage sont des
   champs propres à la tuile, pas une variante du danger commuté — les deux mécanismes
   d'activation (minuterie vs. déclencheur) restent séparés plutôt que fusionnés en un seul type
@@ -88,7 +89,7 @@ l'**activation** du danger varient.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-dangers-avances.md) | Modèle (types, format, généralisation des liaisons) | `Core/Levels` | ⬜ |
+| [TACHE-01](tache-01-modele-dangers-avances.md) | Modèle (types, format, liaisons) | `Core/Levels` | ✅ |
 | [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu (contrôleurs, résolution de fin de niveau) | `Core/Gameplay`, `Core/Levels` | ⬜ |
 | [TACHE-03](tache-03-integration-editeur.md) | Intégration éditeur (palette, rendu, liaison/waypoint) | `HMI/Editor`, `HMI/Graphics`, `HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |

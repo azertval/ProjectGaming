@@ -1,12 +1,22 @@
 # TACHE-01 — Modèle (types, format, généralisation des liaisons) {#lot-31-tache-01-modele-dangers-avances}
 
-**Lot :** [LOT-31](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** ⬜
+**Lot :** [LOT-31](epic.md) · **Emplacement :** `Core/Levels` · **Statut :** ✅
 
 ## Contexte
 Pose les fondations de données des quatre variantes, indépendamment de toute simulation (TACHE-02)
-ou de tout rendu (TACHE-03) : nouveaux `TileType`, format JSON (`LevelLoader`/`LevelWriter`), et
-généralisation de `core::Mechanism` pour qu'une liaison interrupteur/plaque puisse cibler un danger
-commuté en plus d'une porte.
+ou de tout rendu (TACHE-03) : nouveaux `TileType`, format JSON (`LevelLoader`/`LevelWriter`), et une
+liaison interrupteur/plaque → danger commuté.
+
+**Écart de cadrage tranché pendant l'implémentation** (l'epic laissait le détail ouvert, « cadré en
+TACHE-01 ») : `core::Mechanism` n'a **pas** été généralisé. `Mechanism::doorPosition` est consommé
+par nom dans une trentaine de sites (`MechanismController`, `EditorScreen`, `GameScreen`,
+`LevelDraft`, et les tests aux trois niveaux) pour lesquels la cible est toujours une porte — le
+renommer en un champ générique n'aurait profité qu'au danger commuté, pour un coût de renommage sans
+rapport. À la place, `core::DangerLink{triggerPosition, dangerPosition}` (`Level.h`) est une struct
+**dupliquée**, miroir de `Mechanism` : même schéma de liaison par identifiant dans le fichier
+(`switch.id` ↔ `dangerSwitched.opensWith`), résolue dans une liste **séparée**. Cohérent avec la
+préférence déjà actée du projet (`GameKeyBindings`/`EditorKeyBindings`, `LOT-29`) : dupliquer une
+petite struct à deux cas concrets plutôt qu'introduire une abstraction commune.
 
 ## Travail à réaliser
 - **`Source/Core/Levels/TileType.h`** : sept nouvelles valeurs —
@@ -26,27 +36,31 @@ commuté en plus d'une porte.
   `dangerLeft`/`dangerRight`, `dangerMover` (champs optionnels `axis` : `"horizontal"`/`"vertical"`,
   `range` : entier en cases, défaut de conception si absent — cf. exclusion « pas d'édition
   numérique » de l'epic), `dangerSwitched` (champ `opensWith`, comme `door`), `dangerBlink` (champs
-  optionnels `period`/`phase` en pas fixes, défaut de conception si absents).
-- **`core::Mechanism`** (`Level.h`) : généralisé pour référencer une **cible** qui est soit une
-  porte soit un danger commuté, plutôt que `doorPosition` nommé en dur — probablement un champ
-  `targetPosition` + enum `TargetKind { Door, DangerSwitched }` résolu au chargement selon le type
-  de tuile réellement présent à cette position (pas de nouveau champ dans le fichier : le type de
-  la tuile cible suffit à distinguer les deux cas, comme aujourd'hui `switch` vs `pressurePlate` est
-  distingué par le type de la tuile **origine**). Vérifier tous les appelants existants de
-  `Mechanism::doorPosition` (`MechanismController`, éditeur) avant de renommer.
+  optionnels `period`/`phase`/`activeDuration` en pas fixes, défaut de conception si absents).
+- **`core::DangerLink`** (`Level.h`, nouveau) : struct dupliquée de `Mechanism` (voir écart de
+  cadrage ci-dessus), résolue au chargement exactement comme une porte — seul le type de tuile à la
+  position cible distingue les deux résolutions (`DangerSwitchedLink` en interne du loader, symétrique
+  à `DoorLink`). `Level`/`LevelDraft` gagnent aussi `DangerMoverConfig`/`DangerBlinkConfig` (axe/
+  portée, période/déphasage/durée active) : `TileMap` ne portant qu'un `TileType` par case (limite
+  déjà actée en `LOT-19`), ces paramètres vivent dans des vecteurs annexes de `Level`/`LevelDraft`,
+  keyés par position, même patron que `Mechanism`/`DangerLink`.
 - **Validation** (`EX-LVL-004`) : une liaison `opensWith` doit référencer un `switch`/
-  `pressurePlate` existant **et** pointer vers une `door` **ou** une `dangerSwitched` (pas un autre
-  type) ; `dangerMover` avec une portée qui sortirait de la grille est invalide.
+  `pressurePlate` existant (même erreur `UnresolvedMechanism` que pour une porte) ; `dangerMover`
+  avec une portée qui sortirait de la grille est invalide (`OutOfBounds`).
 
 ## Fichiers impactés
-- `Source/Core/Levels/TileType.h` (sept types, `dangerHitbox`).
-- `Source/Core/Levels/Level.h` (`Mechanism` généralisé).
+- `Source/Core/Levels/TileType.h` (sept types).
+- `Source/Core/Levels/DangerGeometry.h`/`.cpp` (nouveau, `dangerHitbox`).
+- `Source/Core/Levels/Level.h` (`DangerLink`, `DangerMoverAxis`, `DangerMoverConfig`,
+  `DangerBlinkConfig`, accesseurs `Level::dangerLinks()`/`moverConfigs()`/`blinkConfigs()`).
 - `Source/Core/Levels/LevelLoader.cpp`/`.h`, `LevelWriter.cpp`/`.h` (parsing/sérialisation, sept
   types + champs optionnels).
-- `Source/Core/Levels/LevelDraft.h`/`.cpp` (peinture des nouveaux types depuis l'éditeur —
-  `linkMechanism` généralisé si nécessaire).
+- `Source/Core/Levels/LevelDraft.h`/`.cpp` (peinture des nouveaux types ; `linkMechanism`/
+  `unlinkMechanism` généralisés pour dispatcher vers `_mechanisms` ou `_dangerLinks` selon le type de
+  tuile cible ; nouveaux `setMoverConfig`/`setBlinkConfig`).
+- `Source/Core/CMakeLists.txt`, `Source/Test/CMakeLists.txt` (nouveau fichier source/test).
 - Tests : `Source/Test/Unit/Core/Levels/test_level_loader.cpp`, `test_level_writer.cpp`,
-  `test_level_draft.cpp`, `test_level.cpp` (nouveaux cas par type).
+  `test_level_draft.cpp`, `test_level.cpp`, `test_danger_geometry.cpp` (nouveau).
 
 ## Tests (obligatoires)
 - Round-trip JSON (écriture puis lecture) pour chacun des sept nouveaux types, avec et sans champs

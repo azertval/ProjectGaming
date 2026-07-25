@@ -27,6 +27,63 @@ struct Mechanism {
 };
 
 /**
+ * @brief Liaison d'un **interrupteur/plaque de pression** à un **danger commuté**
+ *        (`TileType::DangerSwitched`, `EX-GP-052`), par positions résolues.
+ *
+ * Miroir de `Mechanism`, dupliqué plutôt que généralisé : `Mechanism::doorPosition` est consommé
+ * tel quel par une trentaine de sites (`MechanismController`, l'éditeur, les tests aux trois
+ * niveaux) pour lesquels la cible est **toujours** une porte — le renommer en un champ générique
+ * n'aurait profité qu'à ce second cas d'usage, pour un coût de renommage sans rapport. Dans le
+ * fichier, la liaison est exprimée exactement comme `Mechanism` (`switch.id` ↔ `dangerSwitched.
+ * opensWith`) ; seul le type de tuile à la position cible distingue les deux résolutions au
+ * chargement (`LevelLoader`). Un danger commuté est mortel quand son déclencheur est **actif** —
+ * l'inverse d'une porte, qui devient franchissable quand actif.
+ */
+struct DangerLink {
+    GridPosition triggerPosition;
+    GridPosition dangerPosition;
+};
+
+/// Axe de l'aller-retour d'un danger mobile (`TileType::DangerMover`, `EX-GP-051`).
+enum class DangerMoverAxis {
+    Horizontal,
+    Vertical,
+};
+
+/**
+ * @brief Paramètres d'un danger mobile (`TileType::DangerMover`, `EX-GP-051`) : axe et portée de
+ *        son aller-retour **linéaire**, autour de sa position de départ dans le fichier.
+ *
+ * `TileMap` ne porte qu'un `TileType` par case (pas de métadonnée numérique, limite déjà actée en
+ * `LOT-19`) : ces paramètres vivent dans un vecteur annexe de `Level`, keyé par position, même
+ * patron que `Mechanism`/`DangerLink` plutôt qu'une extension de `TileMap`.
+ */
+struct DangerMoverConfig {
+    GridPosition startPosition;
+    DangerMoverAxis axis = DangerMoverAxis::Horizontal;
+    /// Distance (cases entières) parcourue depuis `startPosition` dans le sens **positif** de
+    /// l'axe avant de revenir — pas un aller-retour symétrique de part et d'autre du départ.
+    int range = 2;
+};
+
+/**
+ * @brief Paramètres d'un danger temporisé (`TileType::DangerBlink`, `EX-GP-053`) : période,
+ *        déphasage et durée active, en **pas fixes** (`EX-NFR-002`, déterministe).
+ *
+ * Un déphasage différent par tuile permet des motifs désynchronisés dans un même niveau. Même
+ * remarque que `DangerMoverConfig` : vit dans un vecteur annexe de `Level`, pas dans `TileMap`.
+ */
+struct DangerBlinkConfig {
+    GridPosition position;
+    /// Longueur totale du cycle, en pas fixes.
+    int period = 120;
+    /// Décalage initial dans le cycle, en pas fixes.
+    int phase = 0;
+    /// Portion du cycle (à partir de `phase`) pendant laquelle la tuile est mortelle.
+    int activeDuration = 60;
+};
+
+/**
  * @brief Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.
  *
  * Assemblé par le chargeur (après parsing et validation) puis lu par le rendu et, à terme, le
@@ -36,23 +93,33 @@ class Level {
 public:
     /**
      * @brief Construit un niveau à partir de ses composantes.
-     * @param name       Nom du niveau.
-     * @param tileMap    Grille de tuiles typées (déplacée).
-     * @param entry      Position d'apparition (case `Entry`).
-     * @param exit       Position de sortie (case `Exit`).
-     * @param mechanisms Liaisons interrupteur↔porte résolues.
-     * @param jumpBudget Budget de sauts du tableau (`EX-GP-024`) ; -1 = illimité.
-     * @param dashBudget Budget de dashs du tableau (`EX-GP-024`) ; -1 = illimité.
+     * @param name         Nom du niveau.
+     * @param tileMap      Grille de tuiles typées (déplacée).
+     * @param entry        Position d'apparition (case `Entry`).
+     * @param exit         Position de sortie (case `Exit`).
+     * @param mechanisms   Liaisons interrupteur↔porte résolues.
+     * @param jumpBudget   Budget de sauts du tableau (`EX-GP-024`) ; -1 = illimité.
+     * @param dashBudget   Budget de dashs du tableau (`EX-GP-024`) ; -1 = illimité.
+     * @param dangerLinks  Liaisons interrupteur/plaque ↔ danger commuté résolues (`EX-GP-052`).
+     * @param moverConfigs Paramètres des dangers mobiles (`EX-GP-051`), un par tuile `DangerMover`.
+     * @param blinkConfigs Paramètres des dangers temporisés (`EX-GP-053`), un par tuile
+     *                     `DangerBlink`.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
-          std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1)
+          std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
+          std::vector<DangerLink> dangerLinks = {},
+          std::vector<DangerMoverConfig> moverConfigs = {},
+          std::vector<DangerBlinkConfig> blinkConfigs = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
           _exit(exit),
           _mechanisms(std::move(mechanisms)),
           _jumpBudget(jumpBudget),
-          _dashBudget(dashBudget) {}
+          _dashBudget(dashBudget),
+          _dangerLinks(std::move(dangerLinks)),
+          _moverConfigs(std::move(moverConfigs)),
+          _blinkConfigs(std::move(blinkConfigs)) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -89,6 +156,21 @@ public:
         return _dashBudget;
     }
 
+    /// @return Les liaisons interrupteur/plaque ↔ danger commuté du niveau (`EX-GP-052`).
+    [[nodiscard]] const std::vector<DangerLink>& dangerLinks() const noexcept {
+        return _dangerLinks;
+    }
+
+    /// @return Les paramètres des dangers mobiles du niveau (`EX-GP-051`).
+    [[nodiscard]] const std::vector<DangerMoverConfig>& moverConfigs() const noexcept {
+        return _moverConfigs;
+    }
+
+    /// @return Les paramètres des dangers temporisés du niveau (`EX-GP-053`).
+    [[nodiscard]] const std::vector<DangerBlinkConfig>& blinkConfigs() const noexcept {
+        return _blinkConfigs;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -97,6 +179,9 @@ private:
     std::vector<Mechanism> _mechanisms;
     int _jumpBudget = -1;
     int _dashBudget = -1;
+    std::vector<DangerLink> _dangerLinks;
+    std::vector<DangerMoverConfig> _moverConfigs;
+    std::vector<DangerBlinkConfig> _blinkConfigs;
 };
 
 }  // namespace core

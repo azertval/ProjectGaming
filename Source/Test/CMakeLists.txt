@@ -19,6 +19,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_writer.cpp
     Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
+    Unit/Core/Levels/test_danger_geometry.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Physics/test_swept_collision.cpp

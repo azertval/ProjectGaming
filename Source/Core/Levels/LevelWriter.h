@@ -49,18 +49,28 @@ public:
     /**
      * @brief Construit le JSON à partir des composantes brutes d'un niveau (utilisé également
      *        par `LevelDraft::toLevel()`, qui n'a pas nécessairement de `Level` construit).
-     * @param name       Nom du niveau.
-     * @param tileMap    Grille de tuiles (source de vérité des positions entrée/sortie/
-     *                   mécanismes : une tuile `Entry`/`Exit`/`Switch`/`Door` présente dans la
-     *                   grille est émise, qu'elle soit ou non reliée/complète).
-     * @param mechanisms Liaisons interrupteur↔porte à réexprimer par identifiant.
-     * @param jumpBudget Budget de sauts (`-1` = illimité, omis du JSON dans ce cas).
-     * @param dashBudget Budget de dashs (`-1` = illimité, omis du JSON dans ce cas).
+     * @param name         Nom du niveau.
+     * @param tileMap      Grille de tuiles (source de vérité des positions entrée/sortie/
+     *                     mécanismes : une tuile `Entry`/`Exit`/`Switch`/`Door` présente dans la
+     *                     grille est émise, qu'elle soit ou non reliée/complète).
+     * @param mechanisms   Liaisons interrupteur↔porte à réexprimer par identifiant.
+     * @param jumpBudget   Budget de sauts (`-1` = illimité, omis du JSON dans ce cas).
+     * @param dashBudget   Budget de dashs (`-1` = illimité, omis du JSON dans ce cas).
+     * @param dangerLinks  Liaisons interrupteur↔danger commuté à réexprimer par identifiant
+     *                     (`EX-GP-052`), même schéma que @p mechanisms.
+     * @param moverConfigs Configurations explicites de dangers mobiles (`EX-GP-051`) ; une tuile
+     *                     `DangerMover` sans entrée correspondante est émise sans champs
+     *                     `axis`/`range` (valeurs de conception par défaut au rechargement).
+     * @param blinkConfigs Configurations explicites de dangers temporisés (`EX-GP-053`), même
+     *                     remarque que @p moverConfigs pour les champs `period`/`phase`/
+     *                     `activeDuration`.
      * @return Le contenu JSON correspondant.
      */
-    [[nodiscard]] static std::string buildJson(const std::string& name, const TileMap& tileMap,
-                                               const std::vector<Mechanism>& mechanisms,
-                                               int jumpBudget, int dashBudget);
+    [[nodiscard]] static std::string buildJson(
+        const std::string& name, const TileMap& tileMap, const std::vector<Mechanism>& mechanisms,
+        int jumpBudget, int dashBudget, const std::vector<DangerLink>& dangerLinks = {},
+        const std::vector<DangerMoverConfig>& moverConfigs = {},
+        const std::vector<DangerBlinkConfig>& blinkConfigs = {});
 };
 
 }  // namespace core

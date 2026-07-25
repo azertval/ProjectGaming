@@ -32,7 +32,8 @@ enum class LevelValidationError {
     DuplicateSwitchId,  ///< Deux interrupteurs partagent le même identifiant.
     InvalidEntryCount,  ///< Zéro ou plusieurs tuiles d'entrée (une seule attendue).
     InvalidExitCount,   ///< Zéro ou plusieurs tuiles de sortie (une seule attendue).
-    UnresolvedMechanism,  ///< Porte liée à un identifiant d'interrupteur inexistant.
+    UnresolvedMechanism,  ///< Porte ou danger commuté lié à un identifiant d'interrupteur
+                          ///< inexistant.
     FileNotFound,         ///< Fichier de niveau introuvable sur disque.
 };
 

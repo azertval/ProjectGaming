@@ -723,3 +723,215 @@ TEST(LevelDraftTest, UndoApresRedimensionnementRestitueLesDimensions) {
     ASSERT_TRUE(draft.entry().has_value());
     EXPECT_EQ(*draft.entry(), (GridPosition{4, 4}));
 }
+
+/**
+ * @brief Peindre un danger directionnel pose le type demandé (`EX-GP-050`).
+ * \castest{<b>Peindre un danger directionnel pose le type demandé.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Peindre un danger directionnel pose le type demandé.
+ * }
+ */
+TEST(LevelDraftTest, PaintTilePoseUnDangerDirectionnel) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    draft.paintTile(1, 1, TileType::DangerUp);
+    EXPECT_EQ(draft.tileMap().tile(1, 1), TileType::DangerUp);
+}
+
+/**
+ * @brief Lier un interrupteur à un danger commuté crée une liaison, comme pour une porte
+ * (`EX-GP-052`).
+ * \castest{<b>Lier un interrupteur à un danger commuté crée une liaison.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Lier un interrupteur à un danger commuté crée une liaison.
+ * }
+ */
+TEST(LevelDraftTest, LierUnDangerCommute) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::Switch);
+    draft.paintTile(3, 3, TileType::DangerSwitched);
+
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+
+    EXPECT_TRUE(draft.mechanisms().empty());  // pas une porte : pas un Mechanism classique
+    ASSERT_EQ(draft.dangerLinks().size(), 1u);
+    EXPECT_EQ(draft.dangerLinks().front().triggerPosition, (GridPosition{0, 0}));
+    EXPECT_EQ(draft.dangerLinks().front().dangerPosition, (GridPosition{3, 3}));
+}
+
+/**
+ * @brief Délier un danger commuté retire sa liaison (`EX-GP-052`).
+ * \castest{<b>Délier un danger commuté retire sa liaison.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Délier un danger commuté retire sa liaison.
+ * }
+ */
+TEST(LevelDraftTest, DelierUnDangerCommute) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::Switch);
+    draft.paintTile(3, 3, TileType::DangerSwitched);
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+
+    draft.unlinkMechanism(GridPosition{3, 3});
+
+    EXPECT_TRUE(draft.dangerLinks().empty());
+}
+
+/**
+ * @brief Peindre par-dessus un danger commuté lié retire la liaison qui le référence, comme pour
+ * une porte (`EX-GP-052`).
+ * \castest{<b>Peindre par-dessus un danger commuté lié retire sa liaison.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Peindre par-dessus un danger commuté lié retire la liaison qui le référence.
+ * }
+ */
+TEST(LevelDraftTest, PeindrePardessusUnDangerCommuteRetireSaLiaison) {
+    LevelDraft draft = LevelDraft::empty("N", 4, 4);
+    draft.paintTile(0, 0, TileType::Switch);
+    draft.paintTile(3, 3, TileType::DangerSwitched);
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{3, 3});
+
+    draft.paintTile(3, 3, TileType::Empty);
+
+    EXPECT_TRUE(draft.dangerLinks().empty());
+}
+
+/**
+ * @brief setMoverConfig définit l'axe et la portée d'un danger mobile (`EX-GP-051`).
+ * \castest{<b>setMoverConfig définit l'axe et la portée d'un danger mobile.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu setMoverConfig définit l'axe et la portée d'un danger mobile.
+ * }
+ */
+TEST(LevelDraftTest, SetMoverConfigDefinitLaConfiguration) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(1, 1, TileType::DangerMover);
+
+    draft.setMoverConfig(GridPosition{1, 1}, core::DangerMoverAxis::Vertical, 3);
+
+    ASSERT_EQ(draft.moverConfigs().size(), 1u);
+    EXPECT_EQ(draft.moverConfigs().front().axis, core::DangerMoverAxis::Vertical);
+    EXPECT_EQ(draft.moverConfigs().front().range, 3);
+}
+
+/**
+ * @brief Peindre par-dessus un danger mobile configuré retire sa configuration.
+ * \castest{<b>Peindre par-dessus un danger mobile configuré retire sa configuration.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Peindre par-dessus un danger mobile configuré retire sa configuration.
+ * }
+ */
+TEST(LevelDraftTest, PeindrePardessusUnDangerMobileRetireSaConfiguration) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(1, 1, TileType::DangerMover);
+    draft.setMoverConfig(GridPosition{1, 1}, core::DangerMoverAxis::Vertical, 3);
+
+    draft.paintTile(1, 1, TileType::Empty);
+
+    EXPECT_TRUE(draft.moverConfigs().empty());
+}
+
+/**
+ * @brief setBlinkConfig définit la période, le déphasage et la durée active d'un danger temporisé
+ * (`EX-GP-053`).
+ * \castest{<b>setBlinkConfig définit la configuration d'un danger temporisé.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu setBlinkConfig définit la période, le déphasage et la durée active d'un danger
+ * temporisé.
+ * }
+ */
+TEST(LevelDraftTest, SetBlinkConfigDefinitLaConfiguration) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(2, 2, TileType::DangerBlink);
+
+    draft.setBlinkConfig(GridPosition{2, 2}, 90, 15, 30);
+
+    ASSERT_EQ(draft.blinkConfigs().size(), 1u);
+    EXPECT_EQ(draft.blinkConfigs().front().period, 90);
+    EXPECT_EQ(draft.blinkConfigs().front().phase, 15);
+    EXPECT_EQ(draft.blinkConfigs().front().activeDuration, 30);
+}
+
+/**
+ * @brief fromLevel restitue les liaisons de danger commuté et les configurations de danger
+ * mobile/temporisé d'un niveau déjà chargé (`EX-GP-051`/`EX-GP-052`/`EX-GP-053`).
+ * \castest{<b>fromLevel restitue les dangers avancés d'un niveau chargé.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu fromLevel restitue les liaisons de danger commuté et les configurations de danger
+ * mobile/temporisé d'un niveau déjà chargé.
+ * }
+ */
+TEST(LevelDraftTest, FromLevelRestitueLesDangersAvances) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(R"({
+      "width": 5, "height": 5,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 4, "type": "exit" },
+        { "x": 1, "y": 1, "type": "switch", "id": "s1" },
+        { "x": 2, "y": 1, "type": "dangerSwitched", "opensWith": "s1" },
+        { "x": 3, "y": 3, "type": "dangerMover", "axis": "vertical", "range": 1 },
+        { "x": 1, "y": 3, "type": "dangerBlink", "period": 90, "phase": 15, "activeDuration": 30 }
+      ]
+    })");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const LevelDraft draft = LevelDraft::fromLevel(*loaded.level);
+
+    ASSERT_EQ(draft.dangerLinks().size(), 1u);
+    EXPECT_EQ(draft.dangerLinks().front().dangerPosition, (GridPosition{2, 1}));
+    ASSERT_EQ(draft.moverConfigs().size(), 1u);
+    EXPECT_EQ(draft.moverConfigs().front().range, 1);
+    ASSERT_EQ(draft.blinkConfigs().size(), 1u);
+    EXPECT_EQ(draft.blinkConfigs().front().period, 90);
+}
+
+/**
+ * @brief Réduire la grille retire les liaisons/configurations de dangers avancés hors bornes,
+ * comme pour les mécanismes classiques.
+ * \castest{<b>Réduire la grille retire les dangers avancés hors bornes.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Réduire la grille retire les liaisons/configurations de dangers avancés hors bornes.
+ * }
+ */
+TEST(LevelDraftTest, ReduireRetireLesDangersAvancesHorsBornes) {
+    LevelDraft draft = LevelDraft::empty("N", 5, 5);
+    draft.paintTile(0, 0, TileType::Switch);
+    draft.paintTile(4, 4, TileType::DangerSwitched);
+    draft.linkMechanism(GridPosition{0, 0}, GridPosition{4, 4});
+    draft.paintTile(3, 3, TileType::DangerMover);
+    draft.setMoverConfig(GridPosition{3, 3}, core::DangerMoverAxis::Horizontal, 1);
+    draft.paintTile(4, 0, TileType::DangerBlink);
+    draft.setBlinkConfig(GridPosition{4, 0}, 90, 15, 30);
+
+    draft.resize(2, 2);
+
+    EXPECT_TRUE(draft.dangerLinks().empty());
+    EXPECT_TRUE(draft.moverConfigs().empty());
+    EXPECT_TRUE(draft.blinkConfigs().empty());
+}

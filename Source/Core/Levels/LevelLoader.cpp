@@ -97,6 +97,27 @@ namespace {
     if (name == "concaveDownLeft") {
         return TileType::ConcaveDownLeft;
     }
+    if (name == "dangerUp") {
+        return TileType::DangerUp;
+    }
+    if (name == "dangerDown") {
+        return TileType::DangerDown;
+    }
+    if (name == "dangerLeft") {
+        return TileType::DangerLeft;
+    }
+    if (name == "dangerRight") {
+        return TileType::DangerRight;
+    }
+    if (name == "dangerMover") {
+        return TileType::DangerMover;
+    }
+    if (name == "dangerSwitched") {
+        return TileType::DangerSwitched;
+    }
+    if (name == "dangerBlink") {
+        return TileType::DangerBlink;
+    }
     return std::nullopt;
 }
 
@@ -111,6 +132,20 @@ struct DoorLink {
     GridPosition position;
     std::string opensWith;
 };
+
+// Un danger commuté lu (EX-GP-052), avec la référence (opensWith) à résoudre en position
+// d'interrupteur — même schéma que DoorLink, tuile cible différente.
+struct DangerSwitchedLink {
+    GridPosition position;
+    std::string opensWith;
+};
+
+// Convertit le champ optionnel "axis" d'un dangerMover ("horizontal"/"vertical") ; valeur de
+// conception par défaut (horizontal) si absent ou non reconnu.
+[[nodiscard]] DangerMoverAxis parseMoverAxis(const nlohmann::json& tile) {
+    return tile.value("axis", std::string{"horizontal"}) == "vertical" ? DangerMoverAxis::Vertical
+                                                                        : DangerMoverAxis::Horizontal;
+}
 
 }  // namespace
 
@@ -147,6 +182,9 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::set<std::pair<int, int>> occupiedPositions;
         std::unordered_map<std::string, GridPosition> switchesById;
         std::vector<DoorLink> doors;
+        std::vector<DangerSwitchedLink> switchedDangers;
+        std::vector<DangerMoverConfig> moverConfigs;
+        std::vector<DangerBlinkConfig> blinkConfigs;
 
         // Chaque objet de 'tiles' place une tuile dans la grille.
         for (const nlohmann::json& tile : root.at("tiles")) {
@@ -193,6 +231,25 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             } else if (*type == TileType::Door) {
                 doors.push_back(
                     DoorLink{GridPosition{x, y}, tile.value("opensWith", std::string{})});
+            } else if (*type == TileType::DangerSwitched) {
+                switchedDangers.push_back(DangerSwitchedLink{
+                    GridPosition{x, y}, tile.value("opensWith", std::string{})});
+            } else if (*type == TileType::DangerMover) {
+                const DangerMoverAxis axis = parseMoverAxis(tile);
+                const int range = tile.value("range", 2);
+                const int farColumn = axis == DangerMoverAxis::Horizontal ? x + range : x;
+                const int farRow = axis == DangerMoverAxis::Vertical ? y + range : y;
+                if (range < 0 || !map.inBounds(farColumn, farRow)) {
+                    return failure("Portee de danger mobile hors bornes en (" +
+                                       std::to_string(x) + ", " + std::to_string(y) + ")",
+                                   LevelValidationError::OutOfBounds);
+                }
+                moverConfigs.push_back(DangerMoverConfig{GridPosition{x, y}, axis, range});
+            } else if (*type == TileType::DangerBlink) {
+                blinkConfigs.push_back(DangerBlinkConfig{GridPosition{x, y},
+                                                         tile.value("period", 120),
+                                                         tile.value("phase", 0),
+                                                         tile.value("activeDuration", 60)});
             }
         }
 
@@ -229,11 +286,29 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             mechanisms.push_back(Mechanism{found->second, door.position});
         }
 
+        // Résout les liaisons interrupteur↔danger commuté (EX-GP-052), même règle que ci-dessus :
+        // un dangerSwitched sans 'opensWith' est une simple tuile inerte (jamais mortelle).
+        std::vector<DangerLink> dangerLinks;
+        for (const DangerSwitchedLink& danger : switchedDangers) {
+            if (danger.opensWith.empty()) {
+                continue;
+            }
+            const auto found = switchesById.find(danger.opensWith);
+            if (found == switchesById.end()) {
+                return failure(
+                    "Danger commute lie a un interrupteur inexistant : " + danger.opensWith,
+                    LevelValidationError::UnresolvedMechanism);
+            }
+            dangerLinks.push_back(DangerLink{found->second, danger.position});
+        }
+
         LEVELS_LOG_TRACE("Niveau charge : '" + name + "' (" + std::to_string(width) + "x" +
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
         return LevelLoadResult{Level(std::move(name), std::move(map), entry, exit,
-                                     std::move(mechanisms), jumpBudget, dashBudget),
+                                     std::move(mechanisms), jumpBudget, dashBudget,
+                                     std::move(dangerLinks), std::move(moverConfigs),
+                                     std::move(blinkConfigs)),
                                {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);
