@@ -1,7 +1,6 @@
 # LOT-32 — Niveaux à salles (façon Celeste) {#lot-32}
 
-> Statut : **planification** — épic et découpage rédigés avant tout code (processus du dépôt),
-> implémentation à venir.
+> Statut : **terminé**.
 
 ## Objectif
 `LOT-16` a rendu les grands niveaux **visibles** (caméra qui zoome pour englober le niveau
@@ -99,7 +98,7 @@ porte inter-salle : la géométrie déjà peinte suffit.
 | [TACHE-01](tache-01-partition-salles.md) | Partition en salles (`RoomGrid`, logique pure) | `HMI/Graphics` | ✅ |
 | [TACHE-02](tache-02-camera-salle-jeu.md) | Caméra par salle en jeu (coupure nette) | `HMI/Interface` | ✅ |
 | [TACHE-03](tache-03-repere-editeur.md) | Repère visuel de salles dans l'éditeur | `HMI/Interface` | ✅ |
-| [TACHE-04](tache-04-demo-documentation-verification.md) | Niveau de démonstration, documentation et vérification | `Source/Elements`, `Documentation` | ⬜ |
+| [TACHE-04](tache-04-demo-documentation-verification.md) | Niveau de démonstration, documentation et vérification | `Source/Elements`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un niveau plus grand qu'une salle se joue avec une caméra au **zoom pixel art natif** (jamais

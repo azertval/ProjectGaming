@@ -1,6 +1,8 @@
 # TACHE-03 — Repère visuel de salles dans l'éditeur {#lot-32-tache-03-repere-editeur}
 
-**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait (essai visuel manuel reporté à TACHE-04)
+**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait (confirmation
+visuelle à l'écran non automatisée — dépendance rendu D3D11, laissée à un essai manuel par un
+humain lançant l'éditeur)
 
 ## Contexte
 `EditorScreen::renderGrid` sait déjà dessiner un **quadrillage de repère** fin sur chaque bord de

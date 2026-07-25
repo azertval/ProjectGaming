@@ -1,6 +1,6 @@
 # TACHE-04 — Niveau de démonstration, documentation et vérification {#lot-32-tache-04-demo-documentation-verification}
 
-**Lot :** [LOT-32](epic.md) · **Emplacement :** `Source/Elements`, `Documentation` · **Statut :** à faire
+**Lot :** [LOT-32](epic.md) · **Emplacement :** `Source/Elements`, `Documentation` · **Statut :** fait
 
 ## Contexte
 Dernière tâche du lot : livrer le contenu qui **prouve** le découpage en salles (`RoomGrid`,

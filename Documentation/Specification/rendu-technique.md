@@ -12,11 +12,22 @@
 - \anchor EX-REN-011 **EX-REN-011** — Le rendu doit afficher des **sprites** pour le personnage et les mécanismes, avec transparence.
 - \anchor EX-REN-012 **EX-REN-012** — Le rendu doit supporter des **animations** par séquence d'images (personnage : repos, course, saut).
 - \anchor EX-REN-013 **EX-REN-013** — Une **caméra 2D** doit cadrer le niveau en jeu : elle reste
-  bornée aux limites du niveau, et pour un niveau plus grand que la fenêtre, elle **zoome pour
-  englober le niveau entier** plutôt que de suivre le personnage — aucune zone ne doit rester
-  invisible, quelle que soit la taille du niveau (précisé en LOT-16 ; la formulation initiale
-  « suivre le personnage » ne correspondait déjà plus à l'implémentation, une caméra fixe cadrant
-  le tableau depuis LOT-08).
+  bornée aux limites de ce qu'elle cadre, et pour un contenu plus grand que la fenêtre, elle
+  **zoome pour l'englober entièrement** plutôt que de suivre le personnage — aucune zone ne doit
+  rester invisible. Pour un niveau qui **tient dans une seule salle** (`RoomGrid`, `EX-REN-015`),
+  ce contenu est le **niveau entier** (précisé en LOT-16 ; la formulation initiale « suivre le
+  personnage » ne correspondait déjà plus à l'implémentation, une caméra fixe cadrant le tableau
+  depuis LOT-08) ; au-delà d'une salle, `EX-REN-015` prend le relais et ce contenu devient la
+  **salle courante**.
+- \anchor EX-REN-015 **EX-REN-015** — Pour un niveau plus grand qu'une **salle** (constante de
+  taille fixe, `LOT-32`), la caméra ne cadre plus le niveau entier mais la **salle** contenant le
+  personnage, au zoom pixel art natif (`EX-REN-013`, appliqué au rectangle de la salle plutôt qu'au
+  niveau) : elle bascule **nettement** sur la salle voisine dès que le personnage en franchit la
+  frontière, sans jamais suivre le personnage en continu ni rapetisser le rendu quelle que soit la
+  taille totale du niveau. Le niveau reste une **grille de tuiles unique** (aucun format, aucune
+  nouvelle tuile) : une salle a « plusieurs entrées/sorties » simplement parce qu'un couloir reste
+  ouvert sur plusieurs de ses bords vers des salles voisines — propriété géométrique, pas un
+  mécanisme.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches** (fond, décor, entités, interface).
 
 ## 3. Boucle & temps

@@ -68,3 +68,8 @@ d'autres mécanismes. L'exemple omet les tuiles `solid` des bords pour rester li
 
 ## Traçabilité
 Le chargement et la validation relèvent de `Source/Core` ; les fichiers de niveaux et l'atlas sont dans `Source/Elements`. Types de tuiles : [`gameplay.md`](gameplay.md).
+
+Le découpage d'un niveau en **salles** pour la caméra (`EX-REN-015`, `LOT-32`) est un comportement
+de **cadrage**, entièrement porté par `Source/HMI` : le format de fichier (`EX-LVL-003`) et la
+validation (`EX-LVL-004`, dont l'invariant « une entrée, une sortie ») n'en portent aucune trace —
+un niveau à salles reste, du point de vue de `Core`, une grille de tuiles ordinaire.
