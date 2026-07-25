@@ -59,16 +59,30 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
 - **Remappage souris** — seules les touches clavier sont concernées.
 
 ## Décisions de cadrage
-- **Filet de sécurité manette dans `PlayerInputMapper`** (écart constaté après revue du demandeur,
-  qui a explicitement demandé de ne pas oublier la manette) : chaque action de jeu vérifie non
-  seulement sa touche liée (remappable) mais aussi sa **touche par défaut**
-  (`GameKeyBindings::defaultKey`), en plus de l'alias fixe existant pour Gauche/Droite/Sauter. La
-  manette (`Window::pollGamepad`) n'écrivant que dans les touches par défaut, sans connaître les
-  bindings courants, ce filet garantit qu'elle continue de fonctionner quel que soit le remap
-  clavier — sans lui, remapper « Sauter » loin d'Espace aurait silencieusement désactivé le bouton
-  A. Effet secondaire assumé : la touche par défaut d'une action reste **toujours** active en plus
-  de la nouvelle, jamais réellement « libérée » par un remap (acceptable : c'est le clavier qui
-  gagne en options, pas la manette qui en perd).
+- **Filet de sécurité manette dans `PlayerInputMapper`, en deux temps** (écart constaté après
+  revue du demandeur, qui a explicitement demandé de ne pas oublier la manette) :
+  1. Première version : chaque action de jeu vérifiait sa touche liée (remappable) **et** sa
+     touche par défaut (`GameKeyBindings::defaultKey`), en plus d'un alias fixe non remappable pour
+     Gauche/Droite/Sauter (`Q`/`D`/`W`, hérité du confort ZQSD/WASD existant avant ce lot). La
+     manette (`Window::pollGamepad`) n'écrivant que dans les touches par défaut, sans connaître les
+     bindings courants, l'idée était que ce filet la garde fonctionnelle quel que soit le remap.
+  2. **Régression constatée en usage réel** (rapportée par le demandeur : « le remapping n'a pas
+     d'effet en jeu ») : remapper « Aller à gauche » sur `D` (alors que `D` était l'alias fixe de
+     « Aller à droite ») déclenchait les **deux** actions à la fois sur cette touche — silencieusement
+     **annulées** (`moveX == 0`), aucun mouvement possible. Cause racine : un filet « toujours actif »
+     pour une action, câblé sur une touche qu'une **autre** action s'approprie ensuite via remap,
+     fait déclencher les deux à la fois. Les alias fixes `Q`/`D`/`W` en étaient une instance ; le
+     filet manette lui-même (touche par défaut toujours revérifiée) en était une seconde, latente,
+     non encore déclenchée par ce scénario précis mais du même défaut structurel.
+  3. **Corrigé en deux volets** : retrait complet des alias fixes `Q`/`D`/`W` (devenus inutiles et
+     dangereux — un joueur qui veut ZQSD n'a qu'à remapper lui-même) ; le filet manette
+     (`GameKeyBindings::defaultKey`) n'est désormais revérifié que si **aucune autre action** ne
+     s'est approprié cette touche par défaut entre-temps (`GameKeyBindings::
+     isKeyClaimedByOtherAction`, nouvelle méthode) — sinon cette touche appartient désormais
+     exclusivement à l'action qui l'a réclamée. Couvert par des tests dédiés reproduisant
+     exactement le scénario signalé (`test_player_input_mapper.cpp`,
+     `RemapperGaucheSurDEtDroiteSurQNeSeNeutralisentPlus`/
+     `FiletDeSecuriteNIgnoreQuandToucheDefautReprise`).
 - **Portée « actions clés seulement »**, pas un remappage exhaustif — confirmée avec le demandeur
   (`AskUserQuestion`) : couvre les actions de gameplay et un sous-ensemble éditeur significatif,
   pas les raccourcis souris/outils ni la navigation de menu.
@@ -76,12 +90,6 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
   remappage en mémoire seule (qui contredirait l'esprit d'`EX-CTRL-012`). Valeur stockée = code VK
   brut (`Key` **est** déjà un code VK, cf. `InputState.h`) : pas de table de noms symboliques à
   maintenir en plus pour la persistance (seul l'affichage à l'écran a besoin d'un nom lisible).
-- **Alias fixes conservés pour Gauche/Droite/Sauter** (`Q`/`D`/`W`) : ces trois actions ont
-  aujourd'hui deux touches par défaut (flèche + lettre). Plutôt que de les fusionner en un seul
-  emplacement remappable (ce qui romprait le confort ZQSD/WASD existant), la touche remappable
-  **remplace** le membre « flèche/espace » du OR existant, l'alias lettre restant câblé en dur et
-  toujours actif en plus. Dash et visée haut/bas n'ont pas d'alias aujourd'hui : entièrement
-  remappables, sans membre fixe.
 - **Deux classes séparées (`GameKeyBindings`/`EditorKeyBindings`) plutôt qu'une abstraction
   générique commune** : deux cas concrets connus, aucun troisième anticipé — dupliquer une
   mécanique simple (~50 lignes) reste plus lisible qu'un template pour ce projet.

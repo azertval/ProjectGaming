@@ -22,8 +22,8 @@ hmi::InputState withKeys(std::initializer_list<hmi::Key> keys) {
 }
 
 // Traduit avec les bindings par défaut : la plupart des tests ci-dessous ne portent pas sur le
-// remappage lui-même (couvert par RemapperUneActionUtiliseLaNouvelleTouche/AliasFixeToujoursActif
-// ci-dessous), seulement sur la traduction touche -> intention.
+// remappage lui-même (couvert par les tests dédiés en fin de fichier), seulement sur la
+// traduction touche -> intention.
 core::PlayerInput mapWithDefaults(const hmi::InputState& input) {
     return hmi::toPlayerInput(input, hmi::GameKeyBindings{});
 }
@@ -59,18 +59,19 @@ TEST(PlayerInputMapperTest, FlecheDroite) {
 }
 
 /**
- * @brief Touches alternatives ZQSD : Q → gauche, D → droite.
- * \castest{<b>Touches alternatives ZQSD : Q → gauche, D → droite.</b><br/>
+ * @brief Sans remap, `Q`/`D`/`W` ne déclenchent plus rien (aucun alias fixe depuis `LOT-29`).
+ * \castest{<b>Sans remap, Q/D/W ne déclenchent plus rien (aucun alias fixe).</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Touches alternatives ZQSD : Q → gauche, D → droite.
+ * \tattendu Sans remap, Q/D/W ne déclenchent plus rien.
  * }
  */
-TEST(PlayerInputMapperTest, TouchesAlternativesQetD) {
-    EXPECT_FLOAT_EQ(mapWithDefaults(withKeys({hmi::Key::Q})).moveX, -1.0f);
-    EXPECT_FLOAT_EQ(mapWithDefaults(withKeys({hmi::Key::D})).moveX, 1.0f);
+TEST(PlayerInputMapperTest, SansRemapQDWNeDeclenchentRien) {
+    EXPECT_FLOAT_EQ(mapWithDefaults(withKeys({hmi::Key::Q})).moveX, 0.0f);
+    EXPECT_FLOAT_EQ(mapWithDefaults(withKeys({hmi::Key::D})).moveX, 0.0f);
+    EXPECT_FALSE(mapWithDefaults(withKeys({hmi::Key::W})).jumpPressed);
 }
 
 /**
@@ -115,20 +116,6 @@ TEST(PlayerInputMapperTest, EspacePresseeDeclencheLeSaut) {
     const core::PlayerInput input = mapWithDefaults(withKeys({hmi::Key::Space}));
     EXPECT_TRUE(input.jumpPressed);
     EXPECT_TRUE(input.jumpHeld);
-}
-
-/**
- * @brief `W` équivaut à Espace pour le saut.
- * \castest{<b>`W` équivaut à Espace pour le saut.</b><br/>
- * \tcat Unitaire · Player Input Mapper<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu `W` équivaut à Espace pour le saut.
- * }
- */
-TEST(PlayerInputMapperTest, WEquivautEspacePourLeSaut) {
-    EXPECT_TRUE(mapWithDefaults(withKeys({hmi::Key::W})).jumpPressed);
 }
 
 /**
@@ -240,26 +227,6 @@ TEST(PlayerInputMapperTest, RemapperUneActionAjouteLaNouvelleTouche) {
 }
 
 /**
- * @brief L'alias fixe (`Q`/`D`/`W`) reste actif même quand le binding principal a été remappé
- *        ailleurs.
- * \castest{<b>L'alias fixe (`Q`/`D`/`W`) reste actif même quand le binding principal a été
- * remappé ailleurs.</b><br/>
- * \tcat Unitaire · Player Input Mapper<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu L'alias fixe reste actif même quand le binding principal a été remappé ailleurs.
- * }
- */
-TEST(PlayerInputMapperTest, AliasFixeToujoursActif) {
-    hmi::GameKeyBindings bindings;
-    bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::F1);
-
-    // Q reste un alias fixe de Gauche, meme si la touche liee (F1) n'a rien a voir.
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q}), bindings).moveX, -1.0f);
-}
-
-/**
  * @brief Un bouton manette (source distincte du clavier) continue de déclencher une action même
  *        après un remappage clavier — la manette n'alimente que la touche par défaut.
  * \castest{<b>Un bouton manette continue de déclencher une action après un remappage clavier
@@ -279,4 +246,58 @@ TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier)
     input.onGamepadKeyDown(hmi::Key::Space);  // Window::pollGamepad : bouton A -> Key::Space (fixe)
 
     EXPECT_TRUE(hmi::toPlayerInput(input, bindings).jumpPressed);
+}
+
+/**
+ * @brief Régression réelle (usage en jeu) : remapper Gauche sur `D` et Droite sur `Q` produit un
+ *        mouvement dans le bon sens pour chacune, sans neutralisation croisée.
+ * \castest{<b>Régression réelle : remapper Gauche sur D et Droite sur Q ne se neutralisent plus
+ * mutuellement.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Remapper Gauche sur D et Droite sur Q produit le mouvement attendu pour chacune.
+ * }
+ */
+TEST(PlayerInputMapperTest, RemapperGaucheSurDEtDroiteSurQNeSeNeutralisentPlus) {
+    // Reproduit le scenario signale en usage reel (Settings/keybindings.json observe) : avant le
+    // retrait des alias fixes Q/D/W, D restait cable en dur sur Droite et Q sur Gauche, si bien
+    // que remapper Gauche->D et Droite->Q declenchait les DEUX actions a la fois sur chaque
+    // touche (l'alias fixe ET le remap), les neutralisant silencieusement (moveX == 0 dans les
+    // deux cas) : aucun mouvement possible, quelle que soit la touche pressee.
+    hmi::GameKeyBindings bindings;
+    bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::D);
+    bindings.setKey(hmi::GameAction::MoveRight, hmi::Key::Q);
+
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::D}), bindings).moveX, -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q}), bindings).moveX, 1.0f);
+}
+
+/**
+ * @brief Le filet de sécurité manette ne revérifie pas la touche par défaut d'une action si une
+ *        AUTRE action se l'est appropriée : sinon les deux actions se déclenchent à la fois.
+ * \castest{<b>Le filet de sécurité manette ne revérifie pas la touche par défaut si une autre
+ * action se l'est appropriée.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Échanger Gauche/Droite (flèches) déplace dans le bon sens, sans neutralisation.
+ * }
+ */
+TEST(PlayerInputMapperTest, FiletDeSecuriteNIgnoreQuandToucheDefautReprise) {
+    // setKey echange : Gauche <- Fleche droite (defaut de Droite), Droite <- Fleche gauche
+    // (defaut de Gauche). Sans la garde isKeyClaimedByOtherAction, le filet de securite
+    // reverifierait la touche par defaut de CHAQUE action (Gauche -> Fleche gauche, Droite ->
+    // Fleche droite) meme si elle appartient desormais a l'autre action remappee : les deux
+    // touches redeclencheraient alors les deux actions a la fois, neutralisant tout mouvement.
+    hmi::GameKeyBindings bindings;
+    bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::Right);
+
+    EXPECT_EQ(bindings.key(hmi::GameAction::MoveLeft), hmi::Key::Right);
+    EXPECT_EQ(bindings.key(hmi::GameAction::MoveRight), hmi::Key::Left);  // echange automatique
+
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Right}), bindings).moveX, -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left}), bindings).moveX, 1.0f);
 }

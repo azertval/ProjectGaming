@@ -5,44 +5,54 @@
 
 namespace hmi {
 
+namespace {
+
+// Touche par defaut de action, seulement si aucune AUTRE action ne se l'est appropriee entre-temps
+// (sinon elle appartient desormais exclusivement a cette autre action - la revalider ferait
+// declencher les deux a la fois, silencieusement annule pour une paire opposee comme
+// Gauche/Droite : c'est exactement le bug reproduit et corrige en cours de LOT-29). Filet de
+// securite manette (EX-CTRL-002) : Window::pollGamepad n'ecrit que dans les touches par defaut.
+[[nodiscard]] bool safeDefaultDown(const InputState& input, const GameKeyBindings& bindings,
+                                   GameAction action) {
+    const Key def = GameKeyBindings::defaultKey(action);
+    return !bindings.isKeyClaimedByOtherAction(action, def) && input.keyDown(def);
+}
+
+[[nodiscard]] bool safeDefaultPressed(const InputState& input, const GameKeyBindings& bindings,
+                                      GameAction action) {
+    const Key def = GameKeyBindings::defaultKey(action);
+    return !bindings.isKeyClaimedByOtherAction(action, def) && input.keyPressed(def);
+}
+
+}  // namespace
+
 // Traduit l'etat clavier en intention de deplacement (voir en-tete).
-//
-// Chaque action verifie SA touche liee (remappable) ET sa touche par defaut (GameKeyBindings::
-// defaultKey) : la manette (Window::pollGamepad) ecrit exclusivement dans les touches par defaut,
-// cablees en dur (A -> Espace, D-pad/stick -> flèches, RB -> Maj), sans aucune connaissance des
-// bindings courants (EX-CTRL-002) - sans ce second OR, remapper une action au clavier
-// desactiverait silencieusement le bouton manette equivalent. Vrai remappage manette : hors
-// perimetre de ce lot (LOT-29), un lot dedie devra d'abord retirer ce cablage en dur.
 core::PlayerInput toPlayerInput(const InputState& input, const GameKeyBindings& bindings) {
-    // Actions logiques (dissociees des touches, EX-CTRL-012) : gauche/droite/sauter conservent en
-    // plus un alias fixe non remappable (Q/D/W), le reste passe par les bindings + leur defaut.
+    // Actions logiques (dissociees des touches, EX-CTRL-012) : chaque action verifie sa touche
+    // liee ET, si elle reste libre (voir safeDefault* ci-dessus), sa touche par defaut.
     const bool left = input.keyDown(bindings.key(GameAction::MoveLeft)) ||
-                      input.keyDown(Key::Q) ||
-                      input.keyDown(GameKeyBindings::defaultKey(GameAction::MoveLeft));
+                      safeDefaultDown(input, bindings, GameAction::MoveLeft);
     const bool right = input.keyDown(bindings.key(GameAction::MoveRight)) ||
-                       input.keyDown(Key::D) ||
-                       input.keyDown(GameKeyBindings::defaultKey(GameAction::MoveRight));
+                       safeDefaultDown(input, bindings, GameAction::MoveRight);
 
     core::PlayerInput result;
     // Gauche et droite se neutralisent (-1 + 1 = 0) : comportement deterministe.
     result.moveX = (right ? 1.0f : 0.0f) - (left ? 1.0f : 0.0f);
-    // Saut : touche liee, W, ou defaut (Espace, alimente par le bouton A manette). jumpPressed =
-    // front (declenche/bufferise), jumpHeld = maintenu (hauteur variable).
+    // Saut : touche liee, ou defaut si libre. jumpPressed = front (declenche/bufferise), jumpHeld
+    // = maintenu (hauteur variable).
     const Key jumpKey = bindings.key(GameAction::Jump);
-    const Key jumpDefault = GameKeyBindings::defaultKey(GameAction::Jump);
     result.jumpPressed =
-        input.keyPressed(jumpKey) || input.keyPressed(Key::W) || input.keyPressed(jumpDefault);
-    result.jumpHeld = input.keyDown(jumpKey) || input.keyDown(Key::W) || input.keyDown(jumpDefault);
+        input.keyPressed(jumpKey) || safeDefaultPressed(input, bindings, GameAction::Jump);
+    result.jumpHeld = input.keyDown(jumpKey) || safeDefaultDown(input, bindings, GameAction::Jump);
     // Visee verticale du dash (y vers le bas) : Bas = +1, Haut = -1, sinon 0.
     const bool aimDown = input.keyDown(bindings.key(GameAction::AimDown)) ||
-                        input.keyDown(GameKeyBindings::defaultKey(GameAction::AimDown));
+                        safeDefaultDown(input, bindings, GameAction::AimDown);
     const bool aimUp = input.keyDown(bindings.key(GameAction::AimUp)) ||
-                      input.keyDown(GameKeyBindings::defaultKey(GameAction::AimUp));
+                      safeDefaultDown(input, bindings, GameAction::AimUp);
     result.moveY = (aimDown ? 1.0f : 0.0f) - (aimUp ? 1.0f : 0.0f);
-    // Dash : touche liee ou defaut (Maj, alimentee par l'epaule droite manette), au front
-    // (`EX-CTRL-013`).
+    // Dash : touche liee, ou defaut si libre, au front (`EX-CTRL-013`).
     result.dashPressed = input.keyPressed(bindings.key(GameAction::Dash)) ||
-                        input.keyPressed(GameKeyBindings::defaultKey(GameAction::Dash));
+                        safeDefaultPressed(input, bindings, GameAction::Dash);
     return result;
 }
 

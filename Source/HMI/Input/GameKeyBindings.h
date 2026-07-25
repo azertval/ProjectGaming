@@ -16,9 +16,10 @@ namespace hmi {
 /**
  * @brief Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.
  *
- * Miroir des six lectures de `PlayerInputMapper.cpp` : Gauche/Droite/Sauter conservent en plus un
- * alias fixe non remappable (`Q`/`D`/`W`, voir `PlayerInputMapper.cpp`, `LOT-29` décision de
- * cadrage) ; `AimUp`/`AimDown` (visée verticale du dash) et `Dash` n'en ont pas.
+ * Miroir des six lectures de `PlayerInputMapper.cpp`. Chaque action a une touche unique et
+ * pleinement remappable — aucun alias fixe (`Q`/`D`/`W`, envisagés puis retirés en cours de
+ * `LOT-29` : câblés en dur, ils entraient en collision avec un remap d'une **autre** action sur
+ * cette même touche, s'annulant silencieusement pour Gauche/Droite, voir `PlayerInputMapper.cpp`).
  */
 enum class GameAction {
     MoveLeft,
@@ -62,6 +63,17 @@ public:
 
     /// @return La touche par défaut de @p action, indépendante de l'état courant.
     [[nodiscard]] static Key defaultKey(GameAction action) noexcept;
+
+    /**
+     * @brief Indique si @p key est actuellement liée à une action **autre** que @p action.
+     *
+     * Sert au filet de sécurité manette de `toPlayerInput` (`PlayerInputMapper.cpp`) : la touche
+     * par défaut d'une action remappée ailleurs ne doit être revérifiée que si aucune **autre**
+     * action ne se l'est appropriée entre-temps — sinon cette touche appartient désormais
+     * exclusivement à cette autre action, et la revérifier ferait déclencher les deux actions à la
+     * fois (silencieusement annulé pour une paire opposée comme Gauche/Droite).
+     */
+    [[nodiscard]] bool isKeyClaimedByOtherAction(GameAction action, Key key) const noexcept;
 
     /**
      * @brief Sauvegarde dans la section `"jeu"` de @p path, en préservant une section

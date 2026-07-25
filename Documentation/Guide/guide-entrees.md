@@ -127,23 +127,34 @@ et `Core` :
 
 **Quelle touche pour quelle action ?** Depuis `LOT-29` (`EX-CTRL-012`), ce n'est plus figé en dur :
 `bindings` (`hmi::GameKeyBindings`) associe chaque `hmi::GameAction` (Gauche/Droite/Sauter/Dash/
-Viser haut/Viser bas) à une touche, remappable depuis Options → Touches de jeu et persistée dans
-`Settings/keybindings.json`. `toPlayerInput` vérifie, pour chaque action, `bindings.key(action)`
-**et** `GameKeyBindings::defaultKey(action)` — jamais la touche par défaut seule, jamais la touche
-remappée seule. Gauche/Droite/Sauter gardent en plus un alias fixe non remappable (`Q`/`D`/`W`).
+Viser haut/Viser bas) à une touche **unique**, pleinement remappable depuis Options → Touches de
+jeu et persistée dans `Settings/keybindings.json` — aucun alias fixe (`Q`/`D`/`W` envisagés puis
+retirés, voir plus bas).
 
-**Pourquoi vérifier aussi la touche par défaut, alors qu'elle est déjà lue via `bindings` tant
-qu'aucun remap n'a eu lieu ?** À cause de la manette (`EX-CTRL-002`, section suivante) : elle
-synthétise toujours les **mêmes** touches fixes (`Key::Space` pour le bouton A, etc.), câblées en
-dur dans `Window::pollGamepad`, sans jamais consulter `bindings`. Avant `LOT-29`, la manette
-« marchait par coïncidence » — la seule touche que `toPlayerInput` testait pour Sauter était déjà
-celle qu'elle alimentait. Rendre Sauter remappable a cassé cette coïncidence : remapper Sauter loin
-d'`Espace` aurait, sans ce second test, silencieusement désactivé le bouton A. Vérifier aussi la
-touche par défaut restaure la garantie — au prix d'un effet de bord assumé : la touche par défaut
-d'une action reste **toujours** active, jamais réellement « libérée » par un remap (c'est le
-clavier qui gagne des options, pas la manette qui en perd). Un **vrai** remappage manette (bouton
-XInput configurable) reste hors périmètre de `LOT-29` : `Window::pollGamepad` câblerait toujours
-chaque bouton en dur.
+**La manette (`EX-CTRL-002`, section suivante) complique ce tableau.** Elle synthétise toujours les
+**mêmes** touches fixes (`Key::Space` pour le bouton A, etc.), câblées en dur dans
+`Window::pollGamepad`, sans jamais consulter `bindings`. Avant `LOT-29`, elle « marchait par
+coïncidence » — la seule touche que `toPlayerInput` testait pour Sauter était déjà celle qu'elle
+alimentait. Rendre Sauter remappable casse cette coïncidence : remapper Sauter loin d'`Espace`
+désactiverait le bouton A, sauf à revérifier explicitement `GameKeyBindings::defaultKey(action)` en
+plus de `bindings.key(action)`.
+
+**Ce filet a lui-même introduit un bug, corrigé en cours de lot** (régression constatée en usage
+réel : « le remapping n'a pas d'effet en jeu »). Une première version — comme l'alias fixe
+`Q`/`D`/`W` envisagé pour Gauche/Droite/Sauter — revérifiait la touche par défaut d'une action
+**sans condition**. Or rien n'empêche un joueur de remapper une **autre** action précisément sur
+cette touche par défaut (ex. « Aller à gauche » remappée sur `D`, la touche par défaut — pas
+l'alias, retiré depuis, mais le principe est identique — de « Aller à droite ») : la touche
+déclenche alors les **deux** actions à la fois, silencieusement **annulées** pour une paire opposée
+comme Gauche/Droite (`moveX == 0` en permanence, aucun mouvement possible, quelle que soit la
+touche pressée). Corrigé par `GameKeyBindings::isKeyClaimedByOtherAction(action, key)` : le filet
+manette ne revérifie la touche par défaut d'une action que si **aucune autre action** ne se l'est
+appropriée entre-temps — sinon cette touche appartient désormais exclusivement à cette autre
+action. Effet secondaire assumé, réduit mais pas éliminé : tant que sa touche par défaut reste
+libre, une action y répond toujours en plus de sa touche remappée (le clavier gagne des options, la
+manette n'en perd jamais tant que personne d'autre ne réclame explicitement cette touche). Un
+**vrai** remappage manette (bouton XInput configurable) reste hors périmètre de `LOT-29` :
+`Window::pollGamepad` câble toujours chaque bouton en dur.
 
 `toPlayerInput` est une fonction **pure** (aucun état interne, aucun effet de bord) : lui passer le
 même `InputState`/`bindings` produit toujours le même `PlayerInput`, ce qui la rend testable sans

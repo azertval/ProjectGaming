@@ -71,6 +71,16 @@ identique** à avant ce lot.
   défaut de chaque action **en plus** de la touche liée (`GameKeyBindings::defaultKey`) — voir la
   décision de cadrage de l'épic pour le détail. Un vrai remappage manette reste hors périmètre
   (différé à un lot dédié).
+- **Régression constatée en usage réel, après livraison de TACHE-03** (rapportée par le demandeur :
+  « le remapping n'a pas d'effet en jeu ») : les alias fixes `Q`/`D`/`W` (ci-dessus) entraient en
+  collision avec un remap d'une **autre** action sur cette même touche — remapper Gauche sur `D`
+  neutralisait tout mouvement horizontal (`D` déclenchait à la fois Gauche, via le remap, et
+  Droite, via l'alias fixe câblé en dur). Le filet de sécurité manette souffrait du même défaut
+  structurel, non encore déclenché mais latent. **Corrigé** : alias fixes retirés entièrement ;
+  le filet manette ne revérifie la touche par défaut d'une action que si aucune **autre** action ne
+  se l'est appropriée entre-temps (`GameKeyBindings::isKeyClaimedByOtherAction`). Voir la décision
+  de cadrage de l'épic (section « Filet de sécurité manette ») pour le détail complet et les tests
+  de régression associés.
 - **Écart constaté (TACHE-01)** : `GameKeyBindings.cpp`/`EditorKeyBindings.cpp` sont compilés
   directement dans les cibles `ProjectGaming` et `UnitTests` (comme `PlayerInputMapper.cpp`),
   pas dans la bibliothèque `Core` — `Core` lie `nlohmann_json` en `PRIVATE`, ce lien ne se propage
