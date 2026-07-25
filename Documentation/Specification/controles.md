@@ -11,10 +11,10 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 
 | Action logique | Clavier (défaut) | Manette (défaut) |
 |----------------|------------------|------------------|
-| Aller à gauche | ← (remappable, `LOT-29`) | Stick gauche / D-pad gauche |
-| Aller à droite | → (remappable, `LOT-29`) | Stick gauche / D-pad droite |
-| Sauter | Espace (remappable, `LOT-29`) | A |
-| Dash (8 directions) | Maj (remappable, `LOT-29`) | Épaule droite (RB) |
+| Aller à gauche | ← (remappable, `LOT-29`) | Stick gauche / D-pad gauche (remappable, `LOT-30`) |
+| Aller à droite | → (remappable, `LOT-29`) | Stick gauche / D-pad droite (remappable, `LOT-30`) |
+| Sauter | Espace (remappable, `LOT-29`) | A (remappable, `LOT-30`) |
+| Dash (8 directions) | Maj (remappable, `LOT-29`) | Épaule droite (remappable, `LOT-30`) |
 | Interagir (⚠️ souhaité, non implémenté) | E | X |
 | Quitter vers le menu (jeu) | Échap | B / Start |
 | Valider (menu) | Entrée | A |
@@ -22,7 +22,7 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 
 - \anchor EX-CTRL-010 **EX-CTRL-010** — Chaque action de gameplay doit être définie comme une action logique, dissociée de la touche physique.
 - \anchor EX-CTRL-011 **EX-CTRL-011** — L'état d'une action doit distinguer **pressée**, **maintenue** et **relâchée** dans une frame (nécessaire au *jump buffering*).
-- \anchor EX-CTRL-012 **EX-CTRL-012** — Le mapping doit être **reconfigurable** (au minimum via un fichier de configuration). Implémenté pour un sous-ensemble d'actions de jeu et d'éditeur (`LOT-29`) : Options → Touches de jeu / Touches de l'éditeur, persistance dans `Settings/keybindings.json`. La colonne manette reste **fixe** (câblée en dur, `Window::pollGamepad`) — remapper une action au clavier ne change jamais le bouton manette équivalent ; un vrai remappage manette est hors périmètre de `LOT-29`.
+- \anchor EX-CTRL-012 **EX-CTRL-012** — Le mapping doit être **reconfigurable** (au minimum via un fichier de configuration). Implémenté pour un sous-ensemble d'actions de jeu et d'éditeur, clavier (`LOT-29`) et manette (`LOT-30`) : Options → Touches de jeu / Touches de l'éditeur / Touches de la manette, persistance dans `Settings/keybindings.json`. Les deux sources (clavier, manette) sont remappables indépendamment l'une de l'autre — remapper l'une n'affecte jamais l'autre.
 - \anchor EX-CTRL-013 **EX-CTRL-013** — Le **dash** doit être une action logique dédiée (touche par défaut : **Maj**), sa **direction** étant donnée par les touches directionnelles (8 directions), à défaut par l'**orientation** courante du personnage.
 
 ## 3. Réactivité

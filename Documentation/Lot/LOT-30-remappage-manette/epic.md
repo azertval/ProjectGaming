@@ -1,6 +1,6 @@
 # LOT-30 — Remappage manette (jeu) {#lot-30}
 
-> Statut : **🔄 en cours**. Nouveau sous-menu Options → « Touches de la manette », symétrique de
+> Statut : **✅ terminé**. Nouveau sous-menu Options → « Touches de la manette », symétrique de
 > « Touches de jeu » (`LOT-29`) : le joueur choisit quel bouton XInput déclenche chaque action de
 > jeu, au lieu du câblage en dur actuel.
 
@@ -78,7 +78,7 @@ aucune capacité de bouton libre ni de couche de configuration à l'époque.
 | [TACHE-01](tache-01-modele-bindings-manette.md) | Modèle de bindings manette | `HMI/Input` | ✅ |
 | [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu | `HMI/Input`, `HMI/Platform`, `HMI/Interface` | ✅ |
 | [TACHE-03](tache-03-ui-remappage-manette.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis Options, une nouvelle entrée « Touches de la manette » ouvre un sous-menu listant les

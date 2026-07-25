@@ -1,6 +1,6 @@
 # TACHE-04 — Documentation et vérification {#lot-30-tache-04-documentation-verification}
 
-**Lot :** [LOT-30](epic.md) · **Emplacement :** `Documentation` · **Statut :** ⬜
+**Lot :** [LOT-30](epic.md) · **Emplacement :** `Documentation` · **Statut :** ✅
 
 ## Contexte
 Dernière tâche : aligne la documentation sur le comportement livré par TACHE-01/02/03.

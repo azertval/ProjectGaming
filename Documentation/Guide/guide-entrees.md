@@ -109,9 +109,9 @@ d'une nouvelle touche revient alors à ajouter un énumérateur nommé — aucun
 
 ## Traduire l'état en intention : \ref hmi::toPlayerInput "hmi::toPlayerInput"
 
-`hmi::toPlayerInput(input, bindings)` est la fonction qui **seule** connaît la correspondance entre
-touches et intentions ; elle produit un `core::PlayerInput` — le **contrat** de données entre `HMI`
-et `Core` :
+`hmi::toPlayerInput(input, gameKeyBindings, gamepadBindings)` est la fonction qui **seule** connaît
+la correspondance entre touches/boutons et intentions ; elle produit un `core::PlayerInput` — le
+**contrat** de données entre `HMI` et `Core` :
 
 - `moveX` ∈ `[-1, 1]` : `-1` = gauche, `+1` = droite, `0` = immobile. Appuyer sur les deux touches
   simultanément **neutralise** l'intention (`moveX == 0`) plutôt que de privilégier arbitrairement
@@ -122,45 +122,27 @@ et `Core` :
 - `jumpPressed` (front) / `jumpHeld` (maintenu) ;
 - `dashPressed` (front, `EX-CTRL-013`), une action dédiée et distincte du saut.
 
-`Core` ne reçoit **que** cette structure : il ignore totalement l'existence des touches physiques.
+`Core` ne reçoit **que** cette structure : il ignore totalement l'existence des touches/boutons
+physiques.
 
-**Quelle touche pour quelle action ?** Depuis `LOT-29` (`EX-CTRL-012`), ce n'est plus figé en dur :
-`bindings` (`hmi::GameKeyBindings`) associe chaque `hmi::GameAction` (Gauche/Droite/Sauter/Dash/
-Viser haut/Viser bas) à une touche **unique**, pleinement remappable depuis Options → Touches de
-jeu et persistée dans `Settings/keybindings.json` — aucun alias fixe (`Q`/`D`/`W` envisagés puis
-retirés, voir plus bas).
+**Deux sources indépendantes par action.** `hmi::GameAction` (Gauche/Droite/Sauter/Dash/Viser
+haut/Viser bas) est l'action logique commune ; `gameKeyBindings` (`hmi::GameKeyBindings`) l'associe
+à une touche clavier, `gamepadBindings` (`hmi::GamepadBindings`) à un bouton manette — chacune
+remappable **indépendamment** de l'autre depuis Options (Touches de jeu / Touches de la manette),
+persistées dans le même `Settings/keybindings.json` (sections distinctes). Pour chaque action,
+`toPlayerInput` vérifie simplement `input.keyDown(gameKeyBindings.key(action)) ||
+input.gamepadButtonDown(gamepadBindings.button(action))` : l'une des deux sources suffit, remapper
+l'une n'affecte jamais l'autre — deux touches/boutons ne sont d'ailleurs jamais partagés par deux
+actions du **même** ensemble (`GameKeyBindings`/`GamepadBindings::setKey` échangent plutôt que de
+dupliquer une touche), ce qui évite par construction qu'une touche ne déclenche deux actions à la
+fois.
 
-**La manette (`EX-CTRL-002`, section suivante) complique ce tableau.** Elle synthétise toujours les
-**mêmes** touches fixes (`Key::Space` pour le bouton A, etc.), câblées en dur dans
-`Window::pollGamepad`, sans jamais consulter `bindings`. Avant `LOT-29`, elle « marchait par
-coïncidence » — la seule touche que `toPlayerInput` testait pour Sauter était déjà celle qu'elle
-alimentait. Rendre Sauter remappable casse cette coïncidence : remapper Sauter loin d'`Espace`
-désactiverait le bouton A, sauf à revérifier explicitement `GameKeyBindings::defaultKey(action)` en
-plus de `bindings.key(action)`.
-
-**Ce filet a lui-même introduit un bug, corrigé en cours de lot** (régression constatée en usage
-réel : « le remapping n'a pas d'effet en jeu »). Une première version — comme l'alias fixe
-`Q`/`D`/`W` envisagé pour Gauche/Droite/Sauter — revérifiait la touche par défaut d'une action
-**sans condition**. Or rien n'empêche un joueur de remapper une **autre** action précisément sur
-cette touche par défaut (ex. « Aller à gauche » remappée sur `D`, la touche par défaut — pas
-l'alias, retiré depuis, mais le principe est identique — de « Aller à droite ») : la touche
-déclenche alors les **deux** actions à la fois, silencieusement **annulées** pour une paire opposée
-comme Gauche/Droite (`moveX == 0` en permanence, aucun mouvement possible, quelle que soit la
-touche pressée). Corrigé par `GameKeyBindings::isKeyClaimedByOtherAction(action, key)` : le filet
-manette ne revérifie la touche par défaut d'une action que si **aucune autre action** ne se l'est
-appropriée entre-temps — sinon cette touche appartient désormais exclusivement à cette autre
-action. Effet secondaire assumé, réduit mais pas éliminé : tant que sa touche par défaut reste
-libre, une action y répond toujours en plus de sa touche remappée (le clavier gagne des options, la
-manette n'en perd jamais tant que personne d'autre ne réclame explicitement cette touche). Un
-**vrai** remappage manette (bouton XInput configurable) reste hors périmètre de `LOT-29` :
-`Window::pollGamepad` câble toujours chaque bouton en dur.
-
-`toPlayerInput` est une fonction **pure** (aucun état interne, aucun effet de bord) : lui passer le
-même `InputState`/`bindings` produit toujours le même `PlayerInput`, ce qui la rend testable sans
-fenêtre ni minuteur, en construisant directement un `InputState` avec les touches voulues. Elle est
-appelée **une fois par frame**, en amont de toute logique de jeu (`EX-CTRL-020`, `EX-CTRL-021`) —
-jamais à l'intérieur du pas fixe lui-même, pour que tous les pas exécutés dans une même frame (@ref
-guide-boucle) voient exactement la même intention.
+`toPlayerInput` est une fonction **pure** (aucun état interne, aucun effet de bord) : lui passer les
+mêmes `InputState`/bindings produit toujours le même `PlayerInput`, ce qui la rend testable sans
+fenêtre ni minuteur, en construisant directement un `InputState` avec les touches/boutons voulus.
+Elle est appelée **une fois par frame**, en amont de toute logique de jeu (`EX-CTRL-020`,
+`EX-CTRL-021`) — jamais à l'intérieur du pas fixe lui-même, pour que tous les pas exécutés dans une
+même frame (@ref guide-boucle) voient exactement la même intention.
 
 ## La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)
 
@@ -180,56 +162,78 @@ impossible plutôt que de compter sur la discipline du code appelant.
 Chaque bouton/direction manette synthétise le **même** `Key` fixe que son équivalent clavier par
 défaut (D-pad/stick gauche → `Left`/`Right`/`Up`/`Down` ; **A** → `Enter` **et** `Space` ; **B**/
 **Start** → `Escape` ; épaule droite → `Shift`, le dash) — câblage en dur dans
-`Window::pollGamepad`, sans aucune connaissance des bindings remappables (`LOT-29`, ci-dessus).
-Conséquence directe de la fusion : `MenuModel`, `LevelPicker`, les raccourcis de l'éditeur n'ont
-jamais eu besoin d'être modifiés pour « apprendre » la manette — ils lisent des `Key` fixes,
-jamais remappées. `toPlayerInput` fait exception depuis `LOT-29` : devenu remappable, il doit
-**explicitement** revérifier la touche par défaut de chaque action pour que la manette continue de
-fonctionner (voir ci-dessus) — la coïncidence gratuite d'avant `LOT-29` (une seule touche testée,
-qui se trouvait être aussi celle de la manette) a dû être remplacée par une garantie écrite. C'est
-néanmoins toujours `EX-CTRL-010` (action logique dissociée de la touche physique) satisfait : le
-`Key` **est** l'action logique par défaut, sa source n'a jamais d'importance pour qui le lit — seul
-son **remplacement** par un choix du joueur est une notion nouvelle, propre au clavier.
+`Window::pollGamepad`, jamais remappé. Conséquence directe de la fusion : `MenuModel`,
+`LevelPicker`, les raccourcis de l'éditeur n'ont jamais eu besoin d'être modifiés pour « apprendre »
+la manette — ils lisent des `Key` fixes, non remappables (comme `Échap`/`Entrée` côté clavier), ce
+qui satisfait déjà `EX-CTRL-010` par construction.
+
+**Une seconde piste, brute et indépendante, pour les actions de jeu remappables** (`LOT-30`) :
+`Window::pollGamepad` alimente aussi, à partir du **même** relevé XInput, un état brut par
+`hmi::GamepadButton` (`onGamepadButtonDown`/`onGamepadButtonUp`, `InputState::gamepadButtonDown`/
+`gamepadButtonPressed`) — dix boutons/directions (D-pad et stick gauche fusionnés en une seule
+notion logique par direction, comme la piste `Key`). C'est cette piste, et non la fusion `Key`
+ci-dessus, que consulte `toPlayerInput` via `gamepadBindings` : la navigation de menu reste sur des
+`Key` fixes, la manette côté gameplay devient pleinement configurable sans toucher à la première
+piste.
 
 Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::Window` (`Platform`), jamais dans
 `InputState` : `InputState` reste indépendant de toute fenêtre (`EX-NFR-010`), y compris pour
-tester la fusion manette — les tests appellent `onGamepadKeyDown`/`onGamepadKeyUp` directement,
-sans manette réelle ni `<Windows.h>`.
+tester la fusion manette ou la piste brute — les tests appellent `onGamepadKeyDown`/
+`onGamepadKeyUp`/`onGamepadButtonDown`/`onGamepadButtonUp` directement, sans manette réelle ni
+`<Windows.h>`.
 
 ## Le menu d'options : la fusion manette à l'œuvre (\ref hmi::OptionsModel "hmi::OptionsModel"/\ref hmi::OptionsScreen "OptionsScreen")
 
 Le menu d'options (accessible depuis le menu principal) illustre concrètement la fusion
-ci-dessus : ses quatre entrées (bascule **V-Sync**, **Touches de jeu**, **Touches de l'éditeur**,
-**Retour**) se naviguent identiquement au clavier, à la souris et à la manette, sans un seul `if`
-dédié à cette dernière dans `OptionsModel::update` — il lit `Key::Up`/`Key::Down`/`Key::Enter`
-comme `MenuModel` l'a toujours fait. `OptionsModel` réutilise d'ailleurs directement les constantes
-de mise en page **publiques** de `MenuModel` (`MARGIN_X`, `OPTIONS_TOP`, `OPTION_SPACING`,
-`OPTION_SCALE`) plutôt que d'en dupliquer un second jeu : un seul style de liste verticale à chasse
-fixe pour tous les écrans qui en ont besoin. `OptionsScreen` affiche aussi l'état de connexion de
-la manette (`InputState::gamepadConnected()`, capturé à `update()` puisque `render()` ne reçoit pas
-`InputState`) — purement informatif, non navigable.
+ci-dessus : ses cinq entrées (bascule **V-Sync**, **Touches de jeu**, **Touches de l'éditeur**,
+**Touches de la manette**, **Retour**) se naviguent identiquement au clavier, à la souris et à la
+manette, sans un seul `if` dédié à cette dernière dans `OptionsModel::update` — il lit
+`Key::Up`/`Key::Down`/`Key::Enter` comme `MenuModel` l'a toujours fait. `OptionsModel` réutilise
+d'ailleurs directement les constantes de mise en page **publiques** de `MenuModel` (`MARGIN_X`,
+`OPTIONS_TOP`, `OPTION_SPACING`, `OPTION_SCALE`) plutôt que d'en dupliquer un second jeu : un seul
+style de liste verticale à chasse fixe pour tous les écrans qui en ont besoin.
 
-## Remapper les touches : \ref hmi::GameKeyBindings "GameKeyBindings"/\ref hmi::EditorKeyBindings "EditorKeyBindings" (LOT-29)
+**Défilement** (`LOT-30`) : à cinq entrées, `MenuModel::OPTION_SPACING` (pensé pour 2 à 4) ne tient
+plus dans une fenêtre 720p — `OptionsModel` a gagné le même mécanisme que `hmi::LevelPicker`
+(liste plate, pas l'accordéon de `hmi::TilePalette`) : `visibleOptionCount(viewportHeight)` borne
+combien de lignes s'affichent sans défilement, le clavier fait suivre la sélection dans cette
+fenêtre (`followSelection`), la molette défile sans la changer. `OptionsScreen` dessine une barre
+de défilement (piste + curseur, texture d'atlas teintée) uniquement quand toutes les entrées ne
+tiennent pas à l'écran — même patron visuel que `EditorScreen::renderPicker`.
 
-Les deux entrées « Touches de jeu »/« Touches de l'éditeur » ouvrent chacune un sous-menu (même
-patron de liste qu'`OptionsModel`, avec des constantes de mise en page **plus compactes** —
-`GameKeybindingsModel::ROWS_TOP`/`ROW_SPACING`/`ROW_SCALE` — pour faire tenir 8 ou 11 lignes là où
-`MenuModel` n'en prévoyait que 2 à 4). Chaque ligne affiche une action et sa touche **actuelle**
-(`hmi::keyDisplayName`) ; confirmer une ligne d'action entre en **capture** : la frame suivante qui
-voit une touche assignable pressée (`hmi::capturedKey`, qui scrute les 256 codes suivis par
-`InputState` — `Échap`/`Entrée` exclus, réservés à la navigation) la lie via
-`(Game|Editor)KeyBindings::setKey`, qui **échange** avec toute autre action déjà sur cette touche
-plutôt que de rejeter le conflit — jamais deux actions du même sous-menu sur la même touche.
-`Échap` pendant la capture l'annule sans effet (même convention que `hmi::TextInputField`).
+`OptionsScreen` affiche aussi l'état de connexion de la manette (`InputState::gamepadConnected()`,
+capturé à `update()` puisque `render()` ne reçoit pas `InputState`) — purement informatif, non
+navigable.
 
-`GameKeyBindings`/`EditorKeyBindings` sont deux classes **séparées** (pas de généricité commune) :
-même mécanique (`key`/`setKey`/`resetToDefaults`/`load`/`save`), mais deux cas concrets connus,
-pas de troisième anticipé. Elles partagent un **seul** fichier de persistance
-(`Settings/keybindings.json`, sections `"jeu"`/`"editeur"`) — chaque `save` relit le fichier existant
-pour préserver la section de l'autre classe plutôt que de l'écraser. La valeur stockée est le code
-VK **brut** (`Key` en est déjà un, voir plus haut) : pas de table de noms symboliques à maintenir en
-plus pour la persistance. Un fichier absent, corrompu, ou une entrée invalide retombe sur les
-valeurs par défaut pour l'entrée concernée (`EX-NFR-040`), jamais bloquant.
+## Remapper les touches et boutons : \ref hmi::GameKeyBindings "GameKeyBindings"/\ref hmi::EditorKeyBindings "EditorKeyBindings" (LOT-29), \ref hmi::GamepadBindings "GamepadBindings" (LOT-30)
+
+Les entrées « Touches de jeu »/« Touches de l'éditeur »/« Touches de la manette » ouvrent chacune un
+sous-menu (même patron de liste qu'`OptionsModel`, avec des constantes de mise en page **plus
+compactes** — `GameKeybindingsModel::ROWS_TOP`/`ROW_SPACING`/`ROW_SCALE` — pour faire tenir 8 à 11
+lignes là où `MenuModel` n'en prévoyait que 2 à 4). Chaque ligne affiche une action et sa touche ou
+son bouton **actuel** (`hmi::keyDisplayName`/`hmi::gamepadButtonDisplayName`) ; confirmer une ligne
+d'action entre en **capture** : la frame suivante qui voit une touche ou un bouton assignable pressé
+(`hmi::capturedKey`, qui scrute les 256 codes suivis par `InputState` ; `hmi::capturedGamepadButton`,
+qui scrute les dix `GamepadButton` — `Échap`/`Entrée` et `B`/`Start` exclus, réservés à la
+navigation) la lie via `setKey` (`(Game|Editor)KeyBindings` ou `GamepadBindings`), qui **échange**
+avec toute autre action déjà sur cette touche/ce bouton plutôt que de rejeter le conflit — jamais
+deux actions du même sous-menu sur la même touche ou le même bouton. `Échap` pendant la capture
+l'annule sans effet (même convention que `hmi::TextInputField`). Le sous-menu manette exige en plus
+une manette connectée (`InputState::gamepadConnected()`) pour entrer en capture — sans quoi la
+ligne sélectionnée affiche une invite dédiée au lieu d'attendre indéfiniment un bouton qui ne
+viendra jamais.
+
+`GameKeyBindings`/`EditorKeyBindings`/`GamepadBindings` sont trois classes **séparées** (pas de
+généricité commune) : même mécanique (`key`/`button`, `setKey`, `resetToDefaults`, `load`/`save`),
+mais des cas concrets distincts, pas de base commune anticipée au-delà. Elles partagent un **seul**
+fichier de persistance (`Settings/keybindings.json`, sections `"jeu"`/`"editeur"`/`"manette"`) —
+chaque `save` relit le fichier existant pour préserver les sections des deux autres classes plutôt
+que de les écraser. `GameKeyBindings`/`EditorKeyBindings` stockent le code VK **brut** (`Key` en est
+déjà un, voir plus haut) ; `GamepadBindings`, elle, stocke un **nom symbolique** (`"gauche"`, `"a"`,
+`"rb"`, …) — `GamepadButton` n'a pas d'équivalent numérique naturel comme le VK du clavier, et un
+nom reste lisible/stable si l'ordre de l'enum change. Un fichier absent, corrompu, ou une entrée
+invalide (bouton inconnu compris) retombe sur les valeurs par défaut pour l'entrée concernée
+(`EX-NFR-040`), jamais bloquant.
 
 Le remappage éditeur ne couvre qu'un **sous-ensemble significatif** (Sauvegarder/Annuler/Refaire/
 Copier/Coller/Test rapide/Grille/Aide/Renommer), pas l'intégralité des raccourcis d'`EditorScreen`
@@ -258,11 +262,13 @@ et `OptionsScreen` interrogent tous deux `LanguageSelector::update` et **recharg
 la langue courante est simplement conservée plutôt que de planter.
 
 ## Voir aussi
-- `hmi::InputState`, `hmi::Key`, `hmi::toPlayerInput`, `core::PlayerInput`.
+- `hmi::InputState`, `hmi::Key`, `hmi::GamepadButton`, `hmi::toPlayerInput`, `core::PlayerInput`.
 - `hmi::Window::pollGamepad` — le sondage XInput et son intégration à `pumpMessages`.
 - `hmi::MenuModel`, `hmi::OptionsModel`, `hmi::OptionsScreen`.
 - `hmi::GameKeyBindings`, `hmi::EditorKeyBindings`, `hmi::keyDisplayName`, `hmi::capturedKey`,
   `hmi::GameKeybindingsModel`, `hmi::EditorKeybindingsModel` — remappage des touches (`LOT-29`).
+- `hmi::GamepadBindings`, `hmi::gamepadButtonDisplayName`, `hmi::capturedGamepadButton`,
+  `hmi::GamepadBindingsModel`, `hmi::GamepadBindingsScreen` — remappage manette (`LOT-30`).
 - `hmi::Localization`, `hmi::LanguageSelector`.
 - @ref guide-physique — comment la physique consomme `PlayerInput` (saut, dash, mouvement).
 - @ref guide-boucle — pourquoi l'entrée est échantillonnée une fois par frame et non par pas fixe.

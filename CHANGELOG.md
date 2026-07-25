@@ -7,6 +7,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-30 — Remappage manette** (`EX-CTRL-002`, `EX-CTRL-012`) : troisième sous-menu dans Options
+  (« Touches de la manette »), même patron que LOT-29, listant les six actions de jeu avec le
+  bouton XInput actuellement lié (`Up`/`Down`/`Left`/`Right`, `A`/`B`/`X`/`Y`, épaules gauche/
+  droite) ; capture, échange sur conflit et réinitialisation identiques au remappage clavier.
+  Nécessite une manette connectée pour entrer en capture, sinon affiche une invite dédiée.
+  `InputState` gagne une piste brute par `GamepadButton`, indépendante de la fusion clavier/manette
+  existante sur `Key` (celle-ci reste réservée à la navigation de menu, jamais remappable) ;
+  `PlayerInputMapper` vérifie désormais, par action, la touche clavier **ou** le bouton manette
+  liés — chaque source remappable indépendamment de l'autre. Le filet de sécurité de LOT-29
+  (retomber sur la touche par défaut du clavier pour ne pas casser la manette) devient inutile et
+  est retiré : la manette a maintenant sa propre couche de configuration. Persistance dans la même
+  section `Settings/keybindings.json` (nouvelle section `"manette"`).
 - **LOT-29 — Remappage des touches** (`EX-CTRL-012`) : deux nouveaux sous-menus dans Options
   (« Touches de jeu », « Touches de l'éditeur »), chacun listant ses actions avec la touche
   actuellement liée ; sélectionner puis confirmer une action capture la touche suivante pressée
@@ -17,9 +29,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   redimensionnement par flèches, `"0"`, `Tab`, Maj+clic restent câblés en dur). **Persistance**
   (première du projet) dans `Settings/keybindings.json`, à côté de l'exécutable. Le panneau d'aide
   de l'éditeur (`F1`) reflète désormais les touches réellement liées. Un filet de sécurité
-  (`GameKeyBindings::defaultKey` revérifiée en plus du binding courant) garantit que la manette
-  continue de fonctionner après un remap clavier (`EX-CTRL-002`) — un vrai remappage manette reste
-  hors périmètre (`Window::pollGamepad` câble encore chaque bouton XInput en dur).
+  (`GameKeyBindings::defaultKey` revérifiée en plus du binding courant) garantissait que la manette
+  continue de fonctionner après un remap clavier (`EX-CTRL-002`) tant qu'un vrai remappage manette
+  restait hors périmètre — devenu inutile et retiré en `LOT-30`, qui apporte ce remappage manette.
 - **LOT-28 — Arrondis concaves** (`EX-GP-007`) : quatre nouvelles tuiles, `ConcaveUpRight`/
   `ConcaveUpLeft` (sol) et `ConcaveDownRight`/`ConcaveDownLeft` (plafond) — une seconde famille de
   quart de cercle, **concave** plutôt que **convexe** (`RoundedUpRight`/`RoundedUpLeft` et leurs
