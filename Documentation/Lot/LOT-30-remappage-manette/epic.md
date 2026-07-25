@@ -76,7 +76,7 @@ aucune capacité de bouton libre ni de couche de configuration à l'époque.
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-modele-bindings-manette.md) | Modèle de bindings manette | `HMI/Input` | ✅ |
-| [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu | `HMI/Input`, `HMI/Platform`, `HMI/Interface` | ⬜ |
+| [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu | `HMI/Input`, `HMI/Platform`, `HMI/Interface` | ✅ |
 | [TACHE-03](tache-03-ui-remappage-manette.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ⬜ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
 

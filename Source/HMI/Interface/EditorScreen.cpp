@@ -106,11 +106,13 @@ SpriteQuad quadFor(const core::AtlasRegion& region, float x, float y, float widt
 // Construit l'editeur : affiche d'abord le selecteur nouveau/existant (EX-EDIT-001).
 EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                            int viewportHeight, const EditorKeyBindings& editorBindings,
-                           const GameKeyBindings& gameBindings)
+                           const GameKeyBindings& gameBindings,
+                           const GamepadBindings& gamepadBindings)
     : _atlas(atlas),
       _batch(batch),
       _editorBindings(editorBindings),
       _gameBindings(gameBindings),
+      _gamepadBindings(gamepadBindings),
       _viewportWidth(viewportWidth),
       _viewportHeight(viewportHeight),
       _picker(LevelPicker::forDirectory(hmi::executableDirectory() / "Levels")),
@@ -636,7 +638,7 @@ void EditorScreen::startPlaytest() {
     }
 
     _playtest = std::make_unique<GameScreen>(_batch, _atlas, _viewportWidth, _viewportHeight,
-                                             *result.level, _gameBindings);
+                                             *result.level, _gameBindings, _gamepadBindings);
     _statusMessage.clear();
     HMI_LOG_INFO("Essai immediat demarre.");
 }

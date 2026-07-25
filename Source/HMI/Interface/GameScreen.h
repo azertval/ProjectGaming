@@ -15,6 +15,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadBindings.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/LevelSequence.h"
 
@@ -53,11 +54,14 @@ public:
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
      * @param levels         Liste **ordonnée** des chemins de niveaux à enchaîner.
-     * @param gameBindings   Association action de jeu -> touche courante (`EX-CTRL-012`,
-     *                       référence conservée, doit survivre à l'écran).
+     * @param gameBindings    Association action de jeu -> touche clavier courante (`EX-CTRL-012`,
+     *                        référence conservée, doit survivre à l'écran).
+     * @param gamepadBindings Association action de jeu -> bouton manette courant (`EX-CTRL-002`,
+     *                        référence conservée, doit survivre à l'écran).
      */
     GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
-               std::vector<std::filesystem::path> levels, const GameKeyBindings& gameBindings);
+               std::vector<std::filesystem::path> levels, const GameKeyBindings& gameBindings,
+               const GamepadBindings& gamepadBindings);
 
     /**
      * @brief Construit l'écran pour un **niveau unique déjà en mémoire**, sans fichier ni
@@ -70,11 +74,14 @@ public:
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
      * @param level          Niveau déjà validé à jouer.
-     * @param gameBindings   Association action de jeu -> touche courante (`EX-CTRL-012`,
-     *                       référence conservée, doit survivre à l'écran).
+     * @param gameBindings    Association action de jeu -> touche clavier courante (`EX-CTRL-012`,
+     *                        référence conservée, doit survivre à l'écran).
+     * @param gamepadBindings Association action de jeu -> bouton manette courant (`EX-CTRL-002`,
+     *                        référence conservée, doit survivre à l'écran).
      */
     GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
-               core::Level level, const GameKeyBindings& gameBindings);
+               core::Level level, const GameKeyBindings& gameBindings,
+               const GamepadBindings& gamepadBindings);
 
     [[nodiscard]] ScreenTransition update(const InputState& input, float fixedDelta) override;
 
@@ -106,7 +113,8 @@ private:
     void refreshPlayerSprite();
 
     const TextureAtlas& _atlas;  ///< Atlas conservé pour reconstruire la scène à chaque niveau.
-    const GameKeyBindings& _gameBindings;  ///< Touches de jeu courantes (`EX-CTRL-012`).
+    const GameKeyBindings& _gameBindings;  ///< Touches clavier courantes (`EX-CTRL-012`).
+    const GamepadBindings& _gamepadBindings;  ///< Boutons manette courants (`EX-CTRL-002`).
     core::World _world;
     Camera2D _camera;
     SpriteRenderer _renderer;

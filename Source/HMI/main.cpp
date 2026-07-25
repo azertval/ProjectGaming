@@ -29,6 +29,7 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadBindings.h"
 #include "HMI/Interface/EditorKeybindingsScreen.h"
 #include "HMI/Interface/EditorScreen.h"
 #include "HMI/Interface/GameKeybindingsScreen.h"
@@ -167,12 +168,14 @@ int main(int argc, char** argv) {
             HMI_LOG_WARNING("Catalogue de traduction 'fr' introuvable : affichage des cles");
         }
 
-        // Touches de jeu/éditeur (EX-CTRL-012, LOT-29) : chargées une fois au démarrage depuis un
-        // seul fichier partagé (sections "jeu"/"editeur"), valeurs par défaut si absent/corrompu.
+        // Touches de jeu/éditeur/manette (EX-CTRL-012, EX-CTRL-002, LOT-29/LOT-30) : chargées une
+        // fois au démarrage depuis un seul fichier partagé (sections "jeu"/"editeur"/"manette"),
+        // valeurs par défaut si absent/corrompu.
         const std::filesystem::path keybindingsPath =
             hmi::executableDirectory() / "Settings" / "keybindings.json";
         hmi::GameKeyBindings gameBindings = hmi::GameKeyBindings::load(keybindingsPath);
         hmi::EditorKeyBindings editorBindings = hmi::EditorKeyBindings::load(keybindingsPath);
+        hmi::GamepadBindings gamepadBindings = hmi::GamepadBindings::load(keybindingsPath);
 
         // Action d'enregistrement des logs de la session (déclenchée par le bouton du menu).
         const std::filesystem::path logDirectory = hmi::executableDirectory() / "logs";
@@ -221,12 +224,12 @@ int main(int argc, char** argv) {
                             levels / "demo-bloc-reduit.json",
                             levels / "demo-final.json",
                         },
-                        gameBindings);
+                        gameBindings, gamepadBindings);
                 }
                 case hmi::ScreenId::Editor:
                     return std::make_unique<hmi::EditorScreen>(
                         spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
-                        editorBindings, gameBindings);
+                        editorBindings, gameBindings, gamepadBindings);
                 case hmi::ScreenId::Options:
                     return std::make_unique<hmi::OptionsScreen>(localization, graphics);
                 case hmi::ScreenId::GameKeybindings:

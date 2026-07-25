@@ -1,6 +1,6 @@
 # TACHE-02 — Intégration jeu {#lot-30-tache-02-integration-jeu}
 
-**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Input`, `HMI/Platform`, `HMI/Interface` · **Statut :** ⬜
+**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Input`, `HMI/Platform`, `HMI/Interface` · **Statut :** ✅
 
 ## Contexte
 Branche le jeu sur `GamepadBindings` (TACHE-01) : `Window::pollGamepad` alimente la piste d'état

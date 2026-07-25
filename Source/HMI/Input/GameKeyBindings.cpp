@@ -78,16 +78,6 @@ void GameKeyBindings::resetToDefaults() noexcept {
     }
 }
 
-bool GameKeyBindings::isKeyClaimedByOtherAction(GameAction action, Key key) const noexcept {
-    const std::size_t index = static_cast<std::size_t>(action);
-    for (std::size_t other = 0; other < _keys.size(); ++other) {
-        if (other != index && _keys[other] == key) {
-            return true;
-        }
-    }
-    return false;
-}
-
 // Relit le fichier existant (pour preserver la section "editeur" ecrite par EditorKeyBindings),
 // remplace uniquement la section "jeu", puis reecrit. Un fichier absent/corrompu en lecture est
 // traite comme vide (on part d'un objet JSON neuf) : jamais bloquant pour la sauvegarde.

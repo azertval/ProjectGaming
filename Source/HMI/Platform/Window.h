@@ -18,9 +18,12 @@ namespace hmi {
  * événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et **capture
  * les entrées** clavier/souris/manette dans un `InputState` échantillonné une fois par frame
  * (`EX-CTRL-021`). La manette (XInput, `EX-CTRL-002`) est **sondée** (pas événementielle comme le
- * clavier/la souris) : `pollGamepad`, appelée depuis `pumpMessages`, fusionne son état dans le
- * même `InputState` via `onGamepadKeyDown`/`onGamepadKeyUp` (voir `InputState`, aucune touche
- * clavier n'est jamais écrasée). La traduction de l'`InputState` en actions de gameplay est un
+ * clavier/la souris) : `pollGamepad`, appelée depuis `pumpMessages`, alimente deux pistes
+ * indépendantes du même `InputState` — la fusion clavier/manette sur `Key`
+ * (`onGamepadKeyDown`/`onGamepadKeyUp`, fixe, utilisée par la navigation de menu, aucune touche
+ * clavier n'est jamais écrasée) et l'état brut par `GamepadButton`
+ * (`onGamepadButtonDown`/`onGamepadButtonUp`, remappable via `GamepadBindings`). La traduction de
+ * l'`InputState` en actions de gameplay est un
  * module dédié et indépendant de toute fenêtre (`HMI/Input/PlayerInputMapper`, `hmi::toPlayerInput`).
  */
 class Window {
