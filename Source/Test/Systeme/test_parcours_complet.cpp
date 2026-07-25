@@ -304,7 +304,14 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              in.jumpHeld = true;
              return in;
          }},
-        // 13. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
+        // 13. Dangers avancés (EX-GP-050/051/052/053, LOT-31) : directionnel, mobile, commuté et
+        //     temporisé sont chacun posés sur une alcôve surélevée **optionnelle**, hors du
+        //     couloir principal (au sol) qui mène directement à la sortie — comme les autres
+        //     niveaux de cette séquence, aucun scénario de mort n'est exercé ici (déjà couvert aux
+        //     niveaux Unit/Integration, `test_danger_controller.cpp`/`test_danger_avance.cpp`) ;
+        //     ce niveau ne vérifie que le chargement et la franchissabilité du couloir principal.
+        {"demo-dangers-avances.json", rightOnly()},
+        // 14. Niveau final : combine dash, pente, bloc poussable, interrupteur/porte et double
         //     saut en un seul parcours cohérent.
         {"demo-final.json",
          [&finalSecondJumpDone](int, const core::Player& player, float x, float) {

@@ -49,7 +49,20 @@ namespace core {
  * du côté haut/plein (l'inverse exact de l'arrondi convexe). Mêmes orientations (`Up`/`Down`,
  * `Right`/`Left`) et même infrastructure de suivi que les arrondis convexes (`core::slopeSurfaceHeight`,
  * `core::resolveSlopeFollow` pour le sol ; `core::ceilingSlopeHeight`, `core::resolveCeilingSlopeFollow`
- * pour le plafond) — seule la formule de hauteur change.
+ * pour le plafond) — seule la formule de hauteur change. `DangerUp`/`DangerDown`/`DangerLeft`/
+ * `DangerRight` (`EX-GP-050`) sont un **danger directionnel** : le suffixe décrit le bord **mortel**
+ * de la case (celui vers lequel les pics pointent), pas un mouvement — le reste de la case est
+ * traversable sans risque. Non solides (comme `Danger`), leur zone mortelle réelle (une bande
+ * étroite le long du bord désigné, pas la case entière) est décrite par `core::dangerHitbox`
+ * (`Core/Levels/DangerGeometry.h`), consommée par `core::evaluateOutcome`. `DangerMover`
+ * (`EX-GP-051`) est un **danger mobile** : sa position initiale est celle du fichier, mais un
+ * aller-retour linéaire déterministe (axe/portée, `core::DangerMoverConfig`) la fait évoluer chaque
+ * pas fixe — comme pour `Block`, ce modèle ne représente que sa position de **départ**. `DangerSwitched`
+ * (`EX-GP-052`) est un **danger commuté** : mortel uniquement quand l'interrupteur/la plaque de
+ * pression qui lui est lié (`core::DangerLink`) est actif — l'inverse de `Door`, qui devient
+ * franchissable quand actif. `DangerBlink` (`EX-GP-053`) est un **danger temporisé** : alterne
+ * mortel/inoffensif selon une période fixe et un déphasage propres à la tuile
+ * (`core::DangerBlinkConfig`), indépendamment de tout interrupteur.
  */
 enum class TileType {
     Empty,
@@ -75,6 +88,13 @@ enum class TileType {
     ConcaveUpLeft,
     ConcaveDownRight,
     ConcaveDownLeft,
+    DangerUp,
+    DangerDown,
+    DangerLeft,
+    DangerRight,
+    DangerMover,
+    DangerSwitched,
+    DangerBlink,
 };
 
 /**

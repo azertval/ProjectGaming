@@ -2,9 +2,11 @@
 
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
+#include "Core/Levels/DangerGeometry.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "Core/Physics/Aabb.h"
 
 namespace core {
 
@@ -22,6 +24,15 @@ void buildLevelScene(World& world, const Level& level,
 
             Transform transform;
             transform.position = Vector2{static_cast<float>(column), static_cast<float>(row)};
+            if (isDangerTileType(type)) {
+                // Aperçu fidèle a la hitbox reelle (bande etroite pour les variantes
+                // directionnelles, EX-GP-050 ; case pleine sinon) -- meme principe que
+                // core::tileVisualScale pour les blocs reduits (EX-GP-005), mais decalage
+                // asymetrique plutot que centre.
+                const Aabb box = dangerHitbox(type, column, row);
+                transform.position = box.min;
+                transform.scale = box.max - box.min;
+            }
             world.addComponent(entity, transform);
 
             Sprite sprite;

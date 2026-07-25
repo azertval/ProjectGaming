@@ -105,9 +105,29 @@ défilement long avant de repérer le bon type.
   inaccessibles à la souris ; déplier ou replier un en-tête ne doit jamais le faire disparaître de
   la fenêtre visible.
 
+## 9. Dangers avancés (`LOT-31`)
+La catégorie « Piège » (`EX-EDIT-018`), jusqu'ici une entrée autonome à côté de « Vide » (une seule
+tuile, `Danger`), devient une catégorie repliable à part entière une fois les quatre nouvelles
+variantes ajoutées (`EX-GP-050` à `EX-GP-053`) : une feuille directe « Classique », un sous-groupe
+« Directionnel » (quatre bords) et trois feuilles directes (Mobile, Commuté, Clignotant) — même
+patron d'accordéon que les catégories existantes.
+
+- \anchor EX-EDIT-019 **EX-EDIT-019** — Un danger commuté doit se lier à un interrupteur/une plaque
+  de pression par le **même geste** qu'une porte (clic déclencheur, clic cible, `EX-EDIT-003`) ;
+  plusieurs liaisons simultanées (porte ou danger commuté) restent distinguables les unes des
+  autres (`EX-EDIT-016`), un déclencheur qui active à la fois une porte et un danger commuté
+  partageant une teinte cohérente sur ses trois cases plutôt que deux échelles indépendantes.
+
+L'axe et la portée d'un danger mobile, ainsi que la période/le déphasage d'un danger temporisé,
+**ne sont pas** éditables par un widget dédié (cf. exclusion actée dans `Documentation/Lot/
+LOT-31-blocs-danger-avances/epic.md`) — un danger mobile peint depuis la palette garde ses valeurs
+de conception par défaut tant qu'elles ne sont pas ajustées en modifiant directement le fichier de
+niveau.
+
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
 la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
 grandes tailles (section 7) du lot **LOT-16** (terminé) ; la palette organisée par catégories
-(section 8) du lot **LOT-27** (terminé).
+(section 8) du lot **LOT-27** (terminé) ; les dangers avancés (section 9) du lot **LOT-31**
+(terminé).

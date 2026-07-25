@@ -27,11 +27,12 @@ namespace hmi {
  *
  * **Trois niveaux d'accordéon** (`EX-EDIT-018`), reflétés uniquement par la position/visibilité
  * des entrées (`entries()` n'expose jamais une entrée actuellement repliée) :
- * 1. Deux entrées **autonomes** toujours visibles (Vide, Piège — sélection directe, pas de
- *    dépliage) et trois **catégories** repliables (Tuile, Interactif, Jalon).
- * 2. Une catégorie dépliée expose ses tuiles **directes** (ex. Porte, Plaque, Interrupteur) et,
- *    pour Tuile/Interactif, des **sous-groupes** repliables (Pente, Arrondi, Concave, Bloc
- *    poussable — familles à plusieurs formes/tailles).
+ * 1. Une entrée **autonome** toujours visible (Vide — sélection directe, pas de dépliage) et
+ *    quatre **catégories** repliables (Tuile, Interactif, Piège, Jalon).
+ * 2. Une catégorie dépliée expose ses tuiles **directes** (ex. Porte, Plaque, Interrupteur ; pour
+ *    Piège : Classique, Mobile, Commuté, Clignotant) et, pour Tuile/Interactif/Piège, des
+ *    **sous-groupes** repliables (Pente, Arrondi, Concave, Bloc poussable, Directionnel — familles
+ *    à plusieurs formes/tailles/orientations).
  * 3. Un sous-groupe déplié expose ses variantes (orientations, tailles).
  *
  * Cliquer une entrée d'en-tête (catégorie ou sous-groupe) **replie/déplie** ce niveau sans changer
@@ -136,12 +137,12 @@ public:
 
 private:
     /// Catégories repliables de premier niveau (l'ordre suit `CATEGORY_COUNT`).
-    enum class Category { Tuile, Interactif, Jalon };
-    static constexpr std::size_t CATEGORY_COUNT = 3;
+    enum class Category { Tuile, Interactif, Piege, Jalon };
+    static constexpr std::size_t CATEGORY_COUNT = 4;
 
     /// Sous-groupes repliables de second niveau (une famille à plusieurs formes/tailles).
-    enum class Subgroup { Pente, Arrondi, Concave, Bloc };
-    static constexpr std::size_t SUBGROUP_COUNT = 4;
+    enum class Subgroup { Pente, Arrondi, Concave, Bloc, Directionnel };
+    static constexpr std::size_t SUBGROUP_COUNT = 5;
 
     /// Action déclenchée par un clic sur une entrée ; parallèle à `_entries` (même index).
     enum class RowAction { SelectType, ToggleCategory, ToggleSubgroup };

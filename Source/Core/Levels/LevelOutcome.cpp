@@ -3,6 +3,7 @@
 #include <algorithm>  // std::clamp
 #include <cmath>      // std::floor
 
+#include "Core/Levels/DangerGeometry.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
@@ -20,9 +21,26 @@ bool overlapsCell(const Aabb& box, int col, int row) {
     return box.min.x < left + 1.0f && box.max.x > left && box.min.y < top + 1.0f && box.max.y > top;
 }
 
+// La boîte recouvre-t-elle @p other ? Généralisation de overlapsCell à un rectangle arbitraire
+// (bande directionnelle de core::dangerHitbox, boîte fournie par extraDangerBoxes).
+bool overlapsBox(const Aabb& box, const Aabb& other) {
+    return box.min.x < other.max.x && box.max.x > other.min.x && box.min.y < other.max.y &&
+           box.max.y > other.min.y;
+}
+
+// Danger dont la mortalité est purement géométrique, résolue depuis la grille statique du niveau
+// (pas d'état à faire vivre) : le danger classique et les quatre variantes directionnelles
+// (EX-GP-050). DangerMover/DangerSwitched/DangerBlink ont un état (position/activation) porté par
+// des contrôleurs de Core/Gameplay, hors de portée de Core/Levels — cf. extraDangerBoxes.
+bool isStaticDanger(TileType type) {
+    return type == TileType::Danger || type == TileType::DangerUp || type == TileType::DangerDown ||
+           type == TileType::DangerLeft || type == TileType::DangerRight;
+}
+
 }  // namespace
 
-LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level) {
+LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level,
+                             const std::vector<Aabb>& extraDangerBoxes) {
     const TileMap& map = level.tileMap();
 
     // Échec prioritaire n°1 : le personnage est passé sous la limite basse du niveau (chute).
@@ -30,7 +48,9 @@ LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level) {
         return LevelOutcome::Lost;
     }
 
-    // Échec prioritaire n°2 : contact avec une tuile Danger. On ne teste que les cases recouvertes.
+    // Échec prioritaire n°2 : contact avec un danger statique. On ne teste que les cases
+    // recouvertes, via la géométrie exacte de core::dangerHitbox (case pleine pour Danger, bande
+    // étroite pour les variantes directionnelles, EX-GP-050).
     const int colBegin =
         std::clamp(static_cast<int>(std::floor(playerBox.min.x)), 0, map.width() - 1);
     const int colEnd =
@@ -41,9 +61,18 @@ LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level) {
         std::clamp(static_cast<int>(std::floor(playerBox.max.y)), 0, map.height() - 1);
     for (int row = rowBegin; row <= rowEnd; ++row) {
         for (int col = colBegin; col <= colEnd; ++col) {
-            if (map.tile(col, row) == TileType::Danger && overlapsCell(playerBox, col, row)) {
+            const TileType type = map.tile(col, row);
+            if (isStaticDanger(type) && overlapsBox(playerBox, dangerHitbox(type, col, row))) {
                 return LevelOutcome::Lost;
             }
+        }
+    }
+
+    // Échec prioritaire n°3 : contact avec un danger à état actuellement actif (mobile/commuté/
+    // temporisé), assemblé par l'appelant (EX-GP-051/052/053).
+    for (const Aabb& dangerBox : extraDangerBoxes) {
+        if (overlapsBox(playerBox, dangerBox)) {
+            return LevelOutcome::Lost;
         }
     }
 

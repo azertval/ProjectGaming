@@ -63,6 +63,20 @@ namespace {
             return "concaveDownRight";
         case TileType::ConcaveDownLeft:
             return "concaveDownLeft";
+        case TileType::DangerUp:
+            return "dangerUp";
+        case TileType::DangerDown:
+            return "dangerDown";
+        case TileType::DangerLeft:
+            return "dangerLeft";
+        case TileType::DangerRight:
+            return "dangerRight";
+        case TileType::DangerMover:
+            return "dangerMover";
+        case TileType::DangerSwitched:
+            return "dangerSwitched";
+        case TileType::DangerBlink:
+            return "dangerBlink";
     }
     return "empty";
 }
@@ -77,7 +91,8 @@ namespace {
 
 std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
-                     level.dashBudget());
+                     level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
+                     level.blinkConfigs());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -92,7 +107,9 @@ bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& pa
 
 std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileMap,
                                    const std::vector<Mechanism>& mechanisms, int jumpBudget,
-                                   int dashBudget) {
+                                   int dashBudget, const std::vector<DangerLink>& dangerLinks,
+                                   const std::vector<DangerMoverConfig>& moverConfigs,
+                                   const std::vector<DangerBlinkConfig>& blinkConfigs) {
     nlohmann::json root;
     root["name"] = name;
     root["width"] = tileMap.width();
@@ -130,6 +147,31 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
         }
     }
 
+    // Position de danger commuté -> identifiant du déclencheur qui l'active (EX-GP-052), même
+    // schéma que doorOpensWith ci-dessus.
+    std::map<std::pair<int, int>, std::string> dangerOpensWith;
+    for (const DangerLink& link : dangerLinks) {
+        const auto found = switchIds.find(
+            std::make_pair(link.triggerPosition.column, link.triggerPosition.row));
+        if (found != switchIds.end()) {
+            dangerOpensWith.emplace(
+                std::make_pair(link.dangerPosition.column, link.dangerPosition.row),
+                found->second);
+        }
+    }
+
+    // Position de danger mobile/temporisé -> configuration explicite, si posée (EX-GP-051/053).
+    std::map<std::pair<int, int>, DangerMoverConfig> moverByPosition;
+    for (const DangerMoverConfig& config : moverConfigs) {
+        moverByPosition.emplace(
+            std::make_pair(config.startPosition.column, config.startPosition.row), config);
+    }
+    std::map<std::pair<int, int>, DangerBlinkConfig> blinkByPosition;
+    for (const DangerBlinkConfig& config : blinkConfigs) {
+        blinkByPosition.emplace(std::make_pair(config.position.column, config.position.row),
+                                config);
+    }
+
     nlohmann::json tiles = nlohmann::json::array();
     for (int row = 0; row < tileMap.height(); ++row) {
         for (int column = 0; column < tileMap.width(); ++column) {
@@ -150,6 +192,25 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                 const auto found = doorOpensWith.find(std::make_pair(column, row));
                 if (found != doorOpensWith.end()) {
                     tile["opensWith"] = found->second;
+                }
+            } else if (type == TileType::DangerSwitched) {
+                const auto found = dangerOpensWith.find(std::make_pair(column, row));
+                if (found != dangerOpensWith.end()) {
+                    tile["opensWith"] = found->second;
+                }
+            } else if (type == TileType::DangerMover) {
+                const auto found = moverByPosition.find(std::make_pair(column, row));
+                if (found != moverByPosition.end()) {
+                    tile["axis"] = found->second.axis == DangerMoverAxis::Vertical ? "vertical"
+                                                                                   : "horizontal";
+                    tile["range"] = found->second.range;
+                }
+            } else if (type == TileType::DangerBlink) {
+                const auto found = blinkByPosition.find(std::make_pair(column, row));
+                if (found != blinkByPosition.end()) {
+                    tile["period"] = found->second.period;
+                    tile["phase"] = found->second.phase;
+                    tile["activeDuration"] = found->second.activeDuration;
                 }
             }
             tiles.push_back(std::move(tile));

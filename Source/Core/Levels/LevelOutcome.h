@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Core/Physics/Aabb.h"
 
 /**
@@ -25,11 +27,23 @@ enum class LevelOutcome {
  * de transition (le retour au menu ou le redémarrage relèvent de l'intégration). Priorité
  * **déterministe** en cas de recouvrement simultané : l'**échec l'emporte sur le succès**.
  *
- * @param playerBox Boîte englobante du personnage, en unités monde.
- * @param level     Niveau courant (sortie, tuiles `Danger`, limites de la grille).
- * @return `Lost` si contact avec un `Danger` ou sortie par le bas ; sinon `Won` si la sortie est
- *         recouverte ; sinon `Playing`.
+ * Les dangers **statiques** (`Danger`, `DangerUp`/`DangerDown`/`DangerLeft`/`DangerRight`,
+ * `EX-GP-050`) sont résolus directement depuis la grille du niveau (via `core::dangerHitbox`) : ce
+ * module (`Core/Levels`) n'a pas de dépendance vers `Core/Gameplay`, donc pas de connaissance des
+ * contrôleurs qui font vivre les dangers à **état** (mobile, commuté, temporisé — `EX-GP-051`/
+ * `052`/`053`). Leurs boîtes **actuellement mortelles**, calculées par l'appelant
+ * (`core::DangerController`, `core::MechanismController`) qui possède déjà cet état, sont passées
+ * via @p extraDangerBoxes plutôt que dupliquées ici.
+ *
+ * @param playerBox       Boîte englobante du personnage, en unités monde.
+ * @param level           Niveau courant (sortie, tuiles de danger statique, limites de la grille).
+ * @param extraDangerBoxes Boîtes mortelles supplémentaires, hors grille statique (dangers mobile/
+ *                         commuté/temporisé actuellement actifs) ; vide par défaut (niveaux sans
+ *                         danger à état, ou appelants qui ignorent ces variantes).
+ * @return `Lost` si contact avec un danger (statique ou @p extraDangerBoxes) ou sortie par le bas ;
+ *         sinon `Won` si la sortie est recouverte ; sinon `Playing`.
  */
-[[nodiscard]] LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level);
+[[nodiscard]] LevelOutcome evaluateOutcome(const Aabb& playerBox, const Level& level,
+                                           const std::vector<Aabb>& extraDangerBoxes = {});
 
 }  // namespace core

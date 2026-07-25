@@ -7,6 +7,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-31 — Blocs de danger avancés** (`EX-GP-050` à `EX-GP-053`) : quatre nouvelles variantes de
+  la tuile `Danger` — directionnel (`DangerUp`/`Down`/`Left`/`Right`, mortel uniquement sur une
+  bande étroite du bord désigné plutôt que la case entière), mobile (`DangerMover`, aller-retour
+  linéaire déterministe autour de sa position de départ), commuté (`DangerSwitched`, mortel
+  uniquement quand l'interrupteur/la plaque de pression qui lui est lié est actif — inverse d'une
+  porte) et temporisé (`DangerBlink`, alterne mortel/inoffensif selon une période fixe et un
+  déphasage par tuile). Nouveau `core::DangerController` (mobile/temporisé) ; `core::
+  MechanismController` étendu (commuté, même détection front/continu qu'une porte) ;
+  `core::evaluateOutcome` gagne un paramètre `extraDangerBoxes` pour les dangers à état, assemblés
+  par `hmi::GameScreen`. Palette de l'éditeur : catégorie « Piège » restructurée (Classique +
+  sous-groupe Directionnel + Mobile/Commuté/Clignotant) ; liaison éditeur au même geste qu'une
+  porte. Nouveau niveau de démonstration `demo-dangers-avances.json` intégré à la séquence jouée.
 - **LOT-30 — Remappage manette** (`EX-CTRL-002`, `EX-CTRL-012`) : troisième sous-menu dans Options
   (« Touches de la manette »), même patron que LOT-29, listant les six actions de jeu avec le
   bouton XInput actuellement lié (`Up`/`Down`/`Left`/`Right`, `A`/`B`/`X`/`Y`, épaules gauche/

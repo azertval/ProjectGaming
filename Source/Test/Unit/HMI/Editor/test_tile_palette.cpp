@@ -64,24 +64,81 @@ TEST(TilePaletteTest, SelectionParDefautEstSolid) {
 }
 
 /**
- * @brief Cliquer une entrée autonome (Piège) sélectionne son type et signale le clic consommé.
+ * @brief Cliquer une entrée autonome (Vide) sélectionne son type et signale le clic consommé.
  * \castest{<b>Cliquer une entrée autonome sélectionne son type et signale le clic consommé.</b><br/>
  * \tcat Unitaire · Tile Palette<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Le type Danger est sélectionné, le clic est consommé.
+ * \tattendu Le type Empty est sélectionné, le clic est consommé.
  * }
  */
 TEST(TilePaletteTest, ClicSurEntreeAutonomeSelectionneSonType) {
     hmi::TilePalette palette;
-    const std::optional<hmi::TilePalette::Entry> target = findByLabel(palette, "Piege");
+    const std::optional<hmi::TilePalette::Entry> target = findByLabel(palette, "Vide");
     ASSERT_TRUE(target.has_value());
 
     const bool consumed = clickEntry(palette, *target);
 
     EXPECT_TRUE(consumed);
+    EXPECT_EQ(palette.selected(), core::TileType::Empty);
+}
+
+/**
+ * @brief La catégorie Piège dépliée expose sa feuille classique et ses trois feuilles directes
+ * avancées (`LOT-31`) ; cliquer « Classique » sélectionne le danger d'origine (`EX-GP-031`).
+ * \castest{<b>La catégorie Piège dépliée expose Classique, Mobile, Commuté, Clignotant.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Cliquer « Classique » sélectionne Danger ; Mobile/Commuté/Clignotant et le sous-groupe
+ * Directionnel sont tous visibles.
+ * }
+ */
+TEST(TilePaletteTest, CategoriePiegeDeplieeExposeSesFeuilles) {
+    hmi::TilePalette palette;
+    clickEntry(palette, *findByLabel(palette, "> Piege"));
+
+    const std::optional<hmi::TilePalette::Entry> classic = findByLabel(palette, "Classique");
+    ASSERT_TRUE(classic.has_value());
+    EXPECT_TRUE(findByLabel(palette, "> Directionnel").has_value());
+    EXPECT_TRUE(findByLabel(palette, "Mobile").has_value());
+    EXPECT_TRUE(findByLabel(palette, "Commute").has_value());
+    EXPECT_TRUE(findByLabel(palette, "Clignotant").has_value());
+
+    const bool consumed = clickEntry(palette, *classic);
+
+    EXPECT_TRUE(consumed);
     EXPECT_EQ(palette.selected(), core::TileType::Danger);
+}
+
+/**
+ * @brief Le sous-groupe Directionnel, imbriqué dans Piège, expose ses quatre bords une fois
+ * déplié (`EX-GP-050`).
+ * \castest{<b>Le sous-groupe Directionnel déplié expose ses quatre bords.</b><br/>
+ * \tcat Unitaire · Tile Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Cliquer « Droite » du sous-groupe Directionnel déplié sélectionne DangerRight.
+ * }
+ */
+TEST(TilePaletteTest, SousGroupeDirectionnelDeplieExposeSesBords) {
+    hmi::TilePalette palette;
+    clickEntry(palette, *findByLabel(palette, "> Piege"));
+    clickEntry(palette, *findByLabel(palette, "> Directionnel"));
+
+    EXPECT_TRUE(findByLabel(palette, "Haut").has_value());
+    EXPECT_TRUE(findByLabel(palette, "Bas").has_value());
+    EXPECT_TRUE(findByLabel(palette, "Gauche").has_value());
+    const std::optional<hmi::TilePalette::Entry> right = findByLabel(palette, "Droite");
+    ASSERT_TRUE(right.has_value());
+
+    const bool consumed = clickEntry(palette, *right);
+
+    EXPECT_TRUE(consumed);
+    EXPECT_EQ(palette.selected(), core::TileType::DangerRight);
 }
 
 /**

@@ -92,16 +92,42 @@ public:
     void setExit(int column, int row);
 
     /**
-     * @brief Lie un interrupteur à une porte (`EX-EDIT-003`).
+     * @brief Lie un interrupteur/plaque de pression à une **porte** ou à un **danger commuté**
+     *        (`EX-EDIT-003`, `EX-GP-052`), selon le type de tuile posé en @p targetPosition.
      *
-     * Remplace toute liaison existante pour @p doorPosition (une porte n'a qu'un seul
-     * interrupteur associé) ; plusieurs portes peuvent en revanche partager le même interrupteur.
-     * @pre La case @p switchPosition porte un `Switch`, la case @p doorPosition porte une `Door`.
+     * Remplace toute liaison existante pour @p targetPosition (une cible n'a qu'un seul
+     * déclencheur associé) ; plusieurs cibles peuvent en revanche partager le même déclencheur.
+     * Même geste éditeur pour les deux cibles (clic déclencheur, clic cible) — la liaison résultante
+     * est rangée dans `mechanisms()` (cible `Door`) ou `dangerLinks()` (cible `DangerSwitched`)
+     * selon ce que porte réellement @p targetPosition.
+     * @pre La case @p switchPosition porte un `Switch`/`PressurePlate`, la case @p targetPosition
+     *      porte une `Door` **ou** un `DangerSwitched`.
      */
-    void linkMechanism(GridPosition switchPosition, GridPosition doorPosition);
+    void linkMechanism(GridPosition switchPosition, GridPosition targetPosition);
 
-    /// Retire la liaison de la porte à @p doorPosition, si elle en a une. Sans effet sinon.
-    void unlinkMechanism(GridPosition doorPosition);
+    /// Retire la liaison (porte ou danger commuté) à @p targetPosition, si elle en a une. Sans
+    /// effet sinon.
+    void unlinkMechanism(GridPosition targetPosition);
+
+    /**
+     * @brief Définit l'axe et la portée d'un danger mobile (`EX-GP-051`).
+     *
+     * Remplace toute configuration existante pour @p position. Sans appel, un `DangerMover` garde
+     * les valeurs de conception par défaut de `DangerMoverConfig` (appliquées par `LevelLoader` au
+     * rechargement, ce brouillon n'a pas besoin de les dupliquer tant qu'elles ne sont pas
+     * personnalisées).
+     * @pre La case @p position porte un `DangerMover`.
+     */
+    void setMoverConfig(GridPosition position, DangerMoverAxis axis, int range);
+
+    /**
+     * @brief Définit la période, le déphasage et la durée active d'un danger temporisé
+     *        (`EX-GP-053`).
+     *
+     * Mêmes remarques que `setMoverConfig` : sans appel, valeurs de conception par défaut.
+     * @pre La case @p position porte un `DangerBlink`.
+     */
+    void setBlinkConfig(GridPosition position, int period, int phase, int activeDuration);
 
     /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
@@ -189,9 +215,24 @@ public:
         return _exit;
     }
 
-    /// @return Les liaisons de mécanismes courantes.
+    /// @return Les liaisons de mécanismes courantes (déclencheur ↔ porte).
     [[nodiscard]] const std::vector<Mechanism>& mechanisms() const noexcept {
         return _mechanisms;
+    }
+
+    /// @return Les liaisons de danger commuté courantes (déclencheur ↔ danger, `EX-GP-052`).
+    [[nodiscard]] const std::vector<DangerLink>& dangerLinks() const noexcept {
+        return _dangerLinks;
+    }
+
+    /// @return Les configurations de danger mobile posées explicitement (`EX-GP-051`).
+    [[nodiscard]] const std::vector<DangerMoverConfig>& moverConfigs() const noexcept {
+        return _moverConfigs;
+    }
+
+    /// @return Les configurations de danger temporisé posées explicitement (`EX-GP-053`).
+    [[nodiscard]] const std::vector<DangerBlinkConfig>& blinkConfigs() const noexcept {
+        return _blinkConfigs;
     }
 
     /// @return Le budget de sauts courant (`-1` = illimité).
@@ -226,8 +267,10 @@ private:
     /// Logique de `setExit`, sans `pushUndo()`.
     void setExitInternal(int column, int row);
 
-    /// Retire toute liaison de mécanisme référençant @p position (comme interrupteur ou porte).
-    void removeMechanismsAt(GridPosition position);
+    /// Retire toute liaison/configuration référençant @p position (déclencheur, porte, danger
+    /// commuté, ou configuration de danger mobile/temporisé) — appelé avant de reposer un autre
+    /// type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline.
+    void removeLinkedDataAt(GridPosition position);
 
     /// État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo).
     struct State {
@@ -238,6 +281,9 @@ private:
         std::vector<Mechanism> mechanisms;
         int jumpBudget;
         int dashBudget;
+        std::vector<DangerLink> dangerLinks;
+        std::vector<DangerMoverConfig> moverConfigs;
+        std::vector<DangerBlinkConfig> blinkConfigs;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -257,6 +303,9 @@ private:
     std::vector<Mechanism> _mechanisms;
     int _jumpBudget = -1;
     int _dashBudget = -1;
+    std::vector<DangerLink> _dangerLinks;
+    std::vector<DangerMoverConfig> _moverConfigs;
+    std::vector<DangerBlinkConfig> _blinkConfigs;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

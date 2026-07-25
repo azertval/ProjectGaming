@@ -441,3 +441,139 @@ TEST(LevelWriterTest, SaveToFileVersDossierInexistantEchoueProprement) {
     const std::filesystem::path path = "chemin/inexistant/pas_la/niveau.json";
     EXPECT_FALSE(core::LevelWriter::saveToFile(*loaded.level, path));
 }
+
+/**
+ * @brief Les quatre dangers directionnels survivent à un aller-retour JSON (`EX-GP-050`).
+ * \castest{<b>Les quatre dangers directionnels survivent à un aller-retour JSON.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les quatre dangers directionnels survivent à un aller-retour JSON.
+ * }
+ */
+TEST(LevelWriterTest, DangersDirectionnelsSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "dangerUp" },
+        { "x": 1, "y": 0, "type": "dangerDown" },
+        { "x": 2, "y": 0, "type": "dangerLeft" },
+        { "x": 3, "y": 0, "type": "dangerRight" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(0, 0), core::TileType::DangerUp);
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 0), core::TileType::DangerDown);
+    EXPECT_EQ(reloaded.level->tileMap().tile(2, 0), core::TileType::DangerLeft);
+    EXPECT_EQ(reloaded.level->tileMap().tile(3, 0), core::TileType::DangerRight);
+}
+
+/**
+ * @brief Un danger mobile survit au round-trip avec son axe et sa portée (`EX-GP-051`).
+ * \castest{<b>Un danger mobile survit au round-trip avec sa configuration.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger mobile survit au round-trip avec son axe et sa portée.
+ * }
+ */
+TEST(LevelWriterTest, DangerMobileSurvitAuRoundTripAvecSaConfiguration) {
+    constexpr const char* LEVEL = R"({
+      "width": 5, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "dangerMover", "axis": "vertical", "range": 3 }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(1, 1), core::TileType::DangerMover);
+    ASSERT_EQ(reloaded.level->moverConfigs().size(), 1u);
+    EXPECT_EQ(reloaded.level->moverConfigs().front().axis, core::DangerMoverAxis::Vertical);
+    EXPECT_EQ(reloaded.level->moverConfigs().front().range, 3);
+}
+
+/**
+ * @brief Un danger commuté survit au round-trip avec sa liaison à l'interrupteur (`EX-GP-052`).
+ * \castest{<b>Un danger commuté survit au round-trip avec sa liaison.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger commuté survit au round-trip avec sa liaison à l'interrupteur.
+ * }
+ */
+TEST(LevelWriterTest, DangerCommuteSurvitAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "switch", "id": "s1" },
+        { "x": 3, "y": 0, "type": "dangerSwitched", "opensWith": "s1" }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    EXPECT_EQ(reloaded.level->tileMap().tile(3, 0), core::TileType::DangerSwitched);
+    ASSERT_EQ(reloaded.level->dangerLinks().size(), 1u);
+    EXPECT_EQ(reloaded.level->dangerLinks().front().triggerPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(reloaded.level->dangerLinks().front().dangerPosition, (core::GridPosition{3, 0}));
+}
+
+/**
+ * @brief Un danger temporisé survit au round-trip avec sa période, son déphasage et sa durée
+ * active (`EX-GP-053`).
+ * \castest{<b>Un danger temporisé survit au round-trip avec sa configuration.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger temporisé survit au round-trip avec sa période, son déphasage et sa durée
+ * active.
+ * }
+ */
+TEST(LevelWriterTest, DangerTemporiseSurvitAuRoundTripAvecSaConfiguration) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "dangerBlink", "period": 90, "phase": 15,
+          "activeDuration": 30 }
+      ]
+    })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    ASSERT_EQ(reloaded.level->blinkConfigs().size(), 1u);
+    const core::DangerBlinkConfig& config = reloaded.level->blinkConfigs().front();
+    EXPECT_EQ(config.period, 90);
+    EXPECT_EQ(config.phase, 15);
+    EXPECT_EQ(config.activeDuration, 30);
+}

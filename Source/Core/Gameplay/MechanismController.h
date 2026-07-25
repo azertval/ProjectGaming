@@ -30,6 +30,13 @@ struct Aabb;
  * Une porte **fermée** est **solide** (bloque), **ouverte** est franchissable. Le contrôleur
  * maintient une **copie mutable** du `TileMap` (grille de **collision**) que la physique consomme,
  * laissant la carte du `Level` intacte (source de vérité). Déterministe au pas fixe (`EX-NFR-002`).
+ *
+ * Résout aussi les liaisons **déclencheur ↔ danger commuté** (`DangerLink`, `TileType::
+ * DangerSwitched`, `EX-GP-052`) : même détection front/continu que déclencheur↔porte ci-dessus,
+ * réutilisée telle quelle (pas de duplication de cette logique) — seule différence, un danger
+ * commuté n'a **aucun effet** sur la grille de collision (il n'est jamais solide), seul son état
+ * **actif/inactif** est exposé (`isDangerActive`), consommé par `core::evaluateOutcome` via les
+ * boîtes supplémentaires assemblées par l'appelant (`HMI::GameScreen`).
  */
 class MechanismController {
 public:
@@ -39,7 +46,7 @@ public:
     /**
      * @brief Met à jour les mécanismes pour un pas : bascule les interrupteurs touchés (front),
      *        ouvre/referme les plaques de pression selon le poids présent, applique l'état des
-     *        portes dans la grille de collision.
+     *        portes dans la grille de collision, et met à jour l'activation des dangers commutés.
      * @param playerBox  Boîte englobante du personnage, en unités monde.
      * @param playerMass Masse du personnage (`core::Player::mass`, `EX-GP-019`), comparée au seuil
      *                    des plaques de pression (`MIN_TRIGGER_MASS`) ; sans effet sur les
@@ -63,6 +70,23 @@ public:
         return _switchOn[index];
     }
 
+    /// @return Les liaisons de danger commuté (positions interrupteur/danger, `EX-GP-052`).
+    [[nodiscard]] const std::vector<DangerLink>& dangerLinks() const noexcept {
+        return _dangerLinks;
+    }
+
+    /// @return true si le danger commuté à @p dangerPosition est **actif** (mortel) — son
+    ///         déclencheur lié est actionné. `false` si @p dangerPosition ne correspond à aucune
+    ///         liaison connue (danger commuté non lié, inerte).
+    [[nodiscard]] bool isDangerActive(GridPosition dangerPosition) const noexcept {
+        for (std::size_t index = 0; index < _dangerLinks.size(); ++index) {
+            if (_dangerLinks[index].dangerPosition == dangerPosition) {
+                return _dangerActive[index];
+            }
+        }
+        return false;
+    }
+
 private:
     TileMap _collision;  ///< Copie mutable : portes Solid (fermées) / Door (ouvertes).
     std::vector<Mechanism> _mechanisms;  ///< Liaisons déclencheur↔porte (positions).
@@ -71,6 +95,12 @@ private:
         _playerOnSwitchPrev;  ///< Le personnage était-il sur le déclencheur au pas précédent ?
     std::vector<bool> _continuous;  ///< true = plaque de pression (activation continue), figé au
                                     ///< chargement ; false = interrupteur à bascule classique.
+    std::vector<DangerLink> _dangerLinks;      ///< Liaisons déclencheur↔danger commuté.
+    std::vector<bool> _dangerActive;           ///< État de chaque danger commuté (actif = mortel ?).
+    std::vector<bool> _playerOnDangerTriggerPrev;  ///< Front, même principe que
+                                                    ///< `_playerOnSwitchPrev`, pour `_dangerLinks`.
+    std::vector<bool> _dangerContinuous;  ///< true = plaque de pression, même principe que
+                                          ///< `_continuous`, pour `_dangerLinks`.
 };
 
 }  // namespace core

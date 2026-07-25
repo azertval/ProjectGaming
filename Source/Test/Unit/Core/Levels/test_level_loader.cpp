@@ -667,3 +667,268 @@ TEST(LevelLoaderTest, NiveauDeDemoLivreValide) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromFile(path);
     EXPECT_TRUE(result.ok()) << result.error;
 }
+
+/**
+ * @brief Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant ni
+ * liaison (`EX-GP-050`).
+ * \castest{<b>Les quatre dangers directionnels se chargent comme de simples tuiles, sans
+ * identifiant ni liaison.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant
+ * ni liaison.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLesQuatreDangersDirectionnels) {
+    constexpr const char* LEVEL = R"({
+      "name": "DangersDirectionnels",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 0, "y": 0, "type": "dangerUp" },
+        { "x": 1, "y": 0, "type": "dangerDown" },
+        { "x": 2, "y": 0, "type": "dangerLeft" },
+        { "x": 3, "y": 0, "type": "dangerRight" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(0, 0), core::TileType::DangerUp);
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::DangerDown);
+    EXPECT_EQ(level.tileMap().tile(2, 0), core::TileType::DangerLeft);
+    EXPECT_EQ(level.tileMap().tile(3, 0), core::TileType::DangerRight);
+    EXPECT_TRUE(level.mechanisms().empty());
+}
+
+/**
+ * @brief Un danger mobile sans champs explicites reçoit les valeurs de conception par défaut
+ * (`EX-GP-051`).
+ * \castest{<b>Un danger mobile sans champs explicites reçoit les valeurs par défaut.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger mobile sans champs explicites reçoit les valeurs de conception par défaut.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnDangerMobileValeursParDefaut) {
+    constexpr const char* LEVEL = R"({
+      "width": 5, "height": 3,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 2, "type": "exit" },
+        { "x": 1, "y": 1, "type": "dangerMover" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(1, 1), core::TileType::DangerMover);
+    ASSERT_EQ(level.moverConfigs().size(), 1u);
+    EXPECT_EQ(level.moverConfigs().front().startPosition, (core::GridPosition{1, 1}));
+    EXPECT_EQ(level.moverConfigs().front().axis, core::DangerMoverAxis::Horizontal);
+    EXPECT_EQ(level.moverConfigs().front().range, 2);
+}
+
+/**
+ * @brief Un danger mobile avec axe et portée explicites les préserve (`EX-GP-051`).
+ * \castest{<b>Un danger mobile avec axe et portée explicites les préserve.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger mobile avec axe et portée explicites les préserve.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnDangerMobileValeursExplicites) {
+    constexpr const char* LEVEL = R"({
+      "width": 5, "height": 6,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 4, "y": 5, "type": "exit" },
+        { "x": 1, "y": 1, "type": "dangerMover", "axis": "vertical", "range": 3 }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    ASSERT_EQ(result.level->moverConfigs().size(), 1u);
+    EXPECT_EQ(result.level->moverConfigs().front().axis, core::DangerMoverAxis::Vertical);
+    EXPECT_EQ(result.level->moverConfigs().front().range, 3);
+}
+
+/**
+ * @brief Une portée de danger mobile qui sortirait de la grille est rejetée (`EX-LVL-004`).
+ * \castest{<b>Une portée de danger mobile qui sortirait de la grille est rejetée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une portée de danger mobile qui sortirait de la grille est rejetée.
+ * }
+ */
+TEST(LevelLoaderTest, PorteeDangerMobileHorsBornesRejetee) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 0, "y": 0, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 1, "type": "dangerMover", "axis": "horizontal", "range": 2 }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::OutOfBounds);
+}
+
+/**
+ * @brief Un danger commuté lié à un interrupteur est mortel selon l'état de celui-ci, résolu au
+ * chargement comme une porte (`EX-GP-052`).
+ * \castest{<b>Un danger commuté lié à un interrupteur est résolu au chargement.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger commuté lié à un interrupteur est résolu au chargement.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnDangerCommuteLie) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "switch", "id": "s1" },
+        { "x": 3, "y": 0, "type": "dangerSwitched", "opensWith": "s1" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    const core::Level& level = *result.level;
+    EXPECT_EQ(level.tileMap().tile(3, 0), core::TileType::DangerSwitched);
+    EXPECT_TRUE(level.mechanisms().empty());  // pas une porte : pas un Mechanism classique
+    ASSERT_EQ(level.dangerLinks().size(), 1u);
+    EXPECT_EQ(level.dangerLinks().front().triggerPosition, (core::GridPosition{2, 0}));
+    EXPECT_EQ(level.dangerLinks().front().dangerPosition, (core::GridPosition{3, 0}));
+}
+
+/**
+ * @brief Un danger commuté sans 'opensWith' est une simple tuile inerte : chargement valide,
+ * aucune liaison (`EX-GP-052`).
+ * \castest{<b>Un danger commuté sans 'opensWith' est une simple tuile inerte.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger commuté sans 'opensWith' est une simple tuile inerte : chargement valide,
+ * aucune liaison.
+ * }
+ */
+TEST(LevelLoaderTest, DangerCommuteSansLiaisonEstValide) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 0, "type": "dangerSwitched" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_TRUE(result.level->dangerLinks().empty());
+}
+
+/**
+ * @brief Un danger commuté lié à un interrupteur inexistant est rejeté (`EX-GP-052`).
+ * \castest{<b>Un danger commuté lié à un interrupteur inexistant est rejeté.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger commuté lié à un interrupteur inexistant est rejeté.
+ * }
+ */
+TEST(LevelLoaderTest, DangerCommuteLieAInterrupteurInexistantRejete) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 3, "y": 0, "type": "dangerSwitched", "opensWith": "inconnu" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnresolvedMechanism);
+}
+
+/**
+ * @brief Un danger temporisé sans champs explicites reçoit les valeurs de conception par défaut
+ * (`EX-GP-053`).
+ * \castest{<b>Un danger temporisé sans champs explicites reçoit les valeurs par défaut.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger temporisé sans champs explicites reçoit les valeurs de conception par
+ * défaut.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursParDefaut) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "dangerBlink" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    ASSERT_EQ(result.level->blinkConfigs().size(), 1u);
+    const core::DangerBlinkConfig& config = result.level->blinkConfigs().front();
+    EXPECT_EQ(config.position, (core::GridPosition{2, 0}));
+    EXPECT_EQ(config.period, 120);
+    EXPECT_EQ(config.phase, 0);
+    EXPECT_EQ(config.activeDuration, 60);
+}
+
+/**
+ * @brief Un danger temporisé avec période/déphasage/durée active explicites les préserve
+ * (`EX-GP-053`).
+ * \castest{<b>Un danger temporisé avec valeurs explicites les préserve.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger temporisé avec période/déphasage/durée active explicites les préserve.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites) {
+    constexpr const char* LEVEL = R"({
+      "width": 4, "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" },
+        { "x": 2, "y": 0, "type": "dangerBlink", "period": 90, "phase": 15,
+          "activeDuration": 30 }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    ASSERT_EQ(result.level->blinkConfigs().size(), 1u);
+    const core::DangerBlinkConfig& config = result.level->blinkConfigs().front();
+    EXPECT_EQ(config.period, 90);
+    EXPECT_EQ(config.phase, 15);
+    EXPECT_EQ(config.activeDuration, 30);
+}

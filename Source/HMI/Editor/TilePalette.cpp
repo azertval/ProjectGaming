@@ -90,11 +90,13 @@ void TilePalette::relayout() {
 
     const bool tuileOpen = _categoryExpanded[static_cast<std::size_t>(Category::Tuile)];
     const bool interactifOpen = _categoryExpanded[static_cast<std::size_t>(Category::Interactif)];
+    const bool piegeOpen = _categoryExpanded[static_cast<std::size_t>(Category::Piege)];
     const bool jalonOpen = _categoryExpanded[static_cast<std::size_t>(Category::Jalon)];
     const bool penteOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Pente)];
     const bool arrondiOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Arrondi)];
     const bool concaveOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Concave)];
     const bool blocOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Bloc)];
+    const bool directionnelOpen = _subgroupExpanded[static_cast<std::size_t>(Subgroup::Directionnel)];
 
     // ---- Vide (autonome) ----
     pushStandalone(core::TileType::Empty, "Vide");
@@ -148,8 +150,26 @@ void TilePalette::relayout() {
         }
     }
 
-    // ---- Piege (autonome, ex-Danger, seule tuile de sa categorie) ----
-    pushStandalone(core::TileType::Danger, "Piege");
+    // ---- Piege : Classique (feuille directe), Directionnel (sous-groupe), Mobile/Commute/
+    // Clignotant (feuilles directes, LOT-31) ----
+    pushCategoryHeader(Category::Piege, core::TileType::Danger, "Piege", piegeOpen);
+    if (piegeOpen) {
+        pushLeaf(core::TileType::Danger, "Classique", PALETTE_INDENT_STEP);
+
+        pushSubgroupHeader(Subgroup::Directionnel, core::TileType::DangerUp, "Directionnel",
+                           directionnelOpen);
+        if (directionnelOpen) {
+            const float indent = PALETTE_INDENT_STEP * 2.0f;
+            pushLeaf(core::TileType::DangerUp, "Haut", indent);
+            pushLeaf(core::TileType::DangerDown, "Bas", indent);
+            pushLeaf(core::TileType::DangerLeft, "Gauche", indent);
+            pushLeaf(core::TileType::DangerRight, "Droite", indent);
+        }
+
+        pushLeaf(core::TileType::DangerMover, "Mobile", PALETTE_INDENT_STEP);
+        pushLeaf(core::TileType::DangerSwitched, "Commute", PALETTE_INDENT_STEP);
+        pushLeaf(core::TileType::DangerBlink, "Clignotant", PALETTE_INDENT_STEP);
+    }
 
     // ---- Jalon : Entree/Sortie (feuilles directes, pas de sous-groupe) ----
     pushCategoryHeader(Category::Jalon, core::TileType::Entry, "Jalon", jalonOpen);

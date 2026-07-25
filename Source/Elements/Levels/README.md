@@ -15,7 +15,14 @@ Niveaux du jeu, un fichier **JSON** par niveau (`EX-LVL-001`, `EX-LVL-003`).
   supporte un personnage qui tombe dessus par au-dessus, `EX-GP-006`),
   `concaveUpRight`/`concaveUpLeft`/`concaveDownRight`/`concaveDownLeft` (variante **concave** des
   arrondis, sol et plafond — même suivi/silhouette, courbure inversée : centre du cercle du côté
-  plein plutôt que du côté creux, `EX-GP-007`).
+  plein plutôt que du côté creux, `EX-GP-007`),
+  `dangerUp`/`dangerDown`/`dangerLeft`/`dangerRight` (danger **directionnel**, mortel sur une bande
+  étroite du bord désigné, `EX-GP-050`, `LOT-31`), `dangerMover` (danger **mobile**, aller-retour
+  déterministe autour de sa position de départ, champs optionnels `axis`/`range`, `EX-GP-051`),
+  `dangerSwitched` (danger **commuté**, mortel quand son déclencheur lié est actif, champ
+  `opensWith` comme `door`, `EX-GP-052`), `dangerBlink` (danger **temporisé**, alterne mortel/
+  inoffensif selon une période fixe, champs optionnels `period`/`phase`/`activeDuration`,
+  `EX-GP-053`).
 - Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile doit rester dans
   les bornes `width × height`.
 - **Mécanismes** : un `switch` (bascule au contact) ou une `pressurePlate` (activation continue,
@@ -28,7 +35,7 @@ Chargés à l'exécution par `core::LevelLoader` (copiés à côté de l'exécut
 
 ## Séquence démo (`LOT-25`)
 
-`demo-*.json` (13 fichiers) forme la séquence jouée par le jeu (`Source/HMI/main.cpp`,
+`demo-*.json` (14 fichiers) forme la séquence jouée par le jeu (`Source/HMI/main.cpp`,
 `ScreenId::Game`) : un niveau par mécanique (ou petit groupe cohérent), ordre de difficulté
 croissante, terminée par `demo-final.json` qui les combine. `Source/Test/Systeme/
 test_parcours_complet.cpp` rejoue exactement la même liste, dans le même ordre — un script CI,

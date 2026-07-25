@@ -14,8 +14,10 @@ add_library(Core STATIC
     Levels/LevelDraft.cpp
     Levels/LevelScene.cpp
     Levels/LevelOutcome.cpp
+    Levels/DangerGeometry.cpp
     Gameplay/MechanismController.cpp
     Gameplay/BlockController.cpp
+    Gameplay/DangerController.cpp
     Physics/SweptCollision.cpp
     Physics/SlopeGeometry.cpp
     Physics/AabbVsAabb.cpp
