@@ -104,9 +104,13 @@ void LevelDraft::setExitInternal(int column, int row) {
 }
 
 void LevelDraft::linkMechanism(GridPosition switchPosition, GridPosition targetPosition) {
-    const TileType switchTile = _tileMap.inBounds(switchPosition.column, switchPosition.row)
-                                    ? _tileMap.tile(switchPosition.column, switchPosition.row)
-                                    : TileType::Empty;
+    // [[maybe_unused]] : switchTile ne sert qu'au PROJECTGAMING_ASSERT qui suit, lequel se
+    // compile en ((void)0) en Release (NDEBUG) -- sans cet attribut, la variable serait "non
+    // utilisee" (C4189, /WX) uniquement dans cette configuration, jamais en Debug.
+    [[maybe_unused]] const TileType switchTile =
+        _tileMap.inBounds(switchPosition.column, switchPosition.row)
+            ? _tileMap.tile(switchPosition.column, switchPosition.row)
+            : TileType::Empty;
     PROJECTGAMING_ASSERT(switchTile == TileType::Switch || switchTile == TileType::PressurePlate,
                          "linkMechanism : la position source ne porte pas de declencheur "
                          "(interrupteur ou plaque de pression)");
