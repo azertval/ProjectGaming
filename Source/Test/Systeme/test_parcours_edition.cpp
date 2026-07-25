@@ -87,3 +87,73 @@ TEST(ParcoursEditionSysteme, CreerEditerEnregistrerRechargerEtJouer) {
         core::Aabb::fromTopLeftSize(core::Vector2{4.0f, 1.0f}, core::Vector2{0.9f, 0.9f});
     EXPECT_EQ(core::evaluateOutcome(atExit, level), core::LevelOutcome::Won);
 }
+
+/**
+ * @brief Parcours complet d'édition des dangers avancés : peindre les sept nouveaux types, lier
+ * un danger commuté à un interrupteur, configurer un danger mobile et un danger temporisé,
+ * enregistrer, recharger — round-trip fidèle de bout en bout (`EX-GP-050` à `053`, `EX-EDIT-011`).
+ * \castest{<b>Parcours d'édition des dangers avancés : peindre, lier, configurer, enregistrer,
+ * recharger.</b><br/>
+ * \tcat Système · Éditeur de niveaux<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Peindre les sept nouveaux types de danger dans un `LevelDraft`.<br/>2. Lier un
+ * interrupteur à un danger commuté (même geste qu'une porte).<br/>3. Configurer l'axe/la portée
+ * d'un danger mobile et la période/le déphasage d'un danger temporisé.<br/>4. Enregistrer sur
+ * disque, recharger.<br/>
+ * \tattendu Le niveau rechargé restitue exactement les sept types, la liaison de danger commuté et
+ * les deux configurations explicites.
+ * }
+ */
+TEST(ParcoursEditionSysteme, EditeConfigureEnregistreEtRechargeLesDangersAvances) {
+    // 1. Un level designer peint les sept nouveaux types dans un brouillon.
+    core::LevelDraft draft = core::LevelDraft::empty("Dangers avances (edition)", 8, 4);
+    draft.setEntry(0, 0);
+    draft.setExit(7, 3);
+    draft.paintTile(1, 0, core::TileType::DangerUp);
+    draft.paintTile(2, 0, core::TileType::DangerRight);
+    draft.paintTile(3, 0, core::TileType::Switch);
+    draft.paintTile(4, 0, core::TileType::DangerSwitched);
+    draft.paintTile(5, 0, core::TileType::DangerMover);
+    draft.paintTile(6, 0, core::TileType::DangerBlink);
+
+    // 2. Liaison interrupteur -> danger commuté, même geste que déclencheur -> porte.
+    draft.linkMechanism(core::GridPosition{3, 0}, core::GridPosition{4, 0});
+
+    // 3. Configuration explicite du mobile (axe/portée) et du temporisé (période/déphasage/durée
+    // active) — sans configuration, valeurs de conception par défaut (couvert par
+    // `test_level_loader.cpp`, non répété ici).
+    draft.setMoverConfig(core::GridPosition{5, 0}, core::DangerMoverAxis::Vertical, 2);
+    draft.setBlinkConfig(core::GridPosition{6, 0}, 90, 15, 30);
+
+    // 4. Enregistrement puis rechargement (round-trip disque, EX-EDIT-011).
+    const core::LevelLoadResult validated = draft.toLevel();
+    ASSERT_TRUE(validated.ok()) << validated.error;
+
+    const std::filesystem::path path =
+        std::filesystem::temp_directory_path() / "projectgaming_systeme_edition_dangers.json";
+    ASSERT_TRUE(core::LevelWriter::saveToFile(*validated.level, path));
+
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromFile(path);
+    std::filesystem::remove(path);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    const core::Level& level = *reloaded.level;
+    EXPECT_EQ(level.tileMap().tile(1, 0), core::TileType::DangerUp);
+    EXPECT_EQ(level.tileMap().tile(2, 0), core::TileType::DangerRight);
+    EXPECT_EQ(level.tileMap().tile(4, 0), core::TileType::DangerSwitched);
+    EXPECT_EQ(level.tileMap().tile(5, 0), core::TileType::DangerMover);
+    EXPECT_EQ(level.tileMap().tile(6, 0), core::TileType::DangerBlink);
+
+    ASSERT_EQ(level.dangerLinks().size(), 1u);
+    EXPECT_EQ(level.dangerLinks().front().triggerPosition, (core::GridPosition{3, 0}));
+    EXPECT_EQ(level.dangerLinks().front().dangerPosition, (core::GridPosition{4, 0}));
+
+    ASSERT_EQ(level.moverConfigs().size(), 1u);
+    EXPECT_EQ(level.moverConfigs().front().axis, core::DangerMoverAxis::Vertical);
+    EXPECT_EQ(level.moverConfigs().front().range, 2);
+
+    ASSERT_EQ(level.blinkConfigs().size(), 1u);
+    EXPECT_EQ(level.blinkConfigs().front().period, 90);
+    EXPECT_EQ(level.blinkConfigs().front().phase, 15);
+    EXPECT_EQ(level.blinkConfigs().front().activeDuration, 30);
+}

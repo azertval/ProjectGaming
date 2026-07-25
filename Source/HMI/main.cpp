@@ -223,6 +223,7 @@ int main(int argc, char** argv) {
                             levels / "demo-pente.json",
                             levels / "demo-arrondi.json",
                             levels / "demo-bloc-reduit.json",
+                            levels / "demo-dangers-avances.json",
                             levels / "demo-final.json",
                         },
                         gameBindings, gamepadBindings);

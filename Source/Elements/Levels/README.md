@@ -28,7 +28,7 @@ Chargés à l'exécution par `core::LevelLoader` (copiés à côté de l'exécut
 
 ## Séquence démo (`LOT-25`)
 
-`demo-*.json` (13 fichiers) forme la séquence jouée par le jeu (`Source/HMI/main.cpp`,
+`demo-*.json` (14 fichiers) forme la séquence jouée par le jeu (`Source/HMI/main.cpp`,
 `ScreenId::Game`) : un niveau par mécanique (ou petit groupe cohérent), ordre de difficulté
 croissante, terminée par `demo-final.json` qui les combine. `Source/Test/Systeme/
 test_parcours_complet.cpp` rejoue exactement la même liste, dans le même ordre — un script CI,

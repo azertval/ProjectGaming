@@ -22,4 +22,20 @@ Aabb dangerHitbox(TileType type, int col, int row) noexcept {
     }
 }
 
+bool isDangerTileType(TileType type) noexcept {
+    switch (type) {
+        case TileType::Danger:
+        case TileType::DangerUp:
+        case TileType::DangerDown:
+        case TileType::DangerLeft:
+        case TileType::DangerRight:
+        case TileType::DangerMover:
+        case TileType::DangerSwitched:
+        case TileType::DangerBlink:
+            return true;
+        default:
+            return false;
+    }
+}
+
 }  // namespace core

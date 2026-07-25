@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
+#include "Core/Levels/DangerGeometry.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"  // core::Mechanism
 #include "Core/Levels/LevelLoader.h"
@@ -141,11 +142,18 @@ std::optional<core::GridPosition> EditorScreen::hoveredCell(float mouseX, float 
     return core::GridPosition{column, row};
 }
 
-// Vrai pour les tuiles "declencheur" liables a une porte (interrupteur ou plaque de pression,
-// EX-GP-020/EX-GP-025) : les deux se lient au meme geste (Maj+clic).
+// Vrai pour les tuiles "declencheur" liables a une porte ou un danger commute (interrupteur ou
+// plaque de pression, EX-GP-020/EX-GP-025) : les deux se lient au meme geste (Maj+clic).
 namespace {
 bool isTriggerTile(core::TileType type) {
     return type == core::TileType::Switch || type == core::TileType::PressurePlate;
+}
+
+// Vrai pour les tuiles "cible" liables a un declencheur : une porte (EX-GP-021) ou un danger
+// commute (EX-GP-052, LOT-31) -- meme geste de liaison pour les deux (core::LevelDraft::
+// linkMechanism dispatche vers _mechanisms ou _dangerLinks selon le type reel de la cible).
+bool isLinkTargetTile(core::TileType type) {
+    return type == core::TileType::Door || type == core::TileType::DangerSwitched;
 }
 }  // namespace
 
@@ -156,14 +164,14 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
         return;
     }
     const core::TileType type = _draft.tileMap().tile(cell->column, cell->row);
-    if (!isTriggerTile(type) && type != core::TileType::Door) {
+    if (!isTriggerTile(type) && !isLinkTargetTile(type)) {
         return;  // rien a lier sur cette case
     }
 
     if (_pendingLink) {
         const core::TileType pendingType =
             _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
-        if (!isTriggerTile(pendingType) && pendingType != core::TileType::Door) {
+        if (!isTriggerTile(pendingType) && !isLinkTargetTile(pendingType)) {
             _pendingLink.reset();  // la case en attente a change de type entre-temps
         }
     }
@@ -177,31 +185,40 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
         _draft.tileMap().tile(_pendingLink->column, _pendingLink->row);
     if (isTriggerTile(pendingType) == isTriggerTile(type)) {
         // Deux cases de la meme categorie (deux declencheurs, quel que soit leur type exact, ou
-        // deux portes) : on recommence avec la nouvelle case plutot que de rester bloque.
+        // deux cibles, porte ou danger commute) : on recommence avec la nouvelle case plutot que
+        // de rester bloque.
         _pendingLink = cell;
         return;
     }
 
     const bool pendingIsTrigger = isTriggerTile(pendingType);
     const core::GridPosition switchPosition = pendingIsTrigger ? *_pendingLink : *cell;
-    const core::GridPosition doorPosition = pendingIsTrigger ? *cell : *_pendingLink;
+    const core::GridPosition targetPosition = pendingIsTrigger ? *cell : *_pendingLink;
+    const core::TileType targetType = pendingIsTrigger ? type : pendingType;
 
     const bool alreadyLinked =
-        std::any_of(_draft.mechanisms().begin(), _draft.mechanisms().end(),
-                   [&](const core::Mechanism& mechanism) {
-                       return mechanism.switchPosition == switchPosition &&
-                              mechanism.doorPosition == doorPosition;
-                   });
+        targetType == core::TileType::Door
+            ? std::any_of(_draft.mechanisms().begin(), _draft.mechanisms().end(),
+                         [&](const core::Mechanism& mechanism) {
+                             return mechanism.switchPosition == switchPosition &&
+                                    mechanism.doorPosition == targetPosition;
+                         })
+            : std::any_of(_draft.dangerLinks().begin(), _draft.dangerLinks().end(),
+                         [&](const core::DangerLink& link) {
+                             return link.triggerPosition == switchPosition &&
+                                    link.dangerPosition == targetPosition;
+                         });
     const std::string switchLabel = "(" + std::to_string(switchPosition.column) + ", " +
                                     std::to_string(switchPosition.row) + ")";
-    const std::string doorLabel =
-        "(" + std::to_string(doorPosition.column) + ", " + std::to_string(doorPosition.row) + ")";
+    const std::string targetLabel = "(" + std::to_string(targetPosition.column) + ", " +
+                                    std::to_string(targetPosition.row) + ")";
     if (alreadyLinked) {
-        _draft.unlinkMechanism(doorPosition);
-        EDITOR_LOG_TRACE("Mecanisme delie : declencheur " + switchLabel + " / porte " + doorLabel);
+        _draft.unlinkMechanism(targetPosition);
+        EDITOR_LOG_TRACE("Mecanisme delie : declencheur " + switchLabel + " / cible " +
+                         targetLabel);
     } else {
-        _draft.linkMechanism(switchPosition, doorPosition);
-        EDITOR_LOG_TRACE("Mecanisme lie : declencheur " + switchLabel + " / porte " + doorLabel);
+        _draft.linkMechanism(switchPosition, targetPosition);
+        EDITOR_LOG_TRACE("Mecanisme lie : declencheur " + switchLabel + " / cible " + targetLabel);
     }
     _dirty = true;
     _pendingLink.reset();
@@ -681,12 +698,22 @@ void EditorScreen::renderGrid(RenderContext& context) {
             // Aperçu fidèle (EX-GP-005) : un bloc réduit se dessine centré et à l'échelle, comme
             // sa boîte de collision réelle (core::BlockController::boxAt, même formule de marge)
             // — pas un carré plein, pour que l'éditeur reflète exactement ce que le jeu affichera.
-            const float scale = core::tileVisualScale(type);
-            const float margin = (1.0f - scale) * 0.5f;
-            context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
-                                             static_cast<float>(column) + margin,
-                                             static_cast<float>(row) + margin, scale, scale,
-                                             _atlas));
+            // Même principe pour un danger directionnel (EX-GP-050) : bande décalée sur son bord
+            // plutôt que centrée, via core::dangerHitbox (LOT-31) — même géométrie que la hitbox
+            // réelle (LevelOutcome.cpp), pas un carré plein qui masquerait le côté traversable.
+            if (core::isDangerTileType(type)) {
+                const core::Aabb box = core::dangerHitbox(type, column, row);
+                context.spriteBatch.draw(quadFor(regionForTile(type, _atlas), box.min.x, box.min.y,
+                                                 box.max.x - box.min.x, box.max.y - box.min.y,
+                                                 _atlas));
+            } else {
+                const float scale = core::tileVisualScale(type);
+                const float margin = (1.0f - scale) * 0.5f;
+                context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
+                                                 static_cast<float>(column) + margin,
+                                                 static_cast<float>(row) + margin, scale, scale,
+                                                 _atlas));
+            }
         }
     }
 
@@ -723,19 +750,31 @@ void EditorScreen::renderGrid(RenderContext& context) {
     };
     constexpr std::size_t LINK_TINT_COUNT = sizeof(LINK_TINTS) / sizeof(LINK_TINTS[0]);
 
+    // Deux cibles partagent le meme espace de couleurs par declencheur (une porte, EX-EDIT-016 ;
+    // un danger commute, EX-GP-052) : un declencheur qui active les deux reprend la meme teinte
+    // sur ses trois cases (declencheur, porte, danger) plutot que deux echelles de couleur
+    // independantes.
     std::vector<core::GridPosition> uniqueSwitches;
-    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
-        if (std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition) ==
+    const auto rememberSwitch = [&](core::GridPosition position) {
+        if (std::find(uniqueSwitches.begin(), uniqueSwitches.end(), position) ==
             uniqueSwitches.end()) {
-            uniqueSwitches.push_back(mechanism.switchPosition);
+            uniqueSwitches.push_back(position);
         }
-    }
+    };
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {
-        const auto switchIt =
-            std::find(uniqueSwitches.begin(), uniqueSwitches.end(), mechanism.switchPosition);
+        rememberSwitch(mechanism.switchPosition);
+    }
+    for (const core::DangerLink& link : _draft.dangerLinks()) {
+        rememberSwitch(link.triggerPosition);
+    }
+    const auto tintForSwitch = [&](core::GridPosition position) {
+        const auto switchIt = std::find(uniqueSwitches.begin(), uniqueSwitches.end(), position);
         const std::size_t index =
             static_cast<std::size_t>(std::distance(uniqueSwitches.begin(), switchIt));
-        const core::Color tint = LINK_TINTS[index % LINK_TINT_COUNT];
+        return LINK_TINTS[index % LINK_TINT_COUNT];
+    };
+    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        const core::Color tint = tintForSwitch(mechanism.switchPosition);
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
                                          static_cast<float>(mechanism.switchPosition.column),
                                          static_cast<float>(mechanism.switchPosition.row), 1.0f,
@@ -744,6 +783,17 @@ void EditorScreen::renderGrid(RenderContext& context) {
                                          static_cast<float>(mechanism.doorPosition.column),
                                          static_cast<float>(mechanism.doorPosition.row), 1.0f,
                                          1.0f, _atlas, tint));
+    }
+    for (const core::DangerLink& link : _draft.dangerLinks()) {
+        const core::Color tint = tintForSwitch(link.triggerPosition);
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                         static_cast<float>(link.triggerPosition.column),
+                                         static_cast<float>(link.triggerPosition.row), 1.0f, 1.0f,
+                                         _atlas, tint));
+        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
+                                         static_cast<float>(link.dangerPosition.column),
+                                         static_cast<float>(link.dangerPosition.row), 1.0f, 1.0f,
+                                         _atlas, tint));
     }
 
     // Case en attente de liaison (premier clic Maj+souris d'une paire), teinte magenta.

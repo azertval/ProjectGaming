@@ -39,4 +39,13 @@ inline constexpr float kDangerEdgeThickness = 0.25f;
  */
 [[nodiscard]] Aabb dangerHitbox(TileType type, int col, int row) noexcept;
 
+/**
+ * @brief Vrai pour les huit types de danger (`Danger` classique et les sept variantes de
+ *        `LOT-31`), pour lesquels `dangerHitbox` décrit une géométrie **significative**
+ *        (case pleine ou bande directionnelle) — utilisé par le rendu (`core::buildLevelScene`,
+ *        `hmi::EditorScreen`) pour ne recalculer le rectangle affiché qu'à ces types précis,
+ *        laissant les autres à leur case pleine par défaut (`Transform` non modifié).
+ */
+[[nodiscard]] bool isDangerTileType(TileType type) noexcept;
+
 }  // namespace core
