@@ -42,3 +42,4 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-29
 - @subpage lot-30
 - @subpage lot-31
+- @subpage lot-32
