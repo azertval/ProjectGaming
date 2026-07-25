@@ -1,6 +1,6 @@
 # TACHE-01 — Partition en salles (`RoomGrid`, logique pure) {#lot-32-tache-01-partition-salles}
 
-**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Graphics` · **Statut :** à faire
+**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le cadrage caméra par salle (TACHE-02) et le repère visuel de l'éditeur (TACHE-03) ont tous les

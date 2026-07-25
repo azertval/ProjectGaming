@@ -96,7 +96,7 @@ porte inter-salle : la géométrie déjà peinte suffit.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-partition-salles.md) | Partition en salles (`RoomGrid`, logique pure) | `HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-partition-salles.md) | Partition en salles (`RoomGrid`, logique pure) | `HMI/Graphics` | ✅ |
 | [TACHE-02](tache-02-camera-salle-jeu.md) | Caméra par salle en jeu (coupure nette) | `HMI/Interface` | ⬜ |
 | [TACHE-03](tache-03-repere-editeur.md) | Repère visuel de salles dans l'éditeur | `HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-demo-documentation-verification.md) | Niveau de démonstration, documentation et vérification | `Source/Elements`, `Documentation` | ⬜ |

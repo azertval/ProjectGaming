@@ -14,6 +14,7 @@ add_executable(ProjectGaming
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp
     Graphics/Camera2D.cpp
+    Graphics/RoomGrid.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/BitmapFont.cpp
     Graphics/FlagIcons.cpp
