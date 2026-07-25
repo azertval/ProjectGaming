@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-05-dash.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md756"></a>
+<h1><a class="anchor" id="autotoc_md757"></a>
 Contexte</h1>
 <p>Troisième mécanique (<code>EX-GP-017</code>) : une <b>ruée</b> à vitesse élevée dans l'une des <b>8 directions</b>, sur une <b>courte durée</b>, <b>disponible une fois</b> puis <b>rechargée au contact du sol</b>. C'est la mécanique la plus « impactante » : pendant le dash, la gravité est <b>suspendue</b> pour une trajectoire nette.</p>
-<h1><a class="anchor" id="autotoc_md757"></a>
+<h1><a class="anchor" id="autotoc_md758"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code> :</p><ul>
 <li><b>Orientation</b> : mettre à jour <code>Player::facing</code> selon <code>moveX</code> quand il est non nul.</li>
@@ -110,13 +110,13 @@ Travail à réaliser</h1>
 <li><b>Pendant le dash</b> (<code>dashTimer &gt; 0</code>) : <b>maintenir</b> <code>velocity = direction * dashSpeed</code>, <b>suspendre la gravité</b> et la vitesse horizontale d'entrée, décrémenter <code>dashTimer</code> de <code>fixedDelta</code>. À l'expiration, reprendre la physique normale (la vitesse acquise se poursuit puis la gravité reprend).</li>
 <li>Résoudre le déplacement du dash par le <b>balayage</b> habituel (le dash ne traverse pas les murs).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md758"></a>
+<h1><a class="anchor" id="autotoc_md759"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md759"></a>
+<h1><a class="anchor" id="autotoc_md760"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Dash horizontal</b> : au sol, <code>dashPressed</code> avec orientation droite → forte vitesse <b>+X</b> sur la durée ; la distance parcourue dépasse nettement un pas normal.</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li><b>Pas de traversée</b> : un dash vers un mur s'arrête au mur (balayage).</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md760"></a>
+<h1><a class="anchor" id="autotoc_md761"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Normalisation</b> : une direction diagonale ne doit pas dasher plus vite qu'une cardinale (normaliser <code>(moveX, moveY)</code>).</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li><b>Recharge</b> : uniquement au <b>sol</b> (pas de recharge en l'air), conformément à la décision de cadrage.</li>
 <li>Réutiliser le balayage du LOT-08 ; ne pas réimplémenter la collision.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md761"></a>
+<h1><a class="anchor" id="autotoc_md762"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Dash 8 directions fonctionnel et <b>testé</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md762"></a>
+<h1><a class="anchor" id="autotoc_md763"></a>
 Exigences</h1>
 <p><code>EX-GP-017</code>, <code>EX-GP-014</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

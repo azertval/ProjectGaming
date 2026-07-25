@@ -1,0 +1,21 @@
+<map id="hmi::GameKeybindingsScreen" name="hmi::GameKeybindingsScreen">
+<area shape="rect" id="Node000001" title="Écran de remappage des touches de jeu : dessine le sous&#45;menu et applique ses actions." alt="" coords="131,505,348,531"/>
+<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="5,417,108,443"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,446,216,503,213,507,93,451"/>
+<area shape="rect" id="Node000003" href="$classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,..." alt="" coords="314,329,447,355"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="383,369,378,407,371,426,360,444,340,465,316,483,270,508,268,503,313,478,336,461,356,441,366,424,373,405,378,369"/>
+<area shape="rect" id="Node000007" href="$classhmi_1_1GameKeybindingsModel.html" title="Logique du sous&#45;menu « Touches de jeu », indépendante du dessin." alt="" coords="133,417,346,443"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="328,362,290,381,268,400,250,419,246,415,264,396,287,376,326,357"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="333,95,420,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="376,134,370,188,370,252,381,329,376,330,365,252,365,188,370,133"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="497,197,649,252"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="409,125,529,195,527,199,407,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="307,5,446,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="379,59,379,94,374,94,374,59"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="519,261,401,331,399,327,516,257"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="242,457,242,505,237,505,237,457"/>
+<area shape="rect" id="Node000008" href="$classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="103,329,277,355"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="189,368,194,392,204,405,217,415,214,419,200,409,189,394,184,369"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="105,205,275,245"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="193,259,193,329,187,329,187,259"/>
+</map>

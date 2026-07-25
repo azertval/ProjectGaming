@@ -1,5 +1,21 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/PlayerInputMapper.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/PlayerInputMapper.h">
-<area shape="rect" id="Node000001" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="5,5,232,60"/>
-<area shape="rect" id="Node000002" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="21,108,216,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,60,121,94,116,94,116,60"/>
+<area shape="rect" id="Node000001" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="105,5,332,60"/>
+<area shape="rect" id="Node000002" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="5,108,200,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,62,131,102,128,97,182,58"/>
+<area shape="rect" id="Node000003" href="$GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="225,108,445,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,58,309,97,306,102,253,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="189,255,245,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="327,135,237,246,233,242,323,132"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="270,255,341,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="328,135,314,156,303,182,299,212,302,241,297,241,294,212,297,181,309,154,323,132"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="504,181,595,207"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="370,131,502,174,501,179,368,136"/>
+<area shape="rect" id="Node000007" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="312,181,480,207"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="347,132,379,169,375,173,343,135"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="368,209,259,252,257,247,366,204"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="383,209,333,248,329,244,380,205"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="365,255,432,280"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="399,207,400,241,395,241,394,207"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="457,255,519,280"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="412,205,464,244,461,248,409,209"/>
 </map>

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-03-tache-02-entites.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md340"></a>
+<h1><a class="anchor" id="autotoc_md341"></a>
 Contexte</h1>
 <p>Le cœur de l'ECS est l'entité : un simple <b>identifiant</b>. Pour éviter les références pendantes (une entité détruite dont l'index est recyclé), on utilise un <b>handle générationnel</b> (index + génération).</p>
-<h1><a class="anchor" id="autotoc_md341"></a>
+<h1><a class="anchor" id="autotoc_md342"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Type <code>Entity</code> : structure légère <code>{ index, generation }</code> (copiable, comparable), avec une valeur <b>invalide</b> conventionnelle.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li>Recyclage des index libérés (liste libre) pour borner la mémoire.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md342"></a>
+<h1><a class="anchor" id="autotoc_md343"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération).">Source/Core/Ecs/Entity.h</a></code> (nouveau).</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code>.</li>
 <li><code>Source/Test/Unit/test_entity_manager.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md343"></a>
+<h1><a class="anchor" id="autotoc_md344"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>create</code> renvoie des entités vivantes et distinctes.</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>Un index recyclé produit une <b>génération différente</b> : l'ancien handle reste invalide, le nouveau est valide.</li>
 <li>L'entité invalide conventionnelle n'est jamais vivante.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md344"></a>
+<h1><a class="anchor" id="autotoc_md345"></a>
 Points d'attention</h1>
 <ul>
 <li>Aucune allocation par entité au-delà des tableaux internes ; opérations en temps constant amorti.</li>
 <li>Conventions : RAII (le manager possède ses tableaux), <code>_camelCase</code>, documentation <code>.h</code> + <code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md345"></a>
+<h1><a class="anchor" id="autotoc_md346"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Cycle de vie correct, détection fiable des handles périmés, testé (<code>ctest</code> vert).</li>
 <li>Compile <code>/W4 /WX</code>, formaté, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md346"></a>
+<h1><a class="anchor" id="autotoc_md347"></a>
 Exigences</h1>
 <p><code>EX-ARCH-010</code>, <code>EX-NFR-010</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

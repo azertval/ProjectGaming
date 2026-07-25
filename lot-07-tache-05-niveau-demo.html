@@ -94,42 +94,42 @@ $(document).ready(function(){initNavTree('lot-07-tache-05-niveau-demo.html','');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-07-niveaux_2epic_8md.html">LOT-07</a> · <b>Emplacement :</b> <code>Source/Elements/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md600"></a>
+<h1><a class="anchor" id="autotoc_md601"></a>
 Contexte</h1>
 <p>Le chargement (TACHE-03/04) a besoin d'un <b>vrai fichier</b> à ouvrir, et l'intégration (TACHE-06) d'un niveau à afficher. Cette tâche fournit <b>un</b> niveau de démonstration valide, versionné dans <code>Source/Elements/Levels</code> (<code>EX-LVL-001</code>), et le rend disponible à l'exécution.</p>
-<h1><a class="anchor" id="autotoc_md601"></a>
+<h1><a class="anchor" id="autotoc_md602"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Créer un fichier de niveau au <b>format JSON</b> (liste de tuiles-objets, <code>EX-LVL-003</code>), <b>valide</b> au sens de la TACHE-04 : tuiles dans les bornes, une entrée et une sortie, et au moins <b>un mécanisme</b> interrupteur↔porte (<code>switch</code>/<code>door</code> liés par identifiant) pour exercer le chargement des liaisons.</li>
 <li>Ajouter un <code>README</code> à <code>Source/Elements/Levels</code> (format, types de tuiles, où sont les niveaux).</li>
 <li><b>CMake</b> : copier <code>Source/Elements/Levels/*</code> à côté de l'exécutable (comme les catalogues de traduction <code>.lang</code>), pour un chargement par chemin relatif au binaire.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md602"></a>
+<h1><a class="anchor" id="autotoc_md603"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Levels/&lt;nom&gt;.json</code> (nouveau), <code>Source/Elements/Levels/README.md</code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code> (copie post-build des niveaux).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md603"></a>
+<h1><a class="anchor" id="autotoc_md604"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le fichier <b>se charge et se valide</b> sans erreur (via le chargeur/les tests, ou au lancement).</li>
 <li>Le niveau est <b>franchissable sur le papier</b> (une entrée, une sortie atteignable) — la franchissabilité <em>automatisée</em> (<code>EX-NFR-021</code>) relève d'un lot de gameplay ultérieur.</li>
 <li>Les fichiers de niveaux sont bien <b>copiés</b> à côté de l'exécutable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md604"></a>
+<h1><a class="anchor" id="autotoc_md605"></a>
 Points d'attention</h1>
 <ul>
 <li>Rester <b>simple</b> : un petit niveau (≈ 12×8) illustrant tuiles solides, un danger, une entrée, une sortie et une paire interrupteur/porte.</li>
 <li>Coordonnées <code>x</code> = colonne, <code>y</code> = ligne, origine haut-gauche ; liaison <code>switch.id</code> ↔ <code>door.opensWith</code> (cf. <code><a class="el" href="niveaux_8md.html">niveaux.md</a></code>).</li>
 <li>Un seul niveau ici : l'enchaînement et les 3 niveaux du MVP (<code>EX-LVL-010</code>…<code>EX-LVL-012</code>) sont hors périmètre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md605"></a>
+<h1><a class="anchor" id="autotoc_md606"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un niveau de démo valide est fourni et copié à côté de l'exécutable ; documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md606"></a>
+<h1><a class="anchor" id="autotoc_md607"></a>
 Exigences</h1>
 <p><code>EX-LVL-001</code>, <code>EX-LVL-003</code>, <code>EX-LVL-012</code> (partiel : un niveau). </p>
 </div></div><!-- contents -->

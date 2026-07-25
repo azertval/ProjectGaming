@@ -1,15 +1,15 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/Logger.h">
-<area shape="rect" id="Node000001" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="2400,5,2621,60"/>
+<area shape="rect" id="Node000001" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="3005,5,3227,60"/>
 <area shape="rect" id="Node000002" href="$Assert_8cpp.html" title=" " alt="" coords="1593,115,1815,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2386,44,2128,67,1977,86,1827,111,1794,118,1793,113,1826,105,1976,81,2127,62,2386,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2992,41,2388,65,2063,86,1929,98,1827,111,1791,118,1790,113,1826,105,1929,92,2063,80,2388,60,2992,35"/>
 <area shape="rect" id="Node000003" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="1839,115,2060,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2387,60,2061,123,2060,118,2386,55"/>
-<area shape="rect" id="Node000030" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="3157,335,3379,390"/>
-<area shape="poly" id="edge34_Node000001_Node000030" title=" " alt="" coords="2509,74,2514,127,2523,153,2538,176,2573,210,2607,237,2641,259,2675,275,2742,293,2811,300,2963,301,3050,307,3146,325,3174,333,3172,338,3145,331,3049,312,2963,306,2811,305,2741,299,2673,279,2639,263,2604,242,2570,214,2534,179,2518,155,2509,128,2504,74"/>
-<area shape="rect" id="Node000033" href="$Logger_8cpp.html" title=" " alt="" coords="2548,115,2769,170"/>
-<area shape="poly" id="edge33_Node000001_Node000033" title=" " alt="" coords="2560,66,2624,113,2621,117,2556,71"/>
-<area shape="rect" id="Node000034" href="$test__logger_8cpp.html" title="Tests unitaires du journaliseur (filtrage et diffusion)." alt="" coords="2793,108,3015,177"/>
-<area shape="poly" id="edge35_Node000001_Node000034" title=" " alt="" coords="2620,61,2794,109,2792,114,2619,66"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2992,48,2060,134,2060,128,2992,43"/>
+<area shape="rect" id="Node000034" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="4345,335,4567,390"/>
+<area shape="poly" id="edge38_Node000001_Node000034" title=" " alt="" coords="3114,74,3114,100,3118,127,3127,154,3143,175,3185,207,3238,232,3301,253,3373,269,3451,281,3535,290,3712,300,4064,306,4215,312,4334,325,4366,333,4365,338,4333,331,4215,317,4064,311,3712,305,3534,295,3450,286,3372,274,3300,258,3236,237,3182,211,3139,179,3123,156,3113,129,3109,100,3109,74"/>
+<area shape="rect" id="Node000037" href="$Logger_8cpp.html" title=" " alt="" coords="3153,115,3375,170"/>
+<area shape="poly" id="edge37_Node000001_Node000037" title=" " alt="" coords="3165,66,3229,113,3226,117,3162,71"/>
+<area shape="rect" id="Node000038" href="$test__logger_8cpp.html" title="Tests unitaires du journaliseur (filtrage et diffusion)." alt="" coords="3399,108,3620,177"/>
+<area shape="poly" id="edge39_Node000001_Node000038" title=" " alt="" coords="3226,61,3399,109,3398,114,3224,66"/>
 <area shape="rect" id="Node000004" href="$CoreLog_8h.html" title="Macros de journalisation de la catégorie « Core »." alt="" coords="84,225,305,280"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1851,176,1827,180,1623,206,1449,220,1295,225,1152,223,854,217,680,219,474,228,306,242,305,237,473,223,679,213,855,212,1152,218,1295,219,1448,215,1622,201,1826,175,1850,170"/>
 <area shape="rect" id="Node000006" href="$EcsLog_8h.html" title="Macros de journalisation de la catégorie « Ecs »." alt="" coords="485,225,707,280"/>
@@ -22,12 +22,12 @@
 <area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="1860,177,1711,228,1709,223,1859,172"/>
 <area shape="rect" id="Node000015" href="$EditorLog_8h.html" title="Macros de journalisation de la catégorie « Editor »." alt="" coords="1839,225,2060,280"/>
 <area shape="poly" id="edge14_Node000003_Node000015" title=" " alt="" coords="1952,184,1952,225,1947,225,1947,184"/>
-<area shape="rect" id="Node000018" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="3907,225,4128,280"/>
-<area shape="poly" id="edge17_Node000003_Node000018" title=" " alt="" coords="2074,149,2536,175,3906,243,3906,249,2536,180,2073,154"/>
-<area shape="rect" id="Node000025" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="2252,225,2473,280"/>
-<area shape="poly" id="edge24_Node000003_Node000025" title=" " alt="" coords="2064,171,2263,223,2262,228,2062,176"/>
-<area shape="rect" id="Node000031" href="$PlatformLog_8h.html" title="Macros de journalisation de la catégorie « Platform »." alt="" coords="4529,225,4751,280"/>
-<area shape="poly" id="edge31_Node000003_Node000031" title=" " alt="" coords="2074,149,2536,175,2987,191,3338,199,3689,207,4140,223,4529,242,4529,248,4140,228,3689,213,3338,205,2987,196,2536,180,2073,155"/>
+<area shape="rect" id="Node000018" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="5095,225,5316,280"/>
+<area shape="poly" id="edge17_Node000003_Node000018" title=" " alt="" coords="2074,145,5094,245,5094,250,2073,151"/>
+<area shape="rect" id="Node000025" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="2857,225,3079,280"/>
+<area shape="poly" id="edge24_Node000003_Node000025" title=" " alt="" coords="2074,154,2857,237,2857,242,2074,160"/>
+<area shape="rect" id="Node000035" href="$PlatformLog_8h.html" title="Macros de journalisation de la catégorie « Platform »." alt="" coords="5717,225,5939,280"/>
+<area shape="poly" id="edge35_Node000003_Node000035" title=" " alt="" coords="2074,145,3141,175,3756,187,4235,194,4713,203,5328,223,5717,242,5717,247,5328,228,4713,209,4235,200,3756,193,3141,180,2074,150"/>
 <area shape="rect" id="Node000005" href="$FixedTimestep_8cpp.html" title=" " alt="" coords="5,335,227,390"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="169,293,137,337,133,334,165,290"/>
 <area shape="rect" id="Node000007" href="$World_8cpp.html" title=" " alt="" coords="251,335,472,390"/>
@@ -44,28 +44,36 @@
 <area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="1887,289,1790,338,1788,333,1884,284"/>
 <area shape="rect" id="Node000017" href="$EditorScreen_8cpp.html" title=" " alt="" coords="1872,335,2099,390"/>
 <area shape="poly" id="edge16_Node000015_Node000017" title=" " alt="" coords="1965,292,1979,334,1974,336,1960,294"/>
-<area shape="rect" id="Node000019" href="$BitmapFont_8cpp.html" title=" " alt="" coords="3403,335,3624,390"/>
-<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="3894,278,3637,331,3607,338,3606,333,3635,325,3893,273"/>
-<area shape="rect" id="Node000020" href="$FlagIcons_8cpp.html" title=" " alt="" coords="3648,335,3869,390"/>
-<area shape="poly" id="edge19_Node000018_Node000020" title=" " alt="" coords="3942,288,3823,338,3821,333,3940,283"/>
-<area shape="rect" id="Node000021" href="$GraphicsDevice_8cpp.html" title=" " alt="" coords="3894,335,4141,390"/>
-<area shape="poly" id="edge20_Node000018_Node000021" title=" " alt="" coords="4020,294,4020,335,4015,335,4015,294"/>
-<area shape="rect" id="Node000022" href="$SaveIcon_8cpp.html" title=" " alt="" coords="4165,335,4387,390"/>
-<area shape="poly" id="edge21_Node000018_Node000022" title=" " alt="" coords="4094,283,4214,333,4212,338,4092,288"/>
-<area shape="rect" id="Node000023" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="4411,335,4632,390"/>
-<area shape="poly" id="edge22_Node000018_Node000023" title=" " alt="" coords="4142,273,4399,325,4429,333,4428,338,4398,331,4141,278"/>
-<area shape="rect" id="Node000024" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="4657,335,4882,390"/>
-<area shape="poly" id="edge23_Node000018_Node000024" title=" " alt="" coords="4142,261,4376,285,4511,303,4645,325,4678,333,4677,338,4643,331,4510,308,4376,290,4142,266"/>
-<area shape="poly" id="edge25_Node000025_Node000017" title=" " alt="" coords="2259,286,2078,338,2076,333,2257,281"/>
-<area shape="rect" id="Node000026" href="$GameScreen_8cpp.html" title=" " alt="" coords="2123,335,2351,390"/>
-<area shape="poly" id="edge26_Node000025_Node000026" title=" " alt="" coords="2323,292,2270,337,2266,333,2320,287"/>
-<area shape="rect" id="Node000027" href="$MenuScreen_8cpp.html" title=" " alt="" coords="2375,335,2601,390"/>
-<area shape="poly" id="edge27_Node000025_Node000027" title=" " alt="" coords="2406,287,2459,333,2456,337,2402,292"/>
-<area shape="rect" id="Node000028" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="2625,335,2863,390"/>
-<area shape="poly" id="edge28_Node000025_Node000028" title=" " alt="" coords="2469,281,2652,333,2651,338,2468,286"/>
-<area shape="rect" id="Node000029" href="$ScreenManager_8cpp.html" title=" " alt="" coords="2888,335,3133,390"/>
-<area shape="poly" id="edge29_Node000025_Node000029" title=" " alt="" coords="2487,277,2492,277,2600,292,2684,300,2768,309,2875,325,2910,333,2909,338,2874,331,2767,314,2683,305,2599,297,2492,283,2486,282"/>
-<area shape="poly" id="edge30_Node000025_Node000030" title=" " alt="" coords="2487,277,2492,277,2591,289,2676,295,2819,298,2963,303,3047,311,3146,325,3181,333,3180,338,3145,331,3046,316,2963,308,2819,303,2675,300,2591,294,2492,283,2487,282"/>
-<area shape="rect" id="Node000032" href="$Window_8cpp.html" title=" " alt="" coords="4907,335,5128,390"/>
-<area shape="poly" id="edge32_Node000031_Node000032" title=" " alt="" coords="4746,281,4926,333,4925,338,4744,286"/>
+<area shape="rect" id="Node000019" href="$BitmapFont_8cpp.html" title=" " alt="" coords="4591,335,4812,390"/>
+<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="5082,278,4825,331,4795,338,4794,333,4823,325,5081,273"/>
+<area shape="rect" id="Node000020" href="$FlagIcons_8cpp.html" title=" " alt="" coords="4836,335,5057,390"/>
+<area shape="poly" id="edge19_Node000018_Node000020" title=" " alt="" coords="5130,288,5011,338,5009,333,5128,283"/>
+<area shape="rect" id="Node000021" href="$GraphicsDevice_8cpp.html" title=" " alt="" coords="5082,335,5329,390"/>
+<area shape="poly" id="edge20_Node000018_Node000021" title=" " alt="" coords="5208,294,5208,335,5203,335,5203,294"/>
+<area shape="rect" id="Node000022" href="$SaveIcon_8cpp.html" title=" " alt="" coords="5353,335,5575,390"/>
+<area shape="poly" id="edge21_Node000018_Node000022" title=" " alt="" coords="5282,283,5402,333,5400,338,5280,288"/>
+<area shape="rect" id="Node000023" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="5599,335,5820,390"/>
+<area shape="poly" id="edge22_Node000018_Node000023" title=" " alt="" coords="5330,273,5587,325,5617,333,5616,338,5586,331,5329,278"/>
+<area shape="rect" id="Node000024" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="5845,335,6070,390"/>
+<area shape="poly" id="edge23_Node000018_Node000024" title=" " alt="" coords="5330,261,5564,285,5699,303,5833,325,5866,333,5865,338,5831,331,5698,308,5564,290,5330,266"/>
+<area shape="poly" id="edge28_Node000025_Node000017" title=" " alt="" coords="2844,261,2695,268,2511,281,2311,302,2111,331,2076,338,2075,333,2110,325,2310,296,2511,276,2694,263,2843,255"/>
+<area shape="rect" id="Node000026" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="2123,335,2362,390"/>
+<area shape="poly" id="edge25_Node000025_Node000026" title=" " alt="" coords="2844,267,2624,292,2498,310,2374,331,2340,338,2338,333,2373,325,2498,304,2623,287,2844,262"/>
+<area shape="rect" id="Node000027" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="2386,335,2625,390"/>
+<area shape="poly" id="edge26_Node000025_Node000027" title=" " alt="" coords="2845,283,2638,331,2608,338,2607,333,2637,325,2844,278"/>
+<area shape="rect" id="Node000028" href="$EditorKeybindingsScreen_8cpp.html" title=" " alt="" coords="2649,335,2956,390"/>
+<area shape="poly" id="edge27_Node000025_Node000028" title=" " alt="" coords="2918,290,2845,337,2842,333,2915,285"/>
+<area shape="rect" id="Node000029" href="$GameKeybindingsScreen_8cpp.html" title=" " alt="" coords="2980,335,3287,390"/>
+<area shape="poly" id="edge29_Node000025_Node000029" title=" " alt="" coords="3021,285,3094,333,3091,337,3018,290"/>
+<area shape="rect" id="Node000030" href="$GameScreen_8cpp.html" title=" " alt="" coords="3311,335,3539,390"/>
+<area shape="poly" id="edge30_Node000025_Node000030" title=" " alt="" coords="3092,278,3299,325,3329,333,3327,338,3298,331,3091,283"/>
+<area shape="rect" id="Node000031" href="$MenuScreen_8cpp.html" title=" " alt="" coords="3563,335,3789,390"/>
+<area shape="poly" id="edge31_Node000025_Node000031" title=" " alt="" coords="3093,277,3098,277,3225,293,3325,299,3424,307,3551,325,3585,333,3584,338,3550,331,3424,312,3324,304,3224,298,3097,283,3092,282"/>
+<area shape="rect" id="Node000032" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="3813,335,4051,390"/>
+<area shape="poly" id="edge32_Node000025_Node000032" title=" " alt="" coords="3093,277,3098,277,3204,289,3295,295,3449,298,3604,303,3694,311,3800,325,3838,333,3837,338,3800,331,3693,316,3603,308,3449,304,3294,301,3204,295,3097,283,3092,282"/>
+<area shape="rect" id="Node000033" href="$ScreenManager_8cpp.html" title=" " alt="" coords="4076,335,4321,390"/>
+<area shape="poly" id="edge33_Node000025_Node000033" title=" " alt="" coords="3093,277,3098,277,3244,292,3368,299,3580,298,3683,297,3793,299,3917,308,4063,325,4103,333,4102,338,4062,331,3916,313,3792,304,3683,302,3580,303,3368,304,3244,297,3097,283,3092,282"/>
+<area shape="poly" id="edge34_Node000025_Node000034" title=" " alt="" coords="3093,277,3098,277,3285,295,3444,301,3585,299,3716,294,3847,291,3988,292,4147,302,4334,325,4370,333,4369,338,4333,331,4146,307,3988,297,3847,296,3716,300,3585,304,3444,306,3285,300,3097,283,3092,282"/>
+<area shape="rect" id="Node000036" href="$Window_8cpp.html" title=" " alt="" coords="6095,335,6316,390"/>
+<area shape="poly" id="edge36_Node000035_Node000036" title=" " alt="" coords="5934,281,6114,333,6113,338,5932,286"/>
 </map>

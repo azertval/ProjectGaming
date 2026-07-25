@@ -6,7 +6,7 @@ var classhmi_1_1EditorScreen =
       [ "RenameLevel", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aa3c6bcddcac5ba3474d8670c21f1a04a", null ],
       [ "ResizeGrid", "classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364a60c3541891d2c4bc4e8341095197af1b", null ]
     ] ],
-    [ "EditorScreen", "classhmi_1_1EditorScreen.html#a032f695cbcced9ab149d4209b4397af1", null ],
+    [ "EditorScreen", "classhmi_1_1EditorScreen.html#ad9e678d61d99563229632fd81e826fe7", null ],
     [ "~EditorScreen", "classhmi_1_1EditorScreen.html#a37879a751e352709fbc7c0bcca57ed19", null ],
     [ "clampedCell", "classhmi_1_1EditorScreen.html#abc2f18e75f0fa8df017eb45e7fcbed72", null ],
     [ "handleLinkClick", "classhmi_1_1EditorScreen.html#aebd885eb2c376cc5e7716450bc229b42", null ],
@@ -35,6 +35,8 @@ var classhmi_1_1EditorScreen =
     [ "_clipboard", "classhmi_1_1EditorScreen.html#ab01f41452098b1c17e23d22fe5c632f0", null ],
     [ "_dirty", "classhmi_1_1EditorScreen.html#a5861b316a6ad626abfd242549a769b9b", null ],
     [ "_draft", "classhmi_1_1EditorScreen.html#a96f003840397f542f503aef8f47be942", null ],
+    [ "_editorBindings", "classhmi_1_1EditorScreen.html#a662715d2c70909c21b25f3fbcefabc4d", null ],
+    [ "_gameBindings", "classhmi_1_1EditorScreen.html#a47e6e2e3e85757ca5f5234e09d7b0c13", null ],
     [ "_loadedFrom", "classhmi_1_1EditorScreen.html#a0cf03b0cc495b126c8c9270f6a6c7fa7", null ],
     [ "_manualCamera", "classhmi_1_1EditorScreen.html#ae615466da1fe13fcb2787f76818f115d", null ],
     [ "_mouseX", "classhmi_1_1EditorScreen.html#a28689a88815be22a377c3ad144cabfd6", null ],

@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1OptionsScreen.html',''); i
 </div><!--header-->
 <div class="contents">
 
-<p>Écran de réglages : bascule V-Sync, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, LOT-20).  
+<p>Écran de réglages : bascule V-Sync, ouvre les sous-menus de remappage des touches, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, <code>EX-CTRL-012</code>, LOT-20, LOT-29).  
  <a href="classhmi_1_1OptionsScreen.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="OptionsScreen_8h_source.html">OptionsScreen.h</a>&gt;</code></p>
@@ -107,7 +107,7 @@ Inheritance diagram for hmi::OptionsScreen:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1OptionsScreen__inherit__graph.png" border="0" usemap="#ahmi_1_1OptionsScreen_inherit__map" alt="Inheritance graph"/></div>
 <map name="ahmi_1_1OptionsScreen_inherit__map" id="ahmi_1_1OptionsScreen_inherit__map">
-<area shape="rect" title="Écran de réglages : bascule V&#45;Sync, langue, état de la manette, retour au menu (EX&#45;REN&#45;022,..." alt="" coords="5,79,155,104"/>
+<area shape="rect" title="Écran de réglages : bascule V&#45;Sync, ouvre les sous&#45;menus de remappage des touches,..." alt="" coords="5,79,155,104"/>
 <area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="29,5,131,31"/>
 <area shape="poly" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
 </map>
@@ -117,7 +117,7 @@ Collaboration diagram for hmi::OptionsScreen:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1OptionsScreen__coll__graph.png" border="0" usemap="#ahmi_1_1OptionsScreen_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1OptionsScreen_coll__map" id="ahmi_1_1OptionsScreen_coll__map">
-<area shape="rect" title="Écran de réglages : bascule V&#45;Sync, langue, état de la manette, retour au menu (EX&#45;REN&#45;022,..." alt="" coords="1293,119,1443,144"/>
+<area shape="rect" title="Écran de réglages : bascule V&#45;Sync, ouvre les sous&#45;menus de remappage des touches,..." alt="" coords="1293,119,1443,144"/>
 <area shape="rect" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="994,5,1097,31"/>
 <area shape="poly" title=" " alt="" coords="1111,16,1189,25,1231,35,1270,49,1297,64,1321,82,1357,117,1354,121,1318,86,1294,68,1268,54,1229,40,1188,30,1110,21"/>
 <area shape="rect" href="classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,..." alt="" coords="692,88,825,113"/>
@@ -173,8 +173,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a5e2cff4110f088f89af4d80024f4d183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Écran de réglages : bascule V-Sync, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, LOT-20). </p>
-<p>Fin habillage d'<code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code> : <code>update</code> délègue la sélection/confirmation au modèle (testable), interprète l'action renvoyée (bascule V-Sync appliquée à <code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">GraphicsDevice</a></code>, ou retour au menu), et traite en plus le bouton de langue en coin (<code><a class="el" href="classhmi_1_1LanguageSelector.html" title="Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.">LanguageSelector</a></code>, réutilisé tel quel, même geste que <code><a class="el" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et quatre options (Jouer, Mode Edition, Options, Quitter).">MenuScreen</a></code>). <code>render</code> dessine le titre, les deux options (celle sélectionnée mise en évidence), une ligne d'état de connexion de la manette, et le bouton de langue. </p>
+<div class="textblock"><p>Écran de réglages : bascule V-Sync, ouvre les sous-menus de remappage des touches, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, <code>EX-CTRL-012</code>, LOT-20, LOT-29). </p>
+<p>Fin habillage d'<code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code> : <code>update</code> délègue la sélection/confirmation au modèle (testable), interprète l'action renvoyée (bascule V-Sync appliquée à <code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">GraphicsDevice</a></code>, transition vers un sous-menu de remappage, ou retour au menu), et traite en plus le bouton de langue en coin (<code><a class="el" href="classhmi_1_1LanguageSelector.html" title="Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.">LanguageSelector</a></code>, réutilisé tel quel, même geste que <code><a class="el" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et quatre options (Jouer, Mode Edition, Options, Quitter).">MenuScreen</a></code>). <code>render</code> dessine le titre, les quatre options (celle sélectionnée mise en évidence), une ligne d'état de connexion de la manette, et le bouton de langue. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8d2ec7f9e58bda247340ecfb954f1ab4" name="a8d2ec7f9e58bda247340ecfb954f1ab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d2ec7f9e58bda247340ecfb954f1ab4">&#9670;&#160;</a></span>OptionsScreen()</h2>

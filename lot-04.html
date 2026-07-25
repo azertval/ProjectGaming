@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('lot-04.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Le site Doxygen offre désormais une page d'accueil, les spécifications, les lots et un manuel — navigables — en plus de la référence de code. Les documents projet vivent sous <code>Documentation/</code>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md375"></a>
+<h1><a class="anchor" id="autotoc_md376"></a>
 Objectif</h1>
 <p>Transformer la documentation générée en un site <b>utilisable</b> : une <b>page d'accueil</b> décrivant le projet, les <b>spécifications</b> (conventions incluses), les <b>lots</b> et un premier <b>manuel utilisateur</b>, le tout navigable et publié sur <code>gh-pages</code>. En préalable, <b>réorganiser l'arborescence</b> documentaire : <code>Specification/</code> et <code>Lot/</code> deviennent des sous-dossiers de <code>Documentation/</code>.</p>
 <p>À l'issue du lot : ouvrir l'URL GitHub Pages affiche une page d'accueil claire, d'où l'on navigue vers les spécifications, les lots et le manuel, en plus de la référence de code.</p>
-<h1><a class="anchor" id="autotoc_md376"></a>
+<h1><a class="anchor" id="autotoc_md377"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md377"></a>
+<h2><a class="anchor" id="autotoc_md378"></a>
 Inclus</h2>
 <ul>
 <li><b>Réorganisation</b> : <code>Specification/</code> et <code>Lot/</code> déplacés sous <code>Documentation/</code> ; <code><a class="el" href="conventions_8md.html">conventions.md</a></code> intégré aux spécifications ; toutes les références mises à jour.</li>
@@ -114,14 +114,14 @@ Inclus</h2>
 <li><b>Traçabilité des exigences</b> : IDs <code>EX-…</code> stables (ancres Doxygen <code>@ref</code>), lint CI (doublons, références orphelines, prochain numéro libre).</li>
 <li><b>CI docs</b> : génération avec garde-fou <code>WARN_AS_ERROR</code>, déploiement <code>gh-pages</code> complet.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md378"></a>
+<h2><a class="anchor" id="autotoc_md379"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li>Contenu détaillé du manuel utilisateur au-delà de la première page (prise en main avancée, tutoriels).</li>
 <li>Internationalisation de la documentation.</li>
 <li>Thème/CSS personnalisé au-delà du thème Doxygen par défaut.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md379"></a>
+<h1><a class="anchor" id="autotoc_md380"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Manuel utilisateur</b> : squelette <b>+ une première page réelle</b> (télécharger / lancer la release Debug), le reste différé.</li>
@@ -130,13 +130,13 @@ Décisions de cadrage</h1>
 <li><b>Identifiants d'exigences (<code>EX-…</code>)** : traités comme des <b>identifiants immuables</b>, jamais renumérotés ni réutilisés (ils sont référencés dans les lots <b>et</b> dans le code). Règle : allocation au <b>prochain numéro libre</b>, l'ordre de lecture = l'ordre du document (pas le numéro). **Aucun ID existant n'est renuméroté</b> (<code>EX-VIS</code> inclus, laissé tel quel) ; l'auteur reste vigilant à ne pas créer de doublon, <b>le lint CI l'imposant</b> (échec sur doublon). Chaque exigence devient une <b>ancre Doxygen</b> référençable par <code>@ref</code> (référence cassée = échec CI via <code>WARN_AS_ERROR</code>), et le <b>lint CI</b> vérifie doublons / références orphelines et affiche le prochain numéro libre.</li>
 <li><b>Qualité</b> : <code>WARN_AS_ERROR = YES</code> en CI — un avertissement Doxygen (référence cassée, symbole non documenté) fait échouer la génération, dans le même esprit que <code>/W4 /WX</code> côté code.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md380"></a>
+<h1><a class="anchor" id="autotoc_md381"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-NFR-012</code> — guide de conventions (dont le lien est corrigé et le contenu intégré aux spécifications).</li>
 <li>Prépare une exigence « documentation publiée et navigable » (à formaliser en TACHE-04 si retenu).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md381"></a>
+<h1><a class="anchor" id="autotoc_md382"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -161,7 +161,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-08-tracabilite-exigences_8md.html">TACHE-08</a>   </td><td class="markdownTableBodyNone">Traçabilité des exigences (IDs stables, ancres, lint CI)   </td><td class="markdownTableBodyNone"><code>Documentation/Specification/</code>, CI   </td><td class="markdownTableBodyCenter">✅ Fait   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md382"></a>
+<h1><a class="anchor" id="autotoc_md383"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><code>Specification/</code> et <code>Lot/</code> vivent sous <code>Documentation/</code> ; <code><a class="el" href="conventions_8md.html">conventions.md</a></code> fait partie des spécifications ; <b>aucune référence cassée</b> dans le dépôt (README, CONTRIBUTING, CHANGELOG, READMEs <code>Source/</code>, liens internes).</li>
@@ -172,13 +172,13 @@ Critères d'acceptation du lot</h1>
 <li>La génération Doxygen ne produit <b>aucun avertissement</b> (<code>WARN_AS_ERROR</code>) ; la CI <code>docs.yml</code> publie l'ensemble sur <code>gh-pages</code>.</li>
 <li><code>CHANGELOG.md</code> mis à jour ; <code>main</code> reste cohérente.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md383"></a>
+<h1><a class="anchor" id="autotoc_md384"></a>
 Dépendances</h1>
 <ul>
 <li>S'appuie sur la CI documentaire existante (<code>.github/workflows/docs.yml</code>) et le <code>Doxyfile</code> actuel.</li>
 <li>Aucun impact sur le code de <code>Source/</code> (lot purement documentaire et outillage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md384"></a>
+<h1><a class="anchor" id="autotoc_md385"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-04-tache-01-reorganisation-arbo.html">TACHE-01 — Réorganisation de l'arborescence documentaire</a></li>

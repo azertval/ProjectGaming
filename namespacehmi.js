@@ -3,8 +3,14 @@ var namespacehmi =
     [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
     [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
     [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
+    [ "EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", "classhmi_1_1EditorKeyBindings" ],
+    [ "EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", "classhmi_1_1EditorKeybindingsModel" ],
+    [ "EditorKeybindingsScreen", "classhmi_1_1EditorKeybindingsScreen.html", "classhmi_1_1EditorKeybindingsScreen" ],
     [ "EditorScreen", "classhmi_1_1EditorScreen.html", "classhmi_1_1EditorScreen" ],
     [ "FlagIcons", "classhmi_1_1FlagIcons.html", "classhmi_1_1FlagIcons" ],
+    [ "GameKeyBindings", "classhmi_1_1GameKeyBindings.html", "classhmi_1_1GameKeyBindings" ],
+    [ "GameKeybindingsModel", "classhmi_1_1GameKeybindingsModel.html", "classhmi_1_1GameKeybindingsModel" ],
+    [ "GameKeybindingsScreen", "classhmi_1_1GameKeybindingsScreen.html", "classhmi_1_1GameKeybindingsScreen" ],
     [ "GameScreen", "classhmi_1_1GameScreen.html", "classhmi_1_1GameScreen" ],
     [ "GraphicsDevice", "classhmi_1_1GraphicsDevice.html", "classhmi_1_1GraphicsDevice" ],
     [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
@@ -30,10 +36,39 @@ var namespacehmi =
     [ "TilePalette", "classhmi_1_1TilePalette.html", "classhmi_1_1TilePalette" ],
     [ "ToolBar", "classhmi_1_1ToolBar.html", "classhmi_1_1ToolBar" ],
     [ "Window", "classhmi_1_1Window.html", "classhmi_1_1Window" ],
+    [ "EditorAction", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585", [
+      [ "Save", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354", null ],
+      [ "Undo", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119", null ],
+      [ "Redo", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5afeaba074ef570dc720caaa855d49f6", null ],
+      [ "Copy", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea", null ],
+      [ "Paste", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f", null ],
+      [ "Playtest", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ab13fc91e5d02ea9e1f1a538504213bea", null ],
+      [ "ToggleGrid", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e", null ],
+      [ "ToggleHelp", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a738a0bf4b0ed8d50e7b558ecb00fa80a", null ],
+      [ "Rename", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50", null ]
+    ] ],
+    [ "EditorKeybindingsAction", "namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4c", [
+      [ "Rebound", "namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca8bae56d3db3fb4f6d0f1b3af394ec95b", null ],
+      [ "Reset", "namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca526d688f37a86d3c3f27d0c5016eb71d", null ],
+      [ "Back", "namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca0557fa923dcee4d0f86b1409f5c2167f", null ]
+    ] ],
     [ "EditorTool", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd", [
       [ "Paint", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e", null ],
       [ "Rectangle", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e", null ],
       [ "Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ]
+    ] ],
+    [ "GameAction", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867", [
+      [ "MoveLeft", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca", null ],
+      [ "MoveRight", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a78af9b7fcdf1574f729de1454e15257b", null ],
+      [ "AimUp", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867abb02cde961b6c807814d8ae6946359ea", null ],
+      [ "AimDown", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae2523957153e9b5b8defa89d26c2190b", null ],
+      [ "Jump", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a101f693f72287a2819a364f64ca1c0ed", null ],
+      [ "Dash", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867a3663598d5c5858b5a6040b1bbed4f187", null ]
+    ] ],
+    [ "GameKeybindingsAction", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444", [
+      [ "Rebound", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444a8bae56d3db3fb4f6d0f1b3af394ec95b", null ],
+      [ "Reset", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444a526d688f37a86d3c3f27d0c5016eb71d", null ],
+      [ "Back", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444a0557fa923dcee4d0f86b1409f5c2167f", null ]
     ] ],
     [ "Key", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48", [
       [ "Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
@@ -71,24 +106,32 @@ var namespacehmi =
     ] ],
     [ "OptionsAction", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673", [
       [ "ToggleVSync", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae", null ],
+      [ "OpenGameKeybindings", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252", null ],
+      [ "OpenEditorKeybindings", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c", null ],
       [ "Back", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f", null ]
     ] ],
     [ "ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
       [ "Menu", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911", null ],
       [ "Game", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb", null ],
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ],
-      [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ]
+      [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ],
+      [ "GameKeybindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3", null ],
+      [ "EditorKeybindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7", null ]
     ] ],
+    [ "capturedKey", "namespacehmi.html#ac200bbbe13247069ff384e574db66eec", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],
     [ "isValidLevelSize", "namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430", null ],
+    [ "keyDisplayName", "namespacehmi.html#acd53f8d86ae168c7bf03fda0cdede0c3", null ],
     [ "parseLevelSize", "namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50", null ],
     [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],
-    [ "toPlayerInput", "namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b", null ],
+    [ "toPlayerInput", "namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b", null ],
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
+    [ "EDITOR_ACTION_COUNT", "namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c", null ],
+    [ "GAME_ACTION_COUNT", "namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d", null ],
     [ "MAX_LEVEL_DIMENSION", "namespacehmi.html#a3201578f409cccc5319bc31255846ec1", null ],
     [ "PALETTE_INDENT_STEP", "namespacehmi.html#a49bd615b891f2304f7a0aa6d6029f27c", null ],
     [ "PALETTE_TOP", "namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a", null ],

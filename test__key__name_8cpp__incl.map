@@ -1,0 +1,22 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Input/test_key_name.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Input/test_key_name.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de l&#39;affichage et de la capture de touche (KeyName, LOT&#45;29)." alt="" coords="64,5,285,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="33,123,137,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,77,108,114,104,111,140,73"/>
+<area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="84,196,252,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="176,75,172,182,166,182,171,75"/>
+<area shape="rect" id="Node000008" href="$KeyName_8h.html" title="Nom affichable d&#39;une touche et capture générique « prochaine touche pressée » (LOT&#45;29)." alt="" coords="225,123,389,148"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="224,73,280,112,277,117,221,77"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,269,61,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="148,224,69,265,66,260,145,219"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="86,269,157,295"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="163,223,139,259,134,256,158,220"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="181,269,248,295"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="178,220,202,256,197,259,173,223"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="273,269,335,295"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="191,219,271,261,269,265,189,224"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="286,150,204,192,202,187,283,146"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="276,196,351,221"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="310,148,314,182,308,183,305,149"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="375,196,433,221"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="324,146,378,185,375,190,321,150"/>
+</map>

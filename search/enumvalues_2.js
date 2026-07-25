@@ -7,6 +7,7 @@ var searchData=
   ['concaveupleft_4',['ConcaveUpLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55',1,'core']]],
   ['concaveupright_5',['ConcaveUpRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60',1,'core']]],
   ['control_6',['Control',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1',1,'hmi']]],
-  ['count_7',['Count',['../namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9',1,'hmi']]],
-  ['createlevelname_8',['CreateLevelName',['../classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d',1,'hmi::EditorScreen']]]
+  ['copy_7',['Copy',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea',1,'hmi']]],
+  ['count_8',['Count',['../namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9',1,'hmi']]],
+  ['createlevelname_9',['CreateLevelName',['../classhmi_1_1EditorScreen.html#a1886cc2e2d30c668ff1f529503b04364aaf305abe965cb38e4e10580b02d29f0d',1,'hmi::EditorScreen']]]
 ];

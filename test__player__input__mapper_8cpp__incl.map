@@ -1,20 +1,28 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp">
-<area shape="rect" id="Node000001" title="Tests unitaires de la traduction clavier → intention (toPlayerInput)." alt="" coords="109,5,331,75"/>
+<area shape="rect" id="Node000001" title="Tests unitaires de la traduction clavier → intention (toPlayerInput)." alt="" coords="184,5,405,75"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,77,91,118,88,113,160,72"/>
-<area shape="rect" id="Node000003" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="115,196,309,221"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,76,183,99,173,123,171,135,173,147,182,167,194,184,190,187,178,169,168,149,166,135,168,122,178,97,192,74"/>
-<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="431,123,599,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,72,466,116,464,121,326,77"/>
-<area shape="rect" id="Node000009" href="$PlayerInputMapper_8h.html" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="183,123,406,148"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="249,73,279,110,275,113,245,76"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="352,196,408,221"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="494,150,415,192,413,187,492,146"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="433,196,503,221"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="509,150,485,186,481,183,505,147"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="528,196,595,221"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="525,147,548,183,544,186,520,150"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="619,196,682,221"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="538,146,618,187,615,192,535,150"/>
-<area shape="poly" id="edge9_Node000009_Node000003" title=" " alt="" coords="283,150,238,189,234,185,280,146"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,77,100,120,98,115,208,72"/>
+<area shape="rect" id="Node000003" href="$PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="49,196,244,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,77,197,98,173,124,159,153,152,183,146,182,154,151,168,121,194,94,224,73"/>
+<area shape="rect" id="Node000004" href="$GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="269,196,489,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="372,73,399,94,420,122,424,139,421,156,402,187,398,184,416,154,419,139,415,124,395,98,368,77"/>
+<area shape="rect" id="Node000008" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="448,269,616,295"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="367,72,404,95,440,121,476,154,504,195,518,226,528,255,523,257,513,228,499,197,472,157,437,125,401,99,364,77"/>
+<area shape="rect" id="Node000011" href="$PlayerInputMapper_8h.html" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="183,123,406,148"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="297,75,297,109,292,109,292,75"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="265,343,321,368"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="363,224,338,244,316,271,304,300,298,329,293,328,299,298,311,268,334,240,359,219"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="354,343,425,368"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="363,224,346,238,331,255,322,274,324,294,339,315,359,333,355,337,335,319,319,296,317,273,326,252,342,234,360,220"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="333,269,424,295"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="381,222,381,256,376,256,376,222"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="404,219,496,261,494,266,402,224"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="494,297,335,344,334,339,493,292"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="510,297,426,339,424,334,508,292"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="453,343,520,368"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="527,296,504,333,499,330,522,294"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="545,343,607,368"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="542,294,564,330,559,332,537,296"/>
+<area shape="poly" id="edge14_Node000011_Node000003" title=" " alt="" coords="272,150,184,192,182,188,270,146"/>
+<area shape="poly" id="edge15_Node000011_Node000004" title=" " alt="" coords="310,146,356,185,353,189,306,150"/>
 </map>

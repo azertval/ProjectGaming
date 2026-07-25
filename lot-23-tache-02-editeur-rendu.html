@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-23-tache-02-editeur-rendu.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-23-collision-arrondie_2epic_8md.html">LOT-23</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1224"></a>
+<h1><a class="anchor" id="autotoc_md1225"></a>
 Contexte</h1>
 <p>Rendre les tuiles arrondies utilisables : plaçables dans l'éditeur, visuellement distinctes des pentes linéaires de <code>LOT-22</code> malgré la même orientation générale.</p>
-<h1><a class="anchor" id="autotoc_md1225"></a>
+<h1><a class="anchor" id="autotoc_md1226"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="EditorLayout_8h.html" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets.">HMI/Editor/EditorLayout.h</a></code>** : <code>PALETTE_TYPE_COUNT</code> augmente de 2.</li>
@@ -105,30 +105,30 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="TileVisuals_8cpp.html">HMI/Graphics/TileVisuals.cpp</a></code>** : couleurs d'atlas dédiées, distinctes de celles des pentes.</li>
 <li><b>Rendu courbe</b> : approximation d'un quart de cercle en pixel art généré en code (comparable en esprit à la silhouette du personnage ou aux drapeaux, déjà générés par blocs de pixels dans <code>TextureAtlas</code>/<code>FlagIcons</code>) — même arbitrage qu'en <code>LOT-22-TACHE-03</code> entre une région d'atlas fidèle à la forme et une couleur pleine en repli si l'effort dépasse le budget du lot.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1226"></a>
+<h1><a class="anchor" id="autotoc_md1227"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="EditorLayout_8h.html" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets.">Source/HMI/Editor/EditorLayout.h</a></code>, <code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">TilePalette.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="TileVisuals_8cpp.html">Source/HMI/Graphics/TileVisuals.cpp</a></code> (et <code><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></code> si un motif courbe est généré).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1227"></a>
+<h1><a class="anchor" id="autotoc_md1228"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>ctest</code> existant (<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">test_tile_palette.cpp</a></code>) reste vert.</li>
 <li><b>Vérification visuelle obligatoire</b> : peindre les deux orientations arrondies, tester (<code>P</code>) — le suivi de courbe doit être visuellement cohérent avec la formule de <code>TACHE-01</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1228"></a>
+<h1><a class="anchor" id="autotoc_md1229"></a>
 Points d'attention</h1>
 <ul>
 <li>Vérifier que les couleurs choisies restent <b>distinctes</b> de celles des pentes de <code>LOT-22</code> dans la palette — un niveau qui mélange les deux doit rester lisible pour qui le conçoit.</li>
 <li><b>Décision retenue</b> : couleur plate (option repli), comme pour les pentes de <code>LOT-22-TACHE-03</code> — bleu violet pour <code>RoundedUpRight</code> (<code>atlas.tile(3, 2)</code>), magenta pour <code>RoundedUpLeft</code> (<code>atlas.tile(0, 1)</code>), distinctes entre elles et des pentes (vert sarcelle/vieux rose). Un rendu fidèle à la courbe est un raffinement possible d'un lot ultérieur, non fait ici (même arbitrage que <code>LOT-22</code>, documenté explicitement plutôt que laissé non dit).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1229"></a>
+<h1><a class="anchor" id="autotoc_md1230"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tuiles arrondies plaçables et visuellement identifiables ; aucune régression sur les entrées existantes de la palette (pentes incluses). Vérifié visuellement dans l'application compilée (palette à 13 entrées, couleurs distinctes, aucun chevauchement ni troncature).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1230"></a>
+<h1><a class="anchor" id="autotoc_md1231"></a>
 Exigences</h1>
 <p>Aucune exigence propre — intégration de <code>EX-GP-004</code> (TACHE-01) dans <code>HMI</code>. </p>
 </div></div><!-- contents -->

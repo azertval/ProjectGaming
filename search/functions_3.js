@@ -1,11 +1,12 @@
 var searchData=
 [
   ['dashbudget_0',['dashbudget',['../classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d',1,'core::Level::dashBudget()'],['../classcore_1_1LevelDraft.html#ac8048001ee2bf60309c234ff6f717ff4',1,'core::LevelDraft::dashBudget()']]],
-  ['defaultlogger_1',['defaultLogger',['../namespacecore.html#a925cad771c457040a01272ff8be8e1a1',1,'core']]],
-  ['destroy_2',['destroy',['../classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0',1,'core::EntityManager']]],
-  ['destroyentity_3',['destroyEntity',['../classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885',1,'core::World']]],
-  ['device_4',['device',['../classhmi_1_1GraphicsDevice.html#a41a7bece5d4ff3bf2e1df97c669346ef',1,'hmi::GraphicsDevice']]],
-  ['dot_5',['dot',['../structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6',1,'core::Vector2']]],
-  ['draw_6',['draw',['../classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d',1,'hmi::SpriteBatch']]],
-  ['drawtext_7',['drawText',['../classhmi_1_1BitmapFont.html#a9a33ca4934ac8736b8ac3e03853d4eed',1,'hmi::BitmapFont']]]
+  ['defaultkey_1',['defaultkey',['../classhmi_1_1EditorKeyBindings.html#a12570faca506479fd16c5817d2092ad6',1,'hmi::EditorKeyBindings::defaultKey()'],['../classhmi_1_1GameKeyBindings.html#ad2a61b672b2329285186aa6155ddc2db',1,'hmi::GameKeyBindings::defaultKey()']]],
+  ['defaultlogger_2',['defaultLogger',['../namespacecore.html#a925cad771c457040a01272ff8be8e1a1',1,'core']]],
+  ['destroy_3',['destroy',['../classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0',1,'core::EntityManager']]],
+  ['destroyentity_4',['destroyEntity',['../classcore_1_1World.html#a3f7bff9ce2069d73f341d6726a793885',1,'core::World']]],
+  ['device_5',['device',['../classhmi_1_1GraphicsDevice.html#a41a7bece5d4ff3bf2e1df97c669346ef',1,'hmi::GraphicsDevice']]],
+  ['dot_6',['dot',['../structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6',1,'core::Vector2']]],
+  ['draw_7',['draw',['../classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d',1,'hmi::SpriteBatch']]],
+  ['drawtext_8',['drawText',['../classhmi_1_1BitmapFont.html#a9a33ca4934ac8736b8ac3e03853d4eed',1,'hmi::BitmapFont']]]
 ];

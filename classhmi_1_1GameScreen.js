@@ -1,7 +1,7 @@
 var classhmi_1_1GameScreen =
 [
-    [ "GameScreen", "classhmi_1_1GameScreen.html#ac6aa6b25e60bd0c2e2e8dc37a998ecb9", null ],
-    [ "GameScreen", "classhmi_1_1GameScreen.html#a40fd5107c6197e190f0bd21d9a43b599", null ],
+    [ "GameScreen", "classhmi_1_1GameScreen.html#a364f4ceb24774fef94dd3889a6f3c3e7", null ],
+    [ "GameScreen", "classhmi_1_1GameScreen.html#a74986af0722ea429b9a7b5b7203e4106", null ],
     [ "loadLevel", "classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f", null ],
     [ "loadLevel", "classhmi_1_1GameScreen.html#a65880fa25b1d6c65449aa5194c052be5", null ],
     [ "refreshBlockVisuals", "classhmi_1_1GameScreen.html#a5e5b846c41cd30bc566ee908e346c26e", null ],
@@ -16,6 +16,7 @@ var classhmi_1_1GameScreen =
     [ "_blocks", "classhmi_1_1GameScreen.html#af7f50f75ef6aa95b54e3ed405934baa0", null ],
     [ "_camera", "classhmi_1_1GameScreen.html#a1eab05c7ae103ce10c5ae2572fffa53a", null ],
     [ "_doorEntities", "classhmi_1_1GameScreen.html#a9e54ed877443efcab88df98c0a7468da", null ],
+    [ "_gameBindings", "classhmi_1_1GameScreen.html#a8afda23c8bc9799dc5e7476e399eeef3", null ],
     [ "_level", "classhmi_1_1GameScreen.html#a926d9eaffcc13985416642fd6645d165", null ],
     [ "_levelHeight", "classhmi_1_1GameScreen.html#aa099ff22894a1b07b938fb067810020d", null ],
     [ "_levelWidth", "classhmi_1_1GameScreen.html#a493f5509d5086709cd3e9084f2777909", null ],

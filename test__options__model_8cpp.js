@@ -6,5 +6,7 @@ var test__options__model_8cpp =
     [ "TEST", "test__options__model_8cpp.html#adc65e19bdbd8b037fbd41fc5763d6506", null ],
     [ "TEST", "test__options__model_8cpp.html#a8292700e53184e6aa0e732ace493ab42", null ],
     [ "TEST", "test__options__model_8cpp.html#a803e4fe5e9633ee46173ef47f21a6c76", null ],
+    [ "TEST", "test__options__model_8cpp.html#add2e1e99c4ae93d6c54c4b0fbbf499ed", null ],
+    [ "TEST", "test__options__model_8cpp.html#aaa94045d5fba401a5e6aa786dce15496", null ],
     [ "TEST", "test__options__model_8cpp.html#aef39f402cf14bb44125c34d9953231e7", null ]
 ];

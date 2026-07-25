@@ -12,6 +12,8 @@ var hierarchy =
     [ "hmi::LevelPicker::Choice", "structhmi_1_1LevelPicker_1_1Choice.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],
     [ "core::Color", "structcore_1_1Color.html", null ],
+    [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
+    [ "hmi::EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
     [ "core::Entity", "structcore_1_1Entity.html", null ],
     [ "core::EntityManager", "classcore_1_1EntityManager.html", null ],
@@ -20,6 +22,8 @@ var hierarchy =
     [ "hmi::ToolBar::Entry", "structhmi_1_1ToolBar_1_1Entry.html", null ],
     [ "core::FixedTimestep", "classcore_1_1FixedTimestep.html", null ],
     [ "hmi::FlagIcons", "classhmi_1_1FlagIcons.html", null ],
+    [ "hmi::GameKeyBindings", "classhmi_1_1GameKeyBindings.html", null ],
+    [ "hmi::GameKeybindingsModel", "classhmi_1_1GameKeybindingsModel.html", null ],
     [ "hmi::GraphicsDevice", "classhmi_1_1GraphicsDevice.html", null ],
     [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
@@ -31,7 +35,9 @@ var hierarchy =
     ] ],
     [ "hmi::InputState", "classhmi_1_1InputState.html", null ],
     [ "hmi::IScreen", "classhmi_1_1IScreen.html", [
+      [ "hmi::EditorKeybindingsScreen", "classhmi_1_1EditorKeybindingsScreen.html", null ],
       [ "hmi::EditorScreen", "classhmi_1_1EditorScreen.html", null ],
+      [ "hmi::GameKeybindingsScreen", "classhmi_1_1GameKeybindingsScreen.html", null ],
       [ "hmi::GameScreen", "classhmi_1_1GameScreen.html", null ],
       [ "hmi::MenuScreen", "classhmi_1_1MenuScreen.html", null ],
       [ "hmi::OptionsScreen", "classhmi_1_1OptionsScreen.html", null ]

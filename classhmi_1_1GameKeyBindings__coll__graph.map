@@ -1,0 +1,5 @@
+<map id="hmi::GameKeyBindings" name="hmi::GameKeyBindings">
+<area shape="rect" id="Node000001" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="5,108,180,133"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="7,5,178,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,59,95,108,90,108,90,59"/>
+</map>

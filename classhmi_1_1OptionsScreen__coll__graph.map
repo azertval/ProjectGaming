@@ -1,5 +1,5 @@
 <map id="hmi::OptionsScreen" name="hmi::OptionsScreen">
-<area shape="rect" id="Node000001" title="Écran de réglages : bascule V&#45;Sync, langue, état de la manette, retour au menu (EX&#45;REN&#45;022,..." alt="" coords="1293,119,1443,144"/>
+<area shape="rect" id="Node000001" title="Écran de réglages : bascule V&#45;Sync, ouvre les sous&#45;menus de remappage des touches,..." alt="" coords="1293,119,1443,144"/>
 <area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="994,5,1097,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1111,16,1189,25,1231,35,1270,49,1297,64,1321,82,1357,117,1354,121,1318,86,1294,68,1268,54,1229,40,1188,30,1110,21"/>
 <area shape="rect" id="Node000003" href="$classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,..." alt="" coords="692,88,825,113"/>

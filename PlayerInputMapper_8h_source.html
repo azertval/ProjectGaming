@@ -101,17 +101,20 @@ $(document).ready(function(){initNavTree('PlayerInputMapper_8h_source.html','');
 <a href="PlayerInputMapper_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="PlayerInput_8h.html">Core/Physics/PlayerInput.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>InputState;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1PlayerInput.html">core::PlayerInput</a> <a class="code hl_function" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b">toPlayerInput</a>(<span class="keyword">const</span> InputState&amp; input);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="GameKeyBindings_8h.html">HMI/Input/GameKeyBindings.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>InputState;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1PlayerInput.html">core::PlayerInput</a> <a class="code hl_function" href="namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b">toPlayerInput</a>(<span class="keyword">const</span> InputState&amp; input,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                              <span class="keyword">const</span> GameKeyBindings&amp; bindings);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aGameKeyBindings_8h_html"><div class="ttname"><a href="GameKeyBindings_8h.html">GameKeyBindings.h</a></div><div class="ttdoc">Association remappable action de jeu -&gt; touche clavier, avec persistance (EX-CTRL-012).</div></div>
 <div class="ttc" id="aPlayerInput_8h_html"><div class="ttname"><a href="PlayerInput_8h.html">PlayerInput.h</a></div><div class="ttdoc">Intention de déplacement du personnage, neutre vis-à-vis de l'entrée physique.</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> EditorLayout.h:8</div></div>
-<div class="ttc" id="anamespacehmi_html_a400f94138e7bf311db8eed180aec1f3b"><div class="ttname"><a href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b">hmi::toPlayerInput</a></div><div class="ttdeci">core::PlayerInput toPlayerInput(const InputState &amp;input)</div><div class="ttdoc">Traduit l'état clavier en core::PlayerInput, dissocié des touches physiques (EX-CTRL-010).</div><div class="ttdef"><b>Definition</b> PlayerInputMapper.cpp:9</div></div>
+<div class="ttc" id="anamespacehmi_html_ab3de559ef4a330d1360628f6f8ad407b"><div class="ttname"><a href="namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b">hmi::toPlayerInput</a></div><div class="ttdeci">core::PlayerInput toPlayerInput(const InputState &amp;input, const GameKeyBindings &amp;bindings)</div><div class="ttdoc">Traduit l'état clavier en core::PlayerInput, dissocié des touches physiques (EX-CTRL-010,...</div><div class="ttdef"><b>Definition</b> PlayerInputMapper.cpp:29</div></div>
 <div class="ttc" id="astructcore_1_1PlayerInput_html"><div class="ttname"><a href="structcore_1_1PlayerInput.html">core::PlayerInput</a></div><div class="ttdoc">Intention de déplacement transmise à la physique, dissociée de toute touche.</div><div class="ttdef"><b>Definition</b> PlayerInput.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

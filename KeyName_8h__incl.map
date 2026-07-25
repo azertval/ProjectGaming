@@ -1,0 +1,17 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/KeyName.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/KeyName.h">
+<area shape="rect" id="Node000001" title="Nom affichable d&#39;une touche et capture générique « prochaine touche pressée » (LOT&#45;29)." alt="" coords="23,5,244,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,80,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,62,67,100,63,96,104,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="104,108,163,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="136,60,136,94,131,94,131,60"/>
+<area shape="rect" id="Node000004" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="187,108,355,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="177,58,242,98,239,103,174,62"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="108,181,164,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="250,136,171,177,169,172,248,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="189,181,259,207"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="265,135,241,171,237,168,261,132"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="284,181,351,207"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="281,132,304,168,300,171,276,135"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="375,181,438,207"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="294,131,374,173,371,177,291,136"/>
+</map>

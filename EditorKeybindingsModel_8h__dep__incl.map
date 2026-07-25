@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/EditorKeybindingsModel.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/EditorKeybindingsModel.h">
+<area shape="rect" id="Node000001" title="Logique (testable) du sous&#45;menu « Touches de l&#39;éditeur » : liste, capture, réinitialisation." alt="" coords="335,5,621,60"/>
+<area shape="rect" id="Node000002" href="$EditorKeybindingsModel_8cpp.html" title=" " alt="" coords="5,115,308,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="387,67,236,118,234,113,386,62"/>
+<area shape="rect" id="Node000003" href="$EditorKeybindingsScreen_8h.html" title="Écran du sous&#45;menu « Touches de l&#39;éditeur » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="333,115,623,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="481,74,481,115,475,115,475,74"/>
+<area shape="rect" id="Node000006" href="$test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous&#45;menu « Touches de l&#39;éditeur » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="647,108,874,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="560,62,674,105,672,110,559,67"/>
+<area shape="rect" id="Node000004" href="$EditorKeybindingsScreen_8cpp.html" title=" " alt="" coords="181,225,487,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="433,181,371,227,368,223,430,176"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="511,225,733,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="526,176,588,223,585,227,523,181"/>
+</map>

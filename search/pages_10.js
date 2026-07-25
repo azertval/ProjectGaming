@@ -59,6 +59,7 @@ var searchData=
   ['lot_2026_20—_20pentes_20et_20arrondis_20de_20plafond_56',['LOT-26 — Pentes et arrondis de plafond',['../lot-26.html',1,'lots']]],
   ['lot_2027_20—_20palette_20de_20l_20éditeur_20organisée_20par_20catégories_57',['LOT-27 — Palette de l&apos;éditeur organisée par catégories',['../lot-27.html',1,'lots']]],
   ['lot_2028_20—_20arrondis_20concaves_58',['LOT-28 — Arrondis concaves',['../lot-28.html',1,'lots']]],
-  ['lots_59',['Lots',['../lots.html',1,'index']]],
-  ['lots_20navigables_60',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
+  ['lot_2029_20—_20remappage_20des_20touches_20jeu_20éditeur_59',['LOT-29 — Remappage des touches (jeu + éditeur)',['../lot-29.html',1,'lots']]],
+  ['lots_60',['Lots',['../lots.html',1,'index']]],
+  ['lots_20navigables_61',['TACHE-05 — Pages de lots navigables',['../lot-04-tache-05-pages-lots.html',1,'lot-04']]]
 ];

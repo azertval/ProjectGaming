@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-04-tache-01-reorganisation-arbo.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-04-documentation-doxygen_2epic_8md.html">LOT-04</a> · <b>Emplacement :</b> racine → <code>Documentation/</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md385"></a>
+<h1><a class="anchor" id="autotoc_md386"></a>
 Contexte</h1>
 <p>Les documents projet sont dispersés : <code>Specification/</code> et <code>Lot/</code> sont à la racine, et <code><a class="el" href="conventions_8md.html">conventions.md</a></code> vit à part dans <code>Documentation/</code>. Pour un site de documentation cohérent (et une génération Doxygen simple à cadrer), tout le documentaire est regroupé sous <code>Documentation/</code>, et les conventions rejoignent les spécifications.</p>
-<h1><a class="anchor" id="autotoc_md386"></a>
+<h1><a class="anchor" id="autotoc_md387"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Déplacer <code>Specification/</code> → <code>Documentation/Specification/</code> (<code>git mv</code>, historique préservé).</li>
@@ -113,33 +113,33 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md387"></a>
+<h1><a class="anchor" id="autotoc_md388"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Déplacements/renommages : <code>Specification/**</code> (dont retrait des préfixes), <code>Lot/**</code>, <code>Documentation/conventions.md</code> → <code><a class="el" href="conventions_8md.html">Documentation/Specification/conventions.md</a></code>.</li>
 <li>Édits de références : <code>README.md</code>, <code>CONTRIBUTING.md</code>, <code>CHANGELOG.md</code>, <code>Documentation/README.md</code>, <code>Source/Core/Diagnostics/README.md</code>, <code>Source/Test/README.md</code>, <code>Documentation/Lot/README.md</code>, epics de lots, spec des exigences non fonctionnelles, liens croisés entre specs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md388"></a>
+<h1><a class="anchor" id="autotoc_md389"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Recherche globale : <b>aucune</b> occurrence résiduelle de <code>](Specification/</code>, <code>](Lot/</code>, <code>Documentation/conventions.md</code>, ni d'un nom de spec préfixé <code>NN-...md</code>, pointant vers un chemin disparu.</li>
 <li>Chaque lien relatif Markdown (spec ↔ spec, spec ↔ lot, epic ↔ tâche) résout vers un fichier existant.</li>
 <li><code>git mv</code> utilisé (déplacements <b>et</b> renommages apparaissent comme tels dans <code>git status</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md389"></a>
+<h1><a class="anchor" id="autotoc_md390"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <code>README.md</code> racine <b>reste</b> (vitrine GitHub) mais pointe désormais vers <code>Documentation/</code>.</li>
 <li><code>Documentation/generated/</code> reste gitignoré ; ne pas le déplacer ni le committer.</li>
 <li>Ne rien changer au code de <code>Source/</code> (seuls des READMEs y sont édités pour leurs liens).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md390"></a>
+<h1><a class="anchor" id="autotoc_md391"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Arborescence conforme à l'epic ; conventions intégrées aux spécifications.</li>
 <li>Zéro lien cassé (vérifié) ; renommages traçables dans l'historique git.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md391"></a>
+<h1><a class="anchor" id="autotoc_md392"></a>
 Exigences</h1>
 <p><code>EX-NFR-012</code>. </p>
 </div></div><!-- contents -->

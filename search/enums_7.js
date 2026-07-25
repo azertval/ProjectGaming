@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rowaction_0',['RowAction',['../classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135',1,'hmi::TilePalette']]]
+  ['optionsaction_0',['OptionsAction',['../namespacehmi.html#a001461460d9ba91885ad98efd4f7f673',1,'hmi']]]
 ];

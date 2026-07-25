@@ -100,14 +100,31 @@ $(document).ready(function(){initNavTree('PlayerInputMapper_8h.html',''); initRe
 <p>Traduction des entrées clavier en intention de déplacement (action logique).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="PlayerInput_8h_source.html">Core/Physics/PlayerInput.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GameKeyBindings_8h_source.html">HMI/Input/GameKeyBindings.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for PlayerInputMapper.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="PlayerInputMapper_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Input_2PlayerInputMapper_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Input_2PlayerInputMapper_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Input_2PlayerInputMapper_8h">
-<area shape="rect" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="5,5,232,60"/>
-<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="21,108,216,133"/>
-<area shape="poly" title=" " alt="" coords="121,60,121,94,116,94,116,60"/>
+<area shape="rect" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="105,5,332,60"/>
+<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="5,108,200,133"/>
+<area shape="poly" title=" " alt="" coords="185,62,131,102,128,97,182,58"/>
+<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="225,108,445,133"/>
+<area shape="poly" title=" " alt="" coords="256,58,309,97,306,102,253,62"/>
+<area shape="rect" title=" " alt="" coords="189,255,245,280"/>
+<area shape="poly" title=" " alt="" coords="327,135,237,246,233,242,323,132"/>
+<area shape="rect" title=" " alt="" coords="270,255,341,280"/>
+<area shape="poly" title=" " alt="" coords="328,135,314,156,303,182,299,212,302,241,297,241,294,212,297,181,309,154,323,132"/>
+<area shape="rect" title=" " alt="" coords="504,181,595,207"/>
+<area shape="poly" title=" " alt="" coords="370,131,502,174,501,179,368,136"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="312,181,480,207"/>
+<area shape="poly" title=" " alt="" coords="347,132,379,169,375,173,343,135"/>
+<area shape="poly" title=" " alt="" coords="368,209,259,252,257,247,366,204"/>
+<area shape="poly" title=" " alt="" coords="383,209,333,248,329,244,380,205"/>
+<area shape="rect" title=" " alt="" coords="365,255,432,280"/>
+<area shape="poly" title=" " alt="" coords="399,207,400,241,395,241,394,207"/>
+<area shape="rect" title=" " alt="" coords="457,255,519,280"/>
+<area shape="poly" title=" " alt="" coords="412,205,464,244,461,248,409,209"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -134,9 +151,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a400f94138e7bf311db8eed180aec1f3b" id="r_a400f94138e7bf311db8eed180aec1f3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a400f94138e7bf311db8eed180aec1f3b">hmi::toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
-<tr class="memdesc:a400f94138e7bf311db8eed180aec1f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>).  <br /></td></tr>
-<tr class="separator:a400f94138e7bf311db8eed180aec1f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3de559ef4a330d1360628f6f8ad407b" id="r_ab3de559ef4a330d1360628f6f8ad407b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b">hmi::toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;bindings)</td></tr>
+<tr class="memdesc:ab3de559ef4a330d1360628f6f8ad407b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>).  <br /></td></tr>
+<tr class="separator:ab3de559ef4a330d1360628f6f8ad407b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Traduction des entrées clavier en intention de déplacement (action logique). </p>

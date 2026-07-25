@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-09-tache-03-saut-hauteur-variable.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-09-saut-game-feel_2epic_8md.html">LOT-09</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md690"></a>
+<h1><a class="anchor" id="autotoc_md691"></a>
 Contexte</h1>
 <p>Cœur du lot : ajouter le <b>saut</b> au <code>CharacterPhysicsSystem</code> (LOT-08), avec la <b>hauteur variable</b> — le levier de <em>feel</em> le plus important. La gravité reste <b>constante</b> (<code>EX-GP-011</code>) ; la hauteur varie en <b>coupant</b> la vitesse ascendante au relâchement, pas en changeant la gravité.</p>
-<h1><a class="anchor" id="autotoc_md691"></a>
+<h1><a class="anchor" id="autotoc_md692"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code>, pour chaque personnage, <b>avant</b> l'intégration de la gravité et le balayage :</p><ul>
 <li><b>Déclenchement</b> (<code>EX-GP-013</code>) : si <code>jumpPressed</code> <b>et</b> le personnage est <b>au sol</b> (<code>grounded</code>), appliquer l'impulsion : <code>velocity.y = -jumpSpeed</code> (y vers le bas → saut = négatif). Le décollage remet <code>grounded</code> à <code>false</code> (il le sera de toute façon au prochain balayage).</li>
@@ -107,13 +107,13 @@ Travail à réaliser</h1>
 <blockquote class="doxtable">
 <p>&zwj;Le <b>coyote time</b> et le <b>jump buffering</b> (qui assouplissent la condition « au sol » et mémorisent l'appui) sont ajoutés en <b>TACHE-04</b> : ici, on implémente le saut « strict au sol » et la hauteur variable. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md692"></a>
+<h1><a class="anchor" id="autotoc_md693"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests unitaires/d'intégration du saut.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md693"></a>
+<h1><a class="anchor" id="autotoc_md694"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Saut au sol</b> : au sol, <code>jumpPressed</code> → le personnage décolle (<code>velocity.y &lt; 0</code>) et <b>monte</b>.</li>
@@ -123,7 +123,7 @@ Tests (obligatoires)</h1>
 <li><b>Gravité inchangée</b> : après l'apex, retombée identique au LOT-08 (gravité constante).</li>
 <li><b>Déterminisme</b> : mêmes entrées (dont l'appui) → même trajectoire (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md694"></a>
+<h1><a class="anchor" id="autotoc_md695"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre</b> dans le pas : traiter le saut/coupe <b>avant</b> la gravité et le balayage.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li><b>Constance de la gravité</b> : ne pas moduler <code>gravity</code> ; la hauteur variable passe uniquement par la coupe de vitesse.</li>
 <li>Réutiliser tel quel le balayage et la résolution du LOT-08 ; n'ajouter que la logique de saut.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md695"></a>
+<h1><a class="anchor" id="autotoc_md696"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Saut au sol + hauteur variable fonctionnels, documentés et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md696"></a>
+<h1><a class="anchor" id="autotoc_md697"></a>
 Exigences</h1>
 <p><code>EX-GP-011</code>, <code>EX-GP-013</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->
