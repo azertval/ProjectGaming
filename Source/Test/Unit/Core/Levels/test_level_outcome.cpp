@@ -107,3 +107,70 @@ TEST(LevelOutcomeTest, EchecPrioritaireSurSucces) {
     const core::Level level = makeLevel(core::GridPosition{5, 5}, 5, 5);
     EXPECT_EQ(core::evaluateOutcome(unitBox(5.0f, 5.0f), level), core::LevelOutcome::Lost);
 }
+
+/**
+ * @brief Un danger directionnel (`DangerRight`) ne provoque l'échec que sur la bande de son bord
+ * désigné, pas sur le reste de la case (`EX-GP-050`).
+ * \castest{<b>Un danger directionnel ne provoque l'échec que sur la bande de son bord
+ * désigné.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un danger directionnel ne provoque l'échec que sur la bande de son bord désigné.
+ * }
+ */
+TEST(LevelOutcomeTest, DangerDirectionnelPerduSeulementSurSaBande) {
+    core::TileMap map(10, 10);
+    map.setTile(5, 5, core::TileType::DangerRight);  // bande mortelle : x in [5.75, 6.0]
+    const core::Level level("test", std::move(map), core::GridPosition{0, 0},
+                            core::GridPosition{8, 8}, {});
+
+    // Boîte étroite (0,2 de large) posée avant la bande : survit.
+    const core::Aabb safeBox =
+        core::Aabb::fromTopLeftSize(core::Vector2{5.0f, 5.0f}, core::Vector2{0.2f, 1.0f});
+    EXPECT_EQ(core::evaluateOutcome(safeBox, level), core::LevelOutcome::Playing);
+
+    // Même largeur, posée sur la bande : perdu.
+    const core::Aabb dangerBox =
+        core::Aabb::fromTopLeftSize(core::Vector2{5.8f, 5.0f}, core::Vector2{0.2f, 1.0f});
+    EXPECT_EQ(core::evaluateOutcome(dangerBox, level), core::LevelOutcome::Lost);
+}
+
+/**
+ * @brief Une boîte supplémentaire (`extraDangerBoxes`) provoque l'échec au même titre qu'une
+ * tuile de danger statique (`EX-GP-051`/`052`/`053`, assemblées par l'appelant).
+ * \castest{<b>Une boîte supplémentaire fournie par l'appelant provoque l'échec.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une boîte supplémentaire fournie par l'appelant provoque l'échec.
+ * }
+ */
+TEST(LevelOutcomeTest, BoiteSupplementaireProvoqueLEchec) {
+    const core::Level level = makeLevel(core::GridPosition{8, 8});
+    const std::vector<core::Aabb> extraDangerBoxes{unitBox(3.0f, 3.0f)};
+
+    EXPECT_EQ(core::evaluateOutcome(unitBox(1.0f, 1.0f), level, extraDangerBoxes),
+             core::LevelOutcome::Playing);  // loin de la boîte supplémentaire
+    EXPECT_EQ(core::evaluateOutcome(unitBox(3.0f, 3.0f), level, extraDangerBoxes),
+             core::LevelOutcome::Lost);  // recouvre la boîte supplémentaire
+}
+
+/**
+ * @brief Sans boîte supplémentaire (paramètre par défaut), le comportement est inchangé par
+ * rapport à avant l'introduction des dangers avancés (non-régression).
+ * \castest{<b>Sans boîte supplémentaire, le comportement est inchangé.</b><br/>
+ * \tcat Unitaire · Level Outcome<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sans boîte supplémentaire, le comportement est inchangé.
+ * }
+ */
+TEST(LevelOutcomeTest, SansBoiteSupplementaireComportementInchange) {
+    const core::Level level = makeLevel(core::GridPosition{8, 8}, 5, 5);
+    EXPECT_EQ(core::evaluateOutcome(unitBox(5.0f, 5.0f), level), core::LevelOutcome::Lost);
+    EXPECT_EQ(core::evaluateOutcome(unitBox(5.0f, 5.0f), level, {}), core::LevelOutcome::Lost);
+}

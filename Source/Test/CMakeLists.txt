@@ -21,6 +21,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Levels/test_danger_geometry.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
+    Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
     Unit/Core/Physics/test_swept_collision.cpp
     Unit/Core/Physics/test_slope_geometry.cpp
@@ -127,6 +128,7 @@ add_executable(IntegrationTests
     Integration/test_physique_personnage.cpp
     Integration/test_animation_personnage.cpp
     Integration/test_bloc_reduit.cpp
+    Integration/test_danger_avance.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

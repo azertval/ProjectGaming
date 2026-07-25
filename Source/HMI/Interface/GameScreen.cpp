@@ -10,6 +10,7 @@
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/Components/Velocity.h"
+#include "Core/Levels/DangerGeometry.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
@@ -111,6 +112,8 @@ void GameScreen::loadLevel(core::Level level) {
             });
         _doorEntities.push_back(doorEntity);
     }
+    // Dangers mobile/temporise (EX-GP-051/053) : compteur de pas fixes a zero pour ce niveau.
+    _dangers.emplace(levelRef);
     // Blocs poussables (EX-GP-022) : memes principes que les portes ci-dessus, une entite-tuile
     // par bloc, reperee a sa position de depart.
     _blocks.emplace(levelRef);
@@ -190,6 +193,33 @@ void GameScreen::refreshBlockVisuals() {
                                            static_cast<float>(positions[index].row) + margin};
         transform.scale = core::Vector2{scale, scale};
     }
+}
+
+// Assemble les boites actuellement mortelles des dangers a etat (mobile/commute/temporise,
+// EX-GP-051/052/053) : Core/Levels ne connaissant pas Core/Gameplay, cette composition revient a
+// l'appelant (voir en-tete de core::LevelOutcome.h).
+std::vector<core::Aabb> GameScreen::collectActiveDangerBoxes() const {
+    std::vector<core::Aabb> boxes;
+    boxes.reserve(_dangers->moverCount() + _level->blinkConfigs().size() +
+                 _level->dangerLinks().size());
+
+    for (std::size_t index = 0; index < _dangers->moverCount(); ++index) {
+        boxes.push_back(_dangers->moverBox(index));
+    }
+    for (const core::DangerBlinkConfig& config : _level->blinkConfigs()) {
+        if (_dangers->isBlinkActive(config.position)) {
+            boxes.push_back(core::dangerHitbox(core::TileType::DangerBlink, config.position.column,
+                                               config.position.row));
+        }
+    }
+    for (const core::DangerLink& link : _level->dangerLinks()) {
+        if (_mechanisms->isDangerActive(link.dangerPosition)) {
+            boxes.push_back(core::dangerHitbox(core::TileType::DangerSwitched,
+                                               link.dangerPosition.column,
+                                               link.dangerPosition.row));
+        }
+    }
+    return boxes;
 }
 
 // Met a jour la region d'atlas du sprite du personnage depuis son etat d'animation courant.
@@ -291,8 +321,12 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     _mechanisms->update(box, playerMass);
     refreshDoorVisuals();
 
+    // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur de pas fixes qui pilote
+    // leur position/activation (purement deterministe, EX-NFR-002).
+    _dangers->update();
+
     // 5. Issue du niveau.
-    switch (core::evaluateOutcome(box, *_level)) {
+    switch (core::evaluateOutcome(box, *_level, collectActiveDangerBoxes())) {
         case core::LevelOutcome::Won:
             if (_sequence && _sequence->hasNext()) {
                 // Enchaine le niveau suivant : on reste sur l'ecran de jeu (EX-LVL-011).

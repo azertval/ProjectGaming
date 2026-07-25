@@ -1,12 +1,12 @@
 # LOT-31 — Blocs de danger avancés {#lot-31}
 
-> Statut : 🔄 **en cours** (TACHE-01 faite). Quatre nouvelles variantes de la tuile `Danger`
+> Statut : 🔄 **en cours** (TACHE-01/02 faites). Quatre nouvelles variantes de la tuile `Danger`
 > (`EX-GP-031`) : directionnel (pics), mobile (va-et-vient autonome), commuté (lié à un
 > interrupteur/plaque) et temporisé (clignotant) — un seul lot, une tâche par variante.
 
 ## Objectif
 La tuile `Danger` (`core::TileType::Danger`) est aujourd'hui **unique** : case pleine, statique,
-mortelle sur toute sa surface, vérifiée par simple recouvrement AABB dans `core::resolveOutcome`
+mortelle sur toute sa surface, vérifiée par simple recouvrement AABB dans `core::evaluateOutcome`
 (`Source/Core/Levels/LevelOutcome.cpp`). Ce vocabulaire est suffisant pour un danger « mur » ou
 « fosse », mais ne permet aucun des motifs classiques du genre plateforme/puzzle évoqués par
 `vision.md` (« boîte à outils classique... dangers ») : pics contre lesquels on peut se tenir sans
@@ -90,7 +90,7 @@ l'**activation** du danger varient.
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-modele-dangers-avances.md) | Modèle (types, format, liaisons) | `Core/Levels` | ✅ |
-| [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu (contrôleurs, résolution de fin de niveau) | `Core/Gameplay`, `Core/Levels` | ⬜ |
+| [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu (contrôleurs, résolution de fin de niveau) | `Core/Gameplay`, `Core/Levels` | ✅ |
 | [TACHE-03](tache-03-integration-editeur.md) | Intégration éditeur (palette, rendu, liaison/waypoint) | `HMI/Editor`, `HMI/Graphics`, `HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
 

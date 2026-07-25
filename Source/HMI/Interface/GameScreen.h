@@ -9,9 +9,11 @@
 #include "Core/Ecs/Systems/CharacterPhysicsSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Gameplay/BlockController.h"
+#include "Core/Gameplay/DangerController.h"
 #include "Core/Gameplay/MechanismController.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
+#include "Core/Physics/Aabb.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Input/GameKeyBindings.h"
@@ -43,7 +45,10 @@ class TextureAtlas;
  * pression (`core::MechanismController`) sont résolus chaque pas fixe et pris en compte par la
  * carte de collision et le rendu des portes. Les blocs poussables (`core::BlockController`,
  * `EX-GP-022`) sont résolus **avant** la physique du personnage (poussée), leur position courante
- * complétant la carte de collision au même titre que les portes.
+ * complétant la carte de collision au même titre que les portes. Les dangers mobile, commuté et
+ * temporisé (`core::DangerController`, `core::MechanismController::isDangerActive`, `EX-GP-051`/
+ * `052`/`053`) sont résolus après la physique, leurs boîtes actuellement mortelles assemblées
+ * (`collectActiveDangerBoxes`) avant l'évaluation de fin de niveau.
  */
 class GameScreen : public IScreen {
 public:
@@ -108,6 +113,12 @@ private:
     /// Repositionne les sprites des blocs poussables sur leur position courante (`_blocks`).
     void refreshBlockVisuals();
 
+    /// Assemble les boîtes **actuellement mortelles** des dangers à état (mobile/commuté/
+    /// temporisé, `EX-GP-051`/`052`/`053`), à passer à `core::evaluateOutcome` — cf. en-tête de
+    /// `core::LevelOutcome.h` (cette composition vit en `HMI` car `Core/Levels` ne connaît pas les
+    /// contrôleurs de `Core/Gameplay` qui portent cet état).
+    [[nodiscard]] std::vector<core::Aabb> collectActiveDangerBoxes() const;
+
     /// Met à jour la région d'atlas du sprite du personnage depuis son état d'animation
     /// courant (`core::Animation`) — appelé à chaque frame de rendu, pas seulement au spawn.
     void refreshPlayerSprite();
@@ -127,6 +138,8 @@ private:
         _mechanisms;                          ///< Interrupteurs/portes du niveau courant.
     std::vector<core::Entity> _doorEntities;  ///< Entités-tuiles des portes (retour visuel d'état).
     std::optional<core::BlockController> _blocks;  ///< Blocs poussables du niveau courant.
+    std::optional<core::DangerController>
+        _dangers;  ///< Dangers mobile/temporisé du niveau courant (`EX-GP-051`/`EX-GP-053`).
     std::vector<core::Entity> _blockEntities;      ///< Entités-tuiles des blocs (même ordre que
                                                     ///< `_blocks->positions()`).
     core::CharacterPhysicsSystem _physics;
