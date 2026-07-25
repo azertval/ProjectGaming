@@ -3,7 +3,7 @@
 **Lot :** [LOT-31](epic.md) · **Emplacement :** `HMI/Editor`, `HMI/Graphics`, `HMI/Interface` · **Statut :** ⬜
 
 ## Contexte
-Rend les huit nouveaux types **peignables** depuis la palette (`EX-EDIT-002`), visuellement
+Rend les sept nouveaux types **peignables** depuis la palette (`EX-EDIT-002`), visuellement
 distincts (`EX-EDIT-016`), et permet d'éditer leurs liaisons/portée sans taper de JSON à la main
 (`EX-EDIT-001`) — dans la limite actée par l'epic (pas de nouveau widget numérique pour la
 vitesse/période, cf. exclusions).
@@ -16,7 +16,7 @@ vitesse/période, cf. exclusions).
     »/« Bas »/« Gauche »/« Droite »), même patron que le sous-groupe « Pente ».
   - Trois nouvelles feuilles directes : `DangerMover` (« Mobile »), `DangerSwitched` (« Commuté »),
     `DangerBlink` (« Clignotant »).
-- **`TileVisuals.cpp`** : rendu des huit types. Directionnel = sprite/teinte du danger existant
+- **`TileVisuals.cpp`** : rendu des sept types. Directionnel = sprite/teinte du danger existant
   restreint à la bande retournée par `core::dangerHitbox` (cohérence visuel/hitbox garantie par la
   même fonction que TACHE-01/02, même principe que `tileVisualScale` pour les blocs réduits).
   Mobile/Commuté/Temporisé = variante de teinte ou icône distincte du danger classique (à
@@ -40,7 +40,7 @@ vitesse/période, cf. exclusions).
 
 ## Fichiers impactés
 - `Source/HMI/Editor/TilePalette.h`/`.cpp` (catégorie Piège restructurée).
-- `Source/HMI/Graphics/TileVisuals.cpp`/`.h` (rendu des huit types).
+- `Source/HMI/Graphics/TileVisuals.cpp`/`.h` (rendu des sept types).
 - `Source/HMI/Interface/EditorScreen.h`/`.cpp` (liaison `DangerSwitched`, geste de portée
   `DangerMover`).
 - `Source/Elements/Levels/demo-dangers-avances.json` (nouveau, séquence de démo).
@@ -64,7 +64,7 @@ vitesse/période, cf. exclusions).
   `test_parcours_complet.cpp` reste identique à celle chargée par `Source/HMI/main.cpp`).
 
 ## Définition de fait (DoD)
-- Les huit types sont éditables de bout en bout (peinture, liaison/portée, enregistrement,
+- Les sept types sont éditables de bout en bout (peinture, liaison/portée, enregistrement,
   rechargement, essai immédiat) sans édition manuelle de JSON.
 - Couverture des **trois niveaux de test** du projet pour l'ensemble du lot : Unit (TACHE-01/02,
   brique isolée), Integration (TACHE-02, `DangerController` assemblé à `LevelOutcome`/

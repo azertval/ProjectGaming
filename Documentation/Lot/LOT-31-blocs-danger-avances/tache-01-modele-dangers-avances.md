@@ -9,7 +9,7 @@ généralisation de `core::Mechanism` pour qu'une liaison interrupteur/plaque pu
 commuté en plus d'une porte.
 
 ## Travail à réaliser
-- **`Source/Core/Levels/TileType.h`** : huit nouvelles valeurs —
+- **`Source/Core/Levels/TileType.h`** : sept nouvelles valeurs —
   `DangerUp`/`DangerDown`/`DangerLeft`/`DangerRight` (directionnel, `EX-GP-050` ; nom = bord
   **mortel** de la case, même convention que `SlopeUpRight` où le suffixe décrit la géométrie, pas
   un mouvement), `DangerMover` (mobile, `EX-GP-051`), `DangerSwitched` (commuté, `EX-GP-052`),
@@ -39,9 +39,9 @@ commuté en plus d'une porte.
   type) ; `dangerMover` avec une portée qui sortirait de la grille est invalide.
 
 ## Fichiers impactés
-- `Source/Core/Levels/TileType.h` (huit types, `dangerHitbox`).
+- `Source/Core/Levels/TileType.h` (sept types, `dangerHitbox`).
 - `Source/Core/Levels/Level.h` (`Mechanism` généralisé).
-- `Source/Core/Levels/LevelLoader.cpp`/`.h`, `LevelWriter.cpp`/`.h` (parsing/sérialisation, huit
+- `Source/Core/Levels/LevelLoader.cpp`/`.h`, `LevelWriter.cpp`/`.h` (parsing/sérialisation, sept
   types + champs optionnels).
 - `Source/Core/Levels/LevelDraft.h`/`.cpp` (peinture des nouveaux types depuis l'éditeur —
   `linkMechanism` généralisé si nécessaire).
@@ -49,7 +49,7 @@ commuté en plus d'une porte.
   `test_level_draft.cpp`, `test_level.cpp` (nouveaux cas par type).
 
 ## Tests (obligatoires)
-- Round-trip JSON (écriture puis lecture) pour chacun des huit nouveaux types, avec et sans champs
+- Round-trip JSON (écriture puis lecture) pour chacun des sept nouveaux types, avec et sans champs
   optionnels.
 - `dangerHitbox` retourne le rectangle attendu pour chaque bord directionnel, et la case pleine pour
   `Danger`/`DangerMover`/`DangerSwitched`/`DangerBlink`.

@@ -11,7 +11,7 @@ ne décrit que du code déjà implémenté, jamais en avance sur lui.
 - **`Documentation/Specification/gameplay.md`** : retirer les marqueurs ⚠️ « non implémenté » posés
   sur `EX-GP-050`–`EX-GP-053` et la sous-section « Dangers avancés » lors du cadrage de ce lot,
   une fois le comportement effectivement livré.
-- **`Documentation/Specification/niveaux.md`** : section « Format retenu » étendue aux huit
+- **`Documentation/Specification/niveaux.md`** : section « Format retenu » étendue aux sept
   nouveaux types (`dangerUp`/`dangerDown`/`dangerLeft`/`dangerRight`/`dangerMover`/
   `dangerSwitched`/`dangerBlink`), champs optionnels par type, exemple JSON si pertinent.
 - **`Documentation/Guide/guide-niveaux.md`** : nouvelle section sur les dangers avancés —
@@ -21,7 +21,7 @@ ne décrit que du code déjà implémenté, jamais en avance sur lui.
 - **`Documentation/Specification/editeur-niveaux.md`** : mention de la restructuration de la
   catégorie « Piège » (analogue à la section 8 sur la palette par catégories, `LOT-27`) et du geste
   de portée pour `DangerMover`.
-- **`Source/Elements/Levels/README.md`** : liste des types de tuiles étendue aux huit nouveaux.
+- **`Source/Elements/Levels/README.md`** : liste des types de tuiles étendue aux sept nouveaux.
 - **`Documentation/Lot/lots.md`** : ajoute `@subpage lot-31`.
 - **`CHANGELOG.md`** : entrée `[Non publié]` décrivant le lot.
 - **Doxygen**, **Cahier de test**, **lint des exigences** : lancés localement (`python

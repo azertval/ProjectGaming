@@ -25,7 +25,7 @@ avec `TileType::Danger`. Dépend du modèle posé en TACHE-01.
   - **Directionnel** : aucune donnée mutable (géométrie pure, `core::dangerHitbox`) — pas de
     contrôleur nécessaire, juste consommé directement par `resolveOutcome`.
 - **`core::resolveOutcome`** (`LevelOutcome.cpp`) : généralise le test de recouvrement pour couvrir
-  les huit nouveaux types via `core::dangerHitbox` (géométrie) et l'état courant du
+  les sept nouveaux types via `core::dangerHitbox` (géométrie) et l'état courant du
   `DangerController` (position mobile, activation commutée/temporisée) au lieu du recouvrement de
   case entière actuel. Signature étendue (nouveau paramètre `const DangerController&`, ou fusionné
   dans un paramètre existant) — vérifier tous les appelants (`GameScreen`, tests).
