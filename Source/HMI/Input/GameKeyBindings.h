@@ -66,17 +66,6 @@ public:
     [[nodiscard]] static Key defaultKey(GameAction action) noexcept;
 
     /**
-     * @brief Indique si @p key est actuellement liée à une action **autre** que @p action.
-     *
-     * Sert au filet de sécurité manette de `toPlayerInput` (`PlayerInputMapper.cpp`) : la touche
-     * par défaut d'une action remappée ailleurs ne doit être revérifiée que si aucune **autre**
-     * action ne se l'est appropriée entre-temps — sinon cette touche appartient désormais
-     * exclusivement à cette autre action, et la revérifier ferait déclencher les deux actions à la
-     * fois (silencieusement annulé pour une paire opposée comme Gauche/Droite).
-     */
-    [[nodiscard]] bool isKeyClaimedByOtherAction(GameAction action, Key key) const noexcept;
-
-    /**
      * @brief Sauvegarde dans la section `"jeu"` de @p path, en préservant une section
      *        `"editeur"` déjà présente (écrite par `EditorKeyBindings::save`).
      * @return Faux si le fichier n'a pas pu être écrit (dossier non créable, etc.).

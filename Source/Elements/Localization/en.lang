@@ -17,11 +17,13 @@ options.retour = Back
 options.manette_connectee = Gamepad: connected
 options.manette_absente = Gamepad: not connected
 
-# Keybinding remap submenus (LOT-29, EX-CTRL-012)
+# Keybinding remap submenus (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.titre_jeu = Game keybindings
 keybindings.titre_editeur = Editor keybindings
+keybindings.titre_manette = Gamepad keybindings
 keybindings.reinitialiser = Reset
 keybindings.appuyez_touche = Press a key...
+keybindings.appuyez_bouton = Press a gamepad button...
 keybindings.action.gauche = Move left
 keybindings.action.droite = Move right
 keybindings.action.haut = Aim dash upward

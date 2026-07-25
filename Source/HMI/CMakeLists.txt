@@ -8,6 +8,8 @@ add_executable(ProjectGaming
     Input/GameKeyBindings.cpp
     Input/EditorKeyBindings.cpp
     Input/KeyName.cpp
+    Input/GamepadBindings.cpp
+    Input/GamepadButtonName.cpp
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp
@@ -27,6 +29,8 @@ add_executable(ProjectGaming
     Interface/GameKeybindingsScreen.cpp
     Interface/EditorKeybindingsModel.cpp
     Interface/EditorKeybindingsScreen.cpp
+    Interface/GamepadBindingsModel.cpp
+    Interface/GamepadBindingsScreen.cpp
     Interface/GameScreen.cpp
     Interface/EditorScreen.cpp
     Interface/LanguageSelector.cpp

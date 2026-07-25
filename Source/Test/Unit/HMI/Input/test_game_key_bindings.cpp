@@ -190,53 +190,6 @@ TEST(GameKeyBindingsTest, LoadValeurHorsBornesIgnoree) {
 }
 
 /**
- * @brief `isKeyClaimedByOtherAction` détecte quand une touche appartient à une autre action.
- * \castest{<b>`isKeyClaimedByOtherAction` détecte quand une touche appartient à une autre
- * action.</b><br/>
- * \tcat Unitaire · Game Key Bindings<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu `isKeyClaimedByOtherAction` détecte quand une touche appartient à une autre action.
- * }
- */
-TEST(GameKeyBindingsTest, IsKeyClaimedByOtherAction) {
-    const hmi::GameKeyBindings bindings;
-
-    // Key::Left appartient a MoveLeft (par defaut) : pas "une AUTRE action" pour MoveLeft
-    // lui-meme, mais bien une autre action pour n'importe quelle autre.
-    EXPECT_FALSE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveLeft, hmi::Key::Left));
-    EXPECT_TRUE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveRight, hmi::Key::Left));
-    // Aucune action ne detient F1 par defaut : ni l'action elle-meme, ni une autre.
-    EXPECT_FALSE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveLeft, hmi::Key::F1));
-}
-
-/**
- * @brief Après un échange (`setKey` sur conflit), la touche libérée n'est plus réclamée par
- *        personne, la nouvelle l'est par sa nouvelle action.
- * \castest{<b>Après un échange, la touche libérée n'est plus réclamée, la nouvelle
- * l'est.</b><br/>
- * \tcat Unitaire · Game Key Bindings<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Après échange, la réclamation de touche reflète le nouvel état.
- * }
- */
-TEST(GameKeyBindingsTest, IsKeyClaimedByOtherActionApresEchange) {
-    hmi::GameKeyBindings bindings;
-    bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::Right);  // echange avec MoveRight
-
-    // Key::Right (nouvelle touche de MoveLeft) : reclamee pour toute autre action que MoveLeft.
-    EXPECT_TRUE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveRight, hmi::Key::Right));
-    EXPECT_FALSE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveLeft, hmi::Key::Right));
-    // Key::Left (desormais touche de MoveRight, echangee) : reclamee pour MoveLeft, plus pour
-    // MoveRight lui-meme.
-    EXPECT_TRUE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveLeft, hmi::Key::Left));
-    EXPECT_FALSE(bindings.isKeyClaimedByOtherAction(hmi::GameAction::MoveRight, hmi::Key::Left));
-}
-
-/**
  * @brief Sauvegarder les touches de jeu préserve une section « editeur » déjà présente.
  * \castest{<b>Sauvegarder les touches de jeu préserve une section « editeur » déjà
  * présente.</b><br/>

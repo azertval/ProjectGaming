@@ -12,6 +12,11 @@ namespace {
 [[nodiscard]] std::size_t buttonIndex(MouseButton button) noexcept {
     return static_cast<std::size_t>(button);
 }
+
+// Indice de tableau associé à un bouton manette (piste brute, GamepadButton).
+[[nodiscard]] std::size_t gamepadButtonIndex(GamepadButton button) noexcept {
+    return static_cast<std::size_t>(button);
+}
 }  // namespace
 
 // Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent.
@@ -22,6 +27,7 @@ void InputState::beginFrame() noexcept {
     _keysPrevious = _keysCurrent;
     _gamepadPrevious = _gamepadCurrent;
     _buttonsPrevious = _buttonsCurrent;
+    _gamepadButtonsPrevious = _gamepadButtonsCurrent;
     _wheelDelta = 0;
     _typedCharacters.clear();
 }
@@ -58,6 +64,15 @@ void InputState::onGamepadKeyUp(Key key) noexcept {
     if (index < KEY_COUNT) {
         _gamepadCurrent[index] = false;
     }
+}
+
+// Marque button comme enfoncé dans l'état courant (piste manette brute, voir en-tête).
+void InputState::onGamepadButtonDown(GamepadButton button) noexcept {
+    _gamepadButtonsCurrent[gamepadButtonIndex(button)] = true;
+}
+
+void InputState::onGamepadButtonUp(GamepadButton button) noexcept {
+    _gamepadButtonsCurrent[gamepadButtonIndex(button)] = false;
 }
 
 // Met à jour la position de la souris.
@@ -131,6 +146,17 @@ bool InputState::keyReleased(Key key) const noexcept {
     const bool downNow = _keysCurrent[index] || _gamepadCurrent[index];
     const bool downBefore = _keysPrevious[index] || _gamepadPrevious[index];
     return !downNow && downBefore;
+}
+
+// true si button (piste manette brute) est enfoncé à cette frame.
+bool InputState::gamepadButtonDown(GamepadButton button) const noexcept {
+    return _gamepadButtonsCurrent[gamepadButtonIndex(button)];
+}
+
+// Indique si button (piste manette brute) vient d'être enfoncé cette frame (front montant).
+bool InputState::gamepadButtonPressed(GamepadButton button) const noexcept {
+    const std::size_t index = gamepadButtonIndex(button);
+    return _gamepadButtonsCurrent[index] && !_gamepadButtonsPrevious[index];
 }
 
 // Abscisse de la souris, en pixels de la zone client.

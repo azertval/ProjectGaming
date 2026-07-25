@@ -17,6 +17,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadBindings.h"
 #include "HMI/Interface/IScreen.h"
 
 /**
@@ -70,14 +71,16 @@ public:
      * @param atlas          Atlas de tuiles fournissant les régions de sprites.
      * @param viewportWidth  Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur initiale de la surface de rendu, en pixels.
-     * @param editorBindings Association action d'éditeur -> touche courante (`EX-CTRL-012`,
-     *                       référence conservée, doit survivre à l'écran).
-     * @param gameBindings   Association action de jeu -> touche courante, relayée telle quelle au
-     *                       `GameScreen` de l'essai immédiat (`startPlaytest`).
+     * @param editorBindings  Association action d'éditeur -> touche courante (`EX-CTRL-012`,
+     *                        référence conservée, doit survivre à l'écran).
+     * @param gameBindings    Association action de jeu -> touche clavier courante, relayée telle
+     *                        quelle au `GameScreen` de l'essai immédiat (`startPlaytest`).
+     * @param gamepadBindings Association action de jeu -> bouton manette courant, relayée telle
+     *                        quelle au `GameScreen` de l'essai immédiat (`startPlaytest`).
      */
     EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                 int viewportHeight, const EditorKeyBindings& editorBindings,
-                const GameKeyBindings& gameBindings);
+                const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings);
 
     /// Nécessaire : `_playtest` est un `unique_ptr` sur un type incomplet dans cet en-tête.
     ~EditorScreen() override;
@@ -145,6 +148,7 @@ private:
     SpriteBatch& _batch;
     const EditorKeyBindings& _editorBindings;  ///< Touches d'éditeur courantes (`EX-CTRL-012`).
     const GameKeyBindings& _gameBindings;  ///< Relayées au `GameScreen` de l'essai immédiat.
+    const GamepadBindings& _gamepadBindings;  ///< Relayées au `GameScreen` de l'essai immédiat.
     int _viewportWidth;
     int _viewportHeight;
     /// Actif tant qu'aucun choix n'a été confirmé ; l'édition ne démarre qu'après.

@@ -1,5 +1,6 @@
 #include "HMI/Interface/OptionsModel.h"
 
+#include <algorithm>
 #include <string_view>
 
 #include "HMI/Graphics/BitmapFont.h"
@@ -29,20 +30,60 @@ namespace {
 OptionsModel::OptionsModel(const Localization& localization, bool vsyncEnabled)
     : _localization(localization), _vsyncEnabled(vsyncEnabled) {}
 
-// Met à jour la sélection selon les entrées et renvoie une éventuelle action.
+// Nombre d'options affichables sans defilement pour une hauteur de viewport donnee (au moins 1) —
+// meme calcul que LevelPicker::visibleCount, sur les constantes de MenuModel.
+int OptionsModel::visibleOptionCount(float viewportHeight) {
+    const int rows =
+        static_cast<int>((viewportHeight - MenuModel::OPTIONS_TOP) / MenuModel::OPTION_SPACING);
+    return (std::max)(1, rows);
+}
+
+// Borne le defilement a l'intervalle valide, sans autre effet.
+void OptionsModel::clampScrollRange(int visible) noexcept {
+    const int maxOffset = (std::max)(0, OPTION_COUNT - visible);
+    _scrollOffset = std::clamp(_scrollOffset, 0, maxOffset);
+}
+
+// Recale le defilement pour que la selection reste visible, puis le borne.
+void OptionsModel::followSelection(int visible) noexcept {
+    if (_selected < _scrollOffset) {
+        _scrollOffset = _selected;
+    } else if (_selected >= _scrollOffset + visible) {
+        _scrollOffset = _selected - visible + 1;
+    }
+    clampScrollRange(visible);
+}
+
+// Met à jour la sélection/défilement selon les entrées et renvoie une éventuelle action.
 //
-// Même principe que MenuModel::update : le clavier/la manette déplacent la sélection (flèches,
-// bouclage), le survol souris la place sur l'option pointée, la validation (Entrée/A manette, ou
-// clic gauche sur une option survolée) produit l'action de l'option sélectionnée.
-std::optional<OptionsAction> OptionsModel::update(const InputState& input) {
+// Même principe que MenuModel::update pour la sélection (flèches, bouclage, survol souris, clic) ;
+// le clavier fait suivre la selection dans la fenetre visible (followSelection), la molette
+// defile SANS changer la selection (meme principe que LevelPicker::update).
+std::optional<OptionsAction> OptionsModel::update(const InputState& input, float viewportHeight) {
+    const int visible = visibleOptionCount(viewportHeight);
+    bool movedByKeyboard = false;
     if (input.keyPressed(Key::Up)) {
         _selected = (_selected + OPTION_COUNT - 1) % OPTION_COUNT;
+        movedByKeyboard = true;
     }
     if (input.keyPressed(Key::Down)) {
         _selected = (_selected + 1) % OPTION_COUNT;
+        movedByKeyboard = true;
+    }
+    if (movedByKeyboard) {
+        followSelection(visible);
     }
 
-    const int hovered = optionAtPoint(input.mouseX(), input.mouseY());
+    const int wheel = input.wheelDelta();
+    if (wheel != 0) {
+        constexpr float WHEEL_NOTCH = 120.0f;  // WHEEL_DELTA Win32 : un cran de molette standard.
+        _scrollOffset -= static_cast<int>(static_cast<float>(wheel) / WHEEL_NOTCH);
+    }
+    // Toujours borne (meme sans molette ni clavier ce pas-ci) : protege contre un redimensionnement
+    // de fenetre qui reduirait visibleOptionCount() entre deux pas.
+    clampScrollRange(visible);
+
+    const int hovered = optionAtPoint(input.mouseX(), input.mouseY(), visible);
     if (hovered >= 0) {
         _selected = hovered;
     }
@@ -67,6 +108,8 @@ std::string OptionsModel::optionLabel(int index) const {
             return _localization.text("keybindings.titre_jeu");
         case 2:
             return _localization.text("keybindings.titre_editeur");
+        case 3:
+            return _localization.text("keybindings.titre_manette");
         default:
             return _localization.text("options.retour");
     }
@@ -78,15 +121,18 @@ float OptionsModel::optionWidth(int index) const {
           MenuModel::OPTION_SCALE;
 }
 
-// Indice de l'option dont le rectangle contient (x, y), ou -1. Mise en page à chasse fixe
-// partagée avec MenuModel (mêmes constantes publiques, pas de duplication).
-int OptionsModel::optionAtPoint(int x, int y) const {
+// Indice de l'option dont le rectangle AFFICHE (compte tenu du defilement courant) contient
+// (x, y), ou -1 — seules les options de la fenetre visible sont testees, meme principe que
+// LevelPicker::optionAtPoint.
+int OptionsModel::optionAtPoint(int x, int y, int visible) const {
     const float pointX = static_cast<float>(x);
     const float pointY = static_cast<float>(y);
-    for (int index = 0; index < OPTION_COUNT; ++index) {
+    const int lastVisible = (std::min)(OPTION_COUNT, _scrollOffset + visible);
+    for (int index = _scrollOffset; index < lastVisible; ++index) {
         const float left = MenuModel::MARGIN_X;
         const float right = MenuModel::MARGIN_X + optionWidth(index);
-        const float top = MenuModel::optionTop(index);
+        const float top = MenuModel::OPTIONS_TOP +
+                         static_cast<float>(index - _scrollOffset) * MenuModel::OPTION_SPACING;
         const float bottom = top + MenuModel::optionHeight();
         if (pointX >= left && pointX < right && pointY >= top && pointY < bottom) {
             return index;
@@ -104,6 +150,8 @@ OptionsAction OptionsModel::actionFor(int index) noexcept {
             return OptionsAction::OpenGameKeybindings;
         case 2:
             return OptionsAction::OpenEditorKeybindings;
+        case 3:
+            return OptionsAction::OpenGamepadBindings;
         default:
             return OptionsAction::Back;
     }

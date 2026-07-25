@@ -18,11 +18,13 @@ options.retour = Retour
 options.manette_connectee = Manette : connectée
 options.manette_absente = Manette : non connectée
 
-# Sous-menus de remappage des touches (LOT-29, EX-CTRL-012)
+# Sous-menus de remappage des touches (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
 keybindings.titre_jeu = Touches de jeu
 keybindings.titre_editeur = Touches de l'éditeur
+keybindings.titre_manette = Touches de la manette
 keybindings.reinitialiser = Réinitialiser
 keybindings.appuyez_touche = Appuyez sur une touche...
+keybindings.appuyez_bouton = Appuyez sur un bouton de la manette...
 keybindings.action.gauche = Aller à gauche
 keybindings.action.droite = Aller à droite
 keybindings.action.haut = Viser le dash vers le haut

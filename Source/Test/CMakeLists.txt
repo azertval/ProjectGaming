@@ -35,6 +35,8 @@ add_executable(UnitTests
     Unit/HMI/Input/test_game_key_bindings.cpp
     Unit/HMI/Input/test_editor_key_bindings.cpp
     Unit/HMI/Input/test_key_name.cpp
+    Unit/HMI/Input/test_gamepad_bindings.cpp
+    Unit/HMI/Input/test_gamepad_button_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Interface/test_screen_manager.cpp
@@ -43,6 +45,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_options_model.cpp
     Unit/HMI/Interface/test_game_keybindings_model.cpp
     Unit/HMI/Interface/test_editor_keybindings_model.cpp
+    Unit/HMI/Interface/test_gamepad_bindings_model.cpp
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp
     Unit/HMI/Interface/test_session_log.cpp
@@ -65,6 +68,8 @@ add_executable(UnitTests
     ../HMI/Input/GameKeyBindings.cpp
     ../HMI/Input/EditorKeyBindings.cpp
     ../HMI/Input/KeyName.cpp
+    ../HMI/Input/GamepadBindings.cpp
+    ../HMI/Input/GamepadButtonName.cpp
     # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
     ../HMI/Localization/Localization.cpp
     # La navigation entre écrans (transitions) est testable via une fabrique factice, hors GPU.
@@ -76,6 +81,7 @@ add_executable(UnitTests
     # La logique des sous-menus de remappage des touches est pure, testable hors GPU.
     ../HMI/Interface/GameKeybindingsModel.cpp
     ../HMI/Interface/EditorKeybindingsModel.cpp
+    ../HMI/Interface/GamepadBindingsModel.cpp
     # Le bouton de langue (ancrage, bascule, clic) est une logique pure, testable hors GPU.
     ../HMI/Interface/LanguageSelector.cpp
     # Le bouton d'enregistrement des logs (ancrage, clic) est pur, testable hors GPU.

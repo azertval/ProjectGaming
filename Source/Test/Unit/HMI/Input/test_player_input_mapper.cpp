@@ -1,12 +1,13 @@
 /**
  * @file test_player_input_mapper.cpp
- * @brief Tests unitaires de la traduction clavier → intention (`toPlayerInput`).
+ * @brief Tests unitaires de la traduction clavier/manette → intention (`toPlayerInput`).
  */
 
 #include <gtest/gtest.h>
 
 #include "Core/Physics/PlayerInput.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Input/PlayerInputMapper.h"
 
@@ -21,11 +22,18 @@ hmi::InputState withKeys(std::initializer_list<hmi::Key> keys) {
     return input;
 }
 
-// Traduit avec les bindings par défaut : la plupart des tests ci-dessous ne portent pas sur le
-// remappage lui-même (couvert par les tests dédiés en fin de fichier), seulement sur la
-// traduction touche -> intention.
+// Construit un état avec un bouton manette (piste brute) enfoncé.
+hmi::InputState withGamepadButton(hmi::GamepadButton button) {
+    hmi::InputState input;
+    input.onGamepadButtonDown(button);
+    return input;
+}
+
+// Traduit avec les bindings clavier/manette par défaut : la plupart des tests ci-dessous ne
+// portent pas sur le remappage lui-même (couvert par les tests dédiés en fin de fichier),
+// seulement sur la traduction touche -> intention.
 core::PlayerInput mapWithDefaults(const hmi::InputState& input) {
-    return hmi::toPlayerInput(input, hmi::GameKeyBindings{});
+    return hmi::toPlayerInput(input, hmi::GameKeyBindings{}, hmi::GamepadBindings{});
 }
 
 }  // namespace
@@ -59,13 +67,13 @@ TEST(PlayerInputMapperTest, FlecheDroite) {
 }
 
 /**
- * @brief Sans remap, `Q`/`D`/`W` ne déclenchent plus rien (aucun alias fixe depuis `LOT-29`).
- * \castest{<b>Sans remap, Q/D/W ne déclenchent plus rien (aucun alias fixe).</b><br/>
+ * @brief Sans remap, `Q`/`D`/`W` ne déclenchent rien (aucun alias fixe).
+ * \castest{<b>Sans remap, Q/D/W ne déclenchent rien (aucun alias fixe).</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Sans remap, Q/D/W ne déclenchent plus rien.
+ * \tattendu Sans remap, Q/D/W ne déclenchent rien.
  * }
  */
 TEST(PlayerInputMapperTest, SansRemapQDWNeDeclenchentRien) {
@@ -204,48 +212,21 @@ TEST(PlayerInputMapperTest, ViseeVerticale) {
 }
 
 /**
- * @brief Une action remappée (`LOT-29`) réagit à sa nouvelle touche, en plus de la touche par
- *        défaut (jamais désactivée : filet de sécurité manette, `EX-CTRL-002`).
- * \castest{<b>Une action remappée réagit à sa nouvelle touche, en plus de la touche par défaut
- * (filet de sécurité manette).</b><br/>
+ * @brief Une action remappée au clavier (`LOT-29`) réagit à sa nouvelle touche.
+ * \castest{<b>Une action remappée au clavier réagit à sa nouvelle touche.</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Une action remappée réagit à sa nouvelle touche ET à la touche par défaut.
+ * \tattendu Une action remappée au clavier réagit à sa nouvelle touche.
  * }
  */
-TEST(PlayerInputMapperTest, RemapperUneActionAjouteLaNouvelleTouche) {
-    hmi::GameKeyBindings bindings;
-    bindings.setKey(hmi::GameAction::Dash, hmi::Key::F1);
+TEST(PlayerInputMapperTest, RemapperUneActionClavierUtiliseLaNouvelleTouche) {
+    hmi::GameKeyBindings gameKeyBindings;
+    gameKeyBindings.setKey(hmi::GameAction::Dash, hmi::Key::F1);
 
-    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::F1}), bindings).dashPressed);
-    // Maj (touche par defaut de Dash) continue de declencher le dash apres remap : sans ce filet,
-    // le bouton manette RB (qui n'alimente que Key::Shift, Window::pollGamepad) cesserait de
-    // fonctionner des qu'un joueur remappe Dash au clavier (EX-CTRL-002).
-    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::Shift}), bindings).dashPressed);
-}
-
-/**
- * @brief Un bouton manette (source distincte du clavier) continue de déclencher une action même
- *        après un remappage clavier — la manette n'alimente que la touche par défaut.
- * \castest{<b>Un bouton manette continue de déclencher une action après un remappage clavier
- * (`EX-CTRL-002`).</b><br/>
- * \tcat Unitaire · Player Input Mapper<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
- * verifier les assertions.<br/>
- * \tattendu Un bouton manette (source gamepad) continue de déclencher l'action après remap clavier.
- * }
- */
-TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier) {
-    hmi::GameKeyBindings bindings;
-    bindings.setKey(hmi::GameAction::Jump, hmi::Key::F1);  // remap clavier : Sauter -> F1
-
-    hmi::InputState input;
-    input.onGamepadKeyDown(hmi::Key::Space);  // Window::pollGamepad : bouton A -> Key::Space (fixe)
-
-    EXPECT_TRUE(hmi::toPlayerInput(input, bindings).jumpPressed);
+    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::F1}), gameKeyBindings, hmi::GamepadBindings{})
+                    .dashPressed);
 }
 
 /**
@@ -262,40 +243,85 @@ TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier)
  */
 TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteSurDesTouchesDistinctesNeLesAnnulePas) {
     // Aucune touche n'est jamais partagee par deux actions : chaque action ne repond qu'a sa
-    // propre touche liee (plus sa touche par defaut si elle reste libre, voir toPlayerInput) ;
-    // deux touches distinctes pour deux actions opposees ne peuvent donc jamais s'annuler.
+    // propre touche liee ; deux touches distinctes pour deux actions opposees ne peuvent donc
+    // jamais s'annuler.
     hmi::GameKeyBindings bindings;
     bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::D);
     bindings.setKey(hmi::GameAction::MoveRight, hmi::Key::Q);
+    const hmi::GamepadBindings gamepadBindings;
 
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::D}), bindings).moveX, -1.0f);
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q}), bindings).moveX, 1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::D}), bindings, gamepadBindings).moveX,
+                    -1.0f);
+    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q}), bindings, gamepadBindings).moveX,
+                    1.0f);
 }
 
 /**
- * @brief Le filet de sécurité manette ne revérifie pas la touche par défaut d'une action si une
- *        AUTRE action se l'est appropriée : sinon les deux actions se déclenchent à la fois.
- * \castest{<b>Le filet de sécurité manette ne revérifie pas la touche par défaut si une autre
- * action se l'est appropriée.</b><br/>
+ * @brief Une action déclenchée par son bouton manette lié (piste brute), indépendamment du
+ *        clavier.
+ * \castest{<b>Une action est déclenchée par son bouton manette lié.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Une action est déclenchée par son bouton manette lié.
+ * }
+ */
+TEST(PlayerInputMapperTest, ActionDeclencheeParSonBoutonManetteParDefaut) {
+    const core::PlayerInput input =
+        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::A), hmi::GameKeyBindings{},
+                          hmi::GamepadBindings{});
+    EXPECT_TRUE(input.jumpPressed);
+}
+
+/**
+ * @brief Une action remappée manette (`LOT-30`) réagit à son nouveau bouton, plus au clavier.
+ * \castest{<b>Une action remappée manette réagit à son nouveau bouton, le clavier reste
+ * indépendant.</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Remapper Sauter sur X (manette) le déclenche via X ; le clavier (Espace) reste
+ * indépendant.
+ * }
+ */
+TEST(PlayerInputMapperTest, RemapperUneActionManetteUtiliseLeNouveauBouton) {
+    hmi::GamepadBindings gamepadBindings;
+    gamepadBindings.setKey(hmi::GameAction::Jump, hmi::GamepadButton::X);
+
+    EXPECT_TRUE(hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), hmi::GameKeyBindings{},
+                                   gamepadBindings)
+                    .jumpPressed);
+    // Le clavier (Espace, touche par defaut de Sauter) continue de fonctionner independamment du
+    // remap manette : les deux sources sont completement independantes l'une de l'autre.
+    EXPECT_TRUE(mapWithDefaults(withKeys({hmi::Key::Space})).jumpPressed);
+}
+
+/**
+ * @brief Remapper deux actions sur des boutons manette distincts ne les neutralise pas l'une
+ *        l'autre (même invariant que le clavier).
+ * \castest{<b>Remapper deux actions manette sur des boutons distincts ne les neutralise pas
+ * l'une l'autre.</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Échanger Gauche/Droite (flèches) déplace dans le bon sens, sans neutralisation.
+ * \tattendu Remapper deux actions manette sur des boutons distincts ne les neutralise pas.
  * }
  */
-TEST(PlayerInputMapperTest, FiletDeSecuriteNIgnoreQuandToucheDefautReprise) {
-    // setKey echange : Gauche <- Fleche droite (defaut de Droite), Droite <- Fleche gauche
-    // (defaut de Gauche). Sans la garde isKeyClaimedByOtherAction, le filet de securite
-    // reverifierait la touche par defaut de CHAQUE action (Gauche -> Fleche gauche, Droite ->
-    // Fleche droite) meme si elle appartient desormais a l'autre action remappee : les deux
-    // touches redeclencheraient alors les deux actions a la fois, neutralisant tout mouvement.
-    hmi::GameKeyBindings bindings;
-    bindings.setKey(hmi::GameAction::MoveLeft, hmi::Key::Right);
+TEST(PlayerInputMapperTest, RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas) {
+    hmi::GamepadBindings gamepadBindings;
+    gamepadBindings.setKey(hmi::GameAction::MoveLeft, hmi::GamepadButton::X);
+    gamepadBindings.setKey(hmi::GameAction::MoveRight, hmi::GamepadButton::Y);
+    const hmi::GameKeyBindings gameKeyBindings;
 
-    EXPECT_EQ(bindings.key(hmi::GameAction::MoveLeft), hmi::Key::Right);
-    EXPECT_EQ(bindings.key(hmi::GameAction::MoveRight), hmi::Key::Left);  // echange automatique
-
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Right}), bindings).moveX, -1.0f);
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left}), bindings).moveX, 1.0f);
+    EXPECT_FLOAT_EQ(
+        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings)
+            .moveX,
+        -1.0f);
+    EXPECT_FLOAT_EQ(
+        hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings)
+            .moveX,
+        1.0f);
 }

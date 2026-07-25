@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "HMI/Input/GamepadButton.h"
+
 /**
  * @file HMI/Input/InputState.h
  * @brief État des entrées clavier/souris/manette échantillonné une fois par frame.
@@ -119,6 +121,19 @@ public:
     void onGamepadKeyUp(Key key) noexcept;
 
     /**
+     * @brief Marque @p button comme enfoncé dans l'état courant (piste manette **brute**).
+     *
+     * Indépendante de `onGamepadKeyDown`/`Up` : celle-ci fusionne la manette dans l'espace des
+     * touches clavier (`Key`, utilisée par la navigation de menu, jamais remappable) ; celle-ci
+     * expose l'état de chaque bouton physique (`GamepadButton`) tel quel, pour les actions de jeu
+     * remappables via `GamepadBindings` (`EX-CTRL-002`, `LOT-30`).
+     */
+    void onGamepadButtonDown(GamepadButton button) noexcept;
+
+    /// Marque @p button comme relâché dans l'état courant (voir `onGamepadButtonDown`).
+    void onGamepadButtonUp(GamepadButton button) noexcept;
+
+    /**
      * @brief Met à jour la position de la souris.
      * @param x Abscisse en pixels de la zone client.
      * @param y Ordonnée en pixels de la zone client.
@@ -162,6 +177,12 @@ public:
     /// @return true si @p key **vient d'être relâchée** cette frame (front descendant).
     [[nodiscard]] bool keyReleased(Key key) const noexcept;
 
+    /// @return true si @p button (piste manette brute) est enfoncé à cette frame.
+    [[nodiscard]] bool gamepadButtonDown(GamepadButton button) const noexcept;
+
+    /// @return true si @p button (piste manette brute) **vient d'être enfoncé** cette frame.
+    [[nodiscard]] bool gamepadButtonPressed(GamepadButton button) const noexcept;
+
     /// @return Abscisse de la souris, en pixels de la zone client.
     [[nodiscard]] int mouseX() const noexcept;
 
@@ -201,6 +222,9 @@ private:
     std::array<bool, KEY_COUNT> _keysPrevious{};
     std::array<bool, KEY_COUNT> _gamepadCurrent{};   ///< Source manette, distincte du clavier.
     std::array<bool, KEY_COUNT> _gamepadPrevious{};
+    /// Piste manette brute (`GamepadButton`), indépendante de la fusion `Key` ci-dessus.
+    std::array<bool, GAMEPAD_BUTTON_COUNT> _gamepadButtonsCurrent{};
+    std::array<bool, GAMEPAD_BUTTON_COUNT> _gamepadButtonsPrevious{};
     std::array<bool, BUTTON_COUNT> _buttonsCurrent{};
     std::array<bool, BUTTON_COUNT> _buttonsPrevious{};
     int _mouseX = 0;

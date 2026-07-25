@@ -23,6 +23,8 @@ namespace {
             return "Touches de jeu";
         case ScreenId::EditorKeybindings:
             return "Touches de l'editeur";
+        case ScreenId::GamepadBindings:
+            return "Touches de la manette";
     }
     return "Inconnu";
 }
