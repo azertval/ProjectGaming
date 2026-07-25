@@ -259,17 +259,74 @@ moment où le personnage apparaît (spawn). Ensuite :
   ou nouvelle tentative) rend donc le budget complet à nouveau, jamais définitivement épuisé d'une
   tentative à l'autre.
 
+## Dangers avancés (`LOT-31`)
+
+Quatre variantes étendent le danger classique (`TileType::Danger`, case pleine et statique) sans
+toucher à la règle de fin de niveau elle-même (`EX-GP-031`) — seules la **géométrie** ou
+l'**activation** varient. Chacune vit dans une couche différente, selon que sa mortalité est
+**géométrique** (résolue directement par `Core/Levels`, sans état) ou **temporelle** (résolue par
+un contrôleur de `Core/Gameplay`, qui possède un état à faire vivre chaque pas fixe) :
+
+- **Directionnel** (`DangerUp`/`DangerDown`/`DangerLeft`/`DangerRight`, `EX-GP-050`) : purement
+  géométrique, aucun contrôleur. `core::dangerHitbox(type, col, row)` (`Core/Levels/
+  DangerGeometry.h`) renvoie une bande étroite (`kDangerEdgeThickness`, un quart de case) alignée
+  sur le bord désigné par le suffixe, au lieu de la case pleine — seule source de vérité, partagée
+  par `core::evaluateOutcome` (ci-dessous) et le rendu (`core::buildLevelScene`, `hmi::
+  EditorScreen`), même garantie de non-divergence que `core::tileVisualScale` pour les blocs
+  réduits.
+- **Mobile** (`TileType::DangerMover`, `EX-GP-051`) : `core::DangerController` (nouveau, `Core/
+  Gameplay`, aux côtés de `MechanismController`/`BlockController`) fait progresser un compteur de
+  pas fixes et en dérive un **aller-retour triangulaire déterministe** (0 → portée → 0) sur l'axe
+  de sa configuration (`core::DangerMoverConfig::axis`/`range`), à une vitesse de conception fixe
+  (`MOVER_SPEED_CELLS_PER_SECOND = 2`, `DangerController.cpp`) — pas d'accumulation flottante,
+  seulement une fonction du nombre de pas écoulés, comme `core::BlockController::FALL_INTERVAL_STEPS`
+  (déterminisme, `EX-NFR-002`). `moverBox(index)` renvoie sa boîte **courante**, en unités de
+  grille — sa position **de départ** dans le fichier (`DangerMoverConfig::startPosition`) ne bouge
+  jamais, seule cette boîte calculée compte pour la collision.
+- **Commuté** (`TileType::DangerSwitched`, `EX-GP-052`) : résolu par `core::MechanismController`
+  lui-même, **étendu** plutôt que dupliqué dans `DangerController` — un danger commuté a besoin de
+  la **même** détection front/continu (interrupteur vs plaque de pression) qu'une porte, déjà
+  écrite dans `MechanismController::update`. Le contrôleur porte donc aussi `Level::dangerLinks()`
+  (`core::DangerLink`, miroir de `core::Mechanism` — struct **dupliquée**, pas une généralisation :
+  `Mechanism::doorPosition` est consommé par nom dans une trentaine de sites tous spécifiques à une
+  porte, le renommer en un champ générique n'aurait profité qu'à ce second cas) et expose
+  `isDangerActive(GridPosition)` — actif quand le déclencheur lié l'est, **inverse** d'une porte
+  (qui devient franchissable quand active).
+- **Temporisé** (`TileType::DangerBlink`, `EX-GP-053`) : `core::DangerController::isBlinkActive
+  (position)`, formule déterministe `(pasFixe - phase) mod period < activeDuration` — un déphasage
+  différent par tuile permet des motifs désynchronisés dans un même niveau, sans dépendance à un
+  interrupteur.
+
+`TileMap` ne portant qu'un `TileType` par case (aucune métadonnée numérique, limite déjà actée en
+`LOT-19` pour le poids d'une plaque de pression), les paramètres du mobile et du temporisé
+(`DangerMoverConfig`/`DangerBlinkConfig`) vivent dans des vecteurs annexes de `Level`/`LevelDraft`,
+keyés par position — même patron que `Mechanism`/`DangerLink`, pas une extension de `TileMap`.
+
 ## Issue et enchaînement
 
-`core::evaluateOutcome(playerBox, level)` est une fonction **pure d'observation** (elle ne modifie
-rien, ne déclenche aucune transition) qui **classe** l'état courant du niveau à partir de la seule
-position du personnage, en trois issues possibles (`core::LevelOutcome`) :
+`core::evaluateOutcome(playerBox, level, extraDangerBoxes = {})` est une fonction **pure
+d'observation** (elle ne modifie rien, ne déclenche aucune transition) qui **classe** l'état
+courant du niveau à partir de la position du personnage, en trois issues possibles
+(`core::LevelOutcome`) :
 
 - `Won` : la boîte du personnage recouvre la case `Exit` ;
-- `Lost` : contact avec une tuile `Danger`, **ou** le personnage est tombé sous la limite basse de la
-  grille (une chute hors du niveau, typique d'un plateformer, sans mur invisible artificiel à poser
-  en bas de chaque niveau) ;
-- `Playing` : aucun des deux cas précédents — la partie continue.
+- `Lost` : contact avec un danger **statique** (`Danger` classique ou l'une des quatre variantes
+  directionnelles, résolues via `core::dangerHitbox` directement depuis la grille), **ou**
+  recouvrement d'une des boîtes de `extraDangerBoxes`, **ou** le personnage est tombé sous la
+  limite basse de la grille (une chute hors du niveau, typique d'un plateformer, sans mur invisible
+  artificiel à poser en bas de chaque niveau) ;
+- `Playing` : aucun des cas précédents — la partie continue.
+
+`extraDangerBoxes` couvre les dangers **à état** (mobile/commuté/temporisé, `LOT-31`) :
+`Core/Levels` n'a et ne doit pas avoir de dépendance vers `Core/Gameplay` (c'est l'inverse qui est
+vrai — `MechanismController`/`DangerController` incluent déjà `Level.h`), donc `evaluateOutcome` ne
+peut pas interroger ces contrôleurs lui-même. L'**appelant**, qui les possède déjà, assemble leurs
+boîtes actuellement mortelles et les passe en paramètre —
+`hmi::GameScreen::collectActiveDangerBoxes` en jeu (mover : `DangerController::moverBox` pour
+chaque configuration ; commuté : `DangerController`/`MechanismController::isDangerActive` par
+position, converti en boîte via `dangerHitbox` ; temporisé : `DangerController::isBlinkActive` par
+position, même conversion). Un appelant qui ignore ces variantes (ou un niveau qui n'en a aucune)
+laisse simplement le paramètre à sa valeur par défaut, `{}` — comportement inchangé.
 
 L'ordre de classement est **déterministe et volontaire** : si, au même pas, le personnage se trouve
 à la fois sur la sortie et au contact d'un danger (situation limite mais possible géométriquement),
@@ -283,6 +340,6 @@ elle ramène à l'écran-titre plutôt que de tenter un niveau inexistant (`EX-L
 
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
-- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::evaluateOutcome`, `hmi::LevelSequence`.
+- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::LevelSequence`.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.

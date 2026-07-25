@@ -16,7 +16,7 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 | Arrondi | **Non solide** pour la grille classique (comme une pente), mais sa surface **courbe** (quart de cercle) est suivie — même principe de suivi que la pente, formule différente. |
 | Pente/arrondi de plafond | **Non solide** pour la grille classique, comme les variantes de sol : miroir vertical de la même silhouette (matière pleine en haut de la case). Une passe de suivi dédiée bloque précisément un saut qui la franchit **par en dessous** (bonk contre le profil incliné/courbe réel), sans jamais faire « marcher » le personnage dessus ; sa **face du haut**, toujours plate, supporte normalement un personnage qui tombe dessus **par au-dessus**. |
 | Arrondi concave | Même principe de suivi que l'arrondi (quart de cercle, sol **et** plafond), mais courbure **inversée** : centre du cercle du côté **plein** plutôt que du côté creux — un raccord en **creux** entre deux surfaces perpendiculaires, plutôt qu'un coin saillant arrondi. |
-| Danger directionnel/mobile/commuté/temporisé (⚠️ LOT-31) | Variantes du danger (mortel au contact) : bande étroite sur un bord, position mouvante, activation liée à un interrupteur, ou clignotement périodique — cf. sous-section dédiée ci-dessous. |
+| Danger directionnel/mobile/commuté/temporisé | Variantes du danger (mortel au contact) : bande étroite sur un bord, position mouvante, activation liée à un interrupteur, ou clignotement périodique — cf. sous-section dédiée ci-dessous. |
 
 - \anchor EX-GP-001 **EX-GP-001** — Le niveau doit être représenté par une grille de tuiles typées.
 - \anchor EX-GP-002 **EX-GP-002** — Une tuile solide doit empêcher le personnage de la traverser.
@@ -26,11 +26,11 @@ Le niveau est une **grille de tuiles** de taille fixe : **16 × 16 px** par tuil
 - \anchor EX-GP-006 **EX-GP-006** — Une tuile de **pente/arrondi de plafond** (`SlopeDownRight`/`SlopeDownLeft`/`RoundedDownRight`/`RoundedDownLeft`) doit exister comme variante **miroir vertical** des pentes/arrondis de sol (`EX-GP-003`/`EX-GP-004`) : matière pleine en **haut** de la case plutôt qu'en bas. Comme ses équivalents de sol, elle n'est **jamais solide** pour la grille classique (`core::isSolid`) — sa collision est résolue par deux passes symétriques : `core::resolveCeilingSlopeFollow` (miroir de `resolveSlopeFollow`, déclenchée en **montant**, `velocityY < 0`) bloque un saut qui franchirait sa silhouette **par en dessous** (bonk précis contre le profil incliné/courbe réel, pas une case pleine uniforme) ; sa **face du haut**, toujours **plate** au sommet de la case (`core::slopeSurfaceHeight` y renvoie `0`, quel que soit `localX`), supporte normalement un personnage qui tombe dessus **par au-dessus**, via `resolveSlopeFollow` réutilisé sans modification (sans quoi il tomberait au travers). Le personnage ne **marche** en revanche jamais **latéralement** le long de sa silhouette inclinée (`core::isFollowableSurface` reste `false`).
 - \anchor EX-GP-007 **EX-GP-007** — Une tuile d'**arrondi concave** (`ConcaveUpRight`/`ConcaveUpLeft`, sol ; `ConcaveDownRight`/`ConcaveDownLeft`, plafond) doit offrir le même suivi de surface/silhouette que l'arrondi (`EX-GP-004`/`EX-GP-006`), avec une courbure **inversée** : centre du cercle du côté **plein** plutôt que du côté creux (tangente **horizontale** du côté creux, **verticale** du côté plein — l'exact inverse de l'arrondi convexe). Même rayon (une case), mêmes valeurs aux bords que l'arrondi convexe de même orientation ; seule la fonction de hauteur (`core::slopeSurfaceHeight`, `core::ceilingSlopeHeight`) change, les passes de résolution (`core::resolveSlopeFollow`/`core::resolveCeilingSlopeFollow`) sont réutilisées sans modification.
 
-### Dangers avancés (⚠️ LOT-31, non implémenté)
-> La tuile `Danger` (`EX-GP-031`) est aujourd'hui unique : case pleine, statique, mortelle sur
-> toute sa surface. Quatre variantes étendent ce vocabulaire sans changer la règle de fin de
-> niveau elle-même (`EX-GP-031` : contact = échec) — seule la **géométrie** ou l'**activation**
-> du danger varie.
+### Dangers avancés (`LOT-31`)
+> La tuile `Danger` reste le danger **classique** : case pleine, statique, mortelle sur toute sa
+> surface. Les quatre variantes ci-dessous étendent ce vocabulaire sans changer la règle de fin de
+> niveau elle-même (`EX-GP-031` : contact = échec) — seule la **géométrie** ou l'**activation** du
+> danger varie.
 - \anchor EX-GP-050 **EX-GP-050** — Un **danger directionnel** (pics) doit être mortel uniquement
   depuis l'un des quatre bords de sa case (haut/bas/gauche/droite), le reste de la case restant
   traversable sans risque — une bande étroite le long du bord concerné, pas la case entière.

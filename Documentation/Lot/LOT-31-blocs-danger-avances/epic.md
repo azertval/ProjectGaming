@@ -1,6 +1,6 @@
 # LOT-31 — Blocs de danger avancés {#lot-31}
 
-> Statut : 🔄 **en cours** (TACHE-01/02/03 faites). Quatre nouvelles variantes de la tuile `Danger`
+> Statut : **✅ terminé**. Quatre nouvelles variantes de la tuile `Danger`
 > (`EX-GP-031`) : directionnel (pics), mobile (va-et-vient autonome), commuté (lié à un
 > interrupteur/plaque) et temporisé (clignotant) — un seul lot, une tâche par variante.
 
@@ -92,7 +92,7 @@ l'**activation** du danger varient.
 | [TACHE-01](tache-01-modele-dangers-avances.md) | Modèle (types, format, liaisons) | `Core/Levels` | ✅ |
 | [TACHE-02](tache-02-integration-jeu.md) | Intégration jeu (contrôleurs, résolution de fin de niveau) | `Core/Gameplay`, `Core/Levels` | ✅ |
 | [TACHE-03](tache-03-integration-editeur.md) | Intégration éditeur (palette, rendu, liaison) | `HMI/Editor`, `HMI/Graphics`, `HMI/Interface` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Les quatre nouvelles variantes sont peignables depuis la palette de l'éditeur, s'enregistrent et

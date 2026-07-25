@@ -27,7 +27,16 @@ des arrondis, `EX-GP-007` — même principe de suivi/silhouette, sol et plafond
 **inversée** : centre du cercle du côté plein plutôt que du côté creux),
 `blockHalf` et `blockQuarter` (blocs poussables à taille **réduite** — `×0.5`/`×0.25` —
 `EX-GP-005`, mêmes règles de poussée/chute que `block`, boîte de collision centrée et plus
-petite). Une case **vide** n'est pas listée (absence = vide).
+petite), `dangerUp`/`dangerDown`/`dangerLeft`/`dangerRight` (danger **directionnel**, `EX-GP-050` —
+mortel uniquement sur une bande étroite du bord désigné par le suffixe, pas la case entière),
+`dangerMover` (danger **mobile**, `EX-GP-051` — aller-retour linéaire déterministe autour de sa
+position de départ ; champs optionnels `axis`, `"horizontal"` ou `"vertical"`, et `range`, en
+cases, défauts respectifs `"horizontal"` et `2`), `dangerSwitched` (danger **commuté**, `EX-GP-052`
+— mortel uniquement quand l'interrupteur/la plaque de pression qui lui est lié est actif ; champ
+`opensWith` comme `door`, même résolution par identifiant), `dangerBlink` (danger **temporisé**,
+`EX-GP-053` — alterne mortel/inoffensif selon une période fixe ; champs optionnels `period`,
+`phase` et `activeDuration`, en pas fixes, défauts respectifs `120`, `0` et `60`). Une case
+**vide** n'est pas listée (absence = vide).
 ```json
 {
   "name": "Tutoriel 1",
