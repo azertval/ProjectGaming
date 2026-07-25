@@ -15,6 +15,7 @@
 #include "HMI/Editor/TilePalette.h"
 #include "HMI/Editor/ToolBar.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
@@ -79,8 +80,8 @@ public:
      *                        quelle au `GameScreen` de l'essai immédiat (`startPlaytest`).
      */
     EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                int viewportHeight, const EditorKeyBindings& editorBindings,
-                const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings);
+                 int viewportHeight, const EditorKeyBindings& editorBindings,
+                 const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings);
 
     /// Nécessaire : `_playtest` est un `unique_ptr` sur un type incomplet dans cet en-tête.
     ~EditorScreen() override;
@@ -147,8 +148,8 @@ private:
     const TextureAtlas& _atlas;
     SpriteBatch& _batch;
     const EditorKeyBindings& _editorBindings;  ///< Touches d'éditeur courantes (`EX-CTRL-012`).
-    const GameKeyBindings& _gameBindings;  ///< Relayées au `GameScreen` de l'essai immédiat.
-    const GamepadBindings& _gamepadBindings;  ///< Relayées au `GameScreen` de l'essai immédiat.
+    const GameKeyBindings& _gameBindings;      ///< Relayées au `GameScreen` de l'essai immédiat.
+    const GamepadBindings& _gamepadBindings;   ///< Relayées au `GameScreen` de l'essai immédiat.
     int _viewportWidth;
     int _viewportHeight;
     /// Actif tant qu'aucun choix n'a été confirmé ; l'édition ne démarre qu'après.
@@ -183,14 +184,15 @@ private:
     std::optional<TextInputField> _textPrompt;
     TextPromptPurpose _textPromptPurpose = TextPromptPurpose::CreateLevelName;
     /// Chemin du fichier dont le brouillon a été chargé, s'il en existe un (absent pour un niveau
-    /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à l'enregistrement.
+    /// tout juste créé) — sert à distinguer une mise à jour normale d'un écrasement à
+    /// l'enregistrement.
     std::optional<std::filesystem::path> _loadedFrom;
 
     /// `true` si la caméra est pilotée manuellement (molette/glisser droit) ; `false` tant que le
     /// cadrage automatique (LOT-14) s'applique — réinitialisable via `Key::D0` (`EX-EDIT-013`).
     bool _manualCamera = false;
-    float _cameraZoom = 1.0f;         ///< Zoom courant (manuel ou dernier calcul automatique).
-    core::Vector2 _cameraCenter{};    ///< Centre courant (manuel ou dernier calcul automatique).
+    float _cameraZoom = 1.0f;       ///< Zoom courant (manuel ou dernier calcul automatique).
+    core::Vector2 _cameraCenter{};  ///< Centre courant (manuel ou dernier calcul automatique).
 
     /// Outil actif (`EX-EDIT-014`), changé par clic (barre) ou `Tab` (`selectNext`) ; source de
     /// vérité de l'outil courant (comme `_palette` pour le type de tuile).
@@ -198,7 +200,8 @@ private:
     /// `true` pendant un glisser Rectangle/Sélection en cours (mutuellement exclusif avec
     /// `_paintingDrag`, actif seulement quand `_toolBar.selected() != EditorTool::Paint`).
     bool _areaDragActive = false;
-    core::GridPosition _areaDragStart{};  ///< Case de départ du glisser Rectangle/Sélection en cours.
+    core::GridPosition
+        _areaDragStart{};  ///< Case de départ du glisser Rectangle/Sélection en cours.
     /// Dernière sélection validée par l'outil Sélection (bornes inclusives min/max), pour `Ctrl+C`
     /// ; invalidée par tout redimensionnement ou changement de niveau (peut sortir des bornes).
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
@@ -209,8 +212,10 @@ private:
     /// le rappelle en bas d'écran (`EX-EDIT-015`).
     bool _showHelp = false;
 
-    /// `true` si les lignes de la grille de repère sont dessinées par-dessus les tuiles, pour
-    /// simplifier le repérage d'une case avant d'y peindre (bascule `F10`).
+    /// `true` si les lignes de la grille de repère (case par case) et le quadrillage de salles
+    /// (`RoomGrid`, `LOT-32`, `EX-EDIT-023`) sont dessinés par-dessus les tuiles — même bascule
+    /// pour les deux repères visuels (bascule `F10`), pour simplifier le repérage d'une case avant
+    /// d'y peindre et l'alignement des couloirs inter-salles.
     bool _showGridLines = false;
 };
 

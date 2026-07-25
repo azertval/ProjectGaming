@@ -96,9 +96,9 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
         const core::Collider& collider = world.getComponent<core::Collider>(player);
         const core::Aabb previousBox =
             core::Aabb::fromTopLeftSize(previousTransform.position, collider.size);
-        const core::PlayerInput in = scripted.input(step, world.getComponent<core::Player>(player),
-                                                    previousTransform.position.x,
-                                                    previousTransform.position.y);
+        const core::PlayerInput in =
+            scripted.input(step, world.getComponent<core::Player>(player),
+                           previousTransform.position.x, previousTransform.position.y);
 
         const core::TileMap mechanismMap = mechanisms.collisionMap();
         blocks.update(previousBox, in.moveX, mechanismMap);
@@ -337,6 +337,11 @@ TEST(ParcoursCompletSysteme, FranchitTouteLaSequence) {
              }
              return in;
          }},
+        // 15. Niveaux à salles (LOT-32, EX-REN-015) : niveau bien plus grand qu'une salle, en 2×2
+        //     salles ; le trajet marche à plat (aucun saut) jusqu'au bord de la première salle,
+        //     tombe dans un puits muré (aucune dérive horizontale possible) jusqu'à la salle du
+        //     bas, puis marche jusqu'à la sortie — franchit deux frontières de salles.
+        {"demo-salles.json", rightOnly()},
     };
 
     ASSERT_FALSE(sequence.empty());

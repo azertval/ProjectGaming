@@ -7,6 +7,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-32 — Niveaux à salles** (`EX-REN-015`, `EX-EDIT-023`) : un niveau plus grand qu'une
+  **salle** (nouveau `hmi::RoomGrid`, taille fixe en tuiles, `Source/HMI/Graphics`) se joue avec
+  une caméra qui cadre la salle **courante** du personnage, au zoom pixel art natif, et bascule
+  **nettement** sur la salle voisine dès qu'il en franchit la frontière — façon *Celeste*, sans
+  jamais rapetisser le rendu quelle que soit la taille totale du niveau. Le niveau reste une grille
+  de tuiles **unique** (aucun format, aucune nouvelle tuile) : une salle a « plusieurs entrées/
+  sorties » simplement parce qu'un couloir reste ouvert sur plusieurs de ses bords vers des salles
+  voisines. Un niveau qui tient dans une seule salle se comporte à l'identique du cadrage « niveau
+  entier » de LOT-16 (non-régression). Dans l'éditeur, un quadrillage de salles (même bascule
+  `F10` que le repère fin existant) aide à aligner les couloirs inter-salles, sans changer son
+  cadrage (toujours « niveau entier », pan/zoom manuel). `EX-REN-013` reformulée en conséquence
+  (scopée aux niveaux tenant dans une seule salle). Nouveau niveau de démonstration
+  `demo-salles.json` (2×2 salles) intégré à la séquence jouée.
 - **LOT-31 — Blocs de danger avancés** (`EX-GP-050` à `EX-GP-053`) : quatre nouvelles variantes de
   la tuile `Danger` — directionnel (`DangerUp`/`Down`/`Left`/`Right`, mortel uniquement sur une
   bande étroite du bord désigné plutôt que la case entière), mobile (`DangerMover`, aller-retour

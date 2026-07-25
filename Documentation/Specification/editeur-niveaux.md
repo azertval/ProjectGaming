@@ -124,10 +124,21 @@ LOT-31-blocs-danger-avances/epic.md`) — un danger mobile peint depuis la palet
 de conception par défaut tant qu'elles ne sont pas ajustées en modifiant directement le fichier de
 niveau.
 
+## 10. Niveaux à salles (`LOT-32`)
+Un niveau plus grand qu'une **salle** (`EX-REN-015`) se joue avec une caméra qui cadre la salle
+courante, pas le niveau entier — un level designer doit pouvoir repérer où se trouvent les
+frontières de salles pendant l'édition, pour aligner ses couloirs inter-salles sans deviner.
+
+- \anchor EX-EDIT-023 **EX-EDIT-023** — L'éditeur doit afficher, en superposition de la grille de
+  tuiles, un **quadrillage des frontières de salles** (bascule `F10`, même commande que le
+  quadrillage de repère case par case, `EX-EDIT-015`), distinguable visuellement de ce dernier. Ce
+  repère n'affecte **pas** le cadrage caméra de l'éditeur (pan/zoom manuel sur le niveau entier,
+  `EX-EDIT-013`, inchangé) : seule la caméra du **jeu** cadre par salle (`EX-REN-015`).
+
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
 la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
 grandes tailles (section 7) du lot **LOT-16** (terminé) ; la palette organisée par catégories
 (section 8) du lot **LOT-27** (terminé) ; les dangers avancés (section 9) du lot **LOT-31**
-(terminé).
+(terminé) ; le repère visuel de salles (section 10) du lot **LOT-32** (terminé).

@@ -15,6 +15,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Physics/Aabb.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
@@ -40,8 +41,11 @@ class TextureAtlas;
  * jouable : la physique (déplacement, gravité, saut, collisions) s'applique à chaque pas fixe.
  * Atteindre la **sortie** (`EX-GP-030`) **enchaîne le niveau suivant** de la séquence ; après le
  * **dernier**, retour au menu/titre (`EX-LVL-010`, `EX-LVL-011`). Toucher un **danger** ou tomber
- * **redémarre** le niveau courant à l'entrée (`EX-GP-031`, `EX-GP-032`). La caméra reste **fixe**
- * et cadre le tableau ; **Échap** revient au menu. Les mécanismes interrupteur/porte et plaque de
+ * **redémarre** le niveau courant à l'entrée (`EX-GP-031`, `EX-GP-032`). La caméra cadre la
+ * **salle** (`RoomGrid`, `LOT-32`) contenant le personnage, au zoom pixel art natif, et bascule
+ * **nettement** sur la salle voisine quand le personnage en franchit la frontière — un niveau qui
+ * tient dans une seule salle se comporte comme un cadrage « niveau entier » classique (`LOT-16`,
+ * `EX-REN-013`). **Échap** revient au menu. Les mécanismes interrupteur/porte et plaque de
  * pression (`core::MechanismController`) sont résolus chaque pas fixe et pris en compte par la
  * carte de collision et le rendu des portes. Les blocs poussables (`core::BlockController`,
  * `EX-GP-022`) sont résolus **avant** la physique du personnage (poussée), leur position courante
@@ -134,8 +138,18 @@ private:
     /// courant (`core::Animation`) — appelé à chaque frame de rendu, pas seulement au spawn.
     void refreshPlayerSprite();
 
+    /// Centre la caméra sur le rectangle de la salle @p roomIndex (`RoomGrid`, `LOT-32`) —
+    /// coupure nette : appelé uniquement au chargement et quand la salle courante change
+    /// (`updateCurrentRoom`), jamais à chaque frame.
+    void centerCameraOnRoom(core::GridPosition roomIndex);
+
+    /// Détermine la salle contenant le personnage ; si elle diffère de `_currentRoomIndex`,
+    /// recentre la caméra dessus (`centerCameraOnRoom`). Appelé chaque pas fixe, après résolution
+    /// de la physique (`EX-REN-015`).
+    void updateCurrentRoom();
+
     const TextureAtlas& _atlas;  ///< Atlas conservé pour reconstruire la scène à chaque niveau.
-    const GameKeyBindings& _gameBindings;  ///< Touches clavier courantes (`EX-CTRL-012`).
+    const GameKeyBindings& _gameBindings;     ///< Touches clavier courantes (`EX-CTRL-012`).
     const GamepadBindings& _gamepadBindings;  ///< Boutons manette courants (`EX-CTRL-002`).
     core::World _world;
     Camera2D _camera;
@@ -153,23 +167,25 @@ private:
         _dangers;  ///< Dangers mobile/temporisé du niveau courant (`EX-GP-051`/`EX-GP-053`).
     std::vector<core::Entity>
         _moverEntities;  ///< Entités-tuiles des dangers mobiles (même ordre que
-                        ///< `_dangers->moverBox(index)`), repositionnées chaque pas
-                        ///< (`refreshDangerVisuals`).
+                         ///< `_dangers->moverBox(index)`), repositionnées chaque pas
+                         ///< (`refreshDangerVisuals`).
     std::vector<core::Entity>
         _dangerSwitchedEntities;  ///< Entités-tuiles des dangers commutés (même ordre que
-                                 ///< `_level->dangerLinks()`), teinte rafraîchie chaque pas
-                                 ///< (`refreshDangerStateVisuals`).
+                                  ///< `_level->dangerLinks()`), teinte rafraîchie chaque pas
+                                  ///< (`refreshDangerStateVisuals`).
     std::vector<core::Entity>
         _dangerBlinkEntities;  ///< Entités-tuiles des dangers temporisés (même ordre que
-                              ///< `_level->blinkConfigs()`), teinte rafraîchie chaque pas
-                              ///< (`refreshDangerStateVisuals`).
-    std::vector<core::Entity> _blockEntities;      ///< Entités-tuiles des blocs (même ordre que
-                                                    ///< `_blocks->positions()`).
+                               ///< `_level->blinkConfigs()`), teinte rafraîchie chaque pas
+                               ///< (`refreshDangerStateVisuals`).
+    std::vector<core::Entity> _blockEntities;  ///< Entités-tuiles des blocs (même ordre que
+                                               ///< `_blocks->positions()`).
     core::CharacterPhysicsSystem _physics;
     core::AnimationSystem _animation;
     core::Entity _player{};  ///< Entité du personnage jouable (valide si `_level`).
     int _levelWidth = 0;
     int _levelHeight = 0;
+    std::optional<RoomGrid> _roomGrid;       ///< Partition en salles du niveau courant (`LOT-32`).
+    core::GridPosition _currentRoomIndex{};  ///< Salle actuellement cadrée par la caméra.
     std::string _loadError;  ///< Vide si le niveau est chargé ; message d'erreur sinon.
 };
 

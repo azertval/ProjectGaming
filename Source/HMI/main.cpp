@@ -33,8 +33,8 @@
 #include "HMI/Interface/EditorKeybindingsScreen.h"
 #include "HMI/Interface/EditorScreen.h"
 #include "HMI/Interface/GameKeybindingsScreen.h"
-#include "HMI/Interface/GamepadBindingsScreen.h"
 #include "HMI/Interface/GameScreen.h"
+#include "HMI/Interface/GamepadBindingsScreen.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/MenuScreen.h"
 #include "HMI/Interface/OptionsScreen.h"
@@ -225,6 +225,7 @@ int main(int argc, char** argv) {
                             levels / "demo-bloc-reduit.json",
                             levels / "demo-dangers-avances.json",
                             levels / "demo-final.json",
+                            levels / "demo-salles.json",
                         },
                         gameBindings, gamepadBindings);
                 }
@@ -235,8 +236,8 @@ int main(int argc, char** argv) {
                 case hmi::ScreenId::Options:
                     return std::make_unique<hmi::OptionsScreen>(localization, graphics);
                 case hmi::ScreenId::GameKeybindings:
-                    return std::make_unique<hmi::GameKeybindingsScreen>(
-                        localization, gameBindings, keybindingsPath);
+                    return std::make_unique<hmi::GameKeybindingsScreen>(localization, gameBindings,
+                                                                        keybindingsPath);
                 case hmi::ScreenId::EditorKeybindings:
                     return std::make_unique<hmi::EditorKeybindingsScreen>(
                         localization, editorBindings, keybindingsPath);

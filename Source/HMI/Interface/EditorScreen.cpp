@@ -17,12 +17,12 @@
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/EditorLayout.h"
+#include "HMI/Editor/EditorLog.h"
 #include "HMI/Editor/LevelNameValidation.h"
 #include "HMI/Editor/LevelSizeValidation.h"
 #include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
-#include "HMI/Editor/EditorLog.h"
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
@@ -47,10 +47,10 @@ constexpr int DEFAULT_HEIGHT = 8;
     switch (result.errorCode) {
         case core::LevelValidationError::InvalidEntryCount:
             return "Il manque une entree (ou il y en a plusieurs) : la grille doit porter "
-                  "exactement une tuile Entree.";
+                   "exactement une tuile Entree.";
         case core::LevelValidationError::InvalidExitCount:
             return "Il manque une sortie (ou il y en a plusieurs) : la grille doit porter "
-                  "exactement une tuile Sortie.";
+                   "exactement une tuile Sortie.";
         case core::LevelValidationError::UnresolvedMechanism:
         case core::LevelValidationError::MissingSwitchId:
         case core::LevelValidationError::DuplicateSwitchId:
@@ -123,8 +123,8 @@ EditorScreen::EditorScreen(SpriteBatch& batch, const TextureAtlas& atlas, int vi
     // LOT-27) : connaît la hauteur disponible dès la construction, avant tout rendu ou clic.
     _palette.setViewportHeight(static_cast<float>(_viewportHeight));
     _toolBar.relayout(_palette.bottom() + PANEL_SECTION_GAP);
-    HMI_LOG_TRACE("EditorScreen cree (selecteur : " +
-                 std::to_string(_picker->choices().size()) + " choix)");
+    HMI_LOG_TRACE("EditorScreen cree (selecteur : " + std::to_string(_picker->choices().size()) +
+                  " choix)");
 }
 
 // Definition necessaire ici (GameScreen complet), pour le unique_ptr<GameScreen> sur type
@@ -199,15 +199,15 @@ void EditorScreen::handleLinkClick(float mouseX, float mouseY) {
     const bool alreadyLinked =
         targetType == core::TileType::Door
             ? std::any_of(_draft.mechanisms().begin(), _draft.mechanisms().end(),
-                         [&](const core::Mechanism& mechanism) {
-                             return mechanism.switchPosition == switchPosition &&
-                                    mechanism.doorPosition == targetPosition;
-                         })
+                          [&](const core::Mechanism& mechanism) {
+                              return mechanism.switchPosition == switchPosition &&
+                                     mechanism.doorPosition == targetPosition;
+                          })
             : std::any_of(_draft.dangerLinks().begin(), _draft.dangerLinks().end(),
-                         [&](const core::DangerLink& link) {
-                             return link.triggerPosition == switchPosition &&
-                                    link.dangerPosition == targetPosition;
-                         });
+                          [&](const core::DangerLink& link) {
+                              return link.triggerPosition == switchPosition &&
+                                     link.dangerPosition == targetPosition;
+                          });
     const std::string switchLabel = "(" + std::to_string(switchPosition.column) + ", " +
                                     std::to_string(switchPosition.row) + ")";
     const std::string targetLabel = "(" + std::to_string(targetPosition.column) + ", " +
@@ -232,7 +232,8 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         if (input.keyPressed(Key::Escape)) {
             return ScreenTransition::switchTo(ScreenId::Menu);
         }
-        const std::optional<int> confirmed = _picker->update(input, static_cast<float>(_viewportHeight));
+        const std::optional<int> confirmed =
+            _picker->update(input, static_cast<float>(_viewportHeight));
         if (confirmed) {
             const LevelPicker::Choice& choice = _picker->choices()[*confirmed];
             if (choice.path) {
@@ -386,7 +387,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
             for (int row = _selection->first.row; row <= _selection->second.row; ++row) {
                 std::vector<core::TileType> rowTiles;
                 for (int column = _selection->first.column; column <= _selection->second.column;
-                    ++column) {
+                     ++column) {
                     if (_draft.tileMap().inBounds(column, row)) {
                         rowTiles.push_back(_draft.tileMap().tile(column, row));
                     }
@@ -395,12 +396,12 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
             }
         }
     } else if (input.keyDown(Key::Control) &&
-              input.keyPressed(_editorBindings.key(EditorAction::Paste))) {
+               input.keyPressed(_editorBindings.key(EditorAction::Paste))) {
         if (!_clipboard.empty()) {
             // Position souris de la frame courante (pas _mouseX/_mouseY, pas encore mis a jour a
             // ce point de la frame — voir le bloc camera plus bas).
-            const core::GridPosition cell = clampedCell(static_cast<float>(input.mouseX()),
-                                                        static_cast<float>(input.mouseY()));
+            const core::GridPosition cell =
+                clampedCell(static_cast<float>(input.mouseX()), static_cast<float>(input.mouseY()));
             _draft.paintRegion(cell.column, cell.row, _clipboard);
             _dirty = true;
         }
@@ -437,19 +438,20 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
         // Zoom minimal : jamais moins que le cadrage automatique (rien a voir au-dela du niveau,
         // meme formule que renderGrid, LOT-16 fitZoom) ; zoom maximal : au moins MIN_VISIBLE_TILES
         // cases sur le plus petit axe (precision suffisante pour poser un bloc, pas plus).
-        const float minZoom = Camera2D::fitZoom(canvasWidth, viewportHeight,
-                                                static_cast<float>(width),
-                                                static_cast<float>(height), 0.85f);
+        const float minZoom =
+            Camera2D::fitZoom(canvasWidth, viewportHeight, static_cast<float>(width),
+                              static_cast<float>(height), 0.85f);
         const float maxZoom =
             (std::max)(minZoom, std::floor((std::min)(canvasWidth, viewportHeight) /
                                            (MIN_VISIBLE_TILES * Camera2D::PIXELS_PER_UNIT)));
-        _cameraZoom = std::clamp(
-            _cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH), minZoom, maxZoom);
+        _cameraZoom = std::clamp(_cameraZoom + std::round(static_cast<float>(wheel) / WHEEL_NOTCH),
+                                 minZoom, maxZoom);
         _manualCamera = true;
     }
     const float newMouseX = static_cast<float>(input.mouseX());
     const float newMouseY = static_cast<float>(input.mouseY());
-    if (input.mouseButtonDown(MouseButton::Right) && !input.mouseButtonPressed(MouseButton::Right)) {
+    if (input.mouseButtonDown(MouseButton::Right) &&
+        !input.mouseButtonPressed(MouseButton::Right)) {
         // Glisser en cours (pas le tout premier frame du clic, pour eviter un saut initial).
         const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
         _cameraCenter.x -= (newMouseX - _mouseX) / scale;
@@ -523,7 +525,7 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
             EDITOR_LOG_TRACE("Annuler (Ctrl+Z)");
         }
     } else if (input.keyDown(Key::Control) &&
-              input.keyPressed(_editorBindings.key(EditorAction::Redo))) {
+               input.keyPressed(_editorBindings.key(EditorAction::Redo))) {
         if (_draft.redo()) {
             _dirty = true;
             EDITOR_LOG_TRACE("Refaire (Ctrl+Y)");
@@ -553,10 +555,10 @@ ScreenTransition EditorScreen::update(const InputState& input, float fixedDelta)
 // curseur depasse legerement la grille.
 core::GridPosition EditorScreen::clampedCell(float mouseX, float mouseY) const {
     const core::Vector2 world = _camera.screenToWorld(core::Vector2{mouseX, mouseY});
-    const int column = std::clamp(static_cast<int>(std::floor(world.x)), 0,
-                                  _draft.tileMap().width() - 1);
-    const int row = std::clamp(static_cast<int>(std::floor(world.y)), 0,
-                               _draft.tileMap().height() - 1);
+    const int column =
+        std::clamp(static_cast<int>(std::floor(world.x)), 0, _draft.tileMap().width() - 1);
+    const int row =
+        std::clamp(static_cast<int>(std::floor(world.y)), 0, _draft.tileMap().height() - 1);
     return core::GridPosition{column, row};
 }
 
@@ -614,17 +616,18 @@ void EditorScreen::saveDraft() {
     const std::filesystem::path path = directory / (_draft.name() + ".json");
 
     std::error_code equivalenceError;
-    const bool sameAsOrigin =
-        _loadedFrom.has_value() && std::filesystem::equivalent(*_loadedFrom, path, equivalenceError);
+    const bool sameAsOrigin = _loadedFrom.has_value() &&
+                              std::filesystem::equivalent(*_loadedFrom, path, equivalenceError);
     const bool overwritesOtherFile = !sameAsOrigin && std::filesystem::exists(path, errorCode);
     if (overwritesOtherFile) {
         const core::Level level = *result.level;  // copie : capturee par la confirmation differee
-        _pendingConfirmation = PendingConfirmation{
-            "Un niveau \"" + _draft.name() + "\" existe deja. L'ecraser ? (Entree = oui, Echap = non)",
-            [this, level, path]() {
-                writeLevelToDisk(level, path);
-                return ScreenTransition::none();
-            }};
+        _pendingConfirmation =
+            PendingConfirmation{"Un niveau \"" + _draft.name() +
+                                    "\" existe deja. L'ecraser ? (Entree = oui, Echap = non)",
+                                [this, level, path]() {
+                                    writeLevelToDisk(level, path);
+                                    return ScreenTransition::none();
+                                }};
         return;
     }
     writeLevelToDisk(*result.level, path);
@@ -669,21 +672,22 @@ void EditorScreen::renderGrid(RenderContext& context) {
 
     // La grille se cadre dans le canevas (a droite du panneau lateral), pas sur toute la fenetre
     // (EX-EDIT-015) — evite qu'une case ne se retrouve visuellement sous la palette/barre d'outils.
-    const float canvasWidth = (std::max)(1.0f, static_cast<float>(context.viewportWidth) - PANEL_WIDTH);
+    const float canvasWidth =
+        (std::max)(1.0f, static_cast<float>(context.viewportWidth) - PANEL_WIDTH);
     if (!_manualCamera) {
         // Zoom pour faire tenir la grille entiere dans le canevas (LOT-16, EX-EDIT-013) : entier
         // (nettete pixel art) tant que le niveau tient a l'echelle x1, fractionnaire au-dela pour
         // qu'aucune case ne reste hors champ.
-        _cameraZoom = Camera2D::fitZoom(canvasWidth, static_cast<float>(context.viewportHeight),
-                                        static_cast<float>(width), static_cast<float>(height),
-                                        0.85f);
+        _cameraZoom =
+            Camera2D::fitZoom(canvasWidth, static_cast<float>(context.viewportHeight),
+                              static_cast<float>(width), static_cast<float>(height), 0.85f);
         // Decale le centre vers la gauche, en unites monde, de la moitie du panneau converti a
         // l'echelle courante : le centre APPARENT de la grille se retrouve au milieu du canevas
         // plutot qu'au milieu de la fenetre entiere.
         const float scale = Camera2D::PIXELS_PER_UNIT * _cameraZoom;
-        _cameraCenter = core::Vector2{
-            static_cast<float>(width) * 0.5f - (PANEL_WIDTH * 0.5f) / scale,
-            static_cast<float>(height) * 0.5f};
+        _cameraCenter =
+            core::Vector2{static_cast<float>(width) * 0.5f - (PANEL_WIDTH * 0.5f) / scale,
+                          static_cast<float>(height) * 0.5f};
     }
     _camera.setCenter(_cameraCenter);
     _camera.setZoom(_cameraZoom);
@@ -709,10 +713,9 @@ void EditorScreen::renderGrid(RenderContext& context) {
             } else {
                 const float scale = core::tileVisualScale(type);
                 const float margin = (1.0f - scale) * 0.5f;
-                context.spriteBatch.draw(quadFor(regionForTile(type, _atlas),
-                                                 static_cast<float>(column) + margin,
-                                                 static_cast<float>(row) + margin, scale, scale,
-                                                 _atlas));
+                context.spriteBatch.draw(
+                    quadFor(regionForTile(type, _atlas), static_cast<float>(column) + margin,
+                            static_cast<float>(row) + margin, scale, scale, _atlas));
             }
         }
     }
@@ -723,16 +726,37 @@ void EditorScreen::renderGrid(RenderContext& context) {
         constexpr core::Color GRID_LINE_TINT{1.0f, 1.0f, 1.0f, 0.18f};
         constexpr float LINE_THICKNESS = 0.035f;  // en unites monde (fraction d'une case)
         for (int column = 0; column <= width; ++column) {
-            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
-                                             static_cast<float>(column) - LINE_THICKNESS * 0.5f,
-                                             0.0f, LINE_THICKNESS, static_cast<float>(height),
-                                             _atlas, GRID_LINE_TINT));
+            context.spriteBatch.draw(
+                quadFor(_atlas.tile(0, 0), static_cast<float>(column) - LINE_THICKNESS * 0.5f, 0.0f,
+                        LINE_THICKNESS, static_cast<float>(height), _atlas, GRID_LINE_TINT));
         }
         for (int row = 0; row <= height; ++row) {
-            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), 0.0f,
-                                             static_cast<float>(row) - LINE_THICKNESS * 0.5f,
-                                             static_cast<float>(width), LINE_THICKNESS, _atlas,
-                                             GRID_LINE_TINT));
+            context.spriteBatch.draw(
+                quadFor(_atlas.tile(0, 0), 0.0f, static_cast<float>(row) - LINE_THICKNESS * 0.5f,
+                        static_cast<float>(width), LINE_THICKNESS, _atlas, GRID_LINE_TINT));
+        }
+
+        // Quadrillage de SALLES (LOT-32, EX-EDIT-023) : memes lignes epaisses/plus opaques que le
+        // repere fin ci-dessus, mais uniquement aux frontieres de salles (RoomGrid), pas case par
+        // case -- aide a aligner les couloirs inter-salles. Meme bascule (F10) que le repere fin ;
+        // aucun changement du cadrage camera de l'editeur (pan/zoom manuel, LOT-15/16, inchange).
+        constexpr core::Color ROOM_LINE_TINT{1.0f, 0.85f, 0.3f, 0.5f};
+        constexpr float ROOM_LINE_THICKNESS = 0.09f;  // plus epais que LINE_THICKNESS, pour rester
+                                                      // distinguable du repere fin case par case.
+        const RoomGrid roomGrid(width, height);
+        for (int column = 0; column <= roomGrid.columns(); ++column) {
+            const float x =
+                static_cast<float>((std::min)(column * RoomGrid::ROOM_WIDTH_TILES, width));
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), x - ROOM_LINE_THICKNESS * 0.5f,
+                                             0.0f, ROOM_LINE_THICKNESS, static_cast<float>(height),
+                                             _atlas, ROOM_LINE_TINT));
+        }
+        for (int row = 0; row <= roomGrid.rows(); ++row) {
+            const float y =
+                static_cast<float>((std::min)(row * RoomGrid::ROOM_HEIGHT_TILES, height));
+            context.spriteBatch.draw(
+                quadFor(_atlas.tile(0, 0), 0.0f, y - ROOM_LINE_THICKNESS * 0.5f,
+                        static_cast<float>(width), ROOM_LINE_THICKNESS, _atlas, ROOM_LINE_TINT));
         }
     }
 
@@ -741,12 +765,12 @@ void EditorScreen::renderGrid(RenderContext& context) {
     // reliant les deux cases). Plusieurs liaisons simultanees restent distinguables (EX-EDIT-016) :
     // chaque porte reprend la teinte de son interrupteur, cycliquement au-dela de LINK_TINTS.
     constexpr core::Color LINK_TINTS[] = {
-        core::Color{0.3f, 1.0f, 1.0f, 0.45f},   // cyan
-        core::Color{1.0f, 0.55f, 0.15f, 0.45f}, // orange
-        core::Color{0.55f, 1.0f, 0.35f, 0.45f}, // vert
-        core::Color{1.0f, 0.35f, 0.75f, 0.45f}, // rose
-        core::Color{0.75f, 0.55f, 1.0f, 0.45f}, // violet
-        core::Color{1.0f, 0.9f, 0.25f, 0.45f},  // jaune
+        core::Color{0.3f, 1.0f, 1.0f, 0.45f},    // cyan
+        core::Color{1.0f, 0.55f, 0.15f, 0.45f},  // orange
+        core::Color{0.55f, 1.0f, 0.35f, 0.45f},  // vert
+        core::Color{1.0f, 0.35f, 0.75f, 0.45f},  // rose
+        core::Color{0.75f, 0.55f, 1.0f, 0.45f},  // violet
+        core::Color{1.0f, 0.9f, 0.25f, 0.45f},   // jaune
     };
     constexpr std::size_t LINK_TINT_COUNT = sizeof(LINK_TINTS) / sizeof(LINK_TINTS[0]);
 
@@ -775,33 +799,29 @@ void EditorScreen::renderGrid(RenderContext& context) {
     };
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {
         const core::Color tint = tintForSwitch(mechanism.switchPosition);
-        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
-                                         static_cast<float>(mechanism.switchPosition.column),
-                                         static_cast<float>(mechanism.switchPosition.row), 1.0f,
-                                         1.0f, _atlas, tint));
-        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
-                                         static_cast<float>(mechanism.doorPosition.column),
-                                         static_cast<float>(mechanism.doorPosition.row), 1.0f,
-                                         1.0f, _atlas, tint));
+        context.spriteBatch.draw(
+            quadFor(_atlas.tile(0, 0), static_cast<float>(mechanism.switchPosition.column),
+                    static_cast<float>(mechanism.switchPosition.row), 1.0f, 1.0f, _atlas, tint));
+        context.spriteBatch.draw(
+            quadFor(_atlas.tile(0, 0), static_cast<float>(mechanism.doorPosition.column),
+                    static_cast<float>(mechanism.doorPosition.row), 1.0f, 1.0f, _atlas, tint));
     }
     for (const core::DangerLink& link : _draft.dangerLinks()) {
         const core::Color tint = tintForSwitch(link.triggerPosition);
-        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
-                                         static_cast<float>(link.triggerPosition.column),
-                                         static_cast<float>(link.triggerPosition.row), 1.0f, 1.0f,
-                                         _atlas, tint));
-        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0),
-                                         static_cast<float>(link.dangerPosition.column),
-                                         static_cast<float>(link.dangerPosition.row), 1.0f, 1.0f,
-                                         _atlas, tint));
+        context.spriteBatch.draw(
+            quadFor(_atlas.tile(0, 0), static_cast<float>(link.triggerPosition.column),
+                    static_cast<float>(link.triggerPosition.row), 1.0f, 1.0f, _atlas, tint));
+        context.spriteBatch.draw(
+            quadFor(_atlas.tile(0, 0), static_cast<float>(link.dangerPosition.column),
+                    static_cast<float>(link.dangerPosition.row), 1.0f, 1.0f, _atlas, tint));
     }
 
     // Case en attente de liaison (premier clic Maj+souris d'une paire), teinte magenta.
     if (_pendingLink) {
         constexpr core::Color PENDING_TINT{1.0f, 0.3f, 1.0f, 0.55f};
-        context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), static_cast<float>(_pendingLink->column),
-                                         static_cast<float>(_pendingLink->row), 1.0f, 1.0f, _atlas,
-                                         PENDING_TINT));
+        context.spriteBatch.draw(
+            quadFor(_atlas.tile(0, 0), static_cast<float>(_pendingLink->column),
+                    static_cast<float>(_pendingLink->row), 1.0f, 1.0f, _atlas, PENDING_TINT));
     }
 
     // Surbrillance de la case survolee : quad blanc translucide par-dessus la tuile.
@@ -867,39 +887,41 @@ void EditorScreen::renderPalette(RenderContext& context) {
     constexpr core::Color SELECTION_TINT{1.0f, 1.0f, 0.4f, 1.0f};
     for (const TilePalette::Entry& entry : _palette.entries()) {
         if (entry.type == _palette.selected()) {
-            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x - BORDER,
-                                             entry.y - BORDER, entry.width + 2.0f * BORDER,
-                                             entry.height + 2.0f * BORDER, _atlas,
-                                             SELECTION_TINT));
+            context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), entry.x - BORDER, entry.y - BORDER,
+                                             entry.width + 2.0f * BORDER,
+                                             entry.height + 2.0f * BORDER, _atlas, SELECTION_TINT));
         }
-        context.spriteBatch.draw(
-            quadFor(regionForTile(entry.type, _atlas), entry.x, entry.y, entry.width,
-                   entry.height, _atlas));
+        context.spriteBatch.draw(quadFor(regionForTile(entry.type, _atlas), entry.x, entry.y,
+                                         entry.width, entry.height, _atlas));
     }
 
     // Barre de defilement (piste + curseur), uniquement si l'accordeon deplie deborde de la
     // fenetre visible (LOT-27, EX-EDIT-018) -- meme principe que LevelPicker::renderPicker.
     const int totalRows = _palette.totalRowCount();
-    const int visibleRows = TilePalette::visibleRowCount(static_cast<float>(context.viewportHeight));
+    const int visibleRows =
+        TilePalette::visibleRowCount(static_cast<float>(context.viewportHeight));
     if (totalRows > visibleRows) {
         constexpr float SCROLLBAR_WIDTH = 5.0f;
         constexpr float SCROLLBAR_MARGIN_RIGHT = 4.0f;
         const float trackX = PANEL_WIDTH - SCROLLBAR_MARGIN_RIGHT - SCROLLBAR_WIDTH;
         const float trackTop = PALETTE_TOP;
         const float trackHeight = static_cast<float>(visibleRows) * PANEL_ROW_PITCH;
-        const float thumbHeight =
-            (std::max)(trackHeight * static_cast<float>(visibleRows) / static_cast<float>(totalRows),
-                      SCROLLBAR_WIDTH * 2.0f);
+        const float thumbHeight = (std::max)(trackHeight * static_cast<float>(visibleRows) /
+                                                 static_cast<float>(totalRows),
+                                             SCROLLBAR_WIDTH * 2.0f);
         const float maxThumbTravel = trackHeight - thumbHeight;
         const int maxOffset = totalRows - visibleRows;
         const float thumbY =
-            trackTop + (maxOffset > 0 ? maxThumbTravel * static_cast<float>(_palette.scrollOffset()) /
-                                            static_cast<float>(maxOffset)
-                                      : 0.0f);
+            trackTop + (maxOffset > 0
+                            ? maxThumbTravel * static_cast<float>(_palette.scrollOffset()) /
+                                  static_cast<float>(maxOffset)
+                            : 0.0f);
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, trackTop, SCROLLBAR_WIDTH,
-                                         trackHeight, _atlas, core::Color{1.0f, 1.0f, 1.0f, 0.12f}));
+                                         trackHeight, _atlas,
+                                         core::Color{1.0f, 1.0f, 1.0f, 0.12f}));
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, thumbY, SCROLLBAR_WIDTH,
-                                         thumbHeight, _atlas, core::Color{1.0f, 1.0f, 1.0f, 0.45f}));
+                                         thumbHeight, _atlas,
+                                         core::Color{1.0f, 1.0f, 1.0f, 0.45f}));
     }
     context.spriteBatch.end();
 
@@ -961,13 +983,17 @@ void EditorScreen::renderHelp(RenderContext& context) {
     if (_showHelp) {
         // Noms de touches interpoles depuis les bindings courants (pas des libelles fixes) :
         // resteraient faux apres un remappage sinon (LOT-29, Options -> Touches de l'editeur).
-        const std::string ctrlCopy = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Copy));
+        const std::string ctrlCopy =
+            "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Copy));
         const std::string ctrlPaste =
             "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Paste));
-        const std::string ctrlUndo = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Undo));
-        const std::string ctrlRedo = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Redo));
+        const std::string ctrlUndo =
+            "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Undo));
+        const std::string ctrlRedo =
+            "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Redo));
         const std::string renameKey = keyDisplayName(_editorBindings.key(EditorAction::Rename));
-        const std::string ctrlSave = "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Save));
+        const std::string ctrlSave =
+            "Ctrl+" + keyDisplayName(_editorBindings.key(EditorAction::Save));
         const std::string playtestKey = keyDisplayName(_editorBindings.key(EditorAction::Playtest));
         const std::string gridKey = keyDisplayName(_editorBindings.key(EditorAction::ToggleGrid));
         const std::string helpKey = keyDisplayName(_editorBindings.key(EditorAction::ToggleHelp));
@@ -996,10 +1022,10 @@ void EditorScreen::renderHelp(RenderContext& context) {
         }
     } else {
         constexpr float SCALE = 1.4f;
-        const std::string hint = keyDisplayName(_editorBindings.key(EditorAction::ToggleHelp)) +
-                                 " : aide";
-        const float x = static_cast<float>(context.viewportWidth) -
-                       context.font.textWidth(hint, SCALE) - 10.0f;
+        const std::string hint =
+            keyDisplayName(_editorBindings.key(EditorAction::ToggleHelp)) + " : aide";
+        const float x =
+            static_cast<float>(context.viewportWidth) - context.font.textWidth(hint, SCALE) - 10.0f;
         context.font.drawText(context.spriteBatch, hint, x, 10.0f, SCALE,
                               core::Color{0.7f, 0.7f, 0.75f, 0.85f});
     }
@@ -1009,7 +1035,8 @@ void EditorScreen::renderHelp(RenderContext& context) {
 // Dessine le message de statut courant (bande de texte en bas de l'ecran) : la confirmation en
 // attente est prioritaire sur un simple message d'erreur/information, s'il y en a un.
 void EditorScreen::renderStatus(RenderContext& context) {
-    const std::string& message = _pendingConfirmation ? _pendingConfirmation->message : _statusMessage;
+    const std::string& message =
+        _pendingConfirmation ? _pendingConfirmation->message : _statusMessage;
     if (message.empty()) {
         return;
     }
@@ -1018,7 +1045,7 @@ void EditorScreen::renderStatus(RenderContext& context) {
     const float y =
         static_cast<float>(context.viewportHeight) - context.font.lineHeight(SCALE) - MARGIN;
     const core::Color color = _pendingConfirmation ? core::Color{1.0f, 0.75f, 0.30f, 1.0f}
-                                                    : core::Color{0.90f, 0.85f, 0.55f, 1.0f};
+                                                   : core::Color{0.90f, 0.85f, 0.55f, 1.0f};
 
     const DirectX::XMFLOAT4X4 projection =
         BitmapFont::screenProjection(context.viewportWidth, context.viewportHeight);
@@ -1052,13 +1079,13 @@ void EditorScreen::renderPicker(RenderContext& context) {
         const float trackHeight = static_cast<float>(visible) * LevelPicker::OPTION_SPACING;
         const float thumbHeight =
             (std::max)(trackHeight * static_cast<float>(visible) / static_cast<float>(total),
-                      SCROLLBAR_WIDTH * 2.0f);
+                       SCROLLBAR_WIDTH * 2.0f);
         const float maxThumbTravel = trackHeight - thumbHeight;
         const int maxOffset = total - visible;
-        const float thumbY = trackTop + (maxOffset > 0 ? maxThumbTravel *
-                                                             static_cast<float>(scrollOffset) /
-                                                             static_cast<float>(maxOffset)
-                                                       : 0.0f);
+        const float thumbY =
+            trackTop + (maxOffset > 0 ? maxThumbTravel * static_cast<float>(scrollOffset) /
+                                            static_cast<float>(maxOffset)
+                                      : 0.0f);
 
         context.spriteBatch.begin(projection, _atlas.textureView());
         context.spriteBatch.draw(quadFor(_atlas.tile(0, 0), trackX, trackTop, SCROLLBAR_WIDTH,
@@ -1078,17 +1105,18 @@ void EditorScreen::renderPicker(RenderContext& context) {
     for (int index = scrollOffset; index < lastVisible; ++index) {
         const bool isSelected = index == _picker->selected();
         const core::Color color = isSelected ? core::Color{1.0f, 0.85f, 0.35f, 1.0f}
-                                              : core::Color{0.75f, 0.75f, 0.80f, 1.0f};
+                                             : core::Color{0.75f, 0.75f, 0.80f, 1.0f};
         const std::string label =
             (isSelected ? "> " : "  ") + choices[static_cast<std::size_t>(index)].label;
         const float y = LevelPicker::OPTIONS_TOP +
-                       static_cast<float>(index - scrollOffset) * LevelPicker::OPTION_SPACING;
+                        static_cast<float>(index - scrollOffset) * LevelPicker::OPTION_SPACING;
         context.font.drawText(context.spriteBatch, label, LevelPicker::MARGIN_X, y,
                               LevelPicker::OPTION_SCALE, color);
     }
 
     if (!_statusMessage.empty()) {
-        const float y = static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
+        const float y =
+            static_cast<float>(context.viewportHeight) - context.font.lineHeight(2.0f) - 12.0f;
         context.font.drawText(context.spriteBatch, _statusMessage, LevelPicker::MARGIN_X, y, 2.0f,
                               core::Color{0.90f, 0.55f, 0.55f, 1.0f});
     }
@@ -1107,17 +1135,20 @@ void EditorScreen::renderTextPrompt(RenderContext& context) {
     switch (_textPromptPurpose) {
         case TextPromptPurpose::CreateLevelName:
             title = "Nom du nouveau niveau";
-            rejectionMessage = "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+            rejectionMessage =
+                "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
             break;
         case TextPromptPurpose::RenameLevel:
             title = "Renommer le niveau";
-            rejectionMessage = "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
+            rejectionMessage =
+                "Nom invalide : evitez un nom vide et les caracteres \\ / : * ? \" < > |";
             break;
         case TextPromptPurpose::ResizeGrid:
             title = "Nouvelle taille (largeur x hauteur)";
-            rejectionMessage = "Taille invalide : format attendu \"largeurxhauteur\" (ex. 40x30 "
-                               "ou 40*30), chaque valeur entre 1 et " +
-                               std::to_string(MAX_LEVEL_DIMENSION) + ".";
+            rejectionMessage =
+                "Taille invalide : format attendu \"largeurxhauteur\" (ex. 40x30 "
+                "ou 40*30), chaque valeur entre 1 et " +
+                std::to_string(MAX_LEVEL_DIMENSION) + ".";
             break;
     }
     context.font.drawText(context.spriteBatch, title, LevelPicker::MARGIN_X, LevelPicker::TITLE_Y,

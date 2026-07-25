@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**535 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**540 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (453)
+## Tests unitaires (458)
 
 ### Core
 
@@ -509,7 +509,7 @@
 | **ToolBarTest.SelectNextDefileEnBoucle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tool_bar.cpp:87`</sub> | selectNext() fait défiler les outils dans l'ordre attendu, en boucle. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `toolBar.selected()` vaut `hmi::EditorTool::Paint`.<br/>Vérifie que `toolBar.selected()` vaut `hmi::EditorTool::Rectangle`.<br/>Vérifie que `toolBar.selected()` vaut `hmi::EditorTool::Selection`.<br/>Vérifie que `toolBar.selected()` vaut `hmi::EditorTool::Paint`. |
 | **ToolBarTest.RelayoutRepositionneSansChangerLaSelection** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_tool_bar.cpp:113`</sub> | `relayout(top)` repositionne les entrées sans changer la sélection. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `toolBar.entries().size()` vaut `countBefore`.<br/>Vérifie que `toolBar.selected()` vaut `selectedBefore`.<br/>Vérifie que `toolBar.entries().front().y` vaut `250.0f` (comparaison flottante). |
 
-#### Graphics (9)
+#### Graphics (14)
 
 **`test_camera2d.cpp`**
 
@@ -524,6 +524,16 @@
 | **Camera2DTest.FitZoomEntierPourPetitNiveau** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:152`</sub> | fitZoom reste entier tant que le facteur brut est supérieur ou égal à 1 (petit niveau). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `zoom` est supérieur ou égal à `1.0f`.<br/>Vérifie que `zoom` vaut `std::floor(zoom)` (comparaison flottante). |
 | **Camera2DTest.FitZoomFractionnairePourGrandNiveau** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:171`</sub> | fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `zoom` est strictement supérieur à `0.0f`.<br/>Vérifie que `zoom` est strictement inférieur à `1.0f`.<br/>Vérifie que `100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom` est inférieur ou égal à `1280.0f + TOLERANCE`.<br/>Vérifie que `100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom` est inférieur ou égal à `720.0f + TOLERANCE`. |
 | **Camera2DTest.FitZoomAppliqueLaMarge** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:192`</sub> | fitZoom applique la marge avant l'arrondi. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `zoomSansMarge` vaut `5.0f` (comparaison flottante).<br/>Vérifie que `zoomAvecMarge` vaut `4.0f` (comparaison flottante). |
+
+**`test_room_grid.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **RoomGridTest.NiveauPlusPetitQuUneSalleProduitUneSeuleSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:13`</sub> | Un niveau plus petit qu'une salle produit une seule salle couvrant le niveau entier. | 1. Construire un `RoomGrid` pour un niveau plus petit que la taille de salle sur les deux axes.<br/>2. Vérifier `columns()`/`rows()` et le rectangle de l'unique salle. | Vérifie que `grid.columns()` vaut `1`.<br/>Vérifie que `grid.rows()` vaut `1`.<br/>Vérifie que `bounds.column` vaut `0`.<br/>Vérifie que `bounds.row` vaut `0`.<br/>Vérifie que `bounds.width` vaut `10`.<br/>Vérifie que `bounds.height` vaut `6`. |
+| **RoomGridTest.NiveauMultipleExactNeRogneAucuneSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:38`</sub> | Un niveau exactement multiple de la taille de salle ne rogne aucune salle. | 1. Construire un `RoomGrid` pour un niveau dont chaque dimension est un multiple exact de la taille de salle.<br/>2. Vérifier `columns()`/`rows()` et le rectangle de chaque salle. | Vérifie que `grid.columns()` vaut `3`.<br/>Vérifie que `grid.rows()` vaut `2`.<br/>Vérifie que `last.column` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES * 2`.<br/>Vérifie que `last.row` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES * 1`.<br/>Vérifie que `last.width` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES`.<br/>Vérifie que `last.height` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES`. |
+| **RoomGridTest.NiveauNonMultipleRogneLaDerniereSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:65`</sub> | Un niveau non multiple de la taille de salle rogne la dernière colonne/ligne. | 1. Construire un `RoomGrid` pour un niveau dépassant de quelques cases un multiple de la taille de salle.<br/>2. Vérifier le rectangle de la dernière salle sur chaque axe. | Vérifie que `grid.columns()` vaut `2`.<br/>Vérifie que `grid.rows()` vaut `2`.<br/>Vérifie que `last.column` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES`.<br/>Vérifie que `last.row` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES`.<br/>Vérifie que `last.width` vaut `extraWidth`.<br/>Vérifie que `last.height` vaut `extraHeight`. |
+| **RoomGridTest.RoomIndexAtQuatreCoins** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:94`</sub> | `roomIndexAt` renvoie l'indice de salle correct aux quatre coins et au centre. | 1. Construire un `RoomGrid` de 2x2 salles.<br/>2. Interroger `roomIndexAt` à des positions choisies dans chacune des quatre salles. | Vérifie que `grid.roomIndexAt(core::GridPosition{0, 0})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, 0})` vaut `(core::GridPosition{1, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{0, height - 1})` vaut `(core::GridPosition{0, 1})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, height - 1})` vaut `(core::GridPosition{1, 1})`. |
+| **RoomGridTest.PositionHorsBornesEstBornee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:117`</sub> | Une position hors des bornes du niveau est bornée à la salle la plus proche. | 1. Construire un `RoomGrid` pour un petit niveau.<br/>2. Interroger `roomIndexAt` avec des coordonnées négatives puis très supérieures aux bornes. | Vérifie que `grid.roomIndexAt(core::GridPosition{-100, -100})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{1000, 1000})` vaut `(core::GridPosition{0, 0})`. |
 
 #### Input (62)
 

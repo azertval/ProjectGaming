@@ -40,6 +40,7 @@ add_executable(UnitTests
     Unit/HMI/Input/test_gamepad_bindings.cpp
     Unit/HMI/Input/test_gamepad_button_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
+    Unit/HMI/Graphics/test_room_grid.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Interface/test_screen_manager.cpp
     Unit/HMI/Interface/test_level_sequence.cpp
@@ -60,6 +61,9 @@ add_executable(UnitTests
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
+    # La partition d'un niveau en salles (LOT-32) est une logique pure (aucune dépendance
+    # rendu) : testable hors GPU.
+    ../HMI/Graphics/RoomGrid.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

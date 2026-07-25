@@ -80,13 +80,34 @@ quoi que ce soit ; c'est le rôle de `hmi::Camera2D`. Deux paramètres gouvernen
   contours voulue par ce style visuel.
 
 La caméra a aussi un **centre** (`setCenter`, en unités monde) : le point qui apparaît au milieu de
-l'écran — typiquement la position du personnage suivi. `projectionMatrix()` combine centre, échelle
+l'écran. Ni `GameScreen` ni `EditorScreen` ne font suivre ce centre en continu au personnage
+(`EX-REN-013`) : il est recalculé par **cadrage**, sur le milieu du contenu à englober — le niveau
+entier dans l'éditeur, ou la **salle courante** en jeu si le niveau en compte plusieurs (voir
+ci-dessous). `projectionMatrix()` combine centre, échelle
 et dimensions de la fenêtre (le *viewport*) en une **matrice de projection orthographique** : une
 transformation mathématique standard en rendu 2D/3D qui convertit une position monde en position
 « clip » — l'espace normalisé que le GPU attend en sortie du *vertex shader* (voir plus bas). C'est
 cette matrice, et non une conversion manuelle pixel par pixel, que le pipeline de dessin applique à
 chaque sommet ; `worldToScreen`/`screenToWorld` exposent la même conversion côté CPU, pour des
 besoins hors dessin (par exemple convertir une position de souris en position monde).
+
+### Cadrer un contenu plus grand que la fenêtre : `fitZoom` et `hmi::RoomGrid`
+
+`Camera2D::fitZoom` (`LOT-16`) calcule le zoom qui fait tenir un rectangle donné (en unités monde)
+dans une surface disponible (en pixels), sans jamais laisser de zone hors champ : zoom **entier**
+tant que le rectangle tient déjà à l'échelle ×1 (netteté pixel art, `EX-ARCH-022`), fractionnaire
+seulement si nécessaire pour l'englober malgré tout. Fonction pure, partagée par l'éditeur (niveau
+entier) et le jeu.
+
+En jeu (`GameScreen`), pour un niveau plus grand qu'une **salle** (`hmi::RoomGrid`, `LOT-32`, taille
+fixe en tuiles), ce rectangle n'est **plus le niveau entier** mais celui de la **salle** contenant
+le personnage — façon *Celeste* : la caméra reste au zoom pixel art natif quelle que soit la taille
+totale du niveau, et **bascule nettement** (un seul appel `setCenter`, pas d'interpolation) quand
+`RoomGrid::roomIndexAt` désigne une salle différente de la précédente. Un niveau qui tient dans une
+seule salle retombe exactement sur le cadrage « niveau entier » de LOT-16, sans branche spéciale :
+`RoomGrid` produit alors une unique salle couvrant le niveau. L'éditeur, lui, garde son cadrage
+« niveau entier » avec pan/zoom manuel (`EX-EDIT-013`) — seul un quadrillage superposé (`F10`)
+indique les frontières de salles, sans changer sa caméra (@ref guide-editeur).
 
 ## Le pipeline de dessin de sprites : \ref hmi::SpriteBatch "hmi::SpriteBatch"
 

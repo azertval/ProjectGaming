@@ -389,6 +389,15 @@ autres touches), tout en laissant `DefWindowProcW` traiter le comportement syst�
 (`Alt+F4`, `Alt+Tab`…) — sauf pour `F10` lui-même, absorbé (`return 0`) pour éviter l'activation
 visuelle, inutile ici, du (non-)système de menu au relâchement.
 
+**Quadrillage de salles (`LOT-32`).** La même bascule `F10` affiche aussi un second quadrillage,
+plus épais et plus opaque, mais uniquement aux **frontières de salles** (\ref hmi::RoomGrid
+"hmi::RoomGrid", taille de salle fixe en tuiles) plutôt qu'à chaque case — un repère pour aligner
+les couloirs inter-salles sans avoir à compter les cases. Il ne change **rien** au cadrage caméra
+de l'éditeur (toujours « niveau entier », pan/zoom manuel ci-dessus) : c'est un calque de plus dans
+`renderGrid`, construit à la volée depuis les dimensions courantes du brouillon, jamais mis en
+cache — seule la caméra du **jeu** cadre par salle (@ref guide-rendu, « Cadrer un contenu plus
+grand que la fenêtre »).
+
 **Découvrabilité.** Un libellé court accompagne désormais chaque entrée de la palette et de la
 barre d'outils (texte dessiné par `EditorScreen`, la géométrie reste dans les classes pures). `F1`
 bascule un aperçu compact de tous les raccourcis, dessiné dans le canevas plutôt que sous le
