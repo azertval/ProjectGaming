@@ -96,11 +96,12 @@ $(document).ready(function(){initNavTree('test__player__input__mapper_8cpp.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de la traduction clavier → intention (<code>toPlayerInput</code>).  
+<p>Tests unitaires de la traduction clavier/manette → intention (<code>toPlayerInput</code>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="PlayerInput_8h_source.html">Core/Physics/PlayerInput.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GameKeyBindings_8h_source.html">HMI/Input/GameKeyBindings.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GamepadBindings_8h_source.html">HMI/Input/GamepadBindings.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlayerInputMapper_8h_source.html">HMI/Input/PlayerInputMapper.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -108,32 +109,42 @@ Include dependency graph for test_player_input_mapper.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__player__input__mapper_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Input_2test__player__input__mapper_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Input_2test__player__input__mapper_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Input_2test__player__input__mapper_8cpp">
-<area shape="rect" title="Tests unitaires de la traduction clavier → intention (toPlayerInput)." alt="" coords="184,5,405,75"/>
+<area shape="rect" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput)." alt="" coords="257,5,479,75"/>
 <area shape="rect" title=" " alt="" coords="5,123,109,148"/>
-<area shape="poly" title=" " alt="" coords="210,77,100,120,98,115,208,72"/>
-<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="49,196,244,221"/>
-<area shape="poly" title=" " alt="" coords="227,77,197,98,173,124,159,153,152,183,146,182,154,151,168,121,194,94,224,73"/>
-<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="269,196,489,221"/>
-<area shape="poly" title=" " alt="" coords="372,73,399,94,420,122,424,139,421,156,402,187,398,184,416,154,419,139,415,124,395,98,368,77"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="448,269,616,295"/>
-<area shape="poly" title=" " alt="" coords="367,72,404,95,440,121,476,154,504,195,518,226,528,255,523,257,513,228,499,197,472,157,437,125,401,99,364,77"/>
-<area shape="rect" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier en intention de déplacement (action logique)." alt="" coords="183,123,406,148"/>
-<area shape="poly" title=" " alt="" coords="297,75,297,109,292,109,292,75"/>
-<area shape="rect" title=" " alt="" coords="265,343,321,368"/>
-<area shape="poly" title=" " alt="" coords="363,224,338,244,316,271,304,300,298,329,293,328,299,298,311,268,334,240,359,219"/>
-<area shape="rect" title=" " alt="" coords="354,343,425,368"/>
-<area shape="poly" title=" " alt="" coords="363,224,346,238,331,255,322,274,324,294,339,315,359,333,355,337,335,319,319,296,317,273,326,252,342,234,360,220"/>
-<area shape="rect" title=" " alt="" coords="333,269,424,295"/>
-<area shape="poly" title=" " alt="" coords="381,222,381,256,376,256,376,222"/>
-<area shape="poly" title=" " alt="" coords="404,219,496,261,494,266,402,224"/>
-<area shape="poly" title=" " alt="" coords="494,297,335,344,334,339,493,292"/>
-<area shape="poly" title=" " alt="" coords="510,297,426,339,424,334,508,292"/>
-<area shape="rect" title=" " alt="" coords="453,343,520,368"/>
-<area shape="poly" title=" " alt="" coords="527,296,504,333,499,330,522,294"/>
-<area shape="rect" title=" " alt="" coords="545,343,607,368"/>
-<area shape="poly" title=" " alt="" coords="542,294,564,330,559,332,537,296"/>
+<area shape="poly" title=" " alt="" coords="258,77,109,121,108,116,256,72"/>
+<area shape="rect" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis&#45;à&#45;vis de l&#39;entrée physique." alt="" coords="332,196,527,221"/>
+<area shape="poly" title=" " alt="" coords="395,74,420,122,428,153,431,182,426,182,422,154,415,124,390,76"/>
+<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="261,269,481,295"/>
+<area shape="poly" title=" " alt="" coords="441,73,489,102,529,138,544,158,551,179,551,201,541,223,512,250,477,268,475,263,509,246,536,220,546,200,546,180,539,161,526,142,485,106,438,77"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="425,343,593,368"/>
+<area shape="poly" title=" " alt="" coords="478,72,513,93,543,121,559,146,566,174,567,203,563,232,546,288,525,331,521,329,541,286,558,231,562,203,561,174,554,148,539,124,510,98,475,77"/>
+<area shape="rect" href="GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="37,196,257,221"/>
+<area shape="poly" title=" " alt="" coords="258,70,212,92,173,124,157,153,151,183,145,182,152,151,169,121,209,88,256,65"/>
+<area shape="rect" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique)." alt="" coords="183,123,406,148"/>
+<area shape="poly" title=" " alt="" coords="344,76,314,113,310,110,339,73"/>
+<area shape="rect" title=" " alt="" coords="245,416,301,441"/>
+<area shape="poly" title=" " alt="" coords="374,295,372,330,367,350,358,369,337,394,312,412,309,407,333,390,354,367,362,348,367,329,369,295"/>
+<area shape="rect" title=" " alt="" coords="150,416,221,441"/>
+<area shape="poly" title=" " alt="" coords="367,297,347,332,314,370,275,396,235,414,233,409,272,391,310,366,342,329,363,294"/>
+<area shape="rect" title=" " alt="" coords="209,343,300,368"/>
+<area shape="poly" title=" " alt="" coords="353,297,287,338,284,333,351,292"/>
+<area shape="poly" title=" " alt="" coords="394,292,476,334,473,339,392,297"/>
+<area shape="poly" title=" " alt="" coords="472,371,315,418,314,412,471,365"/>
+<area shape="poly" title=" " alt="" coords="455,371,235,419,233,413,454,365"/>
+<area shape="rect" title=" " alt="" coords="644,416,711,441"/>
+<area shape="poly" title=" " alt="" coords="537,366,638,408,636,413,535,370"/>
+<area shape="rect" title=" " alt="" coords="557,416,619,441"/>
+<area shape="poly" title=" " alt="" coords="524,366,567,405,563,409,520,370"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="326,416,533,441"/>
+<area shape="poly" title=" " alt="" coords="498,370,454,409,451,405,495,366"/>
+<area shape="poly" title=" " alt="" coords="183,219,322,263,321,268,182,224"/>
+<area shape="poly" title=" " alt="" coords="146,222,140,250,137,288,141,329,146,348,155,366,167,377,186,389,233,410,231,415,183,393,164,381,151,370,141,350,135,330,132,288,135,249,141,221"/>
+<area shape="poly" title=" " alt="" coords="137,223,119,244,105,270,97,297,93,320,95,341,105,367,124,390,148,407,145,412,120,394,100,369,90,343,87,320,91,296,100,268,115,241,133,220"/>
+<area shape="poly" title=" " alt="" coords="158,220,240,330,236,333,153,223"/>
+<area shape="poly" title=" " alt="" coords="151,221,170,299,184,340,199,366,222,380,256,392,340,411,339,416,254,397,219,384,195,370,179,342,165,300,146,222"/>
+<area shape="poly" title=" " alt="" coords="318,146,396,187,394,192,315,150"/>
+<area shape="poly" title=" " alt="" coords="299,148,307,181,322,220,351,258,347,261,318,223,302,183,294,149"/>
 <area shape="poly" title=" " alt="" coords="272,150,184,192,182,188,270,146"/>
-<area shape="poly" title=" " alt="" coords="310,146,356,185,353,189,306,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -146,7 +157,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7c81e1f4894e2b29de37883269ff434d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flèche droite seule → intention vers la droite (+1).  <br /></td></tr>
 <tr class="separator:a7c81e1f4894e2b29de37883269ff434d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4daae2d5b7d2313605f2b05c92930846" id="r_a4daae2d5b7d2313605f2b05c92930846"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a4daae2d5b7d2313605f2b05c92930846">TEST</a> (PlayerInputMapperTest, SansRemapQDWNeDeclenchentRien)</td></tr>
-<tr class="memdesc:a4daae2d5b7d2313605f2b05c92930846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans remap, <code>Q</code>/<code>D</code>/<code>W</code> ne déclenchent plus rien (aucun alias fixe depuis <code>LOT-29</code>).  <br /></td></tr>
+<tr class="memdesc:a4daae2d5b7d2313605f2b05c92930846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans remap, <code>Q</code>/<code>D</code>/<code>W</code> ne déclenchent rien (aucun alias fixe).  <br /></td></tr>
 <tr class="separator:a4daae2d5b7d2313605f2b05c92930846"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2559653883b30ce0324e830d51f47449" id="r_a2559653883b30ce0324e830d51f47449"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a2559653883b30ce0324e830d51f47449">TEST</a> (PlayerInputMapperTest, AucuneTouche)</td></tr>
 <tr class="memdesc:a2559653883b30ce0324e830d51f47449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aucune touche → intention nulle (immobile).  <br /></td></tr>
@@ -172,24 +183,64 @@ Functions</h2></td></tr>
 <tr class="memitem:a0077cf1727eec8790568618d004b88bc" id="r_a0077cf1727eec8790568618d004b88bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a0077cf1727eec8790568618d004b88bc">TEST</a> (PlayerInputMapperTest, ViseeVerticale)</td></tr>
 <tr class="memdesc:a0077cf1727eec8790568618d004b88bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visée verticale (y vers le bas) : Bas → +1, Haut → -1, les deux → 0.  <br /></td></tr>
 <tr class="separator:a0077cf1727eec8790568618d004b88bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1edf5e1116a145534a677dc88c792da" id="r_aa1edf5e1116a145534a677dc88c792da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#aa1edf5e1116a145534a677dc88c792da">TEST</a> (PlayerInputMapperTest, RemapperUneActionAjouteLaNouvelleTouche)</td></tr>
-<tr class="memdesc:aa1edf5e1116a145534a677dc88c792da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action remappée (<code>LOT-29</code>) réagit à sa nouvelle touche, en plus de la touche par défaut (jamais désactivée : filet de sécurité manette, <code>EX-CTRL-002</code>).  <br /></td></tr>
-<tr class="separator:aa1edf5e1116a145534a677dc88c792da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34e2ab0881cad36abe3db08c034eb887" id="r_a34e2ab0881cad36abe3db08c034eb887"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a34e2ab0881cad36abe3db08c034eb887">TEST</a> (PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier)</td></tr>
-<tr class="memdesc:a34e2ab0881cad36abe3db08c034eb887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (source distincte du clavier) continue de déclencher une action même après un remappage clavier — la manette n'alimente que la touche par défaut.  <br /></td></tr>
-<tr class="separator:a34e2ab0881cad36abe3db08c034eb887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a141830898bb9816f9d63687a070e81ce" id="r_a141830898bb9816f9d63687a070e81ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a141830898bb9816f9d63687a070e81ce">TEST</a> (PlayerInputMapperTest, RemapperUneActionClavierUtiliseLaNouvelleTouche)</td></tr>
+<tr class="memdesc:a141830898bb9816f9d63687a070e81ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action remappée au clavier (<code>LOT-29</code>) réagit à sa nouvelle touche.  <br /></td></tr>
+<tr class="separator:a141830898bb9816f9d63687a070e81ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d238641d3aec632fc430e5b1110fa0e" id="r_a7d238641d3aec632fc430e5b1110fa0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a7d238641d3aec632fc430e5b1110fa0e">TEST</a> (PlayerInputMapperTest, RemapperGaucheEtDroiteSurDesTouchesDistinctesNeLesAnnulePas)</td></tr>
 <tr class="memdesc:a7d238641d3aec632fc430e5b1110fa0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remapper Gauche et Droite chacune sur une touche arbitraire et distincte produit un mouvement dans le bon sens pour chacune, sans neutralisation croisée.  <br /></td></tr>
 <tr class="separator:a7d238641d3aec632fc430e5b1110fa0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b4b5ad9981b3967b0841baec36a3e1" id="r_ad2b4b5ad9981b3967b0841baec36a3e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#ad2b4b5ad9981b3967b0841baec36a3e1">TEST</a> (PlayerInputMapperTest, FiletDeSecuriteNIgnoreQuandToucheDefautReprise)</td></tr>
-<tr class="memdesc:ad2b4b5ad9981b3967b0841baec36a3e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le filet de sécurité manette ne revérifie pas la touche par défaut d'une action si une AUTRE action se l'est appropriée : sinon les deux actions se déclenchent à la fois.  <br /></td></tr>
-<tr class="separator:ad2b4b5ad9981b3967b0841baec36a3e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0ce4b3550b844e37cb8ec3c519c7da" id="r_a1b0ce4b3550b844e37cb8ec3c519c7da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a1b0ce4b3550b844e37cb8ec3c519c7da">TEST</a> (PlayerInputMapperTest, ActionDeclencheeParSonBoutonManetteParDefaut)</td></tr>
+<tr class="memdesc:a1b0ce4b3550b844e37cb8ec3c519c7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action déclenchée par son bouton manette lié (piste brute), indépendamment du clavier.  <br /></td></tr>
+<tr class="separator:a1b0ce4b3550b844e37cb8ec3c519c7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d888886a89b53e87f475ca020ea948f" id="r_a6d888886a89b53e87f475ca020ea948f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#a6d888886a89b53e87f475ca020ea948f">TEST</a> (PlayerInputMapperTest, RemapperUneActionManetteUtiliseLeNouveauBouton)</td></tr>
+<tr class="memdesc:a6d888886a89b53e87f475ca020ea948f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action remappée manette (<code>LOT-30</code>) réagit à son nouveau bouton, plus au clavier.  <br /></td></tr>
+<tr class="separator:a6d888886a89b53e87f475ca020ea948f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b0c195db318c3788a8e4552ccaea1e" id="r_aa6b0c195db318c3788a8e4552ccaea1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__player__input__mapper_8cpp.html#aa6b0c195db318c3788a8e4552ccaea1e">TEST</a> (PlayerInputMapperTest, RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas)</td></tr>
+<tr class="memdesc:aa6b0c195db318c3788a8e4552ccaea1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remapper deux actions sur des boutons manette distincts ne les neutralise pas l'une l'autre (même invariant que le clavier).  <br /></td></tr>
+<tr class="separator:aa6b0c195db318c3788a8e4552ccaea1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de la traduction clavier → intention (<code>toPlayerInput</code>). </p>
+<div class="textblock"><p>Tests unitaires de la traduction clavier/manette → intention (<code>toPlayerInput</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a1b0ce4b3550b844e37cb8ec3c519c7da" name="a1b0ce4b3550b844e37cb8ec3c519c7da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b0ce4b3550b844e37cb8ec3c519c7da">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ActionDeclencheeParSonBoutonManetteParDefaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une action déclenchée par son bouton manette lié (piste brute), indépendamment du clavier. </p>
+<p><b>Cas de test :</b> <b>Une action est déclenchée par son bouton manette lié.</b><br  />
+ <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une action est déclenchée par son bouton manette lié. </p>
+
+</div>
+</div>
 <a id="a2559653883b30ce0324e830d51f47449" name="a2559653883b30ce0324e830d51f47449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2559653883b30ce0324e830d51f47449">&#9670;&#160;</a></span>TEST() <span class="overload">[1/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2559653883b30ce0324e830d51f47449">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,45 +276,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a34e2ab0881cad36abe3db08c034eb887" name="a34e2ab0881cad36abe3db08c034eb887"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34e2ab0881cad36abe3db08c034eb887">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">PlayerInputMapperTest&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">BoutonManetteContinueDeFonctionnerApresRemapClavier&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Un bouton manette (source distincte du clavier) continue de déclencher une action même après un remappage clavier — la manette n'alimente que la touche par défaut. </p>
-<p><b>Cas de test :</b> <b>Un bouton manette continue de déclencher une action après un remappage clavier (<code>EX-CTRL-002</code>).</b><br  />
- <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Un bouton manette (source gamepad) continue de déclencher l'action après remap clavier. </p>
-
-</div>
-</div>
 <a id="ab37328126b238599bfb953984a6a7102" name="ab37328126b238599bfb953984a6a7102"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab37328126b238599bfb953984a6a7102">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37328126b238599bfb953984a6a7102">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +314,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a603c41caca0b2b1f5a93c6c594e2b3e4" name="a603c41caca0b2b1f5a93c6c594e2b3e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a603c41caca0b2b1f5a93c6c594e2b3e4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a603c41caca0b2b1f5a93c6c594e2b3e4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,45 +350,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad2b4b5ad9981b3967b0841baec36a3e1" name="ad2b4b5ad9981b3967b0841baec36a3e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2b4b5ad9981b3967b0841baec36a3e1">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">PlayerInputMapperTest&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FiletDeSecuriteNIgnoreQuandToucheDefautReprise&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le filet de sécurité manette ne revérifie pas la touche par défaut d'une action si une AUTRE action se l'est appropriée : sinon les deux actions se déclenchent à la fois. </p>
-<p><b>Cas de test :</b> <b>Le filet de sécurité manette ne revérifie pas la touche par défaut si une autre action se l'est appropriée.</b><br  />
- <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
- <b>Criticite :</b> Bloquant<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Échanger Gauche/Droite (flèches) déplace dans le bon sens, sans neutralisation. </p>
-
-</div>
-</div>
 <a id="a7c81e1f4894e2b29de37883269ff434d" name="a7c81e1f4894e2b29de37883269ff434d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c81e1f4894e2b29de37883269ff434d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c81e1f4894e2b29de37883269ff434d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +388,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae2af958d2fb47fd5b3ab86db447fd00c" name="ae2af958d2fb47fd5b3ab86db447fd00c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2af958d2fb47fd5b3ab86db447fd00c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2af958d2fb47fd5b3ab86db447fd00c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -448,7 +425,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1d668492b9fee6d327b8ff53ffd6a100" name="a1d668492b9fee6d327b8ff53ffd6a100"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d668492b9fee6d327b8ff53ffd6a100">&#9670;&#160;</a></span>TEST() <span class="overload">[8/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d668492b9fee6d327b8ff53ffd6a100">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -485,7 +462,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afca598fc0a899decb05b6add9dbafec9" name="afca598fc0a899decb05b6add9dbafec9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afca598fc0a899decb05b6add9dbafec9">&#9670;&#160;</a></span>TEST() <span class="overload">[9/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afca598fc0a899decb05b6add9dbafec9">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +499,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aaf54df2bc4c9ad041ba9e4c2d6f69c37" name="aaf54df2bc4c9ad041ba9e4c2d6f69c37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf54df2bc4c9ad041ba9e4c2d6f69c37">&#9670;&#160;</a></span>TEST() <span class="overload">[10/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf54df2bc4c9ad041ba9e4c2d6f69c37">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -558,8 +535,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa6b0c195db318c3788a8e4552ccaea1e" name="aa6b0c195db318c3788a8e4552ccaea1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6b0c195db318c3788a8e4552ccaea1e">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RemapperGaucheEtDroiteManetteSurDesBoutonsDistinctsNeLesAnnulePas&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remapper deux actions sur des boutons manette distincts ne les neutralise pas l'une l'autre (même invariant que le clavier). </p>
+<p><b>Cas de test :</b> <b>Remapper deux actions manette sur des boutons distincts ne les neutralise pas l'une l'autre.</b><br  />
+ <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Remapper deux actions manette sur des boutons distincts ne les neutralise pas. </p>
+
+</div>
+</div>
 <a id="a7d238641d3aec632fc430e5b1110fa0e" name="a7d238641d3aec632fc430e5b1110fa0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d238641d3aec632fc430e5b1110fa0e">&#9670;&#160;</a></span>TEST() <span class="overload">[11/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d238641d3aec632fc430e5b1110fa0e">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -595,8 +609,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa1edf5e1116a145534a677dc88c792da" name="aa1edf5e1116a145534a677dc88c792da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1edf5e1116a145534a677dc88c792da">&#9670;&#160;</a></span>TEST() <span class="overload">[12/15]</span></h2>
+<a id="a141830898bb9816f9d63687a070e81ce" name="a141830898bb9816f9d63687a070e81ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a141830898bb9816f9d63687a070e81ce">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -610,7 +624,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">RemapperUneActionAjouteLaNouvelleTouche&#160;</td>
+          <td class="paramtype">RemapperUneActionClavierUtiliseLaNouvelleTouche&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -621,19 +635,56 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une action remappée (<code>LOT-29</code>) réagit à sa nouvelle touche, en plus de la touche par défaut (jamais désactivée : filet de sécurité manette, <code>EX-CTRL-002</code>). </p>
-<p><b>Cas de test :</b> <b>Une action remappée réagit à sa nouvelle touche, en plus de la touche par défaut (filet de sécurité manette).</b><br  />
+<p>Une action remappée au clavier (<code>LOT-29</code>) réagit à sa nouvelle touche. </p>
+<p><b>Cas de test :</b> <b>Une action remappée au clavier réagit à sa nouvelle touche.</b><br  />
  <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Une action remappée réagit à sa nouvelle touche ET à la touche par défaut. </p>
+ <b>Resultat attendu :</b> Une action remappée au clavier réagit à sa nouvelle touche. </p>
+
+</div>
+</div>
+<a id="a6d888886a89b53e87f475ca020ea948f" name="a6d888886a89b53e87f475ca020ea948f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d888886a89b53e87f475ca020ea948f">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PlayerInputMapperTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RemapperUneActionManetteUtiliseLeNouveauBouton&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une action remappée manette (<code>LOT-30</code>) réagit à son nouveau bouton, plus au clavier. </p>
+<p><b>Cas de test :</b> <b>Une action remappée manette réagit à son nouveau bouton, le clavier reste indépendant.</b><br  />
+ <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Remapper Sauter sur X (manette) le déclenche via X ; le clavier (Espace) reste indépendant. </p>
 
 </div>
 </div>
 <a id="a4daae2d5b7d2313605f2b05c92930846" name="a4daae2d5b7d2313605f2b05c92930846"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4daae2d5b7d2313605f2b05c92930846">&#9670;&#160;</a></span>TEST() <span class="overload">[13/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4daae2d5b7d2313605f2b05c92930846">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -658,19 +709,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sans remap, <code>Q</code>/<code>D</code>/<code>W</code> ne déclenchent plus rien (aucun alias fixe depuis <code>LOT-29</code>). </p>
-<p><b>Cas de test :</b> <b>Sans remap, Q/D/W ne déclenchent plus rien (aucun alias fixe).</b><br  />
+<p>Sans remap, <code>Q</code>/<code>D</code>/<code>W</code> ne déclenchent rien (aucun alias fixe). </p>
+<p><b>Cas de test :</b> <b>Sans remap, Q/D/W ne déclenchent rien (aucun alias fixe).</b><br  />
  <b>Categorie :</b> Unitaire · Player Input Mapper<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Sans remap, Q/D/W ne déclenchent plus rien. </p>
+ <b>Resultat attendu :</b> Sans remap, Q/D/W ne déclenchent rien. </p>
 
 </div>
 </div>
 <a id="a7db08aeca730e98a9d9c850799724c94" name="a7db08aeca730e98a9d9c850799724c94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7db08aeca730e98a9d9c850799724c94">&#9670;&#160;</a></span>TEST() <span class="overload">[14/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db08aeca730e98a9d9c850799724c94">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -707,7 +758,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0077cf1727eec8790568618d004b88bc" name="a0077cf1727eec8790568618d004b88bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0077cf1727eec8790568618d004b88bc">&#9670;&#160;</a></span>TEST() <span class="overload">[15/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0077cf1727eec8790568618d004b88bc">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

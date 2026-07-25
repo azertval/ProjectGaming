@@ -110,14 +110,16 @@ Include dependency graph for test_input_state.cpp:</div>
 <area shape="poly" title=" " alt="" coords="110,77,78,114,74,110,106,73"/>
 <area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" title=" " alt="" coords="168,73,200,110,196,114,164,77"/>
-<area shape="rect" title=" " alt="" coords="55,196,111,221"/>
-<area shape="poly" title=" " alt="" coords="197,150,118,192,116,187,194,146"/>
-<area shape="rect" title=" " alt="" coords="135,196,206,221"/>
-<area shape="poly" title=" " alt="" coords="212,150,188,186,184,183,207,147"/>
-<area shape="rect" title=" " alt="" coords="231,196,297,221"/>
-<area shape="poly" title=" " alt="" coords="227,147,251,183,247,186,223,150"/>
-<area shape="rect" title=" " alt="" coords="322,196,385,221"/>
-<area shape="poly" title=" " alt="" coords="240,146,320,187,318,192,238,150"/>
+<area shape="rect" title=" " alt="" coords="8,196,64,221"/>
+<area shape="poly" title=" " alt="" coords="189,151,78,194,76,189,187,146"/>
+<area shape="rect" title=" " alt="" coords="89,196,159,221"/>
+<area shape="poly" title=" " alt="" coords="204,150,152,190,148,185,201,146"/>
+<area shape="rect" title=" " alt="" coords="184,196,251,221"/>
+<area shape="poly" title=" " alt="" coords="220,148,220,182,215,182,215,148"/>
+<area shape="rect" title=" " alt="" coords="275,196,338,221"/>
+<area shape="poly" title=" " alt="" coords="233,146,283,185,280,189,230,150"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="362,196,569,221"/>
+<area shape="poly" title=" " alt="" coords="258,145,413,190,411,195,256,151"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -159,12 +161,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a3512d9ab97fdf0700f1ea9234f2f4ef3" id="r_a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a3512d9ab97fdf0700f1ea9234f2f4ef3">TEST</a> (InputStateTest, GamepadConnecteReecrasable)</td></tr>
 <tr class="memdesc:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé.  <br /></td></tr>
 <tr class="separator:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d14a5636e572dc508004a875b1ab60a" id="r_a1d14a5636e572dc508004a875b1ab60a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a1d14a5636e572dc508004a875b1ab60a">TEST</a> (InputStateTest, FrontMontantBoutonManetteBrut)</td></tr>
+<tr class="memdesc:a1d14a5636e572dc508004a875b1ab60a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé » exactement une frame, comme une touche clavier.  <br /></td></tr>
+<tr class="separator:a1d14a5636e572dc508004a875b1ab60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4244badb84b38bb1cc59f41f3b62e1e5" id="r_a4244badb84b38bb1cc59f41f3b62e1e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__input__state_8cpp.html#a4244badb84b38bb1cc59f41f3b62e1e5">TEST</a> (InputStateTest, PisteBrutIndependanteDeLaFusionKey)</td></tr>
+<tr class="memdesc:a4244badb84b38bb1cc59f41f3b62e1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La piste manette brute (<code>GamepadButton</code>) est indépendante de la fusion clavier/manette existante sur <code>Key</code> : l'une n'affecte jamais l'autre.  <br /></td></tr>
+<tr class="separator:a4244badb84b38bb1cc59f41f3b62e1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de l'état des entrées : fronts clavier/souris et position. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a9673354fc013b4ab816c4cdb8422855f" name="a9673354fc013b4ab816c4cdb8422855f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +209,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8e6d3ad41aa204883ebcd46b5406b41" name="aa8e6d3ad41aa204883ebcd46b5406b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +246,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a79c5319fd973997de0845a0a282b0284" name="a79c5319fd973997de0845a0a282b0284"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +283,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a59ca224b39b7856470d0747f7900b16b" name="a59ca224b39b7856470d0747f7900b16b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,8 +319,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1d14a5636e572dc508004a875b1ab60a" name="a1d14a5636e572dc508004a875b1ab60a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d14a5636e572dc508004a875b1ab60a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FrontMontantBoutonManetteBrut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé » exactement une frame, comme une touche clavier. </p>
+<p><b>Cas de test :</b> <b>Un bouton manette (piste brute) est « pressé » exactement une frame.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un bouton manette (piste brute) est « pressé » exactement une frame. </p>
+
+</div>
+</div>
 <a id="a45cf3dc465b7f8ead7c72522f7ac8198" name="a45cf3dc465b7f8ead7c72522f7ac8198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,7 +394,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3512d9ab97fdf0700f1ea9234f2f4ef3" name="a3512d9ab97fdf0700f1ea9234f2f4ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -386,7 +431,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a81215d1d3cac78f80bac142dacc0b34c" name="a81215d1d3cac78f80bac142dacc0b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +468,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae21cb188be633f1aa74cf4ce20725d0d" name="ae21cb188be633f1aa74cf4ce20725d0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +505,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae57915787a98a32bfb0d9684be82e96a" name="ae57915787a98a32bfb0d9684be82e96a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,7 +542,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7efa418563f5fae1a48faf4078d6892f" name="a7efa418563f5fae1a48faf4078d6892f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -533,8 +578,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4244badb84b38bb1cc59f41f3b62e1e5" name="a4244badb84b38bb1cc59f41f3b62e1e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4244badb84b38bb1cc59f41f3b62e1e5">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InputStateTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PisteBrutIndependanteDeLaFusionKey&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La piste manette brute (<code>GamepadButton</code>) est indépendante de la fusion clavier/manette existante sur <code>Key</code> : l'une n'affecte jamais l'autre. </p>
+<p><b>Cas de test :</b> <b>La piste manette brute est indépendante de la fusion clavier/manette sur Key.</b><br  />
+ <b>Categorie :</b> Unitaire · Input State<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La piste manette brute est indépendante de la fusion clavier/manette sur Key. </p>
+
+</div>
+</div>
 <a id="aed2efe7e5c68c8a62502bad7f424c558" name="aed2efe7e5c68c8a62502bad7f424c558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -571,7 +653,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af9db81acd915bcdeb71f1ac1fafc3185" name="af9db81acd915bcdeb71f1ac1fafc3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

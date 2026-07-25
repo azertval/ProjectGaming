@@ -137,8 +137,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad3ce7930a954de0d87ecc16fe2e8e8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La sélection par défaut est Solid.  <br /></td></tr>
 <tr class="separator:ad3ce7930a954de0d87ecc16fe2e8e8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4508cb42ae2176c27980bed9176295da" id="r_a4508cb42ae2176c27980bed9176295da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a4508cb42ae2176c27980bed9176295da">TEST</a> (TilePaletteTest, ClicSurEntreeAutonomeSelectionneSonType)</td></tr>
-<tr class="memdesc:a4508cb42ae2176c27980bed9176295da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer une entrée autonome (Piège) sélectionne son type et signale le clic consommé.  <br /></td></tr>
+<tr class="memdesc:a4508cb42ae2176c27980bed9176295da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer une entrée autonome (Vide) sélectionne son type et signale le clic consommé.  <br /></td></tr>
 <tr class="separator:a4508cb42ae2176c27980bed9176295da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1c47f8d1347e1e6f8da77892fc8f9e7" id="r_ae1c47f8d1347e1e6f8da77892fc8f9e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ae1c47f8d1347e1e6f8da77892fc8f9e7">TEST</a> (TilePaletteTest, CategoriePiegeDeplieeExposeSesFeuilles)</td></tr>
+<tr class="memdesc:ae1c47f8d1347e1e6f8da77892fc8f9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La catégorie Piège dépliée expose sa feuille classique et ses trois feuilles directes avancées (<code>LOT-31</code>) ; cliquer « Classique » sélectionne le danger d'origine (<code>EX-GP-031</code>).  <br /></td></tr>
+<tr class="separator:ae1c47f8d1347e1e6f8da77892fc8f9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37d287aa72a0607cc1744c7f95b284f" id="r_ab37d287aa72a0607cc1744c7f95b284f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#ab37d287aa72a0607cc1744c7f95b284f">TEST</a> (TilePaletteTest, SousGroupeDirectionnelDeplieExposeSesBords)</td></tr>
+<tr class="memdesc:ab37d287aa72a0607cc1744c7f95b284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sous-groupe Directionnel, imbriqué dans Piège, expose ses quatre bords une fois déplié (<code>EX-GP-050</code>).  <br /></td></tr>
+<tr class="separator:ab37d287aa72a0607cc1744c7f95b284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a177a49a311fc252f8c49e0530e2c475b" id="r_a177a49a311fc252f8c49e0530e2c475b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__tile__palette_8cpp.html#a177a49a311fc252f8c49e0530e2c475b">TEST</a> (TilePaletteTest, ClicHorsPaletteNonConsomme)</td></tr>
 <tr class="memdesc:a177a49a311fc252f8c49e0530e2c475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.  <br /></td></tr>
 <tr class="separator:a177a49a311fc252f8c49e0530e2c475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,7 +189,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires de la palette de tuiles de l'éditeur, organisée en catégories/sous-groupes repliables (<code>LOT-27</code>, <code>EX-EDIT-018</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="aeedf3e3ddf4eee2bdb81b8a771af556d" name="aeedf3e3ddf4eee2bdb81b8a771af556d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeedf3e3ddf4eee2bdb81b8a771af556d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedf3e3ddf4eee2bdb81b8a771af556d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,8 +225,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae1c47f8d1347e1e6f8da77892fc8f9e7" name="ae1c47f8d1347e1e6f8da77892fc8f9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c47f8d1347e1e6f8da77892fc8f9e7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CategoriePiegeDeplieeExposeSesFeuilles&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La catégorie Piège dépliée expose sa feuille classique et ses trois feuilles directes avancées (<code>LOT-31</code>) ; cliquer « Classique » sélectionne le danger d'origine (<code>EX-GP-031</code>). </p>
+<p><b>Cas de test :</b> <b>La catégorie Piège dépliée expose Classique, Mobile, Commuté, Clignotant.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Cliquer « Classique » sélectionne Danger ; Mobile/Commuté/Clignotant et le sous-groupe Directionnel sont tous visibles. </p>
+
+</div>
+</div>
 <a id="ac63e8ba3bf04058acb82c190579342df" name="ac63e8ba3bf04058acb82c190579342df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac63e8ba3bf04058acb82c190579342df">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63e8ba3bf04058acb82c190579342df">&#9670;&#160;</a></span>TEST() <span class="overload">[3/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,7 +300,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a177a49a311fc252f8c49e0530e2c475b" name="a177a49a311fc252f8c49e0530e2c475b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a177a49a311fc252f8c49e0530e2c475b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,7 +337,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2baa5a8bd1c9ece2d574703314160522" name="a2baa5a8bd1c9ece2d574703314160522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2baa5a8bd1c9ece2d574703314160522">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2baa5a8bd1c9ece2d574703314160522">&#9670;&#160;</a></span>TEST() <span class="overload">[5/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +374,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4508cb42ae2176c27980bed9176295da" name="a4508cb42ae2176c27980bed9176295da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4508cb42ae2176c27980bed9176295da">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4508cb42ae2176c27980bed9176295da">&#9670;&#160;</a></span>TEST() <span class="overload">[6/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,19 +399,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Cliquer une entrée autonome (Piège) sélectionne son type et signale le clic consommé. </p>
+<p>Cliquer une entrée autonome (Vide) sélectionne son type et signale le clic consommé. </p>
 <p><b>Cas de test :</b> <b>Cliquer une entrée autonome sélectionne son type et signale le clic consommé.</b><br  />
  <b>Categorie :</b> Unitaire · Tile Palette<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le type Danger est sélectionné, le clic est consommé. </p>
+ <b>Resultat attendu :</b> Le type Empty est sélectionné, le clic est consommé. </p>
 
 </div>
 </div>
 <a id="a3de75a19d75b27d384473f566118e9a3" name="a3de75a19d75b27d384473f566118e9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3de75a19d75b27d384473f566118e9a3">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3de75a19d75b27d384473f566118e9a3">&#9670;&#160;</a></span>TEST() <span class="overload">[7/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +448,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abb5a7106965e12be920de83483ce76f0" name="abb5a7106965e12be920de83483ce76f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb5a7106965e12be920de83483ce76f0">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb5a7106965e12be920de83483ce76f0">&#9670;&#160;</a></span>TEST() <span class="overload">[8/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -442,7 +485,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a09f5c6aad65c214f74ed55f4b6d1ac7d" name="a09f5c6aad65c214f74ed55f4b6d1ac7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09f5c6aad65c214f74ed55f4b6d1ac7d">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f5c6aad65c214f74ed55f4b6d1ac7d">&#9670;&#160;</a></span>TEST() <span class="overload">[9/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -479,7 +522,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1dccce8d9db071333607e7e317572718" name="a1dccce8d9db071333607e7e317572718"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dccce8d9db071333607e7e317572718">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dccce8d9db071333607e7e317572718">&#9670;&#160;</a></span>TEST() <span class="overload">[10/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,7 +559,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5763f5a42e0715e24339205e4e374ff0" name="a5763f5a42e0715e24339205e4e374ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5763f5a42e0715e24339205e4e374ff0">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5763f5a42e0715e24339205e4e374ff0">&#9670;&#160;</a></span>TEST() <span class="overload">[11/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -553,7 +596,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac06e6a332c717c5cbf4c8bfe5de1f3b1" name="ac06e6a332c717c5cbf4c8bfe5de1f3b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac06e6a332c717c5cbf4c8bfe5de1f3b1">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac06e6a332c717c5cbf4c8bfe5de1f3b1">&#9670;&#160;</a></span>TEST() <span class="overload">[12/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,7 +633,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a02cac3d0498c759a4c171915d375a805" name="a02cac3d0498c759a4c171915d375a805"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02cac3d0498c759a4c171915d375a805">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02cac3d0498c759a4c171915d375a805">&#9670;&#160;</a></span>TEST() <span class="overload">[13/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,7 +670,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad3ce7930a954de0d87ecc16fe2e8e8a5" name="ad3ce7930a954de0d87ecc16fe2e8e8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ce7930a954de0d87ecc16fe2e8e8a5">&#9670;&#160;</a></span>TEST() <span class="overload">[14/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -664,7 +707,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8e9bea8a184ba7e4c5e86eb24268cbb" name="aa8e9bea8a184ba7e4c5e86eb24268cbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e9bea8a184ba7e4c5e86eb24268cbb">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e9bea8a184ba7e4c5e86eb24268cbb">&#9670;&#160;</a></span>TEST() <span class="overload">[15/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -701,7 +744,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a61ca4e1cded1151bce931bf0b5ce9704" name="a61ca4e1cded1151bce931bf0b5ce9704"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61ca4e1cded1151bce931bf0b5ce9704">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a61ca4e1cded1151bce931bf0b5ce9704">&#9670;&#160;</a></span>TEST() <span class="overload">[16/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -737,8 +780,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab37d287aa72a0607cc1744c7f95b284f" name="ab37d287aa72a0607cc1744c7f95b284f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37d287aa72a0607cc1744c7f95b284f">&#9670;&#160;</a></span>TEST() <span class="overload">[17/18]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TilePaletteTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SousGroupeDirectionnelDeplieExposeSesBords&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sous-groupe Directionnel, imbriqué dans Piège, expose ses quatre bords une fois déplié (<code>EX-GP-050</code>). </p>
+<p><b>Cas de test :</b> <b>Le sous-groupe Directionnel déplié expose ses quatre bords.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Palette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Cliquer « Droite » du sous-groupe Directionnel déplié sélectionne DangerRight. </p>
+
+</div>
+</div>
 <a id="ac2ea86d760fefd1b50503b22fc7b9b6d" name="ac2ea86d760fefd1b50503b22fc7b9b6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2ea86d760fefd1b50503b22fc7b9b6d">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ea86d760fefd1b50503b22fc7b9b6d">&#9670;&#160;</a></span>TEST() <span class="overload">[18/18]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

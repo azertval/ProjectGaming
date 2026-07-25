@@ -8,7 +8,7 @@ var searchData=
   ['flagicons_5',['FlagIcons',['../classhmi_1_1FlagIcons.html#a37ee5fdeb510436b0757f94781e337e5',1,'hmi::FlagIcons']]],
   ['flush_6',['flush',['../classhmi_1_1SpriteBatch.html#a65588209fee42a61ee688133f73f63aa',1,'hmi::SpriteBatch']]],
   ['followrow_7',['followRow',['../classhmi_1_1TilePalette.html#aef9875a96288521cf0f2c9d3f693dae1',1,'hmi::TilePalette']]],
-  ['followselection_8',['followSelection',['../classhmi_1_1LevelPicker.html#acfcce1d413338b251b2436d1b6e156ea',1,'hmi::LevelPicker']]],
+  ['followselection_8',['followselection',['../classhmi_1_1LevelPicker.html#acfcce1d413338b251b2436d1b6e156ea',1,'hmi::LevelPicker::followSelection()'],['../classhmi_1_1OptionsModel.html#a7ad8cc2ab3b202717b7418869220114b',1,'hmi::OptionsModel::followSelection()']]],
   ['fordirectory_9',['forDirectory',['../classhmi_1_1LevelPicker.html#a67ec81b36b642c81ad26dc2161b0c0db',1,'hmi::LevelPicker']]],
   ['formatlogline_10',['formatLogLine',['../namespacecore.html#aafa85d91ee91c84b123fff01f147615e',1,'core']]],
   ['fromlevel_11',['fromLevel',['../classcore_1_1LevelDraft.html#a481be057c3f8c05cfe5e19a89d93231c',1,'core::LevelDraft']]],

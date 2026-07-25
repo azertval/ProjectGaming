@@ -1,0 +1,5 @@
+<map id="hmi::GamepadBindingsScreen" name="hmi::GamepadBindingsScreen">
+<area shape="rect" id="Node000001" title="Écran de remappage des touches manette : dessine le sous&#45;menu et applique ses actions." alt="" coords="5,79,224,104"/>
+<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="63,5,166,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,44,117,79,112,79,112,44"/>
+</map>

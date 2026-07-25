@@ -1,0 +1,9 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/DangerGeometry.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/DangerGeometry.h">
+<area shape="rect" id="Node000001" title="Géométrie de la zone mortelle d&#39;une case de danger (EX&#45;GP&#45;050)." alt="" coords="67,5,295,60"/>
+<area shape="rect" id="Node000002" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="5,108,173,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,62,114,100,110,96,151,58"/>
+<area shape="rect" id="Node000003" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="197,108,352,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,58,254,96,250,100,208,62"/>
+<area shape="rect" id="Node000004" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="197,181,352,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="277,134,277,168,272,168,272,134"/>
+</map>

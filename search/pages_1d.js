@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['zone_20_3a_20remplissage_20rectangulaire_20sélection_20copier_20coller_0',['TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller',['../lot-15-tache-05-outils-rectangle-selection.html',1,'lot-15']]],
-  ['zoom_20manuels_1',['TACHE-04 — Caméra : pan et zoom manuels',['../lot-15-tache-04-camera-pan-zoom.html',1,'lot-15']]]
+  ['x_20hauteur_20»_0',['TACHE-01 — Plafond de taille et validation « largeur x hauteur »',['../lot-16-tache-01-plafond-validation-taille.html',1,'lot-16']]],
+  ['xinput_1',['TACHE-01 — Intégration manette (XInput)',['../lot-20-tache-01-integration-manette.html',1,'lot-20']]]
 ];

@@ -1,7 +1,5 @@
 var test__game__key__bindings_8cpp =
 [
-    [ "TEST", "test__game__key__bindings_8cpp.html#a480016805b72e419fe18928ec7a682ca", null ],
-    [ "TEST", "test__game__key__bindings_8cpp.html#a210908821d5cb7824f5ec2a180b30cb7", null ],
     [ "TEST", "test__game__key__bindings_8cpp.html#a3a88b346a37691c7f3ca2e1a7f01d5fa", null ],
     [ "TEST", "test__game__key__bindings_8cpp.html#aefabd82b32fad6abdbd816b5e62c40ff", null ],
     [ "TEST", "test__game__key__bindings_8cpp.html#ab825dbef4e8bc2a997451916276705b6", null ],

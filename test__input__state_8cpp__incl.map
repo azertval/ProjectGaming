@@ -4,12 +4,14 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,77,78,114,74,110,106,73"/>
 <area shape="rect" id="Node000003" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="133,123,301,148"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,73,200,110,196,114,164,77"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="55,196,111,221"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,150,118,192,116,187,194,146"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="135,196,206,221"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="212,150,188,186,184,183,207,147"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="231,196,297,221"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="227,147,251,183,247,186,223,150"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="322,196,385,221"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="240,146,320,187,318,192,238,150"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="8,196,64,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="189,151,78,194,76,189,187,146"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="89,196,159,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="204,150,152,190,148,185,201,146"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="184,196,251,221"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="220,148,220,182,215,182,215,148"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="275,196,338,221"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="233,146,283,185,280,189,230,150"/>
+<area shape="rect" id="Node000008" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="362,196,569,221"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="258,145,413,190,411,195,256,151"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/GamepadBindingsScreen.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/GamepadBindingsScreen.h">
+<area shape="rect" id="Node000001" title="Écran du sous&#45;menu « Touches de la manette » (EX&#45;CTRL&#45;002, EX&#45;CTRL&#45;012, LOT&#45;30)." alt="" coords="157,5,450,60"/>
+<area shape="rect" id="Node000002" href="$GamepadBindingsScreen_8cpp.html" title=" " alt="" coords="5,108,313,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,70,199,110,196,106,253,66"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="338,108,559,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="354,66,412,106,409,110,351,70"/>
+</map>

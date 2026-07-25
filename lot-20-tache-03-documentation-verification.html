@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-20-tache-03-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-20-manette-menu-options_2epic_8md.html">LOT-20</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1132"></a>
+<h1><a class="anchor" id="autotoc_md1136"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1><a class="anchor" id="autotoc_md1133"></a>
+<h1><a class="anchor" id="autotoc_md1137"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></code>** : nouvelle section sur la fusion manette — pourquoi elle vit dans <code>Window</code> (pas <code>InputState</code>), pourquoi deux sources indépendantes combinées en lecture plutôt qu'une écriture partagée (le bug de stomping évité), la table de correspondance.</li>
@@ -106,31 +106,31 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<code>doxygen Doxyfile</code> depuis <code>Documentation/</code>) avant de pousser.</li>
 <li>**<code>scripts/lint_exigences.py</code>** : doit rester vert (aucune nouvelle exigence déclarée — <code>EX-CTRL-002</code> déjà déclarée, seulement son marqueur « souhaité » retiré).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1134"></a>
+<h1><a class="anchor" id="autotoc_md1138"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></code>.</li>
 <li><code>CHANGELOG.md</code>.</li>
 <li><code><a class="el" href="lots_8md.html">Documentation/Lot/lots.md</a></code> (ajout de la ligne LOT-20).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1135"></a>
+<h1><a class="anchor" id="autotoc_md1139"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie.</li>
 <li><b>Vérification visuelle obligatoire</b> dans l'application compilée : naviguer le menu principal, entrer dans Options, basculer V-Sync et la langue, revenir au menu — au clavier <b>et</b> à la souris (la manette réelle n'est pas disponible en CI/automatisation, vérifiée par les tests unitaires de TACHE-01 à la place).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1136"></a>
+<h1><a class="anchor" id="autotoc_md1140"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<code>epic.md</code> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1137"></a>
+<h1><a class="anchor" id="autotoc_md1141"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1138"></a>
+<h1><a class="anchor" id="autotoc_md1142"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

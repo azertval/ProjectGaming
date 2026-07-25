@@ -1,6 +1,7 @@
 var test__tile__palette_8cpp =
 [
     [ "TEST", "test__tile__palette_8cpp.html#aeedf3e3ddf4eee2bdb81b8a771af556d", null ],
+    [ "TEST", "test__tile__palette_8cpp.html#ae1c47f8d1347e1e6f8da77892fc8f9e7", null ],
     [ "TEST", "test__tile__palette_8cpp.html#ac63e8ba3bf04058acb82c190579342df", null ],
     [ "TEST", "test__tile__palette_8cpp.html#a177a49a311fc252f8c49e0530e2c475b", null ],
     [ "TEST", "test__tile__palette_8cpp.html#a2baa5a8bd1c9ece2d574703314160522", null ],
@@ -15,5 +16,6 @@ var test__tile__palette_8cpp =
     [ "TEST", "test__tile__palette_8cpp.html#ad3ce7930a954de0d87ecc16fe2e8e8a5", null ],
     [ "TEST", "test__tile__palette_8cpp.html#aa8e9bea8a184ba7e4c5e86eb24268cbb", null ],
     [ "TEST", "test__tile__palette_8cpp.html#a61ca4e1cded1151bce931bf0b5ce9704", null ],
+    [ "TEST", "test__tile__palette_8cpp.html#ab37d287aa72a0607cc1744c7f95b284f", null ],
     [ "TEST", "test__tile__palette_8cpp.html#ac2ea86d760fefd1b50503b22fc7b9b6d", null ]
 ];

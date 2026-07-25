@@ -1,0 +1,21 @@
+<map id="hmi::GamepadBindingsScreen" name="hmi::GamepadBindingsScreen">
+<area shape="rect" id="Node000001" title="Écran de remappage des touches manette : dessine le sous&#45;menu et applique ses actions." alt="" coords="130,505,349,531"/>
+<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="5,417,108,443"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,446,216,503,213,507,93,451"/>
+<area shape="rect" id="Node000003" href="$classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,..." alt="" coords="315,329,449,355"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="385,369,379,406,372,426,361,444,341,465,317,483,270,508,268,503,314,478,337,461,357,441,367,424,374,405,379,368"/>
+<area shape="rect" id="Node000007" href="$classhmi_1_1GamepadBindingsModel.html" title="Logique du sous&#45;menu « Touches de la manette », indépendante du dessin." alt="" coords="132,417,347,443"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="330,362,291,381,269,400,251,419,247,415,265,396,289,376,328,357"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="325,95,412,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="367,134,361,188,362,252,370,294,381,328,375,330,365,295,357,252,355,188,362,133"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="489,197,641,252"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="401,125,521,195,519,199,399,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="299,5,438,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="371,59,371,94,366,94,366,59"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="513,262,402,331,399,327,510,257"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="242,457,242,505,237,505,237,457"/>
+<area shape="rect" id="Node000008" href="$classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="104,329,279,355"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="190,368,195,392,205,405,218,415,215,419,201,409,190,394,185,369"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="87,205,296,245"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="194,259,194,329,189,329,189,259"/>
+</map>

@@ -1,27 +1,29 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_screen_manager.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Interface/test_screen_manager.cpp">
-<area shape="rect" id="Node000001" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions." alt="" coords="81,5,303,75"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="29,196,107,221"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,77,59,97,36,124,31,139,34,154,51,184,46,187,29,156,26,138,31,121,55,93,85,73"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="37,343,99,368"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="83,77,52,97,26,124,14,149,9,176,9,205,15,234,34,287,56,329,51,332,29,290,9,235,4,205,3,176,9,148,22,121,48,93,80,72"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="45,123,149,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,77,121,115,117,111,156,73"/>
-<area shape="rect" id="Node000005" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="279,269,447,295"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="304,55,373,79,406,98,435,121,457,144,471,168,474,194,464,223,441,248,413,266,410,261,438,244,459,220,469,193,466,170,453,147,432,125,403,102,371,84,302,60"/>
-<area shape="rect" id="Node000009" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="275,196,450,221"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="304,53,335,63,365,77,392,97,414,121,420,139,415,157,404,174,390,189,386,185,400,171,410,155,415,139,410,124,389,101,362,82,333,68,302,58"/>
-<area shape="rect" id="Node000010" href="$ScreenManager_8h.html" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions." alt="" coords="173,123,400,148"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="228,73,267,111,263,115,224,77"/>
-<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="316,297,113,346,112,341,315,292"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="420,343,476,368"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="378,293,426,332,422,336,375,297"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="234,343,305,368"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="349,297,297,336,294,332,346,293"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="329,343,396,368"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="365,295,365,329,360,329,360,295"/>
-<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="365,222,365,256,360,256,360,222"/>
-<area shape="poly" id="edge13_Node000010_Node000002" title=" " alt="" coords="252,151,118,194,116,189,251,145"/>
-<area shape="poly" id="edge14_Node000010_Node000009" title=" " alt="" coords="301,146,342,185,339,188,297,150"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="165,196,251,221"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="276,150,233,189,229,185,272,146"/>
+<area shape="rect" id="Node000001" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions." alt="" coords="105,5,326,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="53,196,130,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,77,82,97,59,124,55,139,57,154,74,184,69,187,52,156,49,138,54,121,78,93,109,73"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,343,68,368"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,77,75,97,49,124,36,149,27,176,21,233,25,286,33,329,27,330,19,287,16,233,22,175,31,147,45,121,71,93,104,72"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="69,123,173,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="183,77,144,115,140,111,179,73"/>
+<area shape="rect" id="Node000005" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="302,269,470,295"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="327,55,396,79,429,98,458,121,480,144,494,168,497,194,487,223,465,248,436,266,433,261,461,244,482,220,492,193,489,170,476,147,455,125,426,102,394,84,326,60"/>
+<area shape="rect" id="Node000010" href="$IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="299,196,473,221"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="327,53,358,63,388,77,415,97,438,121,443,139,438,157,427,174,413,189,410,185,423,171,434,155,438,139,433,124,412,101,386,82,356,68,325,58"/>
+<area shape="rect" id="Node000011" href="$ScreenManager_8h.html" title="Gestionnaire d&#39;écrans : détient l&#39;écran courant et applique les transitions." alt="" coords="197,123,423,148"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="251,73,290,111,287,115,248,77"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="330,297,82,348,81,342,329,292"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="621,343,677,368"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="430,292,608,340,607,345,429,297"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="203,343,273,368"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="363,297,276,339,273,334,361,292"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="298,343,365,368"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="379,297,351,333,346,330,375,293"/>
+<area shape="rect" id="Node000009" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="389,343,596,368"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="405,292,465,333,462,337,402,297"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="389,222,389,256,383,256,383,222"/>
+<area shape="poly" id="edge14_Node000011_Node000002" title=" " alt="" coords="276,151,141,194,139,189,274,145"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="324,146,365,185,362,188,320,150"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="188,196,275,221"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="299,150,256,189,252,185,296,146"/>
 </map>

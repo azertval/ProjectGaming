@@ -134,6 +134,15 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameKeybindingsScreen.html">GameKeybindingsScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de remappage des touches de jeu : dessine le sous-menu et applique ses actions.  <a href="classhmi_1_1GameKeybindingsScreen.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GamepadBindings.html">GamepadBindings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Association action de jeu (<code>GameAction</code>, partagée avec <code><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">GameKeyBindings</a></code>) -&gt; bouton manette, avec persistance JSON (<code>LOT-30</code>).  <a href="classhmi_1_1GamepadBindings.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GamepadBindingsModel.html">GamepadBindingsModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logique du sous-menu « Touches de la manette », indépendante du dessin.  <a href="classhmi_1_1GamepadBindingsModel.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GamepadBindingsScreen.html">GamepadBindingsScreen</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de remappage des touches manette : dessine le sous-menu et applique ses actions.  <a href="classhmi_1_1GamepadBindingsScreen.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html">GameScreen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran de jeu jouant une <b>séquence de niveaux</b> chargés depuis des fichiers.  <a href="classhmi_1_1GameScreen.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,6 +255,23 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a133516ef8002bd9e4d870db9494f5867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action de jeu logique, remappable indépendamment de la touche physique qui la déclenche.  <a href="namespacehmi.html#a133516ef8002bd9e4d870db9494f5867">More...</a><br /></td></tr>
 <tr class="separator:a133516ef8002bd9e4d870db9494f5867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd1f14c12b142d5227ad2560e7c5e88" id="r_a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> { <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff">Left</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c">Right</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29">A</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571">B</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383">X</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0">Y</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c">LeftShoulder</a>
+, <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354">RightShoulder</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a7bd1f14c12b142d5227ad2560e7c5e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton (ou direction) manette remappable à une action de jeu (<code>EX-CTRL-002</code>, <code>LOT-30</code>).  <a href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">More...</a><br /></td></tr>
+<tr class="separator:a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83c98e56e30eafa606048853f7962e48" id="r_a83c98e56e30eafa606048853f7962e48"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> : std::uint16_t { <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef">Backspace</a> = 0x08
 , <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413">Tab</a> = 0x09
@@ -302,6 +328,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:af8951dd767be6a8d801566f97cac6444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action produite par la confirmation d'une ligne (hors capture elle-même) — voir <code>OptionsAction</code> pour le même principe : le modèle ne connaît que le stockage (<code>GameKeyBindings</code>), pas l'écran.  <a href="namespacehmi.html#af8951dd767be6a8d801566f97cac6444">More...</a><br /></td></tr>
 <tr class="separator:af8951dd767be6a8d801566f97cac6444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab22afc1edf9ed6f86dbf20680e4d4491" id="r_ab22afc1edf9ed6f86dbf20680e4d4491"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491">GamepadBindingsAction</a> { <a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a8bae56d3db3fb4f6d0f1b3af394ec95b">Rebound</a>
+, <a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a526d688f37a86d3c3f27d0c5016eb71d">Reset</a>
+, <a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a0557fa923dcee4d0f86b1409f5c2167f">Back</a>
+ }</td></tr>
+<tr class="memdesc:ab22afc1edf9ed6f86dbf20680e4d4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Même principe que <code>GameKeybindingsAction</code> (voir sa doc), pour le sous-menu manette.  <a href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491">More...</a><br /></td></tr>
+<tr class="separator:ab22afc1edf9ed6f86dbf20680e4d4491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a168b24f798c2e6d06beb9472a071528d" id="r_a168b24f798c2e6d06beb9472a071528d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> { <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">Menu</a>
 , <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">Game</a>
@@ -310,14 +342,19 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3">GameKeybindings</a>
 , <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7">EditorKeybindings</a>
+, <a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da8246ea7cf8f2d836587aa22cd3e7df47">GamepadBindings</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a168b24f798c2e6d06beb9472a071528d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran cible de l'application.  <a href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d">More...</a><br /></td></tr>
 <tr class="separator:a168b24f798c2e6d06beb9472a071528d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a001461460d9ba91885ad98efd4f7f673" id="r_a001461460d9ba91885ad98efd4f7f673"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">OptionsAction</a> { <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae">ToggleVSync</a>
+<tr class="memitem:a001461460d9ba91885ad98efd4f7f673" id="r_a001461460d9ba91885ad98efd4f7f673"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">OptionsAction</a> { <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae">ToggleVSync</a>
 , <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252">OpenGameKeybindings</a>
 , <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c">OpenEditorKeybindings</a>
-, <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f">Back</a>
+, <a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3">OpenGamepadBindings</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f">Back</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a001461460d9ba91885ad98efd4f7f673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action produite par la confirmation d'une option du menu d'options.  <a href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673">More...</a><br /></td></tr>
 <tr class="separator:a001461460d9ba91885ad98efd4f7f673"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,15 +379,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1">slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a3a1050ef6cc138977442e9d4206cb3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette inclinée/courbe : pentes/arrondis convexes ou concaves de <b>sol</b>, suivables (<code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>/<code>EX-GP-007</code>) ou de <b>plafond</b>, solides (<code>EX-GP-006</code>/<code>EX-GP-007</code>).  <br /></td></tr>
 <tr class="separator:a3a1050ef6cc138977442e9d4206cb3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5554638874ee3372dad502cfe2e594e" id="r_ae5554638874ee3372dad502cfe2e594e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ae5554638874ee3372dad502cfe2e594e">gamepadButtonDisplayName</a> (<a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button)</td></tr>
+<tr class="memdesc:ae5554638874ee3372dad502cfe2e594e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'un bouton manette, pour l'affichage dans l'écran de remappage.  <br /></td></tr>
+<tr class="separator:ae5554638874ee3372dad502cfe2e594e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b48baec87107f7a4aec638550bdb941" id="r_a3b48baec87107f7a4aec638550bdb941"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a3b48baec87107f7a4aec638550bdb941">capturedGamepadButton</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
+<tr class="memdesc:a3b48baec87107f7a4aec638550bdb941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche le premier bouton manette pressé cette frame, pour la capture d'un remappage.  <br /></td></tr>
+<tr class="separator:a3b48baec87107f7a4aec638550bdb941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd53f8d86ae168c7bf03fda0cdede0c3" id="r_acd53f8d86ae168c7bf03fda0cdede0c3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#acd53f8d86ae168c7bf03fda0cdede0c3">keyDisplayName</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key)</td></tr>
 <tr class="memdesc:acd53f8d86ae168c7bf03fda0cdede0c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'une touche, pour l'affichage dans les écrans de remappage (<code>LOT-29</code>) et le panneau d'aide de l'éditeur (<code>EX-EDIT-015</code>).  <br /></td></tr>
 <tr class="separator:acd53f8d86ae168c7bf03fda0cdede0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac200bbbe13247069ff384e574db66eec" id="r_ac200bbbe13247069ff384e574db66eec"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ac200bbbe13247069ff384e574db66eec">capturedKey</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
 <tr class="memdesc:ac200bbbe13247069ff384e574db66eec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche la première touche pressée cette frame, pour la capture d'un remappage.  <br /></td></tr>
 <tr class="separator:ac200bbbe13247069ff384e574db66eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3de559ef4a330d1360628f6f8ad407b" id="r_ab3de559ef4a330d1360628f6f8ad407b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b">toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;bindings)</td></tr>
-<tr class="memdesc:ab3de559ef4a330d1360628f6f8ad407b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>).  <br /></td></tr>
-<tr class="separator:ab3de559ef4a330d1360628f6f8ad407b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c3341857c60f0bef0a01a6cd10ce5f7" id="r_a2c3341857c60f0bef0a01a6cd10ce5f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1PlayerInput.html">core::PlayerInput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c3341857c60f0bef0a01a6cd10ce5f7">toPlayerInput</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;gameKeyBindings, const <a class="el" href="classhmi_1_1GamepadBindings.html">GamepadBindings</a> &amp;gamepadBindings)</td></tr>
+<tr class="memdesc:a2c3341857c60f0bef0a01a6cd10ce5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit l'état d'entrée en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches/boutons physiques (<code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>).  <br /></td></tr>
+<tr class="separator:a2c3341857c60f0bef0a01a6cd10ce5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bc539b762cfd88b17c71d8a44a1a22b" id="r_a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b">serializeSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries)</td></tr>
 <tr class="memdesc:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble les messages de log en un texte (une ligne par message).  <br /></td></tr>
 <tr class="separator:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -396,6 +439,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 6</td></tr>
 <tr class="memdesc:ab42b3bed825ef5b3664995a516c4eb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions de jeu remappables (<code>GameAction</code>).  <br /></td></tr>
 <tr class="separator:ab42b3bed825ef5b3664995a516c4eb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
+<tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<code>GamepadButton</code>).  <br /></td></tr>
+<tr class="separator:aab59d64d595ba17a55cc07311285ba14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aa4f5968d7b564d555f29fdc5d2fc9585" name="aa4f5968d7b564d555f29fdc5d2fc9585"></a>
@@ -558,6 +604,72 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab22afc1edf9ed6f86dbf20680e4d4491" name="ab22afc1edf9ed6f86dbf20680e4d4491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab22afc1edf9ed6f86dbf20680e4d4491">&#9670;&#160;</a></span>GamepadBindingsAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491">hmi::GamepadBindingsAction</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Même principe que <code>GameKeybindingsAction</code> (voir sa doc), pour le sous-menu manette. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab22afc1edf9ed6f86dbf20680e4d4491a8bae56d3db3fb4f6d0f1b3af394ec95b" name="ab22afc1edf9ed6f86dbf20680e4d4491a8bae56d3db3fb4f6d0f1b3af394ec95b"></a>Rebound&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab22afc1edf9ed6f86dbf20680e4d4491a526d688f37a86d3c3f27d0c5016eb71d" name="ab22afc1edf9ed6f86dbf20680e4d4491a526d688f37a86d3c3f27d0c5016eb71d"></a>Reset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab22afc1edf9ed6f86dbf20680e4d4491a0557fa923dcee4d0f86b1409f5c2167f" name="ab22afc1edf9ed6f86dbf20680e4d4491a0557fa923dcee4d0f86b1409f5c2167f"></a>Back&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a7bd1f14c12b142d5227ad2560e7c5e88" name="a7bd1f14c12b142d5227ad2560e7c5e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bd1f14c12b142d5227ad2560e7c5e88">&#9670;&#160;</a></span>GamepadButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">hmi::GamepadButton</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bouton (ou direction) manette remappable à une action de jeu (<code>EX-CTRL-002</code>, <code>LOT-30</code>). </p>
+<p><code>Up</code>/<code>Down</code>/<code>Left</code>/<code>Right</code> fusionnent le D-pad et le stick gauche en une seule notion logique par direction — le joueur ne perçoit pas la différence entre les deux, et <code><a class="el" href="classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).">Window::pollGamepad</a></code> les a toujours traités comme équivalents. <code>Start</code>/<code>Back</code>, les clics de stick et les gâchettes analogiques ne sont pas représentés : conventions globales ou hors périmètre (voir l'épic du lot). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa" name="a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa"></a>Up&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53" name="a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff" name="a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff"></a>Left&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c" name="a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29" name="a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571" name="a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571"></a>B&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383" name="a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383"></a>X&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0" name="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0"></a>Y&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c" name="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c"></a>LeftShoulder&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354" name="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354"></a>RightShoulder&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a83c98e56e30eafa606048853f7962e48" name="a83c98e56e30eafa606048853f7962e48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83c98e56e30eafa606048853f7962e48">&#9670;&#160;</a></span>Key</h2>
 
@@ -668,6 +780,7 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae" name="a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae"></a>ToggleVSync&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252" name="a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252"></a>OpenGameKeybindings&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c" name="a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c"></a>OpenEditorKeybindings&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3" name="a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3"></a>OpenGamepadBindings&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f" name="a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f"></a>Back&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -694,7 +807,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Écran cible de l'application. </p>
-<p><code>Menu</code> est l'écran d'accueil ; <code>Game</code> lance la scène de jeu ; <code>Editor</code> l'écran d'édition ; <code>Options</code> le menu de réglages (V-Sync, langue, LOT-20) ; <code>GameKeybindings</code>/<code>EditorKeybindings</code> ses deux sous-menus de remappage des touches (<code>EX-CTRL-012</code>, <code>LOT-29</code>). La fabrication de l'écran concret associé est déléguée (cf. <code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">ScreenManager</a></code>), pour garder la logique de navigation indépendante des écrans eux-mêmes. </p>
+<p><code>Menu</code> est l'écran d'accueil ; <code>Game</code> lance la scène de jeu ; <code>Editor</code> l'écran d'édition ; <code>Options</code> le menu de réglages (V-Sync, langue, LOT-20) ; <code>GameKeybindings</code>/<code>EditorKeybindings</code>/ <code><a class="el" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) -&gt; bouton manette,...">GamepadBindings</a></code> ses trois sous-menus de remappage des touches (<code>EX-CTRL-012</code>, <code>LOT-29</code>/ <code>LOT-30</code>). La fabrication de l'écran concret associé est déléguée (cf. <code><a class="el" href="classhmi_1_1ScreenManager.html" title="Détient l&#39;écran courant et applique les transitions demandées.">ScreenManager</a></code>), pour garder la logique de navigation indépendante des écrans eux-mêmes. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911" name="a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911"></a>Menu&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb" name="a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb"></a>Game&#160;</td><td class="fielddoc"></td></tr>
@@ -702,11 +815,39 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8" name="a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8"></a>Options&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3" name="a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3"></a>GameKeybindings&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7" name="a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7"></a>EditorKeybindings&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da8246ea7cf8f2d836587aa22cd3e7df47" name="a168b24f798c2e6d06beb9472a071528da8246ea7cf8f2d836587aa22cd3e7df47"></a>GamepadBindings&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a3b48baec87107f7a4aec638550bdb941" name="a3b48baec87107f7a4aec638550bdb941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b48baec87107f7a4aec638550bdb941">&#9670;&#160;</a></span>capturedGamepadButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> &gt; hmi::capturedGamepadButton </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cherche le premier bouton manette pressé cette frame, pour la capture d'un remappage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>État des entrées de la frame (piste manette brute, <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a>:: gamepadButtonPressed</code>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le bouton capturé, ou <code>std::nullopt</code> si aucun n'est pressé cette frame. </dd></dl>
+
+</div>
+</div>
 <a id="ac200bbbe13247069ff384e574db66eec" name="ac200bbbe13247069ff384e574db66eec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac200bbbe13247069ff384e574db66eec">&#9670;&#160;</a></span>capturedKey()</h2>
 
@@ -751,6 +892,33 @@ Variables</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="ae5554638874ee3372dad502cfe2e594e" name="ae5554638874ee3372dad502cfe2e594e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5554638874ee3372dad502cfe2e594e">&#9670;&#160;</a></span>gamepadButtonDisplayName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::gamepadButtonDisplayName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a>&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nom lisible d'un bouton manette, pour l'affichage dans l'écran de remappage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">button</td><td>Bouton à nommer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Un nom court (« A », « Épaule droite », « Flèche gauche »…). </dd></dl>
 
 </div>
 </div>
@@ -993,8 +1161,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab3de559ef4a330d1360628f6f8ad407b" name="ab3de559ef4a330d1360628f6f8ad407b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3de559ef4a330d1360628f6f8ad407b">&#9670;&#160;</a></span>toPlayerInput()</h2>
+<a id="a2c3341857c60f0bef0a01a6cd10ce5f7" name="a2c3341857c60f0bef0a01a6cd10ce5f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c3341857c60f0bef0a01a6cd10ce5f7">&#9670;&#160;</a></span>toPlayerInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1009,7 +1177,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;&#160;</td>
-          <td class="paramname"><em>bindings</em>&#160;</td>
+          <td class="paramname"><em>gameKeyBindings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1GamepadBindings.html">GamepadBindings</a> &amp;&#160;</td>
+          <td class="paramname"><em>gamepadBindings</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1019,14 +1193,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Traduit l'état clavier en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches physiques (<code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>). </p>
-<p>Le reste du moteur ne connaît que l'<b>intention</b> (<code>moveX</code>), pas les touches. Chaque action lit la touche courante de <code>bindings</code> (remappable depuis Options → Touches de jeu), <b>et</b> — tant qu'aucune autre action ne se l'est appropriée (<code><a class="el" href="classhmi_1_1GameKeyBindings.html#a3fdf87fc642308d69c5fbeba3e2fb13d" title="Indique si key est actuellement liée à une action autre que action.">GameKeyBindings::isKeyClaimedByOtherAction</a></code>) — sa touche par défaut (<code><a class="el" href="classhmi_1_1GameKeyBindings.html#ad2a61b672b2329285186aa6155ddc2db">GameKeyBindings::defaultKey</a></code>).</p>
-<p>Cette seconde vérification est un filet de sécurité pour la manette (<code><a class="el" href="classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).">Window::pollGamepad</a></code>, <code>EX-CTRL-002</code>) : elle n'écrit que dans les touches par défaut, câblées en dur, sans connaître les bindings courants (un vrai remappage manette est hors périmètre). Sans ce filet, remapper une action au clavier désactiverait le bouton manette équivalent. La condition « tant qu'aucune autre action ne se l'est appropriée » évite qu'une touche par défaut réclamée par une <b>autre</b> action (remappée dessus) ne déclenche les deux actions à la fois — ce qui, pour une paire opposée comme Gauche/Droite, s'annulerait silencieusement (<code>moveX</code> figé à <code>0</code>).</p>
+<p>Traduit l'état d'entrée en <a class="el" href="structcore_1_1PlayerInput.html" title="Intention de déplacement transmise à la physique, dissociée de toute touche.">core::PlayerInput</a>, dissocié des touches/boutons physiques (<code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>). </p>
+<p>Le reste du moteur ne connaît que l'<b>intention</b> (<code>moveX</code>), pas les touches ni les boutons. Chaque action est déclenchée par <b>deux</b> sources indépendantes, chacune remappable séparément : la touche clavier liée dans <code>gameKeyBindings</code> (Options → Touches de jeu) <b>ou</b> le bouton manette lié dans <code>gamepadBindings</code> (Options → Touches de la manette) — l'une des deux suffit, aucune des deux n'est prioritaire sur l'autre.</p>
 <p>Gauche et droite simultanées se neutralisent (<code>moveX == 0</code>). Fonction <b>pure</b>, testable avec un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> injecté (<code>EX-NFR-010</code>) ; appelée une fois par frame en amont de la logique (<code>EX-CTRL-020</code>, <code>EX-CTRL-021</code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td>État clavier échantillonné de la frame. </td></tr>
-    <tr><td class="paramname">bindings</td><td>Association action de jeu -&gt; touche courante. </td></tr>
+    <tr><td class="paramname">input</td><td>État clavier/manette échantillonné de la frame. </td></tr>
+    <tr><td class="paramname">gameKeyBindings</td><td>Association action de jeu -&gt; touche clavier courante. </td></tr>
+    <tr><td class="paramname">gamepadBindings</td><td>Association action de jeu -&gt; bouton manette courant. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1107,6 +1281,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'actions de jeu remappables (<code>GameAction</code>). </p>
+
+</div>
+</div>
+<a id="aab59d64d595ba17a55cc07311285ba14" name="aab59d64d595ba17a55cc07311285ba14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab59d64d595ba17a55cc07311285ba14">&#9670;&#160;</a></span>GAMEPAD_BUTTON_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int hmi::GAMEPAD_BUTTON_COUNT = 10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de boutons manette remappables (<code>GamepadButton</code>). </p>
 
 </div>
 </div>

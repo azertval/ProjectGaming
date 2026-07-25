@@ -5,6 +5,7 @@ var OptionsModel_8h =
       [ "ToggleVSync", "OptionsModel_8h.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae", null ],
       [ "OpenGameKeybindings", "OptionsModel_8h.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252", null ],
       [ "OpenEditorKeybindings", "OptionsModel_8h.html#a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c", null ],
+      [ "OpenGamepadBindings", "OptionsModel_8h.html#a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3", null ],
       [ "Back", "OptionsModel_8h.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f", null ]
     ] ]
 ];

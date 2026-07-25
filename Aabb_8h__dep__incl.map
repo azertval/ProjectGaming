@@ -1,67 +1,98 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/Aabb.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Physics/Aabb.h">
-<area shape="rect" id="Node000001" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="2065,5,2286,60"/>
-<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="1046,225,1305,295"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2051,36,1927,40,1780,52,1622,74,1544,90,1468,111,1400,135,1335,166,1227,228,1224,223,1333,161,1398,130,1467,105,1543,85,1621,69,1779,47,1927,35,2051,31"/>
-<area shape="rect" id="Node000003" href="$BlockController_8cpp.html" title=" " alt="" coords="5,233,263,287"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2051,36,1815,38,1498,49,1140,71,957,88,778,111,624,137,472,170,223,235,222,230,470,165,623,132,778,105,956,83,1139,66,1498,43,1814,33,2051,31"/>
-<area shape="rect" id="Node000004" href="$MechanismController_8cpp.html" title=" " alt="" coords="3226,115,3522,170"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="2300,35,2705,56,2956,77,3208,105,3254,113,3253,118,3207,111,2955,82,2704,62,2300,41"/>
-<area shape="rect" id="Node000005" href="$LevelOutcome_8cpp.html" title=" " alt="" coords="1935,233,2162,287"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="2156,74,2066,234,2061,231,2151,71"/>
-<area shape="rect" id="Node000006" href="$LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="2213,115,2434,170"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="2224,66,2289,113,2285,117,2221,71"/>
-<area shape="rect" id="Node000007" href="$GameScreen_8cpp.html" title=" " alt="" coords="1795,350,2023,405"/>
-<area shape="poly" id="edge32_Node000001_Node000007" title=" " alt="" coords="2052,57,1999,78,1975,92,1953,110,1932,136,1917,166,1907,199,1902,233,1901,298,1906,349,1901,350,1895,298,1896,232,1902,198,1912,164,1927,133,1949,106,1972,88,1997,73,2050,52"/>
-<area shape="rect" id="Node000008" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="2047,343,2269,412"/>
-<area shape="poly" id="edge34_Node000001_Node000008" title=" " alt="" coords="2104,69,2055,96,2006,132,1960,175,1941,200,1926,227,1918,245,1914,261,1916,276,1925,293,1939,302,1967,314,2047,341,2045,346,1966,319,1937,307,1921,296,1911,278,1909,261,1913,243,1921,224,1937,197,1956,172,2002,127,2053,92,2101,64"/>
-<area shape="rect" id="Node000009" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="2541,343,2762,412"/>
-<area shape="poly" id="edge35_Node000001_Node000009" title=" " alt="" coords="2300,39,2500,58,2615,73,2731,92,2840,116,2937,146,3014,181,3043,202,3064,224,3075,242,3079,260,3075,278,3064,296,3044,312,3014,322,2939,334,2861,339,2801,345,2763,353,2762,348,2800,340,2860,334,2939,329,3013,317,3041,307,3060,293,3070,276,3074,260,3070,244,3060,227,3039,206,3011,186,2935,151,2839,121,2730,97,2614,78,2499,63,2300,44"/>
-<area shape="rect" id="Node000010" href="$test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est..." alt="" coords="2583,225,2805,295"/>
-<area shape="poly" id="edge36_Node000001_Node000010" title=" " alt="" coords="2300,58,2374,79,2447,106,2503,133,2558,164,2649,223,2646,227,2555,168,2501,137,2445,110,2372,84,2299,63"/>
-<area shape="rect" id="Node000011" href="$test__level__outcome_8cpp.html" title="Tests unitaires de l&#39;évaluation d&#39;issue de niveau (evaluateOutcome)." alt="" coords="2829,225,3050,295"/>
-<area shape="poly" id="edge39_Node000001_Node000011" title=" " alt="" coords="2300,53,2411,76,2528,105,2707,164,2860,223,2858,228,2705,169,2527,111,2410,81,2299,58"/>
-<area shape="rect" id="Node000012" href="$AabbVsAabb_8h.html" title="Collision continue d&#39;une boîte AABB mobile contre une boîte AABB fixe (EX&#45;GP&#45;005),..." alt="" coords="2287,233,2509,287"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="2175,74,2180,126,2189,152,2203,176,2221,194,2241,209,2288,232,2286,237,2239,214,2217,198,2199,179,2184,154,2175,127,2170,74"/>
-<area shape="rect" id="Node000014" href="$test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX&#45;GP&#45;005) : compos..." alt="" coords="2813,343,3034,412"/>
-<area shape="poly" id="edge33_Node000001_Node000014" title=" " alt="" coords="2300,36,2458,45,2635,59,2800,79,2867,91,2918,105,2997,138,3034,157,3066,178,3089,202,3103,230,3104,261,3090,296,3065,324,3035,345,3032,340,3062,320,3085,293,3099,260,3098,231,3085,205,3062,182,3031,161,2995,142,2916,111,2865,96,2799,84,2635,64,2457,50,2300,42"/>
-<area shape="rect" id="Node000015" href="$test__aabb__vs__aabb_8cpp.html" title="Tests unitaires du balayage AABB continu contre une boîte fixe unique (sweepAabbVsAabb,..." alt="" coords="3071,343,3293,412"/>
-<area shape="poly" id="edge40_Node000001_Node000015" title=" " alt="" coords="2300,32,2477,36,2682,47,2782,56,2872,69,2949,85,3006,106,3040,127,3070,154,3097,185,3119,219,3153,286,3175,342,3170,343,3149,288,3115,222,3092,189,3067,158,3037,131,3004,110,2947,90,2871,74,2781,62,2682,52,2477,41,2300,37"/>
-<area shape="rect" id="Node000016" href="$SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="790,115,1014,170"/>
-<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="2051,46,1268,111,1015,133,1014,128,1267,105,2051,41"/>
-<area shape="rect" id="Node000018" href="$SweptCollision_8cpp.html" title=" " alt="" coords="1328,233,1564,287"/>
-<area shape="poly" id="edge26_Node000001_Node000018" title=" " alt="" coords="2051,37,1912,42,1758,54,1686,63,1621,76,1567,91,1528,110,1500,137,1479,169,1464,203,1454,233,1449,232,1459,201,1474,167,1496,133,1524,106,1565,86,1619,71,1685,58,1758,49,1911,37,2051,32"/>
-<area shape="rect" id="Node000021" href="$SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides." alt="" coords="1538,115,1759,170"/>
-<area shape="poly" id="edge27_Node000001_Node000021" title=" " alt="" coords="2052,58,1779,111,1747,118,1746,113,1777,105,2051,52"/>
-<area shape="rect" id="Node000022" href="$test__swept__collision_8cpp.html" title="Tests unitaires du balayage AABB continu (sweepAabb) contre une grille de tuiles." alt="" coords="1589,225,1810,295"/>
-<area shape="poly" id="edge41_Node000001_Node000022" title=" " alt="" coords="2051,43,1997,52,1940,65,1883,84,1830,110,1811,125,1799,141,1773,179,1731,227,1727,223,1769,176,1795,137,1807,121,1827,106,1881,79,1938,60,1996,46,2051,38"/>
-<area shape="rect" id="Node000023" href="$test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX&#45;GP&#45;022)." alt="" coords="3546,108,3767,177"/>
-<area shape="poly" id="edge37_Node000001_Node000023" title=" " alt="" coords="2300,35,2937,59,3283,79,3425,92,3534,105,3546,107,3545,113,3534,111,3425,97,3282,85,2937,64,2299,40"/>
-<area shape="rect" id="Node000024" href="$test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController)." alt="" coords="3791,108,4013,177"/>
-<area shape="poly" id="edge38_Node000001_Node000024" title=" " alt="" coords="2300,34,2629,41,3055,55,3474,76,3648,90,3780,105,3792,107,3791,113,3779,111,3647,95,3474,82,3055,60,2628,47,2300,39"/>
-<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="2250,178,2112,235,2110,230,2248,173"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="2274,180,2220,227,2207,246,2200,263,2192,280,2175,297,2111,322,2006,353,2004,347,2110,316,2173,292,2187,277,2195,261,2202,243,2216,224,2270,176"/>
-<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="2300,183,2220,296,2185,344,2181,341,2216,293,2295,180"/>
-<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="2429,172,2477,194,2522,223,2540,240,2550,256,2573,293,2618,341,2614,344,2569,296,2546,259,2536,244,2519,227,2475,199,2427,177"/>
-<area shape="poly" id="edge10_Node000006_Node000010" title=" " alt="" coords="2422,172,2587,223,2585,228,2420,177"/>
-<area shape="poly" id="edge11_Node000006_Node000011" title=" " alt="" coords="2448,158,2623,186,2817,223,2829,225,2828,231,2816,228,2622,191,2447,164"/>
-<area shape="poly" id="edge14_Node000012_Node000007" title=" " alt="" coords="2274,291,2036,345,2007,353,2005,347,2035,340,2273,285"/>
-<area shape="poly" id="edge16_Node000012_Node000008" title=" " alt="" coords="2332,296,2229,345,2227,340,2330,291"/>
-<area shape="poly" id="edge17_Node000012_Node000009" title=" " alt="" coords="2469,290,2578,340,2576,345,2467,295"/>
-<area shape="rect" id="Node000013" href="$AabbVsAabb_8cpp.html" title=" " alt="" coords="2293,350,2516,405"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="2403,301,2406,350,2400,350,2398,301"/>
-<area shape="poly" id="edge15_Node000012_Node000014" title=" " alt="" coords="2523,285,2775,340,2813,349,2812,354,2773,345,2522,291"/>
-<area shape="poly" id="edge18_Node000012_Node000015" title=" " alt="" coords="2522,284,2572,292,2705,307,2809,314,2913,322,3046,340,3072,345,3071,350,3046,345,2913,327,2809,319,2704,313,2571,297,2521,289"/>
-<area shape="poly" id="edge20_Node000016_Node000002" title=" " alt="" coords="978,173,1096,223,1094,228,976,178"/>
-<area shape="poly" id="edge21_Node000016_Node000003" title=" " alt="" coords="776,159,543,187,274,228,239,235,238,230,274,223,542,181,776,154"/>
-<area shape="rect" id="Node000017" href="$SlopeGeometry_8cpp.html" title=" " alt="" coords="783,233,1021,287"/>
-<area shape="poly" id="edge22_Node000016_Node000017" title=" " alt="" coords="905,184,905,232,899,232,899,184"/>
-<area shape="poly" id="edge23_Node000016_Node000018" title=" " alt="" coords="1028,164,1317,223,1348,230,1347,235,1316,228,1027,169"/>
-<area shape="rect" id="Node000019" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="287,233,512,287"/>
-<area shape="poly" id="edge24_Node000016_Node000019" title=" " alt="" coords="777,172,525,228,496,235,495,230,524,223,776,167"/>
-<area shape="rect" id="Node000020" href="$test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,..." alt="" coords="537,225,758,295"/>
-<area shape="poly" id="edge25_Node000016_Node000020" title=" " alt="" coords="833,178,723,228,721,223,831,173"/>
-<area shape="poly" id="edge28_Node000021_Node000002" title=" " alt="" coords="1529,176,1306,230,1304,225,1528,171"/>
-<area shape="poly" id="edge29_Node000021_Node000012" title=" " alt="" coords="1774,160,2288,239,2287,244,1773,166"/>
-<area shape="poly" id="edge30_Node000021_Node000018" title=" " alt="" coords="1592,179,1493,235,1491,230,1590,174"/>
-<area shape="poly" id="edge31_Node000021_Node000022" title=" " alt="" coords="1668,181,1687,224,1682,226,1663,184"/>
+<area shape="rect" id="Node000001" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="2753,5,2975,60"/>
+<area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="4325,225,4584,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2988,34,3236,42,3528,56,3787,76,3878,90,3932,106,3950,122,3959,141,3967,159,3983,175,4027,198,4067,211,4105,216,4141,217,4219,214,4264,216,4315,223,4326,225,4325,230,4314,228,4263,221,4219,220,4141,222,4104,222,4066,216,4025,203,3980,180,3962,162,3954,143,3946,125,3929,110,3877,95,3786,82,3528,61,3235,47,2988,39"/>
+<area shape="rect" id="Node000003" href="$BlockController_8cpp.html" title=" " alt="" coords="2939,233,3197,287"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2899,69,3046,231,3042,234,2895,72"/>
+<area shape="rect" id="Node000004" href="$DangerController_8h.html" title="Comportement des dangers mobile et temporisé : position/activation par pas fixe." alt="" coords="528,115,781,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="2739,36,2412,38,1948,47,1409,69,1133,87,862,111,782,121,781,116,861,105,1132,82,1409,64,1947,42,2412,32,2739,31"/>
+<area shape="rect" id="Node000006" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="544,233,765,287"/>
+<area shape="poly" id="edge51_Node000001_Node000006" title=" " alt="" coords="2739,37,2379,41,1903,52,1660,62,1434,74,1240,90,1092,111,986,136,881,169,714,235,712,230,880,164,984,131,1092,105,1239,85,1434,69,1660,56,1903,47,2379,36,2739,32"/>
+<area shape="rect" id="Node000008" href="$GameScreen_8cpp.html" title=" " alt="" coords="1793,350,2021,405"/>
+<area shape="poly" id="edge50_Node000001_Node000008" title=" " alt="" coords="2740,38,2520,43,2267,55,2149,64,2049,76,1974,92,1949,100,1934,110,1914,136,1900,166,1892,199,1889,233,1893,298,1902,349,1897,350,1887,299,1884,233,1887,198,1895,165,1909,133,1930,106,1947,96,1972,87,2048,71,2149,59,2267,49,2520,38,2740,32"/>
+<area shape="rect" id="Node000010" href="$test__danger__avance_8cpp.html" title="Tests d&#39;intégration des dangers avancés (EX&#45;GP&#45;050 à EX&#45;GP&#45;053) : DangerController et MechanismContro..." alt="" coords="789,225,1011,295"/>
+<area shape="poly" id="edge53_Node000001_Node000010" title=" " alt="" coords="2740,38,2421,43,2010,55,1608,77,1442,92,1317,111,1222,134,1128,165,973,228,971,223,1127,160,1220,129,1315,105,1442,87,1608,72,2010,50,2421,38,2739,32"/>
+<area shape="rect" id="Node000012" href="$MechanismController_8cpp.html" title=" " alt="" coords="1944,115,2240,170"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="2740,49,2516,75,2259,111,2217,118,2216,113,2258,105,2515,69,2739,44"/>
+<area shape="rect" id="Node000013" href="$DangerGeometry_8h.html" title="Géométrie de la zone mortelle d&#39;une case de danger (EX&#45;GP&#45;050)." alt="" coords="1329,115,1557,170"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="2740,44,2318,71,1788,111,1557,132,1557,127,1788,105,2318,66,2740,39"/>
+<area shape="rect" id="Node000015" href="$LevelOutcome_8cpp.html" title=" " alt="" coords="1944,233,2171,287"/>
+<area shape="poly" id="edge20_Node000001_Node000015" title=" " alt="" coords="2740,43,2624,51,2499,65,2388,84,2344,97,2311,110,2292,125,2282,142,2272,161,2254,179,2201,211,2146,235,2143,230,2198,207,2250,175,2267,158,2277,140,2288,122,2308,106,2342,92,2387,79,2498,60,2623,46,2740,37"/>
+<area shape="rect" id="Node000016" href="$LevelScene_8cpp.html" title=" " alt="" coords="1648,233,1869,287"/>
+<area shape="poly" id="edge29_Node000001_Node000016" title=" " alt="" coords="2739,41,2513,50,2249,65,2018,85,1936,97,1889,110,1852,136,1819,169,1794,203,1775,234,1770,231,1789,200,1815,166,1848,132,1887,106,1935,92,2017,80,2249,60,2513,45,2739,35"/>
+<area shape="rect" id="Node000018" href="$LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="2365,115,2587,170"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="2757,66,2571,118,2569,113,2756,61"/>
+<area shape="rect" id="Node000019" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="2198,343,2421,412"/>
+<area shape="poly" id="edge54_Node000001_Node000019" title=" " alt="" coords="2740,40,2632,48,2519,60,2420,81,2382,94,2355,110,2333,133,2317,161,2307,192,2301,225,2299,289,2305,342,2300,343,2294,289,2296,224,2302,191,2312,159,2329,130,2352,106,2380,89,2419,76,2518,55,2631,42,2739,35"/>
+<area shape="rect" id="Node000020" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="2759,343,2980,412"/>
+<area shape="poly" id="edge55_Node000001_Node000020" title=" " alt="" coords="2871,73,2878,174,2879,295,2875,343,2870,342,2873,295,2872,174,2865,74"/>
+<area shape="rect" id="Node000021" href="$test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est..." alt="" coords="2397,225,2619,295"/>
+<area shape="poly" id="edge56_Node000001_Node000021" title=" " alt="" coords="2812,70,2563,227,2560,223,2809,65"/>
+<area shape="rect" id="Node000022" href="$test__level__outcome_8cpp.html" title="Tests unitaires de l&#39;évaluation d&#39;issue de niveau (evaluateOutcome)." alt="" coords="2643,225,2864,295"/>
+<area shape="poly" id="edge59_Node000001_Node000022" title=" " alt="" coords="2847,74,2772,226,2768,224,2843,71"/>
+<area shape="rect" id="Node000023" href="$AabbVsAabb_8h.html" title="Collision continue d&#39;une boîte AABB mobile contre une boîte AABB fixe (EX&#45;GP&#45;005),..." alt="" coords="3221,233,3443,287"/>
+<area shape="poly" id="edge30_Node000001_Node000023" title=" " alt="" coords="2932,64,3279,230,3277,235,2930,68"/>
+<area shape="rect" id="Node000025" href="$test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX&#45;GP&#45;005) : compos..." alt="" coords="3252,343,3473,412"/>
+<area shape="poly" id="edge52_Node000001_Node000025" title=" " alt="" coords="2989,54,3120,83,3260,121,3325,144,3382,169,3427,195,3457,224,3467,242,3469,259,3457,296,3440,322,3418,344,3414,340,3436,319,3452,294,3463,259,3461,244,3453,227,3424,200,3380,173,3323,149,3259,126,3119,88,2988,59"/>
+<area shape="rect" id="Node000026" href="$test__aabb__vs__aabb_8cpp.html" title="Tests unitaires du balayage AABB continu contre une boîte fixe unique (sweepAabbVsAabb,..." alt="" coords="3497,343,3719,412"/>
+<area shape="poly" id="edge60_Node000001_Node000026" title=" " alt="" coords="2989,36,3065,43,3150,57,3237,77,3321,106,3365,128,3407,155,3483,220,3544,286,3587,341,3583,344,3540,289,3479,223,3404,159,3363,132,3319,110,3236,82,3149,62,3065,49,2988,41"/>
+<area shape="rect" id="Node000027" href="$SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX&#45;GP&#45;003, EX&#45;GP&#45;004, EX&#45;GP&#45;007)." alt="" coords="3695,115,3919,170"/>
+<area shape="poly" id="edge37_Node000001_Node000027" title=" " alt="" coords="2989,44,3550,105,3695,124,3694,129,3549,111,2988,49"/>
+<area shape="rect" id="Node000029" href="$SweptCollision_8cpp.html" title=" " alt="" coords="4607,233,4843,287"/>
+<area shape="poly" id="edge44_Node000001_Node000029" title=" " alt="" coords="2989,32,3300,38,3685,50,3871,59,4032,71,4156,87,4199,96,4228,106,4248,122,4258,141,4267,159,4285,175,4328,196,4366,207,4400,213,4434,214,4506,213,4548,215,4596,223,4629,230,4628,235,4596,228,4548,221,4506,218,4434,219,4400,218,4364,213,4326,201,4283,180,4263,162,4253,143,4244,125,4225,110,4198,101,4155,92,4031,77,3870,64,3685,55,3300,43,2989,38"/>
+<area shape="rect" id="Node000032" href="$SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides." alt="" coords="3993,115,4215,170"/>
+<area shape="poly" id="edge45_Node000001_Node000032" title=" " alt="" coords="2989,32,3180,37,3426,48,3700,70,3839,86,3975,105,4012,113,4011,118,3974,111,3839,91,3700,76,3426,54,3180,42,2989,37"/>
+<area shape="rect" id="Node000033" href="$test__swept__collision_8cpp.html" title="Tests unitaires du balayage AABB continu (sweepAabb) contre une grille de tuiles." alt="" coords="4868,225,5089,295"/>
+<area shape="poly" id="edge61_Node000001_Node000033" title=" " alt="" coords="2988,32,3310,36,3710,48,3903,57,4071,70,4200,86,4245,95,4275,106,4294,122,4303,141,4312,160,4329,175,4376,192,4438,203,4510,209,4587,212,4739,214,4804,217,4856,223,4868,225,4867,230,4856,228,4804,222,4739,220,4587,217,4510,214,4438,208,4375,197,4327,180,4308,163,4298,144,4290,125,4272,110,4243,100,4199,91,4070,75,3902,63,3710,53,3310,42,2988,37"/>
+<area shape="rect" id="Node000034" href="$test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX&#45;GP&#45;022)." alt="" coords="4340,108,4561,177"/>
+<area shape="poly" id="edge57_Node000001_Node000034" title=" " alt="" coords="2988,34,3673,58,4048,79,4203,91,4322,105,4340,109,4339,114,4321,111,4203,97,4048,84,3673,64,2988,40"/>
+<area shape="rect" id="Node000035" href="$test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController)." alt="" coords="4585,108,4807,177"/>
+<area shape="poly" id="edge58_Node000001_Node000035" title=" " alt="" coords="2989,33,3337,40,3794,53,4245,75,4432,89,4574,105,4586,107,4585,113,4573,111,4431,94,4245,80,3794,59,3337,45,2989,38"/>
+<area shape="rect" id="Node000005" href="$DangerController_8cpp.html" title=" " alt="" coords="251,233,519,287"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="582,178,448,235,446,230,580,173"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="657,184,657,232,652,232,652,184"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="724,173,829,223,827,228,721,178"/>
+<area shape="rect" id="Node000011" href="$test__danger__controller_8cpp.html" title="Tests unitaires des dangers mobile et temporisé (core::DangerController, EX&#45;GP&#45;051/EX&#45;GP&#45;053)." alt="" coords="5,225,227,295"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="515,171,239,228,228,231,226,226,238,223,514,166"/>
+<area shape="rect" id="Node000007" href="$EditorScreen_8cpp.html" title=" " alt="" coords="863,350,1089,405"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="741,289,904,347,902,352,739,294"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="756,288,778,292,918,313,1062,330,1346,354,1599,367,1792,372,1792,378,1599,373,1346,360,1062,336,918,319,777,297,755,293"/>
+<area shape="rect" id="Node000009" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="544,350,765,405"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="657,301,657,350,652,350,652,301"/>
+<area shape="poly" id="edge16_Node000013_Node000007" title=" " alt="" coords="1315,158,1263,168,1209,182,1155,202,1105,228,1069,255,1038,288,993,351,989,348,1034,285,1066,251,1103,223,1153,197,1207,177,1262,163,1314,153"/>
+<area shape="poly" id="edge17_Node000013_Node000008" title=" " alt="" coords="1315,163,1256,174,1200,189,1154,206,1126,227,1116,244,1112,261,1115,277,1126,293,1138,301,1158,309,1218,324,1301,336,1398,346,1607,361,1793,370,1792,375,1607,367,1397,352,1300,341,1217,329,1156,314,1135,306,1122,297,1110,279,1107,261,1111,242,1122,224,1152,202,1198,184,1255,169,1314,158"/>
+<area shape="poly" id="edge18_Node000013_Node000010" title=" " alt="" coords="1315,170,1030,228,1012,232,1010,227,1029,223,1314,165"/>
+<area shape="rect" id="Node000014" href="$DangerGeometry_8cpp.html" title=" " alt="" coords="1381,233,1624,287"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1465,181,1491,231,1487,234,1460,183"/>
+<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="1570,165,1882,223,1944,234,1943,240,1881,228,1570,170"/>
+<area shape="poly" id="edge15_Node000013_Node000016" title=" " alt="" coords="1528,172,1688,230,1686,235,1526,177"/>
+<area shape="rect" id="Node000017" href="$test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX&#45;GP&#45;050)." alt="" coords="1136,225,1357,295"/>
+<area shape="poly" id="edge19_Node000013_Node000017" title=" " alt="" coords="1388,179,1305,227,1303,223,1385,174"/>
+<area shape="poly" id="edge23_Node000018_Node000008" title=" " alt="" coords="2410,178,2311,228,2248,264,2184,297,2099,328,2015,352,2014,347,2097,323,2182,292,2246,259,2308,223,2407,174"/>
+<area shape="poly" id="edge24_Node000018_Node000010" title=" " alt="" coords="2352,167,2252,180,2081,194,1935,201,1688,204,1441,207,1296,214,1124,228,1011,242,1010,237,1124,223,1295,209,1441,202,1688,199,1935,196,2080,188,2252,175,2352,162"/>
+<area shape="poly" id="edge22_Node000018_Node000015" title=" " alt="" coords="2369,176,2153,235,2152,230,2367,171"/>
+<area shape="poly" id="edge25_Node000018_Node000019" title=" " alt="" coords="2400,179,2369,200,2343,227,2329,255,2319,285,2312,343,2306,342,2314,284,2324,253,2339,224,2366,196,2397,174"/>
+<area shape="poly" id="edge26_Node000018_Node000020" title=" " alt="" coords="2424,181,2403,202,2388,226,2376,262,2378,277,2387,293,2411,311,2446,327,2491,340,2542,350,2653,364,2759,371,2758,376,2653,369,2541,355,2490,345,2445,332,2408,316,2383,296,2373,279,2371,261,2383,224,2399,198,2421,177"/>
+<area shape="poly" id="edge27_Node000018_Node000021" title=" " alt="" coords="2489,182,2501,224,2496,226,2484,184"/>
+<area shape="poly" id="edge28_Node000018_Node000022" title=" " alt="" coords="2552,173,2673,223,2671,228,2550,178"/>
+<area shape="poly" id="edge32_Node000023_Node000008" title=" " alt="" coords="3232,293,3208,297,3054,318,2922,329,2806,333,2698,333,2473,332,2341,335,2186,345,2021,363,2020,358,2185,340,2341,330,2473,326,2698,328,2806,328,2922,324,3053,313,3208,292,3231,288"/>
+<area shape="poly" id="edge34_Node000023_Node000019" title=" " alt="" coords="3229,293,3208,297,3085,312,2870,332,2421,370,2421,364,2870,326,3084,306,3208,292,3228,288"/>
+<area shape="poly" id="edge35_Node000023_Node000020" title=" " alt="" coords="3224,293,3209,297,2993,345,2981,348,2980,343,2991,340,3207,292,3223,288"/>
+<area shape="rect" id="Node000024" href="$AabbVsAabb_8cpp.html" title=" " alt="" coords="3005,350,3227,405"/>
+<area shape="poly" id="edge31_Node000023_Node000024" title=" " alt="" coords="3272,296,3166,352,3164,348,3270,291"/>
+<area shape="poly" id="edge33_Node000023_Node000025" title=" " alt="" coords="3345,300,3356,342,3351,343,3340,301"/>
+<area shape="poly" id="edge36_Node000023_Node000026" title=" " alt="" coords="3408,290,3528,340,3526,345,3406,295"/>
+<area shape="poly" id="edge38_Node000027_Node000002" title=" " alt="" coords="3917,170,3938,175,4043,191,4126,199,4209,207,4315,223,4326,225,4325,230,4314,228,4209,212,4126,204,4043,197,3937,180,3916,176"/>
+<area shape="poly" id="edge39_Node000027_Node000003" title=" " alt="" coords="3681,160,3461,188,3210,228,3174,235,3173,230,3209,223,3460,183,3681,155"/>
+<area shape="rect" id="Node000028" href="$SlopeGeometry_8cpp.html" title=" " alt="" coords="3814,233,4053,287"/>
+<area shape="poly" id="edge40_Node000027_Node000028" title=" " alt="" coords="3847,177,3906,230,3902,234,3844,181"/>
+<area shape="poly" id="edge41_Node000027_Node000029" title=" " alt="" coords="3933,167,3982,175,4154,191,4289,195,4424,201,4503,209,4596,223,4633,230,4632,235,4596,228,4503,214,4424,207,4289,201,4154,197,3981,180,3932,172"/>
+<area shape="rect" id="Node000030" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="4077,233,4302,287"/>
+<area shape="poly" id="edge42_Node000027_Node000030" title=" " alt="" coords="3907,171,4103,230,4101,235,3906,176"/>
+<area shape="rect" id="Node000031" href="$test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,..." alt="" coords="3568,225,3789,295"/>
+<area shape="poly" id="edge43_Node000027_Node000031" title=" " alt="" coords="3769,181,3718,227,3715,223,3766,177"/>
+<area shape="poly" id="edge46_Node000032_Node000002" title=" " alt="" coords="4198,172,4353,223,4351,228,4196,177"/>
+<area shape="poly" id="edge47_Node000032_Node000023" title=" " alt="" coords="3980,171,3931,180,3744,205,3556,228,3443,244,3443,239,3556,223,3743,200,3930,175,3980,166"/>
+<area shape="poly" id="edge48_Node000032_Node000029" title=" " alt="" coords="4214,170,4234,175,4335,191,4415,199,4495,206,4596,223,4630,230,4629,235,4596,228,4494,212,4414,204,4335,196,4233,180,4212,176"/>
+<area shape="poly" id="edge49_Node000032_Node000033" title=" " alt="" coords="4229,166,4284,175,4445,190,4571,195,4696,201,4856,223,4868,225,4867,230,4856,228,4696,207,4570,200,4445,196,4284,180,4228,171"/>
 </map>

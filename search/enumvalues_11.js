@@ -1,11 +1,15 @@
 var searchData=
 [
-  ['tab_0',['Tab',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413',1,'hmi']]],
-  ['togglecategory_1',['ToggleCategory',['../classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a363b6d198d5395ca897015d68d335af5',1,'hmi::TilePalette']]],
-  ['togglegrid_2',['ToggleGrid',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e',1,'hmi']]],
-  ['togglehelp_3',['ToggleHelp',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a738a0bf4b0ed8d50e7b558ecb00fa80a',1,'hmi']]],
-  ['togglesubgroup_4',['ToggleSubgroup',['../classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a7fc6a597cf12ba9a7f3b0c91a2dc1cd5',1,'hmi::TilePalette']]],
-  ['togglevsync_5',['ToggleVSync',['../namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae',1,'hmi']]],
-  ['trace_6',['Trace',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1',1,'core']]],
-  ['tuile_7',['Tuile',['../classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea1705ec94ac6549a8c694994957b9fa31',1,'hmi::TilePalette']]]
+  ['s_0',['S',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e',1,'hmi']]],
+  ['save_1',['Save',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354',1,'hmi']]],
+  ['selection_2',['Selection',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de',1,'hmi']]],
+  ['selecttype_3',['SelectType',['../classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135a7fafcdde6b0aa924f709e34735aca4ed',1,'hmi::TilePalette']]],
+  ['shift_4',['Shift',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c',1,'hmi']]],
+  ['slopedownleft_5',['SlopeDownLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7',1,'core']]],
+  ['slopedownright_6',['SlopeDownRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b',1,'core']]],
+  ['slopeupleft_7',['SlopeUpLeft',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df',1,'core']]],
+  ['slopeupright_8',['SlopeUpRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015',1,'core']]],
+  ['solid_9',['Solid',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa',1,'core']]],
+  ['space_10',['Space',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394',1,'hmi']]],
+  ['switch_11',['switch',['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42abbc155fb2b111bf61c4f5ff892915e6b',1,'hmi::ScreenTransition::Switch'],['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b',1,'core::Switch']]]
 ];

@@ -1,0 +1,25 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GamepadBindings.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GamepadBindings.h">
+<area shape="rect" id="Node000001" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="282,5,506,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="278,255,334,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="414,59,431,90,445,129,450,170,446,189,438,208,419,228,397,244,349,262,347,257,394,239,416,224,433,205,441,188,445,169,440,130,426,93,409,61"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,255,76,280"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,53,202,75,162,91,125,110,84,140,71,158,58,182,48,212,44,241,39,240,43,211,53,180,67,155,81,136,122,106,160,86,201,70,281,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="333,181,423,207"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="394,60,383,168,378,167,389,60"/>
+<area shape="rect" id="Node000005" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="388,255,595,280"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="425,58,445,81,462,107,476,142,485,178,493,241,488,241,479,179,470,143,457,109,441,84,421,62"/>
+<area shape="rect" id="Node000006" href="$GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="136,108,356,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="350,62,279,103,276,99,347,58"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="253,133,298,241,293,243,248,135"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="177,136,126,154,101,167,80,183,60,211,48,242,43,240,55,209,76,179,99,162,124,149,175,131"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="268,131,346,172,343,177,266,136"/>
+<area shape="rect" id="Node000007" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="90,181,258,207"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="236,136,197,174,194,170,232,132"/>
+<area shape="poly" id="edge10_Node000007_Node000002" title=" " alt="" coords="196,204,274,246,271,250,194,209"/>
+<area shape="poly" id="edge11_Node000007_Node000003" title=" " alt="" coords="154,209,76,250,73,246,151,204"/>
+<area shape="poly" id="edge14_Node000007_Node000005" title=" " alt="" coords="226,204,428,249,426,254,224,209"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="187,255,254,280"/>
+<area shape="poly" id="edge12_Node000007_Node000008" title=" " alt="" coords="184,206,208,242,203,245,179,208"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="100,255,163,280"/>
+<area shape="poly" id="edge13_Node000007_Node000009" title=" " alt="" coords="169,208,147,244,143,242,165,206"/>
+</map>

@@ -94,23 +94,23 @@ $(document).ready(function(){initNavTree('lot-12-tache-03-budget.html',''); init
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-12-niveau-puzzle_2epic_8md.html">LOT-12</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md833"></a>
+<h1><a class="anchor" id="autotoc_md837"></a>
 Contexte</h1>
 <p>Le <code>CharacterPhysicsSystem</code> doit <b>respecter</b> le budget (<code>EX-GP-024</code>) : refuser un saut ou un dash quand le quota est épuisé et <b>décompter</b> chaque usage. <code>-1</code> = illimité (rétrocompatible).</p>
-<h1><a class="anchor" id="autotoc_md834"></a>
+<h1><a class="anchor" id="autotoc_md838"></a>
 Travail à réaliser</h1>
 <p>Dans <code>CharacterPhysicsSystem::update</code>, aux points de déclenchement :</p><ul>
 <li><b>Saut</b> (toutes sources : sol/coyote, mur, aérien) : n'autoriser que si <code>player.jumpsRemaining != 0</code> ; à chaque saut effectif, <b>décrémenter</b> <code>jumpsRemaining</code> s'il est <b>limité</b> (<code>&gt; 0</code>). <code>-1</code> reste illimité.</li>
 <li><b>Dash</b> : n'autoriser que si <code>player.dashesRemaining != 0</code> ; à chaque dash, <b>décrémenter</b> s'il est limité.</li>
 <li>Ne pas toucher aux autres compteurs (coyote, sauts aériens, minuteries) : le budget est une <b>contrainte globale</b> du tableau, distincte des règles de rechargement au sol.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md835"></a>
+<h1><a class="anchor" id="autotoc_md839"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code>.</li>
 <li>Tests d'intégration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md836"></a>
+<h1><a class="anchor" id="autotoc_md840"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Budget de sauts</b> : avec <code>jumpsRemaining = 1</code>, un saut fonctionne, le suivant est <b>refusé</b>.</li>
@@ -118,18 +118,18 @@ Tests (obligatoires)</h1>
 <li><b>Illimité</b> : <code>-1</code> → aucun refus (comportement des lots précédents inchangé, tests verts).</li>
 <li><b>Déterminisme</b> (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md837"></a>
+<h1><a class="anchor" id="autotoc_md841"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Distinguer</b> budget (global, ne se recharge pas au sol) et sauts aériens (rechargés au sol) : un saut consomme <b>un</b> budget <b>et</b> le compteur de source approprié.</li>
 <li>Convention <code>-1</code> = illimité appliquée partout.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md838"></a>
+<h1><a class="anchor" id="autotoc_md842"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Budget respecté et décompté, <b>testé</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md839"></a>
+<h1><a class="anchor" id="autotoc_md843"></a>
 Exigences</h1>
 <p><code>EX-GP-024</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

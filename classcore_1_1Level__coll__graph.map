@@ -1,20 +1,35 @@
 <map id="core::Level" name="core::Level">
-<area shape="rect" id="Node000001" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes." alt="" coords="293,328,387,353"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="61,233,147,258"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,261,240,302,306,325,305,330,238,306,141,266"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,108,144,148"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,161,104,232,98,233,80,162"/>
-<area shape="rect" id="Node000004" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="217,233,327,258"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="284,269,303,302,327,326,323,330,299,306,280,272"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="169,115,343,141"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="262,154,273,232,268,233,257,154"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="218,5,294,31"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="259,44,259,115,253,115,253,44"/>
-<area shape="rect" id="Node000007" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="353,5,490,31"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="420,45,396,179,381,252,365,305,351,329,347,326,360,303,375,251,391,178,415,44"/>
-<area shape="rect" id="Node000009" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="421,115,555,141"/>
-<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="438,41,483,114,478,116,433,44"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="419,225,562,265"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="451,275,401,306,361,330,359,325,399,302,449,270"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="491,154,493,225,488,225,486,154"/>
+<area shape="rect" id="Node000001" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes." alt="" coords="908,178,1001,203"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="632,14,719,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="733,22,769,24,809,31,849,43,886,63,912,90,932,121,953,177,948,179,927,124,908,93,882,67,847,48,808,36,769,30,733,27"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="316,5,455,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="468,23,632,24,632,29,468,28"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="620,67,731,93"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="745,78,815,87,851,97,885,112,905,126,923,143,947,176,943,179,919,147,902,130,883,117,849,102,814,92,744,83"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="298,70,473,95"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="487,79,620,78,620,83,487,84"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="36,70,112,95"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="126,80,298,80,298,85,126,85"/>
+<area shape="rect" id="Node000007" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="5,242,143,267"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="91,229,123,196,143,180,166,168,251,139,325,122,392,117,456,120,590,139,668,149,759,156,822,159,885,168,915,175,913,181,883,173,821,164,758,161,667,154,589,144,455,125,392,122,325,128,252,144,168,173,146,185,127,200,95,232"/>
+<area shape="rect" id="Node000009" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="319,179,452,205"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="119,235,166,220,245,205,318,195,319,201,245,210,167,225,121,240"/>
+<area shape="rect" id="Node000011" href="$structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,..." alt="" coords="319,242,451,267"/>
+<area shape="poly" id="edge12_Node000011_Node000007" title=" " alt="" coords="157,252,319,252,319,257,157,257"/>
+<area shape="rect" id="Node000013" href="$structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX&#45;GP&#45;051) : axe et portée de son aller&#45;retour ..." alt="" coords="292,294,479,319"/>
+<area shape="poly" id="edge15_Node000013_Node000007" title=" " alt="" coords="144,267,167,272,292,292,291,297,166,277,143,273"/>
+<area shape="rect" id="Node000015" href="$structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX&#45;GP&#45;053) : période, déphasage et durée act..." alt="" coords="296,349,475,374"/>
+<area shape="poly" id="edge18_Node000015_Node000007" title=" " alt="" coords="104,273,134,292,168,310,233,331,298,346,297,351,232,336,166,314,131,297,101,278"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="604,171,747,211"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="760,188,908,188,908,193,760,193"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="466,189,604,188,604,194,466,194"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="604,235,747,275"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="760,236,883,208,910,201,912,206,885,213,761,241"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="465,252,604,252,604,257,465,257"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="592,299,759,339"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="771,295,828,277,883,251,915,227,940,202,944,205,919,231,885,256,830,282,773,300"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="492,308,592,313,592,318,492,314"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="596,363,755,403"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="767,366,827,345,856,331,882,313,907,286,925,256,947,203,952,205,930,258,911,290,886,317,859,335,829,350,769,371"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="488,366,596,374,596,380,488,372"/>
 </map>

@@ -168,12 +168,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a8f317530c36a6e4c5a34d91df3ff9bba" id="r_a8f317530c36a6e4c5a34d91df3ff9bba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a8f317530c36a6e4c5a34d91df3ff9bba">TEST</a> (MechanismControllerTest, PlaqueDePressionPoidsInsuffisant)</td></tr>
 <tr class="memdesc:a8f317530c36a6e4c5a34d91df3ff9bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un poids insuffisant sur la plaque de pression n'ouvre pas la porte.  <br /></td></tr>
 <tr class="separator:a8f317530c36a6e4c5a34d91df3ff9bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a5f92e47dc96f8915c4236cb37527c7" id="r_a1a5f92e47dc96f8915c4236cb37527c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a1a5f92e47dc96f8915c4236cb37527c7">TEST</a> (MechanismControllerTest, DangerCommuteActiveParInterrupteur)</td></tr>
+<tr class="memdesc:a1a5f92e47dc96f8915c4236cb37527c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté est inactif par défaut, et devient actif au contact de son interrupteur (bascule sur front, comme une porte, <code>EX-GP-052</code>).  <br /></td></tr>
+<tr class="separator:a1a5f92e47dc96f8915c4236cb37527c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ef28fe775444e73f729b320e161b003" id="r_a9ef28fe775444e73f729b320e161b003"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#a9ef28fe775444e73f729b320e161b003">TEST</a> (MechanismControllerTest, DangerCommuteActivationContinuePlaqueDePression)</td></tr>
+<tr class="memdesc:a9ef28fe775444e73f729b320e161b003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté lié à une plaque de pression est actif tant que le poids y repose, comme une porte — activation continue (<code>EX-GP-025</code>/<code>EX-GP-052</code>).  <br /></td></tr>
+<tr class="separator:a9ef28fe775444e73f729b320e161b003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d5fdc18f5507d92a354532b88d39aa" id="r_af0d5fdc18f5507d92a354532b88d39aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__mechanism__controller_8cpp.html#af0d5fdc18f5507d92a354532b88d39aa">TEST</a> (MechanismControllerTest, DangerActiveFauxSansLiaison)</td></tr>
+<tr class="memdesc:af0d5fdc18f5507d92a354532b88d39aa"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isDangerActive</code> renvoie faux pour une position qui ne correspond à aucune liaison connue (robustesse).  <br /></td></tr>
+<tr class="separator:af0d5fdc18f5507d92a354532b88d39aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des mécanismes interrupteur↔porte (<code>MechanismController</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a559051c9aeba73678f0b9ec80aa6e233" name="a559051c9aeba73678f0b9ec80aa6e233"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a559051c9aeba73678f0b9ec80aa6e233">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,7 +219,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a49940b49e95c5c4cf1fa58f900bdd47f" name="a49940b49e95c5c4cf1fa58f900bdd47f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a49940b49e95c5c4cf1fa58f900bdd47f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,8 +255,119 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af0d5fdc18f5507d92a354532b88d39aa" name="af0d5fdc18f5507d92a354532b88d39aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d5fdc18f5507d92a354532b88d39aa">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DangerActiveFauxSansLiaison&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>isDangerActive</code> renvoie faux pour une position qui ne correspond à aucune liaison connue (robustesse). </p>
+<p><b>Cas de test :</b> <b>isDangerActive renvoie faux pour une position sans liaison.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> isDangerActive renvoie faux pour une position sans liaison. </p>
+
+</div>
+</div>
+<a id="a9ef28fe775444e73f729b320e161b003" name="a9ef28fe775444e73f729b320e161b003"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ef28fe775444e73f729b320e161b003">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DangerCommuteActivationContinuePlaqueDePression&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger commuté lié à une plaque de pression est actif tant que le poids y repose, comme une porte — activation continue (<code>EX-GP-025</code>/<code>EX-GP-052</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger commuté lié à une plaque de pression est actif tant que le poids y repose.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger commuté lié à une plaque de pression est actif tant que le poids y repose. </p>
+
+</div>
+</div>
+<a id="a1a5f92e47dc96f8915c4236cb37527c7" name="a1a5f92e47dc96f8915c4236cb37527c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5f92e47dc96f8915c4236cb37527c7">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismControllerTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DangerCommuteActiveParInterrupteur&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger commuté est inactif par défaut, et devient actif au contact de son interrupteur (bascule sur front, comme une porte, <code>EX-GP-052</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger commuté devient actif au contact de son interrupteur.</b><br  />
+ <b>Categorie :</b> Unitaire · Mechanism Controller<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger commuté devient actif au contact de son interrupteur. </p>
+
+</div>
+</div>
 <a id="a6ee7f442f4206905ddecd3e806361610" name="a6ee7f442f4206905ddecd3e806361610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ee7f442f4206905ddecd3e806361610">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee7f442f4206905ddecd3e806361610">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +404,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8f317530c36a6e4c5a34d91df3ff9bba" name="a8f317530c36a6e4c5a34d91df3ff9bba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f317530c36a6e4c5a34d91df3ff9bba">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f317530c36a6e4c5a34d91df3ff9bba">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,7 +441,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a703121b2b1a576161b54faa1e3b48675" name="a703121b2b1a576161b54faa1e3b48675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a703121b2b1a576161b54faa1e3b48675">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

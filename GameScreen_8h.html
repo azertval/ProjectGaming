@@ -107,12 +107,15 @@ $(document).ready(function(){initNavTree('GameScreen_8h.html',''); initResizable
 <code>#include &quot;<a class="el" href="CharacterPhysicsSystem_8h_source.html">Core/Ecs/Systems/CharacterPhysicsSystem.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="World_8h_source.html">Core/Ecs/World.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BlockController_8h_source.html">Core/Gameplay/BlockController.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DangerController_8h_source.html">Core/Gameplay/DangerController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MechanismController_8h_source.html">Core/Gameplay/MechanismController.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Aabb_8h_source.html">Core/Physics/Aabb.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SpriteRenderer_8h_source.html">HMI/Graphics/SpriteRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GameKeyBindings_8h_source.html">HMI/Input/GameKeyBindings.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GamepadBindings_8h_source.html">HMI/Input/GamepadBindings.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="IScreen_8h_source.html">HMI/Interface/IScreen.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelSequence_8h_source.html">HMI/Interface/LevelSequence.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -120,130 +123,148 @@ Include dependency graph for GameScreen.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="GameScreen_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GameScreen_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GameScreen_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GameScreen_8h">
-<area shape="rect" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="1675,5,1896,60"/>
-<area shape="rect" title=" " alt="" coords="2709,269,2800,295"/>
-<area shape="poly" title=" " alt="" coords="1896,32,2117,38,2377,50,2500,59,2605,71,2684,87,2711,96,2728,106,2742,122,2752,141,2763,181,2765,222,2762,256,2756,255,2759,222,2758,182,2747,143,2738,125,2725,110,2709,101,2683,92,2604,76,2499,64,2377,55,2117,43,1896,38"/>
-<area shape="rect" title=" " alt="" coords="484,115,559,141"/>
-<area shape="poly" title=" " alt="" coords="1674,39,1422,47,1104,61,795,82,668,95,571,111,560,113,559,108,570,105,667,90,795,76,1104,55,1422,41,1674,34"/>
-<area shape="rect" title=" " alt="" coords="1271,269,1329,295"/>
-<area shape="poly" title=" " alt="" coords="1675,43,1619,51,1560,64,1502,83,1447,110,1403,144,1366,184,1336,225,1315,259,1310,256,1332,222,1362,181,1400,140,1444,106,1500,78,1559,59,1618,45,1674,37"/>
-<area shape="rect" title=" " alt="" coords="1881,343,1943,368"/>
-<area shape="poly" title=" " alt="" coords="1799,59,1888,268,1907,328,1902,330,1883,270,1794,61"/>
-<area shape="rect" href="AnimationSystem_8h.html" title="Système dérivant le clip/l&#39;image d&#39;animation du personnage de son état physique." alt="" coords="583,108,793,148"/>
-<area shape="poly" title=" " alt="" coords="1675,42,1295,66,1053,85,807,111,806,105,1053,80,1294,61,1674,37"/>
-<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="155,108,360,148"/>
-<area shape="poly" title=" " alt="" coords="1675,42,1156,68,472,111,374,119,374,113,472,105,1155,63,1674,36"/>
-<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="817,115,948,141"/>
-<area shape="poly" title=" " alt="" coords="1675,48,962,121,961,116,1674,43"/>
-<area shape="rect" href="BlockController_8h.html" title="Comportement des blocs poussables : position, poussée et chute (EX&#45;GP&#45;022)." alt="" coords="1483,115,1722,141"/>
-<area shape="poly" title=" " alt="" coords="1735,62,1638,112,1636,107,1733,58"/>
-<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="1354,269,1547,295"/>
-<area shape="poly" title=" " alt="" coords="1675,49,1613,59,1554,73,1504,90,1485,99,1473,110,1461,126,1453,144,1445,184,1444,223,1448,256,1443,256,1439,223,1439,183,1448,142,1457,123,1469,106,1482,95,1502,85,1552,68,1612,54,1674,44"/>
-<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="1533,196,1683,221"/>
-<area shape="poly" title=" " alt="" coords="1782,61,1765,105,1752,129,1735,150,1701,176,1663,194,1661,189,1698,171,1731,146,1747,126,1760,103,1777,59"/>
-<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="1848,115,2125,141"/>
-<area shape="poly" title=" " alt="" coords="1843,58,1951,107,1948,112,1841,62"/>
-<area shape="rect" href="Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="2520,115,2715,141"/>
-<area shape="poly" title=" " alt="" coords="1897,44,2506,112,2506,117,1896,49"/>
-<area shape="rect" href="SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="2295,196,2516,221"/>
-<area shape="poly" title=" " alt="" coords="1897,47,2027,71,2166,105,2279,147,2371,187,2368,192,2277,152,2165,111,2025,76,1896,52"/>
-<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="2821,196,3041,221"/>
-<area shape="poly" title=" " alt="" coords="1896,31,2111,35,2374,46,2504,55,2624,68,2726,84,2802,106,2835,122,2865,142,2912,184,2909,188,2862,146,2832,126,2800,110,2725,90,2623,73,2503,60,2373,51,2111,40,1896,37"/>
-<area shape="rect" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="2955,115,3130,141"/>
-<area shape="poly" title=" " alt="" coords="1896,36,2336,61,2617,81,2900,105,2949,111,2949,116,2900,111,2616,86,2336,66,1896,42"/>
-<area shape="rect" href="LevelSequence_8h.html" title="Séquence ordonnée de niveaux et progression courante (logique pure)." alt="" coords="2047,196,2271,221"/>
-<area shape="poly" title=" " alt="" coords="1897,42,1968,51,2039,65,2099,83,2122,94,2139,106,2151,123,2159,143,2163,182,2158,182,2154,144,2147,126,2135,110,2120,98,2097,88,2037,70,1967,57,1896,47"/>
+<area shape="rect" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="1860,5,2081,60"/>
+<area shape="rect" title=" " alt="" coords="3275,269,3365,295"/>
+<area shape="poly" title=" " alt="" coords="2082,33,2429,39,2871,52,3081,62,3259,74,3386,88,3426,97,3446,106,3458,127,3459,149,3451,171,3436,193,3395,233,3352,264,3349,260,3392,229,3432,190,3447,169,3454,148,3453,129,3442,110,3424,102,3385,94,3258,79,3080,67,2871,58,2429,45,2081,38"/>
+<area shape="rect" title=" " alt="" coords="397,115,472,141"/>
+<area shape="poly" title=" " alt="" coords="1860,38,1556,43,1158,55,768,77,607,92,485,111,474,113,472,108,483,105,606,87,768,71,1158,50,1556,38,1860,32"/>
+<area shape="rect" title=" " alt="" coords="1485,269,1544,295"/>
+<area shape="poly" title=" " alt="" coords="1860,47,1759,69,1706,87,1657,110,1614,143,1577,183,1549,224,1529,258,1524,256,1544,221,1573,180,1610,139,1655,106,1704,82,1757,64,1859,42"/>
+<area shape="rect" title=" " alt="" coords="1635,343,1698,368"/>
+<area shape="poly" title=" " alt="" coords="1860,40,1685,47,1487,60,1319,81,1262,95,1244,102,1233,110,1210,144,1204,164,1202,185,1207,209,1218,235,1238,263,1267,293,1285,301,1318,310,1416,325,1622,348,1621,353,1415,331,1317,315,1283,306,1264,297,1234,266,1214,237,1202,210,1197,186,1198,163,1205,142,1229,106,1241,97,1261,90,1318,76,1487,55,1684,42,1860,34"/>
+<area shape="rect" href="AnimationSystem_8h.html" title="Système dérivant le clip/l&#39;image d&#39;animation du personnage de son état physique." alt="" coords="497,108,706,148"/>
+<area shape="poly" title=" " alt="" coords="1860,40,1370,60,1049,81,720,111,719,105,1048,76,1369,55,1860,34"/>
+<area shape="rect" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe." alt="" coords="68,108,273,148"/>
+<area shape="poly" title=" " alt="" coords="1860,40,1233,65,813,85,386,111,287,118,287,113,385,105,812,80,1233,60,1859,35"/>
+<area shape="rect" href="World_8h.html" title="Façade de l&#39;ECS : entités, composants, vues et orchestration des systèmes." alt="" coords="731,115,861,141"/>
+<area shape="poly" title=" " alt="" coords="1860,45,875,123,875,118,1859,40"/>
+<area shape="rect" href="BlockController_8h.html" title="Comportement des blocs poussables : position, poussée et chute (EX&#45;GP&#45;022)." alt="" coords="1694,115,1933,141"/>
+<area shape="poly" title=" " alt="" coords="1928,62,1846,111,1843,106,1925,58"/>
+<area shape="rect" href="GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="1857,269,2050,295"/>
+<area shape="poly" title=" " alt="" coords="1971,61,1958,256,1952,255,1966,60"/>
+<area shape="rect" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="1581,196,1731,221"/>
+<area shape="poly" title=" " alt="" coords="1860,53,1754,77,1711,92,1683,110,1672,126,1664,145,1658,182,1653,182,1659,143,1667,123,1680,106,1709,88,1753,72,1859,48"/>
+<area shape="rect" href="DangerController_8h.html" title="Comportement des dangers mobile et temporisé : position/activation par pas fixe." alt="" coords="2007,115,2257,141"/>
+<area shape="poly" title=" " alt="" coords="2017,58,2102,106,2099,111,2015,62"/>
+<area shape="rect" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="2603,196,2757,221"/>
+<area shape="poly" title=" " alt="" coords="2082,50,2210,75,2349,105,2506,149,2634,189,2632,194,2504,154,2347,111,2209,80,2081,55"/>
+<area shape="rect" href="MechanismController_8h.html" title="Comportement des mécanismes interrupteur↔porte : état + grille de collision." alt="" coords="1243,115,1520,141"/>
+<area shape="poly" title=" " alt="" coords="1860,54,1468,116,1467,111,1859,49"/>
+<area shape="rect" href="Camera2D_8h.html" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="2781,196,2976,221"/>
+<area shape="poly" title=" " alt="" coords="2082,47,2249,73,2435,105,2648,150,2820,190,2819,195,2646,155,2434,111,2248,78,2081,52"/>
+<area shape="rect" href="SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="2059,196,2280,221"/>
+<area shape="poly" title=" " alt="" coords="2082,45,2139,55,2195,68,2241,85,2270,106,2278,127,2270,149,2248,175,2219,193,2217,188,2244,171,2266,147,2273,127,2266,110,2238,90,2193,73,2138,60,2081,50"/>
+<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="3102,196,3322,221"/>
+<area shape="poly" title=" " alt="" coords="2082,34,2342,43,2661,57,2948,78,3050,91,3110,106,3138,121,3162,141,3198,182,3194,186,3158,145,3134,126,3108,110,3049,96,2947,83,2661,63,2342,48,2081,40"/>
+<area shape="rect" href="GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="3211,115,3431,141"/>
+<area shape="poly" title=" " alt="" coords="2082,36,2557,60,2864,80,3174,105,3225,111,3225,116,3173,111,2863,85,2556,65,2081,41"/>
+<area shape="rect" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="2922,115,3097,141"/>
+<area shape="poly" title=" " alt="" coords="2082,41,2908,115,2908,120,2082,47"/>
+<area shape="rect" href="LevelSequence_8h.html" title="Séquence ordonnée de niveaux et progression courante (logique pure)." alt="" coords="2355,196,2579,221"/>
+<area shape="poly" title=" " alt="" coords="2082,49,2184,72,2290,106,2373,146,2440,186,2437,191,2371,150,2288,110,2183,77,2081,54"/>
 <area shape="rect" href="ISystem_8h.html" title="Interface d&#39;un système de l&#39;ECS : logique exécutée au pas de temps fixe." alt="" coords="240,196,387,221"/>
-<area shape="poly" title=" " alt="" coords="599,151,382,196,381,191,598,145"/>
+<area shape="poly" title=" " alt="" coords="533,151,369,195,368,190,532,145"/>
 <area shape="rect" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures)." alt="" coords="5,196,216,221"/>
-<area shape="poly" title=" " alt="" coords="223,150,146,192,143,187,221,146"/>
-<area shape="poly" title=" " alt="" coords="940,138,1021,160,1108,194,1149,220,1178,246,1207,271,1249,292,1338,319,1415,332,1484,336,1551,334,1691,328,1772,330,1867,340,1867,346,1772,335,1691,333,1551,340,1484,342,1414,337,1336,324,1247,297,1204,275,1174,250,1146,224,1105,198,1019,165,938,143"/>
-<area shape="poly" title=" " alt="" coords="839,143,804,151,693,168,606,178,406,199,401,199,401,194,405,193,605,173,692,163,804,145,838,138"/>
-<area shape="rect" title=" " alt="" coords="1169,196,1247,221"/>
-<area shape="poly" title=" " alt="" coords="931,138,1157,192,1156,198,929,143"/>
-<area shape="rect" title=" " alt="" coords="659,196,746,221"/>
-<area shape="poly" title=" " alt="" coords="858,143,742,193,740,188,855,138"/>
-<area shape="rect" title=" " alt="" coords="770,196,894,221"/>
-<area shape="poly" title=" " alt="" coords="877,142,849,186,845,183,873,139"/>
-<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="308,343,497,368"/>
-<area shape="poly" title=" " alt="" coords="837,143,805,151,736,163,683,170,630,180,563,199,515,211,475,221,441,237,426,251,410,271,404,284,400,299,401,329,395,329,395,299,399,283,406,268,422,247,439,232,473,215,513,206,562,193,629,175,682,165,735,158,803,145,836,138"/>
-<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="735,269,932,295"/>
-<area shape="poly" title=" " alt="" coords="893,140,909,177,913,200,908,222,891,246,869,264,865,260,887,243,903,220,907,200,904,179,888,142"/>
-<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="632,343,763,368"/>
-<area shape="poly" title=" " alt="" coords="838,143,720,174,670,189,648,198,641,213,638,230,644,266,661,301,681,330,676,333,656,304,639,268,632,230,635,212,645,194,669,184,718,169,836,138"/>
-<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="421,269,609,295"/>
-<area shape="poly" title=" " alt="" coords="835,143,604,198,565,227,534,260,530,256,561,223,602,194,834,138"/>
-<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="969,196,1095,221"/>
-<area shape="poly" title=" " alt="" coords="906,138,999,187,997,192,903,143"/>
-<area shape="rect" title=" " alt="" coords="359,416,446,441"/>
-<area shape="poly" title=" " alt="" coords="405,368,405,402,400,402,400,368"/>
-<area shape="poly" title=" " alt="" coords="932,291,944,292,1084,301,1202,304,1405,305,1608,311,1727,322,1867,340,1867,346,1727,327,1608,317,1405,310,1202,309,1083,306,944,297,932,296"/>
-<area shape="poly" title=" " alt="" coords="765,297,486,343,485,338,764,292"/>
-<area shape="rect" title=" " alt="" coords="2087,343,2158,368"/>
-<area shape="poly" title=" " alt="" coords="932,291,944,292,1228,310,1450,319,1671,326,1956,340,2074,348,2073,353,1956,345,1671,332,1450,324,1228,315,944,297,932,296"/>
-<area shape="poly" title=" " alt="" coords="813,297,733,339,730,334,810,292"/>
-<area shape="rect" title=" " alt="" coords="1596,416,1663,441"/>
-<area shape="poly" title=" " alt="" coords="763,359,1583,421,1582,426,763,364"/>
-<area shape="poly" title=" " alt="" coords="609,286,723,292,896,298,1043,299,1294,298,1416,299,1546,305,1694,318,1867,340,1867,346,1693,323,1546,310,1416,304,1294,303,1043,305,896,303,723,297,609,291"/>
-<area shape="poly" title=" " alt="" coords="545,292,656,335,654,340,543,297"/>
-<area shape="poly" title=" " alt="" coords="526,293,565,331,591,350,621,365,680,378,782,389,1065,406,1582,424,1582,429,1065,411,782,394,679,383,619,371,589,355,561,335,522,297"/>
-<area shape="poly" title=" " alt="" coords="1001,224,880,267,878,262,999,219"/>
-<area shape="poly" title=" " alt="" coords="1057,219,1145,257,1201,276,1259,292,2074,348,2073,353,1258,297,1199,281,1143,261,1055,224"/>
-<area shape="poly" title=" " alt="" coords="970,221,821,245,758,259,724,271,714,284,708,298,701,329,696,328,702,297,710,281,721,267,756,254,820,240,969,216"/>
-<area shape="rect" title=" " alt="" coords="956,269,1015,295"/>
-<area shape="poly" title=" " alt="" coords="1027,223,1003,259,998,256,1022,220"/>
-<area shape="rect" title=" " alt="" coords="1039,269,1094,295"/>
-<area shape="poly" title=" " alt="" coords="1040,220,1057,256,1053,258,1035,223"/>
-<area shape="rect" title=" " alt="" coords="1571,269,1631,295"/>
-<area shape="poly" title=" " alt="" coords="1095,213,1329,237,1558,267,1557,272,1328,242,1094,219"/>
-<area shape="poly" title=" " alt="" coords="1562,143,1465,172,1356,212,1309,234,1274,256,1257,276,1256,285,1261,293,1273,301,1294,307,1357,318,1538,330,1732,335,1867,341,1867,346,1731,341,1538,335,1356,323,1292,313,1270,305,1257,296,1251,286,1252,274,1271,252,1306,229,1354,207,1464,167,1560,138"/>
-<area shape="poly" title=" " alt="" coords="1630,138,2085,335,2083,340,1628,143"/>
-<area shape="poly" title=" " alt="" coords="1589,143,1523,198,1470,260,1466,256,1519,194,1585,139"/>
-<area shape="poly" title=" " alt="" coords="1606,141,1609,182,1604,182,1601,141"/>
-<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="1707,269,1874,295"/>
-<area shape="poly" title=" " alt="" coords="1621,139,1696,194,1770,258,1767,262,1693,198,1618,143"/>
-<area shape="poly" title=" " alt="" coords="1554,224,1344,272,1343,266,1553,219"/>
-<area shape="poly" title=" " alt="" coords="1619,220,1650,256,1672,276,1696,292,1868,340,1867,345,1694,297,1669,280,1647,260,1615,224"/>
-<area shape="poly" title=" " alt="" coords="1610,222,1606,256,1601,256,1604,221"/>
-<area shape="poly" title=" " alt="" coords="1584,224,1490,266,1488,261,1582,219"/>
-<area shape="poly" title=" " alt="" coords="1638,219,1749,262,1747,267,1636,224"/>
-<area shape="poly" title=" " alt="" coords="1812,292,1882,333,1879,338,1809,297"/>
-<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="1688,343,1856,368"/>
-<area shape="poly" title=" " alt="" coords="1790,296,1781,330,1776,329,1785,294"/>
-<area shape="poly" title=" " alt="" coords="1985,142,1923,330,1918,328,1980,140"/>
-<area shape="poly" title=" " alt="" coords="1995,140,2037,220,2109,330,2104,333,2032,223,1990,142"/>
-<area shape="poly" title=" " alt="" coords="1932,143,1677,196,1676,191,1931,138"/>
-<area shape="poly" title=" " alt="" coords="1974,143,1818,263,1815,259,1970,139"/>
-<area shape="rect" title=" " alt="" coords="2409,343,2524,368"/>
-<area shape="poly" title=" " alt="" coords="2645,138,2672,153,2697,173,2712,196,2714,209,2709,223,2693,246,2673,266,2627,300,2577,325,2530,341,2528,336,2575,320,2624,295,2669,262,2688,242,2704,220,2708,209,2707,198,2693,176,2669,158,2643,143"/>
-<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="2540,196,2695,221"/>
-<area shape="poly" title=" " alt="" coords="2620,141,2620,182,2615,182,2615,141"/>
-<area shape="poly" title=" " alt="" coords="2367,224,1958,343,1956,338,2365,219"/>
-<area shape="poly" title=" " alt="" coords="2429,219,2474,246,2520,283,2538,304,2549,326,2550,348,2538,370,2520,382,2490,391,2402,407,2285,418,2151,425,1877,431,1676,431,1676,425,1877,425,2150,420,2285,412,2401,402,2489,386,2517,377,2534,366,2545,347,2544,327,2534,307,2517,287,2471,250,2426,224"/>
-<area shape="rect" href="SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="2253,269,2453,295"/>
-<area shape="poly" title=" " alt="" coords="2399,223,2372,260,2368,257,2395,220"/>
-<area shape="poly" title=" " alt="" coords="2283,297,1957,349,1956,344,2282,292"/>
-<area shape="poly" title=" " alt="" coords="2317,297,2172,342,2170,337,2315,292"/>
-<area shape="poly" title=" " alt="" coords="2373,292,2438,333,2435,338,2370,297"/>
-<area shape="rect" title=" " alt="" coords="2191,343,2265,368"/>
-<area shape="poly" title=" " alt="" coords="2335,297,2262,338,2259,333,2332,292"/>
-<area shape="rect" title=" " alt="" coords="2290,343,2385,368"/>
-<area shape="poly" title=" " alt="" coords="2353,296,2345,330,2340,329,2348,294"/>
-<area shape="poly" title=" " alt="" coords="2903,224,2797,266,2795,262,2901,219"/>
-<area shape="poly" title=" " alt="" coords="2921,224,2876,262,2846,282,2813,297,2721,325,2641,340,2569,345,2501,343,2358,335,2275,336,2179,345,2172,346,2171,341,2178,340,2275,331,2358,330,2501,338,2569,339,2640,335,2719,320,2811,292,2843,277,2873,257,2917,220"/>
-<area shape="rect" title=" " alt="" coords="2991,343,3047,368"/>
-<area shape="poly" title=" " alt="" coords="2985,219,3025,237,3043,251,3057,268,3062,285,3059,302,3042,333,3037,331,3054,301,3057,285,3052,271,3039,255,3022,242,2983,224"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="2875,269,3043,295"/>
-<area shape="poly" title=" " alt="" coords="2938,221,2952,256,2947,258,2933,223"/>
-<area shape="poly" title=" " alt="" coords="2875,293,2812,297,2076,345,1957,353,1957,348,2076,340,2812,292,2874,287"/>
-<area shape="poly" title=" " alt="" coords="2875,296,2856,297,2666,311,2517,316,2369,324,2179,345,2172,346,2171,341,2178,340,2368,319,2517,311,2665,305,2856,292,2874,290"/>
-<area shape="poly" title=" " alt="" coords="2918,297,2770,334,2676,354,2580,371,2313,400,2051,418,1828,427,1677,430,1676,424,1828,421,2051,413,2313,395,2580,365,2675,349,2769,329,2917,292"/>
-<area shape="poly" title=" " alt="" coords="2971,293,3002,330,2998,334,2967,297"/>
-<area shape="poly" title=" " alt="" coords="3051,140,3062,178,3062,201,3056,223,3034,248,3007,266,3004,261,3030,244,3051,220,3057,200,3056,179,3046,142"/>
-<area shape="poly" title=" " alt="" coords="2255,219,2695,271,2695,276,2254,224"/>
-<area shape="poly" title=" " alt="" coords="2140,224,1945,338,1942,333,2138,219"/>
-<area shape="poly" title=" " alt="" coords="2158,222,2131,330,2126,329,2153,221"/>
-<area shape="poly" title=" " alt="" coords="2069,224,1645,278,1645,272,2069,219"/>
+<area shape="poly" title=" " alt="" coords="158,150,130,187,126,183,154,147"/>
+<area shape="poly" title=" " alt="" coords="862,129,917,135,979,147,1043,166,1103,194,1119,206,1131,219,1146,245,1161,270,1172,282,1188,292,1212,300,1255,308,1377,324,1622,348,1621,353,1376,329,1254,313,1211,305,1186,297,1169,286,1157,274,1141,248,1126,222,1115,210,1100,198,1041,171,977,152,916,140,861,134"/>
+<area shape="poly" title=" " alt="" coords="752,143,718,151,401,198,400,193,717,145,751,138"/>
+<area shape="rect" title=" " alt="" coords="580,196,657,221"/>
+<area shape="poly" title=" " alt="" coords="771,143,658,193,656,188,769,138"/>
+<area shape="rect" title=" " alt="" coords="682,196,769,221"/>
+<area shape="poly" title=" " alt="" coords="788,143,747,187,743,184,784,139"/>
+<area shape="rect" title=" " alt="" coords="793,196,917,221"/>
+<area shape="poly" title=" " alt="" coords="807,139,840,183,836,186,803,142"/>
+<area shape="rect" href="Assert_8h.html" title="Assertions du projet : vérifient préconditions et invariants (bugs)." alt="" coords="351,343,540,368"/>
+<area shape="poly" title=" " alt="" coords="749,143,718,151,659,161,612,166,567,176,513,198,464,227,448,244,433,270,429,285,429,300,437,329,431,331,424,301,424,284,428,268,444,241,461,222,511,194,566,171,611,161,658,156,717,145,748,138"/>
+<area shape="rect" href="ComponentPool_8h.html" title="Stockage typé des composants d&#39;un ECS sous forme de sparse set." alt="" coords="920,269,1117,295"/>
+<area shape="poly" title=" " alt="" coords="862,133,924,141,989,154,1045,171,1066,182,1081,195,1087,213,1081,231,1067,248,1050,263,1047,259,1063,245,1076,229,1082,213,1076,197,1063,186,1043,176,988,159,923,147,862,138"/>
+<area shape="rect" href="Entity_8h.html" title="Identifiant d&#39;entité de l&#39;ECS : handle générationnel (index + génération)." alt="" coords="655,343,785,368"/>
+<area shape="poly" title=" " alt="" coords="753,143,639,174,570,198,566,208,570,220,585,238,602,246,622,254,644,267,677,299,704,330,700,333,673,303,641,271,620,258,600,251,582,242,566,223,561,208,566,194,637,169,751,138"/>
+<area shape="rect" href="EntityManager_8h.html" title="Gestionnaire du cycle de vie des entités (création, destruction, recyclage)." alt="" coords="443,269,631,295"/>
+<area shape="poly" title=" " alt="" coords="748,143,526,198,520,211,519,225,527,256,522,257,514,226,515,209,522,194,747,138"/>
+<area shape="rect" href="View_8h.html" title="Vue multi&#45;composants : itère les entités possédant un ensemble de types." alt="" coords="941,196,1067,221"/>
+<area shape="poly" title=" " alt="" coords="827,138,962,189,960,194,825,143"/>
+<area shape="rect" title=" " alt="" coords="402,416,489,441"/>
+<area shape="poly" title=" " alt="" coords="448,368,448,402,443,402,443,368"/>
+<area shape="poly" title=" " alt="" coords="1118,291,1622,346,1621,352,1117,297"/>
+<area shape="poly" title=" " alt="" coords="927,297,552,344,551,338,926,292"/>
+<area shape="rect" title=" " alt="" coords="2343,343,2414,368"/>
+<area shape="poly" title=" " alt="" coords="1118,286,2330,349,2329,354,1117,291"/>
+<area shape="poly" title=" " alt="" coords="971,297,782,342,781,337,970,292"/>
+<area shape="rect" title=" " alt="" coords="1472,416,1539,441"/>
+<area shape="poly" title=" " alt="" coords="786,360,1458,420,1458,426,785,365"/>
+<area shape="poly" title=" " alt="" coords="632,287,1622,349,1622,354,632,292"/>
+<area shape="poly" title=" " alt="" coords="568,292,678,335,676,340,566,297"/>
+<area shape="poly" title=" " alt="" coords="549,293,588,330,614,350,644,366,715,385,812,400,925,410,1048,418,1285,424,1458,425,1458,430,1285,430,1048,423,925,416,811,405,714,390,642,370,611,355,584,335,545,297"/>
+<area shape="poly" title=" " alt="" coords="1009,221,1016,255,1011,256,1004,222"/>
+<area shape="poly" title=" " alt="" coords="1067,210,1319,228,1479,245,1640,267,1695,279,1750,292,1916,315,2081,331,2330,349,2330,354,2080,337,1915,320,1749,297,1694,285,1640,272,1478,250,1318,234,1067,216"/>
+<area shape="poly" title=" " alt="" coords="941,224,822,248,773,261,747,271,737,284,730,298,724,329,718,328,725,297,733,281,744,267,771,255,821,242,940,218"/>
+<area shape="rect" title=" " alt="" coords="757,269,816,295"/>
+<area shape="poly" title=" " alt="" coords="970,224,830,269,828,264,968,219"/>
+<area shape="rect" title=" " alt="" coords="841,269,895,295"/>
+<area shape="poly" title=" " alt="" coords="983,224,903,265,901,261,981,219"/>
+<area shape="rect" title=" " alt="" coords="1569,269,1629,295"/>
+<area shape="poly" title=" " alt="" coords="1067,211,1280,229,1416,245,1556,267,1555,272,1415,250,1279,234,1067,216"/>
+<area shape="poly" title=" " alt="" coords="1808,142,1684,333,1679,330,1804,139"/>
+<area shape="poly" title=" " alt="" coords="1843,138,2338,335,2336,340,1841,143"/>
+<area shape="poly" title=" " alt="" coords="1826,139,1936,257,1932,261,1822,143"/>
+<area shape="poly" title=" " alt="" coords="1792,143,1692,192,1690,188,1789,138"/>
+<area shape="rect" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="1294,269,1461,295"/>
+<area shape="poly" title=" " alt="" coords="1764,143,1673,167,1570,199,1485,233,1414,265,1412,261,1483,228,1568,193,1672,161,1762,138"/>
+<area shape="poly" title=" " alt="" coords="1634,224,1551,265,1549,261,1632,219"/>
+<area shape="poly" title=" " alt="" coords="1660,222,1667,329,1662,329,1654,222"/>
+<area shape="poly" title=" " alt="" coords="1649,223,1619,260,1615,257,1644,220"/>
+<area shape="poly" title=" " alt="" coords="1704,219,1893,263,1891,269,1703,224"/>
+<area shape="poly" title=" " alt="" coords="1612,224,1436,268,1435,263,1611,219"/>
+<area shape="poly" title=" " alt="" coords="1424,292,1622,340,1621,346,1423,297"/>
+<area shape="rect" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="1293,343,1461,368"/>
+<area shape="poly" title=" " alt="" coords="1380,295,1380,329,1375,329,1375,295"/>
+<area shape="poly" title=" " alt="" coords="2109,143,2076,165,2061,180,2049,197,2046,210,2047,223,2060,246,2071,270,2071,283,2063,296,2039,314,2002,328,1956,339,1905,346,1800,355,1712,357,1712,352,1799,349,1905,341,1955,334,2000,323,2036,310,2059,293,2066,282,2066,271,2055,249,2042,224,2040,210,2044,195,2057,176,2072,161,2106,138"/>
+<area shape="poly" title=" " alt="" coords="2183,138,2239,159,2268,175,2294,194,2322,226,2345,263,2374,329,2369,331,2340,265,2318,229,2290,198,2265,179,2237,164,2181,143"/>
+<area shape="poly" title=" " alt="" coords="2063,143,1739,196,1739,191,2062,138"/>
+<area shape="poly" title=" " alt="" coords="2212,138,2589,192,2588,197,2211,143"/>
+<area shape="rect" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="2429,269,2584,295"/>
+<area shape="poly" title=" " alt="" coords="2653,224,2549,266,2547,262,2651,219"/>
+<area shape="poly" title=" " alt="" coords="1366,143,1331,172,1294,211,1280,232,1273,253,1273,274,1283,293,1299,302,1331,310,1424,326,1622,348,1621,353,1423,332,1330,316,1297,307,1279,297,1268,275,1268,252,1276,230,1290,207,1327,168,1363,139"/>
+<area shape="poly" title=" " alt="" coords="1520,133,1575,141,1633,153,1690,170,1744,194,1762,205,1776,218,1795,245,1814,270,1827,282,1845,292,1885,306,1940,318,2076,335,2217,345,2330,350,2330,355,2217,350,2075,340,1939,323,1884,311,1843,297,1824,286,1810,274,1791,248,1772,222,1759,210,1741,198,1688,175,1631,158,1574,146,1520,139"/>
+<area shape="poly" title=" " alt="" coords="1422,138,1604,190,1602,195,1421,143"/>
+<area shape="poly" title=" " alt="" coords="1384,141,1381,256,1375,256,1378,141"/>
+<area shape="poly" title=" " alt="" coords="2819,224,2581,269,2580,264,2818,219"/>
+<area shape="rect" title=" " alt="" coords="2871,343,2985,368"/>
+<area shape="poly" title=" " alt="" coords="2892,220,2909,241,2924,268,2931,300,2932,329,2927,329,2926,300,2919,270,2905,244,2888,223"/>
+<area shape="poly" title=" " alt="" coords="2167,223,2145,260,2129,281,2108,297,2076,311,2031,322,1921,339,1806,350,1712,355,1711,350,1805,344,1921,334,2030,317,2074,306,2105,292,2125,277,2141,257,2162,220"/>
+<area shape="poly" title=" " alt="" coords="2171,222,2164,259,2156,279,2142,297,2096,324,2030,348,1951,369,1863,386,1688,412,1553,426,1552,421,1687,407,1862,381,1949,364,2029,343,2094,320,2138,293,2151,277,2159,257,2166,221"/>
+<area shape="rect" href="SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="2709,269,2909,295"/>
+<area shape="poly" title=" " alt="" coords="2272,219,2696,265,2695,271,2272,224"/>
+<area shape="poly" title=" " alt="" coords="2709,292,1712,354,1711,349,2709,287"/>
+<area shape="poly" title=" " alt="" coords="2741,297,2428,349,2427,343,2740,292"/>
+<area shape="poly" title=" " alt="" coords="2830,292,2898,333,2895,338,2827,297"/>
+<area shape="rect" title=" " alt="" coords="2772,343,2847,368"/>
+<area shape="poly" title=" " alt="" coords="2812,295,2812,329,2807,329,2807,295"/>
+<area shape="rect" title=" " alt="" coords="2653,343,2747,368"/>
+<area shape="poly" title=" " alt="" coords="2793,297,2731,337,2728,333,2790,292"/>
+<area shape="poly" title=" " alt="" coords="3231,219,3292,259,3289,264,3228,224"/>
+<area shape="poly" title=" " alt="" coords="3102,224,2862,249,2698,272,2670,284,2641,297,2527,328,2428,348,2427,343,2526,323,2639,292,2667,279,2697,267,2861,244,3101,218"/>
+<area shape="rect" title=" " alt="" coords="3292,343,3348,368"/>
+<area shape="poly" title=" " alt="" coords="3220,220,3239,254,3265,293,3299,331,3295,335,3261,296,3234,257,3215,223"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="2984,269,3152,295"/>
+<area shape="poly" title=" " alt="" coords="3190,224,3105,265,3103,261,3188,219"/>
+<area shape="poly" title=" " alt="" coords="2984,293,2921,297,2201,335,1712,355,1712,350,2200,330,2921,292,2984,288"/>
+<area shape="poly" title=" " alt="" coords="2984,295,2428,352,2427,346,2984,289"/>
+<area shape="poly" title=" " alt="" coords="3065,296,3040,334,3021,355,2999,370,2963,382,2908,392,2750,408,2545,419,2315,426,1861,431,1553,430,1553,425,1861,426,2315,420,2545,413,2749,402,2907,387,2961,377,2996,366,3018,351,3036,331,3060,293"/>
+<area shape="poly" title=" " alt="" coords="3109,292,3279,340,3278,345,3108,297"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="3061,343,3267,368"/>
+<area shape="poly" title=" " alt="" coords="3085,293,3139,332,3136,336,3082,297"/>
+<area shape="poly" title=" " alt="" coords="3328,141,3336,177,3337,222,3330,257,3325,256,3332,221,3330,177,3322,142"/>
+<area shape="poly" title=" " alt="" coords="3283,143,3129,187,2989,224,2890,238,2812,241,2736,248,2692,257,2641,272,2619,284,2597,297,2508,327,2428,347,2427,342,2507,322,2595,292,2616,279,2639,267,2690,251,2735,242,2812,236,2890,232,2987,219,3128,182,3282,138"/>
+<area shape="poly" title=" " alt="" coords="3307,143,3241,190,3238,186,3304,139"/>
+<area shape="poly" title=" " alt="" coords="3358,138,3398,160,3417,175,3432,195,3444,221,3448,246,3444,270,3432,296,3418,313,3400,327,3362,346,3360,341,3397,323,3414,310,3427,293,3439,268,3443,246,3439,223,3427,197,3413,179,3395,164,3356,143"/>
+<area shape="poly" title=" " alt="" coords="3334,139,3357,169,3380,209,3389,231,3392,254,3390,276,3379,296,3360,311,3330,324,3255,343,3253,338,3328,319,3357,307,3375,293,3385,274,3387,254,3383,233,3376,211,3353,172,3330,143"/>
+<area shape="poly" title=" " alt="" coords="3016,140,3061,256,3056,258,3011,142"/>
+<area shape="poly" title=" " alt="" coords="2579,218,2591,219,3261,273,3261,279,2590,224,2579,223"/>
+<area shape="poly" title=" " alt="" coords="2430,224,2303,260,2141,297,2020,318,1900,334,1712,353,1712,348,1899,328,2019,312,2139,292,2301,255,2429,219"/>
+<area shape="poly" title=" " alt="" coords="2458,223,2420,271,2390,331,2385,328,2415,268,2453,220"/>
+<area shape="poly" title=" " alt="" coords="2355,222,1643,280,1642,274,2354,216"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">

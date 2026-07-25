@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-26-tache-03-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-26-pentes-arrondis-plafond_2epic_8md.html">LOT-26</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1341"></a>
+<h1><a class="anchor" id="autotoc_md1345"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur le comportement final (physique de suivi, pas la solidité simple envisagée un temps en cours de route — voir la décision de cadrage de l'épic).</p>
-<h1><a class="anchor" id="autotoc_md1342"></a>
+<h1><a class="anchor" id="autotoc_md1346"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>** : nouvelle exigence <code>EX-GP-006</code>, ligne de tableau pour la variante de plafond.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li>**<code>CHANGELOG.md</code>** : entrée <code>[Non publié]</code> décrivant le lot (comportement final, pas l'implémentation intermédiaire solide/visuelle-seule).</li>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : mêmes vérifications que les lots précédents.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1343"></a>
+<h1><a class="anchor" id="autotoc_md1347"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>, <code><a class="el" href="niveaux_8md.html">niveaux.md</a></code>.</li>
@@ -116,24 +116,24 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></code> (régénéré).</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1344"></a>
+<h1><a class="anchor" id="autotoc_md1348"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li><code>python scripts/generate_cahier_test.py --check</code> confirme que le Cahier de test est à jour.</li>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1345"></a>
+<h1><a class="anchor" id="autotoc_md1349"></a>
 Points d'attention</h1>
 <ul>
 <li><b>La documentation doit refléter le comportement FINAL</b>, pas l'implémentation intermédiaire (tuiles solides à silhouette purement visuelle) rédigée puis abandonnée en cours de lot — les passages déjà écrits pour cette version intermédiaire (<code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>, <code><a class="el" href="niveaux_8md.html">niveaux.md</a></code>, <code>Elements/Levels/README.md</code>) ont été réécrits, pas seulement complétés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1346"></a>
+<h1><a class="anchor" id="autotoc_md1350"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1347"></a>
+<h1><a class="anchor" id="autotoc_md1351"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

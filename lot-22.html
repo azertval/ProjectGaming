@@ -96,19 +96,19 @@ $(document).ready(function(){initNavTree('lot-22.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Le personnage <b>suit</b> la surface d'une tuile en pente en marchant dessus (<code>EX-GP-003</code>), plutôt que d'être simplement bloqué ou arrêté à son pied — première brique d'une collision <b>par forme de tuile</b>, pas seulement solide/vide. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1170"></a>
+<h1><a class="anchor" id="autotoc_md1174"></a>
 Objectif</h1>
 <p>Toutes les tuiles solides du moteur sont aujourd'hui des <b>rectangles pleins</b> (<code>isSolid</code>, binaire). <code>EX-GP-003</code> demande une tuile de <b>pente</b> : solide, mais dont la surface est <b>inclinée</b> — le personnage doit y marcher en suivant la montée/descente, sans à-coup ni saut brusque en haut ou en bas de la pente. C'est le changement le plus risqué proposé pour la forme des blocs (voir la discussion de cadrage tenue avec l'utilisateur) : il touche directement <code>SweptCollision</code>/<code>CharacterPhysicsSystem</code>, cœur déjà testé et stable de la physique. Ce lot est traité <b>seul</b>, avant <code>LOT-23</code>/<code>LOT-24</code>, pour isoler ce risque.</p>
-<h1><a class="anchor" id="autotoc_md1171"></a>
+<h1><a class="anchor" id="autotoc_md1175"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1172"></a>
+<h2><a class="anchor" id="autotoc_md1176"></a>
 Inclus</h2>
 <ul>
 <li>Deux nouvelles tuiles : <code>SlopeUpRight</code> (monte de gauche à droite) et <code>SlopeUpLeft</code> (monte de droite à gauche) — pente à <b>45°</b>, montée pleine sur toute la largeur d'une case (une case de différence de hauteur entre les deux bords).</li>
 <li><b>Suivi de pente</b> : un personnage qui marche sur une pente voit sa position verticale <b>calée</b> sur la hauteur de la pente à sa position horizontale, chaque pas fixe — pas seulement bloqué par le bord haut ou en chute libre au-dessus du bord bas.</li>
 <li>Chargement/écriture JSON (<code>"slopeUpRight"</code>/<code>"slopeUpLeft"</code>), palette de l'éditeur, rendu (une couleur distincte, triangle plutôt que carré plein).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1173"></a>
+<h2><a class="anchor" id="autotoc_md1177"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Angle autre que 45°</b> — une pente à pente variable (ex. 30°, sur deux cases) est une évolution possible, non demandée pour ce lot.</li>
@@ -116,7 +116,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Bloc poussable sur une pente</b> — comportement non défini (un bloc qui glisserait sur une pente est une mécanique à part) ; <code>BlockController</code> (LOT-21) continue de supposer un sol plat.</li>
 <li><b>Collision arrondie</b> (<code>EX-GP-004</code>, <code>LOT-23</code>) et <b>blocs à taille fractionnaire</b> (<code>EX-GP-005</code>, <code>LOT-24</code>) — traités dans des lots séparés, qui <b>réutilisent</b> l'infrastructure posée ici.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1174"></a>
+<h1><a class="anchor" id="autotoc_md1178"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Une pente n'est PAS solide pour le balayage horizontal (<code>sweepX</code>).** Si elle l'était comme une tuile pleine, son bord « haut » agirait comme un mur invisible bloquant l'ascension — exactement l'inverse du suivi voulu. Le personnage doit pouvoir avancer horizontalement à travers la colonne d'une pente ; c'est la **résolution verticale</b> qui le maintient sur la surface.</li>
@@ -125,12 +125,12 @@ Décisions de cadrage</h1>
 <li><b>Le suivi de pente l'emporte sur la chute libre, mais pas sur un saut volontaire.</b> Une vitesse verticale positive (chute) proche de la surface est absorbée par le calage ; une vitesse verticale négative franche (le joueur vient de sauter) n'est <b>pas</b> rattrapée par la pente — sinon un saut depuis une pente serait immédiatement annulé.</li>
 <li><b>Découverte pendant la TACHE-02, hors périmètre initial</b> : une pente suivie d'un bloc plein de même hauteur (le raccord pente → palier le plus courant) bloquait le personnage à mi-montée — le balayage horizontal (<code>sweepX</code>) traite comme un mur toute case pleine partageant une ligne que la boîte chevauche déjà, or suivre une pente fait légitimement chevaucher la boîte à l'intérieur de sa case (pas seulement à sa frontière, comme sur un sol plat). Corrigé en généralisant le principe de la « peau » (<code>kSkin</code>) déjà utilisée pour le sol plat : une ligne où l'empreinte horizontale courante de la boîte repose sur une pente n'est jamais un mur pour <code>sweepX</code> (voir <code>rowIsSlopeGround</code>, <code><a class="el" href="SweptCollision_8cpp.html">SweptCollision.cpp</a></code>, et <a class="el" href="guide-physique.html">Physique du personnage</a>, section « Suivi de pente »). Détaillé dans la TACHE-02.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1175"></a>
+<h1><a class="anchor" id="autotoc_md1179"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-GP-003</code> — implémentée (marqueur « non implémenté » retiré).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1176"></a>
+<h1><a class="anchor" id="autotoc_md1180"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -147,7 +147,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="LOT-22-pentes_2tache-04-documentation-verification_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1177"></a>
+<h1><a class="anchor" id="autotoc_md1181"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage monte et descend une pente à 45° sans à-coup visible, sans se retrouver bloqué à la transition pente ↔ sol plat.</li>
@@ -156,12 +156,12 @@ Critères d'acceptation du lot</h1>
 <li><b>Aucune régression</b> sur la physique existante : tous les tests de <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></code> (sol plat, murs, sauts, dash, wall jump…) restent verts sans modification.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> dédiés (montée, descente, chute sur pente, saut depuis une pente, transition pente/sol plat). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1178"></a>
+<h1><a class="anchor" id="autotoc_md1182"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <code>TileType</code>/<code>TileMap</code> (LOT-03/07) et <code>SweptCollision</code>/<code>CharacterPhysicsSystem</code> (LOT-01, LOT-08 à LOT-11, LOT-19) — seul lot de cette série à modifier la physique du personnage directement ; <code>LOT-23</code> et <code>LOT-24</code> en dépendent (réutilisent l'infrastructure de suivi de surface posée ici).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1179"></a>
+<h1><a class="anchor" id="autotoc_md1183"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-22-tache-01-modele-tuile-pente.html">TACHE-01 — Modèle de tuile et fonction de hauteur</a></li>

@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-17-tache-01-silhouette-personnage.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-17-sprite-personnage_2epic_8md.html">LOT-17</a> · <b>Emplacement :</b> <code>HMI/Graphics</code>, <code>HMI/Interface</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1025"></a>
+<h1><a class="anchor" id="autotoc_md1029"></a>
 Contexte</h1>
 <p><code>GameScreen::spawnPlayer</code> assigne au personnage <code>_atlas.tile(1, 1)</code> — une tuile de couleur unie (cyan) parmi les seize tuiles générées de la grille 4×4 de <code>TextureAtlas</code>. Aucune forme humanoïde n'existe : ce que le joueur contrôle est visuellement indissociable d'un décor.</p>
-<h1><a class="anchor" id="autotoc_md1026"></a>
+<h1><a class="anchor" id="autotoc_md1030"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">hmi::TextureAtlas</a></code>** (<code><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">Source/HMI/Graphics/TextureAtlas.h</a></code>/<code>.cpp</code>) :<ul>
@@ -109,31 +109,31 @@ Travail à réaliser</h1>
 </li>
 <li>**<code><a class="el" href="classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9" title="Fait apparaître le personnage (Player + Transform + Velocity + Collider + Sprite) à l&#39;entrée.">hmi::GameScreen::spawnPlayer</a></code>** (<code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code>) : <code>sprite.region = _atlas.playerRegion();</code> à la place de <code>_atlas.tile(1, 1)</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1027"></a>
+<h1><a class="anchor" id="autotoc_md1031"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TextureAtlas_8h.html" title="Atlas de textures (spritesheet) et ses régions de tuiles.">Source/HMI/Graphics/TextureAtlas.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1028"></a>
+<h1><a class="anchor" id="autotoc_md1032"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test unitaire nouveau : <code>TextureAtlas</code> crée une ressource Direct3D (nécessite un <code>ID3D11Device</code>), donc non testable hors GPU (<code>EX-NFR-010</code> : la logique pure testable reste dans <code>Core</code> ; ce lot n'ajoute aucune règle côté <code>Core</code>). Vérification par génération locale (Doxygen) et par observation visuelle du jeu compilé (silhouette rendue correctement).</li>
 <li><code>ctest --preset ninja</code> reste vert à l'identique (292 tests, aucune régression) — vérifie que rien côté <code>Core</code>/logique n'est affecté par ce changement purement graphique.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1029"></a>
+<h1><a class="anchor" id="autotoc_md1033"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas casser les tuiles existantes</b> : la grille 4×4 (colonnes 0-3, lignes 0-3) doit rester bit-à-bit identique après l'agrandissement de la texture — seule sa hauteur relative (dénominateur de normalisation UV) change, pas les pixels eux-mêmes ni les régions retournées par <code>tile()</code>. Vérifié visuellement (niveaux existants inchangés à l'écran).</li>
 <li><b>Une seule texture par passe de rendu</b> (<code>SpriteRenderer::render</code>, <code>_batch-&gt;begin(..., _atlas-&gt;textureView())</code>) : la région du personnage doit vivre dans la <b>même</b> texture que les tuiles, pas dans une ressource séparée — sans quoi le personnage et le niveau ne pourraient plus être dessinés dans la même passe sans restructurer <code>SpriteRenderer</code>.</li>
 <li><b>La région doit rester carrée (16×16), ne pas encoder le ratio 1:2 dans ses dimensions.</b> <code>SpriteRenderer::render</code> calcule <code>worldWidth = region.width / PIXELS_PER_UNIT * transform.scale.x</code> (et l'équivalent en hauteur) : la région est donc <b>déjà</b> multipliée par <code>Transform::scale</code>, qui vaut <code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code> (0,4×0,8, déjà non uniforme). Bug rencontré en implémentant ce lot : une première version utilisait une région 16×32 (ratio 1:2 « en dur » dans les pixels), ce qui appliquait le ratio <b>deux fois</b> — silhouette rendue à 0,4×1,6 au lieu de 0,4×0,8, débordant de la boîte de collision et traversant les murs. Corrigé en gardant la région carrée (comme <code>tile()</code>) et en pré-compressant la silhouette de moitié en hauteur dans <code>playerPixel</code> : l'étirement du <code>Transform</code> restitue les proportions naturelles à l'écran.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1030"></a>
+<h1><a class="anchor" id="autotoc_md1034"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Silhouette humanoïde visible en jeu, remplaçant le rectangle uni ; build <code>/W4 /WX</code> sans avertissement ; <code>ctest</code> vert (292/292) ; Doxygen local sans sortie.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1031"></a>
+<h1><a class="anchor" id="autotoc_md1035"></a>
 Exigences</h1>
 <p><code>EX-REN-011</code> (partie statique). </p>
 </div></div><!-- contents -->

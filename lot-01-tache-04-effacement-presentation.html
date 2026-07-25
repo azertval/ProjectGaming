@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-01-tache-04-effacement-presentatio
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-01-fenetre-boucle-jeu_2epic_8md.html">LOT-01</a> · <b>Module :</b> <code>Source/HMI</code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md269"></a>
+<h1><a class="anchor" id="autotoc_md273"></a>
 Contexte</h1>
 <p>Avec la fenêtre (TACHE-01) et le device (TACHE-02), on produit la première image : un écran effacé à une couleur, présenté sans tearing, et robuste au redimensionnement.</p>
-<h1><a class="anchor" id="autotoc_md270"></a>
+<h1><a class="anchor" id="autotoc_md274"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Ajouter à <code>GraphicsDevice</code> (ou une classe <code>Renderer</code> mince au-dessus) :<ul>
@@ -108,27 +108,27 @@ Travail à réaliser</h1>
 <li>Implémenter le <b>redimensionnement</b> : sur événement de resize (TACHE-01), relâcher la render target view, appeler <code>ResizeBuffers</code>, recréer la render target view et le viewport.</li>
 <li>Ignorer le resize lorsque la fenêtre est <b>minimisée</b> (taille client nulle).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md271"></a>
+<h1><a class="anchor" id="autotoc_md275"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/GraphicsDevice.*</code> (ou <code>Source/HMI/Renderer.*</code> nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code> si nouveaux fichiers.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md272"></a>
+<h1><a class="anchor" id="autotoc_md276"></a>
 Points d'attention</h1>
 <ul>
 <li>Ordre correct du redimensionnement : <b>libérer</b> les vues liées au back buffer <b>avant</b> <code>ResizeBuffers</code>, sinon échec.</li>
 <li><code>Present(1, …)</code> pour la V-Sync (<code>EX-REN-022</code>).</li>
 <li>Aucune fuite lors des redimensionnements répétés (vérifiable sous AddressSanitizer et couche debug D3D).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md273"></a>
+<h1><a class="anchor" id="autotoc_md277"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>La fenêtre affiche une couleur stable, présentée sans tearing.</li>
 <li>Redimensionnements répétés (dont minimisation/restauration) sans crash ni fuite.</li>
 <li>Compile <code>/W4 /WX</code>, formaté, API documentée en Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md274"></a>
+<h1><a class="anchor" id="autotoc_md278"></a>
 Exigences</h1>
 <p><code>EX-REN-022</code>, <code>EX-REN-003</code>. </p>
 </div></div><!-- contents -->

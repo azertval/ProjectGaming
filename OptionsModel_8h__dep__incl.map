@@ -1,10 +1,10 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsModel.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsModel.h">
-<area shape="rect" id="Node000001" title="Logique (testable) du menu d&#39;options : sélection, survol et actions." alt="" coords="265,5,487,60"/>
+<area shape="rect" id="Node000001" title="Logique (testable) du menu d&#39;options : sélection, survol, défilement et actions." alt="" coords="265,5,487,60"/>
 <area shape="rect" id="Node000002" href="$OptionsModel_8cpp.html" title=" " alt="" coords="5,115,240,170"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="303,68,185,118,183,113,301,63"/>
 <area shape="rect" id="Node000003" href="$OptionsScreen_8h.html" title="Écran du menu d&#39;options : dessine le menu et applique ses actions." alt="" coords="264,115,488,170"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="379,74,379,115,373,115,373,74"/>
-<area shape="rect" id="Node000006" href="$test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation et actions." alt="" coords="512,108,733,177"/>
+<area shape="rect" id="Node000006" href="$test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions." alt="" coords="512,108,733,177"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="450,63,547,105,545,110,448,68"/>
 <area shape="rect" id="Node000004" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="129,225,367,280"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="335,182,281,227,278,223,332,177"/>

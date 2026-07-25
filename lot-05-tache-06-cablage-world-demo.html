@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-05-tache-06-cablage-world-demo.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-05-rendu-2d_2epic_8md.html">LOT-05</a> · <b>Emplacement :</b> <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md490"></a>
+<h1><a class="anchor" id="autotoc_md494"></a>
 Contexte</h1>
 <p>Tâche d'assemblage. Aujourd'hui la boucle de <code>main</code> a un emplacement de mise à jour <b>vide</b> (« arrive au LOT-03 ») et n'affiche rien. On y branche le <code>World</code> et le rendu, et on construit une petite scène pour <b>voir</b> le résultat.</p>
-<h1><a class="anchor" id="autotoc_md491"></a>
+<h1><a class="anchor" id="autotoc_md495"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Instancier un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code>, y enregistrer les systèmes de simulation (au moins le <code>MovementSystem</code> de démo), et appeler <code>world.update(fixedDelta)</code> pour <b>chaque pas fixe</b> restitué par <code>FixedTimestep</code> (remplace le <code>// vide</code>).</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b>Scène de démonstration</b> codée en dur : créer quelques entités formant une <b>grille de tuiles</b> (<code>Transform</code> + <code>Sprite</code> de couche fond) et <b>un sprite</b> mobile (couche entités, avec <code>Velocity</code> pour le voir bouger via le <code>MovementSystem</code>).</li>
 <li>Répercuter le redimensionnement sur la caméra et la swap chain.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md492"></a>
+<h1><a class="anchor" id="autotoc_md496"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
 <li>Éventuel petit assembleur de scène de démo (<code>Source/HMI/...</code>), sinon inline dans <code>main</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md493"></a>
+<h1><a class="anchor" id="autotoc_md497"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>L'exécutable ouvre une fenêtre affichant la grille de tuiles et le sprite ; le sprite <b>se déplace</b> (simulation à pas fixe active).</li>
 <li>Le déplacement est <b>déterministe</b> (même durée simulée → même position).</li>
 <li>Fermeture propre (croix / Échap) ; aucune fuite ni erreur au redimensionnement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md494"></a>
+<h1><a class="anchor" id="autotoc_md498"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Séparation</b> claire : la simulation (<code>World::update</code>) précède le rendu (lecture seule) ; le rendu ne fait pas avancer la logique.</li>
 <li>Scène <b>codée en dur</b> : le chargement depuis un fichier de niveau est un lot ultérieur.</li>
 <li>Vérifier le rendu réel de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md495"></a>
+<h1><a class="anchor" id="autotoc_md499"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaîne complète <b>ECS → simulation à pas fixe → rendu</b> visible et déterministe ; tous les critères d'acceptation de l'<a class="el" href="LOT-05-rendu-2d_2epic_8md.html">epic</a> satisfaits ; build <code>/W4 /WX</code>, CI verte, Doxygen et <code>CHANGELOG.md</code> à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md496"></a>
+<h1><a class="anchor" id="autotoc_md500"></a>
 Exigences</h1>
 <p><code>EX-REN-020</code>, <code>EX-REN-021</code>, <code>EX-REN-022</code>, <code>EX-ARCH-030</code>, <code>EX-NFR-002</code>. </p>
 </div></div><!-- contents -->

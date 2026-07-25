@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('test__options__model_8cpp.html',''); i
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de la logique du menu d'options : navigation et actions.  
+<p>Tests unitaires de la logique du menu d'options : navigation, défilement et actions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
@@ -108,54 +108,56 @@ Include dependency graph for test_options_model.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="test__options__model_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Interface_2test__options__model_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Interface_2test__options__model_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Test_2Unit_2HMI_2Interface_2test__options__model_8cpp">
-<area shape="rect" title="Tests unitaires de la logique du menu d&#39;options : navigation et actions." alt="" coords="336,5,557,75"/>
-<area shape="rect" title=" " alt="" coords="48,123,152,148"/>
-<area shape="poly" title=" " alt="" coords="336,74,156,122,155,117,335,68"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="37,277,205,302"/>
-<area shape="poly" title=" " alt="" coords="392,77,307,131,216,198,176,234,143,268,139,264,173,230,213,194,304,127,389,73"/>
-<area shape="rect" href="MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="345,123,548,148"/>
-<area shape="poly" title=" " alt="" coords="449,75,449,109,444,109,444,75"/>
-<area shape="rect" href="OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol et actions." alt="" coords="572,123,788,148"/>
-<area shape="poly" title=" " alt="" coords="532,72,640,115,638,120,530,77"/>
-<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="812,123,1036,148"/>
-<area shape="poly" title=" " alt="" coords="558,60,852,117,851,123,557,65"/>
-<area shape="rect" title=" " alt="" coords="5,357,61,383"/>
-<area shape="poly" title=" " alt="" coords="110,304,58,350,55,346,107,300"/>
-<area shape="rect" title=" " alt="" coords="86,357,157,383"/>
-<area shape="poly" title=" " alt="" coords="124,302,124,343,119,343,119,302"/>
-<area shape="rect" title=" " alt="" coords="279,357,345,383"/>
-<area shape="poly" title=" " alt="" coords="150,300,272,350,270,355,148,304"/>
-<area shape="rect" title=" " alt="" coords="181,357,243,383"/>
-<area shape="poly" title=" " alt="" coords="136,300,190,346,187,350,133,304"/>
-<area shape="rect" title=" " alt="" coords="651,196,709,221"/>
-<area shape="poly" title=" " alt="" coords="485,145,638,192,637,197,483,151"/>
-<area shape="rect" href="BitmapFont_8h.html" title="Police bitmap à chasse fixe, générée en code, et dessin de texte via SpriteBatch." alt="" coords="427,196,627,221"/>
-<area shape="poly" title=" " alt="" coords="461,146,505,185,502,189,458,150"/>
-<area shape="rect" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="227,196,402,221"/>
-<area shape="poly" title=" " alt="" coords="427,150,349,192,347,187,424,146"/>
-<area shape="poly" title=" " alt="" coords="515,224,468,264,407,312,345,352,342,348,404,307,465,259,512,220"/>
-<area shape="rect" title=" " alt="" coords="826,277,923,302"/>
-<area shape="poly" title=" " alt="" coords="591,219,696,240,814,267,827,270,826,275,813,272,695,245,590,224"/>
-<area shape="rect" title=" " alt="" coords="947,277,1071,302"/>
-<area shape="poly" title=" " alt="" coords="626,219,773,239,937,267,955,271,954,276,935,272,772,244,625,224"/>
-<area shape="rect" title=" " alt="" coords="469,277,584,302"/>
-<area shape="poly" title=" " alt="" coords="529,222,529,263,524,263,524,222"/>
-<area shape="rect" title=" " alt="" coords="608,277,683,302"/>
-<area shape="poly" title=" " alt="" coords="546,219,618,267,615,271,543,224"/>
-<area shape="rect" title=" " alt="" coords="707,277,802,302"/>
-<area shape="poly" title=" " alt="" coords="561,219,709,270,708,275,559,224"/>
-<area shape="rect" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="230,269,394,309"/>
-<area shape="poly" title=" " alt="" coords="496,224,377,267,376,262,495,219"/>
-<area shape="poly" title=" " alt="" coords="315,310,315,343,309,343,309,310"/>
-<area shape="poly" title=" " alt="" coords="288,224,163,274,161,269,286,219"/>
-<area shape="poly" title=" " alt="" coords="683,148,683,182,677,182,677,148"/>
-<area shape="rect" title=" " alt="" coords="733,196,808,221"/>
-<area shape="poly" title=" " alt="" coords="696,146,747,185,743,189,693,150"/>
-<area shape="poly" title=" " alt="" coords="886,151,724,197,722,192,884,145"/>
-<area shape="poly" title=" " alt="" coords="923,149,885,264,880,263,918,147"/>
-<area shape="poly" title=" " alt="" coords="929,148,937,181,953,220,970,244,988,265,985,269,966,247,948,223,932,183,923,149"/>
-<area shape="rect" title=" " alt="" coords="963,196,1053,221"/>
-<area shape="poly" title=" " alt="" coords="939,146,985,185,982,189,936,150"/>
+<area shape="rect" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions." alt="" coords="562,5,783,75"/>
+<area shape="rect" title=" " alt="" coords="274,123,378,148"/>
+<area shape="poly" title=" " alt="" coords="562,74,382,122,381,117,561,68"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="263,277,431,302"/>
+<area shape="poly" title=" " alt="" coords="618,77,533,131,442,198,402,234,369,268,365,264,399,230,439,194,530,127,615,73"/>
+<area shape="rect" href="MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions." alt="" coords="571,123,774,148"/>
+<area shape="poly" title=" " alt="" coords="675,75,675,109,670,109,670,75"/>
+<area shape="rect" href="OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol, défilement et actions." alt="" coords="798,123,1014,148"/>
+<area shape="poly" title=" " alt="" coords="758,72,866,115,864,120,756,77"/>
+<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="1038,123,1262,148"/>
+<area shape="poly" title=" " alt="" coords="784,60,1078,117,1077,123,783,65"/>
+<area shape="rect" title=" " alt="" coords="237,357,293,383"/>
+<area shape="poly" title=" " alt="" coords="337,304,289,350,285,346,333,300"/>
+<area shape="rect" title=" " alt="" coords="317,357,388,383"/>
+<area shape="poly" title=" " alt="" coords="351,302,354,343,348,344,345,302"/>
+<area shape="rect" title=" " alt="" coords="505,357,571,383"/>
+<area shape="poly" title=" " alt="" coords="376,300,498,350,496,355,374,304"/>
+<area shape="rect" title=" " alt="" coords="412,357,475,383"/>
+<area shape="poly" title=" " alt="" coords="363,300,420,347,417,351,360,304"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="5,357,212,383"/>
+<area shape="poly" title=" " alt="" coords="313,305,157,356,156,351,312,299"/>
+<area shape="rect" title=" " alt="" coords="877,196,935,221"/>
+<area shape="poly" title=" " alt="" coords="711,145,864,192,863,197,709,151"/>
+<area shape="rect" href="BitmapFont_8h.html" title="Police bitmap à chasse fixe, générée en code, et dessin de texte via SpriteBatch." alt="" coords="653,196,853,221"/>
+<area shape="poly" title=" " alt="" coords="687,146,731,185,728,189,684,150"/>
+<area shape="rect" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans." alt="" coords="453,196,628,221"/>
+<area shape="poly" title=" " alt="" coords="653,150,575,192,573,187,650,146"/>
+<area shape="poly" title=" " alt="" coords="741,224,694,264,633,312,571,352,568,348,630,307,691,259,738,220"/>
+<area shape="rect" title=" " alt="" coords="1052,277,1149,302"/>
+<area shape="poly" title=" " alt="" coords="817,219,922,240,1040,267,1053,270,1052,275,1039,272,921,245,816,224"/>
+<area shape="rect" title=" " alt="" coords="1173,277,1297,302"/>
+<area shape="poly" title=" " alt="" coords="852,219,999,239,1163,267,1181,271,1180,276,1161,272,998,244,851,224"/>
+<area shape="rect" title=" " alt="" coords="695,277,810,302"/>
+<area shape="poly" title=" " alt="" coords="755,222,755,263,750,263,750,222"/>
+<area shape="rect" title=" " alt="" coords="834,277,909,302"/>
+<area shape="poly" title=" " alt="" coords="772,219,844,267,841,271,769,224"/>
+<area shape="rect" title=" " alt="" coords="933,277,1028,302"/>
+<area shape="poly" title=" " alt="" coords="787,219,935,270,934,275,785,224"/>
+<area shape="rect" href="Sprite_8h.html" title="Composant d&#39;apparence 2D d&#39;une entité (données pures)." alt="" coords="456,269,620,309"/>
+<area shape="poly" title=" " alt="" coords="722,224,603,267,602,262,721,219"/>
+<area shape="poly" title=" " alt="" coords="541,310,541,343,535,343,535,310"/>
+<area shape="poly" title=" " alt="" coords="514,224,389,274,387,269,512,219"/>
+<area shape="poly" title=" " alt="" coords="909,148,909,182,903,182,903,148"/>
+<area shape="rect" title=" " alt="" coords="959,196,1034,221"/>
+<area shape="poly" title=" " alt="" coords="922,146,973,185,969,189,919,150"/>
+<area shape="poly" title=" " alt="" coords="1112,151,950,197,948,192,1110,145"/>
+<area shape="poly" title=" " alt="" coords="1149,149,1111,264,1106,263,1144,147"/>
+<area shape="poly" title=" " alt="" coords="1155,148,1163,181,1179,220,1196,244,1214,265,1211,269,1192,247,1174,223,1158,183,1149,149"/>
+<area shape="rect" title=" " alt="" coords="1189,196,1279,221"/>
+<area shape="poly" title=" " alt="" coords="1165,146,1211,185,1208,189,1162,150"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -164,14 +166,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a8292700e53184e6aa0e732ace493ab42" id="r_a8292700e53184e6aa0e732ace493ab42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a8292700e53184e6aa0e732ace493ab42">TEST</a> (OptionsModelTest, SelectionParDefautEtLibelleVSync)</td></tr>
 <tr class="memdesc:a8292700e53184e6aa0e732ace493ab42"><td class="mdescLeft">&#160;</td><td class="mdescRight">À l'ouverture, la première option (V-Sync) est sélectionnée et affiche l'état fourni.  <br /></td></tr>
 <tr class="separator:a8292700e53184e6aa0e732ace493ab42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2cc18ee9449a7cbd0f9ed019168db2" id="r_a9f2cc18ee9449a7cbd0f9ed019168db2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a9f2cc18ee9449a7cbd0f9ed019168db2">TEST</a> (OptionsModelTest, VisibleOptionCountA720p)</td></tr>
+<tr class="memdesc:a9f2cc18ee9449a7cbd0f9ed019168db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">À 720p, seules 4 des 5 options tiennent dans la fenêtre visible sans défilement.  <br /></td></tr>
+<tr class="separator:a9f2cc18ee9449a7cbd0f9ed019168db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef39f402cf14bb44125c34d9953231e7" id="r_aef39f402cf14bb44125c34d9953231e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#aef39f402cf14bb44125c34d9953231e7">TEST</a> (OptionsModelTest, ValiderVSyncRenvoieToggle)</td></tr>
 <tr class="memdesc:aef39f402cf14bb44125c34d9953231e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valider la première option (V-Sync) renvoie l'action ToggleVSync, sans changer d'écran.  <br /></td></tr>
 <tr class="separator:aef39f402cf14bb44125c34d9953231e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d9642faf0f716e50768fc9d5476501e" id="r_a7d9642faf0f716e50768fc9d5476501e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a7d9642faf0f716e50768fc9d5476501e">TEST</a> (OptionsModelTest, FlecheBasPuisValiderRenvoieBack)</td></tr>
-<tr class="memdesc:a7d9642faf0f716e50768fc9d5476501e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trois flèches bas puis valider (Retour) renvoie l'action Back.  <br /></td></tr>
+<tr class="memdesc:a7d9642faf0f716e50768fc9d5476501e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quatre flèches bas déplacent la sélection jusqu'à Retour et font défiler la fenêtre pour la garder visible ; valider ensuite renvoie l'action Back.  <br /></td></tr>
 <tr class="separator:a7d9642faf0f716e50768fc9d5476501e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc65e19bdbd8b037fbd41fc5763d6506" id="r_adc65e19bdbd8b037fbd41fc5763d6506"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#adc65e19bdbd8b037fbd41fc5763d6506">TEST</a> (OptionsModelTest, FlecheHautBoucleSurRetour)</td></tr>
-<tr class="memdesc:adc65e19bdbd8b037fbd41fc5763d6506"><td class="mdescLeft">&#160;</td><td class="mdescRight">La flèche haut depuis la première option boucle sur la dernière (Retour).  <br /></td></tr>
+<tr class="memdesc:adc65e19bdbd8b037fbd41fc5763d6506"><td class="mdescLeft">&#160;</td><td class="mdescRight">La flèche haut depuis la première option boucle sur la dernière (Retour) et fait défiler la fenêtre pour la garder visible.  <br /></td></tr>
 <tr class="separator:adc65e19bdbd8b037fbd41fc5763d6506"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add2e1e99c4ae93d6c54c4b0fbbf499ed" id="r_add2e1e99c4ae93d6c54c4b0fbbf499ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#add2e1e99c4ae93d6c54c4b0fbbf499ed">TEST</a> (OptionsModelTest, ValiderTouchesDeJeuRenvoieOpenGameKeybindings)</td></tr>
 <tr class="memdesc:add2e1e99c4ae93d6c54c4b0fbbf499ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valider l'option « Touches de jeu » renvoie l'action OpenGameKeybindings.  <br /></td></tr>
@@ -179,9 +184,18 @@ Functions</h2></td></tr>
 <tr class="memitem:aaa94045d5fba401a5e6aa786dce15496" id="r_aaa94045d5fba401a5e6aa786dce15496"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#aaa94045d5fba401a5e6aa786dce15496">TEST</a> (OptionsModelTest, ValiderTouchesDeLEditeurRenvoieOpenEditorKeybindings)</td></tr>
 <tr class="memdesc:aaa94045d5fba401a5e6aa786dce15496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valider l'option « Touches de l'éditeur » renvoie l'action OpenEditorKeybindings.  <br /></td></tr>
 <tr class="separator:aaa94045d5fba401a5e6aa786dce15496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab411117081b4b3a73648db76d0bf0bee" id="r_ab411117081b4b3a73648db76d0bf0bee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#ab411117081b4b3a73648db76d0bf0bee">TEST</a> (OptionsModelTest, ClicSourisValideRetour)</td></tr>
-<tr class="memdesc:ab411117081b4b3a73648db76d0bf0bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le survol d'une option à la souris la sélectionne ; un clic la valide.  <br /></td></tr>
-<tr class="separator:ab411117081b4b3a73648db76d0bf0bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e24ab7373cab9740f661bd1effd292c" id="r_a4e24ab7373cab9740f661bd1effd292c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a4e24ab7373cab9740f661bd1effd292c">TEST</a> (OptionsModelTest, ValiderTouchesDeLaManetteRenvoieOpenGamepadBindings)</td></tr>
+<tr class="memdesc:a4e24ab7373cab9740f661bd1effd292c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valider l'option « Touches de la manette » renvoie l'action OpenGamepadBindings.  <br /></td></tr>
+<tr class="separator:a4e24ab7373cab9740f661bd1effd292c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72a5c532e0eaae467a032aeaee55ccc3" id="r_a72a5c532e0eaae467a032aeaee55ccc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a72a5c532e0eaae467a032aeaee55ccc3">TEST</a> (OptionsModelTest, ClicSourisValideTouchesDeJeu)</td></tr>
+<tr class="memdesc:a72a5c532e0eaae467a032aeaee55ccc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le survol d'une option visible à la souris la sélectionne ; un clic la valide.  <br /></td></tr>
+<tr class="separator:a72a5c532e0eaae467a032aeaee55ccc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0824eaafce374aac99dc48954d3f86fc" id="r_a0824eaafce374aac99dc48954d3f86fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a0824eaafce374aac99dc48954d3f86fc">TEST</a> (OptionsModelTest, ClicApresDefilementValideRetour)</td></tr>
+<tr class="memdesc:a0824eaafce374aac99dc48954d3f86fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Après défilement (clavier) jusqu'à Retour, un clic à sa position <b>affichée</b> (rang visible, pas l'indice absolu) la valide.  <br /></td></tr>
+<tr class="separator:a0824eaafce374aac99dc48954d3f86fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00f45ec5c226aa187ad48e0a94631dfb" id="r_a00f45ec5c226aa187ad48e0a94631dfb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a00f45ec5c226aa187ad48e0a94631dfb">TEST</a> (OptionsModelTest, MoletteDefileSansChangerLaSelection)</td></tr>
+<tr class="memdesc:a00f45ec5c226aa187ad48e0a94631dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La molette défile la fenêtre visible sans changer la sélection courante.  <br /></td></tr>
+<tr class="separator:a00f45ec5c226aa187ad48e0a94631dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a803e4fe5e9633ee46173ef47f21a6c76" id="r_a803e4fe5e9633ee46173ef47f21a6c76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__options__model_8cpp.html#a803e4fe5e9633ee46173ef47f21a6c76">TEST</a> (OptionsModelTest, SetVSyncEnabledChangeLeLibelle)</td></tr>
 <tr class="memdesc:a803e4fe5e9633ee46173ef47f21a6c76"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>setVSyncEnabled</code> resynchronise le libellé affiché après une bascule.  <br /></td></tr>
 <tr class="separator:a803e4fe5e9633ee46173ef47f21a6c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,10 +204,47 @@ Functions</h2></td></tr>
 <tr class="separator:a88e2a6dd1d46fd027bd49439bbd7556c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de la logique du menu d'options : navigation et actions. </p>
+<div class="textblock"><p>Tests unitaires de la logique du menu d'options : navigation, défilement et actions. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0824eaafce374aac99dc48954d3f86fc" name="a0824eaafce374aac99dc48954d3f86fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0824eaafce374aac99dc48954d3f86fc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">OptionsModelTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClicApresDefilementValideRetour&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Après défilement (clavier) jusqu'à Retour, un clic à sa position <b>affichée</b> (rang visible, pas l'indice absolu) la valide. </p>
+<p><b>Cas de test :</b> <b>Après défilement jusqu'à Retour, un clic à sa position affichée la valide.</b><br  />
+ <b>Categorie :</b> Unitaire · Options Model<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un clic à la position affichée de Retour (après défilement) renvoie l'action Back. </p>
+
+</div>
+</div>
 <a id="a88e2a6dd1d46fd027bd49439bbd7556c" name="a88e2a6dd1d46fd027bd49439bbd7556c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88e2a6dd1d46fd027bd49439bbd7556c">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a88e2a6dd1d46fd027bd49439bbd7556c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,8 +280,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab411117081b4b3a73648db76d0bf0bee" name="ab411117081b4b3a73648db76d0bf0bee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab411117081b4b3a73648db76d0bf0bee">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<a id="a72a5c532e0eaae467a032aeaee55ccc3" name="a72a5c532e0eaae467a032aeaee55ccc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72a5c532e0eaae467a032aeaee55ccc3">&#9670;&#160;</a></span>TEST() <span class="overload">[3/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +295,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ClicSourisValideRetour&#160;</td>
+          <td class="paramtype">ClicSourisValideTouchesDeJeu&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -255,19 +306,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le survol d'une option à la souris la sélectionne ; un clic la valide. </p>
-<p><b>Cas de test :</b> <b>Le survol d'une option à la souris la sélectionne ; un clic la valide.</b><br  />
+<p>Le survol d'une option visible à la souris la sélectionne ; un clic la valide. </p>
+<p><b>Cas de test :</b> <b>Le survol d'une option visible à la souris la sélectionne ; un clic la valide.</b><br  />
  <b>Categorie :</b> Unitaire · Options Model<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le survol d'une option à la souris la sélectionne ; un clic la valide. </p>
+ <b>Resultat attendu :</b> Le survol d'une option visible à la souris la sélectionne ; un clic la valide. </p>
 
 </div>
 </div>
 <a id="a7d9642faf0f716e50768fc9d5476501e" name="a7d9642faf0f716e50768fc9d5476501e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d9642faf0f716e50768fc9d5476501e">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d9642faf0f716e50768fc9d5476501e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,19 +343,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trois flèches bas puis valider (Retour) renvoie l'action Back. </p>
-<p><b>Cas de test :</b> <b>Trois flèches bas puis valider (Retour) renvoie l'action Back.</b><br  />
+<p>Quatre flèches bas déplacent la sélection jusqu'à Retour et font défiler la fenêtre pour la garder visible ; valider ensuite renvoie l'action Back. </p>
+<p><b>Cas de test :</b> <b>Quatre flèches bas puis valider (Retour) renvoie l'action Back, en ayant fait défiler la fenêtre.</b><br  />
  <b>Categorie :</b> Unitaire · Options Model<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Trois flèches bas puis valider (Retour) renvoie l'action Back. </p>
+ <b>Resultat attendu :</b> Quatre flèches bas puis valider (Retour) renvoie l'action Back. </p>
 
 </div>
 </div>
 <a id="adc65e19bdbd8b037fbd41fc5763d6506" name="adc65e19bdbd8b037fbd41fc5763d6506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc65e19bdbd8b037fbd41fc5763d6506">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc65e19bdbd8b037fbd41fc5763d6506">&#9670;&#160;</a></span>TEST() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,8 +380,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La flèche haut depuis la première option boucle sur la dernière (Retour). </p>
-<p><b>Cas de test :</b> <b>La flèche haut depuis la première option boucle sur la dernière (Retour).</b><br  />
+<p>La flèche haut depuis la première option boucle sur la dernière (Retour) et fait défiler la fenêtre pour la garder visible. </p>
+<p><b>Cas de test :</b> <b>La flèche haut depuis la première option boucle sur la dernière (Retour), fenêtre défilée en conséquence.</b><br  />
  <b>Categorie :</b> Unitaire · Options Model<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -340,8 +391,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a00f45ec5c226aa187ad48e0a94631dfb" name="a00f45ec5c226aa187ad48e0a94631dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00f45ec5c226aa187ad48e0a94631dfb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">OptionsModelTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MoletteDefileSansChangerLaSelection&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La molette défile la fenêtre visible sans changer la sélection courante. </p>
+<p><b>Cas de test :</b> <b>La molette défile la fenêtre visible sans changer la sélection courante.</b><br  />
+ <b>Categorie :</b> Unitaire · Options Model<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> La molette change le défilement, jamais la sélection. </p>
+
+</div>
+</div>
 <a id="a8292700e53184e6aa0e732ace493ab42" name="a8292700e53184e6aa0e732ace493ab42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8292700e53184e6aa0e732ace493ab42">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8292700e53184e6aa0e732ace493ab42">&#9670;&#160;</a></span>TEST() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,7 +466,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a803e4fe5e9633ee46173ef47f21a6c76" name="a803e4fe5e9633ee46173ef47f21a6c76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a803e4fe5e9633ee46173ef47f21a6c76">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a803e4fe5e9633ee46173ef47f21a6c76">&#9670;&#160;</a></span>TEST() <span class="overload">[8/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -415,7 +503,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="add2e1e99c4ae93d6c54c4b0fbbf499ed" name="add2e1e99c4ae93d6c54c4b0fbbf499ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add2e1e99c4ae93d6c54c4b0fbbf499ed">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#add2e1e99c4ae93d6c54c4b0fbbf499ed">&#9670;&#160;</a></span>TEST() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -451,8 +539,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4e24ab7373cab9740f661bd1effd292c" name="a4e24ab7373cab9740f661bd1effd292c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e24ab7373cab9740f661bd1effd292c">&#9670;&#160;</a></span>TEST() <span class="overload">[10/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">OptionsModelTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ValiderTouchesDeLaManetteRenvoieOpenGamepadBindings&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valider l'option « Touches de la manette » renvoie l'action OpenGamepadBindings. </p>
+<p><b>Cas de test :</b> <b>Valider l'option « Touches de la manette » renvoie l'action OpenGamepadBindings.</b><br  />
+ <b>Categorie :</b> Unitaire · Options Model<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Valider l'option « Touches de la manette » renvoie l'action OpenGamepadBindings. </p>
+
+</div>
+</div>
 <a id="aaa94045d5fba401a5e6aa786dce15496" name="aaa94045d5fba401a5e6aa786dce15496"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa94045d5fba401a5e6aa786dce15496">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa94045d5fba401a5e6aa786dce15496">&#9670;&#160;</a></span>TEST() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -489,7 +614,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aef39f402cf14bb44125c34d9953231e7" name="aef39f402cf14bb44125c34d9953231e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef39f402cf14bb44125c34d9953231e7">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aef39f402cf14bb44125c34d9953231e7">&#9670;&#160;</a></span>TEST() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,6 +647,43 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Valider la première option (V-Sync) renvoie l'action ToggleVSync. </p>
+
+</div>
+</div>
+<a id="a9f2cc18ee9449a7cbd0f9ed019168db2" name="a9f2cc18ee9449a7cbd0f9ed019168db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2cc18ee9449a7cbd0f9ed019168db2">&#9670;&#160;</a></span>TEST() <span class="overload">[13/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">OptionsModelTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VisibleOptionCountA720p&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>À 720p, seules 4 des 5 options tiennent dans la fenêtre visible sans défilement. </p>
+<p><b>Cas de test :</b> <b>À 720p, seules 4 des 5 options tiennent sans défilement.</b><br  />
+ <b>Categorie :</b> Unitaire · Options Model<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> À 720p, <code>visibleOptionCount</code> renvoie 4, strictement moins que <code>OPTION_COUNT</code> (5). </p>
 
 </div>
 </div>

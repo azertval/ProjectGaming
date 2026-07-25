@@ -28,5 +28,7 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-26-pentes-arrondis-plafond", "dir_6f073fb43d5276a75c75681f0b9c807e.html", null ],
     [ "LOT-27-palette-categories", "dir_89d758090369483b3401e240ba9ea8f4.html", null ],
     [ "LOT-28-arrondis-concaves", "dir_8b45a94cde361c841ff5018bc9a1de3b.html", null ],
-    [ "LOT-29-remappage-touches", "dir_53d160ae09e307f5c74d0d03d1a19103.html", null ]
+    [ "LOT-29-remappage-touches", "dir_53d160ae09e307f5c74d0d03d1a19103.html", null ],
+    [ "LOT-30-remappage-manette", "dir_c2a4dd7aa0366fc380b52944a77fb179.html", null ],
+    [ "LOT-31-blocs-danger-avances", "dir_e4d0ddfd3c04dd21c3edef0473c0e899.html", null ]
 ];

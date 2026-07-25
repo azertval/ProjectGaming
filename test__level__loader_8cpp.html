@@ -219,12 +219,39 @@ Functions</h2></td></tr>
 <tr class="memitem:acea9c21dfc1e5d46483f21160401e87c" id="r_acea9c21dfc1e5d46483f21160401e87c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#acea9c21dfc1e5d46483f21160401e87c">TEST</a> (LevelLoaderTest, NiveauDeDemoLivreValide)</td></tr>
 <tr class="memdesc:acea9c21dfc1e5d46483f21160401e87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau de démonstration livré (Source/Elements/Levels) se charge et se valide.  <br /></td></tr>
 <tr class="separator:acea9c21dfc1e5d46483f21160401e87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9261a55a41fffe629f0ca3199e2f88d" id="r_ae9261a55a41fffe629f0ca3199e2f88d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#ae9261a55a41fffe629f0ca3199e2f88d">TEST</a> (LevelLoaderTest, ChargeLesQuatreDangersDirectionnels)</td></tr>
+<tr class="memdesc:ae9261a55a41fffe629f0ca3199e2f88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant ni liaison (<code>EX-GP-050</code>).  <br /></td></tr>
+<tr class="separator:ae9261a55a41fffe629f0ca3199e2f88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada36cc3c6e66801ad3a221ac2208cc24" id="r_ada36cc3c6e66801ad3a221ac2208cc24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#ada36cc3c6e66801ad3a221ac2208cc24">TEST</a> (LevelLoaderTest, ChargeUnDangerMobileValeursParDefaut)</td></tr>
+<tr class="memdesc:ada36cc3c6e66801ad3a221ac2208cc24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger mobile sans champs explicites reçoit les valeurs de conception par défaut (<code>EX-GP-051</code>).  <br /></td></tr>
+<tr class="separator:ada36cc3c6e66801ad3a221ac2208cc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee9db236e7435e602e241b3bce8a7d5" id="r_a2ee9db236e7435e602e241b3bce8a7d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#a2ee9db236e7435e602e241b3bce8a7d5">TEST</a> (LevelLoaderTest, ChargeUnDangerMobileValeursExplicites)</td></tr>
+<tr class="memdesc:a2ee9db236e7435e602e241b3bce8a7d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger mobile avec axe et portée explicites les préserve (<code>EX-GP-051</code>).  <br /></td></tr>
+<tr class="separator:a2ee9db236e7435e602e241b3bce8a7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad118a23e5eb1bbb87f4ef0bc336fbbd6" id="r_ad118a23e5eb1bbb87f4ef0bc336fbbd6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#ad118a23e5eb1bbb87f4ef0bc336fbbd6">TEST</a> (LevelLoaderTest, PorteeDangerMobileHorsBornesRejetee)</td></tr>
+<tr class="memdesc:ad118a23e5eb1bbb87f4ef0bc336fbbd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une portée de danger mobile qui sortirait de la grille est rejetée (<code>EX-LVL-004</code>).  <br /></td></tr>
+<tr class="separator:ad118a23e5eb1bbb87f4ef0bc336fbbd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a720ff19b02be759b819647f1b3a048ed" id="r_a720ff19b02be759b819647f1b3a048ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#a720ff19b02be759b819647f1b3a048ed">TEST</a> (LevelLoaderTest, ChargeUnDangerCommuteLie)</td></tr>
+<tr class="memdesc:a720ff19b02be759b819647f1b3a048ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté lié à un interrupteur est mortel selon l'état de celui-ci, résolu au chargement comme une porte (<code>EX-GP-052</code>).  <br /></td></tr>
+<tr class="separator:a720ff19b02be759b819647f1b3a048ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f2f0be6a6c44b77c163eb16bf51ae5" id="r_ae5f2f0be6a6c44b77c163eb16bf51ae5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#ae5f2f0be6a6c44b77c163eb16bf51ae5">TEST</a> (LevelLoaderTest, DangerCommuteSansLiaisonEstValide)</td></tr>
+<tr class="memdesc:ae5f2f0be6a6c44b77c163eb16bf51ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté sans 'opensWith' est une simple tuile inerte : chargement valide, aucune liaison (<code>EX-GP-052</code>).  <br /></td></tr>
+<tr class="separator:ae5f2f0be6a6c44b77c163eb16bf51ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac83744bb2f9c98169e3519a27f007a6c" id="r_ac83744bb2f9c98169e3519a27f007a6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#ac83744bb2f9c98169e3519a27f007a6c">TEST</a> (LevelLoaderTest, DangerCommuteLieAInterrupteurInexistantRejete)</td></tr>
+<tr class="memdesc:ac83744bb2f9c98169e3519a27f007a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger commuté lié à un interrupteur inexistant est rejeté (<code>EX-GP-052</code>).  <br /></td></tr>
+<tr class="separator:ac83744bb2f9c98169e3519a27f007a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38daa4a2c18bb7995b56b27502f7d686" id="r_a38daa4a2c18bb7995b56b27502f7d686"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#a38daa4a2c18bb7995b56b27502f7d686">TEST</a> (LevelLoaderTest, ChargeUnDangerTemporiseValeursParDefaut)</td></tr>
+<tr class="memdesc:a38daa4a2c18bb7995b56b27502f7d686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger temporisé sans champs explicites reçoit les valeurs de conception par défaut (<code>EX-GP-053</code>).  <br /></td></tr>
+<tr class="separator:a38daa4a2c18bb7995b56b27502f7d686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6cdb6b9df71552cb553b9eee4f1feed" id="r_aa6cdb6b9df71552cb553b9eee4f1feed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level__loader_8cpp.html#aa6cdb6b9df71552cb553b9eee4f1feed">TEST</a> (LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites)</td></tr>
+<tr class="memdesc:aa6cdb6b9df71552cb553b9eee4f1feed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un danger temporisé avec période/déphasage/durée active explicites les préserve (<code>EX-GP-053</code>).  <br /></td></tr>
+<tr class="separator:aa6cdb6b9df71552cb553b9eee4f1feed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du chargement de niveau (format JSON, erreurs récupérables). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ae1243b058b4b5d5fd43f4bd862f58002" name="ae1243b058b4b5d5fd43f4bd862f58002"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1243b058b4b5d5fd43f4bd862f58002">&#9670;&#160;</a></span>TEST() <span class="overload">[1/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1243b058b4b5d5fd43f4bd862f58002">&#9670;&#160;</a></span>TEST() <span class="overload">[1/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +288,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a838df5fab7457d58f835ebc21173f89c" name="a838df5fab7457d58f835ebc21173f89c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a838df5fab7457d58f835ebc21173f89c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a838df5fab7457d58f835ebc21173f89c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +325,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3d99e74d593a8bb9579e20b4be23ed6b" name="a3d99e74d593a8bb9579e20b4be23ed6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d99e74d593a8bb9579e20b4be23ed6b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d99e74d593a8bb9579e20b4be23ed6b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,7 +362,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a296ef4c4d48aadf4eb6c72f87f382342" name="a296ef4c4d48aadf4eb6c72f87f382342"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a296ef4c4d48aadf4eb6c72f87f382342">&#9670;&#160;</a></span>TEST() <span class="overload">[4/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a296ef4c4d48aadf4eb6c72f87f382342">&#9670;&#160;</a></span>TEST() <span class="overload">[4/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,7 +399,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae1189fdc770da9408d5b4899100a12d3" name="ae1189fdc770da9408d5b4899100a12d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1189fdc770da9408d5b4899100a12d3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1189fdc770da9408d5b4899100a12d3">&#9670;&#160;</a></span>TEST() <span class="overload">[5/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +436,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa0825b7859ac46f2a931e36c90cb2f89" name="aa0825b7859ac46f2a931e36c90cb2f89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0825b7859ac46f2a931e36c90cb2f89">&#9670;&#160;</a></span>TEST() <span class="overload">[6/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0825b7859ac46f2a931e36c90cb2f89">&#9670;&#160;</a></span>TEST() <span class="overload">[6/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,8 +472,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae9261a55a41fffe629f0ca3199e2f88d" name="ae9261a55a41fffe629f0ca3199e2f88d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9261a55a41fffe629f0ca3199e2f88d">&#9670;&#160;</a></span>TEST() <span class="overload">[7/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeLesQuatreDangersDirectionnels&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant ni liaison (<code>EX-GP-050</code>). </p>
+<p><b>Cas de test :</b> <b>Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant ni liaison.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Les quatre dangers directionnels se chargent comme de simples tuiles, sans identifiant ni liaison. </p>
+
+</div>
+</div>
 <a id="a1123a0ae8387443853c89a9cae76b15e" name="a1123a0ae8387443853c89a9cae76b15e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1123a0ae8387443853c89a9cae76b15e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1123a0ae8387443853c89a9cae76b15e">&#9670;&#160;</a></span>TEST() <span class="overload">[8/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -483,7 +547,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a133187ea17554111e053372fdfd128f1" name="a133187ea17554111e053372fdfd128f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a133187ea17554111e053372fdfd128f1">&#9670;&#160;</a></span>TEST() <span class="overload">[8/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a133187ea17554111e053372fdfd128f1">&#9670;&#160;</a></span>TEST() <span class="overload">[9/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,8 +583,193 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a720ff19b02be759b819647f1b3a048ed" name="a720ff19b02be759b819647f1b3a048ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a720ff19b02be759b819647f1b3a048ed">&#9670;&#160;</a></span>TEST() <span class="overload">[10/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeUnDangerCommuteLie&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger commuté lié à un interrupteur est mortel selon l'état de celui-ci, résolu au chargement comme une porte (<code>EX-GP-052</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger commuté lié à un interrupteur est résolu au chargement.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger commuté lié à un interrupteur est résolu au chargement. </p>
+
+</div>
+</div>
+<a id="a2ee9db236e7435e602e241b3bce8a7d5" name="a2ee9db236e7435e602e241b3bce8a7d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ee9db236e7435e602e241b3bce8a7d5">&#9670;&#160;</a></span>TEST() <span class="overload">[11/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeUnDangerMobileValeursExplicites&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger mobile avec axe et portée explicites les préserve (<code>EX-GP-051</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger mobile avec axe et portée explicites les préserve.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger mobile avec axe et portée explicites les préserve. </p>
+
+</div>
+</div>
+<a id="ada36cc3c6e66801ad3a221ac2208cc24" name="ada36cc3c6e66801ad3a221ac2208cc24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada36cc3c6e66801ad3a221ac2208cc24">&#9670;&#160;</a></span>TEST() <span class="overload">[12/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeUnDangerMobileValeursParDefaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger mobile sans champs explicites reçoit les valeurs de conception par défaut (<code>EX-GP-051</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger mobile sans champs explicites reçoit les valeurs par défaut.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger mobile sans champs explicites reçoit les valeurs de conception par défaut. </p>
+
+</div>
+</div>
+<a id="aa6cdb6b9df71552cb553b9eee4f1feed" name="aa6cdb6b9df71552cb553b9eee4f1feed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6cdb6b9df71552cb553b9eee4f1feed">&#9670;&#160;</a></span>TEST() <span class="overload">[13/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeUnDangerTemporiseValeursExplicites&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger temporisé avec période/déphasage/durée active explicites les préserve (<code>EX-GP-053</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger temporisé avec valeurs explicites les préserve.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger temporisé avec période/déphasage/durée active explicites les préserve. </p>
+
+</div>
+</div>
+<a id="a38daa4a2c18bb7995b56b27502f7d686" name="a38daa4a2c18bb7995b56b27502f7d686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38daa4a2c18bb7995b56b27502f7d686">&#9670;&#160;</a></span>TEST() <span class="overload">[14/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChargeUnDangerTemporiseValeursParDefaut&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger temporisé sans champs explicites reçoit les valeurs de conception par défaut (<code>EX-GP-053</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger temporisé sans champs explicites reçoit les valeurs par défaut.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger temporisé sans champs explicites reçoit les valeurs de conception par défaut. </p>
+
+</div>
+</div>
 <a id="a8cd928e3018927484119e923efed105e" name="a8cd928e3018927484119e923efed105e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cd928e3018927484119e923efed105e">&#9670;&#160;</a></span>TEST() <span class="overload">[9/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd928e3018927484119e923efed105e">&#9670;&#160;</a></span>TEST() <span class="overload">[15/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -557,7 +806,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adafdf138dfda2dd039f068697ec7bcfa" name="adafdf138dfda2dd039f068697ec7bcfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adafdf138dfda2dd039f068697ec7bcfa">&#9670;&#160;</a></span>TEST() <span class="overload">[10/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adafdf138dfda2dd039f068697ec7bcfa">&#9670;&#160;</a></span>TEST() <span class="overload">[16/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -593,8 +842,82 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac83744bb2f9c98169e3519a27f007a6c" name="ac83744bb2f9c98169e3519a27f007a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac83744bb2f9c98169e3519a27f007a6c">&#9670;&#160;</a></span>TEST() <span class="overload">[17/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DangerCommuteLieAInterrupteurInexistantRejete&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger commuté lié à un interrupteur inexistant est rejeté (<code>EX-GP-052</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger commuté lié à un interrupteur inexistant est rejeté.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger commuté lié à un interrupteur inexistant est rejeté. </p>
+
+</div>
+</div>
+<a id="ae5f2f0be6a6c44b77c163eb16bf51ae5" name="ae5f2f0be6a6c44b77c163eb16bf51ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f2f0be6a6c44b77c163eb16bf51ae5">&#9670;&#160;</a></span>TEST() <span class="overload">[18/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DangerCommuteSansLiaisonEstValide&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un danger commuté sans 'opensWith' est une simple tuile inerte : chargement valide, aucune liaison (<code>EX-GP-052</code>). </p>
+<p><b>Cas de test :</b> <b>Un danger commuté sans 'opensWith' est une simple tuile inerte.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un danger commuté sans 'opensWith' est une simple tuile inerte : chargement valide, aucune liaison. </p>
+
+</div>
+</div>
 <a id="a80cb77162ff87b1dbf279e721eee5624" name="a80cb77162ff87b1dbf279e721eee5624"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80cb77162ff87b1dbf279e721eee5624">&#9670;&#160;</a></span>TEST() <span class="overload">[11/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80cb77162ff87b1dbf279e721eee5624">&#9670;&#160;</a></span>TEST() <span class="overload">[19/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -631,7 +954,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a661a688872dbc02f5f16bb707ed40562" name="a661a688872dbc02f5f16bb707ed40562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a661a688872dbc02f5f16bb707ed40562">&#9670;&#160;</a></span>TEST() <span class="overload">[12/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a661a688872dbc02f5f16bb707ed40562">&#9670;&#160;</a></span>TEST() <span class="overload">[20/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,7 +991,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9bf10cdd3770cd8492606db7983e76b4" name="a9bf10cdd3770cd8492606db7983e76b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bf10cdd3770cd8492606db7983e76b4">&#9670;&#160;</a></span>TEST() <span class="overload">[13/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf10cdd3770cd8492606db7983e76b4">&#9670;&#160;</a></span>TEST() <span class="overload">[21/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -705,7 +1028,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8dcc1ff81ea8674b38941ba24980c49" name="aa8dcc1ff81ea8674b38941ba24980c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8dcc1ff81ea8674b38941ba24980c49">&#9670;&#160;</a></span>TEST() <span class="overload">[14/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8dcc1ff81ea8674b38941ba24980c49">&#9670;&#160;</a></span>TEST() <span class="overload">[22/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,7 +1065,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a04f28bd87a14a88655c836895a18daaf" name="a04f28bd87a14a88655c836895a18daaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04f28bd87a14a88655c836895a18daaf">&#9670;&#160;</a></span>TEST() <span class="overload">[15/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f28bd87a14a88655c836895a18daaf">&#9670;&#160;</a></span>TEST() <span class="overload">[23/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -779,7 +1102,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac32cd3f0970a31826209fe0a335e9ef0" name="ac32cd3f0970a31826209fe0a335e9ef0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac32cd3f0970a31826209fe0a335e9ef0">&#9670;&#160;</a></span>TEST() <span class="overload">[16/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32cd3f0970a31826209fe0a335e9ef0">&#9670;&#160;</a></span>TEST() <span class="overload">[24/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -816,7 +1139,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acea9c21dfc1e5d46483f21160401e87c" name="acea9c21dfc1e5d46483f21160401e87c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acea9c21dfc1e5d46483f21160401e87c">&#9670;&#160;</a></span>TEST() <span class="overload">[17/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acea9c21dfc1e5d46483f21160401e87c">&#9670;&#160;</a></span>TEST() <span class="overload">[25/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -853,7 +1176,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5e1eba830f598f2c3bed1db789c0a05d" name="a5e1eba830f598f2c3bed1db789c0a05d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e1eba830f598f2c3bed1db789c0a05d">&#9670;&#160;</a></span>TEST() <span class="overload">[18/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e1eba830f598f2c3bed1db789c0a05d">&#9670;&#160;</a></span>TEST() <span class="overload">[26/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -890,7 +1213,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa3e6c70698d1b17d8fbe54c908743b82" name="aa3e6c70698d1b17d8fbe54c908743b82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3e6c70698d1b17d8fbe54c908743b82">&#9670;&#160;</a></span>TEST() <span class="overload">[19/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e6c70698d1b17d8fbe54c908743b82">&#9670;&#160;</a></span>TEST() <span class="overload">[27/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -927,7 +1250,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a738749618cf1d4461457fd3100a5082b" name="a738749618cf1d4461457fd3100a5082b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a738749618cf1d4461457fd3100a5082b">&#9670;&#160;</a></span>TEST() <span class="overload">[20/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a738749618cf1d4461457fd3100a5082b">&#9670;&#160;</a></span>TEST() <span class="overload">[28/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -964,7 +1287,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2c346ad6db4ef43c415bad0c166c33d7" name="a2c346ad6db4ef43c415bad0c166c33d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c346ad6db4ef43c415bad0c166c33d7">&#9670;&#160;</a></span>TEST() <span class="overload">[21/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c346ad6db4ef43c415bad0c166c33d7">&#9670;&#160;</a></span>TEST() <span class="overload">[29/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1000,8 +1323,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad118a23e5eb1bbb87f4ef0bc336fbbd6" name="ad118a23e5eb1bbb87f4ef0bc336fbbd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad118a23e5eb1bbb87f4ef0bc336fbbd6">&#9670;&#160;</a></span>TEST() <span class="overload">[30/35]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PorteeDangerMobileHorsBornesRejetee&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une portée de danger mobile qui sortirait de la grille est rejetée (<code>EX-LVL-004</code>). </p>
+<p><b>Cas de test :</b> <b>Une portée de danger mobile qui sortirait de la grille est rejetée.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Une portée de danger mobile qui sortirait de la grille est rejetée. </p>
+
+</div>
+</div>
 <a id="a9b712b125b8aaae5d89b6590975e4a60" name="a9b712b125b8aaae5d89b6590975e4a60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b712b125b8aaae5d89b6590975e4a60">&#9670;&#160;</a></span>TEST() <span class="overload">[22/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b712b125b8aaae5d89b6590975e4a60">&#9670;&#160;</a></span>TEST() <span class="overload">[31/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,7 +1398,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a66b0df726128228fae9c00eddb1375aa" name="a66b0df726128228fae9c00eddb1375aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66b0df726128228fae9c00eddb1375aa">&#9670;&#160;</a></span>TEST() <span class="overload">[23/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a66b0df726128228fae9c00eddb1375aa">&#9670;&#160;</a></span>TEST() <span class="overload">[32/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1075,7 +1435,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acb540786b1121279ed128b5c9764f905" name="acb540786b1121279ed128b5c9764f905"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb540786b1121279ed128b5c9764f905">&#9670;&#160;</a></span>TEST() <span class="overload">[24/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb540786b1121279ed128b5c9764f905">&#9670;&#160;</a></span>TEST() <span class="overload">[33/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1112,7 +1472,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ada57ec91e10bf3267ca21e04a0574328" name="ada57ec91e10bf3267ca21e04a0574328"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada57ec91e10bf3267ca21e04a0574328">&#9670;&#160;</a></span>TEST() <span class="overload">[25/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ada57ec91e10bf3267ca21e04a0574328">&#9670;&#160;</a></span>TEST() <span class="overload">[34/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1149,7 +1509,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3c4fa276c46d46034fc25afc9bd4993f" name="a3c4fa276c46d46034fc25afc9bd4993f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c4fa276c46d46034fc25afc9bd4993f">&#9670;&#160;</a></span>TEST() <span class="overload">[26/26]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c4fa276c46d46034fc25afc9bd4993f">&#9670;&#160;</a></span>TEST() <span class="overload">[35/35]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

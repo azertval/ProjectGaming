@@ -5,6 +5,7 @@ var classhmi_1_1TilePalette =
     [ "Category", "classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83e", [
       [ "Tuile", "classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea1705ec94ac6549a8c694994957b9fa31", null ],
       [ "Interactif", "classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea975fbdcca491ff917db4b3fb740cc010", null ],
+      [ "Piege", "classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83ea8fd195c64667a9cb48901d8f1e0533c3", null ],
       [ "Jalon", "classhmi_1_1TilePalette.html#ae134a9bb3efc57df212c205b62c5b83eaf3dc90c1cd3e3a102d8c5080c54b8172", null ]
     ] ],
     [ "RowAction", "classhmi_1_1TilePalette.html#a2f57fb32ba3365ac1bd36f8a1b616135", [
@@ -16,7 +17,8 @@ var classhmi_1_1TilePalette =
       [ "Pente", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78ad9afcca6fb2a2633a06d879d882026d8", null ],
       [ "Arrondi", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4a76d0b8b2302381c1ce49c68dfddf46", null ],
       [ "Concave", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a1cb290ed5917afdbf2532bb2bf6f0192", null ],
-      [ "Bloc", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c", null ]
+      [ "Bloc", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78a4525c3e8cf391cf2051845bc4e39c99c", null ],
+      [ "Directionnel", "classhmi_1_1TilePalette.html#a8a2230ea4446ad8ad74609597f7f9a78ad67648fa90c9bad8b5fe4b4f64170d5a", null ]
     ] ],
     [ "TilePalette", "classhmi_1_1TilePalette.html#ad27da99e240b358a4c4703081238e512", null ],
     [ "bottom", "classhmi_1_1TilePalette.html#a0c52afbd1ec8a1a8eec98ed25c637012", null ],

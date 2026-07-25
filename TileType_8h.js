@@ -23,7 +23,14 @@ var TileType_8h =
       [ "ConcaveUpRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60", null ],
       [ "ConcaveUpLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55", null ],
       [ "ConcaveDownRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a", null ],
-      [ "ConcaveDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7", null ]
+      [ "ConcaveDownLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7", null ],
+      [ "DangerUp", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a32fe457784c4b0db9c6b02feff888b8f", null ],
+      [ "DangerDown", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ab800015f545b9eb49ba6e47463dc377b", null ],
+      [ "DangerLeft", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ac67991aabd965c464472433bf2ce0eb4", null ],
+      [ "DangerRight", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb", null ],
+      [ "DangerMover", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d", null ],
+      [ "DangerSwitched", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb", null ],
+      [ "DangerBlink", "TileType_8h.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de", null ]
     ] ],
     [ "isSolid", "TileType_8h.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "tileVisualScale", "TileType_8h.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ]

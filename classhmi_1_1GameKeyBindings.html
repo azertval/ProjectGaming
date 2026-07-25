@@ -127,9 +127,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a824abc78720652ff4fa0b24573b5b807" id="r_a824abc78720652ff4fa0b24573b5b807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameKeyBindings.html#a824abc78720652ff4fa0b24573b5b807">resetToDefaults</a> () noexcept</td></tr>
 <tr class="memdesc:a824abc78720652ff4fa0b24573b5b807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restaure les six actions à leurs touches par défaut (<code>defaultKey</code>).  <br /></td></tr>
 <tr class="separator:a824abc78720652ff4fa0b24573b5b807"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fdf87fc642308d69c5fbeba3e2fb13d" id="r_a3fdf87fc642308d69c5fbeba3e2fb13d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameKeyBindings.html#a3fdf87fc642308d69c5fbeba3e2fb13d">isKeyClaimedByOtherAction</a> (<a class="el" href="namespacehmi.html#a133516ef8002bd9e4d870db9494f5867">GameAction</a> action, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> <a class="el" href="classhmi_1_1GameKeyBindings.html#a598a666a329ac0f1d438b0cc2a7e3cf3">key</a>) const noexcept</td></tr>
-<tr class="memdesc:a3fdf87fc642308d69c5fbeba3e2fb13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code>key</code> est actuellement liée à une action <b>autre</b> que <code>action</code>.  <br /></td></tr>
-<tr class="separator:a3fdf87fc642308d69c5fbeba3e2fb13d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbe5d66a276ac24e83e5c6701d598004" id="r_afbe5d66a276ac24e83e5c6701d598004"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameKeyBindings.html#afbe5d66a276ac24e83e5c6701d598004">save</a> (const std::filesystem::path &amp;path) const</td></tr>
 <tr class="memdesc:afbe5d66a276ac24e83e5c6701d598004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde dans la section <code>"jeu"</code> de <code>path</code>, en préservant une section <code>"editeur"</code> déjà présente (écrite par <code><a class="el" href="classhmi_1_1EditorKeyBindings.html#a4491f60b26ffe6336b1112aae0ff6f61" title="Sauvegarde dans la section &quot;editeur&quot; de path, en préservant une section &quot;jeu&quot; déjà présente (écrite p...">EditorKeyBindings::save</a></code>).  <br /></td></tr>
 <tr class="separator:afbe5d66a276ac24e83e5c6701d598004"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,45 +192,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La touche par défaut de <code>action</code>, indépendante de l'état courant. </dd></dl>
-
-</div>
-</div>
-<a id="a3fdf87fc642308d69c5fbeba3e2fb13d" name="a3fdf87fc642308d69c5fbeba3e2fb13d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fdf87fc642308d69c5fbeba3e2fb13d">&#9670;&#160;</a></span>isKeyClaimedByOtherAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::GameKeyBindings::isKeyClaimedByOtherAction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#a133516ef8002bd9e4d870db9494f5867">GameAction</a>&#160;</td>
-          <td class="paramname"><em>action</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Indique si <code>key</code> est actuellement liée à une action <b>autre</b> que <code>action</code>. </p>
-<p>Sert au filet de sécurité manette de <code>toPlayerInput</code> (<code><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></code>) : la touche par défaut d'une action remappée ailleurs ne doit être revérifiée que si aucune <b>autre</b> action ne se l'est appropriée entre-temps — sinon cette touche appartient désormais exclusivement à cette autre action, et la revérifier ferait déclencher les deux actions à la fois (silencieusement annulé pour une paire opposée comme Gauche/Droite). </p>
 
 </div>
 </div>

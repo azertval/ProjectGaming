@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Levels/test_danger_geometry.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Core/Levels/test_danger_geometry.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX&#45;GP&#45;050)." alt="" coords="40,5,261,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,77,81,115,77,111,115,73"/>
+<area shape="rect" id="Node000003" href="$DangerGeometry_8h.html" title="Géométrie de la zone mortelle d&#39;une case de danger (EX&#45;GP&#45;050)." alt="" coords="133,123,357,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,73,226,111,222,115,183,77"/>
+<area shape="rect" id="Node000004" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="68,196,236,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="232,150,180,190,176,185,229,146"/>
+<area shape="rect" id="Node000005" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="260,196,415,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="262,146,313,185,310,190,258,150"/>
+<area shape="rect" id="Node000006" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="260,269,415,295"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="340,222,340,256,335,256,335,222"/>
+</map>

@@ -138,6 +138,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ConsoleLogSink.html">ConsoleLogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink qui écrit les messages sur la sortie standard et, sous Windows, vers le débogueur.  <a href="classcore_1_1ConsoleLogSink.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un danger temporisé (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">TileType::DangerBlink</a></code>, <code>EX-GP-053</code>) : période, déphasage et durée active, en <b>pas fixes</b> (<code>EX-NFR-002</code>, déterministe).  <a href="structcore_1_1DangerBlinkConfig.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1DangerController.html">DangerController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait vivre les dangers <b>mobile</b> (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">TileType::DangerMover</a></code>, <code>EX-GP-051</code>) et <b>temporisé</b> (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">TileType::DangerBlink</a></code>, <code>EX-GP-053</code>) d'un niveau.  <a href="classcore_1_1DangerController.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1DangerLink.html">DangerLink</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaison d'un <b>interrupteur/plaque de pression</b> à un <b>danger commuté</b> (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">TileType::DangerSwitched</a></code>, <code>EX-GP-052</code>), par positions résolues.  <a href="structcore_1_1DangerLink.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1DangerMoverConfig.html">DangerMoverConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paramètres d'un danger mobile (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">TileType::DangerMover</a></code>, <code>EX-GP-051</code>) : axe et portée de son aller-retour <b>linéaire</b>, autour de sa position de départ dans le fichier.  <a href="structcore_1_1DangerMoverConfig.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Engine.html">Engine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fournit les informations globales du moteur.  <a href="classcore_1_1Engine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,6 +265,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a799a99a97ade0219550e8316e18aa860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip d'animation du personnage (<code>EX-REN-012</code>).  <a href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">More...</a><br /></td></tr>
 <tr class="separator:a799a99a97ade0219550e8316e18aa860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691dfee41b7946ec78288271f8925d51" id="r_a691dfee41b7946ec78288271f8925d51"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a691dfee41b7946ec78288271f8925d51">DangerMoverAxis</a> { <a class="el" href="namespacecore.html#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f">Horizontal</a>
+, <a class="el" href="namespacecore.html#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012">Vertical</a>
+ }</td></tr>
+<tr class="memdesc:a691dfee41b7946ec78288271f8925d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axe de l'aller-retour d'un danger mobile (<code>TileType::DangerMover</code>, <code>EX-GP-051</code>).  <a href="namespacecore.html#a691dfee41b7946ec78288271f8925d51">More...</a><br /></td></tr>
+<tr class="separator:a691dfee41b7946ec78288271f8925d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2a63d18c9ef40479ebdc204e726e823" id="r_af2a63d18c9ef40479ebdc204e726e823"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">ParseError</a>
@@ -306,6 +323,15 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">ConcaveUpLeft</a>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">ConcaveDownRight</a>
 , <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">ConcaveDownLeft</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a32fe457784c4b0db9c6b02feff888b8f">DangerUp</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab800015f545b9eb49ba6e47463dc377b">DangerDown</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac67991aabd965c464472433bf2ce0eb4">DangerLeft</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb">DangerRight</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">DangerMover</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">DangerSwitched</a>
+, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">DangerBlink</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>).  <a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
@@ -337,13 +363,19 @@ Functions</h2></td></tr>
 <tr class="memitem:ae8ce294afb9bbebacf6676020a0e223a" id="r_ae8ce294afb9bbebacf6676020a0e223a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a">parseLogLevel</a> (std::string_view text)</td></tr>
 <tr class="memdesc:ae8ce294afb9bbebacf6676020a0e223a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une chaîne en niveau de log (insensible à la casse).  <br /></td></tr>
 <tr class="separator:ae8ce294afb9bbebacf6676020a0e223a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0f85da9ce20757943b19c8034f459e" id="r_a6c0f85da9ce20757943b19c8034f459e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e">dangerHitbox</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, int col, int row) noexcept</td></tr>
+<tr class="memdesc:a6c0f85da9ce20757943b19c8034f459e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>mortel</b> d'une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêmes unités que <code><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></code> consommé par <code><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></code>).  <br /></td></tr>
+<tr class="separator:a6c0f85da9ce20757943b19c8034f459e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0f0ad0f3b02c7ddf6b34dffba56669" id="r_a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a9f0f0ad0f3b02c7ddf6b34dffba56669">isDangerTileType</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour les huit types de danger (<code>Danger</code> classique et les sept variantes de <code>LOT-31</code>), pour lesquels <code>dangerHitbox</code> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<code><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></code>, <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">hmi::EditorScreen</a></code>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<code><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></code> non modifié).  <br /></td></tr>
+<tr class="separator:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02b4ac39e4a1c16efbe9ff53132d9a95" id="r_a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95">operator==</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="separator:a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29323798eff97fce936a3352846efb93" id="r_a29323798eff97fce936a3352846efb93"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a29323798eff97fce936a3352846efb93">operator!=</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="separator:a29323798eff97fce936a3352846efb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a012cb92b3c5a0eb04cc159a2f34ba405" id="r_a012cb92b3c5a0eb04cc159a2f34ba405"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a012cb92b3c5a0eb04cc159a2f34ba405">evaluateOutcome</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
-<tr class="memdesc:a012cb92b3c5a0eb04cc159a2f34ba405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage.  <br /></td></tr>
-<tr class="separator:a012cb92b3c5a0eb04cc159a2f34ba405"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23087f4f32dfa24ad53d7a9811ae351d" id="r_a23087f4f32dfa24ad53d7a9811ae351d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d">evaluateOutcome</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &gt; &amp;extraDangerBoxes={})</td></tr>
+<tr class="memdesc:a23087f4f32dfa24ad53d7a9811ae351d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage.  <br /></td></tr>
+<tr class="separator:a23087f4f32dfa24ad53d7a9811ae351d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb711314315ff134ed9c25c09b4cebe4" id="r_acb711314315ff134ed9c25c09b4cebe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile)</td></tr>
 <tr class="memdesc:acb711314315ff134ed9c25c09b4cebe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></code> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
 <tr class="separator:acb711314315ff134ed9c25c09b4cebe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -418,6 +450,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
 <tr class="separator:a2a9202a1a89eacaec610bdc83b0ff272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10b66433e2fea5a1103518ca7015a3a" id="r_aa10b66433e2fea5a1103518ca7015a3a"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#aa10b66433e2fea5a1103518ca7015a3a">kDangerEdgeThickness</a> = 0.25f</td></tr>
+<tr class="memdesc:aa10b66433e2fea5a1103518ca7015a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Épaisseur (fraction d'une case) de la bande mortelle d'un danger <b>directionnel</b> (<code>DangerUp</code>/<code>DangerDown</code>/<code>DangerLeft</code>/<code>DangerRight</code>, <code>EX-GP-050</code>).  <br /></td></tr>
+<tr class="separator:aa10b66433e2fea5a1103518ca7015a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
 <tr class="separator:a49c6e01fbd8905740993109a36f65c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -476,6 +511,34 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed" name="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"><p>En l'air (saut ou chute) — pose unique, pas un cycle. </p>
 </td></tr>
+</table>
+
+</div>
+</div>
+<a id="a691dfee41b7946ec78288271f8925d51" name="a691dfee41b7946ec78288271f8925d51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a691dfee41b7946ec78288271f8925d51">&#9670;&#160;</a></span>DangerMoverAxis</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespacecore.html#a691dfee41b7946ec78288271f8925d51">core::DangerMoverAxis</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Axe de l'aller-retour d'un danger mobile (<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">TileType::DangerMover</a></code>, <code>EX-GP-051</code>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f" name="a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f"></a>Horizontal&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012" name="a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012"></a>Vertical&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -553,7 +616,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc" name="af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc"></a>InvalidExitCount&#160;</td><td class="fielddoc"><p>Zéro ou plusieurs tuiles de sortie (une seule attendue). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" name="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb"></a>UnresolvedMechanism&#160;</td><td class="fielddoc"><p>Porte liée à un identifiant d'interrupteur inexistant. </p>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" name="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb"></a>UnresolvedMechanism&#160;</td><td class="fielddoc"><p>Porte ou danger commuté lié à un identifiant d'interrupteur inexistant. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" name="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier de niveau introuvable sur disque. </p>
 </td></tr>
@@ -616,7 +679,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Type d'une tuile de la grille d'un niveau (<code>EX-GP-001</code>). </p>
-<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. <code>SlopeUpRight</code>/ <code>SlopeUpLeft</code> (<code>EX-GP-003</code>) sont des <b>pentes</b> à 45° (montée sur toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est <b>inclinée</b>, décrite par <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> (<code><a class="el" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX-GP-003, EX-GP-004, EX-GP-007).">Core/Physics/SlopeGeometry.h</a></code>) et suivie par une passe de résolution dédiée (<a class="el" href="guide-physique.html">Physique du personnage</a>) — <b>pas</b> par <code>isSolid</code> (voir ci-dessous). <code>RoundedUpRight</code>/ <code>RoundedUpLeft</code> (<code>EX-GP-004</code>) sont la variante <b>courbe</b> (quart de cercle) des pentes : même orientation, même infrastructure de suivi (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, non solides), seule la formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi). <code>BlockHalf</code>/<code>BlockQuarter</code> (<code>EX-GP-005</code>) sont des <b>blocs poussables réduits</b> (facteurs <code>×0.5</code>/ <code>×0.25</code>, <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code>) : mêmes règles de poussée/chute que <code>Block</code> (case par case), mais leur boîte de collision <b>réelle</b> (testée contre le personnage) est plus petite que la case et <b>centrée</b> dedans — résolue par une routine dédiée boîte-contre-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>, <a class="el" href="guide-physique.html">Physique du personnage</a>), pas par la grille classique. <code>SlopeDownRight</code>/ <code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/<code>RoundedDownLeft</code> (<code>EX-GP-006</code>) sont les variantes de <b>plafond</b> des pentes/arrondis ci-dessus : miroir vertical de la même silhouette (matière pleine en haut de la case plutôt qu'en bas). Comme leurs équivalents de sol, elles ne sont <b>jamais solides</b> pour la grille classique (<code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>) — leur collision est résolue par deux passes de suivi symétriques : <code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code> bloque un saut qui franchirait leur silhouette <b>par en dessous</b> (miroir de celle des pentes de sol), tandis que leur <b>face du haut</b> (toujours plate, au sommet de la case — <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> y renvoie <code>0</code>) supporte normalement un personnage qui tombe dessus <b>par au-dessus</b>, via <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code> réutilisé tel quel. Le personnage ne « marche » en revanche jamais <b>latéralement</b> le long de leur silhouette inclinée (<code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code> reste <code>false</code> — pas de déplacement calé en suivant la pente, contrairement à une pente de sol). <code>ConcaveUpRight</code>/ <code>ConcaveUpLeft</code>/<code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> (<code>EX-GP-007</code>) sont une <b>seconde famille</b> de quart de cercle, <b>concave</b> plutôt que <b>convexe</b> (<code>RoundedUpRight</code>/<code>RoundedUpLeft</code> et leurs variantes de plafond ci-dessus) : le centre du cercle est du côté de la <b>matière</b> plutôt que du côté creux, ce qui inverse la courbure — tangente <b>horizontale</b> du côté bas/creux, <b>verticale</b> du côté haut/plein (l'inverse exact de l'arrondi convexe). Mêmes orientations (<code>Up</code>/<code>Down</code>, <code>Right</code>/<code>Left</code>) et même infrastructure de suivi que les arrondis convexes (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code> pour le sol ; <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code>, <code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code> pour le plafond) — seule la formule de hauteur change. </p>
+<p><code>Empty</code> est la case traversable par défaut ; <code>Solid</code> bloque le déplacement ; <code>Danger</code> provoque l'échec au contact ; <code>Entry</code>/<code>Exit</code> sont l'apparition et la sortie ; <code>Switch</code>, <code>PressurePlate</code> et <code>Door</code> sont les mécanismes de puzzle, résolus chaque pas fixe par <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code> (ce modèle ne fait que les représenter) : <code>Switch</code> bascule au contact (front), <code>PressurePlate</code> (<code>EX-GP-025</code>) reste active tant qu'un poids suffisant y repose — les deux partagent la même infrastructure de liaison à une <code>Door</code>. <code>Block</code> (<code>EX-GP-022</code>) est un <b>bloc poussable</b> : sa position initiale est celle du fichier, mais <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code> la fait évoluer chaque pas fixe (poussée par le personnage, chute si non soutenu) — comme pour les mécanismes, ce modèle ne fait que représenter sa position de <b>départ</b>. <code>SlopeUpRight</code>/ <code>SlopeUpLeft</code> (<code>EX-GP-003</code>) sont des <b>pentes</b> à 45° (montée sur toute la largeur d'une case, respectivement vers la droite et vers la gauche) : leur surface est <b>inclinée</b>, décrite par <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> (<code><a class="el" href="SlopeGeometry_8h.html" title="Hauteur de surface des tuiles à profil incliné ou courbe (EX-GP-003, EX-GP-004, EX-GP-007).">Core/Physics/SlopeGeometry.h</a></code>) et suivie par une passe de résolution dédiée (<a class="el" href="guide-physique.html">Physique du personnage</a>) — <b>pas</b> par <code>isSolid</code> (voir ci-dessous). <code>RoundedUpRight</code>/ <code>RoundedUpLeft</code> (<code>EX-GP-004</code>) sont la variante <b>courbe</b> (quart de cercle) des pentes : même orientation, même infrastructure de suivi (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, non solides), seule la formule de hauteur diffère (linéaire pour une pente, quart de cercle pour un arrondi). <code>BlockHalf</code>/<code>BlockQuarter</code> (<code>EX-GP-005</code>) sont des <b>blocs poussables réduits</b> (facteurs <code>×0.5</code>/ <code>×0.25</code>, <code><a class="el" href="classcore_1_1BlockController.html" title="Fait vivre les blocs poussables d&#39;un niveau (TileType::Block/BlockHalf/ BlockQuarter,...">core::BlockController</a></code>) : mêmes règles de poussée/chute que <code>Block</code> (case par case), mais leur boîte de collision <b>réelle</b> (testée contre le personnage) est plus petite que la case et <b>centrée</b> dedans — résolue par une routine dédiée boîte-contre-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>, <a class="el" href="guide-physique.html">Physique du personnage</a>), pas par la grille classique. <code>SlopeDownRight</code>/ <code>SlopeDownLeft</code>/<code>RoundedDownRight</code>/<code>RoundedDownLeft</code> (<code>EX-GP-006</code>) sont les variantes de <b>plafond</b> des pentes/arrondis ci-dessus : miroir vertical de la même silhouette (matière pleine en haut de la case plutôt qu'en bas). Comme leurs équivalents de sol, elles ne sont <b>jamais solides</b> pour la grille classique (<code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code>) — leur collision est résolue par deux passes de suivi symétriques : <code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code> bloque un saut qui franchirait leur silhouette <b>par en dessous</b> (miroir de celle des pentes de sol), tandis que leur <b>face du haut</b> (toujours plate, au sommet de la case — <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code> y renvoie <code>0</code>) supporte normalement un personnage qui tombe dessus <b>par au-dessus</b>, via <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code> réutilisé tel quel. Le personnage ne « marche » en revanche jamais <b>latéralement</b> le long de leur silhouette inclinée (<code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code> reste <code>false</code> — pas de déplacement calé en suivant la pente, contrairement à une pente de sol). <code>ConcaveUpRight</code>/ <code>ConcaveUpLeft</code>/<code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> (<code>EX-GP-007</code>) sont une <b>seconde famille</b> de quart de cercle, <b>concave</b> plutôt que <b>convexe</b> (<code>RoundedUpRight</code>/<code>RoundedUpLeft</code> et leurs variantes de plafond ci-dessus) : le centre du cercle est du côté de la <b>matière</b> plutôt que du côté creux, ce qui inverse la courbure — tangente <b>horizontale</b> du côté bas/creux, <b>verticale</b> du côté haut/plein (l'inverse exact de l'arrondi convexe). Mêmes orientations (<code>Up</code>/<code>Down</code>, <code>Right</code>/<code>Left</code>) et même infrastructure de suivi que les arrondis convexes (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code> pour le sol ; <code><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></code>, <code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code> pour le plafond) — seule la formule de hauteur change. <code>DangerUp</code>/<code>DangerDown</code>/<code>DangerLeft</code>/ <code>DangerRight</code> (<code>EX-GP-050</code>) sont un <b>danger directionnel</b> : le suffixe décrit le bord <b>mortel</b> de la case (celui vers lequel les pics pointent), pas un mouvement — le reste de la case est traversable sans risque. Non solides (comme <code>Danger</code>), leur zone mortelle réelle (une bande étroite le long du bord désigné, pas la case entière) est décrite par <code><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></code> (<code><a class="el" href="DangerGeometry_8h.html" title="Géométrie de la zone mortelle d&#39;une case de danger (EX-GP-050).">Core/Levels/DangerGeometry.h</a></code>), consommée par <code><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></code>. <code>DangerMover</code> (<code>EX-GP-051</code>) est un <b>danger mobile</b> : sa position initiale est celle du fichier, mais un aller-retour linéaire déterministe (axe/portée, <code><a class="el" href="structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX-GP-051) : axe et portée de son aller-retour ...">core::DangerMoverConfig</a></code>) la fait évoluer chaque pas fixe — comme pour <code>Block</code>, ce modèle ne représente que sa position de <b>départ</b>. <code>DangerSwitched</code> (<code>EX-GP-052</code>) est un <b>danger commuté</b> : mortel uniquement quand l'interrupteur/la plaque de pression qui lui est lié (<code><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a></code>) est actif — l'inverse de <code>Door</code>, qui devient franchissable quand actif. <code>DangerBlink</code> (<code>EX-GP-053</code>) est un <b>danger temporisé</b> : alterne mortel/inoffensif selon une période fixe et un déphasage propres à la tuile (<code><a class="el" href="structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX-GP-053) : période, déphasage et durée act...">core::DangerBlinkConfig</a></code>), indépendamment de tout interrupteur. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07" name="ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"></a>Empty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa" name="ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"></a>Solid&#160;</td><td class="fielddoc"></td></tr>
@@ -641,6 +704,13 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55" name="ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55"></a>ConcaveUpLeft&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a" name="ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a"></a>ConcaveDownRight&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7" name="ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7"></a>ConcaveDownLeft&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a32fe457784c4b0db9c6b02feff888b8f" name="ace99a1be913e6294e42e9ebb145eb875a32fe457784c4b0db9c6b02feff888b8f"></a>DangerUp&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ab800015f545b9eb49ba6e47463dc377b" name="ace99a1be913e6294e42e9ebb145eb875ab800015f545b9eb49ba6e47463dc377b"></a>DangerDown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ac67991aabd965c464472433bf2ce0eb4" name="ace99a1be913e6294e42e9ebb145eb875ac67991aabd965c464472433bf2ce0eb4"></a>DangerLeft&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb" name="ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb"></a>DangerRight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d" name="ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d"></a>DangerMover&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb" name="ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb"></a>DangerSwitched&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de" name="ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de"></a>DangerBlink&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -812,6 +882,59 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a6c0f85da9ce20757943b19c8034f459e" name="a6c0f85da9ce20757943b19c8034f459e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0f85da9ce20757943b19c8034f459e">&#9670;&#160;</a></span>dangerHitbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Aabb.html">Aabb</a> core::dangerHitbox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rectangle <b>mortel</b> d'une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêmes unités que <code><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></code> consommé par <code><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></code>). </p>
+<p>Case pleine pour <code>Danger</code> (danger classique) et pour les variantes dont la mortalité est <b>temporelle</b> plutôt que géométrique (<code>DangerMover</code>, <code>DangerSwitched</code>, <code>DangerBlink</code> — leur position/activation courante est résolue ailleurs, cette fonction ne décrit que leur silhouette <b>quand elles sont actives/présentes</b>, identique à <code>Danger</code>). Bande étroite (<code>kDangerEdgeThickness</code>) alignée sur le bord désigné pour les quatre variantes directionnelles : <code>DangerUp</code>/<code>DangerDown</code> sur le bord <b>haut</b> / <b>bas</b> de la case, <code>DangerLeft</code>/<code>DangerRight</code> sur le bord <b>gauche</b> / <b>droit</b> (<code>EX-GP-050</code>). Seule source de vérité, partagée par la résolution de fin de niveau (<code><a class="el" href="namespacecore.html#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></code>) et l'aperçu visuel de l'éditeur (<code>hmi::TileVisuals</code>) — même garantie de non-divergence que <code><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></code> pour les blocs réduits (<code>EX-GP-005</code>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile (tout type non listé ci-dessus renvoie la case pleine). </td></tr>
+    <tr><td class="paramname">col</td><td>Colonne de la case (unités de grille). </td></tr>
+    <tr><td class="paramname">row</td><td>Ligne de la case (unités de grille). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le rectangle mortel, en unités de grille. </dd></dl>
+
+</div>
+</div>
 <a id="a925cad771c457040a01272ff8be8e1a1" name="a925cad771c457040a01272ff8be8e1a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a925cad771c457040a01272ff8be8e1a1">&#9670;&#160;</a></span>defaultLogger()</h2>
 
@@ -832,8 +955,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a012cb92b3c5a0eb04cc159a2f34ba405" name="a012cb92b3c5a0eb04cc159a2f34ba405"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a012cb92b3c5a0eb04cc159a2f34ba405">&#9670;&#160;</a></span>evaluateOutcome()</h2>
+<a id="a23087f4f32dfa24ad53d7a9811ae351d" name="a23087f4f32dfa24ad53d7a9811ae351d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23087f4f32dfa24ad53d7a9811ae351d">&#9670;&#160;</a></span>evaluateOutcome()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -848,7 +971,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;&#160;</td>
-          <td class="paramname"><em>level</em>&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>extraDangerBoxes</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -860,14 +989,16 @@ Variables</h2></td></tr>
 
 <p>Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage. </p>
 <p>Fonction <b>pure</b> d'observation (ne modifie rien) : elle classe l'état courant, sans déclencher de transition (le retour au menu ou le redémarrage relèvent de l'intégration). Priorité <b>déterministe</b> en cas de recouvrement simultané : l'<b>échec l'emporte sur le succès</b>.</p>
+<p>Les dangers <b>statiques</b> (<code>Danger</code>, <code>DangerUp</code>/<code>DangerDown</code>/<code>DangerLeft</code>/<code>DangerRight</code>, <code>EX-GP-050</code>) sont résolus directement depuis la grille du niveau (via <code><a class="el" href="namespacecore.html#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">core::dangerHitbox</a></code>) : ce module (<code>Core/Levels</code>) n'a pas de dépendance vers <code>Core/Gameplay</code>, donc pas de connaissance des contrôleurs qui font vivre les dangers à <b>état</b> (mobile, commuté, temporisé — <code>EX-GP-051</code>/ <code>052</code>/<code>053</code>). Leurs boîtes <b>actuellement mortelles</b>, calculées par l'appelant (<code><a class="el" href="classcore_1_1DangerController.html" title="Fait vivre les dangers mobile (TileType::DangerMover, EX-GP-051) et temporisé (TileType::DangerBlink,...">core::DangerController</a></code>, <code><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></code>) qui possède déjà cet état, sont passées via <code>extraDangerBoxes</code> plutôt que dupliquées ici.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">playerBox</td><td>Boîte englobante du personnage, en unités monde. </td></tr>
-    <tr><td class="paramname">level</td><td>Niveau courant (sortie, tuiles <code>Danger</code>, limites de la grille). </td></tr>
+    <tr><td class="paramname">level</td><td>Niveau courant (sortie, tuiles de danger statique, limites de la grille). </td></tr>
+    <tr><td class="paramname">extraDangerBoxes</td><td>Boîtes mortelles supplémentaires, hors grille statique (dangers mobile/ commuté/temporisé actuellement actifs) ; vide par défaut (niveaux sans danger à état, ou appelants qui ignorent ces variantes). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>Lost</code> si contact avec un <code>Danger</code> ou sortie par le bas ; sinon <code>Won</code> si la sortie est recouverte ; sinon <code>Playing</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>Lost</code> si contact avec un danger (statique ou <code>extraDangerBoxes</code>) ou sortie par le bas ; sinon <code>Won</code> si la sortie est recouverte ; sinon <code>Playing</code>. </dd></dl>
 
 </div>
 </div>
@@ -1039,6 +1170,34 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true si <code>type</code> est une pente/arrondi de <b>plafond</b> (<code>EX-GP-006</code>/<code>EX-GP-007</code>) — miroir vertical d'une surface de sol suivable, mais dont le personnage ne peut jamais franchir la silhouette en sautant (<code>resolveCeilingSlopeFollow</code>), sans pour autant y « marcher » (<code>isFollowableSurface</code> reste <code>false</code> pour ces types). </dd></dl>
+
+</div>
+</div>
+<a id="a9f0f0ad0f3b02c7ddf6b34dffba56669" name="a9f0f0ad0f3b02c7ddf6b34dffba56669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f0f0ad0f3b02c7ddf6b34dffba56669">&#9670;&#160;</a></span>isDangerTileType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isDangerTileType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai pour les huit types de danger (<code>Danger</code> classique et les sept variantes de <code>LOT-31</code>), pour lesquels <code>dangerHitbox</code> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<code><a class="el" href="namespacecore.html#acb711314315ff134ed9c25c09b4cebe4" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></code>, <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">hmi::EditorScreen</a></code>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<code><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></code> non modifié). </p>
 
 </div>
 </div>
@@ -1982,6 +2141,31 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'images du clip <code>Jump</code> (pose unique, jamais animée). </p>
+
+</div>
+</div>
+<a id="aa10b66433e2fea5a1103518ca7015a3a" name="aa10b66433e2fea5a1103518ca7015a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa10b66433e2fea5a1103518ca7015a3a">&#9670;&#160;</a></span>kDangerEdgeThickness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::kDangerEdgeThickness = 0.25f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Épaisseur (fraction d'une case) de la bande mortelle d'un danger <b>directionnel</b> (<code>DangerUp</code>/<code>DangerDown</code>/<code>DangerLeft</code>/<code>DangerRight</code>, <code>EX-GP-050</code>). </p>
+<p>Le reste de la case est traversable sans risque — des pics contre un bord plutôt qu'une case pleine mortelle sur toute sa surface (<code>Danger</code> classique). </p>
 
 </div>
 </div>

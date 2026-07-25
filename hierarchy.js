@@ -12,6 +12,10 @@ var hierarchy =
     [ "hmi::LevelPicker::Choice", "structhmi_1_1LevelPicker_1_1Choice.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],
     [ "core::Color", "structcore_1_1Color.html", null ],
+    [ "core::DangerBlinkConfig", "structcore_1_1DangerBlinkConfig.html", null ],
+    [ "core::DangerController", "classcore_1_1DangerController.html", null ],
+    [ "core::DangerLink", "structcore_1_1DangerLink.html", null ],
+    [ "core::DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
     [ "hmi::EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
@@ -24,6 +28,8 @@ var hierarchy =
     [ "hmi::FlagIcons", "classhmi_1_1FlagIcons.html", null ],
     [ "hmi::GameKeyBindings", "classhmi_1_1GameKeyBindings.html", null ],
     [ "hmi::GameKeybindingsModel", "classhmi_1_1GameKeybindingsModel.html", null ],
+    [ "hmi::GamepadBindings", "classhmi_1_1GamepadBindings.html", null ],
+    [ "hmi::GamepadBindingsModel", "classhmi_1_1GamepadBindingsModel.html", null ],
     [ "hmi::GraphicsDevice", "classhmi_1_1GraphicsDevice.html", null ],
     [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
@@ -39,6 +45,7 @@ var hierarchy =
       [ "hmi::EditorScreen", "classhmi_1_1EditorScreen.html", null ],
       [ "hmi::GameKeybindingsScreen", "classhmi_1_1GameKeybindingsScreen.html", null ],
       [ "hmi::GameScreen", "classhmi_1_1GameScreen.html", null ],
+      [ "hmi::GamepadBindingsScreen", "classhmi_1_1GamepadBindingsScreen.html", null ],
       [ "hmi::MenuScreen", "classhmi_1_1MenuScreen.html", null ],
       [ "hmi::OptionsScreen", "classhmi_1_1OptionsScreen.html", null ]
     ] ],

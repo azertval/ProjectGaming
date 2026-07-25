@@ -11,6 +11,9 @@ var namespacehmi =
     [ "GameKeyBindings", "classhmi_1_1GameKeyBindings.html", "classhmi_1_1GameKeyBindings" ],
     [ "GameKeybindingsModel", "classhmi_1_1GameKeybindingsModel.html", "classhmi_1_1GameKeybindingsModel" ],
     [ "GameKeybindingsScreen", "classhmi_1_1GameKeybindingsScreen.html", "classhmi_1_1GameKeybindingsScreen" ],
+    [ "GamepadBindings", "classhmi_1_1GamepadBindings.html", "classhmi_1_1GamepadBindings" ],
+    [ "GamepadBindingsModel", "classhmi_1_1GamepadBindingsModel.html", "classhmi_1_1GamepadBindingsModel" ],
+    [ "GamepadBindingsScreen", "classhmi_1_1GamepadBindingsScreen.html", "classhmi_1_1GamepadBindingsScreen" ],
     [ "GameScreen", "classhmi_1_1GameScreen.html", "classhmi_1_1GameScreen" ],
     [ "GraphicsDevice", "classhmi_1_1GraphicsDevice.html", "classhmi_1_1GraphicsDevice" ],
     [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
@@ -70,6 +73,23 @@ var namespacehmi =
       [ "Reset", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444a526d688f37a86d3c3f27d0c5016eb71d", null ],
       [ "Back", "namespacehmi.html#af8951dd767be6a8d801566f97cac6444a0557fa923dcee4d0f86b1409f5c2167f", null ]
     ] ],
+    [ "GamepadBindingsAction", "namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491", [
+      [ "Rebound", "namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a8bae56d3db3fb4f6d0f1b3af394ec95b", null ],
+      [ "Reset", "namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a526d688f37a86d3c3f27d0c5016eb71d", null ],
+      [ "Back", "namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a0557fa923dcee4d0f86b1409f5c2167f", null ]
+    ] ],
+    [ "GamepadButton", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88", [
+      [ "Up", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa", null ],
+      [ "Down", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53", null ],
+      [ "Left", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff", null ],
+      [ "Right", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c", null ],
+      [ "A", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29", null ],
+      [ "B", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571", null ],
+      [ "X", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383", null ],
+      [ "Y", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0", null ],
+      [ "LeftShoulder", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c", null ],
+      [ "RightShoulder", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354", null ]
+    ] ],
     [ "Key", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48", [
       [ "Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
       [ "Tab", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],
@@ -108,6 +128,7 @@ var namespacehmi =
       [ "ToggleVSync", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae", null ],
       [ "OpenGameKeybindings", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252", null ],
       [ "OpenEditorKeybindings", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c", null ],
+      [ "OpenGamepadBindings", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3", null ],
       [ "Back", "namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f", null ]
     ] ],
     [ "ScreenId", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528d", [
@@ -116,10 +137,13 @@ var namespacehmi =
       [ "Editor", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257", null ],
       [ "Options", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8", null ],
       [ "GameKeybindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3", null ],
-      [ "EditorKeybindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7", null ]
+      [ "EditorKeybindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7", null ],
+      [ "GamepadBindings", "namespacehmi.html#a168b24f798c2e6d06beb9472a071528da8246ea7cf8f2d836587aa22cd3e7df47", null ]
     ] ],
+    [ "capturedGamepadButton", "namespacehmi.html#a3b48baec87107f7a4aec638550bdb941", null ],
     [ "capturedKey", "namespacehmi.html#ac200bbbe13247069ff384e574db66eec", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
+    [ "gamepadButtonDisplayName", "namespacehmi.html#ae5554638874ee3372dad502cfe2e594e", null ],
     [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],
     [ "isValidLevelSize", "namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430", null ],
     [ "keyDisplayName", "namespacehmi.html#acd53f8d86ae168c7bf03fda0cdede0c3", null ],
@@ -128,10 +152,11 @@ var namespacehmi =
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],
-    [ "toPlayerInput", "namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b", null ],
+    [ "toPlayerInput", "namespacehmi.html#a2c3341857c60f0bef0a01a6cd10ce5f7", null ],
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
     [ "EDITOR_ACTION_COUNT", "namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c", null ],
     [ "GAME_ACTION_COUNT", "namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d", null ],
+    [ "GAMEPAD_BUTTON_COUNT", "namespacehmi.html#aab59d64d595ba17a55cc07311285ba14", null ],
     [ "MAX_LEVEL_DIMENSION", "namespacehmi.html#a3201578f409cccc5319bc31255846ec1", null ],
     [ "PALETTE_INDENT_STEP", "namespacehmi.html#a49bd615b891f2304f7a0aa6d6029f27c", null ],
     [ "PALETTE_TOP", "namespacehmi.html#ae106af4848582a6f2c2f44525a602d2a", null ],

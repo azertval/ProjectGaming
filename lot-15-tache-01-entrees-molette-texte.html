@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-15-tache-01-entrees-molette-texte.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-15-editeur-industriel_2epic_8md.html">LOT-15</a> · <b>Emplacement :</b> <code>HMI/Input</code>, <code>HMI/Platform</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md918"></a>
+<h1><a class="anchor" id="autotoc_md922"></a>
 Contexte</h1>
 <p>Le zoom caméra (TACHE-04) et la saisie de nom de niveau (TACHE-02) ont besoin de deux entrées qu'<code>InputState</code> ne capture pas aujourd'hui : le delta de la molette et les caractères tapés au clavier (<code>WM_CHAR</code>, distinct des codes virtuels <code>WM_KEYDOWN</code> déjà gérés). Cette tâche pose ces fondations avant les tâches qui les consomment.</p>
-<h1><a class="anchor" id="autotoc_md919"></a>
+<h1><a class="anchor" id="autotoc_md923"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Molette</b> : <code>InputState</code> gagne un accumulateur de delta molette, remis à zéro à chaque <code>beginFrame()</code> (même cycle que les fronts pressée/relâchée) et une méthode <code>wheelDelta() const</code>. <code>Window::handleMessage</code> capture <code>WM_MOUSEWHEEL</code> (<code>GET_WHEEL_DELTA_WPARAM</code>) et l'accumule via une nouvelle méthode <code>InputState::onMouseWheel(int delta)</code>.</li>
@@ -106,35 +106,35 @@ Travail à réaliser</h1>
 <li><code>InputState</code> reste <b>indépendant de toute fenêtre</b> (aucune dépendance <code>&lt;Windows.h&gt;</code>, même principe que l'existant) : les événements s'injectent directement, ce qui le garde testable en isolation (<code>EX-NFR-010</code>).</li>
 <li><b>Nouveaux énumérateurs <code>Key</code></b> nécessaires aux tâches suivantes de ce lot (aucun n'existe aujourd'hui — seuls <code>A, D, P, Q, S, W, Y, Z</code> et les touches spéciales sont nommés) : <code>F1</code> (<code>0x70</code>, aide des raccourcis, TACHE-06), <code>F2</code> (<code>0x71</code>, renommer, TACHE-03), <code>D0</code> (<code>0x30</code>, réinitialiser la caméra, TACHE-04), <code>C</code> (<code>0x43</code>) et <code>V</code> (<code>0x56</code>) (copier/coller, TACHE-05). Purement additif, à l'identique du principe déjà documenté sur <code>Key</code> (« ajouter une touche revient à ajouter un énumérateur ») : les codes <code>VK_*</code> correspondants sont déjà transmis tels quels par <code>Window</code>/<code>InputState</code>, aucune autre modification requise. Le <b>changement d'outil</b> (TACHE-05) réutilise <code>Key::Tab</code>, déjà déclaré et disponible dans l'éditeur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md920"></a>
+<h1><a class="anchor" id="autotoc_md924"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="Window_8cpp.html">Source/HMI/Platform/Window.cpp</a></code> (deux nouveaux <code>case</code> dans <code>handleMessage</code>).</li>
 <li><code><a class="el" href="test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position.">Source/Test/Unit/HMI/Input/test_input_state.cpp</a></code> (ou équivalent existant).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md921"></a>
+<h1><a class="anchor" id="autotoc_md925"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>wheelDelta()</code> reflète la somme des deltas injectés depuis le dernier <code>beginFrame()</code>, et revient à zéro après.</li>
 <li><code>typedCharacters()</code> reflète, dans l'ordre, les caractères injectés depuis le dernier <code>beginFrame()</code>, et est vide après.</li>
 <li>Aucune régression sur les fronts clavier/souris existants (tests déjà présents).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md922"></a>
+<h1><a class="anchor" id="autotoc_md926"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas confondre <code>WM_CHAR</code> (caractère déjà traduit selon la disposition clavier active, nécessaire pour un champ de saisie multilingue) et <code>WM_KEYDOWN</code> (code virtuel physique, déjà utilisé pour les raccourcis) : les deux coexistent, aucun des deux ne remplace l'autre.</li>
 <li><code>TranslateMessage</code> (déjà appelé dans <code>pumpMessages</code>) est le prérequis Win32 à la génération de <code>WM_CHAR</code> à partir de <code>WM_KEYDOWN</code> — vérifier qu'il est bien en amont dans la boucle de messages (déjà le cas).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md923"></a>
+<h1><a class="anchor" id="autotoc_md927"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Molette et texte tapé disponibles via <code>InputState</code>, testés (<code>ctest</code> vert), sans dépendance fenêtre ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md924"></a>
+<h1><a class="anchor" id="autotoc_md928"></a>
 Exigences</h1>
 <p><code>EX-NFR-010</code> (support des tâches suivantes, aucune exigence fonctionnelle propre).</p>
-<h1><a class="anchor" id="autotoc_md925"></a>
+<h1><a class="anchor" id="autotoc_md929"></a>
 Ajustement post-livraison (essai utilisateur)</h1>
 <p>Un énumérateur <code>F10</code> (<code>0x79</code>) a été ajouté après coup, pour la bascule de la grille de repère (TACHE-06, elle-même ajoutée après un essai utilisateur — voir sa fiche). Contrairement aux autres touches nommées ici, <code>F10</code> a exigé plus qu'un énumérateur : un essai interactif a montré qu'elle ne déclenchait jamais rien, car Win32 délivre <code>F10</code> (et les combinaisons <code>Alt</code>+quelque-chose) via <code>WM_SYSKEYDOWN</code>/<code>WM_SYSKEYUP</code>, pas <code>WM_KEYDOWN</code>/<code>WM_KEYUP</code> (convention historique d'activation du menu). <code>Window::handleMessage</code> capture désormais aussi ces deux messages, enregistrés dans <code>InputState</code> comme les autres touches, tout en laissant <code>DefWindowProcW</code> traiter le comportement système par défaut (<code>Alt+F4</code>, <code>Alt+Tab</code>) — sauf pour <code>F10</code> lui-même, absorbé pour éviter l'activation visuelle, inutile ici, du (non-)système de menu de la fenêtre. </p>
 </div></div><!-- contents -->

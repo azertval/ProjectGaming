@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('lot-12.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Ce lot rend les <b>mécanismes</b> interrupteur↔porte <b>fonctionnels</b> (<code>EX-GP-020</code>, <code>EX-GP-021</code>, chargés depuis le LOT-07 mais inertes jusqu'ici) et ajoute un <b>budget de sauts/dashs par tableau</b> (<code>EX-GP-024</code>) — les deux briques d'un gameplay <b>puzzle</b>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md809"></a>
+<h1><a class="anchor" id="autotoc_md813"></a>
 Objectif</h1>
 <ul>
 <li><b>Interrupteur ↔ porte</b> : un interrupteur, activé au <b>contact</b> du personnage, <b>bascule</b> l'état de sa <b>porte</b> liée ; une porte <b>fermée</b> bloque (solide), <b>ouverte</b> laisse passer.</li>
@@ -104,9 +104,9 @@ Objectif</h1>
 <li>Un <b>niveau puzzle</b> de démonstration (<code>demo4</code>) qui <b>exige</b> ces mécaniques.</li>
 </ul>
 <p>Toute la logique de gameplay reste <b>pure et déterministe au pas fixe</b> dans <code>Core</code> (<code>EX-NFR-002</code>, <code>EX-ARCH-011</code>), testée sans GPU. La collision consomme une <b>grille reflétant l'état des portes</b>.</p>
-<h1><a class="anchor" id="autotoc_md810"></a>
+<h1><a class="anchor" id="autotoc_md814"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md811"></a>
+<h2><a class="anchor" id="autotoc_md815"></a>
 Inclus</h2>
 <ul>
 <li><b>Spec</b> : <code>EX-GP-024</code> (budget), ajoutée au cadrage ; <code>EX-GP-020</code>/<code>EX-GP-021</code> implémentées.</li>
@@ -116,14 +116,14 @@ Inclus</h2>
 <li><b>Intégration (HMI)</b> : <code>GameScreen</code> exécute les mécanismes, passe la <b>grille de collision</b> à la physique, initialise le budget au spawn, reflète l'état des <b>portes</b> au rendu ; niveau <code>demo4</code>.</li>
 <li><b>Contenu + preuve</b> : <code>demo4</code> (puzzle) exigeant l'usage de l'interrupteur <b>et</b> un budget serré ; tests d'intégration + parcours <b>système</b>.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md812"></a>
+<h2><a class="anchor" id="autotoc_md816"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Bloc poussable</b> (<code>EX-GP-022</code>), <b>clé/porte verrouillée</b> (<code>EX-GP-023</code>).</li>
 <li><b>Animation</b> d'ouverture de porte (<code>EX-REN-012</code>) : ici, changement d'état <b>instantané</b> + retour visuel simple (teinte).</li>
 <li>Interrupteurs à <b>action dédiée</b> (touche) : ici uniquement au <b>contact</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md813"></a>
+<h1><a class="anchor" id="autotoc_md817"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Interrupteur</b> : activé au <b>contact</b> (recouvrement boîte ↔ tuile), <b>bascule sur front</b> (entrée sur la case) → ne re-bascule pas tant qu'on reste dessus.</li>
@@ -131,13 +131,13 @@ Décisions de cadrage</h1>
 <li><b>Budget par niveau</b> : champs JSON <b>optionnels</b> <code>jumpBudget</code>/<code>dashBudget</code> (défaut <b>-1</b> = illimité) ; portés par <code>Player</code> (restants), initialisés au spawn, <b>décomptés</b> par la physique, <b>réinitialisés</b> au (re)chargement.</li>
 <li><b>Retour visuel des portes</b> : teinte du sprite de la porte selon l'état (fermée opaque / ouverte atténuée) — minimal, sans animation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md814"></a>
+<h1><a class="anchor" id="autotoc_md818"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-GP-020</code> (interrupteur), <code>EX-GP-021</code> (porte), <code>EX-GP-024</code> (budget).</li>
 <li><code>EX-LVL-002</code>/<code>EX-LVL-003</code>/<code>EX-LVL-004</code> (modèle/format/validation du niveau, budgets), <code>EX-NFR-002</code>, <code>EX-NFR-010</code>/<code>EX-NFR-020</code>, <code>EX-ARCH-011</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md815"></a>
+<h1><a class="anchor" id="autotoc_md819"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -154,7 +154,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-04-integration-puzzle_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Intégration <code>GameScreen</code> + niveau <code>demo4</code> + preuves   </td><td class="markdownTableBodyNone"><code>HMI</code>, <code>Elements/Levels</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md816"></a>
+<h1><a class="anchor" id="autotoc_md820"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Toucher un <b>interrupteur</b> ouvre/ferme sa <b>porte</b> liée ; une porte <b>fermée bloque</b>, une porte <b>ouverte</b> laisse passer.</li>
@@ -163,12 +163,12 @@ Critères d'acceptation du lot</h1>
 <li>Logique <b>couverte par des tests</b> (<code>ctest</code> vert), déterministe.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, Doxygen et <code>CHANGELOG.md</code> à jour, <code>lint</code> des exigences vert.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md817"></a>
+<h1><a class="anchor" id="autotoc_md821"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise le modèle de niveau et les liaisons de mécanismes (LOT-07), la physique (<code>CharacterPhysicsSystem</code>, LOT-08→11), le <code>GameScreen</code>/<code>LevelSequence</code> (LOT-09).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md818"></a>
+<h1><a class="anchor" id="autotoc_md822"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-12-tache-01-donnees.html">TACHE-01 — Données : budget (Player, Level, LevelLoader)</a></li>

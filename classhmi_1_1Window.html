@@ -109,15 +109,17 @@ Collaboration diagram for hmi::Window:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmi_1_1Window__coll__graph.png" border="0" usemap="#ahmi_1_1Window_coll__map" alt="Collaboration graph"/></div>
 <map name="ahmi_1_1Window_coll__map" id="ahmi_1_1Window_coll__map">
-<area shape="rect" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="585,107,692,133"/>
-<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="369,107,492,133"/>
-<area shape="poly" title=" " alt="" coords="506,117,585,117,585,123,506,123"/>
-<area shape="rect" title=" " alt="" coords="21,36,181,76"/>
-<area shape="poly" title=" " alt="" coords="194,59,269,67,346,83,404,105,403,110,345,88,268,73,194,64"/>
-<area shape="rect" title=" " alt="" coords="5,100,196,140"/>
-<area shape="poly" title=" " alt="" coords="210,117,369,117,369,123,210,123"/>
-<area shape="rect" title=" " alt="" coords="15,165,187,190"/>
-<area shape="poly" title=" " alt="" coords="200,161,345,137,378,130,379,135,346,143,201,167"/>
+<area shape="rect" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII." alt="" coords="644,142,751,167"/>
+<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="428,142,551,167"/>
+<area shape="poly" title=" " alt="" coords="565,152,644,152,644,157,565,157"/>
+<area shape="rect" title=" " alt="" coords="25,39,185,79"/>
+<area shape="poly" title=" " alt="" coords="199,58,300,69,353,80,405,96,444,117,475,139,471,144,441,121,403,101,352,85,299,74,199,63"/>
+<area shape="rect" title=" " alt="" coords="5,103,205,143"/>
+<area shape="poly" title=" " alt="" coords="219,129,428,147,428,152,219,135"/>
+<area shape="rect" title=" " alt="" coords="10,167,201,207"/>
+<area shape="poly" title=" " alt="" coords="214,190,307,190,403,180,457,165,458,170,405,185,307,195,214,196"/>
+<area shape="rect" title=" " alt="" coords="19,231,191,257"/>
+<area shape="poly" title=" " alt="" coords="205,244,303,237,354,227,403,212,442,190,473,166,476,170,445,195,405,217,355,232,304,242,206,250"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -191,7 +193,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII. </p>
-<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris/manette dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La manette (XInput, <code>EX-CTRL-002</code>) est <b>sondée</b> (pas événementielle comme le clavier/la souris) : <code>pollGamepad</code>, appelée depuis <code>pumpMessages</code>, fusionne son état dans le même <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> via <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> (voir <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>, aucune touche clavier n'est jamais écrasée). La traduction de l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> en actions de gameplay est un module dédié et indépendant de toute fenêtre (<code>HMI/Input/PlayerInputMapper</code>, <code><a class="el" href="namespacehmi.html#ab3de559ef4a330d1360628f6f8ad407b" title="Traduit l&#39;état clavier en core::PlayerInput, dissocié des touches physiques (EX-CTRL-010,...">hmi::toPlayerInput</a></code>). </p>
+<p>La fenêtre est créée à la construction et détruite au destructeur. Elle expose les événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et <b>capture les entrées</b> clavier/souris/manette dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> échantillonné une fois par frame (<code>EX-CTRL-021</code>). La manette (XInput, <code>EX-CTRL-002</code>) est <b>sondée</b> (pas événementielle comme le clavier/la souris) : <code>pollGamepad</code>, appelée depuis <code>pumpMessages</code>, alimente deux pistes indépendantes du même <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> — la fusion clavier/manette sur <code>Key</code> (<code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code>, fixe, utilisée par la navigation de menu, aucune touche clavier n'est jamais écrasée) et l'état brut par <code>GamepadButton</code> (<code>onGamepadButtonDown</code>/<code>onGamepadButtonUp</code>, remappable via <code><a class="el" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) -&gt; bouton manette,...">GamepadBindings</a></code>). La traduction de l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> en actions de gameplay est un module dédié et indépendant de toute fenêtre (<code>HMI/Input/PlayerInputMapper</code>, <code><a class="el" href="namespacehmi.html#a2c3341857c60f0bef0a01a6cd10ce5f7" title="Traduit l&#39;état d&#39;entrée en core::PlayerInput, dissocié des touches/boutons physiques (EX-CTRL-010,...">hmi::toPlayerInput</a></code>). </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7091c512e24901972fdbed668a84939e" name="a7091c512e24901972fdbed668a84939e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7091c512e24901972fdbed668a84939e">&#9670;&#160;</a></span>Window() <span class="overload">[1/2]</span></h2>

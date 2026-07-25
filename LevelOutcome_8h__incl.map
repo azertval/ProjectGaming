@@ -1,7 +1,9 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelOutcome.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelOutcome.h">
 <area shape="rect" id="Node000001" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage." alt="" coords="5,5,227,60"/>
-<area shape="rect" id="Node000002" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="39,108,193,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,60,119,94,113,94,113,60"/>
-<area shape="rect" id="Node000003" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="39,181,193,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,134,119,168,113,168,113,134"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="18,108,81,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,62,69,99,65,95,94,58"/>
+<area shape="rect" id="Node000003" href="$Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée." alt="" coords="105,108,260,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="138,58,167,95,163,99,134,62"/>
+<area shape="rect" id="Node000004" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="105,181,260,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="185,134,185,168,180,168,180,134"/>
 </map>

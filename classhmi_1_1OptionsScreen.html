@@ -169,12 +169,13 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a689e7d7f113f9cdf2c285ff2b16f1441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7263b4c719f2faf3989c71f5c1f0886d" id="r_a7263b4c719f2faf3989c71f5c1f0886d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1OptionsScreen.html#a7263b4c719f2faf3989c71f5c1f0886d">_viewportWidth</a> = 0</td></tr>
 <tr class="separator:a7263b4c719f2faf3989c71f5c1f0886d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e2cff4110f088f89af4d80024f4d183" id="r_a5e2cff4110f088f89af4d80024f4d183"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1OptionsScreen.html#a5e2cff4110f088f89af4d80024f4d183">_viewportHeight</a> = 0</td></tr>
+<tr class="memitem:a5e2cff4110f088f89af4d80024f4d183" id="r_a5e2cff4110f088f89af4d80024f4d183"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1OptionsScreen.html#a5e2cff4110f088f89af4d80024f4d183">_viewportHeight</a> = 720</td></tr>
+<tr class="memdesc:a5e2cff4110f088f89af4d80024f4d183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière hauteur connue (mise à jour par <code><a class="el" href="classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf" title="Dessine l&#39;écran.">render()</a></code>) ; défaut 720 pour un premier <code><a class="el" href="classhmi_1_1OptionsScreen.html#a1b7becac88ec63361eccf2c61463d790" title="Met à jour la logique de l&#39;écran pour une frame.">update()</a></code> raisonnable avant le tout premier <code><a class="el" href="classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf" title="Dessine l&#39;écran.">render()</a></code> (même principe que <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>).  <br /></td></tr>
 <tr class="separator:a5e2cff4110f088f89af4d80024f4d183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Écran de réglages : bascule V-Sync, ouvre les sous-menus de remappage des touches, langue, état de la manette, retour au menu (<code>EX-REN-022</code>, <code>EX-CTRL-002</code>, <code>EX-CTRL-012</code>, LOT-20, LOT-29). </p>
-<p>Fin habillage d'<code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code> : <code>update</code> délègue la sélection/confirmation au modèle (testable), interprète l'action renvoyée (bascule V-Sync appliquée à <code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">GraphicsDevice</a></code>, transition vers un sous-menu de remappage, ou retour au menu), et traite en plus le bouton de langue en coin (<code><a class="el" href="classhmi_1_1LanguageSelector.html" title="Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.">LanguageSelector</a></code>, réutilisé tel quel, même geste que <code><a class="el" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et quatre options (Jouer, Mode Edition, Options, Quitter).">MenuScreen</a></code>). <code>render</code> dessine le titre, les quatre options (celle sélectionnée mise en évidence), une ligne d'état de connexion de la manette, et le bouton de langue. </p>
+<p>Fin habillage d'<code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code> : <code>update</code> délègue la sélection/confirmation au modèle (testable), interprète l'action renvoyée (bascule V-Sync appliquée à <code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">GraphicsDevice</a></code>, transition vers un sous-menu de remappage, ou retour au menu), et traite en plus le bouton de langue en coin (<code><a class="el" href="classhmi_1_1LanguageSelector.html" title="Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.">LanguageSelector</a></code>, réutilisé tel quel, même geste que <code><a class="el" href="classhmi_1_1MenuScreen.html" title="Écran d&#39;accueil : titre et quatre options (Jouer, Mode Edition, Options, Quitter).">MenuScreen</a></code>). <code>render</code> dessine le titre, la fenêtre visible des cinq options (celle sélectionnée mise en évidence, une barre de défilement si toutes ne tiennent pas à l'écran — <code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">OptionsModel</a></code>), une ligne d'état de connexion de la manette, et le bouton de langue. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8d2ec7f9e58bda247340ecfb954f1ab4" name="a8d2ec7f9e58bda247340ecfb954f1ab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d2ec7f9e58bda247340ecfb954f1ab4">&#9670;&#160;</a></span>OptionsScreen()</h2>
@@ -421,7 +422,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::OptionsScreen::_viewportHeight = 0</td>
+          <td class="memname">int hmi::OptionsScreen::_viewportHeight = 720</td>
         </tr>
       </table>
   </td>
@@ -430,6 +431,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Dernière hauteur connue (mise à jour par <code><a class="el" href="classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf" title="Dessine l&#39;écran.">render()</a></code>) ; défaut 720 pour un premier <code><a class="el" href="classhmi_1_1OptionsScreen.html#a1b7becac88ec63361eccf2c61463d790" title="Met à jour la logique de l&#39;écran pour une frame.">update()</a></code> raisonnable avant le tout premier <code><a class="el" href="classhmi_1_1OptionsScreen.html#aa5a81d8e1dd1949d08c1b7eb4b9deadf" title="Dessine l&#39;écran.">render()</a></code> (même principe que <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">TilePalette</a></code>). </p>
 
 </div>
 </div>

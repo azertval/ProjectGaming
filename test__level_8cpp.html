@@ -147,15 +147,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a90412a77d726ab3b4edb10d3ad3c578c" id="r_a90412a77d726ab3b4edb10d3ad3c578c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level_8cpp.html#a90412a77d726ab3b4edb10d3ad3c578c">TEST</a> (TileMapTest, IsSolidParType)</td></tr>
 <tr class="memdesc:a90412a77d726ab3b4edb10d3ad3c578c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>isSolid(TileType)</code> : vrai seulement pour Solid.  <br /></td></tr>
 <tr class="separator:a90412a77d726ab3b4edb10d3ad3c578c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e7874baa204e3ba909e9d9dc3b5a0d" id="r_aa9e7874baa204e3ba909e9d9dc3b5a0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level_8cpp.html#aa9e7874baa204e3ba909e9d9dc3b5a0d">TEST</a> (TileMapTest, IsSolidFauxPourLesDangersAvances)</td></tr>
+<tr class="memdesc:aa9e7874baa204e3ba909e9d9dc3b5a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sept nouvelles variantes de danger ne sont jamais solides, comme le danger classique (<code>EX-GP-050</code> à <code>EX-GP-053</code>).  <br /></td></tr>
+<tr class="separator:aa9e7874baa204e3ba909e9d9dc3b5a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0196ba361c49491a85084322ad54109b" id="r_a0196ba361c49491a85084322ad54109b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level_8cpp.html#a0196ba361c49491a85084322ad54109b">TEST</a> (LevelTest, RestitueSesComposantes)</td></tr>
 <tr class="memdesc:a0196ba361c49491a85084322ad54109b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un Level restitue ses composantes (nom, grille, entrée/sortie, mécanismes).  <br /></td></tr>
 <tr class="separator:a0196ba361c49491a85084322ad54109b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a923caab60c8bb01375bf77166b1a6317" id="r_a923caab60c8bb01375bf77166b1a6317"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__level_8cpp.html#a923caab60c8bb01375bf77166b1a6317">TEST</a> (LevelTest, RestitueSesDangersAvances)</td></tr>
+<tr class="memdesc:a923caab60c8bb01375bf77166b1a6317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un Level restitue ses liaisons de danger commuté et ses configurations de danger mobile/ temporisé (<code>EX-GP-051</code>/<code>EX-GP-052</code>/<code>EX-GP-053</code>).  <br /></td></tr>
+<tr class="separator:a923caab60c8bb01375bf77166b1a6317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du modèle de niveau : TileMap et Level. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a0196ba361c49491a85084322ad54109b" name="a0196ba361c49491a85084322ad54109b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0196ba361c49491a85084322ad54109b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0196ba361c49491a85084322ad54109b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,8 +197,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a923caab60c8bb01375bf77166b1a6317" name="a923caab60c8bb01375bf77166b1a6317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a923caab60c8bb01375bf77166b1a6317">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RestitueSesDangersAvances&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un Level restitue ses liaisons de danger commuté et ses configurations de danger mobile/ temporisé (<code>EX-GP-051</code>/<code>EX-GP-052</code>/<code>EX-GP-053</code>). </p>
+<p><b>Cas de test :</b> <b>Un Level restitue ses liaisons et configurations de dangers avancés.</b><br  />
+ <b>Categorie :</b> Unitaire · Level<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Un Level restitue ses liaisons de danger commuté et ses configurations de danger mobile/temporisé. </p>
+
+</div>
+</div>
 <a id="a5141d80eb5b0c388dc29aec7ad49d3c2" name="a5141d80eb5b0c388dc29aec7ad49d3c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5141d80eb5b0c388dc29aec7ad49d3c2">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5141d80eb5b0c388dc29aec7ad49d3c2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,7 +272,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7bafc24562d30b77badddc66ee07deb9" name="a7bafc24562d30b77badddc66ee07deb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bafc24562d30b77badddc66ee07deb9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bafc24562d30b77badddc66ee07deb9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +309,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa08e66fb820055b1639bd67aeb7b0e3d" name="aa08e66fb820055b1639bd67aeb7b0e3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa08e66fb820055b1639bd67aeb7b0e3d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa08e66fb820055b1639bd67aeb7b0e3d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,8 +345,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa9e7874baa204e3ba909e9d9dc3b5a0d" name="aa9e7874baa204e3ba909e9d9dc3b5a0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e7874baa204e3ba909e9d9dc3b5a0d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">TileMapTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IsSolidFauxPourLesDangersAvances&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sept nouvelles variantes de danger ne sont jamais solides, comme le danger classique (<code>EX-GP-050</code> à <code>EX-GP-053</code>). </p>
+<p><b>Cas de test :</b> <b>Les sept nouvelles variantes de danger ne sont jamais solides.</b><br  />
+ <b>Categorie :</b> Unitaire · Tile Map<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Les sept nouvelles variantes de danger ne sont jamais solides. </p>
+
+</div>
+</div>
 <a id="a90412a77d726ab3b4edb10d3ad3c578c" name="a90412a77d726ab3b4edb10d3ad3c578c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90412a77d726ab3b4edb10d3ad3c578c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a90412a77d726ab3b4edb10d3ad3c578c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +420,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2034f1137b0213a0714d8a7907a39d0b" name="a2034f1137b0213a0714d8a7907a39d0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2034f1137b0213a0714d8a7907a39d0b">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2034f1137b0213a0714d8a7907a39d0b">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
