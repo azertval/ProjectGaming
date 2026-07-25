@@ -31,15 +31,15 @@ ne décrit que du code déjà implémenté, jamais en avance sur lui.
   scripts/lint_exigences.py`, `python scripts/generate_cahier_test.py`,
   `python scripts/check_demo_sequence.py`) — tous verts. Doxygen d'abord vérifié seulement avec le
   binaire **local** (1.17.0, zéro avertissement), poussé sans le binaire **1.9.8 exact de la CI** —
-  la CI a échoué : `` `Core/Levels/LevelScene.cpp::buildLevelScene` `` dans `tache-03-integration-
-  editeur.md` (chemin de fichier suivi de `::`, exactement le piège connu
-  `project_doxygen_colon_link_pitfall` — repéré par la CI, pas par le 1.17.0 local, confirmant la
-  mémoire `project_ci_local_reproduction`). Corrigé (`` `core::buildLevelScene` (`Core/Levels/
-  LevelScene.cpp`) ``) puis **revérifié avec le binaire 1.9.8 exact** (téléchargé depuis
-  `www.doxygen.nl/files/`) : `0`, aucune ligne de sortie. Relu aussi pour l'autre piège connu,
-  `` **X**/**Y** `` fermant un commentaire prématurément (mémoire
-  `project_bold_slash_comment_closing_pitfall`, découvert pendant ce lot) — aucune occurrence
-  restante.
+  la CI a échoué sur `tache-03-integration-editeur.md` : un span citait le chemin du fichier
+  contenant `buildLevelScene` suivi d'un double deux-points et du nom de la fonction, exactement le
+  piège connu (mémoire `project_doxygen_colon_link_pitfall`) — repéré par la CI, pas par le 1.17.0
+  local, confirmant la mémoire `project_ci_local_reproduction`. Corrigé en citant seulement le
+  symbole réellement documenté et son fichier séparément. Puis **revérifié avec le binaire 1.9.8
+  exact** (téléchargé depuis `www.doxygen.nl/files/`) : `0`, aucune ligne de sortie. Relu aussi pour
+  l'autre piège connu, deux astérisques fermantes suivies d'un slash refermant un commentaire
+  prématurément (mémoire `project_bold_slash_comment_closing_pitfall`, découvert pendant ce lot) —
+  aucune occurrence restante.
 
 ## Fichiers impactés
 - `Documentation/Specification/gameplay.md`, `niveaux.md`, `editeur-niveaux.md`.
