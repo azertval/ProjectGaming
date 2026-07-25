@@ -29,14 +29,17 @@ ne décrit que du code déjà implémenté, jamais en avance sur lui.
 - **`CHANGELOG.md`** : entrée `[Non publié]` décrivant le lot.
 - **Doxygen**, **Cahier de test**, **lint des exigences** : lancés localement (`python
   scripts/lint_exigences.py`, `python scripts/generate_cahier_test.py`,
-  `python scripts/check_demo_sequence.py`) — tous verts. Doxygen lancé avec le binaire **local**
-  (1.17.0, zéro avertissement) ; le binaire **1.9.8 exact de la CI** n'a **pas** été téléchargé dans
-  cette session (mémoire `project_ci_local_reproduction`) — vérification différée au prochain push,
-  cf. Définition de fait ci-dessous. Relu manuellement pour les deux pièges connus : `` `::` `` dans
-  un span sur un symbole non documenté (mémoire `project_doxygen_colon_link_pitfall`) et
+  `python scripts/check_demo_sequence.py`) — tous verts. Doxygen d'abord vérifié seulement avec le
+  binaire **local** (1.17.0, zéro avertissement), poussé sans le binaire **1.9.8 exact de la CI** —
+  la CI a échoué : `` `Core/Levels/LevelScene.cpp::buildLevelScene` `` dans `tache-03-integration-
+  editeur.md` (chemin de fichier suivi de `::`, exactement le piège connu
+  `project_doxygen_colon_link_pitfall` — repéré par la CI, pas par le 1.17.0 local, confirmant la
+  mémoire `project_ci_local_reproduction`). Corrigé (`` `core::buildLevelScene` (`Core/Levels/
+  LevelScene.cpp`) ``) puis **revérifié avec le binaire 1.9.8 exact** (téléchargé depuis
+  `www.doxygen.nl/files/`) : `0`, aucune ligne de sortie. Relu aussi pour l'autre piège connu,
   `` **X**/**Y** `` fermant un commentaire prématurément (mémoire
-  `project_bold_slash_comment_closing_pitfall`, découvert pendant ce lot) — aucune occurrence dans
-  les fichiers touchés.
+  `project_bold_slash_comment_closing_pitfall`, découvert pendant ce lot) — aucune occurrence
+  restante.
 
 ## Fichiers impactés
 - `Documentation/Specification/gameplay.md`, `niveaux.md`, `editeur-niveaux.md`.
@@ -50,16 +53,15 @@ ne décrit que du code déjà implémenté, jamais en avance sur lui.
 - `python scripts/lint_exigences.py` : `0` (138 exigences déclarées, 111 référencées).
 - `python scripts/generate_cahier_test.py --check` : à jour (535 cas de test, régénéré).
 - `python scripts/check_demo_sequence.py` : `0` (14 niveaux, identiques et dans le même ordre).
-- Doxygen local (1.17.0) : `0`, aucune ligne de sortie.
+- Doxygen : `0` aux deux binaires, local (1.17.0) **et** 1.9.8 exact de la CI.
 - Build complet `/W4 /WX` et suite de tests complète (453 Unit + 81 Integration + 3 Système)
   vertes, sans régression.
 
 ## Définition de fait (DoD)
 - Documentation cohérente avec le comportement livré ; `epic.md` marqué **terminé**, chaque tâche
   marquée ✅.
-- **Avant tout push** : vérifier Doxygen avec le binaire **1.9.8 exact de la CI** (pas seulement le
-  binaire local, plus tolérant — mémoire `project_ci_local_reproduction`), non fait dans cette
-  session.
+- Doxygen vérifié avec le binaire **1.9.8 exact de la CI**, pas seulement le binaire local — fait
+  (après un premier push qui a révélé l'écart, cf. ci-dessus).
 
 ## Exigences
 `EX-GP-050`, `EX-GP-051`, `EX-GP-052`, `EX-GP-053`, `EX-LVL-002`, `EX-LVL-004`, `EX-EDIT-001`,

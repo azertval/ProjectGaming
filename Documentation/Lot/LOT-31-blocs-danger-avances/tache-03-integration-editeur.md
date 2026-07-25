@@ -39,7 +39,7 @@ laissées implicites :
 - **`core::isDangerTileType`** (nouveau, `Core/Levels/DangerGeometry.h`/`.cpp`) : vrai pour les huit
   types de danger — utilisé par le rendu (ci-dessous) pour ne recalculer un quad asymétrique qu'à
   ces types précis.
-- **`Core/Levels/LevelScene.cpp::buildLevelScene`** : pour une tuile de danger, la `Transform` de
+- **`core::buildLevelScene`** (`Core/Levels/LevelScene.cpp`) : pour une tuile de danger, la `Transform` de
   l'entité (position + échelle) est dérivée de `core::dangerHitbox` plutôt que de la case pleine par
   défaut — bande décalée sur le bord réel pour les quatre directionnels, case pleine inchangée
   sinon. Même principe que `core::tileVisualScale` pour les blocs réduits (`EX-GP-005`), mais
