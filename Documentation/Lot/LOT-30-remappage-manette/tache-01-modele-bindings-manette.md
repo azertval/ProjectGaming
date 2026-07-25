@@ -1,6 +1,6 @@
 # TACHE-01 — Modèle de bindings manette {#lot-30-tache-01-modele-bindings-manette}
 
-**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Input` · **Statut :** ⬜
+**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Input` · **Statut :** ✅
 
 ## Contexte
 Pose les fondations du remappage manette, indépendamment de tout écran : l'enum des boutons
@@ -17,18 +17,24 @@ utilitaire d'affichage/capture de bouton — même patron que `GameKeyBindings`/
   `RightShoulder`), `save`/`load` (section `"manette"` de `Settings/keybindings.json`, fusionnée
   avec les sections `"jeu"`/`"editeur"` existantes comme `GameKeyBindings`/`EditorKeyBindings` le
   font déjà entre elles).
-- **`Source/HMI/Input/GamepadButtonName.h`/`.cpp`** (nouveau, ou étend `KeyName.h`/`.cpp`) :
+- **`Source/HMI/Input/GamepadButtonName.h`/`.cpp`** (nouveau) :
   - `gamepadButtonDisplayName(GamepadButton)` — nom lisible (« A », « Épaule droite », etc.).
   - `capturedGamepadButton(const InputState&)` — scrute les dix `GamepadButton`, renvoie le
-    premier pressé cette frame (dépend de TACHE-02 pour l'état brut par bouton dans `InputState` ;
-    si menée avant, peut temporairement scruter un état factice/à compléter).
+    premier pressé cette frame.
+- **`Source/HMI/Input/InputState.h`/`.cpp`** (écart de cadrage : menée ici plutôt qu'en TACHE-02,
+  `capturedGamepadButton` ci-dessus en a besoin immédiatement) : nouvelle piste d'état **brute**
+  par `GamepadButton`, indépendante de la fusion clavier/manette existante sur `Key`
+  (`onGamepadKeyDown`/`Up`, inchangée, toujours utilisée pour la navigation de menu) —
+  `onGamepadButtonDown`/`Up`, `gamepadButtonDown`/`Pressed`, alimentées par `beginFrame` comme les
+  pistes existantes. `Window::pollGamepad` (TACHE-02) reste à câbler pour les remplir réellement.
 
 ## Fichiers impactés
 - `Source/HMI/Input/GamepadButton.h`, `GamepadBindings.h`/`.cpp`,
   `GamepadButtonName.h`/`.cpp` (nouveaux).
+- `Source/HMI/Input/InputState.h`/`.cpp` (piste `GamepadButton`, écart de cadrage ci-dessus).
 - `Source/HMI/CMakeLists.txt`, `Source/Test/CMakeLists.txt` (nouveaux fichiers source/test).
 - Tests : `Source/Test/Unit/HMI/Input/test_gamepad_bindings.cpp`,
-  `test_gamepad_button_name.cpp` (nouveaux).
+  `test_gamepad_button_name.cpp` (nouveaux), `test_input_state.cpp` (nouveaux cas `GamepadButton`).
 
 ## Tests (obligatoires)
 - Valeurs par défaut correctes pour les six actions (miroir du câblage actuel).
@@ -38,6 +44,9 @@ utilitaire d'affichage/capture de bouton — même patron que `GameKeyBindings`/
   trois sections doivent coexister sans interférence, dans les deux sens de sauvegarde).
 - Fichier absent/corrompu/bouton hors plage → valeurs par défaut, aucune exception.
 - `gamepadButtonDisplayName` : un nom par valeur de `GamepadButton`.
+- `InputState` : un bouton manette (piste brute) suit le même cycle pressé/maintenu/relâché
+  qu'une touche clavier ou un bouton souris ; indépendant de la fusion `Key` existante (l'un
+  n'affecte jamais l'autre).
 
 ## Définition de fait (DoD)
 - Compile, testé, sans encore aucun appelant dans le jeu (branchement réel en TACHE-02) — tâche

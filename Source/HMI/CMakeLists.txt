@@ -8,6 +8,8 @@ add_executable(ProjectGaming
     Input/GameKeyBindings.cpp
     Input/EditorKeyBindings.cpp
     Input/KeyName.cpp
+    Input/GamepadBindings.cpp
+    Input/GamepadButtonName.cpp
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp

@@ -323,3 +323,53 @@ TEST(InputStateTest, GamepadConnecteReecrasable) {
     input.setGamepadConnected(false);
     EXPECT_FALSE(input.gamepadConnected());
 }
+
+/**
+ * @brief Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé »
+ *        exactement une frame, comme une touche clavier.
+ * \castest{<b>Un bouton manette (piste brute) est « pressé » exactement une frame.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un bouton manette (piste brute) est « pressé » exactement une frame.
+ * }
+ */
+TEST(InputStateTest, FrontMontantBoutonManetteBrut) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    input.onGamepadButtonDown(hmi::GamepadButton::A);
+    EXPECT_TRUE(input.gamepadButtonDown(hmi::GamepadButton::A));
+    EXPECT_TRUE(input.gamepadButtonPressed(hmi::GamepadButton::A));
+
+    input.beginFrame();
+    EXPECT_TRUE(input.gamepadButtonDown(hmi::GamepadButton::A));
+    EXPECT_FALSE(input.gamepadButtonPressed(hmi::GamepadButton::A));
+
+    input.onGamepadButtonUp(hmi::GamepadButton::A);
+    EXPECT_FALSE(input.gamepadButtonDown(hmi::GamepadButton::A));
+}
+
+/**
+ * @brief La piste manette brute (`GamepadButton`) est indépendante de la fusion clavier/manette
+ *        existante sur `Key` : l'une n'affecte jamais l'autre.
+ * \castest{<b>La piste manette brute est indépendante de la fusion clavier/manette sur
+ * Key.</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu La piste manette brute est indépendante de la fusion clavier/manette sur Key.
+ * }
+ */
+TEST(InputStateTest, PisteBrutIndependanteDeLaFusionKey) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    input.onGamepadButtonDown(hmi::GamepadButton::A);
+    EXPECT_FALSE(input.keyDown(hmi::Key::Enter));  // aucune touche Key affectee
+
+    input.onGamepadKeyDown(hmi::Key::Enter);
+    EXPECT_FALSE(input.gamepadButtonDown(hmi::GamepadButton::B));  // aucun bouton brut affecte
+}

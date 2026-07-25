@@ -3,16 +3,12 @@
 **Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Input`, `HMI/Platform`, `HMI/Interface` · **Statut :** ⬜
 
 ## Contexte
-Branche le jeu sur `GamepadBindings` (TACHE-01) : `InputState` gagne une piste d'état brute par
-`GamepadButton`, `Window::pollGamepad` l'alimente depuis le relevé XInput déjà lu, et
-`PlayerInputMapper` la consulte à la place du filet de sécurité de `LOT-29`.
+Branche le jeu sur `GamepadBindings` (TACHE-01) : `Window::pollGamepad` alimente la piste d'état
+brute par `GamepadButton` (déjà ajoutée à `InputState` en TACHE-01, écart de cadrage) depuis le
+relevé XInput déjà lu, et `PlayerInputMapper` la consulte à la place du filet de sécurité de
+`LOT-29`.
 
 ## Travail à réaliser
-- **`Source/HMI/Input/InputState.h`/`.cpp`** : nouveaux tableaux `_gamepadButtonsCurrent`/
-  `_gamepadButtonsPrevious` (taille fixe, dix), `onGamepadButtonDown`/`onGamepadButtonUp`,
-  `gamepadButtonDown`/`gamepadButtonPressed`. Le mécanisme `Key` existant (`onGamepadKeyDown`/
-  `onGamepadKeyUp`, fusion clavier/manette) **reste intact**, toujours utilisé par
-  `MenuModel`/`OptionsModel`/`LevelPicker`/`EditorScreen` pour la navigation.
 - **`Source/HMI/Platform/Window.cpp`** (`pollGamepad`) : ajoute, à côté des `setKey(Key::…, …)`
   existants (inchangés), des appels `onGamepadButtonDown/Up(GamepadButton::…, …)` pour les dix
   boutons, à partir du même `XINPUT_STATE`/`stickDirection` déjà calculés.
@@ -30,18 +26,14 @@ Branche le jeu sur `GamepadBindings` (TACHE-01) : `InputState` gagne une piste d
   `gamepadBindings` (voir TACHE-03 pour son chargement au démarrage).
 
 ## Fichiers impactés
-- `Source/HMI/Input/InputState.h`/`.cpp`.
 - `Source/HMI/Platform/Window.cpp`.
 - `Source/HMI/Input/PlayerInputMapper.h`/`.cpp`.
 - `Source/HMI/Interface/GameScreen.h`/`.cpp`, `EditorScreen.h`/`.cpp`.
 - `Source/HMI/main.cpp`.
-- Tests : `Source/Test/Unit/HMI/Input/test_input_state.cpp` (nouveaux cas `GamepadButton`),
-  `test_player_input_mapper.cpp` (nouvelle signature, retrait des tests du filet `LOT-29` devenu
-  obsolète, nouveaux cas manette).
+- Tests : `test_player_input_mapper.cpp` (nouvelle signature, retrait des tests du filet `LOT-29`
+  devenu obsolète, nouveaux cas manette).
 
 ## Tests (obligatoires)
-- `InputState` : `gamepadButtonDown`/`Pressed` reflètent `onGamepadButtonDown`/`Up`, indépendamment
-  du mécanisme `Key` existant (les deux pistes ne s'influencent pas).
 - `test_player_input_mapper.cpp` : chaque action déclenchée par son bouton manette lié (nouveau
   binding non défaut) ; un remap manette n'affecte pas le clavier et réciproquement ; les tests du
   filet `LOT-29` (`BoutonManetteContinueDeFonctionnerApresRemapClavier`,
