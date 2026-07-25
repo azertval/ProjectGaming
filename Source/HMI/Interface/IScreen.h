@@ -15,12 +15,20 @@ struct RenderContext;
  * @brief Écran cible de l'application.
  *
  * `Menu` est l'écran d'accueil ; `Game` lance la scène de jeu ; `Editor` l'écran d'édition ;
- * `Options` le menu de réglages (V-Sync, langue, LOT-20) ; `GameKeybindings`/`EditorKeybindings`
- * ses deux sous-menus de remappage des touches (`EX-CTRL-012`, `LOT-29`). La fabrication de
- * l'écran concret associé est déléguée (cf. `ScreenManager`), pour garder la logique de
- * navigation indépendante des écrans eux-mêmes.
+ * `Options` le menu de réglages (V-Sync, langue, LOT-20) ; `GameKeybindings`/`EditorKeybindings`/
+ * `GamepadBindings` ses trois sous-menus de remappage des touches (`EX-CTRL-012`, `LOT-29`/
+ * `LOT-30`). La fabrication de l'écran concret associé est déléguée (cf. `ScreenManager`), pour
+ * garder la logique de navigation indépendante des écrans eux-mêmes.
  */
-enum class ScreenId { Menu, Game, Editor, Options, GameKeybindings, EditorKeybindings };
+enum class ScreenId {
+    Menu,
+    Game,
+    Editor,
+    Options,
+    GameKeybindings,
+    EditorKeybindings,
+    GamepadBindings,
+};
 
 /**
  * @brief Intention de transition renvoyée par un écran à l'issue de sa mise à jour.

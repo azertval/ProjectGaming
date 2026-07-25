@@ -33,6 +33,7 @@
 #include "HMI/Interface/EditorKeybindingsScreen.h"
 #include "HMI/Interface/EditorScreen.h"
 #include "HMI/Interface/GameKeybindingsScreen.h"
+#include "HMI/Interface/GamepadBindingsScreen.h"
 #include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/MenuScreen.h"
@@ -238,6 +239,9 @@ int main(int argc, char** argv) {
                 case hmi::ScreenId::EditorKeybindings:
                     return std::make_unique<hmi::EditorKeybindingsScreen>(
                         localization, editorBindings, keybindingsPath);
+                case hmi::ScreenId::GamepadBindings:
+                    return std::make_unique<hmi::GamepadBindingsScreen>(
+                        localization, gamepadBindings, keybindingsPath);
             }
             return nullptr;
         };

@@ -29,6 +29,8 @@ add_executable(ProjectGaming
     Interface/GameKeybindingsScreen.cpp
     Interface/EditorKeybindingsModel.cpp
     Interface/EditorKeybindingsScreen.cpp
+    Interface/GamepadBindingsModel.cpp
+    Interface/GamepadBindingsScreen.cpp
     Interface/GameScreen.cpp
     Interface/EditorScreen.cpp
     Interface/LanguageSelector.cpp

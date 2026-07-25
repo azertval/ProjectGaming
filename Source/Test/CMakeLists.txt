@@ -45,6 +45,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_options_model.cpp
     Unit/HMI/Interface/test_game_keybindings_model.cpp
     Unit/HMI/Interface/test_editor_keybindings_model.cpp
+    Unit/HMI/Interface/test_gamepad_bindings_model.cpp
     Unit/HMI/Interface/test_language_selector.cpp
     Unit/HMI/Interface/test_save_log_button.cpp
     Unit/HMI/Interface/test_session_log.cpp
@@ -80,6 +81,7 @@ add_executable(UnitTests
     # La logique des sous-menus de remappage des touches est pure, testable hors GPU.
     ../HMI/Interface/GameKeybindingsModel.cpp
     ../HMI/Interface/EditorKeybindingsModel.cpp
+    ../HMI/Interface/GamepadBindingsModel.cpp
     # Le bouton de langue (ancrage, bascule, clic) est une logique pure, testable hors GPU.
     ../HMI/Interface/LanguageSelector.cpp
     # Le bouton d'enregistrement des logs (ancrage, clic) est pur, testable hors GPU.

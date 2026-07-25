@@ -23,7 +23,8 @@ class GraphicsDevice;
  * (testable), interprète l'action renvoyée (bascule V-Sync appliquée à `GraphicsDevice`,
  * transition vers un sous-menu de remappage, ou retour au menu), et traite en plus le bouton de
  * langue en coin (`LanguageSelector`, réutilisé tel quel, même geste que `MenuScreen`). `render`
- * dessine le titre, les quatre options (celle sélectionnée mise en évidence), une ligne d'état de
+ * dessine le titre, la fenêtre visible des cinq options (celle sélectionnée mise en évidence, une
+ * barre de défilement si toutes ne tiennent pas à l'écran — `OptionsModel`), une ligne d'état de
  * connexion de la manette, et le bouton de langue.
  */
 class OptionsScreen : public IScreen {
@@ -47,7 +48,9 @@ private:
     LanguageSelector _languageButton;
     bool _gamepadConnected = false;  ///< Capturé à update() : render() ne reçoit pas InputState.
     int _viewportWidth = 0;
-    int _viewportHeight = 0;
+    /// Dernière hauteur connue (mise à jour par `render()`) ; défaut 720 pour un premier `update()`
+    /// raisonnable avant le tout premier `render()` (même principe que `TilePalette`).
+    int _viewportHeight = 720;
 };
 
 }  // namespace hmi

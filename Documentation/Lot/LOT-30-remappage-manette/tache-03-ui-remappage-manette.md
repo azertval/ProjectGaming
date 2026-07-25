@@ -1,6 +1,6 @@
 # TACHE-03 — UI de remappage manette et câblage {#lot-30-tache-03-ui-remappage-manette}
 
-**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Interface`, `HMI/main.cpp` · **Statut :** ⬜
+**Lot :** [LOT-30](epic.md) · **Emplacement :** `HMI/Interface`, `HMI/main.cpp` · **Statut :** ✅
 
 ## Contexte
 Rend le remappage manette accessible depuis Options : un nouveau sous-menu listant les six actions
@@ -50,6 +50,15 @@ de jeu avec le bouton manette lié, même patron que `GameKeybindingsModel`/`Scr
   elle-même (`capturedGamepadButton` dépend de l'état manette de `InputState`) — les tests
   unitaires injectent directement `onGamepadButtonDown` sur un `InputState`, sans manette réelle
   (même principe que les tests existants de fusion manette, `LOT-20`).
+- **Écart constaté, signalé par le demandeur** : passer `OptionsModel::OPTION_COUNT` de 4 à 5
+  (`LOT-29` en avait déjà porté 2 à 4) a fait déborder le menu Options d'une fenêtre 720p — à
+  720p, `MenuModel::OPTIONS_TOP`/`OPTION_SPACING` (pensés pour 2 à 4 lignes) ne font tenir que 4
+  lignes sans défilement, la 5ᵉ (« Retour ») se retrouvant hors écran, inaccessible à la souris.
+  Corrigé en dotant `OptionsModel`/`OptionsScreen` d'un vrai défilement (fenêtre visible + barre de
+  défilement), sur le même patron que `LevelPicker` (liste plate, pas l'accordéon de
+  `TilePalette`) : `visibleOptionCount`/`scrollOffset`, le clavier fait suivre la sélection dans la
+  fenêtre visible, la molette défile sans la changer. `OptionsModel::update` gagne un paramètre
+  `viewportHeight` (même principe que `LevelPicker::update`).
 
 ## Définition de fait (DoD)
 - Sous-menu accessible, fonctionnel, persiste ses changements ; navigation complète testée
