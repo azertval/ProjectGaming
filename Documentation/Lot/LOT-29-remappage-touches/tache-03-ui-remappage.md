@@ -1,6 +1,6 @@
 # TACHE-03 — UI de remappage et câblage {#lot-29-tache-03-ui-remappage}
 
-**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Interface`, `HMI/main.cpp` · **Statut :** ⬜
+**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Interface`, `HMI/main.cpp` · **Statut :** ✅
 
 ## Contexte
 Rend le remappage accessible depuis le menu Options : deux nouveaux écrans listant respectivement
@@ -68,14 +68,24 @@ navigable au clavier/souris, action confirmée par Entrée/clic).
   → remapper Sauter → Retour → Retour → Jouer, confirme que la nouvelle touche saute bien.
 
 ## Points d'attention
-- **`Échap` pendant la capture** : trancher entre « annule la capture (binding inchangé) » et
-  « touche réservée ignorée, capture reste ouverte ». La première est plus cohérente avec le reste
-  de l'application (`TextInputField`, dialogues de confirmation) où `Échap` = annuler une action en
-  cours — à documenter ici une fois le choix fait en implémentant, et à refléter dans
-  `KeyName::capturedKey` si le comportement diffère de celui décrit en TACHE-01.
+- **`Échap` pendant la capture, tranché** : annule la capture (binding inchangé), géré directement
+  dans `GameKeybindingsModel`/`EditorKeybindingsModel::update` (avant même d'appeler
+  `capturedKey`, qui reste inchangée : elle ignore `Échap`/`Entrée` comme touche **cible**, ce qui
+  est un besoin distinct). Cohérent avec `TextInputField` (`Échap` = annuler une saisie en cours).
+- **Pas de sortie par `Échap` hors capture** : contrairement à `MenuScreen`/`GameScreen`/
+  `EditorScreen`, les deux nouveaux écrans (comme `OptionsScreen`, déjà ainsi) ne quittent que par
+  la ligne « Retour » sélectionnée + validée — `OptionsModel` ne gère déjà pas `Échap` non plus,
+  décision reconduite à l'identique plutôt que réinventée.
+- **Mise en page dédiée, pas celle de `MenuModel`** : `MenuModel::OPTIONS_TOP`/`OPTION_SPACING`
+  (pensés pour 2 à 4 lignes) déborderait largement une fenêtre 720p avec 8 ou 11 lignes —
+  `GameKeybindingsModel` définit ses propres constantes compactes (`ROWS_TOP=110`,
+  `ROW_SPACING=40`, `ROW_SCALE=2.4`), réutilisées telles quelles par `EditorKeybindingsModel`
+  (même principe qu'`OptionsModel` réutilisant `MenuModel::MARGIN_X`). Seul `MenuModel::MARGIN_X`
+  (alignement horizontal) est repris tel quel des deux côtés.
 - Les deux nouveaux écrans ne dessinent **pas** le bouton de langue (`LanguageSelector`) —
-  contrairement à `OptionsScreen`, ce n'est pas un écran de premier niveau ; à confirmer cohérent
-  avec l'attente du demandeur en revue.
+  contrairement à `OptionsScreen`, ce ne sont pas des écrans de premier niveau.
+- Écart de build `nlohmann_json`/cible `ProjectGaming` : voir TACHE-02 (constaté au premier build
+  complet incluant `main.cpp`, pas spécifique à cette tâche).
 
 ## Définition de fait (DoD)
 - Les deux sous-menus sont accessibles, fonctionnels, et persistent leurs changements ; navigation

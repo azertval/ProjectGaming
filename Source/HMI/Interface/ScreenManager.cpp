@@ -19,6 +19,10 @@ namespace {
             return "Editeur";
         case ScreenId::Options:
             return "Options";
+        case ScreenId::GameKeybindings:
+            return "Touches de jeu";
+        case ScreenId::EditorKeybindings:
+            return "Touches de l'editeur";
     }
     return "Inconnu";
 }

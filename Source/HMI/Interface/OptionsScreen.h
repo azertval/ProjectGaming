@@ -15,15 +15,16 @@ class GraphicsDevice;
  */
 
 /**
- * @brief Écran de réglages : bascule V-Sync, langue, état de la manette, retour au menu
- *        (`EX-REN-022`, `EX-CTRL-002`, LOT-20).
+ * @brief Écran de réglages : bascule V-Sync, ouvre les sous-menus de remappage des touches,
+ *        langue, état de la manette, retour au menu (`EX-REN-022`, `EX-CTRL-002`, `EX-CTRL-012`,
+ *        LOT-20, LOT-29).
  *
  * Fin habillage d'`OptionsModel` : `update` délègue la sélection/confirmation au modèle
- * (testable), interprète l'action renvoyée (bascule V-Sync appliquée à `GraphicsDevice`, ou
- * retour au menu), et traite en plus le bouton de langue en coin (`LanguageSelector`, réutilisé
- * tel quel, même geste que `MenuScreen`). `render` dessine le titre, les deux options (celle
- * sélectionnée mise en évidence), une ligne d'état de connexion de la manette, et le bouton de
- * langue.
+ * (testable), interprète l'action renvoyée (bascule V-Sync appliquée à `GraphicsDevice`,
+ * transition vers un sous-menu de remappage, ou retour au menu), et traite en plus le bouton de
+ * langue en coin (`LanguageSelector`, réutilisé tel quel, même geste que `MenuScreen`). `render`
+ * dessine le titre, les quatre options (celle sélectionnée mise en évidence), une ligne d'état de
+ * connexion de la manette, et le bouton de langue.
  */
 class OptionsScreen : public IScreen {
 public:

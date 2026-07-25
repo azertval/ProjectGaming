@@ -217,25 +217,26 @@ TEST(PlayerInputMapperTest, ViseeVerticale) {
 }
 
 /**
- * @brief Une action remappée (`LOT-29`) réagit à sa nouvelle touche, plus à l'ancienne (sauf
- *        alias fixe).
- * \castest{<b>Une action remappée (`LOT-29`) réagit à sa nouvelle touche, plus à l'ancienne (sauf
- * alias fixe).</b><br/>
+ * @brief Une action remappée (`LOT-29`) réagit à sa nouvelle touche, en plus de la touche par
+ *        défaut (jamais désactivée : filet de sécurité manette, `EX-CTRL-002`).
+ * \castest{<b>Une action remappée réagit à sa nouvelle touche, en plus de la touche par défaut
+ * (filet de sécurité manette).</b><br/>
  * \tcat Unitaire · Player Input Mapper<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Une action remappée réagit à sa nouvelle touche, plus à l'ancienne (sauf alias fixe).
+ * \tattendu Une action remappée réagit à sa nouvelle touche ET à la touche par défaut.
  * }
  */
-TEST(PlayerInputMapperTest, RemapperUneActionUtiliseLaNouvelleTouche) {
+TEST(PlayerInputMapperTest, RemapperUneActionAjouteLaNouvelleTouche) {
     hmi::GameKeyBindings bindings;
     bindings.setKey(hmi::GameAction::Dash, hmi::Key::F1);
 
-    EXPECT_TRUE(
-        hmi::toPlayerInput(withKeys({hmi::Key::F1}), bindings).dashPressed);
-    EXPECT_FALSE(
-        hmi::toPlayerInput(withKeys({hmi::Key::Shift}), bindings).dashPressed);
+    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::F1}), bindings).dashPressed);
+    // Maj (touche par defaut de Dash) continue de declencher le dash apres remap : sans ce filet,
+    // le bouton manette RB (qui n'alimente que Key::Shift, Window::pollGamepad) cesserait de
+    // fonctionner des qu'un joueur remappe Dash au clavier (EX-CTRL-002).
+    EXPECT_TRUE(hmi::toPlayerInput(withKeys({hmi::Key::Shift}), bindings).dashPressed);
 }
 
 /**
@@ -256,6 +257,26 @@ TEST(PlayerInputMapperTest, AliasFixeToujoursActif) {
 
     // Q reste un alias fixe de Gauche, meme si la touche liee (F1) n'a rien a voir.
     EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Q}), bindings).moveX, -1.0f);
-    // La touche par defaut (Fleche gauche), elle, ne declenche plus rien : remplacee par F1.
-    EXPECT_FLOAT_EQ(hmi::toPlayerInput(withKeys({hmi::Key::Left}), bindings).moveX, 0.0f);
+}
+
+/**
+ * @brief Un bouton manette (source distincte du clavier) continue de déclencher une action même
+ *        après un remappage clavier — la manette n'alimente que la touche par défaut.
+ * \castest{<b>Un bouton manette continue de déclencher une action après un remappage clavier
+ * (`EX-CTRL-002`).</b><br/>
+ * \tcat Unitaire · Player Input Mapper<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un bouton manette (source gamepad) continue de déclencher l'action après remap clavier.
+ * }
+ */
+TEST(PlayerInputMapperTest, BoutonManetteContinueDeFonctionnerApresRemapClavier) {
+    hmi::GameKeyBindings bindings;
+    bindings.setKey(hmi::GameAction::Jump, hmi::Key::F1);  // remap clavier : Sauter -> F1
+
+    hmi::InputState input;
+    input.onGamepadKeyDown(hmi::Key::Space);  // Window::pollGamepad : bouton A -> Key::Space (fixe)
+
+    EXPECT_TRUE(hmi::toPlayerInput(input, bindings).jumpPressed);
 }

@@ -60,10 +60,16 @@ std::optional<OptionsAction> OptionsModel::update(const InputState& input) {
 
 // Le libellé de l'option index (résolu par le catalogue ; V-Sync inclut son état courant).
 std::string OptionsModel::optionLabel(int index) const {
-    if (index == 0) {
-        return _localization.text(_vsyncEnabled ? "options.vsync_on" : "options.vsync_off");
+    switch (index) {
+        case 0:
+            return _localization.text(_vsyncEnabled ? "options.vsync_on" : "options.vsync_off");
+        case 1:
+            return _localization.text("keybindings.titre_jeu");
+        case 2:
+            return _localization.text("keybindings.titre_editeur");
+        default:
+            return _localization.text("options.retour");
     }
-    return _localization.text("options.retour");
 }
 
 // La largeur en pixels du libellé de l'option index (chasse fixe).
@@ -91,7 +97,16 @@ int OptionsModel::optionAtPoint(int x, int y) const {
 
 // L'action associée à l'option index.
 OptionsAction OptionsModel::actionFor(int index) noexcept {
-    return index == 0 ? OptionsAction::ToggleVSync : OptionsAction::Back;
+    switch (index) {
+        case 0:
+            return OptionsAction::ToggleVSync;
+        case 1:
+            return OptionsAction::OpenGameKeybindings;
+        case 2:
+            return OptionsAction::OpenEditorKeybindings;
+        default:
+            return OptionsAction::Back;
+    }
 }
 
 }  // namespace hmi

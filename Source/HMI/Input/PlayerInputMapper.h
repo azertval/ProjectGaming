@@ -17,12 +17,16 @@ class InputState;
  *        (`EX-CTRL-010`, `EX-CTRL-012`).
  *
  * Le reste du moteur ne connaît que l'**intention** (`moveX`), pas les touches. Chaque action lit
- * la touche courante de @p bindings (`LOT-29`, remappable depuis Options → Touches de jeu) ;
- * gauche/droite/sauter conservent en plus un alias fixe non remappable (`Q`/`D`/`W`), pour ne rien
- * casser du confort ZQSD/WASD existant — dash et visée haut/bas n'en ont pas. Gauche et droite
- * simultanées se neutralisent (`moveX == 0`). Fonction **pure**, testable avec un `InputState`
- * injecté (`EX-NFR-010`) ; appelée une fois par frame en amont de la logique (`EX-CTRL-020`,
- * `EX-CTRL-021`).
+ * la touche courante de @p bindings (`LOT-29`, remappable depuis Options → Touches de jeu) **et**
+ * sa touche par défaut (`GameKeyBindings::defaultKey`) : la manette (`Window::pollGamepad`,
+ * `EX-CTRL-002`) n'écrit que dans les touches par défaut, câblées en dur, sans connaître les
+ * bindings courants — sans ce second filet, remapper une action au clavier désactiverait
+ * silencieusement le bouton manette équivalent (vrai remappage manette : hors périmètre de
+ * `LOT-29`). Gauche/droite/sauter conservent en plus un alias fixe non remappable (`Q`/`D`/`W`),
+ * pour ne rien casser du confort ZQSD/WASD existant — dash et visée haut/bas n'en ont pas. Gauche
+ * et droite simultanées se neutralisent (`moveX == 0`). Fonction **pure**, testable avec un
+ * `InputState` injecté (`EX-NFR-010`) ; appelée une fois par frame en amont de la logique
+ * (`EX-CTRL-020`, `EX-CTRL-021`).
  *
  * @param input        État clavier échantillonné de la frame.
  * @param bindings      Association action de jeu -> touche courante.

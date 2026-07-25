@@ -64,6 +64,13 @@ identique** à avant ce lot.
   remappée, depuis l'essai immédiat).
 
 ## Points d'attention
+- **Écart constaté (demandeur, en revue)** : la manette n'ayant aucune couche de configuration
+  (`Window::pollGamepad` câble chaque bouton XInput en dur sur une touche fixe), un remap clavier
+  aurait silencieusement désactivé le bouton manette équivalent (ex. remapper Sauter loin
+  d'Espace désactive le bouton A). Corrigé en faisant vérifier à `PlayerInputMapper` la touche par
+  défaut de chaque action **en plus** de la touche liée (`GameKeyBindings::defaultKey`) — voir la
+  décision de cadrage de l'épic pour le détail. Un vrai remappage manette reste hors périmètre
+  (différé à un lot dédié).
 - **Écart constaté (TACHE-01)** : `GameKeyBindings.cpp`/`EditorKeyBindings.cpp` sont compilés
   directement dans les cibles `ProjectGaming` et `UnitTests` (comme `PlayerInputMapper.cpp`),
   pas dans la bibliothèque `Core` — `Core` lie `nlohmann_json` en `PRIVATE`, ce lien ne se propage

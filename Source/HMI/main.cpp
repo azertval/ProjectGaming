@@ -29,7 +29,9 @@
 #include "HMI/HmiLog.h"
 #include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Interface/EditorKeybindingsScreen.h"
 #include "HMI/Interface/EditorScreen.h"
+#include "HMI/Interface/GameKeybindingsScreen.h"
 #include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/MenuScreen.h"
@@ -227,6 +229,12 @@ int main(int argc, char** argv) {
                         editorBindings, gameBindings);
                 case hmi::ScreenId::Options:
                     return std::make_unique<hmi::OptionsScreen>(localization, graphics);
+                case hmi::ScreenId::GameKeybindings:
+                    return std::make_unique<hmi::GameKeybindingsScreen>(
+                        localization, gameBindings, keybindingsPath);
+                case hmi::ScreenId::EditorKeybindings:
+                    return std::make_unique<hmi::EditorKeybindingsScreen>(
+                        localization, editorBindings, keybindingsPath);
             }
             return nullptr;
         };

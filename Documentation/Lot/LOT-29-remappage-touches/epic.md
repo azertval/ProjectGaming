@@ -39,7 +39,13 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
   lieu des libellés câblés en dur actuels (deviendraient faux après un remap).
 
 ### Exclus (hors périmètre de ce lot)
-- **Remappage manette** — hors périmètre, seul le clavier est concerné ici.
+- **Remappage manette** — hors périmètre, seul le clavier est concerné ici. Discuté avec le
+  demandeur en cours de lot : `Window::pollGamepad` câble aujourd'hui chaque bouton XInput utile en
+  dur sur une touche fixe (A→Espace/Entrée, D-pad/stick→flèches, RB→Maj, B/Start→Échap) — les
+  boutons utiles sont déjà tous occupés, sans capacité de configuration. Un **vrai** remappage
+  manette nécessiterait de retirer ce câblage en dur : portée bien plus large, **différée à un lot
+  dédié ultérieur**. Ce lot-ci corrige seulement la **régression** que le remappage clavier
+  introduirait sans filet (voir décision ci-dessous) — pas un remappage manette en soi.
 - **Remappage exhaustif de l'éditeur** — restent câblés en dur, décision de cadrage assumée :
   navigation de menu (Haut/Bas/Entrée/Échap, y compris dans ce nouveau menu lui-même),
   redimensionnement par flèches, `Ctrl+R` (saisie de taille), `"0"` (reset caméra), `Tab` (cycle
@@ -53,6 +59,16 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
 - **Remappage souris** — seules les touches clavier sont concernées.
 
 ## Décisions de cadrage
+- **Filet de sécurité manette dans `PlayerInputMapper`** (écart constaté après revue du demandeur,
+  qui a explicitement demandé de ne pas oublier la manette) : chaque action de jeu vérifie non
+  seulement sa touche liée (remappable) mais aussi sa **touche par défaut**
+  (`GameKeyBindings::defaultKey`), en plus de l'alias fixe existant pour Gauche/Droite/Sauter. La
+  manette (`Window::pollGamepad`) n'écrivant que dans les touches par défaut, sans connaître les
+  bindings courants, ce filet garantit qu'elle continue de fonctionner quel que soit le remap
+  clavier — sans lui, remapper « Sauter » loin d'Espace aurait silencieusement désactivé le bouton
+  A. Effet secondaire assumé : la touche par défaut d'une action reste **toujours** active en plus
+  de la nouvelle, jamais réellement « libérée » par un remap (acceptable : c'est le clavier qui
+  gagne en options, pas la manette qui en perd).
 - **Portée « actions clés seulement »**, pas un remappage exhaustif — confirmée avec le demandeur
   (`AskUserQuestion`) : couvre les actions de gameplay et un sous-ensemble éditeur significatif,
   pas les raccourcis souris/outils ni la navigation de menu.
@@ -85,7 +101,7 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-modele-bindings.md) | Modèle de bindings et persistance JSON | `HMI/Input` | ✅ |
 | [TACHE-02](tache-02-integration-jeu-editeur.md) | Intégration jeu/éditeur | `HMI/Input`, `HMI/Interface` | ✅ |
-| [TACHE-03](tache-03-ui-remappage.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ⬜ |
+| [TACHE-03](tache-03-ui-remappage.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ✅ |
 | [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
