@@ -1,6 +1,6 @@
 # LOT-29 — Remappage des touches (jeu + éditeur) {#lot-29}
 
-> Statut : **🔄 en cours**. Deux nouveaux sous-menus dans **Options** : « Touches de jeu » et
+> Statut : **✅ terminé**. Deux nouveaux sous-menus dans **Options** : « Touches de jeu » et
 > « Touches de l'éditeur », permettant de remapper au clavier un sous-ensemble d'actions
 > significatives de chaque catégorie (`EX-CTRL-012`), avec persistance dans un fichier de
 > configuration à côté de l'exécutable.
@@ -102,7 +102,7 @@ cadrage) : ce lot introduit la **première** persistance de réglages du projet.
 | [TACHE-01](tache-01-modele-bindings.md) | Modèle de bindings et persistance JSON | `HMI/Input` | ✅ |
 | [TACHE-02](tache-02-integration-jeu-editeur.md) | Intégration jeu/éditeur | `HMI/Input`, `HMI/Interface` | ✅ |
 | [TACHE-03](tache-03-ui-remappage.md) | UI de remappage et câblage | `HMI/Interface`, `HMI/main.cpp` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ⬜ |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation et vérification | `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Depuis Options, deux nouvelles entrées ouvrent « Touches de jeu » et « Touches de l'éditeur »,

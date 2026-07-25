@@ -1,6 +1,6 @@
 # TACHE-04 — Documentation et vérification {#lot-29-tache-04-documentation-verification}
 
-**Lot :** [LOT-29](epic.md) · **Emplacement :** `Documentation` · **Statut :** ⬜
+**Lot :** [LOT-29](epic.md) · **Emplacement :** `Documentation` · **Statut :** ✅
 
 ## Contexte
 Dernière tâche du lot : aligner la documentation sur le comportement livré par TACHE-01/02/03 et
@@ -13,6 +13,11 @@ lever le statut « souhaité » d'`EX-CTRL-012`.
 - **`Documentation/Lot/lots.md`** : ajoute `@subpage lot-29`.
 - **`CHANGELOG.md`** : entrée `[Non publié]` décrivant le lot (deux sous-menus, persistance
   JSON, portée « actions clés seulement »).
+- **`Documentation/Guide/guide-entrees.md`** (écart par rapport au périmètre initial de cette
+  tâche, mémoire projet « Doc suit les lots ») : plusieurs passages décrivaient le remappage comme
+  un bénéfice **hypothétique** de l'indirection action/touche — désormais réel, mis à jour
+  (signature de `toPlayerInput`, filet de sécurité manette, nouvelle section dédiée au
+  remappage).
 - **Doxygen**, **Cahier de test**, **lint des exigences** : mêmes vérifications que les lots
   précédents — `python scripts/lint_exigences.py` et `python scripts/generate_cahier_test.py`
   **doivent être lancés par l'utilisateur** (pas de Python 3 dans ce sandbox, cf. mémoire projet).
@@ -20,6 +25,7 @@ lever le statut « souhaité » d'`EX-CTRL-012`.
 ## Fichiers impactés
 - `Documentation/Specification/controles.md`.
 - `Documentation/Lot/lots.md`.
+- `Documentation/Guide/guide-entrees.md`.
 - `Documentation/CahierTest.md` (régénéré par l'utilisateur).
 - `CHANGELOG.md`.
 

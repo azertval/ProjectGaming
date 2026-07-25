@@ -7,6 +7,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-29 — Remappage des touches** (`EX-CTRL-012`) : deux nouveaux sous-menus dans Options
+  (« Touches de jeu », « Touches de l'éditeur »), chacun listant ses actions avec la touche
+  actuellement liée ; sélectionner puis confirmer une action capture la touche suivante pressée
+  (échange automatique en cas de conflit, jamais de doublon), une entrée « Réinitialiser » restaure
+  les valeurs par défaut. Six actions de jeu (Gauche/Droite/Sauter/Dash/Viser haut/Viser bas) et un
+  sous-ensemble significatif de neuf actions d'éditeur (Sauvegarder/Annuler/Refaire/Copier/Coller/
+  Test rapide/Grille/Aide/Renommer) — pas un remappage exhaustif (navigation de menu, `Ctrl+R`,
+  redimensionnement par flèches, `"0"`, `Tab`, Maj+clic restent câblés en dur). **Persistance**
+  (première du projet) dans `Settings/keybindings.json`, à côté de l'exécutable. Le panneau d'aide
+  de l'éditeur (`F1`) reflète désormais les touches réellement liées. Un filet de sécurité
+  (`GameKeyBindings::defaultKey` revérifiée en plus du binding courant) garantit que la manette
+  continue de fonctionner après un remap clavier (`EX-CTRL-002`) — un vrai remappage manette reste
+  hors périmètre (`Window::pollGamepad` câble encore chaque bouton XInput en dur).
 - **LOT-28 — Arrondis concaves** (`EX-GP-007`) : quatre nouvelles tuiles, `ConcaveUpRight`/
   `ConcaveUpLeft` (sol) et `ConcaveDownRight`/`ConcaveDownLeft` (plafond) — une seconde famille de
   quart de cercle, **concave** plutôt que **convexe** (`RoundedUpRight`/`RoundedUpLeft` et leurs
