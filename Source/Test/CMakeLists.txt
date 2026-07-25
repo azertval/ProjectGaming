@@ -32,6 +32,9 @@ add_executable(UnitTests
     Unit/Core/Diagnostics/test_log_level_parse.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
+    Unit/HMI/Input/test_game_key_bindings.cpp
+    Unit/HMI/Input/test_editor_key_bindings.cpp
+    Unit/HMI/Input/test_key_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Interface/test_screen_manager.cpp
@@ -55,6 +58,11 @@ add_executable(UnitTests
     ../HMI/Input/InputState.cpp
     # Le mapping touches → intention est une logique pure, testable hors GPU.
     ../HMI/Input/PlayerInputMapper.cpp
+    # Le remappage des touches (jeu/éditeur) et son affichage sont une logique pure, testable
+    # hors GPU (persistance JSON sur disque, aucune dépendance fenêtre/GPU).
+    ../HMI/Input/GameKeyBindings.cpp
+    ../HMI/Input/EditorKeyBindings.cpp
+    ../HMI/Input/KeyName.cpp
     # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
     ../HMI/Localization/Localization.cpp
     # La navigation entre écrans (transitions) est testable via une fabrique factice, hors GPU.
@@ -88,6 +96,10 @@ target_link_libraries(UnitTests PRIVATE
     GTest::gtest_main
     project_warnings
     project_options
+    # GameKeyBindings.cpp/EditorKeyBindings.cpp (ci-dessus) sont compiles directement dans cette
+    # cible (comme PlayerInputMapper.cpp) et persistent en JSON : besoin direct de nlohmann_json,
+    # que Core ne propage pas (lien PRIVATE cote Core).
+    nlohmann_json::nlohmann_json
 )
 
 # Chemins (source) des assets, pour vérifier que le contenu livré (niveaux, catalogues) se charge.

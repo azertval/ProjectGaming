@@ -5,6 +5,9 @@ add_executable(ProjectGaming
     Platform/ExecutableDirectory.cpp
     Input/InputState.cpp
     Input/PlayerInputMapper.cpp
+    Input/GameKeyBindings.cpp
+    Input/EditorKeyBindings.cpp
+    Input/KeyName.cpp
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
     Graphics/TextureAtlas.cpp

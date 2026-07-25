@@ -1,6 +1,6 @@
 # TACHE-01 — Modèle de bindings et persistance JSON {#lot-29-tache-01-modele-bindings}
 
-**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Input` · **Statut :** ⬜
+**Lot :** [LOT-29](epic.md) · **Emplacement :** `HMI/Input` · **Statut :** ✅
 
 ## Contexte
 Pose les fondations du remappage, indépendamment de tout écran : les classes qui détiennent
