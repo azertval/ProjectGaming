@@ -17,7 +17,9 @@ hmi::Localization frenchCatalog() {
     hmi::Localization localization;
     localization.setDefaultCatalog("fr", {{"options.vsync_on", "V-Sync : Active"},
                                           {"options.vsync_off", "V-Sync : Desactive"},
-                                          {"options.retour", "Retour"}});
+                                          {"options.retour", "Retour"},
+                                          {"keybindings.titre_jeu", "Touches de jeu"},
+                                          {"keybindings.titre_editeur", "Touches de l'editeur"}});
     return localization;
 }
 
@@ -65,7 +67,9 @@ TEST(OptionsModelTest, SelectionParDefautEtLibelleVSync) {
 
     EXPECT_EQ(options.selectedIndex(), 0);
     EXPECT_EQ(options.optionLabel(0), "V-Sync : Active");
-    EXPECT_EQ(options.optionLabel(1), "Retour");
+    EXPECT_EQ(options.optionLabel(1), "Touches de jeu");
+    EXPECT_EQ(options.optionLabel(2), "Touches de l'editeur");
+    EXPECT_EQ(options.optionLabel(3), "Retour");
 }
 
 /**
@@ -88,22 +92,24 @@ TEST(OptionsModelTest, ValiderVSyncRenvoieToggle) {
 }
 
 /**
- * @brief Flèche bas puis valider (Retour) renvoie l'action Back.
- * \castest{<b>Flèche bas puis valider (Retour) renvoie l'action Back.</b><br/>
+ * @brief Trois flèches bas puis valider (Retour) renvoie l'action Back.
+ * \castest{<b>Trois flèches bas puis valider (Retour) renvoie l'action Back.</b><br/>
  * \tcat Unitaire · Options Model<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Flèche bas puis valider (Retour) renvoie l'action Back.
+ * \tattendu Trois flèches bas puis valider (Retour) renvoie l'action Back.
  * }
  */
 TEST(OptionsModelTest, FlecheBasPuisValiderRenvoieBack) {
     hmi::Localization catalog = frenchCatalog();
     hmi::OptionsModel options(catalog, /*vsyncEnabled=*/true);
 
+    (void)options.update(keyPress(hmi::Key::Down));
+    (void)options.update(keyPress(hmi::Key::Down));
     const std::optional<hmi::OptionsAction> none = options.update(keyPress(hmi::Key::Down));
     EXPECT_FALSE(none.has_value());
-    EXPECT_EQ(options.selectedIndex(), 1);
+    EXPECT_EQ(options.selectedIndex(), 3);
 
     const std::optional<hmi::OptionsAction> action = options.update(keyPress(hmi::Key::Enter));
     ASSERT_TRUE(action.has_value());
@@ -125,7 +131,49 @@ TEST(OptionsModelTest, FlecheHautBoucleSurRetour) {
     hmi::OptionsModel options(catalog, /*vsyncEnabled=*/true);
 
     (void)options.update(keyPress(hmi::Key::Up));
-    EXPECT_EQ(options.selectedIndex(), 1);
+    EXPECT_EQ(options.selectedIndex(), 3);
+}
+
+/**
+ * @brief Valider l'option « Touches de jeu » renvoie l'action OpenGameKeybindings.
+ * \castest{<b>Valider l'option « Touches de jeu » renvoie l'action OpenGameKeybindings.</b><br/>
+ * \tcat Unitaire · Options Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Valider l'option « Touches de jeu » renvoie l'action OpenGameKeybindings.
+ * }
+ */
+TEST(OptionsModelTest, ValiderTouchesDeJeuRenvoieOpenGameKeybindings) {
+    hmi::Localization catalog = frenchCatalog();
+    hmi::OptionsModel options(catalog, /*vsyncEnabled=*/true);
+
+    (void)options.update(keyPress(hmi::Key::Down));
+    const std::optional<hmi::OptionsAction> action = options.update(keyPress(hmi::Key::Enter));
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(*action, hmi::OptionsAction::OpenGameKeybindings);
+}
+
+/**
+ * @brief Valider l'option « Touches de l'éditeur » renvoie l'action OpenEditorKeybindings.
+ * \castest{<b>Valider l'option « Touches de l'éditeur » renvoie l'action
+ * OpenEditorKeybindings.</b><br/>
+ * \tcat Unitaire · Options Model<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Valider l'option « Touches de l'éditeur » renvoie l'action OpenEditorKeybindings.
+ * }
+ */
+TEST(OptionsModelTest, ValiderTouchesDeLEditeurRenvoieOpenEditorKeybindings) {
+    hmi::Localization catalog = frenchCatalog();
+    hmi::OptionsModel options(catalog, /*vsyncEnabled=*/true);
+
+    (void)options.update(keyPress(hmi::Key::Down));
+    (void)options.update(keyPress(hmi::Key::Down));
+    const std::optional<hmi::OptionsAction> action = options.update(keyPress(hmi::Key::Enter));
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(*action, hmi::OptionsAction::OpenEditorKeybindings);
 }
 
 /**
@@ -143,8 +191,8 @@ TEST(OptionsModelTest, ClicSourisValideRetour) {
     hmi::OptionsModel options(catalog, /*vsyncEnabled=*/true);
 
     const std::optional<hmi::OptionsAction> action =
-        options.update(mouseClick(optionPointX(), optionPointY(1)));
-    EXPECT_EQ(options.selectedIndex(), 1);
+        options.update(mouseClick(optionPointX(), optionPointY(3)));
+    EXPECT_EQ(options.selectedIndex(), 3);
     ASSERT_TRUE(action.has_value());
     EXPECT_EQ(*action, hmi::OptionsAction::Back);
 }

@@ -23,6 +23,8 @@ class InputState;
  */
 enum class OptionsAction {
     ToggleVSync,
+    OpenGameKeybindings,
+    OpenEditorKeybindings,
     Back,
 };
 
@@ -39,7 +41,7 @@ enum class OptionsAction {
 class OptionsModel {
 public:
     /// Nombre d'options du menu.
-    static constexpr int OPTION_COUNT = 2;
+    static constexpr int OPTION_COUNT = 4;
 
     /**
      * @brief Construit le modèle d'options.

@@ -34,8 +34,10 @@ namespace hmi {
 
 // Construit l'ecran et charge le premier niveau de la sequence.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                       int viewportHeight, std::vector<std::filesystem::path> levels)
+                       int viewportHeight, std::vector<std::filesystem::path> levels,
+                       const GameKeyBindings& gameBindings)
     : _atlas(atlas),
+      _gameBindings(gameBindings),
       _camera(viewportWidth, viewportHeight),
       _renderer(batch, atlas),
       _sequence(LevelSequence(std::move(levels))) {
@@ -50,8 +52,11 @@ GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewpo
 // Construit l'ecran pour un niveau unique deja en memoire (essai immediat de l'editeur, LOT-15) :
 // pas de sequence/fichier, la sortie termine l'essai au lieu d'enchainer (voir update()).
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                       int viewportHeight, core::Level level)
-    : _atlas(atlas), _camera(viewportWidth, viewportHeight), _renderer(batch, atlas) {
+                       int viewportHeight, core::Level level, const GameKeyBindings& gameBindings)
+    : _atlas(atlas),
+      _gameBindings(gameBindings),
+      _camera(viewportWidth, viewportHeight),
+      _renderer(batch, atlas) {
     loadLevel(std::move(level));
 }
 
@@ -201,7 +206,7 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     }
 
     // 1. Entrees -> intention.
-    const core::PlayerInput intent = toPlayerInput(input);
+    const core::PlayerInput intent = toPlayerInput(input, _gameBindings);
 
     // 1bis. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
     // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent — pour qu'un bloc qui vient

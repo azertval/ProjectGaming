@@ -42,6 +42,10 @@ ScreenTransition OptionsScreen::update(const InputState& input, float /*fixedDel
                 HMI_LOG_INFO(std::string("V-Sync : ") + (enabled ? "active" : "desactive"));
                 break;
             }
+            case OptionsAction::OpenGameKeybindings:
+                return ScreenTransition::switchTo(ScreenId::GameKeybindings);
+            case OptionsAction::OpenEditorKeybindings:
+                return ScreenTransition::switchTo(ScreenId::EditorKeybindings);
             case OptionsAction::Back:
                 return ScreenTransition::switchTo(ScreenId::Menu);
         }

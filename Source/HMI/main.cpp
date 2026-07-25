@@ -27,7 +27,11 @@
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/HmiLog.h"
+#include "HMI/Input/EditorKeyBindings.h"
+#include "HMI/Input/GameKeyBindings.h"
+#include "HMI/Interface/EditorKeybindingsScreen.h"
 #include "HMI/Interface/EditorScreen.h"
+#include "HMI/Interface/GameKeybindingsScreen.h"
 #include "HMI/Interface/GameScreen.h"
 #include "HMI/Interface/IScreen.h"
 #include "HMI/Interface/MenuScreen.h"
@@ -163,6 +167,13 @@ int main(int argc, char** argv) {
             HMI_LOG_WARNING("Catalogue de traduction 'fr' introuvable : affichage des cles");
         }
 
+        // Touches de jeu/éditeur (EX-CTRL-012, LOT-29) : chargées une fois au démarrage depuis un
+        // seul fichier partagé (sections "jeu"/"editeur"), valeurs par défaut si absent/corrompu.
+        const std::filesystem::path keybindingsPath =
+            hmi::executableDirectory() / "Settings" / "keybindings.json";
+        hmi::GameKeyBindings gameBindings = hmi::GameKeyBindings::load(keybindingsPath);
+        hmi::EditorKeyBindings editorBindings = hmi::EditorKeyBindings::load(keybindingsPath);
+
         // Action d'enregistrement des logs de la session (déclenchée par le bouton du menu).
         const std::filesystem::path logDirectory = hmi::executableDirectory() / "logs";
         const hmi::MenuScreen::SaveLogAction saveLogAction = [sessionLog, logDirectory] {
@@ -209,14 +220,21 @@ int main(int argc, char** argv) {
                             levels / "demo-arrondi.json",
                             levels / "demo-bloc-reduit.json",
                             levels / "demo-final.json",
-                        });
+                        },
+                        gameBindings);
                 }
                 case hmi::ScreenId::Editor:
-                    return std::make_unique<hmi::EditorScreen>(spriteBatch, atlas,
-                                                              window.clientWidth(),
-                                                              window.clientHeight());
+                    return std::make_unique<hmi::EditorScreen>(
+                        spriteBatch, atlas, window.clientWidth(), window.clientHeight(),
+                        editorBindings, gameBindings);
                 case hmi::ScreenId::Options:
                     return std::make_unique<hmi::OptionsScreen>(localization, graphics);
+                case hmi::ScreenId::GameKeybindings:
+                    return std::make_unique<hmi::GameKeybindingsScreen>(
+                        localization, gameBindings, keybindingsPath);
+                case hmi::ScreenId::EditorKeybindings:
+                    return std::make_unique<hmi::EditorKeybindingsScreen>(
+                        localization, editorBindings, keybindingsPath);
             }
             return nullptr;
         };
