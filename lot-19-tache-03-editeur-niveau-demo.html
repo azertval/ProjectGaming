@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-19-tache-03-editeur-niveau-demo.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-19-physique-newtonienne-mecanismes_2epic_8md.html">LOT-19</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Graphics</code>, <code>Source/Elements</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1098"></a>
+<h1><a class="anchor" id="autotoc_md1100"></a>
 Contexte</h1>
 <p><code>PressurePlate</code> existe côté <code>Core</code> (TACHE-02) mais reste invisible et impeignable depuis l'éditeur. Cette tâche l'ajoute à la palette, généralise la liaison Maj+clic (jusqu'ici câblée en dur sur <code>Switch</code>/<code>Door</code>) et livre un niveau de démonstration exploitant le mécanisme.</p>
-<h1><a class="anchor" id="autotoc_md1099"></a>
+<h1><a class="anchor" id="autotoc_md1101"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">hmi::TilePalette</a></code>** (<code><a class="el" href="TilePalette_8cpp.html">TilePalette.cpp</a></code>) : ajoute <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a></code> à <code>PALETTE_TYPES</code> (juste après <code>Switch</code>, avant <code>Door</code> — regroupe les deux types de déclencheurs) ; libellé court <code>"Plaque"</code> dans <code>labelFor</code>.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Niveau de démonstration</b> (<code>Source/Elements/Levels/demo5.json</code>) : un niveau court illustrant la plaque de pression — par exemple une porte qui ne reste ouverte que le temps de la franchir en restant sur la plaque, ou un choix entre interrupteur (porte qui reste ouverte) et plaque (porte qui se referme) pour le même passage, sur le modèle de <code>demo4.json</code> (bordures solides, budget de mouvements si pertinent).</li>
 <li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>** : ajoute <code>demo5.json</code> à la séquence de niveaux du mode Jouer.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1100"></a>
+<h1><a class="anchor" id="autotoc_md1102"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TilePalette_8cpp.html">Source/HMI/Editor/TilePalette.cpp</a></code>.</li>
@@ -115,14 +115,14 @@ Fichiers impactés</h1>
 <li><code>Source/Elements/Levels/demo5.json</code> (nouveau).</li>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1101"></a>
+<h1><a class="anchor" id="autotoc_md1103"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test unitaire nouveau (édition/rendu, déjà couverts par les tests existants de <code>EditorScreen</code>/<code>TilePalette</code> qui n'énumèrent pas les types un par un) — vérification par usage direct dans l'application.</li>
 <li><b>Vérification visuelle et fonctionnelle obligatoire</b> dans l'application compilée : peindre une plaque de pression depuis la palette, la lier à une porte (Maj+clic), constater l'ouverture/ fermeture continue en jeu (essai immédiat de l'éditeur ou séquence de jeu) ; charger <code>demo5.json</code> depuis le menu Jouer et le terminer.</li>
 <li><code>ctest --preset ninja</code> reste vert (aucune régression sur les tests existants d'éditeur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1102"></a>
+<h1><a class="anchor" id="autotoc_md1104"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le niveau de démonstration doit rester franchissable avec les réglages de physique par défaut</b> (masse 1,0) — la plaque doit réagir au personnage seul, sans configuration additionnelle (cohérent avec <code>MIN_TRIGGER_MASS</code> calé sur la masse par défaut, TACHE-02).</li>
@@ -130,12 +130,12 @@ Points d'attention</h1>
 <li><b>Bug réellement rencontré</b> : <code>EditorLayout::TOOLBAR_TOP</code> codait en dur « 7 lignes » de palette pour positionner la barre d'outils sous elle — ajouter <code>PressurePlate</code> (8ᵉ entrée) faisait chevaucher les deux panneaux (« Porte » et « Pinceau » superposés à l'écran). Corrigé en remplaçant le littéral par <code>PALETTE_TYPE_COUNT</code> (nouvelle constante), avec un <code>static_assert</code> dans <code><a class="el" href="TilePalette_8cpp.html">TilePalette.cpp</a></code> qui échoue à la compilation si <code>PALETTE_TYPES</code> et ce compte divergent à nouveau à l'avenir. Repéré uniquement par vérification visuelle — aucun test ne couvrait la disposition du panneau.</li>
 <li><b>Constat annexe (hors périmètre)</b> : la grille de l'éditeur affiche <code>Switch</code>/<code>Door</code>/ <code>PressurePlate</code> avec une couleur assourdie par rapport à <code>TextureAtlas</code>/<code>GameScreen</code> (vérifié pixel par pixel) — confirmé <b>préexistant</b> (même défaut sur <code>demo4.json</code>, non modifié par ce lot) et sans impact gameplay (le rendu en jeu réel est correct). Non corrigé ici ; noté en mémoire projet pour une investigation future.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1103"></a>
+<h1><a class="anchor" id="autotoc_md1105"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Plaque de pression peignable et liable depuis l'éditeur ; niveau de démonstration jouable et intégré à la séquence ; build <code>/W4 /WX</code> sans avertissement ; <code>ctest</code> vert ; vérifié visuellement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1104"></a>
+<h1><a class="anchor" id="autotoc_md1106"></a>
 Exigences</h1>
 <p>Aucune exigence propre — intégration de <code>EX-GP-025</code> (TACHE-02) à l'éditeur et au contenu. </p>
 </div></div><!-- contents -->

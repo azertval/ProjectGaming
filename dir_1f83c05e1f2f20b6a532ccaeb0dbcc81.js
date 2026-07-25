@@ -9,6 +9,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "GraphicsDevice.cpp", "GraphicsDevice_8cpp.html", null ],
     [ "GraphicsDevice.h", "GraphicsDevice_8h.html", "GraphicsDevice_8h" ],
     [ "GraphicsLog.h", "GraphicsLog_8h.html", "GraphicsLog_8h" ],
+    [ "RoomGrid.cpp", "RoomGrid_8cpp.html", null ],
+    [ "RoomGrid.h", "RoomGrid_8h.html", "RoomGrid_8h" ],
     [ "SaveIcon.cpp", "SaveIcon_8cpp.html", null ],
     [ "SaveIcon.h", "SaveIcon_8h.html", "SaveIcon_8h" ],
     [ "SpriteBatch.cpp", "SpriteBatch_8cpp.html", null ],

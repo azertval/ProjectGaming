@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-24-tache-03-editeur-rendu.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-24-blocs-taille-fractionnaire_2epic_8md.html">LOT-24</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1268"></a>
+<h1><a class="anchor" id="autotoc_md1270"></a>
 Contexte</h1>
 <p>Rendre les blocs réduits utilisables : plaçables dans l'éditeur, visuellement plus petits qu'un bloc plein (<code>LOT-21</code>) pour que leur taille de collision réduite (TACHE-02) soit lisible à l'écran.</p>
-<h1><a class="anchor" id="autotoc_md1269"></a>
+<h1><a class="anchor" id="autotoc_md1271"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="EditorLayout_8h.html" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets.">HMI/Editor/EditorLayout.h</a></code>** : <code>PALETTE_TYPE_COUNT</code> augmente de 2.</li>
@@ -105,30 +105,30 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="TileVisuals_8cpp.html">HMI/Graphics/TileVisuals.cpp</a></code>** : couleurs d'atlas dédiées, ou variante teintée du bloc plein (<code>Block</code>) pour signaler visuellement la famille sans multiplier les couleurs disponibles.</li>
 <li><b>Rendu à l'échelle</b> : le sprite du bloc doit visuellement occuper <code>facteur × 1</code> unité, <b>centré</b> dans sa case (cohérent avec la boîte de collision de TACHE-02) — sur le modèle de <code>refreshBlockVisuals</code> (<code><a class="el" href="GameScreen_8cpp.html">GameScreen.cpp</a></code>, <code>LOT-21</code>), qui devra lire le facteur de taille en plus de la position pour ajuster <code>Transform.scale</code> et recentrer <code>Transform.position</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1270"></a>
+<h1><a class="anchor" id="autotoc_md1272"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="EditorLayout_8h.html" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets.">Source/HMI/Editor/EditorLayout.h</a></code>, <code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">TilePalette.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="TileVisuals_8cpp.html">Source/HMI/Graphics/TileVisuals.cpp</a></code>.</li>
 <li><code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code> (<code>refreshBlockVisuals</code>, mise à l'échelle et recentrage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1271"></a>
+<h1><a class="anchor" id="autotoc_md1273"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>ctest</code> existant (<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">test_tile_palette.cpp</a></code>) reste vert (13→15 entrées, <code>static_assert</code> inchangé).</li>
 <li><b>Cohérence visuel/collision vérifiée par lecture croisée du code</b>, pas par une vérification visuelle manuelle dans l'application (hors périmètre de ce qu'un agent doit faire de façon autonome) : <code>GameScreen::refreshBlockVisuals</code> calcule <code>margin = (1 - scale) * 0.5</code> et pose <code>Transform.position = case + margin</code>, <code>Transform.scale = {scale, scale}</code> — <b>exactement</b> la même formule que <code>BlockController::boxAt</code> (<code><a class="el" href="BlockController_8cpp.html">Core/Gameplay/BlockController.cpp</a></code>, fonction interne <code>blockBox</code>) utilisée par la collision réelle (TACHE-02). <code>SpriteRenderer</code> interprète <code>Transform.position</code> comme le coin haut-gauche du sprite et multiplie la région de base par <code>Transform.scale</code> : la même paire position/échelle pilote donc le rendu et la collision, par construction, sans code dupliqué qui pourrait diverger.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1272"></a>
+<h1><a class="anchor" id="autotoc_md1274"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Cohérence visuel/collision stricte</b> : un décalage entre le sprite affiché et la boîte réellement testée (TACHE-02) serait perçu comme un bug de collision par le joueur, même si le code est correct — garanti ici en réutilisant la <b>même formule</b> (<code>margin</code>/<code>scale</code>) des deux côtés plutôt qu'en dupliquant le calcul, ce qui rend une divergence structurellement impossible (à la différence d'une simple vérification visuelle ponctuelle, qui ne couvrirait qu'un cas précis).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1273"></a>
+<h1><a class="anchor" id="autotoc_md1275"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Blocs réduits plaçables, visuellement centrés et à l'échelle correcte (même formule que la collision réelle) ; aucune régression sur les autres entrées de la palette (<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">test_tile_palette.cpp</a></code> vert).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1274"></a>
+<h1><a class="anchor" id="autotoc_md1276"></a>
 Exigences</h1>
 <p>Aucune exigence propre — intégration de <code>EX-GP-005</code> (TACHE-01/TACHE-02) dans <code>HMI</code>. </p>
 </div></div><!-- contents -->

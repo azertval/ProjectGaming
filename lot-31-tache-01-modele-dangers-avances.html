@@ -94,11 +94,11 @@ $(document).ready(function(){initNavTree('lot-31-tache-01-modele-dangers-avances
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-31-blocs-danger-avances_2epic_8md.html">LOT-31</a> · <b>Emplacement :</b> <code>Core/Levels</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1490"></a>
+<h1><a class="anchor" id="autotoc_md1492"></a>
 Contexte</h1>
 <p>Pose les fondations de données des quatre variantes, indépendamment de toute simulation (TACHE-02) ou de tout rendu (TACHE-03) : nouveaux <code>TileType</code>, format JSON (<code>LevelLoader</code>/<code>LevelWriter</code>), et une liaison interrupteur/plaque → danger commuté.</p>
 <p><b>Écart de cadrage tranché pendant l'implémentation</b> (l'epic laissait le détail ouvert, « cadré en TACHE-01 ») : <code><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></code> n'a <b>pas</b> été généralisé. <code>Mechanism::doorPosition</code> est consommé par nom dans une trentaine de sites (<code>MechanismController</code>, <code>EditorScreen</code>, <code>GameScreen</code>, <code>LevelDraft</code>, et les tests aux trois niveaux) pour lesquels la cible est toujours une porte — le renommer en un champ générique n'aurait profité qu'au danger commuté, pour un coût de renommage sans rapport. À la place, <code><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a>{triggerPosition, dangerPosition}</code> (<code><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></code>) est une struct <b>dupliquée</b>, miroir de <code>Mechanism</code> : même schéma de liaison par identifiant dans le fichier (<code>switch.id</code> ↔ <code>dangerSwitched.opensWith</code>), résolue dans une liste <b>séparée</b>. Cohérent avec la préférence déjà actée du projet (<code>GameKeyBindings</code>/<code>EditorKeyBindings</code>, <code>LOT-29</code>) : dupliquer une petite struct à deux cas concrets plutôt qu'introduire une abstraction commune.</p>
-<h1><a class="anchor" id="autotoc_md1491"></a>
+<h1><a class="anchor" id="autotoc_md1493"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>** : sept nouvelles valeurs — <code>DangerUp</code>/<code>DangerDown</code>/<code>DangerLeft</code>/<code>DangerRight</code> (directionnel, <code>EX-GP-050</code> ; nom = bord <b>mortel</b> de la case, même convention que <code>SlopeUpRight</code> où le suffixe décrit la géométrie, pas un mouvement), <code>DangerMover</code> (mobile, <code>EX-GP-051</code>), <code>DangerSwitched</code> (commuté, <code>EX-GP-052</code>), <code>DangerBlink</code> (temporisé, <code>EX-GP-053</code>). Doc Doxygen de l'enum étendue, même style que l'existant (une phrase par famille, référence aux exigences).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a></code>** (<code><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></code>, nouveau) : struct dupliquée de <code>Mechanism</code> (voir écart de cadrage ci-dessus), résolue au chargement exactement comme une porte — seul le type de tuile à la position cible distingue les deux résolutions (<code>DangerSwitchedLink</code> en interne du loader, symétrique à <code>DoorLink</code>). <code>Level</code>/<code>LevelDraft</code> gagnent aussi <code>DangerMoverConfig</code>/<code>DangerBlinkConfig</code> (axe/ portée, période/déphasage/durée active) : <code>TileMap</code> ne portant qu'un <code>TileType</code> par case (limite déjà actée en <code>LOT-19</code>), ces paramètres vivent dans des vecteurs annexes de <code>Level</code>/<code>LevelDraft</code>, keyés par position, même patron que <code>Mechanism</code>/<code>DangerLink</code>.</li>
 <li><b>Validation</b> (<code>EX-LVL-004</code>) : une liaison <code>opensWith</code> doit référencer un <code>switch</code>/ <code>pressurePlate</code> existant (même erreur <code>UnresolvedMechanism</code> que pour une porte) ; <code>dangerMover</code> avec une portée qui sortirait de la grille est invalide (<code>OutOfBounds</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1492"></a>
+<h1><a class="anchor" id="autotoc_md1494"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code> (sept types).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code> (nouveau fichier source/test).</li>
 <li>Tests : <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code>, <code><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></code>, <code><a class="el" href="test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level.">test_level.cpp</a></code>, <code><a class="el" href="test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX-GP-050).">test_danger_geometry.cpp</a></code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1493"></a>
+<h1><a class="anchor" id="autotoc_md1495"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip JSON (écriture puis lecture) pour chacun des sept nouveaux types, avec et sans champs optionnels.</li>
@@ -126,12 +126,12 @@ Tests (obligatoires)</h1>
 <li>Une liaison <code>opensWith</code> peut cibler une <code>dangerSwitched</code> aussi bien qu'une <code>door</code> ; le comportement existant (<code>switch</code>/<code>pressurePlate</code> → <code>door</code>) reste inchangé bit à bit (tests existants toujours verts sans modification).</li>
 <li>Validation rejette une liaison vers un type qui n'est ni <code>door</code> ni <code>dangerSwitched</code>, et une portée de <code>dangerMover</code> hors bornes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1494"></a>
+<h1><a class="anchor" id="autotoc_md1496"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Compile, testé, <b>aucun</b> appelant en jeu ou en éditeur pour l'instant (simulation en TACHE-02, palette/rendu en TACHE-03) — tâche purement additive côté modèle, comme le veut l'ordre du processus de lot (modèle avant intégration).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1495"></a>
+<h1><a class="anchor" id="autotoc_md1497"></a>
 Exigences</h1>
 <p><code>EX-GP-050</code>, <code>EX-GP-051</code>, <code>EX-GP-052</code>, <code>EX-GP-053</code>, <code>EX-LVL-002</code>, <code>EX-LVL-004</code>. </p>
 </div></div><!-- contents -->

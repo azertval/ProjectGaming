@@ -22,7 +22,7 @@ var searchData=
   ['remappage_20manette_20et_20câblage_19',['TACHE-03 — UI de remappage manette et câblage',['../lot-30-tache-03-ui-remappage-manette.html',1,'lot-30']]],
   ['remappage_20manette_20jeu_20',['LOT-30 — Remappage manette (jeu)',['../lot-30.html',1,'lots']]],
   ['remplissage_20rectangulaire_20sélection_20copier_20coller_21',['TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller',['../lot-15-tache-05-outils-rectangle-selection.html',1,'lot-15']]],
-  ['rendu_22',['rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-18-tache-02-frames-atlas-integration.html',1,'TACHE-02 — Images dans l&apos;atlas et intégration au rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
+  ['rendu_22',['rendu',['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-18-tache-02-frames-atlas-integration.html',1,'TACHE-02 — Images dans l&apos;atlas et intégration au rendu'],['../lot-22-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu'],['../lot-24-tache-03-editeur-rendu.html',1,'TACHE-03 — Éditeur et rendu']]],
   ['rendu_202d_20_3a_20atlas_20sprites_20caméra_23',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
   ['rendu_202d_20_3a_20de_20l_20ecs_20à_20l_20écran_24',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
   ['rendu_20cible_20technique_25',['Rendu &amp; cible technique',['../spec-rendu-technique.html',1,'specifications']]],
@@ -31,10 +31,12 @@ var searchData=
   ['rendu_20du_20niveau_20intégration_20«_20charger_20niveau_20»_28',['TACHE-06 — Rendu du niveau + intégration « Charger niveau »',['../lot-07-tache-06-rendu-integration.html',1,'lot-07']]],
   ['rendu_20liaison_29',['TACHE-03 — Intégration éditeur (palette, rendu, liaison)',['../lot-31-tache-03-integration-editeur.html',1,'lot-31']]],
   ['renommage_20avertissement_20d_20écrasement_30',['TACHE-03 — Nommage, renommage, avertissement d&apos;écrasement',['../lot-15-tache-03-nommage-renommage.html',1,'lot-15']]],
-  ['repos_20course_20saut_31',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
-  ['requêtes_20vues_20multi_20composants_32',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
-  ['requis_20preuve_33',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
-  ['ressenti_20avancé_20_3a_20personnage_20humanoïde_20gravité_20asymétrique_20finitions_34',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
-  ['retour_20titre_35',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
-  ['robustesse_20et_20confort_20d_20édition_36',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]]
+  ['repère_20visuel_20de_20salles_20dans_20l_20éditeur_31',['TACHE-03 — Repère visuel de salles dans l&apos;éditeur',['../lot-32-tache-03-repere-editeur.html',1,'lot-32']]],
+  ['repos_20course_20saut_32',['LOT-18 — Animation du personnage (repos, course, saut)',['../lot-18.html',1,'lots']]],
+  ['requêtes_20vues_20multi_20composants_33',['TACHE-04 — Requêtes / vues multi-composants',['../lot-03-tache-04-vues-requetes.html',1,'lot-03']]],
+  ['requis_20preuve_34',['TACHE-06 — Niveaux de démo (séquence, dont saut requis) + preuve',['../lot-09-tache-06-niveaux-demo.html',1,'lot-09']]],
+  ['ressenti_20avancé_20_3a_20personnage_20humanoïde_20gravité_20asymétrique_20finitions_35',['LOT-11 — Ressenti avancé : personnage humanoïde, gravité asymétrique, finitions',['../lot-11.html',1,'lots']]],
+  ['retour_20titre_36',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
+  ['robustesse_20et_20confort_20d_20édition_37',['LOT-15 — Éditeur de niveaux : robustesse et confort d&apos;édition',['../lot-15.html',1,'lots']]],
+  ['roomgrid_20logique_20pure_38',['TACHE-01 — Partition en salles (`RoomGrid`, logique pure)',['../lot-32-tache-01-partition-salles.html',1,'lot-32']]]
 ];

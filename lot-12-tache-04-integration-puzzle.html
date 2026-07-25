@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-12-tache-04-integration-puzzle.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-12-niveau-puzzle_2epic_8md.html">LOT-12</a> · <b>Emplacement :</b> <code>Source/HMI</code>, <code>Source/Elements/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md844"></a>
+<h1><a class="anchor" id="autotoc_md846"></a>
 Contexte</h1>
 <p>Dernière tâche : brancher mécanismes + budget dans le jeu et livrer un <b>niveau puzzle</b> prouvé.</p>
-<h1><a class="anchor" id="autotoc_md845"></a>
+<h1><a class="anchor" id="autotoc_md847"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>GameScreen</code>** :<ul>
@@ -114,32 +114,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md846"></a>
+<h1><a class="anchor" id="autotoc_md848"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
 <li><code>Source/Elements/Levels/demo4.json</code>.</li>
 <li><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code> (ou dédié), <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md847"></a>
+<h1><a class="anchor" id="autotoc_md849"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>demo4</code> : franchissable <b>avec</b> l'interrupteur ; bloqué <b>sans</b> (porte fermée).</li>
 <li>Parcours <b>système</b> complet vert.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md848"></a>
+<h1><a class="anchor" id="autotoc_md850"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Grille de collision</b> : la physique doit consommer la grille des mécanismes (portes), pas la carte brute — sinon les portes ne bloquent jamais.</li>
 <li><b>Budget</b> au spawn <b>et</b> au reset (rejouer le niveau redonne le budget plein).</li>
 <li><b>Faisabilité</b> : le budget doit rester suffisant pour un plan correct (marge), le puzzle vient de l'<b>ordre</b> (interrupteur avant la porte), pas d'un timing à la frame près.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md849"></a>
+<h1><a class="anchor" id="autotoc_md851"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Mécanismes + budget jouables ; <code>demo4</code> livré et enchaîné ; preuves intégration + système vertes ; vérif visuelle des portes ; build <code>/W4 /WX</code>, <code>CHANGELOG.md</code> à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md850"></a>
+<h1><a class="anchor" id="autotoc_md852"></a>
 Exigences</h1>
 <p><code>EX-GP-020</code>, <code>EX-GP-021</code>, <code>EX-GP-024</code>, <code>EX-LVL-004</code>, <code>EX-LVL-010</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>535 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>540 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (453)</h1>
+Tests unitaires (458)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -2272,7 +2272,7 @@ Vérifie que <code>toolBar.selected()</code> vaut <code>selectedBefore</code>.<b
 Vérifie que <code>toolBar.entries().front().y</code> vaut <code>250.0f</code> (comparaison flottante).   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md15"></a>
-Graphics (9)</h3>
+Graphics (14)</h3>
 <p>**<code><a class="el" href="test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).">test_camera2d.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2324,6 +2324,50 @@ Vérifie que <code>100.0f * <a class="el" href="classhmi_1_1Camera2D.html#a3d1d5
 <sub><code><a class="el" href="test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).">Source/Test/Unit/HMI/Graphics/test_camera2d.cpp</a>:192</code></sub>   </td><td class="markdownTableBodyNone">fitZoom applique la marge avant l'arrondi.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>zoomSansMarge</code> vaut <code>5.0f</code> (comparaison flottante).<br  />
 Vérifie que <code>zoomAvecMarge</code> vaut <code>4.0f</code> (comparaison flottante).   </td></tr>
+</table>
+<p>**<code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">test_room_grid.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RoomGridTest.NiveauPlusPetitQuUneSalleProduitUneSeuleSalle</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:13</code></sub>   </td><td class="markdownTableBodyNone">Un niveau plus petit qu'une salle produit une seule salle couvrant le niveau entier.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> pour un niveau plus petit que la taille de salle sur les deux axes.<br  />
+2. Vérifier <code>columns()</code>/<code>rows()</code> et le rectangle de l'unique salle.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.columns()</code> vaut <code>1</code>.<br  />
+Vérifie que <code>grid.rows()</code> vaut <code>1</code>.<br  />
+Vérifie que <code>bounds.column</code> vaut <code>0</code>.<br  />
+Vérifie que <code>bounds.row</code> vaut <code>0</code>.<br  />
+Vérifie que <code>bounds.width</code> vaut <code>10</code>.<br  />
+Vérifie que <code>bounds.height</code> vaut <code>6</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RoomGridTest.NiveauMultipleExactNeRogneAucuneSalle</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:38</code></sub>   </td><td class="markdownTableBodyNone">Un niveau exactement multiple de la taille de salle ne rogne aucune salle.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> pour un niveau dont chaque dimension est un multiple exact de la taille de salle.<br  />
+2. Vérifier <code>columns()</code>/<code>rows()</code> et le rectangle de chaque salle.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.columns()</code> vaut <code>3</code>.<br  />
+Vérifie que <code>grid.rows()</code> vaut <code>2</code>.<br  />
+Vérifie que <code>last.column</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6" title="Largeur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_WIDTH_TILES</a> * 2</code>.<br  />
+Vérifie que <code>last.row</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a0b955c9993b7ea1652cec0f9c8cae916" title="Hauteur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_HEIGHT_TILES</a> * 1</code>.<br  />
+Vérifie que <code>last.width</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6" title="Largeur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_WIDTH_TILES</a></code>.<br  />
+Vérifie que <code>last.height</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a0b955c9993b7ea1652cec0f9c8cae916" title="Hauteur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_HEIGHT_TILES</a></code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RoomGridTest.NiveauNonMultipleRogneLaDerniereSalle</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:65</code></sub>   </td><td class="markdownTableBodyNone">Un niveau non multiple de la taille de salle rogne la dernière colonne/ligne.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> pour un niveau dépassant de quelques cases un multiple de la taille de salle.<br  />
+2. Vérifier le rectangle de la dernière salle sur chaque axe.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.columns()</code> vaut <code>2</code>.<br  />
+Vérifie que <code>grid.rows()</code> vaut <code>2</code>.<br  />
+Vérifie que <code>last.column</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6" title="Largeur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_WIDTH_TILES</a></code>.<br  />
+Vérifie que <code>last.row</code> vaut <code><a class="el" href="classhmi_1_1RoomGrid.html#a0b955c9993b7ea1652cec0f9c8cae916" title="Hauteur d&#39;une salle, en cases (EX-REN-015).">hmi::RoomGrid::ROOM_HEIGHT_TILES</a></code>.<br  />
+Vérifie que <code>last.width</code> vaut <code>extraWidth</code>.<br  />
+Vérifie que <code>last.height</code> vaut <code>extraHeight</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RoomGridTest.RoomIndexAtQuatreCoins</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:94</code></sub>   </td><td class="markdownTableBodyNone"><code>roomIndexAt</code> renvoie l'indice de salle correct aux quatre coins et au centre.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> de 2x2 salles.<br  />
+2. Interroger <code>roomIndexAt</code> à des positions choisies dans chacune des quatre salles.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.<br  />
+Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{width - 1, 0})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 0})</code>.<br  />
+Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, height - 1})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 1})</code>.<br  />
+Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{width - 1, height - 1})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1, 1})</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RoomGridTest.PositionHorsBornesEstBornee</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:117</code></sub>   </td><td class="markdownTableBodyNone">Une position hors des bornes du niveau est bornée à la salle la plus proche.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> pour un petit niveau.<br  />
+2. Interroger <code>roomIndexAt</code> avec des coordonnées négatives puis très supérieures aux bornes.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.<br  />
+Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md16"></a>
 Input (62)</h3>

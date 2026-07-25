@@ -1,0 +1,10 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Graphics/test_room_grid.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Graphics/test_room_grid.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT&#45;32)." alt="" coords="36,5,257,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,123,109,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,77,80,114,76,111,112,73"/>
+<area shape="rect" id="Node000003" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="117,196,310,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,74,163,110,176,147,198,184,193,186,171,149,158,112,149,76"/>
+<area shape="rect" id="Node000004" href="$RoomGrid_8h.html" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT&#45;32)." alt="" coords="185,123,375,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,73,254,112,250,117,193,77"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="271,150,235,188,232,184,267,147"/>
+</map>

@@ -2,6 +2,7 @@ var classhmi_1_1GameScreen =
 [
     [ "GameScreen", "classhmi_1_1GameScreen.html#aafe1837db175828fe4cb5004a42404b2", null ],
     [ "GameScreen", "classhmi_1_1GameScreen.html#ab9508277fe1976a7524690eb54e86123", null ],
+    [ "centerCameraOnRoom", "classhmi_1_1GameScreen.html#a7dbe3839a9102647a0c9efd007aa74f8", null ],
     [ "collectActiveDangerBoxes", "classhmi_1_1GameScreen.html#a02a69e4136fd444c3ff0e08089dce26c", null ],
     [ "loadLevel", "classhmi_1_1GameScreen.html#a79cb7bdba99b1e63a2336125c488328f", null ],
     [ "loadLevel", "classhmi_1_1GameScreen.html#a65880fa25b1d6c65449aa5194c052be5", null ],
@@ -13,11 +14,13 @@ var classhmi_1_1GameScreen =
     [ "render", "classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2", null ],
     [ "spawnPlayer", "classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9", null ],
     [ "update", "classhmi_1_1GameScreen.html#ab92718c098da04b32be460630477e3b1", null ],
+    [ "updateCurrentRoom", "classhmi_1_1GameScreen.html#a57b35755db6f04215ddd20734e2bb702", null ],
     [ "_animation", "classhmi_1_1GameScreen.html#a579808d801d8cd565b89786e5707f4f6", null ],
     [ "_atlas", "classhmi_1_1GameScreen.html#a54afe71d6f2b04577e0124d368b90d61", null ],
     [ "_blockEntities", "classhmi_1_1GameScreen.html#a733c6b714a36ac753b473b4f9198320e", null ],
     [ "_blocks", "classhmi_1_1GameScreen.html#af7f50f75ef6aa95b54e3ed405934baa0", null ],
     [ "_camera", "classhmi_1_1GameScreen.html#a1eab05c7ae103ce10c5ae2572fffa53a", null ],
+    [ "_currentRoomIndex", "classhmi_1_1GameScreen.html#a07420b44399eb74f32730dd8e060ddb5", null ],
     [ "_dangerBlinkEntities", "classhmi_1_1GameScreen.html#a07e62475fa8ff7026a8a20f83b79dc93", null ],
     [ "_dangers", "classhmi_1_1GameScreen.html#aedd3079d1d4925e39048ad0e298783da", null ],
     [ "_dangerSwitchedEntities", "classhmi_1_1GameScreen.html#a78631badf036fb32e91d89b287a78b31", null ],
@@ -33,6 +36,7 @@ var classhmi_1_1GameScreen =
     [ "_physics", "classhmi_1_1GameScreen.html#a3808202159b25eeecbc246493d3bef04", null ],
     [ "_player", "classhmi_1_1GameScreen.html#a14fb0c4c67d811505dfd2c8e97cc4ee3", null ],
     [ "_renderer", "classhmi_1_1GameScreen.html#ad1bade635453bf1388d91555c1bd3555", null ],
+    [ "_roomGrid", "classhmi_1_1GameScreen.html#a14d5571486245a9a55e773b672b96e0b", null ],
     [ "_sequence", "classhmi_1_1GameScreen.html#ab1190bb7060826af15c29bd6f851c717", null ],
     [ "_world", "classhmi_1_1GameScreen.html#a688af25a96bfc4c98eed90d86f41991a", null ]
 ];

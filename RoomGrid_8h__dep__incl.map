@@ -1,0 +1,19 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/RoomGrid.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/RoomGrid.h">
+<area shape="rect" id="Node000001" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT&#45;32)." alt="" coords="373,5,595,60"/>
+<area shape="rect" id="Node000002" href="$RoomGrid_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="382,66,206,118,205,113,381,61"/>
+<area shape="rect" id="Node000003" href="$EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT&#45;14)." alt="" coords="251,115,472,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="445,71,393,117,390,113,442,67"/>
+<area shape="rect" id="Node000006" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="496,115,717,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="526,67,578,113,575,117,523,71"/>
+<area shape="rect" id="Node000008" href="$test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT&#45;32)." alt="" coords="741,108,963,177"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="588,61,742,106,741,112,586,67"/>
+<area shape="rect" id="Node000004" href="$EditorScreen_8cpp.html" title=" " alt="" coords="493,225,720,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="435,173,548,223,546,228,433,178"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="248,225,469,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="363,184,362,225,357,225,358,184"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="609,184,609,225,604,225,604,184"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="535,178,420,228,418,223,532,173"/>
+<area shape="rect" id="Node000007" href="$GameScreen_8cpp.html" title=" " alt="" coords="745,225,973,280"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="682,173,798,223,796,228,680,178"/>
+</map>

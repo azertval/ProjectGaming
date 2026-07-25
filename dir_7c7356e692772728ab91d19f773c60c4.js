@@ -30,5 +30,6 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-28-arrondis-concaves", "dir_8b45a94cde361c841ff5018bc9a1de3b.html", null ],
     [ "LOT-29-remappage-touches", "dir_53d160ae09e307f5c74d0d03d1a19103.html", null ],
     [ "LOT-30-remappage-manette", "dir_c2a4dd7aa0366fc380b52944a77fb179.html", null ],
-    [ "LOT-31-blocs-danger-avances", "dir_e4d0ddfd3c04dd21c3edef0473c0e899.html", null ]
+    [ "LOT-31-blocs-danger-avances", "dir_e4d0ddfd3c04dd21c3edef0473c0e899.html", null ],
+    [ "LOT-32-niveaux-a-salles", "dir_b54929ff83293c05e10d5494cdac55cd.html", null ]
 ];

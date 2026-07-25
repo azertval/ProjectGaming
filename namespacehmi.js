@@ -27,6 +27,8 @@ var namespacehmi =
     [ "OptionsModel", "classhmi_1_1OptionsModel.html", "classhmi_1_1OptionsModel" ],
     [ "OptionsScreen", "classhmi_1_1OptionsScreen.html", "classhmi_1_1OptionsScreen" ],
     [ "RenderContext", "structhmi_1_1RenderContext.html", "structhmi_1_1RenderContext" ],
+    [ "RoomBounds", "structhmi_1_1RoomBounds.html", "structhmi_1_1RoomBounds" ],
+    [ "RoomGrid", "classhmi_1_1RoomGrid.html", "classhmi_1_1RoomGrid" ],
     [ "SaveIcon", "classhmi_1_1SaveIcon.html", "classhmi_1_1SaveIcon" ],
     [ "SaveLogButton", "classhmi_1_1SaveLogButton.html", "classhmi_1_1SaveLogButton" ],
     [ "ScreenManager", "classhmi_1_1ScreenManager.html", "classhmi_1_1ScreenManager" ],
