@@ -24,8 +24,7 @@ connaître les touches physiques, ce qui pose plusieurs problèmes concrets :
   (`EX-ARCH-010`, @ref guide-boucle) ; lui faire connaître des codes de touche briserait cette
   frontière architecturale.
 
-Le trajet complet est donc : **touche physique → `hmi::InputState` (état brut) → `hmi::
-toPlayerInput` (traduction) → `core::PlayerInput` (intention) → `Core` (logique de jeu)**. Les deux
+Le trajet complet est donc : **touche physique → `hmi::InputState` (état brut) → `hmi::toPlayerInput` (traduction) → `core::PlayerInput` (intention) → `Core` (logique de jeu)**. Les deux
 premières étapes vivent dans `HMI` (dépendantes de la plateforme), la dernière dans `Core`
 (indépendante).
 

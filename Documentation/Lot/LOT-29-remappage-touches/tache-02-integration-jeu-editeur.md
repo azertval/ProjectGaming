@@ -6,8 +6,7 @@
 Branche le jeu et l'éditeur sur les classes de TACHE-01, en remplaçant les lectures directes de
 `hmi::Key` par une consultation des bindings — le point d'insertion exact anticipé par le
 commentaire de `PlayerInputMapper.h` (« un futur remappage… ne toucherait que cette fonction »).
-Avec les valeurs par défaut de TACHE-01, le comportement observable doit rester **strictement
-identique** à avant ce lot.
+Avec les valeurs par défaut de TACHE-01, le comportement observable doit rester **strictement identique** à avant ce lot.
 
 ## Travail à réaliser
 - **`Source/HMI/Input/PlayerInputMapper.h`/`.cpp`** : signature `toPlayerInput(const InputState&,
