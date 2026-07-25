@@ -1,6 +1,6 @@
 # TACHE-03 — Repère visuel de salles dans l'éditeur {#lot-32-tache-03-repere-editeur}
 
-**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait (essai visuel manuel reporté à TACHE-04)
 
 ## Contexte
 `EditorScreen::renderGrid` sait déjà dessiner un **quadrillage de repère** fin sur chaque bord de
@@ -21,10 +21,10 @@ spécifique au jeu).
   ligne de `RoomGrid` (pas chaque case), teinte **distincte** du quadrillage fin existant (plus
   opaque et/ou plus épais) pour rester lisible même quand les deux quadrillages sont actifs
   ensemble.
-- **Bascule d'affichage** : réutiliser (ou étendre) le bouton existant qui pilote `_showGridLines`,
-  ou en ajouter un second dédié aux frontières de salles — à trancher à l'implémentation selon ce
-  qui reste le plus lisible dans le panneau (`EX-EDIT-015`, commandes découvrables) ; documenter le
-  choix.
+- **Bascule d'affichage** : réutilise le raccourci existant (`F10`, `_showGridLines`) plutôt qu'un
+  second raccourci dédié — un seul geste affiche les deux repères (case par case **et** salles)
+  ensemble ; plus simple et plus découvrable (`EX-EDIT-015`) qu'une commande de plus à mémoriser,
+  pour un repère qui sert le même besoin (aligner son geste de peinture).
 - **Aucun changement de cadrage caméra** de l'éditeur : `_manualCamera`/`_cameraCenter`/
   `_cameraZoom` restent pilotés exactement comme avant (`LOT-15`/`16`), le quadrillage de salles
   est un calque de plus, pas une nouvelle règle de zoom.
