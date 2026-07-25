@@ -36,8 +36,7 @@ namespace hmi {
 // Construit l'ecran et charge le premier niveau de la sequence.
 GameScreen::GameScreen(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
                        int viewportHeight, std::vector<std::filesystem::path> levels,
-                       const GameKeyBindings& gameBindings,
-                       const GamepadBindings& gamepadBindings)
+                       const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings)
     : _atlas(atlas),
       _gameBindings(gameBindings),
       _gamepadBindings(gamepadBindings),
@@ -85,12 +84,15 @@ void GameScreen::loadLevel(core::Level level) {
     _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
     _loadError.clear();
 
-    _level = std::move(level);  // conserve le niveau pour la simulation et le reset
+    _level = std::move(level);              // conserve le niveau pour la simulation et le reset
     const core::Level& levelRef = *_level;  // level est deplace : plus lu au-dela de cette ligne
     _levelWidth = levelRef.tileMap().width();
     _levelHeight = levelRef.tileMap().height();
-    _camera.setCenter(core::Vector2{static_cast<float>(_levelWidth) * 0.5f,
-                                    static_cast<float>(_levelHeight) * 0.5f});
+    // Partition en salles (LOT-32) : reconstruite pour ce niveau, camera immediatement cadree sur
+    // la salle de l'ENTREE (pas de salle "en retard" d'une frame apres un (re)chargement).
+    _roomGrid.emplace(_levelWidth, _levelHeight);
+    _currentRoomIndex = _roomGrid->roomIndexAt(levelRef.entry());
+    centerCameraOnRoom(_currentRoomIndex);
     // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
     core::buildLevelScene(_world, levelRef,
                           [this](core::TileType type) { return regionForTile(type, _atlas); });
@@ -294,7 +296,7 @@ void GameScreen::refreshDangerStateVisuals() {
 std::vector<core::Aabb> GameScreen::collectActiveDangerBoxes() const {
     std::vector<core::Aabb> boxes;
     boxes.reserve(_dangers->moverCount() + _level->blinkConfigs().size() +
-                 _level->dangerLinks().size());
+                  _level->dangerLinks().size());
 
     for (std::size_t index = 0; index < _dangers->moverCount(); ++index) {
         boxes.push_back(_dangers->moverBox(index));
@@ -320,6 +322,31 @@ void GameScreen::refreshPlayerSprite() {
     const core::Animation& animation = _world.getComponent<core::Animation>(_player);
     core::Sprite& sprite = _world.getComponent<core::Sprite>(_player);
     sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex);
+}
+
+// Centre la camera sur le rectangle de la salle roomIndex (LOT-32) -- coupure nette : seul
+// l'appelant decide QUAND recentrer (chargement, changement de salle), jamais chaque frame.
+void GameScreen::centerCameraOnRoom(core::GridPosition roomIndex) {
+    const RoomBounds bounds = _roomGrid->roomBounds(roomIndex);
+    _camera.setCenter(
+        core::Vector2{static_cast<float>(bounds.column) + static_cast<float>(bounds.width) * 0.5f,
+                      static_cast<float>(bounds.row) + static_cast<float>(bounds.height) * 0.5f});
+}
+
+// Determine la salle contenant le personnage ; recentre la camera SEULEMENT si elle a change
+// depuis le dernier pas (EX-REN-015) -- une camera suiveuse en continu a ete explicitement ecartee
+// (epic LOT-32, meme raisonnement que LOT-16).
+void GameScreen::updateCurrentRoom() {
+    const core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& collider = _world.getComponent<core::Collider>(_player);
+    const core::Vector2 center = transform.position + collider.size * 0.5f;
+    const core::GridPosition tile{static_cast<int>(std::floor(center.x)),
+                                  static_cast<int>(std::floor(center.y))};
+    const core::GridPosition roomIndex = _roomGrid->roomIndexAt(tile);
+    if (roomIndex != _currentRoomIndex) {
+        _currentRoomIndex = roomIndex;
+        centerCameraOnRoom(_currentRoomIndex);
+    }
 }
 
 // Simule le personnage d'un pas fixe (mecanismes + physique + animation), puis statue sur
@@ -369,15 +396,13 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
                 }
                 const core::SweepResult result =
                     core::sweepAabbVsAabb(previousBox, delta, _blocks->boxAt(index));
-                if (result.normal.x != 0.0f &&
-                    std::fabs(result.position.x - previousBox.min.x) <
-                        std::fabs(bestPosition.x - previousBox.min.x)) {
+                if (result.normal.x != 0.0f && std::fabs(result.position.x - previousBox.min.x) <
+                                                   std::fabs(bestPosition.x - previousBox.min.x)) {
                     bestPosition.x = result.position.x;
                     bestNormal.x = result.normal.x;
                 }
-                if (result.normal.y != 0.0f &&
-                    std::fabs(result.position.y - previousBox.min.y) <
-                        std::fabs(bestPosition.y - previousBox.min.y)) {
+                if (result.normal.y != 0.0f && std::fabs(result.position.y - previousBox.min.y) <
+                                                   std::fabs(bestPosition.y - previousBox.min.y)) {
                     bestPosition.y = result.position.y;
                     bestNormal.y = result.normal.y;
                 }
@@ -407,6 +432,10 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     const core::Transform& transform = _world.getComponent<core::Transform>(_player);
     const core::Collider& collider = _world.getComponent<core::Collider>(_player);
     const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+
+    // 3bis. Camera : bascule de salle (LOT-32, EX-REN-015) -- coupure nette si le personnage vient
+    // de franchir une frontiere de salle, sans effet sinon.
+    updateCurrentRoom();
 
     // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque de pression (continu,
     //    EX-GP-025) -> etat des portes (pour le pas suivant + visuel).
@@ -473,13 +502,16 @@ void GameScreen::render(RenderContext& context) {
 
     _camera.setViewportSize(context.viewportWidth, context.viewportHeight);
 
-    // Zoom pour faire tenir le niveau ENTIER dans la fenetre (LOT-16, EX-REN-013) : entier
-    // (nettete pixel art) tant qu'il tient a l'echelle x1, fractionnaire au-dela pour qu'aucune
-    // zone ne reste hors champ — la camera cadre le niveau, elle ne suit pas le personnage.
-    const float zoom =
-        Camera2D::fitZoom(static_cast<float>(context.viewportWidth),
-                          static_cast<float>(context.viewportHeight),
-                          static_cast<float>(_levelWidth), static_cast<float>(_levelHeight), 0.92f);
+    // Zoom pour faire tenir la SALLE COURANTE dans la fenetre (LOT-32, EX-REN-015) : entier
+    // (nettete pixel art) tant qu'elle tient a l'echelle x1, fractionnaire au-dela pour qu'aucune
+    // zone ne reste hors champ. Un niveau qui tient dans une seule salle degenere exactement au
+    // cadrage "niveau entier" de LOT-16 (EX-REN-013) : meme formule, applique au rectangle de la
+    // salle courante plutot qu'au niveau entier -- la camera ne suit jamais le personnage en
+    // continu, seul updateCurrentRoom() la recentre, a la bascule de salle.
+    const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
+    const float zoom = Camera2D::fitZoom(
+        static_cast<float>(context.viewportWidth), static_cast<float>(context.viewportHeight),
+        static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
     _camera.setZoom(zoom);
 
     _renderer.render(_world, _camera);

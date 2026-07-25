@@ -1,6 +1,6 @@
 # TACHE-02 — Caméra par salle en jeu (coupure nette) {#lot-32-tache-02-camera-salle-jeu}
 
-**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** à faire
+**Lot :** [LOT-32](epic.md) · **Emplacement :** `HMI/Interface` · **Statut :** fait (essai visuel manuel reporté à TACHE-04, avec le niveau de démonstration réel)
 
 ## Contexte
 `GameScreen::render` (`LOT-16`) calcule aujourd'hui un zoom d'ajustement sur le **niveau entier**
