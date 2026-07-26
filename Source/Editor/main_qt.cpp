@@ -8,6 +8,7 @@
  */
 
 #include <QApplication>
+#include <QCoreApplication>
 
 #include "Editor/MainWindow.h"
 
@@ -17,6 +18,10 @@
  */
 int main(int argc, char** argv) {
     QApplication application(argc, argv);
+    // Identité de l'application : sert de portée aux réglages persistés (QSettings — disposition
+    // des panneaux de l'éditeur, EX-IHM-011).
+    QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
+    QCoreApplication::setApplicationName(QStringLiteral("Editor"));
 
     editor::MainWindow window;
     window.show();
