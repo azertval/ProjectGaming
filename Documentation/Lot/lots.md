@@ -44,3 +44,9 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-31
 - @subpage lot-32
 - @subpage lot-33
+- @subpage lot-34
+- @subpage lot-35
+- @subpage lot-36
+- @subpage lot-37
+- @subpage lot-38
+- @subpage lot-39
