@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-15-tache-08-nettoyage-documentatio
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-15-editeur-industriel_2epic_8md.html">LOT-15</a> · <b>Emplacement :</b> <code>Documentation</code>, <code>Source/Core/Level</code>, <code>Source/HMI/Editor</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md985"></a>
+<h1><a class="anchor" id="autotoc_md992"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : refermer les écarts entre documentation et implémentation accumulés depuis LOT-14, une fois le code des tâches précédentes livré.</p>
-<h1><a class="anchor" id="autotoc_md986"></a>
+<h1><a class="anchor" id="autotoc_md993"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Suppression</b> de <code>Source/Core/Level/README.md</code> (dossier singulier, décrit un format hybride ASCII+JSON jamais implémenté, supplanté par <code>Source/Core/Levels/</code> — le dossier pluriel réellement utilisé). Vérifier qu'aucune référence (Doxygen, autre document) ne pointe vers ce fichier avant suppression.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : vérifier que la génération (<code>docs.yml</code>, <code>WARN_AS_ERROR</code>) reste sans avertissement après les suppressions/réécritures (références croisées, <code>@subpage</code> valides).</li>
 <li>**<code>scripts/lint_exigences.py</code>** : vérifier qu'il reste vert (toutes les nouvelles <code>EX-EDIT-*</code> déclarées une fois, aucune référence orpheline) une fois les tâches précédentes livrées.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md987"></a>
+<h1><a class="anchor" id="autotoc_md994"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Core/Level/README.md</code> (suppression).</li>
@@ -114,24 +114,24 @@ Fichiers impactés</h1>
 <li><code>CHANGELOG.md</code>.</li>
 <li><code><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></code> (déjà mis à jour en amont du lot — vérifier la cohérence finale avec ce qui a été réellement livré par TACHE-01 à 07, ajuster si un détail a changé en cours d'implémentation, comme la pratique établie en LOT-14).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md988"></a>
+<h1><a class="anchor" id="autotoc_md995"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li>Génération Doxygen locale (ou CI <code>docs.yml</code>) sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md989"></a>
+<h1><a class="anchor" id="autotoc_md996"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne renuméroter <b>aucun</b> identifiant <code>EX-…</code> existant, même en cas d'ajustement de formulation — cohérent avec la politique d'immutabilité des identifiants (<code><a class="el" href="conventions_8md.html">conventions.md</a></code> §12).</li>
 <li>Cette tâche clôt le lot : c'est l'occasion de vérifier que les critères d'acceptation de <code>epic.md</code> sont tous effectivement remplis avant de marquer le lot terminé.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md990"></a>
+<h1><a class="anchor" id="autotoc_md997"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences et Doxygen verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md991"></a>
+<h1><a class="anchor" id="autotoc_md998"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

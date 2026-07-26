@@ -2,21 +2,24 @@
 <area shape="rect" id="node1" href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html" title="Graphics" alt="" coords="27,125,106,151"/>
 <area shape="rect" id="node2" href="dir_76d97c54a16374659ce0f27a302675ee.html" title="Input" alt="" coords="130,125,185,151"/>
 <area shape="rect" id="node3" href="dir_8582677ef72a95e6c2b44a30d95c0011.html" title="Editor" alt="" coords="209,125,269,151"/>
-<area shape="rect" id="node4" href="dir_e91345e58f28b18d59c87d2e81de3f4a.html" title="Platform" alt="" coords="293,125,371,151"/>
-<area shape="rect" id="node5" href="dir_f18162a3491e1099b27e24681bdccd3d.html" title="Localization" alt="" coords="395,125,495,151"/>
-<area shape="rect" id="node6" href="dir_c537f82b8f955c3b1ce6a355f8c4c1be.html" title="Interface" alt="" coords="245,52,325,77"/>
-<area shape="poly" id="edge2" href="dir_000019_000011.html" alt="" coords="251,80,116,124,114,118,249,75"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000019_000011.html" title="36" alt="" coords="113,120,131,135"/>
-<area shape="poly" id="edge3" href="dir_000019_000016.html" alt="" coords="266,80,192,121,189,116,263,75"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000019_000016.html" title="27" alt="" coords="190,116,207,131"/>
-<area shape="poly" id="edge4" href="dir_000019_000007.html" alt="" coords="280,79,256,115,252,112,275,76"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000019_000007.html" title="9" alt="" coords="259,107,268,122"/>
-<area shape="poly" id="edge5" href="dir_000019_000070.html" alt="" coords="295,76,319,112,315,115,291,79"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000019_000070.html" title="1" alt="" coords="317,98,326,113"/>
-<area shape="poly" id="edge6" href="dir_000019_000023.html" alt="" coords="312,75,408,117,406,122,310,80"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000019_000023.html" title="11" alt="" coords="397,103,415,117"/>
-<area shape="rect" id="node7" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html" title="Core" alt="" coords="519,125,571,151"/>
-<area shape="poly" id="edge1" href="dir_000019_000001.html" alt="" coords="326,73,507,122,506,127,325,78"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000019_000001.html" title="44" alt="" coords="496,107,513,122"/>
-<area shape="rect" id="clust1" href="dir_176b5c6fb722225b64367f2880eb44f3.html" title="HMI" alt="" coords="16,16,505,161"/>
+<area shape="rect" id="node4" href="dir_e63fac7525d4addf9f5e759ec10d14ef.html" title="Game" alt="" coords="293,125,355,151"/>
+<area shape="rect" id="node5" href="dir_e91345e58f28b18d59c87d2e81de3f4a.html" title="Platform" alt="" coords="379,125,458,151"/>
+<area shape="rect" id="node6" href="dir_f18162a3491e1099b27e24681bdccd3d.html" title="Localization" alt="" coords="482,125,582,151"/>
+<area shape="rect" id="node7" href="dir_c537f82b8f955c3b1ce6a355f8c4c1be.html" title="Interface" alt="" coords="284,52,364,77"/>
+<area shape="poly" id="edge2" href="dir_000021_000013.html" alt="" coords="284,80,120,125,119,120,283,74"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000021_000013.html" title="30" alt="" coords="117,122,135,137"/>
+<area shape="poly" id="edge3" href="dir_000021_000018.html" alt="" coords="298,80,198,122,196,117,296,75"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000021_000018.html" title="26" alt="" coords="196,118,213,133"/>
+<area shape="poly" id="edge4" href="dir_000021_000008.html" alt="" coords="312,79,265,119,261,114,309,75"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000021_000008.html" title="9" alt="" coords="267,113,277,127"/>
+<area shape="poly" id="edge5" href="dir_000021_000010.html" alt="" coords="327,78,327,112,321,112,321,78"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000021_000010.html" title="1" alt="" coords="328,100,337,114"/>
+<area shape="poly" id="edge6" href="dir_000021_000072.html" alt="" coords="341,75,394,115,391,119,338,79"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000021_000072.html" title="1" alt="" coords="389,100,398,115"/>
+<area shape="poly" id="edge7" href="dir_000021_000025.html" alt="" coords="358,75,486,118,484,123,357,80"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000021_000025.html" title="11" alt="" coords="475,104,493,119"/>
+<area shape="rect" id="node8" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html" title="Core" alt="" coords="606,125,658,151"/>
+<area shape="poly" id="edge1" href="dir_000021_000001.html" alt="" coords="365,71,466,91,593,122,592,127,464,96,364,76"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000021_000001.html" title="21" alt="" coords="582,108,599,122"/>
+<area shape="rect" id="clust1" href="dir_176b5c6fb722225b64367f2880eb44f3.html" title="HMI" alt="" coords="16,16,592,161"/>
 </map>

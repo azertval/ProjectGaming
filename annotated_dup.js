@@ -48,6 +48,10 @@ var annotated_dup =
       [ "View", "classcore_1_1View.html", "classcore_1_1View" ],
       [ "World", "classcore_1_1World.html", "classcore_1_1World" ]
     ] ],
+    [ "editor", "namespaceeditor.html", [
+      [ "GameViewport", "classeditor_1_1GameViewport.html", "classeditor_1_1GameViewport" ],
+      [ "MainWindow", "classeditor_1_1MainWindow.html", "classeditor_1_1MainWindow" ]
+    ] ],
     [ "hmi", "namespacehmi.html", [
       [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
       [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
@@ -63,7 +67,9 @@ var annotated_dup =
       [ "GamepadBindings", "classhmi_1_1GamepadBindings.html", "classhmi_1_1GamepadBindings" ],
       [ "GamepadBindingsModel", "classhmi_1_1GamepadBindingsModel.html", "classhmi_1_1GamepadBindingsModel" ],
       [ "GamepadBindingsScreen", "classhmi_1_1GamepadBindingsScreen.html", "classhmi_1_1GamepadBindingsScreen" ],
+      [ "GamepadPoller", "classhmi_1_1GamepadPoller.html", "classhmi_1_1GamepadPoller" ],
       [ "GameScreen", "classhmi_1_1GameScreen.html", "classhmi_1_1GameScreen" ],
+      [ "GameSession", "classhmi_1_1GameSession.html", "classhmi_1_1GameSession" ],
       [ "GraphicsDevice", "classhmi_1_1GraphicsDevice.html", "classhmi_1_1GraphicsDevice" ],
       [ "InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
       [ "IScreen", "classhmi_1_1IScreen.html", "classhmi_1_1IScreen" ],

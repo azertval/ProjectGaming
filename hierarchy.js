@@ -30,6 +30,8 @@ var hierarchy =
     [ "hmi::GameKeybindingsModel", "classhmi_1_1GameKeybindingsModel.html", null ],
     [ "hmi::GamepadBindings", "classhmi_1_1GamepadBindings.html", null ],
     [ "hmi::GamepadBindingsModel", "classhmi_1_1GamepadBindingsModel.html", null ],
+    [ "hmi::GamepadPoller", "classhmi_1_1GamepadPoller.html", null ],
+    [ "hmi::GameSession", "classhmi_1_1GameSession.html", null ],
     [ "hmi::GraphicsDevice", "classhmi_1_1GraphicsDevice.html", null ],
     [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
@@ -74,6 +76,12 @@ var hierarchy =
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "core::PlayerInput", "structcore_1_1PlayerInput.html", null ],
     [ "hmi::PreviousPosition", "structhmi_1_1PreviousPosition.html", null ],
+    [ "QMainWindow", null, [
+      [ "editor::MainWindow", "classeditor_1_1MainWindow.html", null ]
+    ] ],
+    [ "QWindow", null, [
+      [ "editor::GameViewport", "classeditor_1_1GameViewport.html", null ]
+    ] ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "hmi::LanguageSelector::Rect", "structhmi_1_1LanguageSelector_1_1Rect.html", null ],
     [ "hmi::SaveLogButton::Rect", "structhmi_1_1SaveLogButton_1_1Rect.html", null ],

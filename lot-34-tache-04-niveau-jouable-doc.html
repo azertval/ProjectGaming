@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-34-tache-04-niveau-jouable-doc.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-34-refonte-ihm-qt-socle_2epic_8md.html">LOT-34</a> · <b>Emplacement :</b> <code>Source/Editor</code>, <code>Documentation</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1636"></a>
+<h1><a class="anchor" id="autotoc_md1643"></a>
 Contexte</h1>
 <p>TACHE-02 fournit un viewport qui s'efface, TACHE-03 la boucle et les entrées. Cette tâche <b>branche le rendu du jeu existant</b> dans le viewport pour atteindre l'objectif du lot : un niveau se <b>charge, s'affiche et se joue</b> dans la fenêtre Qt, au rendu identique à l'exécutable historique. C'est le critère qui <b>dérisque</b> l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM (LOT-35+). Elle clôt le lot par la documentation et la vérification.</p>
-<h1><a class="anchor" id="autotoc_md1637"></a>
+<h1><a class="anchor" id="autotoc_md1644"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Assemblage de la scène de jeu</b> dans le viewport : charger un niveau via <code><a class="el" href="classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543" title="Charge un niveau depuis un fichier.">core::LevelLoader::loadFromFile</a></code>, construire la scène (<code>core::LevelScene</code>/ECS <code>World</code>) et rendre via <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">hmi::SpriteRenderer</a></code> + <code>SpriteBatch</code> + <code>Camera2D</code> + <code>TextureAtlas</code> — <b>exactement</b> le chemin de rendu du jeu actuel (<code>GameScreen</code>). Réutiliser au maximum la logique de <code>GameScreen</code> (cadrage caméra par salle <code>RoomGrid</code>, interpolation <code>PreviousPosition</code>) : soit en instanciant <code>GameScreen</code> derrière le viewport, soit en extrayant sa boucle de rendu dans un composant réutilisable sans <code>IScreen</code>/<code>ScreenManager</code>.</li>
@@ -105,7 +105,7 @@ Travail à réaliser</h1>
 <li><b>Entrées de jeu</b> : relier <code>InputState</code> (TACHE-03) + <code>GameKeyBindings</code>/<code>GamepadBindings</code> au contrôle du personnage (mêmes bindings, chargés depuis <code>keybindings.json</code>).</li>
 <li>Choisir un niveau de démonstration existant (<code>Source/Elements/Levels/*.json</code>) comme contenu de validation du lot (aucun nouveau niveau requis).</li>
 <li><b>Documentation</b> :<ul>
-<li>Nouveau guide <code>Documentation/Guide/guide-ihm-qt.md</code> : architecture de la cible Qt, pont viewport/HWND, boucle, entrées, coexistence avec l'exe legacy (ajouter <code>@subpage</code> dans <code><a class="el" href="guide_8md.html">Documentation/Guide/guide.md</a></code>).</li>
+<li>Nouveau guide <code><a class="el" href="guide-ihm-qt_8md.html">Documentation/Guide/guide-ihm-qt.md</a></code> : architecture de la cible Qt, pont viewport/HWND, boucle, entrées, coexistence avec l'exe legacy (ajouter <code>@subpage</code> dans <code><a class="el" href="guide_8md.html">Documentation/Guide/guide.md</a></code>).</li>
 <li><b>Guides existants à mettre à jour</b> (la boucle, les entrées et le rendu changent de source) :<ul>
 <li><code><a class="el" href="guide-boucle_8md.html">Documentation/Guide/guide-boucle.md</a></code> : la boucle n'est plus le <code>while</code> de <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code> mais un tick Qt rejouant le pas fixe (la discipline <code>beginInputFrame</code>/interpolation est conservée).</li>
 <li><code><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></code> : le chemin d'entrées passe des messages Win32 aux événements Qt (clavier/souris) ; XInput conservé.</li>
@@ -118,32 +118,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1638"></a>
+<h1><a class="anchor" id="autotoc_md1645"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/</code> (assemblage scène/rendu de jeu ; éventuelle extraction d'un <code>GameView</code>/<code>GameRenderer</code> réutilisable depuis <code>HMI/Interface/GameScreen</code>).</li>
-<li><code>Documentation/Guide/guide-ihm-qt.md</code> (nouveau), <code><a class="el" href="architecture_8md.html">Documentation/Specification/architecture.md</a></code>, et les fichiers d'exigences concernés.</li>
+<li><code><a class="el" href="guide-ihm-qt_8md.html">Documentation/Guide/guide-ihm-qt.md</a></code> (nouveau), <code><a class="el" href="architecture_8md.html">Documentation/Specification/architecture.md</a></code>, et les fichiers d'exigences concernés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1639"></a>
+<h1><a class="anchor" id="autotoc_md1646"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression du jeu</b> : la suite existante (unitaires/intégration/système, dont <code>test_parcours_complet</code>) reste <b>verte et déterministe</b> — le rendu Qt ne touche pas <code>Core</code>.</li>
 <li><b>Vérification manuelle</b> (dépendance GPU) : le niveau s'affiche identiquement à l'exe historique (tuiles, caméra par salle, interpolation) et se <b>joue</b> (déplacement/saut/dash clavier + manette).</li>
 <li>Toute logique extraite/réutilisée (p. ex. un <code>GameRenderer</code> sans <code>IScreen</code>) reste couverte par les tests existants ou de nouveaux tests si du comportement pur est déplacé.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1640"></a>
+<h1><a class="anchor" id="autotoc_md1647"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la logique de <code>GameScreen</code></b> : préférer l'extraction d'un composant de rendu réutilisable (partagé entre legacy et Qt le temps de la coexistence) plutôt qu'une copie, pour éviter la divergence.</li>
 <li><b>Parité stricte</b> : mêmes couleurs de fond, même cadrage, même interpolation — toute différence visible signale une régression d'intégration à corriger avant de clôturer le lot.</li>
 <li><b>Doxygen 1.9.8</b> : construire la doc localement avec la version CI avant push (piège connu du projet).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1641"></a>
+<h1><a class="anchor" id="autotoc_md1648"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un niveau est jouable dans la fenêtre Qt, rendu identique au legacy ; documentation d'architecture et guide Qt à jour ; tests verts et déterministes ; <code>/W4 /WX</code>, Doxygen, lint verts. Critères d'acceptation du <a class="el" href="LOT-34-refonte-ihm-qt-socle_2epic_8md.html">LOT-34</a> satisfaits.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1642"></a>
+<h1><a class="anchor" id="autotoc_md1649"></a>
 Exigences</h1>
 <p><code>EX-IHM-001</code>, <code>EX-IHM-002</code> (concrétisées), <code>EX-NFR-002</code> (déterminisme préservé) ; réutilise <code>EX-REN-015</code>/<code>EX-ARCH-031</code> (caméra par salle, interpolation, <code>LOT-32</code>/<code>33</code>). </p>
 </div></div><!-- contents -->

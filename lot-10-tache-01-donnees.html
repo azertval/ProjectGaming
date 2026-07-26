@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-01-donnees.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/Core</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md744"></a>
+<h1><a class="anchor" id="autotoc_md751"></a>
 Contexte</h1>
 <p>Comme aux lots précédents, on déclare d'abord l'<b>état</b> des nouvelles mécaniques en <b>données pures</b> (<code>EX-ARCH-011</code>), avant toute logique. Trois mécaniques : double saut, wall jump/slide, dash.</p>
-<h1><a class="anchor" id="autotoc_md745"></a>
+<h1><a class="anchor" id="autotoc_md752"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>PlayerInput</code>** (Core/Physics) :<ul>
@@ -121,30 +121,30 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md746"></a>
+<h1><a class="anchor" id="autotoc_md753"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PlayerInput_8h.html" title="Intention de déplacement du personnage, neutre vis-à-vis de l&#39;entrée physique.">Source/Core/Physics/PlayerInput.h</a></code>, <code><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></code>, <code><a class="el" href="Player_8h.html" title="Composant marqueur du personnage jouable (données pures).">Source/Core/Ecs/Components/Player.h</a></code>.</li>
 <li>Tests unitaires des valeurs par défaut.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md747"></a>
+<h1><a class="anchor" id="autotoc_md754"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut cohérentes : <code>PlayerInput::dashPressed == false</code>, <code>moveY == 0</code> ; <code>Player::airJumpsRemaining == 0</code>, <code>dashAvailable == false</code>, <code>dashTimer == 0</code>, <code>wallDirection == 0</code>, <code>facing</code> valeur neutre définie ; <code>PhysicsConfig</code> avec réglages non nuls et plausibles (<code>airJumps &gt;= 1</code>, vitesses &gt; 0).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md748"></a>
+<h1><a class="anchor" id="autotoc_md755"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucune logique ni type DirectX ; unités monde et <b>secondes</b> documentées.</li>
 <li>N'ajouter que des <b>champs</b> (rétrocompatible LOT-09) ; ne pas décompter ici (rôle des systèmes).</li>
 <li><code>facing</code> doit avoir une valeur initiale déterministe (p. ex. +1, vers la droite).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md749"></a>
+<h1><a class="anchor" id="autotoc_md756"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Champs ajoutés, documentés (Doxygen en en-tête) et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md750"></a>
+<h1><a class="anchor" id="autotoc_md757"></a>
 Exigences</h1>
 <p><code>EX-CTRL-013</code>, <code>EX-GP-015</code>, <code>EX-GP-016</code>, <code>EX-GP-017</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

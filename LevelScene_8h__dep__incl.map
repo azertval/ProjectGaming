@@ -1,9 +1,9 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelScene.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelScene.h">
-<area shape="rect" id="Node000001" title="Projection d&#39;un niveau en entités ECS (une tuile non vide = un sprite)." alt="" coords="255,5,476,60"/>
+<area shape="rect" id="Node000001" title="Projection d&#39;un niveau en entités ECS (une tuile non vide = un sprite)." alt="" coords="251,5,472,60"/>
 <area shape="rect" id="Node000002" href="$LevelScene_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,67,182,110,180,105,287,63"/>
-<area shape="rect" id="Node000003" href="$GameScreen_8cpp.html" title=" " alt="" coords="251,108,479,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="368,74,368,108,363,108,363,74"/>
-<area shape="rect" id="Node000004" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="503,108,766,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="449,62,565,105,564,110,447,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,68,181,110,179,105,284,63"/>
+<area shape="rect" id="Node000003" href="$GameSession_8cpp.html" title=" " alt="" coords="251,108,472,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,74,364,108,359,108,359,74"/>
+<area shape="rect" id="Node000004" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="497,108,759,163"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="444,62,559,105,558,110,443,67"/>
 </map>

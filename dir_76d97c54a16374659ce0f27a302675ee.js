@@ -9,6 +9,8 @@ var dir_76d97c54a16374659ce0f27a302675ee =
     [ "GamepadButton.h", "GamepadButton_8h.html", "GamepadButton_8h" ],
     [ "GamepadButtonName.cpp", "GamepadButtonName_8cpp.html", "GamepadButtonName_8cpp" ],
     [ "GamepadButtonName.h", "GamepadButtonName_8h.html", "GamepadButtonName_8h" ],
+    [ "GamepadPoller.cpp", "GamepadPoller_8cpp.html", null ],
+    [ "GamepadPoller.h", "GamepadPoller_8h.html", "GamepadPoller_8h" ],
     [ "InputState.cpp", "InputState_8cpp.html", null ],
     [ "InputState.h", "InputState_8h.html", "InputState_8h" ],
     [ "KeyName.cpp", "KeyName_8cpp.html", "KeyName_8cpp" ],

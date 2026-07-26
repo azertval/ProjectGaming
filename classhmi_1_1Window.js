@@ -11,18 +11,15 @@ var classhmi_1_1Window =
     [ "handleMessage", "classhmi_1_1Window.html#a88972f628e55b2601d605191dd02ef75", null ],
     [ "input", "classhmi_1_1Window.html#a109b88a9b63f3f2723b7b040ab9a453a", null ],
     [ "operator=", "classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643", null ],
-    [ "pollGamepad", "classhmi_1_1Window.html#abafa62f45f3d6b6b6f6c8bb7051bf44f", null ],
     [ "pumpMessages", "classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000", null ],
     [ "requestClose", "classhmi_1_1Window.html#a7750493037fd703a60787a56d2f61ead", null ],
     [ "shouldClose", "classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c", null ],
     [ "windowProcedure", "classhmi_1_1Window.html#a84edce17a0339adcb5aa1fb6473fe4c0", null ],
     [ "_clientHeight", "classhmi_1_1Window.html#af736466ab0ddd704963d011277f3b993", null ],
     [ "_clientWidth", "classhmi_1_1Window.html#a734318f2dafe226f3efee88089790a6a", null ],
-    [ "_gamepadPollCountdown", "classhmi_1_1Window.html#a870a32526af7b0667d0a4d6e64361629", null ],
-    [ "_gamepadWasConnected", "classhmi_1_1Window.html#ae26d45d5de236bde84ecd6343b5d21df", null ],
+    [ "_gamepad", "classhmi_1_1Window.html#af02dd29b9b5c1ffbdf0ac384e757848f", null ],
     [ "_handle", "classhmi_1_1Window.html#aa1427e35a137aaebaebfec894efe1866", null ],
     [ "_input", "classhmi_1_1Window.html#a7f866e82cb3a0faac01f2ae0a8d03699", null ],
     [ "_resized", "classhmi_1_1Window.html#ad846994df75a64e3f547c04607bdc7f1", null ],
-    [ "_shouldClose", "classhmi_1_1Window.html#a09258ba23dcd76cf000cd1c9d7a4855f", null ],
-    [ "GAMEPAD_DISCONNECTED_POLL_INTERVAL", "classhmi_1_1Window.html#a9d63d4b79afb6645aa02d48ecf764769", null ]
+    [ "_shouldClose", "classhmi_1_1Window.html#a09258ba23dcd76cf000cd1c9d7a4855f", null ]
 ];

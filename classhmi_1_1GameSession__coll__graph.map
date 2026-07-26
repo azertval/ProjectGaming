@@ -1,0 +1,72 @@
+<map id="hmi::GameSession" name="hmi::GameSession">
+<area shape="rect" id="Node000001" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr..." alt="" coords="1481,546,1625,571"/>
+<area shape="rect" id="Node000002" href="$classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="745,31,881,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="895,28,1019,17,1093,17,1170,23,1249,37,1325,60,1396,95,1429,117,1459,144,1481,175,1499,223,1514,280,1527,343,1545,464,1554,545,1548,546,1540,465,1522,344,1509,281,1494,224,1476,178,1455,147,1426,122,1394,100,1323,65,1248,42,1170,28,1093,22,1019,23,896,33"/>
+<area shape="rect" id="Node000020" href="$classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="1087,130,1239,155"/>
+<area shape="poly" id="edge23_Node000020_Node000002" title=" " alt="" coords="895,57,929,65,953,73,1122,127,1120,132,951,79,927,71,894,62"/>
+<area shape="rect" id="Node000003" href="$classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="1075,226,1250,251"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1247,252,1299,267,1355,289,1410,318,1459,355,1480,378,1498,404,1525,458,1543,509,1552,545,1547,547,1537,510,1520,460,1493,407,1476,382,1456,359,1407,322,1353,294,1297,272,1246,257"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="728,196,899,236"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="913,220,1075,230,1075,236,912,225"/>
+<area shape="rect" id="Node000005" href="$classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="1075,299,1250,325"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1207,328,1324,385,1393,424,1459,467,1506,507,1542,544,1538,547,1503,511,1456,471,1390,428,1321,390,1205,333"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="709,260,918,300"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="932,288,1075,301,1075,307,932,293"/>
+<area shape="rect" id="Node000007" href="$classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="1115,457,1210,482"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1224,474,1334,492,1458,520,1524,543,1522,548,1457,525,1333,497,1223,480"/>
+<area shape="rect" id="Node000008" href="$classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="737,325,890,350"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="896,351,929,360,1048,409,1139,454,1136,459,1046,414,927,365,895,356"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="315,221,459,261"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="474,240,573,253,626,267,676,287,689,299,700,310,737,324,735,329,697,314,685,302,673,292,624,272,572,258,473,245"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="313,286,462,311"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="476,304,737,328,736,333,476,309"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="315,336,459,376"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="473,350,737,338,737,343,473,355"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="699,375,928,444"/>
+<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="942,429,1116,459,1115,464,941,434"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="306,400,469,440"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="482,415,699,410,699,415,483,420"/>
+<area shape="rect" id="Node000014" href="$classcore_1_1IComponentPool.html" title="Interface type&#45;effacée d&#39;une pool de composants." alt="" coords="13,407,178,433"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="191,417,306,417,306,423,191,423"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="723,468,904,508"/>
+<area shape="poly" id="edge14_Node000007_Node000015" title=" " alt="" coords="918,480,1115,469,1115,474,918,485"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="306,468,469,508"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="482,485,722,485,722,491,482,491"/>
+<area shape="rect" id="Node000017" href="$classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="40,507,151,533"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="164,510,306,494,306,500,164,515"/>
+<area shape="rect" id="Node000031" href="$classcore_1_1AnimationSystem.html" title="Fait évoluer l&#39;état d&#39;animation (core::Animation) de chaque personnage, au pas fixe." alt="" coords="500,533,675,558"/>
+<area shape="poly" id="edge32_Node000031_Node000017" title=" " alt="" coords="165,521,500,538,500,544,164,526"/>
+<area shape="rect" id="Node000018" href="$classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="1101,579,1225,605"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="1238,587,1342,582,1457,572,1481,569,1482,574,1458,577,1342,587,1238,593"/>
+<area shape="rect" id="Node000019" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="760,583,867,609"/>
+<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="880,593,1100,590,1100,595,880,598"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="1253,152,1305,165,1360,184,1413,212,1459,250,1487,286,1509,327,1526,370,1538,414,1551,492,1555,545,1549,546,1546,493,1533,415,1521,372,1505,330,1483,289,1455,254,1410,217,1358,189,1304,170,1252,157"/>
+<area shape="rect" id="Node000021" href="$classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="748,81,879,106"/>
+<area shape="poly" id="edge20_Node000020_Node000021" title=" " alt="" coords="884,106,952,119,1087,134,1086,140,952,124,883,111"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="299,71,476,111"/>
+<area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="490,89,748,90,748,96,490,94"/>
+<area shape="rect" id="Node000023" href="$structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,78,185,103"/>
+<area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="199,88,298,88,298,93,199,93"/>
+<area shape="rect" id="Node000024" title=" " alt="" coords="718,132,909,172"/>
+<area shape="poly" id="edge24_Node000020_Node000024" title=" " alt="" coords="922,163,976,166,1029,164,1103,153,1104,158,1030,169,976,171,922,169"/>
+<area shape="rect" id="Node000025" href="$structhmi_1_1SpriteRenderer_1_1LayeredQuad.html" title="Un quad prêt à dessiner, associé à sa couche (pour le tri)." alt="" coords="311,135,463,175"/>
+<area shape="poly" id="edge25_Node000024_Node000025" title=" " alt="" coords="477,151,718,150,718,155,477,157"/>
+<area shape="rect" id="Node000026" href="$structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e..." alt="" coords="32,142,159,167"/>
+<area shape="poly" id="edge26_Node000025_Node000026" title=" " alt="" coords="172,152,311,152,311,157,172,157"/>
+<area shape="rect" id="Node000027" title=" " alt="" coords="1091,692,1234,732"/>
+<area shape="poly" id="edge27_Node000001_Node000027" title=" " alt="" coords="1239,733,1290,743,1346,746,1403,740,1430,732,1456,720,1476,706,1493,688,1520,645,1537,603,1547,571,1552,572,1542,605,1525,648,1497,691,1479,710,1459,725,1432,737,1404,746,1346,752,1289,748,1238,738"/>
+<area shape="rect" id="Node000028" href="$structcore_1_1Entity.html" title="Handle générationnel identifiant une entité de l&#39;ECS." alt="" coords="765,647,861,673"/>
+<area shape="poly" id="edge33_Node000001_Node000028" title=" " alt="" coords="875,658,985,655,1131,646,1294,626,1377,610,1457,591,1520,569,1522,574,1458,596,1378,616,1295,631,1132,651,986,661,875,663"/>
+<area shape="poly" id="edge28_Node000027_Node000028" title=" " alt="" coords="875,666,1091,699,1090,704,874,672"/>
+<area shape="rect" id="Node000029" href="$classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,..." alt="" coords="1053,757,1272,782"/>
+<area shape="poly" id="edge29_Node000001_Node000029" title=" " alt="" coords="1286,780,1386,782,1428,777,1456,767,1480,747,1499,723,1515,696,1527,667,1542,612,1548,571,1553,572,1547,613,1532,669,1519,698,1504,726,1483,751,1459,772,1429,782,1386,787,1285,785"/>
+<area shape="rect" id="Node000030" href="$structcore_1_1PhysicsConfig.html" title="Paramètres réglables de la physique du personnage, regroupés pour faciliter le tuning." alt="" coords="739,757,887,782"/>
+<area shape="poly" id="edge30_Node000029_Node000030" title=" " alt="" coords="901,767,1053,767,1053,772,901,772"/>
+<area shape="poly" id="edge31_Node000001_Node000031" title=" " alt="" coords="689,544,1481,555,1481,560,689,549"/>
+<area shape="rect" id="Node000032" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="1094,806,1231,831"/>
+<area shape="poly" id="edge34_Node000001_Node000032" title=" " alt="" coords="1226,831,1280,839,1340,840,1401,829,1430,819,1456,803,1482,779,1503,749,1519,716,1531,682,1545,618,1549,572,1554,572,1550,618,1536,684,1524,718,1508,752,1486,782,1459,807,1432,823,1403,835,1341,845,1280,844,1226,837"/>
+<area shape="rect" id="Node000033" title=" " alt="" coords="1119,855,1206,881"/>
+<area shape="poly" id="edge35_Node000001_Node000033" title=" " alt="" coords="1218,881,1272,892,1335,896,1367,894,1399,888,1429,877,1456,861,1487,830,1511,792,1528,751,1539,708,1550,628,1550,572,1555,572,1555,628,1545,709,1533,753,1516,795,1491,833,1459,865,1431,882,1400,893,1368,899,1335,901,1272,897,1217,887"/>
+<area shape="rect" id="Node000034" title=" " alt="" coords="744,848,883,888"/>
+<area shape="poly" id="edge36_Node000033_Node000034" title=" " alt="" coords="896,865,1119,865,1119,871,896,871"/>
+</map>

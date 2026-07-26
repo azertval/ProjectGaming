@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-10-tache-06-niveau-parkour.html','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-10-mecaniques-avancees_2epic_8md.html">LOT-10</a> · <b>Emplacement :</b> <code>Source/Elements/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md779"></a>
+<h1><a class="anchor" id="autotoc_md786"></a>
 Contexte</h1>
 <p>Pour démontrer et <b>verrouiller</b> les mécaniques, il faut un niveau qui les <b>exige</b> : au moins un passage franchissable seulement en enchaînant double saut, wall jump et/ou dash. Comme aux lots précédents, la franchissabilité est <b>prouvée par test</b>, et le test <b>système</b> enchaîne la séquence complète.</p>
-<h1><a class="anchor" id="autotoc_md780"></a>
+<h1><a class="anchor" id="autotoc_md787"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Concevoir un niveau (JSON, format LOT-07) « parkour » avec, par exemple :<ul>
@@ -114,19 +114,19 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md781"></a>
+<h1><a class="anchor" id="autotoc_md788"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Levels/demo3.json</code> ; <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> (ajout à la séquence).</li>
 <li><code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code> et <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md782"></a>
+<h1><a class="anchor" id="autotoc_md789"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>demo3.json</code> franchissable avec le scénario mécanique (déterministe, <code>EX-NFR-002</code>).</li>
 <li>La séquence complète (<code>demo</code> → <code>demo2</code> → <code>demo3</code>) est franchie par le test système.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md783"></a>
+<h1><a class="anchor" id="autotoc_md790"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Faisabilité</b> : chaque obstacle doit être franchissable avec les réglages (hauteurs, portée de dash) — garder des marges pour ne pas dépendre d'un timing à la frame près.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li><b>Tableau à caméra fixe</b> : le niveau tient dans un écran.</li>
 <li>Ne pas casser les preuves des niveaux 1 et 2.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md784"></a>
+<h1><a class="anchor" id="autotoc_md791"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Niveau parkour livré et enchaîné ; franchissabilité prouvée (intégration) et parcours complet (système) verts ; build <code>/W4 /WX</code>, <code>CHANGELOG.md</code> à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md785"></a>
+<h1><a class="anchor" id="autotoc_md792"></a>
 Exigences</h1>
 <p><code>EX-LVL-001</code>, <code>EX-LVL-004</code>, <code>EX-LVL-010</code>, <code>EX-GP-015</code>, <code>EX-GP-016</code>, <code>EX-GP-017</code>, <code>EX-NFR-002</code>. </p>
 </div></div><!-- contents -->

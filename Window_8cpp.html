@@ -98,64 +98,62 @@ $(document).ready(function(){initNavTree('Window_8cpp.html',''); initResizable()
 <div class="textblock"><code>#include &quot;<a class="el" href="Window_8h_source.html">HMI/Platform/Window.h</a>&quot;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;stdexcept&gt;</code><br />
-<code>#include &lt;Xinput.h&gt;</code><br />
 <code>#include &lt;windowsx.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="GamepadButton_8h_source.html">HMI/Input/GamepadButton.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlatformLog_8h_source.html">HMI/Platform/PlatformLog.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Window.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Window_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Platform_2Window_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Platform_2Window_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Platform_2Window_8cpp">
-<area shape="rect" title=" " alt="" coords="393,5,614,60"/>
-<area shape="rect" href="Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées." alt="" coords="159,108,333,133"/>
-<area shape="poly" title=" " alt="" coords="426,63,294,106,292,101,424,58"/>
-<area shape="rect" title=" " alt="" coords="231,255,298,280"/>
-<area shape="poly" title=" " alt="" coords="480,62,436,110,393,161,348,209,296,249,293,245,344,205,389,157,432,106,477,58"/>
-<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="323,255,529,280"/>
-<area shape="poly" title=" " alt="" coords="480,62,464,84,450,109,439,144,432,179,428,241,423,241,427,179,434,142,445,107,459,81,476,58"/>
-<area shape="rect" title=" " alt="" coords="460,108,547,133"/>
-<area shape="poly" title=" " alt="" coords="506,60,506,94,501,94,501,60"/>
-<area shape="rect" title=" " alt="" coords="571,108,647,133"/>
-<area shape="poly" title=" " alt="" coords="537,58,585,97,582,101,534,62"/>
-<area shape="rect" title=" " alt="" coords="671,108,770,133"/>
-<area shape="poly" title=" " alt="" coords="571,58,680,101,678,105,569,63"/>
-<area shape="rect" href="PlatformLog_8h.html" title="Macros de journalisation de la catégorie « Platform »." alt="" coords="794,108,997,133"/>
-<area shape="poly" title=" " alt="" coords="615,56,830,102,829,108,614,61"/>
-<area shape="rect" title=" " alt="" coords="241,181,334,207"/>
-<area shape="poly" title=" " alt="" coords="255,132,276,168,271,171,251,135"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="49,181,217,207"/>
-<area shape="poly" title=" " alt="" coords="229,136,164,176,161,172,226,131"/>
-<area shape="rect" title=" " alt="" coords="101,255,157,280"/>
-<area shape="poly" title=" " alt="" coords="135,207,133,241,127,241,129,207"/>
-<area shape="rect" title=" " alt="" coords="5,255,76,280"/>
-<area shape="poly" title=" " alt="" coords="120,209,68,248,65,244,116,205"/>
-<area shape="poly" title=" " alt="" coords="155,204,232,246,230,250,153,209"/>
-<area shape="rect" title=" " alt="" coords="537,328,600,353"/>
-<area shape="poly" title=" " alt="" coords="143,205,174,242,196,262,221,278,262,296,298,306,365,314,435,316,524,325,523,331,435,321,365,320,297,312,260,301,218,282,193,266,170,246,139,209"/>
-<area shape="poly" title=" " alt="" coords="180,204,366,249,365,254,179,209"/>
-<area shape="rect" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="785,181,955,207"/>
-<area shape="poly" title=" " alt="" coords="894,135,881,169,876,168,889,133"/>
-<area shape="rect" href="LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="296,328,513,353"/>
-<area shape="poly" title=" " alt="" coords="834,209,455,326,454,321,832,204"/>
-<area shape="rect" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="761,401,968,427"/>
-<area shape="poly" title=" " alt="" coords="903,204,957,228,1014,263,1036,283,1051,306,1054,330,1044,355,1016,382,980,399,978,395,1013,378,1040,352,1049,329,1046,308,1032,287,1011,267,955,233,900,209"/>
-<area shape="rect" href="Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="751,255,941,280"/>
-<area shape="poly" title=" " alt="" coords="869,208,857,242,852,241,864,206"/>
-<area shape="rect" title=" " alt="" coords="375,401,434,427"/>
-<area shape="poly" title=" " alt="" coords="407,354,407,388,402,388,402,354"/>
-<area shape="rect" title=" " alt="" coords="589,401,687,427"/>
-<area shape="poly" title=" " alt="" coords="443,351,588,395,587,400,441,356"/>
-<area shape="poly" title=" " alt="" coords="479,351,777,397,777,402,478,356"/>
-<area shape="poly" title=" " alt="" coords="802,283,614,331,613,325,801,277"/>
-<area shape="poly" title=" " alt="" coords="757,283,708,300,685,313,665,330,656,343,649,358,642,388,637,387,644,356,651,340,661,326,682,309,705,295,755,278"/>
-<area shape="poly" title=" " alt="" coords="860,278,878,300,893,327,895,344,893,361,882,390,877,389,888,359,890,344,887,329,873,303,856,282"/>
-<area shape="rect" title=" " alt="" coords="953,328,1030,353"/>
-<area shape="poly" title=" " alt="" coords="871,278,957,320,954,324,868,282"/>
-<area shape="rect" href="ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="675,328,878,353"/>
-<area shape="poly" title=" " alt="" coords="836,282,799,320,795,316,833,278"/>
-<area shape="poly" title=" " alt="" coords="756,356,674,397,672,393,753,351"/>
-<area shape="poly" title=" " alt="" coords="792,351,841,390,838,395,789,355"/>
+<area shape="rect" title=" " alt="" coords="487,5,708,60"/>
+<area shape="rect" href="Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées." alt="" coords="215,108,390,133"/>
+<area shape="poly" title=" " alt="" coords="508,63,356,107,354,102,507,58"/>
+<area shape="rect" title=" " alt="" coords="412,328,479,353"/>
+<area shape="poly" title=" " alt="" coords="539,63,510,83,486,110,472,135,462,162,450,219,445,272,446,314,441,314,440,272,444,218,457,160,468,132,482,106,507,79,536,58"/>
+<area shape="rect" title=" " alt="" coords="723,108,810,133"/>
+<area shape="poly" title=" " alt="" coords="650,58,733,99,730,104,648,62"/>
+<area shape="rect" title=" " alt="" coords="835,108,933,133"/>
+<area shape="poly" title=" " alt="" coords="686,58,833,102,832,107,684,63"/>
+<area shape="rect" href="PlatformLog_8h.html" title="Macros de journalisation de la catégorie « Platform »." alt="" coords="496,108,699,133"/>
+<area shape="poly" title=" " alt="" coords="600,60,600,94,595,94,595,60"/>
+<area shape="rect" title=" " alt="" coords="53,181,147,207"/>
+<area shape="poly" title=" " alt="" coords="271,136,146,179,145,174,269,131"/>
+<area shape="rect" href="GamepadPoller_8h.html" title="Sondage XInput de la manette, fusionné dans un InputState (réutilisable)." alt="" coords="171,181,371,207"/>
+<area shape="poly" title=" " alt="" coords="300,135,284,170,279,168,295,133"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="200,255,368,280"/>
+<area shape="poly" title=" " alt="" coords="330,131,353,145,375,163,388,184,389,196,385,208,363,234,334,251,331,247,359,230,380,205,384,195,383,185,371,166,350,149,327,136"/>
+<area shape="poly" title=" " alt="" coords="275,207,282,241,277,242,270,207"/>
+<area shape="rect" title=" " alt="" coords="5,328,61,353"/>
+<area shape="poly" title=" " alt="" coords="244,283,75,330,74,325,243,277"/>
+<area shape="rect" title=" " alt="" coords="86,328,157,353"/>
+<area shape="poly" title=" " alt="" coords="259,282,162,325,159,320,257,278"/>
+<area shape="poly" title=" " alt="" coords="311,278,408,320,405,325,309,282"/>
+<area shape="rect" title=" " alt="" coords="503,328,566,353"/>
+<area shape="poly" title=" " alt="" coords="325,277,491,324,489,329,324,283"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="181,328,387,353"/>
+<area shape="poly" title=" " alt="" coords="287,280,287,314,281,314,281,280"/>
+<area shape="rect" href="Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="812,181,983,207"/>
+<area shape="poly" title=" " alt="" coords="646,131,836,176,835,181,645,136"/>
+<area shape="rect" href="LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="1071,328,1289,353"/>
+<area shape="poly" title=" " alt="" coords="935,204,991,225,1053,252,1109,285,1156,318,1153,322,1106,290,1051,257,989,230,933,209"/>
+<area shape="rect" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="918,401,1125,427"/>
+<area shape="poly" title=" " alt="" coords="909,205,948,256,992,327,1016,387,1011,390,987,329,943,259,905,208"/>
+<area shape="rect" href="Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="666,255,857,280"/>
+<area shape="poly" title=" " alt="" coords="877,209,797,251,794,246,874,204"/>
+<area shape="rect" title=" " alt="" coords="1151,401,1209,427"/>
+<area shape="poly" title=" " alt="" coords="1183,354,1183,388,1177,388,1177,354"/>
+<area shape="rect" title=" " alt="" coords="795,401,893,427"/>
+<area shape="poly" title=" " alt="" coords="1127,356,907,402,906,397,1125,351"/>
+<area shape="poly" title=" " alt="" coords="1156,356,1061,398,1059,393,1153,351"/>
+<area shape="poly" title=" " alt="" coords="726,283,580,328,578,323,724,277"/>
+<area shape="poly" title=" " alt="" coords="712,283,675,295,644,311,633,320,627,330,626,340,631,352,654,368,692,382,782,401,781,406,690,387,652,372,627,355,621,341,622,328,629,316,641,306,673,290,710,278"/>
+<area shape="poly" title=" " alt="" coords="838,277,899,295,930,309,959,326,990,356,1011,388,1007,391,985,359,956,330,928,314,897,300,836,283"/>
+<area shape="rect" title=" " alt="" coords="641,328,719,353"/>
+<area shape="poly" title=" " alt="" coords="750,282,705,321,702,317,747,278"/>
+<area shape="rect" href="ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="743,328,945,353"/>
+<area shape="poly" title=" " alt="" coords="776,278,822,317,818,321,773,282"/>
+<area shape="poly" title=" " alt="" coords="847,354,847,388,841,388,841,354"/>
+<area shape="poly" title=" " alt="" coords="873,351,981,394,979,399,872,356"/>
 </map>
 </div>
 </div><table class="memberdecls">
