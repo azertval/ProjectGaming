@@ -12,6 +12,7 @@
 add_library(HmiRuntime STATIC
     Platform/ExecutableDirectory.cpp
     Input/InputState.cpp
+    Input/GamepadPoller.cpp
     Input/PlayerInputMapper.cpp
     Input/GameKeyBindings.cpp
     Input/EditorKeyBindings.cpp
