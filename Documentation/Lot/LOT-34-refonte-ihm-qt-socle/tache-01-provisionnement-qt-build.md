@@ -35,7 +35,7 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
 
 ### 3. Provisionnement local
 - Documenter (guide de build) l'installation via **`aqtinstall`** (`pip install aqtinstall` puis
-  `aqt install-qt windows desktop 6.7.* win64_msvc2022_64 --outputdir C:\Qt`) **ou** l'installeur
+  `aqt install-qt windows desktop 6.8.1 win64_msvc2022_64 --outputdir C:\Qt`) **ou** l'installeur
   officiel, et le passage de `CMAKE_PREFIX_PATH`/`Qt6_DIR` au preset `vs` (variable d'environnement ou
   ajout ciblé au `CMakePresets.json`, sans casser un poste sans Qt tant que la cible Qt est optionnelle
   — voir Points d'attention).
@@ -46,7 +46,7 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
   - name: Install Qt
     uses: jurplel/install-qt-action@v4
     with:
-      version: '6.7.*'
+      version: '6.8.1'
       host: windows
       arch: win64_msvc2022_64
       cache: true
@@ -104,4 +104,4 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
 
 ## Exigences
 `EX-BUILD-010` (Qt provisionné et documenté, local + CI + release) ; prépare `EX-IHM-001`/`EX-IHM-002`
-(TACHE-02→04). Réutilise `EX-NFR-031` (dépendances épinglées) — Qt épinglé sur `6.7.*`.
+(TACHE-02→04). Réutilise `EX-NFR-031` (dépendances épinglées) — Qt épinglé sur `6.8.1` (l'archi `win64_msvc2022_64` requiert Qt 6.8+ ; 6.7 n'expose que `win64_msvc2019_64`).
