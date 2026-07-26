@@ -97,40 +97,40 @@ $(document).ready(function(){initNavTree('lot-25-tache-02-implementation-niveaux
 <blockquote class="doxtable">
 <p>&zwj;<b>Écart au plan initial</b> : les niveaux ont été conçus directement en JSON (calculs de géométrie vérifiés par des tests d'intégration réactifs, itérés via <code>--gtest_filter</code>) plutôt que dans l'éditeur intégré comme prévu ci-dessous — voir la note de <code>TACHE-04</code> sur la vérification visuelle pour la justification (aucune session interactive dans cette conversation). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1318"></a>
+<h1><a class="anchor" id="autotoc_md1319"></a>
 Contexte</h1>
 <p>Traduit le tableau mécanique → niveau(x) de <code>TACHE-01</code> en fichiers de niveaux réels, via l'éditeur intégré (<code>@ref guide-editeur</code>) plutôt qu'en JSON écrit à la main — cohérent avec <code>EX-EDIT-*</code> (l'édition passe par l'outil, pas par le texte brut).</p>
-<h1><a class="anchor" id="autotoc_md1319"></a>
+<h1><a class="anchor" id="autotoc_md1320"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Supprimer</b> <code>demo.json</code>…<code>demo5.json</code> (et toute autre trace de l'ancienne séquence dans <code>Source/Elements/Levels/</code>) — base vide, conformément à la décision de cadrage de l'épic.</li>
 <li>Pour chaque niveau <b>isolé</b> du tableau de <code>TACHE-01</code> : le concevoir <b>entièrement</b> dans l'éditeur intégré (peinture, mécanismes, essai immédiat <code>P</code>), l'enregistrer dans <code>Source/Elements/Levels/</code>, avec le nom décidé en <code>TACHE-01</code> (ex. <code>demo-double-saut.json</code>, <code>demo-pente.json</code>) — plus lisible qu'une numérotation <code>demoN.json</code> qui ne dit rien du contenu.</li>
 <li><b>En dernier</b>, une fois tous les niveaux isolés vérifiés individuellement : concevoir le <b>niveau final combiné</b> (<code>demo-final.json</code> ou nom équivalent décidé en <code>TACHE-01</code>), d'après le contenu défini en <code>TACHE-01</code> — le construire seulement après coup permet de réutiliser les agencements de tuiles déjà éprouvés dans les niveaux isolés plutôt que d'improviser à partir de rien.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1320"></a>
+<h1><a class="anchor" id="autotoc_md1321"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Levels/*.json</code> : suppression des fichiers existants, création des nouveaux selon le tableau de <code>TACHE-01</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1321"></a>
+<h1><a class="anchor" id="autotoc_md1322"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque niveau <b>isolé</b>, testé immédiatement dans l'éditeur (<code>P</code>) : franchissable en utilisant la mécanique visée, <b>infranchissable</b> sans elle (vérification manuelle, cohérente avec le critère d'acceptation 1 de l'épic).</li>
 <li>Le niveau <b>final combiné</b>, testé de la même façon : franchissable en utilisant l'ensemble des mécaniques qu'il mélange (critère d'acceptation 2 de l'épic) — pas seulement « ne plante pas ».</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1322"></a>
+<h1><a class="anchor" id="autotoc_md1323"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Un niveau qui ne teste rien n'a pas sa place</b> : si un niveau s'avère franchissable sans jamais utiliser la mécanique qu'il était censé isoler, le corriger avant de passer à <code>TACHE-03</code> plutôt que de livrer un test système qui ne teste rien en pratique.</li>
 <li><b>Supprimer avant de recréer</b> : vérifier qu'aucune référence résiduelle aux anciens noms (<code>demo.json</code>…<code>demo5.json</code>) ne subsiste ailleurs dans le dépôt (recherche texte) avant de passer à <code>TACHE-03</code>, qui les remplace dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code>/le test système.</li>
 <li>Conserver la convention de nommage des fichiers de niveaux <b>stable</b> une fois choisie en début de tâche : <code>TACHE-03</code> (séquence + test système) référence ces noms directement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1323"></a>
+<h1><a class="anchor" id="autotoc_md1324"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tous les niveaux isolés du tableau de <code>TACHE-01</code> <b>et</b> le niveau final combiné existent, sont enregistrés, et vérifiés manuellement franchissables.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1324"></a>
+<h1><a class="anchor" id="autotoc_md1325"></a>
 Exigences</h1>
 <p>Aucune exigence propre — production de contenu, pas de code moteur. </p>
 </div></div><!-- contents -->

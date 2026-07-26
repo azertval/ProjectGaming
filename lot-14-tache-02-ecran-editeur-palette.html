@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-14-tache-02-ecran-editeur-palette.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-14-editeur-niveaux_2epic_8md.html">LOT-14</a> · <b>Emplacement :</b> <code>HMI/Editor</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md895"></a>
+<h1><a class="anchor" id="autotoc_md896"></a>
 Contexte</h1>
 <p><code>EditorScreen</code> (LOT-06) n'est aujourd'hui qu'un texte « à venir ». Cette tâche pose le <b>socle interactif</b> du mode éditeur : afficher la grille d'un <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> (TACHE-01), convertir la position souris en case de grille, et peindre des tuiles depuis une <b>palette</b> de types — le cœur du WYSIWYG (<code>EX-EDIT-002</code>).</p>
-<h1><a class="anchor" id="autotoc_md896"></a>
+<h1><a class="anchor" id="autotoc_md897"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu de la grille</b> : réutiliser <code><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></code>/<code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">hmi::SpriteRenderer</a></code>/<code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">hmi::TextureAtlas</a></code> (LOT-05) pour afficher le <code>TileMap</code> du <code>LevelDraft</code> courant, comme le fait <code>GameScreen</code> pour un niveau joué — même correspondance type de tuile → région d'atlas.</li>
@@ -106,33 +106,33 @@ Travail à réaliser</h1>
 <li><b>Peinture</b> : clic (et glisser-clic pour peindre en continu) sur la grille applique le type actif via <code>LevelDraft::paintTile</code> — sauf pour <code>Entry</code>/<code>Exit</code>/<code>Switch</code>/<code>Door</code>, gérés en TACHE-03 (poser une tuile simple ici, liaison/unicité dans la tâche suivante).</li>
 <li><b>Nouveau <code><a class="el" href="classhmi_1_1EditorScreen.html" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles.">hmi::EditorScreen</a></code></b> : possède un <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> (créé vierge par défaut à ce stade ; le choix nouveau/existant arrive en TACHE-06), le rendu de la grille, la palette et l'interaction souris ; <b>Échap</b> revient au menu (comme le placeholder actuel).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md897"></a>
+<h1><a class="anchor" id="autotoc_md898"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code> (remplace le placeholder).</li>
 <li><code>Source/HMI/Editor/</code> : nouveaux fichiers pour la palette et la conversion souris → grille (ex. <code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">TilePalette.h</a></code>/<code>.cpp</code>, <code>EditorCursor.h</code>/<code>.cpp</code>) — logique d'interaction, pas de dépendance directe au rendu quand c'est possible, pour rester testable.</li>
 <li>Tests unitaires (<code>Source/Test/Unit/HMI/Editor/</code>, nouveau dossier).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md898"></a>
+<h1><a class="anchor" id="autotoc_md899"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Conversion position souris (pixels) → <code>GridPosition</code>, y compris hors bornes de la grille (aucune case retournée / case rejetée proprement).</li>
 <li>Sélection de la palette : cliquer une entrée change le type actif ; hors zone palette, sans effet.</li>
 <li>Peindre une case via le type actif modifie bien le <code>LevelDraft</code> sous-jacent (test d'intégration simulant une séquence clic/glisser).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md899"></a>
+<h1><a class="anchor" id="autotoc_md900"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer <b>interaction</b> (testable sans GPU) et <b>rendu</b> (dépend de Direct3D), comme le reste de <code>HMI</code> — la logique de sélection de case/palette ne doit pas nécessiter de fenêtre pour être testée (<code>EX-NFR-010</code>).</li>
 <li>Réutiliser les ressources de rendu du <code>RenderContext</code> existant (atlas, police, lot de sprites) — aucune ressource dupliquée entre <code>GameScreen</code> et <code>EditorScreen</code>.</li>
 <li>Le rendu reste en <b>lecture seule</b> vis-à-vis du modèle : c'est l'interaction souris qui mute le <code>LevelDraft</code>, jamais le rendu lui-même (<code>EX-ARCH-012</code>, par analogie).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md900"></a>
+<h1><a class="anchor" id="autotoc_md901"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Grille affichée et peignable à la souris depuis une palette, testé (<code>ctest</code> vert pour la logique d'interaction), vérifié visuellement dans l'application ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md901"></a>
+<h1><a class="anchor" id="autotoc_md902"></a>
 Exigences</h1>
 <p><code>EX-EDIT-001</code>, <code>EX-EDIT-002</code>, <code>EX-EDIT-030</code>, <code>EX-EDIT-031</code>, <code>EX-ARCH-020</code>, <code>EX-ARCH-021</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

@@ -1,27 +1,29 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Transform.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Transform.h">
-<area shape="rect" id="Node000001" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="1469,5,1718,60"/>
+<area shape="rect" id="Node000001" title="Composant de placement d&#39;une entité dans le monde (données pures)." alt="" coords="1605,5,1854,60"/>
 <area shape="rect" id="Node000002" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="5,108,264,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1455,36,1230,40,936,51,607,73,440,90,276,111,265,112,264,107,276,105,439,84,606,68,935,46,1229,35,1455,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1591,35,1343,37,1016,47,647,70,460,88,276,111,265,112,264,107,276,105,459,83,647,65,1016,42,1343,32,1591,30"/>
 <area shape="rect" id="Node000003" href="$MovementSystem_8cpp.html" title=" " alt="" coords="289,115,581,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1455,41,1066,62,830,83,594,111,550,118,549,113,593,105,829,77,1066,57,1455,36"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1591,39,1395,46,1146,59,870,80,594,111,550,118,549,113,593,105,869,74,1145,53,1394,41,1590,34"/>
 <area shape="rect" id="Node000004" href="$LevelScene_8cpp.html" title=" " alt="" coords="605,115,827,170"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1455,43,1170,66,1004,85,839,111,806,118,804,113,838,105,1003,80,1169,60,1455,38"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1591,40,1436,48,1248,61,1043,81,839,111,805,118,804,113,838,105,1042,76,1247,55,1436,42,1591,35"/>
 <area shape="rect" id="Node000005" href="$GameSession_8cpp.html" title=" " alt="" coords="851,115,1072,170"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1455,52,1278,76,1085,111,1053,118,1052,113,1083,105,1277,71,1455,47"/>
-<area shape="rect" id="Node000006" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="1096,115,1336,170"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1489,66,1308,118,1307,113,1488,61"/>
-<area shape="rect" id="Node000007" href="$test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX&#45;GP&#45;005) : compos..." alt="" coords="1360,108,1581,177"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1554,72,1511,110,1507,106,1551,68"/>
-<area shape="rect" id="Node000008" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="1605,108,1827,177"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1636,68,1679,106,1676,110,1632,72"/>
-<area shape="rect" id="Node000009" href="$test__danger__avance_8cpp.html" title="Tests d&#39;intégration des dangers avancés (EX&#45;GP&#45;050 à EX&#45;GP&#45;053) : DangerController et MechanismContro..." alt="" coords="1851,108,2072,177"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1697,61,1851,106,1850,112,1695,67"/>
-<area shape="rect" id="Node000010" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="2096,108,2317,177"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1732,48,1901,72,2085,105,2096,108,2095,113,2083,111,1900,77,1731,53"/>
-<area shape="rect" id="Node000011" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="2342,115,2605,170"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1732,40,2009,64,2170,82,2330,105,2368,113,2367,118,2329,111,2169,87,2009,69,1732,45"/>
-<area shape="rect" id="Node000012" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="2629,108,2851,177"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1732,33,1910,38,2131,51,2375,72,2618,105,2629,107,2628,113,2617,111,2374,77,2131,56,1909,44,1732,38"/>
-<area shape="rect" id="Node000013" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="2876,108,3097,177"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1732,30,1950,32,2233,43,2548,65,2708,83,2864,105,2876,108,2875,113,2864,111,2708,88,2548,71,2233,48,1950,38,1732,35"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1591,46,1353,70,1218,88,1085,111,1052,118,1050,113,1083,105,1217,83,1353,65,1590,41"/>
+<area shape="rect" id="Node000006" href="$DraftRenderer_8cpp.html" title=" " alt="" coords="1096,115,1331,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1591,61,1343,111,1312,118,1311,113,1342,105,1590,56"/>
+<area shape="rect" id="Node000007" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="1355,115,1595,170"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1656,68,1538,118,1536,113,1654,63"/>
+<area shape="rect" id="Node000008" href="$test__bloc__reduit_8cpp.html" title="Tests d&#39;intégration des blocs à taille réduite (TileType::BlockHalf/BlockQuarter, EX&#45;GP&#45;005) : compos..." alt="" coords="1619,108,1840,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1732,74,1732,108,1727,108,1727,74"/>
+<area shape="rect" id="Node000009" href="$test__boucle__simulation_8cpp.html" title="Test d&#39;intégration inter&#45;lots : le cadenceur à pas fixe (LOT&#45;01) pilote la simulation ECS (LOT&#45;03) — ..." alt="" coords="1864,108,2085,177"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1803,63,1899,105,1897,110,1801,68"/>
+<area shape="rect" id="Node000010" href="$test__danger__avance_8cpp.html" title="Tests d&#39;intégration des dangers avancés (EX&#45;GP&#45;050 à EX&#45;GP&#45;053) : DangerController et MechanismContro..." alt="" coords="2109,108,2331,177"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1868,57,2098,105,2110,108,2108,113,2097,111,1867,62"/>
+<area shape="rect" id="Node000011" href="$test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,..." alt="" coords="2355,108,2576,177"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1868,42,2092,66,2218,84,2343,105,2355,108,2354,113,2342,111,2217,89,2091,71,1867,48"/>
+<area shape="rect" id="Node000012" href="$test__niveau__ecs_8cpp.html" title="Test d&#39;intégration : d&#39;un fichier de niveau (JSON) jusqu&#39;aux entités de l&#39;ECS." alt="" coords="2601,115,2863,170"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1868,37,2197,60,2393,79,2588,105,2628,113,2627,118,2588,111,2393,84,2197,65,1867,43"/>
+<area shape="rect" id="Node000013" href="$test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés." alt="" coords="2887,108,3110,177"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1868,31,2066,35,2318,47,2597,69,2739,85,2876,105,2888,107,2887,113,2876,111,2738,90,2597,74,2318,52,2066,41,1868,37"/>
+<area shape="rect" id="Node000014" href="$test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),..." alt="" coords="3135,108,3356,177"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1868,35,2158,44,2519,59,2869,79,3013,92,3123,105,3135,107,3134,113,3122,111,3012,97,2868,85,2519,64,2158,49,1868,40"/>
 </map>

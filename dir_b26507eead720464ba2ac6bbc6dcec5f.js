@@ -4,5 +4,9 @@ var dir_b26507eead720464ba2ac6bbc6dcec5f =
     [ "GameViewport.h", "GameViewport_8h.html", "GameViewport_8h" ],
     [ "main_qt.cpp", "main__qt_8cpp.html", "main__qt_8cpp" ],
     [ "MainWindow.cpp", "MainWindow_8cpp.html", null ],
-    [ "MainWindow.h", "MainWindow_8h.html", "MainWindow_8h" ]
+    [ "MainWindow.h", "MainWindow_8h.html", "MainWindow_8h" ],
+    [ "PalettePanel.cpp", "PalettePanel_8cpp.html", null ],
+    [ "PalettePanel.h", "PalettePanel_8h.html", "PalettePanel_8h" ],
+    [ "TileTaxonomy.cpp", "TileTaxonomy_8cpp.html", "TileTaxonomy_8cpp" ],
+    [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ]
 ];

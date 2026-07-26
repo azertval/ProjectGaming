@@ -1,0 +1,32 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/PalettePanel.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/PalettePanel.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="689,5,910,60"/>
+<area shape="rect" id="Node000002" href="$PalettePanel_8h.html" title="Panneau « Palette » : arbre de sélection du type de tuile à peindre (LOT&#45;35)." alt="" coords="5,108,161,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="689,50,175,111,175,105,688,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="186,108,349,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="689,54,352,108,351,103,688,49"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="373,108,481,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="689,62,491,108,490,102,688,57"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="506,108,626,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="729,63,611,106,609,101,727,58"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="650,108,810,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="780,62,750,99,746,95,776,58"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="835,108,905,133"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="823,58,854,96,850,99,819,62"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="930,108,1021,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="854,58,941,100,938,104,852,62"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1045,108,1156,133"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="892,58,1048,102,1047,107,891,63"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1180,108,1259,133"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="911,53,1167,105,1166,110,910,58"/>
+<area shape="rect" id="Node000013" href="$TileTaxonomy_8h.html" title="Organisation des types de tuiles en catégories/sous&#45;groupes pour la palette (LOT&#45;35)." alt="" coords="1283,108,1447,133"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="910,48,1276,103,1276,109,910,53"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="44,181,123,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,134,86,168,81,168,81,134"/>
+<area shape="rect" id="Node000004" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="646,181,814,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="162,129,174,131,632,180,632,185,174,136,161,135"/>
+<area shape="poly" id="edge15_Node000013_Node000004" title=" " alt="" coords="1283,135,1270,136,828,185,827,180,1270,131,1282,129"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1293,181,1351,207"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1360,135,1338,171,1334,168,1355,132"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1376,181,1439,207"/>
+<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="1374,132,1396,168,1391,171,1369,135"/>
+</map>

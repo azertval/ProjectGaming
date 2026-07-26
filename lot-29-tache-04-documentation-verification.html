@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-29-tache-04-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-29-remappage-touches_2epic_8md.html">LOT-29</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1455"></a>
+<h1><a class="anchor" id="autotoc_md1456"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur le comportement livré par TACHE-01/02/03 et lever le statut « souhaité » d'<code>EX-CTRL-012</code>.</p>
-<h1><a class="anchor" id="autotoc_md1456"></a>
+<h1><a class="anchor" id="autotoc_md1457"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></code>** : <code>EX-CTRL-012</code> perd son marqueur <code>⚠️ souhaité</code> ; courte note renvoyant vers ce lot pour le détail des actions couvertes (jeu) et le sous-ensemble éditeur (hors tableau des actions de jeu, qui reste inchangé).</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></code>** (écart par rapport au périmètre initial de cette tâche, mémoire projet « Doc suit les lots ») : plusieurs passages décrivaient le remappage comme un bénéfice <b>hypothétique</b> de l'indirection action/touche — désormais réel, mis à jour (signature de <code>toPlayerInput</code>, filet de sécurité manette, nouvelle section dédiée au remappage).</li>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : mêmes vérifications que les lots précédents — <code>python scripts/lint_exigences.py</code> et <code>python scripts/generate_cahier_test.py</code> <b>doivent être lancés par l'utilisateur</b> (pas de Python 3 dans ce sandbox, cf. mémoire projet).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1457"></a>
+<h1><a class="anchor" id="autotoc_md1458"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></code>.</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></code> (régénéré par l'utilisateur).</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1458"></a>
+<h1><a class="anchor" id="autotoc_md1459"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code> (lancé par l'utilisateur).</li>
@@ -123,17 +123,17 @@ Tests (obligatoires)</h1>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie.</li>
 <li>Build complet <code>/W4 /WX</code> et suite de tests complète, sans régression.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1459"></a>
+<h1><a class="anchor" id="autotoc_md1460"></a>
 Points d'attention</h1>
 <ul>
 <li>Aucun nouvel identifiant <code>EX-…</code> : ce lot <b>implémente</b> une exigence déjà existante (<code>EX-CTRL-012</code>), il n'en crée pas de nouvelle.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1460"></a>
+<h1><a class="anchor" id="autotoc_md1461"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1461"></a>
+<h1><a class="anchor" id="autotoc_md1462"></a>
 Exigences</h1>
 <p><code>EX-CTRL-012</code> (levée de son statut souhaité). </p>
 </div></div><!-- contents -->

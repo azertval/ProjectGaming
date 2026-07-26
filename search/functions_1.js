@@ -10,5 +10,6 @@ var searchData=
   ['boxat_7',['boxAt',['../classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe',1,'core::BlockController']]],
   ['buildjson_8',['buildJson',['../classcore_1_1LevelWriter.html#a2160c458a44bc8d289cd033756bd43c5',1,'core::LevelWriter']]],
   ['buildlevelscene_9',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
-  ['button_10',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
+  ['buildmodel_10',['buildModel',['../classeditor_1_1PalettePanel.html#a1d5b79a4fdc98b881444c83b33a298cf',1,'editor::PalettePanel']]],
+  ['button_11',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
 ];

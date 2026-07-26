@@ -8,7 +8,7 @@
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="776,68,819,106,816,110,772,72"/>
 <area shape="rect" id="Node000013" href="$test__danger__controller_8cpp.html" title="Tests unitaires des dangers mobile et temporisé (core::DangerController, EX&#45;GP&#45;051/EX&#45;GP&#45;053)." alt="" coords="991,108,1212,177"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="837,61,991,106,990,112,835,67"/>
-<area shape="rect" id="Node000004" href="$GameViewport_8h.html" title="Surface native embarquant le rendu Direct3D 11, la boucle de jeu et une session de jeu (LOT&#45;34)." alt="" coords="251,225,472,280"/>
+<area shape="rect" id="Node000004" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="251,225,472,280"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="538,178,423,228,421,223,536,173"/>
 <area shape="rect" id="Node000007" href="$GameSession_8cpp.html" title=" " alt="" coords="500,225,721,280"/>
 <area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="613,184,613,225,608,225,608,184"/>

@@ -7,5 +7,6 @@ var searchData=
   ['startposition_4',['startPosition',['../structcore_1_1DangerMoverConfig.html#a567df88f3ebe2be09348fb0b28a077f5',1,'core::DangerMoverConfig']]],
   ['subgroup_5',['subgroup',['../structhmi_1_1TilePalette_1_1Row.html#a63e4e4dd17f3a01e5e90e1ea6c7c559a',1,'hmi::TilePalette::Row']]],
   ['subgroup_5fcount_6',['SUBGROUP_COUNT',['../classhmi_1_1TilePalette.html#a4823e83930866fa10b1ac8e70fcd259b',1,'hmi::TilePalette']]],
-  ['switchposition_7',['switchPosition',['../structcore_1_1Mechanism.html#a5dd9b9cdb7f5f631367af20f9abbf545',1,'core::Mechanism']]]
+  ['subgroups_7',['subgroups',['../structeditor_1_1TileCategory.html#a8368adf75f1300ad404396dc9b0ef1c7',1,'editor::TileCategory']]],
+  ['switchposition_8',['switchPosition',['../structcore_1_1Mechanism.html#a5dd9b9cdb7f5f631367af20f9abbf545',1,'core::Mechanism']]]
 ];

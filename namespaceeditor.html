@@ -91,7 +91,8 @@ $(document).ready(function(){initNavTree('namespaceeditor.html',''); initResizab
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">editor Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -99,12 +100,51 @@ $(document).ready(function(){initNavTree('namespaceeditor.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1GameViewport.html">GameViewport</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre native (<code>QWindow</code>) où Direct3D 11 présente, embarquée dans Qt via <code>QWidget::createWindowContainer</code>.  <a href="classeditor_1_1GameViewport.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre native (<code>QWindow</code>) où Direct3D 11 présente, embarquée dans Qt.  <a href="classeditor_1_1GameViewport.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html">MainWindow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre principale de l'application Qt.  <a href="classeditor_1_1MainWindow.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11.  <a href="classeditor_1_1MainWindow.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1PalettePanel.html">PalettePanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de tuiles en <b>arbre</b> (<code>QTreeView</code>) : catégories → sous-groupes → tuiles.  <a href="classeditor_1_1PalettePanel.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1TileCategory.html">TileCategory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structeditor_1_1TileCategory.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1TileEntry.html">TileEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une tuile sélectionnable : son type et son libellé affiché.  <a href="structeditor_1_1TileEntry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1TileSubgroup.html">TileSubgroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sous-groupe : une famille de variantes (formes/tailles/orientations) sous une catégorie.  <a href="structeditor_1_1TileSubgroup.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a27fcc2cd7effbb1e0e2675fe8c525bb5" id="r_a27fcc2cd7effbb1e0e2675fe8c525bb5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structeditor_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceeditor.html#a27fcc2cd7effbb1e0e2675fe8c525bb5">tileTaxonomy</a> ()</td></tr>
+<tr class="memdesc:a27fcc2cd7effbb1e0e2675fe8c525bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
+<tr class="separator:a27fcc2cd7effbb1e0e2675fe8c525bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a27fcc2cd7effbb1e0e2675fe8c525bb5" name="a27fcc2cd7effbb1e0e2675fe8c525bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27fcc2cd7effbb1e0e2675fe8c525bb5">&#9670;&#160;</a></span>tileTaxonomy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structeditor_1_1TileCategory.html">TileCategory</a> &gt; editor::tileTaxonomy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes. </p>
+<p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable (<code>EX-NFR-010</code>) : sert de source unique à la palette <code>QTreeView</code> de l'éditeur (<code>EX-EDIT-018</code>, <code>EX-IHM-010</code>). <b>Chaque</b> <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code> y figure <b>exactement une fois</b>, dans un ordre déterministe (invariant vérifié par les tests). Reprend l'organisation de la palette historique (<code>LOT-27</code>). </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

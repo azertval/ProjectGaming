@@ -3,6 +3,7 @@ var namespacehmi =
     [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
     [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
     [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
+    [ "DraftRenderer", "classhmi_1_1DraftRenderer.html", "classhmi_1_1DraftRenderer" ],
     [ "EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", "classhmi_1_1EditorKeyBindings" ],
     [ "EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", "classhmi_1_1EditorKeybindingsModel" ],
     [ "EditorKeybindingsScreen", "classhmi_1_1EditorKeybindingsScreen.html", "classhmi_1_1EditorKeybindingsScreen" ],

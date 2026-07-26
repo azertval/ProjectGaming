@@ -99,19 +99,24 @@ $(document).ready(function(){initNavTree('main__qt_8cpp.html',''); initResizable
 <p>Point d'entrée de l'éditeur Qt (LOT-34, refonte IHM).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QApplication&gt;</code><br />
+<code>#include &lt;QCoreApplication&gt;</code><br />
 <code>#include &quot;<a class="el" href="MainWindow_8h_source.html">Editor/MainWindow.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main_qt.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main__qt_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2main__qt_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2main__qt_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2main__qt_8cpp">
-<area shape="rect" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT&#45;34, refonte IHM)." alt="" coords="25,5,246,60"/>
+<area shape="rect" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT&#45;34, refonte IHM)." alt="" coords="91,5,313,60"/>
 <area shape="rect" title=" " alt="" coords="5,108,111,133"/>
-<area shape="poly" title=" " alt="" coords="114,62,80,99,76,96,110,58"/>
-<area shape="rect" href="MainWindow_8h.html" title="Fenêtre principale de l&#39;éditeur Qt : héberge le viewport Direct3D 11 (LOT&#45;34)." alt="" coords="135,108,293,133"/>
-<area shape="poly" title=" " alt="" coords="161,58,196,96,192,99,157,62"/>
-<area shape="rect" title=" " alt="" coords="156,181,272,207"/>
-<area shape="poly" title=" " alt="" coords="217,134,217,168,211,168,211,134"/>
+<area shape="poly" title=" " alt="" coords="159,62,90,103,88,99,157,58"/>
+<area shape="rect" title=" " alt="" coords="135,108,269,133"/>
+<area shape="poly" title=" " alt="" coords="205,60,205,94,199,94,199,60"/>
+<area shape="rect" href="MainWindow_8h.html" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="293,108,452,133"/>
+<area shape="poly" title=" " alt="" coords="255,58,339,99,336,104,253,62"/>
+<area shape="rect" title=" " alt="" coords="259,181,356,207"/>
+<area shape="poly" title=" " alt="" coords="364,135,329,173,325,169,360,132"/>
+<area shape="rect" title=" " alt="" coords="380,181,496,207"/>
+<area shape="poly" title=" " alt="" coords="385,132,420,169,416,173,381,135"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -123,7 +128,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Point d'entrée de l'éditeur Qt (LOT-34, refonte IHM). </p>
-<p>L'application ouvre la fenêtre principale (<code><a class="el" href="classeditor_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt.">editor::MainWindow</a></code>) dont le widget central est le viewport Direct3D 11 (<code><a class="el" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt via QWidget::createWindowContaine...">editor::GameViewport</a></code>, TACHE-02). La boucle de jeu et les entrées arrivent à la TACHE-03, le rendu d'un niveau à la TACHE-04. </p>
+<p>L'application ouvre la fenêtre principale (<code><a class="el" href="classeditor_1_1MainWindow.html" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi...">editor::MainWindow</a></code>) dont le widget central est le viewport Direct3D 11 (<code><a class="el" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">editor::GameViewport</a></code>, TACHE-02). La boucle de jeu et les entrées arrivent à la TACHE-03, le rendu d'un niveau à la TACHE-04. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>

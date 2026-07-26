@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-38-tache-04-nettoyage-tests-doc.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-38-refonte-ihm-qt-menus-options_2epic_8md.html">LOT-38</a> · <b>Emplacement :</b> <code>Source/Test</code>, <code>Documentation</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1781"></a>
+<h1><a class="anchor" id="autotoc_md1782"></a>
 Contexte</h1>
 <p>Clôt le lot (et l'essentiel du programme) : <b>stabiliser la suite de tests</b> après le retrait du legacy (TACHE-03) et <b>mettre à jour toute la documentation</b> décrivant l'UI, qui parle encore des écrans maison. C'est aussi le moment de vérifier de bout en bout l'application Qt unifiée.</p>
-<h1><a class="anchor" id="autotoc_md1782"></a>
+<h1><a class="anchor" id="autotoc_md1783"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Tests</b> :<ul>
@@ -118,13 +118,13 @@ Travail à réaliser</h1>
 </li>
 <li><b>Vérification de bout en bout</b> : parcours complet menu → jeu → éditeur (peinture, niveaux, liens, options, remappage) → quitter.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1783"></a>
+<h1><a class="anchor" id="autotoc_md1784"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Test/**</code> (retraits/adaptations).</li>
 <li><code>Documentation/Guide/*</code>, <code><a class="el" href="architecture_8md.html">Documentation/Specification/architecture.md</a></code>, <code><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></code>, cahier de test généré.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1784"></a>
+<h1><a class="anchor" id="autotoc_md1785"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Suite complète verte</b> (<code>ctest --preset vs</code>), déterministe ; parcours système inchangé.</li>
@@ -132,19 +132,19 @@ Tests (obligatoires)</h1>
 <li><b>Couverture</b> générée sans régression notable.</li>
 <li><b>Vérification manuelle</b> de bout en bout (ci-dessus).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1785"></a>
+<h1><a class="anchor" id="autotoc_md1786"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucune référence documentaire orpheline</b> vers les écrans supprimés (le lint des exigences et Doxygen <code>WARN_AS_ERROR</code> aident à les détecter).</li>
 <li><b>Doxygen 1.9.8</b> : générer localement avant push (piège connu).</li>
 <li><b>Cohérence guides</b> : les captures/descriptions doivent refléter l'UI Qt réelle.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1786"></a>
+<h1><a class="anchor" id="autotoc_md1787"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Suite de tests stabilisée et verte ; documentation UI entièrement mise à jour pour Qt ; cahier de test et lint verts ; Doxygen vert ; vérification de bout en bout OK ; critères du <a class="el" href="LOT-38-refonte-ihm-qt-menus-options_2epic_8md.html">LOT-38</a> satisfaits.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1787"></a>
+<h1><a class="anchor" id="autotoc_md1788"></a>
 Exigences</h1>
 <p><code>EX-IHM-040</code>/<code>EX-IHM-041</code> ; <code>EX-NFR-002</code> (déterminisme), <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

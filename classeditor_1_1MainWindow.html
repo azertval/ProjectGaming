@@ -92,13 +92,15 @@ $(document).ready(function(){initNavTree('classeditor_1_1MainWindow.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classeditor_1_1MainWindow-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">editor::MainWindow Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fenêtre principale de l'application Qt.  
+<p>Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11.  
  <a href="classeditor_1_1MainWindow.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="MainWindow_8h_source.html">MainWindow.h</a>&gt;</code></p>
@@ -107,7 +109,7 @@ Inheritance diagram for editor::MainWindow:</div>
 <div class="dyncontent">
 <div class="center"><img src="classeditor_1_1MainWindow__inherit__graph.png" border="0" usemap="#aeditor_1_1MainWindow_inherit__map" alt="Inheritance graph"/></div>
 <map name="aeditor_1_1MainWindow_inherit__map" id="aeditor_1_1MainWindow_inherit__map">
-<area shape="rect" title="Fenêtre principale de l&#39;application Qt." alt="" coords="5,79,157,104"/>
+<area shape="rect" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi..." alt="" coords="5,79,157,104"/>
 <area shape="rect" title=" " alt="" coords="23,5,139,31"/>
 <area shape="poly" title=" " alt="" coords="84,44,84,79,79,79,79,44"/>
 </map>
@@ -117,51 +119,116 @@ Collaboration diagram for editor::MainWindow:</div>
 <div class="dyncontent">
 <div class="center"><img src="classeditor_1_1MainWindow__coll__graph.png" border="0" usemap="#aeditor_1_1MainWindow_coll__map" alt="Collaboration graph"/></div>
 <map name="aeditor_1_1MainWindow_coll__map" id="aeditor_1_1MainWindow_coll__map">
-<area shape="rect" title="Fenêtre principale de l&#39;application Qt." alt="" coords="1655,223,1807,248"/>
-<area shape="rect" title=" " alt="" coords="1397,199,1513,224"/>
-<area shape="poly" title=" " alt="" coords="1527,215,1655,226,1654,231,1527,220"/>
-<area shape="rect" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt via QWidget::createWindowContaine..." alt="" coords="1372,248,1537,273"/>
-<area shape="poly" title=" " alt="" coords="1550,252,1630,245,1654,242,1655,247,1631,250,1551,257"/>
-<area shape="rect" title=" " alt="" coords="1065,5,1149,31"/>
-<area shape="poly" title=" " alt="" coords="1163,8,1209,6,1259,12,1308,27,1330,40,1350,56,1365,78,1371,101,1369,124,1364,146,1359,168,1357,190,1361,212,1374,234,1389,246,1386,250,1370,237,1356,214,1352,190,1354,167,1359,145,1364,123,1365,101,1360,81,1346,60,1327,44,1306,32,1258,17,1208,12,1163,13"/>
-<area shape="rect" title=" " alt="" coords="1028,55,1187,95"/>
-<area shape="poly" title=" " alt="" coords="1201,72,1240,78,1280,89,1317,106,1350,131,1360,144,1364,158,1363,184,1362,209,1366,221,1374,233,1391,246,1387,250,1370,237,1361,224,1357,210,1358,184,1359,158,1355,146,1346,135,1314,110,1278,94,1239,83,1200,78"/>
-<area shape="rect" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII)." alt="" coords="614,63,771,88"/>
-<area shape="poly" title=" " alt="" coords="785,73,1028,73,1028,78,785,78"/>
-<area shape="rect" title=" " alt="" coords="1028,119,1187,159"/>
-<area shape="poly" title=" " alt="" coords="1201,145,1277,163,1315,178,1350,199,1358,208,1363,217,1366,225,1374,233,1397,246,1394,250,1370,237,1362,228,1358,219,1354,211,1346,203,1312,183,1275,168,1200,150"/>
-<area shape="rect" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="627,127,758,152"/>
-<area shape="poly" title=" " alt="" coords="772,137,1028,137,1028,142,772,142"/>
-<area shape="rect" title=" " alt="" coords="299,119,476,159"/>
-<area shape="poly" title=" " alt="" coords="490,137,627,137,627,142,490,142"/>
-<area shape="rect" href="structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,127,185,152"/>
-<area shape="poly" title=" " alt="" coords="199,137,298,137,298,142,199,142"/>
-<area shape="rect" title=" " alt="" coords="1028,183,1187,223"/>
-<area shape="poly" title=" " alt="" coords="1201,214,1348,238,1389,245,1388,251,1348,243,1200,220"/>
-<area shape="rect" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="625,183,761,208"/>
-<area shape="poly" title=" " alt="" coords="775,194,1028,199,1028,204,775,200"/>
-<area shape="rect" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="1020,248,1195,273"/>
-<area shape="poly" title=" " alt="" coords="1208,258,1372,258,1372,263,1208,263"/>
-<area shape="rect" title=" " alt="" coords="607,233,778,273"/>
-<area shape="poly" title=" " alt="" coords="792,252,1020,256,1020,262,792,257"/>
-<area shape="rect" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="1020,297,1195,323"/>
-<area shape="poly" title=" " alt="" coords="1208,297,1348,278,1389,271,1390,276,1348,283,1209,302"/>
-<area shape="rect" title=" " alt="" coords="588,297,797,337"/>
-<area shape="poly" title=" " alt="" coords="811,312,1020,309,1020,314,811,317"/>
-<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="1046,380,1169,405"/>
-<area shape="poly" title=" " alt="" coords="1172,374,1256,349,1347,316,1393,293,1431,271,1434,276,1395,298,1349,320,1258,354,1174,379"/>
-<area shape="rect" title=" " alt="" coords="613,369,773,409"/>
-<area shape="poly" title=" " alt="" coords="787,388,821,389,1045,390,1045,395,821,394,786,393"/>
-<area shape="rect" title=" " alt="" coords="593,433,793,473"/>
-<area shape="poly" title=" " alt="" coords="806,449,899,442,995,425,1019,414,1055,403,1056,408,1021,419,997,430,900,447,807,455"/>
-<area shape="rect" title=" " alt="" coords="597,497,788,537"/>
-<area shape="poly" title=" " alt="" coords="802,529,851,529,902,523,951,508,994,483,1005,468,1006,451,1007,433,1018,415,1044,399,1047,404,1022,419,1012,435,1011,452,1010,470,998,487,953,513,903,528,851,534,802,535"/>
-<area shape="rect" title=" " alt="" coords="607,561,779,587"/>
-<area shape="poly" title=" " alt="" coords="757,587,813,594,877,594,909,590,940,581,969,568,994,549,1006,534,1010,519,1007,486,1003,451,1007,433,1018,415,1044,398,1047,402,1022,419,1012,435,1008,451,1012,485,1016,520,1011,537,998,553,971,573,942,586,910,595,877,600,813,600,756,592"/>
-<area shape="rect" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState." alt="" coords="1030,429,1185,455"/>
-<area shape="poly" title=" " alt="" coords="1198,431,1273,413,1311,399,1347,381,1379,356,1407,325,1444,272,1448,275,1411,329,1383,360,1349,386,1313,404,1275,418,1199,436"/>
-<area shape="rect" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes." alt="" coords="1031,479,1184,504"/>
-<area shape="poly" title=" " alt="" coords="1197,491,1235,488,1274,480,1312,467,1346,448,1368,429,1387,407,1417,357,1437,308,1448,273,1453,274,1442,310,1422,359,1392,410,1372,433,1350,452,1314,472,1275,485,1236,493,1198,497"/>
+<area shape="rect" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi..." alt="" coords="2412,383,2564,409"/>
+<area shape="rect" title=" " alt="" coords="2154,334,2270,359"/>
+<area shape="poly" title=" " alt="" coords="2284,355,2388,373,2426,381,2425,386,2388,379,2283,360"/>
+<area shape="rect" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt." alt="" coords="2129,383,2295,409"/>
+<area shape="poly" title=" " alt="" coords="2309,393,2412,393,2412,399,2309,399"/>
+<area shape="rect" title=" " alt="" coords="1823,67,1907,93"/>
+<area shape="poly" title=" " alt="" coords="1920,66,1966,62,2016,65,2065,78,2088,90,2107,106,2119,129,2124,160,2121,239,2118,317,2122,349,2131,370,2144,381,2141,385,2127,374,2117,350,2113,318,2116,239,2119,161,2114,130,2103,110,2085,94,2063,83,2015,70,1966,68,1920,72"/>
+<area shape="rect" title=" " alt="" coords="1785,117,1944,157"/>
+<area shape="poly" title=" " alt="" coords="1958,125,1998,127,2037,135,2075,150,2107,174,2124,199,2129,224,2127,249,2121,273,2115,298,2113,322,2117,346,2131,370,2145,381,2141,385,2127,374,2112,348,2108,322,2110,297,2116,272,2122,248,2124,224,2119,201,2103,178,2072,154,2036,140,1997,132,1958,130"/>
+<area shape="rect" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII)." alt="" coords="1371,125,1529,150"/>
+<area shape="poly" title=" " alt="" coords="1543,135,1785,135,1785,140,1543,140"/>
+<area shape="rect" title=" " alt="" coords="1163,69,1321,109"/>
+<area shape="poly" title=" " alt="" coords="1276,116,1309,140,1346,159,1379,168,1419,173,1514,177,1738,169,1852,167,1957,172,2003,179,2044,189,2079,204,2107,223,2121,241,2126,260,2122,297,2117,334,2120,352,2131,370,2145,381,2142,385,2127,374,2115,354,2111,335,2116,297,2121,260,2116,244,2103,227,2077,209,2043,194,2002,184,1956,178,1852,172,1738,175,1514,182,1418,179,1378,173,1344,164,1306,144,1273,120"/>
+<area shape="rect" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="649,58,780,83"/>
+<area shape="poly" title=" " alt="" coords="794,71,1163,84,1162,89,794,76"/>
+<area shape="rect" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="979,142,1131,167"/>
+<area shape="poly" title=" " alt="" coords="781,84,1003,139,1002,145,780,89"/>
+<area shape="rect" title=" " alt="" coords="305,51,482,91"/>
+<area shape="poly" title=" " alt="" coords="496,68,649,68,649,73,496,73"/>
+<area shape="rect" href="structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,58,185,83"/>
+<area shape="poly" title=" " alt="" coords="199,68,304,68,304,73,199,73"/>
+<area shape="rect" title=" " alt="" coords="1587,283,1745,323"/>
+<area shape="poly" title=" " alt="" coords="1759,302,1835,307,1923,316,2016,332,2106,356,2130,370,2162,381,2160,386,2128,374,2104,361,2015,337,1922,321,1835,312,1759,307"/>
+<area shape="rect" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="647,221,783,246"/>
+<area shape="poly" title=" " alt="" coords="797,240,972,257,1314,281,1586,296,1586,302,1314,287,972,263,796,245"/>
+<area shape="rect" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition." alt="" coords="1377,233,1523,258"/>
+<area shape="poly" title=" " alt="" coords="796,232,1376,241,1376,247,796,237"/>
+<area shape="poly" title=" " alt="" coords="783,215,999,165,1000,170,784,220"/>
+<area shape="rect" title=" " alt="" coords="1785,232,1944,272"/>
+<area shape="poly" title=" " alt="" coords="1958,243,1997,246,2036,253,2074,268,2107,290,2116,300,2120,311,2121,331,2121,351,2131,370,2147,381,2144,385,2127,374,2116,353,2115,331,2115,312,2111,303,2104,294,2071,273,2034,259,1996,251,1958,248"/>
+<area shape="poly" title=" " alt="" coords="1537,244,1785,248,1785,253,1537,249"/>
+<area shape="poly" title=" " alt="" coords="1128,168,1322,212,1397,230,1396,235,1321,217,1127,173"/>
+<area shape="rect" title=" " alt="" coords="619,124,810,164"/>
+<area shape="poly" title=" " alt="" coords="824,145,979,150,979,155,823,150"/>
+<area shape="rect" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="1008,345,1103,370"/>
+<area shape="poly" title=" " alt="" coords="1114,338,1403,255,1405,261,1115,343"/>
+<area shape="rect" href="classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="638,331,791,357"/>
+<area shape="poly" title=" " alt="" coords="805,345,1008,353,1008,358,805,350"/>
+<area shape="rect" title=" " alt="" coords="600,381,829,451"/>
+<area shape="poly" title=" " alt="" coords="842,391,1008,363,1008,368,843,397"/>
+<area shape="rect" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="1777,359,1952,385"/>
+<area shape="poly" title=" " alt="" coords="1966,376,2129,388,2129,393,1966,382"/>
+<area shape="rect" title=" " alt="" coords="1365,333,1535,373"/>
+<area shape="poly" title=" " alt="" coords="1549,355,1777,365,1777,371,1549,360"/>
+<area shape="rect" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="1777,409,1952,434"/>
+<area shape="poly" title=" " alt="" coords="1966,414,2105,405,2129,403,2129,408,2106,411,1966,420"/>
+<area shape="rect" title=" " alt="" coords="1345,397,1555,437"/>
+<area shape="poly" title=" " alt="" coords="1568,416,1777,418,1777,423,1568,421"/>
+<area shape="rect" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="1803,467,1926,493"/>
+<area shape="poly" title=" " alt="" coords="1939,467,2019,453,2105,433,2180,406,2182,411,2106,439,2021,459,1940,473"/>
+<area shape="rect" title=" " alt="" coords="1370,641,1530,681"/>
+<area shape="poly" title=" " alt="" coords="1544,676,1605,684,1666,687,1718,684,1738,679,1752,671,1766,653,1772,634,1770,614,1766,593,1758,549,1762,526,1775,504,1788,493,1802,486,1804,491,1791,497,1779,507,1767,528,1763,549,1771,592,1776,613,1777,635,1771,655,1755,675,1740,684,1719,690,1666,693,1605,689,1543,681"/>
+<area shape="rect" title=" " alt="" coords="1350,461,1550,501"/>
+<area shape="poly" title=" " alt="" coords="1564,478,1803,478,1803,483,1564,484"/>
+<area shape="rect" title=" " alt="" coords="1355,525,1545,565"/>
+<area shape="poly" title=" " alt="" coords="1559,539,1654,530,1753,512,1776,503,1817,490,1818,495,1778,508,1754,517,1655,535,1559,544"/>
+<area shape="rect" title=" " alt="" coords="1364,590,1536,615"/>
+<area shape="poly" title=" " alt="" coords="1549,609,1600,607,1653,599,1705,583,1752,557,1761,545,1763,532,1766,518,1776,503,1802,488,1804,493,1779,507,1771,520,1768,533,1766,547,1755,561,1707,588,1654,604,1600,612,1550,614"/>
+<area shape="rect" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState." alt="" coords="1787,517,1942,542"/>
+<area shape="poly" title=" " alt="" coords="1955,521,2030,507,2068,496,2104,482,2133,465,2158,445,2197,407,2201,411,2162,449,2136,469,2107,486,2070,501,2031,512,1956,526"/>
+<area shape="rect" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes." alt="" coords="1788,566,1941,591"/>
+<area shape="poly" title=" " alt="" coords="1955,577,2031,566,2069,554,2104,536,2139,507,2168,471,2189,435,2203,408,2208,410,2194,438,2172,474,2143,511,2107,541,2071,559,2032,571,1956,582"/>
+<area shape="rect" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT&#45;07)." alt="" coords="1802,875,1927,901"/>
+<area shape="poly" title=" " alt="" coords="1886,863,1985,751,2046,675,2103,595,2164,488,2203,408,2207,410,2169,491,2108,597,2050,678,1989,754,1890,866"/>
+<area shape="rect" title=" " alt="" coords="671,947,758,973"/>
+<area shape="poly" title=" " alt="" coords="772,959,1103,963,1327,959,1554,948,1654,940,1753,921,1829,898,1830,903,1754,927,1655,945,1555,953,1327,965,1104,968,772,964"/>
+<area shape="rect" href="structcore_1_1LevelDraft_1_1State.html" title="État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo)." alt="" coords="972,906,1139,931"/>
+<area shape="poly" title=" " alt="" coords="771,951,971,926,972,931,772,956"/>
+<area shape="rect" title=" " alt="" coords="324,940,463,980"/>
+<area shape="poly" title=" " alt="" coords="477,957,671,957,671,963,477,963"/>
+<area shape="rect" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="659,726,770,751"/>
+<area shape="poly" title=" " alt="" coords="784,740,948,751,1252,772,1555,801,1656,807,1699,812,1754,825,1806,848,1847,873,1844,878,1803,853,1752,831,1699,817,1655,812,1554,807,1251,778,948,756,784,745"/>
+<area shape="poly" title=" " alt="" coords="784,748,830,761,892,786,950,820,1004,864,1044,904,1040,908,1000,868,946,825,890,791,828,767,783,754"/>
+<area shape="rect" title=" " alt="" coords="306,731,481,757"/>
+<area shape="poly" title=" " alt="" coords="494,740,659,737,659,742,495,745"/>
+<area shape="rect" title=" " alt="" coords="57,1173,133,1198"/>
+<area shape="poly" title=" " alt="" coords="147,1183,392,1183,1866,1183,1898,1181,1927,1175,1981,1154,2028,1120,2067,1077,2101,1025,2129,966,2152,902,2170,835,2194,699,2205,573,2209,472,2208,409,2214,409,2214,472,2211,574,2199,700,2175,836,2157,904,2134,968,2106,1027,2072,1080,2031,1124,1984,1159,1929,1180,1898,1186,1866,1188,392,1188,147,1188"/>
+<area shape="poly" title=" " alt="" coords="99,1159,119,1082,157,978,183,922,215,866,254,815,298,770,325,754,328,759,302,774,258,818,220,869,188,924,162,980,124,1084,104,1160"/>
+<area shape="rect" href="classeditor_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous&#45;groupes → tuiles." alt="" coords="319,1234,467,1259"/>
+<area shape="poly" title=" " alt="" coords="147,1199,210,1216,320,1235,319,1240,209,1221,146,1204"/>
+<area shape="rect" title=" " alt="" coords="643,1095,786,1135"/>
+<area shape="poly" title=" " alt="" coords="800,1107,1131,1083,1342,1062,1554,1035,1612,1029,1657,1028,1701,1020,1752,999,1785,976,1814,949,1853,899,1857,902,1818,952,1788,981,1755,1004,1702,1025,1658,1033,1612,1035,1555,1040,1343,1067,1131,1088,800,1113"/>
+<area shape="poly" title=" " alt="" coords="788,1087,866,1054,947,1010,1000,968,1040,929,1044,933,1004,972,949,1014,869,1059,790,1092"/>
+<area shape="rect" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="327,1102,460,1127"/>
+<area shape="poly" title=" " alt="" coords="474,1112,643,1112,643,1117,474,1117"/>
+<area shape="rect" title=" " alt="" coords="643,776,786,816"/>
+<area shape="poly" title=" " alt="" coords="800,793,974,795,1211,803,1481,822,1619,837,1754,856,1824,873,1823,878,1753,861,1618,842,1481,827,1211,808,974,800,800,798"/>
+<area shape="poly" title=" " alt="" coords="793,818,949,872,1026,903,1024,908,947,877,791,823"/>
+<area shape="rect" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,..." alt="" coords="327,783,459,809"/>
+<area shape="poly" title=" " alt="" coords="473,793,643,793,643,799,473,799"/>
+<area shape="rect" title=" " alt="" coords="631,859,798,899"/>
+<area shape="poly" title=" " alt="" coords="812,874,1221,869,1486,871,1753,877,1802,880,1802,885,1753,883,1486,876,1221,875,812,879"/>
+<area shape="poly" title=" " alt="" coords="812,887,972,906,972,912,811,893"/>
+<area shape="rect" href="structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX&#45;GP&#45;051) : axe et portée de son aller&#45;retour ..." alt="" coords="300,866,487,891"/>
+<area shape="poly" title=" " alt="" coords="500,876,631,876,631,881,500,881"/>
+<area shape="rect" title=" " alt="" coords="635,1017,794,1057"/>
+<area shape="poly" title=" " alt="" coords="808,1041,986,1046,1099,1045,1224,1039,1355,1029,1490,1011,1623,986,1752,951,1805,926,1846,899,1849,903,1808,931,1754,956,1625,991,1490,1016,1356,1034,1224,1045,1100,1050,986,1051,808,1046"/>
+<area shape="poly" title=" " alt="" coords="796,1011,947,960,1024,929,1026,934,949,965,797,1016"/>
+<area shape="rect" href="structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX&#45;GP&#45;053) : période, déphasage et durée act..." alt="" coords="304,1025,483,1050"/>
+<area shape="poly" title=" " alt="" coords="497,1035,635,1035,635,1040,497,1040"/>
+<area shape="rect" title=" " alt="" coords="1377,899,1523,939"/>
+<area shape="poly" title=" " alt="" coords="1537,917,1640,915,1753,907,1807,898,1807,903,1754,912,1641,920,1537,922"/>
+<area shape="poly" title=" " alt="" coords="1152,916,1376,916,1376,921,1152,921"/>
+<area shape="rect" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="1803,18,1927,43"/>
+<area shape="poly" title=" " alt="" coords="1941,18,1984,18,2029,24,2071,39,2090,51,2107,66,2120,92,2125,129,2121,219,2117,309,2121,345,2131,370,2144,381,2140,385,2127,374,2115,347,2111,309,2116,219,2120,129,2115,94,2103,70,2087,55,2069,44,2027,29,1983,23,1941,23"/>
+<area shape="rect" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="1397,18,1503,43"/>
+<area shape="poly" title=" " alt="" coords="1517,28,1803,28,1803,33,1517,33"/>
+<area shape="poly" title=" " alt="" coords="481,1244,713,1244,2213,1244,2230,1242,2245,1236,2276,1213,2304,1177,2330,1129,2354,1073,2375,1009,2412,867,2441,720,2462,584,2483,408,2488,409,2467,585,2446,721,2417,868,2380,1010,2359,1075,2335,1132,2308,1180,2279,1217,2248,1241,2231,1247,2213,1249,713,1249,481,1249"/>
+<area shape="rect" title=" " alt="" coords="56,1251,135,1277"/>
+<area shape="poly" title=" " alt="" coords="148,1258,319,1248,319,1254,149,1264"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -172,15 +239,51 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac4a661c054fa217873a4a15873fa43ec" id="r_ac4a661c054fa217873a4a15873fa43ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#ac4a661c054fa217873a4a15873fa43ec">~MainWindow</a> () override</td></tr>
 <tr class="separator:ac4a661c054fa217873a4a15873fa43ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:acde048eddafb7d9e9159ce9d66947e95" id="r_acde048eddafb7d9e9159ce9d66947e95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#acde048eddafb7d9e9159ce9d66947e95">closeEvent</a> (QCloseEvent *event) override</td></tr>
+<tr class="memdesc:acde048eddafb7d9e9159ce9d66947e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarde la disposition avant fermeture.  <br /></td></tr>
+<tr class="separator:acde048eddafb7d9e9159ce9d66947e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a9ae88057601085a47a2270ce07226766" id="r_a9ae88057601085a47a2270ce07226766"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a9ae88057601085a47a2270ce07226766">createDockPanels</a> ()</td></tr>
+<tr class="separator:a9ae88057601085a47a2270ce07226766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a239cc38e6a49cbce755eb57066d3d10d" id="r_a239cc38e6a49cbce755eb57066d3d10d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a239cc38e6a49cbce755eb57066d3d10d">createMenus</a> ()</td></tr>
+<tr class="separator:a239cc38e6a49cbce755eb57066d3d10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70da789109240f17230d87a9a946f945" id="r_a70da789109240f17230d87a9a946f945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a70da789109240f17230d87a9a946f945">restoreLayout</a> ()</td></tr>
+<tr class="separator:a70da789109240f17230d87a9a946f945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16185aebb3404989a58c07ca09feeb0" id="r_ae16185aebb3404989a58c07ca09feeb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#ae16185aebb3404989a58c07ca09feeb0">saveLayout</a> ()</td></tr>
+<tr class="separator:ae16185aebb3404989a58c07ca09feeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada79a6b907f5e8df80045c6a88a76408" id="r_ada79a6b907f5e8df80045c6a88a76408"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#ada79a6b907f5e8df80045c6a88a76408">openResizeDialog</a> ()</td></tr>
+<tr class="memdesc:ada79a6b907f5e8df80045c6a88a76408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).  <br /></td></tr>
+<tr class="separator:ada79a6b907f5e8df80045c6a88a76408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a1fdb6a6d09d956743ad1e1d9411f05d8" id="r_a1fdb6a6d09d956743ad1e1d9411f05d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classeditor_1_1GameViewport.html">GameViewport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a1fdb6a6d09d956743ad1e1d9411f05d8">_viewport</a></td></tr>
 <tr class="memdesc:a1fdb6a6d09d956743ad1e1d9411f05d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface de rendu D3D11 (possédée par le conteneur central).  <br /></td></tr>
 <tr class="separator:a1fdb6a6d09d956743ad1e1d9411f05d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af62b304587bcb544e4728a43e9444bb0" id="r_af62b304587bcb544e4728a43e9444bb0"><td class="memItemLeft" align="right" valign="top">QDockWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#af62b304587bcb544e4728a43e9444bb0">_palettePanel</a></td></tr>
+<tr class="memdesc:af62b304587bcb544e4728a43e9444bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Palette » (dock hôte de <code>_palette</code>).  <br /></td></tr>
+<tr class="separator:af62b304587bcb544e4728a43e9444bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6eebfd07e81372e6e3911472fba418d" id="r_ae6eebfd07e81372e6e3911472fba418d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classeditor_1_1PalettePanel.html">PalettePanel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#ae6eebfd07e81372e6e3911472fba418d">_palette</a></td></tr>
+<tr class="memdesc:ae6eebfd07e81372e6e3911472fba418d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbre de sélection du type de tuile (LOT-35 TACHE-02).  <br /></td></tr>
+<tr class="separator:ae6eebfd07e81372e6e3911472fba418d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad788b4ba2e6ee68fcc891a8044101965" id="r_ad788b4ba2e6ee68fcc891a8044101965"><td class="memItemLeft" align="right" valign="top">QDockWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#ad788b4ba2e6ee68fcc891a8044101965">_toolPanel</a></td></tr>
+<tr class="memdesc:ad788b4ba2e6ee68fcc891a8044101965"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Outils » (rempli au LOT-35 TACHE-03).  <br /></td></tr>
+<tr class="separator:ad788b4ba2e6ee68fcc891a8044101965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88e8e0f635ef5183aa2a306bd3ee584c" id="r_a88e8e0f635ef5183aa2a306bd3ee584c"><td class="memItemLeft" align="right" valign="top">QDockWidget *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a88e8e0f635ef5183aa2a306bd3ee584c">_statusPanel</a></td></tr>
+<tr class="memdesc:a88e8e0f635ef5183aa2a306bd3ee584c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau « Statut ».  <br /></td></tr>
+<tr class="separator:a88e8e0f635ef5183aa2a306bd3ee584c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9853d1daf083106f7c97c0a8d6eb97ce" id="r_a9853d1daf083106f7c97c0a8d6eb97ce"><td class="memItemLeft" align="right" valign="top">QByteArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html#a9853d1daf083106f7c97c0a8d6eb97ce">_defaultState</a></td></tr>
+<tr class="memdesc:a9853d1daf083106f7c97c0a8d6eb97ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disposition par défaut (pour « Réinitialiser la disposition »).  <br /></td></tr>
+<tr class="separator:a9853d1daf083106f7c97c0a8d6eb97ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fenêtre principale de l'application Qt. </p>
-<p>À cette tâche (LOT-34 TACHE-02), son <b>widget central</b> est le viewport Direct3D 11 (<code><a class="el" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt via QWidget::createWindowContaine...">GameViewport</a></code>), inséré via <code>QWidget::createWindowContainer</code>. Les panneaux dockables de l'éditeur (palette, outils, niveaux…) seront ajoutés autour au LOT-35. </p>
+<div class="textblock"><p>Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11. </p>
+<p>Le <b>widget central</b> est le viewport (<code><a class="el" href="classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></code>, LOT-34), non dockable. Autour, des <code>QDockWidget</code> (Palette, Outils, Statut) <b>déplaçables, redimensionnables, détachables</b> (<code>EX-IHM-010</code>). La <b>disposition</b> (géométrie + agencement des docks) est <b>persistée hors code</b> via <code>QSettings</code> (<code>EX-IHM-011</code>) : restaurée au lancement, sauvegardée à la fermeture, et réinitialisable à une disposition par défaut (menu « Affichage »).</p>
+<p>À cette tâche (LOT-35 TACHE-01), les panneaux sont des <b>coquilles</b> : leur contenu (arbre de palette, barre d'outils, barre d'état) est rempli aux tâches suivantes. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad2312e7e7d8d4ca50aea8857e93533b0" name="ad2312e7e7d8d4ca50aea8857e93533b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2312e7e7d8d4ca50aea8857e93533b0">&#9670;&#160;</a></span>MainWindow()</h2>
@@ -224,7 +327,283 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acde048eddafb7d9e9159ce9d66947e95" name="acde048eddafb7d9e9159ce9d66947e95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acde048eddafb7d9e9159ce9d66947e95">&#9670;&#160;</a></span>closeEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::closeEvent </td>
+          <td>(</td>
+          <td class="paramtype">QCloseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sauvegarde la disposition avant fermeture. </p>
+
+</div>
+</div>
+<a id="a9ae88057601085a47a2270ce07226766" name="a9ae88057601085a47a2270ce07226766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae88057601085a47a2270ce07226766">&#9670;&#160;</a></span>createDockPanels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::createDockPanels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a239cc38e6a49cbce755eb57066d3d10d" name="a239cc38e6a49cbce755eb57066d3d10d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239cc38e6a49cbce755eb57066d3d10d">&#9670;&#160;</a></span>createMenus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::createMenus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada79a6b907f5e8df80045c6a88a76408" name="ada79a6b907f5e8df80045c6a88a76408"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada79a6b907f5e8df80045c6a88a76408">&#9670;&#160;</a></span>openResizeDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::openResizeDialog </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur). </p>
+
+</div>
+</div>
+<a id="a70da789109240f17230d87a9a946f945" name="a70da789109240f17230d87a9a946f945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70da789109240f17230d87a9a946f945">&#9670;&#160;</a></span>restoreLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::restoreLayout </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae16185aebb3404989a58c07ca09feeb0" name="ae16185aebb3404989a58c07ca09feeb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16185aebb3404989a58c07ca09feeb0">&#9670;&#160;</a></span>saveLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::MainWindow::saveLayout </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9853d1daf083106f7c97c0a8d6eb97ce" name="a9853d1daf083106f7c97c0a8d6eb97ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9853d1daf083106f7c97c0a8d6eb97ce">&#9670;&#160;</a></span>_defaultState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QByteArray editor::MainWindow::_defaultState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disposition par défaut (pour « Réinitialiser la disposition »). </p>
+
+</div>
+</div>
+<a id="ae6eebfd07e81372e6e3911472fba418d" name="ae6eebfd07e81372e6e3911472fba418d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6eebfd07e81372e6e3911472fba418d">&#9670;&#160;</a></span>_palette</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classeditor_1_1PalettePanel.html">PalettePanel</a>* editor::MainWindow::_palette</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arbre de sélection du type de tuile (LOT-35 TACHE-02). </p>
+
+</div>
+</div>
+<a id="af62b304587bcb544e4728a43e9444bb0" name="af62b304587bcb544e4728a43e9444bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af62b304587bcb544e4728a43e9444bb0">&#9670;&#160;</a></span>_palettePanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDockWidget* editor::MainWindow::_palettePanel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Panneau « Palette » (dock hôte de <code>_palette</code>). </p>
+
+</div>
+</div>
+<a id="a88e8e0f635ef5183aa2a306bd3ee584c" name="a88e8e0f635ef5183aa2a306bd3ee584c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88e8e0f635ef5183aa2a306bd3ee584c">&#9670;&#160;</a></span>_statusPanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDockWidget* editor::MainWindow::_statusPanel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Panneau « Statut ». </p>
+
+</div>
+</div>
+<a id="ad788b4ba2e6ee68fcc891a8044101965" name="ad788b4ba2e6ee68fcc891a8044101965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad788b4ba2e6ee68fcc891a8044101965">&#9670;&#160;</a></span>_toolPanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDockWidget* editor::MainWindow::_toolPanel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Panneau « Outils » (rempli au LOT-35 TACHE-03). </p>
+
+</div>
+</div>
 <a id="a1fdb6a6d09d956743ad1e1d9411f05d8" name="a1fdb6a6d09d956743ad1e1d9411f05d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fdb6a6d09d956743ad1e1d9411f05d8">&#9670;&#160;</a></span>_viewport</h2>
 

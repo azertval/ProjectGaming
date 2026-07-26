@@ -1,5 +1,7 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/MainWindow.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/MainWindow.h">
-<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;éditeur Qt : héberge le viewport Direct3D 11 (LOT&#45;34)." alt="" coords="5,5,227,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="58,108,174,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,60,119,94,113,94,113,60"/>
+<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="9,5,230,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,103,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,62,73,99,69,95,97,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="127,108,243,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,58,170,95,165,99,137,62"/>
 </map>

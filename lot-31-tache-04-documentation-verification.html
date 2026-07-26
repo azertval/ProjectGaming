@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-31-tache-04-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-31-blocs-danger-avances_2epic_8md.html">LOT-31</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1526"></a>
+<h1><a class="anchor" id="autotoc_md1527"></a>
 Contexte</h1>
 <p>Dernière tâche : aligne la documentation sur le comportement réellement livré par TACHE-01/02/03 — conformément au principe du projet, la documentation (<code>Guide</code>, format de niveau) ne décrit que du code déjà implémenté, jamais en avance sur lui.</p>
-<h1><a class="anchor" id="autotoc_md1527"></a>
+<h1><a class="anchor" id="autotoc_md1528"></a>
 Travail réalisé</h1>
 <ul>
 <li>**<code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>** : marqueurs ⚠️ « non implémenté » retirés de <code>EX-GP-050</code>–<code>EX-GP-053</code> et de la sous-section « Dangers avancés » (comportement livré, TACHE-01 à 03).</li>
@@ -109,7 +109,7 @@ Travail réalisé</h1>
 <li>**<code>CHANGELOG.md</code>** : entrée <code>[Non publié]</code> décrivant le lot.</li>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : lancés localement (<code>python scripts/lint_exigences.py</code>, <code>python scripts/generate_cahier_test.py</code>, <code>python scripts/check_demo_sequence.py</code>) — tous verts. Doxygen d'abord vérifié seulement avec le binaire <b>local</b> (1.17.0, zéro avertissement), poussé sans le binaire <b>1.9.8 exact de la CI</b> — la CI a échoué sur <code><a class="el" href="tache-03-integration-editeur_8md.html">tache-03-integration-editeur.md</a></code> : un span citait le chemin du fichier contenant <code>buildLevelScene</code> suivi d'un double deux-points et du nom de la fonction, exactement le piège connu (mémoire <code>project_doxygen_colon_link_pitfall</code>) — repéré par la CI, pas par le 1.17.0 local, confirmant la mémoire <code>project_ci_local_reproduction</code>. Corrigé en citant seulement le symbole réellement documenté et son fichier séparément. Puis <b>revérifié avec le binaire 1.9.8 exact</b> (téléchargé depuis <code>www.doxygen.nl/files/</code>) : <code>0</code>, aucune ligne de sortie. Relu aussi pour l'autre piège connu, deux astérisques fermantes suivies d'un slash refermant un commentaire prématurément (mémoire <code>project_bold_slash_comment_closing_pitfall</code>, découvert pendant ce lot) — aucune occurrence restante.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1528"></a>
+<h1><a class="anchor" id="autotoc_md1529"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>, <code><a class="el" href="niveaux_8md.html">niveaux.md</a></code>, <code><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></code>.</li>
@@ -119,7 +119,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></code> (régénéré).</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1529"></a>
+<h1><a class="anchor" id="autotoc_md1530"></a>
 Tests (réalisés)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> : <code>0</code> (138 exigences déclarées, 111 référencées).</li>
@@ -128,13 +128,13 @@ Tests (réalisés)</h1>
 <li>Doxygen : <code>0</code> aux deux binaires, local (1.17.0) <b>et</b> 1.9.8 exact de la CI.</li>
 <li>Build complet <code>/W4 /WX</code> et suite de tests complète (453 Unit + 81 Integration + 3 Système) vertes, sans régression.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1530"></a>
+<h1><a class="anchor" id="autotoc_md1531"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 <li>Doxygen vérifié avec le binaire <b>1.9.8 exact de la CI</b>, pas seulement le binaire local — fait (après un premier push qui a révélé l'écart, cf. ci-dessus).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1531"></a>
+<h1><a class="anchor" id="autotoc_md1532"></a>
 Exigences</h1>
 <p><code>EX-GP-050</code>, <code>EX-GP-051</code>, <code>EX-GP-052</code>, <code>EX-GP-053</code>, <code>EX-LVL-002</code>, <code>EX-LVL-004</code>, <code>EX-EDIT-001</code>, <code>EX-EDIT-002</code>, <code>EX-EDIT-003</code>. </p>
 </div></div><!-- contents -->

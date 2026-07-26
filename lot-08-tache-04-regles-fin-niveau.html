@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-08-tache-04-regles-fin-niveau.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-08-gameplay-personnage_2epic_8md.html">LOT-08</a> · <b>Emplacement :</b> <code>Source/Core/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md668"></a>
+<h1><a class="anchor" id="autotoc_md669"></a>
 Contexte</h1>
 <p>Une fois le personnage mobile, il faut <b>statuer sur l'issue</b> du niveau. Cette logique est <b>pure</b> (géométrie de recouvrement contre le modèle de niveau), sans rendu ni entrée, donc testable en isolation. Elle ne <b>déclenche</b> rien (menu, réinitialisation) : elle <b>classe</b> l'état courant ; l'intégration (TACHE-06) agira sur le verdict.</p>
-<h1><a class="anchor" id="autotoc_md669"></a>
+<h1><a class="anchor" id="autotoc_md670"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>LevelOutcome</code>** (<code>enum class</code>) : <code>Playing</code>, <code>Won</code>, <code>Lost</code>.</li>
@@ -109,13 +109,13 @@ Travail à réaliser</h1>
 </li>
 <li>Priorité déterministe si recouvrement simultané (définir et documenter l'ordre, p. ex. échec prioritaire sur succès), pour un comportement reproductible (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md670"></a>
+<h1><a class="anchor" id="autotoc_md671"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelOutcome_8h.html" title="Issue d&#39;un niveau (en cours / gagné / perdu) évaluée depuis la position du personnage.">Source/Core/Levels/LevelOutcome.h</a></code> (+ <code>.cpp</code> si nécessaire) — nouveau.</li>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md671"></a>
+<h1><a class="anchor" id="autotoc_md672"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Personnage sur la <b>sortie</b> → <code>Won</code>.</li>
@@ -124,19 +124,19 @@ Tests (obligatoires)</h1>
 <li>Personnage en zone libre → <code>Playing</code>.</li>
 <li><b>Simultané</b> sortie + danger → issue déterministe documentée (échec prioritaire).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md672"></a>
+<h1><a class="anchor" id="autotoc_md673"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Donnée pure</b> : pas de rendu, pas d'entrée, pas de <code>World</code> requis — travaille sur <code>Aabb</code> + <code>Level</code>. (Le lien avec l'entité personnage se fait dans l'intégration.)</li>
 <li>Cohérence du recouvrement tuile↔boîte avec le repère (origine haut-gauche, tuile = 1 unité).</li>
 <li>Ne pas <b>muter</b> le niveau ni l'état : fonction d'observation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md673"></a>
+<h1><a class="anchor" id="autotoc_md674"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>LevelOutcome</code> + évaluateur documentés et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md674"></a>
+<h1><a class="anchor" id="autotoc_md675"></a>
 Exigences</h1>
 <p><code>EX-GP-030</code>, <code>EX-GP-031</code>, <code>EX-NFR-002</code>, <code>EX-NFR-010</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

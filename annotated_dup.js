@@ -50,12 +50,17 @@ var annotated_dup =
     ] ],
     [ "editor", "namespaceeditor.html", [
       [ "GameViewport", "classeditor_1_1GameViewport.html", "classeditor_1_1GameViewport" ],
-      [ "MainWindow", "classeditor_1_1MainWindow.html", "classeditor_1_1MainWindow" ]
+      [ "MainWindow", "classeditor_1_1MainWindow.html", "classeditor_1_1MainWindow" ],
+      [ "PalettePanel", "classeditor_1_1PalettePanel.html", "classeditor_1_1PalettePanel" ],
+      [ "TileCategory", "structeditor_1_1TileCategory.html", "structeditor_1_1TileCategory" ],
+      [ "TileEntry", "structeditor_1_1TileEntry.html", "structeditor_1_1TileEntry" ],
+      [ "TileSubgroup", "structeditor_1_1TileSubgroup.html", "structeditor_1_1TileSubgroup" ]
     ] ],
     [ "hmi", "namespacehmi.html", [
       [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
       [ "BitmapFont", "classhmi_1_1BitmapFont.html", "classhmi_1_1BitmapFont" ],
       [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
+      [ "DraftRenderer", "classhmi_1_1DraftRenderer.html", "classhmi_1_1DraftRenderer" ],
       [ "EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", "classhmi_1_1EditorKeyBindings" ],
       [ "EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", "classhmi_1_1EditorKeybindingsModel" ],
       [ "EditorKeybindingsScreen", "classhmi_1_1EditorKeybindingsScreen.html", "classhmi_1_1EditorKeybindingsScreen" ],

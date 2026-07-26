@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('lot-07.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. « Charger niveau » ouvre désormais un <b>niveau chargé depuis un fichier</b> (format JSON, <code>Source/Elements/Levels/demo.json</code>) et en affiche la <b>grille de tuiles</b>, au lieu de la scène codée en dur. Le déplacement du personnage et le comportement des mécanismes restent des lots ultérieurs. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md585"></a>
+<h1><a class="anchor" id="autotoc_md586"></a>
 Objectif</h1>
 <p>Représenter un niveau comme une <b>grille de tuiles typées</b> et le <b>charger depuis un fichier</b> au format <b>JSON structuré</b> (liste de tuiles-objets, <code>EX-LVL-003</code>), avec <b>validation</b> (<code>EX-LVL-004</code>). À l'issue du lot, « Charger niveau » ouvre un <b>niveau de démonstration réel</b> chargé depuis <code>Source/Elements/Levels</code>, dont la grille s'affiche à l'écran.</p>
 <p>Le <b>déplacement du personnage</b> et le <b>comportement des mécanismes</b> restent des lots ultérieurs : ce lot pose la <b>fondation de données</b> dont dépend tout le gameplay.</p>
-<h1><a class="anchor" id="autotoc_md586"></a>
+<h1><a class="anchor" id="autotoc_md587"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md587"></a>
+<h2><a class="anchor" id="autotoc_md588"></a>
 Inclus</h2>
 <ul>
 <li><b>Modèle (Core)</b> : types de tuiles (<code>Vide</code>, <code>Solide</code>, <code>Danger</code>, <code>Entrée</code>, <code>Sortie</code>, <code>Interrupteur</code>, <code>Porte</code>), grille (<code>TileMap</code>) et niveau (<code>Level</code> = grille + entrée/sortie + mécanismes avec liaisons) — <code>EX-GP-001</code>, <code>EX-LVL-002</code>.</li>
@@ -111,7 +111,7 @@ Inclus</h2>
 <li><b>Contenu</b> : au moins <b>un niveau de démonstration</b> valide dans <code>Source/Elements/Levels</code>, copié à côté de l'exécutable.</li>
 <li><b>Rendu</b> : affichage de la <b>grille de tuiles</b> du niveau chargé (via l'atlas) ; « Charger niveau » ouvre ce niveau au lieu de la scène codée en dur (<code>EX-REN-010</code>).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md588"></a>
+<h2><a class="anchor" id="autotoc_md589"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Déplacement / saut / collisions</b> du personnage (<code>EX-GP-010</code>…<code>EX-GP-014</code>).</li>
@@ -119,7 +119,7 @@ Exclus (lots ultérieurs)</h2>
 <li><b>Progression</b> multi-niveaux et enchaînement (<code>EX-LVL-010</code>/<code>EX-LVL-011</code>) et les <b>3 niveaux</b> du MVP (<code>EX-LVL-012</code>) : un seul niveau de démonstration ici.</li>
 <li><b>Éditeur</b> (<code>EX-EDIT-*</code>) et <b>décors</b> (<code>EX-DEC-*</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md589"></a>
+<h1><a class="anchor" id="autotoc_md590"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Format</b> : <b>JSON structuré orienté objets</b> conforme à <code>EX-LVL-003</code> — le fichier est un objet JSON (<code>name</code>, <code>width</code>, <code>height</code>, <code>tiles</code>), où <code>tiles</code> est une <b>liste d'objets tuile</b> <code>{x, y, type, …}</code> (cases vides omises). Types : <code>entry</code>, <code>exit</code>, <code>solid</code>, <code>danger</code>, <code>switch</code>, <code>door</code> ; liaison interrupteur↔porte par <b>identifiant</b> (<code>switch.id</code> ↔ <code>door.opensWith</code>). Choisi pour un moteur <b>extensible</b> (données riches par tuile, round-trip d'éditeur direct).</li>
@@ -128,14 +128,14 @@ Décisions de cadrage</h1>
 <li><b>Erreurs</b> : un fichier invalide <b>n'interrompt pas</b> le programme — le chargement renvoie un <b>résultat</b> décrivant l'échec (politique d'erreurs des conventions, <code>EX-NFR-040</code>).</li>
 <li><b>Rendu</b> : la grille est peuplée en <b>entités ECS</b> (une tuile = un sprite) dessinées par le <code>SpriteRenderer</code> existant (réutilisation du LOT-05) ; le <code>TileMap</code> reste la <b>source de vérité</b> pour le futur gameplay (collisions).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md590"></a>
+<h1><a class="anchor" id="autotoc_md591"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-LVL-001</code> (fichier externe), <code>EX-LVL-002</code> (contenu du niveau), <code>EX-LVL-003</code> (format JSON structuré), <code>EX-LVL-004</code> (validation).</li>
 <li><code>EX-GP-001</code> (grille de tuiles typées), <code>EX-REN-010</code> (rendu de la grille depuis l'atlas).</li>
 <li><code>EX-NFR-020</code> (tests), <code>EX-NFR-031</code> (dépendance épinglée), <code>EX-NFR-040</code> (erreur récupérable).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md591"></a>
+<h1><a class="anchor" id="autotoc_md592"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -156,7 +156,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-06-rendu-integration_8md.html">TACHE-06</a>   </td><td class="markdownTableBodyNone">Rendu du niveau + intégration « Charger niveau »   </td><td class="markdownTableBodyNone"><code>HMI/Interface</code>   </td><td class="markdownTableBodyCenter">✅ Fait   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md592"></a>
+<h1><a class="anchor" id="autotoc_md593"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Un fichier de niveau au format <b>JSON structuré</b> (liste de tuiles-objets) est chargé en un <code>Level</code> (grille typée<ul>
@@ -167,14 +167,14 @@ Critères d'acceptation du lot</h1>
 <li><b>« Charger niveau »</b> ouvre le <b>niveau de démonstration</b> et sa grille s'affiche à l'écran ; <b>Échap</b> revient au menu.</li>
 <li>La logique (modèle, chargement, validation) est <b>couverte par des tests</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code> sans avertissement, documentation Doxygen et <code>CHANGELOG.md</code> à jour.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md593"></a>
+<h1><a class="anchor" id="autotoc_md594"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise l'<b>ECS</b> (<code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code>, LOT-03) et le <b>rendu 2D</b> (<code>SpriteRenderer</code>, <code>TextureAtlas</code>, <code>Camera2D</code>, LOT-05).</li>
 <li>S'intègre au <code>GameScreen</code> (LOT-06) : « Charger niveau » ouvre le niveau chargé.</li>
 <li>Introduit la <b>première dépendance tierce de production</b> (<code>nlohmann/json</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md594"></a>
+<h1><a class="anchor" id="autotoc_md595"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-07-tache-01-dependance-json.html">TACHE-01 — Dépendance JSON (nlohmann/json épinglé)</a></li>

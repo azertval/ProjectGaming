@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-30-tache-01-modele-bindings-manett
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-30-remappage-manette_2epic_8md.html">LOT-30</a> · <b>Emplacement :</b> <code>HMI/Input</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1472"></a>
+<h1><a class="anchor" id="autotoc_md1473"></a>
 Contexte</h1>
 <p>Pose les fondations du remappage manette, indépendamment de tout écran : l'enum des boutons physiques, la classe qui détient l'association action ↔ bouton, sa persistance JSON, et un utilitaire d'affichage/capture de bouton — même patron que <code>GameKeyBindings</code>/<code>KeyName</code> (<code>LOT-29</code>).</p>
-<h1><a class="anchor" id="autotoc_md1473"></a>
+<h1><a class="anchor" id="autotoc_md1474"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier.">Source/HMI/Input/GamepadButton.h</a></code>** (nouveau) : <code>enum class GamepadButton { Up, Down, Left, Right, A, B, X, Y, LeftShoulder, RightShoulder }</code>.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li>**<code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>/<code>.cpp</code>** (écart de cadrage : menée ici plutôt qu'en TACHE-02, <code>capturedGamepadButton</code> ci-dessus en a besoin immédiatement) : nouvelle piste d'état <b>brute</b> par <code>GamepadButton</code>, indépendante de la fusion clavier/manette existante sur <code>Key</code> (<code>onGamepadKeyDown</code>/<code>Up</code>, inchangée, toujours utilisée pour la navigation de menu) — <code>onGamepadButtonDown</code>/<code>Up</code>, <code>gamepadButtonDown</code>/<code>Pressed</code>, alimentées par <code>beginFrame</code> comme les pistes existantes. <code>Window::pollGamepad</code> (TACHE-02) reste à câbler pour les remplir réellement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1474"></a>
+<h1><a class="anchor" id="autotoc_md1475"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier.">Source/HMI/Input/GamepadButton.h</a></code>, <code><a class="el" href="GamepadBindings_8h.html" title="Association remappable action de jeu -&gt; bouton manette, avec persistance (EX-CTRL-002,...">GamepadBindings.h</a></code>/<code>.cpp</code>, <code><a class="el" href="GamepadButtonName_8h.html" title="Nom affichable d&#39;un bouton manette et capture générique « prochain bouton pressé » (LOT-30).">GamepadButtonName.h</a></code>/<code>.cpp</code> (nouveaux).</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><code>Source/HMI/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code> (nouveaux fichiers source/test).</li>
 <li>Tests : <code><a class="el" href="test__gamepad__bindings_8cpp.html" title="Tests unitaires du remappage manette (GamepadBindings, EX-CTRL-002, EX-CTRL-012).">Source/Test/Unit/HMI/Input/test_gamepad_bindings.cpp</a></code>, <code><a class="el" href="test__gamepad__button__name_8cpp.html" title="Tests unitaires de l&#39;affichage et de la capture de bouton manette (GamepadButtonName,...">test_gamepad_button_name.cpp</a></code> (nouveaux), <code><a class="el" href="test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position.">test_input_state.cpp</a></code> (nouveaux cas <code>GamepadButton</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1475"></a>
+<h1><a class="anchor" id="autotoc_md1476"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Valeurs par défaut correctes pour les six actions (miroir du câblage actuel).</li>
@@ -128,12 +128,12 @@ Tests (obligatoires)</h1>
 <li><code>gamepadButtonDisplayName</code> : un nom par valeur de <code>GamepadButton</code>.</li>
 <li><code>InputState</code> : un bouton manette (piste brute) suit le même cycle pressé/maintenu/relâché qu'une touche clavier ou un bouton souris ; indépendant de la fusion <code>Key</code> existante (l'un n'affecte jamais l'autre).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1476"></a>
+<h1><a class="anchor" id="autotoc_md1477"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Compile, testé, sans encore aucun appelant dans le jeu (branchement réel en TACHE-02) — tâche purement additive.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1477"></a>
+<h1><a class="anchor" id="autotoc_md1478"></a>
 Exigences</h1>
 <p><code>EX-CTRL-002</code>, <code>EX-CTRL-012</code>. </p>
 </div></div><!-- contents -->

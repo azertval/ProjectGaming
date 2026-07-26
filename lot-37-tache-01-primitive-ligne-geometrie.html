@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-37-tache-01-primitive-ligne-geomet
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-37-refonte-ihm-qt-liens_2epic_8md.html">LOT-37</a> · <b>Emplacement :</b> <code>Source/HMI/Graphics</code>, <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1729"></a>
+<h1><a class="anchor" id="autotoc_md1730"></a>
 Contexte</h1>
 <p>Le rendu 2D actuel (<code><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></code>) ne dessine que des <b>quads texturés</b> : il n'existe <b>aucune primitive de ligne</b>, d'où l'affichage des liaisons par teinte de case. Pour dessiner des <b>traits/flèches</b> reliant un déclencheur à sa cible, il faut une primitive de segment. Cette tâche l'ajoute au pipeline et isole la <b>géométrie</b> (segment + tête de flèche entre deux cases) dans une fonction <b>pure testable</b>.</p>
-<h1><a class="anchor" id="autotoc_md1730"></a>
+<h1><a class="anchor" id="autotoc_md1731"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Primitive de segment</b> : ajouter à <code><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></code> (ou un utilitaire dédié) le tracé d'un segment d'épaisseur <code>w</code> entre deux points monde — implémenté comme un <b>quad orienté</b> (rectangle fin aligné sur la direction), technique déjà employée pour la grille de repère (<code>renderGrid</code> dessine des lignes via quads fins). Option flèche : deux petits segments formant la tête.<ul>
@@ -112,32 +112,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1731"></a>
+<h1><a class="anchor" id="autotoc_md1732"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Graphics/SpriteBatch.{h,cpp}</code> (primitive segment/flèche) ou <code>Source/HMI/Graphics/PrimitiveBatch.{h,cpp}</code> (nouveau, si séparation préférée).</li>
 <li><code>Source/Editor/LinkGeometry.{h,cpp}</code> (nouveau, pur).</li>
 <li><code>Source/Test/Unit/Editor/test_link_geometry.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1732"></a>
+<h1><a class="anchor" id="autotoc_md1733"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>**<code>LinkGeometry</code> pur** (sans GPU) : centres de cases corrects pour diverses positions/tailles ; segment horizontal/vertical/diagonal ; tête de flèche orientée du bon côté ; décalage anti- superposition déterministe. Origine haut-gauche respectée.</li>
 <li><b>Vérification manuelle</b> de la primitive : un segment/flèche s'affiche net à l'écran (épaisseur, couleur), au bon endroit au zoom/pan courant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1733"></a>
+<h1><a class="anchor" id="autotoc_md1734"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Réutiliser l'astuce quad-fin</b> de <code>renderGrid</code> plutôt qu'un nouveau pipeline (pas de nouveau shader) : cohérent avec l'existant, un seul état de rendu.</li>
 <li><b>Épaisseur constante à l'écran</b> vs en unités monde : décider si l'épaisseur suit le zoom (recommandé : épaisseur en pixels écran pour rester lisible à tout zoom) — le documenter.</li>
 <li><b>Origine haut-gauche</b> (<code>EX-ARCH-020</code>) : pas d'inversion d'axe dans les centres de cases.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1734"></a>
+<h1><a class="anchor" id="autotoc_md1735"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Primitive segment/flèche disponible dans le pipeline ; <code>LinkGeometry</code> livré et <b>testé</b> sans GPU ; <code>/W4 /WX</code> propre ; primitive vérifiée visuellement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1735"></a>
+<h1><a class="anchor" id="autotoc_md1736"></a>
 Exigences</h1>
 <p>Prépare <code>EX-IHM-030</code> (liens par traits/flèches) ; <code>EX-NFR-010</code> (géométrie testable sans GPU) ; réutilise <code>EX-ARCH-020</code> (origine haut-gauche). </p>
 </div></div><!-- contents -->

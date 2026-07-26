@@ -1,5 +1,5 @@
 <map id="editor::MainWindow" name="editor::MainWindow">
-<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;application Qt." alt="" coords="5,79,157,104"/>
+<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi..." alt="" coords="5,79,157,104"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="23,5,139,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,44,84,79,79,79,79,44"/>
 </map>

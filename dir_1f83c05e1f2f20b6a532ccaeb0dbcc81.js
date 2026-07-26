@@ -4,6 +4,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "BitmapFont.h", "BitmapFont_8h.html", "BitmapFont_8h" ],
     [ "Camera2D.cpp", "Camera2D_8cpp.html", null ],
     [ "Camera2D.h", "Camera2D_8h.html", "Camera2D_8h" ],
+    [ "DraftRenderer.cpp", "DraftRenderer_8cpp.html", null ],
+    [ "DraftRenderer.h", "DraftRenderer_8h.html", "DraftRenderer_8h" ],
     [ "FlagIcons.cpp", "FlagIcons_8cpp.html", null ],
     [ "FlagIcons.h", "FlagIcons_8h.html", "FlagIcons_8h" ],
     [ "GraphicsDevice.cpp", "GraphicsDevice_8cpp.html", null ],

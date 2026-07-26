@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-26-tache-01-modele-physique-plafon
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-26-pentes-arrondis-plafond_2epic_8md.html">LOT-26</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>Core/Physics</code>, <code>Core/Ecs/Systems</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1349"></a>
+<h1><a class="anchor" id="autotoc_md1350"></a>
 Contexte</h1>
 <p>Ajoute les quatre nouveaux types de tuile et leur physique de blocage, en réutilisant au maximum l'infrastructure de suivi de surface posée par <code>LOT-22</code> (<code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code>) plutôt qu'une nouvelle famille de règles.</p>
-<h1><a class="anchor" id="autotoc_md1350"></a>
+<h1><a class="anchor" id="autotoc_md1351"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : quatre nouveaux énumérateurs, <code>SlopeDownRight</code>/<code>SlopeDownLeft</code>/ <code>RoundedDownRight</code>/<code>RoundedDownLeft</code> ; <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> <b>ne</b> les inclut <b>pas</b> (comme leurs équivalents de sol — leur collision est résolue par suivi, pas par la grille classique).</li>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="CharacterPhysicsSystem_8cpp.html">Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></code>** : nouvelle étape (6ter), après le suivi de sol existant (6bis) — si non calé sur une pente de sol, appelle <code>resolveCeilingSlopeFollow</code> ; si bloqué, cale <code>transform.position.y</code> sur la silhouette et annule <code>velocity.value.y</code> (comme un choc contre un plafond classique).</li>
 <li>**<code><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></code>/<code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>** : mapping JSON ↔ enum (<code>slopeDownRight</code>, <code>slopeDownLeft</code>, <code>roundedDownRight</code>, <code>roundedDownLeft</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1351"></a>
+<h1><a class="anchor" id="autotoc_md1352"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>.</li>
@@ -120,7 +120,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></code>/<code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a></code>, <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>/<code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code>, <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1352"></a>
+<h1><a class="anchor" id="autotoc_md1353"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>isSolid</code>/<code>isFollowableSurface</code> renvoient <code>false</code> pour les quatre types de plafond ; <code>isCeilingSlope</code> les reconnaît exactement, aucun autre type.</li>
@@ -130,19 +130,19 @@ Tests (obligatoires)</h1>
 <li>Aller-retour JSON (chargement puis écriture) pour les quatre nouveaux types.</li>
 <li><b>Suite de régression complète</b> : tous les tests physique existants (sol, pentes/arrondis de sol, murs, sauts, dash, wall jump…) restent verts, sans modification.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1353"></a>
+<h1><a class="anchor" id="autotoc_md1354"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Écart au plan initial de l'épic</b> : la première implémentation rendait ces tuiles solides (<code>isSolid == true</code>), avec une silhouette purement visuelle. Revu en cours de tâche suite à la demande explicite d'une physique fidèle à la silhouette — voir la décision de cadrage de l'épic.</li>
 <li>**<code>resolveCeilingSlopeFollow</code> ne nécessite pas d'ajustement de tolérance avant <code>floor()</code>**, contrairement à <code>resolveSlopeFollow</code> : le parcours des lignes s'y fait en ordre <b>décroissant</b> (on monte), ce qui inclut déjà naturellement la ligne d'entrée sans risque de l'omettre par arrondi — l'ajustement <code>- kFollowTolerance</code> du sol répond à un problème spécifique à l'ordre <b>croissant</b> de son propre parcours, qui ne se pose pas ici. Détaillé en commentaire dans <code><a class="el" href="SlopeGeometry_8cpp.html">SlopeGeometry.cpp</a></code>.</li>
 <li><b>Deuxième écart, découvert après une première revue de la tâche</b> : <code>resolveCeilingSlopeFollow</code> ne couvre que le franchissement par en dessous (saut) ; rien ne gérait un personnage tombant sur le <b>dessus</b> d'une pente/arrondi de plafond, qui tombait au travers faute de toute résolution (ni <code>isSolid</code>, ni aucune passe existante). Corrigé en étendant le <code>switch</code> de <code>slopeSurfaceHeight</code> (physique de <b>sol</b>, pas plafond) pour reconnaître aussi ces quatre types avec une hauteur <b>constante <code>0.0f</code></b> — leur face du haut est toujours plate, au sommet de la case, donc <code>resolveSlopeFollow</code> (déjà appelé chaque pas, sans changement) les traite correctement comme un sol normal, sans aucun code de résolution supplémentaire.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1354"></a>
+<h1><a class="anchor" id="autotoc_md1355"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Physique de blocage fonctionnelle et testée (précision de silhouette démontrée par un test dédié) ; zéro régression sur la suite de tests physique existante ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1355"></a>
+<h1><a class="anchor" id="autotoc_md1356"></a>
 Exigences</h1>
 <p><code>EX-GP-006</code> (modèle et physique). </p>
 </div></div><!-- contents -->

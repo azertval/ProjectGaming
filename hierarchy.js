@@ -16,6 +16,7 @@ var hierarchy =
     [ "core::DangerController", "classcore_1_1DangerController.html", null ],
     [ "core::DangerLink", "structcore_1_1DangerLink.html", null ],
     [ "core::DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", null ],
+    [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
     [ "hmi::EditorKeybindingsModel", "classhmi_1_1EditorKeybindingsModel.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
@@ -79,6 +80,9 @@ var hierarchy =
     [ "QMainWindow", null, [
       [ "editor::MainWindow", "classeditor_1_1MainWindow.html", null ]
     ] ],
+    [ "QWidget", null, [
+      [ "editor::PalettePanel", "classeditor_1_1PalettePanel.html", null ]
+    ] ],
     [ "QWindow", null, [
       [ "editor::GameViewport", "classeditor_1_1GameViewport.html", null ]
     ] ],
@@ -102,8 +106,11 @@ var hierarchy =
     [ "core::SweepResult", "structcore_1_1SweepResult.html", null ],
     [ "hmi::TextInputField", "classhmi_1_1TextInputField.html", null ],
     [ "hmi::TextureAtlas", "classhmi_1_1TextureAtlas.html", null ],
+    [ "editor::TileCategory", "structeditor_1_1TileCategory.html", null ],
+    [ "editor::TileEntry", "structeditor_1_1TileEntry.html", null ],
     [ "core::TileMap", "classcore_1_1TileMap.html", null ],
     [ "hmi::TilePalette", "classhmi_1_1TilePalette.html", null ],
+    [ "editor::TileSubgroup", "structeditor_1_1TileSubgroup.html", null ],
     [ "hmi::LanguageSelector::Toggle", "structhmi_1_1LanguageSelector_1_1Toggle.html", null ],
     [ "hmi::ToolBar", "classhmi_1_1ToolBar.html", null ],
     [ "core::Transform", "structcore_1_1Transform.html", null ],
