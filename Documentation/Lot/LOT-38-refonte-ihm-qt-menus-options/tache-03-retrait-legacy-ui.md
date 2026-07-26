@@ -1,4 +1,4 @@
-# TACHE-03 — Retrait du legacy UI (`*Screen`, widgets maison, `hmi::Window`, ancienne boucle) {#lot-38-tache-03-retrait-legacy-ui}
+# TACHE-03 — Retrait du legacy UI (écrans maison, fenêtre Win32, ancienne boucle) {#lot-38-tache-03-retrait-legacy-ui}
 
 **Lot :** [LOT-38](epic.md) · **Emplacement :** `Source/HMI`, `Source/Editor`, CMake · **Statut :** non commencé
 
@@ -30,7 +30,7 @@ bord) : il faut atteindre la **parité** avant de supprimer.
 
 ## Fichiers impactés
 - Suppression sous `Source/HMI/Interface/` (écrans + manager), `Source/HMI/Editor/`,
-  `Source/HMI/Platform/Window.*`, `Source/HMI/main.cpp`.
+  `Source/HMI/Platform/Window.{h,cpp}`, `Source/HMI/main.cpp`.
 - `Source/HMI/CMakeLists.txt`, `Source/Editor/CMakeLists.txt`, `Source/CMakeLists.txt`,
   `.github/workflows/release.yml`.
 

@@ -22,8 +22,8 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
   inchangés) ; capture des touches/boutons via Qt.
 - **Navigation** entre menu / jeu / éditeur gérée côté Qt (fenêtres/vues), remplaçant
   `IScreen` / `ScreenManager` / `ScreenTransition`.
-- **Retrait du legacy** : suppression des `*Screen` (`MenuScreen`, `OptionsScreen`, `GameScreen` UI,
-  `EditorScreen`, `*KeybindingsScreen`), `ScreenManager`, widgets `HMI/Editor/` maison
+- **Retrait du legacy** : suppression des `…Screen` (`MenuScreen`, `OptionsScreen`, `GameScreen` UI,
+  `EditorScreen`, `…KeybindingsScreen`), `ScreenManager`, widgets `HMI/Editor/` maison
   (`TilePalette`, `ToolBar`, `LevelPicker`, `TextInputField`, dessin `BitmapFont` d'UI), `hmi::Window`
   et l'ancienne boucle `main.cpp`. `HMI` ne conserve que le **rendu du jeu** (device, sprite batch,
   sprite renderer, atlas, caméra, room grid, tile visuals).
@@ -44,7 +44,7 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
   [LOT-34](@ref lot-34)) a servi de filet ; une fois menus/options/remappage portés, l'ancien chemin
   n'a plus de raison d'être et son maintien coûterait double. Le retrait est un **objectif explicite**
   du lot, pas un effet de bord.
-- **Réutiliser les modèles de bindings et de localisation** : `*KeyBindings` et `Localization` sont
+- **Réutiliser les modèles de bindings et de localisation** : `…KeyBindings` et `Localization` sont
   déjà découplés du rendu — seuls leurs **écrans** sont réécrits en Qt ; le format `keybindings.json`
   et les `.lang` ne changent pas.
 - **Navigation par Qt, fin de `IScreen`/`ScreenManager`** : le patron d'écrans maison n'a plus lieu
@@ -68,7 +68,7 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-menu-navigation-qt.md) | Menu principal Qt + navigation (remplace `IScreen`/`ScreenManager`) | `Source/Editor` | ⬜ |
 | [TACHE-02](tache-02-options-remappage-qt.md) | Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`*Screen`, widgets maison, `hmi::Window`, ancienne boucle) | `Source/HMI`, `Source/Editor`, CMake | ⬜ |
+| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`…Screen`, widgets maison, `hmi::Window`, ancienne boucle) | `Source/HMI`, `Source/Editor`, CMake | ⬜ |
 | [TACHE-04](tache-04-nettoyage-tests-doc.md) | Nettoyage tests, documentation (menu/options/contrôles) & vérification | `Source/Test`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
@@ -88,7 +88,7 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
 ## Dépendances
 - Bâtit sur [LOT-34](@ref lot-34) → [LOT-37](@ref lot-37). Réutilise `hmi::GameKeyBindings`/
   `EditorKeyBindings`/`GamepadBindings` (`LOT-29`/`30`), `hmi::Localization` (`LOT-06`),
-  `GraphicsDevice` (V-Sync), `saveSessionLog`. **Retire** `hmi::Window`, `ScreenManager`, les `*Screen`
+  `GraphicsDevice` (V-Sync), `saveSessionLog`. **Retire** `hmi::Window`, `ScreenManager`, les `…Screen`
   et les widgets `HMI/Editor/`. Ne modifie pas `Core`.
 
 ## Navigation des tâches

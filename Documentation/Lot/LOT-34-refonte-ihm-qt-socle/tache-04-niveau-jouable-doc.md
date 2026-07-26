@@ -24,8 +24,18 @@ par la documentation et la vérification.
 - Choisir un niveau de démonstration existant (`Source/Elements/Levels/*.json`) comme contenu de
   validation du lot (aucun nouveau niveau requis).
 - **Documentation** :
-  - Nouveau guide `Documentation/Guide/guide-ihm-qt.md` (ou section) : architecture de la cible Qt,
-    pont viewport/HWND, boucle, entrées, coexistence avec l'exe legacy.
+  - Nouveau guide `Documentation/Guide/guide-ihm-qt.md` : architecture de la cible Qt, pont
+    viewport/HWND, boucle, entrées, coexistence avec l'exe legacy (ajouter `@subpage` dans
+    `Documentation/Guide/guide.md`).
+  - **Guides existants à mettre à jour** (la boucle, les entrées et le rendu changent de source) :
+    - `Documentation/Guide/guide-boucle.md` : la boucle n'est plus le `while` de `main.cpp` mais un
+      tick Qt rejouant le pas fixe (la discipline `beginInputFrame`/interpolation est conservée).
+    - `Documentation/Guide/guide-entrees.md` : le chemin d'entrées passe des messages Win32 aux
+      événements Qt (clavier/souris) ; XInput conservé.
+    - `Documentation/Guide/guide-rendu.md` : le rendu présente désormais dans un viewport `QWindow`
+      embarqué (HWND), le pipeline D3D11 lui-même est inchangé.
+    - `Documentation/Guide/guide-ecrans.md` : noter que la navigation Qt commence à coexister avec la
+      pile `IScreen` legacy (bascule complète au [LOT-38](@ref lot-38)).
   - Mise à jour de `Documentation/Specification/architecture.md` : introduction de la frontière
     « UI Qt / rendu D3D11 embarqué / `Core` intact » ; déclaration des exigences `EX-IHM-001`,
     `EX-IHM-002`, `EX-BUILD-010`.

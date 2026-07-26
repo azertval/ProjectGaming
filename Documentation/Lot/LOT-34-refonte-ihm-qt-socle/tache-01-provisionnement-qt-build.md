@@ -17,9 +17,9 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
 - Dans `Source/HMI/CMakeLists.txt`, extraire le **rendu et la plateforme** réutilisables dans une
   **bibliothèque statique** (p. ex. `HmiRuntime`) : `GraphicsDevice`, `SpriteBatch`, `SpriteRenderer`,
   `TextureAtlas`, `Camera2D`, `BitmapFont`, `FlagIcons`, `SaveIcon`, `RoomGrid`, `TileVisuals`,
-  `InputState`, `*KeyBindings`, `Localization`, `ExecutableDirectory`. Elle lie `Core`, `nlohmann_json`
+  `InputState`, `…KeyBindings`, `Localization`, `ExecutableDirectory`. Elle lie `Core`, `nlohmann_json`
   et `d3d11 dxgi d3dcompiler xinput`.
-- L'exécutable **historique** `ProjectGaming` (`main.cpp`, `hmi::Window`, `ScreenManager`, `*Screen`)
+- L'exécutable **historique** `ProjectGaming` (`main.cpp`, `hmi::Window`, `ScreenManager`, `…Screen`)
   **reste** et lie désormais `HmiRuntime` — aucune régression de jeu (coexistence, cf. epic).
 - Le copier-après-build des assets (`Localization`, `Levels`) est préservé (déplacé au besoin sur la
   cible qui produit l'exe final).

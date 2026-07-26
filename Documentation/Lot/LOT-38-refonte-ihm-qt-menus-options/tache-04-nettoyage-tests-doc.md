@@ -13,9 +13,17 @@ legacy (TACHE-03) et **mettre à jour toute la documentation** décrivant l'UI, 
     (validations, taxonomie, bindings, opérations de fichiers, géométrie de liens, navigation).
   - Vérifier la couverture (OpenCppCoverage en CI) : la logique nouvelle (contrôleurs, navigation,
     opérations) est couverte ; `UnitTests` ne linke pas Qt.
-- **Documentation** (réécrire pour Qt) :
-  - `Documentation/Guide/guide-menu.md` (ou équivalent), `Documentation/Specification/controles.md`,
-    et toute référence aux écrans maison (`MenuScreen`, `OptionsScreen`, `*KeybindingsScreen`).
+- **Documentation** (réécrire pour Qt) — **guides à mettre à jour** :
+  - `Documentation/Guide/guide-ecrans.md` : **réécriture majeure** — ce guide documente la pile
+    `IScreen`/`ScreenManager`/`ScreenTransition` **supprimée** ; le remplacer par la navigation Qt
+    (menu/vues) ou le retirer de `guide.md` s'il devient sans objet.
+  - `Documentation/Guide/guide-editeur.md` : point d'entrée depuis le menu Qt (lancer l'éditeur).
+  - `Documentation/Guide/guide-entrees.md` : finaliser le passage du remappage aux écrans Qt (la
+    capture de touches/boutons passe par Qt), les modèles `…KeyBindings` restant inchangés.
+  - Créer (ou intégrer à `guide-ecrans`) une section « menu / options » pour l'UI Qt ; référencer via
+    `Documentation/Guide/guide.md` (`@subpage`).
+  - `Documentation/Specification/controles.md` et toute référence aux écrans maison (`MenuScreen`,
+    `OptionsScreen`, `…KeybindingsScreen`).
   - `Documentation/Specification/architecture.md` : entériner « UI Qt unique + rendu D3D11 embarqué,
     `Core` intact » ; retirer les mentions d'`IScreen`/`ScreenManager`.
   - Déclarer/mettre à jour `EX-IHM-040`/`EX-IHM-041`.

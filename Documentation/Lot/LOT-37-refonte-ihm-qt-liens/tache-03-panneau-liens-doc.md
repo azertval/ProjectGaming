@@ -17,9 +17,11 @@ la documentation et la vérification.
   le viewport (et réciproquement, survol viewport → ligne, si peu coûteux).
 - **Suppression** : action/bouton « Supprimer le lien » → `LevelDraft::unlinkMechanism(cible)` ;
   rafraîchir liste + viewport.
-- **Documentation** :
+- **Documentation** — **guides à mettre à jour** :
   - `Documentation/Guide/guide-editeur.md` : section « lier des mécanismes » réécrite (flèches,
-    panneau Liens, création/suppression).
+    panneau Liens, création/suppression), en remplacement de la description par teinte.
+  - `Documentation/Guide/guide-rendu.md` : documenter la **primitive de ligne/flèche** ajoutée au
+    pipeline (TACHE-01).
   - Déclarer `EX-IHM-030`/`EX-IHM-031` dans `Documentation/Specification/editeur-niveaux.md` ; noter
     le remplacement de l'indication par teinte.
   - Regénérer le cahier de test si nécessaire (`generate_cahier_test.py --check` vert).

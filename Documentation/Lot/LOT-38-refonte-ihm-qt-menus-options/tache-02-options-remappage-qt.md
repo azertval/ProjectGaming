@@ -19,7 +19,7 @@ les catalogues `.lang` **ne changent pas**.
   - Afficher chaque action et sa touche/bouton courant ; **capturer** une nouvelle touche
     (`keyPressEvent`) ou un bouton manette (sondage XInput) ; refuser/avertir sur conflit selon la
     règle existante.
-  - Écrire via le chemin existant (`*KeyBindings::save` → `keybindings.json`), sections
+  - Écrire via le chemin d'enregistrement existant des `…KeyBindings` → `keybindings.json`, sections
     `jeu`/`editeur`/`manette` inchangées.
   - Le panneau d'aide de l'éditeur reflète toujours la touche réellement liée (parité).
 - **Localisation** de tous les libellés via `.lang`.
@@ -27,11 +27,11 @@ les catalogues `.lang` **ne changent pas**.
 ## Fichiers impactés
 - `Source/Editor/OptionsDialog.{h,cpp}`, `Source/Editor/KeybindingsView.{h,cpp}` (générique pour les
   trois jeux de bindings).
-- Câblage vers `GraphicsDevice`, `Localization`, `*KeyBindings`.
+- Câblage vers `GraphicsDevice`, `Localization`, `…KeyBindings`.
 
 ## Tests (obligatoires)
-- **Non-régression modèles** : `*KeyBindings::load/save` et la détection de conflit restent testés
-  (réutiliser `test_editor_keybindings_model.cpp`) — pas de logique dupliquée.
+- **Non-régression modèles** : les `…KeyBindings` (chargement/enregistrement) et la détection de
+  conflit restent testés (réutiliser `test_editor_keybindings_model.cpp`) — pas de logique dupliquée.
 - **Logique de capture testable** : conversion d'un événement de capture en binding, détection de
   conflit, sans Qt fenêtré.
 - **Vérification manuelle** : changer V-Sync (effet visible), changer de langue (libellés), remapper
