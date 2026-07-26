@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-19-tache-02-plaque-de-pression.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-19-physique-newtonienne-mecanismes_2epic_8md.html">LOT-19</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>Core/Gameplay</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1095"></a>
+<h1><a class="anchor" id="autotoc_md1102"></a>
 Contexte</h1>
 <p>Le seul mécanisme existant est l'interrupteur à bascule (<code>EX-GP-020</code>, <code>MechanismController</code>) : bascule au <b>front</b> de contact, l'état persiste après le départ. Ce lot ajoute une <b>plaque de pression</b> — même infrastructure de liaison (identifiant/<code>opensWith</code>), mais activation <b>continue</b> : la porte reste ouverte tant qu'un poids suffisant y repose. Dépend de TACHE-01 (<code>Player::mass</code>).</p>
-<h1><a class="anchor" id="autotoc_md1096"></a>
+<h1><a class="anchor" id="autotoc_md1103"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>** (<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>) : nouvelle valeur <code>PressurePlate</code>.</li>
@@ -117,7 +117,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="classhmi_1_1GameScreen.html#ab92718c098da04b32be460630477e3b1" title="Met à jour la logique de l&#39;écran pour une frame.">hmi::GameScreen::update</a></code>** : récupère <code><a class="el" href="structcore_1_1Player.html#a1cdc8a540dc2c37ec5413e40afdac7f6" title="Masse du personnage, en unité de jeu arbitraire (EX-GP-019).">core::Player::mass</a></code> du personnage et le transmet à <code>_mechanisms-&gt;update(box, playerMass)</code>.</li>
 <li>**<code>EX-GP-025</code>** : nouvelle exigence dans <code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code>, section 3 (après <code>EX-GP-024</code>) — plaque de pression, activation continue, distincte de l'interrupteur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1097"></a>
+<h1><a class="anchor" id="autotoc_md1104"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>, <code><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></code>, <code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>, <code><a class="el" href="LevelDraft_8cpp.html">LevelDraft.cpp</a></code>.</li>
@@ -126,7 +126,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="gameplay_8md.html">Documentation/Specification/gameplay.md</a></code> (<code>EX-GP-025</code>).</li>
 <li>Tests : <code><a class="el" href="test__mechanism__controller_8cpp.html" title="Tests unitaires des mécanismes interrupteur↔porte (MechanismController).">Source/Test/Unit/Core/Gameplay/test_mechanism_controller.cpp</a></code>, <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a></code>, <code><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">Source/Test/Unit/Core/Levels/test_level_draft.cpp</a></code> (nouveaux cas <code>PressurePlate</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1098"></a>
+<h1><a class="anchor" id="autotoc_md1105"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une plaque de pression : porte fermée par défaut ; ouverte <b>tant que</b> le personnage est dessus (poids suffisant) ; refermée <b>dès qu'il en part</b> — sans effet de bascule (rester dessus ne la ferme pas, revenir ne re-bascule pas deux fois).</li>
@@ -134,19 +134,19 @@ Tests (obligatoires)</h1>
 <li><code>LevelLoader</code>/<code>LevelWriter</code> : une tuile <code>PressurePlate</code> avec <code>id</code> se charge/s'enregistre comme un <code>Switch</code> (mêmes règles d'identifiant, aller-retour JSON fidèle).</li>
 <li><code>LevelDraft::linkMechanism</code> accepte une source <code>PressurePlate</code> (comme <code>Switch</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1099"></a>
+<h1><a class="anchor" id="autotoc_md1106"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le choix <code>_continuous[index]</code> est figé au chargement</b> (tuile d'origine, jamais réévalué) : cohérent avec le reste de <code>MechanismController</code>, qui ne fait jamais muter <code>Switch</code>/<code>PressurePlate</code> eux-mêmes (seule la porte change de type dans <code>_collision</code>).</li>
 <li>**<code>playerMass</code> a une valeur par défaut** dans la signature d'<code>update</code> : les appels existants (tests d'interrupteurs classiques, où le poids n'intervient jamais) restent valides sans modification.</li>
 <li>Une porte de plaque de pression peut se refermer <b>alors que le personnage la traverse</b> — c'est la tension voulue du mécanisme (course contre la fermeture), déjà le comportement implicite de l'interrupteur à bascule existant (aucun traitement spécial n'existait déjà pour ce cas) : pas de nouvelle règle à ajouter, juste ne pas en introduire une par erreur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1100"></a>
+<h1><a class="anchor" id="autotoc_md1107"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Plaque de pression fonctionnelle et testée (<code>ctest</code> vert), pipeline niveau (chargement/écriture/ édition) à jour ; build <code>/W4 /WX</code> sans avertissement ; Doxygen à jour ; <code>EX-GP-025</code> déclarée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1101"></a>
+<h1><a class="anchor" id="autotoc_md1108"></a>
 Exigences</h1>
 <p><code>EX-GP-025</code> (nouvelle). </p>
 </div></div><!-- contents -->

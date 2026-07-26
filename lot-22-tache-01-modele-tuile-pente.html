@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-22-tache-01-modele-tuile-pente.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-22-pentes_2epic_8md.html">LOT-22</a> · <b>Emplacement :</b> <code>Core/Levels</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1188"></a>
+<h1><a class="anchor" id="autotoc_md1195"></a>
 Contexte</h1>
 <p>Avant de toucher à la physique (TACHE-02), poser le vocabulaire : les deux nouvelles tuiles et la fonction pure qui décrit la hauteur de leur surface — sans laquelle TACHE-02 n'a rien à consommer.</p>
-<h1><a class="anchor" id="autotoc_md1189"></a>
+<h1><a class="anchor" id="autotoc_md1196"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : deux nouvelles valeurs, <code>SlopeUpRight</code> et <code>SlopeUpLeft</code>. <code>isSolid(TileType)</code> renvoie <code>false</code> pour les deux (voir décision de cadrage de l'épic : une pente n'est pas solide pour le balayage horizontal classique — sa solidité est gérée par la nouvelle passe de suivi, pas par <code>isSolid</code>).</li>
@@ -110,32 +110,32 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></code>** : <code>parseTileType</code> reconnaît <code>"slopeUpRight"</code>/<code>"slopeUpLeft"</code>.</li>
 <li>**<code><a class="el" href="LevelWriter_8cpp.html">Core/Levels/LevelWriter.cpp</a></code>** : <code>tileTypeName</code> sérialise les deux nouvelles valeurs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1190"></a>
+<h1><a class="anchor" id="autotoc_md1197"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code> (+ nouveau fichier de géométrie si séparé).</li>
 <li><code><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></code>, <code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code> (chargement/ round-trip), nouveau test unitaire pour la fonction de hauteur elle-même.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1191"></a>
+<h1><a class="anchor" id="autotoc_md1198"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>slopeSurfaceHeight</code> renvoie la hauteur attendue aux deux extrémités (<code>localX = 0</code> et proche de <code>1</code>) et au centre, pour les deux orientations.</li>
 <li><code>isSolid(SlopeUpRight)</code>/<code>isSolid(SlopeUpLeft)</code> renvoient <code>false</code>.</li>
 <li>Chargement et round-trip JSON d'un niveau contenant les deux types de pente.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1192"></a>
+<h1><a class="anchor" id="autotoc_md1199"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas rendre les pentes solides dans <code>isSolid</code></b> — c'est tentant par symétrie avec <code>Solid</code>, mais casserait le suivi de pente dès TACHE-02 (voir décision de cadrage de l'épic : le bord haut d'une pente solide agirait comme un mur invisible).</li>
 <li>Documenter clairement la <b>convention de repère</b> utilisée par <code>slopeSurfaceHeight</code> (origine de la case, sens de <code>localX</code>, unité de la hauteur renvoyée) : TACHE-02 en dépend directement et une ambiguïté ici se répercuterait en bug de collision, pas en erreur de compilation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1193"></a>
+<h1><a class="anchor" id="autotoc_md1200"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tuiles de pente chargeables/sérialisables ; fonction de hauteur testée en isolation ; aucune dépendance physique introduite à ce stade (<code>Core/Physics</code> non modifié).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1194"></a>
+<h1><a class="anchor" id="autotoc_md1201"></a>
 Exigences</h1>
 <p><code>EX-GP-003</code> (déjà déclarée dans <code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>, modèle de données uniquement — l'implémentation complète de l'exigence n'est acquise qu'à l'issue de TACHE-02). </p>
 </div></div><!-- contents -->

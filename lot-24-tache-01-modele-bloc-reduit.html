@@ -94,17 +94,17 @@ $(document).ready(function(){initNavTree('lot-24-tache-01-modele-bloc-reduit.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-24-blocs-taille-fractionnaire_2epic_8md.html">LOT-24</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>Core/Gameplay</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1257"></a>
+<h1><a class="anchor" id="autotoc_md1264"></a>
 Contexte</h1>
 <p>Pose le vocabulaire (types de tuiles, facteur de taille) avant la routine de collision propre (TACHE-02) — sur le modèle de <code>LOT-21</code> (<code>Block</code>) et <code>LOT-22</code>/<code>LOT-23</code> (types + géométrie séparés de la résolution physique).</p>
-<h1><a class="anchor" id="autotoc_md1258"></a>
+<h1><a class="anchor" id="autotoc_md1265"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : deux nouvelles valeurs, <code>BlockHalf</code> et <code>BlockQuarter</code>. <code>isSolid</code> renvoie <code>true</code> pour les deux (comme <code>Block</code> : solides tant qu'ils n'ont pas été résolus par <code>BlockController</code>, voir <code>LOT-21</code>).</li>
 <li>**<code>Core/Gameplay/BlockController</code>** : reconnaît les trois types de bloc (<code>Block</code>, <code>BlockHalf</code>, <code>BlockQuarter</code>) à la construction, et associe à chaque position un <b>facteur de taille</b> (<code>1.0</code>/<code>0.5</code>/<code>0.25</code>) — probablement un <code>std::vector&lt;float&gt; _scales</code> parallèle à <code>_positions</code> (même index), sur le modèle de <code>_fallTimers</code>.</li>
 <li>**<code><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></code>/<code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>** : reconnaît/sérialise <code>"blockHalf"</code>/<code>"blockQuarter"</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1259"></a>
+<h1><a class="anchor" id="autotoc_md1266"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>.</li>
@@ -112,24 +112,24 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></code>, <code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a></code> (nouveaux cas taille), <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1260"></a>
+<h1><a class="anchor" id="autotoc_md1267"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un niveau avec les trois types de bloc (<code>Block</code>/<code>BlockHalf</code>/<code>BlockQuarter</code>) charge chacun avec le facteur de taille attendu.</li>
 <li>Poussée et chute d'un bloc réduit suivent exactement la même logique <b>case par case</b> qu'un bloc plein (réutilisation directe des tests de <code>LOT-21</code>, appliqués aux nouveaux types).</li>
 <li>Round-trip JSON préserve le type (donc le facteur de taille, dérivé du type à la relecture).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1261"></a>
+<h1><a class="anchor" id="autotoc_md1268"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le facteur de taille ne change rien à la poussée/chute elle-même</b> (toujours case par case, voir décision de cadrage de l'épic) — seule la boîte de collision utilisée par TACHE-02 diffère. Ne pas introduire de position continue ici : ce serait une régression vers la complexité que <code>LOT-21</code> a justement évitée pour les mécanismes de ce moteur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1262"></a>
+<h1><a class="anchor" id="autotoc_md1269"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Types de bloc réduit chargeables/sérialisables, facteur de taille exposé par <code>BlockController</code> ; poussée/chute identiques à un bloc plein.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1263"></a>
+<h1><a class="anchor" id="autotoc_md1270"></a>
 Exigences</h1>
 <p><code>EX-GP-005</code> (déjà déclarée dans <code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>, modèle de données). </p>
 </div></div><!-- contents -->

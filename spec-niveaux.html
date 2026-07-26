@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('spec-niveaux.html',''); initResizable(
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>brouillon</b>. Dépend de <a class="el" href="gameplay_8md.html">`gameplay.md`</a>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md232"></a>
+<h1><a class="anchor" id="autotoc_md239"></a>
 1. Représentation des niveaux</h1>
 <ul>
 <li><a class="anchor" id="EX-LVL-001"></a><b>EX-LVL-001</b> — Un niveau doit être décrit par un <b>fichier de données</b> externe (pas en dur dans le code), placé dans <code>Source/Elements</code>.</li>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('spec-niveaux.html',''); initResizable(
 <li><a class="anchor" id="EX-LVL-003"></a><b>EX-LVL-003</b> — Le format retenu est un <b>JSON structuré orienté objets</b> : un niveau est un objet JSON portant ses <b>métadonnées</b> (nom, dimensions) et une <b>liste de tuiles</b>, chaque tuile étant un <b>objet</b> <code>{x, y, type, …}</code> (les cases vides sont omises) pouvant porter des <b>champs spécifiques</b> à son type (ex. liaison interrupteur↔porte par identifiant). Choisi pour un moteur <b>extensible et réutilisable</b> (données riches par tuile, sérialisation et <em>round-trip</em> d'éditeur directs), au prix d'une lisibilité « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'<b>éditeur</b>, pas par le texte brut.</li>
 <li><a class="anchor" id="EX-LVL-004"></a><b>EX-LVL-004</b> — Le chargement d'un niveau doit <b>valider</b> les données (positions des tuiles <b>dans les bornes</b> <code>width × height</code>, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md233"></a>
+<h2><a class="anchor" id="autotoc_md240"></a>
 Format retenu (JSON, liste de tuiles-objets)</h2>
 <p>Types de tuiles : <code>entry</code> (entrée), <code>exit</code> (sortie), <code>solid</code> (solide), <code>danger</code>, <code>switch</code> (interrupteur), <code>pressurePlate</code> (plaque de pression, activation continue tant qu'un poids y repose), <code>door</code> (porte), <code>block</code> (bloc poussable, <code>EX-GP-022</code> — déplaçable par le personnage, retombe sous gravité), <code>slopeUpRight</code> et <code>slopeUpLeft</code> (pentes à 45°, <code>EX-GP-003</code> — surface suivie, jamais solide pour la grille classique ; « Up » désigne le côté qui monte, <code>Right</code>/<code>Left</code>), <code>roundedUpRight</code> et <code>roundedUpLeft</code> (variante <b>courbe</b> — quart de cercle — des pentes, <code>EX-GP-004</code>, même orientation et même principe de suivi, formule de hauteur différente), <code>slopeDownRight</code>, <code>slopeDownLeft</code>, <code>roundedDownRight</code> et <code>roundedDownLeft</code> (variantes de <b>plafond</b> des quatre tuiles précédentes, <code>EX-GP-006</code> — miroir vertical de la même silhouette ; comme leurs équivalents de sol, jamais solides pour la grille classique, mais une passe de suivi dédiée bloque précisément un saut qui franchit leur profil incliné/courbe par en dessous, sans jamais y faire « marcher » le personnage — leur face du haut, toujours plate, supporte normalement un personnage qui tombe dessus par au-dessus), <code>concaveUpRight</code>, <code>concaveUpLeft</code>, <code>concaveDownRight</code> et <code>concaveDownLeft</code> (variante <b>concave</b> des arrondis, <code>EX-GP-007</code> — même principe de suivi/silhouette, sol et plafond, mais courbure <b>inversée</b> : centre du cercle du côté plein plutôt que du côté creux), <code>blockHalf</code> et <code>blockQuarter</code> (blocs poussables à taille <b>réduite</b> — <code>×0.5</code>/<code>×0.25</code> — <code>EX-GP-005</code>, mêmes règles de poussée/chute que <code>block</code>, boîte de collision centrée et plus petite), <code>dangerUp</code>/<code>dangerDown</code>/<code>dangerLeft</code>/<code>dangerRight</code> (danger <b>directionnel</b>, <code>EX-GP-050</code> — mortel uniquement sur une bande étroite du bord désigné par le suffixe, pas la case entière), <code>dangerMover</code> (danger <b>mobile</b>, <code>EX-GP-051</code> — aller-retour linéaire déterministe autour de sa position de départ ; champs optionnels <code>axis</code>, <code>"horizontal"</code> ou <code>"vertical"</code>, et <code>range</code>, en cases, défauts respectifs <code>"horizontal"</code> et <code>2</code>), <code>dangerSwitched</code> (danger <b>commuté</b>, <code>EX-GP-052</code> — mortel uniquement quand l'interrupteur/la plaque de pression qui lui est lié est actif ; champ <code>opensWith</code> comme <code>door</code>, même résolution par identifiant), <code>dangerBlink</code> (danger <b>temporisé</b>, <code>EX-GP-053</code> — alterne mortel/inoffensif selon une période fixe ; champs optionnels <code>period</code>, <code>phase</code> et <code>activeDuration</code>, en pas fixes, défauts respectifs <code>120</code>, <code>0</code> et <code>60</code>). Une case <b>vide</b> n'est pas listée (absence = vide). </p><div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;name&quot;: &quot;Tutoriel 1&quot;,</div>
@@ -119,21 +119,21 @@ Format retenu (JSON, liste de tuiles-objets)</h2>
 <div class="line">  ]</div>
 <div class="line">}</div>
 </div><!-- fragment --><p> Coordonnées <code>x</code> = colonne, <code>y</code> = ligne, origine <b>haut-gauche</b> ; toute tuile hors des bornes <code>width × height</code> est invalide. Les <b>liaisons</b> interrupteur↔porte se font par <b>identifiant</b> (un <code>switch</code> porte un <code>id</code>, une <code>door</code> le référence via <code>opensWith</code>), schéma extensible à d'autres mécanismes. L'exemple omet les tuiles <code>solid</code> des bords pour rester lisible.</p>
-<h1><a class="anchor" id="autotoc_md234"></a>
+<h1><a class="anchor" id="autotoc_md241"></a>
 2. Progression</h1>
 <ul>
 <li><a class="anchor" id="EX-LVL-010"></a><b>EX-LVL-010</b> — Le jeu doit charger les niveaux dans un <b>ordre défini</b> (liste ordonnée).</li>
 <li><a class="anchor" id="EX-LVL-011"></a><b>EX-LVL-011</b> — À la réussite d'un niveau, le jeu doit charger automatiquement le suivant ; après le dernier, revenir au menu (ou écran de fin).</li>
 <li><a class="anchor" id="EX-LVL-012"></a><b>EX-LVL-012</b> — Le MVP doit fournir <b>3 niveaux</b> de difficulté croissante illustrant : déplacement/saut, danger, puzzle interrupteur↔porte.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md235"></a>
+<h1><a class="anchor" id="autotoc_md242"></a>
 3. Conception (lignes directrices)</h1>
 <ul>
 <li>Introduire une mécanique à la fois ; le premier niveau sert de tutoriel implicite (sans texte).</li>
 <li>Aucune situation sans issue (le joueur ne doit jamais être bloqué définitivement sans échec possible).</li>
 <li>Chaque niveau doit être <b>franchissable</b> — vérifié par un test système sur les niveaux du MVP.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md236"></a>
+<h1><a class="anchor" id="autotoc_md243"></a>
 Traçabilité</h1>
 <p>Le chargement et la validation relèvent de <code>Source/Core</code> ; les fichiers de niveaux et l'atlas sont dans <code>Source/Elements</code>. Types de tuiles : <a class="el" href="gameplay_8md.html">`gameplay.md`</a>.</p>
 <p>Le découpage d'un niveau en <b>salles</b> pour la caméra (<code>EX-REN-015</code>, <code>LOT-32</code>) est un comportement de <b>cadrage</b>, entièrement porté par <code>Source/HMI</code> : le format de fichier (<code>EX-LVL-003</code>) et la validation (<code>EX-LVL-004</code>, dont l'invariant « une entrée, une sortie ») n'en portent aucune trace — un niveau à salles reste, du point de vue de <code>Core</code>, une grille de tuiles ordinaire. </p>

@@ -94,41 +94,41 @@ $(document).ready(function(){initNavTree('lot-23-tache-01-modele-tuile-arrondie.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-23-collision-arrondie_2epic_8md.html">LOT-23</a> · <b>Emplacement :</b> <code>Core/Levels</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1226"></a>
+<h1><a class="anchor" id="autotoc_md1233"></a>
 Contexte</h1>
 <p>Étend l'abstraction de suivi de surface posée par <code>LOT-22</code> (fonction de hauteur par type de tuile) à un profil courbe, sans toucher à la passe de résolution physique elle-même.</p>
-<h1><a class="anchor" id="autotoc_md1227"></a>
+<h1><a class="anchor" id="autotoc_md1234"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : deux nouvelles valeurs, <code>RoundedUpRight</code> et <code>RoundedUpLeft</code>. <code>isSolid</code> renvoie <code>false</code> pour les deux, comme pour les pentes (même raisonnement : la solidité est gérée par la passe de suivi de surface, pas par le balayage classique).</li>
 <li><b>Fonction de hauteur</b> (le point d'extension posé en <code>LOT-22-TACHE-01</code>, ex. <code>slopeSurfaceHeight</code> ou renommée en quelque chose comme <code>tileSurfaceHeight</code> si le nom d'origine devient trop restrictif une fois deux familles de courbes gérées) : ajoute les deux nouveaux cas, formule du quart de cercle (voir décision de cadrage de l'épic).</li>
 <li>**<code><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></code>/<code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>** : reconnaît/sérialise <code>"roundedUpRight"</code>/<code>"roundedUpLeft"</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1228"></a>
+<h1><a class="anchor" id="autotoc_md1235"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code> (ou fichier de géométrie partagé avec <code>LOT-22</code>).</li>
 <li><code><a class="el" href="LevelLoader_8cpp.html">Source/Core/Levels/LevelLoader.cpp</a></code>, <code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>.</li>
 <li>Tests : nouveaux cas dans le test unitaire de la fonction de hauteur (introduit en <code>LOT-22-TACHE-01</code>), <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1229"></a>
+<h1><a class="anchor" id="autotoc_md1236"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>La formule du quart de cercle renvoie les hauteurs attendues aux bords et au centre, pour les deux orientations (valeurs calculées à la main, comparées avec tolérance).</li>
 <li><code>isSolid</code> renvoie <code>false</code> pour les deux nouveaux types.</li>
 <li>Chargement et round-trip JSON d'un niveau contenant les deux types arrondis.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1230"></a>
+<h1><a class="anchor" id="autotoc_md1237"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la fonction de hauteur</b> : l'étendre (nouveau <code>case</code> dans le même <code>switch</code>/la même fonction que les pentes), pas créer une seconde fonction parallèle — sinon la passe de résolution de <code>LOT-22-TACHE-02</code> devrait connaître les deux, dupliquant la logique qu'elle est censée factoriser.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1231"></a>
+<h1><a class="anchor" id="autotoc_md1238"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tuiles arrondies chargeables/sérialisables ; formule de courbe testée en isolation ; aucune modification de la passe de résolution physique (réutilisée telle quelle).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1232"></a>
+<h1><a class="anchor" id="autotoc_md1239"></a>
 Exigences</h1>
 <p><code>EX-GP-004</code> (déjà déclarée dans <code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>, modèle de données). </p>
 </div></div><!-- contents -->

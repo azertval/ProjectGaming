@@ -132,6 +132,11 @@ $(document).ready(function(){initNavTree('spec-exigences.html',''); initResizabl
 <li><a class="anchor" id="EX-NFR-041"></a><b>EX-NFR-041</b> — Les ressources (mémoire, handles DirectX) doivent être gérées en <b>RAII</b> (libération garantie).</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md222"></a>
+6. Build &amp; dépendances</h1>
+<ul>
+<li><a class="anchor" id="EX-BUILD-010"></a><b>EX-BUILD-010</b> — Une dépendance tierce <b>non gérable par <code>FetchContent</code></b> (SDK volumineux tel que <b>Qt</b>) doit être <b>provisionnée et documentée de façon reproductible</b> sur les trois environnements : poste local (installeur officiel ou <code>aqtinstall</code>), <b>CI</b> (étape d'installation dans le workflow, sur le runner épinglé) et <b>release</b> (déploiement des bibliothèques dynamiques requises à côté de l'exécutable, ex. <code>windeployqt</code>). La version est <b>épinglée</b> (<code>EX-NFR-031</code>) et la licence documentée. Introduit en <code>LOT-34</code>.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md223"></a>
 Traçabilité</h1>
 <p>Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur l'outillage déjà en place (CMake, CI, clang-tidy, ASan, conventions). </p>
 </div></div><!-- contents -->

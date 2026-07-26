@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-07-tache-02-modele-niveau.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-07-niveaux_2epic_8md.html">LOT-07</a> · <b>Emplacement :</b> <code>Source/Core/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md588"></a>
+<h1><a class="anchor" id="autotoc_md595"></a>
 Contexte</h1>
 <p>Avant de charger un fichier, il faut un <b>modèle en mémoire</b> du niveau. Le gameplay (collisions, mécanismes) et le rendu s'appuieront tous sur cette représentation : une <b>grille de tuiles typées</b> (<code>EX-GP-001</code>) et les données du niveau (<code>EX-LVL-002</code>). Le modèle est <b>donnée pure</b> (<code>EX-ARCH-011</code>), sans dépendance rendu ni fichier.</p>
-<h1><a class="anchor" id="autotoc_md589"></a>
+<h1><a class="anchor" id="autotoc_md596"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>TileType</code>** (<code>enum class</code>) : <code>Empty</code>, <code>Solid</code>, <code>Danger</code>, <code>Entry</code>, <code>Exit</code>, <code>Switch</code>, <code>Door</code>.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li>**<code>Mechanism</code>** : liaison d'un <b>interrupteur</b> (position) à une <b>porte</b> (position).</li>
 <li>**<code>Level</code>** : <code>TileMap</code> + position d'<b>entrée</b> + position de <b>sortie</b> + liste de <code>Mechanism</code> + nom. Accès en lecture ; construit par le chargeur (TACHE-03).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md590"></a>
+<h1><a class="anchor" id="autotoc_md597"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>, <code><a class="el" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau.">TileMap.h</a></code>/<code>.cpp</code>, <code><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></code>/<code>.cpp</code> (nouveau).</li>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md591"></a>
+<h1><a class="anchor" id="autotoc_md598"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Construction d'une <code>TileMap</code> de dimensions données ; lecture/écriture d'une tuile à <code>(colonne, ligne)</code> ; dimensions correctes.</li>
 <li><code>isSolid</code> vrai pour <code>Solid</code> (et les types bloquants retenus), faux pour <code>Empty</code>.</li>
 <li>Un <code>Level</code> restitue son entrée, sa sortie et ses mécanismes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md592"></a>
+<h1><a class="anchor" id="autotoc_md599"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Donnée pure</b> : aucun type DirectX ni accès fichier ici ; testable sans fenêtre ni GPU.</li>
 <li>Repère du projet : origine <b>haut-gauche</b>, <code>[colonne, ligne]</code> (cohérent avec <code><a class="el" href="niveaux_8md.html">niveaux.md</a></code> et <code>EX-ARCH-020</code>).</li>
 <li>Ne pas mélanger état de <b>simulation</b> (positions de mécanismes ouverts/fermés) avec le <b>modèle statique</b> chargé : ce lot ne fait que représenter, le comportement viendra plus tard.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md593"></a>
+<h1><a class="anchor" id="autotoc_md600"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>TileType</code>/<code>TileMap</code>/<code>Level</code> fonctionnels et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code>, documentés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md594"></a>
+<h1><a class="anchor" id="autotoc_md601"></a>
 Exigences</h1>
 <p><code>EX-GP-001</code>, <code>EX-GP-002</code>, <code>EX-LVL-002</code>, <code>EX-ARCH-010</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

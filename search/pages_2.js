@@ -8,9 +8,10 @@ var searchData=
   ['25_20—_20refactoring_20complet_20des_20niveaux_20démo_5',['LOT-25 — Refactoring complet des niveaux démo',['../lot-25.html',1,'lots']]],
   ['26_20—_20pentes_20et_20arrondis_20de_20plafond_6',['LOT-26 — Pentes et arrondis de plafond',['../lot-26.html',1,'lots']]],
   ['27_20—_20palette_20de_20l_20éditeur_20organisée_20par_20catégories_7',['LOT-27 — Palette de l&apos;éditeur organisée par catégories',['../lot-27.html',1,'lots']]],
-  ['28_20—_20arrondis_20concaves_8',['LOT-28 — Arrondis concaves',['../lot-28.html',1,'lots']]],
-  ['29_20—_20remappage_20des_20touches_20jeu_20éditeur_9',['LOT-29 — Remappage des touches (jeu + éditeur)',['../lot-29.html',1,'lots']]],
-  ['2d_20_3a_20atlas_20sprites_20caméra_10',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
-  ['2d_20_3a_20de_20l_20ecs_20à_20l_20écran_11',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
-  ['2d_20monde_20→_20écran_12',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]]
+  ['27_20reliée_20à_20la_20sélection_8',['TACHE-02 — Palette de tuiles `QTreeView` (taxonomie `LOT-27`) reliée à la sélection',['../lot-35-tache-02-palette-arbre.html',1,'lot-35']]],
+  ['28_20—_20arrondis_20concaves_9',['LOT-28 — Arrondis concaves',['../lot-28.html',1,'lots']]],
+  ['29_20—_20remappage_20des_20touches_20jeu_20éditeur_10',['LOT-29 — Remappage des touches (jeu + éditeur)',['../lot-29.html',1,'lots']]],
+  ['2d_20_3a_20atlas_20sprites_20caméra_11',['LOT-05 — Rendu 2D : atlas, sprites &amp; caméra',['../lot-05.html',1,'lots']]],
+  ['2d_20_3a_20de_20l_20ecs_20à_20l_20écran_12',['Rendu 2D : de l&apos;ECS à l&apos;écran',['../guide-rendu.html',1,'guide']]],
+  ['2d_20monde_20→_20écran_13',['TACHE-04 — Caméra 2D (monde → écran)',['../lot-05-tache-04-camera-2d.html',1,'lot-05']]]
 ];

@@ -32,5 +32,11 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-30-remappage-manette", "dir_c2a4dd7aa0366fc380b52944a77fb179.html", null ],
     [ "LOT-31-blocs-danger-avances", "dir_e4d0ddfd3c04dd21c3edef0473c0e899.html", null ],
     [ "LOT-32-niveaux-a-salles", "dir_b54929ff83293c05e10d5494cdac55cd.html", null ],
-    [ "LOT-33-fluidite-moteur", "dir_f32b0d9b03b0388004af79a946f2aff4.html", null ]
+    [ "LOT-33-fluidite-moteur", "dir_f32b0d9b03b0388004af79a946f2aff4.html", null ],
+    [ "LOT-34-refonte-ihm-qt-socle", "dir_0ba1db0dd156f30d7cfa9e733033ae65.html", null ],
+    [ "LOT-35-refonte-ihm-qt-editeur", "dir_0c7e9d23158c29992b6a042bc04f5d66.html", null ],
+    [ "LOT-36-refonte-ihm-qt-niveaux", "dir_1874ce8785b41563df9990dcf37177cb.html", null ],
+    [ "LOT-37-refonte-ihm-qt-liens", "dir_7653186f4ce7e581aa7a3668f67a8924.html", null ],
+    [ "LOT-38-refonte-ihm-qt-menus-options", "dir_e1c624f3f48f0b9f89592e96efa20a39.html", null ],
+    [ "LOT-39-refonte-ihm-qt-textures", "dir_52b20f533fec904e2aa55ada7676a733.html", null ]
 ];

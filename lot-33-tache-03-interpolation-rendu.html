@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-33-tache-03-interpolation-rendu.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-33-fluidite-moteur_2epic_8md.html">LOT-33</a> · <b>Modules :</b> <code>Source/HMI/Graphics</code>, <code>Source/HMI/Interface</code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md1578"></a>
+<h1><a class="anchor" id="autotoc_md1585"></a>
 Contexte</h1>
 <p>La simulation avance par <b>pas fixes</b> de 1/60 s (déterminisme, <code>EX-NFR-002</code>) tandis que le rendu redessine une fois par frame réelle, souvent plus fréquente (écran 120/144 Hz). Sans interpolation, une entité en mouvement continu est figée à sa <b>dernière position simulée</b> pendant plusieurs frames de rendu, puis « saute » d'un coup au pas suivant : un <em>judder</em> en marches d'escalier, visible même à framerate élevé. L'architecture prévoyait pourtant <b>dès le départ</b> un facteur d'interpolation <code>[0, 1]</code> fourni au rendu (<code>EX-ARCH-031</code>), exposé par <code><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></code> — mais aucun code ne l'exploitait. Cette tâche le concrétise, en restant une préoccupation <b>strictement <code>HMI</code></b> : <code>Core</code> n'est pas modifié.</p>
-<h1><a class="anchor" id="autotoc_md1579"></a>
+<h1><a class="anchor" id="autotoc_md1586"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Composant de présentation</b> <code><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></code> (<code><a class="el" href="PreviousPosition_8h.html" title="Composant de rendu : position d&#39;une entité au pas de simulation précédent (interpolation).">HMI/Graphics/PreviousPosition.h</a></code>) : position de l'entité au pas précédent. Rangé dans le <code><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></code> (générique sur le type de composant) mais <b>écrit et lu par <code>HMI</code> uniquement</b> — <code>Core</code> l'ignore.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Dessin interpolé</b> (<code>SpriteRenderer::render</code>) : pour chaque entité, si elle porte un <code>PreviousPosition</code>, dessiner à <code>lerp(précédente, courante, alpha)</code> ; sinon à la position courante. Lire cette seconde pool pendant l'itération de la vue <code>Transform</code>+<code>Sprite</code> est sûr (aucune pool n'est modifiée, la vue reste valide).</li>
 <li><b>Non-interpolation de la caméra</b> : inutile, elle bascule par coupure nette (<code>LOT-32</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1580"></a>
+<h1><a class="anchor" id="autotoc_md1587"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PreviousPosition_8h.html" title="Composant de rendu : position d&#39;une entité au pas de simulation précédent (interpolation).">Source/HMI/Graphics/PreviousPosition.h</a></code> (nouveau).</li>
@@ -116,20 +116,20 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>, <code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code> : <code>snapshotPreviousPositions</code>, attribution du composant, passage de l'alpha au rendu.</li>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> : <code>RenderContext::interpolationAlpha</code> alimenté depuis le cadenceur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1581"></a>
+<h1><a class="anchor" id="autotoc_md1588"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></code> : couvert (fraction de pas restante après consommation).</li>
 <li>Le lerp par entité est du code de rendu (dépendance D3D11) : vérifié <b>visuellement</b> — le mouvement du personnage est lisse à haut framerate, sans marche d'escalier, et une (re)apparition ne « glisse » pas depuis l'origine.</li>
 <li>Non-régression : la suite (unitaires + intégration + <b>système</b>) reste verte — l'interpolation n'affecte <b>que</b> l'affichage, jamais les positions simulées lues par la logique de fin de niveau.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1582"></a>
+<h1><a class="anchor" id="autotoc_md1589"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Mouvement lisse à 120/144 Hz, simulation inchangée (déterminisme préservé), aucun glissement à la (re)apparition.</li>
 <li>Compile <code>/W4 /WX</code>, formaté, API documentée <code>.h</code> + <code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1583"></a>
+<h1><a class="anchor" id="autotoc_md1590"></a>
 Exigences</h1>
 <p><code>EX-ARCH-031</code>, <code>EX-REN-021</code>, <code>EX-ARCH-030</code>, <code>EX-ARCH-012</code>, <code>EX-NFR-010</code>, <code>EX-NFR-002</code>. </p>
 </div></div><!-- contents -->

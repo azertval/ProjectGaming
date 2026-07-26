@@ -4,7 +4,8 @@ var searchData=
   ['wall_20jump_20dash_1',['LOT-10 — Mécaniques aériennes avancées : double saut, wall jump, dash',['../lot-10.html',1,'lots']]],
   ['wall_20jump_20wall_20slide_2',['TACHE-04 — Wall jump + wall slide',['../lot-10-tache-04-wall-jump.html',1,'lot-10']]],
   ['warn_5fas_5ferror_20déploiement_3',['TACHE-07 — CI documentation (WARN_AS_ERROR &amp; déploiement)',['../lot-04-tache-07-ci-docs.html',1,'lot-04']]],
-  ['win32_20pompe_20de_20messages_4',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
-  ['world_20dans_20la_20boucle_20scène_20de_20démo_5',['TACHE-06 — Câblage du World dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
-  ['world_20orchestration_20au_20pas_20fixe_6',['TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
+  ['win32_20ancienne_20boucle_4',['TACHE-03 — Retrait du legacy UI (écrans maison, fenêtre Win32, ancienne boucle)',['../lot-38-tache-03-retrait-legacy-ui.html',1,'lot-38']]],
+  ['win32_20pompe_20de_20messages_5',['TACHE-01 — Fenêtre Win32 &amp; pompe de messages',['../lot-01-tache-01-fenetre-win32.html',1,'lot-01']]],
+  ['world_20dans_20la_20boucle_20scène_20de_20démo_6',['TACHE-06 — Câblage du World dans la boucle + scène de démo',['../lot-05-tache-06-cablage-world-demo.html',1,'lot-05']]],
+  ['world_20orchestration_20au_20pas_20fixe_7',['TACHE-05 — Systèmes &amp; World (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]]
 ];
