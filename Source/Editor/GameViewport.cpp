@@ -9,6 +9,7 @@
 #include <QExposeEvent>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QPlatformSurfaceEvent>
 #include <QResizeEvent>
 #include <QWheelEvent>
 
@@ -182,6 +183,20 @@ bool GameViewport::event(QEvent* event) {
             return true;
         case QEvent::FocusOut:
             _input.releaseAll();  // pas de touche « collée » au retour d'un Alt+Tab (LOT-33).
+            break;
+        case QEvent::PlatformSurface:
+            // La surface native est sur le point d'être détruite (fermeture de la fenêtre) : libérer
+            // les ressources Direct3D 11 (swap chain sur ce HWND) TANT QUE la surface existe encore,
+            // sinon la destruction plus tardive du device sur un HWND disparu plante. Ordre : la
+            // session (qui référence le lot de sprites/atlas) d'abord, puis le device en dernier.
+            if (static_cast<QPlatformSurfaceEvent*>(event)->surfaceEventType() ==
+                QPlatformSurfaceEvent::SurfaceAboutToBeDestroyed) {
+                _session.reset();
+                _atlas.reset();
+                _spriteBatch.reset();
+                _graphics.reset();
+                _loopStarted = false;
+            }
             break;
         default:
             break;
