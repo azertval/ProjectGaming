@@ -16,6 +16,7 @@
 
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
+#include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
@@ -180,8 +181,8 @@ void GameViewport::tick() {
     const int steps = _timestep.advance(elapsedSeconds);
     const float fixedDelta = _timestep.fixedDeltaSeconds();
     for (int step = 0; step < steps; ++step) {
-        if (_session) {
-            _session->update(_input, fixedDelta);  // mode essai (TACHE-04).
+        if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
+            stopPlaytest();  // niveau franchi : l'essai se termine, retour à l'édition.
         }
         _input.beginFrame();
     }
@@ -252,8 +253,22 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
-    // Raccourcis d'édition (mode édition uniquement) : annuler/refaire.
-    if (!_session && (event->modifiers() & Qt::ControlModifier)) {
+    // Mode essai : Échap revient à l'édition ; les autres touches alimentent le jeu.
+    if (_session) {
+        if (event->key() == Qt::Key_Escape) {
+            stopPlaytest();
+            return;
+        }
+        if (!event->isAutoRepeat()) {
+            if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
+                _input.onKeyDown(*key);
+            }
+        }
+        return;
+    }
+
+    // Mode édition : raccourcis (annuler/refaire, enregistrer, essai).
+    if (event->modifiers() & Qt::ControlModifier) {
         if (event->key() == Qt::Key_Z && _draft.undo()) {
             if (_draftRenderer) {
                 _draftRenderer->invalidate();
@@ -266,6 +281,14 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
             }
             return;
         }
+        if (event->key() == Qt::Key_S) {
+            save();
+            return;
+        }
+    }
+    if (event->key() == Qt::Key_P) {
+        startPlaytest();
+        return;
     }
     if (event->isAutoRepeat()) {
         return;
@@ -273,6 +296,71 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
     if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
         _input.onKeyDown(*key);
     }
+}
+
+void GameViewport::save() {
+    const core::LevelLoadResult validated = _draft.toLevel();
+    if (!validated.ok()) {
+        emit statusMessage(QStringLiteral("Enregistrement impossible : ") +
+                           QString::fromStdString(validated.error));
+        return;
+    }
+    const std::filesystem::path path =
+        hmi::executableDirectory() / "Levels" / (_draft.name() + ".json");
+    if (core::LevelWriter::saveToFile(*validated.level, path)) {
+        emit statusMessage(QStringLiteral("Niveau enregistré : ") +
+                           QString::fromStdString(path.filename().string()));
+    } else {
+        emit statusMessage(QStringLiteral("Échec de l'écriture du fichier."));
+    }
+}
+
+void GameViewport::startPlaytest() {
+    if (_session) {
+        return;  // déjà en essai
+    }
+    const core::LevelLoadResult validated = _draft.toLevel();
+    if (!validated.ok()) {
+        emit statusMessage(QStringLiteral("Essai impossible : ") +
+                           QString::fromStdString(validated.error));
+        return;
+    }
+    ensureResources();
+    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(),
+                     std::move(*validated.level), _gameBindings, _gamepadBindings);
+    emit statusMessage(QStringLiteral("Essai en cours — Échap pour revenir à l'édition."));
+}
+
+void GameViewport::stopPlaytest() {
+    if (!_session) {
+        return;
+    }
+    _session.reset();
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();  // ré-affiche le brouillon (intact).
+    }
+    emit statusMessage(QStringLiteral("Retour à l'édition."));
+}
+
+void GameViewport::resizeLevel(int width, int height) {
+    _draft.resize(width, height);
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+    emit statusMessage(
+        QStringLiteral("Niveau redimensionné : %1 × %2").arg(width).arg(height));
+}
+
+bool GameViewport::wouldResizeDrop(int width, int height) const {
+    return _draft.wouldResizeDropContent(width, height);
+}
+
+int GameViewport::levelWidth() const {
+    return _draft.tileMap().width();
+}
+
+int GameViewport::levelHeight() const {
+    return _draft.tileMap().height();
 }
 
 void GameViewport::keyReleaseEvent(QKeyEvent* event) {

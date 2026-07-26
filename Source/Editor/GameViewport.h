@@ -4,6 +4,7 @@
 #include <memory>
 #include <optional>
 
+#include <QString>
 #include <QWindow>
 
 #include "Core/Levels/GridPosition.h"
@@ -42,6 +43,8 @@ namespace editor {
  * reprennent la discipline du `LOT-33`.
  */
 class GameViewport : public QWindow {
+    Q_OBJECT
+
 public:
     explicit GameViewport(QWindow* parent = nullptr);
     ~GameViewport() override;
@@ -53,6 +56,27 @@ public:
     void setActiveTile(core::TileType type) noexcept {
         _activeTile = type;
     }
+
+    /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
+    /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
+    void save();
+
+    /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
+    void startPlaytest();
+
+    /// Redimensionne le niveau en cours d'édition (`EX-EDIT-005`).
+    void resizeLevel(int width, int height);
+
+    /// @return true si redimensionner à (@p width, @p height) supprimerait du contenu posé.
+    [[nodiscard]] bool wouldResizeDrop(int width, int height) const;
+
+    /// @return Dimensions courantes du niveau, en cases.
+    [[nodiscard]] int levelWidth() const;
+    [[nodiscard]] int levelHeight() const;
+
+signals:
+    /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
+    void statusMessage(const QString& message);
 
 protected:
     bool event(QEvent* event) override;
@@ -69,6 +93,7 @@ private:
     void ensureResources();
     void tick();
     void renderFrame();
+    void stopPlaytest();  ///< Termine l'essai et restitue l'éditeur (brouillon intact).
     void updateMousePosition(const QMouseEvent* event);
 
     /// Recale la caméra d'édition pour cadrer le niveau entier dans la surface courante.

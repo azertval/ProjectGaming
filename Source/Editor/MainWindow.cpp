@@ -2,11 +2,17 @@
 
 #include <QAction>
 #include <QCloseEvent>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QDockWidget>
+#include <QFormLayout>
 #include <QLabel>
 #include <QMenu>
 #include <QMenuBar>
+#include <QMessageBox>
 #include <QSettings>
+#include <QSpinBox>
+#include <QStatusBar>
 #include <QString>
 #include <QWidget>
 
@@ -56,11 +62,16 @@ MainWindow::MainWindow()
 
     setDockNestingEnabled(true);
     createDockPanels();
-    createViewMenu();
+    createMenus();
 
     // Sélectionner une tuile dans la palette définit le type peint au clic dans le viewport.
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
+    // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
+    connect(_viewport, &GameViewport::statusMessage, this,
+            [this](const QString& message) { statusBar()->showMessage(message, 5000); });
+    statusBar()->showMessage(QStringLiteral("Éditeur — peindre : clic gauche · Ctrl+Z/Y · "
+                                            "Ctrl+S enregistrer · P essayer"));
 
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));
     resize(1280, 720);
@@ -90,9 +101,19 @@ void MainWindow::createDockPanels() {
     addDockWidget(Qt::BottomDockWidgetArea, _statusPanel);
 }
 
-void MainWindow::createViewMenu() {
+void MainWindow::createMenus() {
+    // Menu « Niveau » : actions d'édition. Les raccourcis (Ctrl+S, P, Ctrl+Z/Y) sont gérés par le
+    // viewport lui-même (fenêtre native) ; ces entrées de menu servent la découvrabilité.
+    QMenu* const levelMenu = menuBar()->addMenu(QStringLiteral("Niveau"));
+    connect(levelMenu->addAction(QStringLiteral("Enregistrer (Ctrl+S)")), &QAction::triggered,
+            _viewport, [this] { _viewport->save(); });
+    connect(levelMenu->addAction(QStringLiteral("Essayer (P)")), &QAction::triggered, _viewport,
+            [this] { _viewport->startPlaytest(); });
+    connect(levelMenu->addAction(QStringLiteral("Redimensionner…")), &QAction::triggered, this,
+            [this] { openResizeDialog(); });
+
+    // Menu « Affichage » : visibilité des panneaux + réinitialisation de la disposition.
     QMenu* const viewMenu = menuBar()->addMenu(QStringLiteral("Affichage"));
-    // Bascule de visibilité de chaque panneau (action fournie par le dock lui-même).
     viewMenu->addAction(_palettePanel->toggleViewAction());
     viewMenu->addAction(_toolPanel->toggleViewAction());
     viewMenu->addAction(_statusPanel->toggleViewAction());
@@ -100,6 +121,48 @@ void MainWindow::createViewMenu() {
     QAction* const reset = viewMenu->addAction(QStringLiteral("Réinitialiser la disposition"));
     connect(reset, &QAction::triggered, this,
             [this] { restoreState(_defaultState, LAYOUT_VERSION); });
+}
+
+void MainWindow::openResizeDialog() {
+    constexpr int MAX_DIMENSION = 100;  // plafond de taille de niveau (EX-EDIT-017).
+
+    QDialog dialog(this);
+    dialog.setWindowTitle(QStringLiteral("Redimensionner le niveau"));
+
+    auto* const widthSpin = new QSpinBox(&dialog);
+    widthSpin->setRange(1, MAX_DIMENSION);
+    widthSpin->setValue(_viewport->levelWidth());
+    auto* const heightSpin = new QSpinBox(&dialog);
+    heightSpin->setRange(1, MAX_DIMENSION);
+    heightSpin->setValue(_viewport->levelHeight());
+
+    auto* const form = new QFormLayout(&dialog);
+    form->addRow(QStringLiteral("Largeur (cases)"), widthSpin);
+    form->addRow(QStringLiteral("Hauteur (cases)"), heightSpin);
+    auto* const buttons =
+        new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    form->addRow(buttons);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+    const int width = widthSpin->value();
+    const int height = heightSpin->value();
+    // Confirmation si le redimensionnement supprimerait du contenu déjà posé (EX-EDIT-012).
+    if (_viewport->wouldResizeDrop(width, height)) {
+        const QMessageBox::StandardButton answer = QMessageBox::question(
+            this, QStringLiteral("Redimensionner"),
+            QStringLiteral("Réduire à %1 × %2 supprimera du contenu (entrée, sortie ou liaisons). "
+                           "Continuer ?")
+                .arg(width)
+                .arg(height));
+        if (answer != QMessageBox::Yes) {
+            return;
+        }
+    }
+    _viewport->resizeLevel(width, height);
 }
 
 void MainWindow::restoreLayout() {

@@ -39,9 +39,11 @@ protected:
 
 private:
     void createDockPanels();
-    void createViewMenu();
+    void createMenus();
     void restoreLayout();
     void saveLayout();
+    /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).
+    void openResizeDialog();
 
     GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
     QDockWidget* _palettePanel;   ///< Panneau « Palette » (dock hôte de `_palette`).
