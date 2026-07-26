@@ -52,6 +52,14 @@ leur libération est automatique à la destruction, exactement comme un `std::un
 mémoire ordinaire — c'est ce qui permet à `GraphicsDevice` de n'avoir aucun destructeur explicite à
 écrire (`~GraphicsDevice() = default`).
 
+La swap chain utilise le **modèle de présentation flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, avec deux
+back buffers — `EX-REN-004`, `LOT-33`) plutôt que l'ancien modèle *blt* (`DISCARD`, un seul buffer).
+Sous Windows 10/11, le flip model présente le back buffer **directement** au compositeur (DWM), sans
+la copie supplémentaire qu'imposait le modèle *blt* : moins de latence entre l'entrée du joueur et
+l'image affichée, et une cadence plus régulière — y compris V-Sync activée. En contrepartie, `Present`
+**dé-lie** la cible de rendu du back buffer à chaque frame ; `GraphicsDevice::clear()` la relie donc
+(`OMSetRenderTargets`) en tête de chaque frame, avant tout dessin.
+
 ## \ref hmi::Window "hmi::Window" : la fenêtre, prérequis du rendu
 
 Direct3D a besoin d'une surface Windows où dessiner : c'est `hmi::Window` (`Source/HMI/Platform`)
@@ -244,6 +252,28 @@ simple observateur de l'état de simulation, jamais une source de vérité. Ce n
 au pas fixe (`EX-REN-021`), cohérent avec la séparation décrite en @ref guide-boucle — la simulation
 avance par pas fixes, discrets ; le rendu, lui, redessine l'état courant une fois par **frame**
 réelle, qu'un pas fixe ait eu lieu ou non entre deux frames.
+
+### Interpoler le mouvement : `hmi::PreviousPosition` et le facteur d'interpolation
+
+Ce découplage crée un artefact visuel dès qu'un écran dépasse 60 Hz : entre deux pas de simulation,
+la position d'une entité mobile ne change pas, si bien qu'elle reste **figée** plusieurs frames de
+rendu puis « saute » d'un coup au pas suivant — un *judder* en marches d'escalier. La parade,
+**prévue dès le départ** dans l'architecture (`EX-ARCH-031`) et concrétisée en `LOT-33`, est
+l'**interpolation** : dessiner l'entité entre sa position du **pas précédent** et celle du **pas
+courant**, selon la fraction de pas déjà écoulée.
+
+Concrètement, un composant de présentation `hmi::PreviousPosition` (rangé dans le `core::World` mais
+écrit et lu par `HMI` seul — `Core` l'ignore, sa frontière reste intacte) conserve la position de
+l'entité au pas précédent. `hmi::GameScreen` la recopie depuis le `core::Transform` au **début** de
+chaque pas fixe (`snapshotPreviousPositions`), avant que le pas ne modifie la position ; seules les
+entités réellement mobiles (personnage, dangers mobiles, blocs poussables) reçoivent ce composant.
+Au rendu, `SpriteRenderer::render` reçoit le **facteur d'interpolation** `[0, 1[` du cadenceur
+(`core::FixedTimestep::interpolationAlpha`, transporté par `hmi::RenderContext`) et dessine chaque
+entité portant le composant à `lerp(position précédente, position courante, alpha)` ; les tuiles
+fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, elle, n'est
+**pas** interpolée : elle bascule déjà par coupure nette entre salles (`LOT-32`), sans suivi continu.
+L'interpolation ne touche que l'**affichage** — la logique de jeu (collisions, fin de niveau)
+continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
 ## \ref hmi::BitmapFont "hmi::BitmapFont" : dessiner du texte
 

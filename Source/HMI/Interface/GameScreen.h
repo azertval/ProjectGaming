@@ -110,6 +110,11 @@ private:
     /// l'entrée.
     void spawnPlayer(core::GridPosition entry);
 
+    /// Recopie la position courante de chaque entité mobile (personnage, dangers mobiles, blocs)
+    /// vers son `hmi::PreviousPosition`, au début de chaque pas fixe — base de l'interpolation de
+    /// rendu (`EX-ARCH-031`, voir `render()` et `hmi::SpriteRenderer`).
+    void snapshotPreviousPositions();
+
     /// Met à jour la teinte des sprites de portes selon leur état (ouverte atténuée / fermée
     /// opaque).
     void refreshDoorVisuals();

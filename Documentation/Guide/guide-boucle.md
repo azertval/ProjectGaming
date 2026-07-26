@@ -114,9 +114,24 @@ quitte à ce que la simulation « perde » du temps réel dans un cas extrême p
 
 Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans
 l'accumulateur (entre 0 et 1 pas). `interpolationAlpha()` l'expose comme un facteur dans `[0, 1[` :
-un rendu avancé pourrait s'en servir pour **interpoler** visuellement entre la position du pas
-précédent et celle du pas suivant, afin d'afficher un mouvement lisse même quand le framerate de
-rendu dépasse la fréquence des pas fixes. Ce moteur expose la valeur mais ne l'exploite pas encore.
+le rendu s'en sert pour **interpoler** visuellement entre la position du pas précédent et celle du
+pas courant, afin d'afficher un mouvement lisse même quand le framerate de rendu dépasse la
+fréquence des pas fixes (`EX-ARCH-031`, concrétisé en `LOT-33`). Sans cette interpolation, une
+entité mobile resterait figée à sa dernière position simulée pendant plusieurs frames de rendu puis
+« sauterait » d'un coup au pas suivant — un *judder* en marches d'escalier visible dès qu'un écran
+dépasse 60 Hz. La mécanique côté rendu est détaillée dans @ref guide-rendu (composant
+`hmi::PreviousPosition`, `hmi::SpriteRenderer`).
+
+### Les frames sans pas de simulation et les entrées
+
+Quand le rendu dépasse 60 Hz, certaines frames réelles n'exécutent **aucun** pas fixe (`steps == 0`)
+— l'accumulateur n'a pas encore atteint un pas complet. Ces frames dessinent quand même (le rendu
+est découplé), en interpolant grâce à `interpolationAlpha`. Elles imposent en revanche une
+précaution sur les **entrées** : un appui capturé sur une telle frame doit **survivre** jusqu'à ce
+qu'un pas de simulation le lise, au lieu d'être effacé par la frame suivante. C'est pourquoi la
+boucle avance la ligne de base des fronts d'entrée (`hmi::Window::beginInputFrame`) **après chaque
+pas consommé**, et non à chaque frame de rendu — détaillé dans @ref guide-entrees. Sans cette
+précaution, à 144 Hz environ deux appuis sur trois seraient perdus (bug corrigé en `LOT-33`).
 
 ## Conséquence pratique pour tout le code de simulation
 

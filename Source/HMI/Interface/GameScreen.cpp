@@ -23,6 +23,7 @@
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/BitmapFont.h"
+#include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TileVisuals.h"
@@ -132,6 +133,14 @@ void GameScreen::loadLevel(core::Level level) {
                     found = true;
                 }
             });
+        // Danger mobile = mouvement continu : interpolé au rendu (EX-ARCH-031). PreviousPosition
+        // initialisee a sa position de depart pour ne pas "glisser" depuis l'origine a la 1re
+        // frame.
+        if (found && _world.hasComponent<core::Transform>(moverEntity)) {
+            _world.addComponent(
+                moverEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(moverEntity).position});
+        }
         _moverEntities.push_back(moverEntity);
     }
     // Dangers commute/temporise (EX-GP-052/053) : meme principe que les portes ci-dessus, une
@@ -181,6 +190,13 @@ void GameScreen::loadLevel(core::Level level) {
                     found = true;
                 }
             });
+        // Bloc poussable = mouvement (poussee/chute) : interpole au rendu (EX-ARCH-031), comme le
+        // danger mobile ci-dessus. PreviousPosition initialisee a sa position de depart.
+        if (found && _world.hasComponent<core::Transform>(blockEntity)) {
+            _world.addComponent(
+                blockEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(blockEntity).position});
+        }
         _blockEntities.push_back(blockEntity);
     }
     spawnPlayer(levelRef.entry());
@@ -212,6 +228,11 @@ void GameScreen::spawnPlayer(core::GridPosition entry) {
     sprite.layer = 100;
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
+    // Interpolation de rendu (EX-ARCH-031) : le personnage bouge en continu, c'est la principale
+    // source de saccade a haut framerate. PreviousPosition demarre a la position d'entree (pas de
+    // glissement parasite a la premiere frame apres (re)chargement).
+    _world.addComponent(_player,
+                        PreviousPosition{core::playerSpawnPosition(entry.column, entry.row)});
 }
 
 // Met a jour la teinte des sprites de portes selon leur etat (ouverte attenuee / fermee opaque).
@@ -324,6 +345,17 @@ void GameScreen::refreshPlayerSprite() {
     sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex);
 }
 
+// Recopie la position courante de chaque entite mobile (personnage, dangers mobiles, blocs) vers
+// son PreviousPosition, au debut de chaque pas fixe. Apres le pas, Transform contient la nouvelle
+// position et PreviousPosition l'ancienne : le rendu interpole entre les deux (EX-ARCH-031). Les
+// entites fixes (tuiles, portes, dangers a etat) n'ont pas ce composant et ne sont pas parcourues.
+void GameScreen::snapshotPreviousPositions() {
+    _world.view<core::Transform, PreviousPosition>().each(
+        [](core::Entity, const core::Transform& transform, PreviousPosition& previous) {
+            previous.value = transform.position;
+        });
+}
+
 // Centre la camera sur le rectangle de la salle roomIndex (LOT-32) -- coupure nette : seul
 // l'appelant decide QUAND recentrer (chargement, changement de salle), jamais chaque frame.
 void GameScreen::centerCameraOnRoom(core::GridPosition roomIndex) {
@@ -358,6 +390,11 @@ ScreenTransition GameScreen::update(const InputState& input, float fixedDelta) {
     if (!_level) {
         return ScreenTransition::none();  // chargement echoue : rien a simuler
     }
+
+    // 0. Interpolation (EX-ARCH-031) : fige la position COURANTE de chaque entite mobile comme sa
+    //    position "precedente" AVANT que ce pas ne la modifie. Le rendu interpolera ensuite entre
+    //    cette valeur et la nouvelle position, selon la fraction de pas ecoulee (voir render()).
+    snapshotPreviousPositions();
 
     // 1. Entrees -> intention.
     const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
@@ -514,7 +551,10 @@ void GameScreen::render(RenderContext& context) {
         static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
     _camera.setZoom(zoom);
 
-    _renderer.render(_world, _camera);
+    // Interpolation de rendu (EX-ARCH-031) : entre le pas precedent et le pas courant, selon la
+    // fraction de pas fixe accumulee mais pas encore consommee (context.interpolationAlpha). Lisse
+    // le mouvement des entites continues quand le rendu tourne plus vite que 60 Hz.
+    _renderer.render(_world, _camera, context.interpolationAlpha);
 }
 
 }  // namespace hmi

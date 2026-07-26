@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**540 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**541 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (458)
+## Tests unitaires (459)
 
 ### Core
 
@@ -535,7 +535,7 @@
 | **RoomGridTest.RoomIndexAtQuatreCoins** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:94`</sub> | `roomIndexAt` renvoie l'indice de salle correct aux quatre coins et au centre. | 1. Construire un `RoomGrid` de 2x2 salles.<br/>2. Interroger `roomIndexAt` à des positions choisies dans chacune des quatre salles. | Vérifie que `grid.roomIndexAt(core::GridPosition{0, 0})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, 0})` vaut `(core::GridPosition{1, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{0, height - 1})` vaut `(core::GridPosition{0, 1})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, height - 1})` vaut `(core::GridPosition{1, 1})`. |
 | **RoomGridTest.PositionHorsBornesEstBornee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:117`</sub> | Une position hors des bornes du niveau est bornée à la salle la plus proche. | 1. Construire un `RoomGrid` pour un petit niveau.<br/>2. Interroger `roomIndexAt` avec des coordonnées négatives puis très supérieures aux bornes. | Vérifie que `grid.roomIndexAt(core::GridPosition{-100, -100})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{1000, 1000})` vaut `(core::GridPosition{0, 0})`. |
 
-#### Input (62)
+#### Input (63)
 
 **`test_editor_key_bindings.cpp`**
 
@@ -601,6 +601,7 @@
 | **InputStateTest.GamepadConnecteReecrasable** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Input/test_input_state.cpp:308`</sub> | `gamepadConnected` reflète le dernier `setGamepadConnected` appelé. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.gamepadConnected()` est faux.<br/>Vérifie que `input.gamepadConnected()` est vrai.<br/>Vérifie que `input.gamepadConnected()` est faux. |
 | **InputStateTest.FrontMontantBoutonManetteBrut** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_input_state.cpp:330`</sub> | Un bouton manette (piste brute) est « pressé » exactement une frame. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::A)` est vrai.<br/>Vérifie que `input.gamepadButtonPressed(hmi::GamepadButton::A)` est vrai.<br/>Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::A)` est vrai.<br/>Vérifie que `input.gamepadButtonPressed(hmi::GamepadButton::A)` est faux.<br/>Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::A)` est faux. |
 | **InputStateTest.PisteBrutIndependanteDeLaFusionKey** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_input_state.cpp:357`</sub> | La piste manette brute est indépendante de la fusion clavier/manette sur Key. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `input.keyDown(hmi::Key::Enter)` est faux.<br/>Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::B)` est faux. |
+| **InputStateTest.RelacheToutSansFront** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Input/test_input_state.cpp:380`</sub> | releaseAll relâche tout sans produire de front « relâchée ». | 1. Maintenir des entrées clavier/manette/souris.<br/>2. Appeler releaseAll et verifier qu'aucune n'est plus enfoncee ni signalee « relâchée ». | Vérifie que `input.keyDown(hmi::Key::Right)` est faux.<br/>Vérifie que `input.keyReleased(hmi::Key::Right)` est faux.<br/>Vérifie que `input.keyDown(hmi::Key::Space)` est faux.<br/>Vérifie que `input.keyReleased(hmi::Key::Space)` est faux.<br/>Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::A)` est faux.<br/>Vérifie que `input.mouseButtonDown(hmi::MouseButton::Left)` est faux.<br/>Vérifie que `input.mouseButtonReleased(hmi::MouseButton::Left)` est faux.<br/>Vérifie que `input.keyReleased(hmi::Key::Right)` est faux.<br/>Vérifie que `input.keyPressed(hmi::Key::Right)` est faux. |
 
 **`test_key_name.cpp`**
 

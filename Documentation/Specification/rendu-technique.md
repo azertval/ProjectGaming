@@ -34,6 +34,11 @@
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
 - \anchor EX-REN-021 **EX-REN-021** — La logique doit être mise à jour à **pas de temps fixe** (simulation déterministe), le rendu pouvant être découplé.
 - \anchor EX-REN-022 **EX-REN-022** — Le rendu doit synchroniser la présentation (V-Sync activable) pour éviter le *tearing*.
+- \anchor EX-REN-004 **EX-REN-004** — La présentation doit utiliser le **modèle flip** de DXGI
+  (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, au moins deux back buffers) plutôt que l'ancien modèle *blt*
+  (`DISCARD`) : sous Windows 10/11, le flip model présente le back buffer **sans copie
+  supplémentaire** (compositeur DWM), ce qui réduit la latence entrée → image et régularise la
+  cadence, V-Sync activée comprise (`EX-REN-022`). Concrétisé en `LOT-33`.
 
 ## 4. Interface (HMI)
 - \anchor EX-REN-030 **EX-REN-030** — Le jeu doit afficher un **menu principal** (Jouer, Quitter).

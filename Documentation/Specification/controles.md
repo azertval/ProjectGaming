@@ -26,8 +26,8 @@ Les entrées sont traduites en **actions logiques** (pas de code métier lié à
 - \anchor EX-CTRL-013 **EX-CTRL-013** — Le **dash** doit être une action logique dédiée (touche par défaut : **Maj**), sa **direction** étant donnée par les touches directionnelles (8 directions), à défaut par l'**orientation** courante du personnage.
 
 ## 3. Réactivité
-- \anchor EX-CTRL-020 **EX-CTRL-020** — La latence entrée → action ne doit pas dépasser **une frame** de simulation.
-- \anchor EX-CTRL-021 **EX-CTRL-021** — La lecture des entrées doit être échantillonnée une fois par frame, en amont de la mise à jour de la logique.
+- \anchor EX-CTRL-020 **EX-CTRL-020** — La latence entrée → action ne doit pas dépasser **une frame** de simulation. Depuis `LOT-33`, garanti **à tout framerate de rendu** : les fronts (pressée/relâchée) sont consommés par **pas de simulation**, non par frame de rendu — un appui capturé sur une frame réelle sans pas (rendu > 60 Hz) n'est plus perdu.
+- \anchor EX-CTRL-021 **EX-CTRL-021** — La lecture des entrées doit être échantillonnée une fois par frame, en amont de la mise à jour de la logique. L'état brut reste échantillonné **une fois par frame** (`Window::pumpMessages`) ; l'avancée de la ligne de base des fronts (`Window::beginInputFrame`) est en revanche cadencée sur le **pas de simulation** (`LOT-33`), pour ne pas effacer un front avant qu'un pas ne l'ait lu.
 
 ## Traçabilité
 Le module d'entrées relève de `Source/HMI` (acquisition) mais expose un état d'actions consommé par `Source/Core` (logique), sans dépendance inverse. Voir [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md) pour l'architecture.

@@ -18,9 +18,18 @@ void throwIfFailed(HRESULT result, const char* message) {
 }  // namespace
 
 // Initialise Direct3D 11 pour la fenêtre donnée.
-GraphicsDevice::GraphicsDevice(HWND window, int width, int height) : _width(width), _height(height) {
+GraphicsDevice::GraphicsDevice(HWND window, int width, int height)
+    : _width(width), _height(height) {
+    // Modèle de présentation **flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`, `EX-REN-004`) plutôt que
+    // l'ancien modèle *blt* (`DISCARD`) : sous Windows 10/11, le flip model présente sans copie
+    // supplémentaire via le compositeur (DWM), ce qui réduit la latence entrée → image et
+    // régularise la cadence (moins de saccades), y compris V-Sync activée. Il impose deux
+    // contraintes, honorées ici : au moins **deux** back buffers (`BufferCount = 2`) et un format
+    // compatible
+    // (`R8G8B8A8_UNORM` l'est). Contrepartie : `Present` **dé-lie** la cible de rendu du back
+    // buffer à chaque frame — elle est donc reliée de nouveau à chaque `clear()` (voir plus bas).
     DXGI_SWAP_CHAIN_DESC description{};
-    description.BufferCount = 1;
+    description.BufferCount = 2;
     description.BufferDesc.Width = static_cast<UINT>(width);
     description.BufferDesc.Height = static_cast<UINT>(height);
     description.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -31,7 +40,7 @@ GraphicsDevice::GraphicsDevice(HWND window, int width, int height) : _width(widt
     description.SampleDesc.Count = 1;
     description.SampleDesc.Quality = 0;
     description.Windowed = TRUE;
-    description.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+    description.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
     UINT flags = 0;
 #ifdef _DEBUG
@@ -89,7 +98,9 @@ void GraphicsDevice::resize(int width, int height) {
     }
 
     // La render target view référence le back buffer : elle doit être libérée
-    // avant ResizeBuffers, sinon l'opération échoue.
+    // avant ResizeBuffers, sinon l'opération échoue. En modèle flip, on la dé-lie d'abord
+    // explicitement du pipeline (une liaison résiduelle compterait comme une référence vivante).
+    _context->OMSetRenderTargets(0, nullptr, nullptr);
     _renderTargetView.Reset();
     throwIfFailed(_swapChain->ResizeBuffers(0, static_cast<UINT>(width), static_cast<UINT>(height),
                                             DXGI_FORMAT_UNKNOWN, 0),
@@ -104,6 +115,12 @@ void GraphicsDevice::resize(int width, int height) {
 
 // Efface la cible de rendu à une couleur.
 void GraphicsDevice::clear(float red, float green, float blue, float alpha) {
+    // En modèle flip, `Present` dé-lie la cible de rendu du back buffer à chaque frame : on la
+    // relie donc ici, en tête de frame, avant tout dessin (sans quoi le rendu partirait dans le
+    // vide dès la deuxième frame). La render target view reste valide d'une frame à l'autre (le
+    // runtime D3D11 expose toujours le back buffer courant via le même objet), seule sa *liaison*
+    // au pipeline doit être rétablie.
+    _context->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), nullptr);
     const float color[4] = {red, green, blue, alpha};
     _context->ClearRenderTargetView(_renderTargetView.Get(), color);
 }
