@@ -47,5 +47,5 @@ plus la **résolution du chemin d'asset** (où trouver les fichiers) isolée en 
 - Chargement d'un PNG → SRV D3D11 fonctionnel ; résolution d'assets **testée** ; `/W4 /WX` propre.
 
 ## Exigences
-`EX-REN-030` (chargement de textures depuis fichiers) ; `EX-NFR-010` (résolution testable),
+`EX-REN-041` (chargement de textures depuis fichiers) ; `EX-NFR-010` (résolution testable),
 `EX-NFR-040` (asset manquant) ; réutilise `EX-ARCH-022` (nearest).

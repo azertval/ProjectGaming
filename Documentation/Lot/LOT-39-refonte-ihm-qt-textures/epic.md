@@ -56,7 +56,7 @@ personnage/les décors) s'affichent avec de vraies textures, éditables hors cod
   robustesse (`EX-NFR-040`), et migration incrémentale tuile par tuile possible.
 
 ## Exigences couvertes
-- Nouvelles : `EX-REN-030` (chargement de textures depuis fichiers image), `EX-REN-031` (assets de
+- Nouvelles : `EX-REN-041` (chargement de textures depuis fichiers image), `EX-REN-042` (assets de
   jeu externalisés, éditables hors code, avec repli procédural).
 - Réutilisées : `EX-ARCH-022` (échantillonnage pixel art *nearest*), `EX-NFR-040` (robustesse —
   asset manquant), `EX-NFR-010` (logique de résolution d'assets testable sans GPU).

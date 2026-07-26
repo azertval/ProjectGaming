@@ -27,5 +27,13 @@
 - \anchor EX-NFR-040 **EX-NFR-040** — Une erreur récupérable (fichier de niveau invalide, ressource manquante) ne doit pas faire planter le jeu : elle est signalée et gérée (cf. politique d'erreurs des conventions).
 - \anchor EX-NFR-041 **EX-NFR-041** — Les ressources (mémoire, handles DirectX) doivent être gérées en **RAII** (libération garantie).
 
+## 6. Build & dépendances
+- \anchor EX-BUILD-010 **EX-BUILD-010** — Une dépendance tierce **non gérable par `FetchContent`**
+  (SDK volumineux tel que **Qt**) doit être **provisionnée et documentée de façon reproductible** sur
+  les trois environnements : poste local (installeur officiel ou `aqtinstall`), **CI** (étape
+  d'installation dans le workflow, sur le runner épinglé) et **release** (déploiement des bibliothèques
+  dynamiques requises à côté de l'exécutable, ex. `windeployqt`). La version est **épinglée**
+  (`EX-NFR-031`) et la licence documentée. Introduit en `LOT-34`.
+
 ## Traçabilité
 Ces exigences transverses conditionnent l'acceptation de chaque lot. Elles s'appuient sur l'outillage déjà en place (CMake, CI, clang-tidy, ASan, conventions).

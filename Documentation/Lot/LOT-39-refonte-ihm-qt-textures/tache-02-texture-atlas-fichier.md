@@ -48,5 +48,5 @@ changer l'interface** ni les appelants, avec **repli procédural** si l'asset ma
   fonctionnel ; mapping **testé** ; `/W4 /WX` propre ; rendu vérifié visuellement.
 
 ## Exigences
-`EX-REN-030` (textures fichiers), `EX-REN-031` (assets externalisés, repli) ; réutilise `EX-ARCH-022`
+`EX-REN-041` (textures fichiers), `EX-REN-042` (assets externalisés, repli) ; réutilise `EX-ARCH-022`
 (nearest), `EX-NFR-040` (repli robuste).

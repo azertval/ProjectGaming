@@ -16,7 +16,7 @@ clôture du lot (et du programme de refonte).
 - **Documentation** :
   - `Documentation/Guide/guide-rendu.md` : section « pipeline de textures depuis fichiers » (loader,
     atlas, repli, nearest, où déposer les assets, rechargement).
-  - Déclarer `EX-REN-030`/`EX-REN-031` dans `Documentation/Specification/rendu-technique.md`.
+  - Déclarer `EX-REN-041`/`EX-REN-042` dans `Documentation/Specification/rendu-technique.md`.
   - Regénérer le cahier de test si nécessaire (`generate_cahier_test.py --check` vert).
 
 ## Fichiers impactés
@@ -45,4 +45,4 @@ clôture du lot (et du programme de refonte).
   `/W4 /WX`, Doxygen, lint verts ; critères du [LOT-39](epic.md) satisfaits (vérification manuelle).
 
 ## Exigences
-`EX-REN-030`/`EX-REN-031` ; `EX-NFR-040` (repli), `EX-NFR-010`.
+`EX-REN-041`/`EX-REN-042` ; `EX-NFR-040` (repli), `EX-NFR-010`.
