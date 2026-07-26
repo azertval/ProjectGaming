@@ -1,6 +1,7 @@
 #include "Editor/GameViewport.h"
 
 #include <algorithm>
+#include <cmath>
 #include <filesystem>
 #include <optional>
 #include <utility>
@@ -15,8 +16,10 @@
 
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
-// GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt pour
-// éviter les conflits de macros (NOMINMAX/WIN32_LEAN_AND_MEAN sont définis par HmiRuntime).
+#include "Core/Levels/TileMap.h"
+#include "Core/Math/Vector2.h"
+// GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
+#include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -27,9 +30,6 @@ namespace editor {
 
 namespace {
 
-// Traduit un code de touche Qt en `hmi::Key` (code virtuel Win32). Les lettres/chiffres/espace
-// partagent déjà la même valeur entre Qt et Win32 (Qt::Key_A == VK 'A' == 0x41) ; seules les
-// touches spéciales demandent une correspondance explicite. `nullopt` = touche non suivie.
 [[nodiscard]] std::optional<hmi::Key> mapQtKey(int qtKey) {
     switch (qtKey) {
         case Qt::Key_Escape:
@@ -65,8 +65,6 @@ namespace {
         default:
             break;
     }
-    // Lettres A–Z et chiffres 0–9 : Qt reprend les valeurs ASCII majuscules, identiques aux codes
-    // virtuels Win32 — conversion directe.
     if ((qtKey >= Qt::Key_0 && qtKey <= Qt::Key_9) || (qtKey >= Qt::Key_A && qtKey <= Qt::Key_Z)) {
         return static_cast<hmi::Key>(qtKey);
     }
@@ -86,7 +84,6 @@ namespace {
     }
 }
 
-// Chemin du fichier partagé de touches (jeu/éditeur/manette), comme l'exécutable historique.
 [[nodiscard]] std::filesystem::path keybindingsPath() {
     return hmi::executableDirectory() / "Settings" / "keybindings.json";
 }
@@ -96,10 +93,9 @@ namespace {
 GameViewport::GameViewport(QWindow* parent)
     : QWindow(parent),
       _gameBindings(hmi::GameKeyBindings::load(keybindingsPath())),
-      _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())) {
-    // Direct3D 11 présente directement sur le `HWND` natif via sa propre swap chain : on n'utilise
-    // aucun `QBackingStore` Qt, la surface par défaut (Raster) sert seulement de fenêtre native hôte.
-}
+      _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())),
+      _draft(core::LevelDraft::empty("Nouveau niveau", 24, 14)),
+      _camera(1280, 720) {}
 
 GameViewport::~GameViewport() = default;
 
@@ -119,23 +115,59 @@ void GameViewport::ensureResources() {
     _graphics = std::make_unique<hmi::GraphicsDevice>(handle, pixelWidth(), pixelHeight());
     _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
     _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
+    _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas);
 
-    // LOT-34 : charge un niveau de démonstration pour valider le rendu et la jouabilité dans le
-    // viewport (le chargement du niveau en cours d'édition arrive au LOT-35). Échec récupérable.
+    // LOT-35 : ouvre un niveau de démonstration comme brouillon éditable (le sélecteur de niveaux
+    // arrive au LOT-36). Échec récupérable : on garde le brouillon vierge.
     const std::filesystem::path levelPath =
         hmi::executableDirectory() / "Levels" / "demo-deplacement.json";
     core::LevelLoadResult result = core::LevelLoader::loadFromFile(levelPath);
     if (result.ok()) {
-        _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(),
-                         std::move(*result.level), _gameBindings, _gamepadBindings);
+        _draft = core::LevelDraft::fromLevel(*result.level);
+        _draftRenderer->invalidate();
     } else {
         HMI_LOG_WARNING("Editeur : echec du chargement du niveau de demo : " + result.error);
     }
 }
 
+void GameViewport::updateEditCamera() {
+    const int levelWidth = _draft.tileMap().width();
+    const int levelHeight = _draft.tileMap().height();
+    _camera.setViewportSize(pixelWidth(), pixelHeight());
+    _camera.setZoom(hmi::Camera2D::fitZoom(static_cast<float>(pixelWidth()),
+                                           static_cast<float>(pixelHeight()),
+                                           static_cast<float>(levelWidth),
+                                           static_cast<float>(levelHeight), 0.92f));
+    _camera.setCenter(core::Vector2{static_cast<float>(levelWidth) * 0.5f,
+                                    static_cast<float>(levelHeight) * 0.5f});
+}
+
+std::optional<core::GridPosition> GameViewport::cellAt(const QMouseEvent* event) {
+    updateEditCamera();  // s'assure que la conversion écran→monde utilise le cadrage courant.
+    const qreal ratio = devicePixelRatio();
+    const core::Vector2 world = _camera.screenToWorld(
+        core::Vector2{static_cast<float>(event->position().x() * ratio),
+                      static_cast<float>(event->position().y() * ratio)});
+    const int column = static_cast<int>(std::floor(world.x));
+    const int row = static_cast<int>(std::floor(world.y));
+    if (!_draft.tileMap().inBounds(column, row)) {
+        return std::nullopt;
+    }
+    return core::GridPosition{column, row};
+}
+
+void GameViewport::paintAt(const QMouseEvent* event) {
+    if (const std::optional<core::GridPosition> cell = cellAt(event)) {
+        _draft.paintTile(cell->column, cell->row, _activeTile);
+        if (_draftRenderer) {
+            _draftRenderer->invalidate();
+        }
+    }
+}
+
 void GameViewport::tick() {
     if (!isExposed()) {
-        return;  // fenêtre masquée : la boucle reprend au prochain exposeEvent.
+        return;
     }
     ensureResources();
 
@@ -143,19 +175,13 @@ void GameViewport::tick() {
     const float elapsedSeconds = std::chrono::duration<float>(now - _previousFrame).count();
     _previousFrame = now;
 
-    // 1. Manette (sondée) fusionnée dans l'état courant.
     _gamepad.poll(_input);
 
-    // 2. Accumulateur : temps réel -> pas fixes (déterminisme). Les fronts n'avancent qu'APRÈS
-    //    chaque pas consommé (LOT-33), jamais par frame de rendu.
     const int steps = _timestep.advance(elapsedSeconds);
     const float fixedDelta = _timestep.fixedDeltaSeconds();
     for (int step = 0; step < steps; ++step) {
         if (_session) {
-            // Aperçu : sur une réussite, on reboucle le niveau de démonstration.
-            if (_session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
-                _session->reload();
-            }
+            _session->update(_input, fixedDelta);  // mode essai (TACHE-04).
         }
         _input.beginFrame();
     }
@@ -172,6 +198,9 @@ void GameViewport::renderFrame() {
     _graphics->clear(0.10f, 0.12f, 0.16f, 1.0f);
     if (_session) {
         _session->render(pixelWidth(), pixelHeight(), _timestep.interpolationAlpha());
+    } else {
+        updateEditCamera();
+        _draftRenderer->render(_draft, _camera);
     }
     _graphics->present();
 }
@@ -182,16 +211,15 @@ bool GameViewport::event(QEvent* event) {
             tick();
             return true;
         case QEvent::FocusOut:
-            _input.releaseAll();  // pas de touche « collée » au retour d'un Alt+Tab (LOT-33).
+            _input.releaseAll();
             break;
         case QEvent::PlatformSurface:
-            // La surface native est sur le point d'être détruite (fermeture de la fenêtre) : libérer
-            // les ressources Direct3D 11 (swap chain sur ce HWND) TANT QUE la surface existe encore,
-            // sinon la destruction plus tardive du device sur un HWND disparu plante. Ordre : la
-            // session (qui référence le lot de sprites/atlas) d'abord, puis le device en dernier.
+            // Libère les ressources Direct3D 11 tant que la surface native existe encore (crash de
+            // fermeture, cf. LOT-34). Ordre : session/renderer avant le device.
             if (static_cast<QPlatformSurfaceEvent*>(event)->surfaceEventType() ==
                 QPlatformSurfaceEvent::SurfaceAboutToBeDestroyed) {
                 _session.reset();
+                _draftRenderer.reset();
                 _atlas.reset();
                 _spriteBatch.reset();
                 _graphics.reset();
@@ -213,7 +241,7 @@ void GameViewport::exposeEvent(QExposeEvent*) {
         _loopStarted = true;
         _previousFrame = Clock::now();
     }
-    requestUpdate();  // (re)démarre la boucle.
+    requestUpdate();
 }
 
 void GameViewport::resizeEvent(QResizeEvent*) {
@@ -224,8 +252,23 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
+    // Raccourcis d'édition (mode édition uniquement) : annuler/refaire.
+    if (!_session && (event->modifiers() & Qt::ControlModifier)) {
+        if (event->key() == Qt::Key_Z && _draft.undo()) {
+            if (_draftRenderer) {
+                _draftRenderer->invalidate();
+            }
+            return;
+        }
+        if (event->key() == Qt::Key_Y && _draft.redo()) {
+            if (_draftRenderer) {
+                _draftRenderer->invalidate();
+            }
+            return;
+        }
+    }
     if (event->isAutoRepeat()) {
-        return;  // un maintien ne doit pas produire de fronts répétés.
+        return;
     }
     if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
         _input.onKeyDown(*key);
@@ -252,6 +295,11 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonDown(*button);
     }
+    // Mode édition : clic gauche = peinture.
+    if (!_session && event->button() == Qt::LeftButton) {
+        _painting = true;
+        paintAt(event);
+    }
 }
 
 void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
@@ -259,14 +307,19 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonUp(*button);
     }
+    if (event->button() == Qt::LeftButton) {
+        _painting = false;
+    }
 }
 
 void GameViewport::mouseMoveEvent(QMouseEvent* event) {
     updateMousePosition(event);
+    if (_painting) {
+        paintAt(event);  // glisser de peinture.
+    }
 }
 
 void GameViewport::wheelEvent(QWheelEvent* event) {
-    // angleDelta().y() est en 1/8 de degré, 120 par cran — même unité que Win32 (`WHEEL_DELTA`).
     _input.onMouseWheel(event->angleDelta().y());
 }
 

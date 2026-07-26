@@ -6,8 +6,12 @@
 
 #include <QWindow>
 
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/TileType.h"
 #include "Core/Time/FixedTimestep.h"
 #include "HMI/Game/GameSession.h"
+#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
@@ -15,30 +19,27 @@
 
 /**
  * @file Editor/GameViewport.h
- * @brief Surface native embarquant le rendu Direct3D 11, la boucle de jeu et une session de jeu (LOT-34).
+ * @brief Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai (LOT-34/35).
  */
 
 namespace hmi {
 class GraphicsDevice;
 class SpriteBatch;
 class TextureAtlas;
+class DraftRenderer;
 }  // namespace hmi
 
 namespace editor {
 
 /**
- * @brief Fenêtre native (`QWindow`) où Direct3D 11 présente, embarquée dans Qt via
- *        `QWidget::createWindowContainer`.
+ * @brief Fenêtre native (`QWindow`) où Direct3D 11 présente, embarquée dans Qt.
  *
- * Le `HWND` natif (`winId()`) alimente `hmi::GraphicsDevice`. La **boucle** est pilotée par Qt
- * (`QEvent::UpdateRequest`) et rejoue le **pas fixe** (`core::FixedTimestep`) avec la discipline
- * d'entrées du `LOT-33` (déterminisme `EX-NFR-002`). Les entrées clavier/souris Qt et la manette
- * (`hmi::GamepadPoller`) alimentent un `hmi::InputState`.
- *
- * À la TACHE-04, le viewport **charge et joue un niveau** via `hmi::GameSession` (la même logique
- * que l'écran de jeu historique, sans duplication), rendu par le `SpriteRenderer`. À ce stade, un
- * niveau de démonstration est chargé pour valider le rendu/jouabilité ; l'édition d'un niveau dans
- * le viewport arrive au LOT-35.
+ * **Mode édition** (LOT-35) : affiche le brouillon (`core::LevelDraft`) via `hmi::DraftRenderer`,
+ * caméra cadrant le niveau entier. Le clic/glisser gauche **peint** le type de tuile actif
+ * (`setActiveTile`, fourni par la palette) à la case survolée (`core::LevelDraft::paintTile`) ;
+ * `Ctrl+Z`/`Ctrl+Y` annulent/refont. **Mode essai** (LOT-35 TACHE-04) : une `hmi::GameSession`
+ * rejoue le niveau ; sa boucle à pas fixe (`core::FixedTimestep`) et ses entrées (Qt + XInput)
+ * reprennent la discipline du `LOT-33`.
  */
 class GameViewport : public QWindow {
 public:
@@ -47,6 +48,11 @@ public:
 
     GameViewport(const GameViewport&) = delete;
     GameViewport& operator=(const GameViewport&) = delete;
+
+    /// Définit le type de tuile peint au clic (relié à la sélection de la palette).
+    void setActiveTile(core::TileType type) noexcept {
+        _activeTile = type;
+    }
 
 protected:
     bool event(QEvent* event) override;
@@ -60,20 +66,18 @@ protected:
     void wheelEvent(QWheelEvent* event) override;
 
 private:
-    /// Construit, au premier affichage, le `GraphicsDevice` puis les ressources de rendu
-    /// (`SpriteBatch`, `TextureAtlas`) et charge la session de jeu.
     void ensureResources();
-
-    /// Un tick de boucle : mesure le temps, sonde la manette, avance le pas fixe, rend une frame.
     void tick();
-
-    /// Efface, dessine la session de jeu (si chargée), présente.
     void renderFrame();
-
-    /// Reporte la position courante de la souris (@p event) dans l'`InputState`, en pixels physiques.
     void updateMousePosition(const QMouseEvent* event);
 
-    /// Dimensions de la surface en **pixels physiques** (taille logique × ratio DPI).
+    /// Recale la caméra d'édition pour cadrer le niveau entier dans la surface courante.
+    void updateEditCamera();
+    /// Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.
+    [[nodiscard]] std::optional<core::GridPosition> cellAt(const QMouseEvent* event);
+    /// Peint le type actif à la case sous @p event, si valide (invalide la scène rendue).
+    void paintAt(const QMouseEvent* event);
+
     [[nodiscard]] int pixelWidth() const;
     [[nodiscard]] int pixelHeight() const;
 
@@ -82,6 +86,7 @@ private:
     std::unique_ptr<hmi::GraphicsDevice> _graphics;
     std::unique_ptr<hmi::SpriteBatch> _spriteBatch;
     std::unique_ptr<hmi::TextureAtlas> _atlas;
+    std::unique_ptr<hmi::DraftRenderer> _draftRenderer;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
     hmi::InputState _input;
@@ -89,8 +94,13 @@ private:
     core::FixedTimestep _timestep;
     Clock::time_point _previousFrame;
     bool _loopStarted = false;
-    /// Session de jeu du niveau chargé — déclarée après les ressources qu'elle référence
-    /// (`_spriteBatch`, `_atlas`, bindings), donc détruite avant elles.
+
+    core::LevelDraft _draft;            ///< Brouillon en cours d'édition (source de vérité).
+    hmi::Camera2D _camera;              ///< Caméra d'édition (cadre le niveau entier).
+    core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
+    bool _painting = false;            ///< Un glisser de peinture (bouton gauche) est en cours.
+
+    /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).
     std::optional<hmi::GameSession> _session;
 };
 

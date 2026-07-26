@@ -25,6 +25,7 @@ add_library(HmiRuntime STATIC
     Graphics/Camera2D.cpp
     Graphics/RoomGrid.cpp
     Graphics/SpriteRenderer.cpp
+    Graphics/DraftRenderer.cpp
     Graphics/BitmapFont.cpp
     Graphics/FlagIcons.cpp
     Graphics/SaveIcon.cpp

@@ -58,6 +58,10 @@ MainWindow::MainWindow()
     createDockPanels();
     createViewMenu();
 
+    // Sélectionner une tuile dans la palette définit le type peint au clic dans le viewport.
+    connect(_palette, &PalettePanel::tileSelected, _viewport,
+            [this](core::TileType type) { _viewport->setActiveTile(type); });
+
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));
     resize(1280, 720);
 
