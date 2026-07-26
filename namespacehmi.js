@@ -26,6 +26,7 @@ var namespacehmi =
     [ "MenuScreen", "classhmi_1_1MenuScreen.html", "classhmi_1_1MenuScreen" ],
     [ "OptionsModel", "classhmi_1_1OptionsModel.html", "classhmi_1_1OptionsModel" ],
     [ "OptionsScreen", "classhmi_1_1OptionsScreen.html", "classhmi_1_1OptionsScreen" ],
+    [ "PreviousPosition", "structhmi_1_1PreviousPosition.html", "structhmi_1_1PreviousPosition" ],
     [ "RenderContext", "structhmi_1_1RenderContext.html", "structhmi_1_1RenderContext" ],
     [ "RoomBounds", "structhmi_1_1RoomBounds.html", "structhmi_1_1RoomBounds" ],
     [ "RoomGrid", "classhmi_1_1RoomGrid.html", "classhmi_1_1RoomGrid" ],

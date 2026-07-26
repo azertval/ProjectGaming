@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,21 +96,21 @@ $(document).ready(function(){initNavTree('lot-20.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Deux évolutions de l'interface, indépendantes mais livrées ensemble : le jeu et l'éditeur deviennent jouables/navigables à la <b>manette</b> (<code>EX-CTRL-002</code>), et un nouveau <b>menu d'options</b> centralise les réglages jusqu'ici dispersés (langue) ou absents (V-Sync). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1114"></a>
+<h1><a class="anchor" id="autotoc_md1116"></a>
 Objectif</h1>
 <ul>
 <li><b>Manette</b> : <code>EX-CTRL-002</code> (souhaitée) n'est pas implémentée — seuls clavier et souris sont acquis. Le jeu doit rester jouable au clavier <b>et</b> devenir jouable à la manette, sans dupliquer la logique de gameplay/menu qui lit déjà <code>InputState</code>.</li>
 <li><b>Menu d'options</b> : aucun écran ne permet de régler quoi que ce soit à part la langue (icône en coin, sur le menu principal seulement). Un écran dédié doit centraliser les réglages disponibles et rester accessible depuis le menu principal.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1115"></a>
+<h1><a class="anchor" id="autotoc_md1117"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1116"></a>
+<h2><a class="anchor" id="autotoc_md1118"></a>
 Inclus</h2>
 <ul>
 <li><b>Manette (XInput)</b> : D-pad et stick gauche (avec zone morte) pilotent les mêmes directions que les flèches/<code>Q</code>/<code>D</code> ; bouton <b>A</b> valide (menu) et saute (jeu) ; <b>B</b> et <b>Start</b> reviennent/échappent ; épaule droite (<b>RB</b>) dashe. Fonctionne <b>partout</b> où le clavier fonctionne déjà (menu, jeu, éditeur) sans toucher à leur code : la manette est fusionnée dans <code>InputState</code> au niveau des mêmes <code>Key</code> déjà utilisés.</li>
 <li><b>Menu d'options</b> (nouvel écran, accessible depuis le menu principal) : bascule <b>V-Sync</b> (nouveau réglage, jusqu'ici fixé en dur), bouton de langue (réutilise le composant existant), état de connexion de la manette (information, non interactif), retour au menu.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1117"></a>
+<h2><a class="anchor" id="autotoc_md1119"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Remappage des touches</b> (<code>EX-CTRL-012</code>, souhaité) — un fichier de configuration éditable reste un lot à part ; ce lot fixe un mapping manette <b>par défaut</b>, non reconfigurable.</li>
@@ -118,7 +118,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Action « Interagir »</b> (ligne du tableau <code><a class="el" href="controles_8md.html">controles.md</a></code>, bouton <b>X</b>) — aucune mécanique de jeu ne l'utilise aujourd'hui (les mécanismes s'activent par contact, pas par un bouton dédié) ; mapper un bouton sans logique en aval serait du code mort. Laissé pour un futur lot qui introduirait une telle mécanique.</li>
 <li><b>Vibration/retour haptique</b> — non demandé, non couvert par <code>EX-CTRL-002</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1118"></a>
+<h1><a class="anchor" id="autotoc_md1120"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>La manette est fusionnée dans <code>InputState</code>, pas exposée comme une source séparée.</b> Chaque bouton/direction manette synthétise le <b>même</b> <code>Key</code> que son équivalent clavier (<code>A</code> → <code>Key::Enter</code> <b>et</b> <code>Key::Space</code>, D-pad/stick → <code>Key::Left/Right/Up/Down</code>, etc.). Conséquence directe : <b>aucun</b> consommateur existant (<code>MenuModel</code>, <code>LevelPicker</code>, <code>PlayerInputMapper</code>, raccourcis de l'éditeur…) n'a besoin d'être modifié — la manette « fonctionne » partout dès la fusion faite une seule fois, satisfaisant <code>EX-CTRL-010</code> (action logique dissociée de la touche physique) sans introduire de couche d'indirection supplémentaire, puisque le <code>Key</code> de <code>InputState</code> <b>est</b> déjà cette couche.</li>
@@ -127,13 +127,13 @@ Décisions de cadrage</h1>
 <li>**Le menu d'options est un écran à part (<code>ScreenId::Options</code>), pas une modale.** Cohérent avec l'architecture existante (<code>ScreenManager</code>, un <code>IScreen</code> par écran) ; navigation clavier/souris/ manette réutilisée du même modèle que <code>MenuModel</code> (<code>optionAtPoint</code>, mise en page à chasse fixe).</li>
 <li><b>Le réglage V-Sync est appliqué immédiatement</b> (pas de bouton « Appliquer ») : cohérent avec la bascule de langue existante, un seul geste suffit.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1119"></a>
+<h1><a class="anchor" id="autotoc_md1121"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-CTRL-002</code> (manette XInput) — implémentée, marqueur « souhaité » retiré.</li>
 <li>Réutilisées (inchangées) : <code>EX-CTRL-010</code> (action logique), <code>EX-CTRL-011</code> (pressée/maintenue/ relâchée), <code>EX-CTRL-021</code> (échantillonnage une fois par frame), <code>EX-REN-022</code> (V-Sync activable — désormais réellement activable, pas seulement dans l'intention du texte de spec), <code>EX-REN-033</code> (catalogue de traduction, nouvelles clés <code>options.*</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1120"></a>
+<h1><a class="anchor" id="autotoc_md1122"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -148,7 +148,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="LOT-20-manette-menu-options_2tache-03-documentation-verification_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1121"></a>
+<h1><a class="anchor" id="autotoc_md1123"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Manette branchée : le menu principal, le sélecteur de niveau et le menu d'options se naviguent entièrement au D-pad/stick + A/B, sans toucher au clavier.</li>
@@ -157,12 +157,12 @@ Critères d'acceptation du lot</h1>
 <li>Le menu d'options bascule V-Sync et la langue, affiche l'état de connexion de la manette, et revient au menu principal — accessible comme 4ᵉ option du menu principal.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (<code>ctest</code> vert), déterministe, sans GPU ni manette réelle (le sondage XInput lui-même n'est pas testé unitairement, comme le reste des accès Win32 de <code>HMI</code>). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1122"></a>
+<h1><a class="anchor" id="autotoc_md1124"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <code>InputState</code>/<code>Window</code> (LOT-02/03), <code>MenuModel</code>/<code>MenuScreen</code> (LOT-04), <code>LanguageSelector</code> (LOT-13), <code>GraphicsDevice</code> (LOT-02), <code>PlayerInputMapper</code> (LOT-03) — sans les modifier pour la partie manette (fusion transparente).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1123"></a>
+<h1><a class="anchor" id="autotoc_md1125"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-20-tache-01-integration-manette.html">TACHE-01 — Intégration manette (XInput)</a></li>

@@ -29,7 +29,9 @@ var searchData=
   ['intention_26',['intention',['../lot-09-tache-02-mapping-saut.html',1,'TACHE-02 — Mapping du saut (Espace/W → intention)'],['../lot-08-tache-05-actions-logiques.html',1,'TACHE-05 — Actions logiques d&apos;entrée (mapping touches → intention)']]],
   ['intention_20d_20entrée_27',['TACHE-01 — Composants du personnage &amp; intention d&apos;entrée',['../lot-08-tache-01-composants-personnage.html',1,'lot-08']]],
   ['interface_20logger_28',['TACHE-01 — Niveaux de log &amp; interface Logger',['../lot-02-tache-01-niveaux-logger.html',1,'lot-02']]],
-  ['interrupteur_20porte_20budget_20de_20mouvements_29',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
-  ['interrupteur_20porte_20mechanismcontroller_30',['TACHE-02 — Mécanismes interrupteur/porte (MechanismController)',['../lot-12-tache-02-mecanismes.html',1,'lot-12']]],
-  ['inventaire_20des_20mécaniques_20et_20conception_31',['TACHE-01 — Inventaire des mécaniques et conception',['../lot-25-tache-01-inventaire-conception.html',1,'lot-25']]]
+  ['interpolation_29',['LOT-33 — Fluidité du moteur (entrées nerveuses, présentation flip, interpolation)',['../lot-33.html',1,'lots']]],
+  ['interpolation_20de_20rendu_20ex_20arch_20031_30',['TACHE-03 — Interpolation de rendu (EX-ARCH-031)',['../lot-33-tache-03-interpolation-rendu.html',1,'lot-33']]],
+  ['interrupteur_20porte_20budget_20de_20mouvements_31',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
+  ['interrupteur_20porte_20mechanismcontroller_32',['TACHE-02 — Mécanismes interrupteur/porte (MechanismController)',['../lot-12-tache-02-mecanismes.html',1,'lot-12']]],
+  ['inventaire_20des_20mécaniques_20et_20conception_33',['TACHE-01 — Inventaire des mécaniques et conception',['../lot-25-tache-01-inventaire-conception.html',1,'lot-25']]]
 ];

@@ -12,6 +12,7 @@ var classhmi_1_1GameScreen =
     [ "refreshDoorVisuals", "classhmi_1_1GameScreen.html#a12b0dd458f1c9b31c762f4a0f3a0eaf4", null ],
     [ "refreshPlayerSprite", "classhmi_1_1GameScreen.html#a524e476eddbb1b0e5ca142dce5defdbb", null ],
     [ "render", "classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2", null ],
+    [ "snapshotPreviousPositions", "classhmi_1_1GameScreen.html#a456854e60c20a2df33dde3e55c9e79e4", null ],
     [ "spawnPlayer", "classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9", null ],
     [ "update", "classhmi_1_1GameScreen.html#ab92718c098da04b32be460630477e3b1", null ],
     [ "updateCurrentRoom", "classhmi_1_1GameScreen.html#a57b35755db6f04215ddd20734e2bb702", null ],

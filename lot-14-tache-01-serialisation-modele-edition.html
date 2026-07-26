@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(document).ready(function(){initNavTree('lot-14-tache-01-serialisation-modele-e
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-14-editeur-niveaux_2epic_8md.html">LOT-14</a> · <b>Emplacement :</b> <code>Core/Levels</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md872"></a>
+<h1><a class="anchor" id="autotoc_md874"></a>
 Contexte</h1>
 <p><code><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></code> sait <b>lire</b> un niveau JSON, mais rien ne sait l'<b>écrire</b> — brique manquante avant tout enregistrement depuis l'éditeur. <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code>/<code><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></code> sont par ailleurs conçus comme <b>immuables</b> une fois construits (LOT-07) : l'éditeur a besoin d'une représentation <b>mutable</b> distincte, convertie en <code>Level</code> <b>validé</b> au moment de l'enregistrement, sans changer la conception de <code>Level</code> lui-même ni dupliquer sa validation (<code>EX-EDIT-010</code>).</p>
 <p>Avant toute chose, corriger le texte obsolète d'<code>EX-EDIT-006</code> dans <code><a class="el" href="editeur-niveaux_8md.html">editeur-niveaux.md</a></code> (« format hybride ASCII + JSON », jamais implémenté) pour référencer le format <b>JSON pur</b> réellement défini par <code>EX-LVL-003</code>.</p>
-<h1><a class="anchor" id="autotoc_md873"></a>
+<h1><a class="anchor" id="autotoc_md875"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Spec</b> : mettre à jour <code><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></code>, <code>EX-EDIT-006</code> — remplacer la mention du format hybride par une référence au format JSON de <code>EX-LVL-003</code> (aucun nouvel identifiant d'exigence, uniquement le texte).</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li><b>Conversion vers <code>Level</code> validé</b> : <code>LevelDraft::toLevel()</code> (ou équivalent) produit un <code>LevelLoadResult</code> en repassant par la <b>même validation</b> que <code>LevelLoader</code> (bornes, unicité entrée/sortie, liaisons résolues, <code>EX-LVL-004</code>) — aucune règle de validation dupliquée.</li>
 <li><b>Construction depuis l'existant</b> : <code>LevelDraft::fromLevel(const Level&amp;)</code> et <code>LevelDraft::empty(largeur, hauteur)</code> (nouveau niveau vierge).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md874"></a>
+<h1><a class="anchor" id="autotoc_md876"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelWriter_8h.html" title="Sérialisation d&#39;un niveau vers le format JSON, symétrique à LevelLoader.">Source/Core/Levels/LevelWriter.h</a></code>/<code>.cpp</code> (nouveau), <code><a class="el" href="LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition.">Source/Core/Levels/LevelDraft.h</a></code>/<code>.cpp</code> (nouveau).</li>
 <li><code><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></code> (correction <code>EX-EDIT-006</code>).</li>
 <li>Tests unitaires (<code>Source/Test/Unit/Core/Levels/</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md875"></a>
+<h1><a class="anchor" id="autotoc_md877"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Round-trip</b> : <code>Level</code> (chargé depuis un fichier existant, ex. <code>demo4.json</code>) → <code>toJson</code> → <code>LevelLoader::loadFromString</code> → <code>Level</code> <b>identique</b> (mêmes tuiles, entrée/sortie, mécanismes, budgets) — preuve directe d'<code>EX-EDIT-011</code>.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li><code>paintTile</code>/<code>setEntry</code>/<code>setExit</code>/<code>linkMechanism</code>/<code>resize</code> modifient l'état attendu, y compris cas limites (redimensionner plus petit tronque, <code>setEntry</code> déplace une entrée déjà posée).</li>
 <li><code>toLevel()</code> sur un brouillon <b>invalide</b> (sans sortie, liaison non résolue) renvoie une erreur <b>récupérable</b> (pas d'exception, <code>EX-NFR-040</code>) avec un message exploitable ; sur un brouillon <b>valide</b>, renvoie un <code>Level</code> conforme.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md876"></a>
+<h1><a class="anchor" id="autotoc_md878"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Aucune duplication de validation</b> : <code>LevelDraft::toLevel()</code> doit s'appuyer sur le même chemin de validation que <code>LevelLoader</code> (factoriser si nécessaire), jamais réimplémenter les règles d'<code>EX-LVL-004</code> une seconde fois.</li>
 <li><code>Level</code>/<code>TileMap</code> restent <b>immuables</b> : ce lot n'ajoute pas de mutateurs à ces types existants, toute la mutabilité vit dans le nouveau <code>LevelDraft</code>.</li>
 <li>Logique <b>pure</b>, sans dépendance rendu ni fenêtre — testable sans GPU (<code>EX-NFR-010</code>), comme le reste de <code>Core</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md877"></a>
+<h1><a class="anchor" id="autotoc_md879"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Écrivain JSON, <code>LevelDraft</code> et conversion validée ajoutés, documentés, <b>testés</b> (<code>ctest</code> vert) ; round-trip prouvé sur au moins un niveau livré ; build <code>/W4 /WX</code> ; spec corrigée ; <code>lint</code> des exigences vert.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md878"></a>
+<h1><a class="anchor" id="autotoc_md880"></a>
 Exigences</h1>
 <p><code>EX-EDIT-006</code>, <code>EX-EDIT-007</code>, <code>EX-EDIT-010</code>, <code>EX-EDIT-011</code>, <code>EX-LVL-002</code>, <code>EX-LVL-003</code>, <code>EX-LVL-004</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>, <code>EX-NFR-040</code>. </p>
 </div></div><!-- contents -->

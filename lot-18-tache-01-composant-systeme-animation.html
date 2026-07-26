@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-18-tache-01-composant-systeme-anim
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-18-animation-personnage_2epic_8md.html">LOT-18</a> · <b>Emplacement :</b> <code>Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1055"></a>
+<h1><a class="anchor" id="autotoc_md1057"></a>
 Contexte</h1>
 <p>Le personnage n'a aujourd'hui aucun état d'animation : <code>GameScreen::spawnPlayer</code> fixe une région d'atlas une seule fois, au spawn. Ce lot introduit l'état qui permettra au rendu de choisir la bonne image à chaque frame, en pur <code>Core</code> (<code>EX-ARCH-011</code>), sur le modèle de <code>CharacterPhysicsSystem</code>/<code>MovementSystem</code>.</p>
-<h1><a class="anchor" id="autotoc_md1056"></a>
+<h1><a class="anchor" id="autotoc_md1058"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860" title="Clip d&#39;animation du personnage (EX-REN-012).">core::AnimationClip</a></code>** (nouvel enum, <code><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></code>) : <code>Idle</code>, <code>Run</code>, <code>Jump</code>.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </ol>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1057"></a>
+<h1><a class="anchor" id="autotoc_md1059"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></code> (nouveau).</li>
@@ -117,7 +117,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code> (ajout de <code><a class="el" href="AnimationSystem_8cpp.html">Ecs/Systems/AnimationSystem.cpp</a></code>).</li>
 <li>Tests : <code><a class="el" href="test__animation__personnage_8cpp.html" title="Tests d&#39;intégration de l&#39;animation du personnage : ECS + système d&#39;animation assemblés.">Source/Test/Integration/test_animation_personnage.cpp</a></code> (nouveau, sur le modèle de <code><a class="el" href="test__ecs__mouvement_8cpp.html" title="Tests d&#39;intégration de l&#39;ECS : entités + composants + système de mouvement assemblés dans un World,...">test_ecs_mouvement.cpp</a></code>/<code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1058"></a>
+<h1><a class="anchor" id="autotoc_md1060"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Au sol, vitesse horizontale nulle → clip <code>Idle</code>, l'image alterne 0/1 après chaque durée d'image écoulée (pas avant).</li>
@@ -126,19 +126,19 @@ Tests (obligatoires)</h1>
 <li>Changement de clip en cours d'animation (ex. <code>Run</code> → <code>Jump</code> en décollant) : <code>frameIndex</code> et <code>elapsed</code> repartent à zéro immédiatement, pas de saut d'image incohérent.</li>
 <li>Une entité sans composant <code>Animation</code> n'est pas affectée (le système ne plante pas, ne lui en ajoute pas).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1059"></a>
+<h1><a class="anchor" id="autotoc_md1061"></a>
 Points d'attention</h1>
 <ul>
 <li>**<code>IDLE_FRAME_COUNT</code>/<code>RUN_FRAME_COUNT</code>/<code>JUMP_FRAME_COUNT</code> sont la seule source de vérité** du nombre d'images par clip : TACHE-02 les réutilise pour dimensionner/indexer la grille de l'atlas — ne pas coder ces nombres en dur une seconde fois côté <code>HMI</code>.</li>
 <li><b>Le système doit s'exécuter après <code>CharacterPhysicsSystem</code></b> dans <code>GameScreen::update</code> (TACHE-02) : il lit <code>Player::grounded</code>, calculé par la physique <b>pour ce même pas</b> — l'exécuter avant lirait l'état du pas précédent (décalage d'une frame, peu visible mais incorrect).</li>
 <li>Le seuil (epsilon) distinguant « immobile » de « en mouvement » doit tolérer le bruit flottant sans jamais déclencher <code>Run</code> pour un personnage réellement immobile (<code>velocity.value.x</code> peut être exactement <code>0.0f</code> en pratique, mais un epsilon reste plus sûr qu'une égalité stricte).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1060"></a>
+<h1><a class="anchor" id="autotoc_md1062"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></code>/<code><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait évoluer l&#39;état d&#39;animation (core::Animation) de chaque personnage, au pas fixe.">core::AnimationSystem</a></code> disponibles, testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> sans avertissement ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1061"></a>
+<h1><a class="anchor" id="autotoc_md1063"></a>
 Exigences</h1>
 <p><code>EX-REN-012</code> (logique de sélection de clip/image, partie <code>Core</code>). </p>
 </div></div><!-- contents -->

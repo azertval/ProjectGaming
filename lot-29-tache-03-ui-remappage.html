@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-29-tache-03-ui-remappage.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-29-remappage-touches_2epic_8md.html">LOT-29</a> · <b>Emplacement :</b> <code>HMI/Interface</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1432"></a>
+<h1><a class="anchor" id="autotoc_md1434"></a>
 Contexte</h1>
 <p>Rend le remappage accessible depuis le menu Options : deux nouveaux écrans listant respectivement les actions de jeu et d'éditeur, sur le même patron que <code>OptionsScreen</code>/<code>OptionsModel</code> (liste navigable au clavier/souris, action confirmée par Entrée/clic).</p>
-<h1><a class="anchor" id="autotoc_md1433"></a>
+<h1><a class="anchor" id="autotoc_md1435"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="GameKeybindingsModel_8h.html" title="Logique (testable) du sous-menu « Touches de jeu » : liste, capture, réinitialisation.">Source/HMI/Interface/GameKeybindingsModel.h</a></code>/<code>.cpp</code>** (nouveau) : logique testable, patron <code>OptionsModel</code> — liste de 8 lignes (6 actions + « Réinitialiser » + « Retour »), navigation Haut/Bas/survol/clic (réutilise les constantes publiques de <code>MenuModel</code>, comme <code>OptionsModel</code>). Sélectionner puis confirmer une ligne d'action bascule un état <code>_capturing</code> (aucune navigation tant qu'actif) ; la frame suivante consulte <code>KeyName::capturedKey</code>, applique <code>GameKeyBindings::setKey</code> (échange géré par la classe elle-même, TACHE-01), déclenche <code>save(path)</code>, sort de la capture. La ligne « Réinitialiser » appelle <code>resetToDefaults()</code> + <code>save</code>. La ligne « Retour » produit une action de sortie (interprétée par l'écran comme <code>ScreenTransition::switchTo(ScreenId::Options)</code>).</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>** : construit <code><a class="el" href="classhmi_1_1GameKeyBindings.html" title="Association action de jeu -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::GameKeyBindings</a> gameBindings = hmi::GameKeyBindings::load(settingsPath)</code> et <code><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012, LOT-29).">hmi::EditorKeyBindings</a> editorBindings = hmi::EditorKeyBindings::load(settingsPath)</code> une fois au démarrage (à côté de <code>localization</code>), capturées par référence dans la fabrique d'écrans ; nouveaux <code>case</code> pour <code>ScreenId::GameKeybindings</code>/<code>EditorKeybindings</code> ; les <code>case Game</code>/<code>Editor</code> existants passent désormais <code>gameBindings</code>/<code>editorBindings</code> (branchement TACHE-02 finalisé ici si pas déjà fait).</li>
 <li><b>Localisation</b> (<code>Source/Elements/Localization/fr.lang</code>/<code>en.lang</code>) : <code>options.touches_jeu</code>, <code>options.touches_editeur</code>, <code>keybindings.titre_jeu</code>, <code>keybindings.titre_editeur</code>, <code>keybindings.reinitialiser</code>, <code>keybindings.appuyez_touche</code>, libellés des 6 + 9 actions.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1434"></a>
+<h1><a class="anchor" id="autotoc_md1436"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameKeybindingsModel_8h.html" title="Logique (testable) du sous-menu « Touches de jeu » : liste, capture, réinitialisation.">Source/HMI/Interface/GameKeybindingsModel.h</a></code>/<code>.cpp</code>, <code><a class="el" href="GameKeybindingsScreen_8h.html" title="Écran du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">GameKeybindingsScreen.h</a></code>/<code>.cpp</code> (nouveaux).</li>
@@ -122,14 +122,14 @@ Fichiers impactés</h1>
 <li><code>Source/Elements/Localization/fr.lang</code>/<code>en.lang</code>.</li>
 <li>Tests : <code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a></code> (mis à jour), <code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">test_game_keybindings_model.cpp</a></code>, <code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">test_editor_keybindings_model.cpp</a></code> (nouveaux).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1435"></a>
+<h1><a class="anchor" id="autotoc_md1437"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>OptionsModel</code> : les 4 options, navigation, et les deux nouvelles actions renvoyées correctement.</li>
 <li><code>GameKeybindingsModel</code>/<code>EditorKeybindingsModel</code> : navigation identique au patron <code>OptionsModel</code> ; confirmer une action entre en capture ; une touche capturée valide met à jour le binding correspondant et sort de la capture ; <code>Échap</code>/<code>Entrée</code> pendant la capture ne modifient rien et la laissent ouverte (sauf si le modèle choisit <code>Échap</code> = annuler la capture sans modifier — à trancher en implémentant, cohérent avec la convention « Échap annule » déjà en place ailleurs dans l'éditeur, ex. <code>TextInputField</code>) ; « Réinitialiser » restaure les défauts ; « Retour » renvoie l'action de sortie.</li>
 <li>Un test bout-en-bout léger (ou revue manuelle documentée ici) : ouvrir Options → Touches de jeu → remapper Sauter → Retour → Retour → Jouer, confirme que la nouvelle touche saute bien.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1436"></a>
+<h1><a class="anchor" id="autotoc_md1438"></a>
 Points d'attention</h1>
 <ul>
 <li>**<code>Échap</code> pendant la capture, tranché** : annule la capture (binding inchangé), géré directement dans <code>GameKeybindingsModel</code>/<code>EditorKeybindingsModel::update</code> (avant même d'appeler <code>capturedKey</code>, qui reste inchangée : elle ignore <code>Échap</code>/<code>Entrée</code> comme touche <b>cible</b>, ce qui est un besoin distinct). Cohérent avec <code>TextInputField</code> (<code>Échap</code> = annuler une saisie en cours).</li>
@@ -138,12 +138,12 @@ Points d'attention</h1>
 <li>Les deux nouveaux écrans ne dessinent <b>pas</b> le bouton de langue (<code>LanguageSelector</code>) — contrairement à <code>OptionsScreen</code>, ce ne sont pas des écrans de premier niveau.</li>
 <li>Écart de build <code>nlohmann_json</code>/cible <code>ProjectGaming</code> : voir TACHE-02 (constaté au premier build complet incluant <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code>, pas spécifique à cette tâche).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1437"></a>
+<h1><a class="anchor" id="autotoc_md1439"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux sous-menus sont accessibles, fonctionnels, et persistent leurs changements ; navigation complète Options → sous-menu → remap → retour testée manuellement ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1438"></a>
+<h1><a class="anchor" id="autotoc_md1440"></a>
 Exigences</h1>
 <p><code>EX-CTRL-012</code>. </p>
 </div></div><!-- contents -->

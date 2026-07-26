@@ -73,6 +73,7 @@ var hierarchy =
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "core::PlayerInput", "structcore_1_1PlayerInput.html", null ],
+    [ "hmi::PreviousPosition", "structhmi_1_1PreviousPosition.html", null ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
     [ "hmi::LanguageSelector::Rect", "structhmi_1_1LanguageSelector_1_1Rect.html", null ],
     [ "hmi::SaveLogButton::Rect", "structhmi_1_1SaveLogButton_1_1Rect.html", null ],

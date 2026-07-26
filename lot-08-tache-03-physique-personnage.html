@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-08-tache-03-physique-personnage.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-08-gameplay-personnage_2epic_8md.html">LOT-08</a> · <b>Emplacement :</b> <code>Source/Core/Ecs/Systems</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md645"></a>
+<h1><a class="anchor" id="autotoc_md647"></a>
 Contexte</h1>
 <p>Cette tâche assemble l'intention d'entrée (TACHE-01) et le balayage (TACHE-02) en un <b>système de simulation</b> à pas fixe, sur le modèle du <code>MovementSystem</code> existant : toute la logique dans le système, les composants restent des données. C'est le cœur jouable du personnage — déplacement, gravité, collisions — <b>sans saut</b> (hors périmètre).</p>
-<h1><a class="anchor" id="autotoc_md646"></a>
+<h1><a class="anchor" id="autotoc_md648"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>CharacterPhysicsSystem</code>** (ou nom proche) opérant sur les entités <code>Player</code> + <code>Transform</code> + <code>Velocity</code> + <code>Collider</code>, avec accès au <code>TileMap</code> (solides) et à l'intention <code>PlayerInput</code>.</li>
@@ -110,13 +110,13 @@ Travail à réaliser</h1>
 </li>
 <li>Constantes de physique regroupées et nommées (gravité, vitesse horizontale, vitesse de chute max), faciles à ajuster lors du futur <em>tuning</em>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md647"></a>
+<h1><a class="anchor" id="autotoc_md649"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="CharacterPhysicsSystem_8h.html" title="Système de physique du personnage : déplacement, gravité et collisions au pas fixe.">Source/Core/Ecs/Systems/CharacterPhysicsSystem.h</a></code>/<code>.cpp</code> (nouveau).</li>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md648"></a>
+<h1><a class="anchor" id="autotoc_md650"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Chute</b> : sans sol dessous, <code>y</code> augmente et <code>vy</code> croît d'un pas à l'autre (gravité continue).</li>
@@ -126,7 +126,7 @@ Tests (obligatoires)</h1>
 <li><b>Non-tunneling en chute rapide</b> : une grande vitesse verticale sur un pas ne traverse pas un sol fin (via le balayage) — vérifie l'intégration physique ↔ collision.</li>
 <li><b>Déterminisme</b> : mêmes entrées (état + intention + dt) → même état final (<code>EX-NFR-002</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md649"></a>
+<h1><a class="anchor" id="autotoc_md651"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Logique dans le système, données dans les composants</b> (<code>EX-ARCH-011</code>) — miroir du <code>MovementSystem</code>.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li>Pas fixe uniquement (<code>EX-NFR-002</code>) : aucune dépendance au temps réel de la frame.</li>
 <li>Réutiliser le balayage de TACHE-02 sans le réimplémenter ; le système <b>oriente</b>, la primitive <b>résout</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md650"></a>
+<h1><a class="anchor" id="autotoc_md652"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>CharacterPhysicsSystem</code> fonctionnel, documenté et <b>testé</b> (cas ci-dessus, <code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md651"></a>
+<h1><a class="anchor" id="autotoc_md653"></a>
 Exigences</h1>
 <p><code>EX-GP-010</code>, <code>EX-GP-012</code>, <code>EX-GP-002</code>, <code>EX-GP-014</code>, <code>EX-NFR-002</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -128,6 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16d213c75c334aaaa040979aa2a116ab" id="r_a16d213c75c334aaaa040979aa2a116ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab">beginFrame</a> () noexcept</td></tr>
 <tr class="memdesc:a16d213c75c334aaaa040979aa2a116ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame : recopie l'état courant vers l'état précédent.  <br /></td></tr>
 <tr class="separator:a16d213c75c334aaaa040979aa2a116ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8240ed247a3fa2e503be9e593713a87" id="r_ac8240ed247a3fa2e503be9e593713a87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#ac8240ed247a3fa2e503be9e593713a87">releaseAll</a> () noexcept</td></tr>
+<tr class="memdesc:ac8240ed247a3fa2e503be9e593713a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relâche <b>toutes</b> les entrées maintenues (clavier, manette, souris), sans front.  <br /></td></tr>
+<tr class="separator:ac8240ed247a3fa2e503be9e593713a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ac64c54bed934b3dddbafe545adcd8d" id="r_a0ac64c54bed934b3dddbafe545adcd8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1InputState.html#a0ac64c54bed934b3dddbafe545adcd8d">onKeyDown</a> (<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">Key</a> key) noexcept</td></tr>
 <tr class="memdesc:a0ac64c54bed934b3dddbafe545adcd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque <code>key</code> comme enfoncée dans l'état courant (source <b>clavier</b>).  <br /></td></tr>
 <tr class="separator:a0ac64c54bed934b3dddbafe545adcd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -923,6 +926,34 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ac8240ed247a3fa2e503be9e593713a87" name="ac8240ed247a3fa2e503be9e593713a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8240ed247a3fa2e503be9e593713a87">&#9670;&#160;</a></span>releaseAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InputState::releaseAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relâche <b>toutes</b> les entrées maintenues (clavier, manette, souris), sans front. </p>
+<p>Remet à zéro l'état courant <b>et</b> l'état précédent des touches/boutons, si bien qu'aucun front (pressée/relâchée) n'est produit. À appeler quand la fenêtre perd le focus (<code>WM_KILLFOCUS</code>) : sans cela, une touche maintenue au moment d'un <code>Alt+Tab</code> ne reçoit jamais son <code>WM_KEYUP</code> et resterait « collée » (le personnage continuerait d'avancer au retour). </p>
 
 </div>
 </div>

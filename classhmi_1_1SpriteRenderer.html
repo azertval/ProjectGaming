@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -137,9 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4bbbea6470220c391fcbc2ad33f86c6" id="r_ab4bbbea6470220c391fcbc2ad33f86c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6">SpriteRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:ab4bbbea6470220c391fcbc2ad33f86c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le rendu de sprites.  <br /></td></tr>
 <tr class="separator:ab4bbbea6470220c391fcbc2ad33f86c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13c7c3aeb64ac64d653b3385fb399527" id="r_a13c7c3aeb64ac64d653b3385fb399527"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1SpriteRenderer.html#a13c7c3aeb64ac64d653b3385fb399527">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
-<tr class="memdesc:a13c7c3aeb64ac64d653b3385fb399527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
-<tr class="separator:a13c7c3aeb64ac64d653b3385fb399527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91dd217136d95b4c80d2c503eaf8fb20" id="r_a91dd217136d95b4c80d2c503eaf8fb20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1SpriteRenderer.html#a91dd217136d95b4c80d2c503eaf8fb20">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, float interpolationAlpha)</td></tr>
+<tr class="memdesc:a91dd217136d95b4c80d2c503eaf8fb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
+<tr class="separator:a91dd217136d95b4c80d2c503eaf8fb20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -192,8 +192,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a13c7c3aeb64ac64d653b3385fb399527" name="a13c7c3aeb64ac64d653b3385fb399527"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13c7c3aeb64ac64d653b3385fb399527">&#9670;&#160;</a></span>render()</h2>
+<a id="a91dd217136d95b4c80d2c503eaf8fb20" name="a91dd217136d95b4c80d2c503eaf8fb20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91dd217136d95b4c80d2c503eaf8fb20">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +208,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;&#160;</td>
-          <td class="paramname"><em>camera</em>&#160;</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>interpolationAlpha</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -223,6 +229,7 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">world</td><td>Monde dont on lit les composants <code>Transform</code> et <code>Sprite</code>. </td></tr>
     <tr><td class="paramname">camera</td><td>Caméra fournissant la projection monde → écran. </td></tr>
+    <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <code>[0, 1[</code> entre le pas de simulation précédent et le pas courant (<code>EX-ARCH-031</code>, <code><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></code>). Une entité portant un <code><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></code> est dessinée à <code>lerp(précédente, courante, alpha)</code> (mouvement lisse) ; une entité sans ce composant (tuiles fixes) est dessinée à sa position courante. <code>0</code> reproduit le comportement non interpolé. </td></tr>
   </table>
   </dd>
 </dl>

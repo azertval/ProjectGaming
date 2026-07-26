@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,6 +95,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1Window.html',''); initResi
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classhmi_1_1Window-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">hmi::Window Class Reference</div></div>
 </div><!--header-->
@@ -136,8 +137,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adb76188ff4f04b291cce0ee95b55f643" id="r_adb76188ff4f04b291cce0ee95b55f643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmi_1_1Window.html">Window</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#adb76188ff4f04b291cce0ee95b55f643">operator=</a> (const <a class="el" href="classhmi_1_1Window.html">Window</a> &amp;)=delete</td></tr>
 <tr class="separator:adb76188ff4f04b291cce0ee95b55f643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac647a3054752fc7e9b7b0d2c60b14000" id="r_ac647a3054752fc7e9b7b0d2c60b14000"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#ac647a3054752fc7e9b7b0d2c60b14000">pumpMessages</a> ()</td></tr>
-<tr class="memdesc:ac647a3054752fc7e9b7b0d2c60b14000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.  <br /></td></tr>
+<tr class="memdesc:ac647a3054752fc7e9b7b0d2c60b14000"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette puis traite les messages Win32 en attente.  <br /></td></tr>
 <tr class="separator:ac647a3054752fc7e9b7b0d2c60b14000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b81f69ec2308b54ed46101117614a35" id="r_a6b81f69ec2308b54ed46101117614a35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a6b81f69ec2308b54ed46101117614a35">beginInputFrame</a> ()</td></tr>
+<tr class="memdesc:a6b81f69ec2308b54ed46101117614a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent.  <br /></td></tr>
+<tr class="separator:a6b81f69ec2308b54ed46101117614a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca780785d93c87007bb8e2ab01aafa0c" id="r_aca780785d93c87007bb8e2ab01aafa0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#aca780785d93c87007bb8e2ab01aafa0c">shouldClose</a> () const</td></tr>
 <tr class="memdesc:aca780785d93c87007bb8e2ab01aafa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la fenêtre demande à se fermer (croix ou <code>requestClose</code>).  <br /></td></tr>
 <tr class="separator:aca780785d93c87007bb8e2ab01aafa0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,6 +194,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae26d45d5de236bde84ecd6343b5d21df" id="r_ae26d45d5de236bde84ecd6343b5d21df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#ae26d45d5de236bde84ecd6343b5d21df">_gamepadWasConnected</a> = false</td></tr>
 <tr class="memdesc:ae26d45d5de236bde84ecd6343b5d21df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour ne journaliser qu'un changement de connexion.  <br /></td></tr>
 <tr class="separator:ae26d45d5de236bde84ecd6343b5d21df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870a32526af7b0667d0a4d6e64361629" id="r_a870a32526af7b0667d0a4d6e64361629"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a870a32526af7b0667d0a4d6e64361629">_gamepadPollCountdown</a> = 0</td></tr>
+<tr class="memdesc:a870a32526af7b0667d0a4d6e64361629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frames restantes avant de re-sonder une manette absente.  <br /></td></tr>
+<tr class="separator:a870a32526af7b0667d0a4d6e64361629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a9d63d4b79afb6645aa02d48ecf764769" id="r_a9d63d4b79afb6645aa02d48ecf764769"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Window.html#a9d63d4b79afb6645aa02d48ecf764769">GAMEPAD_DISCONNECTED_POLL_INTERVAL</a> = 120</td></tr>
+<tr class="memdesc:a9d63d4b79afb6645aa02d48ecf764769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de frames entre deux sondages XInput d'un slot resté déconnecté (anti-saccade).  <br /></td></tr>
+<tr class="separator:a9d63d4b79afb6645aa02d48ecf764769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII. </p>
@@ -285,6 +298,26 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6b81f69ec2308b54ed46101117614a35" name="a6b81f69ec2308b54ed46101117614a35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b81f69ec2308b54ed46101117614a35">&#9670;&#160;</a></span>beginInputFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::Window::beginInputFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent. </p>
+<p>À appeler par la boucle de simulation <b>après chaque pas fixe</b> qui a lu les entrées, jamais une fois par frame de rendu : ainsi l'avancée des fronts suit le rythme des pas, pas celui du rendu. Sur les frames réelles sans pas de simulation (<code>steps == 0</code>, quand le rendu dépasse le pas fixe de <code>FixedTimestep</code> — écran &gt; 60 Hz), l'état courant — donc un appui capturé entre-temps — <b>survit</b> jusqu'à ce qu'un pas le lise, au lieu d'être écrasé par une recopie qui n'aurait servi aucun pas. Vide aussi la molette et les caractères tapés accumulés (<code>EX-CTRL-021</code>). </p>
+
+</div>
+</div>
 <a id="a7148c686704cd642e1cfa569a4d779bf" name="a7148c686704cd642e1cfa569a4d779bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7148c686704cd642e1cfa569a4d779bf">&#9670;&#160;</a></span>clientHeight()</h2>
 
@@ -517,8 +550,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente. </p>
-<p>Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via <code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">InputState::beginFrame</a></code>) puis met à jour l'état courant à partir des messages de la frame : l'<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code> est ainsi échantillonné <b>une fois par frame</b> (<code>EX-CTRL-021</code>). </p>
+<p>Sonde la manette puis traite les messages Win32 en attente. </p>
+<p>Non bloquant. Met à jour l'<b>état courant</b> des entrées à partir de la manette (<code>pollGamepad</code>) et des messages clavier/souris de la frame réelle. N'avance <b>pas</b> les fronts (pressée/relâchée) : cette responsabilité revient à <code>beginInputFrame</code>, appelée par la boucle de simulation <b>une fois par pas fixe consommé</b>, jamais par frame de rendu (voir <code>beginInputFrame</code>). </p>
 
 </div>
 </div>
@@ -657,6 +690,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a870a32526af7b0667d0a4d6e64361629" name="a870a32526af7b0667d0a4d6e64361629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870a32526af7b0667d0a4d6e64361629">&#9670;&#160;</a></span>_gamepadPollCountdown</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::Window::_gamepadPollCountdown = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Frames restantes avant de re-sonder une manette absente. </p>
+
+</div>
+</div>
 <a id="ae26d45d5de236bde84ecd6343b5d21df" name="ae26d45d5de236bde84ecd6343b5d21df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae26d45d5de236bde84ecd6343b5d21df">&#9670;&#160;</a></span>_gamepadWasConnected</h2>
 
@@ -766,6 +823,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d63d4b79afb6645aa02d48ecf764769" name="a9d63d4b79afb6645aa02d48ecf764769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d63d4b79afb6645aa02d48ecf764769">&#9670;&#160;</a></span>GAMEPAD_DISCONNECTED_POLL_INTERVAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int hmi::Window::GAMEPAD_DISCONNECTED_POLL_INTERVAL = 120</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de frames entre deux sondages XInput d'un slot resté déconnecté (anti-saccade). </p>
 
 </div>
 </div>

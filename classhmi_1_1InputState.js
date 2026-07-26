@@ -24,6 +24,7 @@ var classhmi_1_1InputState =
     [ "onMouseButtonUp", "classhmi_1_1InputState.html#a376004df68b5f7754a110a2bcd2f90f8", null ],
     [ "onMouseMove", "classhmi_1_1InputState.html#abbd4df0d240a3683210015a31e183bc5", null ],
     [ "onMouseWheel", "classhmi_1_1InputState.html#a76e9822764fcba7189cf9d0ffa8d9c92", null ],
+    [ "releaseAll", "classhmi_1_1InputState.html#ac8240ed247a3fa2e503be9e593713a87", null ],
     [ "setGamepadConnected", "classhmi_1_1InputState.html#ab6e92b0e87cef4fcbacfa6c729bfb8f8", null ],
     [ "typedCharacters", "classhmi_1_1InputState.html#a65d50f70a43e38a66f9ea7e04429cb9d", null ],
     [ "wheelDelta", "classhmi_1_1InputState.html#a8168408e70f27916878b8057227ef7ff", null ],

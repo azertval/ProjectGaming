@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-21-tache-03-documentation-verifica
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-21-bloc-poussable_2epic_8md.html">LOT-21</a> · <b>Emplacement :</b> <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1169"></a>
+<h1><a class="anchor" id="autotoc_md1171"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1><a class="anchor" id="autotoc_md1170"></a>
+<h1><a class="anchor" id="autotoc_md1172"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></code>** : ajoute <code>block</code> à la liste des types de tuiles du format JSON.</li>
@@ -110,7 +110,7 @@ Travail à réaliser</h1>
 <li>**<code>scripts/generate_cahier_test.py</code>** : relancé pour intégrer les nouveaux cas de test au Cahier de test (<code><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></code>).</li>
 <li>**<code>scripts/lint_exigences.py</code>** : doit rester vert (<code>EX-GP-022</code> déjà déclarée, aucune nouvelle référence orpheline).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1171"></a>
+<h1><a class="anchor" id="autotoc_md1173"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></code>.</li>
@@ -120,25 +120,25 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></code> (régénéré).</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1172"></a>
+<h1><a class="anchor" id="autotoc_md1174"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
 <li><code>python scripts/generate_cahier_test.py --check</code> confirme que le Cahier de test est à jour.</li>
 <li><code>doxygen Doxyfile</code> (depuis <code>Documentation/</code>) se termine avec un code de sortie <code>0</code> et <b>aucune</b> ligne de sortie.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1173"></a>
+<h1><a class="anchor" id="autotoc_md1175"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<code>epic.md</code> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 <li>La non-interaction bloc/plaque de pression (périmètre exclu de l'épic) doit rester <b>visible</b> dans <code><a class="el" href="guide-niveaux_8md.html">guide-niveaux.md</a></code>, pas seulement dans l'épic — un lecteur du guide qui n'a pas ouvert <code>Documentation/Lot/</code> doit comprendre cette limite sans avoir à lire l'historique des lots.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1174"></a>
+<h1><a class="anchor" id="autotoc_md1176"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le code livré ; lint des exigences, Cahier de test et génération Doxygen locale verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1175"></a>
+<h1><a class="anchor" id="autotoc_md1177"></a>
 Exigences</h1>
 <p>Aucune exigence propre — tâche de cohérence documentaire pour l'ensemble du lot. </p>
 </div></div><!-- contents -->

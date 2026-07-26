@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-16-tache-03-camera-niveau-entier.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-16-niveaux-plus-grands_2epic_8md.html">LOT-16</a> · <b>Emplacement :</b> <code>HMI/Interface</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1007"></a>
+<h1><a class="anchor" id="autotoc_md1009"></a>
 Contexte</h1>
 <p><code>EditorScreen::renderGrid</code> (cadrage automatique <b>et</b> borne minimale du zoom manuel, LOT-15) et <code>GameScreen::render</code> calculent chacun un facteur d'ajustement à la fenêtre, puis appliquent <code>std::max(1.0f, std::floor(ajustement))</code> — un plancher qui empêche de descendre sous le zoom ×1. Pour un niveau plus grand que la fenêtre (largeur ou hauteur × 16 px/case &gt; taille fenêtre), cet ajustement voudrait descendre sous 1 mais en est empêché : une partie de la grille reste <b>hors champ</b>, dans l'éditeur comme en jeu, sans aucun moyen de la voir (l'éditeur a un pan/zoom manuel depuis LOT-15, mais son zoom minimal hérite du même plancher ; le jeu n'a ni pan ni zoom manuel).</p>
-<h1><a class="anchor" id="autotoc_md1008"></a>
+<h1><a class="anchor" id="autotoc_md1010"></a>
 Travail à réaliser</h1>
 <p>Même correction à trois emplacements, toujours la même logique : zoom <b>entier</b> (via <code>std::floor</code>) tant que l'ajustement à la fenêtre est <code>≥ 1</code> (comportement inchangé pour tout niveau tenant déjà dans la fenêtre — non-régression) ; zoom <b>fractionnaire</b> (valeur brute, sans <code>floor</code>) uniquement lorsque l'ajustement est <code>&lt; 1</code>, pour que le niveau entier tienne malgré tout à l'écran :</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">float</span> rawFit = std::min(fitX, fitY) * margin;</div>
@@ -107,31 +107,31 @@ Travail à réaliser</h1>
 <li>**<code>EditorScreen</code> — bornes du zoom manuel** (molette, LOT-15) : <code>minZoom</code> (calculé sur la même formule que le cadrage automatique) doit suivre la même règle — sinon zoomer à la molette ne permettrait toujours pas de redescendre sous ×1 pour un grand niveau, malgré la correction du cadrage automatique.</li>
 <li>**<code>GameScreen::render</code>** : même remplacement pour le calcul de zoom d'ajustement au niveau joué.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1009"></a>
+<h1><a class="anchor" id="autotoc_md1011"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="EditorScreen_8cpp.html">Source/HMI/Interface/EditorScreen.cpp</a></code> (<code>renderGrid</code>, calcul de <code>minZoom</code> dans la gestion de la molette).</li>
 <li><code><a class="el" href="GameScreen_8cpp.html">Source/HMI/Interface/GameScreen.cpp</a></code> (<code>render</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1010"></a>
+<h1><a class="anchor" id="autotoc_md1012"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement (dépendance rendu D3D11/<code>Camera2D</code> utilisé via <code>EditorScreen</code>/ <code>GameScreen</code>, non compilés dans <code>UnitTests</code>) : vérifié par relecture et essai manuel — charger (ou créer via TACHE-02) un niveau nettement plus grand que la fenêtre et constater qu'il est <b>entièrement visible</b> à l'ouverture, dans l'éditeur et en essai immédiat (<code>P</code>).</li>
 <li>Non-régression : un niveau existant (<code>demo.json</code> à <code>demo4.json</code>, 12×8 à 14×8) s'affiche avec <b>exactement</b> le même zoom entier qu'avant ce lot, dans l'éditeur comme en jeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1011"></a>
+<h1><a class="anchor" id="autotoc_md1013"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas introduire de division par zéro ou de zoom négatif/nul : <code>width</code>/<code>height</code> restent toujours <code>&gt; 0</code> (garanti par <code>Core</code>), donc <code>fitX</code>/<code>fitY</code> restent strictement positifs — aucune garde supplémentaire nécessaire au-delà de la règle ci-dessus.</li>
 <li><code>EX-ARCH-022</code> dit « zoom <b>de préférence</b> en facteurs entiers » — cette tâche ne change pas cette préférence par défaut (zoom <code>≥ 1</code> reste entier), elle ajoute seulement l'exception déjà anticipée par le mot « préférence » pour le cas où l'objectif « aucune zone invisible » l'exige.</li>
 <li><code>Camera2D</code> (LOT-05) n'a besoin d'aucune modification : <code>setZoom</code> accepte déjà n'importe quel facteur positif, la limitation était entièrement dans le calcul appelant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1012"></a>
+<h1><a class="anchor" id="autotoc_md1014"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Cadrage automatique corrigé aux trois emplacements ; build <code>/W4 /WX</code> ; Doxygen à jour ; vérifié manuellement (grand niveau entièrement visible, petits niveaux inchangés).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1013"></a>
+<h1><a class="anchor" id="autotoc_md1015"></a>
 Exigences</h1>
 <p><code>EX-REN-013</code> (corrigée), <code>EX-EDIT-013</code> (cadrage automatique de l'éditeur). </p>
 </div></div><!-- contents -->

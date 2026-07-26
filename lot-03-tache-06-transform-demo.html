@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-03-tache-06-transform-demo.html','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Ecs</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md375"></a>
+<h1><a class="anchor" id="autotoc_md377"></a>
 Contexte</h1>
 <p>Tâche d'assemblage : prouver que l'ECS fonctionne de bout en bout avec un premier composant réel et un système qui le met à jour. Sert aussi d'exemple de référence pour les futurs systèmes de gameplay.</p>
-<h1><a class="anchor" id="autotoc_md376"></a>
+<h1><a class="anchor" id="autotoc_md378"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Composant <code>Transform</code> (données pures) : <code>position</code> (<code>Vector2</code>), <code>scale</code> (<code>Vector2</code>), <code>rotation</code> (<code>float</code>), en <b>unités monde</b> (cf. <code>EX-ARCH-020</code>).</li>
@@ -105,35 +105,35 @@ Travail à réaliser</h1>
 <li><code>MovementSystem</code> (implémente <code>ISystem</code>) : pour chaque entité ayant <code>Transform</code> <b>et</b> <code>Velocity</code>, applique <code>position += velocity * fixedDelta</code>.</li>
 <li>Démonstration : créer quelques entités, enregistrer le système dans un <code>World</code>, exécuter plusieurs pas fixes et vérifier les positions.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md377"></a>
+<h1><a class="anchor" id="autotoc_md379"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures).">Source/Core/Ecs/Components/Transform.h</a></code>, <code><a class="el" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures).">Velocity.h</a></code> (nouveau).</li>
 <li><code><a class="el" href="MovementSystem_8h.html" title="Système intégrant la position des entités à partir de leur vitesse.">Source/Core/Ecs/Systems/MovementSystem.h</a></code>, <code><a class="el" href="MovementSystem_8cpp.html">MovementSystem.cpp</a></code> (nouveau).</li>
 <li><code>Source/Test/Unit/test_movement_system.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md378"></a>
+<h1><a class="anchor" id="autotoc_md380"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une entité <code>Transform + Velocity</code> avance de <code>velocity * fixedDelta</code> par pas ; après N pas, position attendue (déterministe).</li>
 <li>Une entité sans <code>Velocity</code> <b>ne bouge pas</b>.</li>
 <li>Deux entités de vitesses différentes évoluent indépendamment.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md379"></a>
+<h1><a class="anchor" id="autotoc_md381"></a>
 Points d'attention</h1>
 <ul>
 <li>Les composants restent des <b>données pures</b> ; toute la logique est dans <code>MovementSystem</code>.</li>
 <li>Déterminisme : même état initial + mêmes pas → mêmes positions (<code>EX-NFR-002</code>).</li>
 <li>Conventions : documentation <code>.h</code> + <code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md380"></a>
+<h1><a class="anchor" id="autotoc_md382"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaîne complète entité → composant → système → résultat vérifiée par tests (<code>ctest</code> vert).</li>
 <li>Tous les critères d'acceptation de l'<a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">epic</a> satisfaits.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, <b>CI verte</b>, Doxygen à jour, <code>CHANGELOG.md</code> mis à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md381"></a>
+<h1><a class="anchor" id="autotoc_md383"></a>
 Exigences</h1>
 <p><code>EX-ARCH-010</code>, <code>EX-ARCH-011</code>, <code>EX-ARCH-030</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

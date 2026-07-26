@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-02-tache-01-niveaux-logger.html','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-02-journalisation_2epic_8md.html">LOT-02</a> · <b>Emplacement :</b> <code>Source/Core/Diagnostics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md296"></a>
+<h1><a class="anchor" id="autotoc_md298"></a>
 Contexte</h1>
 <p>Base du système de journalisation : définir les niveaux et un <code>Logger</code> qui filtre puis diffuse les messages vers des sinks (TACHE-02).</p>
-<h1><a class="anchor" id="autotoc_md297"></a>
+<h1><a class="anchor" id="autotoc_md299"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>LogLevel</code> (<code>enum class</code>) : <code>Trace</code>, <code>Info</code>, <code>Warning</code>, <code>Error</code> (ordre croissant de gravité).</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 </li>
 <li>Le <code>Logger</code> <b>possède</b> ses sinks (RAII) et n'utilise aucun état global caché (une instance explicite ; un accesspoint global optionnel viendra à l'intégration).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md298"></a>
+<h1><a class="anchor" id="autotoc_md300"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante.">Source/Core/Diagnostics/LogLevel.h</a></code> (nouveau).</li>
@@ -117,26 +117,26 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code>.</li>
 <li><code>Source/Test/Unit/test_logger.cpp</code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md299"></a>
+<h1><a class="anchor" id="autotoc_md301"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un message de niveau ≥ niveau minimal est transmis aux sinks.</li>
 <li>Un message de niveau &lt; niveau minimal est filtré (aucun sink appelé).</li>
 <li>Plusieurs sinks reçoivent le même message.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md300"></a>
+<h1><a class="anchor" id="autotoc_md302"></a>
 Points d'attention</h1>
 <ul>
 <li>Conventions : <code>enum class</code>, <code>_camelCase</code>, <code>[[nodiscard]]</code> sur les accès purs, documentation <code>.h</code> + <code>.cpp</code>.</li>
 <li>Pas de dépendance système dans <code>Logger</code> (les I/O concrètes sont dans les sinks).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md301"></a>
+<h1><a class="anchor" id="autotoc_md303"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Filtrage et diffusion corrects, testés (<code>ctest</code> vert).</li>
 <li>Compile <code>/W4 /WX</code>, formaté, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md302"></a>
+<h1><a class="anchor" id="autotoc_md304"></a>
 Exigences</h1>
 <p>Conventions §10 ; <code>EX-NFR-010</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

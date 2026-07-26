@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -161,6 +161,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac213afc91a152f43cede37d46e92ef01" id="r_ac213afc91a152f43cede37d46e92ef01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1RenderContext.html#ac213afc91a152f43cede37d46e92ef01">viewportHeight</a> = 0</td></tr>
 <tr class="memdesc:ac213afc91a152f43cede37d46e92ef01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la surface de rendu, en pixels.  <br /></td></tr>
 <tr class="separator:ac213afc91a152f43cede37d46e92ef01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf1570ab321e1cfe45e465271c03eb93" id="r_acf1570ab321e1cfe45e465271c03eb93"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1RenderContext.html#acf1570ab321e1cfe45e465271c03eb93">interpolationAlpha</a> = 0.0f</td></tr>
+<tr class="memdesc:acf1570ab321e1cfe45e465271c03eb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur d'interpolation <code>[0, 1[</code> entre le pas de simulation précédent et le pas courant (<code>EX-ARCH-031</code>) : fraction de pas fixe accumulée mais pas encore consommée à cette frame de rendu (<code><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></code>).  <br /></td></tr>
+<tr class="separator:acf1570ab321e1cfe45e465271c03eb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Regroupe les ressources de rendu partagées mises à disposition des écrans. </p>
@@ -211,6 +214,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Police bitmap pour le texte d'interface. </p>
+
+</div>
+</div>
+<a id="acf1570ab321e1cfe45e465271c03eb93" name="acf1570ab321e1cfe45e465271c03eb93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1570ab321e1cfe45e465271c03eb93">&#9670;&#160;</a></span>interpolationAlpha</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::RenderContext::interpolationAlpha = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Facteur d'interpolation <code>[0, 1[</code> entre le pas de simulation précédent et le pas courant (<code>EX-ARCH-031</code>) : fraction de pas fixe accumulée mais pas encore consommée à cette frame de rendu (<code><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></code>). </p>
+<p>Lissage du mouvement à haut framerate. </p>
 
 </div>
 </div>

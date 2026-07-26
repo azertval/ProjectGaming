@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -163,7 +163,8 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII). </p>
-<p>Toutes les ressources Direct3D sont gérées par des pointeurs intelligents COM (ComPtr) : leur libération est automatique. La classe fournit l'effacement de l'écran, la présentation synchronisée (V-Sync, activable/désactivable — <code>EX-REN-022</code>) et le redimensionnement. </p>
+<p>Toutes les ressources Direct3D sont gérées par des pointeurs intelligents COM (ComPtr) : leur libération est automatique. La classe fournit l'effacement de l'écran, la présentation synchronisée (V-Sync, activable/désactivable — <code>EX-REN-022</code>) et le redimensionnement.</p>
+<p>La swap chain utilise le <b>modèle de présentation flip</b> (<code>DXGI_SWAP_EFFECT_FLIP_DISCARD</code>, <code>EX-REN-004</code>) : sous Windows 10/11, il présente sans copie supplémentaire (compositeur DWM), réduisant la latence entrée → image et régularisant la cadence par rapport à l'ancien modèle <em>blt</em>. Conséquence pour l'implémentation : <code>Present</code> dé-lie la cible de rendu du back buffer, que <code><a class="el" href="classhmi_1_1GraphicsDevice.html#a17adb7f269e8e68ce29c9065c53507b5" title="Efface la cible de rendu à une couleur.">clear()</a></code> relie donc à chaque frame. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab2f74262d1db46c396485185a6a069cc" name="ab2f74262d1db46c396485185a6a069cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab2f74262d1db46c396485185a6a069cc">&#9670;&#160;</a></span>GraphicsDevice() <span class="overload">[1/2]</span></h2>

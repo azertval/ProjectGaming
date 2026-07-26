@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -222,6 +222,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ae7416eddc9ddef64d351886b58788ce9" id="r_ae7416eddc9ddef64d351886b58788ce9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#ae7416eddc9ddef64d351886b58788ce9">spawnPlayer</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> entry)</td></tr>
 <tr class="memdesc:ae7416eddc9ddef64d351886b58788ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait apparaître le personnage (Player + Transform + Velocity + Collider + Sprite) à l'entrée.  <br /></td></tr>
 <tr class="separator:ae7416eddc9ddef64d351886b58788ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a456854e60c20a2df33dde3e55c9e79e4" id="r_a456854e60c20a2df33dde3e55c9e79e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#a456854e60c20a2df33dde3e55c9e79e4">snapshotPreviousPositions</a> ()</td></tr>
+<tr class="memdesc:a456854e60c20a2df33dde3e55c9e79e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recopie la position courante de chaque entité mobile (personnage, dangers mobiles, blocs) vers son <code><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></code>, au début de chaque pas fixe — base de l'interpolation de rendu (<code>EX-ARCH-031</code>, voir <code><a class="el" href="classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2" title="Dessine l&#39;écran.">render()</a></code> et <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">hmi::SpriteRenderer</a></code>).  <br /></td></tr>
+<tr class="separator:a456854e60c20a2df33dde3e55c9e79e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12b0dd458f1c9b31c762f4a0f3a0eaf4" id="r_a12b0dd458f1c9b31c762f4a0f3a0eaf4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameScreen.html#a12b0dd458f1c9b31c762f4a0f3a0eaf4">refreshDoorVisuals</a> ()</td></tr>
 <tr class="memdesc:a12b0dd458f1c9b31c762f4a0f3a0eaf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour la teinte des sprites de portes selon leur état (ouverte atténuée / fermée opaque).  <br /></td></tr>
 <tr class="separator:a12b0dd458f1c9b31c762f4a0f3a0eaf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -745,6 +748,33 @@ Private Attributes</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="classhmi_1_1IScreen.html#ade8abd0be2bad0bc763c3aed40ad0bfc">hmi::IScreen</a>.</p>
+
+</div>
+</div>
+<a id="a456854e60c20a2df33dde3e55c9e79e4" name="a456854e60c20a2df33dde3e55c9e79e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a456854e60c20a2df33dde3e55c9e79e4">&#9670;&#160;</a></span>snapshotPreviousPositions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameScreen::snapshotPreviousPositions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recopie la position courante de chaque entité mobile (personnage, dangers mobiles, blocs) vers son <code><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></code>, au début de chaque pas fixe — base de l'interpolation de rendu (<code>EX-ARCH-031</code>, voir <code><a class="el" href="classhmi_1_1GameScreen.html#a3c12f7edc58c2de8e5c33c5347bd6da2" title="Dessine l&#39;écran.">render()</a></code> et <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">hmi::SpriteRenderer</a></code>). </p>
 
 </div>
 </div>

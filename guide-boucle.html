@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -159,11 +159,14 @@ La « spirale de la mort »</h2>
 <p>Si une frame est anormalement longue (fenêtre déplacée, point d'arrêt du débogueur, machine gelée un instant), le temps écoulé peut représenter des <b>dizaines</b> de pas fixes d'un coup. Exécuter tous ces pas d'affilée prend du temps réel, ce qui retarde la frame suivante, qui devra à son tour rattraper encore plus de pas — un cercle vicieux appelé la <b>spirale de la mort</b> (<em>spiral of death</em>), qui peut figer le jeu indéfiniment. <code>FixedTimestep</code> s'en protège avec <code>maximumStepsPerCall</code> : le nombre de pas renvoyé par <code>advance()</code> est <b>plafonné</b> (5 par défaut), quitte à ce que la simulation « perde » du temps réel dans un cas extrême plutôt que de bloquer.</p>
 <h2><a class="anchor" id="autotoc_md36"></a>
 \ref core::FixedTimestep::interpolationAlpha "interpolationAlpha"</h2>
-<p>Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans l'accumulateur (entre 0 et 1 pas). <code>interpolationAlpha()</code> l'expose comme un facteur dans <code>[0, 1[</code> : un rendu avancé pourrait s'en servir pour <b>interpoler</b> visuellement entre la position du pas précédent et celle du pas suivant, afin d'afficher un mouvement lisse même quand le framerate de rendu dépasse la fréquence des pas fixes. Ce moteur expose la valeur mais ne l'exploite pas encore.</p>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<p>Après avoir consommé tous les pas fixes disponibles, il peut rester une fraction de pas dans l'accumulateur (entre 0 et 1 pas). <code>interpolationAlpha()</code> l'expose comme un facteur dans <code>[0, 1[</code> : le rendu s'en sert pour <b>interpoler</b> visuellement entre la position du pas précédent et celle du pas courant, afin d'afficher un mouvement lisse même quand le framerate de rendu dépasse la fréquence des pas fixes (<code>EX-ARCH-031</code>, concrétisé en <code>LOT-33</code>). Sans cette interpolation, une entité mobile resterait figée à sa dernière position simulée pendant plusieurs frames de rendu puis « sauterait » d'un coup au pas suivant — un <em>judder</em> en marches d'escalier visible dès qu'un écran dépasse 60 Hz. La mécanique côté rendu est détaillée dans <a class="el" href="guide-rendu.html">Rendu 2D : de l'ECS à l'écran</a> (composant <code><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></code>, <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">hmi::SpriteRenderer</a></code>).</p>
+<h2><a class="anchor" id="autotoc_md37"></a>
+Les frames sans pas de simulation et les entrées</h2>
+<p>Quand le rendu dépasse 60 Hz, certaines frames réelles n'exécutent <b>aucun</b> pas fixe (<code>steps == 0</code>) — l'accumulateur n'a pas encore atteint un pas complet. Ces frames dessinent quand même (le rendu est découplé), en interpolant grâce à <code>interpolationAlpha</code>. Elles imposent en revanche une précaution sur les <b>entrées</b> : un appui capturé sur une telle frame doit <b>survivre</b> jusqu'à ce qu'un pas de simulation le lise, au lieu d'être effacé par la frame suivante. C'est pourquoi la boucle avance la ligne de base des fronts d'entrée (<code><a class="el" href="classhmi_1_1Window.html#a6b81f69ec2308b54ed46101117614a35" title="Ouvre une nouvelle frame d&#39;entrées : recopie l&#39;état courant vers l&#39;état précédent.">hmi::Window::beginInputFrame</a></code>) <b>après chaque pas consommé</b>, et non à chaque frame de rendu — détaillé dans <a class="el" href="guide-entrees.html">Entrées et actions logiques</a>. Sans cette précaution, à 144 Hz environ deux appuis sur trois seraient perdus (bug corrigé en <code>LOT-33</code>).</p>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Conséquence pratique pour tout le code de simulation</h1>
 <p><b>Toute</b> la logique de jeu (<code><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">core::CharacterPhysicsSystem</a></code>, les mécanismes) reçoit <code>fixedDelta</code> — une constante — et <b>jamais</b> le temps réel. C'est pour cela que les tests peuvent appeler <code>update(..., 1.0f/60.0f)</code> en boucle, sans horloge ni minuteur : c'est <b>exactement</b> ce que fait le jeu en exécution normale, pas une approximation. Un système qui lirait le temps réel directement romprait cette garantie et deviendrait, par construction, non déterministe et difficile à tester.</p>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Voir aussi</h1>
 <ul>
 <li><code><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></code>.</li>

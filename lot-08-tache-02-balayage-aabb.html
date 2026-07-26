@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.3</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-08-tache-02-balayage-aabb.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-08-gameplay-personnage_2epic_8md.html">LOT-08</a> · <b>Emplacement :</b> <code>Source/Core/Physics</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md638"></a>
+<h1><a class="anchor" id="autotoc_md640"></a>
 Contexte</h1>
 <p>La décision de cadrage retient une <b>collision continue (swept AABB)</b> pour interdire toute traversée à vitesse élevée (<code>EX-GP-014</code>) et permettre des niveaux exigeant rapidité et précision. Cette tâche isole le <b>cœur géométrique</b> — une fonction <b>pure</b>, sans ECS ni rendu, donc testable exhaustivement.</p>
-<h1><a class="anchor" id="autotoc_md639"></a>
+<h1><a class="anchor" id="autotoc_md641"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Primitive de balayage</b> : étant donné une boîte AABB mobile (position + demi-tailles), un <b>déplacement</b> <code>(dx, dy)</code> sur le pas, et la grille de tuiles solides (<code>TileMap</code>), calculer le <b>temps d'impact</b> <code>t ∈ [0, 1]</code> du premier contact et la <b>normale</b> de la surface touchée.</li>
@@ -105,13 +105,13 @@ Travail à réaliser</h1>
 <li><b>Balayage contre la grille</b> : ne tester que les tuiles solides <b>traversées</b> par le déplacement (parcours de la plage de cellules concernée), pas toute la carte.</li>
 <li>API pressentie : un <code>sweptMove(aabb, delta, tileMap) -&gt; { Vector2 position; Vector2 normal; bool hit; }</code> (ou équivalent), éventuellement itéré en interne pour gérer plusieurs contacts successifs (mur puis sol) sur un même pas.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md640"></a>
+<h1><a class="anchor" id="autotoc_md642"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Aabb_8h.html" title="Boîte englobante alignée aux axes (AABB) et fabrique associée.">Source/Core/Physics/Aabb.h</a></code>, <code><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">SweptCollision.h</a></code>/<code>.cpp</code> (nouveaux).</li>
 <li><code>Source/Core/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md641"></a>
+<h1><a class="anchor" id="autotoc_md643"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Trajet libre</b> : aucun solide sur le chemin → déplacement complet, <code>hit == false</code>.</li>
@@ -121,7 +121,7 @@ Tests (obligatoires)</h1>
 <li><b>Glissement</b> : un déplacement diagonal contre un mur vertical conserve la composante verticale (la boîte glisse le long du mur).</li>
 <li><b>Coin</b> : arrivée sur un angle rentrant — arrêt propre, sans pénétration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md642"></a>
+<h1><a class="anchor" id="autotoc_md644"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Géométrie pure</b> : <code>float</code> et <code>Vector2</code> uniquement ; aucun composant ECS, aucun DirectX.</li>
@@ -129,12 +129,12 @@ Points d'attention</h1>
 <li>Attention aux <b>bords de cellule</b> et aux déplacements nuls (éviter division par zéro, gérer <code>delta == 0</code> sur un axe).</li>
 <li>Rester <b>déterministe</b> (<code>EX-NFR-002</code>) : pas d'aléatoire, comportement identique à entrée égale.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md643"></a>
+<h1><a class="anchor" id="autotoc_md645"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Primitive de balayage + glissement fonctionnelle, documentée (Doxygen en en-tête, <code>//</code> dans le <code>.cpp</code>) et <b>couverte</b> par les cas ci-dessus (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md644"></a>
+<h1><a class="anchor" id="autotoc_md646"></a>
 Exigences</h1>
 <p><code>EX-GP-002</code>, <code>EX-GP-014</code>, <code>EX-NFR-002</code>, <code>EX-NFR-010</code>, <code>EX-ARCH-011</code>. </p>
 </div></div><!-- contents -->
