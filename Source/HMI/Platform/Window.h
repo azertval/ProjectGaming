@@ -58,11 +58,11 @@ public:
      * @brief Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent.
      *
      * À appeler par la boucle de simulation **après chaque pas fixe** qui a lu les entrées, jamais
-     * une fois par frame de rendu. Découpler l'avancée des fronts du rendu corrige la perte
-     * d'entrées lorsque le rendu tourne plus vite que le pas fixe (`FixedTimestep`) : sur les
-     * frames réelles sans pas de simulation (`steps == 0`, écran > 60 Hz), l'état courant — donc un
-     * appui capturé entre-temps — **survit** jusqu'à ce qu'un pas le lise, au lieu d'être écrasé
-     * par une recopie prématurée. Vide aussi la molette et les caractères tapés accumulés
+     * une fois par frame de rendu : ainsi l'avancée des fronts suit le rythme des pas, pas celui du
+     * rendu. Sur les frames réelles sans pas de simulation (`steps == 0`, quand le rendu dépasse le
+     * pas fixe de `FixedTimestep` — écran > 60 Hz), l'état courant — donc un appui capturé
+     * entre-temps — **survit** jusqu'à ce qu'un pas le lise, au lieu d'être écrasé par une recopie
+     * qui n'aurait servi aucun pas. Vide aussi la molette et les caractères tapés accumulés
      * (`EX-CTRL-021`).
      */
     void beginInputFrame();

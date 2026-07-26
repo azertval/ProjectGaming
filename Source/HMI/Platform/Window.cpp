@@ -293,8 +293,8 @@ void Window::pumpMessages() {
 }
 
 // Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent (voir en-tête).
-// Appelée par la boucle de simulation après chaque pas fixe consommé, pour que les fronts se
-// calculent une fois par pas et non une fois par frame de rendu (sinon, perte d'entrées à > 60 Hz).
+// Appelée par la boucle de simulation après chaque pas fixe consommé, pour que chaque front soit
+// consommé par exactement un pas, au rythme de la simulation et non du framerate de rendu.
 void Window::beginInputFrame() {
     _input.beginFrame();
 }

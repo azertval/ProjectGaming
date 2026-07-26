@@ -260,10 +260,10 @@ int main(int argc, char** argv) {
         while (!window.shouldClose() && !quit) {
             // 1. Entrées : draine la manette + les messages clavier/souris dans l'état courant.
             //    Les fronts (pressée/relâchée) NE sont PAS avancés ici : `beginInputFrame` est
-            //    appelée après chaque pas fixe consommé (étape 3), afin qu'un appui capturé sur une
-            //    frame réelle sans pas de simulation (rendu > 60 Hz) survive jusqu'à ce qu'un pas
-            //    le lise, au lieu d'être perdu. Sans ce découplage, ~2 frames sur 3 à 144 Hz
-            //    écrasaient les fronts avant lecture — d'où des entrées « pas prises en compte ».
+            //    appelée après chaque pas fixe consommé (étape 3) : ainsi chaque front est lu par
+            //    exactement un pas. Un appui capturé sur une frame réelle sans pas de simulation
+            //    (rendu > 60 Hz, `steps == 0`) reste dans l'état courant jusqu'à ce qu'un pas le
+            //    lise, au lieu d'être écrasé par une recopie qui n'aurait servi aucun pas.
             window.pumpMessages();
 
             // 2. Répercute un éventuel redimensionnement sur la swap chain (les écrans ajustent
