@@ -11,6 +11,7 @@
 #include <QWidget>
 
 #include "Editor/GameViewport.h"
+#include "Editor/PalettePanel.h"
 
 namespace editor {
 
@@ -42,6 +43,7 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 MainWindow::MainWindow()
     : _viewport(new GameViewport()),
       _palettePanel(nullptr),
+      _palette(nullptr),
       _toolPanel(nullptr),
       _statusPanel(nullptr) {
     setObjectName(QStringLiteral("EditorMainWindow"));
@@ -68,8 +70,12 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow() = default;
 
 void MainWindow::createDockPanels() {
-    _palettePanel = makePanel(QStringLiteral("Palette"), QStringLiteral("PalettePanel"),
-                              QStringLiteral("Palette de tuiles\n(LOT-35 TACHE-02)"));
+    // Panneau « Palette » : dock hôte contenant l'arbre de sélection de tuiles.
+    _palettePanel = new QDockWidget(QStringLiteral("Palette"));
+    _palettePanel->setObjectName(QStringLiteral("PalettePanel"));
+    _palette = new PalettePanel(_palettePanel);
+    _palettePanel->setWidget(_palette);
+
     _toolPanel = makePanel(QStringLiteral("Outils"), QStringLiteral("ToolPanel"),
                            QStringLiteral("Outils\n(LOT-35 TACHE-03)"));
     _statusPanel = makePanel(QStringLiteral("Statut"), QStringLiteral("StatusPanel"),

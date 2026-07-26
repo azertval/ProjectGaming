@@ -13,6 +13,7 @@ class QDockWidget;
 namespace editor {
 
 class GameViewport;
+class PalettePanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -43,7 +44,8 @@ private:
     void saveLayout();
 
     GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
-    QDockWidget* _palettePanel;   ///< Panneau « Palette » (rempli au LOT-35 TACHE-02).
+    QDockWidget* _palettePanel;   ///< Panneau « Palette » (dock hôte de `_palette`).
+    PalettePanel* _palette;       ///< Arbre de sélection du type de tuile (LOT-35 TACHE-02).
     QDockWidget* _toolPanel;      ///< Panneau « Outils » (rempli au LOT-35 TACHE-03).
     QDockWidget* _statusPanel;    ///< Panneau « Statut ».
     QByteArray _defaultState;     ///< Disposition par défaut (pour « Réinitialiser la disposition »).
