@@ -15,8 +15,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Qt n'est pas gérable par FetchContent (SDK volumineux) : on le provisionne via aqtinstall
+      # (action dédiée, avec cache). Nécessaire pour construire la cible éditeur Qt
+      # (ProjectGamingEditor, LOT-34) ; l'exécutable historique et les tests n'en dépendent pas.
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
       - name: Configure (CMake)
+        # install-qt-action exporte QT_ROOT_DIR ; on le passe en CMAKE_PREFIX_PATH pour que
+        # find_package(Qt6) résolve dans le preset vs.
         run: cmake --preset vs
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
       - name: Build
         run: cmake --build --preset vs

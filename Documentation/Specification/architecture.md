@@ -56,3 +56,5 @@ Les décors (cf. [`decors.md`](decors.md)) sont manipulables **à la conception 
 
 ## Traçabilité
 Ces décisions conditionnent tous les lots. Détail des décors et du pipeline pixel art : [`decors.md`](decors.md). Exigences non fonctionnelles associées : [`exigences-non-fonctionnelles.md`](exigences-non-fonctionnelles.md).
+
+> **Refonte IHM (`LOT-34` → `LOT-39`)** : l'interface **hors-jeu** (éditeur, menus, options) migre vers **Qt**, tandis que le **rendu in-game reste Direct3D 11** (`EX-ARCH-050`), embarqué dans un viewport Qt. `HMI` est scindé en une bibliothèque de rendu réutilisable (`HmiRuntime`) et l'application Qt (`Source/Editor`) ; la frontière `HMI → Core` (`EX-ARCH-010`) et la frontière simulation ↔ rendu (`EX-ARCH-030`/`031`) sont **inchangées**. Voir [`interface-ihm.md`](@ref spec-interface-ihm) (`EX-IHM-*`) et [`guide-ihm-qt`](@ref guide-ihm-qt).

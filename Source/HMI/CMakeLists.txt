@@ -1,9 +1,18 @@
-# Exécutable du jeu : fenêtre, rendu Direct3D 11 et boucle de jeu.
-add_executable(ProjectGaming
-    main.cpp
-    Platform/Window.cpp
+# Couche de présentation HMI.
+#
+# LOT-34 (refonte IHM vers Qt) : `HMI` est scindé en deux.
+#  - `HmiRuntime` : bibliothèque statique de **rendu Direct3D 11, entrées et localisation**,
+#    réutilisable telle quelle par l'exécutable historique ET par la future cible Qt
+#    (`ProjectGamingEditor`, `Source/Editor`). Elle ne contient AUCUNE UI « maison » (écrans,
+#    widgets d'éditeur), qui reste dans l'exécutable historique jusqu'à son retrait (LOT-38).
+#  - `ProjectGaming` : l'exécutable historique (fenêtre Win32, boucle, écrans, éditeur intégré),
+#    conservé en parallèle de la cible Qt pendant toute la migration pour ne jamais casser le jeu.
+
+# --- Bibliothèque de rendu/plateforme réutilisable ---------------------------------------------
+add_library(HmiRuntime STATIC
     Platform/ExecutableDirectory.cpp
     Input/InputState.cpp
+    Input/GamepadPoller.cpp
     Input/PlayerInputMapper.cpp
     Input/GameKeyBindings.cpp
     Input/EditorKeyBindings.cpp
@@ -20,7 +29,45 @@ add_executable(ProjectGaming
     Graphics/FlagIcons.cpp
     Graphics/SaveIcon.cpp
     Graphics/TileVisuals.cpp
+    Game/GameSession.cpp
     Localization/Localization.cpp
+)
+
+# Core en PUBLIC : propage la racine d'inclusion `Source/` et l'API Core aux consommateurs.
+# Les bibliothèques système Direct3D/XInput en PUBLIC : un exécutable qui lie HmiRuntime en a
+# besoin au link (bibliothèque statique).
+target_link_libraries(HmiRuntime
+    PUBLIC
+        Core
+        d3d11
+        dxgi
+        d3dcompiler
+        xinput
+    PRIVATE
+        project_warnings
+        project_options
+        # Les *KeyBindings persistent en JSON ; Core ne propage pas nlohmann_json (lien PRIVATE).
+        nlohmann_json::nlohmann_json
+)
+
+# Réduit la surface de Windows.h, évite les macros min/max, API Unicode. PUBLIC : les en-têtes de
+# HmiRuntime (rendu D3D11, entrées) incluent Windows.h ; les consommateurs doivent voir les mêmes
+# macros pour une compilation cohérente.
+target_compile_definitions(HmiRuntime PUBLIC
+    WIN32_LEAN_AND_MEAN
+    NOMINMAX
+    UNICODE
+    _UNICODE
+)
+
+if(ENABLE_PCH)
+    target_precompile_headers(HmiRuntime PRIVATE ${PROJECT_SOURCE_DIR}/Source/pch.h)
+endif()
+
+# --- Exécutable historique du jeu (UI « maison ») ----------------------------------------------
+add_executable(ProjectGaming
+    main.cpp
+    Platform/Window.cpp
     Interface/ScreenManager.cpp
     Interface/MenuModel.cpp
     Interface/MenuScreen.cpp
@@ -45,25 +92,11 @@ add_executable(ProjectGaming
     Editor/ToolBar.cpp
 )
 
+# HmiRuntime propage Core, les libs D3D et les définitions Unicode (PUBLIC) : rien à redéclarer ici.
 target_link_libraries(ProjectGaming PRIVATE
-    Core
+    HmiRuntime
     project_warnings
     project_options
-    d3d11
-    dxgi
-    d3dcompiler
-    xinput
-    # GameKeyBindings.cpp/EditorKeyBindings.cpp persistent en JSON : besoin direct de
-    # nlohmann_json, que Core ne propage pas (lien PRIVATE cote Core).
-    nlohmann_json::nlohmann_json
-)
-
-# Réduit la surface de Windows.h et évite les macros min/max ; API Unicode.
-target_compile_definitions(ProjectGaming PRIVATE
-    WIN32_LEAN_AND_MEAN
-    NOMINMAX
-    UNICODE
-    _UNICODE
 )
 
 # En Release, pas de fenêtre console (sous-système Windows) pour une expérience utilisateur

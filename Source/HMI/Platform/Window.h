@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 
+#include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
 
 /**
@@ -18,7 +19,7 @@ namespace hmi {
  * événements utiles à la boucle de jeu (demande de fermeture, redimensionnement) et **capture
  * les entrées** clavier/souris/manette dans un `InputState` échantillonné une fois par frame
  * (`EX-CTRL-021`). La manette (XInput, `EX-CTRL-002`) est **sondée** (pas événementielle comme le
- * clavier/la souris) : `pollGamepad`, appelée depuis `pumpMessages`, alimente deux pistes
+ * clavier/la souris) : un `GamepadPoller`, appelé depuis `pumpMessages`, alimente deux pistes
  * indépendantes du même `InputState` — la fusion clavier/manette sur `Key`
  * (`onGamepadKeyDown`/`onGamepadKeyUp`, fixe, utilisée par la navigation de menu, aucune touche
  * clavier n'est jamais écrasée) et l'état brut par `GamepadButton`
@@ -112,20 +113,13 @@ private:
     /// Traite un message pour cette instance.
     LRESULT handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 
-    /// Sonde la manette (XInput, joueur 0) et fusionne son état dans `_input` (`EX-CTRL-002`).
-    void pollGamepad();
-
-    /// Nombre de frames entre deux sondages XInput d'un slot resté déconnecté (anti-saccade).
-    static constexpr int GAMEPAD_DISCONNECTED_POLL_INTERVAL = 120;
-
     HWND _handle;
     bool _shouldClose;
     bool _resized;
     int _clientWidth;
     int _clientHeight;
     InputState _input;
-    bool _gamepadWasConnected = false;  ///< Pour ne journaliser qu'un changement de connexion.
-    int _gamepadPollCountdown = 0;  ///< Frames restantes avant de re-sonder une manette absente.
+    GamepadPoller _gamepad;  ///< Sondage XInput mutualisé (fusionné dans `_input`).
 };
 
 }  // namespace hmi

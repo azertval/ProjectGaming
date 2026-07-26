@@ -3,10 +3,8 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include <Xinput.h>
 #include <windowsx.h>
 
-#include "HMI/Input/GamepadButton.h"
 #include "HMI/Platform/PlatformLog.h"
 
 namespace hmi {
@@ -14,18 +12,6 @@ namespace hmi {
 namespace {
 // Nom de la classe de fenêtre Win32, partagé par toutes les instances.
 constexpr const wchar_t* WINDOW_CLASS_NAME = L"ProjectGamingWindowClass";
-
-// Sens du stick gauche sur un axe, au-dela de la zone morte XInput ; 0 si dans la zone morte
-// (evite un deplacement fantome au repos, jitter materiel).
-[[nodiscard]] int stickDirection(SHORT axis) noexcept {
-    if (axis > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
-        return 1;
-    }
-    if (axis < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
-        return -1;
-    }
-    return 0;
-}
 }  // namespace
 
 // Crée et affiche la fenêtre.
@@ -187,92 +173,6 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
     }
 }
 
-// Sonde la manette (XInput, joueur 0) et fusionne son état dans _input (EX-CTRL-002).
-//
-// XInput est interroge (pas evenementiel comme le clavier/la souris) : appelee une fois par
-// frame, elle doit explicitement liberer (onGamepadKeyUp/onGamepadButtonUp) chaque touche/bouton
-// synthetique dont le bouton/la direction correspondante n'est plus enfonce ce pas-ci — y compris
-// quand la manette est absente/debranchee (ERROR_DEVICE_NOT_CONNECTED), auquel cas pad reste a
-// zero (state a ete initialise a zero avant l'appel) et tout est relache, sans qu'aucune touche ne
-// reste "collee". Chaque bouton n'est JAMAIS ecrit via onKeyDown/onKeyUp (clavier) : voir
-// InputState pour la fusion en lecture qui evite d'effacer une touche clavier reellement
-// maintenue. Alimente deux pistes independantes a partir du meme relevé : la fusion Key (fixe,
-// navigation de menu) et la piste GamepadButton brute (remappable via GamepadBindings).
-void Window::pollGamepad() {
-    // XInputGetState est notablement coûteux quand le slot interrogé est vide (le pilote énumère
-    // les périphériques à chaque appel) : sonder chaque frame une manette absente provoque des
-    // micro-saccades chez un joueur clavier. Tant que la manette reste déconnectée, on ne la
-    // re-sonde donc qu'une frame sur GAMEPAD_DISCONNECTED_POLL_INTERVAL ; entre-temps l'état reste
-    // « déconnecté » (aucune touche synthétique n'est enfoncée). Dès qu'une manette est présente,
-    // le sondage redevient systématique (branchement détecté au plus tard après un intervalle).
-    if (!_gamepadWasConnected && --_gamepadPollCountdown > 0) {
-        _input.setGamepadConnected(false);
-        return;
-    }
-    _gamepadPollCountdown = GAMEPAD_DISCONNECTED_POLL_INTERVAL;
-
-    XINPUT_STATE state{};
-    const bool connected = XInputGetState(0, &state) == ERROR_SUCCESS;
-    _input.setGamepadConnected(connected);
-    if (connected != _gamepadWasConnected) {
-        PLATFORM_LOG_INFO(connected ? "Manette connectee" : "Manette deconnectee");
-        _gamepadWasConnected = connected;
-    }
-
-    const XINPUT_GAMEPAD& pad = state.Gamepad;
-    const int stickX = stickDirection(pad.sThumbLX);
-    const int stickY = stickDirection(pad.sThumbLY);  // XInput : Y positif = vers le haut
-
-    auto setKey = [this](Key key, bool pressed) {
-        if (pressed) {
-            _input.onGamepadKeyDown(key);
-        } else {
-            _input.onGamepadKeyUp(key);
-        }
-    };
-
-    // D-pad ou stick gauche : les deux pilotent les memes directions (EX-CTRL-002).
-    const bool left = (pad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) != 0 || stickX < 0;
-    const bool right = (pad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) != 0 || stickX > 0;
-    const bool up = (pad.wButtons & XINPUT_GAMEPAD_DPAD_UP) != 0 || stickY > 0;
-    const bool down = (pad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) != 0 || stickY < 0;
-    setKey(Key::Left, left);
-    setKey(Key::Right, right);
-    setKey(Key::Up, up);
-    setKey(Key::Down, down);
-    // A valide (menu) ET saute (jeu) : meme bouton physique pour les deux usages, comme au
-    // clavier (Entree/Espace sont deja deux touches distinctes pour la meme intention).
-    const bool aHeld = (pad.wButtons & XINPUT_GAMEPAD_A) != 0;
-    setKey(Key::Enter, aHeld);
-    setKey(Key::Space, aHeld);
-    // B et Start reproduisent tous deux Echap (retour/pause) : pas d'ecran de pause dedie.
-    const bool bHeld = (pad.wButtons & XINPUT_GAMEPAD_B) != 0;
-    setKey(Key::Escape, bHeld || (pad.wButtons & XINPUT_GAMEPAD_START) != 0);
-    const bool rightShoulderHeld = (pad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0;
-    setKey(Key::Shift, rightShoulderHeld);  // dash, EX-CTRL-013
-
-    // Piste manette brute (GamepadButton), independante de la fusion Key ci-dessus : consommee
-    // par PlayerInputMapper via GamepadBindings (EX-CTRL-002, EX-CTRL-012), pas par la navigation
-    // de menu (qui reste sur la fusion Key, non remappable).
-    auto setButton = [this](GamepadButton button, bool pressed) {
-        if (pressed) {
-            _input.onGamepadButtonDown(button);
-        } else {
-            _input.onGamepadButtonUp(button);
-        }
-    };
-    setButton(GamepadButton::Left, left);
-    setButton(GamepadButton::Right, right);
-    setButton(GamepadButton::Up, up);
-    setButton(GamepadButton::Down, down);
-    setButton(GamepadButton::A, aHeld);
-    setButton(GamepadButton::B, bHeld);
-    setButton(GamepadButton::X, (pad.wButtons & XINPUT_GAMEPAD_X) != 0);
-    setButton(GamepadButton::Y, (pad.wButtons & XINPUT_GAMEPAD_Y) != 0);
-    setButton(GamepadButton::LeftShoulder, (pad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) != 0);
-    setButton(GamepadButton::RightShoulder, rightShoulderHeld);
-}
-
 // Sonde la manette puis draine les messages Win32 dans l'état d'entrées courant.
 //
 // N'appelle PAS `beginFrame` : les fronts (pressée/relâchée) ne sont figés qu'au moment où un pas
@@ -280,7 +180,7 @@ void Window::pollGamepad() {
 // sondée d'abord, puis le clavier/la souris sont drainés : tous atterrissent dans le même état
 // courant, qui persiste tel quel tant qu'aucun pas fixe ne l'a lu.
 void Window::pumpMessages() {
-    pollGamepad();
+    _gamepad.poll(_input);
 
     MSG message{};
     while (PeekMessageW(&message, nullptr, 0, 0, PM_REMOVE) != FALSE) {
