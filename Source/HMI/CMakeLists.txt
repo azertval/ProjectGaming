@@ -29,6 +29,7 @@ add_library(HmiRuntime STATIC
     Graphics/FlagIcons.cpp
     Graphics/SaveIcon.cpp
     Graphics/TileVisuals.cpp
+    Game/GameSession.cpp
     Localization/Localization.cpp
 )
 

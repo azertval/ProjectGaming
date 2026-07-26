@@ -1,0 +1,437 @@
+#include "HMI/Game/GameSession.h"
+
+#include <cmath>
+#include <cstddef>
+#include <string>
+
+#include "Core/Ecs/Components/Animation.h"
+#include "Core/Ecs/Components/Collider.h"
+#include "Core/Ecs/Components/Player.h"
+#include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
+#include "Core/Ecs/Components/Transform.h"
+#include "Core/Ecs/Components/Velocity.h"
+#include "Core/Levels/DangerGeometry.h"
+#include "Core/Levels/LevelScene.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
+#include "Core/Math/Vector2.h"
+#include "Core/Physics/Aabb.h"
+#include "Core/Physics/AabbVsAabb.h"
+#include "Core/Physics/PlayerInput.h"
+#include "Core/Physics/PlayerSpawn.h"
+#include "HMI/Graphics/PreviousPosition.h"
+#include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TileVisuals.h"
+#include "HMI/HmiLog.h"
+#include "HMI/Input/InputState.h"
+#include "HMI/Input/PlayerInputMapper.h"
+
+namespace hmi {
+
+GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
+                         int viewportHeight, core::Level level, const GameKeyBindings& gameBindings,
+                         const GamepadBindings& gamepadBindings)
+    : _atlas(atlas),
+      _gameBindings(gameBindings),
+      _gamepadBindings(gamepadBindings),
+      _camera(viewportWidth, viewportHeight),
+      _renderer(batch, atlas) {
+    loadLevel(std::move(level));
+}
+
+// (Re)construit la scene pour un niveau deja charge et valide : monde neuf + grille + personnage
+// a l'entree. Coeur commun a la construction et aux rechargements (echec).
+void GameSession::loadLevel(core::Level level) {
+    _world = core::World{};  // repart d'un monde vierge (aucune entite du niveau precedent)
+    _loadError.clear();
+
+    _level = std::move(level);              // conserve le niveau pour la simulation et le reset
+    const core::Level& levelRef = *_level;  // level est deplace : plus lu au-dela de cette ligne
+    _levelWidth = levelRef.tileMap().width();
+    _levelHeight = levelRef.tileMap().height();
+    // Partition en salles (LOT-32) : reconstruite pour ce niveau, camera immediatement cadree sur
+    // la salle de l'ENTREE (pas de salle "en retard" d'une frame apres un (re)chargement).
+    _roomGrid.emplace(_levelWidth, _levelHeight);
+    _currentRoomIndex = _roomGrid->roomIndexAt(levelRef.entry());
+    centerCameraOnRoom(_currentRoomIndex);
+    // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
+    core::buildLevelScene(_world, levelRef,
+                          [this](core::TileType type) { return regionForTile(type, _atlas); });
+    // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
+    _mechanisms.emplace(levelRef);
+    // Repere l'entite-tuile de chaque porte (avant le spawn du perso) pour le retour visuel d'etat.
+    _doorEntities.clear();
+    for (const core::Mechanism& mechanism : _mechanisms->mechanisms()) {
+        core::Entity doorEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == mechanism.doorPosition.column &&
+                    static_cast<int>(transform.position.y) == mechanism.doorPosition.row) {
+                    doorEntity = entity;
+                    found = true;
+                }
+            });
+        _doorEntities.push_back(doorEntity);
+    }
+    // Dangers mobile/temporise (EX-GP-051/053) : compteur de pas fixes a zero pour ce niveau.
+    _dangers.emplace(levelRef);
+    // Repere l'entite-tuile de chaque danger mobile (a sa position de DEPART) pour la repositionner
+    // chaque pas (refreshDangerVisuals).
+    _moverEntities.clear();
+    for (const core::DangerMoverConfig& config : levelRef.moverConfigs()) {
+        core::Entity moverEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == config.startPosition.column &&
+                    static_cast<int>(transform.position.y) == config.startPosition.row) {
+                    moverEntity = entity;
+                    found = true;
+                }
+            });
+        // Danger mobile = mouvement continu : interpolé au rendu (EX-ARCH-031). PreviousPosition
+        // initialisee a sa position de depart pour ne pas "glisser" depuis l'origine a la 1re frame.
+        if (found && _world.hasComponent<core::Transform>(moverEntity)) {
+            _world.addComponent(
+                moverEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(moverEntity).position});
+        }
+        _moverEntities.push_back(moverEntity);
+    }
+    // Dangers commute/temporise (EX-GP-052/053) : une entite-tuile par danger, pour la teinter selon
+    // son etat actif/inactif (refreshDangerStateVisuals).
+    _dangerSwitchedEntities.clear();
+    for (const core::DangerLink& link : levelRef.dangerLinks()) {
+        core::Entity dangerEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == link.dangerPosition.column &&
+                    static_cast<int>(transform.position.y) == link.dangerPosition.row) {
+                    dangerEntity = entity;
+                    found = true;
+                }
+            });
+        _dangerSwitchedEntities.push_back(dangerEntity);
+    }
+    _dangerBlinkEntities.clear();
+    for (const core::DangerBlinkConfig& config : levelRef.blinkConfigs()) {
+        core::Entity dangerEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == config.position.column &&
+                    static_cast<int>(transform.position.y) == config.position.row) {
+                    dangerEntity = entity;
+                    found = true;
+                }
+            });
+        _dangerBlinkEntities.push_back(dangerEntity);
+    }
+    // Blocs poussables (EX-GP-022) : une entite-tuile par bloc, reperee a sa position de depart.
+    _blocks.emplace(levelRef);
+    _blockEntities.clear();
+    for (const core::GridPosition& position : _blocks->positions()) {
+        core::Entity blockEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found && static_cast<int>(transform.position.x) == position.column &&
+                    static_cast<int>(transform.position.y) == position.row) {
+                    blockEntity = entity;
+                    found = true;
+                }
+            });
+        // Bloc poussable = mouvement (poussee/chute) : interpole au rendu (EX-ARCH-031), comme le
+        // danger mobile ci-dessus. PreviousPosition initialisee a sa position de depart.
+        if (found && _world.hasComponent<core::Transform>(blockEntity)) {
+            _world.addComponent(
+                blockEntity,
+                PreviousPosition{_world.getComponent<core::Transform>(blockEntity).position});
+        }
+        _blockEntities.push_back(blockEntity);
+    }
+    spawnPlayer(levelRef.entry());
+    HMI_LOG_INFO("Niveau charge : " + levelRef.name() + " (" + std::to_string(_levelWidth) + "x" +
+                 std::to_string(_levelHeight) + ")");
+}
+
+void GameSession::reload() {
+    if (_level) {
+        loadLevel(*_level);  // recharge depuis le Level en memoire (perso a l'entree, etat remis)
+    }
+}
+
+// Fait apparaitre le personnage humanoide (0,4x0,8), centre dans la tuile d'entree.
+void GameSession::spawnPlayer(core::GridPosition entry) {
+    _player = _world.createEntity();
+    const core::Vector2 size = core::playerSize();  // collision ET rendu partagent la meme taille
+    _world.addComponent(
+        _player, core::Transform{core::playerSpawnPosition(entry.column, entry.row), size, 0.0f});
+    _world.addComponent(_player, core::Velocity{});
+    _world.addComponent(_player, core::Collider{size});
+    // Budget de mouvements du tableau (EX-GP-024) : -1 = illimite si le niveau n'en fixe pas.
+    core::Player playerComponent;
+    playerComponent.jumpsRemaining = _level->jumpBudget();
+    playerComponent.dashesRemaining = _level->dashBudget();
+    _world.addComponent(_player, playerComponent);
+    _world.addComponent(_player, core::Animation{});
+    core::Sprite sprite;
+    sprite.region = _atlas.playerFrameRegion(core::AnimationClip::Idle, 0);
+    sprite.layer = 100;
+    sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
+    _world.addComponent(_player, sprite);
+    _world.addComponent(_player,
+                        PreviousPosition{core::playerSpawnPosition(entry.column, entry.row)});
+}
+
+void GameSession::refreshDoorVisuals() {
+    for (std::size_t index = 0; index < _doorEntities.size(); ++index) {
+        const core::Entity door = _doorEntities[index];
+        if (!_world.hasComponent<core::Sprite>(door)) {
+            continue;  // porte non reperee (robustesse) : rien a faire
+        }
+        const float alpha = _mechanisms->isDoorOpen(index) ? 0.25f : 1.0f;
+        _world.getComponent<core::Sprite>(door).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
+    }
+}
+
+void GameSession::refreshBlockVisuals() {
+    const std::vector<core::GridPosition>& positions = _blocks->positions();
+    const std::vector<float>& scales = _blocks->scales();
+    for (std::size_t index = 0; index < _blockEntities.size(); ++index) {
+        const core::Entity block = _blockEntities[index];
+        if (!_world.hasComponent<core::Transform>(block)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(block);
+        const float scale = scales[index];
+        const float margin = (1.0f - scale) * 0.5f;
+        transform.position = core::Vector2{static_cast<float>(positions[index].column) + margin,
+                                           static_cast<float>(positions[index].row) + margin};
+        transform.scale = core::Vector2{scale, scale};
+    }
+}
+
+void GameSession::refreshDangerVisuals() {
+    for (std::size_t index = 0; index < _moverEntities.size(); ++index) {
+        const core::Entity mover = _moverEntities[index];
+        if (!_world.hasComponent<core::Transform>(mover)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        core::Transform& transform = _world.getComponent<core::Transform>(mover);
+        transform.position = _dangers->moverBox(index).min;
+    }
+}
+
+void GameSession::refreshDangerStateVisuals() {
+    constexpr float INACTIVE_ALPHA = 0.35f;
+    constexpr float ACTIVE_ALPHA = 1.0f;
+
+    const std::vector<core::DangerLink>& links = _level->dangerLinks();
+    for (std::size_t index = 0; index < _dangerSwitchedEntities.size(); ++index) {
+        const core::Entity entity = _dangerSwitchedEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;  // entite-tuile non reperee (robustesse) : rien a faire
+        }
+        const bool active = _mechanisms->isDangerActive(links[index].dangerPosition);
+        _world.getComponent<core::Sprite>(entity).tint =
+            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
+    }
+
+    const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
+    for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
+        const core::Entity entity = _dangerBlinkEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;
+        }
+        const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
+        _world.getComponent<core::Sprite>(entity).tint =
+            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
+    }
+}
+
+std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() const {
+    std::vector<core::Aabb> boxes;
+    boxes.reserve(_dangers->moverCount() + _level->blinkConfigs().size() +
+                  _level->dangerLinks().size());
+
+    for (std::size_t index = 0; index < _dangers->moverCount(); ++index) {
+        boxes.push_back(_dangers->moverBox(index));
+    }
+    for (const core::DangerBlinkConfig& config : _level->blinkConfigs()) {
+        if (_dangers->isBlinkActive(config.position)) {
+            boxes.push_back(core::dangerHitbox(core::TileType::DangerBlink, config.position.column,
+                                               config.position.row));
+        }
+    }
+    for (const core::DangerLink& link : _level->dangerLinks()) {
+        if (_mechanisms->isDangerActive(link.dangerPosition)) {
+            boxes.push_back(core::dangerHitbox(core::TileType::DangerSwitched,
+                                               link.dangerPosition.column,
+                                               link.dangerPosition.row));
+        }
+    }
+    return boxes;
+}
+
+void GameSession::refreshPlayerSprite() {
+    const core::Animation& animation = _world.getComponent<core::Animation>(_player);
+    core::Sprite& sprite = _world.getComponent<core::Sprite>(_player);
+    sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex);
+}
+
+void GameSession::snapshotPreviousPositions() {
+    _world.view<core::Transform, PreviousPosition>().each(
+        [](core::Entity, const core::Transform& transform, PreviousPosition& previous) {
+            previous.value = transform.position;
+        });
+}
+
+void GameSession::centerCameraOnRoom(core::GridPosition roomIndex) {
+    const RoomBounds bounds = _roomGrid->roomBounds(roomIndex);
+    _camera.setCenter(
+        core::Vector2{static_cast<float>(bounds.column) + static_cast<float>(bounds.width) * 0.5f,
+                      static_cast<float>(bounds.row) + static_cast<float>(bounds.height) * 0.5f});
+}
+
+void GameSession::updateCurrentRoom() {
+    const core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& collider = _world.getComponent<core::Collider>(_player);
+    const core::Vector2 center = transform.position + collider.size * 0.5f;
+    const core::GridPosition tile{static_cast<int>(std::floor(center.x)),
+                                  static_cast<int>(std::floor(center.y))};
+    const core::GridPosition roomIndex = _roomGrid->roomIndexAt(tile);
+    if (roomIndex != _currentRoomIndex) {
+        _currentRoomIndex = roomIndex;
+        centerCameraOnRoom(_currentRoomIndex);
+    }
+}
+
+// Simule le personnage d'un pas fixe (mecanismes + physique + animation), puis statue sur l'issue.
+core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta) {
+    if (!_level) {
+        return core::LevelOutcome::Playing;  // chargement echoue : rien a simuler (etat neutre)
+    }
+
+    // 0. Interpolation (EX-ARCH-031) : fige la position COURANTE de chaque entite mobile comme sa
+    //    position "precedente" AVANT que ce pas ne la modifie (voir render()).
+    snapshotPreviousPositions();
+
+    // 1. Entrees -> intention.
+    const core::PlayerInput intent = toPlayerInput(input, _gameBindings, _gamepadBindings);
+
+    // 1bis. Blocs poussables (EX-GP-022) : poussee puis chute, resolues AVANT la physique du
+    // personnage, avec sa boite TELLE QUE LAISSEE par le pas precedent.
+    const core::Transform& previousTransform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& previousCollider = _world.getComponent<core::Collider>(_player);
+    const core::Aabb previousBox =
+        core::Aabb::fromTopLeftSize(previousTransform.position, previousCollider.size);
+    _blocks->update(previousBox, intent.moveX, _mechanisms->collisionMap());
+    refreshBlockVisuals();
+
+    // 2. Physique sur la grille des MECANISMES (portes fermees = solides) completee par la position
+    //    COURANTE des blocs (resolue ci-dessus).
+    const core::TileMap collision = _blocks->collisionMap(_mechanisms->collisionMap());
+    _physics.update(_world, collision, intent, fixedDelta);
+
+    // 2bis. Blocs a TAILLE REDUITE (EX-GP-005) : leur boite REELLE (centree, plus petite qu'une
+    // case) n'est jamais posee dans `collision` ci-dessus. Composee ici via un balayage boite-boite
+    // dedie (core::sweepAabbVsAabb), sur le deplacement REEL obtenu par la physique sur grille.
+    {
+        core::Transform& transform = _world.getComponent<core::Transform>(_player);
+        const core::Vector2 delta = transform.position - previousBox.min;
+        if (delta.x != 0.0f || delta.y != 0.0f) {
+            core::Vector2 bestPosition = transform.position;  // depart : resultat de la grille
+            core::Vector2 bestNormal{};
+            const std::vector<float>& scales = _blocks->scales();
+            for (std::size_t index = 0; index < scales.size(); ++index) {
+                if (scales[index] >= 1.0f) {
+                    continue;  // bloc plein : deja resolu par le balayage sur grille ci-dessus
+                }
+                const core::SweepResult result =
+                    core::sweepAabbVsAabb(previousBox, delta, _blocks->boxAt(index));
+                if (result.normal.x != 0.0f && std::fabs(result.position.x - previousBox.min.x) <
+                                                   std::fabs(bestPosition.x - previousBox.min.x)) {
+                    bestPosition.x = result.position.x;
+                    bestNormal.x = result.normal.x;
+                }
+                if (result.normal.y != 0.0f && std::fabs(result.position.y - previousBox.min.y) <
+                                                   std::fabs(bestPosition.y - previousBox.min.y)) {
+                    bestPosition.y = result.position.y;
+                    bestNormal.y = result.normal.y;
+                }
+            }
+            if (bestNormal.x != 0.0f || bestNormal.y != 0.0f) {
+                transform.position = bestPosition;
+                core::Velocity& velocity = _world.getComponent<core::Velocity>(_player);
+                core::Player& player = _world.getComponent<core::Player>(_player);
+                if (bestNormal.x != 0.0f) {
+                    velocity.value.x = 0.0f;
+                }
+                if (bestNormal.y != 0.0f) {
+                    velocity.value.y = 0.0f;
+                    if (bestNormal.y < 0.0f) {
+                        player.grounded = true;  // pose sur le dessus d'un bloc reduit
+                    }
+                }
+            }
+        }
+    }
+
+    // 2ter. Animation (EX-REN-012) : derivee de l'etat physique qui vient d'etre mis a jour.
+    _animation.update(_world, fixedDelta);
+
+    // 3. Boite du personnage apres deplacement.
+    const core::Transform& transform = _world.getComponent<core::Transform>(_player);
+    const core::Collider& collider = _world.getComponent<core::Collider>(_player);
+    const core::Aabb box = core::Aabb::fromTopLeftSize(transform.position, collider.size);
+
+    // 3bis. Camera : bascule de salle (LOT-32, EX-REN-015) -- coupure nette si franchissement.
+    updateCurrentRoom();
+
+    // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des portes.
+    const float playerMass = _world.getComponent<core::Player>(_player).mass;
+    _mechanisms->update(box, playerMass);
+    refreshDoorVisuals();
+
+    // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis replace
+    // les sprites des dangers mobiles ; teinte les commutes/temporises selon leur etat.
+    _dangers->update();
+    refreshDangerVisuals();
+    refreshDangerStateVisuals();
+
+    // 5. Issue du niveau. Sur echec : rechargement complet depuis le Level en memoire. Sur reussite :
+    //    l'appelant decide (enchainer, revenir au menu, terminer un essai...).
+    const core::LevelOutcome outcome =
+        core::evaluateOutcome(box, *_level, collectActiveDangerBoxes());
+    if (outcome == core::LevelOutcome::Lost) {
+        reload();
+    }
+    return outcome;
+}
+
+// Dessine le niveau charge (rien si le chargement a echoue : l'appelant gere l'affichage d'erreur).
+void GameSession::render(int viewportWidth, int viewportHeight, float interpolationAlpha) {
+    if (!_level) {
+        return;
+    }
+    refreshPlayerSprite();
+
+    _camera.setViewportSize(viewportWidth, viewportHeight);
+    // Zoom pour faire tenir la SALLE COURANTE dans la fenetre (LOT-32, EX-REN-015).
+    const RoomBounds roomBounds = _roomGrid->roomBounds(_currentRoomIndex);
+    const float zoom = Camera2D::fitZoom(
+        static_cast<float>(viewportWidth), static_cast<float>(viewportHeight),
+        static_cast<float>(roomBounds.width), static_cast<float>(roomBounds.height), 0.92f);
+    _camera.setZoom(zoom);
+
+    // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
+    _renderer.render(_world, _camera, interpolationAlpha);
+}
+
+}  // namespace hmi
