@@ -1,6 +1,6 @@
 # LOT-34 — Refonte IHM (Qt) : socle applicatif & viewport D3D11 embarqué {#lot-34}
 
-> Statut : **non commencé**.
+> Statut : **implémenté** (build/tests verts ; vérification IHM manuelle en cours).
 
 ## Programme de refonte de l'IHM (LOT-34 → LOT-39)
 
@@ -108,10 +108,10 @@ l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-provisionnement-qt-build.md) | Provisionnement Qt (local + CI + release) et intégration CMake ; `HMI` en bibliothèque | `External`, `Source/HMI`, CMake, CI | ⬜ |
-| [TACHE-02](tache-02-viewport-d3d11-embarque.md) | Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice` (HWND, resize) | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-boucle-entrees-qt.md) | Boucle de rendu Qt (pas fixe, interpolation) + entrées Qt → `InputState` + focus + XInput | `Source/Editor` | ⬜ |
-| [TACHE-04](tache-04-niveau-jouable-doc.md) | Chargement/affichage/jeu d'un niveau dans le viewport ; documentation & vérification | `Source/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-provisionnement-qt-build.md) | Provisionnement Qt (local + CI + release) et intégration CMake ; `HMI` en bibliothèque | `External`, `Source/HMI`, CMake, CI | ✅ |
+| [TACHE-02](tache-02-viewport-d3d11-embarque.md) | Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice` (HWND, resize) | `Source/Editor` | ✅ |
+| [TACHE-03](tache-03-boucle-entrees-qt.md) | Boucle de rendu Qt (pas fixe, interpolation) + entrées Qt → `InputState` + focus + XInput | `Source/Editor` | ✅ |
+| [TACHE-04](tache-04-niveau-jouable-doc.md) | Chargement/affichage/jeu d'un niveau dans le viewport ; documentation & vérification | `Source/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `cmake --preset vs` configure et compile la nouvelle cible `ProjectGamingEditor` **et** l'ancien

@@ -46,3 +46,4 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-journalisation — la **journalisation** et les **assertions** : niveaux, sinks, macros.
 - @subpage guide-editeur — l'**éditeur de niveaux intégré** : brouillon mutable, peinture, undo/redo, essai immédiat.
 - @subpage guide-ecrans — l'**architecture écrans** : navigation entre menu, jeu, éditeur et options.
+- @subpage guide-ihm-qt — la **refonte IHM vers Qt** : socle applicatif, viewport Direct3D 11, boucle et entrées Qt.
