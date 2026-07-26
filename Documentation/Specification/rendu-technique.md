@@ -29,6 +29,14 @@
   ouvert sur plusieurs de ses bords vers des salles voisines — propriété géométrique, pas un
   mécanisme.
 - \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches** (fond, décor, entités, interface).
+- \anchor EX-REN-041 **EX-REN-041** — Le rendu doit pouvoir **charger ses textures depuis des
+  fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture Direct3D 11, en plus
+  de la génération procédurale historique. Le filtrage reste *nearest* (pixel art, `EX-ARCH-022`).
+  Concrétisé en `LOT-39`.
+- \anchor EX-REN-042 **EX-REN-042** — Les **assets graphiques** (atlas de tuiles) doivent être
+  **externalisés en fichiers éditables hors code** (remplacer le fichier suffit à changer l'apparence),
+  copiés à côté de l'exécutable comme les niveaux et la localisation, avec **repli procédural** si un
+  asset est absent/illisible (`EX-NFR-040`). Concrétisé en `LOT-39`.
 
 ## 3. Boucle & temps
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
