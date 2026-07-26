@@ -45,7 +45,8 @@ corrections vivent dans `HMI` (boucle, fenêtre, rendu) ou dans une couche de pr
   pas de simulation **survit** jusqu'à ce qu'un pas le lise, au lieu d'être perdu. L'échantillonnage
   reste **une fois par frame, en amont de la logique** (`EX-CTRL-021` toujours respectée) ; la
   latence entrée → action reste **≤ un pas** (`EX-CTRL-020`, désormais à tout framerate).
-- **Relâchement global à la perte de focus** (`HMI/Input/InputState::releaseAll`, `WM_KILLFOCUS`) :
+- **Relâchement global à la perte de focus** (`InputState::releaseAll` sur `WM_KILLFOCUS`,
+  `Source/HMI/Input`) :
   remet à zéro l'état courant **et** précédent de toutes les touches/boutons, sans produire de front
   « relâchée » parasite.
 - **Sondage manette throttlé quand aucune manette n'est connectée** (`Window::pollGamepad`) : un
