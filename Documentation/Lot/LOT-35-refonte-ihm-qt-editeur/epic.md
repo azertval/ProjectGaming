@@ -1,6 +1,6 @@
 # LOT-35 — Refonte IHM (Qt) : éditeur (docking, palette, outils, peinture) {#lot-35}
 
-> Statut : **non commencé**. Prérequis : [LOT-34](@ref lot-34) (socle Qt + viewport).
+> Statut : **implémenté** (build/tests verts ; vérification IHM manuelle en cours). Prérequis : [LOT-34](@ref lot-34) (socle Qt + viewport).
 
 ## Objectif
 Sur le socle Qt du [LOT-34](@ref lot-34), reconstruire le **cœur de l'éditeur de niveau** en widgets
@@ -73,10 +73,10 @@ palette de tuiles, la barre d'outils, la peinture à la souris et l'annuler/refa
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-fenetre-docks-persistance.md) | `QMainWindow` à docks + persistance `QSettings` de la disposition | `Source/Editor` | ⬜ |
-| [TACHE-02](tache-02-palette-arbre.md) | Palette `QTreeView` (taxonomie `LOT-27`) reliée à la sélection de tuile | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-outils-peinture-viewport.md) | Barre d'outils + peinture viewport → `LevelDraft` (undo/redo, copier/coller) | `Source/Editor` | ⬜ |
-| [TACHE-04](tache-04-redim-enregistrement-essai.md) | Redimensionnement, enregistrement, essai immédiat ; documentation & vérification | `Source/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-fenetre-docks-persistance.md) | `QMainWindow` à docks + persistance `QSettings` de la disposition | `Source/Editor` | ✅ |
+| [TACHE-02](tache-02-palette-arbre.md) | Palette `QTreeView` (taxonomie `LOT-27`) reliée à la sélection de tuile | `Source/Editor` | ✅ |
+| [TACHE-03](tache-03-outils-peinture-viewport.md) | Barre d'outils + peinture viewport → `LevelDraft` (undo/redo, copier/coller) | `Source/Editor` | ✅ |
+| [TACHE-04](tache-04-redim-enregistrement-essai.md) | Redimensionnement, enregistrement, essai immédiat ; documentation & vérification | `Source/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. L'éditeur Qt ouvre une fenêtre à panneaux dockables autour du viewport ; l'utilisateur peut

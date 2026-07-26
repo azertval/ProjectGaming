@@ -35,6 +35,8 @@ add_executable(ProjectGamingEditor
     main_qt.cpp
     GameViewport.cpp
     MainWindow.cpp
+    PalettePanel.cpp
+    TileTaxonomy.cpp
 )
 
 # HmiRuntime propage Core, les libs Direct3D et les définitions Unicode (PUBLIC).
