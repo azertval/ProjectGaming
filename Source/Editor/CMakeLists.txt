@@ -33,6 +33,8 @@ set(CMAKE_AUTORCC ON)
 
 add_executable(ProjectGamingEditor
     main_qt.cpp
+    GameViewport.cpp
+    MainWindow.cpp
 )
 
 # HmiRuntime propage Core, les libs Direct3D et les définitions Unicode (PUBLIC).
