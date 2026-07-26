@@ -88,12 +88,28 @@ qui protège de tout effacement accidentel d'une touche (voir « La manette » c
 
 ### Le cycle d'une frame
 
-1. `beginFrame()` recopie l'état **courant** vers l'état **précédent** — ouvre une nouvelle
-   fenêtre d'observation ;
-2. la couche fenêtre (`Window`, dans `HMI`) traite les messages Win32 de la frame et appelle
-   `onKeyDown`/`onKeyUp`/`onMouseMove`/… sur l'`InputState`, qui met à jour l'état **courant** ;
-3. la logique de jeu lit les fronts et l'état courant (`keyPressed`, `keyDown`, `keyReleased`, et
-   leurs équivalents souris).
+1. la couche fenêtre (`Window`, dans `HMI`) traite les messages Win32 de la frame via
+   `pumpMessages()` et appelle `onKeyDown`/`onKeyUp`/`onMouseMove`/… sur l'`InputState`, qui met à
+   jour l'état **courant** — l'échantillonnage a lieu **une fois par frame réelle** (`EX-CTRL-021`) ;
+2. pour **chaque pas de simulation** exécuté cette frame, la logique lit les fronts et l'état courant
+   (`keyPressed`, `keyDown`, `keyReleased`, et leurs équivalents souris), puis la boucle appelle
+   `Window::beginInputFrame()` — qui recopie l'état **courant** vers l'état **précédent**, ouvrant la
+   fenêtre d'observation du pas suivant.
+
+**Pourquoi avancer les fronts par pas et non par frame.** Le rendu est découplé de la simulation
+(@ref guide-boucle) : sur un écran à 120/144 Hz, une partie des frames réelles n'exécute **aucun**
+pas fixe. Si l'état précédent était recopié à chaque frame de rendu (comme c'était le cas avant
+`LOT-33`), un appui capturé sur une de ces frames serait effacé **avant** qu'un pas ne l'ait lu — le
+front `keyPressed` disparaîtrait sans jamais déclencher l'action. En liant l'avancée de la ligne de
+base au **pas consommé**, un appui survit jusqu'à sa lecture, quel que soit le framerate : la latence
+entrée → action reste bornée à **un pas** (`EX-CTRL-020`) à 60 comme à 240 Hz. `pumpMessages()`
+échantillonne toujours l'état une fois par frame ; seule l'avancée des fronts change de cadence.
+
+**Perte de focus.** À un `Alt+Tab` (ou tout basculement de fenêtre), Windows n'envoie **pas** de
+`WM_KEYUP` pour les touches maintenues. Sans précaution, une direction maintenue resterait « collée »
+et le personnage avancerait seul au retour. `Window` traite donc `WM_KILLFOCUS` en appelant
+`InputState::releaseAll()`, qui remet à zéro l'état courant **et** précédent de toutes les
+touches/boutons — sans produire de front « relâchée » parasite (courant == précédent == relâché).
 
 `InputState` est délibérément **indépendant de toute fenêtre** (aucune dépendance `<Windows.h>` dans
 son en-tête) : les événements peuvent être injectés directement en test, sans ouvrir de fenêtre ni
@@ -181,6 +197,14 @@ Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::Window` (`Platform`), 
 tester la fusion manette ou la piste brute — les tests appellent `onGamepadKeyDown`/
 `onGamepadKeyUp`/`onGamepadButtonDown`/`onGamepadButtonUp` directement, sans manette réelle ni
 `<Windows.h>`.
+
+**Sondage throttlé quand aucune manette n'est branchée** (`LOT-33`). `XInputGetState` est
+notablement **coûteux** quand le slot interrogé est vide : le pilote énumère les périphériques à
+chaque appel. Le sonder à chaque frame alors qu'aucune manette n'est connectée provoquait des
+micro-saccades chez un joueur clavier. `Window::pollGamepad` ne re-sonde donc un slot resté
+**déconnecté** qu'une frame sur `GAMEPAD_DISCONNECTED_POLL_INTERVAL` (≈ 2 s) ; entre-temps l'état
+reste « déconnecté » (aucune touche synthétique enfoncée). Dès qu'une manette est présente, le
+sondage redevient systématique — un branchement à chaud est détecté au plus tard après un intervalle.
 
 ## Le menu d'options : la fusion manette à l'œuvre (\ref hmi::OptionsModel "hmi::OptionsModel"/\ref hmi::OptionsScreen "OptionsScreen")
 

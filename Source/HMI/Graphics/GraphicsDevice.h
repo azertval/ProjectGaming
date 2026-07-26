@@ -18,6 +18,12 @@ namespace hmi {
  * (ComPtr) : leur libération est automatique. La classe fournit l'effacement de
  * l'écran, la présentation synchronisée (V-Sync, activable/désactivable — `EX-REN-022`) et le
  * redimensionnement.
+ *
+ * La swap chain utilise le **modèle de présentation flip** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`,
+ * `EX-REN-004`) : sous Windows 10/11, il présente sans copie supplémentaire (compositeur DWM),
+ * réduisant la latence entrée → image et régularisant la cadence par rapport à l'ancien modèle
+ * *blt*. Conséquence pour l'implémentation : `Present` dé-lie la cible de rendu du back buffer, que
+ * `clear()` relie donc à chaque frame.
  */
 class GraphicsDevice {
 public:

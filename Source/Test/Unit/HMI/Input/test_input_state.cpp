@@ -373,3 +373,40 @@ TEST(InputStateTest, PisteBrutIndependanteDeLaFusionKey) {
     input.onGamepadKeyDown(hmi::Key::Enter);
     EXPECT_FALSE(input.gamepadButtonDown(hmi::GamepadButton::B));  // aucun bouton brut affecte
 }
+
+/**
+ * @brief `releaseAll()` relâche toutes les entrées maintenues sans produire de front « relâchée »,
+ *        évitant les touches « collées » à la perte de focus (Alt+Tab).
+ * \castest{<b>releaseAll relâche tout sans produire de front « relâchée ».</b><br/>
+ * \tcat Unitaire · Input State<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Maintenir des entrées clavier/manette/souris.<br/>2. Appeler releaseAll et verifier
+ * qu'aucune n'est plus enfoncee ni signalee « relâchée ».<br/>
+ * \tattendu Toutes les entrees sont relachees, sans aucun front.
+ * }
+ */
+TEST(InputStateTest, RelacheToutSansFront) {
+    hmi::InputState input;
+
+    input.beginFrame();
+    input.onKeyDown(hmi::Key::Right);
+    input.onGamepadKeyDown(hmi::Key::Space);
+    input.onGamepadButtonDown(hmi::GamepadButton::A);
+    input.onMouseButtonDown(hmi::MouseButton::Left);
+
+    // Perte de focus : tout est relâché immédiatement, sans front « relâchée » (courant ET
+    // précédent remis à zéro), pour ne pas déclencher une action de relâchement fantôme.
+    input.releaseAll();
+    EXPECT_FALSE(input.keyDown(hmi::Key::Right));
+    EXPECT_FALSE(input.keyReleased(hmi::Key::Right));
+    EXPECT_FALSE(input.keyDown(hmi::Key::Space));
+    EXPECT_FALSE(input.keyReleased(hmi::Key::Space));
+    EXPECT_FALSE(input.gamepadButtonDown(hmi::GamepadButton::A));
+    EXPECT_FALSE(input.mouseButtonDown(hmi::MouseButton::Left));
+    EXPECT_FALSE(input.mouseButtonReleased(hmi::MouseButton::Left));
+
+    // La frame suivante ne fait pas non plus réapparaître de front.
+    input.beginFrame();
+    EXPECT_FALSE(input.keyReleased(hmi::Key::Right));
+    EXPECT_FALSE(input.keyPressed(hmi::Key::Right));
+}

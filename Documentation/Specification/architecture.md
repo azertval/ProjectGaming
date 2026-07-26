@@ -29,7 +29,7 @@ Choix retenu : **ECS complet**, hébergé dans `Core`. Assumé plus lourd, justi
 
 ## 4. Frontière simulation ↔ rendu
 - \anchor EX-ARCH-030 **EX-ARCH-030** — `Core` met à jour la simulation à **pas de temps fixe** ; `HMI` produit l'image en **lisant** l'état.
-- \anchor EX-ARCH-031 **EX-ARCH-031** — Un **facteur d'interpolation** `[0,1]` entre le pas précédent et le pas courant est fourni au rendu pour lisser le mouvement (prévu dès le départ).
+- \anchor EX-ARCH-031 **EX-ARCH-031** — Un **facteur d'interpolation** `[0,1]` entre le pas précédent et le pas courant est fourni au rendu pour lisser le mouvement (prévu dès le départ). **Concrétisé en `LOT-33`** : `core::FixedTimestep::interpolationAlpha` alimente `hmi::RenderContext`, et `hmi::SpriteRenderer` dessine chaque entité mobile à `lerp(position précédente, position courante, alpha)` via le composant de présentation `hmi::PreviousPosition` — sans jamais modifier l'état simulé (`EX-ARCH-012`).
 
 ## 5. Mathématiques dans Core
 - \anchor EX-ARCH-040 **EX-ARCH-040** — `Core` définit **ses propres types** mathématiques (`Vector2`, `Rect`, …), **sans dépendance DirectX**. La conversion vers `DirectXMath` a lieu uniquement à la frontière de rendu (`HMI`).

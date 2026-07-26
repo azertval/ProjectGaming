@@ -24,7 +24,8 @@ namespace hmi {
  * clavier n'est jamais écrasée) et l'état brut par `GamepadButton`
  * (`onGamepadButtonDown`/`onGamepadButtonUp`, remappable via `GamepadBindings`). La traduction de
  * l'`InputState` en actions de gameplay est un
- * module dédié et indépendant de toute fenêtre (`HMI/Input/PlayerInputMapper`, `hmi::toPlayerInput`).
+ * module dédié et indépendant de toute fenêtre (`HMI/Input/PlayerInputMapper`,
+ * `hmi::toPlayerInput`).
  */
 class Window {
 public:
@@ -43,13 +44,28 @@ public:
     Window& operator=(const Window&) = delete;
 
     /**
-     * @brief Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
+     * @brief Sonde la manette puis traite les messages Win32 en attente.
      *
-     * Non bloquant. Recopie l'état d'entrées courant vers l'état précédent (via
-     * `InputState::beginFrame`) puis met à jour l'état courant à partir des messages de la
-     * frame : l'`InputState` est ainsi échantillonné **une fois par frame** (`EX-CTRL-021`).
+     * Non bloquant. Met à jour l'**état courant** des entrées à partir de la manette
+     * (`pollGamepad`) et des messages clavier/souris de la frame réelle. N'avance **pas** les
+     * fronts (pressée/relâchée) : cette responsabilité revient à `beginInputFrame`, appelée par la
+     * boucle de simulation **une fois par pas fixe consommé**, jamais par frame de rendu (voir
+     * `beginInputFrame`).
      */
     void pumpMessages();
+
+    /**
+     * @brief Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent.
+     *
+     * À appeler par la boucle de simulation **après chaque pas fixe** qui a lu les entrées, jamais
+     * une fois par frame de rendu. Découpler l'avancée des fronts du rendu corrige la perte
+     * d'entrées lorsque le rendu tourne plus vite que le pas fixe (`FixedTimestep`) : sur les
+     * frames réelles sans pas de simulation (`steps == 0`, écran > 60 Hz), l'état courant — donc un
+     * appui capturé entre-temps — **survit** jusqu'à ce qu'un pas le lise, au lieu d'être écrasé
+     * par une recopie prématurée. Vide aussi la molette et les caractères tapés accumulés
+     * (`EX-CTRL-021`).
+     */
+    void beginInputFrame();
 
     /**
      * @brief Indique si la fenêtre demande à se fermer (croix ou `requestClose`).
@@ -90,13 +106,17 @@ public:
 
 private:
     /// Procédure de fenêtre statique : route les messages vers l'instance.
-    static LRESULT CALLBACK windowProcedure(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
+    static LRESULT CALLBACK windowProcedure(HWND handle, UINT message, WPARAM wParam,
+                                            LPARAM lParam);
 
     /// Traite un message pour cette instance.
     LRESULT handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 
     /// Sonde la manette (XInput, joueur 0) et fusionne son état dans `_input` (`EX-CTRL-002`).
     void pollGamepad();
+
+    /// Nombre de frames entre deux sondages XInput d'un slot resté déconnecté (anti-saccade).
+    static constexpr int GAMEPAD_DISCONNECTED_POLL_INTERVAL = 120;
 
     HWND _handle;
     bool _shouldClose;
@@ -105,6 +125,7 @@ private:
     int _clientHeight;
     InputState _input;
     bool _gamepadWasConnected = false;  ///< Pour ne journaliser qu'un changement de connexion.
+    int _gamepadPollCountdown = 0;  ///< Frames restantes avant de re-sonder une manette absente.
 };
 
 }  // namespace hmi

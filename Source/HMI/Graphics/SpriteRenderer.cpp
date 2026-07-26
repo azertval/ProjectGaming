@@ -7,6 +7,7 @@
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/TextureAtlas.h"
 
 namespace hmi {
@@ -16,7 +17,7 @@ SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
     : _batch(&batch), _atlas(&atlas) {}
 
 // Dessine toutes les entités affichables du monde, vues par la caméra.
-void SpriteRenderer::render(core::World& world, const Camera2D& camera) {
+void SpriteRenderer::render(core::World& world, const Camera2D& camera, float interpolationAlpha) {
     const float atlasWidth = static_cast<float>(_atlas->width());
     const float atlasHeight = static_cast<float>(_atlas->height());
 
@@ -24,7 +25,7 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera) {
 
     // Lecture seule de l'ECS : les composants sont pris par référence constante.
     world.view<core::Transform, core::Sprite>().each(
-        [&](core::Entity, const core::Transform& transform, const core::Sprite& sprite) {
+        [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
             const core::AtlasRegion& region = sprite.region;
 
             // Taille du sprite en unités monde : la région (en pixels) ramenée à l'échelle
@@ -35,9 +36,20 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera) {
             const float worldHeight =
                 static_cast<float>(region.height) / Camera2D::PIXELS_PER_UNIT * transform.scale.y;
 
+            // Position à dessiner : interpolée entre le pas précédent et le pas courant si l'entité
+            // porte un `PreviousPosition` (personnage, dangers mobiles, blocs — mouvement continu),
+            // sinon la position courante telle quelle (tuiles fixes). Lire une seconde pool
+            // (`PreviousPosition`) pendant l'itération de la vue Transform+Sprite est sûr : on ne
+            // modifie aucune pool, donc la vue reste valide (cf. @ref guide-ecs).
+            core::Vector2 position = transform.position;
+            if (world.hasComponent<PreviousPosition>(entity)) {
+                const core::Vector2 previous = world.getComponent<PreviousPosition>(entity).value;
+                position = previous + (transform.position - previous) * interpolationAlpha;
+            }
+
             SpriteQuad quad;
-            quad.x = transform.position.x;
-            quad.y = transform.position.y;
+            quad.x = position.x;
+            quad.y = position.y;
             quad.width = worldWidth;
             quad.height = worldHeight;
             // Coordonnées de texture normalisées à partir de la région en pixels.

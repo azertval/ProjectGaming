@@ -32,6 +32,22 @@ void InputState::beginFrame() noexcept {
     _typedCharacters.clear();
 }
 
+// Relâche toutes les entrées maintenues (courant ET précédent), sans produire de front.
+//
+// Remettre à zéro les deux états (et pas seulement le courant) évite qu'un front « relâchée »
+// n'apparaisse pour chaque touche maintenue au moment de la perte de focus : après cet appel,
+// courant == précédent == relâché pour tout, donc aucun front.
+void InputState::releaseAll() noexcept {
+    _keysCurrent.fill(false);
+    _keysPrevious.fill(false);
+    _gamepadCurrent.fill(false);
+    _gamepadPrevious.fill(false);
+    _gamepadButtonsCurrent.fill(false);
+    _gamepadButtonsPrevious.fill(false);
+    _buttonsCurrent.fill(false);
+    _buttonsPrevious.fill(false);
+}
+
 // Marque key comme enfoncée dans l'état courant.
 //
 // Le code hors de la plage suivie est ignoré (garde-fou : les événements proviennent du

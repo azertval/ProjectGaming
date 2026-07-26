@@ -258,7 +258,12 @@ int main(int argc, char** argv) {
 
         bool quit = false;
         while (!window.shouldClose() && !quit) {
-            // 1. Entrées : échantillonnées une fois par frame (nouvelle frame + messages).
+            // 1. Entrées : draine la manette + les messages clavier/souris dans l'état courant.
+            //    Les fronts (pressée/relâchée) NE sont PAS avancés ici : `beginInputFrame` est
+            //    appelée après chaque pas fixe consommé (étape 3), afin qu'un appui capturé sur une
+            //    frame réelle sans pas de simulation (rendu > 60 Hz) survive jusqu'à ce qu'un pas
+            //    le lise, au lieu d'être perdu. Sans ce découplage, ~2 frames sur 3 à 144 Hz
+            //    écrasaient les fronts avant lecture — d'où des entrées « pas prises en compte ».
             window.pumpMessages();
 
             // 2. Répercute un éventuel redimensionnement sur la swap chain (les écrans ajustent
@@ -280,6 +285,10 @@ int main(int argc, char** argv) {
             const int steps = timestep.advance(elapsedSeconds);
             for (int step = 0; step < steps && !quit; ++step) {
                 quit = screens.update(window.input(), fixedDelta);
+                // Fronts consommés par ce pas : on avance la ligne de base des entrées. Les pas
+                // suivants d'une même frame voient les maintiens mais plus les fronts (pas de
+                // répétition d'un appui unique), et la molette/le texte tapé sont vidés.
+                window.beginInputFrame();
             }
             if (quit) {
                 break;
@@ -288,14 +297,12 @@ int main(int argc, char** argv) {
             // 4. Rendu : efface, dessine l'écran courant, présente. Une seule fois par frame
             //    réelle, quel que soit le nombre de pas de simulation exécutés ci-dessus.
             graphics.clear(0.10f, 0.12f, 0.16f, 1.0f);
-            hmi::RenderContext context{spriteBatch,
-                                       atlas,
-                                       font,
-                                       localization,
-                                       flags,
-                                       saveIcon,
-                                       window.clientWidth(),
-                                       window.clientHeight()};
+            hmi::RenderContext context{spriteBatch, atlas, font, localization, flags, saveIcon,
+                                       window.clientWidth(), window.clientHeight(),
+                                       // Fraction de pas fixe accumulée mais non encore consommée :
+                                       // le rendu interpole les entités mobiles jusqu'au prochain
+                                       // pas (mouvement lisse à > 60 Hz, EX-ARCH-031).
+                                       timestep.interpolationAlpha()};
             screens.render(context);
             graphics.present();
         }

@@ -1,10 +1,10 @@
 #include "HMI/Platform/Window.h"
 
-#include <Xinput.h>
-#include <windowsx.h>
-
 #include <cstdint>
 #include <stdexcept>
+
+#include <Xinput.h>
+#include <windowsx.h>
 
 #include "HMI/Input/GamepadButton.h"
 #include "HMI/Platform/PlatformLog.h"
@@ -58,9 +58,9 @@ Window::Window(const wchar_t* title, int width, int height)
 
     // `this` est transmis en paramètre de création pour être relié au HWND
     // dès WM_NCCREATE (voir windowProcedure).
-    _handle = CreateWindowExW(0, WINDOW_CLASS_NAME, title, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
-                              CW_USEDEFAULT, windowWidth, windowHeight, nullptr, nullptr, instance,
-                              this);
+    _handle =
+        CreateWindowExW(0, WINDOW_CLASS_NAME, title, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
+                        CW_USEDEFAULT, windowWidth, windowHeight, nullptr, nullptr, instance, this);
     if (_handle == nullptr) {
         throw std::runtime_error("Echec de la creation de la fenetre Win32");
     }
@@ -169,6 +169,12 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
         case WM_MBUTTONUP:
             _input.onMouseButtonUp(MouseButton::Middle);
             return 0;
+        case WM_KILLFOCUS:
+            // Perte de focus (Alt+Tab, clic ailleurs...) : Windows n'enverra pas de WM_KEYUP pour
+            // les touches maintenues au moment du basculement. Sans ce relâchement global, elles
+            // resteraient « collées » et le personnage continuerait d'avancer au retour.
+            _input.releaseAll();
+            return 0;
         case WM_CLOSE:
             PLATFORM_LOG_TRACE("Fermeture de la fenetre demandee (croix)");
             _shouldClose = true;
@@ -193,6 +199,18 @@ LRESULT Window::handleMessage(HWND handle, UINT message, WPARAM wParam, LPARAM l
 // maintenue. Alimente deux pistes independantes a partir du meme relevé : la fusion Key (fixe,
 // navigation de menu) et la piste GamepadButton brute (remappable via GamepadBindings).
 void Window::pollGamepad() {
+    // XInputGetState est notablement coûteux quand le slot interrogé est vide (le pilote énumère
+    // les périphériques à chaque appel) : sonder chaque frame une manette absente provoque des
+    // micro-saccades chez un joueur clavier. Tant que la manette reste déconnectée, on ne la
+    // re-sonde donc qu'une frame sur GAMEPAD_DISCONNECTED_POLL_INTERVAL ; entre-temps l'état reste
+    // « déconnecté » (aucune touche synthétique n'est enfoncée). Dès qu'une manette est présente,
+    // le sondage redevient systématique (branchement détecté au plus tard après un intervalle).
+    if (!_gamepadWasConnected && --_gamepadPollCountdown > 0) {
+        _input.setGamepadConnected(false);
+        return;
+    }
+    _gamepadPollCountdown = GAMEPAD_DISCONNECTED_POLL_INTERVAL;
+
     XINPUT_STATE state{};
     const bool connected = XInputGetState(0, &state) == ERROR_SUCCESS;
     _input.setGamepadConnected(connected);
@@ -255,14 +273,13 @@ void Window::pollGamepad() {
     setButton(GamepadButton::RightShoulder, rightShoulderHeld);
 }
 
-// Ouvre une nouvelle frame d'entrées puis traite les messages Win32 en attente.
+// Sonde la manette puis draine les messages Win32 dans l'état d'entrées courant.
 //
-// `beginFrame` fige l'état d'entrées de la frame précédente **avant** de drainer les messages,
-// afin que les fronts (pressée/relâchée) se calculent sur la seule frame courante. La manette
-// est sondée juste après : ses événements atterrissent dans le nouvel état courant, comme ceux
-// du clavier/de la souris drainés par la boucle de messages qui suit.
+// N'appelle PAS `beginFrame` : les fronts (pressée/relâchée) ne sont figés qu'au moment où un pas
+// de simulation les consomme (voir `beginInputFrame`), pas à chaque frame de rendu. La manette est
+// sondée d'abord, puis le clavier/la souris sont drainés : tous atterrissent dans le même état
+// courant, qui persiste tel quel tant qu'aucun pas fixe ne l'a lu.
 void Window::pumpMessages() {
-    _input.beginFrame();
     pollGamepad();
 
     MSG message{};
@@ -273,6 +290,13 @@ void Window::pumpMessages() {
         TranslateMessage(&message);
         DispatchMessageW(&message);
     }
+}
+
+// Ouvre une nouvelle frame d'entrées : recopie l'état courant vers l'état précédent (voir en-tête).
+// Appelée par la boucle de simulation après chaque pas fixe consommé, pour que les fronts se
+// calculent une fois par pas et non une fois par frame de rendu (sinon, perte d'entrées à > 60 Hz).
+void Window::beginInputFrame() {
+    _input.beginFrame();
 }
 
 bool Window::shouldClose() const {

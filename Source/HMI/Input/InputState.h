@@ -27,7 +27,7 @@ enum class Key : std::uint16_t {
     Backspace = 0x08,
     Tab = 0x09,
     Enter = 0x0D,
-    Shift = 0x10,    // Maj : action de dash (`EX-CTRL-013`) ; liaison de mécanismes (éditeur, LOT-14)
+    Shift = 0x10,  // Maj : action de dash (`EX-CTRL-013`) ; liaison de mécanismes (éditeur, LOT-14)
     Control = 0x11,  // Ctrl : raccourcis d'édition (annuler/refaire, éditeur, LOT-14)
     Escape = 0x1B,
     Space = 0x20,
@@ -45,10 +45,10 @@ enum class Key : std::uint16_t {
     S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
     V = 0x56,  // Ctrl+V : coller une zone (éditeur, LOT-15)
     W = 0x57,
-    Y = 0x59,  // Ctrl+Y : refaire (éditeur, LOT-14)
-    Z = 0x5A,  // Ctrl+Z : annuler (éditeur, LOT-14)
-    F1 = 0x70,  // Aide des raccourcis (éditeur, LOT-15)
-    F2 = 0x71,  // Renommer le niveau en cours d'édition (éditeur, LOT-15)
+    Y = 0x59,    // Ctrl+Y : refaire (éditeur, LOT-14)
+    Z = 0x5A,    // Ctrl+Z : annuler (éditeur, LOT-14)
+    F1 = 0x70,   // Aide des raccourcis (éditeur, LOT-15)
+    F2 = 0x71,   // Renommer le niveau en cours d'édition (éditeur, LOT-15)
     F10 = 0x79,  // Bascule la grille de repère (éditeur, LOT-15)
 };
 
@@ -101,6 +101,16 @@ public:
      * (`keyPressed`, `keyReleased`, …) se calculent ensuite par comparaison courant/précédent.
      */
     void beginFrame() noexcept;
+
+    /**
+     * @brief Relâche **toutes** les entrées maintenues (clavier, manette, souris), sans front.
+     *
+     * Remet à zéro l'état courant **et** l'état précédent des touches/boutons, si bien qu'aucun
+     * front (pressée/relâchée) n'est produit. À appeler quand la fenêtre perd le focus
+     * (`WM_KILLFOCUS`) : sans cela, une touche maintenue au moment d'un `Alt+Tab` ne reçoit jamais
+     * son `WM_KEYUP` et resterait « collée » (le personnage continuerait d'avancer au retour).
+     */
+    void releaseAll() noexcept;
 
     /// Marque @p key comme enfoncée dans l'état courant (source **clavier**).
     void onKeyDown(Key key) noexcept;
@@ -220,7 +230,7 @@ private:
 
     std::array<bool, KEY_COUNT> _keysCurrent{};
     std::array<bool, KEY_COUNT> _keysPrevious{};
-    std::array<bool, KEY_COUNT> _gamepadCurrent{};   ///< Source manette, distincte du clavier.
+    std::array<bool, KEY_COUNT> _gamepadCurrent{};  ///< Source manette, distincte du clavier.
     std::array<bool, KEY_COUNT> _gamepadPrevious{};
     /// Piste manette brute (`GamepadButton`), indépendante de la fusion `Key` ci-dessus.
     std::array<bool, GAMEPAD_BUTTON_COUNT> _gamepadButtonsCurrent{};

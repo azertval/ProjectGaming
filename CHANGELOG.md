@@ -7,6 +7,24 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-33 — Fluidité du moteur** (`EX-REN-004`, `EX-ARCH-031`, `EX-CTRL-020`, `EX-CTRL-021`) :
+  ensemble de corrections de choix techniques boucle/rendu/entrées qui dégradaient le ressenti
+  au-dessus de 60 Hz. **Entrées nerveuses** : les fronts (pressée/relâchée) sont désormais consommés
+  par **pas de simulation** et non par frame de rendu — un appui capturé sur une frame réelle sans
+  pas (rendu > 60 Hz, ≈ 2 sur 3 à 144 Hz) n'est plus perdu (`hmi::Window::beginInputFrame`, nouvelle,
+  appelée après chaque pas ; `pumpMessages` n'avance plus les fronts). Les touches ne restent plus
+  « collées » à un `Alt+Tab` (`InputState::releaseAll` sur `WM_KILLFOCUS`). Le sondage `XInputGetState`
+  d'un slot **sans manette** — coûteux — est throttlé (une frame sur ~120), supprimant les
+  micro-saccades chez un joueur clavier. **Présentation flip-model** (`DXGI_SWAP_EFFECT_FLIP_DISCARD`,
+  deux back buffers) à la place du modèle *blt* legacy : latence entrée → image réduite et cadence
+  plus régulière (la cible de rendu est reliée au back buffer à chaque `clear()`, le flip model la
+  dé-liant à `Present`). **Interpolation de rendu** (`EX-ARCH-031`, prévue dès `LOT-01` mais jamais
+  exploitée) : nouveau composant de présentation `hmi::PreviousPosition` (dans le `core::World`,
+  écrit/lu par `HMI` seul, `Core` intact), rempli au début de chaque pas ; `hmi::SpriteRenderer`
+  dessine les entités mobiles (personnage, dangers mobiles, blocs) à `lerp(précédente, courante,
+  alpha)` via `core::FixedTimestep::interpolationAlpha`, supprimant le *judder* à haut framerate. La
+  simulation reste strictement déterministe (l'interpolation ne touche que l'affichage) ; la caméra
+  n'est pas interpolée (coupure nette par salle, `LOT-32`).
 - **LOT-32 — Niveaux à salles** (`EX-REN-015`, `EX-EDIT-023`) : un niveau plus grand qu'une
   **salle** (nouveau `hmi::RoomGrid`, taille fixe en tuiles, `Source/HMI/Graphics`) se joue avec
   une caméra qui cadre la salle **courante** du personnage, au zoom pixel art natif, et bascule

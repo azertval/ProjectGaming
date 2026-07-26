@@ -41,8 +41,14 @@ public:
      * @brief Dessine toutes les entités affichables du monde, vues par la caméra.
      * @param world  Monde dont on lit les composants `Transform` et `Sprite`.
      * @param camera Caméra fournissant la projection monde → écran.
+     * @param interpolationAlpha Facteur d'interpolation `[0, 1[` entre le pas de simulation
+     *        précédent et le pas courant (`EX-ARCH-031`,
+     * `core::FixedTimestep::interpolationAlpha`). Une entité portant un `hmi::PreviousPosition` est
+     * dessinée à `lerp(précédente, courante, alpha)` (mouvement lisse) ; une entité sans ce
+     * composant (tuiles fixes) est dessinée à sa position courante. `0` reproduit le comportement
+     * non interpolé.
      */
-    void render(core::World& world, const Camera2D& camera);
+    void render(core::World& world, const Camera2D& camera, float interpolationAlpha);
 
 private:
     /// Un quad prêt à dessiner, associé à sa couche (pour le tri).
