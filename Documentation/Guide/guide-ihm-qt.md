@@ -78,6 +78,25 @@ salle, animation, interpolation) est isolée dans `hmi::GameSession` — **sans 
 de jeu historique (`hmi::GameScreen`, désormais un mince adaptateur) **et** par le viewport Qt :
 aucune duplication, comportement identique (voir @ref guide-niveaux, @ref guide-physique).
 
+## Éditeur : docks, palette, peinture (LOT-35)
+
+`editor::MainWindow` est un **poste de travail à panneaux dockables** (`QDockWidget` — Palette,
+Outils, Statut) autour du viewport central. La **disposition** est persistée hors code
+(`QSettings` : restaurée au lancement, sauvée à la fermeture, réinitialisable ; `EX-IHM-011`).
+
+- **Palette** (`editor::PalettePanel`) : un `QTreeView` alimenté par la taxonomie **pure**
+  `editor::tileTaxonomy` (catégories → sous-groupes → tuiles, tous les `core::TileType` couverts,
+  testé sans GPU). Sélectionner une tuile définit le type peint.
+- **Édition dans le viewport** : le viewport affiche le brouillon (`core::LevelDraft`) via
+  `hmi::DraftRenderer` (scène ECS reconstruite à la demande, rendue par le `SpriteRenderer`), caméra
+  cadrant le niveau entier. Le **clic/glisser gauche peint** le type actif à la case survolée
+  (`Camera2D::screenToWorld` → `LevelDraft::paintTile`) ; `Ctrl+Z`/`Ctrl+Y` annulent/refont.
+- **Enregistrer** (`Ctrl+S`) : `LevelDraft::toLevel` (validation) → `core::LevelWriter` ; un
+  brouillon invalide n'écrit rien et l'erreur s'affiche en barre d'état.
+- **Essai immédiat** (`P`) : rejoue le brouillon validé via `hmi::GameSession` dans le viewport ;
+  `Échap` restitue l'éditeur, brouillon intact — **la même session que l'écran de jeu**, sans
+  duplication.
+
 ## Voir aussi
 - [Spécification IHM](@ref spec-interface-ihm) — le *quoi/pourquoi* de la refonte (`EX-IHM-*`).
 - @ref guide-boucle — la boucle et le pas de temps fixe (repris à l'identique côté Qt).
