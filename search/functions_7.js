@@ -9,5 +9,6 @@ var searchData=
   ['hascomponent_6',['hasComponent',['../classcore_1_1World.html#a89409118ee9ad14b7aeb404b0e844c04',1,'core::World']]],
   ['hasnext_7',['hasNext',['../classhmi_1_1LevelSequence.html#a6f80b9a9e63aa08533cb95304c8b8c23',1,'hmi::LevelSequence']]],
   ['height_8',['height',['../classcore_1_1TileMap.html#aa3eeac433441da6f84c9a5e152fd3845',1,'core::TileMap::height()'],['../classhmi_1_1FlagIcons.html#aadb6dae68d5cfbe704ab83a3f2077da8',1,'hmi::FlagIcons::height()'],['../classhmi_1_1GraphicsDevice.html#ad3952af7203763d45dac4a9ca9439b17',1,'hmi::GraphicsDevice::height()'],['../classhmi_1_1TextureAtlas.html#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7',1,'hmi::TextureAtlas::height()']]],
-  ['hoveredcell_9',['hoveredCell',['../classhmi_1_1EditorScreen.html#a09f0c57418d1c66e4953a4973375a169',1,'hmi::EditorScreen']]]
+  ['highlight_9',['highlight',['../classeditor_1_1GameViewport.html#a8078ee97df125e983bbe94c73e4d4cf9',1,'editor::GameViewport']]],
+  ['hoveredcell_10',['hoveredCell',['../classhmi_1_1EditorScreen.html#a09f0c57418d1c66e4953a4973375a169',1,'hmi::EditorScreen']]]
 ];

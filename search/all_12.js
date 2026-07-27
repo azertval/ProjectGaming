@@ -72,7 +72,7 @@ var searchData=
   ['garde_20fou_20dirty_20indicateurs_20d_20état_20erreurs_20documentation_20vérification_69',['TACHE-03 — Ouverture avec garde-fou `dirty`, indicateurs d&apos;état/erreurs ; documentation &amp; vérification',['../lot-36-tache-03-ouverture-garde-fou-doc.html',1,'lot-36']]],
   ['garde_20fous_20_3a_20redimensionnement_20destructeur_20quitter_20sans_20enregistrer_70',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
   ['garde_20fous_20contre_20la_20perte_20de_20travail_71',['Garde-fous contre la perte de travail',['../guide-editeur.html#autotoc_md71',1,'']]],
-  ['generation_72',['generation',['../structcore_1_1Entity.html#a7e90cbccd752d760b3e0757dcfbeeec8',1,'core::Entity::Generation'],['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity::generation']]],
+  ['generation_72',['generation',['../structcore_1_1Entity.html#a2ad1b664955eb77c38cef28d6978cf7b',1,'core::Entity::generation'],['../structcore_1_1Entity.html#a7e90cbccd752d760b3e0757dcfbeeec8',1,'core::Entity::Generation']]],
   ['gestion_20des_20erreurs_73',['9. Gestion des erreurs',['../spec-conventions.html#autotoc_md201',1,'']]],
   ['gestion_20des_20niveaux_74',['3. Gestion des niveaux',['../spec-interface-ihm.html#autotoc_md244',1,'']]],
   ['gestion_20des_20niveaux_20liste_20recherche_20fichiers_75',['LOT-36 — Refonte IHM (Qt) : gestion des niveaux (liste, recherche, fichiers)',['../lot-36.html',1,'lots']]],

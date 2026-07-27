@@ -4,7 +4,7 @@ var classhmi_1_1DraftRenderer =
     [ "drawGrid", "classhmi_1_1DraftRenderer.html#a4e86d52ba1913039aefeac7e52a53b2d", null ],
     [ "invalidate", "classhmi_1_1DraftRenderer.html#a866ad56f7e8a029aaff1b8b72210c30a", null ],
     [ "rebuild", "classhmi_1_1DraftRenderer.html#a3d4077be5ae7aa58ff2c349443f97d65", null ],
-    [ "render", "classhmi_1_1DraftRenderer.html#aeadd7dce0515cec185c3dcb5964161de", null ],
+    [ "render", "classhmi_1_1DraftRenderer.html#ac0865797af2b318aae2d676b06d803ef", null ],
     [ "_atlas", "classhmi_1_1DraftRenderer.html#a823f254cf3e79362168f4f5e3fa526a1", null ],
     [ "_batch", "classhmi_1_1DraftRenderer.html#a0b67904e6c3e241a281be17dafe27398", null ],
     [ "_dirty", "classhmi_1_1DraftRenderer.html#a8d81eec42fa953e30cc22510831e6d0d", null ],

@@ -15,5 +15,6 @@ var classeditor_1_1MainWindow =
     [ "_palettePanel", "classeditor_1_1MainWindow.html#af62b304587bcb544e4728a43e9444bb0", null ],
     [ "_statusPanel", "classeditor_1_1MainWindow.html#a88e8e0f635ef5183aa2a306bd3ee584c", null ],
     [ "_toolPanel", "classeditor_1_1MainWindow.html#ad788b4ba2e6ee68fcc891a8044101965", null ],
+    [ "_tools", "classeditor_1_1MainWindow.html#ab4001e963cb9a1a8fb567bc610ecb5cd", null ],
     [ "_viewport", "classeditor_1_1MainWindow.html#a1fdb6a6d09d956743ad1e1d9411f05d8", null ]
 ];

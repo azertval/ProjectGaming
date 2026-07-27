@@ -9,5 +9,6 @@ var searchData=
   ['addsystem_6',['addSystem',['../classcore_1_1World.html#a1d131cad0324faf0dd0fd8b8ec322568',1,'core::World']]],
   ['advance_7',['advance',['../classcore_1_1FixedTimestep.html#af793433cb70af5284492ca1eca34d797',1,'core::FixedTimestep::advance()'],['../classhmi_1_1LevelSequence.html#af6e2e16305b38595e21f6fb082be4a1a',1,'hmi::LevelSequence::advance()']]],
   ['alivecount_8',['aliveCount',['../classcore_1_1EntityManager.html#a7d5553c8d41e71f3bd504ac5523dc200',1,'core::EntityManager']]],
-  ['approximatelyequal_9',['approximatelyEqual',['../namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794',1,'core']]]
+  ['applyrectangle_9',['applyRectangle',['../classeditor_1_1GameViewport.html#ada3b55bc90b352310e0e3f78a555a882',1,'editor::GameViewport']]],
+  ['approximatelyequal_10',['approximatelyEqual',['../namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794',1,'core']]]
 ];

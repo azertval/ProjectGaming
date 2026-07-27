@@ -12,5 +12,7 @@ var dir_b26507eead720464ba2ac6bbc6dcec5f =
     [ "PalettePanel.cpp", "PalettePanel_8cpp.html", null ],
     [ "PalettePanel.h", "PalettePanel_8h.html", "PalettePanel_8h" ],
     [ "TileTaxonomy.cpp", "TileTaxonomy_8cpp.html", "TileTaxonomy_8cpp" ],
-    [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ]
+    [ "TileTaxonomy.h", "TileTaxonomy_8h.html", "TileTaxonomy_8h" ],
+    [ "ToolPanel.cpp", "ToolPanel_8cpp.html", null ],
+    [ "ToolPanel.h", "ToolPanel_8h.html", "ToolPanel_8h" ]
 ];

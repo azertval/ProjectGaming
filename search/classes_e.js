@@ -9,5 +9,6 @@ var searchData=
   ['tilesubgroup_6',['TileSubgroup',['../structeditor_1_1TileSubgroup.html',1,'editor']]],
   ['toggle_7',['Toggle',['../structhmi_1_1LanguageSelector_1_1Toggle.html',1,'hmi::LanguageSelector']]],
   ['toolbar_8',['ToolBar',['../classhmi_1_1ToolBar.html',1,'hmi']]],
-  ['transform_9',['Transform',['../structcore_1_1Transform.html',1,'core']]]
+  ['toolpanel_9',['ToolPanel',['../classeditor_1_1ToolPanel.html',1,'editor']]],
+  ['transform_10',['Transform',['../structcore_1_1Transform.html',1,'core']]]
 ];

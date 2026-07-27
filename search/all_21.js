@@ -33,7 +33,7 @@ var searchData=
   ['verticale_20à_20une_20extrémité_30',['Particularité de l&apos;arrondi : tangente verticale à une extrémité',['../guide-physique.html#autotoc_md142',1,'']]],
   ['vidéo_31',['Pourquoi journaliser dans un jeu vidéo',['../guide-journalisation.html#autotoc_md97',1,'']]],
   ['vie_32',['TACHE-02 — Entités : handles générationnels &amp; cycle de vie',['../lot-03-tache-02-entites.html',1,'lot-03']]],
-  ['view_33',['view',['../classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8',1,'core::World::view()'],['../classcore_1_1View.html#af9deaef919667673a6f66212ed15cc54',1,'core::View::View()'],['../classcore_1_1View.html',1,'core::View&lt; Components &gt;']]],
+  ['view_33',['view',['../classcore_1_1View.html#af9deaef919667673a6f66212ed15cc54',1,'core::View::View()'],['../classcore_1_1World.html#a757ed4615ee46be5535229c3a4555eb8',1,'core::World::view()'],['../classcore_1_1View.html',1,'core::View&lt; Components &gt;']]],
   ['view_2eh_34',['View.h',['../View_8h.html',1,'']]],
   ['viewport_35',['TACHE-02 — Rendu des liens + création avec retour visuel immédiat dans le viewport',['../lot-37-tache-02-rendu-liens-creation.html',1,'lot-37']]],
   ['viewport_20→_20leveldraft_20undo_20redo_20copier_20coller_36',['TACHE-03 — Barre d&apos;outils + peinture viewport → `LevelDraft` (undo/redo, copier/coller)',['../lot-35-tache-03-outils-peinture-viewport.html',1,'lot-35']]],

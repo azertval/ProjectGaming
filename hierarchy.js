@@ -84,7 +84,8 @@ var hierarchy =
     ] ],
     [ "QWidget", null, [
       [ "editor::LevelBrowserPanel", "classeditor_1_1LevelBrowserPanel.html", null ],
-      [ "editor::PalettePanel", "classeditor_1_1PalettePanel.html", null ]
+      [ "editor::PalettePanel", "classeditor_1_1PalettePanel.html", null ],
+      [ "editor::ToolPanel", "classeditor_1_1ToolPanel.html", null ]
     ] ],
     [ "QWindow", null, [
       [ "editor::GameViewport", "classeditor_1_1GameViewport.html", null ]

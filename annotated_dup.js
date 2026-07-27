@@ -57,7 +57,8 @@ var annotated_dup =
       [ "PalettePanel", "classeditor_1_1PalettePanel.html", "classeditor_1_1PalettePanel" ],
       [ "TileCategory", "structeditor_1_1TileCategory.html", "structeditor_1_1TileCategory" ],
       [ "TileEntry", "structeditor_1_1TileEntry.html", "structeditor_1_1TileEntry" ],
-      [ "TileSubgroup", "structeditor_1_1TileSubgroup.html", "structeditor_1_1TileSubgroup" ]
+      [ "TileSubgroup", "structeditor_1_1TileSubgroup.html", "structeditor_1_1TileSubgroup" ],
+      [ "ToolPanel", "classeditor_1_1ToolPanel.html", "classeditor_1_1ToolPanel" ]
     ] ],
     [ "hmi", "namespacehmi.html", [
       [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
