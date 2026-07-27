@@ -19,6 +19,7 @@
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "Editor/QtKeyMap.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
 #include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
@@ -30,47 +31,6 @@
 namespace editor {
 
 namespace {
-
-[[nodiscard]] std::optional<hmi::Key> mapQtKey(int qtKey) {
-    switch (qtKey) {
-        case Qt::Key_Escape:
-            return hmi::Key::Escape;
-        case Qt::Key_Tab:
-        case Qt::Key_Backtab:
-            return hmi::Key::Tab;
-        case Qt::Key_Return:
-        case Qt::Key_Enter:
-            return hmi::Key::Enter;
-        case Qt::Key_Backspace:
-            return hmi::Key::Backspace;
-        case Qt::Key_Shift:
-            return hmi::Key::Shift;
-        case Qt::Key_Control:
-            return hmi::Key::Control;
-        case Qt::Key_Space:
-            return hmi::Key::Space;
-        case Qt::Key_Left:
-            return hmi::Key::Left;
-        case Qt::Key_Up:
-            return hmi::Key::Up;
-        case Qt::Key_Right:
-            return hmi::Key::Right;
-        case Qt::Key_Down:
-            return hmi::Key::Down;
-        case Qt::Key_F1:
-            return hmi::Key::F1;
-        case Qt::Key_F2:
-            return hmi::Key::F2;
-        case Qt::Key_F10:
-            return hmi::Key::F10;
-        default:
-            break;
-    }
-    if ((qtKey >= Qt::Key_0 && qtKey <= Qt::Key_9) || (qtKey >= Qt::Key_A && qtKey <= Qt::Key_Z)) {
-        return static_cast<hmi::Key>(qtKey);
-    }
-    return std::nullopt;
-}
 
 [[nodiscard]] std::optional<hmi::MouseButton> mapQtMouseButton(Qt::MouseButton button) {
     switch (button) {
@@ -343,7 +303,7 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
             return;
         }
         if (!event->isAutoRepeat()) {
-            if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
+            if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key())) {
                 _input.onKeyDown(*key);
             }
         }
@@ -390,7 +350,7 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
     if (event->isAutoRepeat()) {
         return;
     }
-    if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
+    if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key())) {
         _input.onKeyDown(*key);
     }
 }
@@ -515,7 +475,7 @@ void GameViewport::keyReleaseEvent(QKeyEvent* event) {
     if (event->isAutoRepeat()) {
         return;
     }
-    if (const std::optional<hmi::Key> key = mapQtKey(event->key())) {
+    if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key())) {
         _input.onKeyUp(*key);
     }
 }

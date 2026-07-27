@@ -66,6 +66,12 @@ public:
         _tool = tool;
     }
 
+    /// Accès **modifiable** aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes
+    /// bindings, donc un changement s'applique immédiatement.
+    [[nodiscard]] hmi::GameKeyBindings& gameBindings() noexcept {
+        return _gameBindings;
+    }
+
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
     /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
     void save();

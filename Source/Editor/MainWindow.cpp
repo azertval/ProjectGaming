@@ -24,6 +24,7 @@
 #include <filesystem>
 
 #include "Editor/GameViewport.h"
+#include "Editor/KeybindingsDialog.h"
 #include "Editor/LevelBrowserPanel.h"
 #include "Editor/MainMenu.h"
 #include "Editor/PalettePanel.h"
@@ -119,10 +120,11 @@ MainWindow::MainWindow()
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
-    // Touches : câblé à l'étape suivante du LOT-38.
+    // Remappage des touches de jeu (édite les bindings du viewport, persiste dans keybindings.json).
     connect(_menu, &MainMenu::keybindingsRequested, this, [this] {
-        QMessageBox::information(this, QStringLiteral("Bientôt"),
-                                 QStringLiteral("Le remappage des touches arrive à l'étape suivante."));
+        KeybindingsDialog dialog(_viewport->gameBindings(),
+                                 hmi::executableDirectory() / "Settings" / "keybindings.json", this);
+        dialog.exec();
     });
 
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));

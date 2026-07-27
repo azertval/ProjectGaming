@@ -39,8 +39,10 @@ add_executable(ProjectGamingEditor
     PalettePanel.cpp
     ToolPanel.cpp
     LevelBrowserPanel.cpp
+    KeybindingsDialog.cpp
     TileTaxonomy.cpp
     LevelFileOperations.cpp
+    QtKeyMap.cpp
     # Validation de nom de niveau (partagée avec l'éditeur historique jusqu'au LOT-38).
     ${PROJECT_SOURCE_DIR}/Source/HMI/Editor/LevelNameValidation.cpp
 )
