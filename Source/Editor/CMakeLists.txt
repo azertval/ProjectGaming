@@ -47,6 +47,10 @@ add_executable(ProjectGamingEditor
     QtKeyMap.cpp
     # Validation de nom de niveau (partagée avec l'éditeur historique jusqu'au LOT-38).
     ${PROJECT_SOURCE_DIR}/Source/HMI/Editor/LevelNameValidation.cpp
+    # Ressource embarquée (thème .qss) — traitée par AUTORCC.
+    resources.qrc
+    # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
+    MainMenu.ui
 )
 
 # HmiRuntime propage Core, les libs Direct3D et les définitions Unicode (PUBLIC).

@@ -9,6 +9,8 @@
 
 #include <QApplication>
 #include <QCoreApplication>
+#include <QFile>
+#include <QString>
 
 #include "Editor/MainWindow.h"
 
@@ -22,6 +24,13 @@ int main(int argc, char** argv) {
     // des panneaux de l'éditeur, EX-IHM-011).
     QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
     QCoreApplication::setApplicationName(QStringLiteral("Editor"));
+
+    // Thème de l'IHM (menu/options), embarqué en ressource (resources.qrc -> theme.qss). Portée par
+    // objectName : l'éditeur (docks) conserve le thème Qt par défaut.
+    if (QFile themeFile(QStringLiteral(":/resources/theme.qss"));
+        themeFile.open(QFile::ReadOnly | QFile::Text)) {
+        application.setStyleSheet(QString::fromUtf8(themeFile.readAll()));
+    }
 
     editor::MainWindow window;
     window.show();
