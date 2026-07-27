@@ -19,7 +19,9 @@ namespace hmi {
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
     : _batch(batch), _atlas(atlas), _renderer(batch, atlas) {}
 
-void DraftRenderer::render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid) {
+void DraftRenderer::render(
+    const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
+    const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -27,6 +29,29 @@ void DraftRenderer::render(const core::LevelDraft& draft, const Camera2D& camera
     _renderer.render(_world, camera, 1.0f);
     if (showGrid) {
         drawGrid(draft, camera);
+    }
+    if (highlight) {
+        const core::GridPosition mn = highlight->first;
+        const core::GridPosition mx = highlight->second;
+        const float atlasWidth = static_cast<float>(_atlas.width());
+        const float atlasHeight = static_cast<float>(_atlas.height());
+        const core::AtlasRegion solid = _atlas.tile(0, 0);
+        SpriteQuad quad;
+        quad.x = static_cast<float>(mn.column);
+        quad.y = static_cast<float>(mn.row);
+        quad.width = static_cast<float>(mx.column - mn.column + 1);
+        quad.height = static_cast<float>(mx.row - mn.row + 1);
+        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+        quad.r = 0.3f;
+        quad.g = 0.7f;
+        quad.b = 1.0f;
+        quad.a = 0.28f;  // voile bleu semi-transparent (aperçu rectangle/sélection)
+        _batch.begin(camera.projectionMatrix(), _atlas.textureView());
+        _batch.draw(quad);
+        _batch.end();
     }
 }
 

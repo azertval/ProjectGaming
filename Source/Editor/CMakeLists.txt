@@ -36,6 +36,7 @@ add_executable(ProjectGamingEditor
     GameViewport.cpp
     MainWindow.cpp
     PalettePanel.cpp
+    ToolPanel.cpp
     LevelBrowserPanel.cpp
     TileTaxonomy.cpp
     LevelFileOperations.cpp

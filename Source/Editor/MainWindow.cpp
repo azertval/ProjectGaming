@@ -21,6 +21,7 @@
 #include "Editor/GameViewport.h"
 #include "Editor/LevelBrowserPanel.h"
 #include "Editor/PalettePanel.h"
+#include "Editor/ToolPanel.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
 namespace editor {
@@ -57,6 +58,7 @@ MainWindow::MainWindow()
       _levelsPanel(nullptr),
       _levels(nullptr),
       _toolPanel(nullptr),
+      _tools(nullptr),
       _statusPanel(nullptr) {
     setObjectName(QStringLiteral("EditorMainWindow"));
 
@@ -73,6 +75,9 @@ MainWindow::MainWindow()
     // Sélectionner une tuile dans la palette définit le type peint au clic dans le viewport.
     connect(_palette, &PalettePanel::tileSelected, _viewport,
             [this](core::TileType type) { _viewport->setActiveTile(type); });
+    // Changer d'outil dans le panneau Outils met à jour l'outil actif du viewport.
+    connect(_tools, &ToolPanel::toolSelected, _viewport,
+            [this](hmi::EditorTool tool) { _viewport->setTool(tool); });
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
     connect(_viewport, &GameViewport::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message, 5000); });
@@ -116,8 +121,12 @@ void MainWindow::createDockPanels() {
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _levelsPanel);
     _levelsPanel->setWidget(_levels);
 
-    _toolPanel = makePanel(QStringLiteral("Outils"), QStringLiteral("ToolPanel"),
-                           QStringLiteral("Outils\n(LOT-35 TACHE-03)"));
+    // Panneau « Outils » : sélecteur d'outil d'édition (pinceau/rectangle/sélection).
+    _toolPanel = new QDockWidget(QStringLiteral("Outils"));
+    _toolPanel->setObjectName(QStringLiteral("ToolPanel"));
+    _tools = new ToolPanel(_toolPanel);
+    _toolPanel->setWidget(_tools);
+
     _statusPanel = makePanel(QStringLiteral("Statut"), QStringLiteral("StatusPanel"),
                              QStringLiteral("Statut"));
 

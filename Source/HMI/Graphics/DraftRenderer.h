@@ -1,6 +1,10 @@
 #pragma once
 
+#include <optional>
+#include <utility>
+
 #include "Core/Ecs/World.h"
+#include "Core/Levels/GridPosition.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
 /**
@@ -33,8 +37,11 @@ public:
 
     /// Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée). Si @p showGrid,
     /// superpose la grille de repère (frontières de cases + frontières de salles) — aide au
-    /// placement, équivalent de la bascule `F10` de l'éditeur historique (`EX-EDIT-023`).
-    void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid);
+    /// placement, équivalent de la bascule `F10` de l'éditeur historique (`EX-EDIT-023`). Si
+    /// @p highlight est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de
+    /// l'outil Rectangle/Sélection.
+    void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
+                const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
