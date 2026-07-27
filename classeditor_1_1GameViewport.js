@@ -8,6 +8,7 @@ var classeditor_1_1GameViewport =
     [ "ensureResources", "classeditor_1_1GameViewport.html#a0702ca16c00c467ceb0e2845957b7e83", null ],
     [ "event", "classeditor_1_1GameViewport.html#a264bf90c393515d8de9d2436a9fed0a2", null ],
     [ "exposeEvent", "classeditor_1_1GameViewport.html#a1c5cb7ed95bae9832caabb2af90c5cf8", null ],
+    [ "isDirty", "classeditor_1_1GameViewport.html#afed39e7831c7db166ca4683fe88b6c0a", null ],
     [ "keyPressEvent", "classeditor_1_1GameViewport.html#ac416c48ebc4eec9d547ac1c62c910f31", null ],
     [ "keyReleaseEvent", "classeditor_1_1GameViewport.html#aafba3133fbdbacdd7de9498c41e215f8", null ],
     [ "levelHeight", "classeditor_1_1GameViewport.html#a2e9c7ca114fffe18294e020bc8f66220", null ],
@@ -15,6 +16,7 @@ var classeditor_1_1GameViewport =
     [ "mouseMoveEvent", "classeditor_1_1GameViewport.html#a11a39ae1f7054256d39fe8632325e9db", null ],
     [ "mousePressEvent", "classeditor_1_1GameViewport.html#aa1255fb3e5d566a32784816a0a7b0b59", null ],
     [ "mouseReleaseEvent", "classeditor_1_1GameViewport.html#a71f6cfbf1a942977cf7228da498cf804", null ],
+    [ "openLevel", "classeditor_1_1GameViewport.html#a327442ac9d55668e83db9c7e549b1dd2", null ],
     [ "operator=", "classeditor_1_1GameViewport.html#a406cdad9a70807e0f6b980d9ba8e35e0", null ],
     [ "paintAt", "classeditor_1_1GameViewport.html#ab3b6d39163c76d9618ecc14c05b19e34", null ],
     [ "pixelHeight", "classeditor_1_1GameViewport.html#a7e0f13b3bfaad4cc166503abce419504", null ],
@@ -35,6 +37,7 @@ var classeditor_1_1GameViewport =
     [ "_activeTile", "classeditor_1_1GameViewport.html#ae439ce512c8d323068c90d50bb304d19", null ],
     [ "_atlas", "classeditor_1_1GameViewport.html#ab401a16634d9ff37f745f389d61e37b6", null ],
     [ "_camera", "classeditor_1_1GameViewport.html#ac1c42a74bf0d68c96c7e21f0f065c194", null ],
+    [ "_dirty", "classeditor_1_1GameViewport.html#accc89c81e8cf56077beb80e61729ddf8", null ],
     [ "_draft", "classeditor_1_1GameViewport.html#ae2a5213bdcc53503fa6d05f99041135a", null ],
     [ "_draftRenderer", "classeditor_1_1GameViewport.html#a901e93fc3919f55f63108bee99ec4798", null ],
     [ "_gameBindings", "classeditor_1_1GameViewport.html#a7cf3c7740b9d09b606ab34321ebe80e0", null ],
@@ -46,6 +49,7 @@ var classeditor_1_1GameViewport =
     [ "_painting", "classeditor_1_1GameViewport.html#a3cfe65e3bfcb5c0fa5ba59dfbae91769", null ],
     [ "_previousFrame", "classeditor_1_1GameViewport.html#a1ed55162763e4b6fce98729059c3c690", null ],
     [ "_session", "classeditor_1_1GameViewport.html#a01b2b5a6e83e2ca4bc2fb3e447d41e30", null ],
+    [ "_showGrid", "classeditor_1_1GameViewport.html#ab719d12bacb015c4424e8379a2091ad5", null ],
     [ "_spriteBatch", "classeditor_1_1GameViewport.html#aba917cfb8f1866c9ce10c7508fc049c0", null ],
     [ "_timestep", "classeditor_1_1GameViewport.html#a068e7d70ecb49467cf6b77632009af5a", null ]
 ];

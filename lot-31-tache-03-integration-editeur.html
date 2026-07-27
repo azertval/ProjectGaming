@@ -94,14 +94,14 @@ $(document).ready(function(){initNavTree('lot-31-tache-03-integration-editeur.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-31-blocs-danger-avances_2epic_8md.html">LOT-31</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Graphics</code>, <code>HMI/Interface</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1521"></a>
+<h1><a class="anchor" id="autotoc_md1522"></a>
 Contexte</h1>
 <p>Rend les sept nouveaux types <b>peignables</b> depuis la palette (<code>EX-EDIT-002</code>), le danger directionnel <b>visuellement fidèle</b> à sa hitbox réelle, et la liaison déclencheur↔danger commuté éditable au même geste qu'une porte (<code>EX-EDIT-003</code>).</p>
 <p><b>Deux réductions de périmètre tranchées pendant l'implémentation</b>, documentées ici plutôt que laissées implicites :</p><ul>
 <li><b>Pas de geste dédié « portée » pour <code>DangerMover</code>.</b> L'idée initiale (second clic après avoir peint la tuile, pour définir axe/portée à la souris) n'a pas été implémentée : elle aurait ajouté un état d'interaction supplémentaire (<code>_pendingMoverConfig</code> ou équivalent) pour un gain marginal — <code>LevelDraft::setMoverConfig</code> existe déjà (TACHE-01) et couvre le besoin <b>programmatique</b> ; sans UI dédiée, un danger mobile peint depuis la palette garde l'axe/la portée de conception par défaut (horizontal, 2 cases) tant que <code>setMoverConfig</code> n'est pas appelé — cohérent avec l'exclusion déjà actée par l'epic (pas de widget numérique). Un futur lot pourra ajouter ce geste s'il s'avère réellement nécessaire à l'usage.</li>
 <li><b>Mobile/Commuté/Temporisé partagent la couleur du danger classique</b> (même région d'atlas, rouge) plutôt que des teintes distinctes. La grille procédurale de <code>TextureAtlas</code> (5×5 cases) n'a qu'<b>une seule</b> case encore libre (<code>(3,4)</code>) — les 24 autres portent déjà une couleur ou un masque de forme (pentes/arrondis). Une distinction fiable aurait exigé d'agrandir la grille (<code>TILES_PER_SIDE</code>), une opération plus large et plus risquée (réindexation complète de la palette de couleurs procédurale) que ce que ce lot justifie : le <b>type</b> de la tuile (visible dans la palette au moment de peindre) et son <b>comportement</b> restent la source de vérité, la couleur n'étant qu'un indice secondaire. Le danger <b>directionnel</b>, lui, reste visuellement fidèle (bande sur son bord réel) car cela ne nécessite aucune nouvelle case d'atlas — seulement un positionnement différent du même quad rouge.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1522"></a>
+<h1><a class="anchor" id="autotoc_md1523"></a>
 Travail réalisé</h1>
 <ul>
 <li>**<code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">TilePalette.h</a></code>/<code>.cpp</code>** : la catégorie « Piège » (<code>Category</code>), avant <code>pushStandalone</code> (une seule feuille), devient un <b>en-tête de catégorie</b> (comme « Tuile »/« Interactif ») :<ul>
@@ -120,7 +120,7 @@ Travail réalisé</h1>
 </li>
 <li><b>Niveau de démonstration</b> : <code>Source/Elements/Levels/demo-dangers-avances.json</code> (nouveau), intégré à la séquence jouée (<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>, juste après <code>demo-bloc-reduit.json</code>, avant <code>demo-final.json</code>). Les quatre variantes sont posées sur des <b>alcôves surélevées optionnelles</b> au-dessus d'un couloir principal ininterrompu — comme les douze niveaux de démo existants, aucun n'exige de scénario de mort pour être franchi ; ce niveau ne fait pas exception.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1523"></a>
+<h1><a class="anchor" id="autotoc_md1524"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="DangerGeometry_8h.html" title="Géométrie de la zone mortelle d&#39;une case de danger (EX-GP-050).">Source/Core/Levels/DangerGeometry.h</a></code>/<code>.cpp</code> (<code>isDangerTileType</code>).</li>
@@ -132,7 +132,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>, <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></code> (insertion dans la séquence, aux deux endroits — vérifié par <code>scripts/check_demo_sequence.py</code>).</li>
 <li>Tests : <code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a></code> (catégorie Piège restructurée, sous-groupe Directionnel), <code><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">Source/Test/Systeme/test_parcours_edition.cpp</a></code> (nouveau test — peinture/liaison/configuration des sept types, round-trip disque).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1524"></a>
+<h1><a class="anchor" id="autotoc_md1525"></a>
 Tests (réalisés)</h1>
 <ul>
 <li>Chaque nouveau type est sélectionnable depuis la palette et peint la bonne valeur de <code>TileType</code> (<code>CategoriePiegeDeplieeExposeSesFeuilles</code>, <code>SousGroupeDirectionnelDeplieExposeSesBords</code>).</li>
@@ -141,13 +141,13 @@ Tests (réalisés)</h1>
 <li><code><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">test_parcours_edition.cpp</a></code> : peinture des sept types + liaison + configuration explicite (mobile, temporisé) survivent à un enregistrement/rechargement disque complet.</li>
 <li><code>scripts/check_demo_sequence.py</code> retourne un code de sortie <code>0</code> (14 niveaux, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> et <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></code> identiques).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1525"></a>
+<h1><a class="anchor" id="autotoc_md1526"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les sept types sont éditables de bout en bout (peinture, liaison, enregistrement, rechargement, essai immédiat) sans édition manuelle de JSON — à l'exception de l'axe/la portée d'un danger mobile personnalisés (valeurs par défaut sans geste dédié, cf. réduction de périmètre ci-dessus).</li>
 <li>Couverture des <b>trois niveaux de test</b> du projet pour l'ensemble du lot : Unit (TACHE-01/02), Integration (TACHE-02), Système (cette tâche — <code>demo-dangers-avances</code> jouée bout en bout dans la séquence réelle via <code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></code>, et round-trip d'édition via <code><a class="el" href="test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est...">test_parcours_edition.cpp</a></code>). Build <code>/W4 /WX</code> et suite complète (453 Unit + 81 Integration + 3 Système) vertes, sans régression.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1526"></a>
+<h1><a class="anchor" id="autotoc_md1527"></a>
 Exigences</h1>
 <p><code>EX-EDIT-001</code>, <code>EX-EDIT-002</code>, <code>EX-EDIT-003</code>, <code>EX-EDIT-016</code>, <code>EX-GP-050</code>, <code>EX-GP-051</code>, <code>EX-GP-052</code>, <code>EX-GP-053</code>. </p>
 </div></div><!-- contents -->

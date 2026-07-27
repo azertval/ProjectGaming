@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-39-tache-01-loader-image-assets.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-39-refonte-ihm-qt-textures_2epic_8md.html">LOT-39</a> · <b>Emplacement :</b> <code>Source/HMI/Graphics</code>, <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1799"></a>
+<h1><a class="anchor" id="autotoc_md1800"></a>
 Contexte</h1>
 <p>Aucun <b>loader d'image</b> n'existe : <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">hmi::TextureAtlas</a></code> crée sa texture D3D11 à partir de pixels <b>générés en code</b> (<code>CreateTexture2D</code> + <code>CreateShaderResourceView</code>). Cette tâche introduit le <b>décodage d'un fichier image en pixels RGBA</b> puis la création de la texture D3D11 correspondante, plus la <b>résolution du chemin d'asset</b> (où trouver les fichiers) isolée en logique testable.</p>
-<h1><a class="anchor" id="autotoc_md1800"></a>
+<h1><a class="anchor" id="autotoc_md1801"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Décodeur image → RGBA</b> :<ul>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 </li>
 <li><b>Résolution d'assets</b> (<code>Source/Editor/AssetPaths.{h,cpp}</code> ou <code>HMI</code>, <b>pur</b>) : localiser le dossier <code>Assets/</code> à côté de l'exécutable (comme <code>Levels</code>/<code>Localization</code> via <code><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></code>), résoudre un nom logique → chemin fichier, signaler un asset manquant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1801"></a>
+<h1><a class="anchor" id="autotoc_md1802"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Graphics/TextureLoader.{h,cpp}</code> (nouveau : décodage + création SRV).</li>
@@ -119,26 +119,26 @@ Fichiers impactés</h1>
 <li><code>Source/Test/Unit/.../test_asset_paths.cpp</code> (nouveau).</li>
 <li>Éventuel <code>External/CMakeLists.txt</code> si <code>stb_image</code> retenu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1802"></a>
+<h1><a class="anchor" id="autotoc_md1803"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Résolution d'assets pure</b> (sans GPU) : nom logique → chemin attendu ; asset manquant détecté ; robustesse chemin inexistant.</li>
 <li><b>Décodage</b> : si testable sans GPU (dimensions/format d'une image connue via <code>QImage</code>), le couvrir ; la <b>création de la texture D3D11</b> relève de la vérification visuelle (dépendance GPU).</li>
 <li><b>Vérification manuelle</b> : une image PNG connue est chargée et affichable (validée en TACHE-02).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1803"></a>
+<h1><a class="anchor" id="autotoc_md1804"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Format et prémultiplication alpha</b> : cohérence avec le blend state de <code>SpriteBatch</code> (alpha simple) ; convertir en <code>RGBA8888</code> non prémultiplié (ou ajuster le blend) — le documenter.</li>
 <li><b>Filtrage pixel art</b> : l'échantillonnage <em>nearest</em> est fixé dans <code>SpriteBatch</code> (inchangé) ; ne pas introduire de filtrage linéaire qui flouterait.</li>
 <li><b>Chemins</b> : passer par <code><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></code>, pas de chemin en dur.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1804"></a>
+<h1><a class="anchor" id="autotoc_md1805"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chargement d'un PNG → SRV D3D11 fonctionnel ; résolution d'assets <b>testée</b> ; <code>/W4 /WX</code> propre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1805"></a>
+<h1><a class="anchor" id="autotoc_md1806"></a>
 Exigences</h1>
 <p><code>EX-REN-041</code> (chargement de textures depuis fichiers) ; <code>EX-NFR-010</code> (résolution testable), <code>EX-NFR-040</code> (asset manquant) ; réutilise <code>EX-ARCH-022</code> (nearest). </p>
 </div></div><!-- contents -->

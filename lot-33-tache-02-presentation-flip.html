@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-33-tache-02-presentation-flip.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-33-fluidite-moteur_2epic_8md.html">LOT-33</a> · <b>Module :</b> <code>Source/HMI/Graphics</code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md1587"></a>
+<h1><a class="anchor" id="autotoc_md1588"></a>
 Contexte</h1>
 <p>La swap chain était créée avec l'ancien modèle de présentation <em>blt</em> (<code>DXGI_SWAP_EFFECT_DISCARD</code>, un seul back buffer). Sous Windows 10/11, ce modèle impose au compositeur (DWM) une <b>copie supplémentaire</b> du back buffer à chaque présentation, ce qui ajoute de la latence entrée → image et nuit à la régularité de la cadence. Le modèle <b>flip</b> (<code>DXGI_SWAP_EFFECT_FLIP_DISCARD</code>) présente le back buffer <b>directement</b>, sans cette copie — c'est la présentation recommandée pour toute application Direct3D moderne, y compris V-Sync activée.</p>
-<h1><a class="anchor" id="autotoc_md1588"></a>
+<h1><a class="anchor" id="autotoc_md1589"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>GraphicsDevice</code> : swap chain en <code>DXGI_SWAP_EFFECT_FLIP_DISCARD</code> avec <b>deux</b> back buffers (<code>BufferCount = 2</code>), format <code>R8G8B8A8_UNORM</code> (compatible flip), <code>SampleDesc.Count = 1</code>.</li>
@@ -105,25 +105,25 @@ Travail à réaliser</h1>
 <li><code>resize()</code> : dé-lier explicitement la cible de rendu (<code>OMSetRenderTargets(0, nullptr, nullptr)</code>) avant <code>ResizeBuffers</code>, en plus de libérer la render target view (une liaison résiduelle compterait comme une référence vivante et ferait échouer le redimensionnement).</li>
 <li>V-Sync inchangée : <code>present()</code> continue d'utiliser l'intervalle de synchronisation selon <code>vsyncEnabled()</code> (<code>EX-REN-022</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1589"></a>
+<h1><a class="anchor" id="autotoc_md1590"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image.">Source/HMI/Graphics/GraphicsDevice.h</a></code> : documentation de la classe (flip model).</li>
 <li><code><a class="el" href="GraphicsDevice_8cpp.html">Source/HMI/Graphics/GraphicsDevice.cpp</a></code> : description de la swap chain, <code>clear()</code> (reliure), <code>resize()</code> (dé-liaison avant <code>ResizeBuffers</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1590"></a>
+<h1><a class="anchor" id="autotoc_md1591"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Dépendance D3D11 : vérification <b>visuelle</b> (le jeu démarre, affiche, se redimensionne, reste net) — comme tout le rendu depuis <code>LOT-05</code>. Aucun test unitaire GPU.</li>
 <li>Non-régression de la suite (aucun code de simulation touché) : reste verte.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1591"></a>
+<h1><a class="anchor" id="autotoc_md1592"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Fenêtre créée en flip model, rendu correct, redimensionnement sans artefact ni erreur DXGI, V-Sync toujours activable.</li>
 <li>Compile <code>/W4 /WX</code>, formaté, API documentée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1592"></a>
+<h1><a class="anchor" id="autotoc_md1593"></a>
 Exigences</h1>
 <p><code>EX-REN-004</code>, <code>EX-REN-002</code>, <code>EX-REN-022</code>, <code>EX-NFR-041</code>. </p>
 </div></div><!-- contents -->

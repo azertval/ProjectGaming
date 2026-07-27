@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-27-tache-01-palette-accordeon.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-27-palette-categories_2epic_8md.html">LOT-27</a> · <b>Emplacement :</b> <code>HMI/Editor</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1381"></a>
+<h1><a class="anchor" id="autotoc_md1382"></a>
 Contexte</h1>
 <p>Réorganise <code><a class="el" href="classhmi_1_1TilePalette.html" title="Bande de tuiles cliquables (palette) sélectionnant le type de tuile à peindre.">hmi::TilePalette</a></code> d'une liste plate de 19 types en un accordéon à trois niveaux (catégorie → sous-groupe → variante), validé au préalable sur un mockup HTML/CSS itéré avec le demandeur (voir <code>epic.md</code>). La hauteur du panneau devenant variable, <code><a class="el" href="classhmi_1_1ToolBar.html" title="Bande d&#39;icônes cliquables sélectionnant l&#39;EditorTool actif.">hmi::ToolBar</a></code> et <code>hmi::EditorLayout</code> sont ajustés pour rester cohérents.</p>
-<h1><a class="anchor" id="autotoc_md1382"></a>
+<h1><a class="anchor" id="autotoc_md1383"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">HMI/Editor/TilePalette.h</a></code>/<code>.cpp</code>** : remplace la table statique <code>PALETTE_TYPES</code> par un modèle d'arbre construit à la volée (<code>relayout()</code>) — deux entrées autonomes (Vide, Piège) et trois catégories (Tuile, Interactif, Jalon), Tuile/Interactif portant chacune des sous-groupes (Pente/Arrondi ; Bloc poussable). État de dépliage : <code>std::array&lt;bool, 3&gt;</code> par catégorie et par sous-groupe, tous <code>false</code> à la construction. <code>Entry</code> (forme publique inchangée : <code>type</code>/<code>x</code>/<code>y</code>/<code>width</code>/<code>height</code>/<code>label</code>) n'expose que les entrées <b>visibles</b> ; un tableau privé parallèle <code>_rows</code> retient l'action d'un clic sur chaque entrée (sélectionner un type, replier/ déplier une catégorie, replier/déplier un sous-groupe). Nouvelle méthode <code>bottom()</code> (position <code>y</code> juste sous la dernière entrée visible).</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li>Libellé « Danger » → « Piège » (affichage seulement ; <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></code> et son identifiant JSON inchangés).</li>
 <li><b>Défilement</b> (gap découvert après la première revue, voir <code>epic.md</code>) : <code>relayout()</code> reconstruit désormais la liste complète des entrées dépliées puis la <b>découpe</b> sur une fenêtre visible (<code>visibleRowCount(viewportHeight)</code>, réserve la place de <code>ToolBar</code> sous la palette) déterminée par <code>_scrollOffset</code>/<code>_viewportHeight</code> ; <code>setViewportHeight(viewportHeight)</code> synchronise la hauteur connue (appelé chaque frame par <code>EditorScreen</code>) et <code>scroll(wheelDelta)</code> fait défiler la fenêtre (molette, sans toucher à la sélection ni à l'état de dépliage), sur le modèle de <code>LevelPicker::update</code>. Nouvelle méthode privée <code>followRow(absoluteIndex)</code> : après tout repliage/dépliage, ajuste <code>_scrollOffset</code> pour que l'en-tête qui vient d'être cliqué reste dans la fenêtre visible — sans quoi replier/déplier un en-tête proche du bord de la fenêtre pourrait le faire disparaître derrière elle, sans aucun moyen de revenir dessus autrement qu'en devinant qu'il faut faire défiler. <code>EditorScreen::update</code> route la molette vers <code>_palette.scroll</code> quand la souris survole le panneau latéral (<code>input.mouseX() &lt; PANEL_WIDTH</code>), vers le zoom caméra sinon ; <code>renderPalette</code> dessine une barre de défilement (piste + curseur), même principe que <code>EditorScreen::renderPicker</code> (<code>LevelPicker</code>, LOT-15), uniquement si <code>totalRowCount() &gt; visibleRowCount(viewportHeight)</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1383"></a>
+<h1><a class="anchor" id="autotoc_md1384"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TilePalette_8h.html" title="Sélection du type de tuile actif pour la peinture dans l&#39;éditeur (EX-EDIT-002), organisée en catégori...">Source/HMI/Editor/TilePalette.h</a></code>/<code>.cpp</code>, <code><a class="el" href="EditorLayout_8h.html" title="Disposition du panneau latéral de l&#39;éditeur, partagée par ses widgets.">EditorLayout.h</a></code>, <code><a class="el" href="ToolBar_8h.html" title="Sélection de l&#39;outil actif de l&#39;éditeur, à la souris (LOT-15, EX-EDIT-015).">ToolBar.h</a></code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="EditorScreen_8cpp.html">Source/HMI/Interface/EditorScreen.cpp</a></code> (constructeur, <code>update()</code>, <code>renderPalette</code>).</li>
 <li><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a></code>, <code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">test_tool_bar.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1384"></a>
+<h1><a class="anchor" id="autotoc_md1385"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>État initial : exactement 5 entrées visibles (<code>EtatInitialCinqEntreesVisibles</code>).</li>
@@ -132,19 +132,19 @@ Tests (obligatoires)</h1>
 <li>Un en-tête déplié/replié reste visible même dans une fenêtre étroite (<code>EnTeteDeplieResteVisibleDansUneFenetreEtroite</code>) — couvre <code>followRow</code>.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement ; suite complète (334 tests unitaires, 70 tests d'intégration, 2 tests système) verte sans régression.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1385"></a>
+<h1><a class="anchor" id="autotoc_md1386"></a>
 Points d'attention</h1>
 <ul>
 <li>**<code>Entry</code> garde exactement sa forme publique d'avant ce lot** : c'est ce qui permet à <code>EditorScreen::renderPalette</code>/<code>renderToolBar</code> de rester inchangés malgré la réorganisation complète de la palette — le risque de régression de rendu était donc nul par construction, pas vérifié a posteriori.</li>
 <li><b>Le dépliage d'une catégorie peut déplacer la barre d'outils dans la même frame que le clic qui l'a causé</b> : sans le second appel à <code>ToolBar::relayout</code> juste après <code>_palette.handleClick</code>, la barre serait restée à son ancienne position jusqu'à la frame suivante (décalage visuel d'une frame après chaque clic sur un en-tête).</li>
 <li><b>Le défilement seul ne suffisait pas</b> : ajouté seul (sans <code>followRow</code>), un dépliage cumulé dépassant la fenêtre visible aurait simplement déplacé le problème plutôt que de le résoudre — déplier une catégorie proche du bas de la liste pouvait faire disparaître <b>son propre en-tête</b> de la fenêtre (<code>_scrollOffset</code> restant inchangé alors que le total de lignes grandissait sous lui). <code>followRow</code> calcule l'indice <b>absolu</b> (indépendant du défilement) de la ligne cliquée avant <code>relayout()</code> — cet indice reste valide après le clic, seul ce qui suit la ligne dans la liste changeant — puis ajuste <code>_scrollOffset</code> pour qu'il reste dans la fenêtre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1386"></a>
+<h1><a class="anchor" id="autotoc_md1387"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Palette en accordéon à trois niveaux, panneau latéral jamais superposé au canevas, aucune régression sur la sélection de type ni sur la barre d'outils.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1387"></a>
+<h1><a class="anchor" id="autotoc_md1388"></a>
 Exigences</h1>
 <p><code>EX-EDIT-018</code> (implémentation). </p>
 </div></div><!-- contents -->

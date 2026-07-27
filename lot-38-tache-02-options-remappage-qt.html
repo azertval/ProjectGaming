@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-38-tache-02-options-remappage-qt.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-38-refonte-ihm-qt-menus-options_2epic_8md.html">LOT-38</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1768"></a>
+<h1><a class="anchor" id="autotoc_md1769"></a>
 Contexte</h1>
 <p>Porte en Qt l'écran <b>Options</b> (<code>OptionsScreen</code> : V-Sync, langue) et les trois écrans de <b>remappage</b> (<code>GameKeybindingsScreen</code>, <code>EditorKeybindingsScreen</code>, <code>GamepadBindingsScreen</code>). Les <b>modèles</b> sous- jacents (<code>GameKeyBindings</code>, <code>EditorKeyBindings</code>, <code>GamepadBindings</code>, <code>Localization</code>) sont déjà découplés du rendu et <b>réutilisés tels quels</b> ; seule la présentation change. Le format <code>keybindings.json</code> et les catalogues <code>.lang</code> <b>ne changent pas</b>.</p>
-<h1><a class="anchor" id="autotoc_md1769"></a>
+<h1><a class="anchor" id="autotoc_md1770"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Options Qt</b> (<code>QDialog</code>/vue) :<ul>
@@ -114,32 +114,32 @@ Travail à réaliser</h1>
 </li>
 <li><b>Localisation</b> de tous les libellés via <code>.lang</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1770"></a>
+<h1><a class="anchor" id="autotoc_md1771"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/OptionsDialog.{h,cpp}</code>, <code>Source/Editor/KeybindingsView.{h,cpp}</code> (générique pour les trois jeux de bindings).</li>
 <li>Câblage vers <code>GraphicsDevice</code>, <code>Localization</code>, <code>…KeyBindings</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1771"></a>
+<h1><a class="anchor" id="autotoc_md1772"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression modèles</b> : les <code>…KeyBindings</code> (chargement/enregistrement) et la détection de conflit restent testés (réutiliser <code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">test_editor_keybindings_model.cpp</a></code>) — pas de logique dupliquée.</li>
 <li><b>Logique de capture testable</b> : conversion d'un événement de capture en binding, détection de conflit, sans Qt fenêtré.</li>
 <li><b>Vérification manuelle</b> : changer V-Sync (effet visible), changer de langue (libellés), remapper une action jeu/éditeur/manette et vérifier la persistance après relance.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1772"></a>
+<h1><a class="anchor" id="autotoc_md1773"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Formats inchangés</b> : <code>keybindings.json</code> (sections jeu/editeur/manette) et <code>.lang</code> — aucune migration.</li>
 <li><b>Capture manette</b> : réutiliser le sondage XInput (throttling <code>LOT-33</code>) pour lire un bouton pressé.</li>
 <li><b>Conflits de touches</b> : conserver exactement la règle existante (refus/avertissement).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1773"></a>
+<h1><a class="anchor" id="autotoc_md1774"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Options (V-Sync, langue) et remappage (jeu/éditeur/manette) en Qt, équivalents aux écrans historiques, réglages persistés ; logique de capture <b>testée</b>, modèles non dupliqués ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1774"></a>
+<h1><a class="anchor" id="autotoc_md1775"></a>
 Exigences</h1>
 <p><code>EX-IHM-040</code> ; reconduit <code>EX-REN-022</code> (V-Sync), <code>EX-CTRL-012</code> (remappage éditeur) et le remappage jeu/manette (<code>LOT-29</code>/<code>30</code>) ; réutilise la localisation (<code>LOT-06</code>). </p>
 </div></div><!-- contents -->

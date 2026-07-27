@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-32-tache-04-demo-documentation-ver
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-32-niveaux-a-salles_2epic_8md.html">LOT-32</a> · <b>Emplacement :</b> <code>Source/Elements</code>, <code>Documentation</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1564"></a>
+<h1><a class="anchor" id="autotoc_md1565"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : livrer le contenu qui <b>prouve</b> le découpage en salles (<code>RoomGrid</code>, TACHE-01/02/03) en conditions réelles, et aligner la documentation sur ce qui a été livré, comme pour chaque lot précédent.</p>
-<h1><a class="anchor" id="autotoc_md1565"></a>
+<h1><a class="anchor" id="autotoc_md1566"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Niveau de démonstration <code>demo-salles.json</code></b> (<code>Source/Elements/Levels</code>) :<ul>
@@ -117,7 +117,7 @@ Travail à réaliser</h1>
 <li><b>Doxygen</b> : génération locale complète (<code>doxygen Doxyfile</code> depuis <code>Documentation/</code>) avant de pousser, avec le <b>binaire de la CI (1.9.8)</b>, pas la version locale — piège déjà rencontré deux fois sur ce dépôt (LOT-15, LOT-31) : un span <code>`Fichier.cpp::Nom`</code> ou un caractère <code>&lt;</code>/<code>&gt;</code> littéral dans un span en accent grave passe le Doxygen local mais casse la CI.</li>
 <li>**<code>scripts/lint_exigences.py</code>** : doit rester vert (nouvelles exigences déclarées une fois, <code>EX-REN-013</code> réutilisée sans nouvelle déclaration, aucune référence orpheline).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1566"></a>
+<h1><a class="anchor" id="autotoc_md1567"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Levels/demo-salles.json</code> (nouveau).</li>
@@ -126,7 +126,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="rendu-technique_8md.html">Documentation/Specification/rendu-technique.md</a></code>, <code><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></code>, <code><a class="el" href="niveaux_8md.html">Documentation/Specification/niveaux.md</a></code>.</li>
 <li><code>CHANGELOG.md</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1567"></a>
+<h1><a class="anchor" id="autotoc_md1568"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>python scripts/lint_exigences.py</code> retourne un code de sortie <code>0</code>.</li>
@@ -134,18 +134,18 @@ Tests (obligatoires)</h1>
 <li>Un test <b>système</b> (<code>Source/Test/Systeme</code>, même patron que les niveaux de démonstration existants) rejoue <code>demo-salles.json</code> bout en bout (entrée → sortie, en franchissant au moins deux frontières de salles) — preuve que le niveau est franchissable et que le passage de salle en jeu n'introduit aucun blocage physique (la caméra elle-même n'est pas observable par ce test, c'est la simulation <code>Core</code> sous-jacente qui l'est).</li>
 <li>Essai manuel en jeu : les quatre franchissements de frontière (haut/bas/gauche/droite) du niveau de démonstration produisent une coupure nette de caméra, sans zone hors champ ni tremblement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1568"></a>
+<h1><a class="anchor" id="autotoc_md1569"></a>
 Points d'attention</h1>
 <ul>
 <li>Cette tâche clôt le lot : vérifier que les critères d'acceptation d'<code>epic.md</code> sont tous effectivement remplis avant de le marquer terminé (statut + cases ✅ du tableau des tâches).</li>
 <li>Ne pas décrire l'historique de conception (« on a hésité entre X et Y ») dans les commentaires de code — cette nuance reste dans <code>epic.md</code> (décisions de cadrage), pas dans le code livré.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1569"></a>
+<h1><a class="anchor" id="autotoc_md1570"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Niveau de démonstration livré et intégré à la séquence ; documentation cohérente avec le code livré ; lint des exigences et génération Doxygen locale (binaire CI) verts ; <code>CHANGELOG.md</code> à jour ; <code>epic.md</code> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1570"></a>
+<h1><a class="anchor" id="autotoc_md1571"></a>
 Exigences</h1>
 <p><code>EX-LVL-004</code> (invariant entrée/sortie, vérifié par le niveau de démonstration), <code>EX-REN-015</code>, <code>EX-EDIT-023</code> — aucune exigence propre nouvelle au-delà de celles déjà couvertes par TACHE-01/02/03. </p>
 </div></div><!-- contents -->

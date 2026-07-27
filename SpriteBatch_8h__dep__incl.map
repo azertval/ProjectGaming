@@ -1,58 +1,59 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.h">
-<area shape="rect" id="Node000001" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="1047,5,1268,60"/>
+<area shape="rect" id="Node000001" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="951,5,1172,60"/>
 <area shape="rect" id="Node000002" href="$GameViewport_8cpp.html" title=" " alt="" coords="5,416,227,471"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1033,37,797,42,520,53,391,63,280,75,197,91,169,100,152,110,125,143,107,182,97,224,93,268,99,352,111,415,106,416,94,352,88,268,92,223,102,180,121,140,149,106,167,95,196,86,279,70,391,57,520,48,797,36,1033,32"/>
-<area shape="rect" id="Node000003" href="$BitmapFont_8cpp.html" title=" " alt="" coords="163,108,384,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1033,44,742,69,569,87,396,111,385,113,384,107,396,105,568,82,741,63,1033,39"/>
-<area shape="rect" id="Node000004" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="408,108,629,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1033,52,849,78,643,111,630,113,629,108,642,105,848,73,1032,47"/>
-<area shape="rect" id="Node000005" href="$SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="654,108,879,163"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1043,66,869,111,868,105,1042,61"/>
-<area shape="rect" id="Node000011" href="$EditorScreen_8cpp.html" title=" " alt="" coords="988,416,1215,471"/>
-<area shape="poly" id="edge19_Node000001_Node000011" title=" " alt="" coords="1034,54,987,75,967,91,950,110,930,148,926,183,935,220,950,264,974,310,1004,351,1038,386,1069,414,1065,418,1034,390,1000,354,969,313,946,266,929,222,921,184,925,147,946,106,963,87,984,71,1032,49"/>
-<area shape="rect" id="Node000012" href="$GameScreen_8cpp.html" title=" " alt="" coords="1283,416,1511,471"/>
-<area shape="poly" id="edge21_Node000001_Node000012" title=" " alt="" coords="1105,70,1051,111,1025,135,1003,161,986,187,978,214,980,239,994,264,1015,284,1037,297,1059,305,1081,308,1128,303,1177,291,1226,278,1276,272,1301,274,1326,281,1350,293,1374,311,1391,335,1400,363,1403,391,1403,416,1398,416,1398,391,1395,364,1386,337,1370,315,1347,297,1324,286,1300,279,1276,277,1227,283,1178,296,1129,309,1081,313,1058,310,1034,302,1012,288,990,267,975,241,973,213,981,185,998,158,1021,132,1047,107,1101,66"/>
-<area shape="rect" id="Node000013" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1669,416,1891,471"/>
-<area shape="poly" id="edge34_Node000001_Node000013" title=" " alt="" coords="1282,36,1629,55,1843,69,2063,88,2271,111,2449,139,2522,154,2582,171,2626,189,2653,209,2662,224,2665,238,2662,253,2653,267,2631,288,2601,308,2523,342,2425,369,2315,392,2200,410,2086,423,1891,439,1891,434,2086,418,2199,404,2315,387,2424,364,2521,337,2598,303,2627,284,2649,264,2657,251,2660,238,2657,226,2649,212,2624,194,2580,176,2521,160,2448,144,2270,117,2062,94,1843,75,1628,60,1282,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="937,37,709,41,443,53,320,62,214,75,136,91,110,100,94,110,70,144,57,183,54,226,58,269,67,312,79,352,105,415,100,417,74,354,62,314,52,270,48,226,52,182,65,142,90,106,107,95,134,85,213,69,319,57,443,47,708,36,937,32"/>
+<area shape="rect" id="Node000003" href="$BitmapFont_8cpp.html" title=" " alt="" coords="104,108,325,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="937,45,662,70,500,88,339,111,326,113,325,108,338,105,499,83,661,65,936,40"/>
+<area shape="rect" id="Node000004" href="$DraftRenderer_8cpp.html" title=" " alt="" coords="153,313,388,368"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="981,68,899,110,880,125,868,138,855,152,835,165,807,177,783,183,739,188,696,193,673,200,647,213,631,226,622,240,613,254,596,268,522,287,389,317,388,312,521,282,593,263,609,250,618,237,627,222,644,208,671,195,695,188,738,182,782,178,805,172,832,160,851,148,864,135,877,121,896,106,978,63"/>
+<area shape="rect" id="Node000005" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="600,108,821,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="958,66,803,111,801,105,956,61"/>
+<area shape="rect" id="Node000006" href="$SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite." alt="" coords="350,108,575,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="938,54,588,111,576,113,575,108,588,105,937,49"/>
+<area shape="rect" id="Node000012" href="$EditorScreen_8cpp.html" title=" " alt="" coords="988,416,1215,471"/>
+<area shape="poly" id="edge20_Node000001_Node000012" title=" " alt="" coords="988,70,967,87,950,109,933,150,929,185,936,221,950,264,974,310,1004,351,1038,386,1069,414,1065,418,1034,390,1000,354,969,313,946,266,930,222,924,185,928,149,946,107,963,84,985,65"/>
+<area shape="rect" id="Node000013" href="$GameScreen_8cpp.html" title=" " alt="" coords="1283,416,1511,471"/>
+<area shape="poly" id="edge22_Node000001_Node000013" title=" " alt="" coords="1033,73,1005,116,982,167,976,193,975,218,981,242,994,264,1015,284,1037,297,1059,305,1081,308,1128,303,1177,291,1226,278,1276,272,1301,274,1326,281,1350,293,1374,311,1391,335,1400,363,1403,391,1403,416,1398,416,1398,391,1395,364,1386,337,1370,315,1347,297,1324,286,1300,279,1276,277,1227,283,1178,296,1129,309,1081,313,1058,310,1034,302,1012,288,990,267,976,244,970,219,971,193,977,166,1000,114,1029,70"/>
+<area shape="rect" id="Node000014" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1669,416,1891,471"/>
+<area shape="poly" id="edge35_Node000001_Node000014" title=" " alt="" coords="1186,35,1553,52,1783,66,2018,84,2241,107,2434,135,2513,151,2577,169,2624,188,2653,209,2662,224,2665,238,2662,253,2653,267,2631,288,2601,308,2523,342,2425,369,2315,392,2200,410,2086,423,1891,439,1891,434,2086,418,2199,404,2315,387,2424,364,2521,337,2598,303,2627,284,2649,264,2657,251,2660,238,2657,226,2649,212,2622,193,2575,174,2511,156,2433,140,2241,112,2018,89,1782,71,1553,57,1186,41"/>
 <area shape="rect" id="Node000017" href="$EditorKeybindingsScreen_8cpp.html" title=" " alt="" coords="1004,211,1311,265"/>
-<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="1160,74,1160,210,1155,210,1155,74"/>
+<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="1082,71,1147,209,1142,211,1077,73"/>
 <area shape="rect" id="Node000018" href="$GameKeybindingsScreen_8cpp.html" title=" " alt="" coords="1335,211,1641,265"/>
-<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="1213,65,1446,208,1444,213,1210,70"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="1130,64,1434,208,1432,213,1128,68"/>
 <area shape="rect" id="Node000019" href="$GamepadBindingsScreen_8cpp.html" title=" " alt="" coords="1818,211,2126,265"/>
-<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="1282,34,1431,41,1597,53,1749,74,1810,88,1856,106,1889,127,1917,155,1958,209,1954,212,1913,158,1885,132,1853,110,1808,94,1748,79,1596,59,1430,46,1282,39"/>
+<area shape="poly" id="edge23_Node000001_Node000019" title=" " alt="" coords="1186,32,1356,37,1550,49,1644,58,1730,70,1802,86,1856,106,1889,127,1918,155,1959,209,1955,212,1914,158,1886,132,1853,110,1800,91,1729,76,1643,63,1550,54,1356,42,1186,37"/>
 <area shape="rect" id="Node000020" href="$MenuScreen_8cpp.html" title=" " alt="" coords="2150,211,2375,265"/>
-<area shape="poly" id="edge23_Node000001_Node000020" title=" " alt="" coords="1282,34,1412,41,1569,54,1738,75,1906,105,1989,128,2070,155,2205,208,2203,213,2068,160,1987,133,1905,111,1738,80,1569,59,1412,46,1282,40"/>
+<area shape="poly" id="edge24_Node000001_Node000020" title=" " alt="" coords="1186,32,1333,37,1514,49,1711,71,1810,87,1906,105,1989,127,2071,154,2206,208,2204,213,2069,159,1987,132,1905,111,1809,92,1710,76,1513,55,1333,43,1186,38"/>
 <area shape="rect" id="Node000021" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="2399,211,2638,265"/>
-<area shape="poly" id="edge24_Node000001_Node000021" title=" " alt="" coords="1282,36,1430,44,1613,57,1813,77,2012,105,2128,128,2243,155,2435,208,2433,213,2241,160,2127,133,2012,111,1812,82,1613,62,1430,49,1282,41"/>
+<area shape="poly" id="edge25_Node000001_Node000021" title=" " alt="" coords="1186,34,1350,41,1557,54,1785,75,2012,105,2128,128,2243,155,2435,208,2434,213,2242,160,2127,133,2012,111,1784,80,1557,59,1350,46,1185,40"/>
 <area shape="rect" id="Node000022" href="$RenderContext_8h.html" title="Ressources de rendu partagées passées aux écrans lors du dessin." alt="" coords="1616,108,1843,163"/>
-<area shape="poly" id="edge25_Node000001_Node000022" title=" " alt="" coords="1282,53,1616,112,1615,117,1281,58"/>
-<area shape="rect" id="Node000006" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="657,211,879,265"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="770,176,770,211,765,211,765,176"/>
-<area shape="rect" id="Node000014" href="$DraftRenderer_8h.html" title="Rendu d&#39;un brouillon d&#39;édition (core::LevelDraft) dans le viewport (LOT&#45;35)." alt="" coords="148,211,369,265"/>
-<area shape="poly" id="edge14_Node000005_Node000014" title=" " alt="" coords="641,165,382,213,370,216,369,210,381,208,640,160"/>
-<area shape="rect" id="Node000016" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="393,211,633,265"/>
-<area shape="poly" id="edge17_Node000005_Node000016" title=" " alt="" coords="689,170,580,213,578,208,687,165"/>
-<area shape="rect" id="Node000007" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="412,313,633,368"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="693,273,588,316,586,311,691,268"/>
-<area shape="rect" id="Node000009" href="$GameSession_8cpp.html" title=" " alt="" coords="657,313,879,368"/>
-<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="771,279,771,313,765,313,765,279"/>
-<area shape="rect" id="Node000010" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="1139,313,1360,368"/>
-<area shape="poly" id="edge10_Node000006_Node000010" title=" " alt="" coords="893,263,1139,314,1138,319,892,268"/>
-<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="404,374,223,419,221,413,403,369"/>
-<area shape="rect" id="Node000008" href="$MainWindow_8cpp.html" title=" " alt="" coords="412,416,633,471"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="525,382,525,416,520,416,520,382"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1201,378,1142,418,1139,414,1198,373"/>
-<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="1300,373,1360,414,1357,418,1297,378"/>
-<area shape="poly" id="edge13_Node000010_Node000013" title=" " alt="" coords="1375,363,1669,418,1668,424,1374,368"/>
-<area shape="poly" id="edge15_Node000014_Node000002" title=" " alt="" coords="187,275,163,293,144,315,131,339,123,366,118,416,113,415,118,365,126,337,139,312,160,289,184,270"/>
-<area shape="rect" id="Node000015" href="$DraftRenderer_8cpp.html" title=" " alt="" coords="153,313,388,368"/>
-<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="266,279,270,313,265,314,261,279"/>
-<area shape="poly" id="edge27_Node000022_Node000011" title=" " alt="" coords="1714,176,1685,230,1669,253,1655,268,1633,278,1606,285,1542,291,1466,290,1385,286,1305,283,1232,284,1171,294,1147,303,1129,315,1112,337,1104,364,1100,391,1101,416,1096,416,1095,391,1098,363,1108,335,1125,311,1145,298,1170,289,1232,279,1306,277,1386,281,1466,285,1541,286,1605,280,1631,273,1652,263,1665,250,1680,228,1709,174"/>
-<area shape="poly" id="edge29_Node000022_Node000012" title=" " alt="" coords="1730,177,1721,222,1712,246,1700,267,1677,294,1651,319,1593,361,1533,394,1477,418,1475,413,1530,389,1590,356,1647,314,1673,290,1695,264,1707,243,1716,221,1725,176"/>
-<area shape="poly" id="edge33_Node000022_Node000013" title=" " alt="" coords="1743,175,1751,210,1769,324,1780,416,1775,416,1764,325,1745,211,1737,176"/>
-<area shape="poly" id="edge26_Node000022_Node000017" title=" " alt="" coords="1603,161,1307,213,1306,208,1602,156"/>
-<area shape="poly" id="edge28_Node000022_Node000018" title=" " alt="" coords="1655,170,1552,213,1550,208,1653,165"/>
-<area shape="poly" id="edge30_Node000022_Node000019" title=" " alt="" coords="1806,165,1910,208,1908,213,1804,170"/>
-<area shape="poly" id="edge31_Node000022_Node000020" title=" " alt="" coords="1857,156,2139,208,2150,210,2149,215,2138,213,1856,161"/>
-<area shape="poly" id="edge32_Node000022_Node000021" title=" " alt="" coords="1856,145,2103,170,2388,208,2400,210,2399,215,2388,213,2103,176,1856,150"/>
+<area shape="poly" id="edge26_Node000001_Node000022" title=" " alt="" coords="1186,50,1616,114,1615,120,1185,55"/>
+<area shape="rect" id="Node000007" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="657,211,879,265"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="556,164,689,208,688,213,554,169"/>
+<area shape="rect" id="Node000015" href="$DraftRenderer_8h.html" title="Rendu d&#39;un brouillon d&#39;édition (core::LevelDraft) dans le viewport (LOT&#45;35)." alt="" coords="97,211,319,265"/>
+<area shape="poly" id="edge15_Node000006_Node000015" title=" " alt="" coords="385,170,275,213,273,208,383,165"/>
+<area shape="rect" id="Node000016" href="$SpriteRenderer_8cpp.html" title=" " alt="" coords="343,211,583,265"/>
+<area shape="poly" id="edge18_Node000006_Node000016" title=" " alt="" coords="465,176,465,211,460,211,460,176"/>
+<area shape="rect" id="Node000008" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="412,313,633,368"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="693,273,588,316,586,311,691,268"/>
+<area shape="rect" id="Node000010" href="$GameSession_8cpp.html" title=" " alt="" coords="657,313,879,368"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="771,279,771,313,765,313,765,279"/>
+<area shape="rect" id="Node000011" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="1139,313,1360,368"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="893,263,1139,314,1138,319,892,268"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="404,374,223,419,221,413,403,369"/>
+<area shape="rect" id="Node000009" href="$MainWindow_8cpp.html" title=" " alt="" coords="412,416,633,471"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="525,382,525,416,520,416,520,382"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1201,378,1142,418,1139,414,1198,373"/>
+<area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="1300,373,1360,414,1357,418,1297,378"/>
+<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="1375,363,1669,418,1668,424,1374,368"/>
+<area shape="poly" id="edge16_Node000015_Node000002" title=" " alt="" coords="171,277,144,315,133,340,126,367,120,416,114,415,121,366,128,339,139,312,166,274"/>
+<area shape="poly" id="edge17_Node000015_Node000004" title=" " alt="" coords="234,276,257,312,252,315,229,279"/>
+<area shape="poly" id="edge28_Node000022_Node000012" title=" " alt="" coords="1714,176,1685,230,1669,253,1655,268,1633,278,1606,285,1542,291,1466,290,1385,286,1305,283,1232,284,1171,294,1147,303,1129,315,1112,337,1104,364,1100,391,1101,416,1096,416,1095,391,1098,363,1108,335,1125,311,1145,298,1170,289,1232,279,1306,277,1386,281,1466,285,1541,286,1605,280,1631,273,1652,263,1665,250,1680,228,1709,174"/>
+<area shape="poly" id="edge30_Node000022_Node000013" title=" " alt="" coords="1730,177,1721,222,1712,246,1700,267,1677,294,1651,319,1593,361,1533,394,1477,418,1475,413,1530,389,1590,356,1647,314,1673,290,1695,264,1707,243,1716,221,1725,176"/>
+<area shape="poly" id="edge34_Node000022_Node000014" title=" " alt="" coords="1743,175,1751,210,1769,324,1780,416,1775,416,1764,325,1745,211,1737,176"/>
+<area shape="poly" id="edge27_Node000022_Node000017" title=" " alt="" coords="1603,161,1307,213,1306,208,1602,156"/>
+<area shape="poly" id="edge29_Node000022_Node000018" title=" " alt="" coords="1655,170,1552,213,1550,208,1653,165"/>
+<area shape="poly" id="edge31_Node000022_Node000019" title=" " alt="" coords="1806,165,1910,208,1908,213,1804,170"/>
+<area shape="poly" id="edge32_Node000022_Node000020" title=" " alt="" coords="1857,156,2139,208,2150,210,2149,215,2138,213,1856,161"/>
+<area shape="poly" id="edge33_Node000022_Node000021" title=" " alt="" coords="1856,145,2103,170,2388,208,2400,210,2399,215,2388,213,2103,176,1856,150"/>
 </map>

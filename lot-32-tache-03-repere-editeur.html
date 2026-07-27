@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-32-tache-03-repere-editeur.html','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-32-niveaux-a-salles_2epic_8md.html">LOT-32</a> · <b>Emplacement :</b> <code>HMI/Interface</code> · <b>Statut :</b> fait (confirmation visuelle à l'écran non automatisée — dépendance rendu D3D11, laissée à un essai manuel par un humain lançant l'éditeur)</p>
-<h1><a class="anchor" id="autotoc_md1557"></a>
+<h1><a class="anchor" id="autotoc_md1558"></a>
 Contexte</h1>
 <p><code>EditorScreen::renderGrid</code> sait déjà dessiner un <b>quadrillage de repère</b> fin sur chaque bord de case (<code>_showGridLines</code>, un quad étroit et teinté par bord — <code>SpriteBatch</code> n'a pas de primitive de ligne). Cette tâche ajoute un second quadrillage, plus <b>épais</b>/plus <b>visible</b>, uniquement sur les frontières de <b>salles</b> (<code>RoomGrid</code>, TACHE-01), pour qu'un level designer puisse aligner ses couloirs sur les bords de salles sans avoir à compter les cases. La caméra de l'éditeur (pan/zoom manuel, <code>LOT-15</code>/<code>LOT-16</code>) <b>ne change pas</b> : ce repère est un calque visuel superposé, pas un changement de cadrage (décision de cadrage de l'épic — la caméra par salle, TACHE-02, est spécifique au jeu).</p>
-<h1><a class="anchor" id="autotoc_md1558"></a>
+<h1><a class="anchor" id="autotoc_md1559"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Construire un <code><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></code></b> à partir de la taille courante du brouillon (<code>_draft.tileMap()</code>) — recalculé quand la taille change (redimensionnement, <code>Ctrl+R</code>/flèches, <code>LOT-16</code>), comme les autres états dérivés de la taille de grille.</li>
@@ -105,29 +105,29 @@ Travail à réaliser</h1>
 <li><b>Bascule d'affichage</b> : réutilise le raccourci existant (<code>F10</code>, <code>_showGridLines</code>) plutôt qu'un second raccourci dédié — un seul geste affiche les deux repères (case par case <b>et</b> salles) ensemble ; plus simple et plus découvrable (<code>EX-EDIT-015</code>) qu'une commande de plus à mémoriser, pour un repère qui sert le même besoin (aligner son geste de peinture).</li>
 <li><b>Aucun changement de cadrage caméra</b> de l'éditeur : <code>_manualCamera</code>/<code>_cameraCenter</code>/ <code>_cameraZoom</code> restent pilotés exactement comme avant (<code>LOT-15</code>/<code>16</code>), le quadrillage de salles est un calque de plus, pas une nouvelle règle de zoom.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1559"></a>
+<h1><a class="anchor" id="autotoc_md1560"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code> (<code>renderGrid</code>, état <code>RoomGrid</code>, éventuel bouton de bascule).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1560"></a>
+<h1><a class="anchor" id="autotoc_md1561"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement (dépendance rendu D3D11, même limite que le reste de <code>renderGrid</code>) : vérifié par relecture et essai manuel — ouvrir/créer un niveau plus grand qu'une salle dans l'éditeur et constater que le quadrillage de salles apparaît aux bonnes frontières (comparer aux bornes renvoyées par <code>RoomGrid::roomBounds</code>, déjà testées en TACHE-01) et reste correct après un redimensionnement.</li>
 <li>Non-régression : le quadrillage de repère existant (<code>_showGridLines</code>) et le pan/zoom manuel (<code>LOT-15</code>) restent inchangés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1561"></a>
+<h1><a class="anchor" id="autotoc_md1562"></a>
 Points d'attention</h1>
 <ul>
 <li>Un niveau tenant dans une seule salle produit un <code>RoomGrid</code> à une seule salle (TACHE-01) : le quadrillage de salles se réduit alors au <b>contour du niveau entier</b>, sans ligne intermédiaire — comportement correct, pas un cas particulier à exclure.</li>
 <li>Garder la distinction visuelle nette avec le quadrillage de repère existant (bords de case) : l'un aide à viser une case précise, l'autre à repérer les frontières de salles — les confondre viderait la fonctionnalité de son intérêt.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1562"></a>
+<h1><a class="anchor" id="autotoc_md1563"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Quadrillage de salles affiché dans l'éditeur, correct après redimensionnement, sans régression sur le pan/zoom ni le quadrillage de repère existant ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1563"></a>
+<h1><a class="anchor" id="autotoc_md1564"></a>
 Exigences</h1>
 <p><code>EX-EDIT-023</code> (nouvelle), <code>EX-EDIT-013</code> (cadrage/pan/zoom de l'éditeur, inchangé), <code>EX-EDIT-015</code> (commandes découvrables). </p>
 </div></div><!-- contents -->

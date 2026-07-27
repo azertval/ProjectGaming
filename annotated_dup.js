@@ -49,7 +49,10 @@ var annotated_dup =
       [ "World", "classcore_1_1World.html", "classcore_1_1World" ]
     ] ],
     [ "editor", "namespaceeditor.html", [
+      [ "FileOpResult", "structeditor_1_1FileOpResult.html", "structeditor_1_1FileOpResult" ],
       [ "GameViewport", "classeditor_1_1GameViewport.html", "classeditor_1_1GameViewport" ],
+      [ "LevelBrowserPanel", "classeditor_1_1LevelBrowserPanel.html", "classeditor_1_1LevelBrowserPanel" ],
+      [ "LevelFileOperations", "classeditor_1_1LevelFileOperations.html", "classeditor_1_1LevelFileOperations" ],
       [ "MainWindow", "classeditor_1_1MainWindow.html", "classeditor_1_1MainWindow" ],
       [ "PalettePanel", "classeditor_1_1PalettePanel.html", "classeditor_1_1PalettePanel" ],
       [ "TileCategory", "structeditor_1_1TileCategory.html", "structeditor_1_1TileCategory" ],

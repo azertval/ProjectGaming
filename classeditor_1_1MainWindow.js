@@ -9,6 +9,8 @@ var classeditor_1_1MainWindow =
     [ "restoreLayout", "classeditor_1_1MainWindow.html#a70da789109240f17230d87a9a946f945", null ],
     [ "saveLayout", "classeditor_1_1MainWindow.html#ae16185aebb3404989a58c07ca09feeb0", null ],
     [ "_defaultState", "classeditor_1_1MainWindow.html#a9853d1daf083106f7c97c0a8d6eb97ce", null ],
+    [ "_levels", "classeditor_1_1MainWindow.html#aae43df3c1d2cd913830d0ac278938184", null ],
+    [ "_levelsPanel", "classeditor_1_1MainWindow.html#a632799a0d69b5851c74cc7e20bae9966", null ],
     [ "_palette", "classeditor_1_1MainWindow.html#ae6eebfd07e81372e6e3911472fba418d", null ],
     [ "_palettePanel", "classeditor_1_1MainWindow.html#af62b304587bcb544e4728a43e9444bb0", null ],
     [ "_statusPanel", "classeditor_1_1MainWindow.html#a88e8e0f635ef5183aa2a306bd3ee584c", null ],

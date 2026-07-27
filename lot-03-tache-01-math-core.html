@@ -94,17 +94,17 @@ $(document).ready(function(){initNavTree('lot-03-tache-01-math-core.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-03-fondation-ecs_2epic_8md.html">LOT-03</a> · <b>Emplacement :</b> <code>Source/Core/Math</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md357"></a>
+<h1><a class="anchor" id="autotoc_md358"></a>
 Contexte</h1>
 <p>Les composants (à commencer par <code>Transform</code>) et la physique ont besoin de types mathématiques 2D. <code>Core</code> ne devant pas dépendre de DirectX (<code>EX-ARCH-040</code>), ces types sont <b>propres au projet</b>. La conversion vers <code>DirectXMath</code> se fera plus tard, uniquement dans <code>HMI</code>.</p>
-<h1><a class="anchor" id="autotoc_md358"></a>
+<h1><a class="anchor" id="autotoc_md359"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>Vector2</code> (composantes <code>float</code>) : addition, soustraction, multiplication/division par un scalaire, produit scalaire, longueur, normalisation, égalité.</li>
 <li><code>Rect</code> (position + dimensions en unités monde, origine haut-gauche, Y-bas) : test de <b>contenance</b> d'un point, test d'<b>intersection</b> avec un autre <code>Rect</code>.</li>
 <li>Constantes/utilitaires minimaux si nécessaires (ex. comparaison approchée de <code>float</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md359"></a>
+<h1><a class="anchor" id="autotoc_md360"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).">Source/Core/Math/Vector2.h</a></code>, <code><a class="el" href="Vector2_8cpp.html">Vector2.cpp</a></code> (nouveau).</li>
@@ -112,7 +112,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code> (ajout des sources).</li>
 <li><code>Source/Test/Unit/test_vector2.cpp</code>, <code><a class="el" href="test__rect_8cpp.html" title="Tests unitaires du rectangle aligné sur les axes de Core.">test_rect.cpp</a></code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md360"></a>
+<h1><a class="anchor" id="autotoc_md361"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Opérations vectorielles : résultats attendus (somme, échelle, produit scalaire, longueur d'un <code>(3,4)</code> = 5).</li>
@@ -120,20 +120,20 @@ Tests (obligatoires)</h1>
 <li><code>Rect::contains</code> : points intérieurs, sur les bords, extérieurs.</li>
 <li><code>Rect::intersects</code> : recouvrement, contact par un bord, disjonction.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md361"></a>
+<h1><a class="anchor" id="autotoc_md362"></a>
 Points d'attention</h1>
 <ul>
 <li>Types <b>sans dépendance système</b> ni DirectX.</li>
 <li>Comparaisons de <code>float</code> par tolérance (pas d'<code>==</code> brut sur des résultats calculés).</li>
 <li>Conventions : <code>_camelCase</code> pour d'éventuels membres, documentation <code>.h</code> + <code>.cpp</code>, <code>[[nodiscard]]</code> sur les accès purs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md362"></a>
+<h1><a class="anchor" id="autotoc_md363"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Types complets et testés (<code>ctest</code> vert), sans dépendance externe.</li>
 <li>Compile <code>/W4 /WX</code>, formaté clang-format, documenté Doxygen.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md363"></a>
+<h1><a class="anchor" id="autotoc_md364"></a>
 Exigences</h1>
 <p><code>EX-ARCH-040</code>, <code>EX-NFR-010</code>, <code>EX-NFR-020</code>. </p>
 </div></div><!-- contents -->

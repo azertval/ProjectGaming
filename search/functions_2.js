@@ -29,7 +29,7 @@ var searchData=
   ['consumeresize_26',['consumeResize',['../classhmi_1_1Window.html#a8982fa83d7a924f987f33260b1bcb169',1,'hmi::Window']]],
   ['contains_27',['contains',['../structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00',1,'core::Rect']]],
   ['context_28',['context',['../classhmi_1_1GraphicsDevice.html#a3ece76a44d20fa3b86902bb787a24b3d',1,'hmi::GraphicsDevice']]],
-  ['create_29',['create',['../classcore_1_1EntityManager.html#a2ebfce98756ffb74f312b2f80a66d806',1,'core::EntityManager']]],
+  ['create_29',['create',['../classcore_1_1EntityManager.html#a2ebfce98756ffb74f312b2f80a66d806',1,'core::EntityManager::create()'],['../classeditor_1_1LevelFileOperations.html#ac9583f26d78e7341fe03223acd3fb4e9',1,'editor::LevelFileOperations::create()']]],
   ['createdockpanels_30',['createDockPanels',['../classeditor_1_1MainWindow.html#a9ae88057601085a47a2270ce07226766',1,'editor::MainWindow']]],
   ['createentity_31',['createEntity',['../classcore_1_1World.html#ac19f665091a4c3bea7ba8f314fc0d502',1,'core::World']]],
   ['createmenus_32',['createMenus',['../classeditor_1_1MainWindow.html#a239cc38e6a49cbce755eb57066d3d10d',1,'editor::MainWindow']]],

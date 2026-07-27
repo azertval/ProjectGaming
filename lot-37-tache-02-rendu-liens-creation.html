@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-37-tache-02-rendu-liens-creation.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-37-refonte-ihm-qt-liens_2epic_8md.html">LOT-37</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1737"></a>
+<h1><a class="anchor" id="autotoc_md1738"></a>
 Contexte</h1>
 <p>Avec la primitive et la géométrie de la TACHE-01, cette tâche <b>dessine les liaisons</b> du niveau comme des flèches explicites dans le viewport, et donne un <b>retour visuel immédiat</b> pendant la création d'un lien (trait provisoire). Elle réutilise <b>intégralement</b> le modèle existant (<code>LevelDraft</code> + <code>Mechanism</code>/<code>DangerLink</code>), remplaçant l'indication par teinte de case.</p>
-<h1><a class="anchor" id="autotoc_md1738"></a>
+<h1><a class="anchor" id="autotoc_md1739"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Rendu des liens</b> : pour chaque <code>Mechanism</code> (interrupteur/plaque → porte) et <code>DangerLink</code> (déclencheur → danger commuté) du brouillon, dessiner une <b>flèche</b> du centre du déclencheur au centre de la cible (via <code>LinkGeometry</code> + primitive TACHE-01), par-dessus la grille de tuiles.<ul>
@@ -112,32 +112,32 @@ Travail à réaliser</h1>
 </li>
 <li>Réutiliser les prédicats existants <code>isTriggerTile</code> (<code>Switch</code>/<code>PressurePlate</code>) et <code>isLinkTargetTile</code> (<code>Door</code>/<code>DangerSwitched</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1739"></a>
+<h1><a class="anchor" id="autotoc_md1740"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/GameViewport.{h,cpp}</code> (rendu des liens + trait provisoire en mode édition).</li>
 <li><code>Source/Editor/EditorController.{h,cpp}</code> (geste de liaison → <code>LevelDraft</code>), si ce contrôleur existe (LOT-35 TACHE-03).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1740"></a>
+<h1><a class="anchor" id="autotoc_md1741"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de geste testable</b> (sans GPU) : la machine « case en attente → paire → link/unlink » produit les bons appels <code>LevelDraft</code> (création, bascule/suppression, cas cible sans déclencheur valide ignoré). Réutilise <code>LinkGeometry</code> (TACHE-01) pour le placement.</li>
 <li><b>Non-régression</b> : <code>LevelDraft::linkMechanism</code>/<code>unlinkMechanism</code> restent testés côté <code>Core</code> ; la sérialisation d'un niveau avec liens est inchangée.</li>
 <li><b>Vérification manuelle</b> : créer une liaison (trait provisoire visible), la voir dessinée, la supprimer par bascule ; plusieurs liens lisibles simultanément.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1741"></a>
+<h1><a class="anchor" id="autotoc_md1742"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Alignement au viewport</b> : les flèches suivent le zoom/pan de la caméra (dessin dans le viewport, pas overlay Qt).</li>
 <li><b>Le modèle ne change pas</b> : une cible = un déclencheur ; plusieurs cibles par déclencheur possible (plusieurs flèches partant d'un même déclencheur — gérer la lisibilité, cf. décalage TACHE-01).</li>
 <li><b>Dangers avancés</b> : la liaison déclencheur→danger commuté est couverte ; les <b>paramètres</b> mover/blink ne sont pas l'objet de ce lot.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1742"></a>
+<h1><a class="anchor" id="autotoc_md1743"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Liaisons rendues par flèches explicites, création avec trait provisoire, suppression par bascule ; logique de geste <b>testée</b> ; teinte de case retirée/réduite ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1743"></a>
+<h1><a class="anchor" id="autotoc_md1744"></a>
 Exigences</h1>
 <p><code>EX-IHM-030</code> (liens par traits/flèches) ; reconduit <code>EX-EDIT-003</code> (liaison déclencheur→cible) ; <code>EX-EDIT-010</code> (pas de duplication de logique), <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

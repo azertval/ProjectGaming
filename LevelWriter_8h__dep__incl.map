@@ -1,15 +1,17 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelWriter.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Levels/LevelWriter.h">
-<area shape="rect" id="Node000001" title="Sérialisation d&#39;un niveau vers le format JSON, symétrique à LevelLoader." alt="" coords="620,5,841,60"/>
+<area shape="rect" id="Node000001" title="Sérialisation d&#39;un niveau vers le format JSON, symétrique à LevelLoader." alt="" coords="743,5,964,60"/>
 <area shape="rect" id="Node000002" href="$LevelDraft_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="606,51,432,76,239,111,208,118,207,113,238,105,431,71,605,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="730,46,501,70,369,88,239,111,207,118,206,113,238,105,368,83,500,65,729,41"/>
 <area shape="rect" id="Node000003" href="$LevelWriter_8cpp.html" title=" " alt="" coords="251,115,472,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="628,66,452,118,450,113,627,61"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="730,59,485,111,455,118,454,113,483,105,729,54"/>
 <area shape="rect" id="Node000004" href="$GameViewport_8cpp.html" title=" " alt="" coords="496,115,717,170"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="691,71,639,117,635,113,688,67"/>
-<area shape="rect" id="Node000005" href="$EditorScreen_8cpp.html" title=" " alt="" coords="741,115,968,170"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="773,67,826,113,823,117,770,71"/>
-<area shape="rect" id="Node000006" href="$test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est..." alt="" coords="992,108,1213,177"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="835,61,993,107,991,112,833,66"/>
-<area shape="rect" id="Node000007" href="$test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round&#45;trip avec LevelLoader, EX&#45;EDIT&#45;011)." alt="" coords="1237,108,1459,177"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="855,46,1031,71,1226,105,1238,108,1237,113,1225,111,1030,76,854,51"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="782,68,668,118,666,113,779,63"/>
+<area shape="rect" id="Node000005" href="$LevelFileOperations_8cpp.html" title=" " alt="" coords="741,115,965,170"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="856,74,856,115,851,115,851,74"/>
+<area shape="rect" id="Node000006" href="$EditorScreen_8cpp.html" title=" " alt="" coords="989,115,1216,170"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="928,63,1043,113,1041,118,926,68"/>
+<area shape="rect" id="Node000007" href="$test__parcours__edition_8cpp.html" title="Parcours système : créer un niveau dans l&#39;éditeur, l&#39;enregistrer, le recharger, et vérifier qu&#39;il est..." alt="" coords="1240,108,1461,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="978,54,1229,105,1240,108,1239,113,1227,111,977,59"/>
+<area shape="rect" id="Node000008" href="$test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round&#45;trip avec LevelLoader, EX&#45;EDIT&#45;011)." alt="" coords="1485,108,1707,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="978,41,1209,65,1342,83,1474,105,1486,108,1485,113,1473,111,1341,88,1209,70,978,46"/>
 </map>

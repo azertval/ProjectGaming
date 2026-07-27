@@ -25,6 +25,7 @@ var hierarchy =
     [ "core::MemoryLogSink::Entry", "structcore_1_1MemoryLogSink_1_1Entry.html", null ],
     [ "hmi::TilePalette::Entry", "structhmi_1_1TilePalette_1_1Entry.html", null ],
     [ "hmi::ToolBar::Entry", "structhmi_1_1ToolBar_1_1Entry.html", null ],
+    [ "editor::FileOpResult", "structeditor_1_1FileOpResult.html", null ],
     [ "core::FixedTimestep", "classcore_1_1FixedTimestep.html", null ],
     [ "hmi::FlagIcons", "classhmi_1_1FlagIcons.html", null ],
     [ "hmi::GameKeyBindings", "classhmi_1_1GameKeyBindings.html", null ],
@@ -61,6 +62,7 @@ var hierarchy =
     [ "hmi::SpriteRenderer::LayeredQuad", "structhmi_1_1SpriteRenderer_1_1LayeredQuad.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
+    [ "editor::LevelFileOperations", "classeditor_1_1LevelFileOperations.html", null ],
     [ "core::LevelLoader", "classcore_1_1LevelLoader.html", null ],
     [ "core::LevelLoadResult", "structcore_1_1LevelLoadResult.html", null ],
     [ "hmi::LevelPicker", "classhmi_1_1LevelPicker.html", null ],
@@ -81,6 +83,7 @@ var hierarchy =
       [ "editor::MainWindow", "classeditor_1_1MainWindow.html", null ]
     ] ],
     [ "QWidget", null, [
+      [ "editor::LevelBrowserPanel", "classeditor_1_1LevelBrowserPanel.html", null ],
       [ "editor::PalettePanel", "classeditor_1_1PalettePanel.html", null ]
     ] ],
     [ "QWindow", null, [

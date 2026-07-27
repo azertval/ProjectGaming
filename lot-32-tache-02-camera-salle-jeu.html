@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-32-tache-02-camera-salle-jeu.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-32-niveaux-a-salles_2epic_8md.html">LOT-32</a> · <b>Emplacement :</b> <code>HMI/Interface</code> · <b>Statut :</b> fait (mécanique de salle/franchissement prouvée par le test système de TACHE-04, sans couche GPU ; confirmation visuelle à l'écran non automatisée, laissée à un essai manuel par un humain lançant le jeu)</p>
-<h1><a class="anchor" id="autotoc_md1550"></a>
+<h1><a class="anchor" id="autotoc_md1551"></a>
 Contexte</h1>
 <p><code>GameScreen::render</code> (<code>LOT-16</code>) calcule aujourd'hui un zoom d'ajustement sur le <b>niveau entier</b> (<code>Camera2D::fitZoom</code> avec <code>_levelWidth</code>/<code>_levelHeight</code>) et centre la caméra <b>une seule fois</b>, au chargement (<code>loadLevel</code>, milieu du niveau). Cette tâche fait dépendre le rectangle cadré de la <b>salle courante</b> du personnage (<code>RoomGrid</code>, TACHE-01) plutôt que du niveau entier, avec une <b>coupure nette</b> au changement de salle plutôt qu'un recentrage continu.</p>
-<h1><a class="anchor" id="autotoc_md1551"></a>
+<h1><a class="anchor" id="autotoc_md1552"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Construire un <code><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></code></b> à partir des dimensions du niveau chargé (<code>_levelWidth</code>/ <code>_levelHeight</code>), au même moment que le reste de l'état de scène (<code>loadLevel</code>).</li>
@@ -108,31 +108,31 @@ Travail à réaliser</h1>
 <li><b>Non-régression</b> : pour un niveau tenant dans une seule salle, <code>RoomGrid</code> produit une seule salle dont le rectangle couvre le niveau entier (TACHE-01) — le calcul de zoom et de centre retombe exactement sur le comportement <code>LOT-16</code> actuel, sans branche spéciale à écrire pour ce cas.</li>
 <li><b>Chargement/redémarrage</b> : au (re)chargement d'un niveau (nouvelle partie, échec → redémarrage), le personnage repart à l'<b>entrée</b> — recalculer la salle et centrer la caméra dessus immédiatement (pas de salle « en retard » d'une frame après un redémarrage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1552"></a>
+<h1><a class="anchor" id="autotoc_md1553"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code> (état <code>RoomGrid</code>/salle courante, <code>render</code>, <code>loadLevel</code>, réinitialisation au redémarrage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1553"></a>
+<h1><a class="anchor" id="autotoc_md1554"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement au niveau de <code>GameScreen</code> (dépendance rendu D3D11, non compilé dans <code>UnitTests</code>, même limite que <code>LOT-16</code> TACHE-03) : vérifié par relecture et <b>essai manuel</b> — charger le niveau de démonstration de TACHE-04 (plus grand qu'une salle) et constater que la caméra reste au zoom natif et bascule nettement d'une salle à l'autre en franchissant chaque frontière, dans les quatre directions.</li>
 <li>Non-régression manuelle : les niveaux existants (tenant dans une seule salle) s'affichent avec <b>exactement</b> le même zoom/cadrage qu'avant ce lot.</li>
 <li>La logique de <b>décision</b> (« l'indice de salle a-t-il changé ? ») doit rester séparable et testable sans GPU si l'implémentation le permet naturellement (ex. une petite fonction pure <code>hasRoomChanged(previous, current)</code> ou équivalent) — sans forcer une abstraction si <code>RoomGrid</code> seul (TACHE-01, déjà testé) suffit à couvrir la logique non triviale.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1554"></a>
+<h1><a class="anchor" id="autotoc_md1555"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas recentrer à chaque frame</b> même dans la salle courante : <code>setCenter</code> n'est appelé qu'au <b>changement</b> d'indice de salle, sinon le moindre calcul flottant pourrait introduire un tremblement invisible mais superflu — la caméra doit rester <b>rigoureusement fixe</b> tant que le personnage reste dans la même salle (comportement <code>LOT-16</code> déjà de ce type : caméra fixe, pas suiveuse).</li>
 <li><b>Écran d'erreur</b> (<code>_loadError</code>, cf. <code>GameScreen::render</code> actuel) : chemin inchangé, aucune notion de salle n'y intervient.</li>
 <li><code>Camera2D</code> (<code>LOT-05</code>) n'a besoin d'aucune modification : <code>setCenter</code>/<code>setZoom</code> acceptent déjà n'importe quel centre/zoom positif.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1555"></a>
+<h1><a class="anchor" id="autotoc_md1556"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Caméra en jeu cadrée sur la salle courante, coupure nette au changement, non-régression sur les niveaux existants vérifiée manuellement ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1556"></a>
+<h1><a class="anchor" id="autotoc_md1557"></a>
 Exigences</h1>
 <p><code>EX-REN-015</code> (nouvelle), <code>EX-REN-013</code> (portée corrigée — scopée aux niveaux tenant dans une seule salle), <code>EX-ARCH-022</code> (zoom pixel art de préférence entier). </p>
 </div></div><!-- contents -->

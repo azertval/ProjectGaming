@@ -1,112 +1,114 @@
 <map id="editor::MainWindow" name="editor::MainWindow">
-<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi..." alt="" coords="2412,383,2564,409"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="2154,334,2270,359"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2284,355,2388,373,2426,381,2425,386,2388,379,2283,360"/>
-<area shape="rect" id="Node000003" href="$classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt." alt="" coords="2129,383,2295,409"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2309,393,2412,393,2412,399,2309,399"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="1823,67,1907,93"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1920,66,1966,62,2016,65,2065,78,2088,90,2107,106,2119,129,2124,160,2121,239,2118,317,2122,349,2131,370,2144,381,2141,385,2127,374,2117,350,2113,318,2116,239,2119,161,2114,130,2103,110,2085,94,2063,83,2015,70,1966,68,1920,72"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="1785,117,1944,157"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="1958,125,1998,127,2037,135,2075,150,2107,174,2124,199,2129,224,2127,249,2121,273,2115,298,2113,322,2117,346,2131,370,2145,381,2141,385,2127,374,2112,348,2108,322,2110,297,2116,272,2122,248,2124,224,2119,201,2103,178,2072,154,2036,140,1997,132,1958,130"/>
-<area shape="rect" id="Node000006" href="$classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII)." alt="" coords="1371,125,1529,150"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1543,135,1785,135,1785,140,1543,140"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="1163,69,1321,109"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="1276,116,1309,140,1346,159,1379,168,1419,173,1514,177,1738,169,1852,167,1957,172,2003,179,2044,189,2079,204,2107,223,2121,241,2126,260,2122,297,2117,334,2120,352,2131,370,2145,381,2142,385,2127,374,2115,354,2111,335,2116,297,2121,260,2116,244,2103,227,2077,209,2043,194,2002,184,1956,178,1852,172,1738,175,1514,182,1418,179,1378,173,1344,164,1306,144,1273,120"/>
-<area shape="rect" id="Node000008" href="$classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="649,58,780,83"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="794,71,1163,84,1162,89,794,76"/>
-<area shape="rect" id="Node000015" href="$classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="979,142,1131,167"/>
-<area shape="poly" id="edge16_Node000015_Node000008" title=" " alt="" coords="781,84,1003,139,1002,145,780,89"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="305,51,482,91"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="496,68,649,68,649,73,496,73"/>
-<area shape="rect" id="Node000010" href="$structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,58,185,83"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="199,68,304,68,304,73,199,73"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="1587,283,1745,323"/>
-<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="1759,302,1835,307,1923,316,2016,332,2106,356,2130,370,2162,381,2160,386,2128,374,2104,361,2015,337,1922,321,1835,312,1759,307"/>
-<area shape="rect" id="Node000012" href="$classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="647,221,783,246"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="797,240,972,257,1314,281,1586,296,1586,302,1314,287,972,263,796,245"/>
-<area shape="rect" id="Node000014" href="$classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition." alt="" coords="1377,233,1523,258"/>
-<area shape="poly" id="edge14_Node000014_Node000012" title=" " alt="" coords="796,232,1376,241,1376,247,796,237"/>
-<area shape="poly" id="edge17_Node000015_Node000012" title=" " alt="" coords="783,215,999,165,1000,170,784,220"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="1785,232,1944,272"/>
-<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="1958,243,1997,246,2036,253,2074,268,2107,290,2116,300,2120,311,2121,331,2121,351,2131,370,2147,381,2144,385,2127,374,2116,353,2115,331,2115,312,2111,303,2104,294,2071,273,2034,259,1996,251,1958,248"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1537,244,1785,248,1785,253,1537,249"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1128,168,1322,212,1397,230,1396,235,1321,217,1127,173"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="619,124,810,164"/>
-<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="824,145,979,150,979,155,823,150"/>
-<area shape="rect" id="Node000019" href="$classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="1008,345,1103,370"/>
-<area shape="poly" id="edge19_Node000014_Node000019" title=" " alt="" coords="1114,338,1403,255,1405,261,1115,343"/>
-<area shape="rect" id="Node000020" href="$classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="638,331,791,357"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="805,345,1008,353,1008,358,805,350"/>
-<area shape="rect" id="Node000024" title=" " alt="" coords="600,381,829,451"/>
-<area shape="poly" id="edge21_Node000019_Node000024" title=" " alt="" coords="842,391,1008,363,1008,368,843,397"/>
-<area shape="rect" id="Node000030" href="$classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="1777,359,1952,385"/>
-<area shape="poly" id="edge22_Node000003_Node000030" title=" " alt="" coords="1966,376,2129,388,2129,393,1966,382"/>
-<area shape="rect" id="Node000031" title=" " alt="" coords="1365,333,1535,373"/>
-<area shape="poly" id="edge23_Node000030_Node000031" title=" " alt="" coords="1549,355,1777,365,1777,371,1549,360"/>
-<area shape="rect" id="Node000032" href="$classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="1777,409,1952,434"/>
-<area shape="poly" id="edge24_Node000003_Node000032" title=" " alt="" coords="1966,414,2105,405,2129,403,2129,408,2106,411,1966,420"/>
-<area shape="rect" id="Node000033" title=" " alt="" coords="1345,397,1555,437"/>
-<area shape="poly" id="edge25_Node000032_Node000033" title=" " alt="" coords="1568,416,1777,418,1777,423,1568,421"/>
-<area shape="rect" id="Node000034" href="$classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="1803,467,1926,493"/>
-<area shape="poly" id="edge26_Node000003_Node000034" title=" " alt="" coords="1939,467,2019,453,2105,433,2180,406,2182,411,2106,439,2021,459,1940,473"/>
-<area shape="rect" id="Node000035" title=" " alt="" coords="1370,641,1530,681"/>
-<area shape="poly" id="edge27_Node000034_Node000035" title=" " alt="" coords="1544,676,1605,684,1666,687,1718,684,1738,679,1752,671,1766,653,1772,634,1770,614,1766,593,1758,549,1762,526,1775,504,1788,493,1802,486,1804,491,1791,497,1779,507,1767,528,1763,549,1771,592,1776,613,1777,635,1771,655,1755,675,1740,684,1719,690,1666,693,1605,689,1543,681"/>
-<area shape="rect" id="Node000036" title=" " alt="" coords="1350,461,1550,501"/>
-<area shape="poly" id="edge28_Node000034_Node000036" title=" " alt="" coords="1564,478,1803,478,1803,483,1564,484"/>
-<area shape="rect" id="Node000037" title=" " alt="" coords="1355,525,1545,565"/>
-<area shape="poly" id="edge29_Node000034_Node000037" title=" " alt="" coords="1559,539,1654,530,1753,512,1776,503,1817,490,1818,495,1778,508,1754,517,1655,535,1559,544"/>
-<area shape="rect" id="Node000038" title=" " alt="" coords="1364,590,1536,615"/>
-<area shape="poly" id="edge30_Node000034_Node000038" title=" " alt="" coords="1549,609,1600,607,1653,599,1705,583,1752,557,1761,545,1763,532,1766,518,1776,503,1802,488,1804,493,1779,507,1771,520,1768,533,1766,547,1755,561,1707,588,1654,604,1600,612,1550,614"/>
-<area shape="rect" id="Node000039" href="$classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState." alt="" coords="1787,517,1942,542"/>
-<area shape="poly" id="edge31_Node000003_Node000039" title=" " alt="" coords="1955,521,2030,507,2068,496,2104,482,2133,465,2158,445,2197,407,2201,411,2162,449,2136,469,2107,486,2070,501,2031,512,1956,526"/>
-<area shape="rect" id="Node000040" href="$classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes." alt="" coords="1788,566,1941,591"/>
-<area shape="poly" id="edge32_Node000003_Node000040" title=" " alt="" coords="1955,577,2031,566,2069,554,2104,536,2139,507,2168,471,2189,435,2203,408,2208,410,2194,438,2172,474,2143,511,2107,541,2071,559,2032,571,1956,582"/>
-<area shape="rect" id="Node000041" href="$classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT&#45;07)." alt="" coords="1802,875,1927,901"/>
-<area shape="poly" id="edge33_Node000003_Node000041" title=" " alt="" coords="1886,863,1985,751,2046,675,2103,595,2164,488,2203,408,2207,410,2169,491,2108,597,2050,678,1989,754,1890,866"/>
-<area shape="rect" id="Node000042" title=" " alt="" coords="671,947,758,973"/>
-<area shape="poly" id="edge34_Node000041_Node000042" title=" " alt="" coords="772,959,1103,963,1327,959,1554,948,1654,940,1753,921,1829,898,1830,903,1754,927,1655,945,1555,953,1327,965,1104,968,772,964"/>
-<area shape="rect" id="Node000057" href="$structcore_1_1LevelDraft_1_1State.html" title="État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo)." alt="" coords="972,906,1139,931"/>
-<area shape="poly" id="edge49_Node000057_Node000042" title=" " alt="" coords="771,951,971,926,972,931,772,956"/>
-<area shape="rect" id="Node000043" title=" " alt="" coords="324,940,463,980"/>
-<area shape="poly" id="edge35_Node000042_Node000043" title=" " alt="" coords="477,957,671,957,671,963,477,963"/>
-<area shape="rect" id="Node000044" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="659,726,770,751"/>
-<area shape="poly" id="edge36_Node000041_Node000044" title=" " alt="" coords="784,740,948,751,1252,772,1555,801,1656,807,1699,812,1754,825,1806,848,1847,873,1844,878,1803,853,1752,831,1699,817,1655,812,1554,807,1251,778,948,756,784,745"/>
-<area shape="poly" id="edge50_Node000057_Node000044" title=" " alt="" coords="784,748,830,761,892,786,950,820,1004,864,1044,904,1040,908,1000,868,946,825,890,791,828,767,783,754"/>
-<area shape="rect" id="Node000045" title=" " alt="" coords="306,731,481,757"/>
-<area shape="poly" id="edge37_Node000044_Node000045" title=" " alt="" coords="494,740,659,737,659,742,495,745"/>
-<area shape="rect" id="Node000046" title=" " alt="" coords="57,1173,133,1198"/>
-<area shape="poly" id="edge57_Node000003_Node000046" title=" " alt="" coords="147,1183,392,1183,1866,1183,1898,1181,1927,1175,1981,1154,2028,1120,2067,1077,2101,1025,2129,966,2152,902,2170,835,2194,699,2205,573,2209,472,2208,409,2214,409,2214,472,2211,574,2199,700,2175,836,2157,904,2134,968,2106,1027,2072,1080,2031,1124,1984,1159,1929,1180,1898,1186,1866,1188,392,1188,147,1188"/>
-<area shape="poly" id="edge38_Node000045_Node000046" title=" " alt="" coords="99,1159,119,1082,157,978,183,922,215,866,254,815,298,770,325,754,328,759,302,774,258,818,220,869,188,924,162,980,124,1084,104,1160"/>
-<area shape="rect" id="Node000060" href="$classeditor_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous&#45;groupes → tuiles." alt="" coords="319,1234,467,1259"/>
-<area shape="poly" id="edge60_Node000060_Node000046" title=" " alt="" coords="147,1199,210,1216,320,1235,319,1240,209,1221,146,1204"/>
-<area shape="rect" id="Node000047" title=" " alt="" coords="643,1095,786,1135"/>
-<area shape="poly" id="edge39_Node000041_Node000047" title=" " alt="" coords="800,1107,1131,1083,1342,1062,1554,1035,1612,1029,1657,1028,1701,1020,1752,999,1785,976,1814,949,1853,899,1857,902,1818,952,1788,981,1755,1004,1702,1025,1658,1033,1612,1035,1555,1040,1343,1067,1131,1088,800,1113"/>
-<area shape="poly" id="edge51_Node000057_Node000047" title=" " alt="" coords="788,1087,866,1054,947,1010,1000,968,1040,929,1044,933,1004,972,949,1014,869,1059,790,1092"/>
-<area shape="rect" id="Node000048" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="327,1102,460,1127"/>
-<area shape="poly" id="edge40_Node000047_Node000048" title=" " alt="" coords="474,1112,643,1112,643,1117,474,1117"/>
-<area shape="rect" id="Node000050" title=" " alt="" coords="643,776,786,816"/>
-<area shape="poly" id="edge41_Node000041_Node000050" title=" " alt="" coords="800,793,974,795,1211,803,1481,822,1619,837,1754,856,1824,873,1823,878,1753,861,1618,842,1481,827,1211,808,974,800,800,798"/>
-<area shape="poly" id="edge52_Node000057_Node000050" title=" " alt="" coords="793,818,949,872,1026,903,1024,908,947,877,791,823"/>
-<area shape="rect" id="Node000051" href="$structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,..." alt="" coords="327,783,459,809"/>
-<area shape="poly" id="edge42_Node000050_Node000051" title=" " alt="" coords="473,793,643,793,643,799,473,799"/>
-<area shape="rect" id="Node000052" title=" " alt="" coords="631,859,798,899"/>
-<area shape="poly" id="edge43_Node000041_Node000052" title=" " alt="" coords="812,874,1221,869,1486,871,1753,877,1802,880,1802,885,1753,883,1486,876,1221,875,812,879"/>
-<area shape="poly" id="edge53_Node000057_Node000052" title=" " alt="" coords="812,887,972,906,972,912,811,893"/>
-<area shape="rect" id="Node000053" href="$structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX&#45;GP&#45;051) : axe et portée de son aller&#45;retour ..." alt="" coords="300,866,487,891"/>
-<area shape="poly" id="edge44_Node000052_Node000053" title=" " alt="" coords="500,876,631,876,631,881,500,881"/>
-<area shape="rect" id="Node000054" title=" " alt="" coords="635,1017,794,1057"/>
-<area shape="poly" id="edge45_Node000041_Node000054" title=" " alt="" coords="808,1041,986,1046,1099,1045,1224,1039,1355,1029,1490,1011,1623,986,1752,951,1805,926,1846,899,1849,903,1808,931,1754,956,1625,991,1490,1016,1356,1034,1224,1045,1100,1050,986,1051,808,1046"/>
-<area shape="poly" id="edge54_Node000057_Node000054" title=" " alt="" coords="796,1011,947,960,1024,929,1026,934,949,965,797,1016"/>
-<area shape="rect" id="Node000055" href="$structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX&#45;GP&#45;053) : période, déphasage et durée act..." alt="" coords="304,1025,483,1050"/>
-<area shape="poly" id="edge46_Node000054_Node000055" title=" " alt="" coords="497,1035,635,1035,635,1040,497,1040"/>
-<area shape="rect" id="Node000056" title=" " alt="" coords="1377,899,1523,939"/>
-<area shape="poly" id="edge47_Node000041_Node000056" title=" " alt="" coords="1537,917,1640,915,1753,907,1807,898,1807,903,1754,912,1641,920,1537,922"/>
-<area shape="poly" id="edge48_Node000056_Node000057" title=" " alt="" coords="1152,916,1376,916,1376,921,1152,921"/>
-<area shape="rect" id="Node000058" href="$classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="1803,18,1927,43"/>
-<area shape="poly" id="edge55_Node000003_Node000058" title=" " alt="" coords="1941,18,1984,18,2029,24,2071,39,2090,51,2107,66,2120,92,2125,129,2121,219,2117,309,2121,345,2131,370,2144,381,2140,385,2127,374,2115,347,2111,309,2116,219,2120,129,2115,94,2103,70,2087,55,2069,44,2027,29,1983,23,1941,23"/>
-<area shape="rect" id="Node000059" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="1397,18,1503,43"/>
-<area shape="poly" id="edge56_Node000058_Node000059" title=" " alt="" coords="1517,28,1803,28,1803,33,1517,33"/>
-<area shape="poly" id="edge58_Node000001_Node000060" title=" " alt="" coords="481,1244,713,1244,2213,1244,2230,1242,2245,1236,2276,1213,2304,1177,2330,1129,2354,1073,2375,1009,2412,867,2441,720,2462,584,2483,408,2488,409,2467,585,2446,721,2417,868,2380,1010,2359,1075,2335,1132,2308,1180,2279,1217,2248,1241,2231,1247,2213,1249,713,1249,481,1249"/>
-<area shape="rect" id="Node000061" title=" " alt="" coords="56,1251,135,1277"/>
-<area shape="poly" id="edge59_Node000060_Node000061" title=" " alt="" coords="148,1258,319,1248,319,1254,149,1264"/>
+<area shape="rect" id="Node000001" title="Fenêtre principale de l&#39;application Qt : poste de travail d&#39;éditeur à panneaux dockables autour du vi..." alt="" coords="2397,978,2549,1003"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="2127,826,2243,851"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2255,853,2281,862,2330,882,2375,910,2422,945,2460,976,2456,980,2419,949,2372,914,2327,887,2279,866,2253,858"/>
+<area shape="rect" id="Node000003" href="$classeditor_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt." alt="" coords="2102,875,2267,901"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="2235,903,2437,975,2435,980,2233,908"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="1783,769,1867,794"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1881,778,1924,781,1972,788,2021,803,2067,826,2076,835,2080,845,2083,854,2091,862,2112,873,2109,878,2088,866,2079,857,2075,847,2071,838,2064,830,2019,808,1971,794,1923,786,1880,783"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="1745,868,1904,908"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="1918,885,2102,885,2102,891,1918,891"/>
+<area shape="rect" id="Node000006" href="$classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII)." alt="" coords="1331,883,1489,909"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1502,892,1713,888,1745,887,1745,893,1713,893,1503,897"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1123,1172,1281,1212"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="1295,1195,1482,1202,1709,1200,1820,1192,1921,1179,2005,1159,2038,1146,2064,1131,2092,1106,2115,1076,2134,1043,2149,1009,2169,946,2179,900,2184,901,2174,947,2154,1011,2139,1046,2119,1079,2095,1110,2067,1135,2040,1151,2007,1164,1922,1185,1821,1198,1709,1205,1482,1207,1295,1200"/>
+<area shape="rect" id="Node000008" href="$classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art)." alt="" coords="629,1162,759,1187"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="773,1184,814,1188,979,1194,1123,1192,1123,1197,979,1199,813,1193,773,1189"/>
+<area shape="rect" id="Node000014" href="$classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition." alt="" coords="1337,1002,1483,1027"/>
+<area shape="poly" id="edge14_Node000014_Node000008" title=" " alt="" coords="773,1173,879,1168,1009,1152,1079,1137,1149,1118,1216,1093,1280,1062,1291,1050,1304,1038,1335,1025,1337,1030,1307,1042,1295,1054,1283,1066,1218,1098,1150,1123,1080,1142,1010,1157,879,1173,773,1178"/>
+<area shape="rect" id="Node000015" href="$classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche." alt="" coords="939,1009,1091,1034"/>
+<area shape="poly" id="edge17_Node000015_Node000008" title=" " alt="" coords="750,1155,840,1124,880,1106,906,1090,914,1079,917,1068,921,1057,930,1045,952,1032,954,1036,934,1049,926,1059,922,1070,919,1082,910,1094,882,1111,842,1129,752,1160"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="303,1281,481,1321"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="452,1273,661,1185,663,1190,454,1278"/>
+<area shape="rect" id="Node000010" href="$structhmi_1_1SpriteBatch_1_1Vertex.html" title="Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA." alt="" coords="5,1289,185,1314"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="199,1299,303,1299,303,1304,199,1304"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1547,927,1705,967"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="1719,943,1812,940,1912,932,2024,916,2122,898,2123,903,2025,922,1912,937,1812,945,1719,948"/>
+<area shape="rect" id="Node000012" href="$classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code." alt="" coords="626,930,762,955"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="776,935,813,933,908,933,1546,942,1546,948,908,939,813,939,776,940"/>
+<area shape="poly" id="edge15_Node000014_Node000012" title=" " alt="" coords="776,946,1004,965,1282,993,1337,1001,1336,1006,1281,999,1003,970,776,951"/>
+<area shape="poly" id="edge18_Node000015_Node000012" title=" " alt="" coords="752,957,814,973,954,1006,953,1011,813,979,751,962"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1745,995,1904,1035"/>
+<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="1918,1010,1991,1000,2029,990,2064,978,2096,960,2125,939,2169,899,2173,903,2129,943,2099,965,2066,982,2030,995,1992,1005,1918,1015"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1497,1012,1745,1012,1745,1017,1497,1017"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="1105,1017,1336,1013,1336,1019,1105,1022"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="599,996,789,1036"/>
+<area shape="poly" id="edge19_Node000015_Node000016" title=" " alt="" coords="803,1018,813,1019,939,1019,939,1025,813,1024,803,1024"/>
+<area shape="rect" id="Node000019" href="$classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes." alt="" coords="968,1058,1063,1083"/>
+<area shape="poly" id="edge20_Node000014_Node000019" title=" " alt="" coords="1076,1062,1281,1036,1345,1025,1346,1030,1282,1041,1076,1067"/>
+<area shape="rect" id="Node000020" href="$classcore_1_1EntityManager.html" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="617,1061,771,1086"/>
+<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="784,1070,968,1068,968,1074,784,1075"/>
+<area shape="rect" id="Node000030" href="$classhmi_1_1GameKeyBindings.html" title="Association action de jeu &#45;&gt; touche, avec persistance JSON (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="1737,1059,1912,1085"/>
+<area shape="poly" id="edge22_Node000003_Node000030" title=" " alt="" coords="1926,1067,1996,1054,2031,1043,2064,1027,2102,998,2134,962,2175,899,2179,902,2138,965,2106,1002,2067,1032,2033,1048,1998,1059,1927,1072"/>
+<area shape="rect" id="Node000031" title=" " alt="" coords="1325,1052,1495,1092"/>
+<area shape="poly" id="edge23_Node000030_Node000031" title=" " alt="" coords="1509,1069,1737,1069,1737,1075,1509,1075"/>
+<area shape="rect" id="Node000032" href="$classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="1737,1117,1912,1142"/>
+<area shape="poly" id="edge24_Node000003_Node000032" title=" " alt="" coords="1925,1127,1997,1115,2032,1102,2064,1084,2088,1065,2109,1041,2142,988,2165,937,2177,900,2182,902,2170,939,2147,991,2113,1044,2091,1068,2067,1089,2034,1107,1998,1120,1926,1133"/>
+<area shape="rect" id="Node000033" title=" " alt="" coords="1305,1116,1515,1156"/>
+<area shape="poly" id="edge25_Node000032_Node000033" title=" " alt="" coords="1528,1131,1737,1128,1737,1133,1528,1137"/>
+<area shape="rect" id="Node000034" href="$classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="1763,255,1886,281"/>
+<area shape="poly" id="edge26_Node000003_Node000034" title=" " alt="" coords="1850,289,1897,344,1958,423,2019,519,2046,570,2068,623,2073,647,2074,677,2074,748,2076,816,2082,843,2091,862,2104,873,2101,877,2087,866,2076,845,2071,817,2068,748,2069,677,2068,647,2063,625,2041,573,2014,521,1954,426,1893,347,1846,293"/>
+<area shape="rect" id="Node000035" title=" " alt="" coords="1330,180,1490,220"/>
+<area shape="poly" id="edge27_Node000034_Node000035" title=" " alt="" coords="1504,205,1605,217,1714,235,1784,253,1782,258,1713,240,1604,222,1503,210"/>
+<area shape="rect" id="Node000036" title=" " alt="" coords="1310,244,1510,284"/>
+<area shape="poly" id="edge28_Node000034_Node000036" title=" " alt="" coords="1524,264,1539,264,1763,265,1763,271,1539,269,1524,269"/>
+<area shape="rect" id="Node000037" title=" " alt="" coords="1315,308,1505,348"/>
+<area shape="poly" id="edge29_Node000034_Node000037" title=" " alt="" coords="1519,322,1614,315,1713,300,1789,278,1790,283,1714,305,1614,320,1519,327"/>
+<area shape="rect" id="Node000038" title=" " alt="" coords="1324,122,1496,147"/>
+<area shape="poly" id="edge30_Node000034_Node000038" title=" " alt="" coords="1505,118,1555,116,1609,119,1663,128,1715,146,1750,169,1780,199,1818,254,1814,257,1776,202,1747,173,1712,150,1662,133,1608,124,1555,121,1506,123"/>
+<area shape="rect" id="Node000039" href="$classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState." alt="" coords="1747,21,1902,46"/>
+<area shape="poly" id="edge31_Node000003_Node000039" title=" " alt="" coords="1913,17,1954,17,1995,23,2034,38,2067,64,2077,84,2084,115,2089,208,2087,329,2081,464,2073,719,2077,812,2083,844,2091,862,2104,873,2100,877,2087,866,2078,845,2072,813,2068,719,2076,463,2082,329,2084,208,2079,116,2072,85,2063,67,2032,43,1994,29,1953,23,1913,22"/>
+<area shape="rect" id="Node000040" href="$classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes." alt="" coords="1748,633,1901,658"/>
+<area shape="poly" id="edge32_Node000003_Node000040" title=" " alt="" coords="1915,639,1955,644,1996,654,2035,671,2067,697,2081,718,2086,740,2080,781,2074,822,2079,842,2091,862,2105,873,2102,877,2087,866,2074,844,2069,823,2075,781,2081,740,2076,720,2063,700,2032,675,1994,659,1954,649,1915,645"/>
+<area shape="rect" id="Node000041" href="$classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT&#45;07)." alt="" coords="1762,682,1887,707"/>
+<area shape="poly" id="edge33_Node000003_Node000041" title=" " alt="" coords="1902,704,1944,716,1988,733,2030,757,2067,788,2078,808,2079,827,2081,845,2091,862,2107,873,2104,877,2087,866,2076,847,2074,827,2073,809,2063,791,2027,761,1986,738,1942,721,1900,709"/>
+<area shape="rect" id="Node000042" title=" " alt="" coords="651,362,737,387"/>
+<area shape="poly" id="edge34_Node000041_Node000042" title=" " alt="" coords="751,370,978,366,1283,368,1433,373,1563,383,1661,398,1695,408,1715,421,1727,442,1731,471,1729,545,1727,618,1730,647,1739,668,1750,677,1763,684,1761,689,1747,682,1735,671,1725,649,1722,618,1724,545,1726,472,1722,444,1711,425,1692,413,1660,403,1563,388,1432,378,1283,373,978,372,751,376"/>
+<area shape="rect" id="Node000057" href="$structcore_1_1LevelDraft_1_1State.html" title="État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo)." alt="" coords="932,499,1099,525"/>
+<area shape="poly" id="edge49_Node000057_Node000042" title=" " alt="" coords="747,389,824,418,909,454,993,497,990,502,907,458,822,423,745,394"/>
+<area shape="rect" id="Node000043" title=" " alt="" coords="323,355,461,395"/>
+<area shape="poly" id="edge35_Node000042_Node000043" title=" " alt="" coords="475,372,651,372,651,377,475,377"/>
+<area shape="rect" id="Node000044" href="$classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX&#45;GP&#45;001), origine haut&#45;gauche." alt="" coords="639,606,749,631"/>
+<area shape="poly" id="edge36_Node000041_Node000044" title=" " alt="" coords="740,635,766,650,791,670,799,681,803,692,806,701,815,708,838,717,858,716,880,711,908,708,1400,701,1762,693,1762,699,1400,706,908,713,881,716,859,721,837,722,812,713,802,704,798,694,794,684,787,674,763,655,737,640"/>
+<area shape="poly" id="edge50_Node000057_Node000044" title=" " alt="" coords="754,600,907,552,984,522,986,527,909,557,756,605"/>
+<area shape="rect" id="Node000045" title=" " alt="" coords="305,606,479,631"/>
+<area shape="poly" id="edge37_Node000044_Node000045" title=" " alt="" coords="493,616,639,616,639,621,493,621"/>
+<area shape="rect" id="Node000046" title=" " alt="" coords="57,606,133,631"/>
+<area shape="poly" id="edge57_Node000003_Node000046" title=" " alt="" coords="96,592,112,467,130,383,157,297,195,215,219,179,245,146,276,120,310,99,348,86,391,81,1826,81,1883,88,1928,106,1963,135,1989,173,2011,218,2029,269,2068,383,2073,417,2075,474,2074,627,2077,778,2082,833,2092,863,2104,873,2100,877,2087,865,2077,834,2071,779,2069,627,2070,474,2068,418,2063,385,2024,271,2006,220,1985,176,1959,139,1925,111,1882,93,1826,87,391,87,349,91,312,104,279,124,249,150,223,182,200,218,162,299,135,385,117,468,101,593"/>
+<area shape="poly" id="edge38_Node000045_Node000046" title=" " alt="" coords="148,616,304,616,304,621,148,621"/>
+<area shape="rect" id="Node000060" href="$classeditor_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous&#45;groupes → tuiles." alt="" coords="2111,1231,2259,1257"/>
+<area shape="poly" id="edge60_Node000060_Node000046" title=" " alt="" coords="99,645,101,705,108,789,122,887,146,989,162,1038,182,1085,206,1128,234,1165,265,1197,302,1221,344,1236,391,1241,1826,1241,2110,1241,2110,1247,1826,1247,391,1247,342,1241,300,1226,262,1201,229,1169,201,1131,178,1087,157,1040,141,990,117,888,103,789,96,705,94,645"/>
+<area shape="rect" id="Node000047" title=" " alt="" coords="623,684,765,724"/>
+<area shape="poly" id="edge39_Node000041_Node000047" title=" " alt="" coords="757,726,814,741,860,744,908,741,1311,740,1488,732,1713,711,1761,704,1762,709,1714,716,1488,738,1312,746,908,747,860,749,813,747,755,731"/>
+<area shape="poly" id="edge51_Node000057_Node000047" title=" " alt="" coords="761,676,833,644,907,603,960,561,1000,523,1004,527,964,565,909,608,835,649,763,681"/>
+<area shape="rect" id="Node000048" href="$structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues." alt="" coords="325,691,459,717"/>
+<area shape="poly" id="edge40_Node000047_Node000048" title=" " alt="" coords="472,701,622,701,622,707,472,707"/>
+<area shape="rect" id="Node000050" title=" " alt="" coords="623,528,765,568"/>
+<area shape="poly" id="edge41_Node000041_Node000050" title=" " alt="" coords="780,556,1762,684,1762,689,779,562"/>
+<area shape="poly" id="edge52_Node000057_Node000050" title=" " alt="" coords="779,536,931,519,932,524,780,541"/>
+<area shape="rect" id="Node000051" href="$structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,..." alt="" coords="326,535,458,561"/>
+<area shape="poly" id="edge42_Node000050_Node000051" title=" " alt="" coords="472,545,623,545,623,551,472,551"/>
+<area shape="rect" id="Node000052" title=" " alt="" coords="611,763,777,803"/>
+<area shape="poly" id="edge43_Node000041_Node000052" title=" " alt="" coords="792,787,966,793,1196,792,1324,786,1455,775,1585,758,1713,735,1757,721,1796,705,1798,710,1759,726,1714,740,1586,764,1455,780,1324,791,1196,797,966,798,791,792"/>
+<area shape="poly" id="edge53_Node000057_Node000052" title=" " alt="" coords="766,755,837,721,873,699,906,673,941,635,970,593,1006,524,1011,526,974,595,945,638,910,677,876,703,840,726,768,760"/>
+<area shape="rect" id="Node000053" href="$structcore_1_1DangerMoverConfig.html" title="Paramètres d&#39;un danger mobile (TileType::DangerMover, EX&#45;GP&#45;051) : axe et portée de son aller&#45;retour ..." alt="" coords="299,770,485,795"/>
+<area shape="poly" id="edge44_Node000052_Node000053" title=" " alt="" coords="499,780,610,780,610,785,499,785"/>
+<area shape="rect" id="Node000054" title=" " alt="" coords="615,433,773,473"/>
+<area shape="poly" id="edge45_Node000041_Node000054" title=" " alt="" coords="787,444,1022,430,1313,420,1453,419,1573,424,1664,435,1695,443,1715,454,1726,472,1730,497,1730,561,1728,625,1732,650,1739,668,1763,684,1760,688,1735,671,1726,652,1723,625,1724,561,1725,498,1721,474,1711,458,1693,448,1663,440,1573,429,1453,425,1314,425,1022,436,787,449"/>
+<area shape="poly" id="edge54_Node000057_Node000054" title=" " alt="" coords="787,468,946,497,945,502,786,473"/>
+<area shape="rect" id="Node000055" href="$structcore_1_1DangerBlinkConfig.html" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX&#45;GP&#45;053) : période, déphasage et durée act..." alt="" coords="303,441,481,466"/>
+<area shape="poly" id="edge46_Node000054_Node000055" title=" " alt="" coords="495,451,614,451,614,456,495,456"/>
+<area shape="rect" id="Node000056" title=" " alt="" coords="1337,485,1483,525"/>
+<area shape="poly" id="edge47_Node000041_Node000056" title=" " alt="" coords="1497,489,1551,487,1610,493,1666,510,1692,524,1715,542,1727,558,1732,574,1729,606,1726,637,1730,652,1739,667,1763,683,1760,688,1735,671,1725,655,1721,638,1724,605,1727,574,1722,560,1711,546,1689,528,1664,515,1609,498,1551,492,1497,494"/>
+<area shape="poly" id="edge48_Node000056_Node000057" title=" " alt="" coords="1112,508,1336,504,1337,509,1112,513"/>
+<area shape="rect" id="Node000058" href="$classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu." alt="" coords="1763,818,1887,843"/>
+<area shape="poly" id="edge55_Node000003_Node000058" title=" " alt="" coords="1901,839,2066,865,2110,873,2109,878,2065,871,1900,845"/>
+<area shape="rect" id="Node000059" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="1357,834,1463,859"/>
+<area shape="poly" id="edge56_Node000058_Node000059" title=" " alt="" coords="1477,841,1762,830,1763,836,1477,847"/>
+<area shape="poly" id="edge58_Node000001_Node000060" title=" " alt="" coords="2209,1220,2456,1002,2459,1006,2212,1224"/>
+<area shape="rect" id="Node000061" title=" " alt="" coords="1785,1290,1864,1315"/>
+<area shape="poly" id="edge59_Node000060_Node000061" title=" " alt="" coords="1877,1292,2110,1253,2111,1259,1878,1297"/>
+<area shape="rect" id="Node000062" href="$classeditor_1_1LevelBrowserPanel.html" title="Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer." alt="" coords="2089,1289,2280,1314"/>
+<area shape="poly" id="edge62_Node000062_Node000061" title=" " alt="" coords="1878,1300,2089,1299,2089,1304,1878,1305"/>
+<area shape="poly" id="edge61_Node000001_Node000062" title=" " alt="" coords="2252,1281,2279,1267,2315,1237,2348,1202,2378,1163,2403,1124,2442,1052,2465,1003,2469,1005,2447,1055,2408,1127,2382,1166,2353,1205,2319,1241,2281,1272,2255,1286"/>
 </map>

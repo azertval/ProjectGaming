@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-30-tache-03-ui-remappage-manette.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-30-remappage-manette_2epic_8md.html">LOT-30</a> · <b>Emplacement :</b> <code>HMI/Interface</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1486"></a>
+<h1><a class="anchor" id="autotoc_md1487"></a>
 Contexte</h1>
 <p>Rend le remappage manette accessible depuis Options : un nouveau sous-menu listant les six actions de jeu avec le bouton manette lié, même patron que <code>GameKeybindingsModel</code>/<code>Screen</code> (<code>LOT-29</code>).</p>
-<h1><a class="anchor" id="autotoc_md1487"></a>
+<h1><a class="anchor" id="autotoc_md1488"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="GamepadBindingsModel_8h.html" title="Logique (testable) du sous-menu « Touches de la manette » : liste, capture, réinitialisation.">Source/HMI/Interface/GamepadBindingsModel.h</a></code>/<code>.cpp</code>** (nouveau) : logique testable, patron <code>GameKeybindingsModel</code> — six lignes d'action + « Réinitialiser » + « Retour », réutilisant les constantes de mise en page de <code>GameKeybindingsModel</code> (<code>ROWS_TOP</code>, <code>ROW_SPACING</code>, <code>ROW_SCALE</code>, <code>MenuModel::MARGIN_X</code>). Capture : <code>capturedGamepadButton</code> (TACHE-01) au lieu de <code>capturedKey</code>. Si <code>InputState::gamepadConnected()</code> est faux, la ligne sélectionnée ne peut pas entrer en capture ; affiche une invite dédiée à la place (« Connectez une manette »).</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>** : construit <code><a class="el" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) -&gt; bouton manette,...">hmi::GamepadBindings</a> gamepadBindings = hmi::GamepadBindings::load(keybindingsPath)</code> au démarrage (même fichier que <code>gameBindings</code>/ <code>editorBindings</code>) ; nouveau <code>case</code> pour <code>ScreenId::GamepadBindings</code> ; les <code>case Game</code>/<code>Editor</code> passent désormais <code>gamepadBindings</code> en plus (branchement TACHE-02 finalisé ici si pas déjà fait).</li>
 <li><b>Localisation</b> (<code>fr.lang</code>/<code>en.lang</code>) : <code>options.touches_manette</code>, <code>keybindings.titre_manette</code>, libellés des dix <code>GamepadButton</code>, invite « manette non connectée ».</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1488"></a>
+<h1><a class="anchor" id="autotoc_md1489"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GamepadBindingsModel_8h.html" title="Logique (testable) du sous-menu « Touches de la manette » : liste, capture, réinitialisation.">Source/HMI/Interface/GamepadBindingsModel.h</a></code>/<code>.cpp</code>, <code><a class="el" href="GamepadBindingsScreen_8h.html" title="Écran du sous-menu « Touches de la manette » (EX-CTRL-002, EX-CTRL-012, LOT-30).">GamepadBindingsScreen.h</a></code>/<code>.cpp</code> (nouveaux).</li>
@@ -120,24 +120,24 @@ Fichiers impactés</h1>
 <li><code>Source/Elements/Localization/fr.lang</code>/<code>en.lang</code>.</li>
 <li>Tests : <code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a></code> (mis à jour, 5 options), <code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">test_gamepad_bindings_model.cpp</a></code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1489"></a>
+<h1><a class="anchor" id="autotoc_md1490"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>OptionsModel</code> : les 5 options, la nouvelle action renvoyée correctement.</li>
 <li><code>GamepadBindingsModel</code> : navigation identique au patron <code>GameKeybindingsModel</code> ; capture d'un bouton valide met à jour le binding ; sans manette connectée, la capture ne démarre pas (ou n'aboutit jamais) et l'état/l'invite le reflète ; « Réinitialiser »/« Retour » comme <code>LOT-29</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1490"></a>
+<h1><a class="anchor" id="autotoc_md1491"></a>
 Points d'attention</h1>
 <ul>
 <li>Le sous-menu manette ne peut pas se tester par simulation clavier seule pour la capture elle-même (<code>capturedGamepadButton</code> dépend de l'état manette de <code>InputState</code>) — les tests unitaires injectent directement <code>onGamepadButtonDown</code> sur un <code>InputState</code>, sans manette réelle (même principe que les tests existants de fusion manette, <code>LOT-20</code>).</li>
 <li><b>Écart constaté, signalé par le demandeur</b> : passer <code>OptionsModel::OPTION_COUNT</code> de 4 à 5 (<code>LOT-29</code> en avait déjà porté 2 à 4) a fait déborder le menu Options d'une fenêtre 720p — à 720p, <code>MenuModel::OPTIONS_TOP</code>/<code>OPTION_SPACING</code> (pensés pour 2 à 4 lignes) ne font tenir que 4 lignes sans défilement, la 5ᵉ (« Retour ») se retrouvant hors écran, inaccessible à la souris. Corrigé en dotant <code>OptionsModel</code>/<code>OptionsScreen</code> d'un vrai défilement (fenêtre visible + barre de défilement), sur le même patron que <code>LevelPicker</code> (liste plate, pas l'accordéon de <code>TilePalette</code>) : <code>visibleOptionCount</code>/<code>scrollOffset</code>, le clavier fait suivre la sélection dans la fenêtre visible, la molette défile sans la changer. <code>OptionsModel::update</code> gagne un paramètre <code>viewportHeight</code> (même principe que <code>LevelPicker::update</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1491"></a>
+<h1><a class="anchor" id="autotoc_md1492"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Sous-menu accessible, fonctionnel, persiste ses changements ; navigation complète testée manuellement si une manette est disponible ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1492"></a>
+<h1><a class="anchor" id="autotoc_md1493"></a>
 Exigences</h1>
 <p><code>EX-CTRL-002</code>, <code>EX-CTRL-012</code>. </p>
 </div></div><!-- contents -->

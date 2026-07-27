@@ -13,5 +13,7 @@ var searchData=
   ['dot_10',['dot',['../structcore_1_1Vector2.html#ae70a029307287be5d22ec57a536a21d6',1,'core::Vector2']]],
   ['draftrenderer_11',['DraftRenderer',['../classhmi_1_1DraftRenderer.html#a88a3e124a915f12ce18aede6ef15e463',1,'hmi::DraftRenderer']]],
   ['draw_12',['draw',['../classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d',1,'hmi::SpriteBatch']]],
-  ['drawtext_13',['drawText',['../classhmi_1_1BitmapFont.html#a9a33ca4934ac8736b8ac3e03853d4eed',1,'hmi::BitmapFont']]]
+  ['drawgrid_13',['drawGrid',['../classhmi_1_1DraftRenderer.html#a4e86d52ba1913039aefeac7e52a53b2d',1,'hmi::DraftRenderer']]],
+  ['drawtext_14',['drawText',['../classhmi_1_1BitmapFont.html#a9a33ca4934ac8736b8ac3e03853d4eed',1,'hmi::BitmapFont']]],
+  ['duplicate_15',['duplicate',['../classeditor_1_1LevelFileOperations.html#a56682281f4cf2fa3f5f54f31e3e4f7f1',1,'editor::LevelFileOperations']]]
 ];
