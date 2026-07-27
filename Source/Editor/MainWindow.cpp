@@ -16,8 +16,12 @@
 #include <QString>
 #include <QWidget>
 
+#include <filesystem>
+
 #include "Editor/GameViewport.h"
+#include "Editor/LevelBrowserPanel.h"
 #include "Editor/PalettePanel.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 
 namespace editor {
 
@@ -50,6 +54,8 @@ MainWindow::MainWindow()
     : _viewport(new GameViewport()),
       _palettePanel(nullptr),
       _palette(nullptr),
+      _levelsPanel(nullptr),
+      _levels(nullptr),
       _toolPanel(nullptr),
       _statusPanel(nullptr) {
     setObjectName(QStringLiteral("EditorMainWindow"));
@@ -70,6 +76,19 @@ MainWindow::MainWindow()
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
     connect(_viewport, &GameViewport::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message, 5000); });
+    // Ouvrir un niveau depuis le panneau : garde-fou des modifications non enregistrées d'abord.
+    connect(_levels, &LevelBrowserPanel::levelOpenRequested, this, [this](const QString& path) {
+        if (_viewport->isDirty()) {
+            const QMessageBox::StandardButton answer = QMessageBox::question(
+                this, QStringLiteral("Modifications non enregistrées"),
+                QStringLiteral("Le niveau courant a des modifications non enregistrées. "
+                               "Ouvrir un autre niveau et les perdre ?"));
+            if (answer != QMessageBox::Yes) {
+                return;
+            }
+        }
+        _viewport->openLevel(std::filesystem::path(path.toStdString()));
+    });
     statusBar()->showMessage(QStringLiteral("Éditeur — peindre : clic gauche · Ctrl+Z/Y · "
                                             "Ctrl+S enregistrer · P essayer"));
 
@@ -91,6 +110,12 @@ void MainWindow::createDockPanels() {
     _palette = new PalettePanel(_palettePanel);
     _palettePanel->setWidget(_palette);
 
+    // Panneau « Niveaux » : liste/gestion des fichiers de niveaux (LOT-36).
+    _levelsPanel = new QDockWidget(QStringLiteral("Niveaux"));
+    _levelsPanel->setObjectName(QStringLiteral("LevelsPanel"));
+    _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _levelsPanel);
+    _levelsPanel->setWidget(_levels);
+
     _toolPanel = makePanel(QStringLiteral("Outils"), QStringLiteral("ToolPanel"),
                            QStringLiteral("Outils\n(LOT-35 TACHE-03)"));
     _statusPanel = makePanel(QStringLiteral("Statut"), QStringLiteral("StatusPanel"),
@@ -98,6 +123,7 @@ void MainWindow::createDockPanels() {
 
     addDockWidget(Qt::LeftDockWidgetArea, _palettePanel);
     addDockWidget(Qt::LeftDockWidgetArea, _toolPanel);
+    addDockWidget(Qt::RightDockWidgetArea, _levelsPanel);
     addDockWidget(Qt::BottomDockWidgetArea, _statusPanel);
 }
 
@@ -115,6 +141,7 @@ void MainWindow::createMenus() {
     // Menu « Affichage » : visibilité des panneaux + réinitialisation de la disposition.
     QMenu* const viewMenu = menuBar()->addMenu(QStringLiteral("Affichage"));
     viewMenu->addAction(_palettePanel->toggleViewAction());
+    viewMenu->addAction(_levelsPanel->toggleViewAction());
     viewMenu->addAction(_toolPanel->toggleViewAction());
     viewMenu->addAction(_statusPanel->toggleViewAction());
     viewMenu->addSeparator();

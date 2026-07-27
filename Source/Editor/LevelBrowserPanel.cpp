@@ -1,0 +1,165 @@
+#include "Editor/LevelBrowserPanel.h"
+
+#include <utility>
+
+#include <QHBoxLayout>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QListView>
+#include <QMessageBox>
+#include <QModelIndex>
+#include <QPushButton>
+#include <QSortFilterProxyModel>
+#include <QStandardItem>
+#include <QStandardItemModel>
+#include <QVBoxLayout>
+
+#include "Editor/LevelFileOperations.h"
+
+namespace editor {
+
+namespace {
+
+// Rôle portant le chemin absolu du fichier d'un item de la liste.
+constexpr int PATH_ROLE = Qt::UserRole + 1;
+
+// Signale l'échec éventuel d'une opération à l'utilisateur (jamais silencieux).
+void reportIfError(QWidget* parent, const FileOpResult& result) {
+    if (!result.ok) {
+        QMessageBox::warning(parent, QStringLiteral("Opération impossible"),
+                             QString::fromStdString(result.error));
+    }
+}
+
+}  // namespace
+
+LevelBrowserPanel::LevelBrowserPanel(std::filesystem::path levelsDir, QWidget* parent)
+    : QWidget(parent),
+      _dir(std::move(levelsDir)),
+      _view(new QListView(this)),
+      _model(new QStandardItemModel(this)),
+      _proxy(new QSortFilterProxyModel(this)),
+      _search(new QLineEdit(this)) {
+    _search->setPlaceholderText(QStringLiteral("Rechercher…"));
+    _search->setClearButtonEnabled(true);
+
+    _proxy->setSourceModel(_model);
+    _proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    _view->setModel(_proxy);
+    _view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    _view->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    connect(_search, &QLineEdit::textChanged, _proxy, &QSortFilterProxyModel::setFilterFixedString);
+    connect(_view, &QListView::doubleClicked, this, &LevelBrowserPanel::onActivated);
+
+    auto* const newButton = new QPushButton(QStringLiteral("Nouveau"), this);
+    auto* const renameButton = new QPushButton(QStringLiteral("Renommer"), this);
+    auto* const duplicateButton = new QPushButton(QStringLiteral("Dupliquer"), this);
+    auto* const deleteButton = new QPushButton(QStringLiteral("Supprimer"), this);
+    connect(newButton, &QPushButton::clicked, this, &LevelBrowserPanel::onNew);
+    connect(renameButton, &QPushButton::clicked, this, &LevelBrowserPanel::onRename);
+    connect(duplicateButton, &QPushButton::clicked, this, &LevelBrowserPanel::onDuplicate);
+    connect(deleteButton, &QPushButton::clicked, this, &LevelBrowserPanel::onDelete);
+
+    auto* const buttons = new QHBoxLayout();
+    buttons->addWidget(newButton);
+    buttons->addWidget(renameButton);
+    buttons->addWidget(duplicateButton);
+    buttons->addWidget(deleteButton);
+
+    auto* const layout = new QVBoxLayout(this);
+    layout->setContentsMargins(4, 4, 4, 4);
+    layout->addWidget(_search);
+    layout->addWidget(_view);
+    layout->addLayout(buttons);
+
+    refresh();
+}
+
+void LevelBrowserPanel::refresh() {
+    _model->clear();
+    const LevelFileOperations ops(_dir);
+    for (const std::filesystem::path& path : ops.list()) {
+        auto* const item = new QStandardItem(QString::fromStdString(path.stem().string()));
+        item->setEditable(false);
+        item->setData(QString::fromStdString(path.string()), PATH_ROLE);
+        _model->appendRow(item);
+    }
+    _model->sort(0);
+}
+
+std::filesystem::path LevelBrowserPanel::selectedPath() const {
+    const QModelIndex proxyIndex = _view->currentIndex();
+    if (!proxyIndex.isValid()) {
+        return {};
+    }
+    const QVariant pathData = _proxy->mapToSource(proxyIndex).data(PATH_ROLE);
+    return std::filesystem::path(pathData.toString().toStdString());
+}
+
+void LevelBrowserPanel::onNew() {
+    bool accepted = false;
+    const QString name = QInputDialog::getText(this, QStringLiteral("Nouveau niveau"),
+                                               QStringLiteral("Nom du niveau :"), QLineEdit::Normal,
+                                               QString(), &accepted);
+    if (!accepted || name.isEmpty()) {
+        return;
+    }
+    const LevelFileOperations ops(_dir);
+    const FileOpResult result = ops.create(name.toStdString(), 24, 14);  // taille par défaut
+    reportIfError(this, result);
+    refresh();
+}
+
+void LevelBrowserPanel::onRename() {
+    const std::filesystem::path path = selectedPath();
+    if (path.empty()) {
+        return;
+    }
+    bool accepted = false;
+    const QString name = QInputDialog::getText(
+        this, QStringLiteral("Renommer"), QStringLiteral("Nouveau nom :"), QLineEdit::Normal,
+        QString::fromStdString(path.stem().string()), &accepted);
+    if (!accepted || name.isEmpty()) {
+        return;
+    }
+    const LevelFileOperations ops(_dir);
+    reportIfError(this, ops.rename(path, name.toStdString()));
+    refresh();
+}
+
+void LevelBrowserPanel::onDuplicate() {
+    const std::filesystem::path path = selectedPath();
+    if (path.empty()) {
+        return;
+    }
+    const LevelFileOperations ops(_dir);
+    reportIfError(this, ops.duplicate(path));
+    refresh();
+}
+
+void LevelBrowserPanel::onDelete() {
+    const std::filesystem::path path = selectedPath();
+    if (path.empty()) {
+        return;
+    }
+    const QMessageBox::StandardButton answer = QMessageBox::question(
+        this, QStringLiteral("Supprimer"),
+        QStringLiteral("Supprimer définitivement « %1 » ?")
+            .arg(QString::fromStdString(path.stem().string())));
+    if (answer != QMessageBox::Yes) {
+        return;
+    }
+    const LevelFileOperations ops(_dir);
+    reportIfError(this, ops.remove(path));
+    refresh();
+}
+
+void LevelBrowserPanel::onActivated(const QModelIndex& index) {
+    const QVariant pathData = _proxy->mapToSource(index).data(PATH_ROLE);
+    if (pathData.isValid()) {
+        emit levelOpenRequested(pathData.toString());
+    }
+}
+
+}  // namespace editor

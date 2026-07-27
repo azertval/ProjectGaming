@@ -31,8 +31,10 @@ class DraftRenderer {
 public:
     DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas);
 
-    /// Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).
-    void render(const core::LevelDraft& draft, const Camera2D& camera);
+    /// Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée). Si @p showGrid,
+    /// superpose la grille de repère (frontières de cases + frontières de salles) — aide au
+    /// placement, équivalent de la bascule `F10` de l'éditeur historique (`EX-EDIT-023`).
+    void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -42,7 +44,10 @@ public:
 
 private:
     void rebuild(const core::LevelDraft& draft);
+    /// Dessine la grille de repère (cases + salles) par-dessus les tuiles.
+    void drawGrid(const core::LevelDraft& draft, const Camera2D& camera);
 
+    SpriteBatch& _batch;
     const TextureAtlas& _atlas;
     SpriteRenderer _renderer;
     core::World _world;

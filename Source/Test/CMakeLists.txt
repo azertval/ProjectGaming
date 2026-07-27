@@ -59,6 +59,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_tool_bar.cpp
     Unit/HMI/Editor/test_level_size_validation.cpp
     Unit/Editor/test_tile_taxonomy.cpp
+    Unit/Editor/test_level_file_operations.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -109,6 +110,9 @@ add_executable(UnitTests
     ../HMI/Editor/LevelSizeValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
     ../Editor/TileTaxonomy.cpp
+    # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
+    # (LevelNameValidation.cpp est déjà compilé plus haut.)
+    ../Editor/LevelFileOperations.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

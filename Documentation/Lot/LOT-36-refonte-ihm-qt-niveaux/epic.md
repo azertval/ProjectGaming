@@ -1,6 +1,6 @@
 # LOT-36 — Refonte IHM (Qt) : gestion des niveaux (liste, recherche, fichiers) {#lot-36}
 
-> Statut : **non commencé**. Prérequis : [LOT-35](@ref lot-35) (éditeur Qt à docks).
+> Statut : **implémenté** (build/tests verts ; vérification IHM manuelle en cours). Prérequis : [LOT-35](@ref lot-35) (éditeur Qt à docks).
 
 ## Objectif
 Remplacer le sélecteur de niveau rudimentaire (`LevelPicker` : simple liste défilante, seulement
@@ -63,9 +63,9 @@ les fichiers de niveaux confortablement, sans quitter l'éditeur.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-panneau-niveaux-recherche.md) | Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre) | `Source/Editor` | ⬜ |
-| [TACHE-02](tache-02-operations-fichiers.md) | Opérations fichiers (créer/renommer/dupliquer/supprimer) + couche testable | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-ouverture-garde-fou-doc.md) | Ouverture avec garde-fou `dirty`, indicateurs d'état/erreurs ; doc & vérification | `Source/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-panneau-niveaux-recherche.md) | Panneau « Niveaux » (modèle fichiers + liste + recherche/filtre) | `Source/Editor` | ✅ |
+| [TACHE-02](tache-02-operations-fichiers.md) | Opérations fichiers (créer/renommer/dupliquer/supprimer) + couche testable | `Source/Editor` | ✅ |
+| [TACHE-03](tache-03-ouverture-garde-fou-doc.md) | Ouverture avec garde-fou `dirty`, indicateurs d'état/erreurs ; doc & vérification | `Source/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le panneau « Niveaux » liste tous les niveaux du dossier `Levels` et reste **lisible et

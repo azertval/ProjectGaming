@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <filesystem>
 #include <memory>
 #include <optional>
 
@@ -60,6 +61,14 @@ public:
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
     /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
     void save();
+
+    /// Ouvre un fichier de niveau comme brouillon d'édition (remplace le brouillon courant).
+    void openLevel(const std::filesystem::path& path);
+
+    /// @return true si le brouillon a des modifications non enregistrées (garde-fou d'ouverture).
+    [[nodiscard]] bool isDirty() const noexcept {
+        return _dirty;
+    }
 
     /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
@@ -124,6 +133,8 @@ private:
     hmi::Camera2D _camera;              ///< Caméra d'édition (cadre le niveau entier).
     core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
     bool _painting = false;            ///< Un glisser de peinture (bouton gauche) est en cours.
+    bool _dirty = false;               ///< Modifications non enregistrées (garde-fou d'ouverture).
+    bool _showGrid = true;             ///< Grille de repère (cases + salles) affichée (bascule F10).
 
     /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).
     std::optional<hmi::GameSession> _session;

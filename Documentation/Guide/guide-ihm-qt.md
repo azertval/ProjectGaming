@@ -97,6 +97,16 @@ Outils, Statut) autour du viewport central. La **disposition** est persistée ho
   `Échap` restitue l'éditeur, brouillon intact — **la même session que l'écran de jeu**, sans
   duplication.
 
+### Gestion des niveaux (LOT-36)
+
+Le panneau **Niveaux** (`editor::LevelBrowserPanel`) liste les fichiers du dossier `Levels` avec
+**recherche** incrémentale, et permet de **créer / renommer / dupliquer / supprimer** un niveau.
+Ces opérations délèguent à `editor::LevelFileOperations` — une couche **pure et testée** (aucune
+dépendance Qt/GPU) qui réutilise `hmi::isValidLevelName`, `core::LevelLoader`/`LevelWriter` et
+`core::LevelDraft` (aucune règle dupliquée) et renvoie un résultat récupérable (jamais d'exception).
+Un double-clic **ouvre** le niveau dans le viewport, précédé d'un **garde-fou** si le brouillon
+courant a des modifications non enregistrées (`EX-IHM-020`/`EX-IHM-021`).
+
 ## Voir aussi
 - [Spécification IHM](@ref spec-interface-ihm) — le *quoi/pourquoi* de la refonte (`EX-IHM-*`).
 - @ref guide-boucle — la boucle et le pas de temps fixe (repris à l'identique côté Qt).
