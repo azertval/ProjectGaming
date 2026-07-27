@@ -202,7 +202,7 @@ void GameViewport::renderFrame() {
         _session->render(pixelWidth(), pixelHeight(), _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
-        _draftRenderer->render(_draft, _camera);
+        _draftRenderer->render(_draft, _camera, _showGrid);
     }
     _graphics->present();
 }
@@ -291,6 +291,10 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
     }
     if (event->key() == Qt::Key_P) {
         startPlaytest();
+        return;
+    }
+    if (event->key() == Qt::Key_F10) {
+        _showGrid = !_showGrid;  // bascule de la grille de repère (comme l'éditeur historique).
         return;
     }
     if (event->isAutoRepeat()) {

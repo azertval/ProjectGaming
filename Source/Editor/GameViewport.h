@@ -134,6 +134,7 @@ private:
     core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
     bool _painting = false;            ///< Un glisser de peinture (bouton gauche) est en cours.
     bool _dirty = false;               ///< Modifications non enregistrées (garde-fou d'ouverture).
+    bool _showGrid = true;             ///< Grille de repère (cases + salles) affichée (bascule F10).
 
     /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).
     std::optional<hmi::GameSession> _session;
