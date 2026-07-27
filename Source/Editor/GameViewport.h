@@ -4,6 +4,8 @@
 #include <filesystem>
 #include <memory>
 #include <optional>
+#include <utility>
+#include <vector>
 
 #include <QString>
 #include <QWindow>
@@ -12,6 +14,7 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Time/FixedTimestep.h"
+#include "HMI/Editor/EditorTool.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Input/GameKeyBindings.h"
@@ -56,6 +59,11 @@ public:
     /// Définit le type de tuile peint au clic (relié à la sélection de la palette).
     void setActiveTile(core::TileType type) noexcept {
         _activeTile = type;
+    }
+
+    /// Définit l'outil d'édition actif (pinceau, rectangle, sélection ; relié à la barre d'outils).
+    void setTool(hmi::EditorTool tool) noexcept {
+        _tool = tool;
     }
 
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
@@ -109,8 +117,19 @@ private:
     void updateEditCamera();
     /// Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.
     [[nodiscard]] std::optional<core::GridPosition> cellAt(const QMouseEvent* event);
+    /// Case de grille sous @p event, **bornée** à la grille (jamais hors bornes) — pour les glissers
+    /// rectangle/sélection dont le curseur peut dépasser légèrement les bords.
+    [[nodiscard]] core::GridPosition clampedCell(const QMouseEvent* event);
     /// Peint le type actif à la case sous @p event, si valide (invalide la scène rendue).
     void paintAt(const QMouseEvent* event);
+    /// Remplit le rectangle (bornes @p a, @p b incluses) du type actif (outil Rectangle).
+    void applyRectangle(core::GridPosition a, core::GridPosition b);
+    /// Copie la zone sélectionnée dans le presse-papiers local (`Ctrl+C`).
+    void copySelection();
+    /// Colle le presse-papiers à la case survolée (`Ctrl+V`).
+    void pasteClipboard();
+    /// Zone à mettre en surbrillance (glisser en cours, sinon sélection mémorisée), le cas échéant.
+    [[nodiscard]] std::optional<std::pair<core::GridPosition, core::GridPosition>> highlight() const;
 
     [[nodiscard]] int pixelWidth() const;
     [[nodiscard]] int pixelHeight() const;
@@ -132,7 +151,16 @@ private:
     core::LevelDraft _draft;            ///< Brouillon en cours d'édition (source de vérité).
     hmi::Camera2D _camera;              ///< Caméra d'édition (cadre le niveau entier).
     core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
-    bool _painting = false;            ///< Un glisser de peinture (bouton gauche) est en cours.
+    hmi::EditorTool _tool = hmi::EditorTool::Paint;      ///< Outil d'édition actif (barre d'outils).
+    bool _painting = false;            ///< Un glisser de peinture (Pinceau) est en cours.
+    bool _dragging = false;            ///< Un glisser Rectangle/Sélection est en cours.
+    core::GridPosition _dragStart{};   ///< Case de départ du glisser Rectangle/Sélection.
+    core::GridPosition _dragCurrent{}; ///< Case courante du glisser (pour l'aperçu).
+    core::GridPosition _hoverCell{};   ///< Dernière case survolée (cible du collage).
+    /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
+    /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
+    std::vector<std::vector<core::TileType>> _clipboard;
     bool _dirty = false;               ///< Modifications non enregistrées (garde-fou d'ouverture).
     bool _showGrid = true;             ///< Grille de repère (cases + salles) affichée (bascule F10).
 

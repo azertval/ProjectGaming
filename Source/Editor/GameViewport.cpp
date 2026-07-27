@@ -167,6 +167,77 @@ void GameViewport::paintAt(const QMouseEvent* event) {
     }
 }
 
+core::GridPosition GameViewport::clampedCell(const QMouseEvent* event) {
+    updateEditCamera();
+    const qreal ratio = devicePixelRatio();
+    const core::Vector2 world = _camera.screenToWorld(
+        core::Vector2{static_cast<float>(event->position().x() * ratio),
+                      static_cast<float>(event->position().y() * ratio)});
+    const int width = _draft.tileMap().width();
+    const int height = _draft.tileMap().height();
+    return core::GridPosition{std::clamp(static_cast<int>(std::floor(world.x)), 0, width - 1),
+                              std::clamp(static_cast<int>(std::floor(world.y)), 0, height - 1)};
+}
+
+void GameViewport::applyRectangle(core::GridPosition a, core::GridPosition b) {
+    const int minColumn = std::min(a.column, b.column);
+    const int maxColumn = std::max(a.column, b.column);
+    const int minRow = std::min(a.row, b.row);
+    const int maxRow = std::max(a.row, b.row);
+    const std::vector<std::vector<core::TileType>> block(
+        static_cast<std::size_t>(maxRow - minRow + 1),
+        std::vector<core::TileType>(static_cast<std::size_t>(maxColumn - minColumn + 1),
+                                    _activeTile));
+    _draft.paintRegion(minColumn, minRow, block);  // un seul snapshot undo pour tout le rectangle
+    _dirty = true;
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::copySelection() {
+    if (!_selection) {
+        return;
+    }
+    const core::GridPosition mn = _selection->first;
+    const core::GridPosition mx = _selection->second;
+    const core::TileMap& map = _draft.tileMap();
+    _clipboard.clear();
+    for (int row = mn.row; row <= mx.row; ++row) {
+        std::vector<core::TileType> line;
+        for (int column = mn.column; column <= mx.column; ++column) {
+            line.push_back(map.tile(column, row));
+        }
+        _clipboard.push_back(std::move(line));
+    }
+    emit statusMessage(QStringLiteral("Zone copiée (%1 × %2).")
+                           .arg(mx.column - mn.column + 1)
+                           .arg(mx.row - mn.row + 1));
+}
+
+void GameViewport::pasteClipboard() {
+    if (_clipboard.empty()) {
+        return;
+    }
+    _draft.paintRegion(_hoverCell.column, _hoverCell.row, _clipboard);
+    _dirty = true;
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+    emit statusMessage(QStringLiteral("Zone collée."));
+}
+
+std::optional<std::pair<core::GridPosition, core::GridPosition>> GameViewport::highlight() const {
+    if (_dragging) {
+        return std::make_pair(
+            core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
+                               std::min(_dragStart.row, _dragCurrent.row)},
+            core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
+                               std::max(_dragStart.row, _dragCurrent.row)});
+    }
+    return _selection;
+}
+
 void GameViewport::tick() {
     if (!isExposed()) {
         return;
@@ -202,7 +273,7 @@ void GameViewport::renderFrame() {
         _session->render(pixelWidth(), pixelHeight(), _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
-        _draftRenderer->render(_draft, _camera, _showGrid);
+        _draftRenderer->render(_draft, _camera, _showGrid, highlight());
     }
     _graphics->present();
 }
@@ -286,6 +357,14 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         }
         if (event->key() == Qt::Key_S) {
             save();
+            return;
+        }
+        if (event->key() == Qt::Key_C) {
+            copySelection();
+            return;
+        }
+        if (event->key() == Qt::Key_V) {
+            pasteClipboard();
             return;
         }
     }
@@ -409,10 +488,21 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonDown(*button);
     }
-    // Mode édition : clic gauche = peinture.
-    if (!_session && event->button() == Qt::LeftButton) {
-        _painting = true;
-        paintAt(event);
+    if (_session || event->button() != Qt::LeftButton) {
+        return;
+    }
+    // Mode édition : dispatch selon l'outil actif.
+    switch (_tool) {
+        case hmi::EditorTool::Paint:
+            _painting = true;
+            paintAt(event);
+            break;
+        case hmi::EditorTool::Rectangle:
+        case hmi::EditorTool::Selection:
+            _dragging = true;
+            _dragStart = clampedCell(event);
+            _dragCurrent = _dragStart;
+            break;
     }
 }
 
@@ -421,15 +511,37 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonUp(*button);
     }
-    if (event->button() == Qt::LeftButton) {
-        _painting = false;
+    if (event->button() != Qt::LeftButton) {
+        return;
     }
+    if (_dragging) {
+        _dragCurrent = clampedCell(event);
+        if (_tool == hmi::EditorTool::Rectangle) {
+            applyRectangle(_dragStart, _dragCurrent);
+        } else if (_tool == hmi::EditorTool::Selection) {
+            _selection = std::make_pair(
+                core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
+                                   std::min(_dragStart.row, _dragCurrent.row)},
+                core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
+                                   std::max(_dragStart.row, _dragCurrent.row)});
+        }
+        _dragging = false;
+    }
+    _painting = false;
 }
 
 void GameViewport::mouseMoveEvent(QMouseEvent* event) {
     updateMousePosition(event);
+    if (_session) {
+        return;
+    }
+    if (const std::optional<core::GridPosition> cell = cellAt(event)) {
+        _hoverCell = *cell;  // cible du collage (Ctrl+V)
+    }
     if (_painting) {
-        paintAt(event);  // glisser de peinture.
+        paintAt(event);  // glisser de peinture
+    } else if (_dragging) {
+        _dragCurrent = clampedCell(event);  // aperçu du rectangle/de la sélection
     }
 }
 
