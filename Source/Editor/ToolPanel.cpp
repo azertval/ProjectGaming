@@ -1,28 +1,32 @@
 #include "Editor/ToolPanel.h"
 
-#include <QButtonGroup>
 #include <QRadioButton>
-#include <QVBoxLayout>
+
+#include "ui_ToolPanel.h"
 
 namespace editor {
 
-ToolPanel::ToolPanel(QWidget* parent) : QWidget(parent), _group(new QButtonGroup(this)) {
-    auto* const paint = new QRadioButton(QStringLiteral("Pinceau"), this);
-    auto* const rectangle = new QRadioButton(QStringLiteral("Rectangle"), this);
-    auto* const selection = new QRadioButton(QStringLiteral("Sélection"), this);
-    paint->setChecked(true);
+ToolPanel::ToolPanel(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui::ToolPanel>()) {
+    _ui->setupUi(this);
 
-    _group->addButton(paint, static_cast<int>(hmi::EditorTool::Paint));
-    _group->addButton(rectangle, static_cast<int>(hmi::EditorTool::Rectangle));
-    _group->addButton(selection, static_cast<int>(hmi::EditorTool::Selection));
-    connect(_group, &QButtonGroup::idClicked, this,
-            [this](int id) { emit toolSelected(static_cast<hmi::EditorTool>(id)); });
-
-    auto* const layout = new QVBoxLayout(this);
-    layout->addWidget(paint);
-    layout->addWidget(rectangle);
-    layout->addWidget(selection);
-    layout->addStretch();
+    // Les boutons radio frères sont exclusifs par défaut ; chacun émet l'outil correspondant.
+    connect(_ui->paintRadio, &QRadioButton::toggled, this, [this](bool on) {
+        if (on) {
+            emit toolSelected(hmi::EditorTool::Paint);
+        }
+    });
+    connect(_ui->rectangleRadio, &QRadioButton::toggled, this, [this](bool on) {
+        if (on) {
+            emit toolSelected(hmi::EditorTool::Rectangle);
+        }
+    });
+    connect(_ui->selectionRadio, &QRadioButton::toggled, this, [this](bool on) {
+        if (on) {
+            emit toolSelected(hmi::EditorTool::Selection);
+        }
+    });
 }
+
+ToolPanel::~ToolPanel() = default;
 
 }  // namespace editor

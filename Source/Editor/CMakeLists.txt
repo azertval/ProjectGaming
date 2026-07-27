@@ -51,6 +51,8 @@ add_executable(ProjectGamingEditor
     resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
     MainMenu.ui
+    OptionsPage.ui
+    ToolPanel.ui
 )
 
 # HmiRuntime propage Core, les libs Direct3D et les définitions Unicode (PUBLIC).
