@@ -36,7 +36,11 @@ add_executable(ProjectGamingEditor
     GameViewport.cpp
     MainWindow.cpp
     PalettePanel.cpp
+    LevelBrowserPanel.cpp
     TileTaxonomy.cpp
+    LevelFileOperations.cpp
+    # Validation de nom de niveau (partagée avec l'éditeur historique jusqu'au LOT-38).
+    ${PROJECT_SOURCE_DIR}/Source/HMI/Editor/LevelNameValidation.cpp
 )
 
 # HmiRuntime propage Core, les libs Direct3D et les définitions Unicode (PUBLIC).

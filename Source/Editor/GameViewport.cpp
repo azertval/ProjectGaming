@@ -160,6 +160,7 @@ std::optional<core::GridPosition> GameViewport::cellAt(const QMouseEvent* event)
 void GameViewport::paintAt(const QMouseEvent* event) {
     if (const std::optional<core::GridPosition> cell = cellAt(event)) {
         _draft.paintTile(cell->column, cell->row, _activeTile);
+        _dirty = true;
         if (_draftRenderer) {
             _draftRenderer->invalidate();
         }
@@ -270,12 +271,14 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
     // Mode édition : raccourcis (annuler/refaire, enregistrer, essai).
     if (event->modifiers() & Qt::ControlModifier) {
         if (event->key() == Qt::Key_Z && _draft.undo()) {
+            _dirty = true;
             if (_draftRenderer) {
                 _draftRenderer->invalidate();
             }
             return;
         }
         if (event->key() == Qt::Key_Y && _draft.redo()) {
+            _dirty = true;
             if (_draftRenderer) {
                 _draftRenderer->invalidate();
             }
@@ -308,11 +311,29 @@ void GameViewport::save() {
     const std::filesystem::path path =
         hmi::executableDirectory() / "Levels" / (_draft.name() + ".json");
     if (core::LevelWriter::saveToFile(*validated.level, path)) {
+        _dirty = false;
         emit statusMessage(QStringLiteral("Niveau enregistré : ") +
                            QString::fromStdString(path.filename().string()));
     } else {
         emit statusMessage(QStringLiteral("Échec de l'écriture du fichier."));
     }
+}
+
+void GameViewport::openLevel(const std::filesystem::path& path) {
+    core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(path);
+    if (!loaded.ok()) {
+        emit statusMessage(QStringLiteral("Ouverture impossible : ") +
+                           QString::fromStdString(loaded.error));
+        return;
+    }
+    stopPlaytest();  // sort d'un éventuel essai en cours
+    _draft = core::LevelDraft::fromLevel(*loaded.level);
+    _dirty = false;
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+    emit statusMessage(QStringLiteral("Niveau ouvert : ") +
+                       QString::fromStdString(path.filename().string()));
 }
 
 void GameViewport::startPlaytest() {
@@ -344,6 +365,7 @@ void GameViewport::stopPlaytest() {
 
 void GameViewport::resizeLevel(int width, int height) {
     _draft.resize(width, height);
+    _dirty = true;
     if (_draftRenderer) {
         _draftRenderer->invalidate();
     }
