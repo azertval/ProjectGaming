@@ -176,11 +176,12 @@ journalise, lui, reste **identique** dans les deux configurations : `HMI_LOG_INF
 s'exécute pareil des deux côtés — c'est le nombre de sinks enregistrés, décidé une fois au
 démarrage, qui change ce qu'il en advient.
 
-Le bouton d'enregistrement lui-même (`hmi::SaveIcon`, dessiné en coin d'écran en build
-développement) n'est qu'une petite icône **générée en code** — une flèche blanche teintable, sans
-aucun asset graphique — dont le clic écrit `MemoryLogSink::entries()` sur disque
-(`hmi::saveSessionLog`) : la couche `HMI` ne fait qu'exposer, via un pixel cliquable, ce que
-`Core` a déjà collecté.
+Le `MemoryLogSink` (`Core`) collecte ces entrées en mémoire en build développement ; les écrire sur
+disque relève de la couche présentation. L'onglet **Général** de la page Options Qt expose un bouton
+**« Enregistrer les journaux »** : `hmi::saveSessionLog` (`Source/HMI/Diagnostics/SessionLog.h`,
+logique pure testée) sérialise `MemoryLogSink::entries()` dans un fichier horodaté (`Logs/`), sans
+toucher à ce que `Core` a déjà collecté. En Release, aucun sink mémoire n'est enregistré : le bouton
+signale simplement des journaux indisponibles.
 
 ## Assertions : \ref PROJECTGAMING_ASSERT "PROJECTGAMING_ASSERT", un outil différent
 

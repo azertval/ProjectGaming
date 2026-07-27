@@ -42,22 +42,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Graphics/test_room_grid.cpp
     Unit/HMI/Localization/test_localization.cpp
-    Unit/HMI/Interface/test_screen_manager.cpp
-    Unit/HMI/Interface/test_level_sequence.cpp
-    Unit/HMI/Interface/test_menu_model.cpp
-    Unit/HMI/Interface/test_options_model.cpp
-    Unit/HMI/Interface/test_game_keybindings_model.cpp
-    Unit/HMI/Interface/test_editor_keybindings_model.cpp
-    Unit/HMI/Interface/test_gamepad_bindings_model.cpp
-    Unit/HMI/Interface/test_language_selector.cpp
-    Unit/HMI/Interface/test_save_log_button.cpp
-    Unit/HMI/Interface/test_session_log.cpp
-    Unit/HMI/Editor/test_tile_palette.cpp
-    Unit/HMI/Editor/test_level_picker.cpp
-    Unit/HMI/Editor/test_text_input_field.cpp
+    Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
-    Unit/HMI/Editor/test_tool_bar.cpp
-    Unit/HMI/Editor/test_level_size_validation.cpp
     Unit/Editor/test_tile_taxonomy.cpp
     Unit/Editor/test_level_file_operations.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
@@ -80,39 +66,15 @@ add_executable(UnitTests
     ../HMI/Input/GamepadButtonName.cpp
     # Le catalogue de traduction est une logique pure (fichiers/chaînes), testable hors GPU.
     ../HMI/Localization/Localization.cpp
-    # La navigation entre écrans (transitions) est testable via une fabrique factice, hors GPU.
-    ../HMI/Interface/ScreenManager.cpp
-    # La logique du menu (sélection, survol, transitions) est pure, testable hors GPU.
-    ../HMI/Interface/MenuModel.cpp
-    # La logique du menu d'options (sélection, survol, actions) est pure, testable hors GPU.
-    ../HMI/Interface/OptionsModel.cpp
-    # La logique des sous-menus de remappage des touches est pure, testable hors GPU.
-    ../HMI/Interface/GameKeybindingsModel.cpp
-    ../HMI/Interface/EditorKeybindingsModel.cpp
-    ../HMI/Interface/GamepadBindingsModel.cpp
-    # Le bouton de langue (ancrage, bascule, clic) est une logique pure, testable hors GPU.
-    ../HMI/Interface/LanguageSelector.cpp
-    # Le bouton d'enregistrement des logs (ancrage, clic) est pur, testable hors GPU.
-    ../HMI/Interface/SaveLogButton.cpp
-    # La sérialisation des logs de session est pure, testable hors GPU.
-    ../HMI/Interface/SessionLog.cpp
-    # La palette de tuiles de l'éditeur (géométrie/sélection) est pure, testable hors GPU.
-    ../HMI/Editor/TilePalette.cpp
-    # Le sélecteur de niveau (navigation/sélection) est pur, testable hors GPU.
-    ../HMI/Editor/LevelPicker.cpp
-    # Le champ de saisie de texte de l'éditeur est pur, testable hors GPU.
-    ../HMI/Editor/TextInputField.cpp
+    # La sérialisation des logs de session est pure (aucune dépendance fenêtre/GPU), testable.
+    ../HMI/Diagnostics/SessionLog.cpp
     # La validation d'un nom de niveau saisi est une fonction pure, testable hors GPU.
     ../HMI/Editor/LevelNameValidation.cpp
-    # La barre d'outils de l'éditeur (géométrie/sélection) est pure, testable hors GPU.
-    ../HMI/Editor/ToolBar.cpp
-    # La validation d'une taille de grille saisie est une fonction pure, testable hors GPU.
-    ../HMI/Editor/LevelSizeValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
-    ../Editor/TileTaxonomy.cpp
+    ../HMI/Editor/TileTaxonomy.cpp
     # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
     # (LevelNameValidation.cpp est déjà compilé plus haut.)
-    ../Editor/LevelFileOperations.cpp
+    ../HMI/Editor/LevelFileOperations.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

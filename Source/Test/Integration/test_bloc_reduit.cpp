@@ -2,10 +2,10 @@
  * @file test_bloc_reduit.cpp
  * @brief Tests d'intégration des blocs à taille réduite (`TileType::BlockHalf`/`BlockQuarter`,
  *        `EX-GP-005`) : composition du balayage sur grille (`CharacterPhysicsSystem`) et du
- *        balayage boîte-boîte (`core::sweepAabbVsAabb`), comme orchestré par `HMI::GameScreen`.
+ *        balayage boîte-boîte (`core::sweepAabbVsAabb`), comme orchestré par `hmi::GameSession`.
  *
  * Ce fichier rejoue **hors HMI** (pas de périphérique Direct3D requis, cf. `test_parcours_complet`
- * pour le même principe côté mécanismes) l'orchestration exacte de `GameScreen::update` : blocs
+ * pour le même principe côté mécanismes) l'orchestration exacte de `GameSession::update` : blocs
  * puis grille puis composition boîte-boîte — la ligne de risque propre à ce lot (`LOT-24`).
  */
 
@@ -46,7 +46,7 @@ core::Entity spawnPlayer(core::World& world, float x, float y) {
     return entity;
 }
 
-// Rejoue EXACTEMENT l'orchestration de `HMI::GameScreen::update` pour un niveau SANS mécanisme
+// Rejoue EXACTEMENT l'orchestration de `hmi::GameSession::update` pour un niveau SANS mécanisme
 // interrupteur/porte (une `TileMap` statique suffit alors comme grille de base) : blocs (poussée
 // puis chute), grille (blocs pleins + murs), puis composition boîte-boîte pour les blocs réduits
 // (la restriction la plus stricte des deux l'emporte, jamais l'inverse — voir `AabbVsAabb.h`).

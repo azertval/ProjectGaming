@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/">
+    <!-- Feuille de style (Elements/Themes) embarquée. L'alias conserve le chemin runtime
+         ":/resources/theme.qss" attendu par main.cpp, indépendamment de l'emplacement source. -->
+    <file alias="resources/theme.qss">../Themes/theme.qss</file>
+  </qresource>
+</RCC>

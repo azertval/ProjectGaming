@@ -17,7 +17,7 @@ jobs:
 
       # Qt n'est pas gérable par FetchContent (SDK volumineux) : on le provisionne via aqtinstall
       # (action dédiée, avec cache). Nécessaire pour construire la cible éditeur Qt
-      # (ProjectGamingEditor, LOT-34) ; l'exécutable historique et les tests n'en dépendent pas.
+      # (ProjectGaming, LOT-34) ; l'exécutable historique et les tests n'en dépendent pas.
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:

@@ -4,7 +4,14 @@ name: Release
 # - push sur main  -> reconstruit la release "roulante" debug-latest (préversion Debug autonome,
 #   toujours à jour avec le dernier commit intégré).
 # - tag "vX.Y.Z"   -> publie une release versionnée (non préversion), avec les exécutables Debug
-#   ET Release, chacun autonome (runtime statique, aucune installation de Visual Studio requise).
+#   ET Release, chacun autonome.
+#
+# Depuis le LOT-38, l'unique application `ProjectGaming` est une app **Qt** : le job installe Qt
+# (comme la CI), construit avec le **runtime MSVC dynamique** (les DLL Qt officielles sont en /MD ;
+# un CRT statique provoquerait des incohérences d'allocation), et empaquette **tout le dossier de
+# l'exécutable** — `windeployqt` (POST_BUILD, Source/HMI/CMakeLists.txt) y a déposé les DLL Qt, le
+# plugin de plateforme (`platforms/`) et le runtime du compilateur, à côté des dossiers d'assets
+# `Levels/` et `Localization/`. Aucune installation (Qt, VC++ redist) requise côté utilisateur.
 on:
   push:
     branches: [ main ]
@@ -23,11 +30,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Qt est nécessaire pour construire l'application (cf. ci.yml).
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
       - name: Configure (Debug autonome, sans tests)
         run: >
           cmake -S . -B build-release -G "Visual Studio 17 2022" -A x64
           -DBUILD_TESTING=OFF
-          -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDebug
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
       - name: Build
         run: cmake --build build-release --config Debug
@@ -36,11 +54,9 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path package | Out-Null
-          Copy-Item build-release/bin/Debug/ProjectGaming.exe package/
-          # Assets copiés par CMake à côté de l'exécutable (POST_BUILD, Source/HMI/CMakeLists.txt) :
-          # embarqués tels quels, chargés par l'exécutable relativement à son propre dossier.
-          Copy-Item build-release/bin/Debug/Levels package/Levels -Recurse
-          Copy-Item build-release/bin/Debug/Localization package/Localization -Recurse
+          # Tout le dossier de l'exécutable : ProjectGaming.exe, DLL Qt + platforms/ (windeployqt),
+          # runtime du compilateur, et les assets Levels/ Localization/ (POST_BUILD CMake).
+          Copy-Item build-release/bin/Debug/* package/ -Recurse -Force
           Compress-Archive -Path package/* -DestinationPath ProjectGaming-debug.zip -Force
 
       - name: Publish rolling release
@@ -63,11 +79,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
       - name: Configure (Debug autonome, sans tests)
         run: >
           cmake -S . -B build-debug -G "Visual Studio 17 2022" -A x64
           -DBUILD_TESTING=OFF
-          -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDebug
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
       - name: Build (Debug)
         run: cmake --build build-debug --config Debug
@@ -76,7 +102,8 @@ jobs:
         run: >
           cmake -S . -B build-prod -G "Visual Studio 17 2022" -A x64
           -DBUILD_TESTING=OFF
-          -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
       - name: Build (Release)
         run: cmake --build build-prod --config Release
@@ -86,14 +113,11 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path package-debug, package-release | Out-Null
 
-          Copy-Item build-debug/bin/Debug/ProjectGaming.exe package-debug/
-          Copy-Item build-debug/bin/Debug/Levels package-debug/Levels -Recurse
-          Copy-Item build-debug/bin/Debug/Localization package-debug/Localization -Recurse
+          # Tout le dossier de l'exécutable (exe + DLL Qt + platforms/ + runtime + assets).
+          Copy-Item build-debug/bin/Debug/* package-debug/ -Recurse -Force
           Compress-Archive -Path package-debug/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-debug.zip" -Force
 
-          Copy-Item build-prod/bin/Release/ProjectGaming.exe package-release/
-          Copy-Item build-prod/bin/Release/Levels package-release/Levels -Recurse
-          Copy-Item build-prod/bin/Release/Localization package-release/Localization -Recurse
+          Copy-Item build-prod/bin/Release/* package-release/ -Recurse -Force
           Compress-Archive -Path package-release/* -DestinationPath "ProjectGaming-${{ github.ref_name }}-release.zip" -Force
 
       - name: Publish versioned release

@@ -1,16 +1,13 @@
 # Éditeur de niveaux intégré {#guide-editeur}
 
-Cette page explique comment le mode éditeur (menu « Mode Édition ») transforme le personnage
-jouable, la caméra et le rendu déjà vus dans les pages précédentes en un **outil de création de
-contenu**, sans écrire une seule ligne de nouveau moteur de rendu. Tout vit dans
-`Source/HMI/Editor` et `Source/HMI/Interface/EditorScreen.*`, avec sa brique de données dans
-`Source/Core/Levels/LevelDraft.*`/`LevelWriter.*`.
-
-L'édition de tuiles de base (peindre, lier, redimensionner, annuler/refaire, enregistrer, essai
-immédiat) date de LOT-14 ; la robustesse et le confort d'édition (nommage, garde-fous contre la
-perte de travail, caméra manuelle, outils de zone, panneau latéral) datent de LOT-15 ; la saisie
-directe d'une grande taille et le cadrage des niveaux plus grands que la fenêtre datent de LOT-16 —
-cette page couvre l'ensemble, sans distinguer les lots dans le texte.
+Cette page explique comment le mode éditeur transforme le personnage jouable, la caméra et le rendu
+déjà vus dans les pages précédentes en un **outil de création de contenu**, sans écrire un nouveau
+moteur de rendu. Le **modèle d'édition** (mutabilité, validation, annuler/refaire, sérialisation)
+vit dans `Source/Core/Levels/LevelDraft.*`/`LevelWriter.*` ; l'**interaction** (peinture souris,
+outils, essai, garde-fous) vit dans le viewport Qt `Source/HMI/Game/GameViewport.*`. L'habillage de
+l'IHM Qt lui-même — fenêtre, docks (Palette, Outils, Niveaux), arbre de palette, navigateur de
+fichiers — est décrit dans @ref guide-ihm-qt et @ref guide-ecrans ; cette page se concentre sur ce
+qui est **propre à l'édition**.
 
 ## Le problème : éditer un niveau sans (re)coder le moteur
 
@@ -55,7 +52,9 @@ n'associe que deux tuiles déjà posées. Relier une porte déjà liée **rempla
 précédente (une porte n'a qu'un seul interrupteur), alors qu'un même interrupteur peut ouvrir
 plusieurs portes — cette asymétrie découle directement du format de fichier (@ref guide-niveaux) :
 chaque tuile `door` porte un unique champ `opensWith`, mais plusieurs portes peuvent référencer le
-même `switch.id`.
+même `switch.id`. L'**éditeur visuel de liaisons** (tracer/voir les paires interrupteur→porte au
+trait) est prévu dans un lot dédié (`LOT-37`, `EX-EDIT-016`) ; le modèle `LevelDraft` en porte déjà
+toute la logique, indépendamment de son exposition dans l'IHM.
 
 ## \ref core::LevelWriter "core::LevelWriter" : l'inverse du chargement, avec un piège
 
@@ -72,73 +71,42 @@ obtient tout de même un identifiant (le format l'exige), simplement absent de t
 Cette sérialisation sert `EX-EDIT-011` : sérialiser puis recharger un niveau produit un niveau
 **équivalent**, jamais un niveau différent — la propriété qui rend `toLevel()` fiable.
 
-## \ref hmi::EditorScreen "EditorScreen" : peindre, c'est convertir un pixel en case
+## Peindre, c'est convertir un pixel en case
 
-`hmi::EditorScreen` réutilise **exactement** l'infrastructure de rendu déjà vue en @ref
-guide-rendu (`SpriteBatch`, `TextureAtlas`, `Camera2D`) — aucun nouveau pipeline graphique n'existe
-pour l'éditeur. La seule nouveauté conceptuelle est l'**interaction** : convertir une position
-souris en case de grille en composant deux briques déjà connues,
-`Camera2D::screenToWorld` (@ref guide-rendu) puis `std::floor` (une position monde `4.7` désigne la
-case `4`, pas la case `5`) :
+Le viewport d'édition (`hmi::GameViewport` en mode édition) réutilise **exactement** l'infrastructure
+de rendu déjà vue en @ref guide-rendu (`SpriteBatch`, `TextureAtlas`, `Camera2D`) via
+`hmi::DraftRenderer` — aucun nouveau pipeline graphique n'existe pour l'éditeur. La seule nouveauté
+conceptuelle est l'**interaction** : convertir une position souris (`QMouseEvent`, en pixels
+physiques) en case de grille, en composant deux briques déjà connues, `Camera2D::screenToWorld`
+(@ref guide-rendu) puis `std::floor` (une position monde `4.7` désigne la case `4`, pas la case
+`5`). C'est le rôle de `GameViewport::cellAt` ; `paintAt` applique ensuite le type actif à la case
+survolée via `core::LevelDraft::paintTile`.
 
-```cpp
-const core::Vector2 world = camera.screenToWorld(core::Vector2{mouseX, mouseY});
-const int column = static_cast<int>(std::floor(world.x));
-const int row = static_cast<int>(std::floor(world.y));
-```
+### La palette et les outils : des panneaux Qt séparés du canevas
 
-### La palette : une simple colonne de rectangles cliquables
+Là où l'ancien éditeur « maison » dessinait palette et barre d'outils **par-dessus** le canevas — au
+prix d'une logique de priorité de clic pour ne pas peindre une case cachée sous un panneau — l'IHM
+Qt les héberge dans des **panneaux dockables distincts** (`QDockWidget`), physiquement hors du
+viewport. Le problème d'occlusion disparaît par construction :
 
-`hmi::TilePalette` ne dépend d'aucune ressource de rendu : c'est de la géométrie pure (des
-rectangles en pixels écran, empilés verticalement dans le panneau latéral — voir plus bas) et un
-test d'appartenance point-dans-rectangle, exactement le motif déjà vu pour `hmi::MenuModel`
-(@ref guide-entrees). Elle expose le type actuellement sélectionné ; c'est `EditorScreen` qui, en
-réponse à un clic sur la grille, appelle `draft.paintTile(colonne, ligne, palette.selected())`.
+- la **Palette** (`hmi::PalettePanel`, un `QTreeView` alimenté par la taxonomie pure
+  `hmi::tileTaxonomy`) émet le type sélectionné, que `MainWindow` relaie au viewport via
+  `GameViewport::setActiveTile` ;
+- les **Outils** (`hmi::ToolPanel`) émettent l'outil actif, relayé via `GameViewport::setTool`.
 
-### Un clic, plusieurs significations possibles
-
-Un même bouton de souris doit soit peindre la grille, soit interagir avec le panneau latéral
-(palette, barre d'outils) qui est dessiné **par-dessus**. `EditorScreen::update` tranche une fois
-pour toutes, **au moment du front de pression** (@ref guide-entrees), quelle intention ce geste
-sert — dans cet ordre de priorité :
-
-```cpp
-if (input.mouseButtonPressed(MouseButton::Left)) {
-    if (palette.handleClick(mouseX, mouseY) || toolBar.handleClick(mouseX, mouseY)) {
-        // panneau lateral consomme le clic
-    } else if (mouseX < PANEL_WIDTH) {
-        // reste du panneau (zone vide) : rien a faire, surtout pas peindre une case cachee dessous
-    } else if (input.keyDown(Key::Shift)) {
-        handleLinkClick(mouseX, mouseY);  // Maj+clic : liaison de mecanisme, quel que soit l'outil
-    } else if (toolBar.selected() == EditorTool::Paint) {
-        paintingDrag = true;              // peint tant que le bouton reste enfonce
-    } else {
-        areaDragActive = true;            // Rectangle/Selection : glisser definit une zone
-    }
-}
-```
-
-Décider **une seule fois**, à la pression, évite qu'un glisser qui commence sur le panneau et finit
-sur la grille ne peigne accidentellement les cases survolées en cours de route. Le troisième cas
-(`mouseX < PANEL_WIDTH`) mérite une explication : la caméra cadre la grille dans le **canevas**, à
-droite du panneau (voir plus bas) — sans ce garde-fou, un clic dans une zone vide du panneau
-pourrait, selon la position de la caméra, correspondre à une case de la grille **visuellement
-cachée** sous le panneau, et la peindre à l'insu de l'utilisateur.
+Le viewport ne reçoit donc que des **clics de grille** ; il n'a plus à arbitrer entre « peindre » et
+« cliquer un panneau ». Détail de ces widgets Qt : @ref guide-ihm-qt.
 
 ### Trois outils, une même grille : \ref hmi::EditorTool "EditorTool"
 
 Au-delà du pinceau (peindre case par case), l'éditeur propose **Rectangle** (glisser définit un
 rectangle, rempli du type sélectionné au relâchement) et **Sélection** (glisser mémorise une zone,
-`Ctrl+C`/`Ctrl+V` la copient/collent ailleurs). Les trois sont un simple `enum class EditorTool`
-porté par `hmi::ToolBar` — une classe de géométrie pure sur le modèle de `TilePalette`
-(entrées cliquables, sélection courante), qui **ne connaît rien** au dessin ni à la grille. `Tab`
-fait défiler les trois dans l'ordre (`ToolBar::selectNext`), indépendamment d'un clic sur la barre.
-
-Rectangle et Sélection partagent la même mécanique de glisser (`areaDragActive`, case de départ
-mémorisée à la pression, zone calculée au relâchement) mais des effets différents : Rectangle
-mute le brouillon immédiatement, Sélection se contente de retenir des coordonnées. Changer d'outil
-**pendant** un glisser en cours l'annule plutôt que de l'appliquer à moitié — un choix délibéré
-pour qu'un changement d'avis ne produise jamais de mutation partielle et surprenante.
+copier/coller la déplacent ailleurs). Les trois sont un simple `enum class hmi::EditorTool` ; le
+viewport en tient l'état courant (`_tool`) et la mécanique de glisser (`_painting` pour le pinceau,
+`_dragging` + `_dragStart`/`_dragCurrent` pour Rectangle/Sélection, `applyRectangle`,
+`copySelection`/`pasteClipboard`). Changer d'outil **pendant** un glisser en cours l'annule plutôt
+que de l'appliquer à moitié — un choix délibéré pour qu'un changement d'avis ne produise jamais de
+mutation partielle et surprenante.
 
 ### Peindre par lot sans dupliquer la logique de peinture : \ref core::LevelDraft::paintRegion "LevelDraft::paintRegion"
 
@@ -150,39 +118,19 @@ de `paintTile` (déplacement d'entrée/sortie, nettoyage des liaisons) pour chaq
 elle-même un appel à `paintRegion` avec un bloc `1×1`. Résultat : remplir un rectangle de 50 cases
 ou peindre une seule case suivent **exactement** le même chemin de code, et ne poussent
 **qu'un seul** instantané sur la pile d'annulation pour toute l'opération — cohérent avec le
-principe « un geste = une mutation undoable » déjà en place pour le pinceau.
+principe « un geste = une mutation undoable ».
 
-Le **copier** n'a besoin d'aucun ajout à `Core` : `EditorScreen` lit directement
+Le **copier** n'a besoin d'aucun ajout à `Core` : le viewport lit directement
 `LevelDraft::tileMap()` (déjà publique) pour construire un presse-papiers local
-(`std::vector<std::vector<TileType>>`). Seul le **coller** repasse par `paintRegion`.
-
-### Lier deux tuiles sans dessiner de trait
-
-`Maj` + clic sur un `Switch` puis (Maj toujours enfoncé) sur une `Door` les lie ; répéter la même
-paire les délie — un simple bascule, mémorisé le temps d'un clic dans `_pendingLink`. Le choix de
-ne **pas** dessiner de ligne reliant les deux tuiles est une contrainte du moteur de rendu, pas un
-choix arbitraire : `hmi::SpriteQuad` (@ref guide-rendu) ne porte ni rotation ni épaisseur — un quad
-est toujours un rectangle aligné aux axes. Tracer un trait entre deux cases quelconques demanderait
-un quad **incliné**, que le pipeline actuel ne sait pas dessiner. L'éditeur associe donc les deux
-tuiles liées par une **teinte partagée** (superposée en transparence, comme la surbrillance de
-survol) — une solution qui reste dans les capacités du pipeline existant plutôt que d'en réclamer un
-nouveau.
-
-Une seule teinte pour **toutes** les liaisons (choix initial de LOT-14) devient ambiguë dès que
-plusieurs mécanismes sont visibles à l'écran en même temps : impossible de savoir quelle porte va
-avec quel interrupteur. LOT-15 assigne donc une teinte parmi un cycle fixe de six couleurs, **par
-interrupteur** (selon son ordre d'apparition dans `LevelDraft::mechanisms()`) — une porte reprend
-toujours la teinte de son interrupteur, y compris quand plusieurs portes partagent le même
-interrupteur (elles héritent alors de la même couleur, ce qui reste cohérent : elles s'ouvrent
-ensemble).
+(`std::vector<std::vector<TileType>>`, `_clipboard`). Seul le **coller** repasse par `paintRegion`.
 
 ## Annuler/refaire : pourquoi des instantanés complets
 
 Chaque mutateur de `LevelDraft` empile, **avant** de s'appliquer, une copie complète de l'état du
 brouillon (`snapshot()`) sur une pile d'annulation ; `undo()` la restitue et bascule l'état courant
-sur la pile de refaire, symétriquement pour `redo()`. Une nouvelle mutation après un `undo()` vide
-la pile de refaire — l'historique reste **linéaire**, jamais arborescent, comme dans la plupart des
-éditeurs grand public.
+sur la pile de refaire, symétriquement pour `redo()` (`Ctrl+Z`/`Ctrl+Y` dans le viewport). Une
+nouvelle mutation après un `undo()` vide la pile de refaire — l'historique reste **linéaire**,
+jamais arborescent, comme dans la plupart des éditeurs grand public.
 
 Le choix d'un **instantané complet** plutôt que d'un enregistrement différentiel (« quelle case a
 changé ») est délibéré : un différentiel serait plus économe en mémoire, mais demande une logique
@@ -196,237 +144,96 @@ près ») est bien plus simple à établir qu'avec des deltas.
 
 Appuyer sur `P` doit lancer une **vraie** partie sur le niveau en cours d'édition — avec le
 personnage, la physique, les mécanismes (@ref guide-physique, @ref guide-niveaux) — puis, à
-`Échap`, **revenir exactement où l'édition en était**. Deux architectures étaient possibles :
-
-1. Utiliser `hmi::ScreenManager` (@ref guide-boucle évoque brièvement la navigation entre écrans) :
-   transitionner vers `ScreenId::Game`, comme le fait le menu principal.
-2. Faire vivre la session de jeu **à l'intérieur même** de `EditorScreen`.
-
-La première option est **impossible sans perte** avec l'architecture actuelle : `ScreenManager`
-**détruit** l'écran quitté à chaque transition (`_current = factory(target)` remplace le
-`unique_ptr` précédent) — retourner à l'éditeur créerait une instance **neuve**, brouillon vierge,
-historique perdu. C'est un excellent compromis pour naviguer entre le menu et le jeu (aucun état à
-préserver), mais inadapté ici. `EditorScreen` embarque donc un `std::unique_ptr<GameScreen>`
-optionnel : `P`, sur un brouillon valide, l'instancie ; tant qu'il existe, `update`/`render` lui
-**délèguent** entièrement la frame ; dès qu'il signale une transition (Échap, ou niveau terminé),
-l'éditeur le détruit et reprend la main — le `LevelDraft` et son historique n'ont, à aucun moment,
+`Échap`, **revenir exactement où l'édition en était**. Le viewport fait vivre la session de jeu
+**à l'intérieur même** de son mode édition (`GameViewport::startPlaytest`/`stopPlaytest`) : il
+embarque une `hmi::GameSession` optionnelle ; `P`, sur un brouillon **valide**, l'instancie ; tant
+qu'elle existe, le tick lui **délègue** entièrement la frame ; à `Échap` (ou niveau terminé), le
+viewport la détruit et reprend la main — le `LevelDraft` et son historique n'ont, à aucun moment,
 été touchés.
 
-**Transmettre le niveau, pas un chemin de fichier.** `GameScreen` ne savait à l'origine charger
-qu'une **séquence de fichiers** (`LevelSequence`, @ref guide-niveaux) — l'essai immédiat de LOT-14
-écrivait donc le brouillon validé dans un fichier temporaire avant de le charger, pour réutiliser ce
-seul chemin. LOT-15 ajoute un second constructeur, `GameScreen(batch, atlas, w, h, core::Level
-level)`, qui accepte un niveau **déjà en mémoire** : la construction de scène (monde ECS, grille de
-collision des mécanismes, personnage à l'entrée), auparavant enfouie dans
-`loadLevel(chemin)`, est factorisée dans un `loadLevel(core::Level)` privé partagé par les deux
-constructeurs — `loadLevel(chemin)` n'est plus qu'un chargement de fichier suivi d'un appel à cette
-version en mémoire. `EditorScreen::startPlaytest` appelle directement ce second constructeur avec
-`draft.toLevel()`, sans écrire ni lire aucun fichier. Bénéfice secondaire : un niveau qui **échoue**
-pendant l'essai (danger, chute) se relance désormais via `loadLevel(*_level)` — le `Level` déjà tenu
-en mémoire — plutôt que de relire le fichier source, aussi bien en mode séquence qu'en mode niveau
-unique (`_sequence` devient un `std::optional<LevelSequence>`, absent dans ce second cas : atteindre
-la sortie termine l'essai au lieu d'enchaîner, faute de niveau suivant).
+**Transmettre le niveau, pas un chemin de fichier.** `hmi::GameSession` accepte un niveau **déjà en
+mémoire** (`loadLevel(core::Level)`) : la construction de scène (monde ECS, grille de collision des
+mécanismes, personnage à l'entrée) est factorisée là, partagée par le chargement de fichier et
+l'essai. `startPlaytest` passe directement `draft.toLevel()`, sans écrire ni lire aucun fichier
+temporaire. Bénéfice secondaire : un niveau qui **échoue** pendant l'essai (danger, chute) se
+relance via le `Level` déjà tenu en mémoire, sans relire le fichier source.
 
 ## Enregistrer : valider avant d'écrire, jamais l'inverse
 
-`Ctrl+S` appelle `draft.toLevel()` en premier. Si la validation échoue, **aucun fichier n'est
-écrit** — le brouillon invalide reste en mémoire, avec un message d'erreur traduit en langage
-compréhensible par un non-développeur (« il manque une sortie », plutôt que le texte technique du
-validateur). Si elle réussit, `LevelWriter::saveToFile` écrit le JSON dans le dossier `Levels` de
+`Ctrl+S` (`GameViewport::save`) appelle `draft.toLevel()` en premier. Si la validation échoue,
+**aucun fichier n'est écrit** — le brouillon invalide reste en mémoire, et un message d'erreur
+traduit en langage compréhensible par un non-développeur (« il manque une sortie », plutôt que le
+texte technique du validateur) est émis via le signal `statusMessage` (barre de statut de la
+fenêtre). Si elle réussit, `LevelWriter::saveToFile` écrit le JSON dans le dossier `Levels` de
 l'application — le **même** dossier que `core::LevelLoader` lit au démarrage du jeu (@ref
-guide-niveaux), garantissant qu'un niveau enregistré est immédiatement chargeable sans étape
-supplémentaire.
+guide-niveaux), garantissant qu'un niveau enregistré est immédiatement chargeable.
 
-**Traduire l'erreur sans deviner le texte.** La première version (LOT-14) devinait le message
-non-développeur en cherchant des sous-chaînes françaises (`"entree"`, `"interrupteur"`…) dans le
-message technique de `LevelLoader` — fragile : toute reformulation de ce message y aurait cassé la
-traduction, silencieusement. `LevelLoadResult` porte désormais un `LevelValidationError` (énuméré,
-`ParseError`/`InvalidEntryCount`/`UnresolvedMechanism`/…), rempli par `LevelLoader` en plus du
-message technique (additif : aucune signature existante n'a changé, les tests et journaux qui
-lisaient déjà `.error` continuent de fonctionner tels quels). `EditorScreen::describeValidationError`
-bascule sur ce code, pas sur le texte.
-
-**Écraser un fichier n'est jamais silencieux.** `saveDraft` compare le fichier `<nom>.json` qu'il
-s'apprête à écrire au chemin d'origine du brouillon (`_loadedFrom`, absent pour un niveau tout juste
-créé) : s'ils diffèrent et que le fichier cible existe déjà, une confirmation est posée avant
-d'écrire — le même mécanisme générique que pour le redimensionnement destructeur (section
-suivante).
+**Traduire l'erreur sans deviner le texte.** `LevelLoadResult` porte un `LevelValidationError`
+(énuméré, `ParseError`/`InvalidEntryCount`/`UnresolvedMechanism`/…), rempli par `LevelLoader` en
+plus du message technique ; l'IHM bascule sur ce **code**, jamais sur des sous-chaînes du message
+technique (qu'une reformulation aurait cassées silencieusement).
 
 ## Garde-fous contre la perte de travail
 
-Trois situations peuvent faire perdre du travail sans avertissement : redimensionner la grille de
-façon à perdre l'entrée/la sortie/une liaison, écraser le fichier d'un **autre** niveau à
-l'enregistrement, et quitter l'éditeur avec des modifications non enregistrées. Plutôt que trois
-mécanismes séparés, `EditorScreen` porte un seul type interne, `PendingConfirmation` (un message et
-une fonction `onConfirm` à exécuter si l'utilisateur accepte) : poser une confirmation **bloque**
-le reste de l'interaction (peinture, liaison, redimensionnement supplémentaire) jusqu'à ce que
-`Entrée` (exécute `onConfirm`) ou `Échap` (annule sans effet) la referme.
+**Ouvrir en écrasant un travail non enregistré.** Le viewport suit les modifications non
+enregistrées (`_dirty`, mis à jour par toute mutation, remis à `false` après un enregistrement
+réussi) : ouvrir un autre niveau ou revenir au menu alors que `_dirty` est vrai pose une
+confirmation avant d'abandonner le brouillon courant.
 
-Détecter le redimensionnement destructeur ne duplique aucune règle de `resize` : une requête pure,
-`LevelDraft::wouldResizeDropContent(largeur, hauteur)`, inspecte les positions actuelles de
-l'entrée, de la sortie et des mécanismes contre les nouvelles bornes, **sans rien modifier** —
-`EditorScreen` l'interroge avant d'appeler `resize`. Réimplémenter cette détection côté `HMI` aurait
-demandé de rederiver la même logique de troncature que `resize` porte déjà ; l'exposer comme
-requête pure évite cette duplication, dans le droit fil d'`EX-EDIT-010`.
-
-Le drapeau `_dirty` (modifications non enregistrées) est mis à jour par **toute** mutation du
-brouillon (peinture, liaison, redimensionnement, annuler/refaire, collage) et remis à `false` après
-un enregistrement réussi — `Échap` avec `_dirty == true` pose une confirmation au lieu de quitter
-directement.
-
-## Un champ de saisie de texte générique : nommer, renommer, redimensionner
-
-LOT-14 nommait tout nouveau brouillon `"Nouveau niveau"`, sans jamais appeler
-`LevelDraft::setName()` — deux niveaux créés sans charger de fichier existant s'écrasaient donc
-silencieusement au premier `Ctrl+S` (même nom de fichier). `hmi::TextInputField` corrige cela : un
-champ de saisie **pur** (aucune dépendance rendu, comme `TilePalette`), qui consomme
-`InputState::typedCharacters()` (les caractères tapés, capturés via `WM_CHAR` — distinct des codes
-virtuels de `WM_KEYDOWN`, cf. @ref guide-entrees) et les touches `Retour arrière`/`Entrée`/`Échap`.
-
-Un **validateur** optionnel (`std::function<bool(const std::string&)>`) conditionne la confirmation
-: `hmi::isValidLevelName` refuse un nom vide ou contenant un caractère interdit par le système de
-fichiers Windows (antislash, barre oblique, deux-points, astérisque, point d'interrogation,
-guillemet droit, chevrons ouvrant/fermant, barre verticale) — une liste **noire** minimale, pas une
-liste blanche restrictive (les accents restent autorisés). Un nom refusé laisse le champ actif
-plutôt que de le fermer, avec un message affiché par l'appelant (le champ lui-même ignore tout de
-la sémantique « niveau », il ne fait que saisir et valider du texte).
-
-Choisir « Nouveau niveau » dans le sélecteur ouvre ce champ **avant** de créer le brouillon — annuler
-(`Échap`) à ce stade revient au sélecteur sans rien avoir créé, puisqu'aucun brouillon n'existe
-encore. `F2`, en cours d'édition, ouvre le même champ pré-rempli du nom courant pour un renommage ;
-annuler y laisse le nom inchangé.
-
-**Un troisième usage, pas un troisième champ.** LOT-16 ajoute la saisie directe d'une taille
-(`Ctrl+R`, plutôt que d'incrémenter case par case aux flèches) — un besoin de saisie de texte
-**de plus**, structurellement identique aux deux premiers (texte pré-rempli, validé à la
-confirmation, refus avec message). Porter un second `std::optional<TextInputField>` dédié aurait
-dupliqué toute la plomberie déjà en place ; `EditorScreen` généralise à la place son unique champ
-(`_nameInput`/`_nameInputIsCreation` devient `_textPrompt`/`_textPromptPurpose`, un
-`enum class TextPromptPurpose { CreateLevelName, RenameLevel, ResizeGrid }`) — un seul champ actif
-à la fois, dont le titre affiché et le validateur dépendent de l'usage courant, mais dont la
-mécanique de saisie/confirmation/annulation reste unique.
-
-`hmi::isValidLevelSize`/`parseLevelSize` (`Source/HMI/Editor/LevelSizeValidation.h`, sur le modèle
-exact d'`isValidLevelName`) analysent le format `largeur x hauteur` (séparateur `x`/`X`/`*`, espaces
-tolérés) et rejettent toute dimension hors de `[1, MAX_LEVEL_DIMENSION]` (100 par défaut — un
-plafond **d'usage**, porté par `HMI`, très au-delà des tailles livrées à ce jour ; `TileMap`/
-`LevelDraft` restent sans limite, `EX-NFR-010`). `Ctrl+R` ouvre le champ pré-rempli de la taille
-courante (`"14x8"`) ; confirmer appelle `EditorScreen::requestResize` — le **même** point de
-passage que les flèches (@ref guide-physique n'a pas de rapport ici, mais le principe est identique
-à `paintTile`/`paintRegion` plus haut : un seul chemin de mutation, jamais deux à maintenir en
-cohérence). `requestResize` borne systématiquement sa cible à `MAX_LEVEL_DIMENSION` **avant**
-d'agir : ni les flèches ni la boîte de dialogue ne peuvent donc dépasser le plafond, et la même
-confirmation destructrice (`wouldResizeDropContent`, section précédente) s'applique aux deux
-voies sans code supplémentaire.
+**Redimensionner en perdant du contenu.** Détecter un redimensionnement destructeur ne duplique
+aucune règle de `resize` : une requête pure, `LevelDraft::wouldResizeDropContent(largeur, hauteur)`
+(exposée par le viewport via `wouldResizeDrop`), inspecte les positions actuelles de l'entrée, de la
+sortie et des mécanismes contre les nouvelles bornes, **sans rien modifier** — le viewport
+l'interroge avant d'appeler `resizeLevel`, et pose une confirmation si du contenu serait perdu.
+Réimplémenter cette détection côté `HMI` aurait demandé de rederiver la même logique de troncature
+que `resize` porte déjà ; l'exposer comme requête pure évite cette duplication (`EX-EDIT-010`).
 
 ## Cadrer un niveau plus grand que la fenêtre
 
-Le cadrage automatique de la caméra (§ « Un panneau plutôt que des bandes empilées ») et celui de
-`GameScreen` en jeu calculaient chacun un facteur d'ajustement à la fenêtre puis appliquaient
-`std::max(1.0f, std::floor(ajustement))` — un plancher qui empêche de **descendre** sous le zoom
-×1. Tant qu'un niveau tient dans la fenêtre à cette échelle, aucun problème ; mais un niveau plus
-grand (permis par LOT-16, voir plus haut) voudrait un zoom **inférieur** à 1 pour tenir tout
-entier à l'écran, et en était empêché — une partie de la grille restait invisible, sans aucun
-moyen de la voir (l'éditeur a un pan/zoom manuel depuis LOT-15, mais son zoom minimal héritait du
-même plancher ; le jeu n'a ni pan ni zoom manuel).
-
-`Camera2D::fitZoom(largeurDisponible, hauteurDisponible, largeurContenu, hauteurContenu, marge)`
-factorise la correction en une fonction **pure**, partagée par les trois emplacements qui en
-avaient besoin (cadrage automatique et zoom minimal manuel de l'éditeur, cadrage de `GameScreen`) :
+Le cadrage automatique de la caméra de l'éditeur et celui du jeu (`hmi::GameSession`) partagent une
+même correction, factorisée en fonction **pure** dans `Camera2D::fitZoom(largeurDisponible,
+hauteurDisponible, largeurContenu, hauteurContenu, marge)` :
 
 ```cpp
 const float rawZoom = std::min(fitX, fitY) * margin;
 return rawZoom >= 1.0f ? std::floor(rawZoom) : rawZoom;
 ```
 
-Zoom **entier** (nettete pixel art, `EX-ARCH-022`) tant que l'ajustement brut reste `≥ 1` —
-comportement inchangé pour tout niveau livré à ce jour, aucune régression ; zoom **fractionnaire**
-(la valeur brute, sans `floor`) uniquement lorsque c'est strictement nécessaire pour qu'un niveau
-plus grand tienne malgré tout. `EX-ARCH-022` dit déjà « zoom **de préférence** en facteurs
-entiers » — cette correction n'en change pas la politique par défaut, elle active l'exception que
-le mot « préférence » anticipait déjà pour le seul cas où elle s'impose. Placer cette règle dans
-`Camera2D` (@ref guide-rendu) plutôt que de la dupliquer dans `EditorScreen` et `GameScreen`
-signifie qu'un futur troisième écran cadrant un niveau en unités monde l'obtient gratuitement, sans
-rederiver le calcul — et, bénéfice pratique immédiat, la rend testable sans GPU (`Camera2D` est
-déjà compilé dans `UnitTests`, @ref guide-rendu), alors que ni `EditorScreen` ni `GameScreen` ne le
-sont.
+Zoom **entier** (netteté pixel art, `EX-ARCH-022`) tant que l'ajustement brut reste `≥ 1` —
+comportement inchangé pour tout niveau livré à ce jour ; zoom **fractionnaire** (la valeur brute,
+sans `floor`) uniquement lorsque c'est strictement nécessaire pour qu'un niveau plus grand tienne
+malgré tout. `EX-ARCH-022` dit déjà « zoom **de préférence** en facteurs entiers » — cette
+correction n'en change pas la politique par défaut, elle active l'exception que le mot « préférence »
+anticipait. La placer dans `Camera2D` (@ref guide-rendu) plutôt que de la dupliquer dans l'éditeur
+et le jeu la rend en prime testable sans GPU (`Camera2D` est déjà compilé dans `UnitTests`).
 
-## Un panneau plutôt que des bandes empilées
+**Caméra manuelle et grille de repère.** En mode édition, molette (zoom) et glisser prennent le
+relais du cadrage automatique (`updateEditCamera`) ; `F10` bascule un **quadrillage de repère** —
+fines lignes à chaque bord de case, plus, aux **frontières de salles** (\ref hmi::RoomGrid
+"hmi::RoomGrid", `LOT-32`), un quadrillage plus épais pour aligner les couloirs inter-salles. La
+capture de `F10` (et de toutes les touches d'édition) passe désormais par `keyPressEvent` de Qt et la
+table `hmi::qtKeyToHmiKey` (@ref guide-entrees) — l'ancienne fenêtre Win32 et ses messages
+`WM_SYSKEYDOWN` n'existent plus.
 
-La palette et la barre d'outils vivaient à l'origine en bandes horizontales empilées dans le coin
-haut-gauche de l'écran — au premier usage réel, cet empilement se recouvrait lui-même (aide,
-palette, barre d'outils) et pouvait recouvrir la grille selon le cadrage. `Source/HMI/Editor/
-EditorLayout.h` centralise désormais la disposition d'un **panneau latéral** vertical fixe
-(constantes de marge, taille d'icône, pas de ligne), partagées par `TilePalette`, `ToolBar` et
-`EditorScreen` — aucune des deux premières classes ne connaît l'autre, mais toutes deux s'alignent
-sur les mêmes repères.
+## Gérer ses fichiers de niveaux
 
-La caméra doit alors cadrer la grille dans le **canevas**, à droite du panneau, pas sur toute la
-fenêtre : `renderGrid` calcule son zoom automatique sur `largeur_fenêtre - PANEL_WIDTH`, puis
-décale le centre de la caméra vers la gauche (en unités monde, de la moitié de la largeur du
-panneau convertie à l'échelle courante) pour que le milieu **apparent** de la grille tombe au milieu
-du canevas plutôt qu'au milieu de la fenêtre entière. Un fond opaque, dessiné en premier, protège
-en plus le panneau de tout débordement visuel — une seconde ligne de défense, pas une nécessité
-stricte si le calcul de décalage est correct, mais bon marché et robuste aux cas limites.
-
-**Caméra manuelle.** Molette (zoom) et glisser du bouton droit (pan) prennent le relais du cadrage
-automatique dès la première interaction (`_manualCamera`) ; `0` y revient. Le zoom est borné : au
-minimum le cadrage automatique lui-même — via `Camera2D::fitZoom` (§ suivante), donc capable de
-descendre sous ×1 pour un grand niveau depuis LOT-16, inutile de zoomer moins dans tous les cas :
-il n'y a rien à voir au-delà du niveau — au maximum la valeur qui laisse encore **4 cases
-visibles** sur le plus petit axe de l'écran (une précision plus fine n'apporte rien pour poser un
-bloc). Ces deux bornes se recalculent sur les dimensions **courantes** du brouillon à chaque
-molette, donc s'adaptent sans changement à un redimensionnement en cours d'édition.
-
-**Grille de repère.** `F10` bascule l'affichage de fines lignes sur chaque bord de case,
-par-dessus les tuiles déjà peintes — un repère visuel simple pour poser un bloc précisément, sans
-bouton dédié dans le panneau (un raccourci clavier suffit, cohérent avec `F1`/`F2`/`Tab`). Capturer
-`F10` a nécessité un ajout à la couche fenêtre : Win32 délivre cette touche (et les combinaisons
-`Alt`+quelque-chose) via `WM_SYSKEYDOWN`/`WM_SYSKEYUP`, pas `WM_KEYDOWN`/`WM_KEYUP` — une convention
-historique d'activation du menu, sans rapport avec l'absence de menu dans cette fenêtre.
-`Window::handleMessage` enregistre désormais aussi ces deux messages dans `InputState` (comme les
-autres touches), tout en laissant `DefWindowProcW` traiter le comportement système par défaut
-(`Alt+F4`, `Alt+Tab`…) — sauf pour `F10` lui-même, absorbé (`return 0`) pour éviter l'activation
-visuelle, inutile ici, du (non-)système de menu au relâchement.
-
-**Quadrillage de salles (`LOT-32`).** La même bascule `F10` affiche aussi un second quadrillage,
-plus épais et plus opaque, mais uniquement aux **frontières de salles** (\ref hmi::RoomGrid
-"hmi::RoomGrid", taille de salle fixe en tuiles) plutôt qu'à chaque case — un repère pour aligner
-les couloirs inter-salles sans avoir à compter les cases. Il ne change **rien** au cadrage caméra
-de l'éditeur (toujours « niveau entier », pan/zoom manuel ci-dessus) : c'est un calque de plus dans
-`renderGrid`, construit à la volée depuis les dimensions courantes du brouillon, jamais mis en
-cache — seule la caméra du **jeu** cadre par salle (@ref guide-rendu, « Cadrer un contenu plus
-grand que la fenêtre »).
-
-**Découvrabilité.** Un libellé court accompagne désormais chaque entrée de la palette et de la
-barre d'outils (texte dessiné par `EditorScreen`, la géométrie reste dans les classes pures). `F1`
-bascule un aperçu compact de tous les raccourcis, dessiné dans le canevas plutôt que sous le
-panneau — un indice discret (« F1 : aide ») le rappelle en haut à droite quand il est replié.
-
-## Choisir un niveau à éditer : \ref hmi::LevelPicker "hmi::LevelPicker"
-
-Avant d'entrer réellement en édition, `EditorScreen` affiche une liste — « Nouveau niveau » suivi
-des fichiers `.json` déjà présents — navigable au clavier (`↑`/`↓`/`Entrée`) **et** à la souris
-(survol + clic gauche), sur le même modèle que `hmi::MenuModel` (@ref guide-entrees) :
-`optionAtPoint` déduit le rectangle de chaque choix de la mise en page à chasse fixe (position,
-largeur du libellé en code points UTF-8 × la chasse de la police), exactement comme
-`MenuModel::optionAtPoint`. `LevelPicker::forDirectory` fait le pont avec le disque
-(scan du dossier `Levels`) ; son constructeur public, lui, prend une liste déjà résolue — une
-séparation délibérée entre la **logique de navigation** (pure, testable sans système de fichiers)
-et l'**accès disque** (non testé unitairement, comme le reste des E/S de `HMI`), le même principe
-de séparation que `LevelLoader`/`Core` appliquent déjà à la validation.
+Le panneau **Niveaux** (`hmi::LevelBrowserPanel`) liste les fichiers `.json` du dossier `Levels` et
+offre **créer / renommer / dupliquer / supprimer**. Le nommage passe par un `QInputDialog` validé
+par `hmi::isValidLevelName` — refus d'un nom vide ou contenant un caractère interdit par le système
+de fichiers Windows (liste **noire** minimale ; les accents restent autorisés). Les opérations
+fichiers elles-mêmes sont une couche **pure et testée**, `hmi::LevelFileOperations` (créer/renommer/
+dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pure / accès disque » que
+`LevelLoader`/`Core` appliquent à la validation. Détail du panneau : @ref guide-ihm-qt.
 
 ## Voir aussi
 - `core::LevelDraft` (dont `paintRegion`, `wouldResizeDropContent`), `core::LevelWriter`,
   `core::LevelLoader` (dont `LevelValidationError`), `core::Mechanism`.
-- `hmi::EditorScreen`, `hmi::TilePalette`, `hmi::ToolBar`, `hmi::EditorTool`, `hmi::LevelPicker`,
-  `hmi::TextInputField`, `hmi::isValidLevelName`, `hmi::isValidLevelSize`/`parseLevelSize`.
+- `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`, `hmi::ToolPanel`,
+  `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
 - `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
-- @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés
-  sans duplication.
-- @ref guide-rendu — `SpriteBatch`/`Camera2D`/`TextureAtlas`, réutilisés tels quels pour dessiner
-  la grille, la palette et le panneau latéral.
-- @ref guide-entrees — la détection de fronts (`keyPressed`), le motif de navigation clavier repris
-  de `MenuModel`, et la capture des entrées brutes (`WM_CHAR`, molette) sur laquelle s'appuient la
-  saisie de texte et le zoom caméra.
+- @ref guide-ihm-qt — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, viewport.
+- @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés sans
+  duplication.
+- @ref guide-rendu — `SpriteBatch`/`Camera2D`/`TextureAtlas`, réutilisés tels quels par
+  `hmi::DraftRenderer` pour dessiner la grille.
 - @ref guide-physique — la simulation rejouée telle quelle pendant l'essai immédiat.

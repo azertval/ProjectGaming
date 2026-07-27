@@ -1,25 +1,21 @@
 # HMI/Interface/
 
-Écrans de l'application et navigation entre eux.
+Widgets **Qt** de l'IHM hors-jeu : la fenêtre principale et les écrans qui ne relèvent pas de
+l'éditeur de niveau. Les mises en page sont décrites hors code dans `Elements/UI/*.ui` (Qt Designer)
+et le thème dans `Elements/Themes/theme.qss`.
 
-- `IScreen` — interface d'un écran : `update(input, fixedDelta)` (renvoie une intention de
-  transition : rester / basculer / quitter) et `render(RenderContext&)`.
-- `RenderContext` — ressources de rendu partagées passées aux écrans (lot de sprites, atlas,
-  police, catalogue de traduction, dimensions de la surface).
-- `ScreenManager` — détient l'écran courant, applique les transitions et fabrique l'écran
-  suivant via une **fabrique** injectée (découplé des écrans concrets, testable hors GPU).
-- `MenuModel` / `MenuScreen` — logique (testable) et dessin du menu principal.
-- `OptionsModel` / `OptionsScreen` — menu d'options (bascule V-Sync, langue, état manette).
-- `GameScreen` — joue une **séquence de niveaux** (`LevelSequence`) : personnage jouable, physique,
-  mécanismes, enchaînement à la sortie, redémarrage sur danger/chute.
-- `LevelSequence` — liste ordonnée des niveaux joués par `GameScreen` et progression dans cette
-  liste (`EX-LVL-010`, `EX-LVL-011`).
-- `EditorScreen` — éditeur de niveaux intégré : peinture, mécanismes, undo/redo, essai immédiat.
-- `LanguageSelector` — logique (testable) du bouton de langue (bas-droit, bascule fr/en).
-- `SaveLogButton` — logique (testable) du bouton d'enregistrement des logs (à gauche du bouton de langue).
-- `SessionLog` — sérialisation et écriture fichier des logs de la session (`serializeSessionLog` pur + `saveSessionLog`).
+- `MainWindow` — fenêtre principale : `QStackedWidget` (menu / options / éditeur) et panneaux
+  dockables (`QDockWidget` — Palette, Outils, Niveaux) autour du viewport central. Persiste la
+  disposition via `QSettings` (`EX-IHM-011`) et lance la séquence de jeu (`startGame`).
+- `MainMenu` — menu principal (Jouer / Éditeur / Options / Quitter), depuis `MainMenu.ui`.
+- `OptionsPage` — options en onglets, depuis `OptionsPage.ui` : **V-Sync** (`EX-REN-022`), un onglet
+  **Général** (sélecteur de **langue** `EX-REN-033` + bouton **« Enregistrer les journaux »**) et le
+  remappage clavier/manette (onglets ajoutés en code). Résolution/FPS sont présents mais désactivés,
+  l'audio est un espace réservé. Émet `languageChanged`/`saveLogsRequested` vers `MainWindow`.
+- `KeybindingsWidget` / `GamepadBindingsWidget` — capture et affichage du remappage des touches et
+  des boutons de manette (délèguent à `hmi::GameKeyBindings` / `EditorKeyBindings` /
+  `GamepadBindings`, logique pure testée). Le remappage manette affiche aussi l'**état de connexion**
+  (sondage XInput périodique tant que l'onglet est visible).
 
-À venir : écrans de pause et de fin de niveau dédiés (`EX-REN-031`, ⚠️ non implémenté — Échap
-quitte directement vers le menu, l'enchaînement de niveaux ne passe par aucun écran intermédiaire).
-
-Réf. specs : `EX-REN-030`, `EX-REN-032`, `EX-REN-033`, `EX-NFR-010`.
+Réf. specs : [`interface-ihm.md`](../../../Documentation/Specification/interface-ihm.md) (`EX-IHM-*`),
+guide [`guide-ihm-qt`](../../../Documentation/Guide/guide-ihm-qt.md).

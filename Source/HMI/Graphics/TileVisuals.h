@@ -17,8 +17,8 @@ class TextureAtlas;
 /**
  * @brief Région d'atlas (couleur procédurale) associée à un type de tuile.
  *
- * **Unique** correspondance type → région, utilisée par `GameScreen` (rendu d'un niveau joué),
- * `EditorScreen` (canevas de l'éditeur, LOT-14) et la palette de l'éditeur (`hmi::TilePalette`) :
+ * **Unique** correspondance type → région, utilisée par `GameSession` (rendu d'un niveau joué),
+ * `hmi::DraftRenderer` (canevas de l'éditeur) et la palette de l'éditeur (`hmi::PalettePanel`) :
  * le canevas de l'éditeur est un aperçu **fidèle** (même forme — triangle/courbe pour les pentes/
  * arrondis, `EX-GP-003`/`EX-GP-004`, `core::slopeSurfaceHeight` — et, combinée à
  * `core::tileVisualScale` côté appelant, même taille pour les blocs réduits, `EX-GP-005`) de ce

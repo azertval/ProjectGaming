@@ -36,7 +36,7 @@ struct Aabb;
  * réutilisée telle quelle (pas de duplication de cette logique) — seule différence, un danger
  * commuté n'a **aucun effet** sur la grille de collision (il n'est jamais solide), seul son état
  * **actif/inactif** est exposé (`isDangerActive`), consommé par `core::evaluateOutcome` via les
- * boîtes supplémentaires assemblées par l'appelant (`HMI::GameScreen`).
+ * boîtes supplémentaires assemblées par l'appelant (`hmi::GameSession`).
  */
 class MechanismController {
 public:

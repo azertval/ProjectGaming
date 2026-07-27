@@ -133,7 +133,7 @@ enum class LegPose { Neutral, Apart, Tucked };
 // cheveux, peau, chemise/manches, mains, pantalon, chaussures. Transparent hors silhouette.
 //
 // La region est CARREE (16x16), comme une tuile : le rendu (SpriteRenderer) multiplie ses
-// dimensions par Transform::scale, qui vaut core::playerSize() (0,4 x 0,8, cf. GameScreen) —
+// dimensions par Transform::scale, qui vaut core::playerSize() (0,4 x 0,8, cf. GameSession) —
 // c'est ce facteur d'echelle, deja non uniforme, qui donne au personnage sa silhouette deux
 // fois plus haute que large a l'ecran. Une region deja non carree doublerait cet effet (bug de
 // LOT-17, corrige) : chaque image est donc dessinee compressee de moitie en hauteur ici, pour

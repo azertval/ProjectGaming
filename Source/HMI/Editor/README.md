@@ -1,25 +1,26 @@
 # HMI/Editor/
 
-Mode **éditeur intégré** (réutilise le rendu `Graphics` et le modèle/validation de `Core`).
+Périmètre **éditeur de niveau** de l'application Qt : les **panneaux** dockables et la **logique pure**
+(testable hors Qt/GPU) qui les alimente. Le canevas d'édition lui-même est le viewport partagé
+`hmi::GameViewport` (dossier `Game/`, mode édition : peinture, outils, grille `F10`) ; il opère sur
+`core::LevelDraft` (modèle mutable/sérialisable de `Core`) et rend via `hmi::DraftRenderer`
+(dossier `Graphics/`).
 
-Livré (LOT-14, LOT-15) :
+Panneaux Qt :
 
-- Édition WYSIWYG des tuiles à la souris depuis une **palette** (`TilePalette`, libellée), placement
-  et liaison des mécanismes interrupteur↔porte.
-- Sélecteur de niveau nouveau/existant (`LevelPicker`), nommage/renommage du niveau
-  (`TextInputField`, `LevelNameValidation`).
-- Outils **Pinceau** / **Rectangle** / **Sélection** (copier/coller) via la barre d'outils
-  (`ToolBar`, `EditorTool`).
-- Panneau latéral fixe (`EditorLayout.h`, constantes de disposition partagées par `TilePalette`,
-  `ToolBar` et `EditorScreen`) — la grille se cadre dans le canevas à droite, jamais dessous.
+- **Palette** (`PalettePanel`) — `QTreeView` catégories → sous-groupes → tuiles, alimenté par la
+  taxonomie pure `tileTaxonomy` (`TileTaxonomy.{h,cpp}`, tous les `core::TileType` couverts).
+- **Outils** (`ToolPanel`) — Pinceau / Rectangle / Sélection (`EditorTool`), disposition décrite
+  hors code dans `Elements/UI/ToolPanel.ui`.
+- **Niveaux** (`LevelBrowserPanel`) — liste/recherche du dossier `Levels`, création / renommage /
+  duplication / suppression, déléguant aux opérations fichiers pures.
 
-Livré (LOT-16) :
+Logique pure (aucune dépendance Qt/GPU, couverte par `Source/Test/Unit`) :
 
-- `LevelSizeValidation` — analyse et validation d'une taille de grille saisie directement
-  (`Ctrl+R`, format `largeurxhauteur`), plafond par axe.
+- `tileTaxonomy` — arbre catégories/tuiles de la palette.
+- `LevelFileOperations` — créer / renommer / dupliquer / supprimer un fichier de niveau.
+- `LevelNameValidation` — validation d'un nom de niveau saisi.
+- `EditorTool` — énumération de l'outil actif.
 
-À venir (post-MVP, cf. `editeur-niveaux.md` §4bis) : placement/transform des **décors** (couches) et
-pipeline **photo → pixel art** intégré — dépendent d'un lot dédié (`decors.md`, `EX-DEC-*`,
-`EX-EDIT-040`/`041`), non commencés.
-
-Réf. specs : `editeur-niveaux.md`.
+Réf. specs : [`editeur-niveaux.md`](../../../Documentation/Specification/editeur-niveaux.md),
+[`interface-ihm.md`](../../../Documentation/Specification/interface-ihm.md) (`EX-EDIT-*`, `EX-IHM-*`).

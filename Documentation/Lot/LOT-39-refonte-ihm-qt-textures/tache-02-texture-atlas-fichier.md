@@ -40,7 +40,7 @@ changer l'interface** ni les appelants, avec **repli procédural** si l'asset ma
   vérifier (aucune signature publique modifiée).
 - **Parité des régions** : conserver la convention de grille existante pour ne rien casser, puis faire
   évoluer l'atlas.
-- **Copie d'assets** : brancher la copie POST_BUILD sur la cible `ProjectGamingEditor`
+- **Copie d'assets** : brancher la copie POST_BUILD sur la cible `ProjectGaming`
   (`Assets/` → à côté de l'exe), et le déploiement release.
 
 ## Définition de fait (DoD)

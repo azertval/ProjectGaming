@@ -18,8 +18,9 @@ donc une boucle qui tourne **en permanence**, tant que le jeu est ouvert, et qui
 
 Un tour de cette boucle correspond à une **frame** (image). Un jeu qui tourne à 60 *frames per
 second* (FPS) exécute ces quatre étapes 60 fois par seconde, soit un tour toutes les ~16,7 ms. Dans
-ce moteur, cette boucle vit dans `Source/HMI/main.cpp` et enchaîne : pompage des événements Win32
-→ mise à jour → rendu → présentation.
+ce moteur, cette boucle vit dans le viewport Qt (`hmi::GameViewport`, cadencé par
+`QEvent::UpdateRequest`) et enchaîne : sondage manette + événements Qt → mise à jour → rendu →
+présentation (@ref guide-ihm-qt).
 
 ## Le piège du framerate variable
 
@@ -129,7 +130,7 @@ Quand le rendu dépasse 60 Hz, certaines frames réelles n'exécutent **aucun** 
 est découplé), en interpolant grâce à `interpolationAlpha`. Elles imposent en revanche une
 précaution sur les **entrées** : un appui capturé sur une telle frame doit **survivre** jusqu'à ce
 qu'un pas de simulation le lise, au lieu d'être effacé par la frame suivante. C'est pourquoi la
-boucle avance la ligne de base des fronts d'entrée (`hmi::Window::beginInputFrame`) **après chaque
+boucle avance la ligne de base des fronts d'entrée (`hmi::InputState::beginFrame`) **après chaque
 pas consommé**, et non à chaque frame de rendu — détaillé dans @ref guide-entrees. Sans cette
 précaution, à 144 Hz environ deux appuis sur trois seraient perdus (bug corrigé en `LOT-33`).
 
@@ -143,6 +144,6 @@ romprait cette garantie et deviendrait, par construction, non déterministe et d
 
 ## Voir aussi
 - `core::FixedTimestep`.
-- `hmi::ScreenManager` (navigation entre écrans), `hmi::IScreen`.
+- `hmi::GameViewport` (boucle cadencée par Qt), @ref guide-ihm-qt, @ref guide-ecrans (navigation).
 - @ref guide-ecs — la logique exécutée à chaque pas fixe.
 - @ref guide-physique — le système le plus sensible au déterminisme du pas fixe.

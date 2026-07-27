@@ -205,7 +205,7 @@ core::Entity spawnHumanoid(core::World& world, core::GridPosition entry) {
     return entity;
 }
 
-// Rejoue un niveau AVEC ses mécanismes (interrupteurs/portes) : mime la boucle du GameScreen
+// Rejoue un niveau AVEC ses mécanismes (interrupteurs/portes) : mime la boucle du GameSession
 // (physique sur la grille des mécanismes, puis mise à jour des mécanismes), budget appliqué.
 core::LevelOutcome simulatePuzzle(const core::Level& level,
                                   const std::function<core::PlayerInput(int)>& input,
@@ -247,7 +247,7 @@ using ReactiveInput = std::function<core::PlayerInput(int step, const core::Play
                                                        float y)>;
 
 // Rejoue un niveau livré, mécanismes ET blocs poussables compris (même composition que
-// `HMI::GameScreen::update` : blocs -> grille -> balayage -> boîte-boîte pour les blocs réduits),
+// `hmi::GameSession::update` : blocs -> grille -> balayage -> boîte-boîte pour les blocs réduits),
 // avec un script d'entrées réactif. Couvre tous les niveaux démo qui combinent plusieurs
 // mécaniques (LOT-25).
 core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input,
@@ -281,7 +281,7 @@ core::LevelOutcome playReactiveFile(const char* file, const ReactiveInput& input
         const core::TileMap collision = blocks.collisionMap(mechanismMap);
         system.update(world, collision, in, STEP);
 
-        // Composition boîte-boîte pour les blocs réduits (EX-GP-005), comme GameScreen::update.
+        // Composition boîte-boîte pour les blocs réduits (EX-GP-005), comme GameSession::update.
         core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Vector2 delta = transform.position - previousBox.min;
         core::Vector2 bestPosition = transform.position;

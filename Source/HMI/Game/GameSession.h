@@ -33,12 +33,11 @@ class InputState;
 
 /**
  * @brief Simule et rend **un seul niveau** (déjà validé, en mémoire), indépendamment de toute
- *        infrastructure d'écran (`IScreen`/`RenderContext`/`ScreenTransition`).
+ *        infrastructure d'écran.
  *
- * Extraite de `hmi::GameScreen` (`LOT-34`) pour être réutilisée par l'éditeur Qt (viewport) **et**
- * par l'écran de jeu historique : toute la logique de jeu (chargement de la scène ECS, apparition du
- * personnage, physique, mécanismes, blocs, dangers, caméra par salle, animation, interpolation)
- * vit ici, une seule fois. Le comportement est **identique** à l'écran de jeu historique.
+ * Extraite de l'écran de jeu historique (`LOT-34`) pour être utilisée par l'éditeur Qt (viewport) :
+ * toute la logique de jeu (chargement de la scène ECS, apparition du personnage, physique,
+ * mécanismes, blocs, dangers, caméra par salle, animation, interpolation) vit ici, une seule fois.
  *
  * `update()` avance d'un **pas fixe** et renvoie l'issue (`core::LevelOutcome`) ; sur un **échec**
  * (danger/chute), le niveau est **rechargé** en interne (personnage à l'entrée, mécanismes/budgets

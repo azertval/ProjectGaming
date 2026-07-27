@@ -22,10 +22,10 @@ bord) : il faut atteindre la **parité** avant de supprimer.
   - Dessin d'UI maison : usages `BitmapFont` pour l'UI (la police reste si le rendu de jeu s'en sert ;
     sinon retirer).
   - Plateforme : `hmi::Window` (Win32) et l'**ancienne boucle** `Source/HMI/main.cpp` ; l'exécutable
-    `ProjectGaming` legacy est supprimé au profit de `ProjectGamingEditor`.
-- **CMake** : retirer la cible exe legacy, nettoyer les sources supprimées ; `ProjectGamingEditor`
+    `ProjectGaming` legacy est supprimé au profit de `ProjectGaming`.
+- **CMake** : retirer la cible exe legacy, nettoyer les sources supprimées ; `ProjectGaming`
   devient l'unique exécutable et hérite de la copie des assets (`Levels`, `Localization`).
-- **Release** : basculer `release.yml` sur `ProjectGamingEditor` + `windeployqt` (préparé au
+- **Release** : basculer `release.yml` sur `ProjectGaming` + `windeployqt` (préparé au
   `LOT-34`), retirer toute référence à l'ancien exe.
 
 ## Fichiers impactés
@@ -53,7 +53,7 @@ bord) : il faut atteindre la **parité** avant de supprimer.
   bloc de suppression) pour isoler toute régression.
 
 ## Définition de fait (DoD)
-- Tout le legacy UI supprimé, un **seul exécutable** (`ProjectGamingEditor`), `HMI` réduit au rendu de
+- Tout le legacy UI supprimé, un **seul exécutable** (`ProjectGaming`), `HMI` réduit au rendu de
   jeu ; aucune référence morte ; suite de tests verte ; release basculée ; `/W4 /WX`, Doxygen, lint
   verts ; vérification manuelle OK.
 

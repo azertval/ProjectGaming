@@ -8,7 +8,7 @@ Implémenté :
   dérivée (une porte fermée est solide, ouverte elle ne l'est plus), résolu chaque pas fixe.
 
 Conditions de fin de niveau (succès à la sortie, échec sur danger/chute, redémarrage) sont
-implémentées mais vivent dans `HMI::GameScreen` (orchestration), pas dans ce dossier. Pas de
+implémentées mais vivent dans `hmi::GameSession` (orchestration), pas dans ce dossier. Pas de
 machine à états `Pause`/`NiveauTermine` dédiée (cf. `Documentation/Specification/gameplay.md`,
 `EX-GP-040`, ⚠️ partiellement implémenté).
 
