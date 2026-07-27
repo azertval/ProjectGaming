@@ -1,0 +1,23 @@
+<map id="editor::GamepadBindingsWidget" name="editor::GamepadBindingsWidget">
+<area shape="rect" id="Node000001" title="Widget de remappage des boutons manette (GamepadBindings), onglet « Commande manette » de la page Opt..." alt="" coords="791,114,1024,139"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="517,15,596,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="611,35,677,49,784,81,873,111,871,116,783,86,675,55,610,40"/>
+<area shape="rect" id="Node000003" href="$classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="469,65,644,90"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="658,89,816,111,816,117,657,94"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,215,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="229,32,414,52,482,62,481,67,413,57,228,38"/>
+<area shape="rect" id="Node000005" href="$classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState." alt="" coords="479,114,634,139"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="648,124,790,124,790,129,648,129"/>
+<area shape="rect" id="Node000006" href="$classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée)." alt="" coords="495,163,618,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="632,163,766,144,818,137,818,142,767,149,632,168"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="30,92,190,132"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="204,115,305,125,414,141,438,148,496,161,495,166,437,153,413,147,305,130,203,120"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="10,156,210,196"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="224,173,495,173,495,179,224,179"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="15,220,205,260"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="219,234,314,225,413,208,437,199,494,184,495,190,438,204,414,213,315,231,219,239"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="24,285,196,310"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="209,304,260,302,313,295,365,279,412,253,421,241,423,228,426,213,436,199,464,184,494,176,496,181,466,189,439,203,430,215,428,229,425,243,415,257,367,284,314,300,260,308,210,309"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="437,213,676,253"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="649,207,766,173,871,137,873,142,767,179,650,212"/>
+</map>

@@ -83,7 +83,11 @@ var hierarchy =
       [ "editor::MainWindow", "classeditor_1_1MainWindow.html", null ]
     ] ],
     [ "QWidget", null, [
+      [ "editor::GamepadBindingsWidget", "classeditor_1_1GamepadBindingsWidget.html", null ],
+      [ "editor::KeybindingsWidget", "classeditor_1_1KeybindingsWidget.html", null ],
       [ "editor::LevelBrowserPanel", "classeditor_1_1LevelBrowserPanel.html", null ],
+      [ "editor::MainMenu", "classeditor_1_1MainMenu.html", null ],
+      [ "editor::OptionsPage", "classeditor_1_1OptionsPage.html", null ],
       [ "editor::PalettePanel", "classeditor_1_1PalettePanel.html", null ],
       [ "editor::ToolPanel", "classeditor_1_1ToolPanel.html", null ]
     ] ],

@@ -76,7 +76,7 @@ var searchData=
   ['non_20objectifs_20éditeur_20mvp_73',['5. Non-objectifs (éditeur, MVP)',['../spec-editeur.html#autotoc_md219',1,'']]],
   ['non_20perdus_20focus_20sondage_20manette_74',['TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette',['../lot-33-tache-01-entrees-nerveuses.html',1,'lot-33']]],
   ['non_20retenus_75',['Exclus (lots ultérieurs ou non retenus)',['../lot-15.html#autotoc_md935',1,'']]],
-  ['none_76',['none',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754',1,'core::None'],['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754',1,'hmi::ScreenTransition::None'],['../structhmi_1_1ScreenTransition.html#a6c06f25ad13a3654f81d534378023e09',1,'hmi::ScreenTransition::none() noexcept']]],
+  ['none_76',['none',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754',1,'core::None'],['../structhmi_1_1ScreenTransition.html#a6c06f25ad13a3654f81d534378023e09',1,'hmi::ScreenTransition::none() noexcept'],['../structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754',1,'hmi::ScreenTransition::None']]],
   ['normal_77',['normal',['../structcore_1_1SweepResult.html#ae6f0daf6dfb73c51f95b4da468b7f353',1,'core::SweepResult']]],
   ['normalized_78',['normalized',['../structcore_1_1Vector2.html#af3240f0ac96a586d8990e385f180fb60',1,'core::Vector2']]],
   ['nouvelle_20spec_20à_20documenter_20dans_20l_20index_79',['Convention d&apos;insertion d&apos;une nouvelle spec (à documenter dans l&apos;index)',['../lot-04-tache-04-pages-specification.html#autotoc_md433',1,'']]]

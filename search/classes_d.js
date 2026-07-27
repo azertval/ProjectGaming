@@ -1,14 +1,8 @@
 var searchData=
 [
-  ['saveicon_0',['SaveIcon',['../classhmi_1_1SaveIcon.html',1,'hmi']]],
-  ['savelogbutton_1',['SaveLogButton',['../classhmi_1_1SaveLogButton.html',1,'hmi']]],
-  ['screenmanager_2',['ScreenManager',['../classhmi_1_1ScreenManager.html',1,'hmi']]],
-  ['screentransition_3',['ScreenTransition',['../structhmi_1_1ScreenTransition.html',1,'hmi']]],
-  ['slopefollowresult_4',['SlopeFollowResult',['../structcore_1_1SlopeFollowResult.html',1,'core']]],
-  ['sprite_5',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
-  ['spritebatch_6',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
-  ['spritequad_7',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
-  ['spriterenderer_8',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]],
-  ['state_9',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
-  ['sweepresult_10',['SweepResult',['../structcore_1_1SweepResult.html',1,'core']]]
+  ['rect_0',['rect',['../structcore_1_1Rect.html',1,'core::Rect'],['../structhmi_1_1LanguageSelector_1_1Rect.html',1,'hmi::LanguageSelector::Rect'],['../structhmi_1_1SaveLogButton_1_1Rect.html',1,'hmi::SaveLogButton::Rect']]],
+  ['rendercontext_1',['RenderContext',['../structhmi_1_1RenderContext.html',1,'hmi']]],
+  ['roombounds_2',['RoomBounds',['../structhmi_1_1RoomBounds.html',1,'hmi']]],
+  ['roomgrid_3',['RoomGrid',['../classhmi_1_1RoomGrid.html',1,'hmi']]],
+  ['row_4',['Row',['../structhmi_1_1TilePalette_1_1Row.html',1,'hmi::TilePalette']]]
 ];

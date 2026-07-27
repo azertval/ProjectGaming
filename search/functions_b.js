@@ -22,9 +22,10 @@ var searchData=
   ['loaderror_19',['loadError',['../classhmi_1_1GameSession.html#ab05b61b6e50db6f365702dad1810732f',1,'hmi::GameSession']]],
   ['loadfromfile_20',['loadFromFile',['../classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543',1,'core::LevelLoader']]],
   ['loadfromstring_21',['loadFromString',['../classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89',1,'core::LevelLoader']]],
-  ['loadlanguage_22',['loadLanguage',['../classhmi_1_1Localization.html#a49f9ec81ff30f2eb405930ce13e36584',1,'hmi::Localization']]],
-  ['loadlevel_23',['loadLevel',['../classhmi_1_1GameSession.html#a64603ed7de0dfef91052394d9e59b9a0',1,'hmi::GameSession']]],
-  ['localization_24',['Localization',['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization']]],
-  ['log_25',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger']]],
-  ['logger_26',['logger',['../classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327',1,'core::Logger::Logger()=default'],['../classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e',1,'core::Logger::Logger(const Logger &amp;)=delete']]]
+  ['loadgamelevel_22',['loadGameLevel',['../classeditor_1_1GameViewport.html#a7d22812068a9823595b6aaab4f381d1c',1,'editor::GameViewport']]],
+  ['loadlanguage_23',['loadLanguage',['../classhmi_1_1Localization.html#a49f9ec81ff30f2eb405930ce13e36584',1,'hmi::Localization']]],
+  ['loadlevel_24',['loadLevel',['../classhmi_1_1GameSession.html#a64603ed7de0dfef91052394d9e59b9a0',1,'hmi::GameSession']]],
+  ['localization_25',['Localization',['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization']]],
+  ['log_26',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger']]],
+  ['logger_27',['logger',['../classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327',1,'core::Logger::Logger()=default'],['../classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e',1,'core::Logger::Logger(const Logger &amp;)=delete']]]
 ];

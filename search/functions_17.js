@@ -8,7 +8,10 @@ var searchData=
   ['_7eilogsink_5',['~ILogSink',['../classcore_1_1ILogSink.html#a733cb4c0fc2eca07e037b5ef7faf54d5',1,'core::ILogSink']]],
   ['_7eiscreen_6',['~IScreen',['../classhmi_1_1IScreen.html#a45e43cb4695d37c53c7fab8b4e36b523',1,'hmi::IScreen']]],
   ['_7eisystem_7',['~ISystem',['../classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a',1,'core::ISystem']]],
-  ['_7emainwindow_8',['~MainWindow',['../classeditor_1_1MainWindow.html#ac4a661c054fa217873a4a15873fa43ec',1,'editor::MainWindow']]],
-  ['_7espritebatch_9',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
-  ['_7ewindow_10',['~Window',['../classhmi_1_1Window.html#a9cca6096a0f5aa5fa5e9b62b46e1e34f',1,'hmi::Window']]]
+  ['_7emainmenu_8',['~MainMenu',['../classeditor_1_1MainMenu.html#ae544db0087edb49e4cfde192d15d931f',1,'editor::MainMenu']]],
+  ['_7emainwindow_9',['~MainWindow',['../classeditor_1_1MainWindow.html#ac4a661c054fa217873a4a15873fa43ec',1,'editor::MainWindow']]],
+  ['_7eoptionspage_10',['~OptionsPage',['../classeditor_1_1OptionsPage.html#a40a62da43eb32300bcb3f349a44ea456',1,'editor::OptionsPage']]],
+  ['_7espritebatch_11',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
+  ['_7etoolpanel_12',['~ToolPanel',['../classeditor_1_1ToolPanel.html#aa366895ae9b5fcbd98628287232bba33',1,'editor::ToolPanel']]],
+  ['_7ewindow_13',['~Window',['../classhmi_1_1Window.html#a9cca6096a0f5aa5fa5e9b62b46e1e34f',1,'hmi::Window']]]
 ];

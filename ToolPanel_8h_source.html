@@ -100,35 +100,42 @@ $(document).ready(function(){initNavTree('ToolPanel_8h_source.html',''); initRes
 <div class="contents">
 <a href="ToolPanel_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;QWidget&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="EditorTool_8h.html">HMI/Editor/EditorTool.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;QWidget&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>QButtonGroup;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceeditor.html">editor</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="classeditor_1_1ToolPanel.html">ToolPanel</a> : <span class="keyword">public</span> QWidget {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    Q_OBJECT</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classeditor_1_1ToolPanel.html">ToolPanel</a>(QWidget* parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>signals:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html#acdab868da8e5107ea1e77539e5b24b18">   29</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classeditor_1_1ToolPanel.html#acdab868da8e5107ea1e77539e5b24b18">toolSelected</a>(<a class="code hl_enumeration" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html#a51c829c2e40cfea0e6fd7afee0db2206">   32</a></span>    QButtonGroup* <a class="code hl_variable" href="classeditor_1_1ToolPanel.html#a51c829c2e40cfea0e6fd7afee0db2206">_group</a>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="EditorTool_8h.html">HMI/Editor/EditorTool.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceUi.html">Ui</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>ToolPanel;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceeditor.html">editor</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="classeditor_1_1ToolPanel.html">ToolPanel</a> : <span class="keyword">public</span> QWidget {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    Q_OBJECT</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classeditor_1_1ToolPanel.html">ToolPanel</a>(QWidget* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html#aa366895ae9b5fcbd98628287232bba33">   31</a></span>    <a class="code hl_function" href="classeditor_1_1ToolPanel.html#aa366895ae9b5fcbd98628287232bba33">~ToolPanel</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>signals:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html#acdab868da8e5107ea1e77539e5b24b18">   34</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classeditor_1_1ToolPanel.html#acdab868da8e5107ea1e77539e5b24b18">toolSelected</a>(<a class="code hl_enumeration" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classeditor_1_1ToolPanel.html#a0cf2db7498f5d0f10ed079e6426d0990">   37</a></span>    std::unique_ptr&lt;Ui::ToolPanel&gt; <a class="code hl_variable" href="classeditor_1_1ToolPanel.html#a0cf2db7498f5d0f10ed079e6426d0990">_ui</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
 </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}  <span class="comment">// namespace editor</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}  <span class="comment">// namespace editor</span></div>
 <div class="ttc" id="aEditorTool_8h_html"><div class="ttname"><a href="EditorTool_8h.html">EditorTool.h</a></div><div class="ttdoc">Outil actif dans la grille de l'éditeur (LOT-15, EX-EDIT-014).</div></div>
-<div class="ttc" id="aclasseditor_1_1ToolPanel_html"><div class="ttname"><a href="classeditor_1_1ToolPanel.html">editor::ToolPanel</a></div><div class="ttdoc">Sélecteur d'outil d'édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection.</div><div class="ttdef"><b>Definition</b> ToolPanel.h:22</div></div>
-<div class="ttc" id="aclasseditor_1_1ToolPanel_html_a51c829c2e40cfea0e6fd7afee0db2206"><div class="ttname"><a href="classeditor_1_1ToolPanel.html#a51c829c2e40cfea0e6fd7afee0db2206">editor::ToolPanel::_group</a></div><div class="ttdeci">QButtonGroup * _group</div><div class="ttdef"><b>Definition</b> ToolPanel.h:32</div></div>
+<div class="ttc" id="aclasseditor_1_1ToolPanel_html"><div class="ttname"><a href="classeditor_1_1ToolPanel.html">editor::ToolPanel</a></div><div class="ttdoc">Sélecteur d'outil d'édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection.</div><div class="ttdef"><b>Definition</b> ToolPanel.h:26</div></div>
+<div class="ttc" id="aclasseditor_1_1ToolPanel_html_a0cf2db7498f5d0f10ed079e6426d0990"><div class="ttname"><a href="classeditor_1_1ToolPanel.html#a0cf2db7498f5d0f10ed079e6426d0990">editor::ToolPanel::_ui</a></div><div class="ttdeci">std::unique_ptr&lt; Ui::ToolPanel &gt; _ui</div><div class="ttdef"><b>Definition</b> ToolPanel.h:37</div></div>
+<div class="ttc" id="aclasseditor_1_1ToolPanel_html_aa366895ae9b5fcbd98628287232bba33"><div class="ttname"><a href="classeditor_1_1ToolPanel.html#aa366895ae9b5fcbd98628287232bba33">editor::ToolPanel::~ToolPanel</a></div><div class="ttdeci">~ToolPanel() override</div></div>
 <div class="ttc" id="aclasseditor_1_1ToolPanel_html_acdab868da8e5107ea1e77539e5b24b18"><div class="ttname"><a href="classeditor_1_1ToolPanel.html#acdab868da8e5107ea1e77539e5b24b18">editor::ToolPanel::toolSelected</a></div><div class="ttdeci">void toolSelected(hmi::EditorTool tool)</div></div>
-<div class="ttc" id="anamespaceeditor_html"><div class="ttname"><a href="namespaceeditor.html">editor</a></div><div class="ttdef"><b>Definition</b> GameViewport.cpp:30</div></div>
+<div class="ttc" id="anamespaceUi_html"><div class="ttname"><a href="namespaceUi.html">Ui</a></div><div class="ttdef"><b>Definition</b> MainMenu.h:12</div></div>
+<div class="ttc" id="anamespaceeditor_html"><div class="ttname"><a href="namespaceeditor.html">editor</a></div><div class="ttdef"><b>Definition</b> GamepadBindingsWidget.cpp:16</div></div>
 <div class="ttc" id="anamespacehmi_html_a02048ad8ad69a87a10e8307ac2bd68dd"><div class="ttname"><a href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a></div><div class="ttdeci">EditorTool</div><div class="ttdoc">Outil actif dans la grille de l'éditeur, changé via Tab ou la ToolBar.</div><div class="ttdef"><b>Definition</b> EditorTool.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

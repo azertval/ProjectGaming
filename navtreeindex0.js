@@ -172,9 +172,9 @@ var NAVTREEINDEX0 =
 "GameSession_8cpp.html":[10,0,3,2,1,0],
 "GameSession_8h.html":[10,0,3,2,1,1],
 "GameSession_8h_source.html":[10,0,3,2,1,1],
-"GameViewport_8cpp.html":[10,0,3,1,0],
-"GameViewport_8h.html":[10,0,3,1,1],
-"GameViewport_8h_source.html":[10,0,3,1,1],
+"GameViewport_8cpp.html":[10,0,3,1,2],
+"GameViewport_8h.html":[10,0,3,1,3],
+"GameViewport_8h_source.html":[10,0,3,1,3],
 "GamepadBindingsModel_8cpp.html":[10,0,3,2,4,10],
 "GamepadBindingsModel_8h.html":[10,0,3,2,4,11],
 "GamepadBindingsModel_8h.html#ab22afc1edf9ed6f86dbf20680e4d4491":[10,0,3,2,4,11,1],
@@ -185,6 +185,9 @@ var NAVTREEINDEX0 =
 "GamepadBindingsScreen_8cpp.html":[10,0,3,2,4,12],
 "GamepadBindingsScreen_8h.html":[10,0,3,2,4,13],
 "GamepadBindingsScreen_8h_source.html":[10,0,3,2,4,13],
+"GamepadBindingsWidget_8cpp.html":[10,0,3,1,0],
+"GamepadBindingsWidget_8h.html":[10,0,3,1,1],
+"GamepadBindingsWidget_8h_source.html":[10,0,3,1,1],
 "GamepadBindings_8cpp.html":[10,0,3,2,3,4],
 "GamepadBindings_8h.html":[10,0,3,2,3,5],
 "GamepadBindings_8h_source.html":[10,0,3,2,3,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "IScreen_8h.html#a168b24f798c2e6d06beb9472a071528da6ad99e7d1cea3516000793751a98cab3":[10,0,3,2,4,16,2,4],
 "IScreen_8h.html#a168b24f798c2e6d06beb9472a071528da8246ea7cf8f2d836587aa22cd3e7df47":[10,0,3,2,4,16,2,6],
 "IScreen_8h.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911":[10,0,3,2,4,16,2,0],
-"IScreen_8h.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7":[10,0,3,2,4,16,2,5],
-"IScreen_8h.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8":[10,0,3,2,4,16,2,3],
-"IScreen_8h_source.html":[10,0,3,2,4,16],
-"ISystem_8h.html":[10,0,3,0,1,7]
+"IScreen_8h.html#a168b24f798c2e6d06beb9472a071528dabf44e75de02f7c089aaf8c485f22aab7":[10,0,3,2,4,16,2,5]
 };

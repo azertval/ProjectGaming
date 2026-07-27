@@ -1,25 +1,27 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/AnimationSystem.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Systems/AnimationSystem.h">
-<area shape="rect" id="Node000001" title="Système dérivant le clip/l&#39;image d&#39;animation du personnage de son état physique." alt="" coords="473,5,748,60"/>
-<area shape="rect" id="Node000002" href="$AnimationSystem_8cpp.html" title=" " alt="" coords="186,115,475,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="531,67,400,118,398,113,529,62"/>
-<area shape="rect" id="Node000003" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="500,115,721,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="613,74,613,115,608,115,608,74"/>
-<area shape="rect" id="Node000012" href="$test__animation__personnage_8cpp.html" title="Tests d&#39;intégration de l&#39;animation du personnage : ECS + système d&#39;animation assemblés." alt="" coords="745,108,975,177"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="685,63,783,105,781,110,683,68"/>
-<area shape="rect" id="Node000004" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="251,225,472,280"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="538,178,423,228,421,223,536,173"/>
-<area shape="rect" id="Node000007" href="$GameSession_8cpp.html" title=" " alt="" coords="500,225,721,280"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="613,184,613,225,608,225,608,184"/>
-<area shape="rect" id="Node000008" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="748,225,969,280"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="685,173,799,223,797,228,683,178"/>
+<area shape="rect" id="Node000001" title="Système dérivant le clip/l&#39;image d&#39;animation du personnage de son état physique." alt="" coords="593,5,868,60"/>
+<area shape="rect" id="Node000002" href="$AnimationSystem_8cpp.html" title=" " alt="" coords="306,115,595,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="651,67,520,118,518,113,649,62"/>
+<area shape="rect" id="Node000003" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="620,115,841,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="733,74,733,115,728,115,728,74"/>
+<area shape="rect" id="Node000013" href="$test__animation__personnage_8cpp.html" title="Tests d&#39;intégration de l&#39;animation du personnage : ECS + système d&#39;animation assemblés." alt="" coords="865,108,1095,177"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="805,63,903,105,901,110,803,68"/>
+<area shape="rect" id="Node000004" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="373,225,595,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="659,178,545,228,543,223,657,173"/>
+<area shape="rect" id="Node000008" href="$GameSession_8cpp.html" title=" " alt="" coords="620,225,841,280"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="733,184,733,225,728,225,728,184"/>
+<area shape="rect" id="Node000009" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="865,225,1087,280"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="804,173,917,223,915,228,802,178"/>
 <area shape="rect" id="Node000005" href="$GameViewport_8cpp.html" title=" " alt="" coords="5,328,227,383"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="286,288,181,330,179,325,284,283"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="376,286,213,331,211,325,375,281"/>
 <area shape="rect" id="Node000006" href="$MainWindow_8cpp.html" title=" " alt="" coords="251,328,472,383"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="364,294,364,328,359,328,359,294"/>
-<area shape="rect" id="Node000009" href="$EditorScreen_8cpp.html" title=" " alt="" coords="496,328,723,383"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="782,287,675,330,673,325,780,283"/>
-<area shape="rect" id="Node000010" href="$GameScreen_8cpp.html" title=" " alt="" coords="747,328,975,383"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="862,294,863,328,858,328,857,294"/>
-<area shape="rect" id="Node000011" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1000,328,1221,383"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="938,282,1046,325,1044,330,936,287"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="443,291,395,330,392,326,440,287"/>
+<area shape="rect" id="Node000007" href="$OptionsPage_8cpp.html" title=" " alt="" coords="496,328,717,383"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="528,287,576,326,573,330,525,291"/>
+<area shape="rect" id="Node000010" href="$EditorScreen_8cpp.html" title=" " alt="" coords="741,328,968,383"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="935,291,888,330,885,326,932,287"/>
+<area shape="rect" id="Node000011" href="$GameScreen_8cpp.html" title=" " alt="" coords="993,328,1221,383"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="1022,286,1074,326,1071,330,1019,290"/>
+<area shape="rect" id="Node000012" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1245,328,1467,383"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="1089,281,1258,325,1256,331,1087,286"/>
 </map>

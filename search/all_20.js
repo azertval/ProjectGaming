@@ -3,7 +3,7 @@ var searchData=
   ['u_0',['u',['../structhmi_1_1SpriteBatch_1_1Vertex.html#adcf41445f05057b738eb3411d8e47703',1,'hmi::SpriteBatch::Vertex']]],
   ['u0_1',['u0',['../structhmi_1_1SpriteQuad.html#ae7e99128d209fb85b68f901744c063a8',1,'hmi::SpriteQuad']]],
   ['u1_2',['u1',['../structhmi_1_1SpriteQuad.html#a011e7b579cef80bf6c48ecb04ce17461',1,'hmi::SpriteQuad']]],
-  ['ui_3',['LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI',['../lot-38.html',1,'lots']]],
+  ['ui_3',['ui',['../lot-38.html',1,'LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI'],['../namespaceUi.html',1,'Ui']]],
   ['ui_20écrans_20maison_20fenêtre_20win32_20ancienne_20boucle_4',['TACHE-03 — Retrait du legacy UI (écrans maison, fenêtre Win32, ancienne boucle)',['../lot-38-tache-03-retrait-legacy-ui.html',1,'lot-38']]],
   ['ui_20de_20remappage_20et_20câblage_5',['TACHE-03 — UI de remappage et câblage',['../lot-29-tache-03-ui-remappage.html',1,'lot-29']]],
   ['ui_20de_20remappage_20manette_20et_20câblage_6',['TACHE-03 — UI de remappage manette et câblage',['../lot-30-tache-03-ui-remappage-manette.html',1,'lot-30']]],
