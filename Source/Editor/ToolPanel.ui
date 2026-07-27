@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ToolPanel</class>
+ <widget class="QWidget" name="ToolPanel">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QRadioButton" name="paintRadio">
+     <property name="text"><string>Pinceau</string></property>
+     <property name="checked"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rectangleRadio">
+     <property name="text"><string>Rectangle</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="selectionRadio">
+     <property name="text"><string>Sélection</string></property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="spacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

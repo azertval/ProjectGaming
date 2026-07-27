@@ -1,6 +1,9 @@
 #include "Editor/MainWindow.h"
 
+#include <vector>
+
 #include <QAction>
+#include <QCheckBox>
 #include <QCloseEvent>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -12,7 +15,9 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QSpinBox>
+#include <QStackedWidget>
 #include <QStatusBar>
+#include <QVBoxLayout>
 #include <QString>
 #include <QWidget>
 
@@ -20,6 +25,8 @@
 
 #include "Editor/GameViewport.h"
 #include "Editor/LevelBrowserPanel.h"
+#include "Editor/MainMenu.h"
+#include "Editor/OptionsPage.h"
 #include "Editor/PalettePanel.h"
 #include "Editor/ToolPanel.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -30,43 +37,41 @@ namespace {
 
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
-constexpr int LAYOUT_VERSION = 1;
+constexpr int LAYOUT_VERSION = 2;  // 2 : dock « Statut » retiré (invalide les dispositions v1)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main_qt`).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
 
-// Crée un panneau docké nommé, au contenu provisoire (rempli aux tâches suivantes).
-[[nodiscard]] QDockWidget* makePanel(const QString& title, const QString& objectName,
-                                     const QString& placeholder) {
-    auto* const panel = new QDockWidget(title);
-    panel->setObjectName(objectName);  // indispensable à saveState/restoreState.
-    auto* const content = new QLabel(placeholder);
-    content->setAlignment(Qt::AlignCenter);
-    content->setMargin(12);
-    content->setWordWrap(true);
-    panel->setWidget(content);
-    return panel;
-}
-
 }  // namespace
 
 MainWindow::MainWindow()
-    : _viewport(new GameViewport()),
+    : _stack(nullptr),
+      _menu(nullptr),
+      _options(nullptr),
+      _editorContainer(nullptr),
+      _viewport(new GameViewport()),
       _palettePanel(nullptr),
       _palette(nullptr),
       _levelsPanel(nullptr),
       _levels(nullptr),
       _toolPanel(nullptr),
-      _tools(nullptr),
-      _statusPanel(nullptr) {
+      _tools(nullptr) {
     setObjectName(QStringLiteral("EditorMainWindow"));
 
     // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
-    QWidget* const container = QWidget::createWindowContainer(_viewport, this);
-    container->setMinimumSize(320, 240);
-    container->setFocusPolicy(Qt::StrongFocus);
-    setCentralWidget(container);
+    _editorContainer = QWidget::createWindowContainer(_viewport, this);
+    _editorContainer->setMinimumSize(320, 240);
+    _editorContainer->setFocusPolicy(Qt::StrongFocus);
+
+    // Central : menu principal, options et viewport empilés ; l'application démarre sur le menu.
+    _menu = new MainMenu();
+    _options = new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _stack = new QStackedWidget(this);
+    _stack->addWidget(_menu);
+    _stack->addWidget(_options);
+    _stack->addWidget(_editorContainer);
+    setCentralWidget(_stack);
 
     setDockNestingEnabled(true);
     createDockPanels();
@@ -97,6 +102,18 @@ MainWindow::MainWindow()
     statusBar()->showMessage(QStringLiteral("Éditeur — peindre : clic gauche · Ctrl+Z/Y · "
                                             "Ctrl+S enregistrer · P essayer"));
 
+    // Navigation depuis le menu principal.
+    connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
+    connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
+    connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
+    connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
+    // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
+    connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
+    // Page Options : retour au menu, bascule plein écran.
+    connect(_options, &OptionsPage::backRequested, this, &MainWindow::showMenu);
+    connect(_options, &OptionsPage::fullscreenRequested, this,
+            [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
+
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));
     resize(1280, 720);
 
@@ -104,6 +121,55 @@ MainWindow::MainWindow()
     // éventuelle disposition sauvegardée) : sert de cible à « Réinitialiser la disposition ».
     _defaultState = saveState(LAYOUT_VERSION);
     restoreLayout();
+
+    showMenu();  // l'application démarre sur le menu principal.
+}
+
+void MainWindow::setDocksVisible(bool visible) {
+    for (QDockWidget* const dock : {_palettePanel, _toolPanel, _levelsPanel}) {
+        dock->setVisible(visible);
+    }
+}
+
+void MainWindow::showMenu() {
+    _stack->setCurrentWidget(_menu);
+    setDocksVisible(false);
+    menuBar()->setVisible(false);  // pas de barre de menu sur l'écran d'accueil
+    statusBar()->clearMessage();
+}
+
+void MainWindow::showEditor() {
+    _stack->setCurrentWidget(_editorContainer);
+    setDocksVisible(true);
+    menuBar()->setVisible(true);
+    _editorContainer->setFocus();
+}
+
+void MainWindow::showGame() {
+    _stack->setCurrentWidget(_editorContainer);
+    setDocksVisible(false);
+    menuBar()->setVisible(false);
+    statusBar()->clearMessage();
+    _editorContainer->setFocus();
+
+    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au menu.
+    const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
+    _viewport->startGame({
+        levels / "demo-deplacement.json", levels / "demo-saut.json",
+        levels / "demo-double-saut.json", levels / "demo-wall-jump.json",
+        levels / "demo-dash.json", levels / "demo-interrupteur.json",
+        levels / "demo-plaque-pression.json", levels / "demo-bloc.json",
+        levels / "demo-budget.json", levels / "demo-pente.json", levels / "demo-arrondi.json",
+        levels / "demo-bloc-reduit.json", levels / "demo-dangers-avances.json",
+        levels / "demo-final.json", levels / "demo-salles.json",
+    });
+}
+
+void MainWindow::showOptions() {
+    _stack->setCurrentWidget(_options);
+    setDocksVisible(false);
+    menuBar()->setVisible(false);
+    statusBar()->clearMessage();
 }
 
 MainWindow::~MainWindow() = default;
@@ -127,16 +193,20 @@ void MainWindow::createDockPanels() {
     _tools = new ToolPanel(_toolPanel);
     _toolPanel->setWidget(_tools);
 
-    _statusPanel = makePanel(QStringLiteral("Statut"), QStringLiteral("StatusPanel"),
-                             QStringLiteral("Statut"));
-
     addDockWidget(Qt::LeftDockWidgetArea, _palettePanel);
     addDockWidget(Qt::LeftDockWidgetArea, _toolPanel);
     addDockWidget(Qt::RightDockWidgetArea, _levelsPanel);
-    addDockWidget(Qt::BottomDockWidgetArea, _statusPanel);
 }
 
 void MainWindow::createMenus() {
+    // Menu « Application » : retour au menu principal, quitter.
+    QMenu* const appMenu = menuBar()->addMenu(QStringLiteral("Application"));
+    connect(appMenu->addAction(QStringLiteral("Menu principal")), &QAction::triggered, this,
+            &MainWindow::showMenu);
+    appMenu->addSeparator();
+    connect(appMenu->addAction(QStringLiteral("Quitter")), &QAction::triggered, this,
+            &MainWindow::close);
+
     // Menu « Niveau » : actions d'édition. Les raccourcis (Ctrl+S, P, Ctrl+Z/Y) sont gérés par le
     // viewport lui-même (fenêtre native) ; ces entrées de menu servent la découvrabilité.
     QMenu* const levelMenu = menuBar()->addMenu(QStringLiteral("Niveau"));
@@ -152,7 +222,6 @@ void MainWindow::createMenus() {
     viewMenu->addAction(_palettePanel->toggleViewAction());
     viewMenu->addAction(_levelsPanel->toggleViewAction());
     viewMenu->addAction(_toolPanel->toggleViewAction());
-    viewMenu->addAction(_statusPanel->toggleViewAction());
     viewMenu->addSeparator();
     QAction* const reset = viewMenu->addAction(QStringLiteral("Réinitialiser la disposition"));
     connect(reset, &QAction::triggered, this,

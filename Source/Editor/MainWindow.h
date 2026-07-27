@@ -9,10 +9,14 @@
  */
 
 class QDockWidget;
+class QStackedWidget;
+class QWidget;
 
 namespace editor {
 
 class GameViewport;
+class MainMenu;
+class OptionsPage;
 class PalettePanel;
 class ToolPanel;
 class LevelBrowserPanel;
@@ -47,6 +51,21 @@ private:
     /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).
     void openResizeDialog();
 
+    /// Affiche le menu principal (docks et barre de menu masqués).
+    void showMenu();
+    /// Affiche l'éditeur (viewport + docks + barre de menu).
+    void showEditor();
+    /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
+    void showGame();
+    /// Affiche la page Options (onglets) dans la fenêtre.
+    void showOptions();
+    /// Montre/masque tous les panneaux dockables.
+    void setDocksVisible(bool visible);
+
+    QStackedWidget* _stack;       ///< Central : empile menu principal, options et viewport.
+    MainMenu* _menu;              ///< Menu principal (page d'accueil).
+    OptionsPage* _options;        ///< Page Options à onglets.
+    QWidget* _editorContainer;    ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
     QDockWidget* _palettePanel;   ///< Panneau « Palette » (dock hôte de `_palette`).
     PalettePanel* _palette;       ///< Arbre de sélection du type de tuile (LOT-35 TACHE-02).
@@ -54,7 +73,6 @@ private:
     LevelBrowserPanel* _levels;   ///< Liste/gestion des fichiers de niveaux (LOT-36).
     QDockWidget* _toolPanel;      ///< Panneau « Outils » (dock hôte de `_tools`).
     ToolPanel* _tools;            ///< Sélecteur d'outil d'édition (LOT-35).
-    QDockWidget* _statusPanel;    ///< Panneau « Statut ».
     QByteArray _defaultState;     ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 };
 

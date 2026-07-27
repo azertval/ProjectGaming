@@ -66,6 +66,17 @@ public:
         _tool = tool;
     }
 
+    /// Accès **modifiable** aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes
+    /// bindings, donc un changement s'applique immédiatement.
+    [[nodiscard]] hmi::GameKeyBindings& gameBindings() noexcept {
+        return _gameBindings;
+    }
+
+    /// Accès **modifiable** aux boutons manette (pour le remappage), même principe que `gameBindings`.
+    [[nodiscard]] hmi::GamepadBindings& gamepadBindings() noexcept {
+        return _gamepadBindings;
+    }
+
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
     /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
     void save();
@@ -81,6 +92,17 @@ public:
     /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
 
+    /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap` ou
+    /// la fin de la séquence émet `exitToMenuRequested`.
+    void startGame(std::vector<std::filesystem::path> levels);
+
+    /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
+    void setVSync(bool enabled) noexcept;
+    /// @return true si la V-Sync est active.
+    [[nodiscard]] bool vsyncEnabled() const noexcept {
+        return _vsync;
+    }
+
     /// Redimensionne le niveau en cours d'édition (`EX-EDIT-005`).
     void resizeLevel(int width, int height);
 
@@ -94,6 +116,8 @@ public:
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
+    /// Demande de retour au menu principal (fin de partie ou `Échap` en mode jeu).
+    void exitToMenuRequested();
 
 protected:
     bool event(QEvent* event) override;
@@ -111,6 +135,7 @@ private:
     void tick();
     void renderFrame();
     void stopPlaytest();  ///< Termine l'essai et restitue l'éditeur (brouillon intact).
+    void loadGameLevel(std::size_t index);  ///< Charge le niveau @p index de la séquence de jeu.
     void updateMousePosition(const QMouseEvent* event);
 
     /// Recale la caméra d'édition pour cadrer le niveau entier dans la surface courante.
@@ -163,6 +188,11 @@ private:
     std::vector<std::vector<core::TileType>> _clipboard;
     bool _dirty = false;               ///< Modifications non enregistrées (garde-fou d'ouverture).
     bool _showGrid = true;             ///< Grille de repère (cases + salles) affichée (bascule F10).
+    bool _vsync = true;                ///< Synchronisation verticale (appliquée au device D3D11).
+    bool _gameMode = false;            ///< La session courante est une **partie** (menu Jouer) et
+                                       ///< non un essai depuis l'éditeur (enchaînement/retour menu).
+    std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
+    std::size_t _gameLevel = 0;        ///< Indice du niveau courant dans la séquence.
 
     /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).
     std::optional<hmi::GameSession> _session;
