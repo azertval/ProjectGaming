@@ -54,6 +54,10 @@ private:
     void showMenu();
     /// Affiche l'éditeur (viewport + docks + barre de menu).
     void showEditor();
+    /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
+    void showGame();
+    /// Ouvre la boîte de dialogue des options (V-Sync).
+    void openOptionsDialog();
     /// Montre/masque tous les panneaux dockables.
     void setDocksVisible(bool visible);
 

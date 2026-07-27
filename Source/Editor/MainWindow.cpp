@@ -1,6 +1,9 @@
 #include "Editor/MainWindow.h"
 
+#include <vector>
+
 #include <QAction>
+#include <QCheckBox>
 #include <QCloseEvent>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -14,6 +17,7 @@
 #include <QSpinBox>
 #include <QStackedWidget>
 #include <QStatusBar>
+#include <QVBoxLayout>
 #include <QString>
 #include <QWidget>
 
@@ -110,15 +114,16 @@ MainWindow::MainWindow()
 
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
+    connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
+    connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::openOptionsDialog);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
-    // Jouer / Options / Touches : câblés aux étapes suivantes du LOT-38.
-    const auto notYet = [this] {
+    // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
+    connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
+    // Touches : câblé à l'étape suivante du LOT-38.
+    connect(_menu, &MainMenu::keybindingsRequested, this, [this] {
         QMessageBox::information(this, QStringLiteral("Bientôt"),
-                                 QStringLiteral("Fonction ajoutée à une étape suivante du LOT-38."));
-    };
-    connect(_menu, &MainMenu::playRequested, this, notYet);
-    connect(_menu, &MainMenu::optionsRequested, this, notYet);
-    connect(_menu, &MainMenu::keybindingsRequested, this, notYet);
+                                 QStringLiteral("Le remappage des touches arrive à l'étape suivante."));
+    });
 
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));
     resize(1280, 720);
@@ -149,6 +154,46 @@ void MainWindow::showEditor() {
     setDocksVisible(true);
     menuBar()->setVisible(true);
     _editorContainer->setFocus();
+}
+
+void MainWindow::showGame() {
+    _stack->setCurrentWidget(_editorContainer);
+    setDocksVisible(false);
+    menuBar()->setVisible(false);
+    statusBar()->clearMessage();
+    _editorContainer->setFocus();
+
+    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au menu.
+    const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
+    _viewport->startGame({
+        levels / "demo-deplacement.json", levels / "demo-saut.json",
+        levels / "demo-double-saut.json", levels / "demo-wall-jump.json",
+        levels / "demo-dash.json", levels / "demo-interrupteur.json",
+        levels / "demo-plaque-pression.json", levels / "demo-bloc.json",
+        levels / "demo-budget.json", levels / "demo-pente.json", levels / "demo-arrondi.json",
+        levels / "demo-bloc-reduit.json", levels / "demo-dangers-avances.json",
+        levels / "demo-final.json", levels / "demo-salles.json",
+    });
+}
+
+void MainWindow::openOptionsDialog() {
+    QDialog dialog(this);
+    dialog.setWindowTitle(QStringLiteral("Options"));
+
+    auto* const vsync =
+        new QCheckBox(QStringLiteral("Synchronisation verticale (V-Sync)"), &dialog);
+    vsync->setChecked(_viewport->vsyncEnabled());
+    connect(vsync, &QCheckBox::toggled, _viewport,
+            [this](bool enabled) { _viewport->setVSync(enabled); });
+
+    auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+
+    auto* const layout = new QVBoxLayout(&dialog);
+    layout->addWidget(vsync);
+    layout->addWidget(buttons);
+    dialog.exec();
 }
 
 MainWindow::~MainWindow() = default;

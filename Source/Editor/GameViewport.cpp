@@ -114,6 +114,7 @@ void GameViewport::ensureResources() {
     }
     const HWND handle = reinterpret_cast<HWND>(winId());
     _graphics = std::make_unique<hmi::GraphicsDevice>(handle, pixelWidth(), pixelHeight());
+    _graphics->setVSyncEnabled(_vsync);
     _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
     _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas);
@@ -254,7 +255,11 @@ void GameViewport::tick() {
     const float fixedDelta = _timestep.fixedDeltaSeconds();
     for (int step = 0; step < steps; ++step) {
         if (_session && _session->update(_input, fixedDelta) == core::LevelOutcome::Won) {
-            stopPlaytest();  // niveau franchi : l'essai se termine, retour à l'édition.
+            if (_gameMode) {
+                loadGameLevel(_gameLevel + 1);  // enchaîne le niveau suivant de la séquence
+            } else {
+                stopPlaytest();  // essai éditeur : retour à l'édition
+            }
         }
         _input.beginFrame();
     }
@@ -325,10 +330,16 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
-    // Mode essai : Échap revient à l'édition ; les autres touches alimentent le jeu.
+    // Mode jeu/essai : Échap sort ; les autres touches alimentent le jeu.
     if (_session) {
         if (event->key() == Qt::Key_Escape) {
-            stopPlaytest();
+            if (_gameMode) {
+                _gameMode = false;
+                _session.reset();
+                emit exitToMenuRequested();
+            } else {
+                stopPlaytest();
+            }
             return;
         }
         if (!event->isAutoRepeat()) {
@@ -444,6 +455,38 @@ void GameViewport::stopPlaytest() {
         _draftRenderer->invalidate();  // ré-affiche le brouillon (intact).
     }
     emit statusMessage(QStringLiteral("Retour à l'édition."));
+}
+
+void GameViewport::setVSync(bool enabled) noexcept {
+    _vsync = enabled;
+    if (_graphics) {
+        _graphics->setVSyncEnabled(enabled);
+    }
+}
+
+void GameViewport::startGame(std::vector<std::filesystem::path> levels) {
+    ensureResources();
+    _gameLevels = std::move(levels);
+    _gameMode = true;
+    loadGameLevel(0);
+}
+
+void GameViewport::loadGameLevel(std::size_t index) {
+    if (index >= _gameLevels.size()) {
+        // Séquence terminée : retour au menu.
+        _gameMode = false;
+        _session.reset();
+        emit exitToMenuRequested();
+        return;
+    }
+    core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(_gameLevels[index]);
+    if (!loaded.ok()) {
+        loadGameLevel(index + 1);  // niveau illisible : passe au suivant (robustesse)
+        return;
+    }
+    _gameLevel = index;
+    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(),
+                     std::move(*loaded.level), _gameBindings, _gamepadBindings);
 }
 
 void GameViewport::resizeLevel(int width, int height) {
