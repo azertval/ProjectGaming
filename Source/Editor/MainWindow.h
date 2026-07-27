@@ -73,7 +73,6 @@ private:
     LevelBrowserPanel* _levels;   ///< Liste/gestion des fichiers de niveaux (LOT-36).
     QDockWidget* _toolPanel;      ///< Panneau « Outils » (dock hôte de `_tools`).
     ToolPanel* _tools;            ///< Sélecteur d'outil d'édition (LOT-35).
-    QDockWidget* _statusPanel;    ///< Panneau « Statut ».
     QByteArray _defaultState;     ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 };
 

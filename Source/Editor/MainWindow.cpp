@@ -37,24 +37,11 @@ namespace {
 
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
-constexpr int LAYOUT_VERSION = 1;
+constexpr int LAYOUT_VERSION = 2;  // 2 : dock « Statut » retiré (invalide les dispositions v1)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main_qt`).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
-
-// Crée un panneau docké nommé, au contenu provisoire (rempli aux tâches suivantes).
-[[nodiscard]] QDockWidget* makePanel(const QString& title, const QString& objectName,
-                                     const QString& placeholder) {
-    auto* const panel = new QDockWidget(title);
-    panel->setObjectName(objectName);  // indispensable à saveState/restoreState.
-    auto* const content = new QLabel(placeholder);
-    content->setAlignment(Qt::AlignCenter);
-    content->setMargin(12);
-    content->setWordWrap(true);
-    panel->setWidget(content);
-    return panel;
-}
 
 }  // namespace
 
@@ -69,8 +56,7 @@ MainWindow::MainWindow()
       _levelsPanel(nullptr),
       _levels(nullptr),
       _toolPanel(nullptr),
-      _tools(nullptr),
-      _statusPanel(nullptr) {
+      _tools(nullptr) {
     setObjectName(QStringLiteral("EditorMainWindow"));
 
     // `createWindowContainer` embarque la fenêtre native du viewport et en prend la propriété.
@@ -140,7 +126,7 @@ MainWindow::MainWindow()
 }
 
 void MainWindow::setDocksVisible(bool visible) {
-    for (QDockWidget* const dock : {_palettePanel, _toolPanel, _levelsPanel, _statusPanel}) {
+    for (QDockWidget* const dock : {_palettePanel, _toolPanel, _levelsPanel}) {
         dock->setVisible(visible);
     }
 }
@@ -207,13 +193,9 @@ void MainWindow::createDockPanels() {
     _tools = new ToolPanel(_toolPanel);
     _toolPanel->setWidget(_tools);
 
-    _statusPanel = makePanel(QStringLiteral("Statut"), QStringLiteral("StatusPanel"),
-                             QStringLiteral("Statut"));
-
     addDockWidget(Qt::LeftDockWidgetArea, _palettePanel);
     addDockWidget(Qt::LeftDockWidgetArea, _toolPanel);
     addDockWidget(Qt::RightDockWidgetArea, _levelsPanel);
-    addDockWidget(Qt::BottomDockWidgetArea, _statusPanel);
 }
 
 void MainWindow::createMenus() {
@@ -240,7 +222,6 @@ void MainWindow::createMenus() {
     viewMenu->addAction(_palettePanel->toggleViewAction());
     viewMenu->addAction(_levelsPanel->toggleViewAction());
     viewMenu->addAction(_toolPanel->toggleViewAction());
-    viewMenu->addAction(_statusPanel->toggleViewAction());
     viewMenu->addSeparator();
     QAction* const reset = viewMenu->addAction(QStringLiteral("Réinitialiser la disposition"));
     connect(reset, &QAction::triggered, this,
