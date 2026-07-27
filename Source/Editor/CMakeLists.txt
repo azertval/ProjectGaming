@@ -35,6 +35,7 @@ add_executable(ProjectGamingEditor
     main_qt.cpp
     GameViewport.cpp
     MainWindow.cpp
+    MainMenu.cpp
     PalettePanel.cpp
     ToolPanel.cpp
     LevelBrowserPanel.cpp

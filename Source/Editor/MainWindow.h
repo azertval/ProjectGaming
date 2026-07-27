@@ -9,10 +9,13 @@
  */
 
 class QDockWidget;
+class QStackedWidget;
+class QWidget;
 
 namespace editor {
 
 class GameViewport;
+class MainMenu;
 class PalettePanel;
 class ToolPanel;
 class LevelBrowserPanel;
@@ -47,6 +50,16 @@ private:
     /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).
     void openResizeDialog();
 
+    /// Affiche le menu principal (docks et barre de menu masqués).
+    void showMenu();
+    /// Affiche l'éditeur (viewport + docks + barre de menu).
+    void showEditor();
+    /// Montre/masque tous les panneaux dockables.
+    void setDocksVisible(bool visible);
+
+    QStackedWidget* _stack;       ///< Central : empile menu principal et viewport (éditeur/jeu).
+    MainMenu* _menu;              ///< Menu principal (page d'accueil).
+    QWidget* _editorContainer;    ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
     QDockWidget* _palettePanel;   ///< Panneau « Palette » (dock hôte de `_palette`).
     PalettePanel* _palette;       ///< Arbre de sélection du type de tuile (LOT-35 TACHE-02).
