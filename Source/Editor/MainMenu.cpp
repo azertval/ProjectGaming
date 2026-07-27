@@ -48,9 +48,8 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent) {
     auto* const play = new QPushButton(QStringLiteral("Jouer"), this);
     auto* const editor = new QPushButton(QStringLiteral("Éditeur de niveaux"), this);
     auto* const options = new QPushButton(QStringLiteral("Options"), this);
-    auto* const keybindings = new QPushButton(QStringLiteral("Touches"), this);
     auto* const quit = new QPushButton(QStringLiteral("Quitter"), this);
-    for (QPushButton* const button : {play, editor, options, keybindings, quit}) {
+    for (QPushButton* const button : {play, editor, options, quit}) {
         button->setFont(optionFont);
         button->setCursor(Qt::PointingHandCursor);
         button->setFlat(true);
@@ -59,7 +58,6 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent) {
     connect(play, &QPushButton::clicked, this, &MainMenu::playRequested);
     connect(editor, &QPushButton::clicked, this, &MainMenu::editorRequested);
     connect(options, &QPushButton::clicked, this, &MainMenu::optionsRequested);
-    connect(keybindings, &QPushButton::clicked, this, &MainMenu::keybindingsRequested);
     connect(quit, &QPushButton::clicked, this, &MainMenu::quitRequested);
 
     // Colonne alignée à gauche, avec marge, titre en haut puis les options (comme l'ancien menu).
@@ -71,7 +69,6 @@ MainMenu::MainMenu(QWidget* parent) : QWidget(parent) {
     layout->addWidget(play);
     layout->addWidget(editor);
     layout->addWidget(options);
-    layout->addWidget(keybindings);
     layout->addWidget(quit);
     layout->addStretch();
 }

@@ -36,10 +36,11 @@ add_executable(ProjectGamingEditor
     GameViewport.cpp
     MainWindow.cpp
     MainMenu.cpp
+    OptionsPage.cpp
     PalettePanel.cpp
     ToolPanel.cpp
     LevelBrowserPanel.cpp
-    KeybindingsDialog.cpp
+    KeybindingsWidget.cpp
     TileTaxonomy.cpp
     LevelFileOperations.cpp
     QtKeyMap.cpp

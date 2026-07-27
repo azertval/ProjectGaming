@@ -26,7 +26,6 @@ signals:
     void playRequested();
     void editorRequested();
     void optionsRequested();
-    void keybindingsRequested();
     void quitRequested();
 };
 

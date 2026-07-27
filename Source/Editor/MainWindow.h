@@ -16,6 +16,7 @@ namespace editor {
 
 class GameViewport;
 class MainMenu;
+class OptionsPage;
 class PalettePanel;
 class ToolPanel;
 class LevelBrowserPanel;
@@ -56,13 +57,14 @@ private:
     void showEditor();
     /// Lance le jeu (séquence de niveaux démo) dans le viewport, docks masqués.
     void showGame();
-    /// Ouvre la boîte de dialogue des options (V-Sync).
-    void openOptionsDialog();
+    /// Affiche la page Options (onglets) dans la fenêtre.
+    void showOptions();
     /// Montre/masque tous les panneaux dockables.
     void setDocksVisible(bool visible);
 
-    QStackedWidget* _stack;       ///< Central : empile menu principal et viewport (éditeur/jeu).
+    QStackedWidget* _stack;       ///< Central : empile menu principal, options et viewport.
     MainMenu* _menu;              ///< Menu principal (page d'accueil).
+    OptionsPage* _options;        ///< Page Options à onglets.
     QWidget* _editorContainer;    ///< Conteneur natif du viewport (page éditeur/jeu).
     GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
     QDockWidget* _palettePanel;   ///< Panneau « Palette » (dock hôte de `_palette`).

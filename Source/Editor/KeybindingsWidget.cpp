@@ -1,9 +1,8 @@
-#include "Editor/KeybindingsDialog.h"
+#include "Editor/KeybindingsWidget.h"
 
 #include <array>
 #include <utility>
 
-#include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QKeyEvent>
 #include <QLabel>
@@ -28,15 +27,16 @@ constexpr std::array<const char*, hmi::GAME_ACTION_COUNT> ACTION_LABELS{
 
 }  // namespace
 
-KeybindingsDialog::KeybindingsDialog(hmi::GameKeyBindings& bindings, std::filesystem::path savePath,
+KeybindingsWidget::KeybindingsWidget(hmi::GameKeyBindings& bindings, std::filesystem::path savePath,
                                      QWidget* parent)
-    : QDialog(parent), _bindings(bindings), _savePath(std::move(savePath)) {
-    setWindowTitle(QStringLiteral("Touches — Jeu"));
+    : QWidget(parent), _bindings(bindings), _savePath(std::move(savePath)) {
+    // Capte les touches même sans clic préalable dans un champ (pour la capture de remappage).
+    setFocusPolicy(Qt::StrongFocus);
 
     auto* const form = new QFormLayout();
     for (int index = 0; index < hmi::GAME_ACTION_COUNT; ++index) {
         auto* const button = new QPushButton(this);
-        button->setMinimumWidth(120);
+        button->setMinimumWidth(140);
         connect(button, &QPushButton::clicked, this, [this, index] {
             _capturing = index;
             _buttons[static_cast<std::size_t>(index)]->setText(QStringLiteral("Appuyez…"));
@@ -46,34 +46,30 @@ KeybindingsDialog::KeybindingsDialog(hmi::GameKeyBindings& bindings, std::filesy
         form->addRow(QString::fromUtf8(ACTION_LABELS[static_cast<std::size_t>(index)]), button);
     }
 
-    auto* const close = new QDialogButtonBox(QDialogButtonBox::Close, this);
-    connect(close, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    connect(close, &QDialogButtonBox::accepted, this, &QDialog::accept);
-
     auto* const layout = new QVBoxLayout(this);
     layout->addLayout(form);
     layout->addWidget(new QLabel(
         QStringLiteral("Cliquez une action puis appuyez sur la nouvelle touche (Échap annule)."),
         this));
-    layout->addWidget(close);
+    layout->addStretch();
 
     refresh();
 }
 
-void KeybindingsDialog::refresh() {
+void KeybindingsWidget::refresh() {
     for (int index = 0; index < hmi::GAME_ACTION_COUNT; ++index) {
         _buttons[static_cast<std::size_t>(index)]->setText(
             QString::fromStdString(hmi::keyDisplayName(_bindings.key(actionAt(index)))));
     }
 }
 
-void KeybindingsDialog::keyPressEvent(QKeyEvent* event) {
+void KeybindingsWidget::keyPressEvent(QKeyEvent* event) {
     if (_capturing < 0) {
-        QDialog::keyPressEvent(event);
+        QWidget::keyPressEvent(event);
         return;
     }
     if (event->key() == Qt::Key_Escape) {
-        _capturing = -1;  // annule la capture, restitue l'affichage
+        _capturing = -1;  // annule la capture
         refresh();
         return;
     }

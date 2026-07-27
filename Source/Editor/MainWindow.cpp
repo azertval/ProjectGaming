@@ -24,9 +24,9 @@
 #include <filesystem>
 
 #include "Editor/GameViewport.h"
-#include "Editor/KeybindingsDialog.h"
 #include "Editor/LevelBrowserPanel.h"
 #include "Editor/MainMenu.h"
+#include "Editor/OptionsPage.h"
 #include "Editor/PalettePanel.h"
 #include "Editor/ToolPanel.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -61,6 +61,7 @@ constexpr char STATE_KEY[] = "mainWindow/state";
 MainWindow::MainWindow()
     : _stack(nullptr),
       _menu(nullptr),
+      _options(nullptr),
       _editorContainer(nullptr),
       _viewport(new GameViewport()),
       _palettePanel(nullptr),
@@ -77,10 +78,12 @@ MainWindow::MainWindow()
     _editorContainer->setMinimumSize(320, 240);
     _editorContainer->setFocusPolicy(Qt::StrongFocus);
 
-    // Central : menu principal et viewport empilés ; l'application démarre sur le menu.
+    // Central : menu principal, options et viewport empilés ; l'application démarre sur le menu.
     _menu = new MainMenu();
+    _options = new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
+    _stack->addWidget(_options);
     _stack->addWidget(_editorContainer);
     setCentralWidget(_stack);
 
@@ -116,16 +119,14 @@ MainWindow::MainWindow()
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
     connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
-    connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::openOptionsDialog);
+    connect(_menu, &MainMenu::optionsRequested, this, &MainWindow::showOptions);
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
-    // Remappage des touches de jeu (édite les bindings du viewport, persiste dans keybindings.json).
-    connect(_menu, &MainMenu::keybindingsRequested, this, [this] {
-        KeybindingsDialog dialog(_viewport->gameBindings(),
-                                 hmi::executableDirectory() / "Settings" / "keybindings.json", this);
-        dialog.exec();
-    });
+    // Page Options : retour au menu, bascule plein écran.
+    connect(_options, &OptionsPage::backRequested, this, &MainWindow::showMenu);
+    connect(_options, &OptionsPage::fullscreenRequested, this,
+            [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
 
     setWindowTitle(QStringLiteral("ProjectGaming — Éditeur (Qt)"));
     resize(1280, 720);
@@ -178,24 +179,11 @@ void MainWindow::showGame() {
     });
 }
 
-void MainWindow::openOptionsDialog() {
-    QDialog dialog(this);
-    dialog.setWindowTitle(QStringLiteral("Options"));
-
-    auto* const vsync =
-        new QCheckBox(QStringLiteral("Synchronisation verticale (V-Sync)"), &dialog);
-    vsync->setChecked(_viewport->vsyncEnabled());
-    connect(vsync, &QCheckBox::toggled, _viewport,
-            [this](bool enabled) { _viewport->setVSync(enabled); });
-
-    auto* const buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
-    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
-    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-
-    auto* const layout = new QVBoxLayout(&dialog);
-    layout->addWidget(vsync);
-    layout->addWidget(buttons);
-    dialog.exec();
+void MainWindow::showOptions() {
+    _stack->setCurrentWidget(_options);
+    setDocksVisible(false);
+    menuBar()->setVisible(false);
+    statusBar()->clearMessage();
 }
 
 MainWindow::~MainWindow() = default;
