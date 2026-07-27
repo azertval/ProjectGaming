@@ -41,6 +41,7 @@ add_executable(ProjectGamingEditor
     ToolPanel.cpp
     LevelBrowserPanel.cpp
     KeybindingsWidget.cpp
+    GamepadBindingsWidget.cpp
     TileTaxonomy.cpp
     LevelFileOperations.cpp
     QtKeyMap.cpp

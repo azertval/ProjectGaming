@@ -16,6 +16,7 @@
 #include <QVBoxLayout>
 
 #include "Editor/GameViewport.h"
+#include "Editor/GamepadBindingsWidget.h"
 #include "Editor/KeybindingsWidget.h"
 
 namespace editor {
@@ -81,16 +82,6 @@ QPushButton:hover, QPushButton:focus { color: #ffd133; border-color: #ffd133; }
     return tab;
 }
 
-// Onglet Manette : placeholder (remappage manette à venir).
-[[nodiscard]] QWidget* makeGamepadTab(OptionsPage* page) {
-    auto* const tab = new QWidget(page);
-    auto* const layout = new QVBoxLayout(tab);
-    layout->addWidget(new QLabel(
-        QStringLiteral("Remappage de la manette (XInput) — à venir."), tab));
-    layout->addStretch();
-    return tab;
-}
-
 }  // namespace
 
 OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindingsPath,
@@ -112,9 +103,10 @@ OptionsPage::OptionsPage(GameViewport* viewport, std::filesystem::path keybindin
     auto* const tabs = new QTabWidget(this);
     tabs->addTab(makeVideoTab(viewport, this), QStringLiteral("Vidéo"));
     tabs->addTab(makeAudioTab(this), QStringLiteral("Audio"));
-    tabs->addTab(new KeybindingsWidget(viewport->gameBindings(), std::move(keybindingsPath), this),
+    tabs->addTab(new KeybindingsWidget(viewport->gameBindings(), keybindingsPath, this),
                  QStringLiteral("Commande clavier"));
-    tabs->addTab(makeGamepadTab(this), QStringLiteral("Commande manette"));
+    tabs->addTab(new GamepadBindingsWidget(viewport->gamepadBindings(), keybindingsPath, this),
+                 QStringLiteral("Commande manette"));
 
     auto* const back = new QPushButton(QStringLiteral("Retour"), this);
     connect(back, &QPushButton::clicked, this, &OptionsPage::backRequested);

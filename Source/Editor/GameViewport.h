@@ -72,6 +72,11 @@ public:
         return _gameBindings;
     }
 
+    /// Accès **modifiable** aux boutons manette (pour le remappage), même principe que `gameBindings`.
+    [[nodiscard]] hmi::GamepadBindings& gamepadBindings() noexcept {
+        return _gamepadBindings;
+    }
+
     /// Enregistre le brouillon (`Ctrl+S`) : valide (`LevelDraft::toLevel`) puis écrit le fichier ;
     /// un brouillon invalide n'écrit rien et rapporte l'erreur (`statusMessage`).
     void save();
