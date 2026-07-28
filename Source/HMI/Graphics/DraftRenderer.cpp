@@ -8,6 +8,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -21,7 +22,8 @@ DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
 
 void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
-    const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight) {
+    const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
+    const LinkOverlayState& linkOverlay) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -30,6 +32,7 @@ void DraftRenderer::render(
     if (showGrid) {
         drawGrid(draft, camera);
     }
+    drawLinks(draft, camera, linkOverlay);
     if (highlight) {
         const core::GridPosition mn = highlight->first;
         const core::GridPosition mx = highlight->second;
@@ -58,7 +61,8 @@ void DraftRenderer::render(
 void DraftRenderer::drawGrid(const core::LevelDraft& draft, const Camera2D& camera) {
     const int width = draft.tileMap().width();
     const int height = draft.tileMap().height();
-    const core::AtlasRegion solid = _atlas.tile(0, 0);  // région opaque unie (teintée pour la ligne)
+    const core::AtlasRegion solid =
+        _atlas.tile(0, 0);  // région opaque unie (teintée pour la ligne)
     const float atlasWidth = static_cast<float>(_atlas.width());
     const float atlasHeight = static_cast<float>(_atlas.height());
 
@@ -110,6 +114,120 @@ void DraftRenderer::drawGrid(const core::LevelDraft& draft, const Camera2D& came
     _batch.end();
 }
 
+void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& camera,
+                              const LinkOverlayState& overlay) {
+    const std::vector<LinkRow> rows = buildLinkRows(draft);
+    if (rows.empty() && !overlay.pendingLink) {
+        return;  // rien a dessiner (ni liaison, ni geste de creation en cours).
+    }
+
+    // Regroupe les liens par declencheur (fan-out anti-superposition, LinkGeometry::linkSegment) :
+    // index et nombre total de liens partageant le meme declencheur, pour chaque ligne.
+    std::vector<int> fanIndex(rows.size(), 0);
+    std::vector<int> fanCount(rows.size(), 1);
+    for (std::size_t i = 0; i < rows.size(); ++i) {
+        int index = 0;
+        int count = 0;
+        for (std::size_t j = 0; j < rows.size(); ++j) {
+            if (rows[j].trigger == rows[i].trigger) {
+                if (j < i) {
+                    ++index;
+                }
+                ++count;
+            }
+        }
+        fanIndex[i] = index;
+        fanCount[i] = count;
+    }
+
+    const core::AtlasRegion solid = _atlas.tile(0, 0);  // region opaque unie (teintee).
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    const float u0 = static_cast<float>(solid.x) / atlasWidth;
+    const float v0 = static_cast<float>(solid.y) / atlasHeight;
+    const float u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    const float v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+
+    // Trait epais entre deux points monde, meme region de texture (unie) que le reste de l'overlay.
+    const auto segment = [&](core::Vector2 a, core::Vector2 b, float thickness, float r, float g,
+                             float bl, float alpha) {
+        LineQuad quad;
+        quad.ax = a.x;
+        quad.ay = a.y;
+        quad.bx = b.x;
+        quad.by = b.y;
+        quad.thickness = thickness;
+        quad.u0 = u0;
+        quad.v0 = v0;
+        quad.u1 = u1;
+        quad.v1 = v1;
+        quad.r = r;
+        quad.g = g;
+        quad.b = bl;
+        quad.a = alpha;
+        return quad;
+    };
+
+    constexpr float LINE_THICKNESS = 0.045f;
+    constexpr float HIGHLIGHT_THICKNESS = 0.08f;
+    constexpr float PENDING_THICKNESS = 0.03f;
+
+    _batch.begin(camera.projectionMatrix(), _atlas.textureView());
+
+    // Case en attente (premier clic de l'outil Lien) : voile plein pour la signaler.
+    if (overlay.pendingLink) {
+        SpriteQuad pendingQuad;
+        pendingQuad.x = static_cast<float>(overlay.pendingLink->column);
+        pendingQuad.y = static_cast<float>(overlay.pendingLink->row);
+        pendingQuad.width = 1.0f;
+        pendingQuad.height = 1.0f;
+        pendingQuad.u0 = u0;
+        pendingQuad.v0 = v0;
+        pendingQuad.u1 = u1;
+        pendingQuad.v1 = v1;
+        pendingQuad.r = 1.0f;
+        pendingQuad.g = 0.9f;
+        pendingQuad.b = 0.2f;
+        pendingQuad.a = 0.35f;
+        _batch.draw(pendingQuad);
+
+        // Trait provisoire vers la case survolee, si distincte (retour visuel du geste en cours).
+        if (overlay.hoveredCell && *overlay.hoveredCell != *overlay.pendingLink) {
+            const core::Vector2 from{static_cast<float>(overlay.pendingLink->column) + 0.5f,
+                                     static_cast<float>(overlay.pendingLink->row) + 0.5f};
+            const core::Vector2 to{static_cast<float>(overlay.hoveredCell->column) + 0.5f,
+                                   static_cast<float>(overlay.hoveredCell->row) + 0.5f};
+            _batch.draw(segment(from, to, PENDING_THICKNESS, 1.0f, 0.9f, 0.2f, 0.7f));
+        }
+    }
+
+    for (std::size_t i = 0; i < rows.size(); ++i) {
+        const LinkRow& row = rows[i];
+        const bool selected = overlay.selectedLink.has_value() &&
+                              overlay.selectedLink->first == row.trigger &&
+                              overlay.selectedLink->second == row.target;
+        const bool hovered =
+            overlay.hoveredCell.has_value() &&
+            (*overlay.hoveredCell == row.trigger || *overlay.hoveredCell == row.target);
+        const bool highlighted = selected || hovered;
+
+        const LinkSegment line = linkSegment(row.trigger, row.target, fanIndex[i], fanCount[i]);
+        const bool mechanism = row.kind == LinkKind::Mechanism;
+        const float r = mechanism ? 0.35f : 1.0f;
+        const float g = mechanism ? 0.85f : 0.45f;
+        const float b = mechanism ? 1.0f : 0.3f;
+        const float alpha = highlighted ? 0.95f : 0.65f;
+        const float thickness = highlighted ? HIGHLIGHT_THICKNESS : LINE_THICKNESS;
+
+        _batch.draw(segment(line.a, line.b, thickness, r, g, b, alpha));
+        const ArrowHead head = arrowHead(line.a, line.b);
+        _batch.draw(segment(line.b, head.left, thickness, r, g, b, alpha));
+        _batch.draw(segment(line.b, head.right, thickness, r, g, b, alpha));
+    }
+
+    _batch.end();
+}
+
 void DraftRenderer::rebuild(const core::LevelDraft& draft) {
     _world = core::World{};  // repart d'une scène vierge
     const core::TileMap& map = draft.tileMap();
@@ -124,11 +242,10 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
             // jeu — même formule marge/échelle que GameSession (cohérence visuelle stricte).
             const float scale = core::tileVisualScale(type);
             const float margin = (1.0f - scale) * 0.5f;
-            _world.addComponent(
-                entity,
-                core::Transform{core::Vector2{static_cast<float>(column) + margin,
-                                              static_cast<float>(row) + margin},
-                                core::Vector2{scale, scale}, 0.0f});
+            _world.addComponent(entity,
+                                core::Transform{core::Vector2{static_cast<float>(column) + margin,
+                                                              static_cast<float>(row) + margin},
+                                                core::Vector2{scale, scale}, 0.0f});
             core::Sprite sprite;
             sprite.region = regionForTile(type, _atlas);
             sprite.layer = 0;

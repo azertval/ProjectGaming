@@ -26,6 +26,7 @@ menubar.reset_layout = Réinitialiser la disposition
 dock.palette = Palette
 dock.tools = Outils
 dock.levels = Niveaux
+dock.links = Liens
 
 # Barre de statut et dialogues
 status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille
@@ -40,6 +41,15 @@ dialog.height = Hauteur (cases)
 tool.brush = Pinceau
 tool.rectangle = Rectangle
 tool.selection = Sélection
+tool.link = Lien
+
+# Panneau Liens (LOT-37)
+link.column.type = Type
+link.column.trigger = Déclencheur
+link.column.target = Cible
+link.delete_button = Supprimer
+link.type.mechanism = Mécanisme
+link.type.danger = Danger commuté
 
 # Navigateur de niveaux
 level.new = Nouveau

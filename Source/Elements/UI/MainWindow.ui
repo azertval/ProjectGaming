@@ -44,6 +44,11 @@
    <attribute name="dockWidgetArea"><number>2</number></attribute>
    <widget class="QWidget" name="levelsContents"/>
   </widget>
+  <widget class="QDockWidget" name="LinksPanel">
+   <property name="windowTitle"><string>Liens</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="linksContents"/>
+  </widget>
   <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
   <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
   <action name="actSave"><property name="text"><string>Enregistrer (Ctrl+S)</string></property></action>

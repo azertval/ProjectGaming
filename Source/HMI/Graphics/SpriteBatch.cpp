@@ -1,5 +1,6 @@
 #include "HMI/Graphics/SpriteBatch.h"
 
+#include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <stdexcept>
@@ -210,6 +211,36 @@ void SpriteBatch::draw(const SpriteQuad& quad) {
     _vertices.push_back(Vertex{right, top, quad.u1, quad.v0, quad.r, quad.g, quad.b, quad.a});
     _vertices.push_back(Vertex{right, bottom, quad.u1, quad.v1, quad.r, quad.g, quad.b, quad.a});
     _vertices.push_back(Vertex{left, bottom, quad.u0, quad.v1, quad.r, quad.g, quad.b, quad.a});
+}
+
+// Ajoute un segment épais (orienté librement) au lot courant.
+void SpriteBatch::draw(const LineQuad& line) {
+    const float dx = line.bx - line.ax;
+    const float dy = line.by - line.ay;
+    const float length = std::sqrt(dx * dx + dy * dy);
+    if (length < 1e-6f) {
+        return;  // segment dégénéré : rien à dessiner.
+    }
+
+    // Tampon plein : on vide avant d'ajouter (le lot reste dans le même état).
+    if (_vertices.size() >= MAXIMUM_QUADS * 4) {
+        flush();
+    }
+
+    // Décalage perpendiculaire (normale unitaire × demi-épaisseur), de part et d'autre du segment.
+    const float nx = -dy / length * (line.thickness * 0.5f);
+    const float ny = dx / length * (line.thickness * 0.5f);
+
+    // Quatre coins, même ordre que draw(SpriteQuad) (le tampon d'indices attend un quadrilatère
+    // convexe cohérent, peu importe son orientation) : a+n, b+n, b-n, a-n.
+    _vertices.push_back(
+        Vertex{line.ax + nx, line.ay + ny, line.u0, line.v0, line.r, line.g, line.b, line.a});
+    _vertices.push_back(
+        Vertex{line.bx + nx, line.by + ny, line.u1, line.v0, line.r, line.g, line.b, line.a});
+    _vertices.push_back(
+        Vertex{line.bx - nx, line.by - ny, line.u1, line.v1, line.r, line.g, line.b, line.a});
+    _vertices.push_back(
+        Vertex{line.ax - nx, line.ay - ny, line.u0, line.v1, line.r, line.g, line.b, line.a});
 }
 
 // Termine le lot : émet le dessin des quads accumulés.

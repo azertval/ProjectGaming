@@ -1,6 +1,11 @@
 # TACHE-03 — Panneau « Liens » (liste, surbrillance, suppression) ; documentation & vérification {#lot-37-tache-03-panneau-liens-doc}
 
-**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/Editor`, `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Interface`,
+`Documentation` · **Statut :** fait
+
+> Réalisé dans `Source/HMI/Editor/LinkPanel.{h,cpp}` (dock, `QTableView`/`QStandardItemModel`,
+> alimenté par `hmi::buildLinkRows`) et `Source/HMI/Interface/MainWindow.{h,cpp}` +
+> `Source/Elements/UI/MainWindow.ui` (dock `LinksPanel`, `LAYOUT_VERSION` 2 → 3).
 
 ## Contexte
 Complète la lisibilité des liaisons par une **vue tabulaire** dockée : lister toutes les liaisons du

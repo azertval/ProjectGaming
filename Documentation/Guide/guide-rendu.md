@@ -161,6 +161,22 @@ Le pipeline gère aussi la **transparence** (`_blendState`) : sans un état de *
 le canal alpha d'un quad (utile pour les zones transparentes de l'atlas, voir plus bas) serait
 ignoré et chaque sprite dessinerait un rectangle plein.
 
+### \ref hmi::LineQuad "LineQuad" : un segment orienté (liens de mécanismes, `LOT-37`)
+
+`SpriteQuad` décrit toujours un rectangle **aligné aux axes** (`x, y, width, height`) : impossible
+d'en tirer un trait en diagonale, nécessaire pour relier deux cases quelconques de la grille (flèche
+déclencheur → cible, @ref guide-editeur). `hmi::LineQuad` couvre ce cas sans nouveau pipeline ni
+nouveau shader — même tampon, même `draw`/`flush`, juste une seconde façon de calculer les 4
+sommets : au lieu d'un rectangle, deux **extrémités** (`ax, ay, bx, by`, unités monde) et une
+**épaisseur** perpendiculaire au segment (`thickness`). `SpriteBatch::draw(const LineQuad&)`
+calcule la direction normalisée du segment, en déduit une normale (perpendiculaire, longueur
+`thickness / 2`), et pousse directement les 4 sommets décalés de part et d'autre des deux
+extrémités — le même tampon d'indices (deux triangles par quad) s'applique sans changement, quelle
+que soit l'orientation. Un segment dégénéré (les deux extrémités confondues) ne pousse aucun sommet.
+Les liens de mécanismes réutilisent la région opaque de l'atlas comme UV (même technique que la
+grille de repère, `DraftRenderer::drawGrid`) : la couleur vient uniquement de la teinte RVBA, pas
+d'une texture dédiée.
+
 ## \ref hmi::TextureAtlas "hmi::TextureAtlas" : un spritesheet, généré en code
 
 Un **atlas de texture** (ou *spritesheet*) regroupe **plusieurs** images dans une **seule** grande
@@ -291,7 +307,10 @@ de cette frame ont eu lieu.
 
 ## Voir aussi
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
-- `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`, `hmi::DraftRenderer`.
+- `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
+  `hmi::DraftRenderer`.
+- `hmi::LinkGeometry`, `hmi::LinkGesture`, `hmi::LinkPanel` — liens de mécanismes (`LOT-37`, voir
+  @ref guide-editeur).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

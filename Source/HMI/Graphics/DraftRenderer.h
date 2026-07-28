@@ -23,6 +23,22 @@ class TextureAtlas;
 class Camera2D;
 
 /**
+ * @brief État d'affichage des liens de mécanismes (LOT-37), fourni par le viewport à chaque rendu.
+ *
+ * Purement informatif pour `DraftRenderer` : ne modifie jamais le brouillon, seulement la
+ * présentation (surbrillance, trait provisoire).
+ */
+struct LinkOverlayState {
+    /// Case survolée par la souris (surbrillance des liens incidents ; extrémité du trait
+    /// provisoire si `pendingLink` est posé).
+    std::optional<core::GridPosition> hoveredCell;
+    /// Case du déclencheur/de la cible en attente d'appariement (outil « Lien », premier clic).
+    std::optional<core::GridPosition> pendingLink;
+    /// Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance.
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> selectedLink;
+};
+
+/**
  * @brief Dessine la grille d'un `core::LevelDraft` en cours d'édition.
  *
  * Réutilise le pipeline de rendu du jeu : chaque tuile non vide du brouillon devient une entité
@@ -39,9 +55,11 @@ public:
     /// superpose la grille de repère (frontières de cases + frontières de salles) — aide au
     /// placement, équivalent de la bascule `F10` de l'éditeur historique (`EX-EDIT-023`). Si
     /// @p highlight est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de
-    /// l'outil Rectangle/Sélection.
+    /// l'outil Rectangle/Sélection. @p linkOverlay pilote l'affichage des liens de mécanismes
+    /// (flèches, trait provisoire, surbrillance — `EX-IHM-030`).
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
-                const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight);
+                const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
+                const LinkOverlayState& linkOverlay);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -53,6 +71,9 @@ private:
     void rebuild(const core::LevelDraft& draft);
     /// Dessine la grille de repère (cases + salles) par-dessus les tuiles.
     void drawGrid(const core::LevelDraft& draft, const Camera2D& camera);
+    /// Dessine les liens de mécanismes (flèches déclencheur → cible) par-dessus la grille.
+    void drawLinks(const core::LevelDraft& draft, const Camera2D& camera,
+                   const LinkOverlayState& overlay);
 
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;

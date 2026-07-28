@@ -46,6 +46,8 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/Editor/test_tile_taxonomy.cpp
     Unit/Editor/test_level_file_operations.cpp
+    Unit/Editor/test_link_geometry.cpp
+    Unit/Editor/test_link_gesture.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -75,6 +77,10 @@ add_executable(UnitTests
     # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
     # (LevelNameValidation.cpp est déjà compilé plus haut.)
     ../HMI/Editor/LevelFileOperations.cpp
+    # Géométrie/modèle des liens de mécanismes (LOT-37) et machine à état du geste de l'outil Lien :
+    # logique pure, testable hors GPU/Qt.
+    ../HMI/Editor/LinkGeometry.cpp
+    ../HMI/Editor/LinkGesture.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

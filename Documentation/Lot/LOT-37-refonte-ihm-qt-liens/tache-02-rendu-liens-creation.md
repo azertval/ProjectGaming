@@ -1,6 +1,13 @@
 # TACHE-02 — Rendu des liens + création avec retour visuel immédiat dans le viewport {#lot-37-tache-02-rendu-liens-creation}
 
-**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/Editor` · **Statut :** non commencé
+**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Game` · **Statut :** fait
+
+> Réalisé dans `Source/HMI/Graphics/DraftRenderer.cpp` (`drawLinks`, appelé depuis `render`),
+> `Source/HMI/Editor/LinkGesture.{h,cpp}` (machine à état pure du geste) et
+> `Source/HMI/Game/GameViewport.{h,cpp}` (`handleLinkClick`). Pas d'`EditorController` séparé (code
+> legacy retiré au `LOT-38`) : le geste vit directement dans `GameViewport`, comme Pinceau/
+> Rectangle/Sélection. **Décision de cadrage révisée** : pas de `Maj+clic` disponible quel que soit
+> l'outil — un **outil dédié** `EditorTool::Link` (panneau Outils), plus simple côté utilisateur.
 
 ## Contexte
 Avec la primitive et la géométrie de la TACHE-01, cette tâche **dessine les liaisons** du niveau

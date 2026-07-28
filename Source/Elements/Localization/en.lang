@@ -25,6 +25,7 @@ menubar.reset_layout = Reset layout
 dock.palette = Palette
 dock.tools = Tools
 dock.levels = Levels
+dock.links = Links
 
 # Status bar and dialogs
 status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid
@@ -39,6 +40,15 @@ dialog.height = Height (cells)
 tool.brush = Brush
 tool.rectangle = Rectangle
 tool.selection = Selection
+tool.link = Link
+
+# Links panel (LOT-37)
+link.column.type = Type
+link.column.trigger = Trigger
+link.column.target = Target
+link.delete_button = Delete
+link.type.mechanism = Mechanism
+link.type.danger = Switched danger
 
 # Level browser
 level.new = New

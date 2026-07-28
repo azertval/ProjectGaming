@@ -52,9 +52,42 @@ n'associe que deux tuiles déjà posées. Relier une porte déjà liée **rempla
 précédente (une porte n'a qu'un seul interrupteur), alors qu'un même interrupteur peut ouvrir
 plusieurs portes — cette asymétrie découle directement du format de fichier (@ref guide-niveaux) :
 chaque tuile `door` porte un unique champ `opensWith`, mais plusieurs portes peuvent référencer le
-même `switch.id`. L'**éditeur visuel de liaisons** (tracer/voir les paires interrupteur→porte au
-trait) est prévu dans un lot dédié (`LOT-37`, `EX-EDIT-016`) ; le modèle `LevelDraft` en porte déjà
-toute la logique, indépendamment de son exposition dans l'IHM.
+même `switch.id`.
+
+### Lier des mécanismes dans l'éditeur (`LOT-37`, `EX-IHM-030`/`EX-IHM-031`)
+
+Avant le `LOT-37`, une paire déclencheur→cible n'était signalée que par une **teinte de case**
+partagée (`LINK_TINTS`) : au-delà de quelques liens, illisible (impossible de savoir quel
+interrupteur ouvre quelle porte sans comparer des couleurs). Deux ajouts corrigent ce point :
+
+- **Rendu par flèches explicites** (`hmi::DraftRenderer::drawLinks`) : chaque `core::Mechanism`
+  (interrupteur/plaque → porte) et `core::DangerLink` (déclencheur → danger commuté) est dessiné
+  comme une flèche allant du centre de la case déclencheur au centre de la case cible, par-dessus
+  la grille de repère. Quand un déclencheur a plusieurs cibles, les flèches partent d'une **base
+  commune** (le centre du déclencheur) et s'écartent en éventail vers chaque cible — plus lisible
+  qu'un empilement de traits parallèles décalés des deux côtés. La géométrie (centres de case,
+  éventail anti-superposition, pointe de flèche) est calculée par `hmi::LinkGeometry`
+  (`Source/HMI/Editor/LinkGeometry.h`), pure et testée sans GPU (`EX-NFR-010`) ; le tracé
+  lui-même réutilise la primitive de segment orienté ajoutée à `hmi::SpriteBatch` (voir
+  @ref guide-rendu).
+- **Outil « Lien »** (`hmi::EditorTool::Link`, panneau Outils) : cliquer un déclencheur
+  (interrupteur/plaque) passe en **attente de cible** (case signalée par un voile jaune, trait
+  provisoire vers la souris) ; cliquer une cible (porte/danger commuté) **crée** la liaison
+  (`LevelDraft::linkMechanism`) ; refaire la même paire la **supprime** (`unlinkMechanism`,
+  bascule conservée). **`Échap`** annule une attente en cours (aucune liaison créée, brouillon
+  inchangé). La machine à état du geste (`hmi::resolveLinkClick`,
+  `Source/HMI/Editor/LinkGesture.h`) est pure et testée indépendamment de Qt/GPU.
+- **Panneau « Liens »** (`hmi::LinkPanel`, dock) : liste toutes les liaisons du brouillon courant
+  (type, position du déclencheur, position de la cible) ; sélectionner une ligne met en
+  surbrillance la flèche correspondante dans le viewport ; le bouton « Supprimer » retire la
+  liaison sélectionnée. C'est une **vue** du modèle (`hmi::buildLinkRows(draft)`), sans aucun état
+  dupliqué — elle se resynchronise (`refresh`) à chaque mutation du brouillon
+  (`GameViewport::draftChanged`), y compris quand peindre par-dessus un déclencheur ou une cible en
+  retire la liaison.
+
+Le modèle de liaison lui-même (`LevelDraft::linkMechanism`/`unlinkMechanism`, résolution par
+position) est **inchangé** par ce lot : seule sa présentation/édition dans l'IHM Qt change
+(`EX-EDIT-010`, pas de duplication de la logique de niveau).
 
 ## \ref core::LevelWriter "core::LevelWriter" : l'inverse du chargement, avec un piège
 

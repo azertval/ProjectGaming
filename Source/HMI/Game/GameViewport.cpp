@@ -1,11 +1,5 @@
 #include "HMI/Game/GameViewport.h"
 
-#include <algorithm>
-#include <cmath>
-#include <filesystem>
-#include <optional>
-#include <utility>
-
 #include <QEvent>
 #include <QExposeEvent>
 #include <QKeyEvent>
@@ -13,12 +7,20 @@
 #include <QPlatformSurfaceEvent>
 #include <QResizeEvent>
 #include <QWheelEvent>
+#include <algorithm>
+#include <cmath>
+#include <filesystem>
+#include <optional>
+#include <utility>
 
+#include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/LinkGeometry.h"
+#include "HMI/Editor/LinkGesture.h"
 #include "HMI/Input/QtKeyMap.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
 #include "HMI/Graphics/DraftRenderer.h"
@@ -74,8 +76,8 @@ void GameViewport::ensureResources() {
         return;
     }
     const HWND handle = reinterpret_cast<HWND>(winId());
-    HMI_LOG_INFO("Viewport : initialisation Direct3D 11 (" + std::to_string(pixelWidth()) + "x"
-                 + std::to_string(pixelHeight()) + ").");
+    HMI_LOG_INFO("Viewport : initialisation Direct3D 11 (" + std::to_string(pixelWidth()) + "x" +
+                 std::to_string(pixelHeight()) + ").");
     _graphics = std::make_unique<hmi::GraphicsDevice>(handle, pixelWidth(), pixelHeight());
     _graphics->setVSyncEnabled(_vsync);
     _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
@@ -89,7 +91,7 @@ void GameViewport::ensureResources() {
     core::LevelLoadResult result = core::LevelLoader::loadFromFile(levelPath);
     if (result.ok()) {
         _draft = core::LevelDraft::fromLevel(*result.level);
-        _draftRenderer->invalidate();
+        markDraftMutated();
     } else {
         HMI_LOG_WARNING("Editeur : echec du chargement du niveau de demo : " + result.error);
     }
@@ -99,10 +101,9 @@ void GameViewport::updateEditCamera() {
     const int levelWidth = _draft.tileMap().width();
     const int levelHeight = _draft.tileMap().height();
     _camera.setViewportSize(pixelWidth(), pixelHeight());
-    _camera.setZoom(hmi::Camera2D::fitZoom(static_cast<float>(pixelWidth()),
-                                           static_cast<float>(pixelHeight()),
-                                           static_cast<float>(levelWidth),
-                                           static_cast<float>(levelHeight), 0.92f));
+    _camera.setZoom(hmi::Camera2D::fitZoom(
+        static_cast<float>(pixelWidth()), static_cast<float>(pixelHeight()),
+        static_cast<float>(levelWidth), static_cast<float>(levelHeight), 0.92f));
     _camera.setCenter(core::Vector2{static_cast<float>(levelWidth) * 0.5f,
                                     static_cast<float>(levelHeight) * 0.5f});
 }
@@ -110,9 +111,9 @@ void GameViewport::updateEditCamera() {
 std::optional<core::GridPosition> GameViewport::cellAt(const QMouseEvent* event) {
     updateEditCamera();  // s'assure que la conversion écran→monde utilise le cadrage courant.
     const qreal ratio = devicePixelRatio();
-    const core::Vector2 world = _camera.screenToWorld(
-        core::Vector2{static_cast<float>(event->position().x() * ratio),
-                      static_cast<float>(event->position().y() * ratio)});
+    const core::Vector2 world =
+        _camera.screenToWorld(core::Vector2{static_cast<float>(event->position().x() * ratio),
+                                            static_cast<float>(event->position().y() * ratio)});
     const int column = static_cast<int>(std::floor(world.x));
     const int row = static_cast<int>(std::floor(world.y));
     if (!_draft.tileMap().inBounds(column, row)) {
@@ -125,18 +126,16 @@ void GameViewport::paintAt(const QMouseEvent* event) {
     if (const std::optional<core::GridPosition> cell = cellAt(event)) {
         _draft.paintTile(cell->column, cell->row, _activeTile);
         _dirty = true;
-        if (_draftRenderer) {
-            _draftRenderer->invalidate();
-        }
+        markDraftMutated();
     }
 }
 
 core::GridPosition GameViewport::clampedCell(const QMouseEvent* event) {
     updateEditCamera();
     const qreal ratio = devicePixelRatio();
-    const core::Vector2 world = _camera.screenToWorld(
-        core::Vector2{static_cast<float>(event->position().x() * ratio),
-                      static_cast<float>(event->position().y() * ratio)});
+    const core::Vector2 world =
+        _camera.screenToWorld(core::Vector2{static_cast<float>(event->position().x() * ratio),
+                                            static_cast<float>(event->position().y() * ratio)});
     const int width = _draft.tileMap().width();
     const int height = _draft.tileMap().height();
     return core::GridPosition{std::clamp(static_cast<int>(std::floor(world.x)), 0, width - 1),
@@ -154,9 +153,7 @@ void GameViewport::applyRectangle(core::GridPosition a, core::GridPosition b) {
                                     _activeTile));
     _draft.paintRegion(minColumn, minRow, block);  // un seul snapshot undo pour tout le rectangle
     _dirty = true;
-    if (_draftRenderer) {
-        _draftRenderer->invalidate();
-    }
+    markDraftMutated();
 }
 
 void GameViewport::copySelection() {
@@ -174,9 +171,8 @@ void GameViewport::copySelection() {
         }
         _clipboard.push_back(std::move(line));
     }
-    emit statusMessage(statusText("status.region_copied")
-                           .arg(mx.column - mn.column + 1)
-                           .arg(mx.row - mn.row + 1));
+    emit statusMessage(
+        statusText("status.region_copied").arg(mx.column - mn.column + 1).arg(mx.row - mn.row + 1));
 }
 
 void GameViewport::pasteClipboard() {
@@ -185,21 +181,107 @@ void GameViewport::pasteClipboard() {
     }
     _draft.paintRegion(_hoverCell.column, _hoverCell.row, _clipboard);
     _dirty = true;
-    if (_draftRenderer) {
-        _draftRenderer->invalidate();
-    }
+    markDraftMutated();
     emit statusMessage(statusText("status.region_pasted"));
 }
 
 std::optional<std::pair<core::GridPosition, core::GridPosition>> GameViewport::highlight() const {
     if (_dragging) {
-        return std::make_pair(
-            core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
-                               std::min(_dragStart.row, _dragCurrent.row)},
-            core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
-                               std::max(_dragStart.row, _dragCurrent.row)});
+        return std::make_pair(core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
+                                                 std::min(_dragStart.row, _dragCurrent.row)},
+                              core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
+                                                 std::max(_dragStart.row, _dragCurrent.row)});
     }
     return _selection;
+}
+
+void GameViewport::markDraftMutated() {
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+    emit draftChanged();
+}
+
+void GameViewport::setHighlightedLink(
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> link) {
+    _selectedLink = std::move(link);  // presentation seule : aucune mutation du brouillon.
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
+    _draft.unlinkMechanism(targetPosition);
+    _dirty = true;
+    markDraftMutated();
+}
+
+bool GameViewport::linkExists(core::GridPosition switchPosition,
+                              core::GridPosition targetPosition) const {
+    for (const core::Mechanism& mechanism : _draft.mechanisms()) {
+        if (mechanism.switchPosition == switchPosition &&
+            mechanism.doorPosition == targetPosition) {
+            return true;
+        }
+    }
+    for (const core::DangerLink& dangerLink : _draft.dangerLinks()) {
+        if (dangerLink.triggerPosition == switchPosition &&
+            dangerLink.dangerPosition == targetPosition) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void GameViewport::handleLinkClick(const QMouseEvent* event) {
+    const std::optional<core::GridPosition> cell = cellAt(event);
+    if (!cell) {
+        return;
+    }
+    const core::TileType clickedType = _draft.tileMap().tile(cell->column, cell->row);
+
+    std::optional<hmi::PendingLink> pending;
+    if (_pendingLink) {
+        pending = hmi::PendingLink{*_pendingLink,
+                                   _draft.tileMap().tile(_pendingLink->column, _pendingLink->row)};
+    }
+
+    // N'a de sens que si l'attente est toujours un declencheur/une cible valide : resolu de la
+    // meme facon que resolveLinkClick determinera lequel des deux est le declencheur.
+    bool alreadyLinked = false;
+    if (pending &&
+        (hmi::isTriggerTile(pending->tileType) || hmi::isLinkTargetTile(pending->tileType))) {
+        const bool pendingIsTrigger = hmi::isTriggerTile(pending->tileType);
+        const core::GridPosition switchPosition = pendingIsTrigger ? pending->cell : *cell;
+        const core::GridPosition targetPosition = pendingIsTrigger ? *cell : pending->cell;
+        alreadyLinked = linkExists(switchPosition, targetPosition);
+    }
+
+    const hmi::LinkGestureDecision decision =
+        hmi::resolveLinkClick(pending, *cell, clickedType, alreadyLinked);
+    switch (decision.action) {
+        case hmi::LinkGestureAction::Ignore:
+            break;
+        case hmi::LinkGestureAction::SetPending:
+        case hmi::LinkGestureAction::ReplacePending:
+            _pendingLink = decision.cell;
+            if (_draftRenderer) {
+                _draftRenderer->invalidate();  // affiche la nouvelle case en attente.
+            }
+            break;
+        case hmi::LinkGestureAction::Link:
+            _draft.linkMechanism(decision.switchPosition, decision.targetPosition);
+            _pendingLink.reset();
+            _dirty = true;
+            markDraftMutated();
+            break;
+        case hmi::LinkGestureAction::Unlink:
+            _draft.unlinkMechanism(decision.targetPosition);
+            _pendingLink.reset();
+            _dirty = true;
+            markDraftMutated();
+            break;
+    }
 }
 
 void GameViewport::tick() {
@@ -241,7 +323,11 @@ void GameViewport::renderFrame() {
         _session->render(pixelWidth(), pixelHeight(), _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
-        _draftRenderer->render(_draft, _camera, _showGrid, highlight());
+        hmi::LinkOverlayState linkOverlay;
+        linkOverlay.hoveredCell = _hoverCell;
+        linkOverlay.pendingLink = _pendingLink;
+        linkOverlay.selectedLink = _selectedLink;
+        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay);
     }
     _graphics->present();
 }
@@ -314,19 +400,23 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
     }
 
     // Mode édition : raccourcis (annuler/refaire, enregistrer, essai).
+    if (event->key() == Qt::Key_Escape && _pendingLink) {
+        // Annule la liaison en cours (outil Lien) : efface l'attente sans toucher au brouillon.
+        _pendingLink.reset();
+        if (_draftRenderer) {
+            _draftRenderer->invalidate();
+        }
+        return;
+    }
     if (event->modifiers() & Qt::ControlModifier) {
         if (event->key() == Qt::Key_Z && _draft.undo()) {
             _dirty = true;
-            if (_draftRenderer) {
-                _draftRenderer->invalidate();
-            }
+            markDraftMutated();
             return;
         }
         if (event->key() == Qt::Key_Y && _draft.redo()) {
             _dirty = true;
-            if (_draftRenderer) {
-                _draftRenderer->invalidate();
-            }
+            markDraftMutated();
             return;
         }
         if (event->key() == Qt::Key_S) {
@@ -361,7 +451,8 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
 void GameViewport::save() {
     const core::LevelLoadResult validated = _draft.toLevel();
     if (!validated.ok()) {
-        HMI_LOG_WARNING("Editeur : enregistrement refuse (brouillon invalide) : " + validated.error);
+        HMI_LOG_WARNING("Editeur : enregistrement refuse (brouillon invalide) : " +
+                        validated.error);
         emit statusMessage(
             statusText("status.save_failed").arg(QString::fromStdString(validated.error)));
         return;
@@ -390,9 +481,9 @@ void GameViewport::openLevel(const std::filesystem::path& path) {
     stopPlaytest();  // sort d'un éventuel essai en cours
     _draft = core::LevelDraft::fromLevel(*loaded.level);
     _dirty = false;
-    if (_draftRenderer) {
-        _draftRenderer->invalidate();
-    }
+    _pendingLink.reset();
+    _selectedLink.reset();
+    markDraftMutated();
     HMI_LOG_INFO("Editeur : niveau ouvert : " + path.string());
     emit statusMessage(
         statusText("status.level_opened").arg(QString::fromStdString(path.filename().string())));
@@ -439,8 +530,8 @@ void GameViewport::startGame(std::vector<std::filesystem::path> levels) {
     ensureResources();
     _gameLevels = std::move(levels);
     _gameMode = true;
-    HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size())
-                 + " niveaux).");
+    HMI_LOG_INFO("Jeu : demarrage de la sequence (" + std::to_string(_gameLevels.size()) +
+                 " niveaux).");
     loadGameLevel(0);
 }
 
@@ -455,24 +546,22 @@ void GameViewport::loadGameLevel(std::size_t index) {
     }
     core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(_gameLevels[index]);
     if (!loaded.ok()) {
-        HMI_LOG_WARNING("Jeu : niveau illisible ignore (" + _gameLevels[index].string()
-                        + ") : " + loaded.error);
+        HMI_LOG_WARNING("Jeu : niveau illisible ignore (" + _gameLevels[index].string() +
+                        ") : " + loaded.error);
         loadGameLevel(index + 1);  // niveau illisible : passe au suivant (robustesse)
         return;
     }
     _gameLevel = index;
-    HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) + " charge : "
-                 + _gameLevels[index].filename().string());
-    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(),
-                     std::move(*loaded.level), _gameBindings, _gamepadBindings);
+    HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
+                 " charge : " + _gameLevels[index].filename().string());
+    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(), std::move(*loaded.level),
+                     _gameBindings, _gamepadBindings);
 }
 
 void GameViewport::resizeLevel(int width, int height) {
     _draft.resize(width, height);
     _dirty = true;
-    if (_draftRenderer) {
-        _draftRenderer->invalidate();
-    }
+    markDraftMutated();
     emit statusMessage(statusText("status.level_resized").arg(width).arg(height));
 }
 
@@ -527,6 +616,9 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
             _dragStart = clampedCell(event);
             _dragCurrent = _dragStart;
             break;
+        case hmi::EditorTool::Link:
+            handleLinkClick(event);
+            break;
     }
 }
 
@@ -543,11 +635,11 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
         if (_tool == hmi::EditorTool::Rectangle) {
             applyRectangle(_dragStart, _dragCurrent);
         } else if (_tool == hmi::EditorTool::Selection) {
-            _selection = std::make_pair(
-                core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
-                                   std::min(_dragStart.row, _dragCurrent.row)},
-                core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
-                                   std::max(_dragStart.row, _dragCurrent.row)});
+            _selection =
+                std::make_pair(core::GridPosition{std::min(_dragStart.column, _dragCurrent.column),
+                                                  std::min(_dragStart.row, _dragCurrent.row)},
+                               core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
+                                                  std::max(_dragStart.row, _dragCurrent.row)});
         }
         _dragging = false;
     }

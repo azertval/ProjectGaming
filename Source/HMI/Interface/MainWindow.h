@@ -1,9 +1,8 @@
 #pragma once
 
-#include <memory>
-
 #include <QByteArray>
 #include <QMainWindow>
+#include <memory>
 
 #include "HMI/Input/GamepadPoller.h"
 #include "HMI/Input/InputState.h"
@@ -34,6 +33,7 @@ class OptionsPage;
 class PalettePanel;
 class ToolPanel;
 class LevelBrowserPanel;
+class LinkPanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -64,7 +64,8 @@ private:
     void buildUi();
     void restoreLayout();
     void saveLayout();
-    /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si destructeur).
+    /// Ouvre la boîte de dialogue de redimensionnement du niveau (avec confirmation si
+    /// destructeur).
     void openResizeDialog();
 
     /// Applique la langue active à tous les textes de l'IHM (fenêtre, menus, docks, panneaux).
@@ -93,17 +94,19 @@ private:
     void setMenuGamepadActive(bool active);
 
     std::unique_ptr<Ui::EditorMainWindow> _ui;  ///< Mise en page (MainWindow.ui : menubar + docks).
-    QStackedWidget* _stack;       ///< Central : empile menu principal, options et viewport.
-    MainMenu* _menu;              ///< Menu principal (page d'accueil).
-    OptionsPage* _options;        ///< Page Options à onglets.
-    QWidget* _editorContainer;    ///< Conteneur natif du viewport (page éditeur/jeu).
-    GameViewport* _viewport;      ///< Surface de rendu D3D11 (possédée par le conteneur central).
-    PalettePanel* _palette;       ///< Arbre de sélection du type de tuile (contenu du dock Palette).
-    LevelBrowserPanel* _levels;   ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
-    ToolPanel* _tools;            ///< Sélecteur d'outil d'édition (contenu du dock Outils).
-    QByteArray _defaultState;     ///< Disposition par défaut (pour « Réinitialiser la disposition »).
+    QStackedWidget* _stack;     ///< Central : empile menu principal, options et viewport.
+    MainMenu* _menu;            ///< Menu principal (page d'accueil).
+    OptionsPage* _options;      ///< Page Options à onglets.
+    QWidget* _editorContainer;  ///< Conteneur natif du viewport (page éditeur/jeu).
+    GameViewport* _viewport;    ///< Surface de rendu D3D11 (possédée par le conteneur central).
+    PalettePanel* _palette;     ///< Arbre de sélection du type de tuile (contenu du dock Palette).
+    LevelBrowserPanel*
+        _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
+    ToolPanel* _tools;         ///< Sélecteur d'outil d'édition (contenu du dock Outils).
+    LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
+    QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 
-    Localization _loc;              ///< Catalogue de traduction (i18n), source de tous les textes.
+    Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.
     core::MemoryLogSink* _sessionLog;  ///< Sink mémoire des logs (nul en Release).
 
     // Navigation manette des menus (hors jeu) : sondage périodique -> événements clavier Qt.
