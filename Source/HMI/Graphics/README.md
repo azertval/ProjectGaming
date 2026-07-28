@@ -20,6 +20,8 @@ Rendu Direct3D 11 (wrapper mince, pas de couche multi-backend).
 
 ## Pont vers l'ECS et l'éditeur
 - `RenderLayer` — ordonnancement de calques **unique et explicite** du projet (`EX-REN-014`) et composant de présentation `RenderLayerTag` ; aucun lot ne doit en inventer un concurrent. `TextureHandle` y désigne l'identité **opaque** d'une texture, seule notion dont la composition ait besoin.
+- `RenderMode` — bascule **Physique** (couleur plate par type de tuile) / **Texture** (habillage), touche fixe `F8`, défaut `Texture` partout et persistance du choix (`LOT-41`, `EX-REN-046`).
+- `TileAppearance` — **point de résolution unique** de l'apparence d'une entité selon le mode, appelé à la composition : basculer ne reconstruit jamais la scène ECS. C'est ici que `LOT-42` insérera « surcharge par case > skin > damier ».
 - `ComposedScene` — **composition** du rendu : liste ordonnée des primitives d'une image (tri calque → texture → `Sprite::layer`, stable), culling par cadrage caméra et compteurs de volume. Logique pure, sans Direct3D (`LOT-40`, `EX-NFR-004`, `EX-NFR-005`).
 - `QuadRecorder` — capture et **inspection** d'une scène composée pour les tests (ordre des calques, contiguïté des groupes de texture, dénombrement, présence d'une primitive). Outil de vérification, jamais un détour du rendu.
 - `SpriteRenderer` — pont ECS → écran : **compose** (`composeWorldSprites`) puis **soumet** (`submitComposedScene`, une passe `begin/end` par groupe de texture) — **lecture seule** de l'ECS (`EX-ARCH-012`), avec interpolation (`PreviousPosition`, `EX-ARCH-031`).
@@ -29,7 +31,7 @@ Rendu Direct3D 11 (wrapper mince, pas de couche multi-backend).
 - `GraphicsLog` — macros de journalisation du module.
 
 ## À venir
-Le programme d'habillage `LOT-41` → `LOT-55` ajoute ici : bascule Physique/Texture (`LOT-41`) ; raccords automatiques de tuiles (`LOT-42`) ; rendu du fond (`LOT-44`) ;
+Le programme d'habillage `LOT-42` → `LOT-55` ajoute ici : raccords automatiques de tuiles (`LOT-42`) ; rendu du fond (`LOT-44`) ;
 animations pilotées par données (`LOT-46`) ; décors et parallaxe (`LOT-49`) ; police bitmap en scène
 (`LOT-52`) ; ombres (`LOT-55`).
 

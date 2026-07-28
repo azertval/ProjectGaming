@@ -48,6 +48,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_missing_texture.cpp
     Unit/HMI/Graphics/test_quad_recorder.cpp
     Unit/HMI/Graphics/test_render_culling.cpp
+    Unit/HMI/Graphics/test_render_mode.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -77,6 +78,10 @@ add_executable(UnitTests
     # Le contrat de dimensions par famille d'assets (LOT-40) est une validation pure, sans
     # decodage ni upload : testable hors GPU.
     ../HMI/Graphics/AssetContract.cpp
+    # Le mode de rendu (LOT-41) et la resolution d'apparence qui en decoule sont de la logique
+    # pure (aucune dependance Qt/GPU) : testables hors GPU.
+    ../HMI/Graphics/RenderMode.cpp
+    ../HMI/Graphics/TileAppearance.cpp
     # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
     # ProceduralAtlas.cpp : testable hors GPU.
     ../HMI/Graphics/MissingTexture.cpp

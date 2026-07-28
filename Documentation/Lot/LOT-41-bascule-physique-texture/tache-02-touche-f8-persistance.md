@@ -1,6 +1,6 @@
 # TACHE-02 — Touche `F8` et persistance du mode {#lot-41-tache-02-touche-f8-persistance}
 
-**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Interface` · **Statut :** non commencé
+**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Interface` · **Statut :** fait
 
 ## Contexte
 Le mode introduit en TACHE-01 doit être basculable par le joueur comme par le level designer, et

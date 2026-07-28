@@ -1,6 +1,6 @@
 # LOT-41 — Bascule Physique/Texture (`F8`, non remappable) {#lot-41}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (fondations du rendu). Prépare
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (fondations du rendu). Prépare
 > [LOT-42](@ref lot-42) → [LOT-55](@ref lot-55).
 
 ## Objectif
@@ -66,9 +66,9 @@ existant.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-render-mode.md) | *RenderMode* + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-touche-f8-persistance.md) | `F8` en dur hors tables de remappage ; défaut Texture + persistance `QSettings` | `Source/HMI/Game`, `Source/HMI/Interface` | ⬜ |
-| [TACHE-03](tache-03-non-regression-documentation.md) | Non-régression du mode Physique (assertions *QuadRecorder*) + documentation | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-render-mode.md) | *RenderMode* + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-touche-f8-persistance.md) | `F8` en dur hors tables de remappage ; défaut Texture + persistance `QSettings` | `Source/HMI/Game`, `Source/HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-non-regression-documentation.md) | Non-régression du mode Physique (assertions *QuadRecorder*) + documentation | `Source/Test`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `F8` bascule le rendu en édition, en essai et en jeu réel, sans passer par les tables de

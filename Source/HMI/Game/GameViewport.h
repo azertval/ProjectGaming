@@ -16,6 +16,7 @@
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/RenderMode.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
@@ -31,6 +32,7 @@ namespace hmi {
 class GraphicsDevice;
 class SpriteBatch;
 class TextureAtlas;
+class TextureCache;
 class DraftRenderer;
 class Localization;
 }  // namespace hmi
@@ -133,6 +135,20 @@ public:
     /// « Liens ») ; sans effet si @p targetPosition n'a pas de liaison.
     void unlinkMechanism(core::GridPosition targetPosition);
 
+    /// @return Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel.
+    [[nodiscard]] RenderMode renderMode() const noexcept {
+        return _renderMode;
+    }
+
+    /**
+     * @brief Choisit le mode de rendu et **persiste** le choix (`EX-REN-046`, `EX-IHM-011`).
+     *
+     * Purement visuel : ni la simulation, ni la scène ECS, ni le brouillon ne sont touchés — la
+     * bascule ne coûte donc pas un pas fixe ni un rechargement de niveau.
+     * @param mode Mode à appliquer.
+     */
+    void setRenderMode(RenderMode mode);
+
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
@@ -199,6 +215,7 @@ private:
     std::unique_ptr<hmi::GraphicsDevice> _graphics;
     std::unique_ptr<hmi::SpriteBatch> _spriteBatch;
     std::unique_ptr<hmi::TextureAtlas> _atlas;
+    std::unique_ptr<hmi::TextureCache> _textureCache;
     std::unique_ptr<hmi::DraftRenderer> _draftRenderer;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
@@ -227,8 +244,12 @@ private:
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selectedLink;
     /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
     std::vector<std::vector<core::TileType>> _clipboard;
-    bool _dirty = false;     ///< Modifications non enregistrées (garde-fou d'ouverture).
-    bool _showGrid = true;   ///< Grille de repère (cases + salles) affichée (bascule F10).
+    bool _dirty = false;    ///< Modifications non enregistrées (garde-fou d'ouverture).
+    bool _showGrid = true;  ///< Grille de repère (cases + salles) affichée (bascule F10).
+    /// Mode de rendu courant (bascule `F8`, `EX-REN-046`), restauré des préférences au démarrage
+    /// et réécrit à chaque bascule. Porté par le viewport parce qu'il est le widget **unique**
+    /// derrière l'édition, l'essai et le jeu réel (`EX-IHM-002`) : un seul état, jamais dupliqué.
+    RenderMode _renderMode = DEFAULT_RENDER_MODE;
     bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).

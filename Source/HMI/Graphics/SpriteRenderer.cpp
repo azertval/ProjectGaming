@@ -4,6 +4,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TextureCache.h"
 
 namespace hmi {
 
@@ -40,16 +41,31 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
     }
 }
 
+// Textures liables par la composition d'une scene, atlas et damier de repli (point unique).
+SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache) {
+    SceneTextures textures;
+    textures.atlas = atlas.textureView();
+    textures.atlasWidth = atlas.width();
+    textures.atlasHeight = atlas.height();
+    // Resolution a la demande : en mode Physique, le damier n'est jamais cree.
+    if (const LoadedTexture* missing = cache.missingTexture()) {
+        textures.missing = missing->view.Get();
+        textures.missingWidth = missing->width;
+        textures.missingHeight = missing->height;
+    }
+    return textures;
+}
+
 // Construit le rendu de sprites.
-SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
-    : _batch(&batch), _atlas(&atlas) {}
+SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
+    : _batch(&batch), _atlas(&atlas), _cache(&cache) {}
 
 // Dessine toutes les entites affichables du monde, vues par la camera.
-void SpriteRenderer::render(core::World& world, const Camera2D& camera, float interpolationAlpha) {
+void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMode mode,
+                            float interpolationAlpha) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
-    composeWorldSprites(_scene, world, _atlas->textureView(), _atlas->width(), _atlas->height(),
-                        interpolationAlpha);
+    composeWorldSprites(_scene, world, mode, sceneTextures(*_atlas, *_cache), interpolationAlpha);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

@@ -62,6 +62,8 @@ add_executable(ProjectGaming
     Graphics/AssetPaths.cpp
     Graphics/TextureLoader.cpp
     Graphics/AssetContract.cpp
+    Graphics/RenderMode.cpp
+    Graphics/TileAppearance.cpp
     Graphics/ProceduralAtlas.cpp
     Graphics/MissingTexture.cpp
     Graphics/TextureAtlas.cpp

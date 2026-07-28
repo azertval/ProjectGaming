@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QPlatformSurfaceEvent>
 #include <QResizeEvent>
+#include <QSettings>
 #include <QWheelEvent>
 #include <algorithm>
 #include <cmath>
@@ -23,15 +24,23 @@
 #include "HMI/Editor/LinkGesture.h"
 #include "HMI/Input/QtKeyMap.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
+#include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TextureCache.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Localization/Localization.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
+
+namespace {
+// Cle de preference du mode de rendu, dans la meme portee QSettings que la langue et la
+// disposition des docks (EX-IHM-011) : aucun nouveau mecanisme de persistance a inventer.
+const char* const RENDER_MODE_SETTINGS_KEY = "render_mode";
+}  // namespace
 
 namespace {
 
@@ -59,9 +68,33 @@ GameViewport::GameViewport(QWindow* parent)
       _gameBindings(hmi::GameKeyBindings::load(keybindingsPath())),
       _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("Nouveau niveau", 24, 14)),
-      _camera(1280, 720) {}
+      _camera(1280, 720) {
+    // Restaure le mode de rendu du dernier lancement (EX-IHM-011). Une preference absente, vide ou
+    // corrompue retombe silencieusement sur le defaut (Texture) : perdre son mode d'affichage ne
+    // doit jamais empecher de demarrer.
+    _renderMode =
+        renderModeFromName(QSettings()
+                               .value(QString::fromLatin1(RENDER_MODE_SETTINGS_KEY), QString{})
+                               .toString()
+                               .toStdString());
+}
 
 GameViewport::~GameViewport() = default;
+
+// Choisit le mode de rendu et persiste le choix (EX-REN-046, EX-IHM-011).
+void GameViewport::setRenderMode(RenderMode mode) {
+    if (_renderMode == mode) {
+        return;  // aucun changement : ni ecriture de preference, ni message d'etat inutile.
+    }
+    _renderMode = mode;
+    // Ecriture a la bascule, jamais dans la boucle de rendu : QSettings bufferise, le cout est
+    // marginal et le choix survit meme a une fermeture brutale.
+    QSettings().setValue(QString::fromLatin1(RENDER_MODE_SETTINGS_KEY),
+                         QString::fromLatin1(renderModeName(mode)));
+    HMI_LOG_INFO(std::string{"Rendu : mode "} + renderModeName(mode) + ".");
+    // Aucune invalidation du brouillon : la scene ECS est inchangee, seule la resolution de
+    // l'apparence differe (LOT-41).
+}
 
 int GameViewport::pixelWidth() const {
     return std::max(1, static_cast<int>(width() * devicePixelRatio()));
@@ -82,7 +115,11 @@ void GameViewport::ensureResources() {
     _graphics->setVSyncEnabled(_vsync);
     _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
     _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
-    _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas);
+    // Registre des textures nommees (LOT-40) : proprietaire du damier de repli du mode Texture,
+    // et point d'entree des skins a partir du LOT-42.
+    _textureCache = std::make_unique<hmi::TextureCache>(
+        _graphics->device(), hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
+    _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
 
     // LOT-35 : ouvre un niveau de démonstration comme brouillon éditable (le sélecteur de niveaux
     // arrive au LOT-36). Échec récupérable : on garde le brouillon vierge.
@@ -320,14 +357,14 @@ void GameViewport::renderFrame() {
     ensureResources();
     _graphics->clear(0.10f, 0.12f, 0.16f, 1.0f);
     if (_session) {
-        _session->render(pixelWidth(), pixelHeight(), _timestep.interpolationAlpha());
+        _session->render(pixelWidth(), pixelHeight(), _renderMode, _timestep.interpolationAlpha());
     } else {
         updateEditCamera();
         hmi::LinkOverlayState linkOverlay;
         linkOverlay.hoveredCell = _hoverCell;
         linkOverlay.pendingLink = _pendingLink;
         linkOverlay.selectedLink = _selectedLink;
-        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay);
+        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode);
     }
     _graphics->present();
 }
@@ -347,6 +384,7 @@ bool GameViewport::event(QEvent* event) {
                 QPlatformSurfaceEvent::SurfaceAboutToBeDestroyed) {
                 _session.reset();
                 _draftRenderer.reset();
+                _textureCache.reset();  // libere les textures avant le device qui les a creees
                 _atlas.reset();
                 _spriteBatch.reset();
                 _graphics.reset();
@@ -379,6 +417,16 @@ void GameViewport::resizeEvent(QResizeEvent*) {
 }
 
 void GameViewport::keyPressEvent(QKeyEvent* event) {
+    // Bascule du mode de rendu : traitee **avant** toute autre branche, pour etre active en
+    // edition, en essai et en jeu reel (EX-REN-046). Touche fixe, jamais remappable -- meme parti
+    // pris que F10 (grille de repere) ; hmi::Key n'a d'ailleurs aucune valeur F8, donc la touche
+    // ne peut structurellement pas entrer dans une table de remappage.
+    if (event->key() == Qt::Key_F8) {
+        setRenderMode(_renderMode == RenderMode::Physique ? RenderMode::Texture
+                                                          : RenderMode::Physique);
+        return;
+    }
+
     // Mode jeu/essai : Échap sort ; les autres touches alimentent le jeu.
     if (_session) {
         if (event->key() == Qt::Key_Escape) {
@@ -501,7 +549,7 @@ void GameViewport::startPlaytest() {
         return;
     }
     ensureResources();
-    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(),
+    _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*validated.level), _gameBindings, _gamepadBindings);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
@@ -554,8 +602,8 @@ void GameViewport::loadGameLevel(std::size_t index) {
     _gameLevel = index;
     HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
                  " charge : " + _gameLevels[index].filename().string());
-    _session.emplace(*_spriteBatch, *_atlas, pixelWidth(), pixelHeight(), std::move(*loaded.level),
-                     _gameBindings, _gamepadBindings);
+    _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
+                     std::move(*loaded.level), _gameBindings, _gamepadBindings);
 }
 
 void GameViewport::resizeLevel(int width, int height) {

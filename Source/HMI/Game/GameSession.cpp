@@ -29,14 +29,15 @@
 
 namespace hmi {
 
-GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth,
-                         int viewportHeight, core::Level level, const GameKeyBindings& gameBindings,
+GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
+                         int viewportWidth, int viewportHeight, core::Level level,
+                         const GameKeyBindings& gameBindings,
                          const GamepadBindings& gamepadBindings)
     : _atlas(atlas),
       _gameBindings(gameBindings),
       _gamepadBindings(gamepadBindings),
       _camera(viewportWidth, viewportHeight),
-      _renderer(batch, atlas) {
+      _renderer(batch, atlas, cache) {
     loadLevel(std::move(level));
 }
 
@@ -422,7 +423,8 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
 }
 
 // Dessine le niveau charge (rien si le chargement a echoue : l'appelant gere l'affichage d'erreur).
-void GameSession::render(int viewportWidth, int viewportHeight, float interpolationAlpha) {
+void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
+                         float interpolationAlpha) {
     if (!_level) {
         return;
     }
@@ -437,7 +439,7 @@ void GameSession::render(int viewportWidth, int viewportHeight, float interpolat
     _camera.setZoom(zoom);
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
-    _renderer.render(_world, _camera, interpolationAlpha);
+    _renderer.render(_world, _camera, mode, interpolationAlpha);
 }
 
 }  // namespace hmi

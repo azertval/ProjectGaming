@@ -19,6 +19,15 @@ namespace {
 int textureStorage = 0;
 hmi::TextureHandle texture = &textureStorage;
 
+/// Textures de reference des tests (le mode Physique lie l'atlas, seul utilise ici).
+hmi::SceneTextures testTextures() {
+    hmi::SceneTextures textures;
+    textures.atlas = texture;
+    textures.atlasWidth = 80;
+    textures.atlasHeight = 80;
+    return textures;
+}
+
 /// Cadrage de reference des tests : la caméra voit le monde de (10, 10) a (30, 20).
 const core::Rect VISIBLE_BOUNDS{core::Vector2{10.0f, 10.0f}, core::Vector2{20.0f, 10.0f}};
 
@@ -195,7 +204,7 @@ TEST(RenderCullingTest, VolumeProportionnelALaSalleVisible) {
     scene.setVisibleBounds(core::Rect{
         core::Vector2{static_cast<float>(firstRoom.column), static_cast<float>(firstRoom.row)},
         core::Vector2{static_cast<float>(firstRoom.width), static_cast<float>(firstRoom.height)}});
-    hmi::composeWorldSprites(scene, world, texture, 80, 80, 0.0f);
+    hmi::composeWorldSprites(scene, world, hmi::RenderMode::Physique, testTextures(), 0.0f);
 
     // Colonnes 0 a ROOM_WIDTH incluses : la salle, plus la case de marge a droite.
     EXPECT_EQ(scene.statistics().considered, LEVEL_WIDTH);
