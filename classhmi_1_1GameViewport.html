@@ -151,6 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:accdd8d909af2dbb3fb790734c6a643b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.  <br /></td></tr>
 <tr class="memitem:ae7ad870c084ca5c30be9891d70250638" id="r_ae7ad870c084ca5c30be9891d70250638"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7ad870c084ca5c30be9891d70250638">unlinkMechanism</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition)</td></tr>
 <tr class="memdesc:ae7ad870c084ca5c30be9891d70250638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime la liaison dont la cible est <code class="param">targetPosition</code> (bouton « Supprimer » du panneau « Liens ») ; sans effet si <code class="param">targetPosition</code> n'a pas de liaison.  <br /></td></tr>
+<tr class="memitem:a5f1055b69e7ae6b225e46936159184af" id="r_a5f1055b69e7ae6b225e46936159184af"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f1055b69e7ae6b225e46936159184af">renderMode</a> () const noexcept</td></tr>
+<tr class="memitem:a682255be40d1c669df3888777d1d5cea" id="r_a682255be40d1c669df3888777d1d5cea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a682255be40d1c669df3888777d1d5cea">setRenderMode</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
+<tr class="memdesc:a682255be40d1c669df3888777d1d5cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit le mode de rendu et <b>persiste</b> le choix (<span class="tt">EX-REN-046</span>, <span class="tt">EX-IHM-011</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -209,6 +212,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aab3f638516aa5429c3407a41993218a8" id="r_aab3f638516aa5429c3407a41993218a8"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1GraphicsDevice.html">hmi::GraphicsDevice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aab3f638516aa5429c3407a41993218a8">_graphics</a></td></tr>
 <tr class="memitem:a132dc1f84bb787da5f50d8cef3627d38" id="r_a132dc1f84bb787da5f50d8cef3627d38"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a132dc1f84bb787da5f50d8cef3627d38">_spriteBatch</a></td></tr>
 <tr class="memitem:a59a93eb0995d3ebd1f0547b569ff0b9c" id="r_a59a93eb0995d3ebd1f0547b569ff0b9c"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureAtlas.html">hmi::TextureAtlas</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></td></tr>
+<tr class="memitem:a22acfc4d63a401176b695f09d71ec03b" id="r_a22acfc4d63a401176b695f09d71ec03b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></td></tr>
 <tr class="memitem:acb6b47f4e35e9c42a6354f799d90e066" id="r_acb6b47f4e35e9c42a6354f799d90e066"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1DraftRenderer.html">hmi::DraftRenderer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb6b47f4e35e9c42a6354f799d90e066">_draftRenderer</a></td></tr>
 <tr class="memitem:acd267663dc14c010857f9d3156526e94" id="r_acd267663dc14c010857f9d3156526e94"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameKeyBindings.html">hmi::GameKeyBindings</a>&#160;</td><td class="memItemRight"><a class="el" href="#acd267663dc14c010857f9d3156526e94">_gameBindings</a></td></tr>
 <tr class="memitem:abc7a2f75a50f5b1fd0f6a7b8237e621f" id="r_abc7a2f75a50f5b1fd0f6a7b8237e621f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GamepadBindings.html">hmi::GamepadBindings</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc7a2f75a50f5b1fd0f6a7b8237e621f">_gamepadBindings</a></td></tr>
@@ -248,6 +252,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a62199be6d416e126151236adb24da5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifications non enregistrées (garde-fou d'ouverture).  <br /></td></tr>
 <tr class="memitem:a264024c0e798eebec1645ffb64087478" id="r_a264024c0e798eebec1645ffb64087478"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a264024c0e798eebec1645ffb64087478">_showGrid</a> = true</td></tr>
 <tr class="memdesc:a264024c0e798eebec1645ffb64087478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de repère (cases + salles) affichée (bascule F10).  <br /></td></tr>
+<tr class="memitem:aac05c7a1070af1777f025f5215336aac" id="r_aac05c7a1070af1777f025f5215336aac"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#aac05c7a1070af1777f025f5215336aac">_renderMode</a> = <a class="el" href="namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a></td></tr>
+<tr class="memdesc:aac05c7a1070af1777f025f5215336aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu courant (bascule <span class="tt">F8</span>, <span class="tt">EX-REN-046</span>), restauré des préférences au démarrage et réécrit à chaque bascule.  <br /></td></tr>
 <tr class="memitem:a1f2f909759ccc5199434aaba3e9c5766" id="r_a1f2f909759ccc5199434aaba3e9c5766"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1f2f909759ccc5199434aaba3e9c5766">_vsync</a> = true</td></tr>
 <tr class="memdesc:a1f2f909759ccc5199434aaba3e9c5766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronisation verticale (appliquée au device D3D11).  <br /></td></tr>
 <tr class="memitem:af93b0170b51e3476671c5e9b5f6178f2" id="r_af93b0170b51e3476671c5e9b5f6178f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af93b0170b51e3476671c5e9b5f6178f2">_gameMode</a> = false</td></tr>
@@ -1196,6 +1202,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a5f1055b69e7ae6b225e46936159184af" name="a5f1055b69e7ae6b225e46936159184af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1055b69e7ae6b225e46936159184af">&#9670;&#160;</a></span>renderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> hmi::GameViewport::renderMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel. </dd></dl>
+
+</div>
+</div>
 <a id="a264b2047d89de02557e1c65a15c6dd31" name="a264b2047d89de02557e1c65a15c6dd31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a264b2047d89de02557e1c65a15c6dd31">&#9670;&#160;</a></span>resizeEvent()</h2>
 
@@ -1333,6 +1365,31 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fournit le catalogue de traduction (les messages d'état émis sont alors localisés). </p>
+
+</div>
+</div>
+<a id="a682255be40d1c669df3888777d1d5cea" name="a682255be40d1c669df3888777d1d5cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a682255be40d1c669df3888777d1d5cea">&#9670;&#160;</a></span>setRenderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setRenderMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Choisit le mode de rendu et <b>persiste</b> le choix (<span class="tt">EX-REN-046</span>, <span class="tt">EX-IHM-011</span>). </p>
+<p>Purement visuel : ni la simulation, ni la scène ECS, ni le brouillon ne sont touchés — la bascule ne coûte donc pas un pas fixe ni un rechargement de niveau. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode à appliquer. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2247,6 +2304,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aac05c7a1070af1777f025f5215336aac" name="aac05c7a1070af1777f025f5215336aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac05c7a1070af1777f025f5215336aac">&#9670;&#160;</a></span>_renderMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> hmi::GameViewport::_renderMode = <a class="el" href="namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode de rendu courant (bascule <span class="tt">F8</span>, <span class="tt">EX-REN-046</span>), restauré des préférences au démarrage et réécrit à chaque bascule. </p>
+<p>Porté par le viewport parce qu'il est le widget <b>unique</b> derrière l'édition, l'essai et le jeu réel (<span class="tt">EX-IHM-002</span>) : un seul état, jamais dupliqué. </p>
+
+</div>
+</div>
 <a id="a381d80978c270ee174578ff7a774fdc1" name="a381d80978c270ee174578ff7a774fdc1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a381d80978c270ee174578ff7a774fdc1">&#9670;&#160;</a></span>_selectedLink</h2>
 
@@ -2352,6 +2434,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a>&gt; hmi::GameViewport::_spriteBatch</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22acfc4d63a401176b695f09d71ec03b" name="a22acfc4d63a401176b695f09d71ec03b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22acfc4d63a401176b695f09d71ec03b">&#9670;&#160;</a></span>_textureCache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a>&gt; hmi::GameViewport::_textureCache</td>
         </tr>
       </table>
   </td>

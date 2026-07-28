@@ -89,6 +89,8 @@ var annotated_dup =
       [ "TextureCache", "classhmi_1_1TextureCache.html", "classhmi_1_1TextureCache" ],
       [ "DecodedImage", "structhmi_1_1DecodedImage.html", "structhmi_1_1DecodedImage" ],
       [ "LoadedTexture", "structhmi_1_1LoadedTexture.html", "structhmi_1_1LoadedTexture" ],
+      [ "TileAppearance", "structhmi_1_1TileAppearance.html", "structhmi_1_1TileAppearance" ],
+      [ "SceneTextures", "structhmi_1_1SceneTextures.html", "structhmi_1_1SceneTextures" ],
       [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
       [ "EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", "classhmi_1_1EditorKeyBindings" ],
       [ "GameKeyBindings", "classhmi_1_1GameKeyBindings.html", "classhmi_1_1GameKeyBindings" ],

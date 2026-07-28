@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-04-camera-pan-zoom.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-04-camera-pan-zoom"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md964"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md966"></a>
 Contexte</h1>
 <p><span class="tt">EditorScreen::renderGrid</span> recadre et rezoome automatiquement la caméra sur toute la grille à <b>chaque frame</b> — pratique pour un petit niveau, mais impossible à contourner pour zoomer en précision ou consulter une zone sans voir le reste dès que la grille dépasse la fenêtre.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md965"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Zoom</b> : la molette (<span class="tt">InputState::wheelDelta()</span>, TACHE-01) ajuste un facteur de zoom manuel (entier ou pas fixe, cohérence pixel art <span class="tt">EX-ARCH-022</span>), appliqué à <span class="tt">Camera2D::setZoom</span> à la place du calcul d'ajustement automatique dès qu'un zoom manuel est actif.</li>
@@ -105,12 +105,12 @@ Travail à réaliser</h1>
 <li><b>Réinitialisation</b> : <span class="tt">Key::D0</span> (« 0 », ajoutée en TACHE-01) revient au cadrage automatique existant (comportement LOT-14, conservé comme état par défaut à l'ouverture de chaque niveau).</li>
 <li>L'ajustement automatique de <span class="tt">renderGrid</span> devient l'état <b>initial</b> (et l'état après réinitialisation), pas plus le calcul systématique de chaque frame.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md966"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (état caméra manuelle : zoom courant, drapeau « cadrage manuel actif », gestion du glisser droit).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md967"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Molette avec delta positif/négatif augmente/diminue le zoom appliqué à la caméra.</li>
@@ -118,21 +118,21 @@ Tests (obligatoires)</h1>
 <li>La touche de réinitialisation restaure exactement le cadrage automatique (mêmes centre/zoom que calculés par <span class="tt">renderGrid</span> en LOT-14).</li>
 <li>Peindre au clic gauche et redimensionner aux flèches restent inchangés pendant qu'un pan/zoom manuel est actif.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md968"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
 Points d'attention</h1>
 <ul>
 <li><span class="tt">Camera2D</span> (LOT-05) n'a pas besoin d'évoluer : <span class="tt">setCenter</span>/<span class="tt">setZoom</span> suffisent, tout l'état « manuel vs automatique » reste côté <span class="tt">EditorScreen</span>, cohérent avec le rôle de présentation pure de la caméra (<span class="tt">EX-ARCH-030</span>, elle ne lit jamais l'ECS).</li>
 <li>Borner le zoom manuel à une valeur minimale raisonnable (&gt; 0) pour éviter une division dégénérée dans <span class="tt">screenToWorld</span>/<span class="tt">worldToScreen</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md969"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
 Ajustement post-livraison (essai utilisateur)</h1>
 <p>Un premier passage ne bornait le zoom qu'à <span class="tt">≥ 1.0</span>, sans lien avec la taille du niveau. Un essai interactif a montré que ça permettait de dézoomer bien au-delà de ce qu'il y a à voir, et de zoomer sans limite jusqu'à perdre toute lisibilité. Les bornes ont été resserrées : <b>minimum</b> = le zoom d'ajustement automatique du niveau <b>courant</b> (rien à voir de plus loin), <b>maximum</b> = la valeur laissant encore <b>4 cases visibles</b> sur le plus petit axe de l'écran (précision jugée suffisante pour poser un bloc). Les deux bornes se recalculent à chaque molette sur les dimensions courantes du brouillon — aucune valeur figée, donc valable sans changement pour des niveaux plus grands (prévu pour un lot ultérieur, LOT-16).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md970"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md972"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Pan/zoom manuels et réinitialisation opérationnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md971"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md973"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-013</span>, <span class="tt">EX-ARCH-022</span> (zoom entier, netteté pixel art). </p>
 </div></div><!-- contents -->

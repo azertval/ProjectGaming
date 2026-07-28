@@ -60,7 +60,7 @@ var searchData=
   ['01_20—_20types_20mathématiques_20de_20core_57',['TACHE-01 — Types mathématiques de Core',['../lot-03-tache-01-math-core.html',1,'lot-03']]],
   ['01_20—_20widget_20de_20vignettes_20partagé_58',['TACHE-01 — Widget de vignettes partagé',['../lot-43-tache-01-widget-vignettes.html',1,'lot-43']]],
   ['019_59',['Vitesse terminale newtonienne (EX-GP-019)',['../guide-physique.html#autotoc_md138',1,'']]],
-  ['02_60',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md456',1,'']]],
+  ['02_60',['Avertissements connus à corriger avant WARN_AS_ERROR (relevés en TACHE-02)',['../lot-04-tache-07-ci-docs.html#autotoc_md458',1,'']]],
   ['02_20—_20écran_20éditeur_20_3a_20grille_20cliquable_20palette_20de_20tuiles_61',['TACHE-02 — Écran éditeur : grille cliquable + palette de tuiles',['../lot-14-tache-02-ecran-editeur-palette.html',1,'lot-14']]],
   ['02_20—_20éditeur_20et_20rendu_62',['02 — Éditeur et rendu',['../lot-23-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-26-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu'],['../lot-28-tache-02-editeur-rendu.html',1,'TACHE-02 — Éditeur et rendu']]],
   ['02_20—_20affichage_20isolé_20sans_20repli_63',['TACHE-02 — Affichage isolé sans repli',['../lot-51-tache-02-affichage-isole.html',1,'lot-51']]],

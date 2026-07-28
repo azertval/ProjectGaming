@@ -102,6 +102,8 @@ $(function(){initNavTree('ComposedScene_8h.html','',''); });
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Quad_8h_source.html">HMI/Graphics/Quad.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RenderMode_8h_source.html">HMI/Graphics/RenderMode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileAppearance_8h_source.html">HMI/Graphics/TileAppearance.h</a>&quot;</code><br />
 </div>
 <p><a href="ComposedScene_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -135,8 +137,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
 <tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#adbdaec090bf424bf2ec812fb1587c782">hmi::lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
-<tr class="memitem:aae4284312a956fc5a625785576f3c0e5" id="r_aae4284312a956fc5a625785576f3c0e5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aae4284312a956fc5a625785576f3c0e5">hmi::composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, int textureWidth, int textureHeight, float interpolationAlpha)</td></tr>
-<tr class="memdesc:aae4284312a956fc5a625785576f3c0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:aa9cace554e4d6b94002e17f27585f11b" id="r_aa9cace554e4d6b94002e17f27585f11b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa9cace554e4d6b94002e17f27585f11b">hmi::composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha)</td></tr>
+<tr class="memdesc:aa9cace554e4d6b94002e17f27585f11b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Composition du rendu : liste ordonnée des primitives d'une image, <b>sans GPU</b> (<span class="tt">EX-NFR-004</span>, <span class="tt">EX-NFR-005</span>). </p>

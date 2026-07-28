@@ -175,6 +175,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le blend state de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></span>, <span class="tt">D3D11_BLEND_SRC_ALPHA</span>), au format <span class="tt">R8G8B8A8_UNORM</span>.  <a href="structhmi_1_1DecodedImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LoadedTexture" id="r_LoadedTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture Direct3D 11 chargée et sa vue de ressource (RAII, <span class="tt">ComPtr</span>).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TileAppearance" id="r_TileAppearance"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence résolue d'une primitive : quelle texture lier, et quelle région y échantillonner.  <a href="structhmi_1_1TileAppearance.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneTextures" id="r_SceneTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, et leurs dimensions.  <a href="structhmi_1_1SceneTextures.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AtlasGridPosition" id="r_AtlasGridPosition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (colonne, ligne) d'une tuile dans la grille procédurale de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></span>.  <a href="structhmi_1_1AtlasGridPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorKeyBindings" id="r_EditorKeyBindings"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorKeyBindings.html">EditorKeyBindings</a></td></tr>
@@ -258,6 +262,14 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a9b5452f2d3a1019a3229b90a4f000919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calques de dessin, du plus <b>arrière</b> au plus <b>avant</b> (<span class="tt">EX-REN-014</span>, <span class="tt">EX-DEC-002</span>).  <a href="#a9b5452f2d3a1019a3229b90a4f000919">More...</a><br /></td></tr>
+<tr class="memitem:ace25c100da588ab6050fb0f486d61d54" id="r_ace25c100da588ab6050fb0f486d61d54"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> { <a class="el" href="#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb">Physique</a>
+, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">Texture</a>
+ }</td></tr>
+<tr class="memdesc:ace25c100da588ab6050fb0f486d61d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu de la scène : lecture directe des collisions, ou habillage.  <a href="#ace25c100da588ab6050fb0f486d61d54">More...</a><br /></td></tr>
+<tr class="memitem:ac32d81972d12a0b2475fc009eefee225" id="r_ac32d81972d12a0b2475fc009eefee225"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a> { <a class="el" href="#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f">Atlas</a>
+, <a class="el" href="#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
+ }</td></tr>
+<tr class="memdesc:ac32d81972d12a0b2475fc009eefee225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'où provient l'apparence résolue.  <a href="#ac32d81972d12a0b2475fc009eefee225">More...</a><br /></td></tr>
 <tr class="memitem:aa4f5968d7b564d555f29fdc5d2fc9585" id="r_aa4f5968d7b564d555f29fdc5d2fc9585"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> { <br />
 &#160;&#160;<a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354">Save</a>
 , <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
@@ -379,8 +391,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
 <tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#adbdaec090bf424bf2ec812fb1587c782">lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
-<tr class="memitem:aae4284312a956fc5a625785576f3c0e5" id="r_aae4284312a956fc5a625785576f3c0e5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aae4284312a956fc5a625785576f3c0e5">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, int textureWidth, int textureHeight, float interpolationAlpha)</td></tr>
-<tr class="memdesc:aae4284312a956fc5a625785576f3c0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:aa9cace554e4d6b94002e17f27585f11b" id="r_aa9cace554e4d6b94002e17f27585f11b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha)</td></tr>
+<tr class="memdesc:aa9cace554e4d6b94002e17f27585f11b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
 <tr class="memitem:aa0d169ee450492a9aa3795d23e95e4ba" id="r_aa0d169ee450492a9aa3795d23e95e4ba"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa0d169ee450492a9aa3795d23e95e4ba">buildMissingTextureImage</a> (int size=<a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a>)</td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
@@ -391,8 +403,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>.  <br /></td></tr>
 <tr class="memitem:a8b8fd5c80e500ad266167edacf261714" id="r_a8b8fd5c80e500ad266167edacf261714"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8b8fd5c80e500ad266167edacf261714">renderLayerName</a> (<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
 <tr class="memdesc:a8b8fd5c80e500ad266167edacf261714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'un calque, pour la journalisation et les messages d'échec de test.  <br /></td></tr>
+<tr class="memitem:a8e40b7d9a122c5304de1782b079c3637" id="r_a8e40b7d9a122c5304de1782b079c3637"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8e40b7d9a122c5304de1782b079c3637">renderModeName</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode) noexcept</td></tr>
+<tr class="memdesc:a8e40b7d9a122c5304de1782b079c3637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom persisté d'un mode de rendu (valeur écrite dans les préférences).  <br /></td></tr>
+<tr class="memitem:a3159aa4ba6c589c9813db6e524f19785" id="r_a3159aa4ba6c589c9813db6e524f19785"><td class="memItemLeft"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3159aa4ba6c589c9813db6e524f19785">renderModeFromName</a> (const std::string &amp;name) noexcept</td></tr>
+<tr class="memdesc:a3159aa4ba6c589c9813db6e524f19785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu correspondant à un nom persisté.  <br /></td></tr>
 <tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a533df804a658915efda4f8f6c918496e">submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
+<tr class="memitem:a5c470a200f1476e14a200b1fabf4b18d" id="r_a5c470a200f1476e14a200b1fabf4b18d"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5c470a200f1476e14a200b1fabf4b18d">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
+<tr class="memdesc:a5c470a200f1476e14a200b1fabf4b18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, atlas <b>et</b> damier de repli.  <br /></td></tr>
 <tr class="memitem:a32457118c4e60dff8da0ba9839c0f29a" id="r_a32457118c4e60dff8da0ba9839c0f29a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a">resolveOrPlaceholder</a> (<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const std::string &amp;fileName, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
 <tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
@@ -401,6 +419,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
 <tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6ffcc39449660c80e3c1c5a53e6c1ec">loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
+<tr class="memitem:a1294ade391964ea7b2c323d49903460d" id="r_a1294ade391964ea7b2c323d49903460d"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1294ade391964ea7b2c323d49903460d">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion) noexcept</td></tr>
+<tr class="memdesc:a1294ade391964ea7b2c323d49903460d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
 <tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3a1050ef6cc138977442e9d4206cb3b1">slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
@@ -428,6 +448,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
 <tr class="memitem:ab6e44ad3d54b0383ef13f332d290df46" id="r_ab6e44ad3d54b0383ef13f332d290df46"><td class="memItemLeft">constexpr <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46">DEFAULT_RENDER_LAYER</a> = <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td></tr>
 <tr class="memdesc:ab6e44ad3d54b0383ef13f332d290df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>.  <br /></td></tr>
+<tr class="memitem:a6757e25cf3a1020826327afe0dd194d3" id="r_a6757e25cf3a1020826327afe0dd194d3"><td class="memItemLeft">constexpr <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a> = <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">RenderMode::Texture</a></td></tr>
+<tr class="memdesc:a6757e25cf3a1020826327afe0dd194d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode appliqué au premier lancement et à défaut de préférence exploitable.  <br /></td></tr>
 <tr class="memitem:af2f4a1af04682540c1b84611a24aa42c" id="r_af2f4a1af04682540c1b84611a24aa42c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c">EDITOR_ACTION_COUNT</a> = 9</td></tr>
 <tr class="memdesc:af2f4a1af04682540c1b84611a24aa42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">EditorAction</a></span>).  <br /></td></tr>
 <tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 6</td></tr>
@@ -454,6 +476,36 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ac32d81972d12a0b2475fc009eefee225" name="ac32d81972d12a0b2475fc009eefee225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32d81972d12a0b2475fc009eefee225">&#9670;&#160;</a></span>AppearanceSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ac32d81972d12a0b2475fc009eefee225">hmi::AppearanceSource</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Texture d'où provient l'apparence résolue. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f" name="ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f"></a>Atlas&#160;</td><td class="fielddoc"><p>Atlas du jeu : couleur plate par type de tuile, images du personnage, aides d'édition. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" name="ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f"></a>MissingTexture&#160;</td><td class="fielddoc"><p>Damier magenta de repli : texture attendue mais pas encore disponible (<span class="tt">EX-NFR-040</span>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a0030e1768b551f6d1bc0a9fa566d2003" name="a0030e1768b551f6d1bc0a9fa566d2003"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0030e1768b551f6d1bc0a9fa566d2003">&#9670;&#160;</a></span>AssetFamily</h2>
 
@@ -858,6 +910,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ace25c100da588ab6050fb0f486d61d54" name="ace25c100da588ab6050fb0f486d61d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace25c100da588ab6050fb0f486d61d54">&#9670;&#160;</a></span>RenderMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">hmi::RenderMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode de rendu de la scène : lecture directe des collisions, ou habillage. </p>
+<p>Deux valeurs, jamais trois : la superposition et le contrôle <b>fin par calque</b> relèvent de <span class="tt">LOT-51</span> et sont délibérément une autre notion. La bascule est purement <b>visuelle</b> — elle ne touche ni la simulation, ni la scène ECS, seulement la résolution de l'apparence (<span class="tt"><a class="el" href="#a1294ade391964ea7b2c323d49903460d" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" name="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb"></a>Physique&#160;</td><td class="fielddoc"><p>Couleur plate par type de tuile : la géométrie de collision se lit directement à l'écran. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" name="ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b"></a>Texture&#160;</td><td class="fielddoc"><p>Habillage par textures, construit lot après lot à partir de <span class="tt">LOT-42</span>. </p>
+<p>Tant qu'aucun skin n'existe, tout s'affiche avec le damier de repli — c'est le comportement attendu, pas un défaut (<span class="tt">EX-NFR-040</span>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a42f96951bfec11435da37c91ee377046" name="a42f96951bfec11435da37c91ee377046"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42f96951bfec11435da37c91ee377046">&#9670;&#160;</a></span>arrowHead()</h2>
@@ -1131,8 +1215,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aae4284312a956fc5a625785576f3c0e5" name="aae4284312a956fc5a625785576f3c0e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae4284312a956fc5a625785576f3c0e5">&#9670;&#160;</a></span>composeWorldSprites()</h2>
+<a id="aa9cace554e4d6b94002e17f27585f11b" name="aa9cace554e4d6b94002e17f27585f11b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9cace554e4d6b94002e17f27585f11b">&#9670;&#160;</a></span>composeWorldSprites()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1150,17 +1234,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureWidth</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureHeight</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1172,13 +1251,13 @@ Variables</h2></td></tr>
 
 <p>Compose les entités affichables d'un monde ECS en primitives. </p>
 <p>Parcourt les entités portant un <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> <b>et</b> un <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, résout la région d'atlas en coordonnées de texture normalisées, applique l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) et empile un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> par entité. Lecture <b>seule</b> de l'ECS (<span class="tt">EX-ARCH-012</span>) : ni la simulation ni l'interpolation ne sont affectées, y compris pour une entité écartée par le culling (elle reste simulée, elle n'est simplement pas dessinée).</p>
-<p>Le calque de chaque entité vient de son <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>, ou vaut <span class="tt"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> en son absence ; <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> reste le tri <b>fin</b> à l'intérieur de ce calque. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Le calque de chaque entité vient de son <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>, ou vaut <span class="tt"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> en son absence ; <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> reste le tri <b>fin</b> à l'intérieur de ce calque.</p>
+<p>L'apparence de chaque entité — texture liée et région échantillonnée — est résolue <b>ici</b>, à la composition, par <span class="tt"><a class="el" href="#a1294ade391964ea7b2c323d49903460d" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> (<span class="tt">LOT-41</span>) : changer de mode de rendu ne reconstruit donc jamais la scène ECS. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
     <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt">Transform</span>, <span class="tt">Sprite</span>, <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span>, <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">RenderLayerTag</a></span>. </td></tr>
-    <tr><td class="paramname">texture</td><td>Texture liée à ces sprites (l'atlas, aujourd'hui). </td></tr>
-    <tr><td class="paramname">textureWidth</td><td>Largeur de cette texture, en pixels (&gt; 0). </td></tr>
-    <tr><td class="paramname">textureHeight</td><td>Hauteur de cette texture, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt">EX-REN-046</span>). </td></tr>
+    <tr><td class="paramname">textures</td><td>Textures liables et leurs dimensions (atlas et damier de repli). </td></tr>
     <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>) ; <span class="tt">0</span> reproduit le rendu non interpolé. </td></tr>
   </table>
   </dd>
@@ -1819,6 +1898,74 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3159aa4ba6c589c9813db6e524f19785" name="a3159aa4ba6c589c9813db6e524f19785"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3159aa4ba6c589c9813db6e524f19785">&#9670;&#160;</a></span>renderModeFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> hmi::renderModeFromName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode de rendu correspondant à un nom persisté. </p>
+<p>Fonction <b>pure</b> (aucune dépendance Qt ni GPU), donc testable en isolation : une préférence absente, vide ou corrompue est un cas <b>attendu</b>, pas une erreur — elle retombe silencieusement sur <span class="tt"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3" title="Mode appliqué au premier lancement et à défaut de préférence exploitable.">hmi::DEFAULT_RENDER_MODE</a></span> plutôt que de refuser de démarrer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nom lu dans les préférences (comparaison insensible à la casse). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le mode correspondant, ou <span class="tt"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3" title="Mode appliqué au premier lancement et à défaut de préférence exploitable.">hmi::DEFAULT_RENDER_MODE</a></span> si <code class="param">name</code> n'en désigne aucun. </dd></dl>
+
+</div>
+</div>
+<a id="a8e40b7d9a122c5304de1782b079c3637" name="a8e40b7d9a122c5304de1782b079c3637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e40b7d9a122c5304de1782b079c3637">&#9670;&#160;</a></span>renderModeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * hmi::renderModeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom persisté d'un mode de rendu (valeur écrite dans les préférences). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode à nommer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom stable du mode (chaîne statique, jamais nulle). </dd></dl>
+
+</div>
+</div>
 <a id="a7f0f0f4f71e52b8deb6fb88a8d6411d9" name="a7f0f0f4f71e52b8deb6fb88a8d6411d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9">&#9670;&#160;</a></span>resolveLinkClick()</h2>
 
@@ -1915,6 +2062,50 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a1294ade391964ea7b2c323d49903460d" name="a1294ade391964ea7b2c323d49903460d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1294ade391964ea7b2c323d49903460d">&#9670;&#160;</a></span>resolveTileAppearance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> hmi::resolveTileAppearance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>physicalRegion</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout l'apparence d'une entité affichée selon le mode de rendu courant. </p>
+<p><b>Point d'appel unique</b> de cette décision, partagé par le jeu et l'éditeur : c'est ce qui garantit que le canevas de l'éditeur montre exactement ce que le joueur verra. Fonction <b>pure</b> (aucune dépendance GPU), appelée à la <b>composition</b> et non à la construction de la scène : basculer de mode ne reconstruit donc jamais l'ECS, seule la résolution change.</p>
+<p>Deux branches à ce stade :</p><ul>
+<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" title="Couleur plate par type de tuile : la géométrie de collision se lit directement à l&#39;écran.">RenderMode::Physique</a></span> → la région d'atlas déjà portée par le <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, c'est-à-dire le résultat de <span class="tt"><a class="el" href="#a2c8e7957dacab70252bf7edbdc80422e" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> — comportement strictement inchangé ;</li>
+<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> → le damier magenta en entier, aucun skin n'existant encore.</li>
+</ul>
+<p>Les branches suivantes (<span class="tt">LOT-42</span> : surcharge par case &gt; skin de tuile &gt; damier) s'inséreront <b>ici</b>, sans changer la forme de la fonction ni ses appelants. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant. </td></tr>
+    <tr><td class="paramname">physicalRegion</td><td>Région d'atlas de l'entité en mode Physique (<span class="tt"><a class="el" href="structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c" title="Région de l&#39;atlas à échantillonner (en pixels).">core::Sprite::region</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'apparence à utiliser pour composer la primitive. </dd></dl>
+
+</div>
+</div>
 <a id="a680b600014001a99d296df386e7ed9d8" name="a680b600014001a99d296df386e7ed9d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a680b600014001a99d296df386e7ed9d8">&#9670;&#160;</a></span>saveSessionLog()</h2>
 
@@ -1951,6 +2142,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true si le fichier a été écrit ; false (récupérable) en cas d'échec d'écriture. </dd></dl>
+
+</div>
+</div>
+<a id="a5c470a200f1476e14a200b1fabf4b18d" name="a5c470a200f1476e14a200b1fabf4b18d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c470a200f1476e14a200b1fabf4b18d">&#9670;&#160;</a></span>sceneTextures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> hmi::sceneTextures </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>atlas</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Textures liables par la composition d'une scène, atlas <b>et</b> damier de repli. </p>
+<p>Point d'assemblage unique, partagé par le jeu et l'éditeur (<span class="tt">LOT-41</span>) : le damier est résolu <b>à la demande</b> auprès du cache, donc créé seulement si un rendu en mode Texture a lieu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atlas</td><td>Atlas du jeu. </td></tr>
+    <tr><td class="paramname">cache</td><td>Cache de textures, propriétaire du damier partagé. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les deux textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -2274,6 +2504,31 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>. </p>
+
+</div>
+</div>
+<a id="a6757e25cf3a1020826327afe0dd194d3" name="a6757e25cf3a1020826327afe0dd194d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6757e25cf3a1020826327afe0dd194d3">&#9670;&#160;</a></span>DEFAULT_RENDER_MODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> hmi::DEFAULT_RENDER_MODE = <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">RenderMode::Texture</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode appliqué au premier lancement et à défaut de préférence exploitable. </p>
+<p><span class="tt">Texture</span> dans <b>toutes</b> les configurations de build (<span class="tt">EX-REN-046</span>) : deux binaires du même code ne doivent jamais afficher un rendu différent par défaut, sous peine de rendre ambiguë toute capture d'écran ou vérification visuelle. </p>
 
 </div>
 </div>

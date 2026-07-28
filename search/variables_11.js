@@ -2,7 +2,7 @@ var searchData=
 [
   ['r_0',['r',['../structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d',1,'core::Color::r'],['../structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48',1,'hmi::SpriteQuad::r'],['../structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb',1,'hmi::LineQuad::r'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c',1,'hmi::SpriteBatch::Vertex::r']]],
   ['range_1',['range',['../structcore_1_1DangerMoverConfig.html#a2a6f89bb1020168a92000302cc9e3ac5',1,'core::DangerMoverConfig']]],
-  ['region_2',['region',['../structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c',1,'core::Sprite']]],
+  ['region_2',['region',['../structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c',1,'core::Sprite::region'],['../structhmi_1_1TileAppearance.html#a109ec7f7f5274abd9fd592acd04f5bc5',1,'hmi::TileAppearance::region']]],
   ['right_3',['right',['../structhmi_1_1ArrowHead.html#a3547b3c1f02184707c825f80db42074c',1,'hmi::ArrowHead']]],
   ['room_5fheight_5ftiles_4',['ROOM_HEIGHT_TILES',['../classhmi_1_1RoomGrid.html#a0b955c9993b7ea1652cec0f9c8cae916',1,'hmi::RoomGrid']]],
   ['room_5fwidth_5ftiles_5',['ROOM_WIDTH_TILES',['../classhmi_1_1RoomGrid.html#a3641300883e783d130eb0d100e049ef6',1,'hmi::RoomGrid']]],

@@ -40,6 +40,8 @@ var namespacehmi =
     [ "TextureCache", "classhmi_1_1TextureCache.html", "classhmi_1_1TextureCache" ],
     [ "DecodedImage", "structhmi_1_1DecodedImage.html", "structhmi_1_1DecodedImage" ],
     [ "LoadedTexture", "structhmi_1_1LoadedTexture.html", "structhmi_1_1LoadedTexture" ],
+    [ "TileAppearance", "structhmi_1_1TileAppearance.html", "structhmi_1_1TileAppearance" ],
+    [ "SceneTextures", "structhmi_1_1SceneTextures.html", "structhmi_1_1SceneTextures" ],
     [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
     [ "EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", "classhmi_1_1EditorKeyBindings" ],
     [ "GameKeyBindings", "classhmi_1_1GameKeyBindings.html", "classhmi_1_1GameKeyBindings" ],
@@ -53,6 +55,10 @@ var namespacehmi =
     [ "OptionsPage", "classhmi_1_1OptionsPage.html", "classhmi_1_1OptionsPage" ],
     [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
     [ "TextureHandle", "namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d", null ],
+    [ "AppearanceSource", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225", [
+      [ "Atlas", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f", null ],
+      [ "MissingTexture", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f", null ]
+    ] ],
     [ "AssetFamily", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003", [
       [ "Atlas", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f", null ],
       [ "TileSkin", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff", null ],
@@ -159,6 +165,10 @@ var namespacehmi =
       [ "UI", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b", null ],
       [ "EditorOverlay", "namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751", null ]
     ] ],
+    [ "RenderMode", "namespacehmi.html#ace25c100da588ab6050fb0f486d61d54", [
+      [ "Physique", "namespacehmi.html#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb", null ],
+      [ "Texture", "namespacehmi.html#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b", null ]
+    ] ],
     [ "arrowHead", "namespacehmi.html#a42f96951bfec11435da37c91ee377046", null ],
     [ "assetDimensionContract", "namespacehmi.html#a842c2e980bf7c8686d4a549d583d6866", null ],
     [ "assetFamilyName", "namespacehmi.html#ab940bcb1480c0e6616726dd361be3c1d", null ],
@@ -167,7 +177,7 @@ var namespacehmi =
     [ "buildProceduralAtlasImage", "namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540", null ],
     [ "capturedGamepadButton", "namespacehmi.html#a3b48baec87107f7a4aec638550bdb941", null ],
     [ "capturedKey", "namespacehmi.html#ac200bbbe13247069ff384e574db66eec", null ],
-    [ "composeWorldSprites", "namespacehmi.html#aae4284312a956fc5a625785576f3c0e5", null ],
+    [ "composeWorldSprites", "namespacehmi.html#aa9cace554e4d6b94002e17f27585f11b", null ],
     [ "createTexture", "namespacehmi.html#a98f0f2d822288b333e00905f4cc60165", null ],
     [ "decodeImageFile", "namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd", null ],
     [ "describeContract", "namespacehmi.html#aa04b1535f9fb0ceb7138c6b6c58c15a9", null ],
@@ -186,9 +196,13 @@ var namespacehmi =
     [ "qtKeyToHmiKey", "namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d", null ],
     [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
     [ "renderLayerName", "namespacehmi.html#a8b8fd5c80e500ad266167edacf261714", null ],
+    [ "renderModeFromName", "namespacehmi.html#a3159aa4ba6c589c9813db6e524f19785", null ],
+    [ "renderModeName", "namespacehmi.html#a8e40b7d9a122c5304de1782b079c3637", null ],
     [ "resolveLinkClick", "namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9", null ],
     [ "resolveOrPlaceholder", "namespacehmi.html#a32457118c4e60dff8da0ba9839c0f29a", null ],
+    [ "resolveTileAppearance", "namespacehmi.html#a1294ade391964ea7b2c323d49903460d", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
+    [ "sceneTextures", "namespacehmi.html#a5c470a200f1476e14a200b1fabf4b18d", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],
     [ "spriteQuadBounds", "namespacehmi.html#af7d9b42fc7c496a35a24169feddc6ab8", null ],
@@ -198,6 +212,7 @@ var namespacehmi =
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
     [ "validateAsset", "namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c", null ],
     [ "DEFAULT_RENDER_LAYER", "namespacehmi.html#ab6e44ad3d54b0383ef13f332d290df46", null ],
+    [ "DEFAULT_RENDER_MODE", "namespacehmi.html#a6757e25cf3a1020826327afe0dd194d3", null ],
     [ "EDITOR_ACTION_COUNT", "namespacehmi.html#af2f4a1af04682540c1b84611a24aa42c", null ],
     [ "GAME_ACTION_COUNT", "namespacehmi.html#ab42b3bed825ef5b3664995a516c4eb8d", null ],
     [ "GAMEPAD_BUTTON_COUNT", "namespacehmi.html#aab59d64d595ba17a55cc07311285ba14", null ],

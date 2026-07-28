@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md165", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md166", null ],
-    [ "Plan du guide", "guide.html#autotoc_md167", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md167", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md168", null ],
+    [ "Plan du guide", "guide.html#autotoc_md169", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md30", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md31", null ],
@@ -116,12 +116,14 @@ var guide =
         [ "L'animation : une projection de l'état physique, pas un état séparé", "guide-rendu.html#autotoc_md158", null ]
       ] ],
       [ "<a class=\"el\" href=\"classhmi_1_1SpriteRenderer.html\" title=\"hmi::SpriteRenderer\">hmi::SpriteRenderer</a> : le pont ECS → écran", "guide-rendu.html#autotoc_md159", [
-        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md160", null ]
+        [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md160", null ],
+        [ "Deux modes de rendu : Physique et Texture (<span class=\"tt\">LOT-41</span>)", "guide-rendu.html#autotoc_md161", null ],
+        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md162", null ]
       ] ],
-      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md161", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md162", null ],
-      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md163", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md164", null ]
+      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md163", null ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md164", null ],
+      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md165", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md166", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md91", null ],

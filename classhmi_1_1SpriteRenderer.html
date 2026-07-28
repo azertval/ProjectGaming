@@ -100,10 +100,10 @@ $(function(){initNavTree('classhmi_1_1SpriteRenderer.html','','classhmi_1_1Sprit
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab4bbbea6470220c391fcbc2ad33f86c6" id="r_ab4bbbea6470220c391fcbc2ad33f86c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4bbbea6470220c391fcbc2ad33f86c6">SpriteRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
-<tr class="memdesc:ab4bbbea6470220c391fcbc2ad33f86c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le rendu de sprites.  <br /></td></tr>
-<tr class="memitem:a91dd217136d95b4c80d2c503eaf8fb20" id="r_a91dd217136d95b4c80d2c503eaf8fb20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a91dd217136d95b4c80d2c503eaf8fb20">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, float interpolationAlpha)</td></tr>
-<tr class="memdesc:a91dd217136d95b4c80d2c503eaf8fb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
+<tr class="memitem:a80280a51830068380f867a58686317d9" id="r_a80280a51830068380f867a58686317d9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80280a51830068380f867a58686317d9">SpriteRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
+<tr class="memdesc:a80280a51830068380f867a58686317d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le rendu de sprites.  <br /></td></tr>
+<tr class="memitem:ae2be090c0def751a04ce5c321ce987c2" id="r_ae2be090c0def751a04ce5c321ce987c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2be090c0def751a04ce5c321ce987c2">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha)</td></tr>
+<tr class="memdesc:ae2be090c0def751a04ce5c321ce987c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
 <tr class="memitem:a53acb5abdc7ce0f58489ab13524a0ee6" id="r_a53acb5abdc7ce0f58489ab13524a0ee6"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a53acb5abdc7ce0f58489ab13524a0ee6">lastScene</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
@@ -115,16 +115,17 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a3713ab82000ed036e519adbcee39604d" id="r_a3713ab82000ed036e519adbcee39604d"><td class="memItemLeft"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a3713ab82000ed036e519adbcee39604d">_batch</a></td></tr>
 <tr class="memitem:a04fd47eebcd7ecb9d26079bb3281e79e" id="r_a04fd47eebcd7ecb9d26079bb3281e79e"><td class="memItemLeft">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a04fd47eebcd7ecb9d26079bb3281e79e">_atlas</a></td></tr>
+<tr class="memitem:a602b47dbb5998673ed6dd935f1b2dbce" id="r_a602b47dbb5998673ed6dd935f1b2dbce"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a602b47dbb5998673ed6dd935f1b2dbce">_cache</a></td></tr>
 <tr class="memitem:a9f9fc752a5d262e9f34dbc7db44e353f" id="r_a9f9fc752a5d262e9f34dbc7db44e353f"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f9fc752a5d262e9f34dbc7db44e353f">_scene</a></td></tr>
 <tr class="memitem:aa7c16f2da80c0b84ffe633535f070c01" id="r_aa7c16f2da80c0b84ffe633535f070c01"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7c16f2da80c0b84ffe633535f070c01">_loggedStatistics</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture. </p>
-<p>À chaque frame, <b>compose</b> la scène (<span class="tt"><a class="el" href="namespacehmi.html#aae4284312a956fc5a625785576f3c0e5" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> : parcours des entités <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> + <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, régions d'atlas, interpolation, culling — logique pure) puis la <b>soumet</b> au <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></span>. Objet de <b>présentation</b> (<span class="tt">HMI</span>) : il <b>lit</b> l'ECS sans jamais le muter (<span class="tt">EX-ARCH-012</span>). Ce n'est pas un <span class="tt"><a class="el" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants.">core::ISystem</a></span> : le rendu est découplé de la simulation (<span class="tt">EX-REN-021</span>).</p>
+<p>À chaque frame, <b>compose</b> la scène (<span class="tt"><a class="el" href="namespacehmi.html#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span> : parcours des entités <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> + <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, régions d'atlas, interpolation, culling — logique pure) puis la <b>soumet</b> au <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></span>. Objet de <b>présentation</b> (<span class="tt">HMI</span>) : il <b>lit</b> l'ECS sans jamais le muter (<span class="tt">EX-ARCH-012</span>). Ce n'est pas un <span class="tt"><a class="el" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants.">core::ISystem</a></span> : le rendu est découplé de la simulation (<span class="tt">EX-REN-021</span>).</p>
 <p>La séparation composition/soumission (<span class="tt">LOT-40</span>) est ce qui rend l'ordre de dessin assertable sans GPU : <span class="tt"><a class="el" href="#a53acb5abdc7ce0f58489ab13524a0ee6">lastScene()</a></span> expose la liste exacte des primitives de la dernière image (<span class="tt">EX-NFR-004</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab4bbbea6470220c391fcbc2ad33f86c6" name="ab4bbbea6470220c391fcbc2ad33f86c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4bbbea6470220c391fcbc2ad33f86c6">&#9670;&#160;</a></span>SpriteRenderer()</h2>
+<a id="a80280a51830068380f867a58686317d9" name="a80280a51830068380f867a58686317d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80280a51830068380f867a58686317d9">&#9670;&#160;</a></span>SpriteRenderer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +138,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>atlas</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>atlas</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -147,6 +153,7 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">batch</td><td>Pipeline de quads texturés utilisé pour dessiner (non possédé). </td></tr>
     <tr><td class="paramname">atlas</td><td>Atlas fournissant la texture et ses dimensions (non possédé). </td></tr>
+    <tr><td class="paramname">cache</td><td>Cache de textures, propriétaire du damier de repli lié en mode Texture (non possédé, <span class="tt">LOT-41</span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -207,8 +214,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a91dd217136d95b4c80d2c503eaf8fb20" name="a91dd217136d95b4c80d2c503eaf8fb20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91dd217136d95b4c80d2c503eaf8fb20">&#9670;&#160;</a></span>render()</h2>
+<a id="ae2be090c0def751a04ce5c321ce987c2" name="ae2be090c0def751a04ce5c321ce987c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2be090c0def751a04ce5c321ce987c2">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,6 +233,11 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
         </tr>
       </table>
@@ -236,6 +248,7 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">world</td><td>Monde dont on lit les composants <span class="tt">Transform</span> et <span class="tt">Sprite</span>. </td></tr>
     <tr><td class="paramname">camera</td><td>Caméra fournissant la projection monde → écran et le cadrage visible. </td></tr>
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt">EX-REN-046</span>) : bascule purement <b>visuelle</b>, sans effet sur la scène ECS ni sur la simulation. </td></tr>
     <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>, <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></span>). Une entité portant un <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span> est dessinée à <span class="tt">lerp(précédente, courante, alpha)</span> (mouvement lisse) ; une entité sans ce composant (tuiles fixes) est dessinée à sa position courante. <span class="tt">0</span> reproduit le comportement non interpolé. </td></tr>
   </table>
   </dd>
@@ -277,6 +290,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a>* hmi::SpriteRenderer::_batch</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a602b47dbb5998673ed6dd935f1b2dbce" name="a602b47dbb5998673ed6dd935f1b2dbce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a602b47dbb5998673ed6dd935f1b2dbce">&#9670;&#160;</a></span>_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a>* hmi::SpriteRenderer::_cache</td>
         </tr>
       </table>
   </td>

@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-39.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a> (socle) ; s'intègre à l'éditeur des LOT-35 → LOT-37. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1790"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1792"></a>
 Objectif</h1>
 <p>Lever le dernier point de douleur du demandeur (« lorsque je vais implémenter des textures, cela va être compliqué »). Aujourd'hui <b>toutes</b> les textures sont <b>générées procéduralement en mémoire</b> (<span class="tt">TextureAtlas</span>, <span class="tt">BitmapFont</span>, <span class="tt">FlagIcons</span>, <span class="tt">SaveIcon</span>) — <b>aucun loader d'image</b> n'existe. Ce lot introduit le <b>chargement de textures depuis des fichiers image</b> et un <b>remplacement progressif</b> du <span class="tt">TextureAtlas</span> procédural par des assets fichiers, de sorte que les tuiles (et à terme le personnage/les décors) s'affichent avec de vraies textures, éditables hors code.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1791"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1793"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1792"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1794"></a>
 Inclus</h2>
 <ul>
 <li><b>Loader d'images → texture D3D11</b> : décodage d'un fichier image (PNG au minimum) en pixels RGBA, puis <span class="tt">CreateTexture2D</span> + <span class="tt">CreateShaderResourceView</span> (mêmes appels que <span class="tt">TextureAtlas</span> aujourd'hui).<ul>
@@ -114,7 +114,7 @@ Inclus</h2>
 <li><b>Filtrage pixel art préservé</b> : échantillonnage <em>nearest</em> (déjà en place dans <span class="tt">SpriteBatch</span>), aucune interpolation qui flouterait le pixel art.</li>
 <li>Documentation (guide rendu — pipeline de textures fichiers) et tests de la logique nouvelle (résolution de chemin d'asset, mapping des régions) découplée du GPU.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1793"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1795"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Pipeline photo → pixel art, décors riches</b> (<span class="tt">EX-DEC-*</span>) — toujours hors périmètre du projet.</li>
@@ -122,7 +122,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Remplacement des polices/icônes procédurales</b> (<span class="tt">BitmapFont</span>, <span class="tt">FlagIcons</span>, <span class="tt">SaveIcon</span>) — hors UI Qt (qui a ses propres polices/icônes) ; ce lot cible les <b>textures de jeu</b> (tuiles), pas l'UI.</li>
 <li><b>Animation du personnage par fichiers</b> — peut réutiliser le loader plus tard ; ce lot se concentre sur les tuiles pour dérisquer le pipeline.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1794"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1796"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Conserver l'interface de <span class="tt">TextureAtlas</span>, ne changer que l'implémentation</b> : le rendu (<span class="tt">SpriteRenderer</span>, éditeur) consomme déjà <span class="tt">textureView()</span> + régions ; garder ce contrat évite de toucher aux appelants et permet un basculement procédural ↔ fichier transparent (repli inclus).</li>
@@ -130,13 +130,13 @@ Décisions de cadrage</h1>
 <li><b>Assets copiés à côté de l'exécutable</b> comme <span class="tt">Levels</span>/<span class="tt">Localization</span> (patron CMake POST_BUILD existant) : cohérent avec l'organisation actuelle, éditable hors code.</li>
 <li><b>Repli procédural si asset manquant</b> : ne jamais bloquer le rendu sur un fichier absent — robustesse (<span class="tt">EX-NFR-040</span>), et migration incrémentale tuile par tuile possible.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1795"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1797"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-REN-041</span> (chargement de textures depuis fichiers image), <span class="tt">EX-REN-042</span> (assets de jeu externalisés, éditables hors code, avec repli procédural).</li>
 <li>Réutilisées : <span class="tt">EX-ARCH-022</span> (échantillonnage pixel art <em>nearest</em>), <span class="tt">EX-NFR-040</span> (robustesse — asset manquant), <span class="tt">EX-NFR-010</span> (logique de résolution d'assets testable sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1796"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1798"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-39-tache-03-convention-assets-doc.html#md_Lot_2LOT-39-refonte-ihm-qt-textures_2tache-03-convention-assets-doc" title="Lot/LOT-39-refonte-ihm-qt-textures/tache-03-convention-assets-doc.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Convention d'assets + (option) aperçu ; documentation &amp; vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Elements</span>, <span class="tt">Source/Editor</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1797"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1799"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une <b>texture chargée depuis un fichier PNG</b> s'affiche sur les tuiles du niveau (éditeur et jeu), au filtrage pixel art <em>nearest</em> (net, non flou).</li>
@@ -161,12 +161,12 @@ Critères d'acceptation du lot</h1>
 <li>La logique de résolution d'assets / mapping de régions est <b>couverte par des tests</b> sans GPU.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen et lint verts ; rendu des textures <b>vérifié visuellement</b>.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1798"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1800"></a>
 Dépendances</h1>
 <ul>
 <li>Bâtit sur <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a> et l'éditeur (LOT-35 → LOT-37). Réutilise/étend <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span>/<span class="tt">SpriteBatch</span>/<span class="tt">SpriteRenderer</span> (<span class="tt">LOT-05</span>) et le patron CMake POST_BUILD de copie d'assets (<span class="tt">Levels</span>/<span class="tt">Localization</span>). <span class="tt">QImage</span> (Qt, <span class="tt">LOT-34</span>) ou <span class="tt">stb_image</span> (nouvelle dépendance <span class="tt">External/</span>). Ne modifie pas <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1799"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1801"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-39-tache-01-loader-image-assets.html" title="TACHE-01 — Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d&#39;assets testable">TACHE-01 — Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d'assets testable</a></li>

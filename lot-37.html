@@ -97,12 +97,12 @@ $(function(){initNavTree('lot-37.html','',''); });
 <p>Statut : <b>fait</b>. Prérequis : <a class="el" href="lot-35.html" title="LOT-35 — Refonte IHM (Qt) : éditeur (docking, palette, outils, peinture)">LOT-35</a> (éditeur Qt) ; complémentaire de <a class="el" href="lot-36.html" title="LOT-36 — Refonte IHM (Qt) : gestion des niveaux (liste, recherche, fichiers)">LOT-36</a>.</p>
 <p><b>Note (cadrage vs implémentation)</b> : ce lot a été cadré avant le <span class="tt">LOT-38</span> (retrait de l'éditeur « maison » historique). Les chemins mentionnés ci-dessous (<span class="tt">Source/Editor</span>, <span class="tt">EditorController</span>, <span class="tt">LINK_TINTS</span>, prédicats <span class="tt">isTriggerTile</span>/<span class="tt">isLinkTargetTile</span> du legacy) appartenaient à ce code <b>supprimé</b> ; l'implémentation réelle vit dans l'arborescence Qt actuelle : géométrie/gestes purs dans <span class="tt">Source/HMI/Editor/{LinkGeometry,LinkGesture}.*</span>, rendu dans <span class="tt"><a class="el" href="DraftRenderer_8cpp.html">Source/HMI/Graphics/DraftRenderer.cpp</a></span> (+ primitive <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span> dans <span class="tt">SpriteBatch</span>), geste interactif dans <span class="tt">Source/HMI/Game/GameViewport.*</span> via un <b>outil dédié</b> <span class="tt">EditorTool::Link</span> (panneau Outils) plutôt qu'un raccourci <span class="tt">Maj+clic</span>, et panneau dans <span class="tt">Source/HMI/Editor/LinkPanel.*</span>. Voir <a class="el" href="guide-editeur.html" title="Éditeur de niveaux intégré">Éditeur de niveaux intégré</a> pour la description à jour. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1721"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1723"></a>
 Objectif</h1>
 <p>Rendre <b>lisible et éditable</b> la liaison des interrupteurs, principal point de douleur cité par le demandeur (« ce qui est actuel rend complexe le lien des interrupteurs »). Aujourd'hui, faute de primitive de ligne, une paire déclencheur→cible est indiquée par une <b>simple teinte de case</b> (<span class="tt">LINK_TINTS</span>) : au-delà de quelques liens, illisible. Ce lot introduit un <b>rendu explicite par traits/flèches</b> reliant chaque déclencheur à sa/ses cible(s), plus un <b>panneau « Liens »</b> listant et éditant les liaisons.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1722"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1724"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1723"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1725"></a>
 Inclus</h2>
 <ul>
 <li><b>Rendu des liens par traits/flèches</b> dans le viewport : chaque <span class="tt">Mechanism</span> (interrupteur/plaque → porte) et <span class="tt">DangerLink</span> (déclencheur → danger commuté) est dessiné comme une <b>flèche</b> du centre du déclencheur vers le centre de la cible, par-dessus la grille.<ul>
@@ -115,14 +115,14 @@ Inclus</h2>
 <li>Réutilise <b>intégralement</b> le modèle : <span class="tt">LevelDraft::linkMechanism</span> / <span class="tt">unlinkMechanism</span>, vecteurs <span class="tt">Mechanism</span> / <span class="tt">DangerLink</span>, distinction <span class="tt">isTriggerTile</span> / <span class="tt">isLinkTargetTile</span>.</li>
 <li>Documentation (guide éditeur — section liaisons) et tests de la logique nouvelle (géométrie des traits, appariement) découplée du GPU.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1724"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1726"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Nouveau modèle de liaison</b> (identifiants persistés en mémoire, liaisons N↔N arbitraires) — le modèle actuel (une cible = un déclencheur, plusieurs cibles par déclencheur, résolu par position) est <b>conservé</b> ; seule sa <b>visualisation/édition</b> change.</li>
 <li><b>Configuration des dangers avancés</b> (mover/blink : axe, période, phase) — reste éditée comme aujourd'hui ; ce lot cible la <b>liaison</b> déclencheur→cible, pas les paramètres de danger.</li>
 <li><b>Textures, menus, gestion de fichiers</b> — LOT-39/38/36.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1725"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1727"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Traits/flèches explicites, fin des teintes de case</b> : c'est la correction directe du point de douleur — une flèche montre sans ambiguïté « ce déclencheur ouvre cette porte », là où une teinte partagée obligeait à comparer des couleurs. Le rendu par teinte est retiré (ou conservé en appoint léger, à trancher).</li>
@@ -130,14 +130,14 @@ Décisions de cadrage</h1>
 <li><b>Le modèle de liaison ne change pas</b> : <span class="tt">Core</span> reste intact ; ce lot est purement présentation + interaction. Aucune migration de fichiers de niveaux.</li>
 <li><b>Panneau « Liens » comme vue du modèle</b> : il <b>lit</b> <span class="tt">LevelDraft</span> et déclenche <span class="tt">link</span>/<span class="tt">unlinkMechanism</span> ; aucune duplication de l'état des liaisons.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1726"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1728"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-030</span> (liens de mécanismes rendus par traits/flèches explicites), <span class="tt">EX-IHM-031</span> (panneau listant/éditant les liaisons du niveau).</li>
 <li>Reconduite (présentation, sémantique conservée) : <span class="tt">EX-EDIT-003</span> (liaison déclencheur → cible).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-010</span> (pas de duplication de la logique de niveau), <span class="tt">EX-NFR-010</span> (géométrie des traits testable sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1727"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1729"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot. </p>
@@ -152,7 +152,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-37-tache-03-panneau-liens-doc.html#md_Lot_2LOT-37-refonte-ihm-qt-liens_2tache-03-panneau-liens-doc" title="Lot/LOT-37-refonte-ihm-qt-liens/tache-03-panneau-liens-doc.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Panneau « Liens » (liste, surbrillance, suppression) ; doc &amp; vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Interface</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1728"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1730"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Chaque liaison déclencheur→cible du niveau est dessinée comme un <b>trait/flèche explicite</b> dans le viewport, aligné sur la grille au zoom/pan courant.</li>
@@ -162,12 +162,12 @@ Critères d'acceptation du lot</h1>
 <li>La géométrie des traits et l'appariement sont <b>couverts par des tests</b> sans GPU.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen et lint verts ; rendu <b>vérifié visuellement</b>.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1729"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1731"></a>
 Dépendances</h1>
 <ul>
 <li>Bâtit sur <a class="el" href="lot-35.html" title="LOT-35 — Refonte IHM (Qt) : éditeur (docking, palette, outils, peinture)">LOT-35</a>. Réutilise <span class="tt">LevelDraft::linkMechanism</span>/<span class="tt">unlinkMechanism</span> et les structures <span class="tt">Mechanism</span>/<span class="tt">DangerLink</span> (<span class="tt">LOT-14</span>/<span class="tt">19</span>/<span class="tt">31</span>) et le rendu de grille du viewport. Peut ajouter une primitive de ligne à <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></span> (<span class="tt">LOT-05</span>). Ne modifie pas <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1730"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1732"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-37-tache-01-primitive-ligne-geometrie.html" title="TACHE-01 — Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable)">TACHE-01 — Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable)</a></li>

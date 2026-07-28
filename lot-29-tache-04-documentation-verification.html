@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-29-tache-04-documentation-verification.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-29-remappage-touches_2tache-04-documentation-verification"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-29.html#md_Lot_2LOT-29-remappage-touches_2epic" title="Lot/LOT-29-remappage-touches/epic.md">LOT-29</a> · <b>Emplacement :</b> <span class="tt">Documentation</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1457"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1459"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : aligner la documentation sur le comportement livré par TACHE-01/02/03 et lever le statut « souhaité » d'<span class="tt">EX-CTRL-012</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1458"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1460"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></span></b> : <span class="tt">EX-CTRL-012</span> perd son marqueur <span class="tt">⚠️ souhaité</span> ; courte note renvoyant vers ce lot pour le détail des actions couvertes (jeu) et le sous-ensemble éditeur (hors tableau des actions de jeu, qui reste inchangé).</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt"><a class="el" href="guide-entrees_8md.html">Documentation/Guide/guide-entrees.md</a></span></b> (écart par rapport au périmètre initial de cette tâche, mémoire projet « Doc suit les lots ») : plusieurs passages décrivaient le remappage comme un bénéfice <b>hypothétique</b> de l'indirection action/touche — désormais réel, mis à jour (signature de <span class="tt">toPlayerInput</span>, filet de sécurité manette, nouvelle section dédiée au remappage).</li>
 <li><b>Doxygen</b>, <b>Cahier de test</b>, <b>lint des exigences</b> : mêmes vérifications que les lots précédents — <span class="tt">python scripts/lint_exigences.py</span> et <span class="tt">python scripts/generate_cahier_test.py</span> <b>doivent être lancés par l'utilisateur</b> (pas de Python 3 dans ce sandbox, cf. mémoire projet).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1459"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1461"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></span>.</li>
@@ -115,7 +115,7 @@ Fichiers impactés</h1>
 <li><span class="tt"><a class="el" href="CahierTest_8md.html">Documentation/CahierTest.md</a></span> (régénéré par l'utilisateur).</li>
 <li><span class="tt">CHANGELOG.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1460"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1462"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">python scripts/lint_exigences.py</span> retourne un code de sortie <span class="tt">0</span> (lancé par l'utilisateur).</li>
@@ -123,17 +123,17 @@ Tests (obligatoires)</h1>
 <li><span class="tt">doxygen Doxyfile</span> (depuis <span class="tt">Documentation/</span>) se termine avec un code de sortie <span class="tt">0</span> et <b>aucune</b> ligne de sortie.</li>
 <li>Build complet <span class="tt">/W4 /WX</span> et suite de tests complète, sans régression.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1461"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1463"></a>
 Points d'attention</h1>
 <ul>
 <li>Aucun nouvel identifiant <span class="tt">EX-…</span> : ce lot <b>implémente</b> une exigence déjà existante (<span class="tt">EX-CTRL-012</span>), il n'en crée pas de nouvelle.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1462"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1464"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Documentation cohérente avec le comportement livré ; <span class="tt">epic.md</span> marqué <b>terminé</b>, chaque tâche marquée ✅.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1463"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1465"></a>
 Exigences</h1>
 <p><span class="tt">EX-CTRL-012</span> (levée de son statut souhaité). </p>
 </div></div><!-- contents -->

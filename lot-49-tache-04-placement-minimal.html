@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-49-tache-04-placement-minimal.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-49-decors-libres_2tache-04-placement-minimal"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-49.html#md_Lot_2LOT-49-decors-libres_2epic" title="Lot/LOT-49-decors-libres/epic.md">LOT-49</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/CMakeLists.txt</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2183"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2185"></a>
 Contexte</h1>
 <p>Un modèle et un rendu de décors qu'on ne peut pas alimenter ne sont pas vérifiables : sans un moyen de poser un décor, ni la superposition, ni la parallaxe, ni la traversabilité ne peuvent être constatées dans l'application.</p>
 <p>Cette tâche livre donc le <b>strict nécessaire</b> pour cela. L'outillage complet — déplacer, redimensionner, pivoter, réordonner, sélectionner — est le sujet de LOT-50, et ne doit pas être anticipé ici.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2184"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2186"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Poser et supprimer</b> : choisir un asset dans la bibliothèque (LOT-43), choisir une couche, poser au clic, supprimer au clic droit ou par la touche de suppression. Rien d'autre.</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b>Niveau de démonstration</b> : ajouter ou enrichir un niveau montrant les trois couches et la traversabilité — un décor de premier plan devant lequel le personnage passe, un décor d'arrière-plan derrière les tuiles. C'est le support de la vérification manuelle du lot, et il doit rester cohérent avec <span class="tt">scripts/check_demo_sequence.py</span>.</li>
 <li>Chaînes traduites.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2185"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2187"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT-15, EX-EDIT-014).">Source/HMI/Editor/EditorTool.h</a></span>, <span class="tt">ToolPanel.{h,cpp}</span>, <span class="tt">Source/Elements/UI/ToolPanel.ui</span>.</li>
@@ -115,26 +115,26 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Assets/Decors/</span> (nouveau dossier), <span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 <li><span class="tt">Source/Elements/Levels/</span> (niveau de démonstration), <span class="tt">Source/Elements/Localization/*.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2186"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2188"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Poser puis annuler retire le décor ; rétablir le repose au même endroit, sur la même couche, au même rang.</li>
 <li><b>Franchissabilité</b> : le niveau de démonstration enrichi de décors reste franchissable — c'est le test qui prouve la traversabilité (<span class="tt">EX-NFR-021</span>).</li>
 <li><span class="tt">scripts/check_demo_sequence.py</span> reste vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2187"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2189"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas anticiper LOT-50.</b> Ajouter « juste » le déplacement au glisser ferait déborder ce lot et viderait le suivant de sa substance ; la limite est explicite.</li>
 <li>Le décor posé doit l'être à la position <b>exacte</b> du clic, sans alignement sur la grille : c'est la démonstration de <span class="tt">EX-DEC-001</span>. L'aimantation optionnelle relève de LOT-50.</li>
 <li>Vérifier que le niveau de démonstration reste lisible en mode Physique (où les décors sont invisibles) : il doit rester franchissable sans habillage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2188"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2190"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Un décor peut être posé et supprimé depuis l'éditeur, sur la couche choisie, à une position libre, de façon annulable ; le dossier d'assets est déployé ; un niveau de démonstration illustre les trois couches et reste franchissable ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2189"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2191"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (placement de décors, partiel — complété en LOT-50), <span class="tt">EX-EDIT-040</span> (édition de décors, partiel) ; réutilise <span class="tt">EX-DEC-001</span> (position libre), <span class="tt">EX-EDIT-005</span> (annuler/refaire), <span class="tt">EX-EDIT-026</span> (bibliothèque d'assets), <span class="tt">EX-NFR-021</span> (test système de franchissabilité), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

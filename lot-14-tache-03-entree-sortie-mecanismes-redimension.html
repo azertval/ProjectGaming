@@ -94,41 +94,41 @@ $(function(){initNavTree('lot-14-tache-03-entree-sortie-mecanismes-redimension.h
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-14-editeur-niveaux_2tache-03-entree-sortie-mecanismes-redimension"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-14.html#md_Lot_2LOT-14-editeur-niveaux_2epic" title="Lot/LOT-14-editeur-niveaux/epic.md">LOT-14</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md904"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md906"></a>
 Contexte</h1>
 <p>Au-delà de la peinture simple de tuiles (TACHE-02), trois interactions ont une <b>sémantique propre</b> : l'entrée et la sortie sont <b>uniques</b> par niveau, un interrupteur doit être <b>relié</b> à une porte pour avoir un sens, et la grille peut devoir changer de <b>taille</b> en cours de conception.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md905"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md907"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Entrée/sortie</b> : poser <span class="tt">Entry</span>/<span class="tt">Exit</span> depuis la palette appelle <span class="tt">LevelDraft::setEntry</span>/<span class="tt">setExit</span> (TACHE-01), qui <b>déplace</b> l'occurrence existante plutôt que d'en créer une seconde — retour visuel immédiat (l'ancienne case redevient <span class="tt">Empty</span>).</li>
 <li><b>Liaison interrupteur↔porte</b> : un mode « liaison » de la palette — cliquer un <span class="tt">Switch</span> puis une <span class="tt">Door</span> (ou l'inverse) les <b>lie</b> (<span class="tt">LevelDraft::linkMechanism</span>) ; une <b>ligne indicative</b> est dessinée entre les deux tant qu'elles restent visibles à l'écran (retour visuel simple, pas d'animation). Cliquer une liaison existante (ou un raccourci dédié) la <b>retire</b> (<span class="tt">unlinkMechanism</span>). Poser une <span class="tt">Door</span>/<span class="tt">Switch</span> sans liaison est autorisé (état intermédiaire pendant l'édition), mais bloqué par la validation à l'enregistrement (TACHE-05, <span class="tt">EX-LVL-004</span>).</li>
 <li><b>Redimensionnement</b> : un contrôle d'interface (ex. champs largeur/hauteur + bouton « appliquer » dans la palette) appelle <span class="tt">LevelDraft::resize</span> ; agrandir ajoute des cases <span class="tt">Empty</span>, réduire tronque (avec confirmation si des tuiles significatives — entrée, sortie, mécanismes — seraient perdues).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md906"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md908"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span>, <span class="tt">Source/HMI/Editor/</span> (extension de la palette/du contrôleur d'interaction de TACHE-02).</li>
 <li>Tests unitaires et d'intégration (<span class="tt">Source/Test/Unit/HMI/Editor/</span>, <span class="tt">Source/Test/Integration/</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md907"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md909"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Poser une deuxième <span class="tt">Entry</span> déplace la première (une seule au final) ; idem <span class="tt">Exit</span>.</li>
 <li>Séquence clic <span class="tt">Switch</span> puis clic <span class="tt">Door</span> produit une liaison dans le <span class="tt">LevelDraft</span> ; répéter sur une liaison existante la retire.</li>
 <li>Redimensionner plus petit tronque les cases hors bornes ; redimensionner plus grand préserve le contenu existant et complète en <span class="tt">Empty</span> ; une réduction qui <b>perdrait</b> l'entrée/la sortie/une liaison est signalée avant application (test du chemin de confirmation/refus).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md908"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md910"></a>
 Points d'attention</h1>
 <ul>
 <li>Toute la sémantique (unicité, liaison, redimensionnement) est déjà portée par <span class="tt">LevelDraft</span> (TACHE-01) : cette tâche <b>orchestre</b> l'interaction souris/clavier vers cette API, sans réimplémenter de règles côté <span class="tt">HMI</span>.</li>
 <li>Rester cohérent avec la représentation déjà utilisée pour l'état des portes en jeu (LOT-12, teinte ouverte/fermée) pour ne pas introduire un second vocabulaire visuel.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md909"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md911"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Entrée/sortie, liaison et redimensionnement opérationnels et testés (<span class="tt">ctest</span> vert), vérifiés visuellement ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md910"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md912"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-003</span>, <span class="tt">EX-EDIT-004</span>, <span class="tt">EX-EDIT-005</span>, <span class="tt">EX-LVL-004</span>. </p>
 </div></div><!-- contents -->

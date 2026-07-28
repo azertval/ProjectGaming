@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-03-tache-06-transform-demo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-03-fondation-ecs_2tache-06-transform-demo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">LOT-03</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md393"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
 Contexte</h1>
 <p>Tâche d'assemblage : prouver que l'ECS fonctionne de bout en bout avec un premier composant réel et un système qui le met à jour. Sert aussi d'exemple de référence pour les futurs systèmes de gameplay.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md394"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md396"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Composant <span class="tt">Transform</span> (données pures) : <span class="tt">position</span> (<span class="tt">Vector2</span>), <span class="tt">scale</span> (<span class="tt">Vector2</span>), <span class="tt">rotation</span> (<span class="tt">float</span>), en <b>unités monde</b> (cf. <span class="tt">EX-ARCH-020</span>).</li>
@@ -105,35 +105,35 @@ Travail à réaliser</h1>
 <li><span class="tt">MovementSystem</span> (implémente <span class="tt">ISystem</span>) : pour chaque entité ayant <span class="tt">Transform</span> <b>et</b> <span class="tt">Velocity</span>, applique <span class="tt">position += velocity * fixedDelta</span>.</li>
 <li>Démonstration : créer quelques entités, enregistrer le système dans un <span class="tt">World</span>, exécuter plusieurs pas fixes et vérifier les positions.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md395"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Transform_8h.html" title="Composant de placement d&#39;une entité dans le monde (données pures).">Source/Core/Ecs/Components/Transform.h</a></span>, <span class="tt"><a class="el" href="Velocity_8h.html" title="Composant de vitesse linéaire d&#39;une entité (données pures).">Velocity.h</a></span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="MovementSystem_8h.html" title="Système intégrant la position des entités à partir de leur vitesse.">Source/Core/Ecs/Systems/MovementSystem.h</a></span>, <span class="tt"><a class="el" href="MovementSystem_8cpp.html">MovementSystem.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/Unit/test_movement_system.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md396"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md398"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Une entité <span class="tt">Transform + Velocity</span> avance de <span class="tt">velocity * fixedDelta</span> par pas ; après N pas, position attendue (déterministe).</li>
 <li>Une entité sans <span class="tt">Velocity</span> <b>ne bouge pas</b>.</li>
 <li>Deux entités de vitesses différentes évoluent indépendamment.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md397"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md399"></a>
 Points d'attention</h1>
 <ul>
 <li>Les composants restent des <b>données pures</b> ; toute la logique est dans <span class="tt">MovementSystem</span>.</li>
 <li>Déterminisme : même état initial + mêmes pas → mêmes positions (<span class="tt">EX-NFR-002</span>).</li>
 <li>Conventions : documentation <span class="tt">.h</span> + <span class="tt">.cpp</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md398"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md400"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaîne complète entité → composant → système → résultat vérifiée par tests (<span class="tt">ctest</span> vert).</li>
 <li>Tous les critères d'acceptation de l'<a class="el" href="lot-03.html#md_Lot_2LOT-03-fondation-ecs_2epic" title="Lot/LOT-03-fondation-ecs/epic.md">epic</a> satisfaits.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, <b>CI verte</b>, Doxygen à jour, <span class="tt">CHANGELOG.md</span> mis à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md399"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md401"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-010</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-ARCH-030</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

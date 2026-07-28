@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-35.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>implémenté</b> (build/tests verts ; vérification IHM manuelle en cours). Prérequis : <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a> (socle Qt + viewport). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1652"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1654"></a>
 Objectif</h1>
 <p>Sur le socle Qt du <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a>, reconstruire le <b>cœur de l'éditeur de niveau</b> en widgets Qt : une fenêtre à <b>panneaux dockables</b> (<span class="tt">QDockWidget</span>) autour du viewport D3D11 central, avec la palette de tuiles, la barre d'outils, la peinture à la souris et l'annuler/refaire. L'objectif est la <b>maintenabilité</b> (séparer interaction et rendu, plus de dessin manuel de widgets) et des <b>fenêtres réglables hors code</b> (disposition sauvegardée/restaurée). La logique d'édition <b>ne change pas</b> : les widgets pilotent <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>, source de vérité déjà testée.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1653"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1655"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1654"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1656"></a>
 Inclus</h2>
 <ul>
 <li><b><span class="tt">QMainWindow</span> à docks</b> : viewport D3D11 (LOT-34) en zone centrale ; <span class="tt">QDockWidget</span> dockables, redimensionnables, détachables et empilables pour Palette, Outils, Statut.</li>
@@ -117,7 +117,7 @@ Inclus</h2>
 <li>Enregistrement du niveau (<span class="tt">LevelWriter::saveToFile</span>) via une action Qt ; essai immédiat (playtest) déclenché dans le viewport (réutilise le chemin <span class="tt">GameScreen</span>/<span class="tt">LevelScene</span>).</li>
 <li>Documentation (guide éditeur mis à jour) et tests de la logique nouvelle découplée de Qt.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1655"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1657"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Liste/gestion des fichiers de niveaux</b> (recherche, duplication, suppression) — <a class="el" href="lot-36.html" title="LOT-36 — Refonte IHM (Qt) : gestion des niveaux (liste, recherche, fichiers)">LOT-36</a>.</li>
@@ -126,7 +126,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Textures depuis fichiers</b> — <a class="el" href="lot-39.html" title="LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)">LOT-39</a> ; rendu des tuiles via <span class="tt">TextureAtlas</span> procédural inchangé.</li>
 <li><b>Nouvelles mécaniques de niveau ou nouveau format</b> — aucun ; <span class="tt">Core</span> intact.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1656"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1658"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Widgets Qt natifs, pas de re-dessin maison</b> : la palette (<span class="tt">QTreeView</span>), les outils (<span class="tt">QToolBar</span>) et les dialogues sont des contrôles Qt standard — c'est tout l'intérêt de la migration (lisibilité, accessibilité clavier, maintenance). Seul le <b>viewport</b> reste du dessin D3D11.</li>
@@ -135,14 +135,14 @@ Décisions de cadrage</h1>
 <li><b>Réutiliser la taxonomie de palette existante</b> plutôt que la redéfinir : les catégories/ sous-groupes du <span class="tt">LOT-27</span> sont conservés, seul leur <b>rendu</b> passe de l'accordéon maison à un arbre Qt.</li>
 <li><b>Le viewport reste l'unique surface D3D11</b> : la peinture et le survol sont dessinés dedans (quads), pas en overlay Qt, pour rester au pixel près sur la grille de jeu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1657"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1659"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <span class="tt">EX-IHM-010</span> (éditeur en fenêtre à docks Qt réglables), <span class="tt">EX-IHM-011</span> (disposition des panneaux persistée hors code).</li>
 <li>Portées/reconduites depuis l'éditeur historique (comportement inchangé, présentation Qt) : <span class="tt">EX-EDIT-002</span> (peinture), <span class="tt">EX-EDIT-005</span> (undo/redo, redimensionnement), <span class="tt">EX-EDIT-014</span> (outils Paint/Rectangle/Sélection), <span class="tt">EX-EDIT-018</span> (palette par catégories).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-010</span>/<span class="tt">EX-EDIT-030</span>/<span class="tt">EX-EDIT-031</span> (pas de duplication de la logique de niveau), <span class="tt">EX-NFR-010</span> (logique testable sans GPU).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1658"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1660"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot. </p>
@@ -159,7 +159,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-35-tache-04-redim-enregistrement-essai.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2tache-04-redim-enregistrement-essai" title="Lot/LOT-35-refonte-ihm-qt-editeur/tache-04-redim-enregistrement-essai.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Redimensionnement, enregistrement, essai immédiat ; documentation &amp; vérification  </td><td class="markdownTableBodyNone"><span class="tt">Source/Editor</span>, <span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1659"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1661"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>L'éditeur Qt ouvre une fenêtre à panneaux dockables autour du viewport ; l'utilisateur peut <b>déplacer, redimensionner, détacher</b> les panneaux, et la disposition est <b>restaurée au relancement</b>.</li>
@@ -169,12 +169,12 @@ Critères d'acceptation du lot</h1>
 <li>Aucune règle d'édition n'est dupliquée dans Qt (tout passe par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>) ; la logique nouvelle découplée de Qt est <b>couverte par des tests</b>.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts ; l'IHM Qt est <b>vérifiée visuellement</b>.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1660"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1662"></a>
 Dépendances</h1>
 <ul>
 <li>Bâtit sur <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a> (viewport, boucle, entrées). Réutilise <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> (<span class="tt">LOT-14</span>), la taxonomie de palette (<span class="tt">LOT-27</span>), <span class="tt"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a></span>/<span class="tt">Camera2D</span> et le chemin <span class="tt">LevelWriter</span>/<span class="tt">GameScreen</span>. Ne modifie pas <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1661"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1663"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-35-tache-01-fenetre-docks-persistance.html" title="TACHE-01 — `QMainWindow` à docks + persistance `QSettings` de la disposition">TACHE-01 — `QMainWindow` à docks + persistance `QSettings` de la disposition</a></li>

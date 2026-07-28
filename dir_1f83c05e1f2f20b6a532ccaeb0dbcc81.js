@@ -22,6 +22,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "QuadRecorder.cpp", "QuadRecorder_8cpp.html", null ],
     [ "QuadRecorder.h", "QuadRecorder_8h.html", "QuadRecorder_8h" ],
     [ "RenderLayer.h", "RenderLayer_8h.html", "RenderLayer_8h" ],
+    [ "RenderMode.cpp", "RenderMode_8cpp.html", "RenderMode_8cpp" ],
+    [ "RenderMode.h", "RenderMode_8h.html", "RenderMode_8h" ],
     [ "RoomGrid.cpp", "RoomGrid_8cpp.html", null ],
     [ "RoomGrid.h", "RoomGrid_8h.html", "RoomGrid_8h" ],
     [ "SpriteBatch.cpp", "SpriteBatch_8cpp.html", null ],
@@ -35,6 +37,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "TextureCache.h", "TextureCache_8h.html", "TextureCache_8h" ],
     [ "TextureLoader.cpp", "TextureLoader_8cpp.html", "TextureLoader_8cpp" ],
     [ "TextureLoader.h", "TextureLoader_8h.html", "TextureLoader_8h" ],
+    [ "TileAppearance.cpp", "TileAppearance_8cpp.html", "TileAppearance_8cpp" ],
+    [ "TileAppearance.h", "TileAppearance_8h.html", "TileAppearance_8h" ],
     [ "TileVisuals.cpp", "TileVisuals_8cpp.html", "TileVisuals_8cpp" ],
     [ "TileVisuals.h", "TileVisuals_8h.html", "TileVisuals_8h" ]
 ];

@@ -23,7 +23,7 @@ var searchData=
   ['composegrid_20',['composeGrid',['../classhmi_1_1DraftRenderer.html#a1eabde0038500f14697e69af39359c1f',1,'hmi::DraftRenderer']]],
   ['composehighlight_21',['composeHighlight',['../classhmi_1_1DraftRenderer.html#a25e74134b58cd46d21a696664f0b0596',1,'hmi::DraftRenderer']]],
   ['composelinks_22',['composeLinks',['../classhmi_1_1DraftRenderer.html#a6407efa6e5ef2c0c1818b76d99c7bc24',1,'hmi::DraftRenderer']]],
-  ['composeworldsprites_23',['composeWorldSprites',['../namespacehmi.html#aae4284312a956fc5a625785576f3c0e5',1,'hmi']]],
+  ['composeworldsprites_23',['composeWorldSprites',['../namespacehmi.html#aa9cace554e4d6b94002e17f27585f11b',1,'hmi']]],
   ['contains_24',['contains',['../structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00',1,'core::Rect']]],
   ['containsspriteat_25',['containsSpriteAt',['../classhmi_1_1QuadRecorder.html#ae7b026efca021dcceac2c07dddebcf0e',1,'hmi::QuadRecorder']]],
   ['context_26',['context',['../classhmi_1_1GraphicsDevice.html#a3ece76a44d20fa3b86902bb787a24b3d',1,'hmi::GraphicsDevice']]],

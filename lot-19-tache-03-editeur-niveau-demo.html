@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-19-tache-03-editeur-niveau-demo.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-19-physique-newtonienne-mecanismes_2tache-03-editeur-niveau-demo"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-19.html#md_Lot_2LOT-19-physique-newtonienne-mecanismes_2epic" title="Lot/LOT-19-physique-newtonienne-mecanismes/epic.md">LOT-19</a> · <b>Emplacement :</b> <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Graphics</span>, <span class="tt">Source/Elements</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1118"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1120"></a>
 Contexte</h1>
 <p><span class="tt">PressurePlate</span> existe côté <span class="tt">Core</span> (TACHE-02) mais reste invisible et impeignable depuis l'éditeur. Cette tâche l'ajoute à la palette, généralise la liaison Maj+clic (jusqu'ici câblée en dur sur <span class="tt">Switch</span>/<span class="tt">Door</span>) et livre un niveau de démonstration exploitant le mécanisme.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1119"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1121"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">hmi::TilePalette</span></b> (<span class="tt">TilePalette.cpp</span>) : ajoute <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a></span> à <span class="tt">PALETTE_TYPES</span> (juste après <span class="tt">Switch</span>, avant <span class="tt">Door</span> — regroupe les deux types de déclencheurs) ; libellé court <span class="tt">"Plaque"</span> dans <span class="tt">labelFor</span>.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li><b>Niveau de démonstration</b> (<span class="tt">Source/Elements/Levels/demo5.json</span>) : un niveau court illustrant la plaque de pression — par exemple une porte qui ne reste ouverte que le temps de la franchir en restant sur la plaque, ou un choix entre interrupteur (porte qui reste ouverte) et plaque (porte qui se referme) pour le même passage, sur le modèle de <span class="tt">demo4.json</span> (bordures solides, budget de mouvements si pertinent).</li>
 <li><b><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span></b> : ajoute <span class="tt">demo5.json</span> à la séquence de niveaux du mode Jouer.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1120"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/TilePalette.cpp</span>.</li>
@@ -115,14 +115,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Elements/Levels/demo5.json</span> (nouveau).</li>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1121"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1123"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Aucun test unitaire nouveau (édition/rendu, déjà couverts par les tests existants de <span class="tt">EditorScreen</span>/<span class="tt">TilePalette</span> qui n'énumèrent pas les types un par un) — vérification par usage direct dans l'application.</li>
 <li><b>Vérification visuelle et fonctionnelle obligatoire</b> dans l'application compilée : peindre une plaque de pression depuis la palette, la lier à une porte (Maj+clic), constater l'ouverture/ fermeture continue en jeu (essai immédiat de l'éditeur ou séquence de jeu) ; charger <span class="tt">demo5.json</span> depuis le menu Jouer et le terminer.</li>
 <li><span class="tt">ctest --preset ninja</span> reste vert (aucune régression sur les tests existants d'éditeur).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1122"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1124"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le niveau de démonstration doit rester franchissable avec les réglages de physique par défaut</b> (masse 1,0) — la plaque doit réagir au personnage seul, sans configuration additionnelle (cohérent avec <span class="tt">MIN_TRIGGER_MASS</span> calé sur la masse par défaut, TACHE-02).</li>
@@ -130,12 +130,12 @@ Points d'attention</h1>
 <li><b>Bug réellement rencontré</b> : <span class="tt">EditorLayout::TOOLBAR_TOP</span> codait en dur « 7 lignes » de palette pour positionner la barre d'outils sous elle — ajouter <span class="tt">PressurePlate</span> (8ᵉ entrée) faisait chevaucher les deux panneaux (« Porte » et « Pinceau » superposés à l'écran). Corrigé en remplaçant le littéral par <span class="tt">PALETTE_TYPE_COUNT</span> (nouvelle constante), avec un <span class="tt">static_assert</span> dans <span class="tt">TilePalette.cpp</span> qui échoue à la compilation si <span class="tt">PALETTE_TYPES</span> et ce compte divergent à nouveau à l'avenir. Repéré uniquement par vérification visuelle — aucun test ne couvrait la disposition du panneau.</li>
 <li><b>Constat annexe (hors périmètre)</b> : la grille de l'éditeur affiche <span class="tt">Switch</span>/<span class="tt">Door</span>/ <span class="tt">PressurePlate</span> avec une couleur assourdie par rapport à <span class="tt">TextureAtlas</span>/<span class="tt">GameScreen</span> (vérifié pixel par pixel) — confirmé <b>préexistant</b> (même défaut sur <span class="tt">demo4.json</span>, non modifié par ce lot) et sans impact gameplay (le rendu en jeu réel est correct). Non corrigé ici ; noté en mémoire projet pour une investigation future.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1123"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1125"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Plaque de pression peignable et liable depuis l'éditeur ; niveau de démonstration jouable et intégré à la séquence ; build <span class="tt">/W4 /WX</span> sans avertissement ; <span class="tt">ctest</span> vert ; vérifié visuellement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1124"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1126"></a>
 Exigences</h1>
 <p>Aucune exigence propre — intégration de <span class="tt">EX-GP-025</span> (TACHE-02) à l'éditeur et au contenu. </p>
 </div></div><!-- contents -->

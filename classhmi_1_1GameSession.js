@@ -1,6 +1,6 @@
 var classhmi_1_1GameSession =
 [
-    [ "GameSession", "classhmi_1_1GameSession.html#af3a5c8093afede0deb6937b25183840b", null ],
+    [ "GameSession", "classhmi_1_1GameSession.html#af78039207152f561de6e8879714b411b", null ],
     [ "centerCameraOnRoom", "classhmi_1_1GameSession.html#aff76760d9036a937f3b5f9cc83bc109a", null ],
     [ "collectActiveDangerBoxes", "classhmi_1_1GameSession.html#ac10c3bdbe4a4715de7320c888fb34ffc", null ],
     [ "loaded", "classhmi_1_1GameSession.html#abe7a3f556c45b3b07541f43b6d8461fa", null ],
@@ -12,7 +12,7 @@ var classhmi_1_1GameSession =
     [ "refreshDoorVisuals", "classhmi_1_1GameSession.html#a668cf4176ae1249f8baa58d4d3b0992f", null ],
     [ "refreshPlayerSprite", "classhmi_1_1GameSession.html#a8eeeb9edf5dcfa6ee6cbb928e7e05a56", null ],
     [ "reload", "classhmi_1_1GameSession.html#acb992fe3f9402a56c9546fb62c450a0c", null ],
-    [ "render", "classhmi_1_1GameSession.html#add312b51c185160e40539c271a0b0c04", null ],
+    [ "render", "classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a", null ],
     [ "snapshotPreviousPositions", "classhmi_1_1GameSession.html#a6bb897af2e39b7bb5bbf7507d4f7b6ad", null ],
     [ "spawnPlayer", "classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8", null ],
     [ "update", "classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2", null ],

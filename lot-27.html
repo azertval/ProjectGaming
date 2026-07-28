@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-27.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. La palette de tuiles de l'éditeur passe d'une <b>liste plate</b> de 19 types à un <b>accordéon à trois niveaux</b> (<span class="tt">EX-EDIT-018</span>) : catégories repliables, sous-groupes repliables imbriqués pour les familles à plusieurs formes/tailles (Pente, Arrondi, Bloc poussable), puis les variantes elles-mêmes. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1372"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1374"></a>
 Objectif</h1>
 <p>Depuis <span class="tt">LOT-26</span>, la palette affiche 19 lignes à plat : huit types simples (Vide, Solide, Danger, Entrée, Sortie, Interrupteur, Plaque, Porte) noyés au milieu de huit variantes de pente/arrondi et trois tailles de bloc poussable, dont les libellés ne se distinguent que par une orientation ou une fraction. Repérer le bon type impose un défilement visuel de la liste entière à chaque clic. Ce lot réorganise la palette par <b>catégories</b> (regroupement par intention d'usage) avec un second niveau de repli pour les familles à formes multiples, sans jamais recouvrir le canevas d'édition (esprit du panneau latéral fixe posé par <span class="tt">LOT-15</span>).</p>
 <p>Un mockup HTML/CSS interactif a été construit et itéré avec le demandeur <b>avant</b> toute implémentation (position du dépliage, choix des quatre catégories, retrait des textes de description, ajout du troisième niveau d'accordéon) — l'implémentation reproduit fidèlement la structure validée sur ce mockup, adaptée aux contraintes réelles (police bitmap, panneau de largeur fixe, pas de rendu de survol/animation).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1373"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1375"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1374"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1376"></a>
 Inclus</h2>
 <ul>
 <li>Réorganisation de <span class="tt">hmi::TilePalette</span> en accordéon à trois niveaux :<ol type="1">
@@ -115,7 +115,7 @@ Inclus</h2>
 <li><b>Défilement</b> de la palette (molette au-dessus du panneau latéral) et barre de défilement (piste + curseur), sur le modèle de <span class="tt">LevelPicker</span> (<span class="tt">LOT-15</span>) : tout déplier en même temps (25 lignes au maximum) peut dépasser la hauteur de fenêtre disponible, une fois <span class="tt">ToolBar</span> réservée en dessous. Un en-tête replié/déplié reste <b>toujours visible</b> après son propre clic (la palette défile automatiquement pour le garder à l'écran, comme <span class="tt">LevelPicker</span> suit sa sélection au clavier) — sans quoi déplier une catégorie proche du bas de la liste pourrait faire disparaître son propre en-tête (ou un autre plus bas) derrière le bord de l'écran, sans aucun moyen évident de le retrouver.</li>
 <li>Renommage d'affichage « Danger » → « Piège » (libellé seulement ; le type <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></span> et son identifiant JSON restent inchangés — aucune migration de niveau nécessaire).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1375"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1377"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Aucun nouveau type de tuile</b> — pure réorganisation de la palette existante (19 types inchangés), aucun impact sur <span class="tt">Core</span> (gameplay, sérialisation, physique).</li>
@@ -123,7 +123,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Recherche/filtre textuel dans la palette</b> — au-delà du besoin exprimé (regroupement visuel suffit à la taille actuelle de la liste, 19 types).</li>
 <li><b>Persistance de l'état de dépliage</b> entre deux sessions d'édition — repart toujours replié à l'ouverture, cohérent avec l'absence de préférences utilisateur ailleurs dans l'éditeur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1376"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1378"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Mockup avant code</b> : trois itérations avec le demandeur (position du panneau déplié — flottant au centre puis accordéon juste sous la catégorie cliquée ; choix des quatre catégories exactes Tuile/Interactif/Piège/Jalon plutôt qu'une liste plus fine ; retrait des textes de description par variante, jugés superflus une fois l'icône et le nom en place) avant qu'une seule ligne de l'implémentation réelle ne soit écrite — décision explicite du demandeur (« avant de te lancer dans l'implémentation travaillons sur un mockup »).</li>
@@ -133,12 +133,12 @@ Décisions de cadrage</h1>
 <li><b><span class="tt">TilePalette</span> reste une logique pure</b> (aucune dépendance de rendu), dans l'esprit déjà établi par <span class="tt">ToolBar</span> : seule la géométrie écran et l'état de dépliage/sélection lui appartiennent, testable sans GPU (<span class="tt">EX-NFR-010</span>).</li>
 <li><b>Gap découvert après la livraison initiale de TACHE-01</b> (revue : « rajouter un scroll barre dans le menu, n'est pas complet ») : sans défilement, un dépliage cumulé dépassant la hauteur de fenêtre rendait les dernières entrées <b>définitivement inaccessibles</b> à la souris (aucune ligne ne dépasse <span class="tt">entries()</span>, donc rien à cliquer en dehors de la fenêtre) — corrigé en ajoutant le défilement (molette + barre) décrit ci-dessus, complété par le suivi automatique d'un en-tête qui vient d'être replié/déplié (<span class="tt">TilePalette::followRow</span>), sans quoi le correctif aurait simplement déplacé le problème (déplier une catégorie aurait pu faire disparaître son propre en-tête plutôt que la solution).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1377"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1379"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-EDIT-018</span> — nouvelle exigence, implémentée.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1378"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1380"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -151,7 +151,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-27-tache-02-documentation-verification.html#md_Lot_2LOT-27-palette-categories_2tache-02-documentation-verification" title="Lot/LOT-27-palette-categories/tache-02-documentation-verification.md">TACHE-02</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1379"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1381"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>À l'ouverture de l'éditeur, seules cinq entrées sont visibles : Vide, Tuile, Interactif, Piège, Jalon — toutes catégories repliées.</li>
@@ -162,12 +162,12 @@ Critères d'acceptation du lot</h1>
 <li>Un dépliage cumulé dépassant la hauteur de fenêtre reste entièrement accessible : une barre de défilement apparaît, la molette au-dessus du panneau fait défiler la palette (sans zoomer la caméra), et déplier/replier un en-tête ne le fait jamais disparaître de la fenêtre visible.</li>
 <li>Logique nouvelle couverte par des tests. Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1380"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1382"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt">hmi::TilePalette</span>/<span class="tt">hmi::ToolBar</span>/<span class="tt">hmi::EditorLayout</span> (<span class="tt">LOT-14</span>/<span class="tt">LOT-15</span>) — pure réorganisation de l'existant, aucune dépendance nouvelle sur <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1383"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-27-tache-01-palette-accordeon.html" title="TACHE-01 — Palette en accordéon à trois niveaux">TACHE-01 — Palette en accordéon à trois niveaux</a></li>

@@ -100,14 +100,14 @@ $(function(){initNavTree('classhmi_1_1GameSession.html','','classhmi_1_1GameSess
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af3a5c8093afede0deb6937b25183840b" id="r_af3a5c8093afede0deb6937b25183840b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3a5c8093afede0deb6937b25183840b">GameSession</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, int viewportWidth, int viewportHeight, <a class="el" href="classcore_1_1Level.html">core::Level</a> level, const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;gameBindings, const <a class="el" href="classhmi_1_1GamepadBindings.html">GamepadBindings</a> &amp;gamepadBindings)</td></tr>
-<tr class="memdesc:af3a5c8093afede0deb6937b25183840b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la session et charge la scène du niveau donné.  <br /></td></tr>
+<tr class="memitem:af78039207152f561de6e8879714b411b" id="r_af78039207152f561de6e8879714b411b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af78039207152f561de6e8879714b411b">GameSession</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, int viewportWidth, int viewportHeight, <a class="el" href="classcore_1_1Level.html">core::Level</a> level, const <a class="el" href="classhmi_1_1GameKeyBindings.html">GameKeyBindings</a> &amp;gameBindings, const <a class="el" href="classhmi_1_1GamepadBindings.html">GamepadBindings</a> &amp;gamepadBindings)</td></tr>
+<tr class="memdesc:af78039207152f561de6e8879714b411b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la session et charge la scène du niveau donné.  <br /></td></tr>
 <tr class="memitem:a890870ab22ce42a6b1d67f20e7209aa2" id="r_a890870ab22ce42a6b1d67f20e7209aa2"><td class="memItemLeft"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa">core::LevelOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2">update</a> (const <a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input, float fixedDelta)</td></tr>
 <tr class="memdesc:a890870ab22ce42a6b1d67f20e7209aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule le niveau d'un pas fixe (mécanismes, blocs, physique, animation, dangers).  <br /></td></tr>
 <tr class="memitem:acb992fe3f9402a56c9546fb62c450a0c" id="r_acb992fe3f9402a56c9546fb62c450a0c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acb992fe3f9402a56c9546fb62c450a0c">reload</a> ()</td></tr>
 <tr class="memdesc:acb992fe3f9402a56c9546fb62c450a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recharge le niveau courant (personnage à l'entrée, mécanismes et budgets remis).  <br /></td></tr>
-<tr class="memitem:add312b51c185160e40539c271a0b0c04" id="r_add312b51c185160e40539c271a0b0c04"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add312b51c185160e40539c271a0b0c04">render</a> (int viewportWidth, int viewportHeight, float interpolationAlpha)</td></tr>
-<tr class="memdesc:add312b51c185160e40539c271a0b0c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la scène du niveau (rien si le chargement a échoué).  <br /></td></tr>
+<tr class="memitem:a8c26c9a8cbd1841bd091a5eb2299017a" id="r_a8c26c9a8cbd1841bd091a5eb2299017a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a">render</a> (int viewportWidth, int viewportHeight, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha)</td></tr>
+<tr class="memdesc:a8c26c9a8cbd1841bd091a5eb2299017a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la scène du niveau (rien si le chargement a échoué).  <br /></td></tr>
 <tr class="memitem:abe7a3f556c45b3b07541f43b6d8461fa" id="r_abe7a3f556c45b3b07541f43b6d8461fa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abe7a3f556c45b3b07541f43b6d8461fa">loaded</a> () const</td></tr>
 <tr class="memitem:ab05b61b6e50db6f365702dad1810732f" id="r_ab05b61b6e50db6f365702dad1810732f"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError</a> () const</td></tr>
 </table><table class="memberdecls">
@@ -154,10 +154,10 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran. </p>
 <p>Extraite de l'écran de jeu historique (<span class="tt">LOT-34</span>) pour être utilisée par l'éditeur Qt (viewport) : toute la logique de jeu (chargement de la scène ECS, apparition du personnage, physique, mécanismes, blocs, dangers, caméra par salle, animation, interpolation) vit ici, une seule fois.</p>
-<p><span class="tt"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></span> avance d'un <b>pas fixe</b> et renvoie l'issue (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) ; sur un <b>échec</b> (danger/chute), le niveau est <b>rechargé</b> en interne (personnage à l'entrée, mécanismes/budgets remis) — l'appelant décide quoi faire d'une <b>réussite</b> (enchaîner, revenir au menu, etc.). <span class="tt"><a class="el" href="#add312b51c185160e40539c271a0b0c04" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> dessine la scène via le <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">SpriteRenderer</a></span> (lecture seule de l'ECS, <span class="tt">EX-ARCH-012</span>), avec interpolation (<span class="tt">EX-ARCH-031</span>). Un échec de chargement est <b>récupérable</b> (<span class="tt">EX-NFR-040</span>) : la session reste dans un état neutre, <span class="tt"><a class="el" href="#abe7a3f556c45b3b07541f43b6d8461fa">loaded()</a></span> est faux et <span class="tt"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError()</a></span> renseigné. </p>
+<p><span class="tt"><a class="el" href="#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></span> avance d'un <b>pas fixe</b> et renvoie l'issue (<span class="tt"><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></span>) ; sur un <b>échec</b> (danger/chute), le niveau est <b>rechargé</b> en interne (personnage à l'entrée, mécanismes/budgets remis) — l'appelant décide quoi faire d'une <b>réussite</b> (enchaîner, revenir au menu, etc.). <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> dessine la scène via le <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">SpriteRenderer</a></span> (lecture seule de l'ECS, <span class="tt">EX-ARCH-012</span>), avec interpolation (<span class="tt">EX-ARCH-031</span>). Un échec de chargement est <b>récupérable</b> (<span class="tt">EX-NFR-040</span>) : la session reste dans un état neutre, <span class="tt"><a class="el" href="#abe7a3f556c45b3b07541f43b6d8461fa">loaded()</a></span> est faux et <span class="tt"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError()</a></span> renseigné. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af3a5c8093afede0deb6937b25183840b" name="af3a5c8093afede0deb6937b25183840b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3a5c8093afede0deb6937b25183840b">&#9670;&#160;</a></span>GameSession()</h2>
+<a id="af78039207152f561de6e8879714b411b" name="af78039207152f561de6e8879714b411b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af78039207152f561de6e8879714b411b">&#9670;&#160;</a></span>GameSession()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,6 +171,11 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>atlas</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -207,6 +212,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">atlas</td><td>Atlas de tuiles fournissant les régions de sprites. </td></tr>
     <tr><td class="paramname">viewportWidth</td><td>Largeur initiale de la surface de rendu, en pixels. </td></tr>
     <tr><td class="paramname">viewportHeight</td><td>Hauteur initiale de la surface de rendu, en pixels. </td></tr>
+    <tr><td class="paramname">cache</td><td>Cache de textures, propriétaire du damier de repli du mode Texture (référence conservée, doit survivre à la session, <span class="tt">LOT-41</span>). </td></tr>
     <tr><td class="paramname">level</td><td>Niveau déjà validé à jouer. </td></tr>
     <tr><td class="paramname">gameBindings</td><td>Touches clavier de jeu (référence conservée, doit survivre à la session). </td></tr>
     <tr><td class="paramname">gamepadBindings</td><td>Boutons manette de jeu (référence conservée, doit survivre à la session). </td></tr>
@@ -488,8 +494,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="add312b51c185160e40539c271a0b0c04" name="add312b51c185160e40539c271a0b0c04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add312b51c185160e40539c271a0b0c04">&#9670;&#160;</a></span>render()</h2>
+<a id="a8c26c9a8cbd1841bd091a5eb2299017a" name="a8c26c9a8cbd1841bd091a5eb2299017a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c26c9a8cbd1841bd091a5eb2299017a">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,12 +513,18 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Dessine la scène du niveau (rien si le chargement a échoué). </p>
+<p><code class="param">mode</code> choisit le rendu Physique ou Texture (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) : bascule purement visuelle, sans effet sur la simulation ni sur la scène ECS. </p>
 
 </div>
 </div>

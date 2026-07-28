@@ -96,13 +96,13 @@ $(function(){initNavTree('lot-47.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (texture par instance), <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (moteur d'animation). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2083"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2085"></a>
 Objectif</h1>
 <p>Faire en sorte qu'une porte s'ouvre, qu'un interrupteur bascule, qu'une plaque s'enfonce et qu'un piège s'arme <b>visiblement</b>, au lieu de changer d'opacité.</p>
 <p>Aujourd'hui, le retour d'état des mécanismes passe entièrement par la teinte : <span class="tt">GameSession</span> applique <span class="tt">tint.a = 0.25f</span> à une porte ouverte, <span class="tt">INACTIVE_ALPHA = 0.35f</span> / <span class="tt">ACTIVE_ALPHA = 1.0f</span> à un danger commuté ou clignotant. C'était un placeholder assumé du rendu en couleurs plates. Habiller le jeu de vraies textures sans corriger cela produirait des portes texturées à demi transparentes — un résultat pire que l'état actuel, parce que l'incohérence deviendrait visible.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2084"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2086"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2085"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2087"></a>
 Inclus</h2>
 <ul>
 <li><b>Correspondance état logique → clip</b>, lue <b>sans muter</b> la simulation (<span class="tt">EX-ARCH-012</span>), à partir des accesseurs existants : <span class="tt"><a class="el" href="classcore_1_1MechanismController.html#af75b708d821d8c882969d7bac6ea2e41">core::MechanismController::isDoorOpen</a></span>, <span class="tt">isDangerActive</span>, l'état des interrupteurs et des plaques de pression, <span class="tt"><a class="el" href="classcore_1_1DangerController.html#a74fd296c8a3dac7f5be61a35134b0a43" title="Indique si le danger temporisé à position est actuellement mortel.">core::DangerController::isBlinkActive</a></span> et la position de <span class="tt">DangerMover</span>.</li>
@@ -111,7 +111,7 @@ Inclus</h2>
 <li><b>Repli explicite</b> : un mécanisme dont l'asset ne déclare pas le clip attendu conserve un rendu <b>lisible</b> (image fixe du clip disponible) et journalise l'état et le clip manquants, plutôt que de disparaître ou de rester bloqué sur une image arbitraire.</li>
 <li><b>Section « Animations » du panneau « Textures »</b> (LOT-42) : associer, pour chaque famille de mécanisme, l'asset animé utilisé par défaut. Pas de panneau séparé.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2086"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2088"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Le personnage (LOT-48) et les décors (LOT-49).</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Effets sonores.</li>
 <li>Édition des images d'animation (LOT-54).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2087"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2089"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Le visuel suit la simulation, jamais l'inverse.</b> La transition d'ouverture est purement décorative ; la collision bascule à l'instant où <span class="tt">MechanismController</span> le décide. Synchroniser la physique sur la durée d'une animation reviendrait à laisser un fichier d'asset modifier le gameplay — inacceptable au regard de <span class="tt">EX-ARCH-012</span> et du déterminisme (<span class="tt">EX-NFR-002</span>).</li>
@@ -127,13 +127,13 @@ Décisions de cadrage</h1>
 <li><b>Repli lisible plutôt que repli visible</b> : à la différence d'une texture manquante (damier magenta, LOT-40), un <b>clip</b> manquant ne justifie pas de masquer l'objet — la case existe et a un rôle de gameplay. On dégrade vers l'image fixe et on journalise.</li>
 <li><b>Assets par défaut par famille de mécanisme</b>, surchargeables par case grâce aux overrides de LOT-45 : la hiérarchie de résolution du programme reste unique.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2088"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2090"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-006</span> (apparence des mécanismes pilotée par leur état logique, transitions comprises).</li>
 <li>Réutilisées : <span class="tt">EX-REN-005</span> (animations par données), <span class="tt">EX-EDIT-043</span> (texture par instance), <span class="tt">EX-REN-046</span> (bascule), <span class="tt">EX-ARCH-012</span> (rendu sans effet sur la simulation), <span class="tt">EX-GP-020</span>/<span class="tt">EX-GP-021</span> (mécanismes), <span class="tt">EX-GP-052</span>/<span class="tt">EX-GP-053</span> (dangers commutés et temporisés), <span class="tt">EX-NFR-040</span> (repli).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2089"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2091"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-47-tache-04-section-animations.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2tache-04-section-animations" title="Lot/LOT-47-etats-visuels-mecanismes/tache-04-section-animations.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Section « Animations » du panneau « Textures » + assets par défaut  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2090"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2092"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Une porte, un interrupteur, une plaque de pression, un danger commuté et un danger temporisé changent d'apparence selon leur état, en mode Texture.</li>
@@ -160,10 +160,10 @@ Critères d'acceptation du lot</h1>
 <li>Un asset ne déclarant pas le clip attendu reste lisible et journalise l'état et le clip manquants.</li>
 <li>La correspondance état → clip est testée sans GPU ; build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2091"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2093"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-46.html" title="LOT-46 — Moteur d&#39;animation générique piloté par données">LOT-46</a> (clips par données, clips joués une fois) et <a class="el" href="lot-45.html" title="LOT-45 — Objet interactif : texture par instance">LOT-45</a> (assets par instance). Lit les contrôleurs de <a class="el" href="lot-12.html" title="LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements">LOT-12</a>, <a class="el" href="lot-19.html" title="LOT-19 — Physique newtonienne et plaque de pression">LOT-19</a> et <a class="el" href="lot-31.html" title="LOT-31 — Blocs de danger avancés">LOT-31</a> sans les modifier. Ne modifie pas <span class="tt">Core</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2092"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2094"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-47-tache-01-correspondance-etat-clip.html" title="TACHE-01 — Correspondance état logique → clip">TACHE-01 — Correspondance état logique → clip</a></li>
