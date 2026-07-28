@@ -3,19 +3,20 @@
  * @brief Point d'entrée de l'application Qt (`ProjectGaming`).
  *
  * Configure la journalisation (console + mémoire en développement, niveau réglable), applique le
- * thème de l'IHM, puis ouvre la fenêtre principale (`hmi::MainWindow`) dont le widget central est le
- * viewport Direct3D 11 (`hmi::GameViewport`).
+ * thème de l'IHM, puis ouvre la fenêtre principale (`hmi::MainWindow`) dont le widget central est
+ * le viewport Direct3D 11 (`hmi::GameViewport`).
  */
-
-#include <memory>
-#include <optional>
-#include <string>
-#include <string_view>
 
 #include <QApplication>
 #include <QCoreApplication>
 #include <QFile>
+#include <QImage>
 #include <QString>
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <string>
+#include <string_view>
 
 #include "Core/BuildConfig.h"
 #include "Core/Diagnostics/ConsoleLogSink.h"
@@ -23,6 +24,7 @@
 #include "Core/Diagnostics/LogLevelParse.h"
 #include "Core/Diagnostics/Logger.h"
 #include "Core/Diagnostics/MemoryLogSink.h"
+#include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Interface/MainWindow.h"
 
@@ -44,16 +46,21 @@ namespace {
     return value;
 }
 
-/// @return La valeur de l'argument `--log-level=…` s'il est présent sur la ligne de commande.
-[[nodiscard]] std::optional<std::string> commandLineLogLevel(int argc, char** argv) {
-    constexpr std::string_view prefix = "--log-level=";
+/// @return La valeur d'un argument `--<nom>=…` s'il est présent sur la ligne de commande.
+[[nodiscard]] std::optional<std::string> commandLineOption(int argc, char** argv,
+                                                           std::string_view name) {
     for (int index = 1; index < argc; ++index) {
         const std::string_view argument = argv[index];
-        if (argument.substr(0, prefix.size()) == prefix) {
-            return std::string(argument.substr(prefix.size()));
+        if (argument.substr(0, name.size()) == name) {
+            return std::string(argument.substr(name.size()));
         }
     }
     return std::nullopt;
+}
+
+/// @return La valeur de l'argument `--log-level=…` s'il est présent sur la ligne de commande.
+[[nodiscard]] std::optional<std::string> commandLineLogLevel(int argc, char** argv) {
+    return commandLineOption(argc, argv, "--log-level=");
 }
 
 /**
@@ -108,8 +115,8 @@ int main(int argc, char** argv) {
     bool invalidLogLevel = false;
     const core::LogLevel logLevel = resolveMinimumLogLevel(argc, argv, invalidLogLevel);
     core::defaultLogger().setMinimumLevel(logLevel);
-    HMI_LOG_INFO(std::string("Demarrage de ProjectGaming (niveau de log : ")
-                 + core::toString(logLevel) + ").");
+    HMI_LOG_INFO(std::string("Demarrage de ProjectGaming (niveau de log : ") +
+                 core::toString(logLevel) + ").");
     if (invalidLogLevel) {
         HMI_LOG_WARNING("Niveau de log fourni invalide : valeur ignoree.");
     }
@@ -120,13 +127,32 @@ int main(int argc, char** argv) {
     QCoreApplication::setOrganizationName(QStringLiteral("ProjectGaming"));
     QCoreApplication::setApplicationName(QStringLiteral("Editor"));
 
+    // Outil de développement (LOT-39, hors jeu) : régénère l'atlas de base en fichier PNG à partir
+    // de la génération procédurale historique (seule source de vérité du contenu, cf.
+    // hmi::buildProceduralAtlasImage), sans ouvrir de fenêtre. Sert à (re)créer
+    // Source/Elements/Assets/atlas.png après une évolution de la génération procédurale (cf.
+    // guide-rendu.md, section « pipeline de textures depuis fichiers »).
+    if (const std::optional<std::string> exportAtlasPath =
+            commandLineOption(argc, argv, "--export-atlas=")) {
+        const hmi::ProceduralAtlasImage image = hmi::buildProceduralAtlasImage();
+        const QImage png(reinterpret_cast<const uchar*>(image.pixels.data()), image.width,
+                         image.height, static_cast<int>(image.width * sizeof(std::uint32_t)),
+                         QImage::Format_RGBA8888);
+        const bool saved = png.save(QString::fromStdString(*exportAtlasPath));
+        if (!saved) {
+            HMI_LOG_ERROR("Echec de l'export de l'atlas vers '" + *exportAtlasPath + "'.");
+        }
+        return saved ? 0 : 1;
+    }
+
     // Thème de l'IHM (menu/options), embarqué en ressource (resources.qrc -> theme.qss). Portée par
     // objectName : l'éditeur (docks) conserve le thème Qt par défaut.
     if (QFile themeFile(QStringLiteral(":/resources/theme.qss"));
         themeFile.open(QFile::ReadOnly | QFile::Text)) {
         application.setStyleSheet(QString::fromUtf8(themeFile.readAll()));
     } else {
-        HMI_LOG_WARNING("Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
+        HMI_LOG_WARNING(
+            "Theme d'interface introuvable (:/resources/theme.qss) : style par defaut.");
     }
 
     hmi::MainWindow window(sessionLog);

@@ -7,6 +7,26 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-39 — Textures depuis fichiers + repli procédural** (`EX-REN-041`, `EX-REN-042`) : l'atlas de
+  tuiles (`hmi::TextureAtlas`) charge désormais `Assets/atlas.png` (à côté de l'exécutable, copié
+  comme `Levels`/`Localization`) via un nouveau loader d'image générique (`hmi::TextureLoader`,
+  décodage `QImage` → upload Direct3D 11) et une résolution de chemins pure et testable
+  (`hmi::AssetPaths`) ; en l'absence d'asset, repli automatique sur la génération procédurale
+  historique (`hmi::buildProceduralAtlasImage`, extraite telle quelle, sans régression), sans jamais
+  bloquer le rendu (`EX-NFR-040`). Interface publique de `TextureAtlas` inchangée ; `tile`/
+  `playerFrameRegion` rendues `static` (pure arithmétique de grille) et testées sans GPU. Un outil de
+  développement (`ProjectGaming.exe --export-atlas=<chemin>`) régénère l'atlas de base depuis la
+  génération procédurale de référence.
+
+- **Feuille de route LOT-40 → LOT-48 — Mode de création de textures dans l'éditeur** : cadrage
+  documenté (`Documentation/Lot/LOT-40-*` à `LOT-48-*`) pour la suite du travail sur les textures,
+  amorcée à la demande de l'utilisateur après LOT-39 : rendu multi-textures par calques (LOT-40),
+  bascule Physique/Texture (`F8`, LOT-41), habillage global des tuiles par type (LOT-42), fond de
+  niveau (LOT-43), texture par objet interactif (LOT-44), aperçu isolé par calque (LOT-45), ombres du
+  physique sur le fond (LOT-46), bibliothèque d'assets à vignettes (LOT-47), éditeur de texture pixel
+  art intégré (LOT-48). Aucune implémentation de code à ce stade — uniquement le cadrage
+  (`epic.md`/`tache-*.md`, nouveaux ids `EX-REN-043` à `046`, `EX-EDIT-042` à `045`).
+
 - **LOT-37 — Liens de mécanismes par traits/flèches** (`EX-IHM-030`, `EX-IHM-031`) : la liaison
   déclencheur → cible (interrupteur/plaque → porte, danger commuté) était jusqu'ici signalée par une
   simple teinte de case, illisible au-delà de quelques liens. Chaque liaison est désormais dessinée

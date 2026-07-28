@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**432 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**441 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (350)
+## Tests unitaires (359)
 
 ### Core
 
@@ -441,7 +441,16 @@
 | **LevelNameValidationTest.NomAccentueValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:67`</sub> | Un nom accentué (Unicode) reste valide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Fort\\xC3\\xA9resse")` est vrai. |
 | **LevelNameValidationTest.TrimRetireLesEspacesDeBord** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:81`</sub> | trimLevelName retire les espaces de bord sans toucher au contenu. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::trimLevelName(" Niveau 1 ")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName(" ")` vaut `""`. |
 
-#### Graphics (14)
+#### Graphics (23)
+
+**`test_asset_paths.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **AssetPathsTest.FichierExistantResolu** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp:42`</sub> | Un fichier existant dans le dossier d'assets est résolu vers son chemin complet. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `resolved.has_value()` est vrai.<br/>Vérifie que `*resolved` vaut `filePath`. |
+| **AssetPathsTest.AssetAbsentSignaleSansException** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp:65`</sub> | Un asset absent est signalé par std::nullopt, sans exception. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `assetPaths.resolve("introuvable.png")` vaut `std::nullopt`. |
+| **AssetPathsTest.DossierInexistantSansException** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp:83`</sub> | Un dossier d'assets inexistant est traité comme rien à résoudre. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `assetPaths.resolve("atlas.png")` vaut `std::nullopt`. |
+| **AssetPathsTest.DossierNestPasUnAssetValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp:100`</sub> | Un chemin désignant un dossier n'est pas résolu comme un asset. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `assetPaths.resolve("sous-dossier")` vaut `std::nullopt`. |
 
 **`test_camera2d.cpp`**
 
@@ -457,6 +466,14 @@
 | **Camera2DTest.FitZoomFractionnairePourGrandNiveau** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:171`</sub> | fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `zoom` est strictement supérieur à `0.0f`.<br/>Vérifie que `zoom` est strictement inférieur à `1.0f`.<br/>Vérifie que `100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom` est inférieur ou égal à `1280.0f + TOLERANCE`.<br/>Vérifie que `100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom` est inférieur ou égal à `720.0f + TOLERANCE`. |
 | **Camera2DTest.FitZoomAppliqueLaMarge** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:192`</sub> | fitZoom applique la marge avant l'arrondi. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `zoomSansMarge` vaut `5.0f` (comparaison flottante).<br/>Vérifie que `zoomAvecMarge` vaut `4.0f` (comparaison flottante). |
 
+**`test_procedural_atlas.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **ProceduralAtlasTest.DimensionsAttendues** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:14`</sub> | L'image générée a les dimensions attendues (grille de tuiles + lignes de personnage). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `image.width` vaut `gridSide`.<br/>Vérifie que `image.height` vaut `gridSide + frameRows * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `image.pixels.size()` vaut `static_cast<std::size_t>(image.width) * static_cast<std::size_t>(image.height)`. |
+| **ProceduralAtlasTest.GenerationDeterministe** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:39`</sub> | La génération est déterministe : deux appels produisent des pixels identiques. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `first.width` vaut `second.width`.<br/>Vérifie que `first.height` vaut `second.height`.<br/>Vérifie que `first.pixels` vaut `second.pixels`. |
+| **ProceduralAtlasTest.DamierDeTransparenceDansLaDerniereTuile** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:60`</sub> | La dernière tuile de la grille contient des pixels opaques et transparents (damier). | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `sawOpaque` est vrai.<br/>Vérifie que `sawTransparent` est vrai. |
+
 **`test_room_grid.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
@@ -466,6 +483,13 @@
 | **RoomGridTest.NiveauNonMultipleRogneLaDerniereSalle** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:65`</sub> | Un niveau non multiple de la taille de salle rogne la dernière colonne/ligne. | 1. Construire un `RoomGrid` pour un niveau dépassant de quelques cases un multiple de la taille de salle.<br/>2. Vérifier le rectangle de la dernière salle sur chaque axe. | Vérifie que `grid.columns()` vaut `2`.<br/>Vérifie que `grid.rows()` vaut `2`.<br/>Vérifie que `last.column` vaut `hmi::RoomGrid::ROOM_WIDTH_TILES`.<br/>Vérifie que `last.row` vaut `hmi::RoomGrid::ROOM_HEIGHT_TILES`.<br/>Vérifie que `last.width` vaut `extraWidth`.<br/>Vérifie que `last.height` vaut `extraHeight`. |
 | **RoomGridTest.RoomIndexAtQuatreCoins** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:94`</sub> | `roomIndexAt` renvoie l'indice de salle correct aux quatre coins et au centre. | 1. Construire un `RoomGrid` de 2x2 salles.<br/>2. Interroger `roomIndexAt` à des positions choisies dans chacune des quatre salles. | Vérifie que `grid.roomIndexAt(core::GridPosition{0, 0})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, 0})` vaut `(core::GridPosition{1, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{0, height - 1})` vaut `(core::GridPosition{0, 1})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{width - 1, height - 1})` vaut `(core::GridPosition{1, 1})`. |
 | **RoomGridTest.PositionHorsBornesEstBornee** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_room_grid.cpp:117`</sub> | Une position hors des bornes du niveau est bornée à la salle la plus proche. | 1. Construire un `RoomGrid` pour un petit niveau.<br/>2. Interroger `roomIndexAt` avec des coordonnées négatives puis très supérieures aux bornes. | Vérifie que `grid.roomIndexAt(core::GridPosition{-100, -100})` vaut `(core::GridPosition{0, 0})`.<br/>Vérifie que `grid.roomIndexAt(core::GridPosition{1000, 1000})` vaut `(core::GridPosition{0, 0})`. |
+
+**`test_texture_atlas.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **TextureAtlasTest.TileRenvoieLeRectangleAttendu** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp:16`</sub> | tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `origin.x` vaut `0`.<br/>Vérifie que `origin.y` vaut `0`.<br/>Vérifie que `origin.width` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `origin.height` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.x` vaut `2 * hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.y` vaut `1 * hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.width` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.height` vaut `hmi::TextureAtlas::TILE_SIZE`. |
+| **TextureAtlasTest.PlayerFrameRegionSousLaGrilleDeTuiles** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp:42`</sub> | playerFrameRegion place les images du personnage sous la grille de tuiles, dans l'ordre Idle, Run, Jump. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `idleFirst.x` vaut `0`.<br/>Vérifie que `idleFirst.y` vaut `gridSide`.<br/>Vérifie que `idleFirst.width` vaut `hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `idleFirst.height` vaut `hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `runFirst.x` vaut `(runFlatIndex % hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `runFirst.y` vaut `gridSide + (runFlatIndex / hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `jump.x` vaut `(jumpFlatIndex % hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `jump.y` vaut `gridSide + (jumpFlatIndex / hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`. |
 
 #### Input (63)
 

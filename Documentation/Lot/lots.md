@@ -50,3 +50,12 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-37
 - @subpage lot-38
 - @subpage lot-39
+- @subpage lot-40
+- @subpage lot-41
+- @subpage lot-42
+- @subpage lot-43
+- @subpage lot-44
+- @subpage lot-45
+- @subpage lot-46
+- @subpage lot-47
+- @subpage lot-48

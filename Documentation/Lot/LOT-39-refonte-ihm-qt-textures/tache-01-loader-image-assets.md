@@ -1,6 +1,6 @@
 # TACHE-01 — Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d'assets testable {#lot-39-tache-01-loader-image-assets}
 
-**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Editor` · **Statut :** non commencé
+**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Editor` · **Statut :** fait
 
 ## Contexte
 Aucun **loader d'image** n'existe : `hmi::TextureAtlas` crée sa texture D3D11 à partir de pixels
@@ -49,3 +49,10 @@ plus la **résolution du chemin d'asset** (où trouver les fichiers) isolée en 
 ## Exigences
 `EX-REN-041` (chargement de textures depuis fichiers) ; `EX-NFR-010` (résolution testable),
 `EX-NFR-040` (asset manquant) ; réutilise `EX-ARCH-022` (nearest).
+
+## Réalisé
+`QImage` retenu (pas de `stb_image` : aucun besoin de chargement sans Qt identifié). Fichiers
+livrés : `Source/HMI/Graphics/TextureLoader.{h,cpp}` (décodage + `createTexture`, upload D3D11
+partagé avec le repli procédural) et `Source/HMI/Graphics/AssetPaths.{h,cpp}` (résolution pure, pas
+`Source/Editor` — ce dossier n'existe pas dans l'arborescence actuelle, cf. `Source/HMI/CMakeLists.txt`).
+Testé : `Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp`.

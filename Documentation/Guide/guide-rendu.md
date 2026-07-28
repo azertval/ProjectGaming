@@ -177,7 +177,7 @@ Les liens de mécanismes réutilisent la région opaque de l'atlas comme UV (mê
 grille de repère, `DraftRenderer::drawGrid`) : la couleur vient uniquement de la teinte RVBA, pas
 d'une texture dédiée.
 
-## \ref hmi::TextureAtlas "hmi::TextureAtlas" : un spritesheet, généré en code
+## \ref hmi::TextureAtlas "hmi::TextureAtlas" : un spritesheet, chargé depuis un fichier
 
 Un **atlas de texture** (ou *spritesheet*) regroupe **plusieurs** images dans une **seule** grande
 texture, à des positions connues. C'est ce qui permet le batching décrit plus haut :
@@ -185,14 +185,64 @@ texture, à des positions connues. C'est ce qui permet le batching décrit plus 
 dans le même appel exige qu'ils proviennent tous du même atlas — d'où l'intérêt de regrouper toutes
 les tuiles d'un jeu dans un seul atlas plutôt qu'une texture par tuile.
 
-Ce projet n'a pas (encore) d'atelier graphique fournissant des images dessinées à la main : l'atlas
-de `hmi::TextureAtlas` est **généré en code**, de façon déterministe, en une grille de tuiles de 16
-pixels de côté (`TILE_SIZE`) et de couleurs distinctes (dont une avec des zones transparentes, pour
-exercer le canal alpha du pipeline). `tile(colonne, ligne)` renvoie la **région** (rectangle en
-pixels) d'une tuile de cette grille — c'est cette région, convertie en UV normalisées, qu'un `Sprite`
-(@ref guide-ecs, composant `core::Sprite`) référence via son champ `region` (en pixels, agnostique
-de la résolution réelle de l'atlas — c'est le rendu qui la normalise). La classe est conçue pour
-être **remplaçable** plus tard par un chargement de fichier réel sans changer son interface.
+`hmi::TextureAtlas` charge son contenu depuis `Assets/atlas.png` (à côté de l'exécutable,
+`EX-REN-041`/`EX-REN-042`, `LOT-39`) : une grille de tuiles de 16 pixels de côté (`TILE_SIZE`).
+`tile(colonne, ligne)` renvoie la **région** (rectangle en pixels) d'une tuile de cette grille —
+c'est cette région, convertie en UV normalisées, qu'un `Sprite` (@ref guide-ecs, composant
+`core::Sprite`) référence via son champ `region` (en pixels, agnostique de la résolution réelle de
+l'atlas — c'est le rendu qui la normalise). `tile`/`playerFrameRegion` sont de la pure arithmétique
+de grille (`static`, aucun état d'instance) : leur résultat ne dépend jamais de l'origine —fichier
+ou procédurale— de l'atlas, seulement des constantes de la classe.
+
+### Le pipeline de textures depuis fichiers, et son repli procédural
+
+Avant `LOT-39`, ce projet n'avait pas d'atelier graphique fournissant des images dessinées à la
+main : l'atlas était **généré en code**. Cette génération (couleurs distinctes par tuile, dont une
+avec des zones transparentes pour exercer le canal alpha, plus les images d'animation du
+personnage) n'a pas disparu : `hmi::buildProceduralAtlasImage` (`HMI/Graphics/ProceduralAtlas.h`,
+logique **pure**, sans Direct3D ni Qt) reste l'unique source de vérité de ce contenu de référence,
+et sert maintenant de **repli** — si `Assets/atlas.png` est absent ou illisible, `TextureAtlas`
+retombe dessus sans plantage (`EX-NFR-040`), avec un message de log clair. C'est ce qui permet de
+développer sans art final, et de ne jamais bloquer le rendu sur un asset manquant.
+
+Le chargement fichier lui-même (`HMI/Graphics/TextureLoader.h`) se déroule en deux étapes,
+symétriques du repli procédural + upload GPU :
+
+1. **Décodage** (`decodeImageFile`) : `QImage::load` puis `convertToFormat(Format_RGBA8888)` — Qt
+   est déjà une dépendance depuis `LOT-34`, donc aucune bibliothèque supplémentaire. `RGBA8888` est
+   choisi **non prémultiplié** : le blend state de `SpriteBatch` utilise
+   `D3D11_BLEND_SRC_ALPHA`/`D3D11_BLEND_INV_SRC_ALPHA` (alpha simple), pas
+   `D3D11_BLEND_ONE` — un format prémultiplié donnerait des couleurs assombries aux bords
+   transparents.
+2. **Upload GPU** (`createTexture`) : exactement le même chemin `CreateTexture2D`
+   (`D3D11_TEXTURE2D_DESC`, `DXGI_FORMAT_R8G8B8A8_UNORM`, `D3D11_USAGE_IMMUTABLE`, un seul niveau de
+   mip) + `CreateShaderResourceView` que la génération procédurale — les deux chemins partagent
+   cette fonction, il n'existe qu'un seul endroit qui parle à Direct3D pour créer une texture
+   d'atlas.
+
+La résolution du chemin d'asset (`hmi::AssetPaths`, `HMI/Graphics/AssetPaths.h`) est, elle, une
+classe **pure** (aucune dépendance fenêtre/GPU/Qt) : elle résout un nom de fichier logique vers un
+chemin dans un dossier donné, et renvoie `std::nullopt` si le fichier est absent — jamais
+d'exception. `TextureAtlas` la construit avec `hmi::executableDirectory() / "Assets"`, le même
+patron que `Levels`/`Localization` (@ref guide-editeur). Cette séparation (résolution de chemin
+pure / décodage+upload dépendant de Qt+GPU) est ce qui permet de tester le mapping de régions et la
+résolution d'assets **sans GPU** (`EX-NFR-010`, `Source/Test/Unit/HMI/Graphics/`), alors que le
+décodage et la création de texture restent vérifiés visuellement.
+
+### `Source/Elements/Assets/` : convention et régénération
+
+L'atlas de base (`Source/Elements/Assets/atlas.png`) suit la même grille que la génération
+procédurale (voir `Source/Elements/Assets/README.md` pour le détail des dimensions) : **remplacer
+le fichier suffit** à changer l'apparence du jeu, sans toucher au code, tant que la grille est
+respectée. Il est copié à côté de l'exécutable au build (patron CMake `POST_BUILD` de
+`Levels`/`Localization`, `Source/HMI/CMakeLists.txt`).
+
+Pour régénérer cet atlas de base à partir de la génération procédurale de référence (après une
+évolution de `buildProceduralAtlasImage`, ou pour repartir d'une base propre) :
+`ProjectGaming.exe --export-atlas=<chemin>.png` — option de développement traitée tout au début de
+`main()`, **avant** l'ouverture de toute fenêtre : elle écrit le fichier PNG et quitte
+immédiatement (code `0` en cas de succès). Il n'y a pas, à ce stade, de rechargement à chaud dans
+l'éditeur — remplacer l'asset puis relancer l'application.
 
 ### Les images du personnage : pourquoi elles vivent dans le même atlas
 
@@ -309,6 +359,9 @@ de cette frame ont eu lieu.
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
   `hmi::DraftRenderer`.
+- `hmi::AssetPaths`, `hmi::TextureLoader` (`decodeImageFile`, `createTexture`,
+  `loadTextureFromFile`), `hmi::buildProceduralAtlasImage` — pipeline de textures depuis fichiers et
+  repli procédural (`LOT-39`, `EX-REN-041`/`EX-REN-042`).
 - `hmi::LinkGeometry`, `hmi::LinkGesture`, `hmi::LinkPanel` — liens de mécanismes (`LOT-37`, voir
   @ref guide-editeur).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.

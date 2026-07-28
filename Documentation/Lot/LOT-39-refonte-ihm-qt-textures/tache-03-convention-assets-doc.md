@@ -1,6 +1,6 @@
 # TACHE-03 — Convention d'assets + (option) aperçu ; documentation & vérification {#lot-39-tache-03-convention-assets-doc}
 
-**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/Elements`, `Source/Editor`, `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/Elements`, `Source/Editor`, `Documentation` · **Statut :** fait
 
 ## Contexte
 Finalise le pipeline de textures fichiers : **convention d'assets** claire (où poser les fichiers,
@@ -46,3 +46,16 @@ clôture du lot (et du programme de refonte).
 
 ## Exigences
 `EX-REN-041`/`EX-REN-042` ; `EX-NFR-040` (repli), `EX-NFR-010`.
+
+## Réalisé
+Convention documentée dans `Source/Elements/Assets/README.md` (l'ancien dossier réservé
+`Textures/`, jamais peuplé, est plié dans `Assets/` — voir `Source/Elements/README.md`). Pas de
+rechargement à chaud ni d'aperçu dock (optionnels, non retenus à ce stade — hors périmètre minimal
+du lot, le besoin premier du demandeur étant de pouvoir remplacer le fichier). À la place, un outil
+de développement headless régénère l'atlas de référence depuis la génération procédurale :
+`ProjectGaming.exe --export-atlas=<chemin>.png` (`Source/HMI/main.cpp`), documenté dans
+`Documentation/Guide/guide-rendu.md` (section « Le pipeline de textures depuis fichiers, et son
+repli procédural »). `scripts/lint_exigences.py` et `scripts/generate_cahier_test.py --check`
+verts ; build `/W4 /WX` propre (`ProjectGaming`, `UnitTests`, `IntegrationTests`, `SystemTests`) ;
+385+81+3 tests verts ; chargement fichier et repli procédural vérifiés manuellement (device D3D11
+WARP headless, sans fenêtre).

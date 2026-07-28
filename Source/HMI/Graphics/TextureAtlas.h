@@ -14,21 +14,27 @@
 namespace hmi {
 
 /**
- * @brief Texture d'atlas et table de régions, avec un contenu **généré en code**.
+ * @brief Texture d'atlas et table de régions, chargée depuis un **fichier image** avec repli
+ *        **procédural** (`EX-REN-041`/`EX-REN-042`).
  *
- * En l'absence d'asset graphique, l'atlas est produit en mémoire : une grille de tuiles
- * 16×16 de couleurs distinctes, dont une avec des zones **transparentes** (pour valider le
- * rendu alpha), complétée d'une **grille d'images du personnage** (silhouette humanoïde
- * animée — repos, course, saut, `EX-REN-011`/`EX-REN-012`) sous la grille. Chaque image reste
- * **carrée** (16×16, comme une tuile) : le rendu (`SpriteRenderer`) la multiplie par
- * `Transform::scale`, déjà non uniforme (`core::playerSize()`), qui donne à elle seule la
- * silhouette sa proportion finale deux fois plus haute que large — une région déjà non carrée
- * doublerait cet effet. La génération est **déterministe**. La classe est conçue pour être
- * remplaçable plus tard par un chargement de fichier (l'interface — vue de texture,
- * dimensions, régions — reste stable). Ressources Direct3D en RAII (`ComPtr`).
+ * À la construction, l'atlas essaie de charger `Assets/atlas.png` (à côté de l'exécutable,
+ * `hmi::AssetPaths`/`hmi::TextureLoader`) : une grille de tuiles 16×16, complétée d'une **grille
+ * d'images du personnage** (silhouette animée — repos, course, saut, `EX-REN-011`/`EX-REN-012`)
+ * sous la grille. Si l'asset est absent ou illisible, l'atlas retombe sans plantage
+ * (`EX-NFR-040`) sur une génération **procédurale** équivalente (`hmi::buildProceduralAtlasImage`,
+ * couleurs distinctes par tuile, dont une avec des zones **transparentes** pour valider le rendu
+ * alpha). Chaque image de personnage reste **carrée** (16×16, comme une tuile) : le rendu
+ * (`SpriteRenderer`) la multiplie par `Transform::scale`, déjà non uniforme
+ * (`core::playerSize()`), qui donne à elle seule la silhouette sa proportion finale deux fois plus
+ * haute que large — une région déjà non carrée doublerait cet effet. L'**interface** (vue de
+ * texture, dimensions, régions) est stable, indépendante du chemin (fichier ou procédural) qui
+ * l'a produite. Ressources Direct3D en RAII (`ComPtr`).
  */
 class TextureAtlas {
 public:
+    /// Nom du fichier d'atlas attendu dans le dossier d'assets (`Assets/atlas.png`).
+    static constexpr const char* ATLAS_FILE_NAME = "atlas.png";
+
     /// Côté d'une tuile, en pixels (`EX-ARCH-021`).
     static constexpr int TILE_SIZE = 16;
     /// Nombre de tuiles par ligne et par colonne dans la grille de tuiles générée. `5` depuis
@@ -43,7 +49,8 @@ public:
     static constexpr int PLAYER_FRAME_COLUMNS = TILES_PER_SIDE;
 
     /**
-     * @brief Génère l'atlas procédural et crée la ressource Direct3D associée.
+     * @brief Charge l'atlas (fichier, avec repli procédural) et crée la ressource Direct3D
+     *        associée.
      * @param device Device Direct3D 11 (crée la texture et sa vue de ressource).
      */
     explicit TextureAtlas(ID3D11Device* device);
@@ -65,22 +72,33 @@ public:
 
     /**
      * @brief Région (en pixels) de la tuile à une position de la grille.
+     *
+     * Pure arithmétique de grille (aucun état d'instance) : `static`, testable sans GPU
+     * (`EX-NFR-010`) et sans dépendre de l'origine (fichier ou procédurale) de l'atlas.
      * @param column Colonne de la tuile (0 à TILES_PER_SIDE-1).
      * @param row    Ligne de la tuile (0 à TILES_PER_SIDE-1).
      * @return La région d'atlas correspondante, en pixels.
      */
-    [[nodiscard]] core::AtlasRegion tile(int column, int row) const;
+    [[nodiscard]] static core::AtlasRegion tile(int column, int row);
 
     /**
      * @brief Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.
+     *
+     * Pure arithmétique de grille (aucun état d'instance) : `static`, testable sans GPU
+     * (`EX-NFR-010`).
      * @param clip       Clip d'animation (`EX-REN-012`).
      * @param frameIndex Index de l'image dans le clip (0-based).
      * @return La région d'atlas (16×16, carrée) de cette image (`EX-REN-011`).
      */
-    [[nodiscard]] core::AtlasRegion playerFrameRegion(core::AnimationClip clip,
-                                                       int frameIndex) const;
+    [[nodiscard]] static core::AtlasRegion playerFrameRegion(core::AnimationClip clip,
+                                                             int frameIndex);
 
 private:
+    /// Essaie de charger `Assets/atlas.png`. @return true si la texture a été créée avec succès.
+    bool loadFromFile(ID3D11Device* device);
+    /// Génère l'atlas procédural (`hmi::buildProceduralAtlasImage`) et crée la texture associée.
+    void generateProcedural(ID3D11Device* device);
+
     int _width = 0;
     int _height = 0;
     Microsoft::WRL::ComPtr<ID3D11Texture2D> _texture;

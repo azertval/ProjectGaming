@@ -1,6 +1,6 @@
 # TACHE-02 — `TextureAtlas` sur atlas fichier (interface conservée, repli procédural) {#lot-39-tache-02-texture-atlas-fichier}
 
-**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-39](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `hmi::TextureAtlas` est **explicitement conçu pour être remplacé par un chargement de fichier** : son
@@ -50,3 +50,14 @@ changer l'interface** ni les appelants, avec **repli procédural** si l'asset ma
 ## Exigences
 `EX-REN-041` (textures fichiers), `EX-REN-042` (assets externalisés, repli) ; réutilise `EX-ARCH-022`
 (nearest), `EX-NFR-040` (repli robuste).
+
+## Réalisé
+`tile`/`playerFrameRegion` rendues `static` (aucun état d'instance) et déplacées dans un fichier
+séparé, `Source/HMI/Graphics/TextureAtlasRegions.cpp` — dépourvu de dépendance Qt/Direct3D 11, il
+est compilé et testé directement dans `UnitTests` (`Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp`),
+contrairement à `TextureAtlas.cpp` (chargement fichier + repli, dépendant de Qt/D3D11). La
+génération procédurale historique est extraite telle quelle (même sortie, non-régression) dans
+`Source/HMI/Graphics/ProceduralAtlas.{h,cpp}` (pur, testé par `test_procedural_atlas.cpp`), servant
+à la fois de repli et de générateur pour l'atlas de base
+(`ProjectGaming.exe --export-atlas=...`, cf. TACHE-03). Grille de l'atlas fichier livré identique à
+la grille procédurale (parité vérifiée par export + rechargement, dimensions 80×112).

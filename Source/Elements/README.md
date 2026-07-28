@@ -5,9 +5,11 @@
 ## Périmètre
 - `Levels/` — définitions de niveaux (`.json`), copiées à côté de l'exécutable au build.
 - `Localization/` — catalogues de traduction (`.lang`), copiés à côté de l'exécutable au build.
+- `Assets/` — atlas de tuiles (`.png`), copié à côté de l'exécutable au build (`LOT-39`,
+  `EX-REN-042`), chargé par `hmi::TextureAtlas` avec repli procédural si absent/illisible.
 - `UI/` — assets Qt déclaratifs de l'IHM : mises en page Qt Designer (`.ui`) et ressource (`.qrc`).
 - `Themes/` — feuilles de style Qt (`.qss`) de l'IHM.
-- `Textures/`, `Fonts/`, `Audio/` — réservés (sprites/tilesets, polices, sons) ; procéduraux au MVP.
+- `Fonts/`, `Audio/` — réservés (polices, sons) ; procéduraux au MVP.
 
 Ces éléments sont consommés par `../Core/` (données de niveau) et `../HMI/` (rendu, UI Qt).
 
