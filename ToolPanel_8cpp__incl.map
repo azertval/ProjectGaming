@@ -1,25 +1,25 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/ToolPanel.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/ToolPanel.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="343,5,564,60"/>
-<area shape="rect" id="Node000002" href="$ToolPanel_8h.html" title="Panneau « Outils » : sélection de l&#39;outil d&#39;édition (LOT&#45;35)." alt="" coords="87,108,254,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="368,63,222,107,220,102,366,58"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="342,5,563,60"/>
+<area shape="rect" id="Node000002" href="$ToolPanel_8h.html" title="Panneau « Outils » : sélection de l&#39;outil d&#39;édition (LOT&#45;35)." alt="" coords="87,108,253,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="367,63,221,107,220,102,366,58"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="301,108,413,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="426,62,382,101,379,97,422,58"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="425,62,382,101,378,97,422,58"/>
 <area shape="rect" id="Node000007" href="$Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="437,108,661,133"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="484,58,528,97,524,101,481,62"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="685,108,800,133"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="542,58,692,102,690,107,541,63"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,83,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="152,136,78,177,75,172,149,131"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="107,181,186,207"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="169,135,157,169,152,167,164,133"/>
-<area shape="rect" id="Node000005" href="$EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT&#45;15, EX&#45;EDIT&#45;014)." alt="" coords="211,181,381,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="192,131,265,172,262,177,189,136"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="405,181,496,207"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="535,136,479,175,476,171,532,131"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="520,181,579,207"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="552,134,552,168,547,168,547,134"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="603,181,701,207"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="484,58,527,97,524,101,480,62"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="685,108,799,133"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="542,58,691,102,689,107,540,63"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,84,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="151,136,78,177,76,172,149,131"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="109,181,186,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="169,134,158,169,153,167,164,133"/>
+<area shape="rect" id="Node000005" href="$EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT&#45;15, EX&#45;EDIT&#45;014)." alt="" coords="210,181,381,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="191,131,264,172,262,177,189,136"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="405,181,495,207"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="534,136,479,175,476,171,531,131"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="519,181,578,207"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="551,134,551,168,546,168,546,134"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="603,181,700,207"/>
 <area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="567,131,625,171,622,175,564,136"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="725,181,849,207"/>
-<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="588,131,736,175,734,180,587,136"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="724,181,848,207"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="588,131,735,175,734,180,586,136"/>
 </map>

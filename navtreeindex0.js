@@ -94,6 +94,7 @@ var NAVTREEINDEX0 =
 "EditorTool_8h.html#a02048ad8ad69a87a10e8307ac2bd68dd":[10,0,3,1,1,0,0],
 "EditorTool_8h.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e":[10,0,3,1,1,0,0,0],
 "EditorTool_8h.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de":[10,0,3,1,1,0,0,2],
+"EditorTool_8h.html#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b":[10,0,3,1,1,0,0,3],
 "EditorTool_8h.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e":[10,0,3,1,1,0,0,1],
 "EditorTool_8h_source.html":[10,0,3,1,1,0],
 "EntityManager_8cpp.html":[10,0,3,0,1,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb":[10,0,3,0,3,7,2,9],
 "LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff":[10,0,3,0,3,7,2,7],
 "LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2":[10,0,3,0,3,7,2,10],
-"LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f":[10,0,3,0,3,7,2,3],
-"LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e":[10,0,3,0,3,7,2,2]
+"LevelLoader_8h.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f":[10,0,3,0,3,7,2,3]
 };

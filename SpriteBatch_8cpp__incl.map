@@ -1,48 +1,50 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/SpriteBatch.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="382,5,603,60"/>
-<area shape="rect" id="Node000002" href="$SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="43,108,243,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,63,204,107,202,102,385,57"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="267,108,334,133"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="435,63,340,105,337,100,433,58"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="358,108,424,133"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="463,62,417,101,413,97,460,58"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="449,108,536,133"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="495,60,495,94,490,94,490,60"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="880,328,939,353"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="603,35,694,42,787,55,867,76,898,90,918,106,934,131,943,158,947,187,946,217,936,272,922,316,917,314,931,271,941,216,941,188,938,159,929,133,914,110,895,94,866,81,786,60,693,47,603,40"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="790,108,904,133"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="601,57,787,102,786,107,600,63"/>
-<area shape="rect" id="Node000013" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="560,108,766,133"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="546,58,629,99,626,104,543,62"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="384,181,454,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,131,371,178,370,183,187,136"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="46,328,109,353"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="87,136,48,154,31,167,17,183,10,199,8,217,17,254,37,288,59,316,55,320,33,291,12,256,3,217,5,198,13,180,27,163,45,149,85,131"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="27,181,142,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="135,135,104,173,100,169,131,132"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="166,181,240,207"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="155,132,187,169,182,173,151,135"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="265,181,360,207"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="171,131,273,173,271,178,169,136"/>
-<area shape="rect" id="Node000014" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="578,181,748,207"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="666,134,666,168,660,168,660,134"/>
-<area shape="rect" id="Node000015" href="$LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="554,255,772,280"/>
-<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="666,207,666,241,660,241,660,207"/>
-<area shape="rect" id="Node000017" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="578,401,785,427"/>
-<area shape="poly" id="edge18_Node000014_Node000017" title=" " alt="" coords="715,204,755,222,772,236,787,253,794,273,794,294,788,314,776,333,745,368,712,395,709,391,741,364,772,330,783,312,789,293,789,274,782,256,769,240,752,227,713,209"/>
-<area shape="rect" id="Node000018" href="$Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="277,255,468,280"/>
-<area shape="poly" id="edge19_Node000014_Node000018" title=" " alt="" coords="617,209,433,254,432,249,616,204"/>
-<area shape="poly" id="edge15_Node000015_Node000011" title=" " alt="" coords="703,277,868,325,867,330,702,283"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="425,401,522,427"/>
-<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="657,282,629,317,589,355,552,379,516,398,513,393,550,375,585,351,625,313,653,279"/>
-<area shape="poly" id="edge17_Node000015_Node000017" title=" " alt="" coords="670,279,684,328,686,387,681,388,679,328,665,281"/>
-<area shape="poly" id="edge22_Node000018_Node000004" title=" " alt="" coords="326,283,123,331,121,326,324,277"/>
-<area shape="poly" id="edge21_Node000018_Node000016" title=" " alt="" coords="334,283,301,295,272,312,262,321,257,331,256,341,261,352,284,368,321,382,412,401,410,406,320,387,281,372,257,355,251,342,252,329,258,318,269,307,299,290,332,278"/>
-<area shape="poly" id="edge26_Node000018_Node000017" title=" " alt="" coords="445,277,516,296,553,309,588,326,631,356,665,389,661,393,628,360,586,330,551,314,515,301,444,283"/>
-<area shape="rect" id="Node000019" title=" " alt="" coords="271,328,348,353"/>
-<area shape="poly" id="edge20_Node000018_Node000019" title=" " alt="" coords="364,282,331,319,327,316,360,279"/>
-<area shape="rect" id="Node000020" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="372,328,575,353"/>
-<area shape="poly" id="edge23_Node000018_Node000020" title=" " alt="" coords="390,278,447,318,444,322,387,282"/>
-<area shape="poly" id="edge24_Node000020_Node000016" title=" " alt="" coords="476,354,476,388,471,388,471,354"/>
-<area shape="poly" id="edge25_Node000020_Node000017" title=" " alt="" coords="508,351,636,394,634,399,506,356"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="417,5,638,60"/>
+<area shape="rect" id="Node000002" href="$SpriteBatch_8h.html" title="Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots." alt="" coords="42,108,242,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="417,61,208,108,206,102,416,56"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="266,108,328,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="458,63,342,106,340,101,456,58"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="353,108,420,133"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="486,62,419,103,416,98,483,58"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="444,108,510,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="514,61,493,97,489,95,510,59"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="535,108,622,133"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="545,59,567,95,562,97,541,61"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="966,328,1025,353"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="638,33,742,38,850,50,901,60,945,72,980,87,1004,106,1020,131,1029,158,1033,187,1032,217,1022,273,1008,316,1003,315,1017,271,1027,216,1027,188,1024,160,1015,133,1000,110,977,92,943,77,899,65,850,56,741,43,638,38"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="876,108,990,133"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="639,55,866,103,865,108,638,60"/>
+<area shape="rect" id="Node000014" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="646,108,852,133"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="596,58,707,100,706,105,594,63"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="383,181,454,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="187,131,370,178,369,183,186,136"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="88,328,151,353"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="87,136,47,154,30,167,17,183,9,201,9,220,16,239,27,257,58,291,92,318,89,322,54,295,22,260,11,241,4,221,4,200,12,180,26,163,45,149,85,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="26,181,141,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="135,135,104,173,100,169,130,132"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="165,181,240,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="154,132,186,169,182,173,150,135"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="264,181,359,207"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="170,131,272,173,270,178,168,136"/>
+<area shape="rect" id="Node000015" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="664,181,834,207"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="752,134,752,168,746,168,746,134"/>
+<area shape="rect" id="Node000016" href="$LogFormat_8h.html" title="Formatage des lignes de journalisation." alt="" coords="640,255,858,280"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="752,207,752,241,746,241,746,207"/>
+<area shape="rect" id="Node000018" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="664,401,871,427"/>
+<area shape="poly" id="edge19_Node000015_Node000018" title=" " alt="" coords="801,204,840,222,858,236,873,253,880,273,880,294,874,314,862,333,831,368,798,395,795,391,827,364,858,330,869,312,875,293,875,274,868,256,855,240,838,227,799,209"/>
+<area shape="rect" id="Node000019" href="$Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="363,255,554,280"/>
+<area shape="poly" id="edge20_Node000015_Node000019" title=" " alt="" coords="703,209,519,254,518,249,702,204"/>
+<area shape="poly" id="edge16_Node000016_Node000012" title=" " alt="" coords="789,277,954,325,953,330,788,283"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="511,401,608,427"/>
+<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="743,282,715,317,675,355,638,379,602,398,599,393,635,375,671,351,711,313,739,279"/>
+<area shape="poly" id="edge18_Node000016_Node000018" title=" " alt="" coords="756,279,770,328,772,387,767,388,765,328,751,281"/>
+<area shape="poly" id="edge23_Node000019_Node000004" title=" " alt="" coords="404,283,165,333,164,327,403,277"/>
+<area shape="poly" id="edge22_Node000019_Node000017" title=" " alt="" coords="420,283,387,295,358,312,348,321,343,331,342,341,347,352,370,368,407,382,497,401,496,406,406,387,367,372,343,355,337,342,337,329,344,318,355,307,385,290,418,278"/>
+<area shape="poly" id="edge27_Node000019_Node000018" title=" " alt="" coords="531,277,602,296,639,309,674,326,717,356,750,389,747,393,714,360,672,330,637,314,600,301,530,283"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="357,328,434,353"/>
+<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="450,282,417,319,413,316,446,279"/>
+<area shape="rect" id="Node000021" href="$ILogSink_8h.html" title="Interface d&#39;une destination de journalisation." alt="" coords="458,328,661,353"/>
+<area shape="poly" id="edge24_Node000019_Node000021" title=" " alt="" coords="476,278,533,318,530,322,473,282"/>
+<area shape="poly" id="edge25_Node000021_Node000017" title=" " alt="" coords="562,354,562,388,557,388,557,354"/>
+<area shape="poly" id="edge26_Node000021_Node000018" title=" " alt="" coords="594,351,722,394,720,399,592,356"/>
 </map>

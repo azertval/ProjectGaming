@@ -2,7 +2,7 @@ var searchData=
 [
   ['gamebindings_0',['gameBindings',['../classhmi_1_1GameViewport.html#a30002a154b0395cdc334fe7313e08219',1,'hmi::GameViewport']]],
   ['gamekeybindings_1',['GameKeyBindings',['../classhmi_1_1GameKeyBindings.html#a3432600dde80046479c098693a7fe3a1',1,'hmi::GameKeyBindings']]],
-  ['gamepadbindings_2',['gamepadbindings',['../classhmi_1_1GameViewport.html#adcb2ea82e1836a4256705bb63674d533',1,'hmi::GameViewport::gamepadBindings()'],['../classhmi_1_1GamepadBindings.html#a0825a2d9042cb4a629a2877e9b2dd691',1,'hmi::GamepadBindings::GamepadBindings()']]],
+  ['gamepadbindings_2',['gamepadbindings',['../classhmi_1_1GamepadBindings.html#a0825a2d9042cb4a629a2877e9b2dd691',1,'hmi::GamepadBindings::GamepadBindings()'],['../classhmi_1_1GameViewport.html#adcb2ea82e1836a4256705bb63674d533',1,'hmi::GameViewport::gamepadBindings()']]],
   ['gamepadbindingswidget_3',['GamepadBindingsWidget',['../classhmi_1_1GamepadBindingsWidget.html#ac7b8beb97cdabb8f6567ffcefe18fece',1,'hmi::GamepadBindingsWidget']]],
   ['gamepadbuttondisplayname_4',['gamepadButtonDisplayName',['../namespacehmi.html#ae5554638874ee3372dad502cfe2e594e',1,'hmi']]],
   ['gamepadbuttondown_5',['gamepadButtonDown',['../classhmi_1_1InputState.html#a3ce30e4669945efe5db386ea42f9abe5',1,'hmi::InputState']]],

@@ -1,5 +1,6 @@
 var namespacehmi =
 [
+    [ "ArrowHead", "structhmi_1_1ArrowHead.html", "structhmi_1_1ArrowHead" ],
     [ "AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", "structhmi_1_1AtlasGridPosition" ],
     [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
     [ "DraftRenderer", "classhmi_1_1DraftRenderer.html", "classhmi_1_1DraftRenderer" ],
@@ -16,11 +17,18 @@ var namespacehmi =
     [ "KeybindingsWidget", "classhmi_1_1KeybindingsWidget.html", "classhmi_1_1KeybindingsWidget" ],
     [ "LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html", "classhmi_1_1LevelBrowserPanel" ],
     [ "LevelFileOperations", "classhmi_1_1LevelFileOperations.html", "classhmi_1_1LevelFileOperations" ],
+    [ "LineQuad", "structhmi_1_1LineQuad.html", "structhmi_1_1LineQuad" ],
+    [ "LinkGestureDecision", "structhmi_1_1LinkGestureDecision.html", "structhmi_1_1LinkGestureDecision" ],
+    [ "LinkOverlayState", "structhmi_1_1LinkOverlayState.html", "structhmi_1_1LinkOverlayState" ],
+    [ "LinkPanel", "classhmi_1_1LinkPanel.html", "classhmi_1_1LinkPanel" ],
+    [ "LinkRow", "structhmi_1_1LinkRow.html", "structhmi_1_1LinkRow" ],
+    [ "LinkSegment", "structhmi_1_1LinkSegment.html", "structhmi_1_1LinkSegment" ],
     [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
     [ "MainMenu", "classhmi_1_1MainMenu.html", "classhmi_1_1MainMenu" ],
     [ "MainWindow", "classhmi_1_1MainWindow.html", "classhmi_1_1MainWindow" ],
     [ "OptionsPage", "classhmi_1_1OptionsPage.html", "classhmi_1_1OptionsPage" ],
     [ "PalettePanel", "classhmi_1_1PalettePanel.html", "classhmi_1_1PalettePanel" ],
+    [ "PendingLink", "structhmi_1_1PendingLink.html", "structhmi_1_1PendingLink" ],
     [ "PreviousPosition", "structhmi_1_1PreviousPosition.html", "structhmi_1_1PreviousPosition" ],
     [ "RoomBounds", "structhmi_1_1RoomBounds.html", "structhmi_1_1RoomBounds" ],
     [ "RoomGrid", "classhmi_1_1RoomGrid.html", "classhmi_1_1RoomGrid" ],
@@ -46,7 +54,8 @@ var namespacehmi =
     [ "EditorTool", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd", [
       [ "Paint", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e", null ],
       [ "Rectangle", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e", null ],
-      [ "Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ]
+      [ "Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ],
+      [ "Link", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b", null ]
     ] ],
     [ "GameAction", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867", [
       [ "MoveLeft", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca", null ],
@@ -96,20 +105,37 @@ var namespacehmi =
       [ "F2", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74", null ],
       [ "F10", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a", null ]
     ] ],
+    [ "LinkGestureAction", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5", [
+      [ "Ignore", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9", null ],
+      [ "SetPending", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5ad9e8fea9194ad4b49db82581f12a26bb", null ],
+      [ "ReplacePending", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5a3dd35eb48e689222238c611f64809a3e", null ],
+      [ "Link", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5a97e7c9a7d06eac006a28bf05467fcc8b", null ],
+      [ "Unlink", "namespacehmi.html#ace704959d626f266592987f16eb2f3d5ac1a39b6a60f8b2f87e23d60ab649d994", null ]
+    ] ],
+    [ "LinkKind", "namespacehmi.html#ac7ba9ad4c289f6706928912ab9bb0985", [
+      [ "Mechanism", "namespacehmi.html#ac7ba9ad4c289f6706928912ab9bb0985a7a3d46893bda116f6b56760a98aaf631", null ],
+      [ "DangerLink", "namespacehmi.html#ac7ba9ad4c289f6706928912ab9bb0985a4b9c4a190a04fc1db208f8a62ee67619", null ]
+    ] ],
     [ "MouseButton", "namespacehmi.html#a4180e6c308353c9965d695855746d982", [
       [ "Left", "namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],
       [ "Right", "namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c", null ],
       [ "Middle", "namespacehmi.html#a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05", null ],
       [ "Count", "namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9", null ]
     ] ],
+    [ "arrowHead", "namespacehmi.html#a42f96951bfec11435da37c91ee377046", null ],
+    [ "buildLinkRows", "namespacehmi.html#a5308a5fca2e3f3a42451aaf1719d3ab4", null ],
     [ "capturedGamepadButton", "namespacehmi.html#a3b48baec87107f7a4aec638550bdb941", null ],
     [ "capturedKey", "namespacehmi.html#ac200bbbe13247069ff384e574db66eec", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "gamepadButtonDisplayName", "namespacehmi.html#ae5554638874ee3372dad502cfe2e594e", null ],
+    [ "isLinkTargetTile", "namespacehmi.html#abc01bff6f3bc784144a6436903733777", null ],
+    [ "isTriggerTile", "namespacehmi.html#acdad993bffcbcda789815eccabbf17bb", null ],
     [ "isValidLevelName", "namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e", null ],
     [ "keyDisplayName", "namespacehmi.html#acd53f8d86ae168c7bf03fda0cdede0c3", null ],
+    [ "linkSegment", "namespacehmi.html#a8d04fa0354b5ffe2e3807c7b4cbc9e5a", null ],
     [ "qtKeyToHmiKey", "namespacehmi.html#a1b53de392afb0dfdf5cdef4543fb672d", null ],
     [ "regionForTile", "namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e", null ],
+    [ "resolveLinkClick", "namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "slopeTileGridPosition", "namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1", null ],

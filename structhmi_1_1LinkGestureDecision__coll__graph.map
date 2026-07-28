@@ -1,0 +1,5 @@
+<map id="hmi::LinkGestureDecision" name="hmi::LinkGestureDecision">
+<area shape="rect" id="Node000001" title="Décision résultant de resolveLinkClick : action à appliquer et paramètres associés." alt="" coords="5,123,195,148"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="31,5,169,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,44,103,123,97,123,97,44"/>
+</map>

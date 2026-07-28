@@ -5,6 +5,7 @@ var classhmi_1_1SpriteBatch =
     [ "~SpriteBatch", "classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef", null ],
     [ "SpriteBatch", "classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7", null ],
     [ "begin", "classhmi_1_1SpriteBatch.html#a4876bd6f672a6dbdc6dd166fcecb971d", null ],
+    [ "draw", "classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b", null ],
     [ "draw", "classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d", null ],
     [ "end", "classhmi_1_1SpriteBatch.html#aac9e3e6a4b2e84a4b24b617d6b4ce58d", null ],
     [ "flush", "classhmi_1_1SpriteBatch.html#a65588209fee42a61ee688133f73f63aa", null ],

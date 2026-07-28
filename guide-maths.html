@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('guide-maths.html',''); initResizable()
 <div class="contents">
 <div class="textblock"><p>Cette page redéfinit, sans présupposer de bagage en algèbre appliquée aux jeux vidéo, les quelques outils mathématiques dont dépend tout le reste du moteur : vecteurs, boîtes englobantes, conventions d'unités, comparaison de nombres flottants.</p>
 <p>Le moteur n'utilise <b>aucune</b> bibliothèque mathématique tierce dans <code>Core</code> (pas de DirectXMath, pas de GLM) : un type minimal, écrit à la main, suffit aux besoins du jeu et garde <code>Core</code> totalement indépendant de DirectX (<code>EX-ARCH-040</code>) — la conversion vers les types du GPU se fait uniquement côté <code>HMI</code>, au moment du rendu.</p>
-<h1><a class="anchor" id="autotoc_md102"></a>
+<h1><a class="anchor" id="autotoc_md103"></a>
 \ref core::Vector2 "Vector2" : un point ou une direction dans le monde</h1>
 <p>Un <b>vecteur 2D</b> est simplement une paire de nombres <code>(x, y)</code>. Il sert à deux usages différents selon le contexte, qu'il faut garder à l'esprit en lisant le code :</p>
 <ul>
@@ -111,13 +111,13 @@ $(document).ready(function(){initNavTree('guide-maths.html',''); initResizable()
 <li><b>longueur</b> (<code>length</code>, <a href="https://fr.wikipedia.org/wiki/Norme_euclidienne">norme euclidienne</a> ⧉) : la distance entre l'origine et le point <code>(x, y)</code>, calculée par le théorème de Pythagore : <code>sqrt(x*x + y*y)</code> ;</li>
 <li><b>normalisation</b> (<code>normalized</code>) : produit un vecteur de <b>même direction</b> mais de longueur exactement <b>1</b> (un « vecteur unitaire »), en divisant chaque composante par la longueur. Utile pour obtenir une direction pure, indépendante de la distance — par exemple normaliser l'intention de dash 8 directions (<a class="el" href="guide-physique.html">Physique du personnage</a>, §4) garantit qu'une diagonale ne va pas plus vite qu'un mouvement cardinal, alors que <code>(1, 1)</code> non normalisé a une longueur de <code>√2 ≈ 1,41</code>, soit 41 % plus rapide qu'attendu sans cette étape. Cas particulier : normaliser le vecteur nul (longueur quasi nulle) n'a pas de direction définie — <code>normalized()</code> renvoie alors le vecteur nul plutôt que de diviser par zéro.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md103"></a>
+<h2><a class="anchor" id="autotoc_md104"></a>
 \ref core::Vector2::lengthSquared "lengthSquared" : éviter la racine carrée</h2>
 <p><code>lengthSquared()</code> renvoie <code>x*x + y*y</code>, <b>sans</b> appeler <code>sqrt</code>. La racine carrée est une opération relativement coûteuse comparée à une multiplication ; or, pour de nombreuses questions, on n'a pas besoin de la longueur exacte, seulement de <b>comparer</b> deux longueurs (« ce vecteur est-il plus long que celui-là ? », « cette distance est-elle inférieure à un seuil ? »). Comme la fonction racine carrée est <b>croissante</b>, comparer <code>a.lengthSquared() &lt; b.lengthSquared()</code> donne exactement le même résultat que comparer <code>a.length() &lt; b.length()</code>, sans jamais calculer de racine — une optimisation classique et systématique en géométrie appliquée aux jeux.</p>
-<h2><a class="anchor" id="autotoc_md104"></a>
+<h2><a class="anchor" id="autotoc_md105"></a>
 Égalité approchée</h2>
 <p><code>operator==</code> sur deux <code>Vector2</code> (comme <code><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794" title="Compare deux flottants à une tolérance relative-absolue près.">core::approximatelyEqual</a></code> sur deux <code>float</code>, voir plus bas) compare avec une <b>tolérance</b>, pas une égalité binaire exacte. C'est nécessaire parce que l'arithmétique flottante accumule de minuscules erreurs d'arrondi : deux calculs mathématiquement équivalents (par exemple <code>(a + b) + c</code> et <code>a + (b + c)</code>) peuvent produire des <code>float</code> légèrement différents au dernier bit. Comparer de tels résultats avec <code>==</code> strict échouerait de façon imprévisible et intermittente — un piège classique documenté plus bas.</p>
-<h1><a class="anchor" id="autotoc_md105"></a>
+<h1><a class="anchor" id="autotoc_md106"></a>
 \ref core::Aabb "Aabb" : la boîte englobante alignée aux axes</h1>
 <p>Une <a href="https://en.wikipedia.org/wiki/Bounding_volume">AABB</a> ⧉ (<em>Axis-Aligned Bounding Box</em>, « boîte englobante alignée aux axes ») est la forme géométrique la plus simple pour représenter l'encombrement d'un objet : un <b>rectangle dont les côtés sont toujours parallèles aux axes X et Y</b> — jamais tourné. C'est un compromis délibéré : une boîte tournée ou une forme complexe (cercle, polygone) collerait mieux à la silhouette d'un sprite, mais coûterait bien plus cher à tester en collision (voir <a class="el" href="guide-physique.html">Physique du personnage</a>) pour un gain de précision inutile dans un plateformer où les niveaux sont eux-mêmes des grilles de tuiles alignées aux axes.</p>
 <p><code><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></code> décrit un rectangle par ses deux coins opposés :</p>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('guide-maths.html',''); initResizable()
 <div class="line">               │              │</div>
 <div class="line">               └──────────────┘ (max.x, max.y)</div>
 </div><!-- fragment --><p>En pratique, le code manipule souvent une entité par son coin haut-gauche (<code><a class="el" href="structcore_1_1Collider.html" title="Étendue physique d&#39;une entité pour la collision : une boîte alignée aux axes (AABB).">core::Collider</a></code> combine une taille avec la position du <code>Transform</code>) plutôt que directement par <code>min</code>/<code>max</code> : <code>Aabb::fromTopLeftSize(topLeft, size)</code> construit la boîte correspondante (<code>max = topLeft + size</code>), évitant de refaire ce calcul — et l'erreur de signe qui va avec — à chaque site d'appel.</p>
-<h1><a class="anchor" id="autotoc_md106"></a>
+<h1><a class="anchor" id="autotoc_md107"></a>
 Conventions d'unités et de repère</h1>
 <p>Trois conventions, fixées une fois pour toutes et valables dans <b>tout</b> <code>Core</code>, expliquent la plupart des signes rencontrés dans le code de physique et de niveau :</p>
 <ul>
@@ -140,11 +140,11 @@ Conventions d'unités et de repère</h1>
 <li><b>Angles en radians</b>, pas en degrés (<code>Transform::rotation</code>) — la convention native des fonctions trigonométriques du C++ standard (<code>std::sin</code>, <code>std::cos</code>, …), qui évite une conversion à chaque appel.</li>
 </ul>
 <p>Garder ces trois conventions en tête suffit à expliquer, sans avoir à les redériver, la quasi- totalité des signes et des sens de déplacement rencontrés dans le moteur.</p>
-<h1><a class="anchor" id="autotoc_md107"></a>
+<h1><a class="anchor" id="autotoc_md108"></a>
 Comparaison flottante : pourquoi l'égalité stricte est dangereuse</h1>
 <p>Les nombres à virgule flottante (<code>float</code>) ne représentent pas exactement toutes les valeurs réelles : ils utilisent une précision finie, et des opérations en apparence anodines (addition répétée, division) introduisent de minuscules erreurs d'arrondi. Un exemple classique : en C++, <code>0.1f + 0.2f == 0.3f</code> est <b>faux</b>, car ni <code>0.1</code>, ni <code>0.2</code>, ni <code>0.3</code> ne sont représentables exactement en binaire — le résultat de l'addition diffère de <code>0.3f</code> de quelques millionièmes. Comparer deux flottants issus de calculs différents (même mathématiquement équivalents) avec <code>==</code> strict est donc fragile : le test peut échouer de façon imprévisible selon l'ordre des opérations, l'optimiseur du compilateur, ou l'architecture du processeur.</p>
 <p><code><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794" title="Compare deux flottants à une tolérance relative-absolue près.">core::approximatelyEqual</a></code> (dans <code>Core/Math</code>) résout ce problème en comparant deux <code>float</code> à une <b>tolérance</b> près, à la fois <b>relative</b> (proportionnelle à la magnitude des nombres comparés — utile pour de grandes valeurs) et <b>absolue</b> (un plancher minimal — utile près de zéro, où une tolérance purement relative deviendrait nulle). C'est la fonction que <code>Vector2::operator==</code> appelle composante par composante, et celle que les tests du moteur utilisent systématiquement pour comparer des résultats de calcul flottant plutôt qu'un <code>==</code> direct.</p>
-<h1><a class="anchor" id="autotoc_md108"></a>
+<h1><a class="anchor" id="autotoc_md109"></a>
 Voir aussi</h1>
 <ul>
 <li><code><a class="el" href="structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float).">core::Vector2</a></code>, <code><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></code>, <code><a class="el" href="structcore_1_1Rect.html" title="Rectangle aligné sur les axes (AABB) en unités monde.">core::Rect</a></code>, <code><a class="el" href="namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794" title="Compare deux flottants à une tolérance relative-absolue près.">core::approximatelyEqual</a></code>.</li>

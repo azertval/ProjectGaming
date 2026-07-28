@@ -1,0 +1,19 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LinkGeometry.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/LinkGeometry.h">
+<area shape="rect" id="Node000001" title="Géométrie et modèle d&#39;affichage des liens de mécanismes (LOT&#45;37), purs et testables." alt="" coords="619,5,840,60"/>
+<area shape="rect" id="Node000002" href="$LinkGeometry_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="605,51,431,76,239,111,208,118,207,113,238,105,430,71,604,46"/>
+<area shape="rect" id="Node000003" href="$LinkGesture_8cpp.html" title=" " alt="" coords="251,115,472,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="627,66,451,118,450,113,626,61"/>
+<area shape="rect" id="Node000004" href="$LinkPanel_8h.html" title="Panneau « Liens » : liste/surbrillance/suppression des liaisons de mécanismes (LOT&#45;37)." alt="" coords="496,115,717,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="691,71,638,117,635,113,687,67"/>
+<area shape="rect" id="Node000007" href="$GameViewport_8cpp.html" title=" " alt="" coords="742,115,965,170"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="772,67,825,113,821,117,769,71"/>
+<area shape="rect" id="Node000008" href="$DraftRenderer_8cpp.html" title=" " alt="" coords="988,115,1223,170"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="835,61,1015,113,1013,118,833,66"/>
+<area shape="rect" id="Node000009" href="$test__link__geometry_8cpp.html" title=" " alt="" coords="1247,108,1468,177"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="854,45,1035,70,1235,105,1247,108,1246,113,1234,111,1034,75,854,51"/>
+<area shape="rect" id="Node000005" href="$LinkPanel_8cpp.html" title=" " alt="" coords="371,225,592,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="567,182,514,227,510,223,564,177"/>
+<area shape="rect" id="Node000006" href="$MainWindow_8cpp.html" title=" " alt="" coords="617,225,845,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="649,177,702,223,699,227,646,181"/>
+</map>

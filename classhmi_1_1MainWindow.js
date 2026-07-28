@@ -21,6 +21,7 @@ var classhmi_1_1MainWindow =
     [ "_defaultState", "classhmi_1_1MainWindow.html#aa0f18b423a6be1bda623de58166a835f", null ],
     [ "_editorContainer", "classhmi_1_1MainWindow.html#ac5c63412581fcf98bd57cfe47e5b3510", null ],
     [ "_levels", "classhmi_1_1MainWindow.html#aa3a6277e15086fc09f3ba9b42dfc86e2", null ],
+    [ "_links", "classhmi_1_1MainWindow.html#a25b7f8b81604897b4eb8e29bdf3fd85e", null ],
     [ "_loc", "classhmi_1_1MainWindow.html#a5caf9b64fbcd7d83d4b9473221e6af09", null ],
     [ "_menu", "classhmi_1_1MainWindow.html#aa3e0f10b22dd266b5e55a4ab1843e98a", null ],
     [ "_menuNavTimer", "classhmi_1_1MainWindow.html#ad41040f5be4a9ff6498547f88c00f35a", null ],

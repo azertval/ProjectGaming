@@ -15,7 +15,9 @@ var searchData=
   ['isenabled_12',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]],
   ['isfollowablesurface_13',['isFollowableSurface',['../namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90',1,'core']]],
   ['isfree_14',['isFree',['../classcore_1_1BlockController.html#ae5d19a4dc18ad9c51e5bc78623df190b',1,'core::BlockController']]],
-  ['issolid_15',['issolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
-  ['isvalidlevelname_16',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
-  ['iterator_17',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['islinktargettile_15',['isLinkTargetTile',['../namespacehmi.html#abc01bff6f3bc784144a6436903733777',1,'hmi']]],
+  ['issolid_16',['issolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
+  ['istriggertile_17',['isTriggerTile',['../namespacehmi.html#acdad993bffcbcda789815eccabbf17bb',1,'hmi']]],
+  ['isvalidlevelname_18',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
+  ['iterator_19',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

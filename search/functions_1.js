@@ -9,7 +9,8 @@ var searchData=
   ['boxat_6',['boxAt',['../classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe',1,'core::BlockController']]],
   ['buildjson_7',['buildJson',['../classcore_1_1LevelWriter.html#a2160c458a44bc8d289cd033756bd43c5',1,'core::LevelWriter']]],
   ['buildlevelscene_8',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
-  ['buildmodel_9',['buildModel',['../classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364',1,'hmi::PalettePanel']]],
-  ['buildui_10',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
-  ['button_11',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
+  ['buildlinkrows_9',['buildLinkRows',['../namespacehmi.html#a5308a5fca2e3f3a42451aaf1719d3ab4',1,'hmi']]],
+  ['buildmodel_10',['buildModel',['../classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364',1,'hmi::PalettePanel']]],
+  ['buildui_11',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
+  ['button_12',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
 ];

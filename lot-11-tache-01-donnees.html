@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-11-tache-01-donnees.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-11-ressenti-avance_2epic_8md.html">LOT-11</a> · <b>Emplacement :</b> <code>Source/Core</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md799"></a>
+<h1><a class="anchor" id="autotoc_md801"></a>
 Contexte</h1>
 <p>On déclare d'abord les <b>réglages</b> de la gravité asymétrique et la <b>taille</b> du personnage, en données pures (<code>EX-ARCH-011</code>), avant la logique et le rendu.</p>
-<h1><a class="anchor" id="autotoc_md800"></a>
+<h1><a class="anchor" id="autotoc_md802"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>PhysicsConfig</code>** (Core/Physics) — réglages ⚠️ à affiner :<ul>
@@ -114,31 +114,31 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md801"></a>
+<h1><a class="anchor" id="autotoc_md803"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PhysicsConfig_8h.html" title="Constantes de réglage de la physique du personnage (données pures).">Source/Core/Physics/PhysicsConfig.h</a></code>, <code><a class="el" href="PlayerSpawn_8h.html" title="Taille du personnage jouable (humanoïde) et placement centré au spawn.">Source/Core/Physics/PlayerSpawn.h</a></code> (nouveau).</li>
 <li>Tests unitaires (valeurs par défaut, placement centré).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md802"></a>
+<h1><a class="anchor" id="autotoc_md804"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>PhysicsConfig</code> : <code>fallGravityMultiplier &gt; 1</code>, <code>0 &lt; apexGravityMultiplier &lt; 1</code>, <code>apexThreshold &gt; 0</code>, <code>fastFallMultiplier &gt; 1</code>.</li>
 <li><code>PlayerSpawn</code> : <code>playerSize()</code> = (0,4 ; 0,8) ; <code>playerSpawnPosition(c, r)</code> <b>centre</b> la boîte dans la tuile (marges symétriques : <code>x = c + (1-0,4)/2</code>, <code>y = r + (1-0,8)/2</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md803"></a>
+<h1><a class="anchor" id="autotoc_md805"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Données pures</b> : aucune logique, aucun DirectX. Unités monde, <code>y</code> vers le bas.</li>
 <li><code>Vector2</code> n'est pas <code>constexpr</code> : exposer des <code>constexpr float</code> + fonctions <b>inline</b> renvoyant des <code>Vector2</code> (pas de <code>constexpr Vector2</code>).</li>
 <li>Rétrocompatible : n'ajouter que des champs/constantes.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md804"></a>
+<h1><a class="anchor" id="autotoc_md806"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Réglages et constantes de spawn ajoutés, documentés et <b>testés</b> (<code>ctest</code> vert) ; build <code>/W4 /WX</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md805"></a>
+<h1><a class="anchor" id="autotoc_md807"></a>
 Exigences</h1>
 <p><code>EX-GP-018</code>, <code>EX-ARCH-011</code>, <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

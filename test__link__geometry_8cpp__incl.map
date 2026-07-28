@@ -1,0 +1,47 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Editor/test_link_geometry.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Editor/test_link_geometry.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="272,5,493,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="191,123,295,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="334,77,273,117,270,113,331,73"/>
+<area shape="rect" id="Node000003" href="$GridPosition_8h.html" title="Position entière dans la grille d&#39;un niveau (colonne, ligne)." alt="" coords="286,343,479,368"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="385,75,385,329,380,329,380,75"/>
+<area shape="rect" id="Node000004" href="$LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition." alt="" coords="768,123,949,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="494,60,787,117,786,123,493,66"/>
+<area shape="rect" id="Node000011" href="$TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés." alt="" coords="1051,416,1219,441"/>
+<area shape="poly" id="edge24_Node000001_Node000011" title=" " alt="" coords="494,49,710,72,958,107,1070,128,1163,152,1225,177,1243,192,1249,207,1249,283,1247,304,1241,323,1220,358,1192,388,1165,410,1162,406,1189,384,1215,355,1236,321,1242,303,1244,283,1244,208,1239,195,1223,182,1161,157,1069,133,957,112,709,77,493,54"/>
+<area shape="rect" id="Node000015" href="$LinkGeometry_8h.html" title="Géométrie et modèle d&#39;affichage des liens de mécanismes (LOT&#45;37), purs et testables." alt="" coords="149,269,345,295"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="366,76,263,258,258,255,361,74"/>
+<area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="768,144,685,150,597,161,519,177,489,187,467,198,448,220,428,256,395,331,390,329,423,253,444,217,464,194,487,182,518,172,596,156,685,145,768,138"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="983,269,1057,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="889,146,929,165,968,194,993,224,1011,255,1007,258,989,227,965,198,926,170,887,150"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="908,343,967,368"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="903,145,948,162,996,187,1040,222,1058,244,1072,268,1076,282,1072,296,1057,309,1035,322,980,343,979,338,1032,317,1054,305,1067,293,1071,282,1067,270,1054,247,1037,226,994,191,946,167,902,151"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="511,416,574,441"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="768,146,701,159,630,182,596,198,564,218,536,242,512,271,504,287,500,303,503,340,515,374,530,403,525,406,510,376,498,341,495,303,499,285,507,268,532,238,561,214,593,193,628,177,700,153,767,141"/>
+<area shape="rect" id="Node000008" href="$Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes." alt="" coords="521,269,671,295"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="839,151,630,265,627,261,836,146"/>
+<area shape="rect" id="Node000010" href="$TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau." alt="" coords="991,343,1158,368"/>
+<area shape="poly" id="edge22_Node000004_Node000010" title=" " alt="" coords="929,146,986,164,1015,177,1042,194,1061,210,1074,226,1092,269,1094,301,1087,330,1082,329,1089,300,1087,270,1070,229,1057,214,1038,198,1013,182,984,168,927,151"/>
+<area shape="poly" id="edge23_Node000004_Node000011" title=" " alt="" coords="950,145,1013,163,1045,176,1074,194,1113,226,1139,257,1157,293,1173,342,1175,359,1172,376,1156,406,1151,403,1167,375,1170,359,1168,343,1152,296,1134,260,1109,230,1070,198,1042,181,1012,168,949,150"/>
+<area shape="rect" id="Node000012" href="$LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles&#45;objets)." alt="" coords="763,196,955,221"/>
+<area shape="poly" id="edge16_Node000004_Node000012" title=" " alt="" coords="861,148,861,182,856,182,856,148"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="563,297,431,341,429,336,561,292"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="651,292,895,343,894,348,650,297"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="594,296,554,404,549,402,589,294"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="606,343,666,368"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="605,294,625,329,620,332,600,296"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="671,292,984,338,984,343,670,297"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="991,370,588,424,587,419,991,365"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="1087,367,1118,404,1114,407,1083,370"/>
+<area shape="poly" id="edge18_Node000012_Node000005" title=" " alt="" coords="886,219,982,261,980,266,884,224"/>
+<area shape="poly" id="edge19_Node000012_Node000006" title=" " alt="" coords="876,219,900,240,921,268,933,299,938,328,933,329,928,300,916,271,896,244,873,223"/>
+<area shape="poly" id="edge21_Node000012_Node000008" title=" " alt="" coords="817,224,653,268,651,263,816,219"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="695,269,785,295"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="841,224,773,264,770,260,838,219"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="810,269,907,295"/>
+<area shape="poly" id="edge20_Node000012_Node000014" title=" " alt="" coords="861,222,861,256,856,256,856,222"/>
+<area shape="poly" id="edge27_Node000015_Node000003" title=" " alt="" coords="270,292,350,334,347,339,267,297"/>
+<area shape="poly" id="edge26_Node000015_Node000007" title=" " alt="" coords="241,296,226,331,225,350,231,366,249,380,275,391,347,408,427,418,497,423,497,428,427,423,346,413,273,396,246,384,227,370,219,351,221,330,236,294"/>
+<area shape="poly" id="edge28_Node000015_Node000011" title=" " alt="" coords="249,295,254,331,262,350,275,366,290,374,315,381,388,394,485,404,597,411,836,420,1037,424,1037,429,836,426,597,417,484,409,387,399,314,386,288,379,272,370,257,353,249,332,244,295"/>
+<area shape="rect" id="Node000016" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="5,343,160,368"/>
+<area shape="poly" id="edge29_Node000015_Node000016" title=" " alt="" coords="221,297,123,340,121,335,219,292"/>
+</map>

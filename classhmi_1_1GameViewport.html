@@ -248,6 +248,9 @@ Signals</h2></td></tr>
 <tr class="memitem:a02acfb1387ff9e966f73e33f0e666894" id="r_a02acfb1387ff9e966f73e33f0e666894"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a02acfb1387ff9e966f73e33f0e666894">exitToMenuRequested</a> ()</td></tr>
 <tr class="memdesc:a02acfb1387ff9e966f73e33f0e666894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande de retour au menu principal (fin de partie ou <code>Échap</code> en mode jeu).  <br /></td></tr>
 <tr class="separator:a02acfb1387ff9e966f73e33f0e666894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3646e1f1bc4d4ee8ab7c45af7410f56e" id="r_a3646e1f1bc4d4ee8ab7c45af7410f56e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a3646e1f1bc4d4ee8ab7c45af7410f56e">draftChanged</a> ()</td></tr>
+<tr class="memdesc:a3646e1f1bc4d4ee8ab7c45af7410f56e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau « Liens » se resynchronise dessus (<code>refresh</code>).  <br /></td></tr>
+<tr class="separator:a3646e1f1bc4d4ee8ab7c45af7410f56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -302,6 +305,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5721c31351cdb4eef28bd9856ff6216d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d1767ffe75ae9a601c7d211410f86b7" id="r_a4d1767ffe75ae9a601c7d211410f86b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a4d1767ffe75ae9a601c7d211410f86b7">levelHeight</a> () const</td></tr>
 <tr class="separator:a4d1767ffe75ae9a601c7d211410f86b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a987dc586ecf5f86913880758b34bba7a" id="r_a987dc586ecf5f86913880758b34bba7a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a987dc586ecf5f86913880758b34bba7a">draft</a> () const noexcept</td></tr>
+<tr class="separator:a987dc586ecf5f86913880758b34bba7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accdd8d909af2dbb3fb790734c6a643b5" id="r_accdd8d909af2dbb3fb790734c6a643b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#accdd8d909af2dbb3fb790734c6a643b5">setHighlightedLink</a> (std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; link)</td></tr>
+<tr class="memdesc:accdd8d909af2dbb3fb790734c6a643b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.  <br /></td></tr>
+<tr class="separator:accdd8d909af2dbb3fb790734c6a643b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7ad870c084ca5c30be9891d70250638" id="r_ae7ad870c084ca5c30be9891d70250638"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#ae7ad870c084ca5c30be9891d70250638">unlinkMechanism</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition)</td></tr>
+<tr class="memdesc:ae7ad870c084ca5c30be9891d70250638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime la liaison dont la cible est <code>targetPosition</code> (bouton « Supprimer » du panneau « Liens ») ; sans effet si <code>targetPosition</code> n'a pas de liaison.  <br /></td></tr>
+<tr class="separator:ae7ad870c084ca5c30be9891d70250638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -369,6 +380,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a7741b62548715a272721a4e7c4b67a21" id="r_a7741b62548715a272721a4e7c4b67a21"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a7741b62548715a272721a4e7c4b67a21">highlight</a> () const</td></tr>
 <tr class="memdesc:a7741b62548715a272721a4e7c4b67a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zone à mettre en surbrillance (glisser en cours, sinon sélection mémorisée), le cas échéant.  <br /></td></tr>
 <tr class="separator:a7741b62548715a272721a4e7c4b67a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99a73b1b7b40806ee7785b6cf71cf82c" id="r_a99a73b1b7b40806ee7785b6cf71cf82c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a99a73b1b7b40806ee7785b6cf71cf82c">handleLinkClick</a> (const QMouseEvent *<a class="el" href="classhmi_1_1GameViewport.html#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
+<tr class="memdesc:a99a73b1b7b40806ee7785b6cf71cf82c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil Lien (<code><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></code>) et l'applique (attente, liaison).  <br /></td></tr>
+<tr class="separator:a99a73b1b7b40806ee7785b6cf71cf82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bbb467b21ce8b7ce3d8ec38a799d671" id="r_a0bbb467b21ce8b7ce3d8ec38a799d671"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a0bbb467b21ce8b7ce3d8ec38a799d671">linkExists</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> switchPosition, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition) const</td></tr>
+<tr class="separator:a0bbb467b21ce8b7ce3d8ec38a799d671"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3bcb4f2e850c36f8a1c211fcaa8f3a2" id="r_ab3bcb4f2e850c36f8a1c211fcaa8f3a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#ab3bcb4f2e850c36f8a1c211fcaa8f3a2">markDraftMutated</a> ()</td></tr>
+<tr class="memdesc:ab3bcb4f2e850c36f8a1c211fcaa8f3a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalide le rendu du brouillon et notifie les panneaux dépendants (<code>draftChanged</code>) — à appeler après toute mutation de <code>_draft</code> (peinture, lien, undo/redo, chargement…).  <br /></td></tr>
+<tr class="separator:ab3bcb4f2e850c36f8a1c211fcaa8f3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f56be33a1482cf0e02bcf588fdc862f" id="r_a8f56be33a1482cf0e02bcf588fdc862f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a8f56be33a1482cf0e02bcf588fdc862f">pixelWidth</a> () const</td></tr>
 <tr class="separator:a8f56be33a1482cf0e02bcf588fdc862f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c663161ccf294f6323e536e9a9207be" id="r_a5c663161ccf294f6323e536e9a9207be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a5c663161ccf294f6323e536e9a9207be">pixelHeight</a> () const</td></tr>
@@ -433,6 +452,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ae96e120c86e828f65d27936e5941297d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5726c12fdeac921d24dbc81a45e50474" id="r_a5726c12fdeac921d24dbc81a45e50474"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a5726c12fdeac921d24dbc81a45e50474">_selection</a></td></tr>
 <tr class="separator:a5726c12fdeac921d24dbc81a45e50474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4573aa2c53032e6c6efcb236c9e7c5" id="r_a2e4573aa2c53032e6c6efcb236c9e7c5"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a2e4573aa2c53032e6c6efcb236c9e7c5">_pendingLink</a></td></tr>
+<tr class="memdesc:a2e4573aa2c53032e6c6efcb236c9e7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic).  <br /></td></tr>
+<tr class="separator:a2e4573aa2c53032e6c6efcb236c9e7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a381d80978c270ee174578ff7a774fdc1" id="r_a381d80978c270ee174578ff7a774fdc1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#a381d80978c270ee174578ff7a774fdc1">_selectedLink</a></td></tr>
+<tr class="memdesc:a381d80978c270ee174578ff7a774fdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance.  <br /></td></tr>
+<tr class="separator:a381d80978c270ee174578ff7a774fdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1283be58e80baba1a291f9e120ec65d" id="r_ab1283be58e80baba1a291f9e120ec65d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1GameViewport.html#ab1283be58e80baba1a291f9e120ec65d">_clipboard</a></td></tr>
 <tr class="memdesc:ab1283be58e80baba1a291f9e120ec65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Presse-papiers local (types de tuiles, <code>[ligne][colonne]</code>), pour <code>Ctrl+C</code>/<code>Ctrl+V</code>.  <br /></td></tr>
 <tr class="separator:ab1283be58e80baba1a291f9e120ec65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -684,6 +709,59 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a987dc586ecf5f86913880758b34bba7a" name="a987dc586ecf5f86913880758b34bba7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987dc586ecf5f86913880758b34bba7a">&#9670;&#160;</a></span>draft()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp; hmi::GameViewport::draft </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le brouillon en cours d'édition (lecture seule) — consommé par le panneau « Liens ». </dd></dl>
+
+</div>
+</div>
+<a id="a3646e1f1bc4d4ee8ab7c45af7410f56e" name="a3646e1f1bc4d4ee8ab7c45af7410f56e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3646e1f1bc4d4ee8ab7c45af7410f56e">&#9670;&#160;</a></span>draftChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::draftChanged </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau « Liens » se resynchronise dessus (<code>refresh</code>). </p>
+
+</div>
+</div>
 <a id="ade04cd4034cab1c4bd405a1539492812" name="ade04cd4034cab1c4bd405a1539492812"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade04cd4034cab1c4bd405a1539492812">&#9670;&#160;</a></span>ensureResources()</h2>
 
@@ -842,6 +920,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a99a73b1b7b40806ee7785b6cf71cf82c" name="a99a73b1b7b40806ee7785b6cf71cf82c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99a73b1b7b40806ee7785b6cf71cf82c">&#9670;&#160;</a></span>handleLinkClick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::handleLinkClick </td>
+          <td>(</td>
+          <td class="paramtype">const QMouseEvent *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout le clic de l'outil Lien (<code><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></code>) et l'applique (attente, liaison). </p>
+
+</div>
+</div>
 <a id="a7741b62548715a272721a4e7c4b67a21" name="a7741b62548715a272721a4e7c4b67a21"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7741b62548715a272721a4e7c4b67a21">&#9670;&#160;</a></span>highlight()</h2>
 
@@ -982,6 +1088,43 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0bbb467b21ce8b7ce3d8ec38a799d671" name="a0bbb467b21ce8b7ce3d8ec38a799d671"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bbb467b21ce8b7ce3d8ec38a799d671">&#9670;&#160;</a></span>linkExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::GameViewport::linkExists </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td>
+          <td class="paramname"><em>switchPosition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td>
+          <td class="paramname"><em>targetPosition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true si (<code>switchPosition</code>, <code>targetPosition</code>) est déjà une liaison du brouillon. </dd></dl>
+
+</div>
+</div>
 <a id="ae1a38ed54a427056246e325402516f72" name="ae1a38ed54a427056246e325402516f72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae1a38ed54a427056246e325402516f72">&#9670;&#160;</a></span>loadGameLevel()</h2>
 
@@ -1007,6 +1150,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Charge le niveau <code>index</code> de la séquence de jeu. </p>
+
+</div>
+</div>
+<a id="ab3bcb4f2e850c36f8a1c211fcaa8f3a2" name="ab3bcb4f2e850c36f8a1c211fcaa8f3a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3bcb4f2e850c36f8a1c211fcaa8f3a2">&#9670;&#160;</a></span>markDraftMutated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::markDraftMutated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Invalide le rendu du brouillon et notifie les panneaux dépendants (<code>draftChanged</code>) — à appeler après toute mutation de <code>_draft</code> (peinture, lien, undo/redo, chargement…). </p>
 
 </div>
 </div>
@@ -1367,6 +1537,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="accdd8d909af2dbb3fb790734c6a643b5" name="accdd8d909af2dbb3fb790734c6a643b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accdd8d909af2dbb3fb790734c6a643b5">&#9670;&#160;</a></span>setHighlightedLink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setHighlightedLink </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt;&#160;</td>
+          <td class="paramname"><em>link</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon. </p>
+
+</div>
+</div>
 <a id="a30fb475c885ff369c5710284cf1450eb" name="a30fb475c885ff369c5710284cf1450eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30fb475c885ff369c5710284cf1450eb">&#9670;&#160;</a></span>setLocalization()</h2>
 
@@ -1596,6 +1786,26 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7ad870c084ca5c30be9891d70250638" name="ae7ad870c084ca5c30be9891d70250638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7ad870c084ca5c30be9891d70250638">&#9670;&#160;</a></span>unlinkMechanism()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::unlinkMechanism </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td>
+          <td class="paramname"><em>targetPosition</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Supprime la liaison dont la cible est <code>targetPosition</code> (bouton « Supprimer » du panneau « Liens ») ; sans effet si <code>targetPosition</code> n'a pas de liaison. </p>
 
 </div>
 </div>
@@ -2247,6 +2457,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2e4573aa2c53032e6c6efcb236c9e7c5" name="a2e4573aa2c53032e6c6efcb236c9e7c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e4573aa2c53032e6c6efcb236c9e7c5">&#9670;&#160;</a></span>_pendingLink</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::GameViewport::_pendingLink</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic). </p>
+
+</div>
+</div>
 <a id="a3fc8dc73d01e346896da05e3e0644750" name="a3fc8dc73d01e346896da05e3e0644750"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3fc8dc73d01e346896da05e3e0644750">&#9670;&#160;</a></span>_previousFrame</h2>
 
@@ -2266,6 +2500,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a381d80978c270ee174578ff7a774fdc1" name="a381d80978c270ee174578ff7a774fdc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a381d80978c270ee174578ff7a774fdc1">&#9670;&#160;</a></span>_selectedLink</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::pair&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; &gt; hmi::GameViewport::_selectedLink</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance. </p>
 
 </div>
 </div>

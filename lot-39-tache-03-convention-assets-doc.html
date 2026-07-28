@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-39-tache-03-convention-assets-doc.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-39-refonte-ihm-qt-textures_2epic_8md.html">LOT-39</a> · <b>Emplacement :</b> <code>Source/Elements</code>, <code>Source/Editor</code>, <code>Documentation</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1808"></a>
+<h1><a class="anchor" id="autotoc_md1810"></a>
 Contexte</h1>
 <p>Finalise le pipeline de textures fichiers : <b>convention d'assets</b> claire (où poser les fichiers, comment les recharger), <b>aperçu</b> optionnel dans l'éditeur, puis <b>documentation et vérification</b> de clôture du lot (et du programme de refonte).</p>
-<h1><a class="anchor" id="autotoc_md1809"></a>
+<h1><a class="anchor" id="autotoc_md1811"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Convention d'assets</b> : formaliser le dossier <code>Assets/</code> (structure, nommage, format PNG), sa copie à côté de l'exécutable (POST_BUILD, comme <code>Levels</code>/<code>Localization</code>) et son déploiement en release.</li>
@@ -110,33 +110,33 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1810"></a>
+<h1><a class="anchor" id="autotoc_md1812"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Elements/Assets/</code> (assets de base + README de convention).</li>
 <li><code>Source/Editor/</code> (rechargement / aperçu optionnels).</li>
 <li><code><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></code>, <code><a class="el" href="rendu-technique_8md.html">Documentation/Specification/rendu-technique.md</a></code>, cahier de test généré.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1811"></a>
+<h1><a class="anchor" id="autotoc_md1813"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression</b> : mapping de régions (TACHE-02) et résolution d'assets (TACHE-01) restent testés et verts.</li>
 <li>**<code>--check</code> du cahier de test** et <b>lint des exigences</b> verts.</li>
 <li><b>Vérification manuelle</b> : déposer/remplacer un fichier d'asset et constater l'effet (au relancement et, si implémenté, au rechargement à chaud) ; asset manquant → repli sans crash.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1812"></a>
+<h1><a class="anchor" id="autotoc_md1814"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Éditable hors code</b> : remplacer le fichier d'asset doit suffire à changer l'apparence (objectif du demandeur) — le documenter explicitement.</li>
 <li><b>Rester dans le périmètre</b> : pas de DDS/mipmaps/packing auto, pas de décors riches (<code>EX-DEC-*</code>) — hors périmètre.</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1813"></a>
+<h1><a class="anchor" id="autotoc_md1815"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Convention d'assets documentée et opérationnelle (copie + déploiement), aperçu/rechargement optionnels livrés si retenus ; guide rendu et exigences à jour ; tests verts (dont cahier <code>--check</code>) ; <code>/W4 /WX</code>, Doxygen, lint verts ; critères du <a class="el" href="LOT-39-refonte-ihm-qt-textures_2epic_8md.html">LOT-39</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1814"></a>
+<h1><a class="anchor" id="autotoc_md1816"></a>
 Exigences</h1>
 <p><code>EX-REN-041</code>/<code>EX-REN-042</code> ; <code>EX-NFR-040</code> (repli), <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

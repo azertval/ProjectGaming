@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-15-tache-02-garde-fous-perte-donne
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-15-editeur-industriel_2epic_8md.html">LOT-15</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md944"></a>
+<h1><a class="anchor" id="autotoc_md946"></a>
 Contexte</h1>
 <p><code>LevelDraft::resize</code> tronque déjà silencieusement le contenu hors bornes (entrée, sortie, liaisons) — un comportement documenté comme volontaire (« l'avertissement de perte revient à l'appelant <code>HMI</code> ») mais jamais câblé côté <code>EditorScreen</code> en LOT-14 TACHE-03. De même, <code>Échap</code> quitte l'éditeur sans avertir d'éventuelles modifications non enregistrées. Cette tâche pose un mécanisme de confirmation <b>générique</b>, réutilisé par les deux cas (et par TACHE-03 pour l'écrasement de fichier).</p>
-<h1><a class="anchor" id="autotoc_md945"></a>
+<h1><a class="anchor" id="autotoc_md947"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Requête pure</b> <code>LevelDraft::wouldResizeDropContent(int width, int height) const</code> (<code>Core</code>, n'altère rien) : vrai si les nouvelles bornes excluraient l'entrée, la sortie, ou une des deux extrémités d'une liaison de mécanisme.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b>Redimensionnement</b> : avant d'appeler <code>_draft.resize(...)</code>, si <code>wouldResizeDropContent(...)</code> est vrai, poser une <code>PendingConfirmation</code> au lieu d'appliquer directement ; sinon, appliquer comme aujourd'hui (aucun changement pour un redimensionnement anodin).</li>
 <li><b>Modifications non enregistrées</b> : drapeau <code>_dirty</code> sur <code>EditorScreen</code>, mis à <code>true</code> par toute mutation du brouillon (peinture, liaison, redimensionnement, annuler/refaire, collage — TACHE-05) et remis à <code>false</code> après un <code>saveDraft()</code> réussi. <code>Échap</code> (hors essai immédiat) avec <code>_dirty == true</code> pose une <code>PendingConfirmation</code> (« Quitter sans enregistrer ? ») avant la transition vers le menu ; sans modification en attente, comportement inchangé.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md946"></a>
+<h1><a class="anchor" id="autotoc_md948"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition.">Source/Core/Levels/LevelDraft.h</a></code>/<code>.cpp</code> (<code>wouldResizeDropContent</code>).</li>
 <li><code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code> (<code>PendingConfirmation</code>, <code>_dirty</code>, câblage redimensionnement/<code>Échap</code>).</li>
 <li><code><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">Source/Test/Unit/Core/Levels/test_level_draft.cpp</a></code>, tests système.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md947"></a>
+<h1><a class="anchor" id="autotoc_md949"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>wouldResizeDropContent</code> : vrai quand la nouvelle taille exclurait l'entrée/la sortie/une extrémité de liaison ; faux pour un agrandissement ou une réduction qui ne perd rien.</li>
 <li>Redimensionnement destructeur : la grille n'est <b>pas modifiée</b> tant que la confirmation n'est pas acceptée (<code>Entrée</code>) ; <code>Échap</code> laisse la grille strictement inchangée.</li>
 <li><code>_dirty</code> passe à <code>true</code> après une mutation, à <code>false</code> après un enregistrement réussi ; <code>Échap</code> avec <code>_dirty == true</code> ne quitte pas sans confirmation, <code>Échap</code> avec <code>_dirty == false</code> quitte directement (comportement LOT-14 inchangé dans ce cas).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md948"></a>
+<h1><a class="anchor" id="autotoc_md950"></a>
 Points d'attention</h1>
 <ul>
 <li><code>wouldResizeDropContent</code> ne doit dupliquer <b>aucune</b> règle déjà portée par <code>resize</code>/<code>toLevel</code> — elle inspecte seulement les positions actuelles contre les nouvelles bornes, sans réimplémenter la validation de <code>LevelLoader</code>.</li>
 <li>Le mécanisme <code>PendingConfirmation</code> est conçu pour être réutilisé tel quel par l'avertissement d'écrasement de TACHE-03 : ne pas le spécialiser au seul cas du redimensionnement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md949"></a>
+<h1><a class="anchor" id="autotoc_md951"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux garde-fous opérationnels et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md950"></a>
+<h1><a class="anchor" id="autotoc_md952"></a>
 Exigences</h1>
 <p><code>EX-EDIT-012</code>. </p>
 </div></div><!-- contents -->

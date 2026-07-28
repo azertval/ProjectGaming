@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-38-tache-03-retrait-legacy-ui.html
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-38-refonte-ihm-qt-menus-options_2epic_8md.html">LOT-38</a> · <b>Emplacement :</b> <code>Source/HMI</code>, <code>Source/Editor</code>, CMake · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1770"></a>
+<h1><a class="anchor" id="autotoc_md1772"></a>
 Contexte</h1>
 <p>Une fois menus/options/remappage portés (TACHE-01/02), l'ancienne pile d'UI maison n'a <b>plus de rôle</b> et la coexistence des deux exécutables (depuis le <a class="el" href="lot-34.html">LOT-34</a>) a joué son rôle de filet. Cette tâche <b>retire le legacy</b> pour ne garder <b>qu'une seule technologie d'UI</b> (Qt), <code>HMI</code> se réduisant à la <b>bibliothèque de rendu du jeu</b>. C'est un objectif explicite du lot (pas un effet de bord) : il faut atteindre la <b>parité</b> avant de supprimer.</p>
-<h1><a class="anchor" id="autotoc_md1771"></a>
+<h1><a class="anchor" id="autotoc_md1773"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Supprimer</b> (après vérification de parité fonctionnelle) :<ul>
@@ -111,13 +111,13 @@ Travail à réaliser</h1>
 <li><b>CMake</b> : retirer la cible exe legacy, nettoyer les sources supprimées ; <code>ProjectGaming</code> devient l'unique exécutable et hérite de la copie des assets (<code>Levels</code>, <code>Localization</code>).</li>
 <li><b>Release</b> : basculer <code>release.yml</code> sur <code>ProjectGaming</code> + <code>windeployqt</code> (préparé au <code>LOT-34</code>), retirer toute référence à l'ancien exe.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1772"></a>
+<h1><a class="anchor" id="autotoc_md1774"></a>
 Fichiers impactés</h1>
 <ul>
 <li>Suppression sous <code>Source/HMI/Interface/</code> (écrans + manager), <code>Source/HMI/Editor/</code>, <code>Source/HMI/Platform/Window.{h,cpp}</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>.</li>
 <li><code>Source/HMI/CMakeLists.txt</code>, <code>Source/Editor/CMakeLists.txt</code>, <code>Source/CMakeLists.txt</code>, <code>.github/workflows/release.yml</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1773"></a>
+<h1><a class="anchor" id="autotoc_md1775"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Aucune référence morte</b> : le projet compile sans les fichiers retirés (<code>/W4 /WX</code>, pas de symbole manquant).</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li><b>Non-régression jeu</b> : le rendu de jeu (réutilisé par le viewport) et son déterminisme sont inchangés ; parcours système (<code>test_parcours_complet</code>) vert.</li>
 <li><b>Vérification manuelle</b> : l'unique exécutable Qt couvre menu/jeu/éditeur/options/remappage.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1774"></a>
+<h1><a class="anchor" id="autotoc_md1776"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Parité d'abord</b> : ne supprimer un écran/chemin que lorsque son équivalent Qt est vérifié — sinon perte de fonctionnalité.</li>
 <li><b>Distinguer rendu de jeu (à garder) et UI (à retirer)</b> dans <code>HMI</code> : <code>GameScreen</code> mélange les deux ; s'appuyer sur l'extraction faite au <code>LOT-34</code> TACHE-04.</li>
 <li><b>Suppressions Git massives</b> : procéder par étapes vérifiables (compilation + tests entre chaque bloc de suppression) pour isoler toute régression.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1775"></a>
+<h1><a class="anchor" id="autotoc_md1777"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tout le legacy UI supprimé, un <b>seul exécutable</b> (<code>ProjectGaming</code>), <code>HMI</code> réduit au rendu de jeu ; aucune référence morte ; suite de tests verte ; release basculée ; <code>/W4 /WX</code>, Doxygen, lint verts ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1776"></a>
+<h1><a class="anchor" id="autotoc_md1778"></a>
 Exigences</h1>
 <p><code>EX-IHM-041</code> (UI hors-jeu unifiée, legacy retiré) ; préserve <code>EX-NFR-002</code> (déterminisme jeu), <code>EX-NFR-010</code> (frontière <code>HMI → Core</code>). </p>
 </div></div><!-- contents -->

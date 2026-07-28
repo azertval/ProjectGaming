@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-35-tache-03-outils-peinture-viewpo
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-35-refonte-ihm-qt-editeur_2epic_8md.html">LOT-35</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1670"></a>
+<h1><a class="anchor" id="autotoc_md1672"></a>
 Contexte</h1>
 <p>Cœur interactif de l'éditeur : transformer les clics souris Qt sur le viewport en <b>mutations de <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code></b> (source de vérité déjà testée), avec les trois outils existants (<code>Paint</code>, <code>Rectangle</code>, <code>Selection</code>), l'annuler/refaire et le copier/coller. Aucune règle d'édition n'est réécrite : cette tâche <b>relie</b> les entrées Qt à l'API de <code>LevelDraft</code> et dessine le retour visuel dans le viewport (au pixel de la grille).</p>
-<h1><a class="anchor" id="autotoc_md1671"></a>
+<h1><a class="anchor" id="autotoc_md1673"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Barre d'outils</b> (<code>QToolBar</code> + <code>QActionGroup</code> exclusif) : <code>Paint</code>, <code>Rectangle</code>, <code>Selection</code> (réutilise <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a></code>), avec <code>Tab</code> pour cycler (parité). Outil courant = source de vérité de l'éditeur (comme aujourd'hui <code>_toolBar.selected()</code>).</li>
@@ -108,21 +108,21 @@ Travail à réaliser</h1>
 <li><b>Undo/Redo</b> : <code>QAction</code> Ctrl+Z / Ctrl+Y → <code>LevelDraft::undo()</code> / <code>redo()</code> ; états d'activation des actions reflétant la disponibilité de l'historique.</li>
 <li><b>Caméra</b> : molette = zoom, glisser bouton droit = pan, touche de recadrage auto (parité <code>EditorScreen</code> <code>_manualCamera</code>), portés sur le viewport.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1672"></a>
+<h1><a class="anchor" id="autotoc_md1674"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/ToolPanel.{h,cpp}</code> (ou intégration barre d'outils dans <code>MainWindow</code>).</li>
 <li><code>Source/Editor/GameViewport.{h,cpp}</code> (mode édition : survol, peinture, aperçu rectangle/sélection ; rendu du retour visuel via <code>SpriteBatch</code>).</li>
 <li>Éventuel <code>Source/Editor/EditorController.{h,cpp}</code> (glue souris/outil → <code>LevelDraft</code>, <b>testable</b>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1673"></a>
+<h1><a class="anchor" id="autotoc_md1675"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Contrôleur d'édition testable</b> (sans Qt/GPU) : pour un outil donné et une suite d'événements (case de départ/arrivée), vérifier les appels résultants à <code>LevelDraft</code> (tuiles peintes, rectangle rempli, région copiée/collée) — en injectant un <code>LevelDraft</code> réel et en comparant l'état obtenu.</li>
 <li><b>Non-régression</b> : les tests existants de <code>LevelDraft</code> (<code>Core</code>) et de sélection/presse-papiers restent verts ; la logique n'est pas dupliquée.</li>
 <li><b>Vérification manuelle</b> : peindre, remplir un rectangle, sélectionner/copier/coller, annuler/ refaire, zoom/pan — comportement identique à l'éditeur historique.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1674"></a>
+<h1><a class="anchor" id="autotoc_md1676"></a>
 Points d'attention</h1>
 <ul>
 <li>**<code>LevelDraft</code> reste la seule autorité** : pas de mutation de grille hors de son API (undo/redo en dépend). Le contrôleur Qt ne fait que traduire et appeler.</li>
@@ -130,12 +130,12 @@ Points d'attention</h1>
 <li><b>Retour visuel dans le viewport</b> (quads <code>SpriteBatch</code>), pas en overlay Qt, pour rester aligné au zoom/pan de la caméra.</li>
 <li><b>Exclusivité des glissers</b> : peinture vs rectangle/sélection mutuellement exclusifs (parité <code>_paintingDrag</code>/<code>_areaDragActive</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1675"></a>
+<h1><a class="anchor" id="autotoc_md1677"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les trois outils, l'undo/redo et le copier/coller fonctionnent via <code>LevelDraft</code> ; retour visuel correct ; contrôleur d'édition <b>couvert par des tests</b> ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1676"></a>
+<h1><a class="anchor" id="autotoc_md1678"></a>
 Exigences</h1>
 <p><code>EX-EDIT-002</code> (peinture), <code>EX-EDIT-005</code> (undo/redo), <code>EX-EDIT-014</code> (outils) — présentation Qt, comportement conservé ; <code>EX-EDIT-010</code> (pas de duplication de logique), <code>EX-NFR-010</code>. </p>
 </div></div><!-- contents -->

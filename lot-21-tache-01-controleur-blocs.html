@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-21-tache-01-controleur-blocs.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-21-bloc-poussable_2epic_8md.html">LOT-21</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>Core/Gameplay</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1167"></a>
+<h1><a class="anchor" id="autotoc_md1169"></a>
 Contexte</h1>
 <p><code>EX-GP-022</code> demande un bloc poussable. <code>TileType</code> ne porte que des tuiles statiques ou à état ; cette tâche ajoute la tuile et la logique qui la fait bouger, sans dépendance rendu ni fenêtre.</p>
-<h1><a class="anchor" id="autotoc_md1168"></a>
+<h1><a class="anchor" id="autotoc_md1170"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : nouvelle valeur <code>Block</code> ; <code>isSolid(TileType)</code> renvoie <code>true</code> pour <code>Block</code> (un bloc non encore déplacé bloque comme un mur).</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 </li>
 <li>**<code>Source/Core/CMakeLists.txt</code>** : ajoute <code><a class="el" href="BlockController_8cpp.html">Gameplay/BlockController.cpp</a></code> à la bibliothèque <code>Core</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1169"></a>
+<h1><a class="anchor" id="autotoc_md1171"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>.</li>
@@ -121,7 +121,7 @@ Fichiers impactés</h1>
 <li><code>Source/Core/CMakeLists.txt</code>.</li>
 <li>Tests : <code><a class="el" href="test__block__controller_8cpp.html" title="Tests unitaires des blocs poussables (BlockController, EX-GP-022).">Source/Test/Unit/Core/Gameplay/test_block_controller.cpp</a></code> (nouveau), <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>, <code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">Source/Test/Unit/Core/Levels/test_level_writer.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1170"></a>
+<h1><a class="anchor" id="autotoc_md1172"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Position initiale d'un bloc conforme au niveau chargé ; case correspondante solide.</li>
@@ -131,18 +131,18 @@ Tests (obligatoires)</h1>
 <li><code>collisionMap</code> n'expose plus l'ancienne position d'un bloc déplacé comme solide (pas de mur fantôme).</li>
 <li>Chargement/écriture/rechargement (round-trip) d'un niveau contenant un bloc : type et absence de liaison de mécanisme préservés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1171"></a>
+<h1><a class="anchor" id="autotoc_md1173"></a>
 Points d'attention</h1>
 <ul>
 <li>**<code>isFree</code> ignore la tuile <code>Block</code> de <code>base</code>.** <code>base</code> (la grille passée en paramètre) porte la position <b>d'origine</b> de chaque bloc, jamais mise à jour — seule <code>_positions</code> (courante) fait autorité sur l'occupation par un bloc. Une implémentation qui testerait <code>isSolid(base.tile(...))</code> sans cette exception verrait indéfiniment la case de départ comme solide, même après que le bloc s'en soit éloigné.</li>
 <li>**<code>FALL_INTERVAL_STEPS</code>** est un choix délibéré de chute discrète, pas une approximation à corriger plus tard (voir décision de cadrage de l'épic) : ne pas le remplacer par une intégration continue sans en rediscuter l'architecture (interaction avec <code>sweepAabb</code>, rendu).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1172"></a>
+<h1><a class="anchor" id="autotoc_md1174"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>BlockController</code> compilé, testé (<code>ctest</code> vert), sans avertissement (<code>/W4 /WX</code>) ; <code>TileType::Block</code> chargeable/sérialisable ; aucune régression sur les mécanismes existants.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1173"></a>
+<h1><a class="anchor" id="autotoc_md1175"></a>
 Exigences</h1>
 <p><code>EX-GP-022</code> (déjà déclarée dans <code><a class="el" href="gameplay_8md.html">gameplay.md</a></code>, implémentation). </p>
 </div></div><!-- contents -->

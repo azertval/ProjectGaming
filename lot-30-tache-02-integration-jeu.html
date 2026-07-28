@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-30-tache-02-integration-jeu.html',
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-30-remappage-manette_2epic_8md.html">LOT-30</a> · <b>Emplacement :</b> <code>HMI/Input</code>, <code>HMI/Platform</code>, <code>HMI/Interface</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1474"></a>
+<h1><a class="anchor" id="autotoc_md1476"></a>
 Contexte</h1>
 <p>Branche le jeu sur <code>GamepadBindings</code> (TACHE-01) : <code>Window::pollGamepad</code> alimente la piste d'état brute par <code>GamepadButton</code> (déjà ajoutée à <code>InputState</code> en TACHE-01, écart de cadrage) depuis le relevé XInput déjà lu, et <code>PlayerInputMapper</code> la consulte à la place du filet de sécurité de <code>LOT-29</code>.</p>
-<h1><a class="anchor" id="autotoc_md1475"></a>
+<h1><a class="anchor" id="autotoc_md1477"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>Source/HMI/Platform/Window.cpp</code>** (<code>pollGamepad</code>) : ajoute, à côté des <code>setKey(Key::…, …)</code> existants (inchangés), des appels <code>onGamepadButtonDown/Up(GamepadButton::…, …)</code> pour les dix boutons, à partir du même <code>XINPUT_STATE</code>/<code>stickDirection</code> déjà calculés.</li>
@@ -106,7 +106,7 @@ Travail à réaliser</h1>
 <li>**<code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code>** : nouveau membre <code>const GamepadBindings&amp; _gamepadBindings</code>, relayé au <code>GameScreen</code> de l'essai immédiat (<code>startPlaytest</code>).</li>
 <li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>** : les constructions de <code>GameScreen</code>/<code>EditorScreen</code> reçoivent <code>gamepadBindings</code> (voir TACHE-03 pour son chargement au démarrage).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1476"></a>
+<h1><a class="anchor" id="autotoc_md1478"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Platform/Window.cpp</code>.</li>
@@ -115,24 +115,24 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput).">test_player_input_mapper.cpp</a></code> (nouvelle signature, retrait des tests du filet <code>LOT-29</code> devenu obsolète, nouveaux cas manette).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1477"></a>
+<h1><a class="anchor" id="autotoc_md1479"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code><a class="el" href="test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput).">test_player_input_mapper.cpp</a></code> : chaque action déclenchée par son bouton manette lié (nouveau binding non défaut) ; un remap manette n'affecte pas le clavier et réciproquement ; les tests du filet <code>LOT-29</code> (<code>BoutonManetteContinueDeFonctionnerApresRemapClavier</code>, <code>FiletDeSecuriteNIgnoreQuandToucheDefautReprise</code>) sont retirés ou réécrits pour vérifier directement le nouveau chemin manette (plus besoin de filet, la manette a sa propre touche).</li>
 <li><b>Aucune régression</b> : la suite de tests d'intégration/système existante reste verte avec les valeurs par défaut (comportement manette observable inchangé).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1478"></a>
+<h1><a class="anchor" id="autotoc_md1480"></a>
 Points d'attention</h1>
 <ul>
 <li>Vérifier que retirer le filet de sécurité ne réintroduit pas la régression qu'il corrigeait (<code>EX-CTRL-002</code>) : avec les valeurs par défaut de <code>GamepadBindings</code> (miroir exact de l'ancien câblage), le comportement manette observable doit rester strictement identique à avant ce lot.</li>
 <li><code>Window::pollGamepad</code> sonde une seule fois par frame (<code>EX-CTRL-021</code>) : la piste <code>GamepadButton</code> et la piste <code>Key</code> existante doivent être alimentées dans le <b>même</b> appel, pas deux sondages XInput distincts.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1479"></a>
+<h1><a class="anchor" id="autotoc_md1481"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Jeu fonctionnellement identique à avant ce lot avec les valeurs par défaut ; zéro régression sur la suite de tests existante ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1480"></a>
+<h1><a class="anchor" id="autotoc_md1482"></a>
 Exigences</h1>
 <p><code>EX-CTRL-002</code>, <code>EX-CTRL-010</code>, <code>EX-CTRL-012</code>, <code>EX-CTRL-021</code>. </p>
 </div></div><!-- contents -->

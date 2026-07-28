@@ -1,0 +1,20 @@
+<map id="hmi::LinkPanel" name="hmi::LinkPanel">
+<area shape="rect" id="Node000001" title="Vue tabulaire des liaisons (Mechanism/DangerLink) du brouillon courant (EX&#45;IHM&#45;031)." alt="" coords="154,417,271,443"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,329,84,355"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,359,191,415,189,419,78,363"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="108,329,317,355"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,369,215,417,210,417,210,369"/>
+<area shape="rect" id="Node000004" href="$structhmi_1_1LinkRow.html" title="Une ligne du panneau « Liens » (ou une entrée à dessiner dans le viewport)." alt="" coords="157,212,268,237"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,251,215,329,210,329,210,251"/>
+<area shape="rect" id="Node000005" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="144,95,281,120"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,133,215,212,210,212,210,133"/>
+<area shape="rect" id="Node000006" href="$classhmi_1_1Localization.html" title="Catalogue de traduction (i18n) : associe des clés stables à des chaînes selon la langue active,..." alt="" coords="342,329,475,355"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="371,363,240,420,238,415,369,358"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="367,95,453,120"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="393,132,372,162,355,198,350,225,355,251,376,295,400,328,396,331,371,297,350,253,345,225,350,197,367,160,389,129"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="482,197,634,252"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="437,126,526,195,522,199,434,131"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="341,5,479,45"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="413,59,413,94,407,94,407,59"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="515,262,425,331,422,327,512,258"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="hmi::ArrowHead" name="hmi::ArrowHead">
+<area shape="rect" id="Node000001" title="Les deux ailes de la pointe d&#39;une flèche, à son extrémité." alt="" coords="5,108,132,133"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="15,5,122,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,45,71,108,66,108,66,45"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="hmi::LinkSegment" name="hmi::LinkSegment">
+<area shape="rect" id="Node000001" title="Segment reliant le centre d&#39;un déclencheur au centre de sa cible, en unités monde." alt="" coords="5,108,145,133"/>
+<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="22,5,129,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,45,78,108,73,108,73,45"/>
+</map>
