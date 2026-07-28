@@ -1,102 +1,49 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GameKeyBindings.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GameKeyBindings.h">
-<area shape="rect" id="Node000001" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="1000,5,1224,60"/>
-<area shape="rect" id="Node000002" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="445,350,666,405"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="986,40,920,47,850,61,779,81,713,110,674,134,648,158,627,187,603,227,588,258,576,291,562,350,557,349,571,290,583,256,599,224,622,184,644,154,671,130,710,106,778,76,849,55,920,42,986,35"/>
-<area shape="rect" id="Node000006" href="$GamepadBindingsWidget_8h.html" title="Remappage des boutons de manette (EX&#45;CTRL&#45;002), en widget (onglet Options, LOT&#45;38)." alt="" coords="272,233,517,287"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="986,43,865,52,735,65,618,85,572,97,537,110,497,137,463,170,434,204,413,234,408,231,430,200,459,166,494,133,534,106,570,92,617,80,735,60,865,46,986,38"/>
-<area shape="rect" id="Node000008" href="$KeybindingsWidget_8h.html" title="Remappage des touches de jeu (EX&#45;CTRL&#45;012), en widget embarquable (onglet Options,..." alt="" coords="26,115,248,170"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="986,50,431,111,248,131,247,126,430,105,986,45"/>
-<area shape="rect" id="Node000010" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="693,233,914,287"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="1039,68,965,110,926,141,888,174,829,234,825,230,885,170,922,137,962,106,1036,64"/>
-<area shape="rect" id="Node000012" href="$GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite." alt="" coords="720,350,941,405"/>
-<area shape="poly" id="edge58_Node000001_Node000012" title=" " alt="" coords="987,52,904,73,819,107,778,130,742,157,709,189,683,227,675,245,672,260,675,276,683,293,696,310,712,325,749,348,746,352,708,329,692,314,679,296,670,277,667,260,670,243,679,224,705,186,738,153,776,125,816,102,903,68,986,47"/>
-<area shape="rect" id="Node000015" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="1940,460,2161,515"/>
-<area shape="poly" id="edge59_Node000001_Node000015" title=" " alt="" coords="1237,37,1594,62,1772,82,1845,93,1900,105,1976,123,2037,139,2064,151,2089,168,2113,191,2137,224,2146,243,2148,259,2145,277,2137,296,2123,313,2107,322,2092,329,2078,344,2065,373,2057,404,2052,460,2047,460,2052,403,2060,371,2073,341,2088,325,2105,317,2120,309,2132,293,2140,275,2143,259,2140,244,2132,227,2109,195,2086,172,2061,155,2035,144,1974,129,1899,111,1844,98,1771,87,1594,68,1237,43"/>
-<area shape="rect" id="Node000016" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="992,115,1231,170"/>
-<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="1114,74,1114,115,1109,115,1109,74"/>
-<area shape="rect" id="Node000017" href="$GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="1256,115,1480,170"/>
-<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="1188,63,1306,113,1304,118,1186,68"/>
-<area shape="rect" id="Node000019" href="$PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique)." alt="" coords="989,233,1216,287"/>
-<area shape="poly" id="edge41_Node000001_Node000019" title=" " alt="" coords="1025,69,1001,87,983,109,975,127,972,142,975,158,983,176,1008,207,1041,230,1038,235,1005,211,979,179,970,160,967,142,970,125,979,107,998,83,1022,65"/>
-<area shape="rect" id="Node000021" href="$test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput)." alt="" coords="1477,343,1698,412"/>
-<area shape="poly" id="edge61_Node000001_Node000021" title=" " alt="" coords="1238,48,1390,73,1557,111,1634,134,1702,161,1755,191,1775,207,1790,224,1800,242,1803,260,1800,278,1790,296,1776,309,1755,322,1699,346,1697,341,1752,318,1773,305,1785,293,1795,276,1798,260,1795,244,1785,227,1771,211,1752,195,1699,166,1632,139,1555,116,1389,79,1237,53"/>
-<area shape="rect" id="Node000022" href="$EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT&#45;14)." alt="" coords="1901,233,2122,287"/>
-<area shape="poly" id="edge42_Node000001_Node000022" title=" " alt="" coords="1237,35,1390,43,1562,57,1720,77,1784,90,1833,106,1881,132,1926,166,1963,200,1992,231,1988,234,1959,204,1922,170,1879,137,1831,110,1783,95,1719,82,1562,62,1390,49,1237,41"/>
-<area shape="rect" id="Node000029" href="$GameKeybindingsModel_8h.html" title="Logique (testable) du sous&#45;menu « Touches de jeu » : liste, capture, réinitialisation." alt="" coords="3044,115,3332,170"/>
-<area shape="poly" id="edge43_Node000001_Node000029" title=" " alt="" coords="1238,38,3044,131,3043,137,1238,43"/>
-<area shape="rect" id="Node000039" href="$test__game__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de jeu (GameKeyBindings, EX&#45;CTRL&#45;012)." alt="" coords="3356,108,3577,177"/>
-<area shape="poly" id="edge60_Node000001_Node000039" title=" " alt="" coords="1237,32,1681,35,2290,46,2604,55,2899,68,3152,85,3344,105,3356,107,3355,113,3343,111,3152,90,2898,73,2604,61,2289,51,1681,41,1237,37"/>
-<area shape="rect" id="Node000003" href="$GameViewport_8cpp.html" title=" " alt="" coords="322,460,544,515"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="517,416,465,462,461,458,513,412"/>
-<area shape="rect" id="Node000004" href="$MainWindow_8cpp.html" title=" " alt="" coords="568,460,789,515"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="598,412,650,458,647,462,594,416"/>
-<area shape="rect" id="Node000005" href="$OptionsPage_8cpp.html" title=" " alt="" coords="77,460,298,515"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="454,411,278,463,276,457,452,406"/>
-<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="400,302,395,358,386,387,371,414,339,443,300,463,297,459,335,439,367,410,382,385,390,357,395,301"/>
-<area shape="rect" id="Node000007" href="$GamepadBindingsWidget_8cpp.html" title=" " alt="" coords="98,350,358,405"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="347,297,267,352,264,347,344,293"/>
-<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="64,179,37,200,17,227,10,244,8,259,17,294,29,330,42,357,87,410,115,436,145,458,142,462,112,440,83,414,38,360,24,332,12,295,3,259,4,243,12,224,33,197,60,175"/>
-<area shape="rect" id="Node000009" href="$KeybindingsWidget_8cpp.html" title=" " alt="" coords="26,233,248,287"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="140,184,140,232,134,232,134,184"/>
-<area shape="poly" id="edge12_Node000010_Node000002" title=" " alt="" coords="736,295,613,352,611,347,734,291"/>
-<area shape="rect" id="Node000011" href="$GameSession_8cpp.html" title=" " alt="" coords="965,350,1186,405"/>
-<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="879,290,1015,347,1013,352,877,295"/>
-<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="815,300,827,349,822,350,810,301"/>
-<area shape="rect" id="Node000013" href="$EditorScreen_8cpp.html" title=" " alt="" coords="1394,460,1621,515"/>
-<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="934,405,953,409,1070,431,1189,448,1395,473,1394,478,1188,453,1070,436,952,415,933,410"/>
-<area shape="rect" id="Node000014" href="$GameScreen_8cpp.html" title=" " alt="" coords="814,460,1042,515"/>
-<area shape="poly" id="edge16_Node000012_Node000014" title=" " alt="" coords="866,414,906,458,902,462,862,417"/>
-<area shape="poly" id="edge17_Node000012_Node000015" title=" " alt="" coords="932,405,953,409,1363,440,1939,476,1939,482,1363,445,953,415,931,410"/>
-<area shape="poly" id="edge20_Node000017_Node000002" title=" " alt="" coords="1266,176,1244,180,1189,186,1119,188,958,190,875,193,799,199,733,210,682,228,645,254,614,287,589,321,571,351,567,348,585,318,610,283,642,250,680,223,731,205,798,194,875,188,958,185,1119,183,1188,181,1243,175,1265,170"/>
-<area shape="poly" id="edge21_Node000017_Node000006" title=" " alt="" coords="1266,176,1244,180,1145,195,1060,203,916,209,771,212,686,218,587,228,518,238,517,233,586,223,686,212,771,207,916,204,1060,198,1144,189,1243,175,1265,170"/>
-<area shape="poly" id="edge22_Node000017_Node000010" title=" " alt="" coords="1262,176,1244,180,1157,196,1089,204,1020,213,933,228,901,235,900,230,932,223,1020,207,1088,199,1156,190,1243,175,1261,171"/>
-<area shape="poly" id="edge31_Node000017_Node000012" title=" " alt="" coords="1262,176,1244,180,1203,187,1167,190,1105,190,1076,192,1046,197,1014,208,978,228,961,242,952,258,943,276,928,296,867,352,863,348,924,293,938,274,947,256,957,239,975,223,1012,204,1044,192,1075,186,1104,185,1167,184,1202,182,1243,175,1260,171"/>
-<area shape="poly" id="edge38_Node000017_Node000015" title=" " alt="" coords="1494,147,1564,155,1640,170,1716,192,1789,223,1830,248,1869,277,1939,343,1996,407,2035,458,2030,461,1992,411,1936,347,1866,281,1827,252,1786,228,1715,197,1638,175,1563,160,1493,152"/>
-<area shape="rect" id="Node000018" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="1536,233,1775,287"/>
-<area shape="poly" id="edge23_Node000017_Node000018" title=" " alt="" coords="1446,172,1591,230,1589,235,1444,177"/>
-<area shape="poly" id="edge24_Node000017_Node000019" title=" " alt="" coords="1296,178,1164,235,1162,230,1294,173"/>
-<area shape="poly" id="edge40_Node000017_Node000021" title=" " alt="" coords="1317,181,1296,202,1281,226,1269,262,1271,277,1280,293,1300,313,1319,325,1339,331,1360,333,1408,333,1436,334,1466,340,1477,343,1476,348,1464,345,1435,340,1408,338,1360,339,1338,336,1317,330,1296,317,1276,296,1266,278,1264,261,1276,224,1292,198,1313,177"/>
-<area shape="poly" id="edge28_Node000017_Node000022" title=" " alt="" coords="1494,158,1678,186,1883,223,1915,230,1914,235,1882,228,1678,191,1494,163"/>
-<area shape="rect" id="Node000023" href="$GamepadBindingsModel_8h.html" title="Logique (testable) du sous&#45;menu « Touches de la manette » : liste, capture, réinitialisation." alt="" coords="2346,233,2635,287"/>
-<area shape="poly" id="edge32_Node000017_Node000023" title=" " alt="" coords="1494,154,2346,241,2345,247,1493,159"/>
-<area shape="rect" id="Node000028" href="$test__gamepad__bindings_8cpp.html" title="Tests unitaires du remappage manette (GamepadBindings, EX&#45;CTRL&#45;002, EX&#45;CTRL&#45;012)." alt="" coords="1290,225,1512,295"/>
-<area shape="poly" id="edge39_Node000017_Node000028" title=" " alt="" coords="1382,182,1394,224,1389,226,1376,184"/>
-<area shape="poly" id="edge25_Node000019_Node000011" title=" " alt="" coords="1096,301,1084,350,1079,349,1091,300"/>
-<area shape="rect" id="Node000020" href="$PlayerInputMapper_8cpp.html" title=" " alt="" coords="1210,350,1453,405"/>
-<area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="1168,291,1281,347,1278,352,1165,296"/>
-<area shape="poly" id="edge27_Node000019_Node000021" title=" " alt="" coords="1217,288,1235,292,1350,316,1466,340,1477,343,1476,348,1464,345,1349,321,1234,297,1216,293"/>
-<area shape="poly" id="edge29_Node000022_Node000013" title=" " alt="" coords="1953,296,1842,354,1711,414,1586,462,1584,457,1709,410,1839,349,1950,292"/>
-<area shape="poly" id="edge30_Node000022_Node000015" title=" " alt="" coords="2018,301,2034,412,2045,459,2040,460,2029,412,2013,301"/>
-<area shape="rect" id="Node000024" href="$GamepadBindingsModel_8cpp.html" title=" " alt="" coords="2338,350,2642,405"/>
-<area shape="poly" id="edge33_Node000023_Node000024" title=" " alt="" coords="2493,301,2493,350,2488,350,2488,301"/>
-<area shape="rect" id="Node000025" href="$GamepadBindingsScreen_8h.html" title="Écran du sous&#45;menu « Touches de la manette » (EX&#45;CTRL&#45;002, EX&#45;CTRL&#45;012, LOT&#45;30)." alt="" coords="2717,350,3010,405"/>
-<area shape="poly" id="edge34_Node000023_Node000025" title=" " alt="" coords="2589,289,2779,347,2778,352,2587,294"/>
-<area shape="rect" id="Node000027" href="$test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous&#45;menu « Touches de la manette » (EX&#45;CTRL&#45;002,..." alt="" coords="2088,343,2314,412"/>
-<area shape="poly" id="edge37_Node000023_Node000027" title=" " alt="" coords="2413,295,2287,345,2285,340,2411,290"/>
-<area shape="poly" id="edge36_Node000025_Node000015" title=" " alt="" coords="2728,410,2699,415,2408,453,2162,479,2161,474,2408,448,2698,409,2727,404"/>
-<area shape="rect" id="Node000026" href="$GamepadBindingsScreen_8cpp.html" title=" " alt="" coords="2967,460,3275,515"/>
-<area shape="poly" id="edge35_Node000025_Node000026" title=" " alt="" coords="2940,408,3059,457,3057,462,2938,413"/>
-<area shape="poly" id="edge55_Node000029_Node000023" title=" " alt="" coords="3030,173,2636,237,2635,232,3030,167"/>
-<area shape="poly" id="edge56_Node000029_Node000026" title=" " alt="" coords="3290,174,3323,195,3348,224,3376,273,3388,319,3387,342,3381,365,3371,389,3355,414,3339,432,3320,447,3276,469,3274,464,3317,443,3335,428,3351,410,3366,386,3376,363,3382,341,3382,320,3371,275,3344,227,3319,199,3287,178"/>
-<area shape="rect" id="Node000030" href="$EditorKeybindingsModel_8h.html" title="Logique (testable) du sous&#45;menu « Touches de l&#39;éditeur » : liste, capture, réinitialisation." alt="" coords="3416,233,3703,287"/>
-<area shape="poly" id="edge44_Node000029_Node000030" title=" " alt="" coords="3286,172,3476,230,3474,235,3284,177"/>
-<area shape="rect" id="Node000033" href="$EditorKeybindingsScreen_8cpp.html" title=" " alt="" coords="4077,460,4384,515"/>
-<area shape="poly" id="edge50_Node000029_Node000033" title=" " alt="" coords="3314,170,3344,175,3450,186,3540,190,3695,186,3770,185,3849,189,3939,200,4043,223,4124,239,4190,254,4220,265,4247,282,4274,307,4299,341,4308,360,4310,377,4299,413,4284,440,4265,462,4261,458,4280,436,4294,411,4305,376,4303,361,4295,344,4270,311,4244,287,4217,270,4189,259,4123,245,4042,228,3938,206,3849,194,3770,190,3696,191,3540,195,3450,191,3343,180,3313,175"/>
-<area shape="rect" id="Node000035" href="$GameKeybindingsModel_8cpp.html" title=" " alt="" coords="3727,233,4030,287"/>
-<area shape="poly" id="edge51_Node000029_Node000035" title=" " alt="" coords="3319,170,3344,175,3448,190,3530,199,3612,208,3716,223,3757,230,3756,235,3715,228,3611,213,3529,204,3448,195,3343,180,3318,175"/>
-<area shape="rect" id="Node000036" href="$GameKeybindingsScreen_8h.html" title="Écran du sous&#45;menu « Touches de jeu » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="3042,233,3334,287"/>
-<area shape="poly" id="edge52_Node000029_Node000036" title=" " alt="" coords="3190,184,3190,232,3185,232,3185,184"/>
-<area shape="rect" id="Node000038" href="$test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous&#45;menu « Touches de jeu » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="2790,225,3017,295"/>
-<area shape="poly" id="edge57_Node000029_Node000038" title=" " alt="" coords="3112,178,2988,228,2986,223,3110,173"/>
-<area shape="rect" id="Node000031" href="$EditorKeybindingsModel_8cpp.html" title=" " alt="" coords="3667,350,3970,405"/>
-<area shape="poly" id="edge45_Node000030_Node000031" title=" " alt="" coords="3632,290,3760,347,3758,352,3629,295"/>
-<area shape="rect" id="Node000032" href="$EditorKeybindingsScreen_8h.html" title="Écran du sous&#45;menu « Touches de l&#39;éditeur » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="3994,350,4285,405"/>
-<area shape="poly" id="edge46_Node000030_Node000032" title=" " alt="" coords="3693,287,3716,292,3983,340,4019,347,4018,353,3982,345,3715,297,3692,293"/>
-<area shape="rect" id="Node000034" href="$test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous&#45;menu « Touches de l&#39;éditeur » (EX&#45;CTRL&#45;012, LOT&#45;29)." alt="" coords="3416,343,3642,412"/>
-<area shape="poly" id="edge49_Node000030_Node000034" title=" " alt="" coords="3552,301,3541,343,3535,342,3547,300"/>
-<area shape="poly" id="edge48_Node000032_Node000015" title=" " alt="" coords="4015,410,3983,415,3868,424,3676,434,3148,454,2161,486,2161,480,3148,449,3676,428,3868,418,3982,409,4015,404"/>
-<area shape="poly" id="edge47_Node000032_Node000033" title=" " alt="" coords="4173,414,4210,458,4206,461,4169,417"/>
-<area shape="poly" id="edge54_Node000036_Node000015" title=" " alt="" coords="3055,293,3029,297,2979,304,2935,305,2860,303,2825,304,2789,310,2750,323,2707,345,2690,361,2682,379,2674,397,2656,414,2617,431,2565,445,2434,466,2291,479,2161,486,2161,480,2290,473,2434,460,2564,440,2615,426,2653,410,2669,394,2677,376,2686,358,2703,340,2748,318,2787,304,2824,299,2860,297,2935,300,2979,298,3029,292,3054,287"/>
-<area shape="rect" id="Node000037" href="$GameKeybindingsScreen_8cpp.html" title=" " alt="" coords="3034,350,3341,405"/>
-<area shape="poly" id="edge53_Node000036_Node000037" title=" " alt="" coords="3190,301,3190,350,3185,350,3185,301"/>
+<area shape="rect" id="Node000001" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="1208,5,1432,60"/>
+<area shape="rect" id="Node000002" href="$GameSession_8h.html" title="Session de jeu réutilisable : simule et rend un niveau, sans dépendance d&#39;écran." alt="" coords="501,233,723,287"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1194,50,1055,72,981,89,909,111,837,139,767,172,655,235,652,230,765,167,835,134,907,105,980,84,1054,67,1194,44"/>
+<area shape="rect" id="Node000004" href="$GameViewport_8h.html" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="1045,350,1267,405"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="1323,74,1321,122,1313,179,1297,240,1270,296,1242,328,1209,352,1206,348,1239,324,1266,293,1292,238,1308,178,1316,121,1318,74"/>
+<area shape="rect" id="Node000008" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="1687,115,1926,170"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="1446,56,1677,105,1707,113,1706,118,1675,111,1445,61"/>
+<area shape="rect" id="Node000009" href="$GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="920,115,1144,170"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="1238,67,1103,118,1101,113,1236,62"/>
+<area shape="rect" id="Node000011" href="$PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique)." alt="" coords="251,233,477,287"/>
+<area shape="poly" id="edge22_Node000001_Node000011" title=" " alt="" coords="1194,44,986,67,868,85,753,111,659,138,568,172,420,235,417,230,566,167,658,133,751,105,867,80,985,61,1194,39"/>
+<area shape="rect" id="Node000013" href="$test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput)." alt="" coords="5,343,227,412"/>
+<area shape="poly" id="edge28_Node000001_Node000013" title=" " alt="" coords="1194,41,1059,48,896,61,719,82,543,111,482,120,428,126,334,135,292,145,250,161,208,188,163,227,144,253,131,283,120,343,115,342,126,282,139,251,159,224,205,183,248,156,290,140,333,130,427,121,481,115,542,105,718,76,895,56,1059,43,1194,35"/>
+<area shape="rect" id="Node000014" href="$GamepadBindingsWidget_8h.html" title="Remappage des boutons de manette (EX&#45;CTRL&#45;002), en widget (onglet Options, LOT&#45;38)." alt="" coords="1358,233,1653,287"/>
+<area shape="poly" id="edge23_Node000001_Node000014" title=" " alt="" coords="1338,71,1364,123,1399,176,1430,206,1464,230,1461,235,1427,210,1395,179,1359,126,1333,74"/>
+<area shape="rect" id="Node000017" href="$KeybindingsWidget_8h.html" title="Remappage des touches de jeu (EX&#45;CTRL&#45;012), en widget embarquable (onglet Options,..." alt="" coords="1409,115,1663,170"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="1386,64,1485,113,1482,118,1384,69"/>
+<area shape="rect" id="Node000019" href="$test__game__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de jeu (GameKeyBindings, EX&#45;CTRL&#45;012)." alt="" coords="1951,108,2172,177"/>
+<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="1446,41,1676,65,1808,83,1939,105,1951,108,1950,113,1938,111,1808,88,1676,70,1446,46"/>
+<area shape="rect" id="Node000003" href="$GameSession_8cpp.html" title=" " alt="" coords="517,350,739,405"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="620,300,627,349,622,350,615,301"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="720,288,737,292,898,326,1046,354,1045,359,897,332,735,297,719,293"/>
+<area shape="rect" id="Node000005" href="$GameViewport_8cpp.html" title=" " alt="" coords="1162,460,1385,515"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1197,413,1246,458,1243,462,1193,417"/>
+<area shape="rect" id="Node000006" href="$MainWindow_8cpp.html" title=" " alt="" coords="910,460,1138,515"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1115,416,1058,462,1055,458,1112,411"/>
+<area shape="rect" id="Node000007" href="$OptionsPage_8cpp.html" title=" " alt="" coords="1527,460,1753,515"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1264,405,1281,409,1527,462,1526,467,1279,415,1263,411"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="924,176,708,235,707,230,923,171"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="1158,162,1207,186,1228,203,1246,224,1256,242,1258,259,1246,296,1226,327,1199,352,1195,348,1222,324,1242,294,1253,259,1251,244,1242,227,1225,207,1204,191,1156,167"/>
+<area shape="rect" id="Node000010" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="747,233,986,287"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="985,180,906,235,903,230,982,176"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="906,161,710,189,490,228,458,235,457,230,489,223,709,184,906,156"/>
+<area shape="poly" id="edge21_Node000009_Node000013" title=" " alt="" coords="906,148,736,154,542,167,448,177,364,190,292,207,240,228,206,252,177,282,153,314,135,344,131,341,149,311,173,279,203,248,237,223,291,202,363,185,448,172,542,161,736,148,906,143"/>
+<area shape="poly" id="edge17_Node000009_Node000014" title=" " alt="" coords="1153,171,1399,230,1397,235,1152,176"/>
+<area shape="rect" id="Node000016" href="$test__gamepad__bindings_8cpp.html" title="Tests unitaires du remappage manette (GamepadBindings, EX&#45;CTRL&#45;002, EX&#45;CTRL&#45;012)." alt="" coords="1011,225,1232,295"/>
+<area shape="poly" id="edge20_Node000009_Node000016" title=" " alt="" coords="1063,179,1097,223,1093,227,1059,183"/>
+<area shape="poly" id="edge14_Node000011_Node000003" title=" " alt="" coords="437,290,569,347,567,352,435,295"/>
+<area shape="rect" id="Node000012" href="$PlayerInputMapper_8cpp.html" title=" " alt="" coords="251,350,493,405"/>
+<area shape="poly" id="edge15_Node000011_Node000012" title=" " alt="" coords="369,301,373,350,368,350,364,301"/>
+<area shape="poly" id="edge16_Node000011_Node000013" title=" " alt="" coords="296,295,190,345,187,340,294,291"/>
+<area shape="poly" id="edge19_Node000014_Node000007" title=" " alt="" coords="1569,293,1595,315,1617,341,1631,371,1639,403,1644,459,1638,460,1634,404,1626,373,1612,344,1591,318,1565,297"/>
+<area shape="rect" id="Node000015" href="$GamepadBindingsWidget_8cpp.html" title=" " alt="" coords="1291,350,1602,405"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="1488,301,1463,351,1458,348,1483,298"/>
+<area shape="poly" id="edge26_Node000017_Node000007" title=" " alt="" coords="1617,175,1646,196,1668,224,1680,255,1687,287,1688,320,1685,353,1671,414,1654,461,1649,459,1666,413,1679,353,1682,320,1681,288,1675,256,1663,227,1642,200,1614,179"/>
+<area shape="rect" id="Node000018" href="$KeybindingsWidget_8cpp.html" title=" " alt="" coords="1729,233,1999,287"/>
+<area shape="poly" id="edge25_Node000017_Node000018" title=" " alt="" coords="1624,172,1790,230,1788,235,1622,177"/>
 </map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/MainWindow.h File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/MainWindow.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -99,30 +99,61 @@ $(document).ready(function(){initNavTree('MainWindow_8h.html',''); initResizable
 
 <p>Fenêtre principale de l'éditeur Qt : viewport central + panneaux dockables (LOT-35).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QByteArray&gt;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;QByteArray&gt;</code><br />
 <code>#include &lt;QMainWindow&gt;</code><br />
+<code>#include &quot;<a class="el" href="GamepadPoller_8h_source.html">HMI/Input/GamepadPoller.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for MainWindow.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="MainWindow_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8h" alt=""/></div>
-<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8h">
-<area shape="rect" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="9,5,230,60"/>
-<area shape="rect" title=" " alt="" coords="5,108,103,133"/>
-<area shape="poly" title=" " alt="" coords="101,62,73,99,69,95,97,58"/>
-<area shape="rect" title=" " alt="" coords="127,108,243,133"/>
-<area shape="poly" title=" " alt="" coords="141,58,170,95,165,99,137,62"/>
+<div class="center"><img src="MainWindow_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8h" alt=""/></div>
+<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8h" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8h">
+<area shape="rect" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="267,5,488,60"/>
+<area shape="rect" title=" " alt="" coords="5,108,83,133"/>
+<area shape="poly" title=" " alt="" coords="276,63,97,109,96,103,275,57"/>
+<area shape="rect" title=" " alt="" coords="107,108,205,133"/>
+<area shape="poly" title=" " alt="" coords="311,63,199,105,197,100,309,58"/>
+<area shape="rect" title=" " alt="" coords="229,108,345,133"/>
+<area shape="poly" title=" " alt="" coords="351,62,311,100,307,96,348,58"/>
+<area shape="rect" href="GamepadPoller_8h.html" title="Sondage XInput de la manette, fusionné dans un InputState (réutilisable)." alt="" coords="369,108,569,133"/>
+<area shape="poly" title=" " alt="" coords="407,58,449,96,445,100,404,62"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="403,181,571,207"/>
+<area shape="poly" title=" " alt="" coords="489,46,541,68,564,85,584,107,589,118,589,129,577,148,556,165,531,178,529,173,553,160,573,145,584,127,583,119,579,109,561,89,539,73,487,51"/>
+<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="644,108,868,133"/>
+<area shape="poly" title=" " alt="" coords="489,56,693,102,692,108,488,62"/>
+<area shape="poly" title=" " alt="" coords="475,133,483,168,478,169,470,134"/>
+<area shape="rect" title=" " alt="" coords="277,255,333,280"/>
+<area shape="poly" title=" " alt="" coords="459,209,347,252,346,247,457,204"/>
+<area shape="rect" title=" " alt="" coords="358,255,429,280"/>
+<area shape="poly" title=" " alt="" coords="473,209,421,248,418,244,470,205"/>
+<area shape="rect" title=" " alt="" coords="453,255,520,280"/>
+<area shape="poly" title=" " alt="" coords="489,207,489,241,484,241,484,207"/>
+<area shape="rect" title=" " alt="" coords="545,255,607,280"/>
+<area shape="poly" title=" " alt="" coords="503,205,552,244,549,248,499,209"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="631,255,838,280"/>
+<area shape="poly" title=" " alt="" coords="527,204,682,248,681,253,526,209"/>
+<area shape="rect" title=" " alt="" coords="603,181,693,207"/>
+<area shape="poly" title=" " alt="" coords="740,136,679,176,676,171,737,131"/>
+<area shape="rect" title=" " alt="" coords="717,181,776,207"/>
+<area shape="poly" title=" " alt="" coords="757,134,753,168,747,167,752,133"/>
+<area shape="rect" title=" " alt="" coords="801,181,898,207"/>
+<area shape="poly" title=" " alt="" coords="773,131,825,171,822,175,769,135"/>
+<area shape="rect" title=" " alt="" coords="922,181,1046,207"/>
+<area shape="poly" title=" " alt="" coords="793,131,935,175,933,180,792,136"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="MainWindow_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8hdep" alt=""/></div>
-<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8hdep" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainWindow_8hdep">
-<area shape="rect" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="128,5,349,60"/>
-<area shape="rect" href="MainWindow_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
-<area shape="poly" title=" " alt="" coords="198,71,150,110,146,106,194,67"/>
-<area shape="rect" href="main__qt_8cpp.html" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT&#45;34, refonte IHM)." alt="" coords="251,108,472,163"/>
-<area shape="poly" title=" " alt="" coords="283,67,331,106,328,110,280,71"/>
+<div class="center"><img src="MainWindow_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8hdep" alt=""/></div>
+<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8hdep" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainWindow_8hdep">
+<area shape="rect" title="Fenêtre principale de l&#39;éditeur Qt : viewport central + panneaux dockables (LOT&#45;35)." alt="" coords="133,5,354,60"/>
+<area shape="rect" href="MainWindow_8cpp.html" title=" " alt="" coords="5,108,233,163"/>
+<area shape="poly" title=" " alt="" coords="202,71,153,110,150,106,198,67"/>
+<area shape="rect" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming)." alt="" coords="258,108,479,163"/>
+<area shape="poly" title=" " alt="" coords="289,67,338,106,334,110,285,71"/>
 </map>
 </div>
 </div>
@@ -130,13 +161,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1MainWindow.html">editor::MainWindow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11.  <a href="classeditor_1_1MainWindow.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1MainWindow.html">hmi::MainWindow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre principale de l'application Qt : <b>poste de travail d'éditeur</b> à panneaux dockables autour du viewport Direct3D 11.  <a href="classhmi_1_1MainWindow.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceeditor" id="r_namespaceeditor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceeditor.html">editor</a></td></tr>
+<tr class="memitem:namespaceUi" id="r_namespaceUi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceUi.html">Ui</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacecore" id="r_namespacecore"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacehmi" id="r_namespacehmi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,7 +182,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a class="el" href="MainWindow_8h.html">MainWindow.h</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a class="el" href="dir_c537f82b8f955c3b1ce6a355f8c4c1be.html">Interface</a></li><li class="navelem"><a class="el" href="MainWindow_8h.html">MainWindow.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

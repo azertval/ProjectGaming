@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LanguageSelector.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/LanguageSelector.h">
-<area shape="rect" id="Node000001" title="Logique (testable) du bouton de changement de langue en bas à droite." alt="" coords="5,5,251,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="48,108,107,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,61,94,97,89,95,110,59"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="131,108,229,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,59,168,95,164,98,142,61"/>
-</map>

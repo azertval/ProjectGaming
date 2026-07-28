@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/ToolPanel.cpp File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/ToolPanel.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,33 +95,44 @@ $(document).ready(function(){initNavTree('ToolPanel_8cpp.html',''); initResizabl
   <div class="headertitle"><div class="title">ToolPanel.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="ToolPanel_8h_source.html">Editor/ToolPanel.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="ToolPanel_8h_source.html">HMI/Editor/ToolPanel.h</a>&quot;</code><br />
 <code>#include &lt;QRadioButton&gt;</code><br />
+<code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
 <code>#include &quot;ui_ToolPanel.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ToolPanel.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="ToolPanel_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2ToolPanel_8cpp" alt=""/></div>
-<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2ToolPanel_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2ToolPanel_8cpp">
-<area shape="rect" title=" " alt="" coords="185,5,407,60"/>
-<area shape="rect" href="ToolPanel_8h.html" title="Panneau « Outils » : sélection de l&#39;outil d&#39;édition (LOT&#45;35)." alt="" coords="78,108,215,133"/>
-<area shape="poly" title=" " alt="" coords="252,62,180,103,177,99,249,58"/>
-<area shape="rect" title=" " alt="" coords="240,108,352,133"/>
-<area shape="poly" title=" " alt="" coords="299,60,299,94,293,94,293,60"/>
-<area shape="rect" title=" " alt="" coords="376,108,491,133"/>
-<area shape="poly" title=" " alt="" coords="339,58,405,98,402,103,337,62"/>
+<div class="center"><img src="ToolPanel_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2ToolPanel_8cpp" alt=""/></div>
+<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2ToolPanel_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Editor_2ToolPanel_8cpp">
+<area shape="rect" title=" " alt="" coords="343,5,564,60"/>
+<area shape="rect" href="ToolPanel_8h.html" title="Panneau « Outils » : sélection de l&#39;outil d&#39;édition (LOT&#45;35)." alt="" coords="87,108,254,133"/>
+<area shape="poly" title=" " alt="" coords="368,63,222,107,220,102,366,58"/>
+<area shape="rect" title=" " alt="" coords="301,108,413,133"/>
+<area shape="poly" title=" " alt="" coords="426,62,382,101,379,97,422,58"/>
+<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="437,108,661,133"/>
+<area shape="poly" title=" " alt="" coords="484,58,528,97,524,101,481,62"/>
+<area shape="rect" title=" " alt="" coords="685,108,800,133"/>
+<area shape="poly" title=" " alt="" coords="542,58,692,102,690,107,541,63"/>
 <area shape="rect" title=" " alt="" coords="5,181,83,207"/>
-<area shape="poly" title=" " alt="" coords="132,136,74,175,71,171,129,131"/>
+<area shape="poly" title=" " alt="" coords="152,136,78,177,75,172,149,131"/>
 <area shape="rect" title=" " alt="" coords="107,181,186,207"/>
-<area shape="poly" title=" " alt="" coords="149,134,149,168,144,168,144,134"/>
+<area shape="poly" title=" " alt="" coords="169,135,157,169,152,167,164,133"/>
 <area shape="rect" href="EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT&#45;15, EX&#45;EDIT&#45;014)." alt="" coords="211,181,381,207"/>
-<area shape="poly" title=" " alt="" coords="172,131,260,173,258,178,170,136"/>
+<area shape="poly" title=" " alt="" coords="192,131,265,172,262,177,189,136"/>
+<area shape="rect" title=" " alt="" coords="405,181,496,207"/>
+<area shape="poly" title=" " alt="" coords="535,136,479,175,476,171,532,131"/>
+<area shape="rect" title=" " alt="" coords="520,181,579,207"/>
+<area shape="poly" title=" " alt="" coords="552,134,552,168,547,168,547,134"/>
+<area shape="rect" title=" " alt="" coords="603,181,701,207"/>
+<area shape="poly" title=" " alt="" coords="567,131,625,171,622,175,564,136"/>
+<area shape="rect" title=" " alt="" coords="725,181,849,207"/>
+<area shape="poly" title=" " alt="" coords="588,131,736,175,734,180,587,136"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceeditor" id="r_namespaceeditor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceeditor.html">editor</a></td></tr>
+<tr class="memitem:namespacehmi" id="r_namespacehmi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -129,7 +140,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a class="el" href="ToolPanel_8cpp.html">ToolPanel.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a class="el" href="dir_8582677ef72a95e6c2b44a30d95c0011.html">Editor</a></li><li class="navelem"><a class="el" href="ToolPanel_8cpp.html">ToolPanel.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

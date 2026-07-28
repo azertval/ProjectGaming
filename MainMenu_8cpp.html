@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/MainMenu.cpp File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/MainMenu.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,31 +95,42 @@ $(document).ready(function(){initNavTree('MainMenu_8cpp.html',''); initResizable
   <div class="headertitle"><div class="title">MainMenu.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="MainMenu_8h_source.html">Editor/MainMenu.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="MainMenu_8h_source.html">HMI/Interface/MainMenu.h</a>&quot;</code><br />
 <code>#include &lt;QPushButton&gt;</code><br />
+<code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
 <code>#include &quot;ui_MainMenu.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for MainMenu.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="MainMenu_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainMenu_8cpp" alt=""/></div>
-<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainMenu_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2MainMenu_8cpp">
-<area shape="rect" title=" " alt="" coords="133,5,355,60"/>
-<area shape="rect" href="MainMenu_8h.html" title="Menu principal de l&#39;application Qt (LOT&#45;38)." alt="" coords="23,108,167,133"/>
-<area shape="poly" title=" " alt="" coords="200,62,128,103,125,99,197,58"/>
-<area shape="rect" title=" " alt="" coords="191,108,297,133"/>
-<area shape="poly" title=" " alt="" coords="247,60,247,94,241,94,241,60"/>
-<area shape="rect" title=" " alt="" coords="322,108,443,133"/>
-<area shape="poly" title=" " alt="" coords="288,58,354,98,351,103,285,62"/>
-<area shape="rect" title=" " alt="" coords="5,181,83,207"/>
-<area shape="poly" title=" " alt="" coords="88,135,62,172,58,169,84,132"/>
-<area shape="rect" title=" " alt="" coords="107,181,186,207"/>
-<area shape="poly" title=" " alt="" coords="105,132,132,169,128,172,101,135"/>
+<div class="center"><img src="MainMenu_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainMenu_8cpp" alt=""/></div>
+<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainMenu_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2MainMenu_8cpp">
+<area shape="rect" title=" " alt="" coords="261,5,483,60"/>
+<area shape="rect" href="MainMenu_8h.html" title="Menu principal de l&#39;application Qt (LOT&#45;38)." alt="" coords="5,108,200,133"/>
+<area shape="poly" title=" " alt="" coords="291,63,152,106,151,101,289,58"/>
+<area shape="rect" title=" " alt="" coords="224,108,331,133"/>
+<area shape="poly" title=" " alt="" coords="345,62,302,101,298,97,341,58"/>
+<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="355,108,579,133"/>
+<area shape="poly" title=" " alt="" coords="403,58,446,97,442,101,399,62"/>
+<area shape="rect" title=" " alt="" coords="603,108,725,133"/>
+<area shape="poly" title=" " alt="" coords="462,58,613,102,612,107,460,63"/>
+<area shape="rect" title=" " alt="" coords="40,181,117,207"/>
+<area shape="poly" title=" " alt="" coords="101,135,89,169,84,167,96,133"/>
+<area shape="rect" title=" " alt="" coords="142,181,221,207"/>
+<area shape="poly" title=" " alt="" coords="117,131,160,170,157,174,114,135"/>
+<area shape="rect" title=" " alt="" coords="284,181,375,207"/>
+<area shape="poly" title=" " alt="" coords="446,136,365,177,363,173,443,131"/>
+<area shape="rect" title=" " alt="" coords="399,181,457,207"/>
+<area shape="poly" title=" " alt="" coords="463,135,443,171,438,168,458,132"/>
+<area shape="rect" title=" " alt="" coords="482,181,579,207"/>
+<area shape="poly" title=" " alt="" coords="479,132,513,169,509,173,475,135"/>
+<area shape="rect" title=" " alt="" coords="603,181,727,207"/>
+<area shape="poly" title=" " alt="" coords="499,131,621,174,619,179,498,136"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceeditor" id="r_namespaceeditor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceeditor.html">editor</a></td></tr>
+<tr class="memitem:namespacehmi" id="r_namespacehmi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -127,7 +138,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a class="el" href="MainMenu_8cpp.html">MainMenu.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a class="el" href="dir_c537f82b8f955c3b1ce6a355f8c4c1be.html">Interface</a></li><li class="navelem"><a class="el" href="MainMenu_8cpp.html">MainMenu.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

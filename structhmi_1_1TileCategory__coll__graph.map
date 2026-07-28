@@ -1,0 +1,20 @@
+<map id="hmi::TileCategory" name="hmi::TileCategory">
+<area shape="rect" id="Node000001" title="Une catégorie de premier niveau : ses tuiles directes + ses sous&#45;groupes repliables." alt="" coords="118,535,257,560"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="211,95,297,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="294,124,313,137,330,152,342,172,347,194,347,461,345,476,339,490,318,512,289,528,258,538,256,533,287,523,315,508,335,487,340,475,342,460,342,194,338,174,326,156,309,141,291,129"/>
+<area shape="rect" id="Node000005" href="$structhmi_1_1TileEntry.html" title="Une tuile sélectionnable : son type et son libellé affiché." alt="" coords="68,183,181,208"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="225,130,199,146,143,185,140,180,197,142,222,125"/>
+<area shape="rect" id="Node000008" href="$structhmi_1_1TileSubgroup.html" title="Un sous&#45;groupe : une famille de variantes (formes/tailles/orientations) sous une catégorie." alt="" coords="117,359,257,384"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="256,134,250,208,243,253,231,297,215,332,198,360,193,357,210,330,226,295,238,252,245,207,251,134"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="185,5,323,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,59,257,94,251,94,251,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,271,217,296"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="96,309,74,342,55,384,49,406,47,429,49,450,58,471,75,492,97,509,146,532,143,537,94,514,71,496,53,473,44,452,42,429,44,405,50,382,70,340,91,306"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="133,305,179,356,175,360,129,308"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="123,222,116,271,111,270,118,221"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="87,95,163,120"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="127,134,127,182,122,182,122,134"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="68,447,307,472"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="190,486,190,534,185,534,185,486"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="190,398,190,446,185,446,185,398"/>
+</map>

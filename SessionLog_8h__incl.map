@@ -1,4 +1,4 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/SessionLog.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/SessionLog.h">
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Diagnostics/SessionLog.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Diagnostics/SessionLog.h">
 <area shape="rect" id="Node000001" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="48,5,269,60"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,115,96,141"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,62,77,108,73,104,126,58"/>

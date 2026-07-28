@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-15-tache-07-essai-memoire-erreurs-
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-15-editeur-industriel_2epic_8md.html">LOT-15</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md987"></a>
+<h1><a class="anchor" id="autotoc_md981"></a>
 Contexte</h1>
 <p>Deux points de dette technique relevés en LOT-14 : l'essai immédiat (<code>P</code>) écrit le brouillon dans un <b>fichier temporaire partagé</b> (<code>projectgaming_playtest_level.json</code>) avant de le recharger dans un <code>GameScreen</code> — un aller-retour JSON inutile et un risque de collision entre deux instances de l'éditeur ou un fichier resté d'une session précédente. Et <code>describeValidationError</code> traduit les messages d'erreur en cherchant des <b>sous-chaînes françaises</b> (<code>"entree"</code>, <code>"sortie"</code>, <code>"interrupteur"</code>, <code>"Porte liee"</code>) dans le message technique de <code>LevelLoader</code> — tout changement de formulation y casserait silencieusement la traduction.</p>
-<h1><a class="anchor" id="autotoc_md988"></a>
+<h1><a class="anchor" id="autotoc_md982"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>LevelValidationError</code>** (<code>enum class</code>, <code>Core/Levels</code>) : <code>None</code>, <code>MissingEntry</code>, <code>MissingExit</code>, <code>UnresolvedMechanism</code>, <code>OutOfBounds</code>, <code>DuplicatePosition</code>, <code>ParseError</code>, … (un cas par famille d'erreur déjà distinguée dans les messages actuels de <code>LevelLoader</code>). <code>LevelLoadResult</code> gagne un champ <code>LevelValidationError error_code</code> (nom provisoire), rempli par <code>LevelLoader</code> en plus du message technique <code>error</code> existant — <b>additif</b>, <code>error</code> inchangé (tests/journaux existants non affectés).</li>
@@ -105,15 +105,15 @@ Travail à réaliser</h1>
 <li>**<code>GameScreen</code>** : factoriser la construction de scène (monde ECS, spawn du personnage) aujourd'hui dans <code>loadLevel(const std::filesystem::path&amp;)</code> en un <code>loadLevel(core::Level)</code> privé partagé. Ajouter un constructeur <code>GameScreen(SpriteBatch&amp;, const TextureAtlas&amp;, int, int, <a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a> level)</code> qui appelle directement ce <code>loadLevel(core::Level)</code>, sans <code>LevelSequence</code> ni accès disque ; en fin de niveau (sortie atteinte), ce mode se comporte comme la fin de séquence actuelle (retour au menu — pas d'enchaînement, cohérent avec un essai à niveau unique).</li>
 <li>**<code>EditorScreen::startPlaytest</code>** utilise ce nouveau constructeur avec le <code><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></code> déjà produit par <code>_draft.toLevel()</code> ; suppression de <code>playtestFilePath()</code> et de toute écriture disque pour l'essai immédiat.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md989"></a>
+<h1><a class="anchor" id="autotoc_md983"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="LevelLoader_8h.html" title="Chargement d&#39;un niveau depuis le format JSON (liste de tuiles-objets).">Source/Core/Levels/LevelLoader.h</a></code>/<code>.cpp</code>, <code>LevelLoadResult</code> (nouveau champ).</li>
-<li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code> (factorisation, nouveau constructeur).</li>
-<li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code> (<code>describeValidationError</code>, <code>startPlaytest</code>).</li>
+<li><code>Source/HMI/Interface/GameScreen.h</code>/<code>.cpp</code> (factorisation, nouveau constructeur).</li>
+<li><code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code> (<code>describeValidationError</code>, <code>startPlaytest</code>).</li>
 <li>Tests unitaires (<code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">test_level_loader.cpp</a></code> ou équivalent, <code>test_game_screen.cpp</code> si existant), test système d'essai immédiat.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md990"></a>
+<h1><a class="anchor" id="autotoc_md984"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Chaque famille d'erreur de <code>LevelLoader</code> (entrée manquante, sortie manquante, liaison non résolue, position hors bornes, position dupliquée, JSON malformé) produit le <code>error_code</code> attendu ; <code>error</code> (message technique) reste identique à avant (non-régression des tests existants).</li>
@@ -121,18 +121,18 @@ Tests (obligatoires)</h1>
 <li>Le nouveau constructeur <code>GameScreen(core::Level)</code> construit une scène jouable identique (même position de personnage, mêmes tuiles) à celle obtenue via le constructeur par fichier pour un niveau équivalent.</li>
 <li>Lancer un essai immédiat ne crée <b>aucun fichier</b> sous le dossier temporaire (vérification par chemin, absence de <code>projectgaming_playtest_level.json</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md991"></a>
+<h1><a class="anchor" id="autotoc_md985"></a>
 Points d'attention</h1>
 <ul>
 <li>Garder <code>LevelLoadResult::error</code> (texte) pour la compatibilité des tests/journaux déjà en place — ce n'est pas remplacé, seulement complété.</li>
 <li>La factorisation de <code>GameScreen::loadLevel</code> ne doit rien changer au comportement du mode séquence-par-fichiers existant (non-régression LOT-09/LOT-12) : c'est un partage de code, pas une réécriture de la logique de scène.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md992"></a>
+<h1><a class="anchor" id="autotoc_md986"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Essai immédiat en mémoire et erreurs structurées opérationnels et testés (<code>ctest</code> vert) ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md993"></a>
+<h1><a class="anchor" id="autotoc_md987"></a>
 Exigences</h1>
 <p><code>EX-EDIT-007</code>, <code>EX-EDIT-008</code> (approfondies, sens inchangé), <code>EX-NFR-040</code> (erreurs récupérables). </p>
 </div></div><!-- contents -->

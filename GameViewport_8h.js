@@ -1,4 +1,4 @@
 var GameViewport_8h =
 [
-    [ "editor::GameViewport", "classeditor_1_1GameViewport.html", "classeditor_1_1GameViewport" ]
+    [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", "classhmi_1_1GameViewport" ]
 ];

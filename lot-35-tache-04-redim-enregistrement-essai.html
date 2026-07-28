@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-35-tache-04-redim-enregistrement-e
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-35-refonte-ihm-qt-editeur_2epic_8md.html">LOT-35</a> · <b>Emplacement :</b> <code>Source/Editor</code>, <code>Documentation</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1683"></a>
+<h1><a class="anchor" id="autotoc_md1677"></a>
 Contexte</h1>
 <p>Complète l'éditeur Qt avec les actions « niveau » restantes (redimensionner, enregistrer, essayer), puis <b>clôt le lot par la documentation et la vérification</b>. Ces actions réutilisent les chemins <code>Core</code>/<code>HMI</code> existants ; la nouveauté est leur présentation en actions/dialogues Qt.</p>
-<h1><a class="anchor" id="autotoc_md1684"></a>
+<h1><a class="anchor" id="autotoc_md1678"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Redimensionnement</b> : dialogue Qt (<code>QDialog</code> avec deux <code>QSpinBox</code> largeur/hauteur, plafond <code>MAX_LEVEL_DIMENSION</code>) remplaçant la saisie texte <code>Ctrl+R</code> ; appelle <code>LevelDraft::resize</code> ; si destructeur (<code>wouldResizeDropContent</code>), <b>confirmation</b> (<code>QMessageBox</code>) avant application.</li>
@@ -111,13 +111,13 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1685"></a>
+<h1><a class="anchor" id="autotoc_md1679"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/</code> (dialogue de redimensionnement, actions Enregistrer/Essai, barre d'état).</li>
 <li><code><a class="el" href="guide-editeur_8md.html">Documentation/Guide/guide-editeur.md</a></code>, <code><a class="el" href="editeur-niveaux_8md.html">Documentation/Specification/editeur-niveaux.md</a></code>, cahier de test généré.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1686"></a>
+<h1><a class="anchor" id="autotoc_md1680"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression</b> : <code>LevelDraft::resize</code>/<code>toLevel</code> et <code>LevelWriter</code> sont déjà testés (<code>Core</code>) — vérifier qu'ils restent verts et non dupliqués. Un même contenu enregistré produit un fichier <b>identique</b> à l'éditeur historique (sérialisation <code>LevelWriter</code> inchangée).</li>
@@ -125,19 +125,19 @@ Tests (obligatoires)</h1>
 <li>**<code>--check</code> du cahier de test** vert en CI (<code>lint-exigences</code>).</li>
 <li><b>Vérification manuelle</b> : redimensionner (avec/sans perte), enregistrer (valide/invalide/ écrasement), essayer puis revenir.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1687"></a>
+<h1><a class="anchor" id="autotoc_md1681"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Garde-fous de perte de données</b> : conserver les confirmations existantes (redimensionnement destructeur, écrasement, quitter avec <code>dirty</code>).</li>
 <li><b>Essai n'altère jamais le brouillon</b> : parité stricte avec <code>EditorScreen</code> (l'essai lit un <code>Level</code> en mémoire, n'écrit rien).</li>
 <li><b>Doxygen 1.9.8</b> : générer la doc localement avant push.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1688"></a>
+<h1><a class="anchor" id="autotoc_md1682"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Redimensionner/enregistrer/essayer fonctionnent avec leurs garde-fous ; guide éditeur et exigences à jour ; tests verts (dont cahier <code>--check</code>) ; <code>/W4 /WX</code>, Doxygen, lint verts ; critères du <a class="el" href="LOT-35-refonte-ihm-qt-editeur_2epic_8md.html">LOT-35</a> satisfaits (vérification manuelle).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1689"></a>
+<h1><a class="anchor" id="autotoc_md1683"></a>
 Exigences</h1>
 <p><code>EX-EDIT-005</code> (redimensionnement), <code>EX-EDIT-006</code>/<code>EX-EDIT-007</code> (enregistrement/validation), <code>EX-EDIT-008</code> (essai immédiat), <code>EX-EDIT-017</code> (plafond de taille) — présentation Qt ; <code>EX-IHM-010</code>/ <code>EX-IHM-011</code>. </p>
 </div></div><!-- contents -->

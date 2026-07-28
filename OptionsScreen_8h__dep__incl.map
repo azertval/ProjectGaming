@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsScreen.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/OptionsScreen.h">
-<area shape="rect" id="Node000001" title="Écran du menu d&#39;options : dessine le menu et applique ses actions." alt="" coords="139,5,363,60"/>
-<area shape="rect" id="Node000002" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="5,108,244,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,71,159,110,156,106,206,67"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="269,108,490,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="297,66,347,106,344,110,294,70"/>
-</map>

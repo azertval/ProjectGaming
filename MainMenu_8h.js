@@ -1,4 +1,4 @@
 var MainMenu_8h =
 [
-    [ "editor::MainMenu", "classeditor_1_1MainMenu.html", "classeditor_1_1MainMenu" ]
+    [ "hmi::MainMenu", "classhmi_1_1MainMenu.html", "classhmi_1_1MainMenu" ]
 ];

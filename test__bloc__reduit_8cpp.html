@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('test__bloc__reduit_8cpp.html',''); ini
 </div><!--header-->
 <div class="contents">
 
-<p>Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code>HMI::GameScreen</code>.  
+<p>Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></code>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
 <tr class="separator:a0c67fd466177d61dea8f3c7bb55d942a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code>HMI::GameScreen</code>. </p>
-<p>Ce fichier rejoue <b>hors HMI</b> (pas de périphérique Direct3D requis, cf. <code>test_parcours_complet</code> pour le même principe côté mécanismes) l'orchestration exacte de <code>GameScreen::update</code> : blocs puis grille puis composition boîte-boîte — la ligne de risque propre à ce lot (<code>LOT-24</code>). </p>
+<div class="textblock"><p>Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></code>. </p>
+<p>Ce fichier rejoue <b>hors HMI</b> (pas de périphérique Direct3D requis, cf. <code>test_parcours_complet</code> pour le même principe côté mécanismes) l'orchestration exacte de <code>GameSession::update</code> : blocs puis grille puis composition boîte-boîte — la ligne de risque propre à ce lot (<code>LOT-24</code>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="aea0f00dabeb03e18b290c29b4367522e" name="aea0f00dabeb03e18b290c29b4367522e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea0f00dabeb03e18b290c29b4367522e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>

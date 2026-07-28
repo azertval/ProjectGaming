@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>541 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>432 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (459)</h1>
+Tests unitaires (350)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -1914,7 +1914,22 @@ Vérifie que <code>timestep.advance(0.0f)</code> vaut <code>0</code>.    </td></
 <h2><a class="anchor" id="autotoc_md13"></a>
 HMI</h2>
 <h3><a class="anchor" id="autotoc_md14"></a>
-Editor (57)</h3>
+Diagnostics (2)</h3>
+<p>**<code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">test_session_log.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SessionLogTest.SerialiseUneLigneParMessage</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp</a>:15</code></sub>   </td><td class="markdownTableBodyNone">Chaque message donne une ligne, dans l'ordre d'arrivée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>hmi::serializeSessionLog(entries)</code> vaut <code>"premier message\\nsecond message\\n"</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SessionLogTest.VideDonneChaineVide</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp</a>:34</code></sub>   </td><td class="markdownTableBodyNone">Une session sans message produit un texte vide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</code> vaut <code>""</code>.   </td></tr>
+</table>
+<h3><a class="anchor" id="autotoc_md15"></a>
+Editor (5)</h3>
 <p>**<code><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1952,326 +1967,7 @@ Vérifie que <code><a class="el" href="namespacehmi.html#abf93f3d263fe7268a624a8
 Vérifie que <code><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>("Niveau 1")</code> vaut <code>"Niveau 1"</code>.<br  />
 Vérifie que <code><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</code> vaut <code>""</code>.   </td></tr>
 </table>
-<p>**<code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">test_level_picker.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.SelectionInitialeEstLePremierChoix</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:53</code></sub>   </td><td class="markdownTableBodyNone">La sélection initiale pointe le premier choix (« Nouveau niveau »).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>picker.choices()[0].path.has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.FlechesDeplacentLaSelectionAvecBouclage</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:69</code></sub>   </td><td class="markdownTableBodyNone">Bas puis Haut déplacent la sélection, avec bouclage aux extrémités.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>expected</code>.<br  />
-Vérifie que <code>picker.selected()</code> vaut <code>2</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.EntreeConfirmeLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:103</code></sub>   </td><td class="markdownTableBodyNone">Entrée confirme l'indice actuellement sélectionné.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>1</code>.<br  />
-Vérifie que <code>confirmed.has_value()</code> est vrai.<br  />
-Vérifie que <code>*confirmed</code> vaut <code>1</code>.<br  />
-Vérifie que <code>picker.choices()[*confirmed].path</code> vaut <code>std::filesystem::path("demo.json")</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.SansAppuiAucuneConfirmation</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:132</code></sub>   </td><td class="markdownTableBodyNone">Sans appui, update() ne confirme rien.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.update(input, VIEWPORT_HEIGHT).has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.SurvolSourisDeplaceLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:150</code></sub>   </td><td class="markdownTableBodyNone">Survoler un choix à la souris déplace la sélection dessus (sans confirmer).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>2</code>.<br  />
-Vérifie que <code>confirmed.has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.ClicGaucheConfirmeLeChoixSurvole</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:172</code></sub>   </td><td class="markdownTableBodyNone">Un clic gauche sur un choix survolé le confirme.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>confirmed.has_value()</code> est vrai.<br  />
-Vérifie que <code>*confirmed</code> vaut <code>1</code>.<br  />
-Vérifie que <code>picker.choices()[*confirmed].path</code> vaut <code>std::filesystem::path("demo.json")</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.SourisHorsChoixNeChangeRien</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:196</code></sub>   </td><td class="markdownTableBodyNone">La souris hors de tout choix ne change ni la sélection ni la confirmation.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>confirmed.has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.ForDirectoryDossierInexistantNeProposeQueNouveauNiveau</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:219</code></sub>   </td><td class="markdownTableBodyNone">forDirectory sur un dossier inexistant ne propose que « Nouveau niveau ».   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.choices().size()</code> vaut <code>1u</code>.<br  />
-Vérifie que <code>picker.choices()[0].path.has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.VisibleCountAuMoinsUn</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:236</code></sub>   </td><td class="markdownTableBodyNone">visibleCount() renvoie au moins 1, même pour une hauteur de viewport minuscule.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1LevelPicker.html#a25c9011a432f6ac874e3cab6a1980e4d" title="Nombre de choix affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — parta...">hmi::LevelPicker::visibleCount</a>(0.0f)</code> vaut <code>1</code>.<br  />
-Vérifie que <code>hmi::LevelPicker::visibleCount(SMALL_VIEWPORT_HEIGHT)</code> vaut <code>3</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.DefilementSuitLaSelectionVersLeBas</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:252</code></sub>   </td><td class="markdownTableBodyNone">Une liste plus longue que la fenêtre visible défile pour suivre la sélection vers le bas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.scrollOffset()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>picker.selected()</code> vaut <code>4</code>.<br  />
-Vérifie que <code>picker.scrollOffset()</code> vaut <code>2</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.DefilementSuitLaSelectionVersLeHaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:285</code></sub>   </td><td class="markdownTableBodyNone">Depuis une position défilée, remonter la sélection jusqu'en haut ramène le défilement à zéro.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.scrollOffset()</code> vaut <code>2</code>.<br  />
-Vérifie que <code>picker.selected()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>picker.scrollOffset()</code> vaut <code>0</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.MoletteDefileSansChangerLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:323</code></sub>   </td><td class="markdownTableBodyNone">La molette défile la liste sans changer la sélection courante.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.selected()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>picker.scrollOffset()</code> vaut <code>1</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelPickerTest.ChoixDefileHorsFenetreNestPasCliquable</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__picker_8cpp.html" title="Tests unitaires de la sélection de niveau à éditer (LOT-14 TACHE-06, EX-EDIT-001).">Source/Test/Unit/HMI/Editor/test_level_picker.cpp</a>:345</code></sub>   </td><td class="markdownTableBodyNone">Un choix défilé hors de la fenêtre visible n'est pas cliquable à son ancienne position écran.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>picker.scrollOffset()</code> vaut <code>2</code>.<br  />
-Vérifie que <code>confirmed.has_value()</code> est vrai.<br  />
-Vérifie que <code>*confirmed</code> vaut <code>2</code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">test_level_size_validation.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.FormatValideAnalyseCorrectement</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:12</code></sub>   </td><td class="markdownTableBodyNone">Un format « largeur x hauteur » valide est analysé correctement.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>result.has_value()</code> est vrai.<br  />
-Vérifie que <code>result-&gt;first</code> vaut <code>40</code>.<br  />
-Vérifie que <code>result-&gt;second</code> vaut <code>30</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.EspacesEtCasseTolerees</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:29</code></sub>   </td><td class="markdownTableBodyNone">Les espaces autour du séparateur et une casse différente sont tolérés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("40 x 30")</code> vaut <code>(std::make_pair(40, 30))</code>.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("40X30")</code> vaut <code>(std::make_pair(40, 30))</code>.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>(" 40x30 ")</code> vaut <code>(std::make_pair(40, 30))</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.SeparateurEtoileAccepte</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:47</code></sub>   </td><td class="markdownTableBodyNone">Le séparateur <code>*</code> est accepté comme alternative à <code>x</code>/<code>X</code>.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("40*30")</code> vaut <code>(std::make_pair(40, 30))</code>.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("40 * 30")</code> vaut <code>(std::make_pair(40, 30))</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.SansSeparateurRefuse</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:62</code></sub>   </td><td class="markdownTableBodyNone">Un texte sans séparateur est refusé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("4030").has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("").has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.DimensionInvalideRefusee</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:77</code></sub>   </td><td class="markdownTableBodyNone">Une dimension non numérique, nulle, négative ou partiellement numérique est refusée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("abcxdef").has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("0x30").has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("40x0").has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("-5x30").has_value()</code> est faux.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a383c8a877953f4b3c6df784dd7ceee50" title="Analyse un texte au format « largeur x hauteur » (ex.">hmi::parseLevelSize</a>("12abcx30").has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.PlafondRespecte</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:96</code></sub>   </td><td class="markdownTableBodyNone">Une dimension au-delà du plafond est refusée ; le plafond lui-même est accepté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>hmi::parseLevelSize(atCap).has_value()</code> est vrai.<br  />
-Vérifie que <code>hmi::parseLevelSize(overCap).has_value()</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSizeValidationTest.IsValidCoherentAvecParse</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__level__size__validation_8cpp.html" title="Tests unitaires de la validation d&#39;une taille de grille saisie (LOT-16, EX-EDIT-017).">Source/Test/Unit/HMI/Editor/test_level_size_validation.cpp</a>:116</code></sub>   </td><td class="markdownTableBodyNone">isValidLevelSize reste cohérent avec parseLevelSize.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430" title="Indique si text peut être confirmé comme taille de grille.">hmi::isValidLevelSize</a>("14x8")</code> est vrai.<br  />
-Vérifie que <code><a class="el" href="namespacehmi.html#a76be5559e8b1c94b37415aa88b68e430" title="Indique si text peut être confirmé comme taille de grille.">hmi::isValidLevelSize</a>("quatorze x huit")</code> est faux.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">test_text_input_field.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.CaracteresTapesSAccumulent</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:13</code></sub>   </td><td class="markdownTableBodyNone">Les caractères tapés s'accumulent dans le texte du champ, dans l'ordre de saisie.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.text()</code> vaut <code>"N1"</code>.<br  />
-Vérifie que <code>field.confirmed()</code> est faux.<br  />
-Vérifie que <code>field.cancelled()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.RetourArriereRetireLeDernierCaractere</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:38</code></sub>   </td><td class="markdownTableBodyNone">Retour arrière retire le dernier caractère du texte pré-rempli.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.text()</code> vaut <code>"Nivea"</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.RetourArriereRetireUnCaractereAccentueEntier</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:59</code></sub>   </td><td class="markdownTableBodyNone">Retour arrière retire un caractère accentué entier (UTF-8 multi-octets), pas un octet.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.text()</code> vaut <code>"\\xC3\\xA9"</code>.<br  />
-Vérifie que <code>field.text().empty()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.EntreeConfirmeSansValidateur</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:87</code></sub>   </td><td class="markdownTableBodyNone">Sans validateur, Entrée confirme toujours la saisie courante.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.confirmed()</code> est vrai.<br  />
-Vérifie que <code>field.text()</code> vaut <code>"Niveau"</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.EntreeRefuseeParLeValidateur</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:109</code></sub>   </td><td class="markdownTableBodyNone">Un validateur qui refuse le texte empêche la confirmation et marque un refus.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.confirmed()</code> est faux.<br  />
-Vérifie que <code>field.rejected()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.EditionApresRefusEffaceLeRefus</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:132</code></sub>   </td><td class="markdownTableBodyNone">Modifier le texte après un refus efface l'indicateur de refus.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.rejected()</code> est vrai.<br  />
-Vérifie que <code>field.rejected()</code> est faux.<br  />
-Vérifie que <code>field.text()</code> vaut <code>"A"</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.EchapAnnule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:159</code></sub>   </td><td class="markdownTableBodyNone">Échap annule la saisie sans modifier le texte du champ.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.cancelled()</code> est vrai.<br  />
-Vérifie que <code>field.text()</code> vaut <code>"Niveau"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TextInputFieldTest.SansEffetApresConfirmation</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__text__input__field_8cpp.html" title="Tests unitaires du champ de saisie de texte de l&#39;éditeur (LOT-15, EX-EDIT-009).">Source/Test/Unit/HMI/Editor/test_text_input_field.cpp</a>:181</code></sub>   </td><td class="markdownTableBodyNone">Une fois confirmé, update() n'a plus aucun effet sur le champ.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>field.confirmed()</code> est vrai.<br  />
-Vérifie que <code>field.text()</code> vaut <code>"Niveau"</code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">test_tile_palette.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.EtatInitialCinqEntreesVisibles</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:38</code></sub>   </td><td class="markdownTableBodyNone">À l'état initial, seules les catégories et entrées autonomes sont visibles.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.entries().size()</code> vaut <code>5u</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SelectionParDefautEstSolid</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:53</code></sub>   </td><td class="markdownTableBodyNone">La sélection par défaut est Solid.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurEntreeAutonomeSelectionneSonType</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:68</code></sub>   </td><td class="markdownTableBodyNone">Cliquer une entrée autonome sélectionne son type et signale le clic consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>target.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.CategoriePiegeDeplieeExposeSesFeuilles</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:90</code></sub>   </td><td class="markdownTableBodyNone">La catégorie Piège dépliée expose Classique, Mobile, Commuté, Clignotant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>classic.has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Directionnel").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Mobile").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Commute").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Clignotant").has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupeDirectionnelDeplieExposeSesBords</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:119</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Directionnel déplié expose ses quatre bords.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>findByLabel(palette, "Haut").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Bas").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Gauche").has_value()</code> est vrai.<br  />
-Vérifie que <code>right.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6f4cfddfc749babd4a7cc2a9e4ef0bdb">core::TileType::DangerRight</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicHorsPaletteNonConsomme</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:146</code></sub>   </td><td class="markdownTableBodyNone">Cliquer hors de la palette ne change pas la sélection et n'est pas consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>consumed</code> est faux.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code>before</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ChaqueEntreePorteUnLibelle</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:167</code></sub>   </td><td class="markdownTableBodyNone">Chaque entrée visible porte un libellé non vide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>entry.label.empty()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurEnTeteDeCategorieLaDeplie</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:184</code></sub>   </td><td class="markdownTableBodyNone">Cliquer l'en-tête d'une catégorie repliée la déplie sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>header.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code>before</code>.<br  />
-Vérifie que <code>findByLabel(palette, "v Tuile").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "Plein").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Pente").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SecondClicSurEnTeteDeCategorieLaReplie</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:213</code></sub>   </td><td class="markdownTableBodyNone">Cliquer à nouveau l'en-tête d'une catégorie dépliée la replie.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.entries().size()</code> vaut <code>5u</code>.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Tuile").has_value()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ClicSurFeuilleDirecteSelectionneSonType</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:234</code></sub>   </td><td class="markdownTableBodyNone">Cliquer la feuille directe d'une catégorie dépliée sélectionne son type.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>door.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupeBlocPoussableDeplieExposeSesTailles</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:257</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Bloc poussable déplié expose ses trois tailles.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>findByLabel(palette, "&gt; Bloc poussable").has_value()</code> est vrai.<br  />
-Vérifie que <code>half.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab8727b9cb5255e2c509559dbecc9b107">core::TileType::BlockHalf</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupePenteDeplieExposeSesOrientations</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:282</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Pente déplié expose ses quatre orientations.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>ceilingRight.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></code>.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.SousGroupeConcaveDeplieExposeSesOrientations</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:310</code></sub>   </td><td class="markdownTableBodyNone">Le sous-groupe Concave déplié expose ses quatre orientations.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>floorRight.has_value()</code> est vrai.<br  />
-Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></code>.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Arrondi").has_value()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.BottomSuitLEtatDeDepliage</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:338</code></sub>   </td><td class="markdownTableBodyNone"><code>bottom()</code> suit l'état de dépliage courant.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.bottom()</code> est strictement supérieur à <code>collapsedBottom</code>.<br  />
-Vérifie que <code>palette.bottom()</code> vaut <code>collapsedBottom</code> (comparaison flottante).    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.FenetreReduiteLimiteLesEntreesVisibles</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:380</code></sub>   </td><td class="markdownTableBodyNone">Une fenêtre réduite limite le nombre d'entrées visibles simultanément.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.totalRowCount()</code> vaut <code>30</code>.<br  />
-Vérifie que <code>palette.entries().size()</code> vaut <code>1u</code>.<br  />
-Vérifie que <code>palette.totalRowCount()</code> vaut <code>30</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollChangeLaFenetreSansChangerLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:403</code></sub>   </td><td class="markdownTableBodyNone">Le défilement change la fenêtre visible sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>1</code>.<br  />
-Vérifie que <code>palette.entries().front().label</code> diffère de <code>firstLabel</code>.<br  />
-Vérifie que <code>palette.selected()</code> vaut <code>before</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.ScrollBorneAuxExtremites</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:428</code></sub>   </td><td class="markdownTableBodyNone">Le défilement est borné aux deux extrémités de la liste.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>palette.scrollOffset()</code> vaut <code>palette.totalRowCount() - 1</code>.<br  />
-Vérifie que <code>palette.scrollOffset()</code> vaut <code>0</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>TilePaletteTest.EnTeteDeplieResteVisibleDansUneFenetreEtroite</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tile__palette_8cpp.html" title="Tests unitaires de la palette de tuiles de l&#39;éditeur, organisée en catégories/sous-groupes repliables...">Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</a>:453</code></sub>   </td><td class="markdownTableBodyNone">Un en-tête déplié reste visible même dans une fenêtre étroite.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1TilePalette.html#a311b10b776506ff2b8a5f9f98a70727b" title="Nombre de lignes affichables simultanément sans défilement, pour une hauteur de fenêtre donnée — rése...">hmi::TilePalette::visibleRowCount</a>(370.0f)</code> vaut <code>7</code>.<br  />
-Vérifie que <code>findByLabel(palette, "&gt; Interactif").has_value()</code> est vrai.<br  />
-Vérifie que <code>findByLabel(palette, "v Interactif").has_value()</code> est vrai.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">test_tool_bar.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ToolBarTest.SelectionParDefautEstPinceau</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:13</code></sub>   </td><td class="markdownTableBodyNone">La sélection par défaut est l'outil Pinceau.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ToolBarTest.ExposeTroisEntrees</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:28</code></sub>   </td><td class="markdownTableBodyNone">La barre expose une entrée pour chacun des trois outils.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.entries().size()</code> vaut <code>3u</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ToolBarTest.ClicSurUneEntreeSelectionneSonOutil</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:43</code></sub>   </td><td class="markdownTableBodyNone">Cliquer une entrée de la barre sélectionne son outil et signale le clic consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>consumed</code> est vrai.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code>target.tool</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ToolBarTest.ClicHorsBarreNonConsomme</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:66</code></sub>   </td><td class="markdownTableBodyNone">Cliquer hors de la barre ne change pas la sélection et n'est pas consommé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>consumed</code> est faux.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code>before</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ToolBarTest.SelectNextDefileEnBoucle</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:87</code></sub>   </td><td class="markdownTableBodyNone">selectNext() fait défiler les outils dans l'ordre attendu, en boucle.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e">hmi::EditorTool::Rectangle</a></code>.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de">hmi::EditorTool::Selection</a></code>.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ToolBarTest.RelayoutRepositionneSansChangerLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__tool__bar_8cpp.html" title="Tests unitaires de la barre d&#39;outils de l&#39;éditeur (LOT-15, EX-EDIT-014/015).">Source/Test/Unit/HMI/Editor/test_tool_bar.cpp</a>:113</code></sub>   </td><td class="markdownTableBodyNone"><code>relayout(top)</code> repositionne les entrées sans changer la sélection.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toolBar.entries().size()</code> vaut <code>countBefore</code>.<br  />
-Vérifie que <code>toolBar.selected()</code> vaut <code>selectedBefore</code>.<br  />
-Vérifie que <code>toolBar.entries().front().y</code> vaut <code>250.0f</code> (comparaison flottante).   </td></tr>
-</table>
-<h3><a class="anchor" id="autotoc_md15"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 Graphics (14)</h3>
 <p>**<code><a class="el" href="test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).">test_camera2d.cpp</a></code>**</p>
 <table class="markdownTable">
@@ -2369,7 +2065,7 @@ Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPositi
 2. Interroger <code>roomIndexAt</code> avec des coordonnées négatives puis très supérieures aux bornes.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.<br  />
 Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md16"></a>
+<h3><a class="anchor" id="autotoc_md17"></a>
 Input (63)</h3>
 <p>**<code><a class="el" href="test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX-CTRL-012).">test_editor_key_bindings.cpp</a></code>**</p>
 <table class="markdownTable">
@@ -2696,404 +2392,6 @@ Vérifie que <code>mapWithDefaults(withKeys({<a class="el" href="namespacehmi.ht
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::X), gameKeyBindings, gamepadBindings) .moveX</code> vaut <code>-1.0f</code> (comparaison flottante).<br  />
 Vérifie que <code>hmi::toPlayerInput(withGamepadButton(hmi::GamepadButton::Y), gameKeyBindings, gamepadBindings) .moveX</code> vaut <code>1.0f</code> (comparaison flottante).   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md17"></a>
-Interface (59)</h3>
-<p>**<code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">test_editor_keybindings_model.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.SelectionParDefaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:55</code></sub>   </td><td class="markdownTableBodyNone">À l'ouverture, la première ligne (Sauvegarder) est sélectionnée, hors capture.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>model.rowLabel(0)</code> vaut <code>"Sauvegarder"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::EditorKeybindingsModel::RESET_ROW)</code> vaut <code>"Reinitialiser"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::EditorKeybindingsModel::BACK_ROW)</code> vaut <code>"Retour"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.ToucheCaptureeLieLActionEtRenvoieRebound</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:78</code></sub>   </td><td class="markdownTableBodyNone">Une touche pressée pendant la capture lie l'action, sauvegarde, et renvoie Rebound.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca8bae56d3db3fb4f6d0f1b3af394ec95b">hmi::EditorKeybindingsAction::Rebound</a></code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.key(hmi::EditorAction::Save)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">hmi::Key::A</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.EchapPendantCaptureAnnule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:108</code></sub>   </td><td class="markdownTableBodyNone"><code>Échap</code> pendant la capture l'annule sans modifier le binding.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.isCapturing()</code> est vrai.<br  />
-Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.key(hmi::EditorAction::Save)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.ConfirmerReinitialiserRestaureLesDefauts</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:133</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Réinitialiser » restaure les défauts et renvoie Reset.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca526d688f37a86d3c3f27d0c5016eb71d">hmi::EditorKeybindingsAction::Reset</a></code>.<br  />
-Vérifie que <code>bindings.key(hmi::EditorAction::Save)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.ConfirmerRetourRenvoieBack</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:165</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Retour » renvoie l'action Back.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a11666f87dd6e0352a9e2b95d2d160d4ca0557fa923dcee4d0f86b1409f5c2167f">hmi::EditorKeybindingsAction::Back</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>EditorKeybindingsModelTest.RemapperSurConflitEchange</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__editor__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de l&#39;éditeur » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_editor_keybindings_model.cpp</a>:190</code></sub>   </td><td class="markdownTableBodyNone">Remapper une action sur une touche déjà liée à une autre échange les deux (conflit).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>bindings.key(hmi::EditorAction::Save)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">hmi::Key::Z</a></code>.<br  />
-Vérifie que <code>bindings.key(hmi::EditorAction::Undo)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::Key::S</a></code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">test_game_keybindings_model.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.SelectionParDefaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:50</code></sub>   </td><td class="markdownTableBodyNone">À l'ouverture, la première ligne (Aller à gauche) est sélectionnée, hors capture.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>model.rowLabel(0)</code> vaut <code>"Aller a gauche"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::GameKeybindingsModel::RESET_ROW)</code> vaut <code>"Reinitialiser"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::GameKeybindingsModel::BACK_ROW)</code> vaut <code>"Retour"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.ConfirmerUneActionEntreEnCapture</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:73</code></sub>   </td><td class="markdownTableBodyNone">Confirmer une ligne d'action entre en capture, sans modifier le binding immédiatement.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est vrai.<br  />
-Vérifie que <code>bindings.key(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff">hmi::Key::Left</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.ToucheCaptureeLieLActionEtRenvoieRebound</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:96</code></sub>   </td><td class="markdownTableBodyNone">Une touche pressée pendant la capture lie l'action, sauvegarde, et renvoie Rebound.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#af8951dd767be6a8d801566f97cac6444a8bae56d3db3fb4f6d0f1b3af394ec95b" title="Une action vient d&#39;être liée à une nouvelle touche (capture terminée).">hmi::GameKeybindingsAction::Rebound</a></code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.key(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">hmi::Key::F1</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.EchapPendantCaptureAnnule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:126</code></sub>   </td><td class="markdownTableBodyNone"><code>Échap</code> pendant la capture l'annule sans modifier le binding.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.isCapturing()</code> est vrai.<br  />
-Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.key(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff">hmi::Key::Left</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.ConfirmerReinitialiserRestaureLesDefauts</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:151</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Réinitialiser » restaure les défauts et renvoie Reset.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#af8951dd767be6a8d801566f97cac6444a526d688f37a86d3c3f27d0c5016eb71d" title="« Réinitialiser » confirmé : les six actions sont revenues à leurs défauts.">hmi::GameKeybindingsAction::Reset</a></code>.<br  />
-Vérifie que <code>bindings.key(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff">hmi::Key::Left</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GameKeybindingsModelTest.ConfirmerRetourRenvoieBack</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__game__keybindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de jeu » (EX-CTRL-012, LOT-29).">Source/Test/Unit/HMI/Interface/test_game_keybindings_model.cpp</a>:183</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Retour » renvoie l'action Back.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#af8951dd767be6a8d801566f97cac6444a0557fa923dcee4d0f86b1409f5c2167f" title="« Retour » confirmé : transition vers Options.">hmi::GameKeybindingsAction::Back</a></code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">test_gamepad_bindings_model.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.SelectionParDefaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:62</code></sub>   </td><td class="markdownTableBodyNone">À l'ouverture, la première ligne est sélectionnée, hors capture.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>model.rowLabel(0)</code> vaut <code>"Aller a gauche"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::GamepadBindingsModel::RESET_ROW)</code> vaut <code>"Reinitialiser"</code>.<br  />
-Vérifie que <code>model.rowLabel(hmi::GamepadBindingsModel::BACK_ROW)</code> vaut <code>"Retour"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.SansManetteConnecteeNEntrePasEnCapture</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:84</code></sub>   </td><td class="markdownTableBodyNone">Sans manette connectée, confirmer une ligne d'action n'entre pas en capture.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.ManetteConnecteeConfirmerEntreEnCapture</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:106</code></sub>   </td><td class="markdownTableBodyNone">Manette connectée, confirmer une ligne d'action entre en capture.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.BoutonCaptureLieLActionEtRenvoieRebound</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:132</code></sub>   </td><td class="markdownTableBodyNone">Un bouton pressé pendant la capture lie l'action et renvoie Rebound.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a8bae56d3db3fb4f6d0f1b3af394ec95b">hmi::GamepadBindingsAction::Rebound</a></code>.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.button(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383">hmi::GamepadButton::X</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.EchapPendantCaptureAnnule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:166</code></sub>   </td><td class="markdownTableBodyNone"><code>Échap</code> pendant la capture l'annule sans modifier le binding.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>model.isCapturing()</code> est vrai.<br  />
-Vérifie que <code>action.has_value()</code> est faux.<br  />
-Vérifie que <code>model.isCapturing()</code> est faux.<br  />
-Vérifie que <code>bindings.button(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff">hmi::GamepadButton::Left</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.ConfirmerReinitialiserRestaureLesDefauts</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:196</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Réinitialiser » restaure les défauts et renvoie Reset.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a526d688f37a86d3c3f27d0c5016eb71d">hmi::GamepadBindingsAction::Reset</a></code>.<br  />
-Vérifie que <code>bindings.button(hmi::GameAction::MoveLeft)</code> vaut <code><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff">hmi::GamepadButton::Left</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>GamepadBindingsModelTest.ConfirmerRetourRenvoieBack</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__gamepad__bindings__model_8cpp.html" title="Tests unitaires de la logique du sous-menu « Touches de la manette » (EX-CTRL-002,...">Source/Test/Unit/HMI/Interface/test_gamepad_bindings_model.cpp</a>:227</code></sub>   </td><td class="markdownTableBodyNone">Confirmer « Retour » renvoie l'action Back.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#ab22afc1edf9ed6f86dbf20680e4d4491a0557fa923dcee4d0f86b1409f5c2167f">hmi::GamepadBindingsAction::Back</a></code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">test_language_selector.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LanguageSelectorTest.RectangleAncreBasDroite</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">Source/Test/Unit/HMI/Interface/test_language_selector.cpp</a>:29</code></sub>   </td><td class="markdownTableBodyNone">Le bouton est ancré au coin bas-droit, marge comprise.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>rect.width</code> vaut <code><a class="el" href="classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041" title="Largeur du bouton, en pixels d&#39;écran.">hmi::LanguageSelector::BUTTON_WIDTH</a></code> (comparaison flottante).<br  />
-Vérifie que <code>rect.height</code> vaut <code><a class="el" href="classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa" title="Hauteur du bouton, en pixels d&#39;écran.">hmi::LanguageSelector::BUTTON_HEIGHT</a></code> (comparaison flottante).<br  />
-Vérifie que <code>rect.x</code> vaut <code>VIEWPORT_WIDTH - <a class="el" href="classhmi_1_1LanguageSelector.html#a844856c31fab26b7ed0b0b735b87791d" title="Marge entre le bouton et les bords bas/droit, en pixels.">hmi::LanguageSelector::MARGIN</a> - <a class="el" href="classhmi_1_1LanguageSelector.html#a3151ff30f3b52f40894c2ab6796de041" title="Largeur du bouton, en pixels d&#39;écran.">hmi::LanguageSelector::BUTTON_WIDTH</a></code> (comparaison flottante).<br  />
-Vérifie que <code>rect.y</code> vaut <code>VIEWPORT_HEIGHT - <a class="el" href="classhmi_1_1LanguageSelector.html#a844856c31fab26b7ed0b0b735b87791d" title="Marge entre le bouton et les bords bas/droit, en pixels.">hmi::LanguageSelector::MARGIN</a> - <a class="el" href="classhmi_1_1LanguageSelector.html#af276a024c6c4868102de634ac9dd68aa" title="Hauteur du bouton, en pixels d&#39;écran.">hmi::LanguageSelector::BUTTON_HEIGHT</a></code> (comparaison flottante).    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LanguageSelectorTest.BasculeAlterneLesLangues</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">Source/Test/Unit/HMI/Interface/test_language_selector.cpp</a>:51</code></sub>   </td><td class="markdownTableBodyNone">La bascule renvoie l'autre langue (français ↔ anglais).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="classhmi_1_1LanguageSelector.html#ad6c156a1997580d4cf387e2beac5689b" title="L&#39;autre langue (français ↔ anglais).">hmi::LanguageSelector::other</a>("fr")</code> vaut <code>"en"</code>.<br  />
-Vérifie que <code><a class="el" href="classhmi_1_1LanguageSelector.html#ad6c156a1997580d4cf387e2beac5689b" title="L&#39;autre langue (français ↔ anglais).">hmi::LanguageSelector::other</a>("en")</code> vaut <code>"fr"</code>.<br  />
-Vérifie que <code><a class="el" href="classhmi_1_1LanguageSelector.html#ad6c156a1997580d4cf387e2beac5689b" title="L&#39;autre langue (français ↔ anglais).">hmi::LanguageSelector::other</a>("xx")</code> vaut <code>"en"</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LanguageSelectorTest.ClicDansLeBoutonBascule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">Source/Test/Unit/HMI/Interface/test_language_selector.cpp</a>:67</code></sub>   </td><td class="markdownTableBodyNone">Un clic dans le bouton demande la bascule vers l'autre langue.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toggle.requested</code> est vrai.<br  />
-Vérifie que <code>toggle.next</code> vaut <code>"en"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LanguageSelectorTest.ClicHorsBoutonNeBasculePas</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">Source/Test/Unit/HMI/Interface/test_language_selector.cpp</a>:90</code></sub>   </td><td class="markdownTableBodyNone">Un clic hors du bouton ne demande aucune bascule.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toggle.requested</code> est faux.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LanguageSelectorTest.SansClicPasDeBascule</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__language__selector_8cpp.html" title="Tests unitaires du bouton de langue : ancrage, bascule et détection du clic.">Source/Test/Unit/HMI/Interface/test_language_selector.cpp</a>:108</code></sub>   </td><td class="markdownTableBodyNone">Sans clic, aucune bascule même si la souris est sur le bouton.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>toggle.requested</code> est faux.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement).">test_level_sequence.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSequenceTest.SequenceVide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement).">Source/Test/Unit/HMI/Interface/test_level_sequence.cpp</a>:12</code></sub>   </td><td class="markdownTableBodyNone">Une séquence vide est signalée comme telle.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sequence.empty()</code> est vrai.<br  />
-Vérifie que <code>sequence.size()</code> vaut <code>0u</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelSequenceTest.DemarreSurLePremier</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement).">Source/Test/Unit/HMI/Interface/test_level_sequence.cpp</a>:28</code></sub>   </td><td class="markdownTableBodyNone">La séquence démarre sur le premier niveau, dans l'ordre fourni.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sequence.empty()</code> est faux.<br  />
-Vérifie que <code>sequence.size()</code> vaut <code>3u</code>.<br  />
-Vérifie que <code>sequence.index()</code> vaut <code>0u</code>.<br  />
-Vérifie que <code>sequence.current()</code> vaut <code>std::filesystem::path("a.json")</code>.<br  />
-Vérifie que <code>sequence.hasNext()</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>LevelSequenceTest.AvanceDansLOrdre</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement).">Source/Test/Unit/HMI/Interface/test_level_sequence.cpp</a>:47</code></sub>   </td><td class="markdownTableBodyNone"><code>advance</code> parcourt les niveaux dans l'ordre jusqu'au dernier.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sequence.index()</code> vaut <code>1u</code>.<br  />
-Vérifie que <code>sequence.current()</code> vaut <code>std::filesystem::path("b.json")</code>.<br  />
-Vérifie que <code>sequence.hasNext()</code> est vrai.<br  />
-Vérifie que <code>sequence.current()</code> vaut <code>std::filesystem::path("c.json")</code>.<br  />
-Vérifie que <code>sequence.hasNext()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>LevelSequenceTest.NeDepassePasLeDernier</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__level__sequence_8cpp.html" title="Tests unitaires de la séquence de niveaux (progression : ordre, enchaînement).">Source/Test/Unit/HMI/Interface/test_level_sequence.cpp</a>:70</code></sub>   </td><td class="markdownTableBodyNone">Au-delà du dernier niveau, <code>advance</code> est sans effet (pas de dépassement).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sequence.hasNext()</code> est faux.<br  />
-Vérifie que <code>sequence.index()</code> vaut <code>0u</code>.<br  />
-Vérifie que <code>sequence.current()</code> vaut <code>std::filesystem::path("seul.json")</code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">test_menu_model.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>MenuModelTest.SelectionParDefaut</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:63</code></sub>   </td><td class="markdownTableBodyNone">À l'ouverture, la première option (Charger niveau) est sélectionnée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>menu.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>menu.optionLabel(0)</code> vaut <code>"Charger niveau"</code>.<br  />
-Vérifie que <code>menu.title()</code> vaut <code>"ProjectGaming"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>MenuModelTest.ValiderChargeNiveau</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:82</code></sub>   </td><td class="markdownTableBodyNone">Valider par défaut (Entrée) bascule vers l'écran de jeu.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42abbc155fb2b111bf61c4f5ff892915e6b">hmi::ScreenTransition::Kind::Switch</a></code>.<br  />
-Vérifie que <code>transition.target</code> vaut <code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">hmi::ScreenId::Game</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>MenuModelTest.FlecheBasPuisValider</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:101</code></sub>   </td><td class="markdownTableBodyNone">La flèche bas déplace la sélection ; valider mène alors au Mode Edition.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>none.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754">hmi::ScreenTransition::Kind::None</a></code>.<br  />
-Vérifie que <code>menu.selectedIndex()</code> vaut <code>1</code>.<br  />
-Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42abbc155fb2b111bf61c4f5ff892915e6b">hmi::ScreenTransition::Kind::Switch</a></code>.<br  />
-Vérifie que <code>transition.target</code> vaut <code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257">hmi::ScreenId::Editor</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>MenuModelTest.FlecheHautBoucleSurQuitter</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:124</code></sub>   </td><td class="markdownTableBodyNone">La flèche haut depuis la première option boucle sur la dernière (Quitter).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>menu.selectedIndex()</code> vaut <code>3</code>.<br  />
-Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6">hmi::ScreenTransition::Kind::Quit</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>MenuModelTest.OptionOptionsBasculeVersEcranOptions</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:145</code></sub>   </td><td class="markdownTableBodyNone">La troisième option (Options) bascule vers l'écran de réglages.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>menu.selectedIndex()</code> vaut <code>2</code>.<br  />
-Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42abbc155fb2b111bf61c4f5ff892915e6b">hmi::ScreenTransition::Kind::Switch</a></code>.<br  />
-Vérifie que <code>transition.target</code> vaut <code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dadae8ace18bdcbcc6ae5aece263e14fe8">hmi::ScreenId::Options</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>MenuModelTest.BouclageBasComplet</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:168</code></sub>   </td><td class="markdownTableBodyNone">Quatre flèches bas ramènent à la première option (bouclage déterministe).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>menu.selectedIndex()</code> vaut <code>1</code>.<br  />
-Vérifie que <code>menu.selectedIndex()</code> vaut <code>2</code>.<br  />
-Vérifie que <code>menu.selectedIndex()</code> vaut <code>3</code>.<br  />
-Vérifie que <code>menu.selectedIndex()</code> vaut <code>0</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>MenuModelTest.SurvolSourisSelectionne</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:192</code></sub>   </td><td class="markdownTableBodyNone">Le survol d'une option à la souris la sélectionne.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754">hmi::ScreenTransition::Kind::None</a></code>.<br  />
-Vérifie que <code>menu.selectedIndex()</code> vaut <code>1</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>MenuModelTest.ClicValideOption</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:211</code></sub>   </td><td class="markdownTableBodyNone">Un clic gauche sur une option la valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>menu.selectedIndex()</code> vaut <code>3</code>.<br  />
-Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a0d82790b0612935992bd564a17ce37d6">hmi::ScreenTransition::Kind::Quit</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>MenuModelTest.ClicHorsOptionNeValidePas</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">Source/Test/Unit/HMI/Interface/test_menu_model.cpp</a>:231</code></sub>   </td><td class="markdownTableBodyNone">Un clic hors de toute option ne valide rien.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>transition.kind</code> vaut <code><a class="el" href="structhmi_1_1ScreenTransition.html#a22b533c345f20ad2d05f7c72fbfc6d42a6adf97f83acf6453d4a6a4b1070f3754">hmi::ScreenTransition::Kind::None</a></code>.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">test_options_model.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.SelectionParDefautEtLibelleVSync</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:62</code></sub>   </td><td class="markdownTableBodyNone">À l'ouverture, la première option (V-Sync) est sélectionnée et affiche l'état fourni.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>options.scrollOffset()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>options.optionLabel(0)</code> vaut <code>"V-Sync : Active"</code>.<br  />
-Vérifie que <code>options.optionLabel(1)</code> vaut <code>"Touches de jeu"</code>.<br  />
-Vérifie que <code>options.optionLabel(2)</code> vaut <code>"Touches de l'editeur"</code>.<br  />
-Vérifie que <code>options.optionLabel(3)</code> vaut <code>"Touches de la manette"</code>.<br  />
-Vérifie que <code>options.optionLabel(4)</code> vaut <code>"Retour"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.VisibleOptionCountA720p</b> (Bloquant)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:86</code></sub>   </td><td class="markdownTableBodyNone">À 720p, seules 4 des 5 options tiennent sans défilement.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>hmi::OptionsModel::visibleOptionCount(VIEWPORT_HEIGHT)</code> vaut <code>4</code>.<br  />
-Vérifie que <code>hmi::OptionsModel::visibleOptionCount(VIEWPORT_HEIGHT)</code> est strictement inférieur à <code><a class="el" href="classhmi_1_1OptionsModel.html#a0c7996ff3c3d5db9b35455d9bdda4d9d" title="Nombre d&#39;options du menu.">hmi::OptionsModel::OPTION_COUNT</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ValiderVSyncRenvoieToggle</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:101</code></sub>   </td><td class="markdownTableBodyNone">Valider la première option (V-Sync) renvoie l'action ToggleVSync.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673adc9b0c17f9ae1ee7e26995a78267c8ae">hmi::OptionsAction::ToggleVSync</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.FlecheBasPuisValiderRenvoieBack</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:122</code></sub>   </td><td class="markdownTableBodyNone">Quatre flèches bas puis valider (Retour) renvoie l'action Back, en ayant fait défiler la fenêtre.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>none.has_value()</code> est faux.<br  />
-Vérifie que <code>options.selectedIndex()</code> vaut <code>4</code>.<br  />
-Vérifie que <code>options.scrollOffset()</code> est strictement supérieur à <code>0</code>.<br  />
-Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f">hmi::OptionsAction::Back</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.FlecheHautBoucleSurRetour</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:155</code></sub>   </td><td class="markdownTableBodyNone">La flèche haut depuis la première option boucle sur la dernière (Retour), fenêtre défilée en conséquence.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.selectedIndex()</code> vaut <code>4</code>.<br  />
-Vérifie que <code>options.scrollOffset()</code> est strictement supérieur à <code>0</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ValiderTouchesDeJeuRenvoieOpenGameKeybindings</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:175</code></sub>   </td><td class="markdownTableBodyNone">Valider l'option « Touches de jeu » renvoie l'action OpenGameKeybindings.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252">hmi::OptionsAction::OpenGameKeybindings</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ValiderTouchesDeLEditeurRenvoieOpenEditorKeybindings</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:196</code></sub>   </td><td class="markdownTableBodyNone">Valider l'option « Touches de l'éditeur » renvoie l'action OpenEditorKeybindings.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a58166617f149dccc5643a29d6f2f108c">hmi::OptionsAction::OpenEditorKeybindings</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ValiderTouchesDeLaManetteRenvoieOpenGamepadBindings</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:219</code></sub>   </td><td class="markdownTableBodyNone">Valider l'option « Touches de la manette » renvoie l'action OpenGamepadBindings.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a4022f108e29bce2049085c28ffd6a3e3">hmi::OptionsAction::OpenGamepadBindings</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ClicSourisValideTouchesDeJeu</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:243</code></sub>   </td><td class="markdownTableBodyNone">Le survol d'une option visible à la souris la sélectionne ; un clic la valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.selectedIndex()</code> vaut <code>1</code>.<br  />
-Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a354354c1230bab0a89656fca5d55d252">hmi::OptionsAction::OpenGameKeybindings</a></code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ClicApresDefilementValideRetour</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:267</code></sub>   </td><td class="markdownTableBodyNone">Après défilement jusqu'à Retour, un clic à sa position affichée la valide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.selectedIndex()</code> vaut <code>4</code>.<br  />
-Vérifie que <code>scrollOffset</code> est strictement supérieur à <code>0</code>.<br  />
-Vérifie que <code>action.has_value()</code> est vrai.<br  />
-Vérifie que <code>*action</code> vaut <code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673a0557fa923dcee4d0f86b1409f5c2167f">hmi::OptionsAction::Back</a></code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.MoletteDefileSansChangerLaSelection</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:296</code></sub>   </td><td class="markdownTableBodyNone">La molette défile la fenêtre visible sans changer la sélection courante.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.selectedIndex()</code> vaut <code>0</code>.<br  />
-Vérifie que <code>options.scrollOffset()</code> vaut <code>1</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.SetVSyncEnabledChangeLeLibelle</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:319</code></sub>   </td><td class="markdownTableBodyNone"><code>setVSyncEnabled</code> resynchronise le libellé affiché après une bascule.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>options.optionLabel(0)</code> vaut <code>"V-Sync : Active"</code>.<br  />
-Vérifie que <code>options.optionLabel(0)</code> vaut <code>"V-Sync : Desactive"</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>OptionsModelTest.ClicHorsOptionNeValidePas</b> (Mineur)<br  />
-<sub><code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a>:338</code></sub>   </td><td class="markdownTableBodyNone">Un clic hors de toute option ne valide rien.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>action.has_value()</code> est faux.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic.">test_save_log_button.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>SaveLogButtonTest.AGaucheDuBoutonLangue</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic.">Source/Test/Unit/HMI/Interface/test_save_log_button.cpp</a>:30</code></sub>   </td><td class="markdownTableBodyNone">Le bouton est à gauche du bouton de langue, aligné sur le même bord bas.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>save.x + save.width</code> est strictement inférieur à <code>language.x</code>.<br  />
-Vérifie que <code>save.y + save.height</code> vaut <code>static_cast&lt;float&gt;(VIEWPORT_HEIGHT) - <a class="el" href="classhmi_1_1LanguageSelector.html#a844856c31fab26b7ed0b0b735b87791d" title="Marge entre le bouton et les bords bas/droit, en pixels.">hmi::LanguageSelector::MARGIN</a></code> (comparaison flottante).    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>SaveLogButtonTest.ClicDansLeBouton</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic.">Source/Test/Unit/HMI/Interface/test_save_log_button.cpp</a>:50</code></sub>   </td><td class="markdownTableBodyNone">Un clic dans le bouton est détecté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>button.clicked(mouseClick(x, y), VIEWPORT_WIDTH, VIEWPORT_HEIGHT)</code> est vrai.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>SaveLogButtonTest.ClicHorsBouton</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__save__log__button_8cpp.html" title="Tests unitaires du bouton d&#39;enregistrement des logs : ancrage et détection du clic.">Source/Test/Unit/HMI/Interface/test_save_log_button.cpp</a>:69</code></sub>   </td><td class="markdownTableBodyNone">Un clic hors du bouton n'est pas détecté.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>button.clicked(mouseClick(5, 5), VIEWPORT_WIDTH, VIEWPORT_HEIGHT)</code> est faux.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions.">test_screen_manager.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ScreenManagerTest.ConstructionCreeEcranInitial</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions.">Source/Test/Unit/HMI/Interface/test_screen_manager.cpp</a>:49</code></sub>   </td><td class="markdownTableBodyNone">La construction fabrique l'écran initial demandé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>harness.requested.size()</code> vaut <code>1u</code>.<br  />
-Vérifie que <code>harness.requested.front()</code> vaut <code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">hmi::ScreenId::Menu</a></code>.<br  />
-Vérifie que <code>manager.currentScreen()</code> diffère de <code>nullptr</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ScreenManagerTest.TransitionNoneResteSurEcran</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions.">Source/Test/Unit/HMI/Interface/test_screen_manager.cpp</a>:68</code></sub>   </td><td class="markdownTableBodyNone">Une transition « rester » conserve l'écran actif et n'en fabrique pas d'autre.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>manager.update(input, 0.0f)</code> est faux.<br  />
-Vérifie que <code>manager.currentScreen()</code> vaut <code>before</code>.<br  />
-Vérifie que <code>harness.requested.size()</code> vaut <code>1u</code>.    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>ScreenManagerTest.TransitionSwitchRemplaceEcran</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions.">Source/Test/Unit/HMI/Interface/test_screen_manager.cpp</a>:91</code></sub>   </td><td class="markdownTableBodyNone">Une transition « basculer » remplace l'écran actif par celui demandé.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>manager.update(input, 0.0f)</code> est faux.<br  />
-Vérifie que <code>harness.requested.size()</code> vaut <code>2u</code>.<br  />
-Vérifie que <code>harness.requested.back()</code> vaut <code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528da344a7f427fb765610ef96eb7bce95257">hmi::ScreenId::Editor</a></code>.<br  />
-Vérifie que <code>manager.currentScreen()</code> diffère de <code>before</code>.<br  />
-Vérifie que <code>manager.shouldQuit()</code> est faux.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>ScreenManagerTest.TransitionQuitFermeApplication</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__screen__manager_8cpp.html" title="Tests unitaires du gestionnaire d&#39;écrans : exécution et transitions.">Source/Test/Unit/HMI/Interface/test_screen_manager.cpp</a>:116</code></sub>   </td><td class="markdownTableBodyNone">Une transition « quitter » ferme l'application et se propage à la boucle.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>manager.update(input, 0.0f)</code> est vrai.<br  />
-Vérifie que <code>manager.shouldQuit()</code> est vrai.<br  />
-Vérifie que <code>manager.currentScreen()</code> vaut <code>nullptr</code>.<br  />
-Vérifie que <code>manager.update(input, 0.0f)</code> est vrai.   </td></tr>
-</table>
-<p>**<code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">test_session_log.cpp</a></code>**</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><b>SessionLogTest.SerialiseUneLigneParMessage</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">Source/Test/Unit/HMI/Interface/test_session_log.cpp</a>:15</code></sub>   </td><td class="markdownTableBodyNone">Chaque message donne une ligne, dans l'ordre d'arrivée.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>hmi::serializeSessionLog(entries)</code> vaut <code>"premier message\\nsecond message\\n"</code>.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b>SessionLogTest.VideDonneChaineVide</b> (Majeur)<br  />
-<sub><code><a class="el" href="test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session.">Source/Test/Unit/HMI/Interface/test_session_log.cpp</a>:34</code></sub>   </td><td class="markdownTableBodyNone">Une session sans message produit un texte vide.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</code> vaut <code>""</code>.   </td></tr>
-</table>
 <h3><a class="anchor" id="autotoc_md18"></a>
 Localization (8)</h3>
 <p>**<code><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">test_localization.cpp</a></code>**</p>
@@ -3141,8 +2439,8 @@ Vérifie que <code>localization.text("menu.quitter")</code> vaut <code>"Quitter"
 <sub><code><a class="el" href="test__localization_8cpp.html" title="Tests unitaires du catalogue de traduction : analyse, repli, changement de langue.">Source/Test/Unit/HMI/Localization/test_localization.cpp</a>:155</code></sub>   </td><td class="markdownTableBodyNone">Le catalogue français livré (Source/Elements/Localization) se charge et résout ses clés.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>localization.loadDefaultLanguage("fr")</code> est vrai.<br  />
 Vérifie que <code>localization.activeLanguage()</code> vaut <code>"fr"</code>.<br  />
-Vérifie que <code>localization.text("menu.quitter")</code> vaut <code>"Quitter"</code>.<br  />
-Vérifie que <code>localization.text("menu.jouer")</code> vaut <code>"Jouer"</code>.   </td></tr>
+Vérifie que <code>localization.text("menu.quit")</code> vaut <code>"Quitter"</code>.<br  />
+Vérifie que <code>localization.text("menu.play")</code> vaut <code>"Jouer"</code>.   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md19"></a>
 Tests d'intégration (79)</h1>
@@ -3617,7 +2915,7 @@ Parcours Complet — &lt;tt&gt;test_parcours_complet.cpp&lt;/tt&gt; (1)</h2>
 <th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>ParcoursCompletSysteme.FranchitTouteLaSequence</b> (Bloquant)<br  />
-<sub><code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:199</code></sub>   </td><td class="markdownTableBodyNone">Parcours complet : chaque niveau de la séquence est franchi (<code>Won</code>) dans l'ordre, puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+<sub><code><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a>:200</code></sub>   </td><td class="markdownTableBodyNone">Parcours complet : chaque niveau de la séquence est franchi (<code>Won</code>) dans l'ordre, puis « retour au titre ». Reproduit la boucle titre → niveau 1 → niveau 2 → titre du jeu.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sequence.empty()</code> est faux.<br  />
 Vérifie que <code>playLevel(level)</code> vaut <code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaa19abd416eb9fe03ae7400a22446956a5" title="Le personnage a atteint la sortie (EX-GP-030).">core::LevelOutcome::Won</a></code>.   </td></tr>
 </table>

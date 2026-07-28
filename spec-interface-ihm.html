@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -97,39 +97,39 @@ $(document).ready(function(){initNavTree('spec-interface-ihm.html',''); initResi
 <p>&zwj;Statut : <b>brouillon</b>. Cadre la refonte de l'interface hors-jeu (programme <code>LOT-34</code> → <code>LOT-39</code>). Dépend de <a class="el" href="rendu-technique_8md.html">`rendu-technique.md`</a> et <a class="el" href="editeur-niveaux_8md.html">`editeur-niveaux.md`</a>. </p>
 </blockquote>
 <p>L'interface <b>hors-jeu</b> (menus, options, remappage, éditeur de niveaux) est distincte du <b>rendu in-game</b>. Ce dernier reste en Direct3D 11 (<code>EX-REN-002</code>) ; l'interface, elle, repose sur un <b>framework d'UI dédié (Qt)</b>, pour une application maintenable, à fenêtres réglables, remplaçant l'UI « maison » dessinée quad par quad. <code>Core</code> demeure indépendant de la présentation (<code>EX-NFR-010</code>).</p>
-<h1><a class="anchor" id="autotoc_md242"></a>
+<h1><a class="anchor" id="autotoc_md236"></a>
 1. Socle applicatif</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-001"></a><b>EX-IHM-001</b> — Toute l'<b>interface hors-jeu</b> (menus, options, remappage, éditeur) doit reposer sur le framework <b>Qt</b> ; seul le <b>rendu in-game</b> reste en Direct3D 11.</li>
 <li><a class="anchor" id="EX-IHM-002"></a><b>EX-IHM-002</b> — Le <b>rendu Direct3D 11 du jeu</b> doit être <b>embarqué dans un viewport Qt</b> (surface native), sans processus séparé ni duplication du pipeline de rendu ; le déterminisme de la simulation (<code>EX-NFR-002</code>) et la latence d'entrée (<code>EX-CTRL-020</code>/<code>EX-CTRL-021</code>) sont préservés.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md243"></a>
+<h1><a class="anchor" id="autotoc_md237"></a>
 2. Éditeur</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-010"></a><b>EX-IHM-010</b> — L'éditeur de niveaux doit se présenter en <b>fenêtre à panneaux dockables</b> (palette, outils, niveaux, liens, viewport central) : panneaux <b>déplaçables, redimensionnables, détachables</b>.</li>
 <li><a class="anchor" id="EX-IHM-011"></a><b>EX-IHM-011</b> — La <b>disposition</b> des panneaux doit être <b>persistée hors code</b> (sauvegardée et restaurée entre deux sessions), et réinitialisable à une disposition par défaut.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md244"></a>
+<h1><a class="anchor" id="autotoc_md238"></a>
 3. Gestion des niveaux</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-020"></a><b>EX-IHM-020</b> — L'éditeur doit offrir un <b>panneau de gestion des niveaux</b> listant les fichiers du dossier des niveaux, avec <b>recherche/filtre</b>, restant lisible quel que soit le nombre de niveaux.</li>
 <li><a class="anchor" id="EX-IHM-021"></a><b>EX-IHM-021</b> — Ce panneau doit permettre de <b>créer, renommer, dupliquer et supprimer</b> un niveau, avec <b>validation de nom</b> (<code>EX-EDIT-006</code>) et <b>confirmation</b> des actions destructrices ; aucune modification non enregistrée ne doit être perdue silencieusement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md245"></a>
+<h1><a class="anchor" id="autotoc_md239"></a>
 4. Liens de mécanismes</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-030"></a><b>EX-IHM-030</b> — Les <b>liaisons</b> déclencheur → cible (interrupteur/plaque → porte, déclencheur → danger commuté, <code>EX-EDIT-003</code>) doivent être rendues par des <b>traits/flèches explicites</b> dans le viewport, en remplacement de l'indication par teinte de case.</li>
 <li><a class="anchor" id="EX-IHM-031"></a><b>EX-IHM-031</b> — Un <b>panneau « Liens »</b> doit <b>lister</b> les liaisons du niveau, mettre en <b>surbrillance</b> la liaison sélectionnée et permettre d'en <b>supprimer</b>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md246"></a>
+<h1><a class="anchor" id="autotoc_md240"></a>
 5. Menus, options, unification</h1>
 <ul>
 <li><a class="anchor" id="EX-IHM-040"></a><b>EX-IHM-040</b> — Le <b>menu principal</b>, l'écran <b>Options</b> (V-Sync <code>EX-REN-022</code>, langue <code>EX-REN-033</code>) et les écrans de <b>remappage</b> (jeu, éditeur <code>EX-CTRL-012</code>, manette) doivent être fournis en Qt, fonctionnellement équivalents aux écrans historiques.</li>
 <li><a class="anchor" id="EX-IHM-041"></a><b>EX-IHM-041</b> — L'interface hors-jeu doit reposer sur <b>une seule technologie d'UI</b> : la pile d'UI « maison » (écrans dessinés au <code>SpriteBatch</code>, gestion d'écrans dédiée, fenêtre Win32 propre) est <b>retirée</b> une fois la parité atteinte.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md247"></a>
+<h1><a class="anchor" id="autotoc_md241"></a>
 Traçabilité</h1>
-<p>Tout ceci relève de <code>Source/HMI</code> (rendu de jeu réutilisé) et d'une couche applicative Qt (<code>Source/Editor</code>). La logique testable (édition, validation, remappage) reste découplée de l'UI et couverte par des tests (<code>EX-NFR-010</code>, <code>EX-NFR-020</code>). Détail du séquencement : lots <a class="el" href="lot-34.html">`LOT-34`</a> à <a class="el" href="lot-39.html">`LOT-39`</a>. </p>
+<p>Tout ceci relève de <code>Source/HMI</code> — depuis le <code>LOT-38</code>, l'unique application Qt <code>ProjectGaming</code> (rendu de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans <code>Source/Elements</code>. La logique testable (édition, validation, remappage) reste découplée de l'UI et couverte par des tests (<code>EX-NFR-010</code>, <code>EX-NFR-020</code>). Détail du séquencement : lots <a class="el" href="lot-34.html">`LOT-34`</a> à <a class="el" href="lot-39.html">`LOT-39`</a>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

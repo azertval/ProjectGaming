@@ -1,33 +1,21 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/HmiLog.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/HmiLog.h">
-<area shape="rect" id="Node000001" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="1864,5,2085,60"/>
-<area shape="rect" id="Node000002" href="$GameViewport_8cpp.html" title=" " alt="" coords="5,108,227,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1850,39,1033,63,574,84,384,97,239,111,227,112,226,107,238,105,383,91,574,79,1033,58,1850,34"/>
-<area shape="rect" id="Node000003" href="$GameSession_8cpp.html" title=" " alt="" coords="251,108,472,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1850,36,1600,39,1260,49,874,71,677,89,484,111,473,112,472,107,484,105,677,83,874,66,1260,44,1599,33,1850,31"/>
-<area shape="rect" id="Node000004" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="497,108,735,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1850,39,1640,45,1366,57,1057,78,747,111,736,112,735,107,746,105,1057,73,1365,52,1640,39,1850,33"/>
-<area shape="rect" id="Node000005" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="759,108,998,163"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1850,41,1474,64,1242,84,1010,111,999,112,998,107,1009,105,1241,78,1473,58,1850,36"/>
-<area shape="rect" id="Node000006" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="1022,108,1261,163"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1851,46,1585,72,1274,111,1261,113,1260,107,1273,105,1584,66,1850,41"/>
-<area shape="rect" id="Node000007" href="$GamepadPoller_8cpp.html" title=" " alt="" coords="1285,108,1507,163"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1851,55,1519,111,1507,113,1506,108,1518,105,1850,50"/>
-<area shape="rect" id="Node000008" href="$EditorKeybindingsScreen_8cpp.html" title=" " alt="" coords="1531,108,1837,163"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1887,67,1761,110,1759,105,1885,62"/>
-<area shape="rect" id="Node000009" href="$EditorScreen_8cpp.html" title=" " alt="" coords="1861,108,2088,163"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1977,74,1977,108,1972,108,1972,74"/>
-<area shape="rect" id="Node000010" href="$GameKeybindingsScreen_8cpp.html" title=" " alt="" coords="2112,108,2419,163"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="2064,62,2190,105,2189,110,2062,67"/>
-<area shape="rect" id="Node000011" href="$GameScreen_8cpp.html" title=" " alt="" coords="2443,108,2671,163"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="2099,50,2431,105,2444,108,2443,113,2430,111,2098,55"/>
-<area shape="rect" id="Node000012" href="$GamepadBindingsScreen_8cpp.html" title=" " alt="" coords="2695,108,3003,163"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="2099,42,2368,69,2684,105,2695,107,2695,112,2684,111,2368,74,2099,48"/>
-<area shape="rect" id="Node000013" href="$MenuScreen_8cpp.html" title=" " alt="" coords="3027,108,3253,163"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="2099,35,2279,42,2508,55,2762,76,3016,105,3028,107,3027,112,3016,111,2761,81,2507,61,2279,47,2099,40"/>
-<area shape="rect" id="Node000014" href="$OptionsScreen_8cpp.html" title=" " alt="" coords="3277,108,3515,163"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="2099,33,2319,38,2609,50,2936,72,3266,105,3277,107,3276,112,3265,111,2936,77,2609,55,2319,43,2099,38"/>
-<area shape="rect" id="Node000015" href="$ScreenManager_8cpp.html" title=" " alt="" coords="3540,108,3785,163"/>
-<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="2099,31,2360,34,2715,45,3119,67,3326,84,3528,105,3540,107,3540,112,3528,111,3325,89,3119,73,2714,50,2360,40,2099,37"/>
-<area shape="rect" id="Node000016" href="$main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans." alt="" coords="3809,108,4031,163"/>
-<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="2099,34,2468,42,2958,57,3443,78,3644,91,3798,105,3810,107,3809,112,3797,111,3644,96,3443,83,2958,62,2468,47,2099,39"/>
+<area shape="rect" id="Node000001" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="1041,5,1263,60"/>
+<area shape="rect" id="Node000002" href="$LevelBrowserPanel_8cpp.html" title=" " alt="" coords="5,108,253,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1028,43,683,66,475,86,266,111,254,112,253,107,265,105,474,80,683,61,1027,38"/>
+<area shape="rect" id="Node000003" href="$GameSession_8cpp.html" title=" " alt="" coords="277,108,499,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1028,48,788,73,511,111,499,113,498,107,510,105,787,67,1027,42"/>
+<area shape="rect" id="Node000004" href="$GameViewport_8cpp.html" title=" " alt="" coords="523,108,746,163"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1029,59,758,111,747,113,746,108,757,105,1028,54"/>
+<area shape="rect" id="Node000005" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="770,108,1009,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1072,67,959,110,957,105,1070,62"/>
+<area shape="rect" id="Node000006" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="1033,108,1271,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1155,74,1155,108,1149,108,1149,74"/>
+<area shape="rect" id="Node000007" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="1295,108,1534,163"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1234,62,1347,105,1345,110,1232,67"/>
+<area shape="rect" id="Node000008" href="$GamepadPoller_8cpp.html" title=" " alt="" coords="1559,108,1780,163"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1276,54,1547,105,1559,108,1558,113,1546,111,1275,59"/>
+<area shape="rect" id="Node000009" href="$MainWindow_8cpp.html" title=" " alt="" coords="1805,108,2033,163"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1277,42,1516,68,1792,105,1805,107,1804,113,1792,111,1515,73,1276,48"/>
+<area shape="rect" id="Node000010" href="$main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming)." alt="" coords="2057,108,2279,163"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1277,37,1624,59,1835,79,2046,105,2058,107,2057,112,2045,111,1834,84,1623,65,1276,42"/>
 </map>

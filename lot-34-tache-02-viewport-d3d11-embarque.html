@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,11 +94,11 @@ $(document).ready(function(){initNavTree('lot-34-tache-02-viewport-d3d11-embarqu
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-34-refonte-ihm-qt-socle_2epic_8md.html">LOT-34</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1628"></a>
+<h1><a class="anchor" id="autotoc_md1622"></a>
 Contexte</h1>
 <p><code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">hmi::GraphicsDevice</a></code> s'initialise déjà à partir d'un **<code>HWND</code>** (<code>GraphicsDevice(HWND, width,
-height)</code>, appelé aujourd'hui avec le HWND de <code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">hmi::Window</a></code>, cf. <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a>:152</code>). Qt peut fournir un HWND présentable via un **<code>QWindow</code>** natif intégré dans la hiérarchie de widgets par <code>QWidget::createWindowContainer</code>. Cette tâche crée la fenêtre principale Qt et le <b>viewport</b> dans lequel Direct3D 11 présentera, sans encore de boucle de jeu (TACHE-03) ni de contenu de niveau (TACHE-04) : l'objectif est un <code>GraphicsDevice</code> vivant, relié au viewport, qui <b>efface l'écran</b> à une couleur et se <b>redimensionne</b> proprement.</p>
-<h1><a class="anchor" id="autotoc_md1629"></a>
+height)</code>, appelé aujourd'hui avec le HWND de <code>hmi::Window</code>, cf. <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a>:152</code>). Qt peut fournir un HWND présentable via un **<code>QWindow</code>** natif intégré dans la hiérarchie de widgets par <code>QWidget::createWindowContainer</code>. Cette tâche crée la fenêtre principale Qt et le <b>viewport</b> dans lequel Direct3D 11 présentera, sans encore de boucle de jeu (TACHE-03) ni de contenu de niveau (TACHE-04) : l'objectif est un <code>GraphicsDevice</code> vivant, relié au viewport, qui <b>efface l'écran</b> à une couleur et se <b>redimensionne</b> proprement.</p>
+<h1><a class="anchor" id="autotoc_md1623"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>GameViewport</code>** (<code>Source/Editor/GameViewport.{h,cpp}</code>) : sous-classe de <code>QWindow</code> (surface native, <code>setSurfaceType(QWindow::RawSurface)</code> — pas de backing store Qt, D3D11 dessine directement).<ul>
@@ -110,21 +110,21 @@ Travail à réaliser</h1>
 </ul>
 </li>
 <li>**<code>MainWindow</code>** (<code>Source/Editor/MainWindow.{h,cpp}</code>) : <code>QMainWindow</code> dont le <b>widget central</b> est <code>QWidget::createWindowContainer(gameViewport, this)</code>. Titre, taille par défaut 1280×720 (parité avec l'existant).</li>
-<li>**<code>main</code>** Qt (<code><a class="el" href="main__qt_8cpp.html" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT-34, refonte IHM).">Source/Editor/main_qt.cpp</a></code>) : <code>QApplication app(argc, argv);</code> → <code>MainWindow w; w.show();</code> → <code>return app.exec();</code>. Réutilise l'initialisation du logger de <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code> (<code>MemoryLogSink</code>/<code>ConsoleLogSink</code>, niveau via env/arg) — factoriser si pertinent.</li>
+<li>**<code>main</code>** Qt (<code>Source/Editor/main_qt.cpp</code>) : <code>QApplication app(argc, argv);</code> → <code>MainWindow w; w.show();</code> → <code>return app.exec();</code>. Réutilise l'initialisation du logger de <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code> (<code>MemoryLogSink</code>/<code>ConsoleLogSink</code>, niveau via env/arg) — factoriser si pertinent.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1630"></a>
+<h1><a class="anchor" id="autotoc_md1624"></a>
 Fichiers impactés</h1>
 <ul>
-<li><code>Source/Editor/GameViewport.{h,cpp}</code>, <code>MainWindow.{h,cpp}</code>, <code><a class="el" href="main__qt_8cpp.html" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT-34, refonte IHM).">main_qt.cpp</a></code> (nouveaux).</li>
+<li><code>Source/Editor/GameViewport.{h,cpp}</code>, <code>MainWindow.{h,cpp}</code>, <code>main_qt.cpp</code> (nouveaux).</li>
 <li><code>Source/Editor/CMakeLists.txt</code> (enregistrement des sources ; liaison <code>HmiRuntime</code>, <code>Qt6::Widgets</code>, <code>Qt6::Gui</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1631"></a>
+<h1><a class="anchor" id="autotoc_md1625"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Intégration <b>GPU/fenêtre → vérification visuelle</b> (dépendance D3D11, comme les lots de rendu) : la fenêtre Qt s'ouvre et affiche un fond uni ; la redimensionner ne provoque ni étirement ni crash.</li>
 <li>Logique testable isolable : la <b>conversion taille logique ↔ pixels physiques (DPI)</b> peut être extraite en fonction pure et couverte par un test unitaire sans Qt/GPU.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1632"></a>
+<h1><a class="anchor" id="autotoc_md1626"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ordre de création</b> : ne créer <code>GraphicsDevice</code> qu'une fois <code>winId()</code> valide (premier <code>exposeEvent</code>), sinon HWND invalide. Gérer la fermeture (destruction ordonnée : device avant fenêtre).</li>
@@ -132,12 +132,12 @@ Points d'attention</h1>
 <li>**<code>createWindowContainer</code>** : le conteneur est une fenêtre native « étrangère » ; attention à l'ordre de rendu/superposition si des widgets Qt le recouvrent (pertinent dès le LOT-35 pour les overlays — ici le viewport est seul).</li>
 <li><b>Flip model</b> : <code>GraphicsDevice</code> dé-lie la RTV à <code>Present</code> et la relie à <code>clear()</code> (déjà géré, <code>LOT-33</code>) — aucun changement, mais le vérifier avec la nouvelle source de fenêtre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1633"></a>
+<h1><a class="anchor" id="autotoc_md1627"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une fenêtre Qt affiche un viewport D3D11 qui s'efface et se présente ; redimensionnement propre, fermeture propre. <code>/W4 /WX</code> sans warning ; vérification visuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1634"></a>
+<h1><a class="anchor" id="autotoc_md1628"></a>
 Exigences</h1>
 <p><code>EX-IHM-002</code> (rendu D3D11 embarqué dans un viewport Qt) ; réutilise <code>EX-REN-004</code> (flip model). Prépare TACHE-03 (boucle/entrées). </p>
 </div></div><!-- contents -->

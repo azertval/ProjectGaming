@@ -16,5 +16,7 @@ var dir_76d97c54a16374659ce0f27a302675ee =
     [ "KeyName.cpp", "KeyName_8cpp.html", "KeyName_8cpp" ],
     [ "KeyName.h", "KeyName_8h.html", "KeyName_8h" ],
     [ "PlayerInputMapper.cpp", "PlayerInputMapper_8cpp.html", "PlayerInputMapper_8cpp" ],
-    [ "PlayerInputMapper.h", "PlayerInputMapper_8h.html", "PlayerInputMapper_8h" ]
+    [ "PlayerInputMapper.h", "PlayerInputMapper_8h.html", "PlayerInputMapper_8h" ],
+    [ "QtKeyMap.cpp", "QtKeyMap_8cpp.html", "QtKeyMap_8cpp" ],
+    [ "QtKeyMap.h", "QtKeyMap_8h.html", "QtKeyMap_8h" ]
 ];

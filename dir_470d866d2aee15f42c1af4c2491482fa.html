@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -100,8 +100,8 @@ Directory dependency graph for Integration:</div>
 <map name="adir__470d866d2aee15f42c1af4c2491482fa__dep" id="adir__470d866d2aee15f42c1af4c2491482fa__dep">
 <area shape="rect" href="dir_470d866d2aee15f42c1af4c2491482fa.html" title="Integration" alt="" coords="27,52,120,77"/>
 <area shape="rect" href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html" title="Core" alt="" coords="47,125,99,151"/>
-<area shape="poly" href="dir_000021_000001.html" alt="" coords="76,78,76,112,71,112,71,78"/>
-<area shape="rect" href="dir_000021_000001.html" title="75" alt="" coords="73,100,90,114"/>
+<area shape="poly" href="dir_000022_000001.html" alt="" coords="76,78,76,112,71,112,71,78"/>
+<area shape="rect" href="dir_000022_000001.html" title="75" alt="" coords="73,100,90,114"/>
 <area shape="rect" href="dir_2200d1144f304f0b8fdcca1251782e8e.html" title="Test" alt="" coords="16,16,131,88"/>
 </map>
 </div>
@@ -112,13 +112,13 @@ Files</h2></td></tr>
 <tr class="memdesc:test__animation__personnage_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration de l'animation du personnage : ECS + système d'animation assemblés. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="icondoc"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__bloc__reduit_8cpp.html">test_bloc_reduit.cpp</a></td></tr>
-<tr class="memdesc:test__bloc__reduit_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code>HMI::GameScreen</code>. <br /></td></tr>
+<tr class="memdesc:test__bloc__reduit_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration des blocs à taille réduite (<code>TileType::BlockHalf</code>/<code>BlockQuarter</code>, <code>EX-GP-005</code>) : composition du balayage sur grille (<code>CharacterPhysicsSystem</code>) et du balayage boîte-boîte (<code><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></code>), comme orchestré par <code><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></code>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="icondoc"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__boucle__simulation_8cpp.html">test_boucle_simulation.cpp</a></td></tr>
 <tr class="memdesc:test__boucle__simulation_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test d'intégration inter-lots : le cadenceur à pas fixe (LOT-01) pilote la simulation ECS (LOT-03) — <code>FixedTimestep</code> → <code>World::update</code>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="icondoc"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__danger__avance_8cpp.html">test_danger_avance.cpp</a></td></tr>
-<tr class="memdesc:test__danger__avance_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration des dangers avancés (<code>EX-GP-050</code> à <code>EX-GP-053</code>) : <code>DangerController</code> et <code>MechanismController</code> assemblés avec <code>CharacterPhysicsSystem</code>/<code>evaluateOutcome</code>, comme dans <code>HMI::GameScreen::update</code>. <br /></td></tr>
+<tr class="memdesc:test__danger__avance_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration des dangers avancés (<code>EX-GP-050</code> à <code>EX-GP-053</code>) : <code>DangerController</code> et <code>MechanismController</code> assemblés avec <code>CharacterPhysicsSystem</code>/<code>evaluateOutcome</code>, comme dans <code><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">hmi::GameSession::update</a></code>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="icondoc"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__ecs__mouvement_8cpp.html">test_ecs_mouvement.cpp</a></td></tr>
 <tr class="memdesc:test__ecs__mouvement_8cpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests d'intégration de l'ECS : entités + composants + système de mouvement assemblés dans un <code>World</code>, vérifiés de bout en bout. <br /></td></tr>

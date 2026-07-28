@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,17 +96,17 @@ $(document).ready(function(){initNavTree('lot-03.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>terminé</b>. Substrat de la simulation : gameplay, tuiles et décors en dépendent. Décision ⚠️ tranchée : <b>ECS maison</b> (sparse sets). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md348"></a>
+<h1><a class="anchor" id="autotoc_md342"></a>
 Objectif</h1>
 <p>Mettre en place, <b>dans <code>Core</code></b>, un <b>ECS</b> fonctionnel et testé (entités, composants, systèmes, <code>World</code>) ainsi que les <b>types mathématiques</b> de base (<code>Vector2</code>, <code>Rect</code>, <code>Transform</code>). Le tout <b>indépendant de DirectX</b>, entièrement couvert par des tests unitaires.</p>
 <p>À l'issue du lot : on peut créer des entités, leur attacher des composants, itérer dessus via des systèmes exécutés à pas de temps fixe — sans aucune fenêtre ni GPU.</p>
-<h1><a class="anchor" id="autotoc_md349"></a>
+<h1><a class="anchor" id="autotoc_md343"></a>
 ⚠️ Décision préalable : ECS maison vs bibliothèque</h1>
 <p>| Option | Description | Pour | Contre | |-----&mdash;|----------&mdash;|---&mdash;|-----&mdash;|:-&mdash;:| | <b>Maison</b> *(par défaut, cohérent « from scratch »)* | Implémenter l'ECS nous-mêmes (sparse sets). | Maîtrise totale, valeur pédagogique, aucune dépendance. | Plus de code et de tests à écrire. | | <b>EnTT</b> | Intégrer la bibliothèque header-only EnTT via FetchContent. | Mûre, performante, rien à écrire. | Dépendance externe, API imposée, s'éloigne du « from scratch ». |</p>
 <p>Recommandation : <b>maison</b> (aligné sur l'esprit du projet). Si EnTT est retenu, ce lot se réduit à une tâche d'intégration + une couche d'adaptation aux conventions.</p>
-<h1><a class="anchor" id="autotoc_md350"></a>
+<h1><a class="anchor" id="autotoc_md344"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md351"></a>
+<h2><a class="anchor" id="autotoc_md345"></a>
 Inclus</h2>
 <ul>
 <li>Types mathématiques de <code>Core</code> : <code>Vector2</code>, <code>Rect</code>, données de <code>Transform</code>.</li>
@@ -116,14 +116,14 @@ Inclus</h2>
 <li><b>Systèmes</b> et <code>World</code> : enregistrement et exécution des systèmes à <b>pas de temps fixe</b>.</li>
 <li>Un composant <code>Transform</code> et un système de mouvement de démonstration.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md352"></a>
+<h2><a class="anchor" id="autotoc_md346"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li>Sérialisation concrète des composants (préparée par le design <em>données pures</em>, implémentée au lot « chargement de niveaux »).</li>
 <li>Rendu (les systèmes de rendu vivront dans <code>HMI</code> et <b>liront</b> les composants).</li>
 <li>Composants de gameplay spécifiques (collisions, animation…) au-delà de la démo.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md353"></a>
+<h1><a class="anchor" id="autotoc_md347"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-ARCH-010</code> — simulation fondée sur un ECS hébergé dans <code>Core</code>.</li>
@@ -134,7 +134,7 @@ Exigences couvertes</h1>
 <li><code>EX-NFR-010</code>, <code>EX-NFR-002</code>, <code>EX-NFR-020</code> — <code>Core</code> testable, déterministe, couvert par tests.</li>
 <li>Prépare <code>EX-ARCH-090</code> / <code>EX-ARCH-100</code> (composants <em>données pures</em> → sérialisables ; décors comme entités).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md354"></a>
+<h1><a class="anchor" id="autotoc_md348"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -155,7 +155,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-06-transform-demo_8md.html">TACHE-06</a>   </td><td class="markdownTableBodyNone">Composant <code>Transform</code> + système de mouvement (démo)   </td><td class="markdownTableBodyNone"><code>Core/Ecs</code>   </td><td class="markdownTableBodyCenter">✅ Fait   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md355"></a>
+<h1><a class="anchor" id="autotoc_md349"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>On peut créer/détruire des entités ; un handle vers une entité détruite est détecté comme <b>invalide</b> (génération).</li>
@@ -165,13 +165,13 @@ Critères d'acceptation du lot</h1>
 <li>Couverture par tests unitaires de chaque brique (entités, composants, vues, systèmes, math) ; <code>ctest</code> vert.</li>
 <li>Build <b>sans avertissement</b> (<code>/W4 /WX</code>), <b>CI verte</b>, API documentée en Doxygen, <code>CHANGELOG.md</code> mis à jour.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md356"></a>
+<h1><a class="anchor" id="autotoc_md350"></a>
 Dépendances</h1>
 <ul>
 <li>Réutilise <code>FixedTimestep</code> de <a class="el" href="LOT-01-fenetre-boucle-jeu_2epic_8md.html">LOT-01</a> pour cadencer <code>World::update</code> (dépendance douce : l'ECS est testable indépendamment).</li>
 <li>Utilise la <b>journalisation et les assertions</b> de <a class="el" href="LOT-02-journalisation_2epic_8md.html">LOT-02</a> (<code>PROJECTGAMING_ASSERT</code> pour les préconditions des pools et handles).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md357"></a>
+<h1><a class="anchor" id="autotoc_md351"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-03-tache-01-math-core.html">TACHE-01 — Types mathématiques de Core</a></li>

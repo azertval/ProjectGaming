@@ -1,7 +1,0 @@
-<map id="editor::ToolPanel" name="editor::ToolPanel">
-<area shape="rect" id="Node000001" title="Sélecteur d&#39;outil d&#39;édition (EX&#45;EDIT&#45;014) : Pinceau, Rectangle, Sélection." alt="" coords="48,108,177,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,13,84,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,47,106,106,102,109,59,51"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="108,5,256,45"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,58,124,109,119,106,158,55"/>
-</map>

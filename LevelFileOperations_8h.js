@@ -1,5 +1,5 @@
 var LevelFileOperations_8h =
 [
-    [ "editor::FileOpResult", "structeditor_1_1FileOpResult.html", "structeditor_1_1FileOpResult" ],
-    [ "editor::LevelFileOperations", "classeditor_1_1LevelFileOperations.html", "classeditor_1_1LevelFileOperations" ]
+    [ "hmi::FileOpResult", "structhmi_1_1FileOpResult.html", "structhmi_1_1FileOpResult" ],
+    [ "hmi::LevelFileOperations", "classhmi_1_1LevelFileOperations.html", "classhmi_1_1LevelFileOperations" ]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/GamepadBindingsWidget.cpp File Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/GamepadBindingsWidget.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('GamepadBindingsWidget_8cpp.html',''); 
   <div class="headertitle"><div class="title">GamepadBindingsWidget.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="GamepadBindingsWidget_8h_source.html">Editor/GamepadBindingsWidget.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="GamepadBindingsWidget_8h_source.html">HMI/Interface/GamepadBindingsWidget.h</a>&quot;</code><br />
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
@@ -106,76 +106,85 @@ $(document).ready(function(){initNavTree('GamepadBindingsWidget_8cpp.html',''); 
 <code>#include &lt;QTimer&gt;</code><br />
 <code>#include &lt;QVBoxLayout&gt;</code><br />
 <code>#include &quot;<a class="el" href="GamepadButtonName_8h_source.html">HMI/Input/GamepadButtonName.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for GamepadBindingsWidget.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="GamepadBindingsWidget_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2GamepadBindingsWidget_8cpp" alt=""/></div>
-<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2GamepadBindingsWidget_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2Editor_2GamepadBindingsWidget_8cpp">
-<area shape="rect" title=" " alt="" coords="1185,5,1445,60"/>
-<area shape="rect" href="GamepadBindingsWidget_8h.html" title="Remappage des boutons de manette (EX&#45;CTRL&#45;002), en widget (onglet Options, LOT&#45;38)." alt="" coords="434,108,675,133"/>
-<area shape="poly" title=" " alt="" coords="1185,51,670,109,669,104,1184,46"/>
-<area shape="rect" title=" " alt="" coords="292,401,348,427"/>
-<area shape="poly" title=" " alt="" coords="1184,39,861,50,666,61,471,76,291,96,144,122,87,138,44,155,17,173,10,183,8,193,8,269,10,289,16,307,38,339,70,363,110,381,154,394,199,402,278,409,277,415,199,407,153,399,108,386,68,367,34,342,11,310,5,290,3,269,3,192,5,181,13,170,41,150,85,133,142,117,291,91,470,70,666,55,860,45,1184,34"/>
-<area shape="rect" title=" " alt="" coords="1100,181,1175,207"/>
-<area shape="poly" title=" " alt="" coords="1234,62,1197,83,1166,110,1150,138,1143,168,1137,167,1145,136,1162,106,1194,78,1231,58"/>
-<area shape="rect" title=" " alt="" coords="1175,108,1235,133"/>
-<area shape="poly" title=" " alt="" coords="1283,62,1233,102,1229,97,1280,58"/>
-<area shape="rect" title=" " alt="" coords="1260,108,1369,133"/>
-<area shape="poly" title=" " alt="" coords="1317,60,1317,94,1312,94,1312,60"/>
-<area shape="rect" title=" " alt="" coords="1393,108,1460,133"/>
-<area shape="poly" title=" " alt="" coords="1350,58,1402,97,1399,102,1347,62"/>
-<area shape="rect" title=" " alt="" coords="1484,108,1591,133"/>
-<area shape="poly" title=" " alt="" coords="1384,58,1496,100,1494,105,1382,63"/>
-<area shape="rect" title=" " alt="" coords="1615,108,1686,133"/>
-<area shape="poly" title=" " alt="" coords="1418,57,1602,104,1601,110,1417,63"/>
-<area shape="rect" title=" " alt="" coords="1710,108,1781,133"/>
-<area shape="poly" title=" " alt="" coords="1445,55,1697,105,1696,110,1444,60"/>
-<area shape="rect" title=" " alt="" coords="1805,108,1915,133"/>
-<area shape="poly" title=" " alt="" coords="1445,51,1792,105,1791,110,1444,56"/>
-<area shape="rect" href="GamepadButtonName_8h.html" title="Nom affichable d&#39;un bouton manette et capture générique « prochain bouton pressé » (LOT&#45;30)." alt="" coords="854,108,1101,133"/>
-<area shape="poly" title=" " alt="" coords="1212,63,1036,107,1035,102,1211,57"/>
-<area shape="poly" title=" " alt="" coords="434,129,379,136,321,146,263,162,208,184,179,198,157,211,140,229,125,256,119,282,126,305,141,327,164,346,222,377,279,399,278,404,220,382,161,350,137,330,121,307,114,282,120,254,136,226,154,207,176,193,206,179,261,157,320,141,379,130,433,124"/>
-<area shape="rect" title=" " alt="" coords="651,328,741,353"/>
-<area shape="poly" title=" " alt="" coords="563,132,582,166,609,205,632,229,654,253,688,314,683,317,650,256,628,232,605,208,578,168,558,135"/>
-<area shape="rect" title=" " alt="" coords="862,181,941,207"/>
-<area shape="poly" title=" " alt="" coords="614,131,849,178,848,184,613,136"/>
-<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="419,255,639,280"/>
-<area shape="poly" title=" " alt="" coords="555,134,536,241,531,241,550,133"/>
-<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="408,328,576,353"/>
-<area shape="poly" title=" " alt="" coords="487,136,392,155,285,182,191,217,157,236,134,256,129,268,134,278,150,291,174,302,240,319,318,329,394,334,394,340,318,334,239,324,173,307,147,296,130,282,124,268,130,253,153,232,189,212,284,177,391,150,486,131"/>
-<area shape="rect" href="GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="618,181,838,207"/>
-<area shape="poly" title=" " alt="" coords="584,131,688,174,686,178,582,136"/>
-<area shape="rect" href="GamepadPoller_8h.html" title="Sondage XInput de la manette, fusionné dans un InputState (réutilisable)." alt="" coords="144,255,344,280"/>
-<area shape="poly" title=" " alt="" coords="531,136,282,251,280,247,529,131"/>
-<area shape="poly" title=" " alt="" coords="494,283,446,302,398,330,364,360,338,392,334,388,361,357,394,326,444,297,492,278"/>
-<area shape="poly" title=" " alt="" coords="557,278,657,320,655,325,555,282"/>
-<area shape="rect" title=" " alt="" coords="578,401,649,427"/>
-<area shape="poly" title=" " alt="" coords="546,278,569,299,590,327,604,357,612,387,607,388,599,359,586,329,565,303,543,282"/>
-<area shape="poly" title=" " alt="" coords="526,282,507,317,502,315,521,279"/>
-<area shape="poly" title=" " alt="" coords="465,356,362,398,360,394,463,351"/>
-<area shape="poly" title=" " alt="" coords="513,351,583,392,581,397,510,356"/>
-<area shape="rect" title=" " alt="" coords="387,401,453,427"/>
-<area shape="poly" title=" " alt="" coords="482,356,443,394,440,390,478,352"/>
-<area shape="rect" title=" " alt="" coords="478,401,541,427"/>
-<area shape="poly" title=" " alt="" coords="497,353,506,388,501,389,492,354"/>
-<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="726,401,933,427"/>
-<area shape="poly" title=" " alt="" coords="547,351,762,396,761,401,546,356"/>
-<area shape="poly" title=" " alt="" coords="618,209,496,228,444,241,408,257,378,286,355,321,339,357,329,389,324,387,334,355,350,319,374,282,405,252,442,236,495,222,617,203"/>
-<area shape="poly" title=" " alt="" coords="728,208,704,315,699,314,723,207"/>
-<area shape="poly" title=" " alt="" coords="697,209,576,252,574,247,695,204"/>
-<area shape="poly" title=" " alt="" coords="737,206,751,234,764,272,768,315,765,335,756,355,737,375,713,391,663,408,661,403,711,386,733,371,751,352,760,334,763,314,759,273,746,236,732,208"/>
-<area shape="poly" title=" " alt="" coords="749,205,776,225,800,253,815,288,825,324,832,387,827,388,819,325,810,289,795,256,772,229,746,209"/>
-<area shape="poly" title=" " alt="" coords="285,277,439,322,438,327,283,283"/>
-<area shape="poly" title=" " alt="" coords="978,134,969,168,956,208,930,261,900,313,848,392,843,389,895,310,925,259,951,206,964,166,972,133"/>
-<area shape="poly" title=" " alt="" coords="1004,131,1100,173,1098,178,1002,136"/>
-<area shape="rect" title=" " alt="" coords="1016,181,1075,207"/>
-<area shape="poly" title=" " alt="" coords="990,132,1027,169,1023,173,987,136"/>
+<div class="center"><img src="GamepadBindingsWidget_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GamepadBindingsWidget_8cpp" alt=""/></div>
+<map name="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GamepadBindingsWidget_8cpp" id="a_2home_2runner_2work_2ProjectGaming_2ProjectGaming_2Source_2HMI_2Interface_2GamepadBindingsWidget_8cpp">
+<area shape="rect" title=" " alt="" coords="1226,5,1537,60"/>
+<area shape="rect" href="GamepadBindingsWidget_8h.html" title="Remappage des boutons de manette (EX&#45;CTRL&#45;002), en widget (onglet Options, LOT&#45;38)." alt="" coords="362,108,595,148"/>
+<area shape="poly" title=" " alt="" coords="1226,53,609,116,609,111,1225,47"/>
+<area shape="rect" title=" " alt="" coords="79,416,135,441"/>
+<area shape="poly" title=" " alt="" coords="1226,40,883,54,682,66,481,83,297,105,146,133,88,150,44,168,17,187,10,197,8,208,8,283,15,320,34,354,58,383,82,405,78,409,54,386,29,357,10,322,3,284,3,207,5,195,13,184,42,163,86,145,145,128,296,100,480,78,681,61,883,49,1226,35"/>
+<area shape="rect" title=" " alt="" coords="841,196,916,221"/>
+<area shape="poly" title=" " alt="" coords="1226,45,1086,55,944,69,829,88,790,98,770,110,764,119,763,127,770,147,782,161,796,173,830,191,827,196,793,178,778,165,766,149,757,128,759,117,766,106,788,93,827,82,943,64,1086,50,1226,40"/>
+<area shape="rect" title=" " alt="" coords="1297,115,1357,141"/>
+<area shape="poly" title=" " alt="" coords="1368,62,1343,104,1338,102,1364,59"/>
+<area shape="rect" title=" " alt="" coords="1381,115,1491,141"/>
+<area shape="poly" title=" " alt="" coords="1399,59,1424,102,1420,104,1395,62"/>
+<area shape="rect" title=" " alt="" coords="1515,115,1581,141"/>
+<area shape="poly" title=" " alt="" coords="1429,58,1517,107,1515,111,1427,62"/>
+<area shape="rect" title=" " alt="" coords="1605,115,1712,141"/>
+<area shape="poly" title=" " alt="" coords="1460,58,1613,109,1611,114,1458,63"/>
+<area shape="rect" title=" " alt="" coords="1737,115,1807,141"/>
+<area shape="poly" title=" " alt="" coords="1527,57,1625,79,1725,105,1733,108,1731,113,1723,111,1624,84,1526,63"/>
+<area shape="rect" title=" " alt="" coords="1831,115,1902,141"/>
+<area shape="poly" title=" " alt="" coords="1537,49,1676,72,1821,105,1829,108,1827,113,1819,111,1675,77,1536,55"/>
+<area shape="rect" title=" " alt="" coords="1926,115,2037,141"/>
+<area shape="poly" title=" " alt="" coords="1537,47,1719,71,1915,105,1931,109,1930,114,1914,111,1718,76,1537,53"/>
+<area shape="rect" href="GamepadButtonName_8h.html" title="Nom affichable d&#39;un bouton manette et capture générique « prochain bouton pressé » (LOT&#45;30)." alt="" coords="779,115,1026,141"/>
+<area shape="poly" title=" " alt="" coords="1247,63,975,115,974,110,1246,57"/>
+<area shape="rect" href="Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="1049,115,1273,141"/>
+<area shape="poly" title=" " alt="" coords="1321,63,1202,113,1200,108,1318,58"/>
+<area shape="poly" title=" " alt="" coords="362,148,292,168,225,198,183,227,155,257,136,294,119,343,112,373,110,402,104,402,107,373,113,342,131,292,151,254,179,223,223,194,291,163,361,143"/>
+<area shape="rect" title=" " alt="" coords="775,343,865,368"/>
+<area shape="poly" title=" " alt="" coords="596,140,705,161,750,176,780,194,803,225,816,262,822,298,824,329,818,329,817,299,811,263,798,228,777,198,748,181,704,166,595,145"/>
+<area shape="rect" title=" " alt="" coords="687,196,766,221"/>
+<area shape="poly" title=" " alt="" coords="539,145,678,189,677,194,537,151"/>
+<area shape="rect" href="GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="419,269,639,295"/>
+<area shape="poly" title=" " alt="" coords="460,150,446,166,435,184,430,202,434,220,455,244,483,261,480,266,452,248,430,223,425,202,430,181,442,163,456,147"/>
+<area shape="rect" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="259,343,427,368"/>
+<area shape="poly" title=" " alt="" coords="379,151,326,168,272,193,223,227,203,247,185,271,180,283,180,293,185,303,194,311,221,326,256,337,255,342,219,331,191,316,181,306,175,294,175,282,180,268,199,244,220,222,270,188,324,163,377,145"/>
+<area shape="rect" href="GamepadBindings_8h.html" title="Association remappable action de jeu &#45;&gt; bouton manette, avec persistance (EX&#45;CTRL&#45;002,..." alt="" coords="443,196,663,221"/>
+<area shape="poly" title=" " alt="" coords="499,146,535,184,531,188,495,150"/>
+<area shape="rect" href="GamepadPoller_8h.html" title="Sondage XInput de la manette, fusionné dans un InputState (réutilisable)." alt="" coords="195,269,395,295"/>
+<area shape="poly" title=" " alt="" coords="457,150,321,262,318,258,454,146"/>
+<area shape="poly" title=" " alt="" coords="437,297,344,316,248,345,185,377,134,410,131,406,182,372,246,340,343,310,436,292"/>
+<area shape="poly" title=" " alt="" coords="577,292,762,337,760,342,575,297"/>
+<area shape="rect" title=" " alt="" coords="494,416,565,441"/>
+<area shape="poly" title=" " alt="" coords="532,295,532,402,527,402,527,295"/>
+<area shape="poly" title=" " alt="" coords="500,297,387,340,385,335,498,292"/>
+<area shape="poly" title=" " alt="" coords="306,371,148,418,147,412,304,365"/>
+<area shape="poly" title=" " alt="" coords="374,366,487,409,485,413,372,371"/>
+<area shape="rect" title=" " alt="" coords="353,416,420,441"/>
+<area shape="poly" title=" " alt="" coords="352,367,375,403,370,406,348,370"/>
+<area shape="rect" title=" " alt="" coords="266,416,329,441"/>
+<area shape="poly" title=" " alt="" coords="337,370,314,406,310,403,333,367"/>
+<area shape="rect" href="GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="625,416,831,441"/>
+<area shape="poly" title=" " alt="" coords="405,365,653,411,652,416,404,371"/>
+<area shape="poly" title=" " alt="" coords="444,219,369,226,293,237,228,252,203,261,184,271,156,301,136,336,122,372,114,403,109,402,117,371,131,334,152,297,181,267,200,256,226,247,292,232,368,221,443,214"/>
+<area shape="poly" title=" " alt="" coords="623,219,686,237,718,250,748,267,782,297,808,329,803,333,778,301,745,272,716,255,684,242,621,224"/>
+<area shape="poly" title=" " alt="" coords="552,223,540,257,535,255,547,221"/>
+<area shape="poly" title=" " alt="" coords="591,219,626,238,642,251,654,268,658,282,654,296,636,331,611,362,559,410,555,406,607,359,631,328,650,294,653,282,650,271,638,255,623,242,588,224"/>
+<area shape="poly" title=" " alt="" coords="595,219,636,238,656,251,674,268,696,300,712,337,728,402,722,403,707,339,692,303,670,271,653,255,633,242,592,224"/>
+<area shape="poly" title=" " alt="" coords="305,294,330,330,325,333,300,297"/>
+<area shape="poly" title=" " alt="" coords="911,140,922,165,931,196,932,223,929,251,912,306,892,350,879,370,843,397,802,414,800,409,840,392,875,366,887,347,907,304,924,250,927,223,925,196,917,167,906,142"/>
+<area shape="poly" title=" " alt="" coords="902,142,889,183,884,182,897,140"/>
+<area shape="rect" title=" " alt="" coords="991,196,1049,221"/>
+<area shape="poly" title=" " alt="" coords="921,139,993,186,990,190,919,143"/>
+<area shape="poly" title=" " alt="" coords="1152,143,1114,181,1063,223,1009,259,954,291,858,339,856,335,951,286,1006,254,1060,219,1111,177,1149,139"/>
+<area shape="poly" title=" " alt="" coords="1142,143,1054,192,1052,187,1139,139"/>
+<area shape="rect" title=" " alt="" coords="1273,196,1370,221"/>
+<area shape="poly" title=" " alt="" coords="1186,138,1287,188,1285,192,1183,143"/>
+<area shape="rect" title=" " alt="" coords="1125,196,1249,221"/>
+<area shape="poly" title=" " alt="" coords="1168,140,1181,182,1176,184,1163,142"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespaceeditor" id="r_namespaceeditor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceeditor.html">editor</a></td></tr>
+<tr class="memitem:namespacehmi" id="r_namespacehmi"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
@@ -183,7 +192,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a class="el" href="GamepadBindingsWidget_8cpp.html">GamepadBindingsWidget.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a class="el" href="dir_c537f82b8f955c3b1ce6a355f8c4c1be.html">Interface</a></li><li class="navelem"><a class="el" href="GamepadBindingsWidget_8cpp.html">GamepadBindingsWidget.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

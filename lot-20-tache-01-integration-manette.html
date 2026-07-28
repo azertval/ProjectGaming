@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-20-tache-01-integration-manette.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-20-manette-menu-options_2epic_8md.html">LOT-20</a> · <b>Emplacement :</b> <code>HMI/Input</code>, <code>HMI/Platform</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1142"></a>
+<h1><a class="anchor" id="autotoc_md1136"></a>
 Contexte</h1>
 <p><code>InputState</code> ne suit que clavier et souris. Ce lot ajoute une source manette (XInput, <code>EX-CTRL-002</code>), <b>fusionnée</b> dans les mêmes <code>Key</code> déjà lus par tout le reste du code (voir décisions de cadrage de l'épic) — aucun consommateur (<code>MenuModel</code>, <code>PlayerInputMapper</code>, etc.) ne change.</p>
-<h1><a class="anchor" id="autotoc_md1143"></a>
+<h1><a class="anchor" id="autotoc_md1137"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></code>** (<code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>/<code>.cpp</code>) :<ul>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><code>void setGamepadConnected(bool connected) noexcept</code> / <code>bool gamepadConnected() const noexcept</code> — état de connexion, pour l'affichage informatif du menu d'options (TACHE-02).</li>
 </ul>
 </li>
-<li>**<code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">hmi::Window</a></code>** (<code><a class="el" href="Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées.">Source/HMI/Platform/Window.h</a></code>/<code>.cpp</code>) :<ul>
+<li>**<code>hmi::Window</code>** (<code>Source/HMI/Platform/Window.h</code>/<code>.cpp</code>) :<ul>
 <li><code>#include &lt;Xinput.h&gt;</code>, fonction privée <code>pollGamepad()</code> appelée dans <code>pumpMessages()</code>, <b>après</b> <code>_input.beginFrame()</code> (les événements manette doivent atterrir dans le nouvel état courant, pas l'ancien).</li>
 <li><code>XInputGetState(0, &amp;state)</code> (un seul joueur, index 0) : si <code>ERROR_SUCCESS</code>, traduit <code>state.Gamepad</code> en appels <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> pour chaque bouton/direction mappé (table ci-dessous) et appelle <code>_input.setGamepadConnected(true)</code> ; sinon <code>_input.setGamepadConnected(false)</code> et <b>aucun</b> appel <code>onGamepadKeyDown</code> (déconnectée = state manette entièrement relâché, pas de bouton resté « collé »).</li>
 <li>Zone morte du stick gauche : <code>XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE</code> (constante XInput), en dessous de laquelle le stick est ignoré (évite un déplacement fantôme au repos, jitter matériel).</li>
@@ -139,16 +139,16 @@ Travail à réaliser</h1>
 <li>**<code>Source/HMI/CMakeLists.txt</code>** : ajoute <code>xinput</code> à <code>target_link_libraries(ProjectGaming PRIVATE …)</code>.</li>
 <li>**<code><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></code>** : retire le marqueur « ⚠️ souhaité » d' <code>EX-CTRL-002</code> (implémentée).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1144"></a>
+<h1><a class="anchor" id="autotoc_md1138"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées.">Source/HMI/Platform/Window.h</a></code>/<code>.cpp</code>.</li>
+<li><code>Source/HMI/Platform/Window.h</code>/<code>.cpp</code>.</li>
 <li><code>Source/HMI/CMakeLists.txt</code>.</li>
 <li><code><a class="el" href="controles_8md.html">Documentation/Specification/controles.md</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position.">Source/Test/Unit/HMI/Input/test_input_state.cpp</a></code> (nouveaux cas manette — via <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> directement, sans XInput réel).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1145"></a>
+<h1><a class="anchor" id="autotoc_md1139"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un bouton manette seul (<code>onGamepadKeyDown</code>) rend <code>keyDown</code>/<code>keyPressed</code> vrais, comme au clavier.</li>
@@ -157,19 +157,19 @@ Tests (obligatoires)</h1>
 <li><code>gamepadConnected()</code> reflète le dernier <code>setGamepadConnected</code> appelé.</li>
 <li>Aucun test XInput réel (accès matériel non simulable/déterministe, cohérent avec le reste des accès Win32 non testés unitairement de <code>HMI</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1146"></a>
+<h1><a class="anchor" id="autotoc_md1140"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne jamais appeler <code>onKeyDown</code>/<code>onKeyUp</code> (clavier) depuis le sondage manette</b> — c'est exactement le bug de stomping que la décision de cadrage écarte. Utiliser uniquement <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code>.</li>
 <li><b>Manette déconnectée en cours de partie</b> (débranchée) : <code>XInputGetState</code> renvoie alors <code>ERROR_DEVICE_NOT_CONNECTED</code> en continu ; <code>pollGamepad()</code> doit relâcher <b>tous</b> les boutons manette suivis à ce moment (sinon une direction resterait « collée » indéfiniment) — le relâchement se fait naturellement en n'appelant <code>onGamepadKeyDown</code> pour AUCUN bouton ce pas-ci (l'absence d'appel <code>onGamepadKeyDown</code> équivaut, après un <code>beginFrame</code> puis aucun événement, à un état manette resté à sa valeur précédente — il faut donc explicitement appeler <code>onGamepadKeyUp</code> pour chaque touche potentiellement mappée quand la manette est absente, pas simplement ne rien faire).</li>
 <li>La zone morte s'applique <b>uniquement</b> au stick (analogique) ; le D-pad (numérique) n'a pas de zone morte à appliquer, un bit est déjà net.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1147"></a>
+<h1><a class="anchor" id="autotoc_md1141"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Manette fusionnée dans <code>InputState</code>, sondée par <code>Window</code>, testée (<code>ctest</code> vert) sans dépendre d'un périphérique réel ; build <code>/W4 /WX</code> sans avertissement ; Doxygen à jour ; <code>EX-CTRL-002</code> marquée implémentée.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1148"></a>
+<h1><a class="anchor" id="autotoc_md1142"></a>
 Exigences</h1>
 <p><code>EX-CTRL-002</code> (déjà déclarée, implémentation). </p>
 </div></div><!-- contents -->

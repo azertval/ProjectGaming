@@ -1,5 +1,0 @@
-<map id="hmi::OptionsScreen" name="hmi::OptionsScreen">
-<area shape="rect" id="Node000001" title="Écran de réglages : bascule V&#45;Sync, ouvre les sous&#45;menus de remappage des touches,..." alt="" coords="5,79,155,104"/>
-<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="29,5,131,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
-</map>

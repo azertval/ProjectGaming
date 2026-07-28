@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-38-tache-01-menu-navigation-qt.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-38-refonte-ihm-qt-menus-options_2epic_8md.html">LOT-38</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1762"></a>
+<h1><a class="anchor" id="autotoc_md1756"></a>
 Contexte</h1>
-<p>La navigation historique repose sur <code>IScreen</code> / <code>ScreenManager</code> / <code>ScreenTransition</code> (un écran renvoie une <b>intention</b> de bascule, appliquée par le manager via une factory ; <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code>). Sous Qt, la navigation menu ↔ jeu ↔ éditeur est portée par les <b>vues/fenêtres Qt</b>. Cette tâche crée le <b>menu principal</b> et le <b>routage</b> entre modes, préparant le retrait de l'ancienne pile d'écrans (TACHE-03).</p>
-<h1><a class="anchor" id="autotoc_md1763"></a>
+<p>La navigation historique repose sur <code>IScreen</code> / <code>ScreenManager</code> / <code>ScreenTransition</code> (un écran renvoie une <b>intention</b> de bascule, appliquée par le manager via une factory ; <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code>). Sous Qt, la navigation menu ↔ jeu ↔ éditeur est portée par les <b>vues/fenêtres Qt</b>. Cette tâche crée le <b>menu principal</b> et le <b>routage</b> entre modes, préparant le retrait de l'ancienne pile d'écrans (TACHE-03).</p>
+<h1><a class="anchor" id="autotoc_md1757"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Menu principal Qt</b> : écran d'accueil (widget dédié ou page d'un <code>QStackedWidget</code>) avec les entrées existantes : Jouer, Éditeur, Options, Touches (jeu/éditeur/manette), Enregistrer les logs, Quitter. Libellés localisés (<code>Localization</code>).</li>
@@ -105,31 +105,31 @@ Travail à réaliser</h1>
 <li><b>Enregistrement des logs de session</b> : réutiliser <code><a class="el" href="namespacehmi.html#a680b600014001a99d296df386e7ed9d8" title="Enregistre les messages de log de la session dans un fichier.">hmi::saveSessionLog</a></code> + <code>MemoryLogSink</code> (initialisé dans le <code>main</code> Qt, <code>LOT-34</code>), déclenché par l'entrée de menu.</li>
 <li><b>Quitter</b> : fermeture propre (garde-fou <code>dirty</code> de l'éditeur, <code>LOT-36</code>, respecté).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1764"></a>
+<h1><a class="anchor" id="autotoc_md1758"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/MainMenu.{h,cpp}</code>, <code>Source/Editor/AppNavigator.{h,cpp}</code> (ou navigation dans <code>MainWindow</code>).</li>
-<li><code><a class="el" href="main__qt_8cpp.html" title="Point d&#39;entrée de l&#39;éditeur Qt (LOT-34, refonte IHM).">Source/Editor/main_qt.cpp</a></code> (câblage logs de session / navigateur).</li>
+<li><code>Source/Editor/main_qt.cpp</code> (câblage logs de session / navigateur).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1765"></a>
+<h1><a class="anchor" id="autotoc_md1759"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de navigation testable</b> : la machine à états de navigation (mode courant, transitions autorisées, garde-fou avant de quitter l'éditeur modifié) est vérifiable sans Qt.</li>
 <li><b>Vérification manuelle</b> : naviguer menu → jeu → menu → éditeur → menu ; enregistrer les logs ; quitter avec brouillon modifié (confirmation).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1766"></a>
+<h1><a class="anchor" id="autotoc_md1760"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas recréer un <code>ScreenManager</code></b> : profiter des mécanismes Qt (<code>QStackedWidget</code>, signaux) ; la logique de transition reste minimale et testable.</li>
 <li><b>Partage du viewport</b> entre jeu et éditeur : décider (réutilisation vs instances distinctes) en tenant compte du coût de recréation du <code>GraphicsDevice</code>.</li>
 <li><b>Coexistence</b> : l'exe legacy existe encore à cette tâche ; le retrait est TACHE-03.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1767"></a>
+<h1><a class="anchor" id="autotoc_md1761"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Menu principal Qt et navigation entre modes opérationnels ; logs de session et quitter (avec garde-fou) fonctionnels ; navigation <b>testée</b> ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1768"></a>
+<h1><a class="anchor" id="autotoc_md1762"></a>
 Exigences</h1>
 <p><code>EX-IHM-040</code> (menus en Qt) ; réutilise l'enregistrement des logs (<code>LOT-02</code>), <code>Localization</code> (<code>LOT-06</code>), le garde-fou <code>dirty</code> (<code>LOT-36</code>). </p>
 </div></div><!-- contents -->

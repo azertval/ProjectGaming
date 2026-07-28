@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,16 +94,16 @@ $(document).ready(function(){initNavTree('lot-20-tache-02-menu-options.html','')
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-20-manette-menu-options_2epic_8md.html">LOT-20</a> · <b>Emplacement :</b> <code>HMI/Interface</code>, <code>HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1149"></a>
+<h1><a class="anchor" id="autotoc_md1143"></a>
 Contexte</h1>
 <p>Aucun écran ne centralise de réglages : la langue se change via une icône en coin du seul menu principal, et le V-Sync est fixé en dur (<code>GraphicsDevice::present</code>, <code>Present(1, 0)</code>). Ce lot ajoute un écran d'options (<code>ScreenId::Options</code>), accessible comme 4ᵉ option du menu principal.</p>
-<h1><a class="anchor" id="autotoc_md1150"></a>
+<h1><a class="anchor" id="autotoc_md1144"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">hmi::GraphicsDevice</a></code>** (<code><a class="el" href="GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image.">Source/HMI/Graphics/GraphicsDevice.h</a></code>/<code>.cpp</code>) : nouveau membre <code>bool _vsyncEnabled = true;</code>, accesseurs <code>bool vsyncEnabled() const</code> / <code>void setVSyncEnabled(bool enabled)</code> ; <code>present()</code> utilise <code>_swapChain-&gt;Present(_vsyncEnabled ? 1 : 0, 0)</code> au lieu de la valeur <code>1</code> figée.</li>
-<li>**<code><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran cible de l&#39;application.">hmi::ScreenId</a></code>** (<code><a class="el" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans.">Source/HMI/Interface/IScreen.h</a></code>) : nouvelle valeur <code>Options</code>.</li>
-<li>**<code><a class="el" href="namespacehmi.html#a001461460d9ba91885ad98efd4f7f673" title="Action produite par la confirmation d&#39;une option du menu d&#39;options.">hmi::OptionsAction</a></code>** (nouvel enum, <code><a class="el" href="OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol, défilement et actions.">Source/HMI/Interface/OptionsModel.h</a></code>) : <code>ToggleVSync</code>, <code>Back</code>.</li>
-<li>**<code><a class="el" href="classhmi_1_1OptionsModel.html" title="Logique du menu d&#39;options, indépendante du dessin.">hmi::OptionsModel</a></code>** (nouveau, <code>.h</code>/<code>.cpp</code>, logique <b>pure</b>, sur le modèle exact de <code>MenuModel</code>) :<ul>
+<li>**<code>hmi::ScreenId</code>** (<code>Source/HMI/Interface/IScreen.h</code>) : nouvelle valeur <code>Options</code>.</li>
+<li>**<code>hmi::OptionsAction</code>** (nouvel enum, <code>Source/HMI/Interface/OptionsModel.h</code>) : <code>ToggleVSync</code>, <code>Back</code>.</li>
+<li>**<code>hmi::OptionsModel</code>** (nouveau, <code>.h</code>/<code>.cpp</code>, logique <b>pure</b>, sur le modèle exact de <code>MenuModel</code>) :<ul>
 <li><code>OPTION_COUNT = 2</code> : V-Sync (bascule), Retour.</li>
 <li>Constructeur <code>OptionsModel(const Localization&amp; localization, bool vsyncEnabled)</code> — snapshot de l'état V-Sync courant, pour afficher le bon libellé (« Activé »/« Désactivé ») dès la première frame.</li>
 <li><code>std::optional&lt;OptionsAction&gt; update(const InputState&amp; input)</code> : navigation clavier/manette (<code>↑</code>/<code>↓</code>, fusionnés avec la manette via <code>InputState</code>, TACHE-01) et souris (survol + clic, <code>optionAtPoint</code>, réutilise <code>MenuModel::MARGIN_X</code>/<code>OPTIONS_TOP</code>/<code>OPTION_SPACING</code>/ <code>OPTION_SCALE</code> — pas de constantes dupliquées) ; renvoie l'action de l'option confirmée.</li>
@@ -111,49 +111,49 @@ Travail à réaliser</h1>
 <li><code>optionLabel(int index)</code>, <code>optionWidth(int index)</code>, <code>selectedIndex()</code> — mêmes signatures que <code>MenuModel</code>.</li>
 </ul>
 </li>
-<li>**<code><a class="el" href="classhmi_1_1OptionsScreen.html" title="Écran de réglages : bascule V-Sync, ouvre les sous-menus de remappage des touches,...">hmi::OptionsScreen</a></code>** (nouveau, <code>.h</code>/<code>.cpp</code>, implémente <code>IScreen</code>) :<ul>
+<li>**<code>hmi::OptionsScreen</code>** (nouveau, <code>.h</code>/<code>.cpp</code>, implémente <code>IScreen</code>) :<ul>
 <li>Construit avec <code>Localization&amp;</code>, <code>GraphicsDevice&amp;</code>.</li>
-<li><code>update</code> : délègue à <code>OptionsModel::update</code> ; sur <code>ToggleVSync</code>, appelle <code>_graphics.setVSyncEnabled(!_graphics.vsyncEnabled())</code> puis <code>_model.setVSyncEnabled(...)</code> avec la nouvelle valeur, reste sur l'écran (<code>ScreenTransition::none()</code>) ; sur <code>Back</code>, retourne <code>ScreenTransition::switchTo(ScreenId::Menu)</code>. Traite aussi le bouton de langue en coin (<code><a class="el" href="classhmi_1_1LanguageSelector.html" title="Logique du bouton de langue : un rectangle en bas à droite qui bascule FR ↔ EN.">hmi::LanguageSelector</a></code>, réutilisé <b>tel quel</b>, même geste que <code>MenuScreen</code>) et capture <code>input.gamepadConnected()</code> dans un membre (pour l'affichage informatif, <code>render</code> ne reçoit pas <code>InputState</code>).</li>
+<li><code>update</code> : délègue à <code>OptionsModel::update</code> ; sur <code>ToggleVSync</code>, appelle <code>_graphics.setVSyncEnabled(!_graphics.vsyncEnabled())</code> puis <code>_model.setVSyncEnabled(...)</code> avec la nouvelle valeur, reste sur l'écran (<code>ScreenTransition::none()</code>) ; sur <code>Back</code>, retourne <code>ScreenTransition::switchTo(ScreenId::Menu)</code>. Traite aussi le bouton de langue en coin (<code>hmi::LanguageSelector</code>, réutilisé <b>tel quel</b>, même geste que <code>MenuScreen</code>) et capture <code>input.gamepadConnected()</code> dans un membre (pour l'affichage informatif, <code>render</code> ne reçoit pas <code>InputState</code>).</li>
 <li><code>render</code> : titre, les deux options (surbrillance de la sélection, même style que <code>MenuScreen</code>), une ligne d'état « Manette : connectée »/« non connectée » (<code>options.manette_*</code>), le bouton de langue en coin.</li>
 </ul>
 </li>
-<li>**<code><a class="el" href="classhmi_1_1MenuModel.html" title="Logique du menu principal, indépendante du dessin.">hmi::MenuModel</a></code>** : <code>OPTION_COUNT</code> passe à 4 ; nouvelle option "Options" (clé <code>menu.options</code>) menant à <code>ScreenTransition::switchTo(ScreenId::Options)</code>.</li>
-<li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>** : construit <code>OptionsScreen</code> dans la fabrique d'écrans (capture <code>graphics</code>, déjà utilisée par ailleurs dans la boucle principale, par référence).</li>
+<li>**<code>hmi::MenuModel</code>** : <code>OPTION_COUNT</code> passe à 4 ; nouvelle option "Options" (clé <code>menu.options</code>) menant à <code>ScreenTransition::switchTo(ScreenId::Options)</code>.</li>
+<li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>** : construit <code>OptionsScreen</code> dans la fabrique d'écrans (capture <code>graphics</code>, déjà utilisée par ailleurs dans la boucle principale, par référence).</li>
 <li><b>Catalogues de traduction</b> (<code>Source/Elements/Localization/fr.lang</code>, <code>en.lang</code>) : nouvelles clés <code>menu.options</code>, <code>options.titre</code>, <code>options.vsync_on</code>, <code>options.vsync_off</code>, <code>options.retour</code>, <code>options.manette_connectee</code>, <code>options.manette_absente</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1151"></a>
+<h1><a class="anchor" id="autotoc_md1145"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="GraphicsDevice_8h.html" title="Initialisation Direct3D 11 et présentation de l&#39;image.">Source/HMI/Graphics/GraphicsDevice.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="IScreen_8h.html" title="Interface d&#39;un écran d&#39;application et modèle de transition entre écrans.">Source/HMI/Interface/IScreen.h</a></code>.</li>
-<li><code><a class="el" href="OptionsModel_8h.html" title="Logique (testable) du menu d&#39;options : sélection, survol, défilement et actions.">Source/HMI/Interface/OptionsModel.h</a></code>/<code>.cpp</code> (nouveau).</li>
-<li><code><a class="el" href="OptionsScreen_8h.html" title="Écran du menu d&#39;options : dessine le menu et applique ses actions.">Source/HMI/Interface/OptionsScreen.h</a></code>/<code>.cpp</code> (nouveau).</li>
-<li><code><a class="el" href="MenuModel_8h.html" title="Logique (testable) du menu principal : sélection, survol et transitions.">Source/HMI/Interface/MenuModel.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
+<li><code>Source/HMI/Interface/IScreen.h</code>.</li>
+<li><code>Source/HMI/Interface/OptionsModel.h</code>/<code>.cpp</code> (nouveau).</li>
+<li><code>Source/HMI/Interface/OptionsScreen.h</code>/<code>.cpp</code> (nouveau).</li>
+<li><code>Source/HMI/Interface/MenuModel.h</code>/<code>.cpp</code>.</li>
+<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>.</li>
 <li><code>Source/HMI/CMakeLists.txt</code> (nouveaux fichiers).</li>
 <li><code>Source/Elements/Localization/fr.lang</code>, <code>en.lang</code>.</li>
-<li>Tests : <code><a class="el" href="test__options__model_8cpp.html" title="Tests unitaires de la logique du menu d&#39;options : navigation, défilement et actions.">Source/Test/Unit/HMI/Interface/test_options_model.cpp</a></code> (nouveau), <code><a class="el" href="test__menu__model_8cpp.html" title="Tests unitaires de la logique du menu : navigation clavier/souris et transitions.">test_menu_model.cpp</a></code> (option supplémentaire).</li>
+<li>Tests : <code>Source/Test/Unit/HMI/Interface/test_options_model.cpp</code> (nouveau), <code>test_menu_model.cpp</code> (option supplémentaire).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1152"></a>
+<h1><a class="anchor" id="autotoc_md1146"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>OptionsModel</code> : navigation clavier (<code>↑</code>/<code>↓</code> avec bouclage), confirmation (<code>Entrée</code>) renvoie <code>ToggleVSync</code> pour l'option 0 et <code>Back</code> pour l'option 1 ; survol/clic souris équivalents (<code>optionAtPoint</code>) ; <code>setVSyncEnabled</code> change le libellé retourné par <code>optionLabel(0)</code>.</li>
 <li><code>MenuModel</code> : la 4ᵉ option (« Options ») produit <code>ScreenTransition::switchTo(ScreenId::Options)</code> une fois confirmée ; les tests existants (3 options) sont mis à jour pour <code>OPTION_COUNT = 4</code> sans changer leur intention.</li>
 <li><code>GraphicsDevice</code> non testé unitairement (GPU requis, comme le reste de <code>HMI/Graphics</code>) — vérification par usage direct dans l'application (TACHE-03).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1153"></a>
+<h1><a class="anchor" id="autotoc_md1147"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer <code>MARGIN_X</code>/<code>OPTIONS_TOP</code>/<code>OPTION_SPACING</code>/<code>OPTION_SCALE</code></b> : <code>OptionsModel</code> réutilise directement les constantes publiques de <code>MenuModel</code> (déjà <code>static constexpr</code>, accessibles depuis n'importe quelle classe) — un seul jeu de constantes de mise en page pour tous les écrans à liste verticale (menu principal, options).</li>
 <li>**<code>OptionsScreen</code> est reconstruit à chaque visite** (<code>ScreenManager</code> détruit l'écran sortant à chaque transition, comme documenté pour <code>EditorScreen</code>/LOT-15) : le snapshot V-Sync au constructeur (<code>_graphics.vsyncEnabled()</code>) est donc <b>toujours</b> à jour à l'entrée sur l'écran, sans mécanisme de synchronisation supplémentaire à maintenir.</li>
 <li>Le bouton de langue en coin (<code>LanguageSelector</code>) est un <b>second</b> moyen de changer la langue, redondant avec l'icône déjà présente sur le menu principal — c'est voulu (cohérence visuelle, le réglage doit être trouvable depuis l'écran qui en parle) plutôt qu'une régression à corriger.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1154"></a>
+<h1><a class="anchor" id="autotoc_md1148"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Écran d'options fonctionnel et testé (<code>ctest</code> vert) ; build <code>/W4 /WX</code> sans avertissement ; Doxygen à jour ; catalogues FR/EN à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1155"></a>
+<h1><a class="anchor" id="autotoc_md1149"></a>
 Exigences</h1>
 <p>Aucune nouvelle exigence propre — réutilise <code>EX-REN-022</code> (V-Sync activable), <code>EX-REN-033</code> (catalogue de traduction). </p>
 </div></div><!-- contents -->

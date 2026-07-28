@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,15 +94,15 @@ $(document).ready(function(){initNavTree('lot-29-tache-02-integration-jeu-editeu
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-29-remappage-touches_2epic_8md.html">LOT-29</a> · <b>Emplacement :</b> <code>HMI/Input</code>, <code>HMI/Interface</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1443"></a>
+<h1><a class="anchor" id="autotoc_md1437"></a>
 Contexte</h1>
 <p>Branche le jeu et l'éditeur sur les classes de TACHE-01, en remplaçant les lectures directes de <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></code> par une consultation des bindings — le point d'insertion exact anticipé par le commentaire de <code><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">PlayerInputMapper.h</a></code> (« un futur remappage… ne toucherait que cette fonction »). Avec les valeurs par défaut de TACHE-01, le comportement observable doit rester <b>strictement identique</b> à avant ce lot.</p>
-<h1><a class="anchor" id="autotoc_md1444"></a>
+<h1><a class="anchor" id="autotoc_md1438"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">Source/HMI/Input/PlayerInputMapper.h</a></code>/<code>.cpp</code>** : signature <code>toPlayerInput(const InputState&amp;, const GameKeyBindings&amp;)</code>. Gauche/droite/sauter passent par <code>input.keyDown(bindings.key(GameAction::…)) || input.keyDown(Key::Q/D/W)</code> (alias fixe conservé, voir décision de cadrage de l'épic) ; visée haut/bas et dash passent entièrement par les bindings, sans alias.</li>
-<li>**<code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code>** : nouveau membre <code>const GameKeyBindings&amp; _gameBindings</code>, ajouté aux deux constructeurs (séquence de niveaux et niveau unique en mémoire), transmis à <code>toPlayerInput</code>.</li>
-<li>**<code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code>** : nouveaux membres <code>const EditorKeyBindings&amp; _editorBindings</code> et <code>const GameKeyBindings&amp; _gameBindings</code> (ce second uniquement pour le relayer au <code>GameScreen</code> de l'essai immédiat). Les lectures directes suivantes deviennent des consultations de <code>_editorBindings.key(EditorAction::…)</code>, le préfixe <code>Ctrl</code> restant câblé en dur où il existait déjà :<ul>
+<li>**<code>Source/HMI/Interface/GameScreen.h</code>/<code>.cpp</code>** : nouveau membre <code>const GameKeyBindings&amp; _gameBindings</code>, ajouté aux deux constructeurs (séquence de niveaux et niveau unique en mémoire), transmis à <code>toPlayerInput</code>.</li>
+<li>**<code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code>** : nouveaux membres <code>const EditorKeyBindings&amp; _editorBindings</code> et <code>const GameKeyBindings&amp; _gameBindings</code> (ce second uniquement pour le relayer au <code>GameScreen</code> de l'essai immédiat). Les lectures directes suivantes deviennent des consultations de <code>_editorBindings.key(EditorAction::…)</code>, le préfixe <code>Ctrl</code> restant câblé en dur où il existait déjà :<ul>
 <li><code>Key::S</code> (+ <code>Ctrl</code>) → <code>EditorAction::Save</code>.</li>
 <li><code>Key::Z</code> (+ <code>Ctrl</code>) → <code>EditorAction::Undo</code>.</li>
 <li><code>Key::Y</code> (+ <code>Ctrl</code>) → <code>EditorAction::Redo</code>.</li>
@@ -116,40 +116,40 @@ Travail à réaliser</h1>
 </ul>
 </li>
 <li><b>Panneau d'aide</b> (<code>EditorScreen::renderHelp</code>, raccourcis <code>F1</code>) : les lignes actuellement câblées en dur (« Ctrl+C / Ctrl+V… », « F2 : renommer… », etc.) interpolent désormais <code>keyName(_editorBindings.key(EditorAction::…))</code>, pour rester correctes après un remap.</li>
-<li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>** : les deux constructions de <code>GameScreen</code>/<code>EditorScreen</code> dans la fabrique d'écrans reçoivent les bindings chargés (voir TACHE-03 pour leur construction/chargement au démarrage — cette tâche peut temporairement les construire en local si TACHE-03 n'est pas encore faite, ou les deux tâches sont menées de front sur ce fichier).</li>
+<li>**<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>** : les deux constructions de <code>GameScreen</code>/<code>EditorScreen</code> dans la fabrique d'écrans reçoivent les bindings chargés (voir TACHE-03 pour leur construction/chargement au démarrage — cette tâche peut temporairement les construire en local si TACHE-03 n'est pas encore faite, ou les deux tâches sont menées de front sur ce fichier).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1445"></a>
+<h1><a class="anchor" id="autotoc_md1439"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">Source/HMI/Input/PlayerInputMapper.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="EditorScreen_8h.html" title="Écran « Mode Édition » : éditeur de niveau intégré (LOT-14).">Source/HMI/Interface/EditorScreen.h</a></code>/<code>.cpp</code>.</li>
-<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code>.</li>
+<li><code>Source/HMI/Interface/GameScreen.h</code>/<code>.cpp</code>.</li>
+<li><code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code>.</li>
+<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code>.</li>
 <li>Tests : <code><a class="el" href="test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput).">Source/Test/Unit/HMI/Input/test_player_input_mapper.cpp</a></code> (signature mise à jour), tests existants d'<code>EditorScreen</code>/<code>GameScreen</code> s'il y en a qui construisent ces écrans directement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1446"></a>
+<h1><a class="anchor" id="autotoc_md1440"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code><a class="el" href="test__player__input__mapper_8cpp.html" title="Tests unitaires de la traduction clavier/manette → intention (toPlayerInput).">test_player_input_mapper.cpp</a></code> : tous les cas existants adaptés à la nouvelle signature, plus au moins un cas où un binding <b>non défaut</b> (ex. <code>GameAction::Jump</code> remappé sur une touche arbitraire) déclenche bien <code>jumpPressed</code>/<code>jumpHeld</code> sur cette touche et plus sur <code>Space</code>/<code>W</code> seul si l'alias n'existe pas pour cette action (dash/visée) — et inversement, confirme que l'alias fixe (<code>Q</code>/<code>D</code>/<code>W</code>) continue de fonctionner même quand le binding principal a été remappé ailleurs.</li>
 <li><b>Aucune régression</b> : la suite de tests d'intégration jeu/éditeur existante reste verte avec des bindings par défaut (comportement observable inchangé).</li>
 <li>Un test (modèle ou intégration léger) confirme qu'<code>EditorScreen::startPlaytest()</code> propage bien les bindings de jeu courants au <code>GameScreen</code> interne (ex. jeu jouable avec une touche de saut remappée, depuis l'essai immédiat).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1447"></a>
+<h1><a class="anchor" id="autotoc_md1441"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Écart constaté (demandeur, en revue)</b> : la manette n'ayant aucune couche de configuration (<code>Window::pollGamepad</code> câble chaque bouton XInput en dur sur une touche fixe), un remap clavier aurait silencieusement désactivé le bouton manette équivalent (ex. remapper Sauter loin d'Espace désactive le bouton A). Corrigé en faisant vérifier à <code>PlayerInputMapper</code> la touche par défaut de chaque action <b>en plus</b> de la touche liée (<code>GameKeyBindings::defaultKey</code>) — voir la décision de cadrage de l'épic pour le détail. Un vrai remappage manette reste hors périmètre (différé à un lot dédié).</li>
 <li><b>Régression constatée en usage réel, après livraison de TACHE-03</b> (rapportée par le demandeur : « le remapping n'a pas d'effet en jeu ») : les alias fixes <code>Q</code>/<code>D</code>/<code>W</code> (ci-dessus) entraient en collision avec un remap d'une <b>autre</b> action sur cette même touche — remapper Gauche sur <code>D</code> neutralisait tout mouvement horizontal (<code>D</code> déclenchait à la fois Gauche, via le remap, et Droite, via l'alias fixe câblé en dur). Le filet de sécurité manette souffrait du même défaut structurel, non encore déclenché mais latent. <b>Corrigé</b> : alias fixes retirés entièrement ; le filet manette ne revérifie la touche par défaut d'une action que si aucune <b>autre</b> action ne se l'est appropriée entre-temps (<code>GameKeyBindings::isKeyClaimedByOtherAction</code>). Voir la décision de cadrage de l'épic (section « Filet de sécurité manette ») pour le détail complet et les tests de régression associés.</li>
 <li><b>Écart constaté (TACHE-01)</b> : <code><a class="el" href="GameKeyBindings_8cpp.html">GameKeyBindings.cpp</a></code>/<code><a class="el" href="EditorKeyBindings_8cpp.html">EditorKeyBindings.cpp</a></code> sont compilés directement dans les cibles <code>ProjectGaming</code> et <code>UnitTests</code> (comme <code><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></code>), pas dans la bibliothèque <code>Core</code> — <code>Core</code> lie <code>nlohmann_json</code> en <code>PRIVATE</code>, ce lien ne se propage donc pas. Corrigé en ajoutant <code>nlohmann_json::nlohmann_json</code> directement aux deux cibles (<code>Source/HMI/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>).</li>
 <li><b>Échap pendant la capture, cadrage définitif</b> : <code>Échap</code> annule la capture en cours (binding inchangé), cohérent avec la convention déjà en place ailleurs (<code>TextInputField</code>, dialogues de confirmation) — voir TACHE-03.</li>
-<li>Cette tâche ne touche <b>aucune</b> UI de remappage (TACHE-03) : les bindings sont pour l'instant fixes (valeurs par défaut, ou construites en dur temporairement dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code> si menée avant TACHE-03) — seul le <b>branchement</b> de lecture change, pas encore la possibilité de le modifier depuis le jeu.</li>
+<li>Cette tâche ne touche <b>aucune</b> UI de remappage (TACHE-03) : les bindings sont pour l'instant fixes (valeurs par défaut, ou construites en dur temporairement dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code> si menée avant TACHE-03) — seul le <b>branchement</b> de lecture change, pas encore la possibilité de le modifier depuis le jeu.</li>
 <li>Vérifier que remplacer les lectures directes ne change <b>aucun</b> comportement de bord (ex. <code>input.keyDown(Control) &amp;&amp; input.keyPressed(bindings.key(Save))</code> doit rester équivalent bit à bit à <code>input.keyDown(Control) &amp;&amp; input.keyPressed(Key::S)</code> quand le binding vaut <code>Key::S</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1448"></a>
+<h1><a class="anchor" id="autotoc_md1442"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Jeu et éditeur fonctionnent identiquement à avant ce lot (bindings par défaut) ; zéro régression sur la suite de tests existante ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1449"></a>
+<h1><a class="anchor" id="autotoc_md1443"></a>
 Exigences</h1>
 <p><code>EX-CTRL-010</code> (action dissociée de la touche physique, désormais vrai pour les actions couvertes), <code>EX-CTRL-012</code>. </p>
 </div></div><!-- contents -->

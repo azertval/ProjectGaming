@@ -1,5 +1,0 @@
-<map id="hmi::EditorScreen" name="hmi::EditorScreen">
-<area shape="rect" id="Node000001" title="Éditeur de niveau intégré : grille peignable à la souris depuis une palette de tuiles." alt="" coords="5,79,143,104"/>
-<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="23,5,125,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,44,77,79,71,79,71,44"/>
-</map>

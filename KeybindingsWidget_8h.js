@@ -1,4 +1,4 @@
 var KeybindingsWidget_8h =
 [
-    [ "editor::KeybindingsWidget", "classeditor_1_1KeybindingsWidget.html", "classeditor_1_1KeybindingsWidget" ]
+    [ "hmi::KeybindingsWidget", "classhmi_1_1KeybindingsWidget.html", "classhmi_1_1KeybindingsWidget" ]
 ];

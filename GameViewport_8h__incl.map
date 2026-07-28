@@ -1,4 +1,4 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/GameViewport.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/GameViewport.h">
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Game/GameViewport.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Game/GameViewport.h">
 <area shape="rect" id="Node000001" title="Viewport de l&#39;éditeur : rendu Direct3D 11 du brouillon d&#39;édition et de l&#39;essai (LOT&#45;34/35)." alt="" coords="2263,5,2484,60"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,108,72,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2262,38,1816,43,1188,56,555,77,291,92,91,111,86,111,85,106,90,105,290,87,554,72,1188,50,1816,38,2262,32"/>

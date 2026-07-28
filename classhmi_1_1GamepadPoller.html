@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -129,7 +129,7 @@ Static Private Attributes</h2></td></tr>
 <div class="textblock"><p>Sonde la manette (XInput, joueur 0) et fusionne son état dans un <code><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></code>. </p>
 <p>Alimente deux pistes indépendantes du même relevé : la fusion clavier/manette sur <code>Key</code> (<code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code>, fixe, navigation de menu — aucune touche clavier n'est écrasée) et l'état brut par <code>GamepadButton</code> (remappable via <code><a class="el" href="classhmi_1_1GamepadBindings.html" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) -&gt; bouton manette,...">GamepadBindings</a></code>, <code>EX-CTRL-002</code>).</p>
 <p>Objet <b>à état</b> (dernier état de connexion + compteur d'anti-saccade), à appeler <b>une fois par frame</b> avant que la logique ne consomme les entrées. Le sondage est <em>throttlé</em> tant que la manette reste déconnectée (<code>XInputGetState</code> est coûteux sur un slot vide — micro-saccades chez un joueur clavier, <code>LOT-33</code>).</p>
-<p>Extrait de <code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">hmi::Window</a></code> (<code>LOT-34</code>) pour être partagé par la fenêtre Win32 historique <b>et</b> le viewport Qt, sans dépendre d'aucune fenêtre. </p>
+<p>Extrait de l'ancienne fenêtre Win32 (<code>LOT-34</code>) pour être utilisé par le viewport Qt, sans dépendre d'aucune fenêtre. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1ba7adb75dea62a30fca7a207dc79868" name="a1ba7adb75dea62a30fca7a207dc79868"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ba7adb75dea62a30fca7a207dc79868">&#9670;&#160;</a></span>poll()</h2>

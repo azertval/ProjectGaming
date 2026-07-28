@@ -1,7 +1,7 @@
 var TileTaxonomy_8h =
 [
-    [ "editor::TileEntry", "structeditor_1_1TileEntry.html", "structeditor_1_1TileEntry" ],
-    [ "editor::TileSubgroup", "structeditor_1_1TileSubgroup.html", "structeditor_1_1TileSubgroup" ],
-    [ "editor::TileCategory", "structeditor_1_1TileCategory.html", "structeditor_1_1TileCategory" ],
-    [ "tileTaxonomy", "TileTaxonomy_8h.html#a27fcc2cd7effbb1e0e2675fe8c525bb5", null ]
+    [ "hmi::TileEntry", "structhmi_1_1TileEntry.html", "structhmi_1_1TileEntry" ],
+    [ "hmi::TileSubgroup", "structhmi_1_1TileSubgroup.html", "structhmi_1_1TileSubgroup" ],
+    [ "hmi::TileCategory", "structhmi_1_1TileCategory.html", "structhmi_1_1TileCategory" ],
+    [ "tileTaxonomy", "TileTaxonomy_8h.html#a324d7671eeb331de4b3459d66be9d0ca", null ]
 ];

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -242,7 +242,7 @@ Static Private Attributes</h2></td></tr>
 <div class="textblock"><p>État des entrées d'une frame, avec détection des fronts (pressée / relâchée). </p>
 <p>L'objet distingue, pour chaque touche et chaque bouton, l'état <b>courant</b> (enfoncé ou non) et l'état de la <b>frame précédente</b>, ce qui permet de déduire les fronts : <em>pressée</em> (« vient d'être enfoncée », <code>EX-CTRL-011</code>) et <em>relâchée</em>. Le cycle d'une frame est :</p><ol type="1">
 <li><code><a class="el" href="classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab" title="Ouvre une nouvelle frame : recopie l&#39;état courant vers l&#39;état précédent.">beginFrame()</a></code> recopie l'état courant vers l'état précédent ;</li>
-<li>la couche de capture (<code><a class="el" href="classhmi_1_1Window.html" title="Encapsule une fenêtre Win32 (création, événements, entrées, fermeture) en RAII.">Window</a></code>) applique les événements via <code>onKeyDown</code>/<code>onKeyUp</code>/… ;</li>
+<li>la couche de capture (<code>Window</code>) applique les événements via <code>onKeyDown</code>/<code>onKeyUp</code>/… ;</li>
 <li>la logique lit <code>keyPressed</code>/<code>keyReleased</code>/<code>keyDown</code> et les équivalents souris.</li>
 </ol>
 <p><b>Manette (<code>EX-CTRL-002</code>)** : une seconde source, indépendante du clavier, alimentée par <code>onGamepadKeyDown</code>/<code>onGamepadKeyUp</code> — le même <code>Key</code> peut être enfoncé par le clavier, la manette, ou les deux à la fois. <code>keyDown</code>/<code>keyPressed</code>/<code>keyReleased</code> <b>combinent</b> les deux sources (OU logique) ; la manette ne s'écrit **jamais</b> dans les tableaux clavier, pour ne jamais effacer une touche clavier réellement maintenue quand la manette relâche le bouton correspondant (voir <code>Window::pollGamepad</code>, LOT-20). Cette fusion en lecture, plutôt qu'une table d'actions logiques séparée, satisfait déjà <code>EX-CTRL-010</code> (action dissociée de la touche physique) : le <code>Key</code> <b>est</b> l'action logique, quelle que soit sa source.</p>

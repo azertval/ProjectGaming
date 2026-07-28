@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-08-tache-06-integration-jouable.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-08-gameplay-personnage_2epic_8md.html">LOT-08</a> · <b>Emplacement :</b> <code>Source/HMI/Interface</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md684"></a>
+<h1><a class="anchor" id="autotoc_md678"></a>
 Contexte</h1>
 <p>Dernière tâche : assembler les briques <code>Core</code> (physique, balayage, règles) et le mapping d'entrée dans le <code>GameScreen</code>, qui n'affiche pour l'instant qu'un niveau <b>statique</b> (LOT-07). C'est une <b>brique GPU/écran</b> : vérifiée <b>visuellement</b>, non testée en unitaire (précédent du projet), la logique sous-jacente étant déjà couverte par TACHE-02 à TACHE-05.</p>
-<h1><a class="anchor" id="autotoc_md685"></a>
+<h1><a class="anchor" id="autotoc_md679"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Apparition du personnage</b> : à l'entrée du niveau (<code>Level::entry</code>), créer une entité <code>Player</code> + <code>Transform</code> + <code>Velocity</code> + <code>Collider</code> + <code>Sprite</code> (région d'atlas du personnage, <code>EX-REN-011</code>).</li>
@@ -112,12 +112,12 @@ Travail à réaliser</h1>
 <li><b>Rendu</b> : le personnage est dessiné par le <code>SpriteRenderer</code> existant, par-dessus la grille.</li>
 <li><b>Échap</b> : conserve le retour au menu (comportement LOT-07).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md686"></a>
+<h1><a class="anchor" id="autotoc_md680"></a>
 Fichiers impactés</h1>
 <ul>
-<li><code><a class="el" href="GameScreen_8h.html" title="Écran de jeu : joue une séquence de niveaux, avec enchaînement à la réussite.">Source/HMI/Interface/GameScreen.h</a></code>/<code>.cpp</code> (conserver le <code>Level</code> chargé, ajouter personnage, simulation, gestion succès/échec ; le cadrage fixe existe déjà).</li>
+<li><code>Source/HMI/Interface/GameScreen.h</code>/<code>.cpp</code> (conserver le <code>Level</code> chargé, ajouter personnage, simulation, gestion succès/échec ; le cadrage fixe existe déjà).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md687"></a>
+<h1><a class="anchor" id="autotoc_md681"></a>
 Vérification (visuelle, pas de test unitaire)</h1>
 <ul>
 <li>Le personnage <b>tombe</b> à l'apparition et <b>repose</b> sur le premier sol.</li>
@@ -126,7 +126,7 @@ Vérification (visuelle, pas de test unitaire)</h1>
 <li>Atteindre la <b>sortie</b> → retour menu ; toucher un <b>danger</b> ou <b>tomber dans le vide</b> → niveau <b>redémarré</b> au point d'entrée.</li>
 <li>Capture d'écran de contrôle (procédure visuelle habituelle) jointe à la revue.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md688"></a>
+<h1><a class="anchor" id="autotoc_md682"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Frontière</b> : aucune logique de simulation nouvelle ici — le <code>GameScreen</code> <b>orchestre</b> des briques <code>Core</code> déjà testées. S'il faut ajouter de la logique testable, la remonter dans <code>Core</code>.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li><b>Cadrage fixe</b> : le tableau entier tient à l'écran (zoom ajusté aux dimensions) ; rien à suivre. Réutiliser tel quel le cadrage du <code>GameScreen</code> (LOT-07).</li>
 <li>Câblage des <b>assets</b> (région d'atlas du personnage) cohérent avec le LOT-05.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md689"></a>
+<h1><a class="anchor" id="autotoc_md683"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>GameScreen</code> jouable : déplacement + gravité + collisions + cadrage fixe du tableau + succès/échec fonctionnels et <b>vérifiés visuellement</b> ; build <code>/W4 /WX</code>, <code>CHANGELOG.md</code> et Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md690"></a>
+<h1><a class="anchor" id="autotoc_md684"></a>
 Exigences</h1>
 <p><code>EX-GP-010</code>, <code>EX-GP-012</code>, <code>EX-GP-014</code>, <code>EX-GP-030</code>, <code>EX-GP-031</code>, <code>EX-GP-032</code>, <code>EX-REN-013</code>, <code>EX-REN-011</code>, <code>EX-CTRL-010</code>. </p>
 </div></div><!-- contents -->

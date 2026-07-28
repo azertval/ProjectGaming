@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/ToolBar.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Editor/ToolBar.h">
-<area shape="rect" id="Node000001" title="Sélection de l&#39;outil actif de l&#39;éditeur, à la souris (LOT&#45;15, EX&#45;EDIT&#45;015)." alt="" coords="5,5,227,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="14,108,77,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,62,66,99,62,96,92,58"/>
-<area shape="rect" id="Node000003" href="$EditorTool_8h.html" title="Outil actif dans la grille de l&#39;éditeur (LOT&#45;15, EX&#45;EDIT&#45;014)." alt="" coords="101,108,272,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,58,170,96,166,99,136,62"/>
-</map>

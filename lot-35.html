@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,17 +96,17 @@ $(document).ready(function(){initNavTree('lot-35.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>implémenté</b> (build/tests verts ; vérification IHM manuelle en cours). Prérequis : <a class="el" href="lot-34.html">LOT-34</a> (socle Qt + viewport). </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1652"></a>
+<h1><a class="anchor" id="autotoc_md1646"></a>
 Objectif</h1>
 <p>Sur le socle Qt du <a class="el" href="lot-34.html">LOT-34</a>, reconstruire le <b>cœur de l'éditeur de niveau</b> en widgets Qt : une fenêtre à <b>panneaux dockables</b> (<code>QDockWidget</code>) autour du viewport D3D11 central, avec la palette de tuiles, la barre d'outils, la peinture à la souris et l'annuler/refaire. L'objectif est la <b>maintenabilité</b> (séparer interaction et rendu, plus de dessin manuel de widgets) et des <b>fenêtres réglables hors code</b> (disposition sauvegardée/restaurée). La logique d'édition <b>ne change pas</b> : les widgets pilotent <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code>, source de vérité déjà testée.</p>
-<h1><a class="anchor" id="autotoc_md1653"></a>
+<h1><a class="anchor" id="autotoc_md1647"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1654"></a>
+<h2><a class="anchor" id="autotoc_md1648"></a>
 Inclus</h2>
 <ul>
 <li>**<code>QMainWindow</code> à docks** : viewport D3D11 (LOT-34) en zone centrale ; <code>QDockWidget</code> dockables, redimensionnables, détachables et empilables pour Palette, Outils, Statut.</li>
 <li><b>Palette de tuiles</b> en <code>QTreeView</code> (catégories → sous-groupes → tuiles) remplaçant l'accordéon maison <code>TilePalette</code> ; <b>réutilise la taxonomie existante</b> (catégories <code>Tuile/Interactif/Piège/ Jalon</code>, sous-groupes <code>Pente/Arrondi/Concave/Bloc/Directionnel</code>) et l'énumération <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>.</li>
-<li><b>Barre d'outils</b> <code>QToolBar</code> / <code>QActionGroup</code> : <code>Paint</code>, <code>Rectangle</code>, <code>Selection</code> (réutilise <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la ToolBar.">hmi::EditorTool</a></code>), avec raccourcis (Tab pour cycler, conservé).</li>
+<li><b>Barre d'outils</b> <code>QToolBar</code> / <code>QActionGroup</code> : <code>Paint</code>, <code>Rectangle</code>, <code>Selection</code> (réutilise <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a></code>), avec raccourcis (Tab pour cycler, conservé).</li>
 <li><b>Peinture sur le viewport</b> : les événements souris Qt sont convertis en case de grille (réutilise la logique <code>Camera2D::screenToWorld</code>) et appliqués via <code><a class="el" href="classcore_1_1LevelDraft.html#ab10397c5b66b6997de6adff24cca19d2" title="Peint le type de tuile type en (column, row).">core::LevelDraft::paintTile</a></code> / <code>paintRegion</code> ; le survol/curseur est prévisualisé dans le viewport.</li>
 <li><b>Annuler/Refaire</b> via <code>QAction</code> (Ctrl+Z / Ctrl+Y) → <code>LevelDraft::undo</code> / <code>redo</code>.</li>
 <li><b>Copier/Coller</b> d'une région (outil Sélection) → réutilise le presse-papiers local existant.</li>
@@ -116,7 +116,7 @@ Inclus</h2>
 <li>Enregistrement du niveau (<code>LevelWriter::saveToFile</code>) via une action Qt ; essai immédiat (playtest) déclenché dans le viewport (réutilise le chemin <code>GameScreen</code>/<code>LevelScene</code>).</li>
 <li>Documentation (guide éditeur mis à jour) et tests de la logique nouvelle découplée de Qt.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1655"></a>
+<h2><a class="anchor" id="autotoc_md1649"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Liste/gestion des fichiers de niveaux</b> (recherche, duplication, suppression) — <a class="el" href="lot-36.html">LOT-36</a>.</li>
@@ -125,7 +125,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Textures depuis fichiers</b> — <a class="el" href="lot-39.html">LOT-39</a> ; rendu des tuiles via <code>TextureAtlas</code> procédural inchangé.</li>
 <li><b>Nouvelles mécaniques de niveau ou nouveau format</b> — aucun ; <code>Core</code> intact.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1656"></a>
+<h1><a class="anchor" id="autotoc_md1650"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Widgets Qt natifs, pas de re-dessin maison</b> : la palette (<code>QTreeView</code>), les outils (<code>QToolBar</code>) et les dialogues sont des contrôles Qt standard — c'est tout l'intérêt de la migration (lisibilité, accessibilité clavier, maintenance). Seul le <b>viewport</b> reste du dessin D3D11.</li>
@@ -134,14 +134,14 @@ Décisions de cadrage</h1>
 <li><b>Réutiliser la taxonomie de palette existante</b> plutôt que la redéfinir : les catégories/ sous-groupes du <code>LOT-27</code> sont conservés, seul leur <b>rendu</b> passe de l'accordéon maison à un arbre Qt.</li>
 <li><b>Le viewport reste l'unique surface D3D11</b> : la peinture et le survol sont dessinés dedans (quads), pas en overlay Qt, pour rester au pixel près sur la grille de jeu.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1657"></a>
+<h1><a class="anchor" id="autotoc_md1651"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelles : <code>EX-IHM-010</code> (éditeur en fenêtre à docks Qt réglables), <code>EX-IHM-011</code> (disposition des panneaux persistée hors code).</li>
 <li>Portées/reconduites depuis l'éditeur historique (comportement inchangé, présentation Qt) : <code>EX-EDIT-002</code> (peinture), <code>EX-EDIT-005</code> (undo/redo, redimensionnement), <code>EX-EDIT-014</code> (outils Paint/Rectangle/Sélection), <code>EX-EDIT-018</code> (palette par catégories).</li>
 <li>Réutilisées : <code>EX-EDIT-010</code>/<code>EX-EDIT-030</code>/<code>EX-EDIT-031</code> (pas de duplication de la logique de niveau), <code>EX-NFR-010</code> (logique testable sans GPU).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1658"></a>
+<h1><a class="anchor" id="autotoc_md1652"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot. </p>
@@ -158,7 +158,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-04-redim-enregistrement-essai_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Redimensionnement, enregistrement, essai immédiat ; documentation &amp; vérification   </td><td class="markdownTableBodyNone"><code>Source/Editor</code>, <code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1659"></a>
+<h1><a class="anchor" id="autotoc_md1653"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>L'éditeur Qt ouvre une fenêtre à panneaux dockables autour du viewport ; l'utilisateur peut <b>déplacer, redimensionner, détacher</b> les panneaux, et la disposition est <b>restaurée au relancement</b>.</li>
@@ -168,12 +168,12 @@ Critères d'acceptation du lot</h1>
 <li>Aucune règle d'édition n'est dupliquée dans Qt (tout passe par <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code>) ; la logique nouvelle découplée de Qt est <b>couverte par des tests</b>.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts ; l'IHM Qt est <b>vérifiée visuellement</b>.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1660"></a>
+<h1><a class="anchor" id="autotoc_md1654"></a>
 Dépendances</h1>
 <ul>
-<li>Bâtit sur <a class="el" href="lot-34.html">LOT-34</a> (viewport, boucle, entrées). Réutilise <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> (<code>LOT-14</code>), la taxonomie de palette (<code>LOT-27</code>), <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou la ToolBar.">hmi::EditorTool</a></code>/<code>Camera2D</code> et le chemin <code>LevelWriter</code>/<code>GameScreen</code>. Ne modifie pas <code>Core</code>.</li>
+<li>Bâtit sur <a class="el" href="lot-34.html">LOT-34</a> (viewport, boucle, entrées). Réutilise <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> (<code>LOT-14</code>), la taxonomie de palette (<code>LOT-27</code>), <code><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd" title="Outil actif dans la grille de l&#39;éditeur, changé via Tab ou le panneau ToolPanel.">hmi::EditorTool</a></code>/<code>Camera2D</code> et le chemin <code>LevelWriter</code>/<code>GameScreen</code>. Ne modifie pas <code>Core</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1661"></a>
+<h1><a class="anchor" id="autotoc_md1655"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-35-tache-01-fenetre-docks-persistance.html">TACHE-01 — `QMainWindow` à docks + persistance `QSettings` de la disposition</a></li>

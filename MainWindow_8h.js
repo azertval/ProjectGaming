@@ -1,4 +1,4 @@
 var MainWindow_8h =
 [
-    [ "editor::MainWindow", "classeditor_1_1MainWindow.html", "classeditor_1_1MainWindow" ]
+    [ "hmi::MainWindow", "classhmi_1_1MainWindow.html", "classhmi_1_1MainWindow" ]
 ];

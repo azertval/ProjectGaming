@@ -1,5 +1,0 @@
-<map id="hmi::EditorKeybindingsScreen" name="hmi::EditorKeybindingsScreen">
-<area shape="rect" id="Node000001" title="Écran de remappage des touches d&#39;éditeur : dessine le sous&#45;menu et applique ses actions." alt="" coords="5,79,221,104"/>
-<area shape="rect" id="Node000002" href="$classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine." alt="" coords="62,5,165,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,44,116,79,111,79,111,44"/>
-</map>

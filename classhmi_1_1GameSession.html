@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('classhmi_1_1GameSession.html',''); ini
 </div><!--header-->
 <div class="contents">
 
-<p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran (<code><a class="el" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine.">IScreen</a></code>/<code><a class="el" href="structhmi_1_1RenderContext.html" title="Regroupe les ressources de rendu partagées mises à disposition des écrans.">RenderContext</a></code>/<code><a class="el" href="structhmi_1_1ScreenTransition.html" title="Intention de transition renvoyée par un écran à l&#39;issue de sa mise à jour.">ScreenTransition</a></code>).  
+<p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  
  <a href="classhmi_1_1GameSession.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="GameSession_8h_source.html">GameSession.h</a>&gt;</code></p>
@@ -275,8 +275,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad20c8ef76ddb3dcedbc99c7d3823b25c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran (<code><a class="el" href="classhmi_1_1IScreen.html" title="Écran d&#39;application : met à jour sa logique et se dessine.">IScreen</a></code>/<code><a class="el" href="structhmi_1_1RenderContext.html" title="Regroupe les ressources de rendu partagées mises à disposition des écrans.">RenderContext</a></code>/<code><a class="el" href="structhmi_1_1ScreenTransition.html" title="Intention de transition renvoyée par un écran à l&#39;issue de sa mise à jour.">ScreenTransition</a></code>). </p>
-<p>Extraite de <code><a class="el" href="classhmi_1_1GameScreen.html" title="Écran de jeu jouant une séquence de niveaux chargés depuis des fichiers.">hmi::GameScreen</a></code> (<code>LOT-34</code>) pour être réutilisée par l'éditeur Qt (viewport) <b>et</b> par l'écran de jeu historique : toute la logique de jeu (chargement de la scène ECS, apparition du personnage, physique, mécanismes, blocs, dangers, caméra par salle, animation, interpolation) vit ici, une seule fois. Le comportement est <b>identique</b> à l'écran de jeu historique.</p>
+<div class="textblock"><p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran. </p>
+<p>Extraite de l'écran de jeu historique (<code>LOT-34</code>) pour être utilisée par l'éditeur Qt (viewport) : toute la logique de jeu (chargement de la scène ECS, apparition du personnage, physique, mécanismes, blocs, dangers, caméra par salle, animation, interpolation) vit ici, une seule fois.</p>
 <p><code><a class="el" href="classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2" title="Simule le niveau d&#39;un pas fixe (mécanismes, blocs, physique, animation, dangers).">update()</a></code> avance d'un <b>pas fixe</b> et renvoie l'issue (<code><a class="el" href="namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa" title="Issue courante d&#39;un niveau, déduite de la position du personnage.">core::LevelOutcome</a></code>) ; sur un <b>échec</b> (danger/chute), le niveau est <b>rechargé</b> en interne (personnage à l'entrée, mécanismes/budgets remis) — l'appelant décide quoi faire d'une <b>réussite</b> (enchaîner, revenir au menu, etc.). <code><a class="el" href="classhmi_1_1GameSession.html#add312b51c185160e40539c271a0b0c04" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></code> dessine la scène via le <code><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par couche.">SpriteRenderer</a></code> (lecture seule de l'ECS, <code>EX-ARCH-012</code>), avec interpolation (<code>EX-ARCH-031</code>). Un échec de chargement est <b>récupérable</b> (<code>EX-NFR-040</code>) : la session reste dans un état neutre, <code><a class="el" href="classhmi_1_1GameSession.html#abe7a3f556c45b3b07541f43b6d8461fa">loaded()</a></code> est faux et <code><a class="el" href="classhmi_1_1GameSession.html#ab05b61b6e50db6f365702dad1810732f">loadError()</a></code> renseigné. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af3a5c8093afede0deb6937b25183840b" name="af3a5c8093afede0deb6937b25183840b"></a>

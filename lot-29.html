@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -96,22 +96,22 @@ $(document).ready(function(){initNavTree('lot-29.html',''); initResizable(); });
 <div class="textblock"><blockquote class="doxtable">
 <p>&zwj;Statut : <b>✅ terminé</b>. Deux nouveaux sous-menus dans <b>Options</b> : « Touches de jeu » et « Touches de l'éditeur », permettant de remapper au clavier un sous-ensemble d'actions significatives de chaque catégorie (<code>EX-CTRL-012</code>), avec persistance dans un fichier de configuration à côté de l'exécutable. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md1426"></a>
+<h1><a class="anchor" id="autotoc_md1420"></a>
 Objectif</h1>
-<p><code>EX-CTRL-012</code> (souhaitée, <a class="el" href="controles_8md.html">`controles.md`</a>) demande un mapping actions-logiques ↔ touches <b>reconfigurable</b>, au minimum via un fichier de configuration. Aujourd'hui, il n'existe <b>aucune</b> couche d'indirection : <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></code> (codes virtuels Win32) est lu en dur partout où une touche compte — <code><a class="el" href="PlayerInputMapper_8cpp.html">HMI/Input/PlayerInputMapper.cpp</a></code> (jeu) et <code><a class="el" href="EditorScreen_8cpp.html">HMI/Interface/EditorScreen.cpp</a></code> (éditeur). Le commentaire de <code><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">PlayerInputMapper.h</a></code> anticipait déjà ce lot : « un futur remappage… ne toucherait que cette fonction ». Aucun réglage ne persiste non plus entre deux lancements (V-Sync et langue sont perdus au redémarrage, constaté en cours de cadrage) : ce lot introduit la <b>première</b> persistance de réglages du projet.</p>
-<h1><a class="anchor" id="autotoc_md1427"></a>
+<p><code>EX-CTRL-012</code> (souhaitée, <a class="el" href="controles_8md.html">`controles.md`</a>) demande un mapping actions-logiques ↔ touches <b>reconfigurable</b>, au minimum via un fichier de configuration. Aujourd'hui, il n'existe <b>aucune</b> couche d'indirection : <code><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></code> (codes virtuels Win32) est lu en dur partout où une touche compte — <code><a class="el" href="PlayerInputMapper_8cpp.html">HMI/Input/PlayerInputMapper.cpp</a></code> (jeu) et <code>HMI/Interface/EditorScreen.cpp</code> (éditeur). Le commentaire de <code><a class="el" href="PlayerInputMapper_8h.html" title="Traduction des entrées clavier/manette en intention de déplacement (action logique).">PlayerInputMapper.h</a></code> anticipait déjà ce lot : « un futur remappage… ne toucherait que cette fonction ». Aucun réglage ne persiste non plus entre deux lancements (V-Sync et langue sont perdus au redémarrage, constaté en cours de cadrage) : ce lot introduit la <b>première</b> persistance de réglages du projet.</p>
+<h1><a class="anchor" id="autotoc_md1421"></a>
 Périmètre</h1>
-<h2><a class="anchor" id="autotoc_md1428"></a>
+<h2><a class="anchor" id="autotoc_md1422"></a>
 Inclus</h2>
 <ul>
 <li><b>Modèle de bindings</b> (<code>GameKeyBindings</code>, <code>EditorKeyBindings</code>, <code>HMI/Input</code>) : une touche par action, échange automatique en cas de conflit (jamais deux actions du même ensemble sur la même touche), réinitialisation aux valeurs par défaut.</li>
 <li><b>Persistance JSON</b> : un seul fichier <code>Settings/keybindings.json</code> à côté de l'exécutable (même dossier que <code>Levels/</code>/<code>Localization/</code>, via <code><a class="el" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">hmi::executableDirectory()</a></code>), écrit avec <code>nlohmann::json</code> (déjà une dépendance du projet, <code><a class="el" href="LevelWriter_8cpp.html">Core/Levels/LevelWriter.cpp</a></code>). Fichier absent/corrompu/clé inconnue → valeurs par défaut pour l'entrée concernée, avertissement journalisé, jamais bloquant (même esprit qu'<code>EX-NFR-040</code>).</li>
 <li><b>Six actions de jeu remappables</b>, miroir de <code><a class="el" href="PlayerInputMapper_8cpp.html">PlayerInputMapper.cpp</a></code> : Aller à gauche, Aller à droite, Sauter, Dash, Viser le dash vers le haut, Viser le dash vers le bas.</li>
-<li><b>Neuf actions éditeur remappables</b>, sous-ensemble significatif (pas exhaustif) de <code><a class="el" href="EditorScreen_8cpp.html">EditorScreen.cpp</a></code> : Sauvegarder, Annuler, Refaire, Copier, Coller, Test rapide, Grille, Aide, Renommer.</li>
+<li><b>Neuf actions éditeur remappables</b>, sous-ensemble significatif (pas exhaustif) de <code>EditorScreen.cpp</code> : Sauvegarder, Annuler, Refaire, Copier, Coller, Test rapide, Grille, Aide, Renommer.</li>
 <li><b>Deux nouveaux écrans</b> de remappage (patron <code>OptionsScreen</code>/<code>OptionsModel</code>) : liste d'actions avec la touche courante, capture d'une nouvelle touche à la confirmation, réinitialisation, retour aux Options. <code>OptionsModel</code>/<code>OptionsScreen</code> étendus de deux entrées ouvrant ces écrans.</li>
 <li><b>Panneau d'aide de l'éditeur</b> (<code>F1</code>) dynamisé pour refléter les touches réellement liées, au lieu des libellés câblés en dur actuels (deviendraient faux après un remap).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md1429"></a>
+<h2><a class="anchor" id="autotoc_md1423"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Remappage manette</b> — hors périmètre, seul le clavier est concerné ici. Discuté avec le demandeur en cours de lot : <code>Window::pollGamepad</code> câble aujourd'hui chaque bouton XInput utile en dur sur une touche fixe (A→Espace/Entrée, D-pad/stick→flèches, RB→Maj, B/Start→Échap) — les boutons utiles sont déjà tous occupés, sans capacité de configuration. Un vrai remappage manette nécessiterait de retirer ce câblage en dur : portée bien plus large, différée à un lot dédié ultérieur (<code>LOT-30</code>). Ce lot-ci corrige seulement la régression que le remappage clavier introduirait sans filet (voir décision ci-dessous) — pas un remappage manette en soi.</li>
@@ -120,7 +120,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>**<code>Échap</code> et <code>Entrée</code>** ne sont jamais assignables (conventions globales de navigation/retour — les assigner casserait la navigation elle-même, y compris celle du menu de remappage).</li>
 <li><b>Remappage souris</b> — seules les touches clavier sont concernées.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1430"></a>
+<h1><a class="anchor" id="autotoc_md1424"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Filet de sécurité manette dans <code>PlayerInputMapper</code></b> (écart constaté après revue du demandeur, qui a explicitement demandé de ne pas oublier la manette) : chaque action de jeu vérifie sa touche liée et, si elle reste libre, sa touche par défaut (<code>GameKeyBindings::defaultKey</code>) — la manette (<code>Window::pollGamepad</code>) n'écrivant que dans les touches par défaut, câblées en dur, sans connaître les bindings courants, ce filet la garde fonctionnelle quel que soit le remap clavier. Une première version de ce filet, combinée à un alias fixe alors envisagé pour Gauche/Droite/ Sauter (<code>Q</code>/<code>D</code>/<code>W</code>), a provoqué une régression réelle en usage (mouvement neutralisé après remap) ; corrigée par <code>GameKeyBindings::isKeyClaimedByOtherAction</code> (le filet ne revérifie une touche par défaut que si aucune autre action ne se l'est appropriée) et le retrait de l'alias. Détail complet, cause racine et tests de régression : voir TACHE-02.</li>
@@ -129,12 +129,12 @@ Décisions de cadrage</h1>
 <li><b>Deux classes séparées</b> (<code>GameKeyBindings</code>/<code>EditorKeyBindings</code>) plutôt qu'une abstraction générique commune : deux cas concrets connus, aucun troisième anticipé — dupliquer une mécanique simple (~50 lignes) reste plus lisible qu'un template pour ce projet.</li>
 <li><b>Résolution de conflit par échange</b> plutôt que par rejet : si la touche capturée est déjà liée à une autre action du même ensemble (jeu ou éditeur), les deux actions échangent leurs touches — jamais d'état invalide/dupliqué à afficher, jamais de message d'erreur à concevoir.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1431"></a>
+<h1><a class="anchor" id="autotoc_md1425"></a>
 Exigences couvertes</h1>
 <ul>
 <li><code>EX-CTRL-012</code> — lève son statut « souhaité » (mapping reconfigurable via fichier de configuration).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1432"></a>
+<h1><a class="anchor" id="autotoc_md1426"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>&zwj;État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -147,11 +147,11 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="tache-02-integration-jeu-editeur_8md.html">TACHE-02</a>   </td><td class="markdownTableBodyNone">Intégration jeu/éditeur   </td><td class="markdownTableBodyNone"><code>HMI/Input</code>, <code>HMI/Interface</code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="tache-03-ui-remappage_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">UI de remappage et câblage   </td><td class="markdownTableBodyNone"><code>HMI/Interface</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">HMI/main.cpp</a></code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="tache-03-ui-remappage_8md.html">TACHE-03</a>   </td><td class="markdownTableBodyNone">UI de remappage et câblage   </td><td class="markdownTableBodyNone"><code>HMI/Interface</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></code>   </td><td class="markdownTableBodyCenter">✅    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="LOT-29-remappage-touches_2tache-04-documentation-verification_8md.html">TACHE-04</a>   </td><td class="markdownTableBodyNone">Documentation et vérification   </td><td class="markdownTableBodyNone"><code>Documentation</code>   </td><td class="markdownTableBodyCenter">✅   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1433"></a>
+<h1><a class="anchor" id="autotoc_md1427"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Depuis Options, deux nouvelles entrées ouvrent « Touches de jeu » et « Touches de l'éditeur », chacune listant ses actions avec la touche actuellement liée.</li>
@@ -162,13 +162,13 @@ Critères d'acceptation du lot</h1>
 <li><b>Aucune régression</b> sur le jeu ou l'éditeur avec les valeurs par défaut (comportement identique à avant ce lot tant qu'aucun remappage n'a eu lieu).</li>
 <li>Logique nouvelle <b>couverte par des tests</b> (bindings, échange, persistance JSON, capture). Build <code>/W4 /WX</code> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md1434"></a>
+<h1><a class="anchor" id="autotoc_md1428"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <code>PlayerInputMapper</code> (existant depuis les premiers lots de jeu) et <code>EditorScreen</code> (<code>LOT-14</code>/<code>LOT-15</code>).</li>
 <li>Réutilise le patron <code>OptionsModel</code>/<code>OptionsScreen</code> (<code>LOT-20</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1435"></a>
+<h1><a class="anchor" id="autotoc_md1429"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-29-tache-01-modele-bindings.html">TACHE-01 — Modèle de bindings et persistance JSON</a></li>

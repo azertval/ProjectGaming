@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -266,7 +266,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »), sur les fichiers livrés, sans la couche GPU. </p>
 <p>Pour chaque niveau de la séquence, on charge le fichier réel, on fait apparaître le personnage à l'entrée et on rejoue un scénario d'entrées <b>déterministe</b> (au pas fixe) jusqu'à la sortie (<code>Won</code>). Franchir tous les niveaux dans l'ordre représente le parcours complet du jeu. La couche fenêtre/rendu est exclue (vérifiée visuellement) ; on teste ici la simulation et l'enchaînement.</p>
-<p>Cette liste <b>doit</b> rester identique, dans le même ordre, à celle chargée par <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> (<code>ScreenId::Game</code>) — un décalage entre les deux (un niveau chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché <code>LOT-25</code> (<code>demo5.json</code> manquait ici). <code>scripts/check_demo_sequence.py</code> (CI) compare les deux listes automatiquement. </p>
+<p>Cette liste <b>doit</b> rester identique, dans le même ordre, à celle jouée par <code><a class="el" href="MainWindow_8cpp.html">Source/HMI/Interface/MainWindow.cpp</a></code> (<code>MainWindow::startGame</code>) — un décalage entre les deux (un niveau chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché <code>LOT-25</code> (<code>demo5.json</code> manquait ici). <code>scripts/check_demo_sequence.py</code> (CI) compare les deux listes automatiquement. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="af2359f723477064fe6474dea0eef51fb" name="af2359f723477064fe6474dea0eef51fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2359f723477064fe6474dea0eef51fb">&#9670;&#160;</a></span>TEST()</h2>

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['label_0',['label',['../structeditor_1_1TileEntry.html#a583d5fe64c9de2553d9d84112c14158c',1,'editor::TileEntry::label'],['../structeditor_1_1TileSubgroup.html#a4f3aefe6cdfbb07aeb771bc992727f59',1,'editor::TileSubgroup::label'],['../structeditor_1_1TileCategory.html#aa71273fcfc09756783f02d3dab3588d0',1,'editor::TileCategory::label'],['../structhmi_1_1LevelPicker_1_1Choice.html#a7bcd76bd842fede4a10a91f69f119251',1,'hmi::LevelPicker::Choice::label'],['../structhmi_1_1TilePalette_1_1Entry.html#af05992f2eb9dbf0a36323fd36f63dfc4',1,'hmi::TilePalette::Entry::label']]],
+  ['label_0',['label',['../structhmi_1_1TileEntry.html#a588d2f9ba853175b5b29b4bf8754a5f9',1,'hmi::TileEntry::label'],['../structhmi_1_1TileSubgroup.html#a2ceb670ced226a1fe69209e82c5926cb',1,'hmi::TileSubgroup::label'],['../structhmi_1_1TileCategory.html#ac51882a42b8b57b51e7184bc8cf7fa13',1,'hmi::TileCategory::label']]],
   ['layer_1',['layer',['../structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082',1,'core::Sprite::layer'],['../structhmi_1_1SpriteRenderer_1_1LayeredQuad.html#a7f5eff7b482e40a676dfab85ccc7f0c2',1,'hmi::SpriteRenderer::LayeredQuad::layer']]],
-  ['level_2',['level',['../structcore_1_1MemoryLogSink_1_1Entry.html#ab2a140504bc9e377d32147b8cddc7055',1,'core::MemoryLogSink::Entry::level'],['../structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324',1,'core::LevelLoadResult::level']]],
-  ['localization_3',['localization',['../structhmi_1_1RenderContext.html#a321212b72a461aa175899f248e4e24f0',1,'hmi::RenderContext']]]
+  ['level_2',['level',['../structcore_1_1MemoryLogSink_1_1Entry.html#ab2a140504bc9e377d32147b8cddc7055',1,'core::MemoryLogSink::Entry::level'],['../structcore_1_1LevelLoadResult.html#acd73f8d045b0de9992c2a35920b35324',1,'core::LevelLoadResult::level']]]
 ];

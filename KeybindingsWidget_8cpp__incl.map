@@ -1,53 +1,61 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/KeybindingsWidget.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Editor/KeybindingsWidget.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="783,5,1004,60"/>
-<area shape="rect" id="Node000002" href="$KeybindingsWidget_8h.html" title="Remappage des touches de jeu (EX&#45;CTRL&#45;012), en widget embarquable (onglet Options,..." alt="" coords="59,108,261,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="783,50,271,109,271,104,782,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="111,328,167,353"/>
-<area shape="poly" id="edge15_Node000001_Node000003" title=" " alt="" coords="782,38,582,44,351,56,243,65,152,77,84,92,62,101,48,110,36,118,24,120,14,122,9,126,10,139,19,167,77,279,93,300,112,318,108,322,89,304,72,281,14,169,4,140,4,124,11,117,23,115,34,113,45,106,59,96,82,87,151,72,243,60,351,51,582,38,782,33"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="754,108,814,133"/>
-<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="861,62,811,102,808,97,858,58"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="839,108,948,133"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="896,60,896,94,891,94,891,60"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="972,108,1065,133"/>
-<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="933,58,992,98,989,102,930,62"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="1089,108,1156,133"/>
-<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="964,58,1080,101,1078,106,962,63"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="1180,108,1287,133"/>
-<area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="998,57,1175,102,1174,107,996,63"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="1311,108,1382,133"/>
-<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="1005,50,1298,105,1297,111,1004,55"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="1406,108,1517,133"/>
-<area shape="poly" id="edge22_Node000001_Node000018" title=" " alt="" coords="1005,47,1393,105,1392,110,1004,52"/>
-<area shape="rect" id="Node000019" href="$QtKeyMap_8h.html" title="Traduction d&#39;un code de touche Qt en hmi::Key (code virtuel Win32)." alt="" coords="587,108,730,133"/>
-<area shape="poly" id="edge23_Node000001_Node000019" title=" " alt="" coords="822,63,703,106,702,101,821,58"/>
-<area shape="rect" id="Node000021" href="$KeyName_8h.html" title="Nom affichable d&#39;une touche et capture générique « prochaine touche pressée » (LOT&#45;29)." alt="" coords="399,108,563,133"/>
-<area shape="poly" id="edge26_Node000001_Node000021" title=" " alt="" coords="783,60,550,108,549,103,782,54"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="146,135,123,156,102,183,88,217,84,255,82,268,84,279,96,300,113,318,110,321,92,303,79,281,76,268,79,254,83,216,98,180,119,152,142,131"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="93,255,184,280"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="147,135,127,156,110,182,108,197,110,213,124,242,119,245,105,215,102,197,105,180,122,152,143,131"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="121,181,199,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="163,134,163,168,157,168,157,134"/>
-<area shape="rect" id="Node000006" href="$GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="223,181,443,207"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="189,131,293,174,291,178,187,136"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="319,209,167,322,164,317,316,205"/>
-<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="303,209,184,252,182,247,301,204"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="298,328,369,353"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="336,207,336,314,331,314,331,207"/>
-<area shape="rect" id="Node000008" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="384,255,552,280"/>
-<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="356,204,435,246,432,250,354,209"/>
-<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="415,283,181,333,180,328,414,277"/>
-<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="447,282,369,324,366,319,445,278"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="393,328,460,353"/>
-<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="463,282,442,317,438,315,459,279"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="485,328,547,353"/>
-<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="478,279,503,315,498,318,474,282"/>
-<area shape="rect" id="Node000011" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="571,328,778,353"/>
-<area shape="poly" id="edge14_Node000008_Node000011" title=" " alt="" coords="502,277,629,321,627,326,500,283"/>
-<area shape="poly" id="edge25_Node000019_Node000008" title=" " alt="" coords="671,132,693,167,697,188,690,208,670,223,639,236,562,255,561,250,638,231,667,219,686,205,691,188,688,169,666,135"/>
-<area shape="rect" id="Node000020" title=" " alt="" coords="601,181,676,207"/>
-<area shape="poly" id="edge24_Node000019_Node000020" title=" " alt="" coords="658,134,648,169,643,167,653,133"/>
-<area shape="poly" id="edge29_Node000021_Node000008" title=" " alt="" coords="483,134,473,241,468,241,477,134"/>
-<area shape="poly" id="edge27_Node000021_Node000020" title=" " alt="" coords="508,131,602,173,599,178,505,136"/>
-<area shape="rect" id="Node000022" title=" " alt="" coords="519,181,577,207"/>
-<area shape="poly" id="edge28_Node000021_Node000022" title=" " alt="" coords="494,132,530,169,526,173,490,135"/>
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/KeybindingsWidget.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/KeybindingsWidget.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="897,5,1167,60"/>
+<area shape="rect" id="Node000002" href="$KeybindingsWidget_8h.html" title="Remappage des touches de jeu (EX&#45;CTRL&#45;012), en widget embarquable (onglet Options,..." alt="" coords="101,108,294,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="897,48,629,73,308,111,308,105,629,68,896,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="75,343,131,368"/>
+<area shape="poly" id="edge15_Node000001_Node000003" title=" " alt="" coords="897,42,677,52,428,67,210,87,134,98,89,110,53,131,26,153,12,182,9,221,11,260,13,275,22,293,43,316,68,334,65,338,39,320,18,296,8,277,5,260,4,221,7,181,22,150,50,126,87,106,133,93,210,82,427,62,677,47,896,37"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="947,115,1007,141"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="1019,62,994,104,989,102,1014,59"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1032,115,1141,141"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="1050,59,1075,102,1071,104,1045,62"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1165,115,1259,141"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="1084,58,1179,107,1177,112,1081,62"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1283,115,1349,141"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="1124,58,1272,105,1277,108,1276,113,1270,111,1122,63"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1373,115,1480,141"/>
+<area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="1156,57,1362,105,1376,109,1374,114,1361,111,1155,63"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1505,115,1575,141"/>
+<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="1168,46,1325,69,1410,85,1493,105,1502,108,1500,113,1491,111,1409,91,1324,74,1167,51"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1599,115,1710,141"/>
+<area shape="poly" id="edge22_Node000001_Node000018" title=" " alt="" coords="1168,44,1367,68,1589,105,1605,109,1604,114,1588,111,1367,73,1167,49"/>
+<area shape="rect" id="Node000019" href="$QtKeyMap_8h.html" title="Traduction d&#39;un code de touche Qt en hmi::Key (code virtuel Win32)." alt="" coords="319,115,487,141"/>
+<area shape="poly" id="edge23_Node000001_Node000019" title=" " alt="" coords="897,54,709,79,500,111,473,115,472,110,500,105,708,74,896,48"/>
+<area shape="rect" id="Node000021" href="$KeyName_8h.html" title="Nom affichable d&#39;une touche et capture générique « prochaine touche pressée » (LOT&#45;29)." alt="" coords="511,115,675,141"/>
+<area shape="poly" id="edge26_Node000001_Node000021" title=" " alt="" coords="909,63,661,115,660,110,908,57"/>
+<area shape="rect" id="Node000023" href="$Localization_8h.html" title="Catalogue de traduction : résolution des textes d&#39;interface par clé et par langue." alt="" coords="700,115,924,141"/>
+<area shape="poly" id="edge30_Node000001_Node000023" title=" " alt="" coords="971,63,852,113,850,108,969,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,146,57,166,38,180,22,197,15,215,13,232,18,251,26,269,52,303,79,331,76,335,47,307,22,272,13,252,8,233,9,213,18,195,34,176,54,161,99,141"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="264,269,355,295"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="296,144,336,163,354,177,369,195,374,213,368,232,355,249,340,263,336,259,351,245,364,229,369,213,364,197,350,181,333,168,293,148"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="33,196,111,221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="168,150,103,191,100,187,166,146"/>
+<area shape="rect" id="Node000006" href="$GameKeyBindings_8h.html" title="Association remappable action de jeu &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="135,196,355,221"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="211,147,233,183,229,185,207,150"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="236,224,126,335,122,331,232,220"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="258,220,292,257,288,261,254,223"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="218,343,289,368"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="249,222,255,329,249,329,243,222"/>
+<area shape="rect" id="Node000008" href="$InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame." alt="" coords="379,269,547,295"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="281,219,415,262,414,268,279,224"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="405,297,145,348,144,343,404,292"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="430,297,301,341,300,336,428,292"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="340,343,407,368"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="450,297,400,336,397,332,447,293"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="431,343,494,368"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="465,295,465,329,460,329,460,295"/>
+<area shape="rect" id="Node000011" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="518,343,725,368"/>
+<area shape="poly" id="edge14_Node000008_Node000011" title=" " alt="" coords="489,292,584,335,582,339,487,297"/>
+<area shape="poly" id="edge25_Node000019_Node000008" title=" " alt="" coords="410,140,456,256,451,258,405,142"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="481,196,556,221"/>
+<area shape="poly" id="edge24_Node000019_Node000020" title=" " alt="" coords="421,139,492,186,489,190,418,143"/>
+<area shape="poly" id="edge29_Node000021_Node000008" title=" " alt="" coords="596,141,590,180,582,202,570,223,543,248,511,266,508,262,540,244,566,220,577,200,585,178,590,140"/>
+<area shape="poly" id="edge27_Node000021_Node000020" title=" " alt="" coords="584,143,541,188,537,184,580,139"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="631,196,689,221"/>
+<area shape="poly" id="edge28_Node000021_Node000022" title=" " alt="" coords="605,139,644,184,639,187,601,143"/>
+<area shape="poly" id="edge31_Node000023_Node000004" title=" " alt="" coords="804,143,763,183,734,206,703,224,656,242,615,253,541,262,465,263,369,272,368,267,464,258,541,256,614,248,654,237,700,219,732,201,760,179,801,139"/>
+<area shape="poly" id="edge32_Node000023_Node000022" title=" " alt="" coords="791,143,696,192,693,187,788,138"/>
+<area shape="rect" id="Node000024" title=" " alt="" coords="765,196,862,221"/>
+<area shape="poly" id="edge33_Node000023_Node000024" title=" " alt="" coords="815,141,816,182,810,182,810,141"/>
+<area shape="rect" id="Node000025" title=" " alt="" coords="886,196,1010,221"/>
+<area shape="poly" id="edge34_Node000023_Node000025" title=" " alt="" coords="833,139,917,187,915,191,831,143"/>
 </map>

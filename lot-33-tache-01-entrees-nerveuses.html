@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -93,16 +93,16 @@ $(document).ready(function(){initNavTree('lot-33-tache-01-entrees-nerveuses.html
   <div class="headertitle"><div class="title">TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-33-fluidite-moteur_2epic_8md.html">LOT-33</a> · <b>Modules :</b> <code>Source/HMI/Platform</code>, <code>Source/HMI/Input</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> · <b>Statut :</b> terminé</p>
-<h1><a class="anchor" id="autotoc_md1582"></a>
+<div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-33-fluidite-moteur_2epic_8md.html">LOT-33</a> · <b>Modules :</b> <code>Source/HMI/Platform</code>, <code>Source/HMI/Input</code>, <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code> · <b>Statut :</b> terminé</p>
+<h1><a class="anchor" id="autotoc_md1576"></a>
 Contexte</h1>
 <p>La boucle a toujours supposé un rendu calé sur ~60 Hz. Sur un écran plus rapide (120/144 Hz), <code>FixedTimestep::advance</code> renvoie <code>0</code> pas sur une partie des frames. Or <code>Window::pumpMessages</code> appelait <code>InputState::beginFrame</code> (recopie courant → précédent, qui <b>efface</b> les fronts) à <b>chaque</b> frame de rendu, alors que seuls les pas de simulation lisent ces fronts : un appui capturé sur une frame sans pas était perdu (<code>EX-CTRL-020</code>/<code>EX-CTRL-021</code> violées au-delà de 60 Hz). Deux défauts connexes de la même couche d'entrée : une touche maintenue au moment d'un <code>Alt+Tab</code> restait « collée » (aucun <code>WM_KEYUP</code>), et le sondage <code>XInputGetState</code> d'un slot <b>vide</b> (coûteux) à chaque frame provoquait des micro-saccades chez un joueur clavier.</p>
-<h1><a class="anchor" id="autotoc_md1583"></a>
+<h1><a class="anchor" id="autotoc_md1577"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Découpler les fronts du rendu</b> :<ul>
 <li><code>Window::pumpMessages</code> ne fait plus que sonder la manette (<code>pollGamepad</code>) et drainer les messages Win32 dans l'état <b>courant</b> — plus aucun <code>beginFrame</code>.</li>
-<li>Nouvelle <code>Window::beginInputFrame</code> : appelle <code>InputState::beginFrame</code> (recopie courant → précédent). La boucle (<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code>) l'appelle <b>après chaque pas fixe consommé</b>, jamais par frame de rendu. Un appui capturé sur une frame sans pas survit jusqu'à ce qu'un pas le lise.</li>
+<li>Nouvelle <code>Window::beginInputFrame</code> : appelle <code>InputState::beginFrame</code> (recopie courant → précédent). La boucle (<code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code>) l'appelle <b>après chaque pas fixe consommé</b>, jamais par frame de rendu. Un appui capturé sur une frame sans pas survit jusqu'à ce qu'un pas le lise.</li>
 </ul>
 </li>
 <li><b>Relâchement à la perte de focus</b> :<ul>
@@ -115,28 +115,28 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1584"></a>
+<h1><a class="anchor" id="autotoc_md1578"></a>
 Fichiers impactés</h1>
 <ul>
-<li><code><a class="el" href="Window_8h.html" title="Fenêtre native Win32, sa pompe de messages et la capture des entrées.">Source/HMI/Platform/Window.h</a></code>, <code><a class="el" href="Window_8cpp.html">Source/HMI/Platform/Window.cpp</a></code> : <code>pumpMessages</code> sans <code>beginFrame</code>, nouvelle <code>beginInputFrame</code>, <code>WM_KILLFOCUS</code>, throttling <code>pollGamepad</code> (<code>_gamepadPollCountdown</code>, <code>GAMEPAD_DISCONNECTED_POLL_INTERVAL</code>).</li>
+<li><code>Source/HMI/Platform/Window.h</code>, <code>Source/HMI/Platform/Window.cpp</code> : <code>pumpMessages</code> sans <code>beginFrame</code>, nouvelle <code>beginInputFrame</code>, <code>WM_KILLFOCUS</code>, throttling <code>pollGamepad</code> (<code>_gamepadPollCountdown</code>, <code>GAMEPAD_DISCONNECTED_POLL_INTERVAL</code>).</li>
 <li><code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>, <code><a class="el" href="InputState_8cpp.html">Source/HMI/Input/InputState.cpp</a></code> : <code>releaseAll</code>.</li>
-<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">Source/HMI/main.cpp</a></code> : <code>beginInputFrame</code> après chaque pas ; <code>pumpMessages</code> documentée.</li>
+<li><code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></code> : <code>beginInputFrame</code> après chaque pas ; <code>pumpMessages</code> documentée.</li>
 <li><code><a class="el" href="test__input__state_8cpp.html" title="Tests unitaires de l&#39;état des entrées : fronts clavier/souris et position.">Source/Test/Unit/HMI/Input/test_input_state.cpp</a></code> : test de <code>releaseAll</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1585"></a>
+<h1><a class="anchor" id="autotoc_md1579"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>InputState::releaseAll</code> relâche toutes les entrées maintenues (clavier, manette, souris) et ne produit <b>aucun</b> front « relâchée », ni à la frame courante ni à la suivante.</li>
 <li>Non-régression : toute la suite reste verte (les tests injectant <code>beginFrame</code>/<code>onKeyDown</code> directement sur <code>InputState</code> sont inchangés — l'<code>InputState</code> lui-même n'a pas changé de sémantique, seul son pilotage par la boucle a changé).</li>
-<li>Le découplage boucle ↔ pas (orchestration dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée : assemble fenêtre, Direct3D 11, ressources partagées et écrans.">main.cpp</a></code>/<code>Window</code>) est vérifié <b>manuellement</b> à haut framerate : dépendance fenêtre/Win32, non couvert par un test unitaire (comme la boucle elle-même depuis <code>LOT-01</code>).</li>
+<li>Le découplage boucle ↔ pas (orchestration dans <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code>/<code>Window</code>) est vérifié <b>manuellement</b> à haut framerate : dépendance fenêtre/Win32, non couvert par un test unitaire (comme la boucle elle-même depuis <code>LOT-01</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1586"></a>
+<h1><a class="anchor" id="autotoc_md1580"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>À 120/144 Hz, aucun appui consommé par un pas n'est perdu ; <code>Alt+Tab</code> ne colle plus les touches ; aucune micro-saccade sans manette branchée.</li>
 <li>Compile <code>/W4 /WX</code>, formaté, API documentée <code>.h</code> + <code>.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1587"></a>
+<h1><a class="anchor" id="autotoc_md1581"></a>
 Exigences</h1>
 <p><code>EX-CTRL-020</code>, <code>EX-CTRL-021</code>, <code>EX-CTRL-002</code>, <code>EX-NFR-040</code>, <code>EX-NFR-001</code>. </p>
 </div></div><!-- contents -->

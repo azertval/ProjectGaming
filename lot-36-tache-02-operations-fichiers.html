@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.4</span>
+   <div id="projectname">ProjectGaming<span id="projectnumber">&#160;0.0.5</span>
    </div>
    <div id="projectbrief">Jeu 2D de plateforme/puzzle en C++/DirectX</div>
   </td>
@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-36-tache-02-operations-fichiers.ht
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-36-refonte-ihm-qt-niveaux_2epic_8md.html">LOT-36</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1707"></a>
+<h1><a class="anchor" id="autotoc_md1701"></a>
 Contexte</h1>
 <p>Le panneau « Niveaux » (TACHE-01) devient <b>actionnable</b> : créer, renommer, dupliquer, supprimer un niveau, avec validation de nom et confirmations. La logique (nom valide, nom de duplication unique, résolution de collision, effets fichiers) est isolée dans une <b>couche testable</b> ; Qt ne fait que la déclencher (menu contextuel, boutons) et afficher le résultat.</p>
-<h1><a class="anchor" id="autotoc_md1708"></a>
+<h1><a class="anchor" id="autotoc_md1702"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Couche « opérations de niveaux »</b> (<code>Source/Editor/LevelFileOperations.{h,cpp}</code>), sans Qt, prenant un dossier <code>Levels</code> et s'appuyant sur <code>std::filesystem</code> :<ul>
@@ -110,14 +110,14 @@ Travail à réaliser</h1>
 </li>
 <li><b>Intégration Qt</b> dans le panneau : menu contextuel + boutons (Nouveau, Renommer, Dupliquer, Supprimer) ; <b>dialogues</b> de saisie de nom (validation en direct) et <b>confirmation</b> de suppression (<code>QMessageBox</code>). Rafraîchir la liste après opération et sélectionner l'élément résultant.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1709"></a>
+<h1><a class="anchor" id="autotoc_md1703"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/LevelFileOperations.{h,cpp}</code> (nouveau, testable, sans Qt).</li>
 <li><code>Source/Editor/LevelBrowserPanel.{h,cpp}</code> (actions, dialogues, câblage).</li>
 <li><code><a class="el" href="test__level__file__operations_8cpp.html">Source/Test/Unit/Editor/test_level_file_operations.cpp</a></code> (nouveau).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1710"></a>
+<h1><a class="anchor" id="autotoc_md1704"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Unitaires sans Qt/GPU</b> (dossier temporaire) :<ul>
@@ -130,19 +130,19 @@ Tests (obligatoires)</h1>
 <li>Réutiliser les validateurs existants (<code><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></code>) — pas de règle dupliquée.</li>
 <li><b>Vérification manuelle</b> : les quatre opérations depuis le panneau, avec dialogues/confirmations.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1711"></a>
+<h1><a class="anchor" id="autotoc_md1705"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Validation et format = autorités existantes</b> : <code>LevelNameValidation</code>, <code>LevelWriter</code>, <code>LevelLoader</code> ; ne pas réimplémenter la validation de nom ni la sérialisation.</li>
 <li><b>Robustesse fichiers</b> : gérer fichier verrouillé / droits / chemin inexistant sans crash (résultat d'erreur lisible).</li>
 <li><b>Cohérence nom interne / nom de fichier</b> : décider si le renommage change aussi le champ <code>name</code> du JSON (recommandé) — le documenter.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1712"></a>
+<h1><a class="anchor" id="autotoc_md1706"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Créer/renommer/dupliquer/supprimer opérationnels depuis le panneau, validés et confirmés ; couche d'opérations <b>couverte par des tests</b> ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1713"></a>
+<h1><a class="anchor" id="autotoc_md1707"></a>
 Exigences</h1>
 <p><code>EX-IHM-021</code> (opérations fichiers avec validation et confirmation) ; réutilise <code>EX-EDIT-006</code>/ <code>EX-EDIT-007</code> (écriture/validation), <code>EX-NFR-010</code> (logique testable), <code>EX-NFR-040</code> (robustesse). </p>
 </div></div><!-- contents -->

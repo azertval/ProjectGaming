@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['ok_0',['ok',['../structeditor_1_1FileOpResult.html#a79f414b4e0dfbf0abf847c86ef77e286',1,'editor::FileOpResult']]],
-  ['onconfirm_1',['onConfirm',['../structhmi_1_1EditorScreen_1_1PendingConfirmation.html#ac8a5c69d3f081dcdeae9c5ee12d5cd11',1,'hmi::EditorScreen::PendingConfirmation']]],
-  ['openswith_2',['opensWith',['../LevelLoader_8cpp.html#ae42aa8d382de56571f20cdbad02851e4',1,'LevelLoader.cpp']]],
-  ['option_5fcount_3',['option_count',['../classhmi_1_1MenuModel.html#a5663b30330900d0192e5774edc69e1e0',1,'hmi::MenuModel::OPTION_COUNT'],['../classhmi_1_1OptionsModel.html#a0c7996ff3c3d5db9b35455d9bdda4d9d',1,'hmi::OptionsModel::OPTION_COUNT']]],
-  ['option_5fscale_4',['option_scale',['../classhmi_1_1LevelPicker.html#a7c8b6432f4103706a93d83c88cf704c7',1,'hmi::LevelPicker::OPTION_SCALE'],['../classhmi_1_1MenuModel.html#a5b913dd5b7beb138584e459626305698',1,'hmi::MenuModel::OPTION_SCALE']]],
-  ['option_5fspacing_5',['option_spacing',['../classhmi_1_1LevelPicker.html#af2f55e5b10fbb70933e534a6b48e50b6',1,'hmi::LevelPicker::OPTION_SPACING'],['../classhmi_1_1MenuModel.html#acfac22ceb32058acd7e95cb4203a4a40',1,'hmi::MenuModel::OPTION_SPACING']]],
-  ['options_5ftop_6',['options_top',['../classhmi_1_1LevelPicker.html#a7380ce01ba6bcec26fde5bc0049e162f',1,'hmi::LevelPicker::OPTIONS_TOP'],['../classhmi_1_1MenuModel.html#a81f49253351cbfa0f2c86f3179140fa6',1,'hmi::MenuModel::OPTIONS_TOP']]]
+  ['ok_0',['ok',['../structhmi_1_1FileOpResult.html#a0fe646d23cde5a31b9c6a35b93a441cf',1,'hmi::FileOpResult']]],
+  ['openswith_1',['opensWith',['../LevelLoader_8cpp.html#ae42aa8d382de56571f20cdbad02851e4',1,'LevelLoader.cpp']]]
 ];
