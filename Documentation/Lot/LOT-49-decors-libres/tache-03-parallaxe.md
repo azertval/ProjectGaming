@@ -16,14 +16,18 @@ C'est le point que le cadrage du lot demande de **trancher et documenter**, pas 
 l'exécution.
 
 ## Travail à réaliser
-- **Arbitrer entre deux comportements**, et implémenter celui retenu :
-  - **décalage relatif au centre de la salle courante** — le décor se replace à chaque salle ; la
-    parallaxe n'agit qu'à l'intérieur d'une salle, cohérente avec la coupure nette ;
-  - **décalage absolu en espace niveau** — continu sur tout le niveau, mais visiblement discontinu
-    au moment de la bascule de salle.
-  La première option est cohérente avec le parti pris de cadrage existant ; la seconde le contredit.
-  Quel que soit le choix, il doit être **écrit** dans la spécification des décors et dans le guide
-  de rendu.
+- **Comportement retenu : décalage relatif au centre de la salle courante.** Le décalage de
+  parallaxe est calculé à partir de la position **dans la salle**, pas de la position dans le
+  niveau. Conséquence assumée : le décor se **replace** à chaque salle, et la parallaxe n'agit qu'à
+  l'intérieur d'une salle.
+
+  Ce choix est le seul cohérent avec la caméra à coupure nette (`EX-REN-015`, `LOT-32`) : puisque la
+  caméra ne défile jamais d'une salle à l'autre, un décalage absolu en espace niveau produirait un
+  saut visible du décor à chaque bascule — un artefact, là où la coupure de caméra est, elle, un
+  parti pris. Le replacement par salle, lui, est invisible : il a lieu au moment exact où toute
+  l'image change déjà.
+
+  À documenter dans `decors.md` et `guide-rendu.md` comme une décision, pas comme une limite.
 - **Calcul du décalage** : fonction **pure** prenant la position du décor, le facteur de sa couche et
   le rectangle cadré par la caméra, renvoyant la position de rendu. Aucun état.
 - **Culling** : le rectangle de test de visibilité doit être calculé **après** application du
@@ -41,8 +45,9 @@ l'exécution.
 ## Tests (obligatoires)
 - Facteur 1 → position inchangée (la couche `Decor` est un cas de référence à asserter).
 - Facteur inférieur et supérieur à 1 → décalages de sens opposés, proportionnels.
-- **Comportement à la frontière de salle** conforme au choix documenté — c'est le test qui verrouille
-  l'arbitrage.
+- **Comportement à la frontière de salle** : le décalage se calcule bien depuis le centre de la
+  **nouvelle** salle après bascule ; un décor de même position relative se retrouve au même endroit
+  dans les deux salles. C'est le test qui verrouille l'arbitrage.
 - Culling : un décor parallaxé visible n'est pas écarté ; un décor parallaxé hors cadre l'est.
 - Fonction pure, sans GPU.
 

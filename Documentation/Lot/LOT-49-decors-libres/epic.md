@@ -57,12 +57,13 @@ avoir jamais été rattaché à un lot.
 - **Position flottante, aucune contrainte de grille** (`EX-DEC-001`). `core::Transform::position`
   est déjà en unités monde flottantes : `SpriteRenderer` n'a **rien** à changer pour afficher un
   décor hors grille.
-- **Parallaxe et caméra à coupure nette : à arbitrer explicitement.** La caméra bascule d'une salle
-  à l'autre sans transition (`EX-REN-015`, `LOT-32`), alors que la parallaxe suppose un défilement
-  continu. Deux options : décalage **relatif au centre de la salle courante** (le décor se replace à
-  chaque salle, cohérent avec la coupure nette), ou décalage **absolu en espace niveau** (continu,
-  mais saute visiblement au changement de salle). Ce lot doit **trancher et documenter**, pas
-  découvrir le problème à l'exécution. Le décalage doit également être pris en compte par le culling
+- **Parallaxe relative au centre de la salle courante** (arbitré). La caméra bascule d'une salle à
+  l'autre sans transition (`EX-REN-015`, `LOT-32`), alors que la parallaxe suppose un défilement
+  continu. Le décalage est donc calculé depuis la position **dans la salle**, pas dans le niveau :
+  le décor se replace à chaque salle, et la parallaxe n'agit qu'à l'intérieur d'une salle.
+  L'alternative — un décalage absolu en espace niveau — ferait sauter visiblement le décor à chaque
+  bascule, un artefact ; le replacement par salle, lui, a lieu au moment exact où toute l'image
+  change déjà, donc invisible. Le décalage doit également être pris en compte par le culling
   (LOT-40, TACHE-05) : une couche parallaxée n'occupe pas le même rectangle monde que le niveau.
 - **Aucune collision, jamais.** Un décor qui pourrait bloquer serait une tuile ; la distinction
   décor/physique est le sujet même du lot.
@@ -93,8 +94,8 @@ avoir jamais été rattaché à un lot.
 2. Un décor ne bloque jamais le personnage : les tests de franchissabilité des niveaux passent sans
    modification, décors ajoutés ou non.
 3. Un décor peut être placé à une position non alignée sur la grille.
-4. La parallaxe produit un défilement différencié entre couches, et son comportement au changement
-   de salle est celui documenté — pas un effet de bord constaté.
+4. La parallaxe produit un défilement différencié entre couches à l'intérieur d'une salle, et le
+   décalage se recalcule depuis le centre de la nouvelle salle à chaque bascule.
 5. Un niveau existant (sans décors) se charge sans changement de comportement.
 6. Round-trip JSON, undo/redo et projection couche → calque testés sans GPU ; build `/W4 /WX`,
    Doxygen, lint verts.

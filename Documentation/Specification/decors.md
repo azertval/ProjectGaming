@@ -18,9 +18,10 @@ Les décors sont issus de **photos réelles converties en pixel art**, plaçable
 - \anchor EX-DEC-006 **EX-DEC-006** — Chaque **couche** de décor porte un **facteur de défilement**
   (parallaxe) appliqué au rendu : une couche d'arrière-plan défile moins vite que le niveau, une
   couche de premier plan plus vite, ce qui donne la profondeur. Le facteur est purement visuel
-  (`EX-ARCH-012`) et son comportement au franchissement d'une frontière de **salle**
-  (`EX-REN-015`, caméra à coupure nette) doit être défini explicitement plutôt que subi.
-  Concrétisé en `LOT-49`.
+  (`EX-ARCH-012`). Le décalage est calculé **relativement au centre de la salle courante**
+  (`EX-REN-015`) et non en espace niveau : la caméra ne défilant jamais d'une salle à l'autre, un
+  décalage absolu ferait sauter le décor à chaque bascule, alors qu'un décalage par salle se replace
+  au moment exact où toute l'image change déjà. Concrétisé en `LOT-49`.
 
 Les décors sont **traversables** : ils ne participent jamais aux collisions. Combiné à la couche de
 **premier plan** dessinée au-dessus du personnage (`EX-REN-014`), c'est le moyen de lecture qui

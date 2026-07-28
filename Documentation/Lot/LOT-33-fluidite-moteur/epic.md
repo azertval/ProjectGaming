@@ -1,6 +1,6 @@
 # LOT-33 — Fluidité du moteur (entrées nerveuses, présentation flip, interpolation) {#lot-33}
 
-> Statut : **en cours**.
+> Statut : **✅ terminé**.
 
 ## Objectif
 Les lots précédents ont bâti le gameplay, l'éditeur et le contenu ; ce lot revient sur des **choix

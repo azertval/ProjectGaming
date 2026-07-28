@@ -22,10 +22,11 @@ détache de ce qui ne l'est pas. C'est le complément du calque de premier plan 
 - **Culling** : les quads d'ombre passent par le culling comme le reste (LOT-40, TACHE-05) — ils
   doublent le nombre de primitives du plan physique, c'est le principal effet de ce lot sur le
   budget (`EX-NFR-005`).
-- **Silhouettes** : décider du traitement des pentes et arrondis. Ils ne sont **pas** solides au sens
-  de `core::isSolid` (résolus par des passes de suivi dédiées) : par défaut, ils ne projettent donc
-  aucune ombre. C'est cohérent avec la règle, mais visuellement discutable — une plateforme en pente
-  sans ombre à côté d'un bloc plein qui en a une. Trancher explicitement et documenter.
+- **Silhouettes et blocs réduits : hors de cette tâche.** Les pentes et arrondis ne sont pas solides
+  au sens de `core::isSolid` (résolus par des passes de suivi dédiées) et n'auraient donc aucune
+  ombre ; les blocs réduits n'occupent qu'une fraction de leur case. Les deux sont traités en
+  [TACHE-03](tache-03-ombres-silhouettes.md), qui donne à l'ombre la forme réelle de la tuile. Cette
+  tâche se limite au quad rectangulaire pleine case des types `Solid` et `Block`.
 
 ## Fichiers impactés
 - `Source/HMI/Graphics/ShadowRenderer.{h,cpp}` (nouveau) ou extension de `DraftRenderer`/
@@ -34,11 +35,10 @@ détache de ce qui ne l'est pas. C'est le complément du calque de premier plan 
 - `Source/Test/Unit/HMI/Graphics/test_shadow_render.cpp` (nouveau).
 
 ## Tests (obligatoires)
-- Une tuile solide produit un quad sur le calque *Shadow*, décalé de l'offset attendu ; une tuile non
-  solide n'en produit aucun — asserté via le *QuadRecorder*.
+- Une tuile `Solid` ou `Block` produit un quad sur le calque *Shadow*, décalé de l'offset attendu ;
+  une tuile non solide n'en produit aucun — asserté via le *QuadRecorder*.
 - **Aucun quad d'ombre en mode Physique.**
 - Les ombres sont émises **avant** les tuiles dans l'ordre des primitives.
-- Le traitement retenu pour les pentes et arrondis est celui observé.
 - Sans GPU.
 
 ## Points d'attention
@@ -54,9 +54,9 @@ détache de ce qui ne l'est pas. C'est le complément du calque de premier plan 
   pas un cas d'erreur, aucun traitement particulier n'est requis.
 
 ## Définition de fait (DoD)
-- Les tuiles solides projettent une ombre sur ce qui se trouve derrière elles, en mode Texture
-  uniquement, avant leur propre dessin ; le traitement des pentes et la source de solidité sont
-  tranchés et documentés ; aucun effet sur le gameplay ; assertions sans GPU vertes ;
+- Les tuiles pleines projettent une ombre sur ce qui se trouve derrière elles, en mode Texture
+  uniquement, avant leur propre dessin ; la source de solidité (grille du niveau ou de collision)
+  est tranchée et documentée ; aucun effet sur le gameplay ; assertions sans GPU vertes ;
   `/W4 /WX` propre.
 
 ## Exigences
