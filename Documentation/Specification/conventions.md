@@ -44,9 +44,9 @@ Règles à respecter dès la première ligne, pour garder un code cohérent et u
 Les en-têtes du projet s'incluent par leur **chemin complet depuis la racine `Source/`**, jamais par nom seul :
 
 ```cpp
-#include "Core/Core.h"          // ✅ chemin complet
-#include "HMI/Window.h"         // ✅
-#include "Core.h"               // ❌ nom seul
+#include "Core/Core.h"                    // ✅ chemin complet
+#include "HMI/Game/GameViewport.h"        // ✅
+#include "Core.h"                         // ❌ nom seul
 ```
 
 - Séparateur : **slash `/`** (portable), y compris sous Windows — jamais d'antislash.
@@ -62,9 +62,15 @@ Dans un `.cpp`, du plus proche au plus général, chaque groupe trié et sépar�
 
 ## 5. Architecture (dépendances entre modules)
 - **`Core`** : logique/moteur, **indépendant** de la présentation. Ne connaît ni DirectX ni la fenêtre.
-- **`HMI`** : dépend de `Core`, jamais l'inverse. Contient rendu, fenêtre, entrées.
-- **`Elements`** : données/assets statiques, aucun code exécutable.
+- **`HMI`** : dépend de `Core`, jamais l'inverse. L'unique application **Qt** (`ProjectGaming`) : rendu Direct3D 11 du jeu, entrées, et widgets Qt de l'IHM hors-jeu.
+- **`Elements`** : données/assets statiques, aucun code exécutable — dont les **assets Qt déclaratifs** (`.ui`, `.qrc`, thèmes `.qss`).
 - Aucune dépendance cyclique. `Core` reste testable sans fenêtre ni GPU.
+
+### IHM Qt : le moins de code possible, la mise en page hors code
+- **La mise en page d'un écran/panneau vit dans un fichier `.ui`** (Qt Designer, `Source/Elements/UI`), **jamais construite bouton par bouton en C++**. Objectif explicite : **un non-développeur configure et fait évoluer l'IHM depuis l'éditeur Qt (Qt Designer) sans ouvrir le code**.
+- Le **code C++ d'un widget ne fait que brancher le fonctionnel** : `setupUi`, connexions signaux/slots, remplissage des données, et localisation (`retranslateUi`). Il ne pose pas la géométrie, les libellés statiques, ni la hiérarchie des conteneurs — tout cela appartient au `.ui`.
+- **Exception admise** : le contenu réellement **dynamique** (une liste de lignes générée à partir des données, ex. une ligne par action de remappage) peut être créé en code, faute de pouvoir le décrire statiquement — mais reste minimal.
+- Tout **texte affiché** passe par une **clé de traduction** (`hmi::Localization`, `EX-REN-033`) ; aucun libellé en dur dans le code (les `.ui` ne portent que le français de repli, écrasé par `retranslateUi`).
 
 ### Classes plutôt que fonctions libres
 - **Privilégier une classe** (avec état encapsulé et membres privés) à un ensemble de fonctions libres dans un espace de noms. Une classe se dérive et se spécialise : elle permet d'étendre les comportements sans réécrire les appelants.

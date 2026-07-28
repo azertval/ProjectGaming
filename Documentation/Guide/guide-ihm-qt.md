@@ -1,8 +1,8 @@
 # IHM Qt (refonte) — socle applicatif & viewport Direct3D 11 {#guide-ihm-qt}
 
-> Statut : **en cours** (`LOT-34`). Cette page décrit le socle de l'application Qt qui remplace
-> progressivement l'IHM « maison ». Le rendu **du jeu** reste Direct3D 11 ; seule l'**interface
-> hors-jeu** passe à Qt (voir [spécification IHM](@ref spec-interface-ihm)).
+> Statut : **socle en place** (`LOT-34` → `LOT-38`). Cette page décrit l'application Qt qui a
+> remplacé l'IHM « maison ». Le rendu **du jeu** reste Direct3D 11 ; seule l'**interface hors-jeu**
+> passe à Qt (voir [spécification IHM](@ref spec-interface-ihm)).
 
 ## Pourquoi Qt
 
@@ -12,27 +12,33 @@ coûteuse à maintenir. La refonte (`LOT-34` → `LOT-39`) porte **toute l'UI ho
 options) sur **Qt** — fenêtres dockables réglables hors code — tandis que le **rendu in-game reste
 Direct3D 11**, embarqué dans un viewport Qt. `Core` n'est pas touché.
 
-## Deux cibles, une bibliothèque de rendu
+## Une seule cible : l'application Qt
 
-Le module `Source/HMI` est scindé (`LOT-34`) :
+Depuis le `LOT-38`, l'IHM « maison » (écrans, widgets, fenêtre Win32) et l'exécutable historique ont
+été retirés. `Source/HMI` porte désormais **l'unique application** `ProjectGaming` (`QApplication` +
+`QMainWindow`, widget central = viewport Direct3D 11), avec le code réparti par domaine, au plus près
+de l'architecture d'origine :
 
-- **`HmiRuntime`** (bibliothèque statique) : rendu Direct3D 11 (`hmi::GraphicsDevice`,
-  `hmi::SpriteBatch`, `hmi::SpriteRenderer`, `hmi::TextureAtlas`, `hmi::Camera2D`…), entrées
-  (`hmi::InputState`, `hmi::GamepadPoller`, `*KeyBindings`), localisation, et la **session de jeu**
-  (`hmi::GameSession`). Aucune UI « maison ». Réutilisée par les deux exécutables.
-- **`ProjectGaming`** (exécutable historique) : fenêtre Win32, boucle, écrans et éditeur « maison ».
-  Conservé **en parallèle** pendant toute la migration pour ne jamais casser le jeu (retrait au
-  `LOT-38`).
-- **`ProjectGamingEditor`** (`Source/Editor`, nouvel exécutable Qt) : `QApplication` +
-  `QMainWindow`, dont le widget central est le **viewport Direct3D 11**.
+- `Platform/` — provisionnement bas niveau (répertoire exécutable) ;
+- `Input/` — entrées (`hmi::InputState`, `hmi::GamepadPoller`, `*KeyBindings`, pont Qt→`Key`
+  `hmi::qtKeyToHmiKey`) ;
+- `Graphics/` — rendu Direct3D 11 (`hmi::GraphicsDevice`, `hmi::SpriteBatch`, `hmi::SpriteRenderer`,
+  `hmi::TextureAtlas`, `hmi::Camera2D`, `hmi::DraftRenderer`…) ;
+- `Game/` — **session de jeu** (`hmi::GameSession`) et viewport Qt jeu/édition (`hmi::GameViewport`) ;
+- `Localization/` — catalogue de traduction ;
+- `Interface/` — fenêtre principale, menu, options, remappage (widgets Qt) ;
+- `Editor/` — périmètre éditeur de niveau (palette, outils, navigateur, logique pure).
 
-La cible Qt est **optionnelle** côté build : sans Qt, la configuration CMake n'échoue pas (l'exe
-historique se construit). Voir `External/README.md` pour le provisionnement de Qt (local, CI,
-release).
+Les **assets Qt déclaratifs** (mises en page `.ui`, ressource `.qrc`) et le **thème** (`.qss`) vivent
+dans `Source/Elements` (`UI/`, `Themes/`) — éditables hors code. La cible reste **optionnelle** côté
+build : sans Qt, la configuration CMake n'échoue pas (les tests unitaires, qui compilent les sources
+pures directement, se construisent quand même). `windeployqt` copie les DLL Qt à côté de
+l'exécutable — **aucune bibliothèque à installer** côté utilisateur. Voir `External/README.md` pour
+le provisionnement de Qt (local, CI, release).
 
 ## Le viewport : Direct3D 11 dans une fenêtre Qt
 
-`editor::GameViewport` dérive de `QWindow` et est inséré dans la hiérarchie de widgets par
+`hmi::GameViewport` dérive de `QWindow` et est inséré dans la hiérarchie de widgets par
 `QWidget::createWindowContainer`. Le principe :
 
 1. Qt fournit un **`HWND` natif** (`winId()`), passé à `hmi::GraphicsDevice` qui y crée sa swap
@@ -74,18 +80,18 @@ Le viewport traduit les événements Qt vers le **même** `hmi::InputState` que 
 Toute la logique de jeu d'**un** niveau (scène ECS, physique, mécanismes, blocs, dangers, caméra par
 salle, animation, interpolation) est isolée dans `hmi::GameSession` — **sans dépendance d'écran**.
 `update()` avance d'un pas fixe et renvoie l'issue (`core::LevelOutcome`, rechargement interne sur
-échec) ; `render()` dessine via le `SpriteRenderer`. La même session est utilisée **et** par l'écran
-de jeu historique (`hmi::GameScreen`, désormais un mince adaptateur) **et** par le viewport Qt :
-aucune duplication, comportement identique (voir @ref guide-niveaux, @ref guide-physique).
+échec) ; `render()` dessine via le `SpriteRenderer`. La session est pilotée par le viewport Qt
+(`hmi::GameViewport`) en mode jeu comme en essai depuis l'éditeur : une seule logique, comportement
+identique (voir @ref guide-niveaux, @ref guide-physique).
 
 ## Éditeur : docks, palette, peinture (LOT-35)
 
-`editor::MainWindow` est un **poste de travail à panneaux dockables** (`QDockWidget` — Palette,
-Outils, Statut) autour du viewport central. La **disposition** est persistée hors code
+`hmi::MainWindow` est un **poste de travail à panneaux dockables** (`QDockWidget` — Palette,
+Outils, Niveaux) autour du viewport central. La **disposition** est persistée hors code
 (`QSettings` : restaurée au lancement, sauvée à la fermeture, réinitialisable ; `EX-IHM-011`).
 
-- **Palette** (`editor::PalettePanel`) : un `QTreeView` alimenté par la taxonomie **pure**
-  `editor::tileTaxonomy` (catégories → sous-groupes → tuiles, tous les `core::TileType` couverts,
+- **Palette** (`hmi::PalettePanel`) : un `QTreeView` alimenté par la taxonomie **pure**
+  `hmi::tileTaxonomy` (catégories → sous-groupes → tuiles, tous les `core::TileType` couverts,
   testé sans GPU). Sélectionner une tuile définit le type peint.
 - **Édition dans le viewport** : le viewport affiche le brouillon (`core::LevelDraft`) via
   `hmi::DraftRenderer` (scène ECS reconstruite à la demande, rendue par le `SpriteRenderer`), caméra
@@ -99,9 +105,9 @@ Outils, Statut) autour du viewport central. La **disposition** est persistée ho
 
 ### Gestion des niveaux (LOT-36)
 
-Le panneau **Niveaux** (`editor::LevelBrowserPanel`) liste les fichiers du dossier `Levels` avec
+Le panneau **Niveaux** (`hmi::LevelBrowserPanel`) liste les fichiers du dossier `Levels` avec
 **recherche** incrémentale, et permet de **créer / renommer / dupliquer / supprimer** un niveau.
-Ces opérations délèguent à `editor::LevelFileOperations` — une couche **pure et testée** (aucune
+Ces opérations délèguent à `hmi::LevelFileOperations` — une couche **pure et testée** (aucune
 dépendance Qt/GPU) qui réutilise `hmi::isValidLevelName`, `core::LevelLoader`/`LevelWriter` et
 `core::LevelDraft` (aucune règle dupliquée) et renvoie un résultat récupérable (jamais d'exception).
 Un double-clic **ouvre** le niveau dans le viewport, précédé d'un **garde-fou** si le brouillon

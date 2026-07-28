@@ -2,7 +2,7 @@
  * @file test_danger_avance.cpp
  * @brief Tests d'intégration des dangers avancés (`EX-GP-050` à `EX-GP-053`) : `DangerController`
  * et `MechanismController` assemblés avec `CharacterPhysicsSystem`/`evaluateOutcome`, comme dans
- * `HMI::GameScreen::update`.
+ * `hmi::GameSession::update`.
  */
 
 #include <vector>
@@ -44,7 +44,7 @@ core::Entity spawnHumanoidAt(core::World& world, float x, float y) {
 }
 
 // Assemble les boîtes actuellement mortelles des dangers mobile/commuté/temporisé, même
-// composition que `HMI::GameScreen::collectActiveDangerBoxes`.
+// composition que `hmi::GameSession::collectActiveDangerBoxes`.
 std::vector<core::Aabb> collectActiveDangerBoxes(const core::Level& level,
                                                   const core::DangerController& dangers,
                                                   const core::MechanismController& mechanisms) {

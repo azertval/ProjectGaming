@@ -7,6 +7,26 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-34 → LOT-38 — Refonte de l'IHM vers Qt** (`EX-IHM-*`, `EX-BUILD-010`) : toute l'interface
+  hors-jeu (menu, options, remappage clavier/manette, éditeur de niveaux) est désormais une
+  application **Qt 6** (`ProjectGaming`), le **rendu in-game restant Direct3D 11** embarqué dans un
+  viewport (`hmi::GameViewport`, `QWindow` + `HWND`). Fenêtres dockables (`QDockWidget` : Palette,
+  Outils, Niveaux) à disposition persistée (`QSettings`, `EX-IHM-011`), palette en arbre
+  (`QTreeView`), navigateur de niveaux (recherche, créer/renommer/dupliquer/supprimer). Mises en
+  page éditables hors code (`.ui`/`.qrc`/`.qss` dans `Source/Elements/UI` et `Themes`). Déploiement
+  autonome via `windeployqt` (aucune bibliothèque à installer côté utilisateur).
+  **Internationalisation** (`EX-REN-033`) : toute l'IHM Qt (menu, options, éditeur, dialogues,
+  palette, remappage) est traduite via `hmi::Localization` (catalogues `fr`/`en`, clés en anglais) ;
+  l'onglet **Général** des Options offre le **choix de langue** (retraduction à chaud, persistée dans
+  `QSettings`) et un bouton **« Enregistrer les journaux »** (`hmi::saveSessionLog`, build dev).
+
+### Modifié
+- **LOT-38 (Étape B) — Retrait du legacy & réorganisation** : suppression de l'IHM « maison »
+  (écrans `IScreen`/`ScreenManager`, widgets d'éditeur, police bitmap, fenêtre Win32) et de
+  l'exécutable historique ; `Source/HMI` devient l'unique cible (`ProjectGaming`), code réparti par
+  domaine (`Platform`/`Input`/`Graphics`/`Game`/`Localization`/`Interface`/`Editor`). Documentation
+  (guides écrans/éditeur/rendu/entrées) et journalisation mises à jour en conséquence.
+
 - **LOT-33 — Fluidité du moteur** (`EX-REN-004`, `EX-ARCH-031`, `EX-CTRL-020`, `EX-CTRL-021`) :
   ensemble de corrections de choix techniques boucle/rendu/entrées qui dégradaient le ressenti
   au-dessus de 60 Hz. **Entrées nerveuses** : les fronts (pressée/relâchée) sont désormais consommés

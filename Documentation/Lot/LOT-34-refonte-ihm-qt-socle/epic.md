@@ -43,7 +43,7 @@ l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM.
 - **`HMI` devient une bibliothèque de rendu** (au lieu de l'exécutable) : `GraphicsDevice`,
   `SpriteBatch`, `SpriteRenderer`, `TextureAtlas`, `Camera2D`, `TileVisuals`, `RoomGrid`,
   `BitmapFont`, `FlagIcons` restent tels quels et sont liés par la nouvelle cible.
-- **Nouvelle cible exécutable Qt** `ProjectGamingEditor` (`Source/Editor/`) : `QApplication`,
+- **Nouvelle cible exécutable Qt** `ProjectGaming` (`Source/Editor/`) : `QApplication`,
   `QMainWindow`, un `QWindow` viewport embarqué via `QWidget::createWindowContainer`.
 - **Pont D3D11 ↔ Qt** : le `winId()` (HWND) du `QWindow` est passé à `hmi::GraphicsDevice(HWND, w, h)`
   (signature déjà existante) ; `resizeEvent`/`exposeEvent` du viewport → `graphics.resize(...)`.
@@ -90,7 +90,7 @@ l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM.
   impose de **déployer les DLL Qt** à côté du binaire via **`windeployqt`** (Core/Gui/Widgets +
   plugin `platforms/qwindows.dll`) avant de packager l'archive `debug-latest`. À anticiper : c'est le
   changement le plus visible par rapport au modèle `FetchContent` header-only. Le basculement effectif
-  de la release sur `ProjectGamingEditor` (et le retrait de l'ancien exe) est finalisé au
+  de la release sur `ProjectGaming` (et le retrait de l'ancien exe) est finalisé au
   [LOT-38](@ref lot-38).
 - **Coexistence des deux exécutables jusqu'à parité** : ne jamais laisser le jeu injouable entre deux
   lots ; l'ancien chemin est retiré seulement quand le nouveau couvre tout (LOT-38).
@@ -114,7 +114,7 @@ l'intégration Qt ↔ D3D11 avant d'y bâtir l'IHM.
 | [TACHE-04](tache-04-niveau-jouable-doc.md) | Chargement/affichage/jeu d'un niveau dans le viewport ; documentation & vérification | `Source/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
-1. `cmake --preset vs` configure et compile la nouvelle cible `ProjectGamingEditor` **et** l'ancien
+1. `cmake --preset vs` configure et compile la nouvelle cible `ProjectGaming` **et** l'ancien
    `ProjectGaming`, Qt6 étant provisionné localement ; le provisionnement est **documenté et
    reproductible** en CI (`windows-2022`).
 2. La fenêtre Qt affiche un niveau chargé **au rendu D3D11 identique** à l'exécutable historique

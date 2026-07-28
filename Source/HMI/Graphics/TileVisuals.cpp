@@ -19,7 +19,7 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
         case core::TileType::DangerBlink:
             // Meme region que Danger classique (rouge) : la geometrie affichee (case pleine ou
             // bande directionnelle, core::dangerHitbox appliquee par l'appelant — LevelScene.cpp,
-            // EditorScreen.cpp) distingue deja les variantes directionnelles ; simplification
+            // DraftRenderer.cpp) distingue deja les variantes directionnelles ; simplification
             // assumee pour Mobile/Commute/Clignotant (memes couleur/forme que Danger classique,
             // seul leur TYPE — visible dans la palette — les distingue a l'edition).
             return atlas.tile(0, 0);  // rouge

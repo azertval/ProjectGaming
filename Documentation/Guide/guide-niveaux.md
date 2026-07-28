@@ -194,7 +194,7 @@ jamais à mi-chemin — pousser ou tomber le déplace d'une case entière, comme
 - **Poussée** : `update(playerBox, moveIntentX, baseCollision)` teste si la boîte du personnage
   touche un bloc du côté vers lequel `moveIntentX` (@ref guide-entrees) l'entraîne ; si la case
   suivante dans cette direction est libre (ni solide, ni un autre bloc), le bloc avance d'une case.
-  Appelé **avant** la physique du personnage (`hmi::GameScreen::update`), avec la boîte **laissée
+  Appelé **avant** la physique du personnage (`hmi::GameSession::update`), avec la boîte **laissée
   par le pas précédent** : un bloc qui vient de se dégager ne bloque donc jamais le personnage sur
   ce même pas — la case est déjà libre quand le balayage de collision (@ref guide-physique) s'exécute.
 - **Chute** : un bloc dont la case du dessous est libre tombe d'une case, au rythme d'une case
@@ -229,12 +229,12 @@ occupe toute sa case au sens de la collision ne serait, à l'usage, pas différe
 `collisionMap` laisse donc les cases des blocs réduits **franches** dans la grille classique ; leur
 collision réelle est résolue par une seconde routine, `core::sweepAabbVsAabb`
 (`Core/Physics/AabbVsAabb.h`, quart de cercle mis à part — une simple boîte fixe, pas une surface),
-composée par `hmi::GameScreen::update` **après** le balayage sur grille : le déplacement réellement
+composée par `hmi::GameSession::update` **après** le balayage sur grille : le déplacement réellement
 obtenu par la grille est retesté contre la boîte réelle de chaque bloc réduit, la restriction la
 plus stricte des deux l'emportant toujours (cette seconde passe ne peut que réduire davantage le
 déplacement, jamais l'étendre — la grille reste la référence pour les murs/blocs pleins).
 
-Cohérence stricte entre le rendu et la collision : `hmi::GameScreen::refreshBlockVisuals` calcule
+Cohérence stricte entre le rendu et la collision : `hmi::GameSession::refreshBlockVisuals` calcule
 la **même** marge (`(1 - facteur) / 2`) pour positionner et mettre à l'échelle le sprite d'un bloc
 réduit — le sprite affiché correspond donc exactement, par construction, à la boîte réellement
 testée, sans risque de divergence entre deux calculs indépendants.
@@ -271,8 +271,8 @@ un contrôleur de `Core/Gameplay`, qui possède un état à faire vivre chaque p
   géométrique, aucun contrôleur. `core::dangerHitbox(type, col, row)` (`Core/Levels/
   DangerGeometry.h`) renvoie une bande étroite (`kDangerEdgeThickness`, un quart de case) alignée
   sur le bord désigné par le suffixe, au lieu de la case pleine — seule source de vérité, partagée
-  par `core::evaluateOutcome` (ci-dessous) et le rendu (`core::buildLevelScene`, `hmi::
-  EditorScreen`), même garantie de non-divergence que `core::tileVisualScale` pour les blocs
+  par `core::evaluateOutcome` (ci-dessous) et le rendu (`core::buildLevelScene`,
+  `hmi::DraftRenderer`), même garantie de non-divergence que `core::tileVisualScale` pour les blocs
   réduits.
 - **Mobile** (`TileType::DangerMover`, `EX-GP-051`) : `core::DangerController` (nouveau, `Core/
   Gameplay`, aux côtés de `MechanismController`/`BlockController`) fait progresser un compteur de
@@ -322,7 +322,7 @@ courant du niveau à partir de la position du personnage, en trois issues possib
 vrai — `MechanismController`/`DangerController` incluent déjà `Level.h`), donc `evaluateOutcome` ne
 peut pas interroger ces contrôleurs lui-même. L'**appelant**, qui les possède déjà, assemble leurs
 boîtes actuellement mortelles et les passe en paramètre —
-`hmi::GameScreen::collectActiveDangerBoxes` en jeu (mover : `DangerController::moverBox` pour
+`hmi::GameSession::collectActiveDangerBoxes` en jeu (mover : `DangerController::moverBox` pour
 chaque configuration ; commuté : `DangerController`/`MechanismController::isDangerActive` par
 position, converti en boîte via `dangerHitbox` ; temporisé : `DangerController::isBlinkActive` par
 position, même conversion). Un appelant qui ignore ces variantes (ou un niveau qui n'en a aucune)
@@ -333,13 +333,14 @@ L'ordre de classement est **déterministe et volontaire** : si, au même pas, le
 l'**échec l'emporte sur le succès** — une règle simple et prévisible plutôt que dépendante de
 l'ordre de test interne.
 
-Cette fonction ne fait que **classer** l'état ; c'est côté écran que la transition a réellement
-lieu. `hmi::LevelSequence` gère l'**ordre** des niveaux d'une session et l'enchaînement qui en
+Cette fonction ne fait que **classer** l'état ; c'est côté présentation que la transition a
+réellement lieu. Le viewport de jeu (`hmi::GameViewport`, alimenté par la liste de
+`hmi::MainWindow::startGame`) gère l'**ordre** des niveaux d'une session et l'enchaînement qui en
 découle : une issue `Won` avance vers le niveau suivant de la séquence ; après le **dernier** niveau,
-elle ramène à l'écran-titre plutôt que de tenter un niveau inexistant (`EX-LVL-010`/`EX-LVL-011`).
+il revient au menu plutôt que de tenter un niveau inexistant (`EX-LVL-010`/`EX-LVL-011`).
 
 ## Voir aussi
 - `core::Level`, `core::TileMap`, `core::TileType`, `core::LevelLoader`, `core::LevelLoadResult`.
-- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::LevelSequence`.
+- `core::buildLevelScene`, `core::MechanismController`, `core::BlockController`, `core::DangerController`, `core::dangerHitbox`, `core::evaluateOutcome`, `hmi::GameSession`.
 - @ref guide-physique — comment le balayage consomme `isSolid`/`collisionMap()`.
 - @ref guide-ecs — le composant `core::Player` qui porte les compteurs de budget.

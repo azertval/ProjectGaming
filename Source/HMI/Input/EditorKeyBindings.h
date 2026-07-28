@@ -17,7 +17,7 @@ namespace hmi {
 /**
  * @brief Action d'éditeur logique, remappable indépendamment de la touche physique.
  *
- * Sous-ensemble **significatif** des raccourcis d'`EditorScreen.cpp`, pas exhaustif (décision de
+ * Sous-ensemble **significatif** des raccourcis de l'éditeur (`hmi::GameViewport`, mode édition), pas exhaustif (décision de
  * cadrage `LOT-29`) : navigation de menu, redimensionnement par flèches, `Ctrl+R`, `"0"`, `Tab`,
  * Maj+clic restent câblés en dur. Le modificateur `Ctrl` de Save/Undo/Redo/Copy/Paste reste
  * lui-même câblé en dur ; seule la touche-lettre associée est ici remappable.
@@ -46,7 +46,7 @@ constexpr int EDITOR_ACTION_COUNT = 9;
  */
 class EditorKeyBindings {
 public:
-    /// Construit avec les valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2, cf. `EditorScreen.cpp`).
+    /// Construit avec les valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2, cf. l'éditeur `hmi::GameViewport`).
     EditorKeyBindings();
 
     /// @return La touche actuellement liée à @p action.

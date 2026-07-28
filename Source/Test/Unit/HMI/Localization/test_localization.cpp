@@ -167,6 +167,6 @@ TEST(LocalizationTest, CatalogueFrancaisLivreSeCharge) {
 
     ASSERT_TRUE(localization.loadDefaultLanguage("fr"));
     EXPECT_EQ(localization.activeLanguage(), "fr");
-    EXPECT_EQ(localization.text("menu.quitter"), "Quitter");
-    EXPECT_EQ(localization.text("menu.jouer"), "Jouer");
+    EXPECT_EQ(localization.text("menu.quit"), "Quitter");
+    EXPECT_EQ(localization.text("menu.play"), "Jouer");
 }

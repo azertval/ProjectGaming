@@ -49,7 +49,8 @@ l'UI « maison » dessinée quad par quad. `Core` demeure indépendant de la pr�
   Win32 propre) est **retirée** une fois la parité atteinte.
 
 ## Traçabilité
-Tout ceci relève de `Source/HMI` (rendu de jeu réutilisé) et d'une couche applicative Qt
-(`Source/Editor`). La logique testable (édition, validation, remappage) reste découplée de l'UI et
+Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
+de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans
+`Source/Elements`. La logique testable (édition, validation, remappage) reste découplée de l'UI et
 couverte par des tests (`EX-NFR-010`, `EX-NFR-020`). Détail du séquencement : lots
 [`LOT-34`](@ref lot-34) à [`LOT-39`](@ref lot-39).

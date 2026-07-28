@@ -45,7 +45,7 @@ struct Aabb;
  * du `Level`. Les blocs **réduits** (`BlockHalf`/`BlockQuarter`) ne sont **jamais** marqués solides
  * dans cette grille — leur case doit rester franchissable **autour** d'eux (`EX-GP-005`) ; leur
  * collision réelle avec le personnage est résolue à part, par `core::sweepAabbVsAabb`
- * (@ref guide-physique), composée par l'appelant (`HMI::GameScreen`) après le balayage sur grille.
+ * (@ref guide-physique), composée par l'appelant (`hmi::GameSession`) après le balayage sur grille.
  */
 class BlockController {
 public:

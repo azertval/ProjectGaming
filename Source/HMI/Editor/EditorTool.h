@@ -8,7 +8,7 @@
 namespace hmi {
 
 /**
- * @brief Outil actif dans la grille de l'éditeur, changé via `Tab` ou la `ToolBar`.
+ * @brief Outil actif dans la grille de l'éditeur, changé via `Tab` ou le panneau `ToolPanel`.
  *
  * `Paint` peint case par case au clic/glisser (comportement LOT-14, inchangé). `Rectangle` peint
  * un rectangle entier au relâchement d'un glisser. `Selection` définit une zone (glisser) dont le

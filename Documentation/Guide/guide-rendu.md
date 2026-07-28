@@ -2,8 +2,8 @@
 
 Cette page explique comment une entité ECS (@ref guide-ecs) — une simple combinaison de données —
 finit par apparaître comme une image à l'écran, en partant des notions de base du rendu temps réel
-pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics` et
-`Source/HMI/Platform` ; c'est la seule partie du moteur qui dépend de Direct3D 11 et de Win32
+pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics`, sur une surface fournie
+par le viewport Qt (`Source/HMI/Game`) ; c'est la seule partie du moteur qui dépend de Direct3D 11
 (`Core` en reste totalement indépendant, @ref guide-boucle et `EX-ARCH-040`).
 
 ## Vocabulaire de base : GPU, swap chain, back buffer
@@ -60,19 +60,19 @@ l'image affichée, et une cadence plus régulière — y compris V-Sync activée
 **dé-lie** la cible de rendu du back buffer à chaque frame ; `GraphicsDevice::clear()` la relie donc
 (`OMSetRenderTargets`) en tête de chaque frame, avant tout dessin.
 
-## \ref hmi::Window "hmi::Window" : la fenêtre, prérequis du rendu
+## La surface de dessin : le viewport Qt (`hmi::GameViewport`)
 
-Direct3D a besoin d'une surface Windows où dessiner : c'est `hmi::Window` (`Source/HMI/Platform`)
-qui crée et possède cette fenêtre Win32, et fournit son handle natif (`HWND`, littéralement
-« *handle to a window* », l'identifiant opaque que Windows utilise pour désigner une fenêtre) —
-c'est ce `HWND` que `GraphicsDevice` reçoit à sa construction pour savoir *où* dessiner.
+Direct3D a besoin d'une surface Windows où dessiner. Depuis la refonte Qt (@ref guide-ihm-qt), cette
+surface est un **`QWindow` natif** embarqué, `hmi::GameViewport` : Qt en fournit le handle natif
+(`HWND`, littéralement « *handle to a window* », l'identifiant opaque que Windows utilise pour
+désigner une fenêtre) via `QWindow::winId()` — c'est ce `HWND` que `GraphicsDevice` reçoit à sa
+construction pour savoir *où* dessiner, et sur lequel la swap chain présente **directement** (aucun
+`QBackingStore`).
 
-`Window` a une seconde responsabilité, sans rapport direct avec le rendu mais qui vit au même
-endroit pour une raison pratique : Windows ne notifie les événements clavier/souris/fenêtre que par
-une **pompe de messages** (*message pump*) attachée à une fenêtre précise ; `Window::pumpMessages()`
-traite ces messages et, au passage, met à jour l'`hmi::InputState` de la fenêtre (@ref
-guide-entrees) — c'est pour cela que la capture d'entrée est fenêtrée, plutôt qu'un module
-totalement séparé.
+Le viewport a une seconde responsabilité : il possède l'**event loop** de rendu (tick cadencé par
+`QEvent::UpdateRequest`) et traduit les événements clavier/souris **Qt** en `hmi::InputState` (@ref
+guide-entrees) — c'est pour cela que la capture d'entrée vit au même endroit que le rendu, plutôt que
+dans un module totalement séparé.
 
 ## Unités monde et pixels : \ref hmi::Camera2D "hmi::Camera2D"
 
@@ -88,7 +88,7 @@ quoi que ce soit ; c'est le rôle de `hmi::Camera2D`. Deux paramètres gouvernen
   contours voulue par ce style visuel.
 
 La caméra a aussi un **centre** (`setCenter`, en unités monde) : le point qui apparaît au milieu de
-l'écran. Ni `GameScreen` ni `EditorScreen` ne font suivre ce centre en continu au personnage
+l'écran. Ni le jeu (`GameSession`) ni l'éditeur (mode édition du viewport) ne font suivre ce centre en continu au personnage
 (`EX-REN-013`) : il est recalculé par **cadrage**, sur le milieu du contenu à englober — le niveau
 entier dans l'éditeur, ou la **salle courante** en jeu si le niveau en compte plusieurs (voir
 ci-dessous). `projectionMatrix()` combine centre, échelle
@@ -107,7 +107,7 @@ tant que le rectangle tient déjà à l'échelle ×1 (netteté pixel art, `EX-AR
 seulement si nécessaire pour l'englober malgré tout. Fonction pure, partagée par l'éditeur (niveau
 entier) et le jeu.
 
-En jeu (`GameScreen`), pour un niveau plus grand qu'une **salle** (`hmi::RoomGrid`, `LOT-32`, taille
+En jeu (`GameSession`), pour un niveau plus grand qu'une **salle** (`hmi::RoomGrid`, `LOT-32`, taille
 fixe en tuiles), ce rectangle n'est **plus le niveau entier** mais celui de la **salle** contenant
 le personnage — façon *Celeste* : la caméra reste au zoom pixel art natif quelle que soit la taille
 totale du niveau, et **bascule nettement** (un seul appel `setCenter`, pas d'interpolation) quand
@@ -192,14 +192,10 @@ personnage sa proportion finale deux fois plus haute que large. Une région déj
 donc dessinée **pré-compressée** de moitié en hauteur dans son canevas carré, pour retrouver ses
 proportions naturelles une fois étirée par l'échelle du `Transform`.
 
-Ce choix — étendre l'atlas existant plutôt que créer une classe séparée sur le modèle de
-`hmi::SaveIcon` (icône d'enregistrement de session de logs, @ref guide-journalisation) ou
-`hmi::FlagIcons` (drapeaux du sélecteur de langue, @ref guide-entrees) — découle directement de
-la contrainte de batching énoncée plus haut : chacune de ces deux petites icônes, **générée en
-code** comme le reste de l'atlas, possède sa **propre** texture Direct3D dessinée hors du lot
-principal de sprites (elle n'a pas besoin d'être batchée avec les tuiles/le personnage) ; le
-personnage, lui, est dessiné à **chaque** frame parmi des centaines d'autres sprites, d'où
-l'obligation de partager la texture de `TextureAtlas`. `SpriteBatch::begin` (et donc
+Ce choix — étendre l'atlas existant plutôt que placer le personnage dans une texture séparée —
+découle directement de la contrainte de batching énoncée plus haut : le personnage est dessiné à
+**chaque** frame parmi des centaines d'autres sprites, d'où l'obligation de partager la texture de
+`TextureAtlas`. `SpriteBatch::begin` (et donc
 `SpriteRenderer::render`, qui ne fait qu'**un seul** `begin`/`end` pour **toutes** les entités du
 monde) ne lie qu'**une seule** texture par lot. Une région de personnage dans une texture séparée
 aurait exigé de restructurer `SpriteRenderer` pour trier les entités par texture et faire plusieurs
@@ -209,8 +205,7 @@ sur `atlas.width()`/`height()` (devenus des membres stockés plutôt qu'une form
 carré, pour accueillir cette grille supplémentaire).
 
 Chaque image est dessinée par **blocs rectangulaires** (comparaisons d'intervalles sur les
-coordonnées de pixel) plutôt que par les fonctions de distance géométrique de `FlagIcons` — plus
-direct à lire et à ajuster pour une forme humanoïde à cette résolution. Une pose (largeur des bras,
+coordonnées de pixel) — direct à lire et à ajuster pour une forme humanoïde à cette résolution. Une pose (largeur des bras,
 écartement des jambes) est un simple paramètre de la fonction de dessin : les 7 images de la grille
 (2 `Idle`, 4 `Run`, 1 `Jump`) sont produites par la même logique, avec des paramètres différents —
 pas 7 fonctions dupliquées.
@@ -222,11 +217,11 @@ l'image courante sont portés par un composant `core::Animation` (`clip`, `frame
 et mis à jour chaque pas fixe par `core::AnimationSystem` (@ref guide-ecs) — **entièrement côté
 `Core`**, sans dépendance aux pixels ni à `HMI` (`EX-ARCH-011`) : le système lit
 `Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem` **pour le
-même pas** — l'ordre d'appel dans `GameScreen::update` est significatif, @ref guide-ecs) pour
+même pas** — l'ordre d'appel dans `GameSession::update` est significatif, @ref guide-ecs) pour
 déterminer si le personnage est en l'air, en train de courir, ou immobile ; aucun nouvel état n'est
 ajouté à `core::Player`, l'animation est une pure **conséquence** de l'état physique existant.
 
-Côté `HMI`, `GameScreen::render` appelle `refreshPlayerSprite()` **à chaque frame** (pas seulement
+Côté `HMI`, `GameSession::render` appelle `refreshPlayerSprite()` **à chaque frame** (pas seulement
 au spawn, à la différence de LOT-17) : elle lit `core::Animation` du personnage et met à jour
 `sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex)`. C'est la même
 séparation que partout ailleurs dans le rendu : `Core` décide **quoi** afficher (quel clip, quelle
@@ -264,53 +259,39 @@ courant**, selon la fraction de pas déjà écoulée.
 
 Concrètement, un composant de présentation `hmi::PreviousPosition` (rangé dans le `core::World` mais
 écrit et lu par `HMI` seul — `Core` l'ignore, sa frontière reste intacte) conserve la position de
-l'entité au pas précédent. `hmi::GameScreen` la recopie depuis le `core::Transform` au **début** de
+l'entité au pas précédent. `hmi::GameSession` la recopie depuis le `core::Transform` au **début** de
 chaque pas fixe (`snapshotPreviousPositions`), avant que le pas ne modifie la position ; seules les
 entités réellement mobiles (personnage, dangers mobiles, blocs poussables) reçoivent ce composant.
 Au rendu, `SpriteRenderer::render` reçoit le **facteur d'interpolation** `[0, 1[` du cadenceur
-(`core::FixedTimestep::interpolationAlpha`, transporté par `hmi::RenderContext`) et dessine chaque
+(`core::FixedTimestep::interpolationAlpha`, passé en paramètre par `hmi::GameSession::render`) et dessine chaque
 entité portant le composant à `lerp(position précédente, position courante, alpha)` ; les tuiles
 fixes, sans le composant, sont dessinées à leur position courante, inchangées. La caméra, elle, n'est
 **pas** interpolée : elle bascule déjà par coupure nette entre salles (`LOT-32`), sans suivi continu.
 L'interpolation ne touche que l'**affichage** — la logique de jeu (collisions, fin de niveau)
 continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
-## \ref hmi::BitmapFont "hmi::BitmapFont" : dessiner du texte
+## Le texte d'interface : côté Qt, plus dans le pipeline Direct3D
 
-Le texte (menus, libellés) ne peut pas se dessiner avec `sweepAabb` ni un `Transform` monde : c'est
-une préoccupation entièrement différente, à la fois dans son espace de coordonnées et dans sa
-représentation. `hmi::BitmapFont` est une **police bitmap** — chaque caractère est une petite image
-de taille fixe (une **cellule**), plutôt qu'une police vectorielle calculée à la volée — générée en
-code de la même façon que l'atlas, avec des glyphes blancs sur fond transparent (la teinte passée à
-`drawText` les colore, par le même mécanisme de multiplication que les sprites).
-
-Deux différences structurantes avec le rendu de sprites :
-
-- **chasse fixe** (*monospace*) : chaque caractère occupe exactement la même largeur de cellule
-  (`CELL_WIDTH`), ce qui simplifie le calcul de la largeur d'un texte (`textWidth`) à une simple
-  multiplication, sans avoir à sommer des largeurs de glyphes variables ;
-- **espace écran, pas espace monde** : `drawText` positionne le texte directement en **pixels**
-  (coin haut-gauche `x, y`), indépendamment de la caméra du monde — un libellé de menu doit rester à
-  la même position et à la même taille à l'écran, qu'importe où se trouve le personnage dans le
-  niveau. `BitmapFont::screenProjection(largeur, hauteur)` construit une matrice de projection
-  **différente** de celle de `Camera2D` : elle mappe directement `(0, 0)` au coin haut-gauche de
-  l'écran et `(largeur, hauteur)` au coin bas-droit, sans notion de zoom ni de centre suivi. C'est
-  cette projection, et non celle de la caméra de jeu, qu'il faut passer à `SpriteBatch::begin` pour
-  dessiner de l'interface.
+Le texte (menus, libellés, options) ne se dessine **pas** avec ce pipeline : c'est une préoccupation
+entièrement différente, portée par les **widgets Qt** de l'IHM (@ref guide-ihm-qt). Direct3D 11 ne
+rend donc que la **scène de jeu** (tuiles, personnage, décors) dans le viewport ; l'ancienne police
+bitmap « maison » et sa projection écran ont été retirées avec l'IHM « maison » au `LOT-38`. Un
+libellé de menu reste à la même position et à la même taille à l'écran parce que Qt le compose dans
+une couche indépendante de la caméra du monde, sans passer par `SpriteBatch`.
 
 ## Assembler la frame complète
 
-Dans `Source/HMI/main.cpp`, l'ordre d'une frame de rendu est : `graphics.clear(...)` (vider le back
-buffer) → `screens.render(context)` (l'écran courant dessine — typiquement un ou plusieurs passages
-`SpriteBatch::begin`/`draw`/`end`, avec la projection de `Camera2D` pour la scène de jeu et celle de
-`BitmapFont::screenProjection` pour le texte d'interface) → `graphics.present()` (échanger les
-buffers). C'est la même boucle que celle décrite en @ref guide-boucle, dont le rendu n'est qu'une
+Dans le viewport (`hmi::GameViewport::renderFrame`), l'ordre d'une frame de rendu est :
+`graphics.clear(...)` (vider le back buffer) → la scène courante dessine — `hmi::GameSession::render`
+en jeu, `hmi::DraftRenderer` en édition, typiquement un ou plusieurs passages
+`SpriteBatch::begin`/`draw`/`end` avec la projection de `Camera2D` → `graphics.present()` (échanger
+les buffers). C'est la même boucle que celle décrite en @ref guide-boucle, dont le rendu n'est qu'une
 étape — toujours exécutée **une fois par frame réelle**, après que tous les pas de simulation fixes
 de cette frame ont eu lieu.
 
 ## Voir aussi
-- `hmi::GraphicsDevice`, `hmi::Window`, `hmi::Camera2D`.
-- `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`, `hmi::BitmapFont`.
+- `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
+- `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`, `hmi::DraftRenderer`.
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

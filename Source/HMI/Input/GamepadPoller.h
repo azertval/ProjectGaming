@@ -21,8 +21,8 @@ namespace hmi {
  * manette reste déconnectée (`XInputGetState` est coûteux sur un slot vide — micro-saccades chez un
  * joueur clavier, `LOT-33`).
  *
- * Extrait de `hmi::Window` (`LOT-34`) pour être partagé par la fenêtre Win32 historique **et** le
- * viewport Qt, sans dépendre d'aucune fenêtre.
+ * Extrait de l'ancienne fenêtre Win32 (`LOT-34`) pour être utilisé par le viewport Qt, sans dépendre
+ * d'aucune fenêtre.
  */
 class GamepadPoller {
 public:

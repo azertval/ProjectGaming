@@ -20,7 +20,8 @@ Dépendances **tierces** du projet.
 
 ## Qt (LOT-34, refonte IHM)
 
-Qt porte l'IHM hors-jeu (éditeur `ProjectGamingEditor`, `Source/Editor`). **Qt 6.8+** est requis pour
+Qt porte l'IHM hors-jeu — l'unique application `ProjectGaming` (`Source/HMI`, widgets Qt + assets
+déclaratifs dans `Source/Elements`). **Qt 6.8+** est requis pour
 l'archi `win64_msvc2022_64` (Qt 6.7 n'expose que `win64_msvc2019_64`). Licence **LGPLv3, lien
 dynamique** — aucune obligation de publication du source du jeu ; les DLL Qt sont redistribuées à côté
 de l'exécutable (`windeployqt`).
@@ -40,5 +41,5 @@ de l'exécutable (`windeployqt`).
   configuration ; `CMAKE_PREFIX_PATH` est renseigné depuis `QT_ROOT_DIR`.
 - **Release** (`.github/workflows/release.yml`) : tant que l'exécutable livré reste l'historique
   (jusqu'au LOT-38), Qt n'y est pas installé et l'éditeur est simplement ignoré. Quand la release
-  basculera sur `ProjectGamingEditor`, ajouter **`windeployqt`** pour déployer les DLL Qt à côté du
+  basculera sur `ProjectGaming`, ajouter **`windeployqt`** pour déployer les DLL Qt à côté du
   binaire packagé.

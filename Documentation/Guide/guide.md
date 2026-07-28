@@ -28,8 +28,9 @@ Le moteur sépare strictement :
 
 - **`Core`** — logique pure : ECS, mathématiques, physique, modèle de niveau, gameplay, temps.
   **Aucune dépendance** à DirectX ni à la fenêtre → testable sans GPU (`EX-NFR-010`).
-- **`HMI`** — présentation : fenêtre Win32, rendu Direct3D 11, entrées, écrans. Dépend de `Core`,
-  **jamais l'inverse** (`EX-ARCH-010`).
+- **`HMI`** — présentation : l'application **Qt** (fenêtre, menu, options, éditeur), le rendu
+  Direct3D 11 du jeu embarqué dans un viewport, et les entrées. Dépend de `Core`, **jamais l'inverse**
+  (`EX-ARCH-010`).
 
 La règle d'or : **la simulation est dans `Core`, déterministe et testée** ; `HMI` orchestre et
 affiche. Cette frontière est ce qui rend le moteur analysable domaine par domaine.
@@ -45,5 +46,5 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-rendu — le **rendu 2D** : Direct3D 11, sprite batching, atlas, caméra, texte.
 - @subpage guide-journalisation — la **journalisation** et les **assertions** : niveaux, sinks, macros.
 - @subpage guide-editeur — l'**éditeur de niveaux intégré** : brouillon mutable, peinture, undo/redo, essai immédiat.
-- @subpage guide-ecrans — l'**architecture écrans** : navigation entre menu, jeu, éditeur et options.
+- @subpage guide-ecrans — la **navigation** Qt : menu, jeu, éditeur et options (pages empilées, signaux).
 - @subpage guide-ihm-qt — la **refonte IHM vers Qt** : socle applicatif, viewport Direct3D 11, boucle et entrées Qt.

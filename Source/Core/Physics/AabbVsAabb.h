@@ -22,7 +22,7 @@ namespace core {
  * `sweepAabbVsAabb` résout la collision contre un obstacle dont la boîte réelle est plus **petite**
  * qu'une case (les blocs réduits `TileType::BlockHalf`/`BlockQuarter`, `core::BlockController`) et
  * ne peut donc pas être représentée sur la grille sans bloquer à tort l'espace vide qui l'entoure.
- * Un appelant qui doit composer les deux (`HMI::GameScreen`) applique `sweepAabb` puis, sur le
+ * Un appelant qui doit composer les deux (`hmi::GameSession`) applique `sweepAabb` puis, sur le
  * déplacement réellement obtenu, `sweepAabbVsAabb` pour chaque bloc réduit concerné — la
  * restriction la plus stricte des deux l'emporte, par construction (chaque passe ne peut que
  * réduire encore le déplacement, jamais l'étendre).

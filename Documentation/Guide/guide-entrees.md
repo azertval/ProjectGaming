@@ -19,7 +19,7 @@ connaître les touches physiques, ce qui pose plusieurs problèmes concrets :
   jeu ajoute le support d'une manette, il faudrait modifier chaque système qui teste directement les
   touches, au lieu d'un seul point de traduction ;
 - **tests plus difficiles** — tester la physique du saut obligerait à simuler de vrais événements
-  clavier Win32 plutôt qu'à construire directement une intention `{ jumpPressed: true }` ;
+  clavier de la plateforme plutôt qu'à construire directement une intention `{ jumpPressed: true }` ;
 - **couplage entre `Core` et `HMI`** — `Core` n'a, par ailleurs, **aucune** dépendance à Win32
   (`EX-ARCH-010`, @ref guide-boucle) ; lui faire connaître des codes de touche briserait cette
   frontière architecturale.
@@ -39,7 +39,7 @@ Deux façons classiques d'observer les entrées existent :
   un instant **prévisible** de la boucle de jeu.
 
 Ce moteur choisit le second : `hmi::InputState` capture l'état clavier/souris **une fois par frame**
-(`EX-CTRL-021`), pas à chaque événement Win32 individuel. **Pourquoi** : la logique de jeu tourne au
+(`EX-CTRL-021`), pas à chaque événement Qt individuel. **Pourquoi** : la logique de jeu tourne au
 pas de temps fixe (@ref guide-boucle) — elle a besoin d'un état d'entrée **stable** pendant toute la
 durée d'un pas, pas d'un flux d'événements arrivant de façon désynchronisée par rapport à ce
 rythme. Échantillonner une fois par frame donne cette photographie stable.
@@ -88,13 +88,14 @@ qui protège de tout effacement accidentel d'une touche (voir « La manette » c
 
 ### Le cycle d'une frame
 
-1. la couche fenêtre (`Window`, dans `HMI`) traite les messages Win32 de la frame via
-   `pumpMessages()` et appelle `onKeyDown`/`onKeyUp`/`onMouseMove`/… sur l'`InputState`, qui met à
-   jour l'état **courant** — l'échantillonnage a lieu **une fois par frame réelle** (`EX-CTRL-021`) ;
+1. le viewport Qt (`hmi::GameViewport`) traduit les événements clavier/souris **Qt**
+   (`keyPressEvent`/`keyReleaseEvent`/`mouseMoveEvent`/…) en appels `onKeyDown`/`onKeyUp`/
+   `onMouseMove`/… sur l'`InputState`, qui met à jour l'état **courant** — l'échantillonnage a lieu
+   **une fois par frame réelle** (`EX-CTRL-021`) ;
 2. pour **chaque pas de simulation** exécuté cette frame, la logique lit les fronts et l'état courant
    (`keyPressed`, `keyDown`, `keyReleased`, et leurs équivalents souris), puis la boucle appelle
-   `Window::beginInputFrame()` — qui recopie l'état **courant** vers l'état **précédent**, ouvrant la
-   fenêtre d'observation du pas suivant.
+   `hmi::InputState::beginFrame()` — qui recopie l'état **courant** vers l'état **précédent**, ouvrant
+   la fenêtre d'observation du pas suivant.
 
 **Pourquoi avancer les fronts par pas et non par frame.** Le rendu est découplé de la simulation
 (@ref guide-boucle) : sur un écran à 120/144 Hz, une partie des frames réelles n'exécute **aucun**
@@ -102,26 +103,29 @@ pas fixe. Si l'état précédent était recopié à chaque frame de rendu (comme
 `LOT-33`), un appui capturé sur une de ces frames serait effacé **avant** qu'un pas ne l'ait lu — le
 front `keyPressed` disparaîtrait sans jamais déclencher l'action. En liant l'avancée de la ligne de
 base au **pas consommé**, un appui survit jusqu'à sa lecture, quel que soit le framerate : la latence
-entrée → action reste bornée à **un pas** (`EX-CTRL-020`) à 60 comme à 240 Hz. `pumpMessages()`
+entrée → action reste bornée à **un pas** (`EX-CTRL-020`) à 60 comme à 240 Hz. Le viewport
 échantillonne toujours l'état une fois par frame ; seule l'avancée des fronts change de cadence.
 
-**Perte de focus.** À un `Alt+Tab` (ou tout basculement de fenêtre), Windows n'envoie **pas** de
-`WM_KEYUP` pour les touches maintenues. Sans précaution, une direction maintenue resterait « collée »
-et le personnage avancerait seul au retour. `Window` traite donc `WM_KILLFOCUS` en appelant
-`InputState::releaseAll()`, qui remet à zéro l'état courant **et** précédent de toutes les
-touches/boutons — sans produire de front « relâchée » parasite (courant == précédent == relâché).
+**Perte de focus.** À un `Alt+Tab` (ou tout basculement de fenêtre), le viewport ne reçoit **pas**
+d'événement de relâchement pour les touches maintenues. Sans précaution, une direction maintenue
+resterait « collée » et le personnage avancerait seul au retour. Le viewport traite donc
+`QEvent::FocusOut` en appelant `InputState::releaseAll()`, qui remet à zéro l'état courant **et**
+précédent de toutes les touches/boutons — sans produire de front « relâchée » parasite
+(courant == précédent == relâché).
 
-`InputState` est délibérément **indépendant de toute fenêtre** (aucune dépendance `<Windows.h>` dans
-son en-tête) : les événements peuvent être injectés directement en test, sans ouvrir de fenêtre ni
-passer par Win32, ce qui le rend testable en isolation (`EX-NFR-010`).
+`InputState` est délibérément **indépendant de toute fenêtre** (aucune dépendance `<Windows.h>` ni
+Qt dans son en-tête) : les événements peuvent être injectés directement en test, sans ouvrir de
+fenêtre, ce qui le rend testable en isolation (`EX-NFR-010`).
 
-### Un détail d'implémentation qui simplifie tout : \ref hmi::Key "Key" réutilise les codes Win32
+### Le pont Qt → \ref hmi::Key "Key" : \ref hmi::qtKeyToHmiKey "qtKeyToHmiKey"
 
-`hmi::Key` est une énumération dont les valeurs coïncident **volontairement** avec les codes
-virtuels (`VK_*`) de Win32. Ce choix n'a l'air que d'un détail, mais il évite une table de
-correspondance entière : la couche de capture peut convertir un `WPARAM` Win32 en `Key` par un
-simple `static_cast`, sans `switch` ni tableau de correspondance à maintenir. Ajouter le support
-d'une nouvelle touche revient alors à ajouter un énumérateur nommé — aucune autre modification.
+`hmi::Key` est une énumération dont les valeurs coïncident avec les codes virtuels Windows
+(`VK_*`) — un héritage pratique : pour les lettres, chiffres et l'espace, `Qt::Key_A == 'A' == 0x41`,
+si bien qu'aucune conversion n'est nécessaire. Seules les touches **spéciales** (flèches, `Échap`,
+`Tab`, `Maj`, `Ctrl`, `F1`/`F2`/`F10`) diffèrent entre l'énumération Qt et les codes VK : `hmi::qtKeyToHmiKey`
+(`Source/HMI/Input/QtKeyMap`) les convertit par une petite table, le reste passant directement. Le
+viewport y appelle cette fonction dans `keyPressEvent`/`keyReleaseEvent` avant de mettre à jour
+l'`InputState`.
 
 ## Traduire l'état en intention : \ref hmi::toPlayerInput "hmi::toPlayerInput"
 
@@ -168,7 +172,7 @@ peuvent l'enfoncer : le clavier (`onKeyDown`/`onKeyUp`) et la manette (`onGamepa
 `keyReleased` **combinent** les deux (OU logique) au moment de la lecture — jamais à l'écriture.
 
 **Pourquoi pas une seule table partagée ?** Parce que la manette est **sondée**, pas événementielle
-: `Window::pollGamepad` interroge XInput une fois par frame et doit explicitement relâcher
+: `hmi::GamepadPoller::poll` interroge XInput une fois par frame et doit explicitement relâcher
 (`onGamepadKeyUp`) chaque touche dont le bouton correspondant n'est plus enfoncé — y compris quand
 la manette est débranchée. Si ce relâchement écrivait dans la **même** table que le clavier, il
 effacerait une touche clavier réellement maintenue dès que la manette (absente ou relâchée) ne la
@@ -178,13 +182,13 @@ impossible plutôt que de compter sur la discipline du code appelant.
 Chaque bouton/direction manette synthétise le **même** `Key` fixe que son équivalent clavier par
 défaut (D-pad/stick gauche → `Left`/`Right`/`Up`/`Down` ; **A** → `Enter` **et** `Space` ; **B**/
 **Start** → `Escape` ; épaule droite → `Shift`, le dash) — câblage en dur dans
-`Window::pollGamepad`, jamais remappé. Conséquence directe de la fusion : `MenuModel`,
-`LevelPicker`, les raccourcis de l'éditeur n'ont jamais eu besoin d'être modifiés pour « apprendre »
+`hmi::GamepadPoller::poll`, jamais remappé. Conséquence directe de la fusion : les raccourcis fixes
+lus dans le viewport (essai de jeu, éditeur) n'ont jamais eu besoin d'être modifiés pour « apprendre »
 la manette — ils lisent des `Key` fixes, non remappables (comme `Échap`/`Entrée` côté clavier), ce
 qui satisfait déjà `EX-CTRL-010` par construction.
 
 **Une seconde piste, brute et indépendante, pour les actions de jeu remappables** (`LOT-30`) :
-`Window::pollGamepad` alimente aussi, à partir du **même** relevé XInput, un état brut par
+`hmi::GamepadPoller::poll` alimente aussi, à partir du **même** relevé XInput, un état brut par
 `hmi::GamepadButton` (`onGamepadButtonDown`/`onGamepadButtonUp`, `InputState::gamepadButtonDown`/
 `gamepadButtonPressed`) — dix boutons/directions (D-pad et stick gauche fusionnés en une seule
 notion logique par direction, comme la piste `Key`). C'est cette piste, et non la fusion `Key`
@@ -192,7 +196,7 @@ ci-dessus, que consulte `toPlayerInput` via `gamepadBindings` : la navigation de
 `Key` fixes, la manette côté gameplay devient pleinement configurable sans toucher à la première
 piste.
 
-Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::Window` (`Platform`), jamais dans
+Le sondage XInput lui-même (`<Xinput.h>`) vit dans `hmi::GamepadPoller` (`Input`), jamais dans
 `InputState` : `InputState` reste indépendant de toute fenêtre (`EX-NFR-010`), y compris pour
 tester la fusion manette ou la piste brute — les tests appellent `onGamepadKeyDown`/
 `onGamepadKeyUp`/`onGamepadButtonDown`/`onGamepadButtonUp` directement, sans manette réelle ni
@@ -201,51 +205,35 @@ tester la fusion manette ou la piste brute — les tests appellent `onGamepadKey
 **Sondage throttlé quand aucune manette n'est branchée** (`LOT-33`). `XInputGetState` est
 notablement **coûteux** quand le slot interrogé est vide : le pilote énumère les périphériques à
 chaque appel. Le sonder à chaque frame alors qu'aucune manette n'est connectée provoquait des
-micro-saccades chez un joueur clavier. `Window::pollGamepad` ne re-sonde donc un slot resté
+micro-saccades chez un joueur clavier. `hmi::GamepadPoller::poll` ne re-sonde donc un slot resté
 **déconnecté** qu'une frame sur `GAMEPAD_DISCONNECTED_POLL_INTERVAL` (≈ 2 s) ; entre-temps l'état
 reste « déconnecté » (aucune touche synthétique enfoncée). Dès qu'une manette est présente, le
 sondage redevient systématique — un branchement à chaud est détecté au plus tard après un intervalle.
 
-## Le menu d'options : la fusion manette à l'œuvre (\ref hmi::OptionsModel "hmi::OptionsModel"/\ref hmi::OptionsScreen "OptionsScreen")
+## Le menu d'options : \ref hmi::OptionsPage "hmi::OptionsPage"
 
-Le menu d'options (accessible depuis le menu principal) illustre concrètement la fusion
-ci-dessus : ses cinq entrées (bascule **V-Sync**, **Touches de jeu**, **Touches de l'éditeur**,
-**Touches de la manette**, **Retour**) se naviguent identiquement au clavier, à la souris et à la
-manette, sans un seul `if` dédié à cette dernière dans `OptionsModel::update` — il lit
-`Key::Up`/`Key::Down`/`Key::Enter` comme `MenuModel` l'a toujours fait. `OptionsModel` réutilise
-d'ailleurs directement les constantes de mise en page **publiques** de `MenuModel` (`MARGIN_X`,
-`OPTIONS_TOP`, `OPTION_SPACING`, `OPTION_SCALE`) plutôt que d'en dupliquer un second jeu : un seul
-style de liste verticale à chasse fixe pour tous les écrans qui en ont besoin.
-
-**Défilement** (`LOT-30`) : à cinq entrées, `MenuModel::OPTION_SPACING` (pensé pour 2 à 4) ne tient
-plus dans une fenêtre 720p — `OptionsModel` a gagné le même mécanisme que `hmi::LevelPicker`
-(liste plate, pas l'accordéon de `hmi::TilePalette`) : `visibleOptionCount(viewportHeight)` borne
-combien de lignes s'affichent sans défilement, le clavier fait suivre la sélection dans cette
-fenêtre (`followSelection`), la molette défile sans la changer. `OptionsScreen` dessine une barre
-de défilement (piste + curseur, texture d'atlas teintée) uniquement quand toutes les entrées ne
-tiennent pas à l'écran — même patron visuel que `EditorScreen::renderPicker`.
-
-`OptionsScreen` affiche aussi l'état de connexion de la manette (`InputState::gamepadConnected()`,
-capturé à `update()` puisque `render()` ne reçoit pas `InputState`) — purement informatif, non
-navigable.
+Le menu d'options (accessible depuis le menu principal, @ref guide-ecrans) est, depuis le `LOT-38`,
+une **page Qt à onglets** (`hmi::OptionsPage`, mise en page dans `Elements/UI/OptionsPage.ui`) : la
+navigation, le défilement et la souris sont pris en charge nativement par Qt — plus aucun modèle de
+liste « maison ». Ses onglets regroupent la bascule **V-Sync** (`EX-REN-022`), le choix de **langue**
+(une liste déroulante `QComboBox`) et le **remappage** des touches de jeu, des touches d'éditeur et
+des boutons de manette (sous-sections suivantes). L'état de connexion de la manette y est affiché à
+titre informatif (`InputState::gamepadConnected()`).
 
 ## Remapper les touches et boutons : \ref hmi::GameKeyBindings "GameKeyBindings"/\ref hmi::EditorKeyBindings "EditorKeyBindings" (LOT-29), \ref hmi::GamepadBindings "GamepadBindings" (LOT-30)
 
-Les entrées « Touches de jeu »/« Touches de l'éditeur »/« Touches de la manette » ouvrent chacune un
-sous-menu (même patron de liste qu'`OptionsModel`, avec des constantes de mise en page **plus
-compactes** — `GameKeybindingsModel::ROWS_TOP`/`ROW_SPACING`/`ROW_SCALE` — pour faire tenir 8 à 11
-lignes là où `MenuModel` n'en prévoyait que 2 à 4). Chaque ligne affiche une action et sa touche ou
-son bouton **actuel** (`hmi::keyDisplayName`/`hmi::gamepadButtonDisplayName`) ; confirmer une ligne
-d'action entre en **capture** : la frame suivante qui voit une touche ou un bouton assignable pressé
-(`hmi::capturedKey`, qui scrute les 256 codes suivis par `InputState` ; `hmi::capturedGamepadButton`,
-qui scrute les dix `GamepadButton` — `Échap`/`Entrée` et `B`/`Start` exclus, réservés à la
-navigation) la lie via `setKey` (`(Game|Editor)KeyBindings` ou `GamepadBindings`), qui **échange**
-avec toute autre action déjà sur cette touche/ce bouton plutôt que de rejeter le conflit — jamais
-deux actions du même sous-menu sur la même touche ou le même bouton. `Échap` pendant la capture
-l'annule sans effet (même convention que `hmi::TextInputField`). Le sous-menu manette exige en plus
-une manette connectée (`InputState::gamepadConnected()`) pour entrer en capture — sans quoi la
-ligne sélectionnée affiche une invite dédiée au lieu d'attendre indéfiniment un bouton qui ne
-viendra jamais.
+Les onglets « Touches de jeu »/« Touches de l'éditeur »/« Touches de la manette » de la page Options
+sont des widgets Qt (`hmi::KeybindingsWidget` pour le clavier, `hmi::GamepadBindingsWidget` pour la
+manette). Chaque ligne affiche une action et sa touche ou son bouton **actuel**
+(`hmi::keyDisplayName`/`hmi::gamepadButtonDisplayName`) ; déclencher une ligne entre en **capture** :
+la frame suivante qui voit une touche ou un bouton assignable pressé (`hmi::capturedKey`, qui scrute
+les 256 codes suivis par `InputState` ; `hmi::capturedGamepadButton`, qui scrute les dix
+`GamepadButton` — `Échap`/`Entrée` et `B`/`Start` exclus, réservés à la navigation) la lie via
+`setKey` (`(Game|Editor)KeyBindings` ou `GamepadBindings`), qui **échange** avec toute autre action
+déjà sur cette touche/ce bouton plutôt que de rejeter le conflit — jamais deux actions du même
+ensemble sur la même touche ou le même bouton. Annuler la capture laisse la liaison inchangée. Le
+remappage manette exige en plus une manette connectée (`InputState::gamepadConnected()`) pour entrer
+en capture.
 
 `GameKeyBindings`/`EditorKeyBindings`/`GamepadBindings` sont trois classes **séparées** (pas de
 généricité commune) : même mécanique (`key`/`button`, `setKey`, `resetToDefaults`, `load`/`save`),
@@ -260,14 +248,11 @@ invalide (bouton inconnu compris) retombe sur les valeurs par défaut pour l'ent
 (`EX-NFR-040`), jamais bloquant.
 
 Le remappage éditeur ne couvre qu'un **sous-ensemble significatif** (Sauvegarder/Annuler/Refaire/
-Copier/Coller/Test rapide/Grille/Aide/Renommer), pas l'intégralité des raccourcis d'`EditorScreen`
-— navigation de menu, redimensionnement par flèches, `Ctrl+R`, `"0"`, `Tab`, Maj+clic restent câblés
-en dur (décision de cadrage `LOT-29`, portée volontairement limitée). Le panneau d'aide de l'éditeur
-(`F1` par défaut, `EditorScreen::renderHelp`) interpole les touches réellement liées via
-`keyDisplayName` plutôt que des libellés fixes, pour ne jamais afficher un raccourci obsolète après
-un remap.
+Copier/Coller/Test rapide/Grille…), pas l'intégralité des raccourcis de l'éditeur — certains gestes
+(redimensionnement, `Tab`) restent câblés en dur (décision de cadrage `LOT-29`, portée volontairement
+limitée).
 
-## La langue de l'interface : \ref hmi::Localization "hmi::Localization" et \ref hmi::LanguageSelector "hmi::LanguageSelector"
+## La langue de l'interface : \ref hmi::Localization "hmi::Localization"
 
 Tous les textes d'interface (menus, options) passent par une **clé** stable (`EX-REN-033`) plutôt
 que par un libellé en dur : `hmi::Localization` résout une clé (« menu.jouer ») vers la chaîne de
@@ -277,22 +262,24 @@ langue active, puis langue par défaut, puis la clé elle-même — pour ne jama
 un vide si une traduction manque (`EX-NFR-040`), au prix, dans ce dernier cas, d'un texte
 visiblement « brut » (la clé) plutôt qu'un texte manquant silencieux.
 
-Le **bouton de langue** (drapeau, ancré en bas à droite de l'écran) suit la même séparation
-logique/rendu que le reste de l'entrée : `hmi::LanguageSelector` est une géométrie pure (rectangle
-cliquable, bascule français ↔ anglais) testable sans fenêtre, tandis que le dessin de l'icône
-(`hmi::FlagIcons`, @ref guide-rendu) est une préoccupation strictement graphique. `MenuScreen`
-et `OptionsScreen` interrogent tous deux `LanguageSelector::update` et **rechargent** le catalogue
-(`Localization::loadLanguage`) au clic — un échec de chargement (fichier absent) est **récupérable** :
-la langue courante est simplement conservée plutôt que de planter.
+Le **sélecteur de langue** (français ↔ anglais, `EX-REN-033`) vit dans l'onglet **Général** de la
+page Options : une `QComboBox`. Le changer **recharge le catalogue à chaud**
+(`Localization::loadLanguage`) et **retraduit toute l'IHM Qt** — `hmi::MainWindow` détient l'unique
+`hmi::Localization` et propage un `retranslateUi()` à chaque widget (menu, options, docks, palette,
+navigateur, remappage) ; les libellés de la palette de tuiles sont résolus par une table
+libellé→clé. La langue choisie est **persistée** (`QSettings`) et restaurée au lancement. Un échec de
+chargement (fichier absent) est **récupérable** : la langue courante est simplement conservée plutôt
+que de planter.
 
 ## Voir aussi
-- `hmi::InputState`, `hmi::Key`, `hmi::GamepadButton`, `hmi::toPlayerInput`, `core::PlayerInput`.
-- `hmi::Window::pollGamepad` — le sondage XInput et son intégration à `pumpMessages`.
-- `hmi::MenuModel`, `hmi::OptionsModel`, `hmi::OptionsScreen`.
+- `hmi::InputState`, `hmi::Key`, `hmi::qtKeyToHmiKey`, `hmi::GamepadButton`, `hmi::toPlayerInput`, `core::PlayerInput`.
+- `hmi::GamepadPoller` — le sondage XInput, partagé par le viewport.
+- `hmi::MainMenu`, `hmi::OptionsPage` — le menu principal et la page Options (Qt).
 - `hmi::GameKeyBindings`, `hmi::EditorKeyBindings`, `hmi::keyDisplayName`, `hmi::capturedKey`,
-  `hmi::GameKeybindingsModel`, `hmi::EditorKeybindingsModel` — remappage des touches (`LOT-29`).
+  `hmi::KeybindingsWidget` — remappage des touches (`LOT-29`, IHM Qt `LOT-38`).
 - `hmi::GamepadBindings`, `hmi::gamepadButtonDisplayName`, `hmi::capturedGamepadButton`,
-  `hmi::GamepadBindingsModel`, `hmi::GamepadBindingsScreen` — remappage manette (`LOT-30`).
-- `hmi::Localization`, `hmi::LanguageSelector`.
+  `hmi::GamepadBindingsWidget` — remappage manette (`LOT-30`, IHM Qt `LOT-38`).
+- `hmi::Localization`.
 - @ref guide-physique — comment la physique consomme `PlayerInput` (saut, dash, mouvement).
 - @ref guide-boucle — pourquoi l'entrée est échantillonnée une fois par frame et non par pas fixe.
+- @ref guide-ihm-qt — les widgets Qt (menu, options, remappage) qui pilotent tout ceci.

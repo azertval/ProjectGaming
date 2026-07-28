@@ -1,45 +1,153 @@
 # Catalogue de traduction - francais (langue par defaut).
-# Format : cle = valeur (encodage UTF-8).
-# Les lignes vides et les lignes commencant par # sont ignorees.
+# Format : cle = valeur (encodage UTF-8). Les cles sont en anglais (convention d'identifiants) ;
+# les valeurs sont traduites. Les lignes vides et les lignes commencant par # sont ignorees.
 # Seul le premier '=' separe la cle de la valeur ; les espaces de bordure sont retires.
 
 # Menu principal
-menu.titre = ProjectGaming
-menu.jouer = Jouer
-menu.mode_edition = Mode Edition
+menu.title = ProjectGaming
+menu.play = Jouer
+menu.edit_mode = Mode Édition
 menu.options = Options
-menu.quitter = Quitter
+menu.quit = Quitter
 
-# Menu d'options (LOT-20)
-options.titre = Options
-options.vsync_on = V-Sync : Activé
-options.vsync_off = V-Sync : Désactivé
-options.retour = Retour
-options.manette_connectee = Manette : connectée
-options.manette_absente = Manette : non connectée
+# Fenetre principale et barre de menus
+window.title = ProjectGaming — Éditeur
+menubar.application = Application
+menubar.main_menu = Menu principal
+menubar.quit = Quitter
+menubar.level = Niveau
+menubar.save = Enregistrer (Ctrl+S)
+menubar.playtest = Essayer (P)
+menubar.resize = Redimensionner…
+menubar.view = Affichage
+menubar.reset_layout = Réinitialiser la disposition
 
-# Sous-menus de remappage des touches (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
-keybindings.titre_jeu = Touches de jeu
-keybindings.titre_editeur = Touches de l'éditeur
-keybindings.titre_manette = Touches de la manette
-keybindings.reinitialiser = Réinitialiser
-keybindings.appuyez_touche = Appuyez sur une touche...
-keybindings.appuyez_bouton = Appuyez sur un bouton de la manette...
-keybindings.action.gauche = Aller à gauche
-keybindings.action.droite = Aller à droite
-keybindings.action.haut = Viser le dash vers le haut
-keybindings.action.bas = Viser le dash vers le bas
-keybindings.action.sauter = Sauter
+# Panneaux dockables
+dock.palette = Palette
+dock.tools = Outils
+dock.levels = Niveaux
+
+# Barre de statut et dialogues
+status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille
+dialog.unsaved_title = Modifications non enregistrées
+dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
+dialog.resize_title = Redimensionner le niveau
+dialog.resize_drop = Réduire à %1 × %2 supprimera du contenu (entrée, sortie ou liaisons). Continuer ?
+dialog.width = Largeur (cases)
+dialog.height = Hauteur (cases)
+
+# Outils d'edition
+tool.brush = Pinceau
+tool.rectangle = Rectangle
+tool.selection = Sélection
+
+# Navigateur de niveaux
+level.new = Nouveau
+level.rename = Renommer
+level.duplicate = Dupliquer
+level.delete = Supprimer
+level.search = Rechercher…
+level.new_title = Nouveau niveau
+level.name_prompt = Nom du niveau :
+level.rename_prompt = Nouveau nom :
+level.delete_title = Supprimer
+level.delete_confirm = Supprimer définitivement « %1 » ?
+level.operation_failed = Opération impossible
+
+# Page Options : onglets et libelles
+tab.video = Vidéo
+tab.audio = Audio
+tab.general = Général
+tab.keyboard = Commande clavier
+tab.gamepad = Commande manette
+options.title = Options
+options.back = Retour
+options.vsync = Synchronisation verticale
+options.enabled = Activée
+options.display = Affichage
+options.fullscreen = Plein écran
+options.resolution = Résolution
+options.resolution_auto = Automatique (fenêtre)
+options.fps_limit = Limite d'images/s
+options.unlimited = Illimité
+options.audio_soon = Audio à venir (aucun système audio pour le moment).
+options.language = Langue
+options.logs = Journaux
+options.save_logs = Enregistrer les journaux de session
+options.logs_saved = Journaux enregistrés : %1
+options.logs_failed = Échec de l'enregistrement des journaux.
+options.logs_unavailable = Journaux indisponibles (build Release).
+options.gamepad_connected = Manette : connectée
+options.gamepad_disconnected = Manette : non connectée
+language.fr = Français
+language.en = English
+
+# Messages d'etat du viewport
+status.region_copied = Zone copiée (%1 × %2).
+status.region_pasted = Zone collée.
+status.save_failed = Enregistrement impossible : %1
+status.level_saved = Niveau enregistré : %1
+status.write_failed = Échec de l'écriture du fichier.
+status.open_failed = Ouverture impossible : %1
+status.level_opened = Niveau ouvert : %1
+status.playtest_failed = Essai impossible : %1
+status.playtesting = Essai en cours — Échap pour revenir à l'édition.
+status.back_to_edit = Retour à l'édition.
+status.level_resized = Niveau redimensionné : %1 × %2
+
+# Remappage des touches (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
+keybindings.game_title = Touches de jeu
+keybindings.editor_title = Touches de l'éditeur
+keybindings.gamepad_title = Touches de la manette
+keybindings.reset = Réinitialiser
+keybindings.press_key = Appuyez sur une touche...
+keybindings.press_button = Appuyez sur un bouton de la manette...
+keybindings.key_hint = Cliquez une action puis appuyez sur la nouvelle touche (Échap annule).
+keybindings.gamepad_hint = Cliquez une action puis appuyez sur le nouveau bouton (Échap annule).
+keybindings.action.left = Aller à gauche
+keybindings.action.right = Aller à droite
+keybindings.action.aim_up = Viser le dash vers le haut
+keybindings.action.aim_down = Viser le dash vers le bas
+keybindings.action.jump = Sauter
 keybindings.action.dash = Dash
-keybindings.action.sauvegarder = Sauvegarder
-keybindings.action.annuler = Annuler
-keybindings.action.refaire = Refaire
-keybindings.action.copier = Copier
-keybindings.action.coller = Coller
-keybindings.action.test_rapide = Test rapide
-keybindings.action.grille = Grille
-keybindings.action.aide = Aide
-keybindings.action.renommer = Renommer
+keybindings.action.save = Sauvegarder
+keybindings.action.undo = Annuler
+keybindings.action.redo = Refaire
+keybindings.action.copy = Copier
+keybindings.action.paste = Coller
+keybindings.action.playtest = Test rapide
+keybindings.action.grid = Grille
+keybindings.action.help = Aide
+keybindings.action.rename = Renommer
 
-# Ecran editeur (mode edition, a venir)
-editeur.a_venir = Mode Edition — à venir
+# Palette de tuiles : categories, sous-groupes, tuiles
+palette.cat.tile = Tuile
+palette.cat.interactive = Interactif
+palette.cat.trap = Piège
+palette.cat.marker = Jalon
+palette.sub.slope = Pente
+palette.sub.rounded = Arrondi
+palette.sub.concave = Concave
+palette.sub.block = Bloc poussable
+palette.sub.directional = Directionnel
+palette.tile.empty = Vide (gomme)
+palette.tile.solid = Plein
+palette.tile.rise_right = Montée droite
+palette.tile.rise_left = Montée gauche
+palette.tile.ceiling_right = Plafond droite
+palette.tile.ceiling_left = Plafond gauche
+palette.tile.half = Demi (½)
+palette.tile.quarter = Quart (¼)
+palette.tile.switch = Interrupteur
+palette.tile.plate = Plaque de pression
+palette.tile.door = Porte
+palette.tile.danger = Danger
+palette.tile.danger_moving = Danger mobile
+palette.tile.danger_switched = Danger commuté
+palette.tile.danger_blink = Danger clignotant
+palette.tile.spikes_up = Pics vers le haut
+palette.tile.spikes_down = Pics vers le bas
+palette.tile.spikes_left = Pics vers la gauche
+palette.tile.spikes_right = Pics vers la droite
+palette.tile.entry = Entrée
+palette.tile.exit = Sortie

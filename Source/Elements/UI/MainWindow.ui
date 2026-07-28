@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditorMainWindow</class>
+ <widget class="QMainWindow" name="EditorMainWindow">
+  <property name="dockNestingEnabled"><bool>true</bool></property>
+  <!-- Widget central : simple hôte, remplacé en code par le QStackedWidget (menu/options/viewport). -->
+  <widget class="QWidget" name="centralHost"/>
+  <widget class="QMenuBar" name="menubar">
+   <widget class="QMenu" name="appMenu">
+    <property name="title"><string>Application</string></property>
+    <addaction name="actMainMenu"/>
+    <addaction name="separator"/>
+    <addaction name="actQuit"/>
+   </widget>
+   <widget class="QMenu" name="levelMenu">
+    <property name="title"><string>Niveau</string></property>
+    <addaction name="actSave"/>
+    <addaction name="actPlaytest"/>
+    <addaction name="actResize"/>
+   </widget>
+   <widget class="QMenu" name="viewMenu">
+    <property name="title"><string>Affichage</string></property>
+    <!-- Les bascules de visibilité des docks sont ajoutées en code (dynamiques). -->
+    <addaction name="actResetLayout"/>
+   </widget>
+   <addaction name="appMenu"/>
+   <addaction name="levelMenu"/>
+   <addaction name="viewMenu"/>
+  </widget>
+  <!-- Panneaux dockables : coquilles nommées (objectName stable pour la persistance QSettings) ;
+       leur contenu (arbre de palette, outils, navigateur) est branché en code (setWidget). -->
+  <widget class="QDockWidget" name="PalettePanel">
+   <property name="windowTitle"><string>Palette</string></property>
+   <attribute name="dockWidgetArea"><number>1</number></attribute>
+   <widget class="QWidget" name="paletteContents"/>
+  </widget>
+  <widget class="QDockWidget" name="ToolPanel">
+   <property name="windowTitle"><string>Outils</string></property>
+   <attribute name="dockWidgetArea"><number>1</number></attribute>
+   <widget class="QWidget" name="toolContents"/>
+  </widget>
+  <widget class="QDockWidget" name="LevelsPanel">
+   <property name="windowTitle"><string>Niveaux</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="levelsContents"/>
+  </widget>
+  <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
+  <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
+  <action name="actSave"><property name="text"><string>Enregistrer (Ctrl+S)</string></property></action>
+  <action name="actPlaytest"><property name="text"><string>Essayer (P)</string></property></action>
+  <action name="actResize"><property name="text"><string>Redimensionner…</string></property></action>
+  <action name="actResetLayout"><property name="text"><string>Réinitialiser la disposition</string></property></action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -4,7 +4,8 @@ jeu et le test système qui la rejoue.
 
 Deux endroits énumèrent, dans le même ordre, les fichiers ``demo-*.json`` de
 ``Source/Elements/Levels`` :
-- ``Source/HMI/main.cpp`` (``ScreenId::Game``) : la séquence réellement jouée.
+- ``Source/HMI/Interface/MainWindow.cpp`` (``MainWindow::startGame``) : la
+  séquence réellement jouée par l'éditeur Qt.
 - ``Source/Test/Systeme/test_parcours_complet.cpp`` : le test système qui la
   rejoue de bout en bout.
 
@@ -19,7 +20,7 @@ import os
 import re
 import sys
 
-MAIN_CPP = os.path.join('Source', 'HMI', 'main.cpp')
+MAIN_CPP = os.path.join('Source', 'HMI', 'Interface', 'MainWindow.cpp')
 SYSTEM_TEST = os.path.join('Source', 'Test', 'Systeme', 'test_parcours_complet.cpp')
 
 DEMO_FILE_RE = re.compile(r'"(demo-[A-Za-z0-9_-]+\.json)"')

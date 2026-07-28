@@ -30,7 +30,7 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
   uniquement** (ne pas polluer `Core`/`HmiRuntime`).
 - Documenter dans `External/README.md` la stratégie Qt (provisionné, non `FetchContent`) et la
   **licence LGPLv3 / lien dynamique**.
-- La cible Qt `ProjectGamingEditor` est déclarée ici (vide/minimale à cette tâche : un `main` Qt qui
+- La cible Qt `ProjectGaming` est déclarée ici (vide/minimale à cette tâche : un `main` Qt qui
   ouvre une fenêtre nue), remplie par TACHE-02/03/04.
 
 ### 3. Provisionnement local
@@ -60,10 +60,10 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
 
 ### 5. Provisionnement Release (`.github/workflows/release.yml`)
 - La release produit un exe **autonome `/MTd`**. Qt (LGPL) impose le **lien dynamique** : ajouter une
-  étape **`windeployqt`** (`windeployqt build\vs\bin\Debug\ProjectGamingEditor.exe`) pour copier les
+  étape **`windeployqt`** (`windeployqt build\vs\bin\Debug\ProjectGaming.exe`) pour copier les
   DLL Qt (Core, Gui, Widgets, plugins `platforms/qwindows.dll`, styles) à côté de l'exe **avant** de
   packager l'archive `debug-latest`. Documenter que « exe autonome » devient « exe + DLL Qt ».
-- (Le retrait de l'ancien exe et le passage de la release sur `ProjectGamingEditor` se finalisent au
+- (Le retrait de l'ancien exe et le passage de la release sur `ProjectGaming` se finalisent au
   [LOT-38](@ref lot-38), après parité ; à cette tâche, la release peut continuer à packager
   `ProjectGaming`.)
 
@@ -77,7 +77,7 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
 
 ## Tests (obligatoires)
 - **Non-régression build** : `cmake --preset vs` + `cmake --build --preset vs` compilent `Core`,
-  `HmiRuntime`, `ProjectGaming` (legacy), `ProjectGamingEditor` (nu) et `UnitTests`.
+  `HmiRuntime`, `ProjectGaming` (legacy), `ProjectGaming` (nu) et `UnitTests`.
 - `ctest --preset vs` **vert** (suite existante inchangée) ; couverture générée comme avant.
 - Vérifier en CI (sur la PR du lot) que l'étape Install Qt + cache fonctionne sur `windows-2022`.
 - Aucune logique métier nouvelle ici → pas de test unitaire nouveau (tâche d'infrastructure) ; les
@@ -97,7 +97,7 @@ réutilisable par la future cible Qt tout en gardant l'exécutable historique.
   version/arch.
 
 ## Définition de fait (DoD)
-- `HMI` scindé en bibliothèque `HmiRuntime` + exe legacy fonctionnel ; cible Qt `ProjectGamingEditor`
+- `HMI` scindé en bibliothèque `HmiRuntime` + exe legacy fonctionnel ; cible Qt `ProjectGaming`
   déclarée et configurable via `find_package(Qt6)`. CI (`build-test-coverage`) installe Qt et reste
   verte ; provisionnement local et release (`windeployqt`) **documentés**. `/W4 /WX`, Doxygen et lint
   verts.

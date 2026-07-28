@@ -1,44 +1,152 @@
 # Translation catalog - English.
-# Format: key = value (UTF-8 encoding).
-# Blank lines and lines starting with # are ignored.
+# Format: key = value (UTF-8 encoding). Keys are in English (identifier convention); values are
+# translated. Blank lines and lines starting with # are ignored.
 
 # Main menu
-menu.titre = ProjectGaming
-menu.jouer = Play
-menu.mode_edition = Edit Mode
+menu.title = ProjectGaming
+menu.play = Play
+menu.edit_mode = Edit Mode
 menu.options = Options
-menu.quitter = Quit
+menu.quit = Quit
 
-# Options menu (LOT-20)
-options.titre = Options
-options.vsync_on = V-Sync: On
-options.vsync_off = V-Sync: Off
-options.retour = Back
-options.manette_connectee = Gamepad: connected
-options.manette_absente = Gamepad: not connected
+# Main window and menu bar
+window.title = ProjectGaming — Editor
+menubar.application = Application
+menubar.main_menu = Main menu
+menubar.quit = Quit
+menubar.level = Level
+menubar.save = Save (Ctrl+S)
+menubar.playtest = Playtest (P)
+menubar.resize = Resize…
+menubar.view = View
+menubar.reset_layout = Reset layout
 
-# Keybinding remap submenus (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
-keybindings.titre_jeu = Game keybindings
-keybindings.titre_editeur = Editor keybindings
-keybindings.titre_manette = Gamepad keybindings
-keybindings.reinitialiser = Reset
-keybindings.appuyez_touche = Press a key...
-keybindings.appuyez_bouton = Press a gamepad button...
-keybindings.action.gauche = Move left
-keybindings.action.droite = Move right
-keybindings.action.haut = Aim dash upward
-keybindings.action.bas = Aim dash downward
-keybindings.action.sauter = Jump
+# Dock panels
+dock.palette = Palette
+dock.tools = Tools
+dock.levels = Levels
+
+# Status bar and dialogs
+status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid
+dialog.unsaved_title = Unsaved changes
+dialog.unsaved_text = The current level has unsaved changes. Quit anyway?
+dialog.resize_title = Resize level
+dialog.resize_drop = Shrinking to %1 × %2 will remove content (entry, exit or links). Continue?
+dialog.width = Width (cells)
+dialog.height = Height (cells)
+
+# Editing tools
+tool.brush = Brush
+tool.rectangle = Rectangle
+tool.selection = Selection
+
+# Level browser
+level.new = New
+level.rename = Rename
+level.duplicate = Duplicate
+level.delete = Delete
+level.search = Search…
+level.new_title = New level
+level.name_prompt = Level name:
+level.rename_prompt = New name:
+level.delete_title = Delete
+level.delete_confirm = Permanently delete “%1”?
+level.operation_failed = Operation failed
+
+# Options page: tabs and labels
+tab.video = Video
+tab.audio = Audio
+tab.general = General
+tab.keyboard = Keyboard
+tab.gamepad = Gamepad
+options.title = Options
+options.back = Back
+options.vsync = Vertical sync
+options.enabled = Enabled
+options.display = Display
+options.fullscreen = Fullscreen
+options.resolution = Resolution
+options.resolution_auto = Automatic (windowed)
+options.fps_limit = Frame rate limit
+options.unlimited = Unlimited
+options.audio_soon = Audio coming soon (no audio system yet).
+options.language = Language
+options.logs = Logs
+options.save_logs = Save session logs
+options.logs_saved = Logs saved: %1
+options.logs_failed = Failed to save logs.
+options.logs_unavailable = Logs unavailable (Release build).
+options.gamepad_connected = Gamepad: connected
+options.gamepad_disconnected = Gamepad: not connected
+language.fr = Français
+language.en = English
+
+# Viewport status messages
+status.region_copied = Region copied (%1 × %2).
+status.region_pasted = Region pasted.
+status.save_failed = Cannot save: %1
+status.level_saved = Level saved: %1
+status.write_failed = Failed to write file.
+status.open_failed = Cannot open: %1
+status.level_opened = Level opened: %1
+status.playtest_failed = Cannot playtest: %1
+status.playtesting = Playtesting — Esc to return to editing.
+status.back_to_edit = Back to editing.
+status.level_resized = Level resized: %1 × %2
+
+# Keybinding remapping (LOT-29/LOT-30, EX-CTRL-012, EX-CTRL-002)
+keybindings.game_title = Game keybindings
+keybindings.editor_title = Editor keybindings
+keybindings.gamepad_title = Gamepad keybindings
+keybindings.reset = Reset
+keybindings.press_key = Press a key...
+keybindings.press_button = Press a gamepad button...
+keybindings.key_hint = Click an action, then press the new key (Esc cancels).
+keybindings.gamepad_hint = Click an action, then press the new button (Esc cancels).
+keybindings.action.left = Move left
+keybindings.action.right = Move right
+keybindings.action.aim_up = Aim dash upward
+keybindings.action.aim_down = Aim dash downward
+keybindings.action.jump = Jump
 keybindings.action.dash = Dash
-keybindings.action.sauvegarder = Save
-keybindings.action.annuler = Undo
-keybindings.action.refaire = Redo
-keybindings.action.copier = Copy
-keybindings.action.coller = Paste
-keybindings.action.test_rapide = Playtest
-keybindings.action.grille = Grid
-keybindings.action.aide = Help
-keybindings.action.renommer = Rename
+keybindings.action.save = Save
+keybindings.action.undo = Undo
+keybindings.action.redo = Redo
+keybindings.action.copy = Copy
+keybindings.action.paste = Paste
+keybindings.action.playtest = Playtest
+keybindings.action.grid = Grid
+keybindings.action.help = Help
+keybindings.action.rename = Rename
 
-# Editor screen (edit mode, coming soon)
-editeur.a_venir = Edit Mode — coming soon
+# Tile palette: categories, subgroups, tiles
+palette.cat.tile = Tile
+palette.cat.interactive = Interactive
+palette.cat.trap = Trap
+palette.cat.marker = Marker
+palette.sub.slope = Slope
+palette.sub.rounded = Rounded
+palette.sub.concave = Concave
+palette.sub.block = Pushable block
+palette.sub.directional = Directional
+palette.tile.empty = Empty (eraser)
+palette.tile.solid = Solid
+palette.tile.rise_right = Rise right
+palette.tile.rise_left = Rise left
+palette.tile.ceiling_right = Ceiling right
+palette.tile.ceiling_left = Ceiling left
+palette.tile.half = Half (½)
+palette.tile.quarter = Quarter (¼)
+palette.tile.switch = Switch
+palette.tile.plate = Pressure plate
+palette.tile.door = Door
+palette.tile.danger = Danger
+palette.tile.danger_moving = Moving danger
+palette.tile.danger_switched = Switched danger
+palette.tile.danger_blink = Blinking danger
+palette.tile.spikes_up = Spikes up
+palette.tile.spikes_down = Spikes down
+palette.tile.spikes_left = Spikes left
+palette.tile.spikes_right = Spikes right
+palette.tile.entry = Entry
+palette.tile.exit = Exit

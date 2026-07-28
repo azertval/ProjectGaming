@@ -8,10 +8,11 @@
  * (`Won`). Franchir tous les niveaux dans l'ordre représente le parcours complet du jeu. La couche
  * fenêtre/rendu est exclue (vérifiée visuellement) ; on teste ici la simulation et l'enchaînement.
  *
- * Cette liste **doit** rester identique, dans le même ordre, à celle chargée par
- * `Source/HMI/main.cpp` (`ScreenId::Game`) — un décalage entre les deux (un niveau chargé en jeu
- * mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché `LOT-25` (`demo5.json`
- * manquait ici). `scripts/check_demo_sequence.py` (CI) compare les deux listes automatiquement.
+ * Cette liste **doit** rester identique, dans le même ordre, à celle jouée par
+ * `Source/HMI/Interface/MainWindow.cpp` (`MainWindow::startGame`) — un décalage entre les deux (un niveau
+ * chargé en jeu mais absent d'ici, ou l'inverse) est précisément le défaut qui a déclenché `LOT-25`
+ * (`demo5.json` manquait ici). `scripts/check_demo_sequence.py` (CI) compare les deux listes
+ * automatiquement.
  */
 
 #include <cmath>
@@ -70,7 +71,7 @@ core::Entity spawn(core::World& world, core::GridPosition at) {
 }
 
 // Rejoue un niveau jusqu'à son issue (borne large pour éviter une boucle infinie si ça régresse).
-// Composition complète, comme `HMI::GameScreen::update` : mécanismes (interrupteurs/portes) et
+// Composition complète, comme `hmi::GameSession::update` : mécanismes (interrupteurs/portes) et
 // blocs poussables (pleins ET réduits, `EX-GP-005` — balayage boîte-boîte après la grille) sont
 // résolus à chaque pas, que le niveau les utilise ou non (no-op sans mécanisme/bloc).
 core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000) {
@@ -107,7 +108,7 @@ core::LevelOutcome playLevel(const ScriptedLevel& scripted, int maxSteps = 3000)
 
         // Composition boîte-boîte pour les blocs réduits (EX-GP-005) : le déplacement REEL obtenu
         // par la grille est retesté contre chaque bloc réduit, la restriction la plus stricte
-        // l'emportant toujours (voir Core/Physics/AabbVsAabb.h et HMI::GameScreen::update).
+        // l'emportant toujours (voir Core/Physics/AabbVsAabb.h et hmi::GameSession::update).
         core::Transform& transform = world.getComponent<core::Transform>(player);
         const core::Vector2 delta = transform.position - previousBox.min;
         core::Vector2 bestPosition = transform.position;
