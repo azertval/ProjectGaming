@@ -49,6 +49,10 @@ Documentation/generated/
 Documentation/html/
 Documentation/xml/
 Documentation/latex/
+# Doxygen lancé depuis la racine (au lieu de Documentation/, cf.
+# scripts/build_docs.py) y crée un `generated/` parasite : l'ignorer plutôt que
+# de le versionner par accident.
+/generated/
 
 # --- Couverture de code ---
 coverage.xml

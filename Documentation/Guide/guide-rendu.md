@@ -307,6 +307,14 @@ suivrait l'ordre arbitraire d'itération de la vue ECS (@ref guide-ecs — le sp
 aucun ordre stable vis-à-vis du sens du jeu), et un élément de décor pourrait apparaître par-dessus
 le personnage un pas sur deux.
 
+En l'état, cet entier n'a que **deux valeurs en usage**, écrites en dur là où les entités sont
+créées : `0` pour les tuiles et `100` pour le personnage. C'est suffisant tant qu'il n'existe qu'une
+seule texture et deux sortes de choses à dessiner, mais ce n'est pas un ordonnancement : rien ne
+documente ce que valent `0` et `100`, ni où s'insérerait un fond ou un décor de premier plan. Le
+`LOT-40` remplace ces valeurs par un jeu de calques **nommé** (fond, décor, ombres, tuiles, objets,
+personnage, premier plan, interface, aides d'édition — `EX-REN-014`), `Sprite::layer` conservant son
+rôle de tri **fin à l'intérieur** d'un calque.
+
 `SpriteRenderer` **lit** l'ECS mais ne le modifie **jamais** (`EX-ARCH-012`) — le rendu est un
 simple observateur de l'état de simulation, jamais une source de vérité. Ce n'est délibérément
 **pas** un `core::ISystem` exécuté par `World::update` : le rendu est **découplé** de la simulation
@@ -345,6 +353,14 @@ bitmap « maison » et sa projection écran ont été retirées avec l'IHM « ma
 libellé de menu reste à la même position et à la même taille à l'écran parce que Qt le compose dans
 une couche indépendante de la caméra du monde, sans passer par `SpriteBatch`.
 
+Cette séparation a une conséquence qu'il faut connaître : **rien ne sait afficher du texte à
+l'intérieur de la scène**. Qt compose ses widgets *par-dessus* la fenêtre, en espace écran ; il ne
+peut pas ancrer une information au monde du jeu ni la faire suivre la caméra. Tout affichage tête
+haute ou indication en jeu est donc, aujourd'hui, impossible — c'est pourquoi les budgets de sauts
+et de dashs (`EX-GP-024`, `LOT-12`) existent dans la simulation sans être visibles nulle part. Une
+police bitmap sera réintroduite **du côté de la scène** au `LOT-52`, sur son propre calque et via
+`SpriteBatch`, sans remettre en cause le choix de Qt pour l'interface hors-jeu.
+
 ## Assembler la frame complète
 
 Dans le viewport (`hmi::GameViewport::renderFrame`), l'ordre d'une frame de rendu est :
@@ -354,6 +370,31 @@ en jeu, `hmi::DraftRenderer` en édition, typiquement un ou plusieurs passages
 les buffers). C'est la même boucle que celle décrite en @ref guide-boucle, dont le rendu n'est qu'une
 étape — toujours exécutée **une fois par frame réelle**, après que tous les pas de simulation fixes
 de cette frame ont eu lieu.
+
+## Ce qui vient ensuite : le programme d'habillage (`LOT-40` → `LOT-55`)
+
+Le pipeline décrit dans cette page est volontairement minimal : **une** texture liée par lot de
+dessin, deux valeurs de couche, aucun culling, et une seule façon de représenter l'état d'un objet
+— la teinte. Cela suffisait au rendu en couleurs plates ; cela ne suffit plus dès qu'on veut de
+vraies textures.
+
+Un programme de seize lots est cadré pour lever ces limites (voir [les lots](@ref lots)). Les points
+de cette page qu'il modifie, dans l'ordre :
+
+- **`LOT-40`** — un registre de textures par nom logique, des calques nommés (`EX-REN-014`), le
+  regroupement des quads par `(calque, texture)` avec plusieurs passes `begin`/`end`, la validation
+  des dimensions d'asset, le culling par salle, et une capture des primitives soumises qui rend le
+  rendu vérifiable **sans GPU**.
+- **`LOT-41`** — une bascule `F8` entre le rendu **Physique** (celui d'aujourd'hui, couleurs plates)
+  et le rendu **Texture**.
+- **`LOT-46`** — les animations décrites par des **données** et non par un `enum` figé, applicables
+  à toute entité et plus seulement au personnage.
+- **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
+  personnage.
+- **`LOT-52`** — le retour du texte dans la scène rendue.
+
+Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
+fil de leur intégration.
 
 ## Voir aussi
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.

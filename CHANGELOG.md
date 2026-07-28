@@ -18,14 +18,38 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   développement (`ProjectGaming.exe --export-atlas=<chemin>`) régénère l'atlas de base depuis la
   génération procédurale de référence.
 
-- **Feuille de route LOT-40 → LOT-48 — Mode de création de textures dans l'éditeur** : cadrage
-  documenté (`Documentation/Lot/LOT-40-*` à `LOT-48-*`) pour la suite du travail sur les textures,
-  amorcée à la demande de l'utilisateur après LOT-39 : rendu multi-textures par calques (LOT-40),
-  bascule Physique/Texture (`F8`, LOT-41), habillage global des tuiles par type (LOT-42), fond de
-  niveau (LOT-43), texture par objet interactif (LOT-44), aperçu isolé par calque (LOT-45), ombres du
-  physique sur le fond (LOT-46), bibliothèque d'assets à vignettes (LOT-47), éditeur de texture pixel
-  art intégré (LOT-48). Aucune implémentation de code à ce stade — uniquement le cadrage
-  (`epic.md`/`tache-*.md`, nouveaux ids `EX-REN-043` à `046`, `EX-EDIT-042` à `045`).
+- **Feuille de route LOT-40 → LOT-55 — Programme d'habillage : textures, animations, décors** :
+  cadrage documenté (`Documentation/Lot/LOT-40-*` à `LOT-55-*`) pour la suite du travail sur les
+  textures, amorcé après LOT-39 puis **entièrement revu** à la suite d'un audit critique du premier
+  cadrage. Aucune implémentation de code à ce stade — uniquement le cadrage
+  (`epic.md`/`tache-*.md`) et les exigences correspondantes.
+
+  Séquence : fondations du rendu — registre de textures, calques nommés, culling, testabilité
+  (LOT-40) ; bascule Physique/Texture (`F8`, LOT-41) ; skin des tuiles avec jeux de skins et
+  raccords automatiques (LOT-42) ; bibliothèque d'assets, import et rechargement à chaud (LOT-43) ;
+  fond de niveau et versionnement du format (LOT-44) ; texture par objet interactif (LOT-45) ;
+  moteur d'animation piloté par données (LOT-46) ; états visuels des mécanismes (LOT-47) ;
+  personnage habillé depuis un fichier (LOT-48) ; décors libres et parallaxe (LOT-49) ; édition des
+  décors (LOT-50) ; visibilité par calque (LOT-51) ; texte et affichage tête haute (LOT-52) ; effets
+  et particules (LOT-53) ; atelier pixel art intégré (LOT-54) ; ombres du plan physique (LOT-55).
+
+  Écarts par rapport au premier cadrage, issus de l'audit : ajout des **animations** (aucun lot n'en
+  prévoyait, alors que portes, plaques et pièges n'ont aujourd'hui qu'une modulation d'opacité pour
+  signaler leur état) ; ajout du **personnage**, absent du programme ; ajout des **décors libres et
+  du calque de premier plan**, spécifiés de longue date (`decors.md`) mais rattachés à aucun lot ;
+  ajout du **rendu de texte** (`EX-REN-032`, jamais implémentée — les budgets de sauts/dashs de
+  LOT-12 n'étaient visibles nulle part) ; **raccords automatiques** et **jeux de skins** décidés
+  avant la fabrication de `skins.json` plutôt qu'après ; **versionnement** du format de niveau au
+  premier changement de schéma ; **culling** et **testabilité du rendu sans GPU** intégrés aux
+  fondations ; **rechargement à chaud** avancé avant les couches visuelles ; défaut de rendu unifié
+  et persisté au lieu de dépendre de la configuration de build.
+
+  Nouveaux ids : `EX-REN-005` à `009`, `EX-EDIT-024` à `027`, `EX-LVL-005`, `EX-NFR-004`/`005`,
+  `EX-DEC-006`, `EX-IHM-003` (en plus de `EX-REN-043` à `046` et `EX-EDIT-042` à `045` du premier
+  cadrage). Exigences amendées : `EX-REN-012`, `EX-REN-014`, `EX-REN-032`, `EX-REN-046`,
+  `EX-EDIT-042`, `EX-EDIT-044`. Les lots `LOT-40` à `LOT-48`, tous non commencés, ont été
+  **renumérotés une seule fois** pour que le numéro suive l'ordre d'implémentation ; l'exception est
+  actée dans `Documentation/Lot/lots.md`.
 
 - **LOT-37 — Liens de mécanismes par traits/flèches** (`EX-IHM-030`, `EX-IHM-031`) : la liaison
   déclencheur → cible (interrupteur/plaque → porte, danger commuté) était jusqu'ici signalée par une

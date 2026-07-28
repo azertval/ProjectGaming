@@ -34,3 +34,14 @@ copié à côté de l'exécutable au build (patron `Levels`/`Localization`) et c
 > Anciennement `Textures/` (réservé, jamais peuplé) — ce dossier est le point d'entrée réel des
 > assets graphiques depuis le LOT-39, nommé `Assets/` pour suivre le même patron que `Levels/` et
 > `Localization/`.
+
+## À venir (programme `LOT-40` → `LOT-55`)
+
+Ce dossier accueillera des **sous-dossiers par famille d'asset**, chacun avec ses dimensions
+attendues **validées au chargement** (`EX-REN-007`) : `Skins/` (skins de tuiles et planches à
+raccords 4×4, `LOT-42`), `Backgrounds/` (`LOT-44`), `Objects/` (`LOT-45`), `Player/` (`LOT-48`),
+`Decors/` (`LOT-49`), plus `skins.json` (association type de tuile → asset, versionné, `LOT-42`) et
+des fichiers `<asset>.anim.json` décrivant les animations (`LOT-46`).
+
+Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
+sans relancer l'application.

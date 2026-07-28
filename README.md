@@ -116,6 +116,29 @@ Le travail avance par **lots** (un incrément livrable par lot), décrits dans
 
 Détails dans [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+### Vérifications locales
+
+Les mêmes contrôles qu'en intégration continue, tous lançables **depuis la racine du dépôt** :
+
+```sh
+python scripts/lint_exigences.py           # identifiants EX-… : ni doublon, ni orphelin
+python scripts/lint_exigences.py --next    # prochain numéro libre, par catégorie
+python scripts/generate_cahier_test.py --check   # cahier de test à jour
+python scripts/check_demo_sequence.py      # séquence des niveaux démo cohérente
+python scripts/build_docs.py               # documentation Doxygen (WARN_AS_ERROR)
+```
+
+> `build_docs.py` existe parce que Doxygen résout les chemins de son fichier de configuration
+> relativement au **répertoire courant**, et non à l'emplacement du `Doxyfile` : lancer
+> `doxygen Documentation/Doxyfile` depuis la racine échoue (`source '…' is not a readable file`).
+> Le script se place dans `Documentation/` pour vous, quel que soit le répertoire d'appel.
+
+**Version de Doxygen : `1.16.1`**, épinglée en CI (`EX-NFR-031`) et à installer à l'identique en
+local. Les versions plus anciennes appliquent des règles de résolution de liens différentes : une
+documentation générée sans avertissement avec une autre version peut échouer en CI, et la
+vérification locale ne prédirait plus rien. Binaires officiels :
+<https://github.com/doxygen/doxygen/releases/tag/Release_1_16_1>.
+
 ## Intégration continue
 
 | Workflow | Déclencheur | Rôle |

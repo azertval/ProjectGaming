@@ -1,6 +1,6 @@
 # LOT-33 — Fluidité du moteur (entrées nerveuses, présentation flip, interpolation) {#lot-33}
 
-> Statut : **en cours**.
+> Statut : **✅ terminé**.
 
 ## Objectif
 Les lots précédents ont bâti le gameplay, l'éditeur et le contenu ; ce lot revient sur des **choix
@@ -127,7 +127,7 @@ corrections vivent dans `HMI` (boucle, fenêtre, rendu) ou dans une couche de pr
 | [TACHE-01](tache-01-entrees-nerveuses.md) | Entrées nerveuses : fronts non perdus, focus, sondage manette | `HMI/Platform`, `HMI/Input`, `HMI/main.cpp` | ✅ |
 | [TACHE-02](tache-02-presentation-flip.md) | Présentation flip-model (latence réduite) | `HMI/Graphics` | ✅ |
 | [TACHE-03](tache-03-interpolation-rendu.md) | Interpolation de rendu (`EX-ARCH-031`) | `HMI/Graphics`, `HMI/Interface` | ✅ |
-| [TACHE-04](tache-04-documentation-verification.md) | Documentation, spécifications et vérification | `Documentation` | 🔄 |
+| [TACHE-04](tache-04-documentation-verification.md) | Documentation, spécifications et vérification | `Documentation` | ✅  |
 
 ## Critères d'acceptation du lot
 1. Sur un écran à 120/144 Hz, aucun appui (saut, dash, direction) n'est « avalé » : chaque appui

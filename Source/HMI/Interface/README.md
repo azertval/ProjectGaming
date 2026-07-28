@@ -5,8 +5,8 @@ l'éditeur de niveau. Les mises en page sont décrites hors code dans `Elements/
 et le thème dans `Elements/Themes/theme.qss`.
 
 - `MainWindow` — fenêtre principale : `QStackedWidget` (menu / options / éditeur) et panneaux
-  dockables (`QDockWidget` — Palette, Outils, Niveaux) autour du viewport central. Persiste la
-  disposition via `QSettings` (`EX-IHM-011`) et lance la séquence de jeu (`startGame`).
+  dockables (`QDockWidget` — Palette, Outils, Niveaux, Liens) autour du viewport central. Persiste
+  la disposition via `QSettings` (`EX-IHM-011`) et lance la séquence de jeu (`startGame`).
 - `MainMenu` — menu principal (Jouer / Éditeur / Options / Quitter), depuis `MainMenu.ui`.
 - `OptionsPage` — options en onglets, depuis `OptionsPage.ui` : **V-Sync** (`EX-REN-022`), un onglet
   **Général** (sélecteur de **langue** `EX-REN-033` + bouton **« Enregistrer les journaux »**) et le

@@ -8,6 +8,12 @@ on:
 permissions:
   contents: write
 
+env:
+  # Même version épinglée que le job `docs` de ci.yml : le site publié doit être
+  # généré par le binaire qui a validé la PR, sinon une doc verte en CI pourrait
+  # échouer au déploiement. Voir le commentaire de ci.yml.
+  DOXYGEN_VERSION: 1.16.1
+
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
@@ -16,12 +22,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Install Doxygen ${{ env.DOXYGEN_VERSION }}
+        run: |
+          set -euo pipefail
+          tag="Release_${DOXYGEN_VERSION//./_}"
+          archive="doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz"
+          # Extrait hors du dépôt (RUNNER_TEMP) : le workspace reste propre, et rien
+          # d'étranger ne peut se retrouver dans le dossier publié sur gh-pages.
+          curl -fsSL -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/doxygen/doxygen/releases/download/${tag}/${archive}"
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/doxygen-${DOXYGEN_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Check Doxygen version
+        run: doxygen --version
 
       - name: Generate documentation
-        working-directory: Documentation
-        run: doxygen Doxyfile
+        run: python3 scripts/build_docs.py
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4

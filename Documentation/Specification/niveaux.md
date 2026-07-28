@@ -6,6 +6,11 @@
 - \anchor EX-LVL-001 **EX-LVL-001** — Un niveau doit être décrit par un **fichier de données** externe (pas en dur dans le code), placé dans `Source/Elements`.
 - \anchor EX-LVL-002 **EX-LVL-002** — Le format doit décrire au minimum : dimensions de la grille, type de chaque tuile, position d'entrée et de sortie, et les mécanismes (interrupteurs, portes, blocs) avec leurs liaisons.
 - \anchor EX-LVL-003 **EX-LVL-003** — Le format retenu est un **JSON structuré orienté objets** : un niveau est un objet JSON portant ses **métadonnées** (nom, dimensions) et une **liste de tuiles**, chaque tuile étant un **objet** `{x, y, type, …}` (les cases vides sont omises) pouvant porter des **champs spécifiques** à son type (ex. liaison interrupteur↔porte par identifiant). Choisi pour un moteur **extensible et réutilisable** (données riches par tuile, sérialisation et *round-trip* d'éditeur directs), au prix d'une lisibilité « à l'œil » moindre qu'une grille ASCII — l'édition passe par l'**éditeur**, pas par le texte brut.
+- \anchor EX-LVL-005 **EX-LVL-005** — Le fichier de niveau doit porter un **numéro de version de
+  format**, afin que l'ajout de nouveaux champs (fond, jeu de skins, texture par case, décors) reste
+  traçable et qu'une évolution non rétrocompatible future soit **détectée** plutôt que subie. Un
+  fichier **sans** numéro de version est lu comme la version initiale, sans erreur ni avertissement :
+  la rétrocompatibilité des niveaux existants est un invariant. Concrétisé en `LOT-44`.
 - \anchor EX-LVL-004 **EX-LVL-004** — Le chargement d'un niveau doit **valider** les données (positions des tuiles **dans les bornes** `width × height`, présence d'une entrée et d'une sortie, liaisons de mécanismes valides) et signaler une erreur exploitable en cas de fichier invalide (cf. politique d'erreurs des conventions).
 
 ### Format retenu (JSON, liste de tuiles-objets)

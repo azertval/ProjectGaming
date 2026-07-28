@@ -16,6 +16,12 @@ l'UI « maison » dessinée quad par quad. `Core` demeure indépendant de la pr�
   viewport Qt** (surface native), sans processus séparé ni duplication du pipeline de rendu ; le
   déterminisme de la simulation (`EX-NFR-002`) et la latence d'entrée (`EX-CTRL-020`/`EX-CTRL-021`)
   sont préservés.
+- \anchor EX-IHM-003 **EX-IHM-003** — Le jeu doit afficher, **dans la scène rendue**, un **affichage
+  tête haute** minimal indiquant l'état dont le joueur a besoin pour décider : les **budgets de
+  sauts et de dashs** restants (`EX-GP-024`) et le nom du tableau en cours. Ces informations existent
+  dans la simulation depuis `LOT-12` sans avoir jamais été rendues visibles. L'affichage passe par le
+  catalogue de traduction (`EX-REN-033`) et n'a aucun effet sur le gameplay (`EX-ARCH-012`).
+  Concrétisé en `LOT-52`.
 
 ## 2. Éditeur
 - \anchor EX-IHM-010 **EX-IHM-010** — L'éditeur de niveaux doit se présenter en **fenêtre à panneaux
