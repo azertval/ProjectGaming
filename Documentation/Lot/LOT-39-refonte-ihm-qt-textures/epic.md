@@ -1,6 +1,6 @@
 # LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets) {#lot-39}
 
-> Statut : **non commencé**. Prérequis : [LOT-34](@ref lot-34) (socle) ; s'intègre à l'éditeur des
+> Statut : **fait**. Prérequis : [LOT-34](@ref lot-34) (socle) ; s'intègre à l'éditeur des
 > LOT-35 → LOT-37.
 
 ## Objectif
@@ -63,13 +63,13 @@ personnage/les décors) s'affichent avec de vraies textures, éditables hors cod
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-loader-image-assets.md) | Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d'assets testable | `Source/HMI/Graphics`, `Source/Editor` | ⬜ |
-| [TACHE-02](tache-02-texture-atlas-fichier.md) | `TextureAtlas` sur atlas fichier (interface conservée, repli procédural) | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-convention-assets-doc.md) | Convention d'assets + (option) aperçu ; documentation & vérification | `Source/Elements`, `Source/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-loader-image-assets.md) | Loader image → texture D3D11 (`QImage`/`stb_image`) + résolution d'assets testable | `Source/HMI/Graphics`, `Source/Editor` | ✅ |
+| [TACHE-02](tache-02-texture-atlas-fichier.md) | `TextureAtlas` sur atlas fichier (interface conservée, repli procédural) | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-convention-assets-doc.md) | Convention d'assets + (option) aperçu ; documentation & vérification | `Source/Elements`, `Source/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une **texture chargée depuis un fichier PNG** s'affiche sur les tuiles du niveau (éditeur et jeu),

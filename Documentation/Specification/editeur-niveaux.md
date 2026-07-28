@@ -46,7 +46,10 @@ Ces capacités sont livrées **après** l'édition de tuiles de base, mais l'arc
 
 ## 5. Non-objectifs (éditeur, MVP)
 - Édition collaborative en temps réel (plusieurs personnes sur le même niveau simultanément).
-- Édition des assets graphiques/sonores (l'éditeur agence des tuiles existantes, il ne dessine pas les sprites).
+- Édition des assets graphiques/sonores (l'éditeur agence des tuiles existantes, il ne dessine pas
+  les sprites) — **exception ciblée** : `LOT-48` introduit un éditeur de texture pixel art minimal
+  (peindre/modifier les fichiers d'assets eux-mêmes), sans remettre en cause ce non-objectif pour le
+  reste de l'éditeur (agencement de tuiles existantes, pas de génération procédurale de sprites).
 - Sélection multiple non contiguë et historique annuler/refaire par delta (l'historique par
   snapshots complets, retenu en LOT-14, reste adapté à la taille des niveaux du projet).
 - Palette pilotée par un fichier de configuration externe (la liste de types gérés par `Core`
@@ -135,10 +138,29 @@ frontières de salles pendant l'édition, pour aligner ses couloirs inter-salles
   repère n'affecte **pas** le cadrage caméra de l'éditeur (pan/zoom manuel sur le niveau entier,
   `EX-EDIT-013`, inchangé) : seule la caméra du **jeu** cadre par salle (`EX-REN-015`).
 
+## 11. Habillage des tuiles par textures (`LOT-40` → `LOT-48`)
+Au-delà de la couleur plate par type de tuile (rendu « Physique », inchangé), le level designer doit
+pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lecture du physique
+(`EX-NFR-040`, `EX-ARCH-012` : purement visuel, aucun effet sur la simulation).
+
+- \anchor EX-EDIT-042 **EX-EDIT-042** — L'éditeur doit permettre d'associer, **globalement** (tous
+  niveaux), une **texture** à chaque type de tuile, choisie parmi des fichiers image existants (pas
+  de saisie de chemin) — répond au besoin d'origine d'habiller les blocs. Concrétisé en `LOT-42`.
+- \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
+  une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
+  prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-44`.
+- \anchor EX-EDIT-044 **EX-EDIT-044** — L'éditeur doit permettre de visualiser **isolément** chacun
+  des calques de texture (fond, physique/skin, objets interactifs), à des fins d'inspection —
+  distinct de la bascule Physique/Texture en jeu (`EX-REN-046`). Concrétisé en `LOT-45`.
+- \anchor EX-EDIT-045 **EX-EDIT-045** — L'éditeur doit intégrer un **outil de dessin pixel art**
+  minimal (peindre/effacer, palette, zoom, annuler/refaire) pour créer/modifier directement les
+  fichiers d'assets de texture, sans dépendance externe. Concrétisé en `LOT-48`.
+
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
 `HMI` (`rendu-technique.md`). L'édition de tuiles de base a fait l'objet du lot **LOT-14** (terminé) ;
 la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) ; la saisie directe de
 grandes tailles (section 7) du lot **LOT-16** (terminé) ; la palette organisée par catégories
 (section 8) du lot **LOT-27** (terminé) ; les dangers avancés (section 9) du lot **LOT-31**
-(terminé) ; le repère visuel de salles (section 10) du lot **LOT-32** (terminé).
+(terminé) ; le repère visuel de salles (section 10) du lot **LOT-32** (terminé) ; l'habillage des
+tuiles par textures (section 11) des lots **LOT-40** à **LOT-48** (non commencés).

@@ -41,6 +41,9 @@ add_executable(UnitTests
     Unit/HMI/Input/test_gamepad_button_name.cpp
     Unit/HMI/Graphics/test_camera2d.cpp
     Unit/HMI/Graphics/test_room_grid.cpp
+    Unit/HMI/Graphics/test_asset_paths.cpp
+    Unit/HMI/Graphics/test_procedural_atlas.cpp
+    Unit/HMI/Graphics/test_texture_atlas.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -54,6 +57,19 @@ add_executable(UnitTests
     # La partition d'un niveau en salles (LOT-32) est une logique pure (aucune dépendance
     # rendu) : testable hors GPU.
     ../HMI/Graphics/RoomGrid.cpp
+    # La résolution de chemins d'assets (LOT-39) est une logique pure (std::filesystem),
+    # testable hors GPU/Qt.
+    ../HMI/Graphics/AssetPaths.cpp
+    # La correspondance type de tuile -> région d'atlas (LOT-39, dépendance de ProceduralAtlas.cpp
+    # ci-dessous) est une logique pure, testable hors GPU.
+    ../HMI/Graphics/TileVisuals.cpp
+    # La génération procédurale de l'atlas de repli (LOT-39) ne fait que produire des pixels en
+    # mémoire (aucun appel Direct3D/Qt) : testable hors GPU.
+    ../HMI/Graphics/ProceduralAtlas.cpp
+    # Le mapping (colonne, ligne) -> région d'atlas de TextureAtlas (LOT-39) est de la pure
+    # arithmétique de grille, séparée du chargement fichier/procédural (Qt/Direct3D 11) : testable
+    # hors GPU.
+    ../HMI/Graphics/TextureAtlasRegions.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

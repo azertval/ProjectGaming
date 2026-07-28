@@ -37,6 +37,23 @@
   **externalisés en fichiers éditables hors code** (remplacer le fichier suffit à changer l'apparence),
   copiés à côté de l'exécutable comme les niveaux et la localisation, avec **repli procédural** si un
   asset est absent/illisible (`EX-NFR-040`). Concrétisé en `LOT-39`.
+- \anchor EX-REN-043 **EX-REN-043** — Le rendu doit pouvoir dessiner, en une seule frame, des
+  entités provenant de **plusieurs textures distinctes** (au-delà de l'atlas unique historique), sans
+  changer le contrat public de `SpriteBatch`/`SpriteRenderer`, et selon un **ordonnancement de calques
+  explicite et unique** (fond, tuiles, objets, aides d'édition). Concrétisé en `LOT-40`.
+- \anchor EX-REN-044 **EX-REN-044** — Un niveau doit pouvoir afficher une **image de fond**
+  optionnelle, en dessous de toutes les tuiles, en mode Texture uniquement ; l'absence de fond
+  configuré est un état normal (pas de repli visible), un fond référencé mais introuvable déclenche
+  le repli en damier (`EX-NFR-040`). Concrétisé en `LOT-43`.
+- \anchor EX-REN-045 **EX-REN-045** — Les tuiles **solides** doivent pouvoir projeter une **ombre**
+  portée, purement visuelle, sur le fond du niveau en mode Texture, pour distinguer visuellement le
+  physique du décor sans aucun effet sur le gameplay (`EX-ARCH-012`). Concrétisé en `LOT-46`.
+- \anchor EX-REN-046 **EX-REN-046** — Le jeu doit permettre de basculer, par une commande **fixe et
+  non remappable** (`F8`), entre le rendu **Physique** (couleur plate par type de tuile, accès direct
+  à la lecture des collisions) et le rendu **Texture** (habillage complet — fond, skin, objets
+  interactifs) — disponible aussi bien en édition qu'en jeu réel. Le rendu par défaut dépend de la
+  configuration de build (`core::kDeveloperBuild`) : Physique en Debug, Texture en Release.
+  Concrétisé en `LOT-41`.
 
 ## 3. Boucle & temps
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.

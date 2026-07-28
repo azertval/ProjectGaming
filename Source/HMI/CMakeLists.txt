@@ -59,7 +59,11 @@ add_executable(ProjectGaming
     # Rendu Direct3D 11
     Graphics/GraphicsDevice.cpp
     Graphics/SpriteBatch.cpp
+    Graphics/AssetPaths.cpp
+    Graphics/TextureLoader.cpp
+    Graphics/ProceduralAtlas.cpp
     Graphics/TextureAtlas.cpp
+    Graphics/TextureAtlasRegions.cpp
     Graphics/Camera2D.cpp
     Graphics/RoomGrid.cpp
     Graphics/SpriteRenderer.cpp
@@ -143,6 +147,11 @@ add_custom_command(TARGET ProjectGaming POST_BUILD
         ${PROJECT_SOURCE_DIR}/Source/Elements/Levels
         $<TARGET_FILE_DIR:ProjectGaming>/Levels
     COMMENT "Copie des niveaux (.json)")
+add_custom_command(TARGET ProjectGaming POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Source/Elements/Assets
+        $<TARGET_FILE_DIR:ProjectGaming>/Assets
+    COMMENT "Copie des assets graphiques (atlas de textures, LOT-39)")
 
 # Déploiement Qt : copie les DLL Qt (plateforme, styles) à côté de l'exécutable pour que
 # l'utilisateur final n'ait **aucune bibliothèque à installer** — un simple dossier exécutable
