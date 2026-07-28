@@ -19,7 +19,7 @@ texture) et le format de niveau JSON.
   comportement.
 - **Résolution `HMI`** : `Assets/Backgrounds/*.png`, balayage de dossier, sélection dans le panneau
   « Textures » (section « Fond », créée dans le panneau introduit en LOT-42).
-- **Rendu** : `RenderLayer::Background` (LOT-40), dessiné en mode Texture uniquement, **étiré** sur
+- **Rendu** : valeur *Background* de *RenderLayer* (LOT-40), dessiné en mode Texture uniquement, **étiré** sur
   les bornes du niveau (un seul mode — pas de tuilage/parallax).
 - Dossier `Assets/Backgrounds/` + commande `POST_BUILD`.
 
@@ -50,7 +50,7 @@ texture) et le format de niveau JSON.
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | TACHE-01 | `backgroundAsset` sur `Level`/`LevelDraft` + JSON (lecture/écriture, rétrocompatible) + undo/redo | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | Rendu du fond (`RenderLayer::Background`, étiré, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
+| TACHE-02 | Rendu du fond (valeur *Background* de *RenderLayer*, étiré, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
 | TACHE-03 | Section « Fond » du panneau « Textures » (sélection parmi `Assets/Backgrounds/`) + dossier + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
 
 ## Critères d'acceptation du lot

@@ -10,12 +10,12 @@ plutôt qu'un carré vide ou une texture par défaut ambiguë. Cette tâche cons
 fois, en amont, pour que LOT-42/43/44 n'aient qu'à l'appeler.
 
 ## Travail à réaliser
-- **`hmi::buildMissingTextureImage()`** (sœur de `hmi::buildProceduralAtlasImage`, même fichier
+- ***buildMissingTextureImage()*** (namespace `hmi`, sœur de `hmi::buildProceduralAtlasImage`, même fichier
   `ProceduralAtlas.{h,cpp}` ou un nouveau fichier dédié) : génère en mémoire un damier magenta/noir
   16×16 (ou une taille configurable), déterministe, opaque (pas de canal alpha nécessaire — ce repli
   doit être **visible**, pas transparent).
-- **Résolution partagée** : une fonction utilitaire (ex. `hmi::resolveOrPlaceholder(cache, assetName)
-  -> LoadedTexture`) qui tente `TextureCache::get`, et à défaut journalise via
+- **Résolution partagée** : une fonction utilitaire (ex. *resolveOrPlaceholder(cache, assetName) ->
+  LoadedTexture*, namespace `hmi`) qui tente d'obtenir la texture via *TextureCache*, et à défaut journalise via
   `GRAPHICS_LOG_WARNING` (message incluant le nom d'asset attendu) puis renvoie la texture de repli
   — **un seul** point d'appel pour ce comportement, réutilisé par tous les lots suivants plutôt que
   chacun réimplémentant son propre repli.

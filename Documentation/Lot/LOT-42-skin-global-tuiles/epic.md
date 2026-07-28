@@ -23,7 +23,7 @@ Qt **« Textures »**, conçu dès maintenant pour être réutilisé (pas rempla
   inclinée/courbe, le skin chargé est **détouré** à la bonne forme au chargement, via les fonctions
   pures déjà existantes (`core::slopeSurfaceHeight`/`ceilingSlopeHeight`, `core::isCeilingSlope`) —
   l'artiste peint un carré plein, le moteur applique le masque une fois (16×16 pixels, coût
-  négligeable, résultat mis en cache comme toute texture de `TextureCache`).
+  négligeable, résultat mis en cache comme toute texture de *TextureCache*).
 - **Panneau Qt « Textures »** (nouveau dock, même patron d'enregistrement que `PalettePanel`/
   `LevelsPanel`/`ToolPanel`/`LinksPanel` dans `MainWindow`) : une section « Skins » listant chaque
   `TileType` avec un sélecteur parmi les fichiers de `Assets/Skins/`. Conçu en sections/onglets dès ce
@@ -75,6 +75,6 @@ Qt **« Textures »**, conçu dès maintenant pour être réutilisé (pas rempla
 
 ## Dépendances
 Bâtit sur [LOT-40](@ref lot-40) (rendu multi-textures), [LOT-41](@ref lot-41) (bascule). Réutilise
-`hmi::AssetPaths`/`hmi::TextureCache` (LOT-39/40) et `hmi::slopeTileGridPosition`/géométrie de pentes
+`hmi::AssetPaths`/*TextureCache* (LOT-39/40) et `hmi::slopeTileGridPosition`/géométrie de pentes
 (`Core`). Ne modifie pas `Level`/`LevelDraft`. Prépare [LOT-43](@ref lot-43),
 [LOT-44](@ref lot-44), [LOT-47](@ref lot-47) (panneau « Textures » réutilisé).

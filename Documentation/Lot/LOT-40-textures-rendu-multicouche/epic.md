@@ -15,11 +15,11 @@ par texture, **sans changer le rendu visible actuel**.
 ## Périmètre
 
 ### Inclus
-- **`hmi::TextureCache`** : registre de textures chargées à la demande par **nom logique**, construit
-  directement sur `hmi::TextureLoader`/`hmi::AssetPaths` (LOT-39) — décodage + upload D3D11 +
+- ***TextureCache*** : registre de textures chargées à la demande par **nom logique**, construit
+  directement sur *TextureLoader*/`hmi::AssetPaths` (LOT-39) — décodage + upload D3D11 +
   résolution de chemin déjà génériques, seule la mise en cache par nom est nouvelle. RAII (`ComPtr`),
   repli sans exception si un asset est absent/illisible (`EX-NFR-040`).
-- **`hmi::RenderLayer`** : un jeu de constantes/enum **unique**, réservé maintenant même si seule une
+- ***RenderLayer*** : un jeu de constantes/enum **unique**, réservé maintenant même si seule une
   valeur est utilisée avant LOT-43+ (`Background, Shadow, Tile, Object, EditorOverlay`) — évite que
   chaque lot suivant invente son propre ordonnancement de calques.
 - **Rendu multi-textures** : `hmi::SpriteRenderer`/`hmi::DraftRenderer` regroupent leurs quads par
@@ -44,13 +44,13 @@ par texture, **sans changer le rendu visible actuel**.
 - **Plusieurs passes `begin/end` plutôt qu'un atlas partagé dynamique** : simplicité, coût des
   changements d'état D3D11 négligeable à l'échelle des niveaux du projet, `SpriteBatch` reste
   inchangé.
-- **`TextureCache` sans éviction** : les niveaux et le nombre d'assets restent bornés ; pas de
+- ***TextureCache* sans éviction** : les niveaux et le nombre d'assets restent bornés ; pas de
   stratégie de libération mémoire pour ce lot — à revisiter si le nombre d'assets grandit
   significativement.
 - **Tri stable** : à l'intérieur d'un calque, le tri par texture ne doit **jamais** réordonner deux
-  sprites de calques différents — l'ordre par `RenderLayer` prime toujours sur le regroupement par
+  sprites de calques différents — l'ordre par *RenderLayer* prime toujours sur le regroupement par
   texture (pas de régression sur `Sprite::layer`, déjà trié par `SpriteRenderer::render`).
-- **`RenderLayer` réservé maintenant** : décision volontairement anticipée (cf. audit du programme
+- ***RenderLayer* réservé maintenant** : décision volontairement anticipée (cf. audit du programme
   LOT-40→48) pour qu'aucun lot suivant ne réinvente un ordonnancement de calques concurrent.
 
 ## Exigences couvertes
@@ -64,8 +64,8 @@ par texture, **sans changer le rendu visible actuel**.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-texture-cache.md) | `hmi::TextureCache` — registre de textures indépendantes par nom logique | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-rendu-multicouche.md) | `hmi::RenderLayer` + regroupement des quads par `(layer, texture)` dans `SpriteRenderer`/`DraftRenderer` | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-texture-cache.md) | *TextureCache* — registre de textures indépendantes par nom logique | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-rendu-multicouche.md) | *RenderLayer* + regroupement des quads par `(layer, texture)` dans `SpriteRenderer`/`DraftRenderer` | `Source/HMI/Graphics` | ⬜ |
 | [TACHE-03](tache-03-damier-magenta.md) | Texture de repli en damier magenta + tests de non-régression du rendu | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
 
 ## Critères d'acceptation du lot
@@ -78,7 +78,7 @@ par texture, **sans changer le rendu visible actuel**.
 5. Build `/W4 /WX`, Doxygen et lint verts.
 
 ## Dépendances
-Bâtit sur [LOT-39](@ref lot-39) (`hmi::TextureLoader`/`hmi::AssetPaths`/`hmi::buildProceduralAtlasImage`).
+Bâtit sur [LOT-39](@ref lot-39) (*TextureLoader*/`hmi::AssetPaths`/`hmi::buildProceduralAtlasImage`).
 Ne modifie pas `Core`. Prérequis de [LOT-41](@ref lot-41) à [LOT-48](@ref lot-48).
 
 ## Navigation des tâches

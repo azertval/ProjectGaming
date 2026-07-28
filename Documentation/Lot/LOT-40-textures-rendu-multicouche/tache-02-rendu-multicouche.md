@@ -1,4 +1,4 @@
-# TACHE-02 — `hmi::RenderLayer` + regroupement des quads par (calque, texture) {#lot-40-tache-02-rendu-multicouche}
+# TACHE-02 — *RenderLayer* + regroupement des quads par (calque, texture) {#lot-40-tache-02-rendu-multicouche}
 
 **Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
 
@@ -10,16 +10,17 @@ texture (l'atlas). Cette tâche introduit un ordonnancement de calques **nommé*
 ligne de `SpriteBatch`.
 
 ## Travail à réaliser
-- **`hmi::RenderLayer`** (`Source/HMI/Graphics/RenderLayer.h`) : `enum class RenderLayer { Background,
-  Shadow, Tile, Object, EditorOverlay };` — ordre de déclaration = ordre de dessin. Seule `Tile` est
-  utilisée par ce lot (comportement actuel) ; les autres valeurs sont réservées pour LOT-43/44/45/46.
-- **`SpriteRenderer`** : la structure interne `LayeredQuad` gagne un `RenderLayer` (en plus de
+- ***RenderLayer*** (`Source/HMI/Graphics/RenderLayer.h`) : `enum class RenderLayer { Background,
+  Shadow, Tile, Object, EditorOverlay };` — ordre de déclaration = ordre de dessin. Seule la valeur
+  *Tile* est utilisée par ce lot (comportement actuel) ; les autres valeurs sont réservées pour
+  LOT-43/44/45/46.
+- **`SpriteRenderer`** : la structure interne `LayeredQuad` gagne un *RenderLayer* (en plus de
   `core::Sprite::layer`, qui reste le tri **fin** à l'intérieur d'un calque) et une référence de
-  texture. Le tri devient : `RenderLayer` (ordre fixe), puis texture (regroupement, ordre stable),
+  texture. Le tri devient : *RenderLayer* (ordre fixe), puis texture (regroupement, ordre stable),
   puis `Sprite::layer` (comme aujourd'hui) — jamais l'inverse, pour ne pas régresser l'ordre visuel
   actuel. `render()` émet un `begin/end` par groupe contigu de même texture, dans cet ordre.
 - **`DraftRenderer`** : même traitement pour la scène de l'éditeur (`rebuild()`).
-- Toute entité/tuile existante reste implicitement sur `RenderLayer::Tile` avec la texture de l'atlas
+- Toute entité/tuile existante reste implicitement sur la valeur *Tile* de *RenderLayer* avec la texture de l'atlas
   — **aucun changement de comportement** tant qu'aucun appelant ne pousse un sprite sur un autre
   calque/texture (ce qui n'arrive qu'à partir de LOT-42+).
 

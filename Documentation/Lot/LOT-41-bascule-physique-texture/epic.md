@@ -12,9 +12,9 @@ de ce que les lots suivants ajoutent n'est consultable ni comparable au rendu ph
 ## Périmètre
 
 ### Inclus
-- **`hmi::RenderMode { Physique, Texture }`** (ou nom équivalent), propagé depuis `hmi::GameViewport`
-  (widget unique derrière édition, essai et jeu réel, `EX-IHM-002`) jusqu'à `DraftRenderer::render`
-  et `GameSession::render`/`SpriteRenderer::render`.
+- ***RenderMode { Physique, Texture }*** (namespace `hmi`, nom équivalent possible), propagé depuis
+  `hmi::GameViewport` (widget unique derrière édition, essai et jeu réel, `EX-IHM-002`) jusqu'à
+  `DraftRenderer::render` et `GameSession::render`/`SpriteRenderer::render`.
 - **`F8`** géré **en dur** dans `GameViewport::keyPressEvent`, précédent direct : `Qt::Key_F10`
   (bascule de la grille de repère, déjà non remappable) — **hors** des tables remappables
   (`GameKeyBindings`/`EditorKeyBindings`) : aucune entrée dans leurs enums, leur JSON ou leur UI de
@@ -56,7 +56,7 @@ de ce que les lots suivants ajoutent n'est consultable ni comparable au rendu ph
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | `hmi::RenderMode` + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
+| TACHE-01 | *RenderMode* + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
 | TACHE-02 | `F8` en dur, hors tables de remappage ; défaut par `core::kDeveloperBuild` | `Source/HMI/Game` | ⬜ |
 | TACHE-03 | Vérification manuelle (édition, essai, jeu réel) + documentation (guide-rendu.md) | `Documentation` | ⬜ |
 

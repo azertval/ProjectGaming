@@ -13,7 +13,7 @@ douce sur le fond du niveau, purement visuelle.
 ### Inclus
 - Pour chaque tuile solide (`core::isSolid`/`TileMap::isSolid`, déjà existants dans `Core`, **aucun**
   nouvel accès `Core` requis au-delà de cette lecture), dessiner un quad sombre semi-transparent
-  légèrement décalé, sur `RenderLayer::Shadow` (LOT-40), **avant** le rendu de la tuile elle-même —
+  légèrement décalé, sur valeur *Shadow* de *RenderLayer* (LOT-40), **avant** le rendu de la tuile elle-même —
   visible uniquement là où le fond (LOT-43) est visible en dessous.
 - Actif **uniquement** en mode Texture (LOT-41). Sans effet en mode Physique (déjà sans ambiguïté par
   la couleur plate) et **aucun** effet sur le gameplay (`EX-ARCH-012`).
@@ -28,7 +28,7 @@ douce sur le fond du niveau, purement visuelle.
 ## Décisions de cadrage
 - **Purement `HMI`, zéro nouvelle surface `Core`** : réutilise `core::isSolid`/`TileMap::isSolid`
   existants, ne lit rien d'autre.
-- **`RenderLayer::Shadow`** déjà réservé en LOT-40 — ce lot est le premier à l'activer.
+- **valeur *Shadow* de *RenderLayer*** déjà réservé en LOT-40 — ce lot est le premier à l'activer.
 
 ## Exigences couvertes
 - Nouvelle : `EX-REN-045` (ombres du plan physique sur le fond, mode Texture, purement visuel).
@@ -41,7 +41,7 @@ douce sur le fond du niveau, purement visuelle.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Génération du quad d'ombre par tuile solide sur `RenderLayer::Shadow` | `Source/HMI/Graphics` | ⬜ |
+| TACHE-01 | Génération du quad d'ombre par tuile solide sur valeur *Shadow* de *RenderLayer* | `Source/HMI/Graphics` | ⬜ |
 | TACHE-02 | Vérification manuelle (mode Texture, avec et sans fond configuré) + documentation | `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
@@ -51,6 +51,6 @@ douce sur le fond du niveau, purement visuelle.
 4. Build `/W4 /WX`, Doxygen, lint verts ; vérification manuelle.
 
 ## Dépendances
-Bâtit sur [LOT-41](@ref lot-41) (bascule), [LOT-40](@ref lot-40) (`RenderLayer::Shadow`). Bénéficie
+Bâtit sur [LOT-41](@ref lot-41) (bascule), [LOT-40](@ref lot-40) (valeur *Shadow* de *RenderLayer*). Bénéficie
 de [LOT-43](@ref lot-43) (fond) sans en dépendre strictement — aucune dépendance sur
 [LOT-42](@ref lot-42)/[LOT-44](@ref lot-44)/[LOT-45](@ref lot-45).

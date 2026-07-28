@@ -15,7 +15,7 @@ l'application**, avec un canevas pixel art minimal.
   `LevelDraft`).
 - **Ouvrir/créer/enregistrer** : ouvrir un asset existant (`Assets/{Skins,Backgrounds,Objects}/*.png`,
   via le sélecteur de LOT-42/47) ou créer un nouveau fichier à une taille choisie ; enregistrer via un
-  nouveau `hmi::saveImageFile`/`encodeImageFile`, symétrique de `hmi::decodeImageFile` (LOT-39).
+  nouveau *saveImageFile*/*encodeImageFile*, symétrique de `hmi::decodeImageFile` (LOT-39).
 
 ### Exclus (hors périmètre de ce lot)
 - Calques, images animées, outils avancés (sélection/déplacement, remplissage au-delà du seau de
@@ -29,7 +29,7 @@ l'application**, avec un canevas pixel art minimal.
   tous deux sous une licence de lignée GPL) ; il n'existe pas de bibliothèque Qt/C++ légère et
   **permissive** équivalente pour ce besoin précis. Le périmètre réel (peindre/effacer/palette/zoom/
   annuler/sauver) est modeste et repose entièrement sur des primitives déjà en place (Qt Widgets
-  depuis LOT-34, `hmi::TextureLoader`/`hmi::AssetPaths` depuis LOT-39) — cohérent avec la politique du
+  depuis LOT-34, *TextureLoader*/`hmi::AssetPaths` depuis LOT-39) — cohérent avec la politique du
   projet de préférer Qt à une dépendance tierce (`External/` réservé aux cas où Qt ne suffit pas, cf.
   note `stb_image` de LOT-39, jamais adoptée).
 - **Amende le non-objectif « pas d'édition d'assets graphiques »** de `editeur-niveaux.md` (section 5)
@@ -47,7 +47,7 @@ l'application**, avec un canevas pixel art minimal.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | `hmi::saveImageFile`/`encodeImageFile` (symétrique de `decodeImageFile`) | `Source/HMI/Graphics` | ⬜ |
+| TACHE-01 | *saveImageFile*/*encodeImageFile* (symétrique de `decodeImageFile`) | `Source/HMI/Graphics` | ⬜ |
 | TACHE-02 | Canevas pixel art (peindre/effacer/palette/zoom/undo-redo local) | `Source/HMI/Editor` | ⬜ |
 | TACHE-03 | Ouvrir/créer/enregistrer, intégration au sélecteur de LOT-42/47 | `Source/HMI/Editor` | ⬜ |
 
@@ -60,5 +60,5 @@ l'application**, avec un canevas pixel art minimal.
 
 ## Dépendances
 Bâtit sur [LOT-42](@ref lot-42) (convention de dossiers). Bénéficie de [LOT-47](@ref lot-47)
-(point d'entrée depuis la bibliothèque de vignettes). Réutilise `hmi::TextureLoader`/
+(point d'entrée depuis la bibliothèque de vignettes). Réutilise *TextureLoader*/
 `hmi::AssetPaths` (LOT-39). Dernier lot du programme LOT-40→48.

@@ -24,7 +24,7 @@ prioritaire sur le skin global de son type (LOT-42). Seule vraie nouvelle donné
   **Ne voyage pas** avec un copier-coller (`paintRegion` utilisé pour le collage n'importe **pas**
   les overrides de la source) — décision explicite, un override reste attaché à sa case d'origine.
 - **Undo/redo** : gratuit via `LevelDraft::State` (même mécanisme que les autres champs annexes).
-- **Éditeur** : nouvelle valeur `hmi::EditorTool` (ex. `TextureAssign`) + geste pur d'assignation
+- **Éditeur** : nouvelle valeur `hmi::EditorTool` (ex. *TextureAssign*) + geste pur d'assignation
   modelé sur `hmi::resolveLinkClick`/`LinkGesture` (LOT-37) — clic sur une case → sélecteur parmi
   `Assets/Objects/*.png` → assignation/suppression. Section « Objets » du panneau « Textures »
   (LOT-42) listant les overrides du niveau courant, pas un panneau séparé.
@@ -40,7 +40,7 @@ prioritaire sur le skin global de son type (LOT-42). Seule vraie nouvelle donné
 ## Décisions de cadrage
 - **Geste dédié, pas une extension de `LinkGesture`** : la machine à états de `LinkGesture` est
   façonnée pour l'appariement déclencheur/cible, pas l'assignation sur une seule case — un module
-  parallèle (`TextureAssignGesture`) évite de coupler deux outils sans rapport.
+  parallèle (*TextureAssignGesture*) évite de coupler deux outils sans rapport.
 - **Priorité de résolution figée** : override > skin global > damier — cette hiérarchie est le
   contrat que LOT-45 (aperçu isolé) devra respecter en l'inversant délibérément pour son mode
   « Interactif seul ».
@@ -59,7 +59,7 @@ prioritaire sur le skin global de son type (LOT-42). Seule vraie nouvelle donné
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
 | TACHE-01 | `TileTextureOverride` sur `Level`/`LevelDraft` + JSON + nettoyage (`removeLinkedDataAt`, `resize`) + undo/redo | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | `EditorTool::TextureAssign` + geste pur d'assignation (modelé sur `LinkGesture`) | `Source/HMI/Editor` | ⬜ |
+| TACHE-02 | Nouvelle valeur *TextureAssign* de `hmi::EditorTool` + geste pur d'assignation (modelé sur `LinkGesture`) | `Source/HMI/Editor` | ⬜ |
 | TACHE-03 | Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier `Assets/Objects/` | `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` | ⬜ |
 
 ## Critères d'acceptation du lot
