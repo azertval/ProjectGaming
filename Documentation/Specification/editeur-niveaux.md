@@ -47,7 +47,7 @@ Ces capacités sont livrées **après** l'édition de tuiles de base, mais l'arc
 ## 5. Non-objectifs (éditeur, MVP)
 - Édition collaborative en temps réel (plusieurs personnes sur le même niveau simultanément).
 - Édition des assets graphiques/sonores (l'éditeur agence des tuiles existantes, il ne dessine pas
-  les sprites) — **exception ciblée** : `LOT-48` introduit un éditeur de texture pixel art minimal
+  les sprites) — **exception ciblée** : `LOT-54` introduit un éditeur de texture pixel art minimal
   (peindre/modifier les fichiers d'assets eux-mêmes), sans remettre en cause ce non-objectif pour le
   reste de l'éditeur (agencement de tuiles existantes, pas de génération procédurale de sprites).
 - Sélection multiple non contiguë et historique annuler/refaire par delta (l'historique par
@@ -138,23 +138,45 @@ frontières de salles pendant l'édition, pour aligner ses couloirs inter-salles
   repère n'affecte **pas** le cadrage caméra de l'éditeur (pan/zoom manuel sur le niveau entier,
   `EX-EDIT-013`, inchangé) : seule la caméra du **jeu** cadre par salle (`EX-REN-015`).
 
-## 11. Habillage des tuiles par textures (`LOT-40` → `LOT-48`)
+## 11. Habillage par textures et décors (`LOT-40` → `LOT-55`)
 Au-delà de la couleur plate par type de tuile (rendu « Physique », inchangé), le level designer doit
 pouvoir habiller le niveau avec de vraies textures — sans jamais perdre la lecture du physique
 (`EX-NFR-040`, `EX-ARCH-012` : purement visuel, aucun effet sur la simulation).
 
-- \anchor EX-EDIT-042 **EX-EDIT-042** — L'éditeur doit permettre d'associer, **globalement** (tous
-  niveaux), une **texture** à chaque type de tuile, choisie parmi des fichiers image existants (pas
-  de saisie de chemin) — répond au besoin d'origine d'habiller les blocs. Concrétisé en `LOT-42`.
+- \anchor EX-EDIT-042 **EX-EDIT-042** — L'éditeur doit permettre d'associer une **texture** à chaque
+  type de tuile, choisie parmi des fichiers image existants (pas de saisie de chemin) — répond au
+  besoin d'origine d'habiller les blocs. Chaque association déclare un **mode de rendu** : image
+  unique, ou **planche à raccords automatiques** (`EX-EDIT-025`). Concrétisé en `LOT-42`.
+- \anchor EX-EDIT-024 **EX-EDIT-024** — Les associations type de tuile → texture doivent être
+  regroupées en **jeux de skins nommés** (ex. « forêt », « grotte »), et un niveau doit pouvoir
+  désigner le jeu qu'il utilise : une seule association globale pour tout le jeu empêcherait toute
+  variété d'ambiance au fil de la progression. En l'absence de désignation, le niveau utilise le jeu
+  par défaut. Concrétisé en `LOT-42` (jeux de skins) et `LOT-44` (désignation par niveau).
+- \anchor EX-EDIT-025 **EX-EDIT-025** — Pour les types de tuiles **solides**, le rendu doit pouvoir
+  choisir automatiquement l'image affichée en fonction des **tuiles solides voisines** (raccords de
+  bords et de coins) au sein d'une **planche** fournie par l'auteur, plutôt que de répéter la même
+  image partout. La règle de choix est **déterministe** et testable indépendamment du GPU.
+  Concrétisé en `LOT-42`.
+- \anchor EX-EDIT-026 **EX-EDIT-026** — L'éditeur doit permettre de **gérer les fichiers d'assets**
+  sans quitter l'application : importer une image externe dans le dossier d'assets, renommer,
+  dupliquer, supprimer — avec un **avertissement** lorsque l'asset visé est référencé par un niveau
+  ou par un jeu de skins — et **recharger à chaud** les assets modifiés sur disque sans redémarrer.
+  Concrétisé en `LOT-43`.
+- \anchor EX-EDIT-027 **EX-EDIT-027** — La **palette de l'éditeur** doit afficher l'apparence
+  réellement rendue : en mode Texture, la texture assignée au type ; en mode Physique, la couleur
+  plate. Peindre sans voir ce que l'on pose est une régression d'usage. Concrétisé en `LOT-42`.
 - \anchor EX-EDIT-043 **EX-EDIT-043** — L'éditeur doit permettre d'assigner une **texture propre à
   une case précise** (« objet interactif », ex. une porte particulière), par un geste de clic dédié,
-  prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-44`.
-- \anchor EX-EDIT-044 **EX-EDIT-044** — L'éditeur doit permettre de visualiser **isolément** chacun
-  des calques de texture (fond, physique/skin, objets interactifs), à des fins d'inspection —
-  distinct de la bascule Physique/Texture en jeu (`EX-REN-046`). Concrétisé en `LOT-45`.
+  prioritaire sur l'association globale (`EX-EDIT-042`) pour cette case. Concrétisé en `LOT-45`.
+- \anchor EX-EDIT-044 **EX-EDIT-044** — L'éditeur doit permettre de contrôler la **visibilité de
+  chaque calque** indépendamment (fond, décors, skin des tuiles, objets interactifs, personnage,
+  premier plan), à des fins d'inspection : cela couvre l'affichage **isolé** d'un calque comme toute
+  **combinaison** de calques — distinct de la bascule Physique/Texture en jeu (`EX-REN-046`).
+  Concrétisé en `LOT-51`.
 - \anchor EX-EDIT-045 **EX-EDIT-045** — L'éditeur doit intégrer un **outil de dessin pixel art**
   minimal (peindre/effacer, palette, zoom, annuler/refaire) pour créer/modifier directement les
-  fichiers d'assets de texture, sans dépendance externe. Concrétisé en `LOT-48`.
+  fichiers d'assets de texture, sans dépendance externe, avec un **aperçu du rendu dans le niveau**
+  pendant l'édition. Concrétisé en `LOT-54`.
 
 ## Traçabilité
 L'éditeur s'appuie sur `Core` (modèle et validation de niveau, `niveaux.md`) et sur le rendu de
@@ -163,4 +185,6 @@ la robustesse et le confort d'édition (section 6) du lot **LOT-15** (terminé) 
 grandes tailles (section 7) du lot **LOT-16** (terminé) ; la palette organisée par catégories
 (section 8) du lot **LOT-27** (terminé) ; les dangers avancés (section 9) du lot **LOT-31**
 (terminé) ; le repère visuel de salles (section 10) du lot **LOT-32** (terminé) ; l'habillage des
-tuiles par textures (section 11) des lots **LOT-40** à **LOT-48** (non commencés).
+tuiles par textures et les décors (section 11) des lots **LOT-40** à **LOT-55** (non commencés).
+L'édition de décors (section 4bis, `EX-EDIT-040`) est concrétisée en **LOT-50** ; la conversion
+photo → pixel art (`EX-EDIT-041`) reste hors du programme.

@@ -9,6 +9,14 @@ identifiants d'exigences `EX-…`.
 Contrairement aux spécifications, les lots **conservent** leur numéro (`LOT-XX`) :
 c'est un identifiant stable, jamais réordonné.
 
+> **Exception actée — programme d'habillage `LOT-40` → `LOT-55`.** La règle ci-dessus protège les
+> identifiants **livrés** : un lot terminé n'est jamais renuméroté, sous peine de rendre fausses
+> toutes les références du CHANGELOG, des commits et des spécifications. Les lots `LOT-40` à
+> `LOT-48`, **tous non commencés**, ont été renumérotés **une seule fois**, lors du recadrage du
+> programme d'habillage, afin que le numéro corresponde à l'ordre d'implémentation réel. Cette
+> exception ne se reproduira pas : à partir de ce recadrage, tout lot planifié conserve son numéro
+> même si son ordre d'exécution change.
+
 ## Lots
 
 - @subpage lot-01
@@ -59,3 +67,10 @@ c'est un identifiant stable, jamais réordonné.
 - @subpage lot-46
 - @subpage lot-47
 - @subpage lot-48
+- @subpage lot-49
+- @subpage lot-50
+- @subpage lot-51
+- @subpage lot-52
+- @subpage lot-53
+- @subpage lot-54
+- @subpage lot-55

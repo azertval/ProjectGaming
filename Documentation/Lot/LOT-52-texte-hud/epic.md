@@ -1,0 +1,86 @@
+# LOT-52 — Texte, police bitmap et affichage tête haute {#lot-52}
+
+> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*),
+> [LOT-43](@ref lot-43) (bibliothèque d'assets).
+
+## Objectif
+Donner au jeu la capacité d'**afficher du texte dans la scène rendue**, et s'en servir pour montrer
+au joueur une information qui existe depuis longtemps sans avoir jamais été visible.
+
+`EX-REN-032` (« le jeu doit afficher du texte ») est spécifiée depuis l'origine et **n'a jamais été
+implémentée** : il n'existe aucune notion de police ni de glyphe dans `Source/HMI/Graphics`. Le texte
+n'existe que dans l'interface Qt hors-jeu (menus, options, éditeur), jamais dans le viewport
+Direct3D 11.
+
+La conséquence la plus visible : `LOT-12` a introduit des **budgets de sauts et de dashs** par
+tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand le budget est
+épuisé — et le joueur n'a **aucun moyen de savoir combien il lui en reste**.
+
+## Périmètre
+
+### Inclus
+- **Police bitmap** : atlas de glyphes (PNG) accompagné de ses métriques (fichier de description),
+  chargé par le *TextureCache* et validé par le contrat d'asset (LOT-40). Repli procédural si l'atlas
+  est absent, dans la lignée de `EX-REN-042`.
+- ***TextRenderer*** : composition d'une chaîne en une suite de quads soumis sur le calque *UI* de
+  *RenderLayer* (réservé en LOT-40), via `SpriteBatch` — **aucune nouvelle dépendance**, aucun
+  nouveau chemin de rendu.
+- **Affichage tête haute minimal** (`EX-IHM-003`) : budgets de sauts et de dashs restants, nom du
+  tableau en cours. Affiché en jeu et en mode essai.
+- **Traduction** : tout libellé passe par `hmi::Localization` (`EX-REN-033`) ; les chaînes sont
+  ajoutées aux deux catalogues de langue.
+- Mesure de texte (largeur, hauteur) exposée comme fonction **pure**, pour permettre le cadrage sans
+  GPU.
+
+### Exclus (hors périmètre de ce lot)
+- Écrans de pause et de fin de niveau (`EX-REN-031`, non implémentée) : ce lot fournit la brique
+  d'affichage, pas les écrans. Ils restent hors du programme d'habillage.
+- Police vectorielle, crénage, texte multi-lignes justifié, texte enrichi.
+- Dialogues, sous-titres, tutoriel textuel — la conception des niveaux reste un tutoriel implicite
+  sans texte.
+- Affichage de diagnostic (compteur d'images, boîtes de collision) : la brique le permettra, ce lot
+  ne le livre pas.
+
+## Décisions de cadrage
+- **Police bitmap, pas de rendu de police vectorielle** : le jeu est en pixel art avec filtrage
+  *nearest* (`EX-ARCH-022`) ; une police bitmap est le rendu **correct**, pas un compromis. Elle
+  réutilise intégralement le chemin existant (atlas + quads + `SpriteBatch`) et n'ajoute aucune
+  dépendance, là où un moteur de texte vectoriel en imposerait une.
+- **Le texte est un asset comme un autre** : même cache, même contrat, même repli. Aucune exception
+  dans le pipeline.
+- **Périmètre du HUD volontairement minimal** : les budgets et le nom du tableau, rien d'autre. Le
+  besoin est identifié et précis ; élargir maintenant reviendrait à concevoir une interface de jeu
+  sans en avoir établi le besoin.
+- **Placé dans le programme d'habillage** parce qu'il en partage entièrement l'infrastructure
+  (*TextureCache*, calques, contrat d'asset). Il ne dépend d'aucun autre lot que LOT-40, et peut donc
+  être avancé si le besoin devient prioritaire.
+
+## Exigences couvertes
+- Nouvelle : `EX-IHM-003` (affichage tête haute des budgets et du tableau courant).
+- Concrétisée : `EX-REN-032` (affichage de texte dans la scène rendue).
+- Réutilisées : `EX-REN-033` (traduction), `EX-REN-042` (assets externalisés avec repli),
+  `EX-REN-007` (contrat d'asset), `EX-REN-043` (calques), `EX-GP-024` (budgets de mouvements),
+  `EX-ARCH-012` (aucun effet sur la simulation), `EX-ARCH-022` (*nearest*).
+
+## Découpage
+
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+
+| Tâche | Intitulé | Emplacement | État |
+|-------|----------|-------------|:----:|
+| TACHE-01 | Police bitmap : atlas de glyphes, métriques, chargement, repli procédural | `Source/HMI/Graphics` | ⬜ |
+| TACHE-02 | *TextRenderer* : composition d'une chaîne en quads sur le calque *UI*, mesure pure | `Source/HMI/Graphics` | ⬜ |
+| TACHE-03 | Affichage tête haute (budgets, nom du tableau) + clés de traduction | `Source/HMI/Game`, `Source/Elements/Localization` | ⬜ |
+
+## Critères d'acceptation du lot
+1. Une chaîne s'affiche dans le viewport du jeu, nette, sans filtrage flou.
+2. Les budgets de sauts et de dashs restants sont visibles en jeu et décroissent à l'usage ; un
+   niveau sans budget n'affiche rien de superflu.
+3. Tous les libellés passent par le catalogue de traduction et existent dans les deux langues.
+4. En l'absence d'atlas de police, le jeu reste lisible (repli) et ne plante pas.
+5. La mesure de texte est testée sans GPU ; build `/W4 /WX`, Doxygen, lint verts.
+
+## Dépendances
+Bâtit sur [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*, contrat d'asset) et
+[LOT-43](@ref lot-43) (import d'assets). Concrétise une exigence de [LOT-06](@ref lot-06) restée
+sans implémentation. Aucune dépendance sur les autres lots du programme.

@@ -6,6 +6,11 @@
 - \anchor EX-NFR-001 **EX-NFR-001** — Le jeu doit maintenir **60 images/seconde** sur une configuration de bureau récente pour les niveaux du MVP.
 - \anchor EX-NFR-002 **EX-NFR-002** — La simulation doit fonctionner à **pas de temps fixe** et rester déterministe (mêmes entrées → même résultat).
 - \anchor EX-NFR-003 **EX-NFR-003** — L'empreinte mémoire doit rester stable dans le temps (aucune fuite ; vérifiable via AddressSanitizer).
+- \anchor EX-NFR-005 **EX-NFR-005** — Le rendu ne doit soumettre que les primitives **effectivement
+  visibles** : le contenu hors du cadrage de la caméra (`EX-REN-015`, salle courante) est écarté
+  avant soumission. Le nombre de primitives émises par image doit rester **borné et observable**,
+  l'habillage complet (fond, décors, ombres, tuiles, objets, effets) multipliant le volume par
+  rapport au rendu d'origine. Concrétisé en `LOT-40`.
 
 ## 2. Architecture & maintenabilité
 - \anchor EX-NFR-010 **EX-NFR-010** — La logique (`Core`) doit être **indépendante** de la présentation (`HMI`) et testable sans fenêtre ni GPU.
@@ -17,6 +22,12 @@
 - \anchor EX-NFR-020 **EX-NFR-020** — Toute logique de gameplay livrée dans `Core` doit être couverte par des **tests unitaires** (GoogleTest).
 - \anchor EX-NFR-021 **EX-NFR-021** — Les niveaux du MVP doivent être couverts par un **test système** vérifiant leur franchissabilité.
 - \anchor EX-NFR-022 **EX-NFR-022** — La **CI** doit exécuter build, tests et couverture à chaque push/PR et rester verte pour merger.
+- \anchor EX-NFR-004 **EX-NFR-004** — La chaîne de rendu doit être **vérifiable sans GPU** : les
+  primitives de dessin produites pour une scène donnée doivent pouvoir être **capturées et
+  inspectées** par un test (ordre des calques, priorité de résolution des textures, choix des
+  raccords automatiques, isolement d'un calque, effets de bord du culling). Un critère d'acceptation
+  du type « rendu identique » ou « ordre de calque correct » ne doit pas reposer sur une
+  vérification à l'œil quand il peut être asserté. Concrétisé en `LOT-40`.
 
 ## 4. Portabilité & reproductibilité
 - \anchor EX-NFR-030 **EX-NFR-030** — Le projet doit se construire **exclusivement via CMake**, reproductible sur plusieurs postes (cf. `README`).

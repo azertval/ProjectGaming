@@ -1,6 +1,10 @@
 # Décors & pipeline pixel art {#spec-decors}
 
-> Statut : **brouillon**. Direction produit **« à terme »** : le socle (cf. [`architecture.md`](architecture.md)) doit l'**accommoder dès maintenant**, mais la livraison est **post-MVP**.
+> Statut : **partiellement planifié**. Le **système de décors** (section 1) et son **édition**
+> (section 2, à la conception) sont concrétisés par `LOT-49` et `LOT-50` du programme
+> d'habillage (`LOT-40` → `LOT-55`). La **manipulation en jeu** (section 2, `EX-DEC-020/021`) et le
+> **pipeline photo → pixel art** (section 3) restent **post-programme** : le socle (cf.
+> [`architecture.md`](architecture.md)) doit les accommoder, la livraison n'est pas planifiée.
 
 ## Vision
 Les décors sont issus de **photos réelles converties en pixel art**, plaçables et transformables. Ils sont manipulables par le **level designer** (dans l'éditeur) et, **à terme, par le joueur** (mécanique de gameplay).
@@ -11,6 +15,16 @@ Les décors sont issus de **photos réelles converties en pixel art**, plaçable
 - \anchor EX-DEC-003 **EX-DEC-003** — Rendu **pixel art net** (nearest-neighbor) — cf. `EX-ARCH-022`.
 - \anchor EX-DEC-004 **EX-DEC-004** — Les décors sont des **entités ECS de la simulation `Core`** (état sérialisable, manipulation déterministe) — cf. `EX-ARCH-100`.
 - \anchor EX-DEC-005 **EX-DEC-005** — Chaque décor porte une propriété **statique** ou **manipulable en jeu** (détermine s'il participe à la mécanique joueur).
+- \anchor EX-DEC-006 **EX-DEC-006** — Chaque **couche** de décor porte un **facteur de défilement**
+  (parallaxe) appliqué au rendu : une couche d'arrière-plan défile moins vite que le niveau, une
+  couche de premier plan plus vite, ce qui donne la profondeur. Le facteur est purement visuel
+  (`EX-ARCH-012`) et son comportement au franchissement d'une frontière de **salle**
+  (`EX-REN-015`, caméra à coupure nette) doit être défini explicitement plutôt que subi.
+  Concrétisé en `LOT-49`.
+
+Les décors sont **traversables** : ils ne participent jamais aux collisions. Combiné à la couche de
+**premier plan** dessinée au-dessus du personnage (`EX-REN-014`), c'est le moyen de lecture qui
+permet au joueur de distinguer d'un coup d'œil le décor du physique.
 
 ## 2. Manipulation
 

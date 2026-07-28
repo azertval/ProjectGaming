@@ -7,7 +7,7 @@
 assignée. Pour rester **honnête** (visible, pas silencieux) sans jamais bloquer le rendu
 (`EX-NFR-040`), ce cas doit afficher un repli **reconnaissable entre tous** — un damier magenta —
 plutôt qu'un carré vide ou une texture par défaut ambiguë. Cette tâche construit ce repli une seule
-fois, en amont, pour que LOT-42/43/44 n'aient qu'à l'appeler.
+fois, en amont, pour que LOT-42, LOT-44, LOT-45 et LOT-49 n'aient qu'à l'appeler.
 
 ## Travail à réaliser
 - ***buildMissingTextureImage()*** (namespace `hmi`, sœur de `hmi::buildProceduralAtlasImage`, même fichier

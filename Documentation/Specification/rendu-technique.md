@@ -10,7 +10,7 @@
 ## 2. Rendu 2D
 - \anchor EX-REN-010 **EX-REN-010** — Le rendu doit afficher une grille de tuiles à partir d'un **atlas de textures** (spritesheet).
 - \anchor EX-REN-011 **EX-REN-011** — Le rendu doit afficher des **sprites** pour le personnage et les mécanismes, avec transparence.
-- \anchor EX-REN-012 **EX-REN-012** — Le rendu doit supporter des **animations** par séquence d'images (personnage : repos, course, saut).
+- \anchor EX-REN-012 **EX-REN-012** — Le rendu doit supporter des **animations** par séquence d'images (personnage : repos, course, saut). Généralisé à toute entité — tuiles et mécanismes compris — par `EX-REN-005`.
 - \anchor EX-REN-013 **EX-REN-013** — Une **caméra 2D** doit cadrer le niveau en jeu : elle reste
   bornée aux limites de ce qu'elle cadre, et pour un contenu plus grand que la fenêtre, elle
   **zoome pour l'englober entièrement** plutôt que de suivre le personnage — aucune zone ne doit
@@ -28,7 +28,12 @@
   nouvelle tuile) : une salle a « plusieurs entrées/sorties » simplement parce qu'un couloir reste
   ouvert sur plusieurs de ses bords vers des salles voisines — propriété géométrique, pas un
   mécanisme.
-- \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches** (fond, décor, entités, interface).
+- \anchor EX-REN-014 **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **couches**,
+  défini par un **ordonnancement unique et explicite**, dont aucun calque concurrent ne peut
+  s'écarter : **fond**, **décor d'arrière-plan**, **ombres**, **tuiles physiques**, **objets**,
+  **personnage**, **décor de premier plan**, **interface**, **aides d'édition**. Le calque de
+  **premier plan** est dessiné **au-dessus du personnage** : c'est le moyen de lecture immédiate
+  qui distingue le décor traversable du décor physique (`EX-DEC-002`). Précisé en `LOT-40`.
 - \anchor EX-REN-041 **EX-REN-041** — Le rendu doit pouvoir **charger ses textures depuis des
   fichiers image** (PNG au minimum), décodés en pixels RGBA puis créés en texture Direct3D 11, en plus
   de la génération procédurale historique. Le filtrage reste *nearest* (pixel art, `EX-ARCH-022`).
@@ -39,21 +44,48 @@
   asset est absent/illisible (`EX-NFR-040`). Concrétisé en `LOT-39`.
 - \anchor EX-REN-043 **EX-REN-043** — Le rendu doit pouvoir dessiner, en une seule frame, des
   entités provenant de **plusieurs textures distinctes** (au-delà de l'atlas unique historique), sans
-  changer le contrat public de `SpriteBatch`/`SpriteRenderer`, et selon un **ordonnancement de calques
-  explicite et unique** (fond, tuiles, objets, aides d'édition). Concrétisé en `LOT-40`.
+  changer le contrat public de `SpriteBatch`/`SpriteRenderer`, et selon l'**ordonnancement de calques
+  explicite et unique** de `EX-REN-014`. Concrétisé en `LOT-40`.
 - \anchor EX-REN-044 **EX-REN-044** — Un niveau doit pouvoir afficher une **image de fond**
   optionnelle, en dessous de toutes les tuiles, en mode Texture uniquement ; l'absence de fond
   configuré est un état normal (pas de repli visible), un fond référencé mais introuvable déclenche
-  le repli en damier (`EX-NFR-040`). Concrétisé en `LOT-43`.
+  le repli en damier (`EX-NFR-040`). Concrétisé en `LOT-44`.
 - \anchor EX-REN-045 **EX-REN-045** — Les tuiles **solides** doivent pouvoir projeter une **ombre**
   portée, purement visuelle, sur le fond du niveau en mode Texture, pour distinguer visuellement le
-  physique du décor sans aucun effet sur le gameplay (`EX-ARCH-012`). Concrétisé en `LOT-46`.
+  physique du décor sans aucun effet sur le gameplay (`EX-ARCH-012`). Concrétisé en `LOT-55`.
 - \anchor EX-REN-046 **EX-REN-046** — Le jeu doit permettre de basculer, par une commande **fixe et
   non remappable** (`F8`), entre le rendu **Physique** (couleur plate par type de tuile, accès direct
-  à la lecture des collisions) et le rendu **Texture** (habillage complet — fond, skin, objets
-  interactifs) — disponible aussi bien en édition qu'en jeu réel. Le rendu par défaut dépend de la
-  configuration de build (`core::kDeveloperBuild`) : Physique en Debug, Texture en Release.
+  à la lecture des collisions) et le rendu **Texture** (habillage complet — fond, décor, skin, objets
+  interactifs) — disponible aussi bien en édition qu'en jeu réel. Le rendu **Texture** est le défaut
+  dans **toutes** les configurations de build, et le dernier choix du joueur est **persisté** entre
+  deux sessions : deux binaires du même code ne doivent jamais afficher un rendu différent par
+  défaut, sous peine de rendre ambiguë toute capture d'écran ou vérification visuelle.
   Concrétisé en `LOT-41`.
+- \anchor EX-REN-005 **EX-REN-005** — Les **animations** doivent être décrites par des **données**
+  (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur, et
+  s'appliquer à **toute** entité affichée : personnage, mécanismes, et tuiles animées (eau, lave,
+  torche). La progression d'une animation se fait au **pas fixe** (`EX-REN-021`) afin de rester
+  déterministe. Un asset sans description d'animation est affiché comme une **image fixe**.
+  Concrétisé en `LOT-46`.
+- \anchor EX-REN-006 **EX-REN-006** — L'apparence d'un **mécanisme** (porte, interrupteur, plaque
+  de pression, danger commuté, danger temporisé, danger mobile) doit refléter son **état logique**
+  par le choix d'un clip d'animation, y compris les **transitions** jouées une fois
+  (ouverture/fermeture), et non par une modulation de teinte ou d'opacité. Le rendu reste en
+  **lecture seule** sur la simulation (`EX-ARCH-012`). Concrétisé en `LOT-47`.
+- \anchor EX-REN-007 **EX-REN-007** — Tout asset graphique chargé doit être **validé** à l'entrée
+  du rendu (format décodable, dimensions conformes au contrat du type d'asset). Un asset invalide
+  n'interrompt jamais le rendu : il est remplacé par le repli visible et journalisé avec le **nom
+  du fichier** et la **dimension attendue**, pour que l'auteur sache quoi corriger (`EX-NFR-040`).
+  Concrétisé en `LOT-40`.
+- \anchor EX-REN-008 **EX-REN-008** — Le jeu doit pouvoir afficher des **effets visuels** de courte
+  durée (traînée de déplacement rapide, poussière d'atterrissage, éclatement à la mort, secousse
+  d'écran) simulés au **pas fixe** et donc **déterministes** (`EX-NFR-002`), sans aucun effet sur le
+  gameplay (`EX-ARCH-012`) et dans un budget borné. Concrétisé en `LOT-53`.
+- \anchor EX-REN-009 **EX-REN-009** — Le **personnage** doit pouvoir être habillé depuis une
+  **spritesheet externe** (comme tout autre asset, `EX-REN-042`), avec des clips couvrant les états
+  de gameplay réellement livrés (repos, course, saut, chute, atterrissage, glissade murale, dash) et
+  son orientation. La taille d'une image de la spritesheet est **indépendante** de la boîte de
+  collision du personnage, qui reste la source de vérité du gameplay. Concrétisé en `LOT-48`.
 
 ## 3. Boucle & temps
 - \anchor EX-REN-020 **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
@@ -68,7 +100,7 @@
 ## 4. Interface (HMI)
 - \anchor EX-REN-030 **EX-REN-030** — Le jeu doit afficher un **menu principal** (Jouer, Quitter).
 - \anchor EX-REN-031 **EX-REN-031** (⚠️ non implémenté) — Le jeu doit afficher un écran de **pause** et un écran de **fin de niveau**. En l'état, Échap **quitte directement** vers le menu (pas d'écran de pause dédié) et l'enchaînement de niveaux à la réussite ne passe par aucun écran intermédiaire.
-- \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle.
+- \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle, **dans la scène rendue elle-même** et pas seulement dans l'interface hors-jeu. Concrétisé en `LOT-52`.
 - \anchor EX-REN-033 **EX-REN-033** — Tout **texte affiché** doit passer par un **catalogue de traduction** : le code référence des **clés** stables, résolues vers une chaîne selon la **langue active**, chargée depuis un **fichier par langue** (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial (un fichier de plus, sans modification du code). Une clé ou un fichier de langue manquant est traité comme une **erreur récupérable** (repli déterministe), cf. `EX-NFR-040`.
 
 ## 5. Audio (⚠️ minimal MVP)
