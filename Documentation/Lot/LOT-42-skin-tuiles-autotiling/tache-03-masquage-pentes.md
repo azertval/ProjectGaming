@@ -16,7 +16,7 @@ un carré plein là où le personnage traverse : la lecture du niveau serait fau
 - **Détourage au chargement** : lorsqu'un asset est assigné à l'un des douze types à silhouette, en
   produire une variante dont les pixels situés **hors** de la forme sont rendus transparents, en
   réutilisant les fonctions de géométrie de `Core` déjà employées par
-  `hmi::ProceduralAtlas::slopeShapePixel`.
+  *slopeShapePixel* (`ProceduralAtlas.cpp`).
 - **Une seule fois, puis en cache** : le détourage porte sur 16×16 pixels, son coût est négligeable,
   mais il ne doit pas être refait à chaque image. Le résultat est une entrée du *TextureCache*
   (LOT-40), invalidée comme les autres.

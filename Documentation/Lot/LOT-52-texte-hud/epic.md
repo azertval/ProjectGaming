@@ -8,7 +8,7 @@ Donner au jeu la capacité d'**afficher du texte dans la scène rendue**, et s'e
 au joueur une information qui existe depuis longtemps sans avoir jamais été visible.
 
 `EX-REN-032` (« le jeu doit afficher du texte ») a bien été implémentée par le passé — une police
-bitmap `hmi::BitmapFont` alimentait l'interface « maison » — puis **délibérément retirée** au
+bitmap *hmi::BitmapFont* alimentait l'interface « maison » — puis **délibérément retirée** au
 `LOT-38` (commit `8338bc15`) avec toute la pile d'UI historique, Qt reprenant l'affichage du texte
 **hors-jeu**. Le raisonnement était juste : un menu Qt n'a rien à faire dans `SpriteBatch`.
 
@@ -53,7 +53,7 @@ sur l'ancien chemin.
   ne le livre pas.
 
 ## Décisions de cadrage
-- **Réintroduction ciblée, pas retour en arrière** : le retrait de `hmi::BitmapFont` au `LOT-38`
+- **Réintroduction ciblée, pas retour en arrière** : le retrait de *hmi::BitmapFont* au `LOT-38`
   était justifié pour l'**interface hors-jeu** et n'est pas remis en cause — menus, options et
   éditeur restent en Qt. Ce lot ne rétablit le texte que **dans la scène rendue**, là où Qt ne peut
   structurellement pas intervenir.

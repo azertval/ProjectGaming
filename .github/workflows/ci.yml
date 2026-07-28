@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  # Version de Doxygen épinglée (EX-NFR-031, même esprit que EX-BUILD-010 pour Qt).
+  # `apt-get install doxygen` livre la version de la distribution (1.9.x sur
+  # ubuntu-latest), dont les règles de résolution de liens diffèrent de celles des
+  # versions récentes : une documentation générée sans avertissement en local
+  # échouait en CI. Poste de développement et CI doivent exécuter la MÊME version,
+  # sinon la vérification locale ne prédit rien.
+  DOXYGEN_VERSION: 1.16.1
+
 jobs:
   build-test-coverage:
     # Épinglé : windows-latest (image 2025) ne fournit pas le générateur VS 2022.
@@ -88,9 +97,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Install Doxygen ${{ env.DOXYGEN_VERSION }}
+        run: |
+          set -euo pipefail
+          tag="Release_${DOXYGEN_VERSION//./_}"
+          archive="doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz"
+          # Extrait hors du dépôt (RUNNER_TEMP) : le workspace reste propre.
+          curl -fsSL -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/doxygen/doxygen/releases/download/${tag}/${archive}"
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/doxygen-${DOXYGEN_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Check Doxygen version
+        run: doxygen --version
 
       - name: Generate documentation
-        working-directory: Documentation
-        run: doxygen Doxyfile
+        run: python3 scripts/build_docs.py

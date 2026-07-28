@@ -22,7 +22,7 @@ capture d'écran et sans comparaison d'images.
   produire sa liste de primitives **sans** device D3D11. Séparer la **composition** (calcul des
   quads, tri, regroupement — logique pure) de la **soumission** (`SpriteBatch`, GPU), la composition
   devenant la partie testable. C'est la même séparation que celle déjà pratiquée entre
-  `hmi::ProceduralAtlas` (pur, testé) et `hmi::TextureAtlas` (GPU).
+  *ProceduralAtlas* (pur, testé) et `hmi::TextureAtlas` (GPU).
 - **Fonctions d'assertion réutilisables** côté test : ordre des calques respecté, regroupement par
   texture contigu, absence/présence d'une primitive à une position donnée, nombre de primitives par
   calque.

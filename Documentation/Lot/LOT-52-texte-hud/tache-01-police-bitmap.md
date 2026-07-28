@@ -3,7 +3,7 @@
 **Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
 
 ## Contexte
-Le projet a déjà eu une police bitmap : `hmi::BitmapFont`, retirée au `LOT-38` (commit `8338bc15`)
+Le projet a déjà eu une police bitmap : *hmi::BitmapFont*, retirée au `LOT-38` (commit `8338bc15`)
 avec toute la pile d'UI « maison », Qt reprenant l'affichage du texte hors-jeu. Le raisonnement
 était juste ; sa conséquence — plus aucun texte possible **dans la scène** — n'a jamais été traitée.
 

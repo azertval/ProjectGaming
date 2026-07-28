@@ -6,7 +6,7 @@
 ## Objectif
 Habiller le sprite **le plus regardé du jeu**, resté hors du cadrage initial du programme.
 
-Le personnage est aujourd'hui dessiné par `hmi::playerPixel` : une silhouette humanoïde composée de
+Le personnage est aujourd'hui dessiné par *hmi::playerPixel* : une silhouette humanoïde composée de
 rectangles, générée en C++ dans `ProceduralAtlas.cpp`, avec sept images réparties sur trois clips.
 Modifier son apparence suppose de recompiler. Et surtout, le gameplay a acquis depuis longtemps des
 états que le visuel n'a jamais suivis : double saut, glissade murale, saut mural (`LOT-10`), chute

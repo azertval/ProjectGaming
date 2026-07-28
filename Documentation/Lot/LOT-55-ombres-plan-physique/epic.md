@@ -47,7 +47,7 @@ rien tant que le reste de l'habillage n'existe pas.
 - **Pas de prédicat de solidité partielle.** L'absence d'ombre sur les pentes appelle naturellement
   un `isSolidHalf` dans `Core` ; c'est écarté. Une ombre est la projection d'une **forme**, pas d'un
   degré de solidité : un booléen dirait qu'une pente est à moitié solide sans dire **où**. Or la
-  forme est déjà exposée par les fonctions pures de géométrie de `Core`, dont `hmi::slopeShapePixel`
+  forme est déjà exposée par les fonctions pures de géométrie de `Core`, dont *hmi::slopeShapePixel*
   se sert depuis `LOT-39` et que `LOT-42` factorise en masque réutilisable. Ajouter un prédicat de
   simulation pour un besoin purement visuel violerait `EX-ARCH-012` pour une information moins riche
   que celle déjà disponible.

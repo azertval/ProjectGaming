@@ -12,7 +12,7 @@ Cette tâche ajoute le énième membre de cette famille. L'intérêt est qu'il n
 le patron, son nettoyage et son historique existent et sont testés.
 
 ## Travail à réaliser
-- **`core::TileTextureOverride`** : une position de grille et un nom d'asset. Vecteur annexe sur
+- ***core::TileTextureOverride*** : une position de grille et un nom d'asset. Vecteur annexe sur
   `Level` et `LevelDraft`, accesseur de lecture, mutateurs d'assignation et de retrait.
 - **JSON** : champ optionnel **par tuile** (ex. `"texture": "door_red.png"`), exactement comme
   `switch.id` et `door.opensWith`. Rétrocompatible, dans le format versionné de LOT-44.

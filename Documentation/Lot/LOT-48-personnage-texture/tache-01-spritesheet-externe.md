@@ -3,7 +3,7 @@
 **Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
 
 ## Contexte
-Le personnage est dessiné par `hmi::playerPixel` (`ProceduralAtlas.cpp`) : une silhouette humanoïde
+Le personnage est dessiné par *hmi::playerPixel* (`ProceduralAtlas.cpp`) : une silhouette humanoïde
 composée de rectangles de couleur — cheveux, peau, chemise, pantalon, chaussures — générée en C++.
 Changer son apparence impose de recompiler.
 

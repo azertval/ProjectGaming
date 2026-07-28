@@ -133,6 +133,12 @@ python scripts/build_docs.py               # documentation Doxygen (WARN_AS_ERRO
 > `doxygen Documentation/Doxyfile` depuis la racine échoue (`source '…' is not a readable file`).
 > Le script se place dans `Documentation/` pour vous, quel que soit le répertoire d'appel.
 
+**Version de Doxygen : `1.16.1`**, épinglée en CI (`EX-NFR-031`) et à installer à l'identique en
+local. Les versions plus anciennes appliquent des règles de résolution de liens différentes : une
+documentation générée sans avertissement avec une autre version peut échouer en CI, et la
+vérification locale ne prédirait plus rien. Binaires officiels :
+<https://github.com/doxygen/doxygen/releases/tag/Release_1_16_1>.
+
 ## Intégration continue
 
 | Workflow | Déclencheur | Rôle |

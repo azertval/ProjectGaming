@@ -69,7 +69,7 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-menu-navigation-qt.md) | Menu principal Qt + navigation (remplace `IScreen`/`ScreenManager`) | `Source/HMI/Interface` | ✅ |
 | [TACHE-02](tache-02-options-remappage-qt.md) | Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette | `Source/HMI/Interface` | ✅ |
-| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`…Screen`, widgets maison, `hmi::Window`, `hmi::BitmapFont`, ancienne boucle) | `Source/HMI`, CMake | ✅ |
+| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`…Screen`, widgets maison, `hmi::Window`, *hmi::BitmapFont*, ancienne boucle) | `Source/HMI`, CMake | ✅ |
 | [TACHE-04](tache-04-nettoyage-tests-doc.md) | Nettoyage tests, documentation (menu/options/contrôles) & vérification | `Source/Test`, `Documentation` | ✅ |
 
 > La cible `Source/Editor` mentionnée au cadrage n'a jamais existé : la migration a abouti à un

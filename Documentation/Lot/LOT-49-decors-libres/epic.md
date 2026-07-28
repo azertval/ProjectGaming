@@ -22,11 +22,11 @@ avoir jamais été rattaché à un lot.
 ## Périmètre
 
 ### Inclus
-- **`Core`** : `core::Decor` — nom d'asset, position en unités monde (**flottante, hors grille**),
+- **`Core`** : *core::Decor* — nom d'asset, position en unités monde (**flottante, hors grille**),
   échelle, rotation, couche, et l'indicateur statique/manipulable de `EX-DEC-005`. Vecteur annexe
   sur `Level`/`LevelDraft`, **exactement** le patron `Mechanism`/`DangerLink`
   (`Source/Core/Levels/Level.h`). Données pures, aucun handle de texture.
-- **`core::DecorLayer { Background, Decor, Foreground }`** (`EX-DEC-002`), projeté sur les valeurs
+- ***core::DecorLayer* `{ Background, Decor, Foreground }`** (`EX-DEC-002`), projeté sur les valeurs
   correspondantes de *RenderLayer* côté `HMI`. `Core` ne connaît pas *RenderLayer*.
 - **JSON** : tableau racine optionnel `"decors": [...]`, dans le format versionné de LOT-44 —
   rétrocompatible. Undo/redo gratuit via `LevelDraft::State`.
@@ -83,7 +83,7 @@ avoir jamais été rattaché à un lot.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-decor.md) | `core::Decor` et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ⬜ |
+| [TACHE-01](tache-01-modele-decor.md) | *core::Decor* et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ⬜ |
 | [TACHE-02](tache-02-rendu-couches.md) | Rendu des trois couches, premier plan au-dessus du personnage | `Source/HMI/Graphics` | ⬜ |
 | [TACHE-03](tache-03-parallaxe.md) | Parallaxe : arbitrage avec la caméra par salle, application au rendu et au culling | `Source/HMI/Graphics` | ⬜ |
 | [TACHE-04](tache-04-placement-minimal.md) | Placement minimal dans l'éditeur + dossier `Assets/Decors/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |

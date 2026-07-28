@@ -27,7 +27,7 @@ c'est la silhouette qu'il faut, et un booléen ne la porte pas.
 
 **Tout existe déjà, et du bon côté de la frontière.** La forme des douze silhouettes est calculée
 par des fonctions **pures de `Core`** — `core::slopeSurfaceHeight`, `core::ceilingSlopeHeight`,
-`core::isCeilingSlope` — que `hmi::slopeShapePixel` (`ProceduralAtlas.cpp`) utilise déjà pour
+`core::isCeilingSlope` — que *hmi::slopeShapePixel* (`ProceduralAtlas.cpp`) utilise déjà pour
 produire le masque « dedans / dehors » de chaque type, et que le `LOT-42` (TACHE-03) factorise en un
 `SlopeMask` pur et mis en cache pour détourer les skins. La taille des blocs réduits est donnée par
 `core::tileVisualScale`, décrite dans le code comme la source de vérité partagée entre le visuel et
