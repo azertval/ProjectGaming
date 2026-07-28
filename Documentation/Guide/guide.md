@@ -43,7 +43,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - @subpage guide-physique — la **physique** du personnage : balayage AABB, gravité, saut, dash.
 - @subpage guide-niveaux — les **niveaux** : modèle, chargement JSON, mécanismes, budgets.
 - @subpage guide-entrees — les **entrées** et leur traduction en **actions logiques**.
-- @subpage guide-rendu — le **rendu 2D** : Direct3D 11, sprite batching, atlas, caméra, texte.
+- @subpage guide-rendu — le **rendu 2D** : Direct3D 11, sprite batching, atlas, caméra, interpolation.
 - @subpage guide-journalisation — la **journalisation** et les **assertions** : niveaux, sinks, macros.
 - @subpage guide-editeur — l'**éditeur de niveaux intégré** : brouillon mutable, peinture, undo/redo, essai immédiat.
 - @subpage guide-ecrans — la **navigation** Qt : menu, jeu, éditeur et options (pages empilées, signaux).

@@ -44,7 +44,15 @@ Choix retenu : **ECS complet**, hébergé dans `Core`. Assumé plus lourd, justi
 - \anchor EX-ARCH-070 **EX-ARCH-070** — Communication par **appels directs / observateur simple**. Pas de bus d'événements tant que le couplage reste faible (réévalué si nécessaire).
 
 ## 9. Gestion des ressources
-- \anchor EX-ARCH-080 **EX-ARCH-080** — Un `ResourceManager` simple gère les ressources (textures, niveaux, décors) par **handle**, chargement à la demande. Pas de hot-reload au MVP.
+- \anchor EX-ARCH-080 **EX-ARCH-080** — Les ressources sont gérées par **nom logique**, avec
+  chargement **à la demande** et mise en cache. La gestion vit **du côté qui possède la ressource** :
+  les **textures** relèvent de `HMI` (registre construit sur le décodage d'image et Direct3D 11,
+  `LOT-40`), car `Core` ne doit connaître aucune ressource graphique (`EX-NFR-010`, `EX-ARCH-010`) ;
+  les **niveaux** et les **décors** restent des données de `Core`, chargées et validées par leur
+  propre chargeur (`EX-LVL-004`). Il n'existe donc **pas** de gestionnaire de ressources unique dans
+  `Core` — la formulation initiale, antérieure à la séparation `Core`/`HMI` telle qu'elle est
+  aujourd'hui appliquée, l'aurait obligé à dépendre de la présentation.
+  Le **rechargement à chaud** des assets graphiques, écarté au MVP, est concrétisé en `LOT-43`.
 
 ## 10. Contrainte « éditeur intégré »
 - \anchor EX-ARCH-090 **EX-ARCH-090** — Le modèle de niveau **et les décors** constituent un **état ECS mutable et sérialisable** ; le rendu de `HMI` est utilisable **hors mode jeu** ; les états de jeu incluent un état **Éditeur**. (Respecté tôt = cheap ; rajouté tard = cher.)

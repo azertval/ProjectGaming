@@ -100,7 +100,7 @@
 ## 4. Interface (HMI)
 - \anchor EX-REN-030 **EX-REN-030** — Le jeu doit afficher un **menu principal** (Jouer, Quitter).
 - \anchor EX-REN-031 **EX-REN-031** (⚠️ non implémenté) — Le jeu doit afficher un écran de **pause** et un écran de **fin de niveau**. En l'état, Échap **quitte directement** vers le menu (pas d'écran de pause dédié) et l'enchaînement de niveaux à la réussite ne passe par aucun écran intermédiaire.
-- \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle, **dans la scène rendue elle-même** et pas seulement dans l'interface hors-jeu. Concrétisé en `LOT-52`.
+- \anchor EX-REN-032 **EX-REN-032** — Le jeu doit afficher du **texte** (titres, indications) via une police bitmap ou vectorielle. Le texte de l'**interface hors-jeu** (menus, options, éditeur) est rendu par Qt depuis `LOT-38`, qui a retiré la police bitmap historique. Le texte **dans la scène rendue** — ancré au jeu, hors de portée des widgets Qt — reste à rétablir : concrétisé en `LOT-52`.
 - \anchor EX-REN-033 **EX-REN-033** — Tout **texte affiché** doit passer par un **catalogue de traduction** : le code référence des **clés** stables, résolues vers une chaîne selon la **langue active**, chargée depuis un **fichier par langue** (français par défaut). Aucun libellé d'interface n'est codé en dur, afin de rendre l'ajout d'une langue trivial (un fichier de plus, sans modification du code). Une clé ou un fichier de langue manquant est traité comme une **erreur récupérable** (repli déterministe), cf. `EX-NFR-040`.
 
 ## 5. Audio (⚠️ minimal MVP)

@@ -1,7 +1,8 @@
 # LOT-38 — Refonte IHM (Qt) : menus, options, remappage & retrait du legacy UI {#lot-38}
 
-> Statut : **non commencé**. Prérequis : [LOT-35](@ref lot-35) → [LOT-37](@ref lot-37) (éditeur Qt
-> complet).
+> Statut : **✅ terminé**, livré en deux étapes fusionnées sur `main` (`55f161d5` — étape A : menu,
+> options, jeu et remappage en Qt ; `8338bc15` — étape B : retrait du legacy, IHM Qt unifiée).
+> Prérequis : [LOT-35](@ref lot-35) → [LOT-37](@ref lot-37) (éditeur Qt complet).
 
 ## Objectif
 Achever la migration de **toute l'UI hors-jeu** vers Qt en portant le **menu principal**, l'écran
@@ -62,14 +63,19 @@ in-game reste D3D11**, et l'ancien exécutable `ProjectGaming` est supprimé au 
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-menu-navigation-qt.md) | Menu principal Qt + navigation (remplace `IScreen`/`ScreenManager`) | `Source/Editor` | ⬜ |
-| [TACHE-02](tache-02-options-remappage-qt.md) | Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`…Screen`, widgets maison, `hmi::Window`, ancienne boucle) | `Source/HMI`, `Source/Editor`, CMake | ⬜ |
-| [TACHE-04](tache-04-nettoyage-tests-doc.md) | Nettoyage tests, documentation (menu/options/contrôles) & vérification | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-menu-navigation-qt.md) | Menu principal Qt + navigation (remplace `IScreen`/`ScreenManager`) | `Source/HMI/Interface` | ✅ |
+| [TACHE-02](tache-02-options-remappage-qt.md) | Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette | `Source/HMI/Interface` | ✅ |
+| [TACHE-03](tache-03-retrait-legacy-ui.md) | Retrait du legacy UI (`…Screen`, widgets maison, `hmi::Window`, `hmi::BitmapFont`, ancienne boucle) | `Source/HMI`, CMake | ✅ |
+| [TACHE-04](tache-04-nettoyage-tests-doc.md) | Nettoyage tests, documentation (menu/options/contrôles) & vérification | `Source/Test`, `Documentation` | ✅ |
+
+> La cible `Source/Editor` mentionnée au cadrage n'a jamais existé : la migration a abouti à un
+> **exécutable unique** `ProjectGaming` construit depuis `Source/HMI`, avec l'interface répartie
+> entre `Source/HMI/Interface` (menus, options, remappage) et `Source/HMI/Editor` (panneaux et
+> gestes d'édition). Les emplacements ci-dessus reflètent le résultat livré.
 
 ## Critères d'acceptation du lot
 1. Menu principal, Options (V-Sync, langue) et remappage (jeu, éditeur, manette) sont **entièrement

@@ -7,14 +7,25 @@
 Donner au jeu la capacité d'**afficher du texte dans la scène rendue**, et s'en servir pour montrer
 au joueur une information qui existe depuis longtemps sans avoir jamais été visible.
 
-`EX-REN-032` (« le jeu doit afficher du texte ») est spécifiée depuis l'origine et **n'a jamais été
-implémentée** : il n'existe aucune notion de police ni de glyphe dans `Source/HMI/Graphics`. Le texte
-n'existe que dans l'interface Qt hors-jeu (menus, options, éditeur), jamais dans le viewport
-Direct3D 11.
+`EX-REN-032` (« le jeu doit afficher du texte ») a bien été implémentée par le passé — une police
+bitmap `hmi::BitmapFont` alimentait l'interface « maison » — puis **délibérément retirée** au
+`LOT-38` (commit `8338bc15`) avec toute la pile d'UI historique, Qt reprenant l'affichage du texte
+**hors-jeu**. Le raisonnement était juste : un menu Qt n'a rien à faire dans `SpriteBatch`.
+
+Mais la conséquence, elle, n'a pas été traitée : il n'existe plus **aucune** notion de police ni de
+glyphe dans `Source/HMI/Graphics`, et le viewport Direct3D 11 ne sait donc afficher aucun texte
+**dans la scène de jeu**. Qt compose ses widgets par-dessus la fenêtre, dans une couche indépendante
+de la caméra du monde ; il ne peut pas afficher une information ancrée au jeu.
 
 La conséquence la plus visible : `LOT-12` a introduit des **budgets de sauts et de dashs** par
-tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand le budget est
-épuisé — et le joueur n'a **aucun moyen de savoir combien il lui en reste**.
+tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand le budget est épuisé —
+et le joueur n'a **aucun moyen de savoir combien il lui en reste**.
+
+Ce lot réintroduit donc la brique de texte **du bon côté de la frontière** : dans le pipeline de
+rendu de la scène, pas dans l'interface hors-jeu. L'implémentation retirée au `LOT-38` reste
+consultable dans l'historique Git (`Source/HMI/Graphics/BitmapFont.{h,cpp}`) et constitue un point
+de départ, à condition de la rebrancher sur le *TextureCache* et les calques de `LOT-40` plutôt que
+sur l'ancien chemin.
 
 ## Périmètre
 
@@ -42,6 +53,10 @@ tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand l
   ne le livre pas.
 
 ## Décisions de cadrage
+- **Réintroduction ciblée, pas retour en arrière** : le retrait de `hmi::BitmapFont` au `LOT-38`
+  était justifié pour l'**interface hors-jeu** et n'est pas remis en cause — menus, options et
+  éditeur restent en Qt. Ce lot ne rétablit le texte que **dans la scène rendue**, là où Qt ne peut
+  structurellement pas intervenir.
 - **Police bitmap, pas de rendu de police vectorielle** : le jeu est en pixel art avec filtrage
   *nearest* (`EX-ARCH-022`) ; une police bitmap est le rendu **correct**, pas un compromis. Elle
   réutilise intégralement le chemin existant (atlas + quads + `SpriteBatch`) et n'ajoute aucune
@@ -57,7 +72,8 @@ tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand l
 
 ## Exigences couvertes
 - Nouvelle : `EX-IHM-003` (affichage tête haute des budgets et du tableau courant).
-- Concrétisée : `EX-REN-032` (affichage de texte dans la scène rendue).
+- Re-concrétisée : `EX-REN-032` (affichage de texte, cette fois **dans la scène rendue** — l'ancienne
+  implémentation d'UI a été retirée au `LOT-38`).
 - Réutilisées : `EX-REN-033` (traduction), `EX-REN-042` (assets externalisés avec repli),
   `EX-REN-007` (contrat d'asset), `EX-REN-043` (calques), `EX-GP-024` (budgets de mouvements),
   `EX-ARCH-012` (aucun effet sur la simulation), `EX-ARCH-022` (*nearest*).
@@ -82,5 +98,6 @@ tableau (`EX-GP-024`) — une contrainte de puzzle qui refuse une action quand l
 
 ## Dépendances
 Bâtit sur [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*, contrat d'asset) et
-[LOT-43](@ref lot-43) (import d'assets). Concrétise une exigence de [LOT-06](@ref lot-06) restée
-sans implémentation. Aucune dépendance sur les autres lots du programme.
+[LOT-43](@ref lot-43) (import d'assets). Rétablit, du côté de la scène rendue, une capacité retirée
+par [LOT-38](@ref lot-38). Aucune dépendance sur les autres lots du programme : il peut être avancé
+dans la séquence si le besoin devient prioritaire.
