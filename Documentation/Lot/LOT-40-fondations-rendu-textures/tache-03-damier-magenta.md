@@ -1,6 +1,6 @@
 # TACHE-03 — Texture de repli en damier magenta {#lot-40-tache-03-damier-magenta}
 
-**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 À partir de LOT-42, une tuile/un objet/un fond peut référencer une texture absente ou non encore

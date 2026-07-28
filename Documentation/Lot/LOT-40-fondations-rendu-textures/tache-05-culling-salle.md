@@ -1,6 +1,6 @@
 # TACHE-05 — Culling par salle visible {#lot-40-tache-05-culling-salle}
 
-**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 `hmi::SpriteRenderer::render` parcourt **toutes** les entités du monde et soumet un quad pour

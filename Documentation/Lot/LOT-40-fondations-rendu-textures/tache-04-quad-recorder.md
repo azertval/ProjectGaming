@@ -1,6 +1,6 @@
 # TACHE-04 — *QuadRecorder* : capture des primitives soumises {#lot-40-tache-04-quad-recorder}
 
-**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 Le programme d'habillage empile, lot après lot, six couches de rendu dont l'**ordre**, la

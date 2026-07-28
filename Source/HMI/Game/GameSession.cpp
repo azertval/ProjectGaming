@@ -20,6 +20,7 @@
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/PreviousPosition.h"
+#include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
@@ -93,7 +94,8 @@ void GameSession::loadLevel(core::Level level) {
                 }
             });
         // Danger mobile = mouvement continu : interpolé au rendu (EX-ARCH-031). PreviousPosition
-        // initialisee a sa position de depart pour ne pas "glisser" depuis l'origine a la 1re frame.
+        // initialisee a sa position de depart pour ne pas "glisser" depuis l'origine a la 1re
+        // frame.
         if (found && _world.hasComponent<core::Transform>(moverEntity)) {
             _world.addComponent(
                 moverEntity,
@@ -101,8 +103,8 @@ void GameSession::loadLevel(core::Level level) {
         }
         _moverEntities.push_back(moverEntity);
     }
-    // Dangers commute/temporise (EX-GP-052/053) : une entite-tuile par danger, pour la teinter selon
-    // son etat actif/inactif (refreshDangerStateVisuals).
+    // Dangers commute/temporise (EX-GP-052/053) : une entite-tuile par danger, pour la teinter
+    // selon son etat actif/inactif (refreshDangerStateVisuals).
     _dangerSwitchedEntities.clear();
     for (const core::DangerLink& link : levelRef.dangerLinks()) {
         core::Entity dangerEntity{};
@@ -182,9 +184,11 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
     _world.addComponent(_player, core::Animation{});
     core::Sprite sprite;
     sprite.region = _atlas.playerFrameRegion(core::AnimationClip::Idle, 0);
-    sprite.layer = 100;
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
+    // Calque de dessin nomme (LOT-40, EX-REN-014) : le personnage passe devant les tuiles parce
+    // qu'il est sur RenderLayer::Player, plus parce qu'on lui aurait attribue un entier plus grand.
+    _world.addComponent(_player, RenderLayerTag{RenderLayer::Player});
     _world.addComponent(_player,
                         PreviousPosition{core::playerSpawnPosition(entry.column, entry.row)});
 }
@@ -394,18 +398,20 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // 3bis. Camera : bascule de salle (LOT-32, EX-REN-015) -- coupure nette si franchissement.
     updateCurrentRoom();
 
-    // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des portes.
+    // 4. Mecanismes : contact interrupteurs (front) / poids sur plaque (continu) -> etat des
+    // portes.
     const float playerMass = _world.getComponent<core::Player>(_player).mass;
     _mechanisms->update(box, playerMass);
     refreshDoorVisuals();
 
-    // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis replace
-    // les sprites des dangers mobiles ; teinte les commutes/temporises selon leur etat.
+    // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis
+    // replace les sprites des dangers mobiles ; teinte les commutes/temporises selon leur etat.
     _dangers->update();
     refreshDangerVisuals();
     refreshDangerStateVisuals();
 
-    // 5. Issue du niveau. Sur echec : rechargement complet depuis le Level en memoire. Sur reussite :
+    // 5. Issue du niveau. Sur echec : rechargement complet depuis le Level en memoire. Sur reussite
+    // :
     //    l'appelant decide (enchainer, revenir au menu, terminer un essai...).
     const core::LevelOutcome outcome =
         core::evaluateOutcome(box, *_level, collectActiveDangerBoxes());

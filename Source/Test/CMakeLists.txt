@@ -44,13 +44,17 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_asset_paths.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_texture_atlas.cpp
+    Unit/HMI/Graphics/test_asset_contract.cpp
+    Unit/HMI/Graphics/test_missing_texture.cpp
+    Unit/HMI/Graphics/test_quad_recorder.cpp
+    Unit/HMI/Graphics/test_render_culling.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
-    Unit/Editor/test_tile_taxonomy.cpp
-    Unit/Editor/test_level_file_operations.cpp
-    Unit/Editor/test_link_geometry.cpp
-    Unit/Editor/test_link_gesture.cpp
+    Unit/HMI/Editor/test_tile_taxonomy.cpp
+    Unit/HMI/Editor/test_level_file_operations.cpp
+    Unit/HMI/Editor/test_link_geometry.cpp
+    Unit/HMI/Editor/test_link_gesture.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -70,6 +74,17 @@ add_executable(UnitTests
     # arithmétique de grille, séparée du chargement fichier/procédural (Qt/Direct3D 11) : testable
     # hors GPU.
     ../HMI/Graphics/TextureAtlasRegions.cpp
+    # Le contrat de dimensions par famille d'assets (LOT-40) est une validation pure, sans
+    # decodage ni upload : testable hors GPU.
+    ../HMI/Graphics/AssetContract.cpp
+    # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
+    # ProceduralAtlas.cpp : testable hors GPU.
+    ../HMI/Graphics/MissingTexture.cpp
+    # La composition du rendu (LOT-40) -- liste ordonnee des primitives, tri par calque/texture,
+    # culling -- est separee de la soumission Direct3D : c'est ce qui rend le rendu verifiable
+    # sans GPU (EX-NFR-004).
+    ../HMI/Graphics/ComposedScene.cpp
+    ../HMI/Graphics/QuadRecorder.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

@@ -1,6 +1,6 @@
 # LOT-40 — Fondations : registre de textures, calques, culling, testabilité {#lot-40}
 
-> Statut : **non commencé**. Prérequis : [LOT-39](@ref lot-39) (chargement de textures depuis
+> Statut : **fait**. Prérequis : [LOT-39](@ref lot-39) (chargement de textures depuis
 > fichiers). Premier lot du programme d'habillage `LOT-40` → `LOT-55` ; prérequis de tous les
 > suivants.
 
@@ -96,11 +96,11 @@ aujourd'hui**. Quatre verrous, tous structurels :
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-texture-cache.md) | *TextureCache* — registre par nom logique, invalidation, contrat d'asset | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-rendu-multicouche.md) | *RenderLayer* + regroupement des quads par `(calque, texture)` | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-damier-magenta.md) | Texture de repli en damier magenta + point de résolution unique | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
-| [TACHE-04](tache-04-quad-recorder.md) | *QuadRecorder* — capture des primitives soumises, tests sans GPU | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
-| [TACHE-05](tache-05-culling-salle.md) | Culling par salle visible + observation du nombre de primitives | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
+| [TACHE-01](tache-01-texture-cache.md) | *TextureCache* — registre par nom logique, invalidation, contrat d'asset | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-rendu-multicouche.md) | *RenderLayer* + regroupement des quads par `(calque, texture)` | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-damier-magenta.md) | Texture de repli en damier magenta + point de résolution unique | `Source/HMI/Graphics`, `Source/Test` | ✅ |
+| [TACHE-04](tache-04-quad-recorder.md) | *QuadRecorder* — capture des primitives soumises, tests sans GPU | `Source/HMI/Graphics`, `Source/Test` | ✅ |
+| [TACHE-05](tache-05-culling-salle.md) | Culling par salle visible + observation du nombre de primitives | `Source/HMI/Graphics`, `Source/Test` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Le rendu (jeu et éditeur) est **inchangé** : la liste des primitives soumises pour une scène

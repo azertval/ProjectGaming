@@ -2,6 +2,7 @@
 
 #include <DirectXMath.h>
 
+#include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
 
 /**
@@ -70,6 +71,17 @@ public:
      * @return Position en unités monde.
      */
     [[nodiscard]] core::Vector2 screenToWorld(const core::Vector2& screen) const;
+
+    /**
+     * @brief Rectangle du monde effectivement cadré par la caméra.
+     *
+     * Base du **culling** (`EX-NFR-005`) : une primitive dont la boîte englobante n'intersecte pas
+     * ce rectangle (élargi d'une marge, cf. `hmi::ComposedScene::CULLING_MARGIN_UNITS`) n'a aucune
+     * raison d'être soumise. Dérivé de `screenToWorld` : aucune notion de cadrage nouvelle n'est
+     * introduite, la caméra reste la seule source de vérité.
+     * @return Le rectangle visible, en unités monde (coin haut-gauche + dimensions).
+     */
+    [[nodiscard]] core::Rect visibleBounds() const;
 
     /**
      * @brief Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.

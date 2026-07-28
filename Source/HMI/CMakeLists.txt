@@ -61,11 +61,16 @@ add_executable(ProjectGaming
     Graphics/SpriteBatch.cpp
     Graphics/AssetPaths.cpp
     Graphics/TextureLoader.cpp
+    Graphics/AssetContract.cpp
     Graphics/ProceduralAtlas.cpp
+    Graphics/MissingTexture.cpp
     Graphics/TextureAtlas.cpp
+    Graphics/TextureCache.cpp
     Graphics/TextureAtlasRegions.cpp
     Graphics/Camera2D.cpp
     Graphics/RoomGrid.cpp
+    Graphics/ComposedScene.cpp
+    Graphics/QuadRecorder.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp

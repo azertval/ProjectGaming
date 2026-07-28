@@ -7,6 +7,41 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-40 — Fondations du rendu texturé : calques nommés, multi-textures, testabilité, culling**
+  (`EX-REN-043`, `EX-REN-007`, `EX-NFR-004`, `EX-NFR-005`, précise `EX-REN-014`) : lot **structurel**
+  qui ne change aucun pixel affiché, mais lève les quatre verrous qui bloquaient tout le programme
+  d'habillage.
+  - `hmi::RenderLayer` — ordonnancement de calques **unique et explicite** (fond, décor, ombres,
+    tuiles, objets, personnage, premier plan, interface, aides d'édition), réservé en entier dès
+    maintenant ; le premier plan est au-dessus du personnage par construction (`EX-DEC-002`). Les
+    valeurs de calque magiques (`layer = 100` du joueur, `0` des tuiles) ont disparu au profit du
+    composant de présentation `hmi::RenderLayerTag` ; `core::Sprite::layer` conserve son rôle de tri
+    **fin à l'intérieur** d'un calque et `Core` continue d'ignorer les calques (`EX-NFR-011`).
+  - **Rendu multi-textures** : la composition regroupe les primitives par `(calque, texture)` et le
+    rendu émet une passe `begin/end` par groupe contigu, dans l'ordre des calques. Le contrat public
+    de `hmi::SpriteBatch` est strictement inchangé ; ses primitives (`SpriteQuad`, `LineQuad`) sont
+    extraites dans `HMI/Graphics/Quad.h`, sans dépendance Direct3D.
+  - `hmi::ComposedScene` / `hmi::QuadRecorder` — séparation **composition / soumission** : la liste
+    ordonnée des primitives d'une image est produite sans device Direct3D, donc **assertable** par un
+    test (ordre des calques, contiguïté des groupes de texture, dénombrement, présence d'une
+    primitive). Les critères « rendu identique » et « ordre de calque correct » cessent d'être des
+    vérifications à l'œil (`EX-NFR-004`).
+  - `hmi::TextureCache` — registre de textures chargées à la demande par **nom logique**, bâti sur
+    `hmi::TextureLoader`/`hmi::AssetPaths` (LOT-39), avec `invalidate`/`invalidateAll` dès l'origine
+    (prérequis du rechargement à chaud, LOT-43) et mémorisation des échecs pour ne pas relire le
+    disque à chaque image.
+  - `hmi::validateAsset` — **contrat de dimensions par famille d'asset** (atlas, skin de tuile,
+    planche à raccords, fond, objet, spritesheet, décor) : validation **pure**, intercalée entre le
+    décodage et l'upload, qui refuse un asset non conforme en journalisant le fichier, la dimension
+    trouvée et l'attendue (`EX-REN-007`).
+  - `hmi::buildMissingTextureImage` — repli **damier magenta** opaque et déterministe, résolu par le
+    point d'appel unique `hmi::resolveOrPlaceholder` : un asset manquant se voit, sans jamais
+    interrompre le rendu (`EX-NFR-040`).
+  - **Culling par cadrage caméra** (`EX-NFR-005`) : seules les primitives intersectant le cadrage de
+    la caméra (`hmi::Camera2D::visibleBounds`), élargi d'une marge d'une case, sont soumises ; le
+    volume composé, écarté et soumis est observable en journalisation de diagnostic. Le culling est
+    purement visuel — une entité écartée reste simulée (`EX-ARCH-012`).
+
 - **LOT-39 — Textures depuis fichiers + repli procédural** (`EX-REN-041`, `EX-REN-042`) : l'atlas de
   tuiles (`hmi::TextureAtlas`) charge désormais `Assets/atlas.png` (à côté de l'exécutable, copié
   comme `Levels`/`Localization`) via un nouveau loader d'image générique (`hmi::TextureLoader`,

@@ -42,10 +42,17 @@ struct LinkOverlayState {
  * @brief Dessine la grille d'un `core::LevelDraft` en cours d'édition.
  *
  * Réutilise le pipeline de rendu du jeu : chaque tuile non vide du brouillon devient une entité
- * (`Transform` + `Sprite`) d'un `core::World` interne, rendue par `hmi::SpriteRenderer` (lecture
- * seule, `EX-ARCH-012`). La scène n'est **reconstruite** que lorsque le brouillon change
- * (`invalidate()`), pas à chaque frame. Les blocs à taille réduite sont dessinés à leur échelle
- * réelle (`core::tileVisualScale`), comme en jeu — cohérence visuelle stricte.
+ * (`Transform` + `Sprite`) d'un `core::World` interne, composée par `hmi::composeWorldSprites`
+ * (lecture seule, `EX-ARCH-012`). Le `core::World` n'est **reconstruit** que lorsque le brouillon
+ * change (`invalidate()`), pas à chaque frame. Les blocs à taille réduite sont dessinés à leur
+ * échelle réelle (`core::tileVisualScale`), comme en jeu — cohérence visuelle stricte.
+ *
+ * Depuis `LOT-40`, **toutes** les primitives d'une image (tuiles, grille de repère, liens de
+ * mécanismes, aperçu de sélection) sont composées dans une seule `hmi::ComposedScene` puis
+ * soumises en bloc : les aides d'édition portent le calque `RenderLayer::EditorOverlay`, qui les
+ * place au-dessus de tout le reste par construction plutôt que par l'ordre des appels de dessin.
+ * La liste obtenue est donc inspectable sans GPU (`EX-NFR-004`) et soumise au culling
+ * (`EX-NFR-005`).
  */
 class DraftRenderer {
 public:
@@ -67,17 +74,23 @@ public:
         _dirty = true;
     }
 
+    /// @return La scène composée à la dernière image (primitives soumises et compteurs).
+    [[nodiscard]] const ComposedScene& lastScene() const noexcept {
+        return _scene;
+    }
+
 private:
     void rebuild(const core::LevelDraft& draft);
-    /// Dessine la grille de repère (cases + salles) par-dessus les tuiles.
-    void drawGrid(const core::LevelDraft& draft, const Camera2D& camera);
-    /// Dessine les liens de mécanismes (flèches déclencheur → cible) par-dessus la grille.
-    void drawLinks(const core::LevelDraft& draft, const Camera2D& camera,
-                   const LinkOverlayState& overlay);
+    /// Compose la grille de repère (frontières de cases + de salles) sur le calque d'édition.
+    void composeGrid(const core::LevelDraft& draft);
+    /// Compose les liens de mécanismes (flèches déclencheur → cible) sur le calque d'édition.
+    void composeLinks(const core::LevelDraft& draft, const LinkOverlayState& overlay);
+    /// Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.
+    void composeHighlight(const core::GridPosition& minimum, const core::GridPosition& maximum);
 
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;
-    SpriteRenderer _renderer;
+    ComposedScene _scene;
     core::World _world;
     bool _dirty = true;
 };
