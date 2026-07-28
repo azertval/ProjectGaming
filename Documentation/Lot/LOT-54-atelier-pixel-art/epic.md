@@ -65,14 +65,14 @@ en voyant immédiatement le résultat dans le niveau.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Encodage et enregistrement d'image, symétrique de `decodeImageFile` | `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | Canevas pixel art (peindre, effacer, pot de peinture, pipette, palette, zoom, annuler/refaire local) | `Source/HMI/Editor` | ⬜ |
-| TACHE-03 | Ouvrir, créer, enregistrer + garde-fou d'écrasement + intégration à la bibliothèque | `Source/HMI/Editor` | ⬜ |
-| TACHE-04 | Aperçu live (invalidation du cache) + mode planche à raccords avec repères | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-encodage-image.md) | Encodage et enregistrement d'image, symétrique de `decodeImageFile` | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-canevas.md) | Canevas pixel art (peindre, effacer, pot de peinture, pipette, palette, zoom, annuler/refaire local) | `Source/HMI/Editor` | ⬜ |
+| [TACHE-03](tache-03-ouvrir-enregistrer.md) | Ouvrir, créer, enregistrer + garde-fou d'écrasement + intégration à la bibliothèque | `Source/HMI/Editor` | ⬜ |
+| [TACHE-04](tache-04-apercu-live-planche.md) | Aperçu live (invalidation du cache) + mode planche à raccords avec repères | `Source/HMI/Editor`, `Source/HMI/Graphics` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Créer, peindre et enregistrer un nouvel asset PNG depuis le canevas, puis le retrouver assignable
@@ -89,3 +89,9 @@ en voyant immédiatement le résultat dans le niveau.
 Bâtit sur [LOT-42](@ref lot-42) (convention de dossiers, planches à raccords) et
 [LOT-43](@ref lot-43) (bibliothèque, détection de références, rechargement à chaud). Réutilise
 *TextureLoader*/`hmi::AssetPaths` (LOT-39) et `TextureCache::invalidate` ([LOT-40](@ref lot-40)).
+
+## Navigation des tâches
+- @subpage lot-54-tache-01-encodage-image
+- @subpage lot-54-tache-02-canevas
+- @subpage lot-54-tache-03-ouvrir-enregistrer
+- @subpage lot-54-tache-04-apercu-live-planche

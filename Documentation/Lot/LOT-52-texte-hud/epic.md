@@ -80,13 +80,13 @@ sur l'ancien chemin.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Police bitmap : atlas de glyphes, métriques, chargement, repli procédural | `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | *TextRenderer* : composition d'une chaîne en quads sur le calque *UI*, mesure pure | `Source/HMI/Graphics` | ⬜ |
-| TACHE-03 | Affichage tête haute (budgets, nom du tableau) + clés de traduction | `Source/HMI/Game`, `Source/Elements/Localization` | ⬜ |
+| [TACHE-01](tache-01-police-bitmap.md) | Police bitmap : atlas de glyphes, métriques, chargement, repli procédural | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-text-renderer.md) | *TextRenderer* : composition d'une chaîne en quads sur le calque *UI*, mesure pure | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-hud.md) | Affichage tête haute (budgets, nom du tableau) + clés de traduction | `Source/HMI/Game`, `Source/Elements/Localization` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Une chaîne s'affiche dans le viewport du jeu, nette, sans filtrage flou.
@@ -101,3 +101,8 @@ Bâtit sur [LOT-40](@ref lot-40) (*TextureCache*, calque *UI*, contrat d'asset) 
 [LOT-43](@ref lot-43) (import d'assets). Rétablit, du côté de la scène rendue, une capacité retirée
 par [LOT-38](@ref lot-38). Aucune dépendance sur les autres lots du programme : il peut être avancé
 dans la séquence si le besoin devient prioritaire.
+
+## Navigation des tâches
+- @subpage lot-52-tache-01-police-bitmap
+- @subpage lot-52-tache-02-text-renderer
+- @subpage lot-52-tache-03-hud

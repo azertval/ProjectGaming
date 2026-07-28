@@ -68,13 +68,13 @@ donc aussi les deux décisions de format qui en découlent :
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Version de format + champs `background`/`skinSet` sur `Level`/`LevelDraft`, JSON rétrocompatible, undo/redo | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | Rendu du fond (calque *Background*, ratio préservé, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
-| TACHE-03 | Section « Fond » et sélecteur de jeu de skins du panneau « Textures » + dossier + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-version-format.md) | Version de format + champs de fond et de jeu de skins sur `Level`/`LevelDraft`, JSON rétrocompatible, undo/redo | `Source/Core/Levels` | ⬜ |
+| [TACHE-02](tache-02-rendu-fond.md) | Rendu du fond (calque *Background*, ratio préservé, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
+| [TACHE-03](tache-03-section-fond.md) | Section « Fond » et sélecteur de jeu de skins du panneau « Textures » + dossier + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Un niveau sans fond configuré s'affiche exactement comme avant ce lot (mode Physique **et**
@@ -95,3 +95,8 @@ Bâtit sur [LOT-40](@ref lot-40), [LOT-41](@ref lot-41), et le panneau « Textur
 `core::Level`/`LevelDraft` du programme** — le patron de champ optionnel + version qu'elle installe
 est réutilisé tel quel par [LOT-45](@ref lot-45) et [LOT-49](@ref lot-49). Prépare
 [LOT-51](@ref lot-51), [LOT-55](@ref lot-55).
+
+## Navigation des tâches
+- @subpage lot-44-tache-01-modele-version-format
+- @subpage lot-44-tache-02-rendu-fond
+- @subpage lot-44-tache-03-section-fond

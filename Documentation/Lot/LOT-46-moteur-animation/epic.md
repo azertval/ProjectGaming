@@ -25,7 +25,7 @@ visible du personnage.
 - **`core::Animation`** référence un clip par nom au sein d'un jeu de clips, conserve l'image
   courante et le temps écoulé. Reste une **structure de données pure**, sans méthode ni type GPU,
   conformément au patron des composants ECS.
-- **Description d'animation par asset** : fichier `<asset>.anim.json` **à côté** du PNG, décrivant la
+- **Description d'animation par asset** : fichier `nom-asset.anim.json` **à côté** du PNG, décrivant la
   spritesheet (taille d'image, disposition) et ses clips. Résolu et mis en cache comme tout asset
   (`hmi::AssetPaths`, *TextureCache*), validé par le contrat d'asset (LOT-40). **Un asset sans
   fichier d'animation est affiché comme une image fixe** — c'est le cas par défaut, et il ne produit
@@ -80,20 +80,20 @@ visible du personnage.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Modèle de clip et de jeu de clips (données pures) + `core::Animation` révisé | `Source/Core/Ecs` | ⬜ |
-| TACHE-02 | `AnimationSystem` généralisé à toute entité animée, clips bouclés et joués une fois | `Source/Core/Ecs/Systems` | ⬜ |
-| TACHE-03 | Format `<asset>.anim.json` : lecture, validation, mise en cache, repli image fixe | `Source/HMI/Graphics` | ⬜ |
-| TACHE-04 | Migration des clips du personnage, non-régression | `Source/Core`, `Source/HMI/Graphics`, `Source/Test` | ⬜ |
-| TACHE-05 | Skins de tuiles animés (eau, lave, torche) | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-modele-clip.md) | Modèle de clip et de jeu de clips (données pures) + `core::Animation` révisé | `Source/Core/Ecs` | ⬜ |
+| [TACHE-02](tache-02-systeme-generalise.md) | `AnimationSystem` généralisé à toute entité animée, clips bouclés et joués une fois | `Source/Core/Ecs/Systems` | ⬜ |
+| [TACHE-03](tache-03-format-anim-json.md) | Format `nom-asset.anim.json` : lecture, validation, mise en cache, repli image fixe | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-04](tache-04-migration-personnage.md) | Migration des clips du personnage, non-régression | `Source/Core`, `Source/HMI/Graphics`, `Source/Test` | ⬜ |
+| [TACHE-05](tache-05-tuiles-animees.md) | Skins de tuiles animés (eau, lave, torche) | `Source/HMI/Graphics` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Le personnage s'anime **exactement** comme avant le lot : mêmes images, mêmes durées, même ordre —
    asserté par test, pas constaté à l'œil.
-2. Un asset accompagné d'un `<asset>.anim.json` valide s'anime, qu'il soit un skin de tuile ou une
+2. Un asset accompagné d'un `nom-asset.anim.json` valide s'anime, qu'il soit un skin de tuile ou une
    texture assignée à une case.
 3. Un asset **sans** fichier d'animation s'affiche en image fixe, sans erreur ni avertissement.
 4. Un clip joué une fois se termine sur son clip de repli, sans boucler.
@@ -106,3 +106,10 @@ Bâtit sur [LOT-40](@ref lot-40) (*TextureCache*, contrat d'asset), [LOT-42](@re
 [LOT-45](@ref lot-45) (assets par instance). Remplace le dispositif d'animation figé de
 [LOT-18](@ref lot-18). Prérequis de [LOT-47](@ref lot-47) (états des mécanismes),
 [LOT-48](@ref lot-48) (personnage) et bénéfique à [LOT-53](@ref lot-53) (effets).
+
+## Navigation des tâches
+- @subpage lot-46-tache-01-modele-clip
+- @subpage lot-46-tache-02-systeme-generalise
+- @subpage lot-46-tache-03-format-anim-json
+- @subpage lot-46-tache-04-migration-personnage
+- @subpage lot-46-tache-05-tuiles-animees

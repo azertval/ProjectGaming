@@ -46,7 +46,7 @@ avoir jamais été rattaché à un lot.
   effet en jeu.
 - **Pipeline photo → pixel art** (`EX-DEC-030` à `EX-DEC-032`, `EX-EDIT-041`) : hors programme.
 - Outils d'édition avancés (LOT-50), visibilité par calque (LOT-51).
-- Décors animés : gratuits si l'asset désigné porte un `<asset>.anim.json` (LOT-46), aucune
+- Décors animés : gratuits si l'asset désigné porte un `nom-asset.anim.json` (LOT-46), aucune
   disposition particulière n'est nécessaire.
 
 ## Décisions de cadrage
@@ -78,14 +78,14 @@ avoir jamais été rattaché à un lot.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | `core::Decor` et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | Rendu des trois couches, premier plan au-dessus du personnage | `Source/HMI/Graphics` | ⬜ |
-| TACHE-03 | Parallaxe : arbitrage avec la caméra par salle, application au rendu et au culling | `Source/HMI/Graphics` | ⬜ |
-| TACHE-04 | Placement minimal dans l'éditeur + dossier `Assets/Decors/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-decor.md) | `core::Decor` et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ⬜ |
+| [TACHE-02](tache-02-rendu-couches.md) | Rendu des trois couches, premier plan au-dessus du personnage | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-parallaxe.md) | Parallaxe : arbitrage avec la caméra par salle, application au rendu et au culling | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-04](tache-04-placement-minimal.md) | Placement minimal dans l'éditeur + dossier `Assets/Decors/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Un décor posé sur la couche premier plan est dessiné **au-dessus** du personnage ; sur les couches
@@ -104,3 +104,9 @@ Bâtit sur [LOT-40](@ref lot-40) (calques, culling), [LOT-41](@ref lot-41) (basc
 [LOT-44](@ref lot-44) (format versionné, patron de données annexes). Bénéficie de
 [LOT-46](@ref lot-46) (décors animés) et de [LOT-43](@ref lot-43) (import d'assets). Prérequis de
 [LOT-50](@ref lot-50) ; étend le périmètre de [LOT-51](@ref lot-51).
+
+## Navigation des tâches
+- @subpage lot-49-tache-01-modele-decor
+- @subpage lot-49-tache-02-rendu-couches
+- @subpage lot-49-tache-03-parallaxe
+- @subpage lot-49-tache-04-placement-minimal

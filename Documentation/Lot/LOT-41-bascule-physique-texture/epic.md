@@ -62,13 +62,13 @@ existant.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | *RenderMode* + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | `F8` en dur hors tables de remappage ; défaut Texture + persistance `QSettings` | `Source/HMI/Game`, `Source/HMI/Interface` | ⬜ |
-| TACHE-03 | Non-régression du mode Physique (assertions *QuadRecorder*) + documentation (`guide-rendu.md`) | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-render-mode.md) | *RenderMode* + câblage `GameViewport` → `DraftRenderer`/`GameSession` | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-touche-f8-persistance.md) | `F8` en dur hors tables de remappage ; défaut Texture + persistance `QSettings` | `Source/HMI/Game`, `Source/HMI/Interface` | ⬜ |
+| [TACHE-03](tache-03-non-regression-documentation.md) | Non-régression du mode Physique (assertions *QuadRecorder*) + documentation | `Source/Test`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. `F8` bascule le rendu en édition, en essai et en jeu réel, sans passer par les tables de
@@ -83,3 +83,8 @@ existant.
 ## Dépendances
 Bâtit sur [LOT-40](@ref lot-40) (calques, résolveur de texture, *QuadRecorder*). Ne modifie pas
 `Core`. Prérequis de [LOT-42](@ref lot-42) à [LOT-55](@ref lot-55).
+
+## Navigation des tâches
+- @subpage lot-41-tache-01-render-mode
+- @subpage lot-41-tache-02-touche-f8-persistance
+- @subpage lot-41-tache-03-non-regression-documentation

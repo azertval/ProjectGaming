@@ -61,13 +61,13 @@ relèvent des décors (LOT-49).
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | `TileTextureOverride` sur `Level`/`LevelDraft` + JSON + nettoyage (`removeLinkedDataAt`, `resize`) + undo/redo | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | Nouvelle valeur *TextureAssign* de `hmi::EditorTool` + geste pur d'assignation | `Source/HMI/Editor` | ⬜ |
-| TACHE-03 | Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier `Assets/Objects/` | `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-override.md) | `TileTextureOverride` sur `Level`/`LevelDraft` + JSON + nettoyage (`removeLinkedDataAt`, `resize`) + undo/redo | `Source/Core/Levels` | ⬜ |
+| [TACHE-02](tache-02-outil-assignation.md) | Nouvelle valeur *TextureAssign* de `hmi::EditorTool` + geste pur d'assignation | `Source/HMI/Editor` | ⬜ |
+| [TACHE-03](tache-03-section-objets-priorite.md) | Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier `Assets/Objects/` | `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Assigner une texture à une case précise l'affiche avec cette texture, même si son type a un skin
@@ -85,3 +85,8 @@ priorité) et [LOT-44](@ref lot-44) (format versionné, patron de données annex
 [LOT-43](@ref lot-43) (vignettes). Réutilise le patron `Mechanism`/`DangerLink` (`Core`) et
 `LinkGesture`/`LinkGeometry`/`LinkPanel` (LOT-37, `HMI`). Prépare [LOT-47](@ref lot-47),
 [LOT-51](@ref lot-51).
+
+## Navigation des tâches
+- @subpage lot-45-tache-01-modele-override
+- @subpage lot-45-tache-02-outil-assignation
+- @subpage lot-45-tache-03-section-objets-priorite

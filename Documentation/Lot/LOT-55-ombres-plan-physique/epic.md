@@ -52,12 +52,12 @@ rien tant que le reste de l'habillage n'existe pas.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Génération du quad d'ombre par tuile solide sur le calque *Shadow* | `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | Vérification (mode Texture, avec et sans fond) + documentation (`guide-rendu.md`) | `Source/Test`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-quad-ombre.md) | Génération du quad d'ombre par tuile solide sur le calque *Shadow* | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-verification-documentation.md) | Vérification finale du programme + documentation | `Source/Test`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Les tuiles solides projettent une ombre visible sur le fond et sur les décors d'arrière-plan, en
@@ -71,3 +71,7 @@ rien tant que le reste de l'habillage n'existe pas.
 Bâtit sur [LOT-41](@ref lot-41) (bascule) et [LOT-40](@ref lot-40) (calque *Shadow*, culling,
 *QuadRecorder*). Bénéficie de [LOT-44](@ref lot-44) (fond) et [LOT-49](@ref lot-49) (décors) sans en
 dépendre strictement. Aucun lot ne dépend de celui-ci.
+
+## Navigation des tâches
+- @subpage lot-55-tache-01-quad-ombre
+- @subpage lot-55-tache-02-verification-documentation

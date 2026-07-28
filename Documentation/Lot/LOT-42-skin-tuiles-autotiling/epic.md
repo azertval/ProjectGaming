@@ -96,15 +96,15 @@ réutilisé (pas remplacé) par LOT-43/44/45/50.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | `skins.json` versionné, jeux de skins, lecture/écriture, résolution `TileType → asset + mode` | `Source/HMI/Graphics` ou `Source/HMI/Editor` | ⬜ |
-| TACHE-02 | Table de raccords automatiques (voisinage solide → case de planche), pure et testée | `Source/HMI/Graphics` | ⬜ |
-| TACHE-03 | Masquage alpha automatique des pentes/arrondis au chargement d'un skin | `Source/HMI/Graphics` | ⬜ |
-| TACHE-04 | Panneau Qt « Textures » (jeu courant + section Skins) + dossier `Assets/Skins/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` | ⬜ |
-| TACHE-05 | Palette de l'éditeur fidèle au mode de rendu courant | `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-skins-json.md) | `skins.json` versionné, jeux de skins, lecture/écriture, résolution `TileType → asset + mode` | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-raccords-automatiques.md) | Table de raccords automatiques (voisinage solide → case de planche), pure et testée | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-masquage-pentes.md) | Masquage alpha automatique des pentes/arrondis au chargement d'un skin | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-04](tache-04-panneau-textures.md) | Panneau Qt « Textures » (jeu courant + section Skins) + dossier `Assets/Skins/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-05](tache-05-palette-fidele.md) | Palette de l'éditeur fidèle au mode de rendu courant | `Source/HMI/Editor` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Assigner un skin à un type de tuile depuis le panneau « Textures » le rend visible dans le niveau
@@ -127,3 +127,10 @@ Bâtit sur [LOT-40](@ref lot-40) (calques, *TextureCache*, contrat d'asset, *Qua
 `Core`. Ne modifie pas `Level`/`LevelDraft`. Prépare [LOT-43](@ref lot-43), [LOT-44](@ref lot-44),
 [LOT-45](@ref lot-45), [LOT-50](@ref lot-50) (panneau « Textures » réutilisé) et
 [LOT-54](@ref lot-54) (mode planche de l'atelier).
+
+## Navigation des tâches
+- @subpage lot-42-tache-01-skins-json
+- @subpage lot-42-tache-02-raccords-automatiques
+- @subpage lot-42-tache-03-masquage-pentes
+- @subpage lot-42-tache-04-panneau-textures
+- @subpage lot-42-tache-05-palette-fidele

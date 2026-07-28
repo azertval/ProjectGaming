@@ -57,13 +57,13 @@ trois couches (LOT-49), personnage (LOT-48).
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Jeu de visibilités par calque + câblage `GameViewport`/`DraftRenderer` (éditeur uniquement) | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | Affichage isolé sans repli (objets interactifs seuls, skin seul) | `Source/HMI/Graphics` | ⬜ |
-| TACHE-03 | Contrôles d'interface traduits + documentation (`guide-editeur.md`) | `Source/HMI/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-visibilite-calques.md) | Jeu de visibilités par calque + câblage `GameViewport`/`DraftRenderer` (éditeur uniquement) | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-affichage-isole.md) | Affichage isolé sans repli (objets interactifs seuls, skin seul) | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-controles-documentation.md) | Contrôles d'interface traduits + documentation | `Source/HMI/Editor`, `Documentation` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Chaque calque peut être affiché ou masqué indépendamment, y compris en combinaisons.
@@ -78,3 +78,8 @@ trois couches (LOT-49), personnage (LOT-48).
 Bâtit sur [LOT-41](@ref lot-41) (plomberie de mode), [LOT-42](@ref lot-42) (skins),
 [LOT-44](@ref lot-44) (fond), [LOT-45](@ref lot-45) (objets), [LOT-48](@ref lot-48) (personnage),
 [LOT-49](@ref lot-49) et [LOT-50](@ref lot-50) (décors). Éditeur uniquement.
+
+## Navigation des tâches
+- @subpage lot-51-tache-01-visibilite-calques
+- @subpage lot-51-tache-02-affichage-isole
+- @subpage lot-51-tache-03-controles-documentation

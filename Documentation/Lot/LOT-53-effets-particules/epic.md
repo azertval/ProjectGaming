@@ -58,13 +58,13 @@ entre le rendu du jeu et celui d'un jeu fini.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Émetteur et simulation de particules au pas fixe, déterministes, budget borné | `Source/Core/Ecs` | ⬜ |
-| TACHE-02 | Déclencheurs depuis les transitions d'état du personnage (dash, atterrissage, mort) | `Source/Core/Ecs/Systems`, `Source/HMI/Game` | ⬜ |
-| TACHE-03 | Rendu des particules sur les calques *Object*/*Foreground* + secousse d'écran | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-01](tache-01-emetteur-deterministe.md) | Émetteur et simulation de particules au pas fixe, déterministes, budget borné | `Source/Core/Ecs` | ⬜ |
+| [TACHE-02](tache-02-declencheurs.md) | Déclencheurs depuis les transitions d'état du personnage (dash, atterrissage, mort) | `Source/Core/Ecs/Systems`, `Source/HMI/Game` | ⬜ |
+| [TACHE-03](tache-03-rendu-secousse.md) | Rendu des particules sur les calques *Object*/*Foreground* + secousse d'écran | `Source/HMI/Graphics` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Un dash, un atterrissage et une mort produisent chacun un effet visuel distinct, en mode Texture.
@@ -80,3 +80,8 @@ entre le rendu du jeu et celui d'un jeu fini.
 Bâtit sur [LOT-46](@ref lot-46) (animations par données) et [LOT-48](@ref lot-48) (états du
 personnage exploités). Lit l'état de [LOT-10](@ref lot-10) et [LOT-11](@ref lot-11) sans le
 modifier. Respecte le budget posé par [LOT-40](@ref lot-40).
+
+## Navigation des tâches
+- @subpage lot-53-tache-01-emetteur-deterministe
+- @subpage lot-53-tache-02-declencheurs
+- @subpage lot-53-tache-03-rendu-secousse

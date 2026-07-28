@@ -16,7 +16,7 @@ rapide et suspension à l'apex (`LOT-11`), dash directionnel — tous rendus par
 
 ### Inclus
 - **Spritesheet externe** (`Assets/Player/`), chargée par le *TextureCache* et décrite par un
-  `<asset>.anim.json` (LOT-46), avec **repli sur l'atlas procédural** si le fichier est absent
+  `nom-asset.anim.json` (LOT-46), avec **repli sur l'atlas procédural** si le fichier est absent
   (`EX-REN-042`, patron déjà établi par LOT-39).
 - **Clips couvrant les états réellement livrés** : repos, course, saut, **chute** distincte du saut,
   **atterrissage**, **glissade murale**, **dash**. Chaque clip est une projection de l'état exposé
@@ -62,13 +62,13 @@ rapide et suspension à l'apex (`LOT-11`), dash directionnel — tous rendus par
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Spritesheet de personnage externe + repli procédural + point d'ancrage image/hitbox | `Source/HMI/Graphics` | ⬜ |
-| TACHE-02 | Nouveaux clips (chute, atterrissage, glissade murale, dash) projetés depuis l'état de simulation | `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` | ⬜ |
-| TACHE-03 | Orientation par retournement horizontal + non-régression du gameplay | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
+| [TACHE-01](tache-01-spritesheet-externe.md) | Spritesheet de personnage externe + repli procédural + point d'ancrage image/hitbox | `Source/HMI/Graphics` | ⬜ |
+| [TACHE-02](tache-02-nouveaux-clips.md) | Nouveaux clips (chute, atterrissage, glissade murale, dash) projetés depuis l'état de simulation | `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` | ⬜ |
+| [TACHE-03](tache-03-orientation-non-regression.md) | Orientation par retournement horizontal + non-régression du gameplay | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Remplacer le fichier de spritesheet change l'apparence du personnage sans recompiler.
@@ -83,3 +83,8 @@ rapide et suspension à l'apex (`LOT-11`), dash directionnel — tous rendus par
 Bâtit sur [LOT-46](@ref lot-46) (clips par données) et [LOT-43](@ref lot-43) (import d'assets).
 Remplace l'habillage procédural de [LOT-17](@ref lot-17) et [LOT-18](@ref lot-18). Lit l'état de
 [LOT-10](@ref lot-10) et [LOT-11](@ref lot-11) sans le modifier. Prépare [LOT-53](@ref lot-53).
+
+## Navigation des tâches
+- @subpage lot-48-tache-01-spritesheet-externe
+- @subpage lot-48-tache-02-nouveaux-clips
+- @subpage lot-48-tache-03-orientation-non-regression

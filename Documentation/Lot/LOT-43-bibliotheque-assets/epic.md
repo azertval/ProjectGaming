@@ -57,13 +57,13 @@ suit, pas un confort de fin de programme.
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Widget de vignettes partagé (décodage CPU → `QPixmap`) | `Source/HMI/Editor` | ⬜ |
-| TACHE-02 | Import, renommage, duplication, suppression + détection des références | `Source/HMI/Editor` | ⬜ |
-| TACHE-03 | Rechargement à chaud (invalidation *TextureCache* + régénération des vignettes) | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-widget-vignettes.md) | Widget de vignettes partagé (décodage CPU → `QPixmap`) | `Source/HMI/Editor` | ⬜ |
+| [TACHE-02](tache-02-gestion-fichiers.md) | Import, renommage, duplication, suppression + détection des références | `Source/HMI/Editor` | ⬜ |
+| [TACHE-03](tache-03-rechargement-chaud.md) | Rechargement à chaud (invalidation *TextureCache* + régénération des vignettes) | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Les sections du panneau « Textures » affichent des vignettes au lieu d'une liste texte, sans
@@ -81,3 +81,8 @@ Bâtit sur [LOT-40](@ref lot-40) (*TextureCache*, `invalidate`) et [LOT-42](@ref
 « Textures », `skins.json`). Réutilise *TextureLoader*/`hmi::AssetPaths` (LOT-39). Accélère
 [LOT-44](@ref lot-44) à [LOT-49](@ref lot-49) ; prépare [LOT-54](@ref lot-54) (point d'entrée
 « ouvrir dans l'atelier »).
+
+## Navigation des tâches
+- @subpage lot-43-tache-01-widget-vignettes
+- @subpage lot-43-tache-02-gestion-fichiers
+- @subpage lot-43-tache-03-rechargement-chaud

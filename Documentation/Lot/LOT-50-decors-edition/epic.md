@@ -53,14 +53,14 @@ C'est la différence entre « le format supporte les décors » et « on peut co
 
 ## Découpage
 
-> État : ✅ fait · 🔄 en cours · ⬜ non commencé. Les tâches seront détaillées à l'ouverture du lot.
+> État : ✅ fait · 🔄 en cours · ⬜ non commencé.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| TACHE-01 | Mutateurs de décors sur `LevelDraft` (déplacer, redimensionner, pivoter, réordonner, changer de couche) | `Source/Core/Levels` | ⬜ |
-| TACHE-02 | Outil *DecorPlace* + geste pur de placement, sélection et manipulation | `Source/HMI/Editor` | ⬜ |
-| TACHE-03 | Rendu de la sélection et des poignées sur le calque d'aides d'édition + aimantation | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
-| TACHE-04 | Section « Décors » du panneau « Textures », sélection croisée avec le canevas | `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-mutateurs-decor.md) | Mutateurs de décors sur `LevelDraft` (déplacer, redimensionner, pivoter, réordonner, changer de couche) | `Source/Core/Levels` | ⬜ |
+| [TACHE-02](tache-02-outil-geste.md) | Outil *DecorPlace* + geste pur de placement, sélection et manipulation | `Source/HMI/Editor` | ⬜ |
+| [TACHE-03](tache-03-selection-poignees.md) | Rendu de la sélection et des poignées sur le calque d'aides d'édition + aimantation | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-04](tache-04-section-decors.md) | Section « Décors » du panneau « Textures », sélection croisée avec le canevas | `Source/HMI/Editor` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Un décor peut être placé, sélectionné, déplacé, redimensionné, pivoté, changé de couche,
@@ -74,3 +74,9 @@ C'est la différence entre « le format supporte les décors » et « on peut co
 Bâtit sur [LOT-49](@ref lot-49) (modèle et rendu) et [LOT-43](@ref lot-43) (bibliothèque). Réutilise
 `LinkGesture`/`LinkGeometry` (LOT-37) et l'historique de `LevelDraft` (LOT-14). Complète le
 périmètre inspecté par [LOT-51](@ref lot-51).
+
+## Navigation des tâches
+- @subpage lot-50-tache-01-mutateurs-decor
+- @subpage lot-50-tache-02-outil-geste
+- @subpage lot-50-tache-03-selection-poignees
+- @subpage lot-50-tache-04-section-decors
