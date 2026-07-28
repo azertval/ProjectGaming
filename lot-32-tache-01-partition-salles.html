@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-32-tache-01-partition-salles.html'
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-32-niveaux-a-salles_2epic_8md.html">LOT-32</a> · <b>Emplacement :</b> <code>HMI/Graphics</code> · <b>Statut :</b> fait</p>
-<h1><a class="anchor" id="autotoc_md1540"></a>
+<h1><a class="anchor" id="autotoc_md1543"></a>
 Contexte</h1>
 <p>Le cadrage caméra par salle (TACHE-02) et le repère visuel de l'éditeur (TACHE-03) ont tous les deux besoin de la <b>même</b> réponse à deux questions : « quelle salle contient telle position ? » et « quel est le rectangle (en cases) de la salle <code>n</code> ? ». Cette logique est purement géométrique (aucune dépendance rendu), donc factorisée une fois, comme <code>Camera2D::fitZoom</code> l'a été pour le calcul de zoom d'ajustement (<code>LOT-16</code>).</p>
-<h1><a class="anchor" id="autotoc_md1541"></a>
+<h1><a class="anchor" id="autotoc_md1544"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Nouveau type <code><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></code></b> (<code><a class="el" href="RoomGrid_8h.html" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT-32).">Source/HMI/Graphics/RoomGrid.h</a></code>/<code>.cpp</code>) :<ul>
@@ -110,31 +110,31 @@ Travail à réaliser</h1>
 <li><b>Aucune dépendance à <code>Camera2D</code> ni à D3D11</b> dans <code>RoomGrid</code> lui-même — reste <b>pur</b>, testable sans GPU (<code>EX-NFR-010</code>). <code>Camera2D::fitZoom</code> continue d'être appelé <b>par les appelants</b> (TACHE-02/03) avec le rectangle renvoyé par <code>roomBounds</code>, pas dupliqué ici.</li>
 <li>Un niveau qui tient dans une seule salle doit produire un <code>RoomGrid</code> à <b>une seule</b> entrée (<code>columns() == rows() == 1</code>), dont <code>roomBounds({0, 0})</code> couvre exactement le niveau entier — la condition de non-régression exploitée par TACHE-02.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1542"></a>
+<h1><a class="anchor" id="autotoc_md1545"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="RoomGrid_8h.html" title="Partition d&#39;un niveau en salles de taille fixe, pour le cadrage caméra (LOT-32).">Source/HMI/Graphics/RoomGrid.h</a></code>/<code>.cpp</code> (nouveaux).</li>
 <li><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a></code> (nouveau).</li>
 <li><code>CMakeLists.txt</code> (ou fichier de liste de sources concerné) : enregistrement des nouveaux fichiers.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1543"></a>
+<h1><a class="anchor" id="autotoc_md1546"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Unitaires, sans GPU : niveau plus petit qu'une salle (une seule salle, <code>roomBounds</code> = niveau entier), niveau exactement multiple de la taille de salle (grille pleine, pas de rognage), niveau <b>non multiple</b> (dernière colonne/ligne rognée, vérifier la largeur/hauteur exacte), <code>roomIndexAt</code> aux quatre coins et au centre de plusieurs salles, position hors bornes (comportement défini — bornée, pas de comportement indéfini).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1544"></a>
+<h1><a class="anchor" id="autotoc_md1547"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Origine haut-gauche</b>, comme <code>TileMap</code>/<code>GridPosition</code> (<code>EX-ARCH-020</code>) — pas d'inversion d'axe.</li>
 <li>La taille de salle est une <b>constante de code unique pour tout le jeu</b> (décision de cadrage de l'épic) : ne pas la rendre configurable par niveau/JSON à ce stade.</li>
 <li><code>RoomGrid</code> ne connaît <b>aucune notion de personnage ni de position monde continue</b> (<code>Vector2</code>) — seulement des cases (<code>GridPosition</code>, entier). La conversion case ↔ position monde reste la responsabilité de l'appelant (TACHE-02), comme pour le reste du rendu (<code>EX-ARCH-021</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1545"></a>
+<h1><a class="anchor" id="autotoc_md1548"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>RoomGrid</code> livré et testé (<code>ctest</code> vert), aucune dépendance rendu ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1546"></a>
+<h1><a class="anchor" id="autotoc_md1549"></a>
 Exigences</h1>
 <p><code>EX-NFR-010</code> (logique pure, testable sans GPU) ; prépare <code>EX-REN-015</code> et <code>EX-EDIT-023</code> (TACHE-02/03). </p>
 </div></div><!-- contents -->

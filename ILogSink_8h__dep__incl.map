@@ -1,84 +1,86 @@
 <map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/ILogSink.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/ILogSink.h">
-<area shape="rect" id="Node000001" title="Interface d&#39;une destination de journalisation." alt="" coords="4016,5,4237,60"/>
-<area shape="rect" id="Node000002" href="$ConsoleLogSink_8h.html" title="Sink écrivant sur la console (et le débogueur sous Windows)." alt="" coords="3703,108,3958,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="4037,67,3909,110,3907,105,4036,62"/>
-<area shape="rect" id="Node000005" href="$Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="4016,108,4237,163"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="4129,74,4129,108,4124,108,4124,74"/>
-<area shape="rect" id="Node000034" href="$MemoryLogSink_8h.html" title="Sink qui conserve les messages en mémoire, destiné aux tests." alt="" coords="4477,211,4734,265"/>
-<area shape="poly" id="edge35_Node000001_Node000034" title=" " alt="" coords="4202,63,4545,208,4543,213,4200,68"/>
-<area shape="rect" id="Node000003" href="$ConsoleLogSink_8cpp.html" title=" " alt="" coords="1491,211,1762,265"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="3690,142,2722,166,2175,187,1948,199,1775,213,1762,215,1762,209,1774,208,1947,194,2174,181,2721,160,3690,137"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming)." alt="" coords="4192,438,4413,493"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="3832,176,3838,221,3846,244,3858,264,3882,286,3918,310,4015,357,4123,401,4222,435,4221,440,4122,406,4012,362,3916,314,3879,290,3854,267,3841,246,3833,222,3827,177"/>
-<area shape="poly" id="edge33_Node000005_Node000004" title=" " alt="" coords="4132,176,4140,219,4154,264,4182,315,4215,362,4278,436,4274,439,4211,366,4177,318,4150,266,4135,221,4127,177"/>
-<area shape="rect" id="Node000006" href="$Assert_8cpp.html" title=" " alt="" coords="4164,211,4385,265"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="4178,168,4237,208,4234,213,4175,172"/>
-<area shape="rect" id="Node000007" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="1787,211,2008,265"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="4002,161,3970,165,3790,179,3553,192,2984,213,2008,237,2008,232,2984,208,3552,186,3789,174,3969,160,4002,156"/>
-<area shape="rect" id="Node000032" href="$Logger_8cpp.html" title=" " alt="" coords="3868,211,4089,265"/>
-<area shape="poly" id="edge32_Node000005_Node000032" title=" " alt="" coords="4079,172,4019,213,4016,208,4076,168"/>
-<area shape="rect" id="Node000033" href="$test__logger_8cpp.html" title="Tests unitaires du journaliseur (filtrage et diffusion)." alt="" coords="4296,313,4517,383"/>
-<area shape="poly" id="edge34_Node000005_Node000033" title=" " alt="" coords="4251,154,4341,177,4376,192,4399,209,4413,233,4419,261,4417,313,4412,313,4414,261,4408,235,4395,212,4374,196,4339,182,4250,159"/>
-<area shape="rect" id="Node000008" href="$CoreLog_8h.html" title="Macros de journalisation de la catégorie « Core »." alt="" coords="76,321,297,375"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1774,268,1774,268,1594,287,1441,298,1307,303,1181,304,921,304,768,307,587,316,298,339,297,334,586,311,767,302,921,299,1181,299,1307,298,1441,293,1593,282,1773,263,1773,263"/>
-<area shape="rect" id="Node000010" href="$EcsLog_8h.html" title="Macros de journalisation de la catégorie « Ecs »." alt="" coords="1379,321,1600,375"/>
-<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="1786,271,1589,323,1588,318,1784,266"/>
-<area shape="rect" id="Node000012" href="$GameplayLog_8h.html" title="Macros de journalisation de la catégorie « Gameplay »." alt="" coords="1781,321,2014,375"/>
-<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="1900,280,1900,320,1895,320,1895,280"/>
-<area shape="rect" id="Node000015" href="$LevelsLog_8h.html" title="Macros de journalisation de la catégorie « Levels »." alt="" coords="2093,321,2315,375"/>
-<area shape="poly" id="edge14_Node000007_Node000015" title=" " alt="" coords="1985,267,2130,318,2129,323,1984,272"/>
-<area shape="rect" id="Node000017" href="$PhysicsLog_8h.html" title="Macros de journalisation de la catégorie « Physics »." alt="" coords="599,321,820,375"/>
-<area shape="poly" id="edge16_Node000007_Node000017" title=" " alt="" coords="1774,268,1774,268,1652,282,1549,291,1373,297,1197,301,971,316,821,333,820,328,970,311,1196,296,1373,292,1548,286,1651,277,1773,263,1773,263"/>
-<area shape="rect" id="Node000019" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="983,321,1204,375"/>
-<area shape="poly" id="edge18_Node000007_Node000019" title=" " alt="" coords="1774,268,1774,268,1660,285,1571,295,1367,316,1205,336,1204,330,1366,311,1570,290,1659,280,1773,263,1773,263"/>
-<area shape="rect" id="Node000023" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="3288,321,3509,375"/>
-<area shape="poly" id="edge22_Node000007_Node000023" title=" " alt="" coords="2022,246,3288,336,3288,341,2022,251"/>
+<area shape="rect" id="Node000001" title="Interface d&#39;une destination de journalisation." alt="" coords="4276,5,4497,60"/>
+<area shape="rect" id="Node000002" href="$ConsoleLogSink_8h.html" title="Sink écrivant sur la console (et le débogueur sous Windows)." alt="" coords="3963,108,4218,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="4297,67,4169,110,4167,105,4296,62"/>
+<area shape="rect" id="Node000005" href="$Logger_8h.html" title="Journaliseur : filtrage par niveau et diffusion vers des sinks." alt="" coords="4276,108,4497,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="4389,74,4389,108,4384,108,4384,74"/>
+<area shape="rect" id="Node000035" href="$MemoryLogSink_8h.html" title="Sink qui conserve les messages en mémoire, destiné aux tests." alt="" coords="4737,211,4994,265"/>
+<area shape="poly" id="edge36_Node000001_Node000035" title=" " alt="" coords="4462,63,4805,208,4803,213,4460,68"/>
+<area shape="rect" id="Node000003" href="$ConsoleLogSink_8cpp.html" title=" " alt="" coords="1765,211,2035,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="3949,142,2988,166,2445,187,2220,199,2048,213,2036,215,2035,209,2048,208,2219,194,2445,181,2987,161,3949,137"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming)." alt="" coords="4452,438,4673,493"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="4092,176,4098,221,4106,244,4118,264,4142,286,4178,310,4275,357,4383,401,4482,435,4481,440,4382,406,4272,362,4176,314,4139,290,4114,267,4101,246,4093,222,4087,177"/>
+<area shape="poly" id="edge34_Node000005_Node000004" title=" " alt="" coords="4392,176,4400,219,4414,264,4442,315,4475,362,4538,436,4534,439,4471,366,4437,318,4410,266,4395,221,4387,177"/>
+<area shape="rect" id="Node000006" href="$Assert_8cpp.html" title=" " alt="" coords="4424,211,4645,265"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="4438,168,4497,208,4494,213,4435,172"/>
+<area shape="rect" id="Node000007" href="$Log_8h.html" title="Macros de journalisation génériques (catégorie, niveau, fichier/ligne, horodatage)." alt="" coords="2060,211,2281,265"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="4262,161,4230,165,3946,190,3656,209,3369,222,3093,231,2612,240,2281,240,2281,235,2612,234,3093,226,3369,217,3656,203,3945,185,4229,160,4262,156"/>
+<area shape="rect" id="Node000033" href="$Logger_8cpp.html" title=" " alt="" coords="4128,211,4349,265"/>
+<area shape="poly" id="edge33_Node000005_Node000033" title=" " alt="" coords="4339,172,4279,213,4276,208,4336,168"/>
+<area shape="rect" id="Node000034" href="$test__logger_8cpp.html" title="Tests unitaires du journaliseur (filtrage et diffusion)." alt="" coords="4556,313,4777,383"/>
+<area shape="poly" id="edge35_Node000005_Node000034" title=" " alt="" coords="4511,154,4601,177,4636,192,4659,209,4673,233,4679,261,4677,313,4672,313,4674,261,4668,235,4655,212,4634,196,4599,182,4510,159"/>
+<area shape="rect" id="Node000008" href="$CoreLog_8h.html" title="Macros de journalisation de la catégorie « Core »." alt="" coords="148,321,369,375"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="2047,268,2047,268,1837,290,1660,302,1503,306,1357,306,1053,304,875,307,664,316,370,339,369,333,664,311,875,301,1053,298,1357,301,1503,301,1659,296,1837,285,2046,263,2047,263"/>
+<area shape="rect" id="Node000010" href="$EcsLog_8h.html" title="Macros de journalisation de la catégorie « Ecs »." alt="" coords="1643,321,1864,375"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="2057,271,1855,323,1854,318,2055,266"/>
+<area shape="rect" id="Node000012" href="$GameplayLog_8h.html" title="Macros de journalisation de la catégorie « Gameplay »." alt="" coords="2054,321,2287,375"/>
+<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="2173,280,2173,320,2168,320,2168,280"/>
+<area shape="rect" id="Node000015" href="$LevelsLog_8h.html" title="Macros de journalisation de la catégorie « Levels »." alt="" coords="2360,321,2581,375"/>
+<area shape="poly" id="edge14_Node000007_Node000015" title=" " alt="" coords="2258,268,2399,318,2397,323,2256,273"/>
+<area shape="rect" id="Node000017" href="$PhysicsLog_8h.html" title="Macros de journalisation de la catégorie « Physics »." alt="" coords="676,321,897,375"/>
+<area shape="poly" id="edge16_Node000007_Node000017" title=" " alt="" coords="2047,268,2047,268,1896,285,1768,294,1549,299,1331,300,1202,305,1051,316,898,333,897,328,1050,311,1202,300,1331,295,1549,293,1768,289,1896,279,2046,263,2047,263"/>
+<area shape="rect" id="Node000019" href="$GraphicsLog_8h.html" title="Macros de journalisation de la catégorie « Graphics »." alt="" coords="1063,321,1284,375"/>
+<area shape="poly" id="edge18_Node000007_Node000019" title=" " alt="" coords="2047,268,2047,268,1895,286,1687,306,1284,341,1284,335,1687,301,1895,281,2046,263,2047,263"/>
+<area shape="rect" id="Node000024" href="$HmiLog_8h.html" title="Macros de journalisation de la catégorie « HMI »." alt="" coords="3571,321,3792,375"/>
+<area shape="poly" id="edge23_Node000007_Node000024" title=" " alt="" coords="2295,246,3571,336,3570,341,2295,251"/>
 <area shape="rect" id="Node000009" href="$FixedTimestep_8cpp.html" title=" " alt="" coords="5,438,227,493"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="166,388,134,439,130,436,161,386"/>
-<area shape="rect" id="Node000011" href="$World_8cpp.html" title=" " alt="" coords="1300,438,1521,493"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1466,388,1431,439,1427,436,1462,385"/>
-<area shape="rect" id="Node000013" href="$BlockController_8cpp.html" title=" " alt="" coords="1546,438,1803,493"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="1836,384,1727,440,1724,436,1834,379"/>
-<area shape="rect" id="Node000014" href="$MechanismController_8cpp.html" title=" " alt="" coords="1828,438,2124,493"/>
-<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="1925,385,1960,436,1956,439,1921,388"/>
-<area shape="rect" id="Node000016" href="$LevelLoader_8cpp.html" title=" " alt="" coords="2148,438,2369,493"/>
-<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="2225,386,2249,437,2244,439,2220,389"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="217,386,150,440,147,436,214,382"/>
+<area shape="rect" id="Node000011" href="$World_8cpp.html" title=" " alt="" coords="1559,438,1780,493"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1728,388,1691,439,1686,436,1724,385"/>
+<area shape="rect" id="Node000013" href="$BlockController_8cpp.html" title=" " alt="" coords="2125,438,2382,493"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="2200,385,2237,436,2232,439,2195,388"/>
+<area shape="rect" id="Node000014" href="$MechanismController_8cpp.html" title=" " alt="" coords="1804,438,2100,493"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="2110,384,2003,440,2001,436,2108,379"/>
+<area shape="rect" id="Node000016" href="$LevelLoader_8cpp.html" title=" " alt="" coords="2407,438,2628,493"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="2489,387,2509,437,2504,439,2484,389"/>
 <area shape="rect" id="Node000018" href="$CharacterPhysicsSystem_8cpp.html" title=" " alt="" coords="251,431,509,500"/>
-<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="623,382,477,433,475,428,621,377"/>
-<area shape="rect" id="Node000020" href="$GraphicsDevice_8cpp.html" title=" " alt="" coords="533,438,779,493"/>
-<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="982,381,756,441,755,435,980,376"/>
-<area shape="rect" id="Node000021" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="804,438,1025,493"/>
-<area shape="poly" id="edge20_Node000019_Node000021" title=" " alt="" coords="1043,385,957,440,954,435,1040,380"/>
-<area shape="rect" id="Node000022" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="1050,438,1275,493"/>
-<area shape="poly" id="edge21_Node000019_Node000022" title=" " alt="" coords="1118,386,1149,436,1144,439,1114,388"/>
-<area shape="poly" id="edge31_Node000023_Node000004" title=" " alt="" coords="3524,357,3876,390,4052,410,4180,428,4214,435,4213,441,4180,433,4052,415,3876,395,3523,362"/>
-<area shape="rect" id="Node000024" href="$LevelBrowserPanel_8cpp.html" title=" " alt="" coords="3920,438,4168,493"/>
-<area shape="poly" id="edge23_Node000023_Node000024" title=" " alt="" coords="3523,364,3706,391,3909,428,3942,435,3941,441,3907,433,3705,397,3523,369"/>
-<area shape="rect" id="Node000025" href="$GameSession_8cpp.html" title=" " alt="" coords="2393,438,2615,493"/>
-<area shape="poly" id="edge24_Node000023_Node000025" title=" " alt="" coords="3275,359,2978,384,2802,405,2627,433,2594,441,2593,435,2626,428,2801,400,2978,379,3274,354"/>
-<area shape="rect" id="Node000026" href="$GameViewport_8cpp.html" title=" " alt="" coords="2639,438,2862,493"/>
-<area shape="poly" id="edge25_Node000023_Node000026" title=" " alt="" coords="3275,367,3085,395,2874,433,2843,441,2842,435,2873,428,3084,389,3274,362"/>
-<area shape="rect" id="Node000027" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="2886,438,3125,493"/>
-<area shape="poly" id="edge26_Node000023_Node000027" title=" " alt="" coords="3297,382,3095,441,3094,435,3296,377"/>
-<area shape="rect" id="Node000028" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="3149,438,3387,493"/>
-<area shape="poly" id="edge27_Node000023_Node000028" title=" " alt="" coords="3360,387,3300,440,3296,436,3357,383"/>
-<area shape="rect" id="Node000029" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="3411,438,3650,493"/>
-<area shape="poly" id="edge28_Node000023_Node000029" title=" " alt="" coords="3441,382,3502,436,3499,440,3437,387"/>
-<area shape="rect" id="Node000030" href="$GamepadPoller_8cpp.html" title=" " alt="" coords="3675,438,3896,493"/>
-<area shape="poly" id="edge29_Node000023_Node000030" title=" " alt="" coords="3500,377,3698,435,3697,441,3499,382"/>
-<area shape="rect" id="Node000031" href="$MainWindow_8cpp.html" title=" " alt="" coords="4438,438,4666,493"/>
-<area shape="poly" id="edge30_Node000023_Node000031" title=" " alt="" coords="3523,349,3701,356,3926,370,4176,393,4426,428,4461,435,4460,441,4425,433,4175,399,3926,376,3701,362,3523,355"/>
-<area shape="poly" id="edge41_Node000034_Node000004" title=" " alt="" coords="4591,279,4562,340,4546,367,4531,385,4508,399,4476,414,4397,440,4395,435,4474,409,4506,394,4528,381,4541,364,4557,337,4586,277"/>
-<area shape="poly" id="edge40_Node000034_Node000031" title=" " alt="" coords="4599,280,4576,383,4562,438,4557,437,4571,382,4594,278"/>
-<area shape="poly" id="edge42_Node000034_Node000033" title=" " alt="" coords="4546,275,4470,316,4467,311,4543,270"/>
-<area shape="rect" id="Node000035" href="$SessionLog_8h.html" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="4643,321,4864,375"/>
-<area shape="poly" id="edge36_Node000034_Node000035" title=" " alt="" coords="4654,272,4719,318,4715,322,4651,276"/>
-<area shape="rect" id="Node000037" href="$test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session." alt="" coords="4951,431,5172,500"/>
-<area shape="poly" id="edge44_Node000034_Node000037" title=" " alt="" coords="4748,257,4815,278,4847,293,4878,311,4895,328,4905,345,4914,363,4929,381,4961,406,4996,428,4993,433,4958,411,4925,385,4909,365,4900,348,4891,331,4874,315,4845,298,4813,283,4747,262"/>
-<area shape="rect" id="Node000038" href="$test__sinks_8cpp.html" title="Tests unitaires des sinks de journalisation." alt="" coords="4939,313,5160,383"/>
-<area shape="poly" id="edge43_Node000034_Node000038" title=" " alt="" coords="4733,266,4921,311,4939,315,4938,321,4919,316,4731,271"/>
-<area shape="poly" id="edge38_Node000035_Node000031" title=" " alt="" coords="4697,384,4599,440,4597,436,4694,380"/>
-<area shape="rect" id="Node000036" href="$SessionLog_8cpp.html" title=" " alt="" coords="4690,438,4926,493"/>
-<area shape="poly" id="edge37_Node000035_Node000036" title=" " alt="" coords="4774,386,4798,437,4793,439,4769,389"/>
-<area shape="poly" id="edge39_Node000035_Node000037" title=" " alt="" coords="4837,378,4972,428,4970,433,4835,383"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="682,382,499,433,498,428,681,376"/>
+<area shape="rect" id="Node000020" href="$GraphicsDevice_8cpp.html" title=" " alt="" coords="791,438,1038,493"/>
+<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="1103,383,975,440,972,435,1101,378"/>
+<area shape="rect" id="Node000021" href="$SpriteBatch_8cpp.html" title=" " alt="" coords="1063,438,1284,493"/>
+<area shape="poly" id="edge20_Node000019_Node000021" title=" " alt="" coords="1176,389,1176,438,1171,438,1171,389"/>
+<area shape="rect" id="Node000022" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="1309,438,1534,493"/>
+<area shape="poly" id="edge21_Node000019_Node000022" title=" " alt="" coords="1243,379,1366,435,1364,440,1241,383"/>
+<area shape="rect" id="Node000023" href="$TextureLoader_8cpp.html" title=" " alt="" coords="533,438,768,493"/>
+<area shape="poly" id="edge22_Node000019_Node000023" title=" " alt="" coords="1050,376,779,433,749,441,748,435,778,428,1049,371"/>
+<area shape="poly" id="edge32_Node000024_Node000004" title=" " alt="" coords="3806,358,4147,391,4316,410,4439,428,4473,435,4472,441,4438,433,4315,415,4146,396,3805,363"/>
+<area shape="rect" id="Node000025" href="$LevelBrowserPanel_8cpp.html" title=" " alt="" coords="3687,438,3935,493"/>
+<area shape="poly" id="edge24_Node000024_Node000025" title=" " alt="" coords="3723,383,3783,436,3779,440,3719,387"/>
+<area shape="rect" id="Node000026" href="$GameSession_8cpp.html" title=" " alt="" coords="3959,438,4180,493"/>
+<area shape="poly" id="edge25_Node000024_Node000026" title=" " alt="" coords="3783,377,3982,435,3981,441,3782,382"/>
+<area shape="rect" id="Node000027" href="$GameViewport_8cpp.html" title=" " alt="" coords="4205,438,4427,493"/>
+<area shape="poly" id="edge26_Node000024_Node000027" title=" " alt="" coords="3806,363,3989,390,4193,428,4224,435,4223,441,4191,433,3988,396,3805,368"/>
+<area shape="rect" id="Node000028" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="2653,438,2891,493"/>
+<area shape="poly" id="edge27_Node000024_Node000028" title=" " alt="" coords="3557,359,3258,385,3080,406,2903,433,2868,441,2867,435,2902,428,3079,401,3257,380,3556,354"/>
+<area shape="rect" id="Node000029" href="$GameKeyBindings_8cpp.html" title=" " alt="" coords="2915,438,3154,493"/>
+<area shape="poly" id="edge28_Node000024_Node000029" title=" " alt="" coords="3557,368,3372,396,3166,433,3133,441,3132,435,3165,428,3371,391,3556,363"/>
+<area shape="rect" id="Node000030" href="$GamepadBindings_8cpp.html" title=" " alt="" coords="3178,438,3417,493"/>
+<area shape="poly" id="edge29_Node000024_Node000030" title=" " alt="" coords="3582,382,3386,440,3384,435,3580,377"/>
+<area shape="rect" id="Node000031" href="$GamepadPoller_8cpp.html" title=" " alt="" coords="3441,438,3663,493"/>
+<area shape="poly" id="edge30_Node000024_Node000031" title=" " alt="" coords="3643,387,3583,440,3580,436,3640,383"/>
+<area shape="rect" id="Node000032" href="$MainWindow_8cpp.html" title=" " alt="" coords="4698,438,4926,493"/>
+<area shape="poly" id="edge31_Node000024_Node000032" title=" " alt="" coords="3806,350,3979,357,4199,371,4443,394,4686,428,4721,435,4720,441,4685,433,4442,399,4199,376,3979,362,3805,355"/>
+<area shape="poly" id="edge42_Node000035_Node000004" title=" " alt="" coords="4851,279,4822,340,4806,367,4791,385,4768,399,4736,414,4657,440,4655,435,4734,409,4766,394,4788,381,4801,364,4817,337,4846,277"/>
+<area shape="poly" id="edge41_Node000035_Node000032" title=" " alt="" coords="4859,280,4836,383,4822,438,4817,437,4831,382,4854,278"/>
+<area shape="poly" id="edge43_Node000035_Node000034" title=" " alt="" coords="4806,275,4730,316,4727,311,4803,270"/>
+<area shape="rect" id="Node000036" href="$SessionLog_8h.html" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="4903,321,5124,375"/>
+<area shape="poly" id="edge37_Node000035_Node000036" title=" " alt="" coords="4914,272,4979,318,4975,322,4911,276"/>
+<area shape="rect" id="Node000038" href="$test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session." alt="" coords="5211,431,5432,500"/>
+<area shape="poly" id="edge45_Node000035_Node000038" title=" " alt="" coords="5008,257,5075,278,5107,293,5138,311,5155,328,5165,345,5174,363,5189,381,5221,406,5256,428,5253,433,5218,411,5185,385,5169,365,5160,348,5151,331,5134,315,5105,298,5073,283,5007,262"/>
+<area shape="rect" id="Node000039" href="$test__sinks_8cpp.html" title="Tests unitaires des sinks de journalisation." alt="" coords="5199,313,5420,383"/>
+<area shape="poly" id="edge44_Node000035_Node000039" title=" " alt="" coords="4993,266,5181,311,5199,315,5198,321,5179,316,4991,271"/>
+<area shape="poly" id="edge39_Node000036_Node000032" title=" " alt="" coords="4957,384,4859,440,4857,436,4954,380"/>
+<area shape="rect" id="Node000037" href="$SessionLog_8cpp.html" title=" " alt="" coords="4950,438,5186,493"/>
+<area shape="poly" id="edge38_Node000036_Node000037" title=" " alt="" coords="5034,386,5058,437,5053,439,5029,389"/>
+<area shape="poly" id="edge40_Node000036_Node000038" title=" " alt="" coords="5097,378,5232,428,5230,433,5095,383"/>
 </map>

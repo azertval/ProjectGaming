@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-28-tache-01-modele-physique-concav
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-28-arrondis-concaves_2epic_8md.html">LOT-28</a> · <b>Emplacement :</b> <code>Core/Levels</code>, <code>Core/Physics</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1401"></a>
+<h1><a class="anchor" id="autotoc_md1404"></a>
 Contexte</h1>
 <p>Ajoute les quatre nouveaux types de tuile et leur formule de courbe, en réutilisant intégralement l'infrastructure de suivi de surface/silhouette posée par <code>LOT-22</code>/<code>LOT-23</code> (sol) et <code>LOT-26</code> (plafond) — aucune nouvelle passe de résolution, seulement une nouvelle formule et deux nouvelles entrées dans un mapping existant.</p>
-<h1><a class="anchor" id="autotoc_md1402"></a>
+<h1><a class="anchor" id="autotoc_md1405"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Core/Levels/TileType.h</a></code>** : quatre nouveaux énumérateurs, <code>ConcaveUpRight</code>/<code>ConcaveUpLeft</code>/ <code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> ; <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> <b>ne</b> les inclut <b>pas</b> (comme les arrondis convexes — leur collision est résolue par suivi, pas par la grille classique).</li>
@@ -111,7 +111,7 @@ Travail à réaliser</h1>
 </li>
 <li>**<code><a class="el" href="LevelLoader_8cpp.html">Core/Levels/LevelLoader.cpp</a></code>/<code><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></code>** : mapping JSON ↔ enum (<code>concaveUpRight</code>, <code>concaveUpLeft</code>, <code>concaveDownRight</code>, <code>concaveDownLeft</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1403"></a>
+<h1><a class="anchor" id="autotoc_md1406"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></code>.</li>
@@ -122,7 +122,7 @@ Fichiers impactés</h1>
 <li><code><a class="el" href="PhysicsLog_8h.html" title="Macros de journalisation de la catégorie « Physics ».">Source/Core/Physics/PhysicsLog.h</a></code> (nouveau fichier, écart de cadrage — macros de journalisation <code>PHYSICS_LOG_*</code> réutilisables, voir « Points d'attention »).</li>
 <li>Tests : <code><a class="el" href="test__slope__geometry_8cpp.html" title="Tests unitaires de la fonction de hauteur des tuiles suivables (slopeSurfaceHeight,...">Source/Test/Unit/Core/Physics/test_slope_geometry.cpp</a></code>, <code><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></code>/<code><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></code>, <code><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1404"></a>
+<h1><a class="anchor" id="autotoc_md1407"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>isSolid</code> renvoie <code>false</code> pour les quatre nouveaux types ; <code>isFollowableSurface</code> reconnaît exactement <code>ConcaveUpRight</code>/<code>ConcaveUpLeft</code> (pas les variantes de plafond) ; <code>isCeilingSlope</code> reconnaît exactement <code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code>.</li>
@@ -135,7 +135,7 @@ Tests (obligatoires)</h1>
 <li><b>Sauter tout en marchant</b> (les deux mouvements combinés) vers le bord épais d'un arrondi concave de plafond, ou d'une pente linéaire de plafond, bloque toujours le saut (<code>ConcaveDePlafondBloqueMemeEnMarchantPendantLeSaut</code>, couvre <code>ConcaveDownRight</code>/<code>ConcaveDownLeft</code> <b>et</b> <code>SlopeDownRight</code>/<code>SlopeDownLeft</code>) — régression du second bug (mémoire d'ascension), reproduite sur les quatre types pour confirmer un défaut de mécanique générale, pas propre au concave.</li>
 <li><b>Un saut bloqué près du bord fin</b> (silhouette quasi vide) d'un arrondi concave de plafond reste bloqué durablement, sans téléportation au-dessus du plafond au pas suivant (<code>ConcaveDePlafondBordFinResteBloqueSansTeleportation</code>) — régression du troisième bug décrit ci-dessous, vérifiée à CHAQUE pas du saut (pas seulement au minimum global), le passage au travers d'origine ne se manifestant qu'un pas après le blocage.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1405"></a>
+<h1><a class="anchor" id="autotoc_md1408"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Écart de cadrage majeur, constaté après coup-sur-coup lors d'essais manuels en jeu</b> (rapporté par le demandeur : « les blocs concaves ne vont pas jusqu'au bout d'un bloc et si on saute on peut passer au travers par le bas ») : <code><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></code>/ <code><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></code> sélectionnaient la case à consulter uniquement par le <b>centre</b> de la boîte du personnage (<code>floor(centerX)</code>), en ignorant sa <b>largeur</b>. Or la boîte peut chevaucher la frontière entre deux cases sans que son centre ait encore basculé — et pour toute la <b>dernière fraction</b> (environ la moitié de la largeur de la boîte) de la largeur d'une case arrondie/concave, le centre atterrit déjà dans la case <b>voisine</b>. Si cette case voisine est vide (silhouette isolée) ou une autre tuile non solide (deux arrondis posés côte à côte, comme un arc/une voûte — l'usage même que cet épic vise), aucune silhouette n'y est trouvée : le personnage tombe/saute au travers, sans aucun filet (contrairement à une case voisine solide, où la collision classique sur grille — <code><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></code> — masquait silencieusement le même défaut depuis <code>LOT-22</code>/<code>LOT-26</code>). Confirmé en reproduisant le bug sur <code>SlopeDownRight</code> (pente linéaire de plafond, <code>LOT-26</code>) avec le même symptôme exact (saut totalement non bloqué au-delà de <code>localX ≈ 0,8</code> avec la boîte réelle du personnage, <code>0,4</code> de large) : <b>le défaut est antérieur à ce lot</b>, simplement jamais exposé faute d'avoir déjà placé deux tuiles non solides directement adjacentes. Corrigé en élargissant la sélection de colonne à celles réellement couvertes par la boîte : la colonne <b>centrale</b> garde exactement son calcul d'origine (aucune régression pour tout appelant dont la boîte ne dépasse pas d'une seule colonne pertinente) ; toute colonne <b>supplémentaire</b> chevauchée par un bord de la boîte est également consultée, avec le <code>localX</code> de <b>ce bord-là</b> (pas du centre) — et parmi toutes les colonnes couvertes, la surface la plus haute (sol) ou la silhouette la plus basse (plafond) l'emporte, comme un balayage classique. Deux tests de régression pré-existants ont d'abord cassé avec une première version plus large de ce correctif (échantillonnage au milieu du segment de chevauchement plutôt qu'au bord) — révélant que la boîte 1×1 des tests plus anciens (<code>spawnPlayer</code>) chevauche en permanence deux colonnes par construction (largeur = largeur d'une case) ; la version au bord de boîte, ci-dessus, préserve exactement le comportement d'origine pour la colonne centrale et n'a plus cassé aucun test existant.</li>
@@ -144,12 +144,12 @@ Points d'attention</h1>
 <li><b>Écart constaté en cours de lot</b> (test) : le test d'intégration <code>SuitUnArrondiConcaveAscendantEnMarchant</code> utilisait initialement la boîte de test 1×1 (<code>spawnPlayer</code>, comme les autres tests de pente/arrondi de ce fichier), qui échoue sur ce cas précis — pas un bug de la formule concave elle-même, mais un effet de bord déjà connu du moteur de collision (documenté par <code>TransitionPenteSolPlatSansAACoup</code>) : une boîte large d'une case entière chevauche la colonne solide voisine (sol haut, après l'arrondi) exactement au point d'échantillonnage à mi-case (x=0,5), avant que le suivi de la courbe concave n'ait eu la chance de s'exprimer — imperceptible avec la formule convexe (déjà proche du palier haut à ce stade), mais spectaculaire avec la formule concave (censée rester proche du palier bas jusque tard). Corrigé en utilisant la taille RÉELLE du personnage (<code><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></code>, 0,4×0,8), comme <code>TransitionPenteSolPlatSansAACoup</code>.</li>
 <li><b>Ne pas confondre les deux formules concave/convexe</b> : elles partagent les mêmes valeurs aux bords (<code>0</code>/<code>1</code>), seule la courbe entre les deux diffère — un test qui ne vérifie que les bords ne distinguerait pas un bug d'inversion de formule (concave collée à la place du convexe ou inversement) ; le point <b>central</b> (<code>x=0,5</code>) est le test qui les discrimine réellement : <code>RoundedUpRight</code> (convexe) y vaut <code>1 - sqrt(0,75) ≈ 0,134</code>, <code>ConcaveUpRight</code> (ce lot) y vaut <code>sqrt(0,75) ≈ 0,866</code> — les deux valeurs sont exactement complémentaires (somme <code>1</code>), mais très distinctes l'une de l'autre, ce qui rend un bug d'inversion facilement détectable par le test.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1406"></a>
+<h1><a class="anchor" id="autotoc_md1409"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Formule et physique fonctionnelles et testées ; zéro régression sur la suite de tests physique existante ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1407"></a>
+<h1><a class="anchor" id="autotoc_md1410"></a>
 Exigences</h1>
 <p><code>EX-GP-007</code> (modèle et physique). </p>
 </div></div><!-- contents -->

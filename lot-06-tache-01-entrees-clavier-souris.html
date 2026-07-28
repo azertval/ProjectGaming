@@ -94,24 +94,24 @@ $(document).ready(function(){initNavTree('lot-06-tache-01-entrees-clavier-souris
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Input</code>, <code>Source/HMI/Platform</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md527"></a>
+<h1><a class="anchor" id="autotoc_md530"></a>
 Contexte</h1>
 <p><code>Window</code> ne remonte aujourd'hui que la fermeture et le redimensionnement (et Échap ferme l'app). Un menu — puis le gameplay — a besoin de lire le <b>clavier</b> et la <b>souris</b>, en distinguant <em>pressée / maintenue / relâchée</em> (<code>EX-CTRL-011</code>) et en échantillonnant une fois par frame, en amont de la logique (<code>EX-CTRL-021</code>).</p>
-<h1><a class="anchor" id="autotoc_md528"></a>
+<h1><a class="anchor" id="autotoc_md531"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>InputState</code> (dans <code>HMI/Input</code>) : état par frame — touches enfoncées, <b>front montant</b> (« vient d'être pressée »), <b>front descendant</b> (« vient d'être relâchée ») ; position souris (en pixels client) et boutons (enfoncé / cliqué ce frame).</li>
 <li>Mécanique de frame : une méthode « nouvelle frame » recopie l'état courant vers l'état précédent ; <code>Window</code> met à jour l'état courant à partir des messages (<code>WM_KEYDOWN/UP</code>, <code>WM_MOUSEMOVE</code>, <code>WM_LBUTTONDOWN/UP</code>…) ; les fronts se déduisent de la comparaison courant/précédent.</li>
 <li><code>Window</code> : cesser de fermer sur <b>Échap</b> (Échap devient une touche normale, utilisée pour revenir au menu) ; exposer l'<code>InputState</code> (<code>input()</code>) et une <b>demande de fermeture programmée</b> (<code>requestClose()</code>) pour l'action « Quitter ». La croix continue de fermer.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md529"></a>
+<h1><a class="anchor" id="autotoc_md532"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code><a class="el" href="InputState_8h.html" title="État des entrées clavier/souris/manette échantillonné une fois par frame.">Source/HMI/Input/InputState.h</a></code>, <code><a class="el" href="InputState_8cpp.html">InputState.cpp</a></code> (nouveau).</li>
 <li><code>Source/HMI/Platform/Window.h</code>, <code>Window.cpp</code> (capture des entrées, <code>requestClose</code>).</li>
 <li><code>Source/HMI/CMakeLists.txt</code>, <code>Source/Test/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md530"></a>
+<h1><a class="anchor" id="autotoc_md533"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Front montant : une touche passée d'« absente » à « présente » est « vient d'être pressée » exactement une frame.</li>
@@ -119,19 +119,19 @@ Tests (obligatoires)</h1>
 <li>Front descendant : relâchement détecté une frame.</li>
 <li>Boutons souris : même logique pressé/cliqué (l'<code>InputState</code> est testable sans fenêtre en injectant les événements).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md531"></a>
+<h1><a class="anchor" id="autotoc_md534"></a>
 Points d'attention</h1>
 <ul>
 <li>Séparer l'<b>état logique</b> (<code>InputState</code>, testable en isolation) de la <b>capture Win32</b> (<code>Window</code>), pour tester sans fenêtre.</li>
 <li>Latence : l'état est prêt avant la mise à jour de la logique (<code>EX-CTRL-021</code>).</li>
 <li>Ne pas introduire d'entrée de <em>gameplay</em> (mapping d'actions) — hors périmètre.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md532"></a>
+<h1><a class="anchor" id="autotoc_md535"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Entrées clavier/souris exposées avec fronts, testées (<code>ctest</code> vert) ; Échap ne ferme plus ; build <code>/W4 /WX</code>, documenté.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md533"></a>
+<h1><a class="anchor" id="autotoc_md536"></a>
 Exigences</h1>
 <p><code>EX-CTRL-011</code>, <code>EX-CTRL-021</code>, <code>EX-CTRL-001</code>. </p>
 </div></div><!-- contents -->

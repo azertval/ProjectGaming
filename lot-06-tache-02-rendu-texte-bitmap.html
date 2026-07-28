@@ -94,42 +94,42 @@ $(document).ready(function(){initNavTree('lot-06-tache-02-rendu-texte-bitmap.htm
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-06-menu-principal_2epic_8md.html">LOT-06</a> · <b>Emplacement :</b> <code>Source/HMI/Graphics</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md534"></a>
+<h1><a class="anchor" id="autotoc_md537"></a>
 Contexte</h1>
 <p>Le menu (et les futurs écrans) doivent afficher du <b>texte</b> (<code>EX-REN-032</code>). On l'obtient avec une <b>police bitmap</b> intégrée, dessinée via le <code>SpriteBatch</code> du LOT-05, ce qui reste cohérent avec le pixel art et le « from scratch ».</p>
-<h1><a class="anchor" id="autotoc_md535"></a>
+<h1><a class="anchor" id="autotoc_md538"></a>
 Travail à réaliser</h1>
 <ul>
 <li><code>BitmapFont</code> : une texture de police <b>générée en code</b> (grille de glyphes de taille fixe) couvrant au minimum <b>A–Z</b>, <b>0–9</b>, l'espace et la ponctuation utile aux libellés (« Charger niveau », « Mode Edition », « Quitter », titre), ainsi que les <b>lettres accentuées</b> nécessaires aux libellés du catalogue de traduction français (é, è, à, ç, É…, cf. TACHE-03). Données de glyphes intégrées (déterministes), <code>ID3D11Texture2D</code> + vue de ressource en RAII.</li>
 <li>Métrique simple : chaque glyphe occupe une cellule de taille connue ; l'avance horizontale est fixe (police à chasse fixe) pour ce lot.</li>
 <li><code>drawText(SpriteBatch&amp;, texte, position, échelle, couleur)</code> : émet un quad par glyphe (régions de la texture de police), en unités écran/pixels.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md536"></a>
+<h1><a class="anchor" id="autotoc_md539"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Graphics/BitmapFont.h</code>, <code>BitmapFont.cpp</code> (nouveau).</li>
 <li><code>Source/HMI/CMakeLists.txt</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md537"></a>
+<h1><a class="anchor" id="autotoc_md540"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Le texte s'affiche à la position et à l'échelle demandées (vérification visuelle via le menu).</li>
 <li>Les caractères non couverts sont gérés proprement (glyphe vide ou ignoré, pas de plantage).</li>
 <li>La couleur/teinte s'applique ; la netteté pixel art est préservée (échantillonnage nearest).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md538"></a>
+<h1><a class="anchor" id="autotoc_md541"></a>
 Points d'attention</h1>
 <ul>
 <li>Se limiter aux caractères réellement nécessaires ; à chasse fixe pour simplifier la mise en page.</li>
 <li>Réutiliser le pipeline <code>SpriteBatch</code> (mêmes états blend/nearest) : le texte est un lot de quads texturés comme les sprites.</li>
 <li>Rendu de texte en <b>espace écran</b> (pixels), indépendant de la caméra du monde.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md539"></a>
+<h1><a class="anchor" id="autotoc_md542"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><code>BitmapFont</code> + <code>drawText</code> fonctionnels, RAII, documentés ; build <code>/W4 /WX</code> sans avertissement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md540"></a>
+<h1><a class="anchor" id="autotoc_md543"></a>
 Exigences</h1>
 <p><code>EX-REN-032</code>, <code>EX-REN-011</code>, <code>EX-ARCH-022</code>. </p>
 </div></div><!-- contents -->

@@ -12,7 +12,7 @@ var searchData=
   ['nettoyage_20documentaire_9',['TACHE-08 — Nettoyage documentaire',['../lot-15-tache-08-nettoyage-documentation.html',1,'lot-15']]],
   ['newtonienne_10',['TACHE-01 — Masse et chute newtonienne',['../lot-19-tache-01-masse-chute-newtonienne.html',1,'lot-19']]],
   ['newtonienne_20et_20plaque_20de_20pression_11',['LOT-19 — Physique newtonienne et plaque de pression',['../lot-19.html',1,'lots']]],
-  ['niveau_12',['niveau',['../lot-31-tache-02-integration-jeu.html',1,'TACHE-02 — Intégration jeu (contrôleurs, résolution de fin de niveau)'],['../lot-07-tache-02-modele-niveau.html',1,'TACHE-02 — Modèle de tuiles et de niveau'],['../lot-07-tache-04-validation.html',1,'TACHE-04 — Validation du niveau']]],
+  ['niveau_12',['niveau',['../lot-43.html',1,'LOT-43 — Fond de niveau'],['../lot-31-tache-02-integration-jeu.html',1,'TACHE-02 — Intégration jeu (contrôleurs, résolution de fin de niveau)'],['../lot-07-tache-02-modele-niveau.html',1,'TACHE-02 — Modèle de tuiles et de niveau'],['../lot-07-tache-04-validation.html',1,'TACHE-04 — Validation du niveau']]],
   ['niveau_20éditeur_20et_20jeu_13',['TACHE-03 — Caméra : englober tout le niveau (éditeur et jeu)',['../lot-16-tache-03-camera-niveau-entier.html',1,'lot-16']]],
   ['niveau_20_3a_20molette_20et_20texte_20tapé_14',['TACHE-01 — Entrées bas niveau : molette et texte tapé',['../lot-15-tache-01-entrees-molette-texte.html',1,'lot-15']]],
   ['niveau_20chargé_20affiché_20jouable_20dans_20le_20viewport_20documentation_20vérification_15',['TACHE-04 — Niveau chargé/affiché/jouable dans le viewport ; documentation &amp; vérification',['../lot-34-tache-04-niveau-jouable-doc.html',1,'lot-34']]],
@@ -42,8 +42,10 @@ var searchData=
   ['niveaux_20preuves_20à_20la_20vraie_20taille_39',['TACHE-04 — Rééquilibrage des niveaux + preuves à la vraie taille',['../lot-11-tache-04-reequilibrage.html',1,'lot-11']]],
   ['niveaux_20séquence_20auto_20avance_20retour_20titre_40',['TACHE-05 — Enchaînement de niveaux (séquence, auto-avance, retour titre)',['../lot-09-tache-05-enchainement-niveaux.html',1,'lot-09']]],
   ['nlohmann_20json_20épinglé_41',['TACHE-01 — Dépendance JSON (nlohmann/json épinglé)',['../lot-07-tache-01-dependance-json.html',1,'lot-07']]],
-  ['nommage_20renommage_20avertissement_20d_20écrasement_42',['TACHE-03 — Nommage, renommage, avertissement d&apos;écrasement',['../lot-15-tache-03-nommage-renommage.html',1,'lot-15']]],
-  ['non_20codeur_20git_43',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
-  ['non_20fonctionnelles_44',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
-  ['non_20perdus_20focus_20sondage_20manette_45',['TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette',['../lot-33-tache-01-entrees-nerveuses.html',1,'lot-33']]]
+  ['nom_20logique_42',['TACHE-01 — *TextureCache* : registre de textures indépendantes par nom logique',['../lot-40-tache-01-texture-cache.html',1,'lot-40']]],
+  ['nommage_20renommage_20avertissement_20d_20écrasement_43',['TACHE-03 — Nommage, renommage, avertissement d&apos;écrasement',['../lot-15-tache-03-nommage-renommage.html',1,'lot-15']]],
+  ['non_20codeur_20git_44',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
+  ['non_20fonctionnelles_45',['Exigences non fonctionnelles',['../spec-exigences.html',1,'specifications']]],
+  ['non_20perdus_20focus_20sondage_20manette_46',['TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette',['../lot-33-tache-01-entrees-nerveuses.html',1,'lot-33']]],
+  ['non_20remappable_47',['LOT-41 — Bascule Physique/Texture (`F8`, non remappable)',['../lot-41.html',1,'lots']]]
 ];

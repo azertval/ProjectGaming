@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-28-tache-02-editeur-rendu.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-28-arrondis-concaves_2epic_8md.html">LOT-28</a> · <b>Emplacement :</b> <code>HMI/Editor</code>, <code>HMI/Graphics</code> · <b>Statut :</b> ✅</p>
-<h1><a class="anchor" id="autotoc_md1408"></a>
+<h1><a class="anchor" id="autotoc_md1411"></a>
 Contexte</h1>
 <p>Rend les quatre nouvelles tuiles plaçables dans l'éditeur (nouveau sous-groupe « Concave », frère de « Arrondi » sous la catégorie « Tuile », <code>LOT-27</code>) et affichées avec leur silhouette réelle (courbe concave), cohérente avec la physique posée en TACHE-01 — sur le modèle de l'arrondi convexe (<code>LOT-23</code>/<code>LOT-26</code>).</p>
-<h1><a class="anchor" id="autotoc_md1409"></a>
+<h1><a class="anchor" id="autotoc_md1412"></a>
 Travail à réaliser</h1>
 <ul>
 <li>**<code>HMI/Editor/TilePalette.h</code>** : nouveau <code>Subgroup::Concave</code> (<code>SUBGROUP_COUNT</code> <code>3 → 4</code>).</li>
@@ -110,31 +110,31 @@ Travail à réaliser</h1>
 </blockquote>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1410"></a>
+<h1><a class="anchor" id="autotoc_md1413"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Editor/TilePalette.h</code>/<code>.cpp</code>.</li>
 <li><code><a class="el" href="TileVisuals_8h.html" title="Correspondance type de tuile → région d&#39;atlas, partagée entre le jeu et l&#39;éditeur.">Source/HMI/Graphics/TileVisuals.h</a></code>/<code>.cpp</code>, <code><a class="el" href="TextureAtlas_8cpp.html">TextureAtlas.cpp</a></code>.</li>
 <li>Tests : <code>Source/Test/Unit/HMI/Editor/test_tile_palette.cpp</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1411"></a>
+<h1><a class="anchor" id="autotoc_md1414"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><code>TilePaletteTest</code> : le sous-groupe « Concave » apparaît sous « Tuile » une fois dépliée, à côté de « Pente »/« Arrondi » ; déplié, il expose ses quatre orientations (<code>"Sol D"</code>, <code>"Sol G"</code>, <code>"Plaf D"</code>, <code>"Plaf G"</code>) ; cliquer une feuille sélectionne le bon <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>. Le total de lignes entièrement déplié (<code>expandEverything</code>/<code>FenetreReduiteLimiteLesEntreesVisibles</code>, actuellement 25) passe à <b>30</b> (1 en-tête + 4 feuilles de plus) — mettre à jour la fonction d'aide <code>expandEverything</code> (déplier aussi « Concave ») et l'assertion <code>totalRowCount()</code>.</li>
 <li>Build <code>/W4 /WX</code> sans avertissement (pas de test HMI dédié à la génération d'atlas — cohérent avec l'absence de tests directs pour les variantes existantes, <code>TextureAtlas</code> dépendant de Direct3D).</li>
 <li>Revue de code : confirmer que les quatre cases visées par <code>slopeTileGridPosition</code> pour les nouveaux types n'entrent en collision avec <b>aucune</b> case déjà utilisée par un autre type de tuile (Solid, Block/BlockHalf/BlockQuarter, les huit types de pente/arrondi existants, la case de damier de transparence).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1412"></a>
+<h1><a class="anchor" id="autotoc_md1415"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas agrandir la grille de l'atlas</b> : contrairement à <code>LOT-26</code>, qui avait dû passer <code>TILES_PER_SIDE</code> de <code>4</code> à <code>5</code> (une seule case restant libre), l'agrandissement précédent a laissé sept cases inoccupées — largement de quoi loger ces quatre nouvelles silhouettes sans retoucher <code>tileColor</code> ni risquer de décaler la couleur d'une tuile existante (le risque principal identifié lors de <code>LOT-26-TACHE-02</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1413"></a>
+<h1><a class="anchor" id="autotoc_md1416"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Quatre nouvelles tuiles plaçables depuis un sous-groupe « Concave » dédié de la palette, rendues avec leur silhouette réelle en gris, cohérente avec la physique (TACHE-01) ; aucune couleur de tuile existante décalée ; aucune case d'atlas partagée par erreur entre deux types.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1414"></a>
+<h1><a class="anchor" id="autotoc_md1417"></a>
 Exigences</h1>
 <p><code>EX-GP-007</code> (éditeur et rendu). </p>
 </div></div><!-- contents -->

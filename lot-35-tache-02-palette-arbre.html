@@ -94,10 +94,10 @@ $(document).ready(function(){initNavTree('lot-35-tache-02-palette-arbre.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-35-refonte-ihm-qt-editeur_2epic_8md.html">LOT-35</a> · <b>Emplacement :</b> <code>Source/Editor</code> · <b>Statut :</b> non commencé</p>
-<h1><a class="anchor" id="autotoc_md1665"></a>
+<h1><a class="anchor" id="autotoc_md1668"></a>
 Contexte</h1>
 <p>La palette actuelle (<code>hmi::TilePalette</code>, <code>LOT-27</code>) est un <b>accordéon dessiné à la main</b> (catégories → sous-groupes → tuiles, défilement molette, barre de défilement — toute la géométrie en pixels). Cette tâche la remplace par un **<code>QTreeView</code>** natif alimenté par la <b>même taxonomie</b>, dans le dock « Palette ». La sélection d'une feuille (un <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>) devient le <b>type de tuile actif</b> de l'éditeur.</p>
-<h1><a class="anchor" id="autotoc_md1666"></a>
+<h1><a class="anchor" id="autotoc_md1669"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Modèle de palette réutilisable</b> : extraire la taxonomie (catégories <code>Tuile/Interactif/Piège/ Jalon</code>, sous-groupes <code>Pente/Arrondi/Concave/Bloc/Directionnel</code>, feuilles = <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code>) dans une <b>structure de données pure</b> partagée (indépendante de Qt et du dessin) — factorisée depuis la logique de <code>TilePalette</code> qui décrit déjà <code>entries()</code>. Cette structure sert de source au <code>QAbstractItemModel</code>.</li>
@@ -105,31 +105,31 @@ Travail à réaliser</h1>
 <li><b>Sélection → type actif</b> : <code>selectionModel()-&gt;currentChanged</code> sur une feuille met à jour le <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code> courant de l'éditeur (l'équivalent de <code>TilePalette::selected()</code>), consommé par l'outil de peinture (TACHE-03). Sélection clavier (flèches) et souris.</li>
 <li><b>Recherche/filtre</b> optionnelle (champ au-dessus de l'arbre) si peu coûteuse.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1667"></a>
+<h1><a class="anchor" id="autotoc_md1670"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/Editor/PalettePanel.{h,cpp}</code> (dock, vue, modèle Qt).</li>
 <li><code>Source/Editor/TileTaxonomy.{h,cpp}</code> (ou réutilisation d'un modèle pur extrait de <code>HMI/Editor/TilePalette</code>) — structure de catégories testable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1668"></a>
+<h1><a class="anchor" id="autotoc_md1671"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Taxonomie pure testée</b> : chaque <code><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></code> « peignable » apparaît exactement une fois, sous la bonne catégorie/sous-groupe ; ordre déterministe. Réutiliser/adapter <code>test_tile_palette.cpp</code> (<code>Source/Test/Unit/HMI/Editor/</code>) vers la structure extraite.</li>
 <li><b>Vérification manuelle</b> : l'arbre affiche toutes les tuiles ; sélectionner change le type actif (visible au survol/peinture).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1669"></a>
+<h1><a class="anchor" id="autotoc_md1672"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas dupliquer la liste des types</b> : une seule source de vérité pour « quelles tuiles, dans quelle catégorie » — partagée entre le modèle Qt et (tant qu'il existe) l'accordéon legacy.</li>
 <li><b>Parité de contenu</b> avec la palette <code>LOT-27</code> : mêmes tuiles, mêmes regroupements (non-régression fonctionnelle, seule la présentation change).</li>
 <li><b>Localisation</b> des libellés de catégories/tuiles via les catalogues <code>.lang</code>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1670"></a>
+<h1><a class="anchor" id="autotoc_md1673"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Palette en <code>QTreeView</code> couvrant toute la taxonomie ; sélection pilotant le type actif ; taxonomie couverte par tests ; <code>/W4 /WX</code> propre ; vérification manuelle OK.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md1671"></a>
+<h1><a class="anchor" id="autotoc_md1674"></a>
 Exigences</h1>
 <p><code>EX-EDIT-018</code> (palette par catégories, présentation Qt), <code>EX-IHM-010</code> ; réutilise <code>EX-NFR-010</code> (taxonomie testable sans GPU). </p>
 </div></div><!-- contents -->

@@ -38,5 +38,14 @@ var dir_7c7356e692772728ab91d19f773c60c4 =
     [ "LOT-36-refonte-ihm-qt-niveaux", "dir_1874ce8785b41563df9990dcf37177cb.html", null ],
     [ "LOT-37-refonte-ihm-qt-liens", "dir_7653186f4ce7e581aa7a3668f67a8924.html", null ],
     [ "LOT-38-refonte-ihm-qt-menus-options", "dir_e1c624f3f48f0b9f89592e96efa20a39.html", null ],
-    [ "LOT-39-refonte-ihm-qt-textures", "dir_52b20f533fec904e2aa55ada7676a733.html", null ]
+    [ "LOT-39-refonte-ihm-qt-textures", "dir_52b20f533fec904e2aa55ada7676a733.html", null ],
+    [ "LOT-40-textures-rendu-multicouche", "dir_6da43845d80ee14436f0dc26d85c69e2.html", null ],
+    [ "LOT-41-bascule-physique-texture", "dir_b9b361330680640a7aad65570a1066ce.html", null ],
+    [ "LOT-42-skin-global-tuiles", "dir_935e100245ceb6e737d3deadeca4e0ac.html", null ],
+    [ "LOT-43-fond-de-niveau", "dir_f173017ef13dab1f6442416ec75174dd.html", null ],
+    [ "LOT-44-textures-objets-interactifs", "dir_a600b173bf6a54f8f46b9172b2ee6364.html", null ],
+    [ "LOT-45-apercu-calques-textures", "dir_d9950fa9eb655eb54224140d14a6db54.html", null ],
+    [ "LOT-46-ombres-plan-physique", "dir_5b334067d931e28d35902b934d745a6b.html", null ],
+    [ "LOT-47-bibliotheque-assets-textures", "dir_1463bd027e8ffd796c6796d760dc099a.html", null ],
+    [ "LOT-48-editeur-pixel-art", "dir_afbeb73c144cbc71cfb022f98c87cc15.html", null ]
 ];

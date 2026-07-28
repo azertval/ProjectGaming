@@ -3,6 +3,7 @@ var hierarchy =
     [ "core::Aabb", "structcore_1_1Aabb.html", null ],
     [ "core::Animation", "structcore_1_1Animation.html", null ],
     [ "hmi::ArrowHead", "structhmi_1_1ArrowHead.html", null ],
+    [ "hmi::AssetPaths", "classhmi_1_1AssetPaths.html", null ],
     [ "hmi::AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],
@@ -15,6 +16,7 @@ var hierarchy =
     [ "core::DangerController", "classcore_1_1DangerController.html", null ],
     [ "core::DangerLink", "structcore_1_1DangerLink.html", null ],
     [ "core::DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", null ],
+    [ "hmi::DecodedImage", "structhmi_1_1DecodedImage.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
     [ "hmi::EditorKeyBindings", "classhmi_1_1EditorKeyBindings.html", null ],
     [ "core::Engine", "classcore_1_1Engine.html", null ],
@@ -54,6 +56,7 @@ var hierarchy =
     [ "hmi::LinkOverlayState", "structhmi_1_1LinkOverlayState.html", null ],
     [ "hmi::LinkRow", "structhmi_1_1LinkRow.html", null ],
     [ "hmi::LinkSegment", "structhmi_1_1LinkSegment.html", null ],
+    [ "hmi::LoadedTexture", "structhmi_1_1LoadedTexture.html", null ],
     [ "hmi::Localization", "classhmi_1_1Localization.html", null ],
     [ "core::Logger", "classcore_1_1Logger.html", null ],
     [ "core::Mechanism", "structcore_1_1Mechanism.html", null ],
@@ -63,6 +66,7 @@ var hierarchy =
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "core::PlayerInput", "structcore_1_1PlayerInput.html", null ],
     [ "hmi::PreviousPosition", "structhmi_1_1PreviousPosition.html", null ],
+    [ "hmi::ProceduralAtlasImage", "structhmi_1_1ProceduralAtlasImage.html", null ],
     [ "QMainWindow", null, [
       [ "hmi::MainWindow", "classhmi_1_1MainWindow.html", null ]
     ] ],

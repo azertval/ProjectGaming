@@ -14,6 +14,7 @@ var searchData=
   ['linkpanel_11',['LinkPanel',['../classhmi_1_1LinkPanel.html',1,'hmi']]],
   ['linkrow_12',['LinkRow',['../structhmi_1_1LinkRow.html',1,'hmi']]],
   ['linksegment_13',['LinkSegment',['../structhmi_1_1LinkSegment.html',1,'hmi']]],
-  ['localization_14',['Localization',['../classhmi_1_1Localization.html',1,'hmi']]],
-  ['logger_15',['Logger',['../classcore_1_1Logger.html',1,'core']]]
+  ['loadedtexture_14',['LoadedTexture',['../structhmi_1_1LoadedTexture.html',1,'hmi']]],
+  ['localization_15',['Localization',['../classhmi_1_1Localization.html',1,'hmi']]],
+  ['logger_16',['Logger',['../classcore_1_1Logger.html',1,'core']]]
 ];

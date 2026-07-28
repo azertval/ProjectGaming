@@ -8,5 +8,7 @@ var searchData=
   ['animationsystem_2eh_5',['AnimationSystem.h',['../AnimationSystem_8h.html',1,'']]],
   ['architecture_2emd_6',['architecture.md',['../architecture_8md.html',1,'']]],
   ['assert_2ecpp_7',['Assert.cpp',['../Assert_8cpp.html',1,'']]],
-  ['assert_2eh_8',['Assert.h',['../Assert_8h.html',1,'']]]
+  ['assert_2eh_8',['Assert.h',['../Assert_8h.html',1,'']]],
+  ['assetpaths_2ecpp_9',['AssetPaths.cpp',['../AssetPaths_8cpp.html',1,'']]],
+  ['assetpaths_2eh_10',['AssetPaths.h',['../AssetPaths_8h.html',1,'']]]
 ];

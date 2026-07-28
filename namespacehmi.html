@@ -104,11 +104,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1ArrowHead.html">ArrowHead</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux ailes de la pointe d'une flèche, à son extrémité.  <a href="structhmi_1_1ArrowHead.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1AssetPaths.html">AssetPaths</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout des noms d'assets logiques vers des chemins de fichiers, dans un dossier donné.  <a href="classhmi_1_1AssetPaths.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (colonne, ligne) d'une tuile dans la grille procédurale de <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">TextureAtlas</a></code>.  <a href="structhmi_1_1AtlasGridPosition.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (colonne, ligne) d'une tuile dans la grille procédurale de <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></code>.  <a href="structhmi_1_1AtlasGridPosition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le blend state de <code><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></code>, <code>D3D11_BLEND_SRC_ALPHA</code>), au format <code>R8G8B8A8_UNORM</code>.  <a href="structhmi_1_1DecodedImage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la grille d'un <code><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></code> en cours d'édition.  <a href="classhmi_1_1DraftRenderer.html#details">More...</a><br /></td></tr>
@@ -170,6 +176,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1LinkSegment.html">LinkSegment</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Segment reliant le centre d'un déclencheur au centre de sa cible, en unités monde.  <a href="structhmi_1_1LinkSegment.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture Direct3D 11 chargée et sa vue de ressource (RAII, <code>ComPtr</code>).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1Localization.html">Localization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  <a href="classhmi_1_1Localization.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +200,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1PreviousPosition.html">PreviousPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une entité au <b>pas de simulation précédent</b>, pour l'interpolation de rendu (<code>EX-ARCH-031</code>).  <a href="structhmi_1_1PreviousPosition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels d'un atlas généré en mémoire, au format <code>R8G8B8A8_UNORM</code> (ordre mémoire R,G,B,A).  <a href="structhmi_1_1ProceduralAtlasImage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1RoomBounds.html">RoomBounds</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle (en cases) d'une salle, borné aux dimensions réelles du niveau.  <a href="structhmi_1_1RoomBounds.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,7 +219,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par couche.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas et table de régions, avec un contenu <b>généré en code</b>.  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas et table de régions, chargée depuis un <b>fichier image</b> avec repli <b>procédural</b> (<code>EX-REN-041</code>/<code>EX-REN-042</code>).  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
@@ -370,6 +382,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
 <tr class="separator:a324d7671eeb331de4b3459d66be9d0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7faa7f521b06a1d55c7ff9357d2ebfc" id="r_ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#ad7faa7f521b06a1d55c7ff9357d2ebfc">flatPlayerFrameIndex</a> (<a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a> clip, int frameIndex)</td></tr>
+<tr class="memdesc:ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index à plat (0-based) d'une image dans la grille sous les tuiles : <code>Idle</code> (0..IDLE_FRAME_COUNT-1), puis <code>Run</code>, puis <code>Jump</code>.  <br /></td></tr>
+<tr class="separator:ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fa1fc503abd25e16f2e3d52f6c8d540" id="r_a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540">buildProceduralAtlasImage</a> ()</td></tr>
+<tr class="memdesc:a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>.  <br /></td></tr>
+<tr class="separator:a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image (PNG au minimum) en pixels RGBA.  <br /></td></tr>
+<tr class="separator:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98f0f2d822288b333e00905f4cc60165" id="r_a98f0f2d822288b333e00905f4cc60165"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a98f0f2d822288b333e00905f4cc60165">createTexture</a> (ID3D11Device *device, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
+<tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
+<tr class="separator:a98f0f2d822288b333e00905f4cc60165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#af6ffcc39449660c80e3c1c5a53e6c1ec">loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
+<tr class="separator:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
 <tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="separator:a2c8e7957dacab70252bf7edbdc80422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -770,6 +797,26 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a0fa1fc503abd25e16f2e3d52f6c8d540" name="a0fa1fc503abd25e16f2e3d52f6c8d540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fa1fc503abd25e16f2e3d52f6c8d540">&#9670;&#160;</a></span>buildProceduralAtlasImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a> hmi::buildProceduralAtlasImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>. </p>
+<p>Logique pure (<code>EX-NFR-010</code>), sans dépendance Direct3D/Qt : utilisée à la fois par <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></code> (repli si l'asset fichier est absent/illisible, <code>EX-NFR-040</code>) et par l'export ponctuel de l'atlas de base en fichier (<code>--export-atlas</code>, cf. <code><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></code>), pour que les deux chemins restent l'unique source de vérité de ce contenu. </p><dl class="section return"><dt>Returns</dt><dd>L'image générée (dimensions et pixels). </dd></dl>
+
+</div>
+</div>
 <a id="a3b48baec87107f7a4aec638550bdb941" name="a3b48baec87107f7a4aec638550bdb941"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b48baec87107f7a4aec638550bdb941">&#9670;&#160;</a></span>capturedGamepadButton()</h2>
 
@@ -824,6 +871,85 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a98f0f2d822288b333e00905f4cc60165" name="a98f0f2d822288b333e00905f4cc60165"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98f0f2d822288b333e00905f4cc60165">&#9670;&#160;</a></span>createTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt; hmi::createTexture </td>
+          <td>(</td>
+          <td class="paramtype">ID3D11Device *&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::uint32_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pixels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Device Direct3D 11 (crée la texture et sa vue de ressource). </td></tr>
+    <tr><td class="paramname">width</td><td>Largeur en pixels (doit être strictement positive). </td></tr>
+    <tr><td class="paramname">height</td><td>Hauteur en pixels (doit être strictement positive). </td></tr>
+    <tr><td class="paramname">pixels</td><td>Pixels <code>R8G8B8A8_UNORM</code>, taille attendue <code>width * height</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture chargée, ou <code>std::nullopt</code> en cas d'échec de création côté GPU. </dd></dl>
+
+</div>
+</div>
+<a id="a22c3bcff9f77b4c4df7938a08c036dfd" name="a22c3bcff9f77b4c4df7938a08c036dfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c3bcff9f77b4c4df7938a08c036dfd">&#9670;&#160;</a></span>decodeImageFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt; hmi::decodeImageFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Décode un fichier image (PNG au minimum) en pixels RGBA. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Chemin du fichier image. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image décodée, ou <code>std::nullopt</code> si le fichier est absent/illisible/format non supporté (erreur récupérable, <code>EX-NFR-040</code> — jamais d'exception ici). </dd></dl>
+
+</div>
+</div>
 <a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
 
@@ -841,6 +967,44 @@ Variables</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="ad7faa7f521b06a1d55c7ff9357d2ebfc" name="ad7faa7f521b06a1d55c7ff9357d2ebfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7faa7f521b06a1d55c7ff9357d2ebfc">&#9670;&#160;</a></span>flatPlayerFrameIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::flatPlayerFrameIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a>&#160;</td>
+          <td class="paramname"><em>clip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>frameIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Index à plat (0-based) d'une image dans la grille sous les tuiles : <code>Idle</code> (0..IDLE_FRAME_COUNT-1), puis <code>Run</code>, puis <code>Jump</code>. </p>
+<p><b>Seule source de vérité</b> de cet ordre, partagée par <code>buildProceduralAtlasImage</code> (placement des images) et par <code><a class="el" href="classhmi_1_1TextureAtlas.html#ac9398f98fbecda8e8e323b9a7647f5cc" title="Région (en pixels) d&#39;une image d&#39;animation du personnage, sous la grille de tuiles.">TextureAtlas::playerFrameRegion</a></code> (résolution de la même région) — les dupliquer aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clip</td><td>Clip d'animation (<code>EX-REN-012</code>). </td></tr>
+    <tr><td class="paramname">frameIndex</td><td>Index de l'image dans le clip (0-based). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'index à plat de cette image dans la grille. </dd></dl>
 
 </div>
 </div>
@@ -1036,6 +1200,44 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le segment (centres de case), décalé si <code>fanCount &gt; 1</code>. </dd></dl>
+
+</div>
+</div>
+<a id="af6ffcc39449660c80e3c1c5a53e6c1ec" name="af6ffcc39449660c80e3c1c5a53e6c1ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ffcc39449660c80e3c1c5a53e6c1ec">&#9670;&#160;</a></span>loadTextureFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt; hmi::loadTextureFromFile </td>
+          <td>(</td>
+          <td class="paramtype">ID3D11Device *&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Décode un fichier image puis crée la texture Direct3D 11 correspondante. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Device Direct3D 11. </td></tr>
+    <tr><td class="paramname">path</td><td>Chemin du fichier image. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture chargée, ou <code>std::nullopt</code> si le décodage ou la création GPU échoue. </dd></dl>
 
 </div>
 </div>
@@ -1240,7 +1442,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette inclinée/courbe : pentes/arrondis convexes ou concaves de <b>sol</b>, suivables (<code><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></code>, <code>EX-GP-003</code>/<code>EX-GP-004</code>/<code>EX-GP-007</code>) ou de <b>plafond</b>, solides (<code>EX-GP-006</code>/<code>EX-GP-007</code>). </p>
-<p>Seule source de vérité pour cette association : utilisée par <code>regionForTile</code> (couleur) <b>et</b> par <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, avec un contenu généré en code.">TextureAtlas</a></code> (génération d'un masque de forme triangulaire/courbe à cet emplacement, plutôt qu'un carré plein, pour que l'affichage corresponde à la silhouette réelle — hitbox pour les variantes de sol via <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, silhouette purement visuelle pour les variantes de plafond, solides par ailleurs) — dupliquer ces coordonnées aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Seule source de vérité pour cette association : utilisée par <code>regionForTile</code> (couleur) <b>et</b> par <code><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></code> (génération d'un masque de forme triangulaire/courbe à cet emplacement, plutôt qu'un carré plein, pour que l'affichage corresponde à la silhouette réelle — hitbox pour les variantes de sol via <code><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></code>, silhouette purement visuelle pour les variantes de plafond, solides par ailleurs) — dupliquer ces coordonnées aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
   </table>

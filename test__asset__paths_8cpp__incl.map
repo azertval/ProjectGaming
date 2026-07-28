@@ -1,0 +1,15 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp">
+<area shape="rect" id="Node000001" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT&#45;39, EX&#45;NFR&#45;010/EX&#45;NFR&#45;040)." alt="" coords="45,5,266,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,123,79,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,77,69,116,65,111,113,73"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="103,123,207,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,75,158,109,153,109,153,75"/>
+<area shape="rect" id="Node000004" href="$AssetPaths_8h.html" title="Résolution de chemins d&#39;assets graphiques dans un dossier donné." alt="" coords="232,123,428,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,72,297,114,295,118,217,77"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="178,196,269,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="314,150,254,191,251,186,311,146"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="293,196,367,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="333,148,333,182,327,182,327,148"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="391,196,450,221"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="346,146,397,185,393,189,343,150"/>
+</map>

@@ -6,7 +6,8 @@ var searchData=
   ['ui_20de_20remappage_20manette_20et_20câblage_3',['TACHE-03 — UI de remappage manette et câblage',['../lot-30-tache-03-ui-remappage-manette.html',1,'lot-30']]],
   ['un_20niveau_20sans_20ligne_20de_20commande_4',['Créer et partager un niveau (sans ligne de commande)',['../manuel-partager-niveau.html',1,'manuel']]],
   ['undo_20redo_20copier_20coller_5',['TACHE-03 — Barre d&apos;outils + peinture viewport → `LevelDraft` (undo/redo, copier/coller)',['../lot-35-tache-03-outils-peinture-viewport.html',1,'lot-35']]],
-  ['utilisateur_6',['Manuel utilisateur',['../manuel.html',1,'index']]],
-  ['utilisateur_20ihm_7',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
-  ['utilisateur_20squelette_20première_20page_8',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]
+  ['unifiée_6',['LOT-47 — Bibliothèque d&apos;assets unifiée',['../lot-47.html',1,'lots']]],
+  ['utilisateur_7',['Manuel utilisateur',['../manuel.html',1,'index']]],
+  ['utilisateur_20ihm_8',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
+  ['utilisateur_20squelette_20première_20page_9',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]
 ];

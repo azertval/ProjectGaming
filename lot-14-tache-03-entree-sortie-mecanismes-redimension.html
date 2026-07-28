@@ -94,41 +94,41 @@ $(document).ready(function(){initNavTree('lot-14-tache-03-entree-sortie-mecanism
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><b>Lot :</b> <a class="el" href="LOT-14-editeur-niveaux_2epic_8md.html">LOT-14</a> · <b>Emplacement :</b> <code>HMI/Editor</code> · <b>Statut :</b> à faire</p>
-<h1><a class="anchor" id="autotoc_md900"></a>
+<h1><a class="anchor" id="autotoc_md903"></a>
 Contexte</h1>
 <p>Au-delà de la peinture simple de tuiles (TACHE-02), trois interactions ont une <b>sémantique propre</b> : l'entrée et la sortie sont <b>uniques</b> par niveau, un interrupteur doit être <b>relié</b> à une porte pour avoir un sens, et la grille peut devoir changer de <b>taille</b> en cours de conception.</p>
-<h1><a class="anchor" id="autotoc_md901"></a>
+<h1><a class="anchor" id="autotoc_md904"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Entrée/sortie</b> : poser <code>Entry</code>/<code>Exit</code> depuis la palette appelle <code>LevelDraft::setEntry</code>/<code>setExit</code> (TACHE-01), qui <b>déplace</b> l'occurrence existante plutôt que d'en créer une seconde — retour visuel immédiat (l'ancienne case redevient <code>Empty</code>).</li>
 <li><b>Liaison interrupteur↔porte</b> : un mode « liaison » de la palette — cliquer un <code>Switch</code> puis une <code>Door</code> (ou l'inverse) les <b>lie</b> (<code>LevelDraft::linkMechanism</code>) ; une <b>ligne indicative</b> est dessinée entre les deux tant qu'elles restent visibles à l'écran (retour visuel simple, pas d'animation). Cliquer une liaison existante (ou un raccourci dédié) la <b>retire</b> (<code>unlinkMechanism</code>). Poser une <code>Door</code>/<code>Switch</code> sans liaison est autorisé (état intermédiaire pendant l'édition), mais bloqué par la validation à l'enregistrement (TACHE-05, <code>EX-LVL-004</code>).</li>
 <li><b>Redimensionnement</b> : un contrôle d'interface (ex. champs largeur/hauteur + bouton « appliquer » dans la palette) appelle <code>LevelDraft::resize</code> ; agrandir ajoute des cases <code>Empty</code>, réduire tronque (avec confirmation si des tuiles significatives — entrée, sortie, mécanismes — seraient perdues).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md902"></a>
+<h1><a class="anchor" id="autotoc_md905"></a>
 Fichiers impactés</h1>
 <ul>
 <li><code>Source/HMI/Interface/EditorScreen.h</code>/<code>.cpp</code>, <code>Source/HMI/Editor/</code> (extension de la palette/du contrôleur d'interaction de TACHE-02).</li>
 <li>Tests unitaires et d'intégration (<code>Source/Test/Unit/HMI/Editor/</code>, <code>Source/Test/Integration/</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md903"></a>
+<h1><a class="anchor" id="autotoc_md906"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Poser une deuxième <code>Entry</code> déplace la première (une seule au final) ; idem <code>Exit</code>.</li>
 <li>Séquence clic <code>Switch</code> puis clic <code>Door</code> produit une liaison dans le <code>LevelDraft</code> ; répéter sur une liaison existante la retire.</li>
 <li>Redimensionner plus petit tronque les cases hors bornes ; redimensionner plus grand préserve le contenu existant et complète en <code>Empty</code> ; une réduction qui <b>perdrait</b> l'entrée/la sortie/une liaison est signalée avant application (test du chemin de confirmation/refus).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md904"></a>
+<h1><a class="anchor" id="autotoc_md907"></a>
 Points d'attention</h1>
 <ul>
 <li>Toute la sémantique (unicité, liaison, redimensionnement) est déjà portée par <code>LevelDraft</code> (TACHE-01) : cette tâche <b>orchestre</b> l'interaction souris/clavier vers cette API, sans réimplémenter de règles côté <code>HMI</code>.</li>
 <li>Rester cohérent avec la représentation déjà utilisée pour l'état des portes en jeu (LOT-12, teinte ouverte/fermée) pour ne pas introduire un second vocabulaire visuel.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md905"></a>
+<h1><a class="anchor" id="autotoc_md908"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Entrée/sortie, liaison et redimensionnement opérationnels et testés (<code>ctest</code> vert), vérifiés visuellement ; build <code>/W4 /WX</code> ; Doxygen à jour.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md906"></a>
+<h1><a class="anchor" id="autotoc_md909"></a>
 Exigences</h1>
 <p><code>EX-EDIT-003</code>, <code>EX-EDIT-004</code>, <code>EX-EDIT-005</code>, <code>EX-LVL-004</code>. </p>
 </div></div><!-- contents -->

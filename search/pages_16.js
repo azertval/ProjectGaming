@@ -16,7 +16,8 @@ var searchData=
   ['qt_20v_20sync_20langue_20remappage_20jeu_20éditeur_20manette_13',['TACHE-02 — Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette',['../lot-38-tache-02-options-remappage-qt.html',1,'lot-38']]],
   ['qt_20viewport_20qwindow_20embarqué_20→_20graphicsdevice_14',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]],
   ['qtreeview_20taxonomie_20lot_2027_20reliée_20à_20la_20sélection_15',['TACHE-02 — Palette de tuiles `QTreeView` (taxonomie `LOT-27`) reliée à la sélection',['../lot-35-tache-02-palette-arbre.html',1,'lot-35']]],
-  ['quads_20texturés_20hlsl_20blend_20nearest_16',['TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)',['../lot-05-tache-02-pipeline-quads-textures.html',1,'lot-05']]],
-  ['quitter_20sans_20enregistrer_17',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
-  ['qwindow_20embarqué_20→_20graphicsdevice_18',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]]
+  ['quads_20par_20calque_20texture_16',['TACHE-02 — *RenderLayer* + regroupement des quads par (calque, texture)',['../lot-40-tache-02-rendu-multicouche.html',1,'lot-40']]],
+  ['quads_20texturés_20hlsl_20blend_20nearest_17',['TACHE-02 — Pipeline de quads texturés (HLSL, blend, nearest)',['../lot-05-tache-02-pipeline-quads-textures.html',1,'lot-05']]],
+  ['quitter_20sans_20enregistrer_18',['TACHE-02 — Garde-fous : redimensionnement destructeur, quitter sans enregistrer',['../lot-15-tache-02-garde-fous-perte-donnees.html',1,'lot-15']]],
+  ['qwindow_20embarqué_20→_20graphicsdevice_19',['TACHE-02 — Fenêtre Qt + viewport `QWindow` embarqué → `GraphicsDevice`',['../lot-34-tache-02-viewport-d3d11-embarque.html',1,'lot-34']]]
 ];

@@ -1,0 +1,13 @@
+<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/ProceduralAtlas.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/ProceduralAtlas.h">
+<area shape="rect" id="Node000001" title="Génération procédurale (CPU, sans GPU) des pixels de l&#39;atlas de repli." alt="" coords="549,5,780,60"/>
+<area shape="rect" id="Node000002" href="$ProceduralAtlas_8cpp.html" title=" " alt="" coords="5,115,252,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,58,264,111,232,118,230,113,263,105,535,53"/>
+<area shape="rect" id="Node000003" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="276,115,501,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="586,67,457,118,455,113,584,62"/>
+<area shape="rect" id="Node000004" href="$TextureAtlasRegions_8cpp.html" title="Mapping (colonne, ligne) &#45;&gt; région d&#39;atlas de hmi::TextureAtlas (tile, playerFrameRegion)." alt="" coords="526,115,803,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="667,74,667,115,662,115,662,74"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming)." alt="" coords="827,115,1049,170"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="745,63,873,113,871,118,743,68"/>
+<area shape="rect" id="Node000006" href="$test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT&#45;39, EX&#45;NFR&#45;040)." alt="" coords="1073,108,1294,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="794,53,924,77,1061,105,1073,108,1072,113,1060,111,923,82,793,58"/>
+</map>

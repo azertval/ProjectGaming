@@ -93,9 +93,9 @@ $(document).ready(function(){initNavTree('cahiertest.html',''); initResizable();
   <div class="headertitle"><div class="title">Cahier de test</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>432 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
+<div class="textblock"><p><b>441 cas de test</b>, générés depuis les blocs <code>&lt;b&gt;Cas de test :&lt;/b&gt; ...</code> du code par <code>scripts/generate_cahier_test.py</code> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <code>Source/Test/</code> pour rester lisibles page par page.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (350)</h1>
+Tests unitaires (359)</h1>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p>**<code><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></code>**</p>
@@ -1968,7 +1968,29 @@ Vérifie que <code><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc76079
 Vérifie que <code><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</code> vaut <code>""</code>.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md16"></a>
-Graphics (14)</h3>
+Graphics (23)</h3>
+<p>**<code><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">test_asset_paths.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetPathsTest.FichierExistantResolu</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp</a>:42</code></sub>   </td><td class="markdownTableBodyNone">Un fichier existant dans le dossier d'assets est résolu vers son chemin complet.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>resolved.has_value()</code> est vrai.<br  />
+Vérifie que <code>*resolved</code> vaut <code>filePath</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AssetPathsTest.AssetAbsentSignaleSansException</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp</a>:65</code></sub>   </td><td class="markdownTableBodyNone">Un asset absent est signalé par std::nullopt, sans exception.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>assetPaths.resolve("introuvable.png")</code> vaut <code>std::nullopt</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetPathsTest.DossierInexistantSansException</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp</a>:83</code></sub>   </td><td class="markdownTableBodyNone">Un dossier d'assets inexistant est traité comme rien à résoudre.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>assetPaths.resolve("atlas.png")</code> vaut <code>std::nullopt</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AssetPathsTest.DossierNestPasUnAssetValide</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_asset_paths.cpp</a>:100</code></sub>   </td><td class="markdownTableBodyNone">Un chemin désignant un dossier n'est pas résolu comme un asset.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>assetPaths.resolve("sous-dossier")</code> vaut <code>std::nullopt</code>.   </td></tr>
+</table>
 <p>**<code><a class="el" href="test__camera2d_8cpp.html" title="Tests unitaires de la caméra 2D (conversions monde ↔ écran, projection).">test_camera2d.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2021,6 +2043,28 @@ Vérifie que <code>100.0f * <a class="el" href="classhmi_1_1Camera2D.html#a3d1d5
 2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>zoomSansMarge</code> vaut <code>5.0f</code> (comparaison flottante).<br  />
 Vérifie que <code>zoomAvecMarge</code> vaut <code>4.0f</code> (comparaison flottante).   </td></tr>
 </table>
+<p>**<code><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">test_procedural_atlas.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProceduralAtlasTest.DimensionsAttendues</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp</a>:14</code></sub>   </td><td class="markdownTableBodyNone">L'image générée a les dimensions attendues (grille de tuiles + lignes de personnage).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>image.width</code> vaut <code>gridSide</code>.<br  />
+Vérifie que <code>image.height</code> vaut <code>gridSide + frameRows * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>image.pixels.size()</code> vaut <code>static_cast&lt;std::size_t&gt;(image.width) * static_cast&lt;std::size_t&gt;(image.height)</code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ProceduralAtlasTest.GenerationDeterministe</b> (Majeur)<br  />
+<sub><code><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp</a>:39</code></sub>   </td><td class="markdownTableBodyNone">La génération est déterministe : deux appels produisent des pixels identiques.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>first.width</code> vaut <code>second.width</code>.<br  />
+Vérifie que <code>first.height</code> vaut <code>second.height</code>.<br  />
+Vérifie que <code>first.pixels</code> vaut <code>second.pixels</code>.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ProceduralAtlasTest.DamierDeTransparenceDansLaDerniereTuile</b> (Mineur)<br  />
+<sub><code><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp</a>:60</code></sub>   </td><td class="markdownTableBodyNone">La dernière tuile de la grille contient des pixels opaques et transparents (damier).   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>sawOpaque</code> est vrai.<br  />
+Vérifie que <code>sawTransparent</code> est vrai.   </td></tr>
+</table>
 <p>**<code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">test_room_grid.cpp</a></code>**</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2064,6 +2108,33 @@ Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPositi
 <sub><code><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">Source/Test/Unit/HMI/Graphics/test_room_grid.cpp</a>:117</code></sub>   </td><td class="markdownTableBodyNone">Une position hors des bornes du niveau est bornée à la salle la plus proche.   </td><td class="markdownTableBodyNone">1. Construire un <code>RoomGrid</code> pour un petit niveau.<br  />
 2. Interroger <code>roomIndexAt</code> avec des coordonnées négatives puis très supérieures aux bornes.   </td><td class="markdownTableBodyNone">Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.<br  />
 Vérifie que <code>grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</code> vaut <code>(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</code>.   </td></tr>
+</table>
+<p>**<code><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">test_texture_atlas.cpp</a></code>**</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)   </th><th class="markdownTableHeadNone">Brief   </th><th class="markdownTableHeadNone">Étapes   </th><th class="markdownTableHeadNone">Résultat attendu    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TextureAtlasTest.TileRenvoieLeRectangleAttendu</b> (Critique)<br  />
+<sub><code><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp</a>:16</code></sub>   </td><td class="markdownTableBodyNone">tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>origin.x</code> vaut <code>0</code>.<br  />
+Vérifie que <code>origin.y</code> vaut <code>0</code>.<br  />
+Vérifie que <code>origin.width</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.<br  />
+Vérifie que <code>origin.height</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.<br  />
+Vérifie que <code>secondRow.x</code> vaut <code>2 * <a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.<br  />
+Vérifie que <code>secondRow.y</code> vaut <code>1 * <a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.<br  />
+Vérifie que <code>secondRow.width</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.<br  />
+Vérifie que <code>secondRow.height</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d" title="Côté d&#39;une tuile, en pixels (EX-ARCH-021).">hmi::TextureAtlas::TILE_SIZE</a></code>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TextureAtlasTest.PlayerFrameRegionSousLaGrilleDeTuiles</b> (Critique)<br  />
+<sub><code><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp</a>:42</code></sub>   </td><td class="markdownTableBodyNone">playerFrameRegion place les images du personnage sous la grille de tuiles, dans l'ordre Idle, Run, Jump.   </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.   </td><td class="markdownTableBodyNone">Vérifie que <code>idleFirst.x</code> vaut <code>0</code>.<br  />
+Vérifie que <code>idleFirst.y</code> vaut <code>gridSide</code>.<br  />
+Vérifie que <code>idleFirst.width</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>idleFirst.height</code> vaut <code><a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>runFirst.x</code> vaut <code>(runFlatIndex % <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>runFirst.y</code> vaut <code>gridSide + (runFlatIndex / <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>jump.x</code> vaut <code>(jumpFlatIndex % <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.<br  />
+Vérifie que <code>jump.y</code> vaut <code>gridSide + (jumpFlatIndex / <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></code>.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md17"></a>
 Input (63)</h3>

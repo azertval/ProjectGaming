@@ -11,7 +11,7 @@ var searchData=
   ['pathforname_8',['pathForName',['../classhmi_1_1LevelFileOperations.html#ac2182b7cb9a24433e256c3ae04b1aa83',1,'hmi::LevelFileOperations']]],
   ['pixelheight_9',['pixelHeight',['../classhmi_1_1GameViewport.html#a5c663161ccf294f6323e536e9a9207be',1,'hmi::GameViewport']]],
   ['pixelwidth_10',['pixelWidth',['../classhmi_1_1GameViewport.html#a8f56be33a1482cf0e02bcf588fdc862f',1,'hmi::GameViewport']]],
-  ['playerframeregion_11',['playerFrameRegion',['../classhmi_1_1TextureAtlas.html#a0721b08ef5299ad94c093689f3c61197',1,'hmi::TextureAtlas']]],
+  ['playerframeregion_11',['playerFrameRegion',['../classhmi_1_1TextureAtlas.html#ac9398f98fbecda8e8e323b9a7647f5cc',1,'hmi::TextureAtlas']]],
   ['playersize_12',['playerSize',['../namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb',1,'core']]],
   ['playerspawnposition_13',['playerSpawnPosition',['../namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0',1,'core']]],
   ['playrequested_14',['playRequested',['../classhmi_1_1MainMenu.html#af0a7319dc1a4c748552108cf70d74fa1',1,'hmi::MainMenu']]],

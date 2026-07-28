@@ -15,7 +15,7 @@ var searchData=
   ['clearsinks_12',['clearSinks',['../classcore_1_1Logger.html#a14d080b7aea34be62b6bd98897378e97',1,'core::Logger']]],
   ['closeevent_13',['closeEvent',['../classhmi_1_1MainWindow.html#a6dab05769a6e7f213d8e55d9a6b2d446',1,'hmi::MainWindow']]],
   ['collectactivedangerboxes_14',['collectActiveDangerBoxes',['../classhmi_1_1GameSession.html#ac10c3bdbe4a4715de7320c888fb34ffc',1,'hmi::GameSession']]],
-  ['collisionmap_15',['collisionmap',['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController::collisionMap()'],['../classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08',1,'core::BlockController::collisionMap()']]],
+  ['collisionmap_15',['collisionmap',['../classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08',1,'core::BlockController::collisionMap()'],['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController::collisionMap()']]],
   ['columns_16',['columns',['../classhmi_1_1RoomGrid.html#a5cbc1f2305e79413dc5d16776fc66105',1,'hmi::RoomGrid']]],
   ['componentof_17',['componentOf',['../classcore_1_1View.html#a097f64b75500842306575f65d5ff7ad2',1,'core::View']]],
   ['components_18',['components',['../classcore_1_1ComponentPool.html#a6877fc8d758f4e70c682a8e3aca9e832',1,'core::ComponentPool']]],
@@ -25,5 +25,6 @@ var searchData=
   ['create_22',['create',['../classcore_1_1EntityManager.html#a2ebfce98756ffb74f312b2f80a66d806',1,'core::EntityManager::create()'],['../classhmi_1_1LevelFileOperations.html#a12e565088b1eeb4ca5523ae3694a176b',1,'hmi::LevelFileOperations::create()']]],
   ['createentity_23',['createEntity',['../classcore_1_1World.html#ac19f665091a4c3bea7ba8f314fc0d502',1,'core::World']]],
   ['createrendertarget_24',['createRenderTarget',['../classhmi_1_1GraphicsDevice.html#a978cd7f6fa031618499f79bec1f2371b',1,'hmi::GraphicsDevice']]],
-  ['currenttimestamp_25',['currentTimestamp',['../namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4',1,'core']]]
+  ['createtexture_25',['createTexture',['../namespacehmi.html#a98f0f2d822288b333e00905f4cc60165',1,'hmi']]],
+  ['currenttimestamp_26',['currentTimestamp',['../namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4',1,'core']]]
 ];

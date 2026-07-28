@@ -9,5 +9,6 @@ var searchData=
   ['alivecount_6',['aliveCount',['../classcore_1_1EntityManager.html#a7d5553c8d41e71f3bd504ac5523dc200',1,'core::EntityManager']]],
   ['applyrectangle_7',['applyRectangle',['../classhmi_1_1GameViewport.html#a8f9ad2fa0a4e59d658741479f2a9db28',1,'hmi::GameViewport']]],
   ['approximatelyequal_8',['approximatelyEqual',['../namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794',1,'core']]],
-  ['arrowhead_9',['arrowHead',['../namespacehmi.html#a42f96951bfec11435da37c91ee377046',1,'hmi']]]
+  ['arrowhead_9',['arrowHead',['../namespacehmi.html#a42f96951bfec11435da37c91ee377046',1,'hmi']]],
+  ['assetpaths_10',['AssetPaths',['../classhmi_1_1AssetPaths.html#a666907237fced2f867f1e3e3475c5e80',1,'hmi::AssetPaths']]]
 ];

@@ -1,5 +1,7 @@
 var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
 [
+    [ "AssetPaths.cpp", "AssetPaths_8cpp.html", null ],
+    [ "AssetPaths.h", "AssetPaths_8h.html", "AssetPaths_8h" ],
     [ "Camera2D.cpp", "Camera2D_8cpp.html", null ],
     [ "Camera2D.h", "Camera2D_8h.html", "Camera2D_8h" ],
     [ "DraftRenderer.cpp", "DraftRenderer_8cpp.html", null ],
@@ -8,6 +10,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "GraphicsDevice.h", "GraphicsDevice_8h.html", "GraphicsDevice_8h" ],
     [ "GraphicsLog.h", "GraphicsLog_8h.html", "GraphicsLog_8h" ],
     [ "PreviousPosition.h", "PreviousPosition_8h.html", "PreviousPosition_8h" ],
+    [ "ProceduralAtlas.cpp", "ProceduralAtlas_8cpp.html", "ProceduralAtlas_8cpp" ],
+    [ "ProceduralAtlas.h", "ProceduralAtlas_8h.html", "ProceduralAtlas_8h" ],
     [ "RoomGrid.cpp", "RoomGrid_8cpp.html", null ],
     [ "RoomGrid.h", "RoomGrid_8h.html", "RoomGrid_8h" ],
     [ "SpriteBatch.cpp", "SpriteBatch_8cpp.html", null ],
@@ -16,6 +20,9 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "SpriteRenderer.h", "SpriteRenderer_8h.html", "SpriteRenderer_8h" ],
     [ "TextureAtlas.cpp", "TextureAtlas_8cpp.html", null ],
     [ "TextureAtlas.h", "TextureAtlas_8h.html", "TextureAtlas_8h" ],
+    [ "TextureAtlasRegions.cpp", "TextureAtlasRegions_8cpp.html", null ],
+    [ "TextureLoader.cpp", "TextureLoader_8cpp.html", "TextureLoader_8cpp" ],
+    [ "TextureLoader.h", "TextureLoader_8h.html", "TextureLoader_8h" ],
     [ "TileVisuals.cpp", "TileVisuals_8cpp.html", "TileVisuals_8cpp" ],
     [ "TileVisuals.h", "TileVisuals_8h.html", "TileVisuals_8h" ]
 ];
