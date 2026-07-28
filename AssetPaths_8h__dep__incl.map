@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/AssetPaths.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/AssetPaths.h">
-<area shape="rect" id="Node000001" title="Résolution de chemins d&#39;assets graphiques dans un dossier donné." alt="" coords="253,5,475,60"/>
-<area shape="rect" id="Node000002" href="$AssetPaths_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="292,68,178,118,175,113,290,63"/>
-<area shape="rect" id="Node000003" href="$TextureAtlas_8cpp.html" title=" " alt="" coords="251,115,477,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="367,74,367,115,361,115,361,74"/>
-<area shape="rect" id="Node000004" href="$test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT&#45;39, EX&#45;NFR&#45;010/EX&#45;NFR&#45;040)." alt="" coords="501,108,723,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="438,63,536,105,534,110,436,68"/>
-</map>

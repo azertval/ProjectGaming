@@ -1,5 +1,0 @@
-<map id="core::MovementSystem" name="core::MovementSystem">
-<area shape="rect" id="Node000001" title="Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe." alt="" coords="5,79,183,104"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="39,5,149,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,44,97,79,91,79,91,44"/>
-</map>

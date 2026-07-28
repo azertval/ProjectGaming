@@ -1,9 +1,0 @@
-<map id="core::EntityManager" name="core::EntityManager">
-<area shape="rect" id="Node000001" title="Crée, détruit et valide les entités de l&#39;ECS." alt="" coords="171,108,325,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,149,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,52,155,82,211,106,209,110,152,86,108,56"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="173,13,323,38"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="251,52,251,108,245,108,245,52"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="347,5,491,45"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,54,270,110,268,106,371,50"/>
-</map>

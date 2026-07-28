@@ -71,7 +71,7 @@ var menudata={children:[
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
-{text:"Class Hierarchy",url:"inherits.html"},
+{text:"Class Hierarchy",url:"hierarchy.html"},
 {text:"Class Members",url:"functions.html",children:[
 {text:"All",url:"functions.html",children:[
 {text:"_",url:"functions.html#index__5F"},
@@ -165,13 +165,11 @@ var menudata={children:[
 {text:"h",url:"globals_h.html#index_h"},
 {text:"l",url:"globals_l.html#index_l"},
 {text:"m",url:"globals_m.html#index_m"},
-{text:"o",url:"globals_o.html#index_o"},
 {text:"p",url:"globals_p.html#index_p"},
 {text:"t",url:"globals_t.html#index_t"}]},
 {text:"Functions",url:"globals_func.html",children:[
 {text:"m",url:"globals_func.html#index_m"},
 {text:"t",url:"globals_func_t.html#index_t"}]},
-{text:"Variables",url:"globals_vars.html"},
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"c",url:"globals_defs.html#index_c"},
 {text:"e",url:"globals_defs.html#index_e"},

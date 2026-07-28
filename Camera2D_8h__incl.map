@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/Camera2D.h">
-<area shape="rect" id="Node000001" title="Caméra 2D : conversion entre unités monde et pixels écran." alt="" coords="31,5,252,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,120,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,62,85,99,81,96,115,58"/>
-<area shape="rect" id="Node000003" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="144,108,299,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,58,203,96,199,99,164,62"/>
-</map>

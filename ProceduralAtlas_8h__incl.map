@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/ProceduralAtlas.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/ProceduralAtlas.h">
-<area shape="rect" id="Node000001" title="Génération procédurale (CPU, sans GPU) des pixels de l&#39;atlas de repli." alt="" coords="13,5,243,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,72,141"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,62,61,107,57,103,101,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="97,115,159,141"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,60,131,101,125,101,125,60"/>
-<area shape="rect" id="Node000004" href="$Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures)." alt="" coords="183,108,347,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,58,228,98,225,103,165,62"/>
-</map>

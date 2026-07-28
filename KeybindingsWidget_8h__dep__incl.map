@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/KeybindingsWidget.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/KeybindingsWidget.h">
-<area shape="rect" id="Node000001" title="Remappage des touches de jeu (EX&#45;CTRL&#45;012), en widget embarquable (onglet Options,..." alt="" coords="149,5,404,60"/>
-<area shape="rect" id="Node000002" href="$KeybindingsWidget_8cpp.html" title=" " alt="" coords="5,108,276,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,70,178,110,175,106,229,66"/>
-<area shape="rect" id="Node000003" href="$OptionsPage_8cpp.html" title=" " alt="" coords="301,108,527,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="325,66,380,106,376,110,322,70"/>
-</map>

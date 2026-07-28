@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/LogFormat.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Diagnostics/LogFormat.h">
-<area shape="rect" id="Node000001" title="Formatage des lignes de journalisation." alt="" coords="27,5,248,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,64,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,62,61,101,57,97,104,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="89,108,186,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,60,140,94,135,94,135,60"/>
-<area shape="rect" id="Node000004" href="$LogLevel_8h.html" title="Niveaux de journalisation, par gravité croissante." alt="" coords="210,108,417,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,58,279,100,276,104,190,62"/>
-</map>

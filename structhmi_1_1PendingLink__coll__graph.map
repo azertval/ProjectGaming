@@ -1,7 +1,0 @@
-<map id="hmi::PendingLink" name="hmi::PendingLink">
-<area shape="rect" id="Node000001" title="Case en attente d&#39;appariement (premier clic de l&#39;outil « Lien »), avec son type courant." alt="" coords="72,93,207,119"/>
-<area shape="rect" id="Node000002" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="5,5,143,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,40,132,91,128,94,89,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="167,5,243,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,43,151,94,146,91,185,40"/>
-</map>

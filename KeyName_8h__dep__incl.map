@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/KeyName.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/KeyName.h">
-<area shape="rect" id="Node000001" title="Nom affichable d&#39;une touche et capture générique « prochaine touche pressée » (LOT&#45;29)." alt="" coords="276,5,497,60"/>
-<area shape="rect" id="Node000002" href="$KeyName_8cpp.html" title=" " alt="" coords="5,115,227,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,68,183,118,181,113,307,63"/>
-<area shape="rect" id="Node000003" href="$KeybindingsWidget_8cpp.html" title=" " alt="" coords="251,115,522,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="389,74,389,115,384,115,384,74"/>
-<area shape="rect" id="Node000004" href="$test__key__name_8cpp.html" title="Tests unitaires de l&#39;affichage et de la capture de touche (KeyName, LOT&#45;29)." alt="" coords="547,108,768,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="466,63,574,105,572,110,464,68"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="core::ISystem" name="core::ISystem">
-<area shape="rect" id="Node000001" title="Interface d&#39;un système : porte la logique itérant sur les composants." alt="" coords="137,5,248,31"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1AnimationSystem.html" title="Fait évoluer l&#39;état d&#39;animation (core::Animation) de chaque personnage, au pas fixe." alt="" coords="5,79,180,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,41,111,81,107,76,164,36"/>
-<area shape="rect" id="Node000003" href="$classcore_1_1MovementSystem.html" title="Fait avancer chaque entité mobile selon sa vitesse, au pas de temps fixe." alt="" coords="204,79,381,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,36,278,76,275,81,218,41"/>
-</map>

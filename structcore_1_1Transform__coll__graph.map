@@ -1,5 +1,0 @@
-<map id="core::Transform" name="core::Transform">
-<area shape="rect" id="Node000001" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX&#45;ARCH&#45;020)." alt="" coords="5,108,128,133"/>
-<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="13,5,120,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,45,69,108,64,108,64,45"/>
-</map>

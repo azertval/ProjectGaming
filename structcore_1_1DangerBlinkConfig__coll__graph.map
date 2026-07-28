@@ -1,5 +1,0 @@
-<map id="core::DangerBlinkConfig" name="core::DangerBlinkConfig">
-<area shape="rect" id="Node000001" title="Paramètres d&#39;un danger temporisé (TileType::DangerBlink, EX&#45;GP&#45;053) : période, déphasage et durée act..." alt="" coords="5,93,184,119"/>
-<area shape="rect" id="Node000002" href="$structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières." alt="" coords="26,5,163,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,45,97,93,92,93,92,45"/>
-</map>

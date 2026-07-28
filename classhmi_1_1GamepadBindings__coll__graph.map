@@ -1,5 +1,0 @@
-<map id="hmi::GamepadBindings" name="hmi::GamepadBindings">
-<area shape="rect" id="Node000001" title="Association action de jeu (GameAction, partagée avec GameKeyBindings) &#45;&gt; bouton manette,..." alt="" coords="23,108,197,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,215,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,59,113,108,107,108,107,59"/>
-</map>

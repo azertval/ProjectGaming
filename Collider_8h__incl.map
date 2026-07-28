@@ -1,5 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Collider.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/Core/Ecs/Components/Collider.h">
-<area shape="rect" id="Node000001" title="Composant de boîte de collision (AABB) d&#39;une entité (données pures)." alt="" coords="5,5,239,60"/>
-<area shape="rect" id="Node000002" href="$Vector2_8h.html" title="Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX)." alt="" coords="45,108,199,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,60,125,94,119,94,119,60"/>
-</map>

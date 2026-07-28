@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['a_0',['a',['../structhmi_1_1LinkSegment.html#aee08bd222b3b6779ba4682a712961a37',1,'hmi::LinkSegment::a'],['../structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f',1,'hmi::SpriteQuad::a'],['../structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806',1,'hmi::LineQuad::a'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d',1,'hmi::SpriteBatch::Vertex::a'],['../structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b',1,'core::Color::a']]],
+  ['a_0',['a',['../structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b',1,'core::Color::a'],['../structhmi_1_1LinkSegment.html#aee08bd222b3b6779ba4682a712961a37',1,'hmi::LinkSegment::a'],['../structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f',1,'hmi::SpriteQuad::a'],['../structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806',1,'hmi::LineQuad::a'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d',1,'hmi::SpriteBatch::Vertex::a']]],
   ['action_1',['action',['../structhmi_1_1LinkGestureDecision.html#a82612d60258eb16f959bcc9f948e5daf',1,'hmi::LinkGestureDecision']]],
   ['activeduration_2',['activeDuration',['../structcore_1_1DangerBlinkConfig.html#a0bdc88ece316562350a6443d3b091167',1,'core::DangerBlinkConfig']]],
   ['airjumps_3',['airJumps',['../structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273',1,'core::PhysicsConfig']]],

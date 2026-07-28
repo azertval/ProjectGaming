@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['save_0',['save',['../classhmi_1_1EditorKeyBindings.html#a4491f60b26ffe6336b1112aae0ff6f61',1,'hmi::EditorKeyBindings::save()'],['../classhmi_1_1GameKeyBindings.html#afbe5d66a276ac24e83e5c6701d598004',1,'hmi::GameKeyBindings::save()'],['../classhmi_1_1GamepadBindings.html#aa55ba660bee59cdfb858ace77509edef',1,'hmi::GamepadBindings::save()'],['../classhmi_1_1GameViewport.html#a414edeb77630817f1fcedcccd100850a',1,'hmi::GameViewport::save()']]],
+  ['save_0',['save',['../classhmi_1_1GameViewport.html#a414edeb77630817f1fcedcccd100850a',1,'hmi::GameViewport::save()'],['../classhmi_1_1EditorKeyBindings.html#a4491f60b26ffe6336b1112aae0ff6f61',1,'hmi::EditorKeyBindings::save()'],['../classhmi_1_1GameKeyBindings.html#afbe5d66a276ac24e83e5c6701d598004',1,'hmi::GameKeyBindings::save()'],['../classhmi_1_1GamepadBindings.html#aa55ba660bee59cdfb858ace77509edef',1,'hmi::GamepadBindings::save()']]],
   ['savelayout_1',['saveLayout',['../classhmi_1_1MainWindow.html#a3b35aad4874b9a25e9c680e44945fec4',1,'hmi::MainWindow']]],
   ['savelogsrequested_2',['saveLogsRequested',['../classhmi_1_1OptionsPage.html#a5d9315f0aafbff0cf5c7d0779c00aa07',1,'hmi::OptionsPage']]],
   ['savesessionlog_3',['saveSessionLog',['../namespacehmi.html#a680b600014001a99d296df386e7ed9d8',1,'hmi']]],
@@ -27,7 +27,7 @@ var searchData=
   ['setgamepadconnected_24',['setGamepadConnected',['../classhmi_1_1InputState.html#ab6e92b0e87cef4fcbacfa6c729bfb8f8',1,'hmi::InputState']]],
   ['sethighlightedlink_25',['setHighlightedLink',['../classhmi_1_1GameViewport.html#accdd8d909af2dbb3fb790734c6a643b5',1,'hmi::GameViewport']]],
   ['setjumpbudget_26',['setJumpBudget',['../classcore_1_1LevelDraft.html#a6bc2d83836d4a00ba59360002ba556ac',1,'core::LevelDraft']]],
-  ['setkey_27',['setkey',['../classhmi_1_1EditorKeyBindings.html#a83df6e97791f2b4300d52e9c4cc72448',1,'hmi::EditorKeyBindings::setKey()'],['../classhmi_1_1GameKeyBindings.html#ae7bf36c7de90cf8abafb5955b8b1470c',1,'hmi::GameKeyBindings::setKey()'],['../classhmi_1_1GamepadBindings.html#a08dc5ede6ebcc95787e68e5a29c5dc39',1,'hmi::GamepadBindings::setKey()']]],
+  ['setkey_27',['setKey',['../classhmi_1_1EditorKeyBindings.html#a83df6e97791f2b4300d52e9c4cc72448',1,'hmi::EditorKeyBindings::setKey()'],['../classhmi_1_1GameKeyBindings.html#ae7bf36c7de90cf8abafb5955b8b1470c',1,'hmi::GameKeyBindings::setKey()'],['../classhmi_1_1GamepadBindings.html#a08dc5ede6ebcc95787e68e5a29c5dc39',1,'hmi::GamepadBindings::setKey()']]],
   ['setlocalization_28',['setLocalization',['../classhmi_1_1GameViewport.html#a30fb475c885ff369c5710284cf1450eb',1,'hmi::GameViewport']]],
   ['setmenugamepadactive_29',['setMenuGamepadActive',['../classhmi_1_1MainWindow.html#abc4f7778f8b77b1299e9793cdd205944',1,'hmi::MainWindow']]],
   ['setminimumlevel_30',['setMinimumLevel',['../classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683',1,'core::Logger']]],
@@ -52,7 +52,7 @@ var searchData=
   ['snapshot_49',['snapshot',['../classcore_1_1LevelDraft.html#a89fced43d78e2f2fcd89fd03b75373bc',1,'core::LevelDraft']]],
   ['snapshotpreviouspositions_50',['snapshotPreviousPositions',['../classhmi_1_1GameSession.html#a6bb897af2e39b7bb5bbf7507d4f7b6ad',1,'hmi::GameSession']]],
   ['spawnplayer_51',['spawnPlayer',['../classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8',1,'hmi::GameSession']]],
-  ['spritebatch_52',['spritebatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
+  ['spritebatch_52',['SpriteBatch',['../classhmi_1_1SpriteBatch.html#aa2f2fc2e43f04a72b04f09da5364b4c8',1,'hmi::SpriteBatch::SpriteBatch(ID3D11Device *device, ID3D11DeviceContext *context)'],['../classhmi_1_1SpriteBatch.html#a034089bc835d283076338b063ae9e7e7',1,'hmi::SpriteBatch::SpriteBatch(const SpriteBatch &amp;)=delete']]],
   ['spriterenderer_53',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html#ab4bbbea6470220c391fcbc2ad33f86c6',1,'hmi::SpriteRenderer']]],
   ['startcapture_54',['startCapture',['../classhmi_1_1GamepadBindingsWidget.html#a3079f3a4c9e4f63c4ab4a723b95a914c',1,'hmi::GamepadBindingsWidget']]],
   ['startgame_55',['startGame',['../classhmi_1_1GameViewport.html#aabcfc494046d87dfc987edbc1519f121',1,'hmi::GameViewport']]],

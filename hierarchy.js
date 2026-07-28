@@ -43,7 +43,7 @@ var hierarchy =
       [ "core::AnimationSystem", "classcore_1_1AnimationSystem.html", null ],
       [ "core::MovementSystem", "classcore_1_1MovementSystem.html", null ]
     ] ],
-    [ "core::View< Components >::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
+    [ "core::View&lt; Components &gt;::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
     [ "hmi::SpriteRenderer::LayeredQuad", "structhmi_1_1SpriteRenderer_1_1LayeredQuad.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
@@ -102,6 +102,6 @@ var hierarchy =
     [ "core::Vector2", "structcore_1_1Vector2.html", null ],
     [ "core::Velocity", "structcore_1_1Velocity.html", null ],
     [ "hmi::SpriteBatch::Vertex", "structhmi_1_1SpriteBatch_1_1Vertex.html", null ],
-    [ "core::View< Components >", "classcore_1_1View.html", null ],
+    [ "core::View&lt; Components &gt;", "classcore_1_1View.html", null ],
     [ "core::World", "classcore_1_1World.html", null ]
 ];

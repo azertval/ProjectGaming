@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/EditorKeyBindings.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/EditorKeyBindings.h">
-<area shape="rect" id="Node000001" title="Association remappable action d&#39;éditeur &#45;&gt; touche clavier, avec persistance (EX&#45;CTRL&#45;012)." alt="" coords="140,5,363,60"/>
-<area shape="rect" id="Node000002" href="$EditorKeyBindings_8cpp.html" title=" " alt="" coords="5,115,244,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,72,157,117,154,113,208,67"/>
-<area shape="rect" id="Node000003" href="$test__editor__key__bindings_8cpp.html" title="Tests unitaires du remappage des touches de l&#39;éditeur (EditorKeyBindings, EX&#45;CTRL&#45;012)." alt="" coords="269,108,490,177"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,67,341,106,338,110,292,71"/>
-</map>

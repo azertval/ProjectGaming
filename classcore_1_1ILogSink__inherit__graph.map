@@ -1,7 +1,0 @@
-<map id="core::ILogSink" name="core::ILogSink">
-<area shape="rect" id="Node000001" title="Destination vers laquelle un Logger diffuse ses messages." alt="" coords="123,5,236,31"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1ConsoleLogSink.html" title="Sink qui écrit les messages sur la sortie standard et, sous Windows, vers le débogueur." alt="" coords="5,79,167,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,41,103,81,100,76,152,37"/>
-<area shape="rect" id="Node000003" href="$classcore_1_1MemoryLogSink.html" title="Sink de test : mémorise les messages reçus pour inspection." alt="" coords="191,79,354,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,37,259,76,256,81,203,41"/>
-</map>

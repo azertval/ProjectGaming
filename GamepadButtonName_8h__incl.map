@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GamepadButtonName.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Input/GamepadButtonName.h">
-<area shape="rect" id="Node000001" title="Nom affichable d&#39;un bouton manette et capture générique « prochain bouton pressé » (LOT&#45;30)." alt="" coords="8,5,259,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,80,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,62,67,100,63,96,104,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="104,108,163,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="136,60,136,94,131,94,131,60"/>
-<area shape="rect" id="Node000004" href="$GamepadButton_8h.html" title="Bouton manette logique, indépendant de toute action de jeu ou touche clavier." alt="" coords="187,108,394,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="183,58,259,99,256,104,180,62"/>
-</map>

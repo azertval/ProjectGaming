@@ -1,5 +1,0 @@
-<map id="hmi::PreviousPosition" name="hmi::PreviousPosition">
-<area shape="rect" id="Node000001" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX&#45;ARCH&#45;031)." alt="" coords="5,93,168,119"/>
-<area shape="rect" id="Node000002" href="$structcore_1_1Vector2.html" title="Vecteur bidimensionnel en coordonnées monde (composantes float)." alt="" coords="33,5,140,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
-</map>

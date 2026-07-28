@@ -1,9 +1,0 @@
-<map id="core::View&lt; Components &gt;::Iterator" name="core::View&lt; Components &gt;::Iterator">
-<area shape="rect" id="Node000001" title="Itérateur avant sur les entités retenues par la vue." alt="" coords="49,196,236,236"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1View.html" title="Sélection en lecture&#45;écriture des entités possédant tous les composants demandés." alt="" coords="5,101,208,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,138,138,195,133,197,113,140"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="233,93,375,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,143,174,198,171,194,261,138"/>
-<area shape="rect" id="Node000004" href="$structcore_1_1Entity.html" title="Handle générationnel identifiant une entité de l&#39;ECS." alt="" coords="256,5,352,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="307,44,307,93,301,93,301,44"/>
-</map>

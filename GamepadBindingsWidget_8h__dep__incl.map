@@ -1,7 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/GamepadBindingsWidget.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Interface/GamepadBindingsWidget.h">
-<area shape="rect" id="Node000001" title="Remappage des boutons de manette (EX&#45;CTRL&#45;002), en widget (onglet Options, LOT&#45;38)." alt="" coords="160,5,455,60"/>
-<area shape="rect" id="Node000002" href="$GamepadBindingsWidget_8cpp.html" title=" " alt="" coords="5,108,316,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="259,70,201,110,198,106,256,66"/>
-<area shape="rect" id="Node000003" href="$OptionsPage_8cpp.html" title=" " alt="" coords="341,108,567,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="359,66,417,106,414,110,356,70"/>
-</map>

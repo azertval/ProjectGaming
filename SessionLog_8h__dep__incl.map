@@ -1,9 +1,0 @@
-<map id="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Diagnostics/SessionLog.h" name="/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Diagnostics/SessionLog.h">
-<area shape="rect" id="Node000001" title="Sérialisation et enregistrement des messages de log de la session." alt="" coords="269,5,490,60"/>
-<area shape="rect" id="Node000002" href="$SessionLog_8cpp.html" title=" " alt="" coords="5,115,241,170"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,68,187,118,185,113,303,63"/>
-<area shape="rect" id="Node000003" href="$MainWindow_8cpp.html" title=" " alt="" coords="265,115,493,170"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="382,74,382,115,377,115,377,74"/>
-<area shape="rect" id="Node000004" href="$test__session__log_8cpp.html" title="Tests unitaires de la sérialisation des logs de session." alt="" coords="518,108,739,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="454,63,552,105,550,110,452,68"/>
-</map>

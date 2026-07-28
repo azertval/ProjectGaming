@@ -15,7 +15,7 @@ var searchData=
   ['clearsinks_12',['clearSinks',['../classcore_1_1Logger.html#a14d080b7aea34be62b6bd98897378e97',1,'core::Logger']]],
   ['closeevent_13',['closeEvent',['../classhmi_1_1MainWindow.html#a6dab05769a6e7f213d8e55d9a6b2d446',1,'hmi::MainWindow']]],
   ['collectactivedangerboxes_14',['collectActiveDangerBoxes',['../classhmi_1_1GameSession.html#ac10c3bdbe4a4715de7320c888fb34ffc',1,'hmi::GameSession']]],
-  ['collisionmap_15',['collisionmap',['../classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08',1,'core::BlockController::collisionMap()'],['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController::collisionMap()']]],
+  ['collisionmap_15',['collisionMap',['../classcore_1_1BlockController.html#a76514947992556f8b153ac603d58dc08',1,'core::BlockController::collisionMap()'],['../classcore_1_1MechanismController.html#a465aa3ad3194fcb485d656dbe0b292c2',1,'core::MechanismController::collisionMap()']]],
   ['columns_16',['columns',['../classhmi_1_1RoomGrid.html#a5cbc1f2305e79413dc5d16776fc66105',1,'hmi::RoomGrid']]],
   ['componentof_17',['componentOf',['../classcore_1_1View.html#a097f64b75500842306575f65d5ff7ad2',1,'core::View']]],
   ['components_18',['components',['../classcore_1_1ComponentPool.html#a6877fc8d758f4e70c682a8e3aca9e832',1,'core::ComponentPool']]],

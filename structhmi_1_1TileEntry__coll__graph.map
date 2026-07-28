@@ -1,9 +1,0 @@
-<map id="hmi::TileEntry" name="hmi::TileEntry">
-<area shape="rect" id="Node000001" title="Une tuile sélectionnable : son type et son libellé affiché." alt="" coords="28,183,141,208"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,95,81,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,132,67,157,80,181,75,184,62,160,51,134"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="105,95,192,120"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,133,96,184,91,181,130,129"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="79,5,218,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="151,59,151,94,146,94,146,59"/>
-</map>
