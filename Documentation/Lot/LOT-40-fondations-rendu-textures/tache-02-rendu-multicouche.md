@@ -1,6 +1,6 @@
 # TACHE-02 — *RenderLayer* + regroupement des quads par (calque, texture) {#lot-40-tache-02-rendu-multicouche}
 
-**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `hmi::SpriteRenderer::render` trie déjà ses sprites par `core::Sprite::layer` (entier simple) avant

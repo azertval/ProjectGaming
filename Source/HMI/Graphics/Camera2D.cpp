@@ -66,6 +66,15 @@ core::Vector2 Camera2D::screenToWorld(const core::Vector2& screen) const {
                          (screen.y - halfHeight) / scale() + _center.y};
 }
 
+// Rectangle du monde effectivement cadre par la camera (base du culling, EX-NFR-005).
+// Le rectangle visible, en unites monde (coin haut-gauche + dimensions).
+core::Rect Camera2D::visibleBounds() const {
+    const core::Vector2 topLeft = screenToWorld(core::Vector2{0.0f, 0.0f});
+    const core::Vector2 size{static_cast<float>(_viewportWidth) / scale(),
+                             static_cast<float>(_viewportHeight) / scale()};
+    return core::Rect{topLeft, size};
+}
+
 // Facteur de zoom ajustant un contenu a une surface disponible, sans zone hors champ (LOT-16) :
 // entier tant qu'il est >= 1 (nettete pixel art), fractionnaire seulement si necessaire.
 float Camera2D::fitZoom(float availableWidth, float availableHeight, float contentWidth,

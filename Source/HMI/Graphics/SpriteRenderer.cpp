@@ -1,81 +1,72 @@
 #include "HMI/Graphics/SpriteRenderer.h"
 
-#include <algorithm>
-
-#include "Core/Ecs/Components/Sprite.h"
-#include "Core/Ecs/Components/Transform.h"
-#include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
-#include "HMI/Graphics/PreviousPosition.h"
+#include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/TextureAtlas.h"
 
 namespace hmi {
+
+// Soumet une scene composee au pipeline de dessin, une passe par groupe de texture.
+void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projection,
+                         const ComposedScene& scene) {
+    const std::vector<ComposedQuad>& quads = scene.quads();
+    TextureHandle current = nullptr;
+    bool open = false;
+
+    for (const ComposedQuad& composed : quads) {
+        if (composed.texture == nullptr) {
+            continue;  // primitive sans texture liee : rien a dessiner (robustesse).
+        }
+        if (!open || composed.texture != current) {
+            if (open) {
+                batch.end();
+            }
+            // Seule reconversion vers le type Direct3D de toute la chaine de rendu : la
+            // composition ne manipule qu'une identite opaque (cf. hmi::TextureHandle).
+            batch.begin(projection, static_cast<ID3D11ShaderResourceView*>(composed.texture));
+            current = composed.texture;
+            open = true;
+        }
+        if (composed.kind == QuadKind::Sprite) {
+            batch.draw(composed.sprite);
+        } else {
+            batch.draw(composed.line);
+        }
+    }
+
+    if (open) {
+        batch.end();
+    }
+}
 
 // Construit le rendu de sprites.
 SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
     : _batch(&batch), _atlas(&atlas) {}
 
-// Dessine toutes les entités affichables du monde, vues par la caméra.
+// Dessine toutes les entites affichables du monde, vues par la camera.
 void SpriteRenderer::render(core::World& world, const Camera2D& camera, float interpolationAlpha) {
-    const float atlasWidth = static_cast<float>(_atlas->width());
-    const float atlasHeight = static_cast<float>(_atlas->height());
+    _scene.clear();
+    _scene.setVisibleBounds(camera.visibleBounds());
+    composeWorldSprites(_scene, world, _atlas->textureView(), _atlas->width(), _atlas->height(),
+                        interpolationAlpha);
+    _scene.sort();
+    logStatisticsIfChanged();
+    submitComposedScene(*_batch, camera.projectionMatrix(), _scene);
+}
 
-    _items.clear();
-
-    // Lecture seule de l'ECS : les composants sont pris par référence constante.
-    world.view<core::Transform, core::Sprite>().each(
-        [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
-            const core::AtlasRegion& region = sprite.region;
-
-            // Taille du sprite en unités monde : la région (en pixels) ramenée à l'échelle
-            // du monde (16 px/unité), multipliée par l'échelle du Transform. Le zoom est
-            // appliqué plus tard par la projection de la caméra.
-            const float worldWidth =
-                static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
-            const float worldHeight =
-                static_cast<float>(region.height) / Camera2D::PIXELS_PER_UNIT * transform.scale.y;
-
-            // Position à dessiner : interpolée entre le pas précédent et le pas courant si l'entité
-            // porte un `PreviousPosition` (personnage, dangers mobiles, blocs — mouvement continu),
-            // sinon la position courante telle quelle (tuiles fixes). Lire une seconde pool
-            // (`PreviousPosition`) pendant l'itération de la vue Transform+Sprite est sûr : on ne
-            // modifie aucune pool, donc la vue reste valide (cf. @ref guide-ecs).
-            core::Vector2 position = transform.position;
-            if (world.hasComponent<PreviousPosition>(entity)) {
-                const core::Vector2 previous = world.getComponent<PreviousPosition>(entity).value;
-                position = previous + (transform.position - previous) * interpolationAlpha;
-            }
-
-            SpriteQuad quad;
-            quad.x = position.x;
-            quad.y = position.y;
-            quad.width = worldWidth;
-            quad.height = worldHeight;
-            // Coordonnées de texture normalisées à partir de la région en pixels.
-            quad.u0 = static_cast<float>(region.x) / atlasWidth;
-            quad.v0 = static_cast<float>(region.y) / atlasHeight;
-            quad.u1 = static_cast<float>(region.x + region.width) / atlasWidth;
-            quad.v1 = static_cast<float>(region.y + region.height) / atlasHeight;
-            quad.r = sprite.tint.r;
-            quad.g = sprite.tint.g;
-            quad.b = sprite.tint.b;
-            quad.a = sprite.tint.a;
-
-            _items.push_back(LayeredQuad{sprite.layer, quad});
-        });
-
-    // Tri **stable** par couche : les couches basses (fond) sont dessinées avant les hautes
-    // (entités, interface) ; l'ordre reste déterministe à couche égale (EX-REN-014).
-    std::stable_sort(
-        _items.begin(), _items.end(),
-        [](const LayeredQuad& lhs, const LayeredQuad& rhs) { return lhs.layer < rhs.layer; });
-
-    _batch->begin(camera.projectionMatrix(), _atlas->textureView());
-    for (const LayeredQuad& item : _items) {
-        _batch->draw(item.quad);
+// Journalise les compteurs de l'image seulement s'ils ont change depuis la precedente.
+void SpriteRenderer::logStatisticsIfChanged() {
+    const SceneStatistics statistics = _scene.statistics();
+    const bool changed = statistics.considered != _loggedStatistics.considered ||
+                         statistics.culled != _loggedStatistics.culled ||
+                         statistics.submitted != _loggedStatistics.submitted ||
+                         statistics.batches != _loggedStatistics.batches;
+    if (!changed) {
+        return;
     }
-    _batch->end();
+    _loggedStatistics = statistics;
+    GRAPHICS_LOG_TRACE(formatSceneStatistics(statistics));
 }
 
 }  // namespace hmi

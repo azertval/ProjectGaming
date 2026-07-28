@@ -1,6 +1,6 @@
 # TACHE-01 — *TextureCache* : registre par nom logique, invalidation, contrat d'asset {#lot-40-tache-01-texture-cache}
 
-**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-40](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 `hmi::TextureAtlas` charge **une seule** texture fixe (`Assets/atlas.png`). Les lots suivants (skin

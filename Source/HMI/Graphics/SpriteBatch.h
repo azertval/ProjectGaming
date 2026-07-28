@@ -7,59 +7,19 @@
 #include <d3d11.h>
 #include <wrl/client.h>
 
+#include "HMI/Graphics/Quad.h"
+
 /**
  * @file HMI/Graphics/SpriteBatch.h
  * @brief Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots.
+ *
+ * Les primitives elles-mêmes (`hmi::SpriteQuad`, `hmi::LineQuad`) vivent depuis `LOT-40` dans
+ * `HMI/Graphics/Quad.h`, sans dépendance Direct3D, pour que la **composition** du rendu puisse les
+ * manipuler sans GPU (`EX-NFR-004`). Ce fichier les réexpose : le contrat public de `SpriteBatch`
+ * et de ses appelants est strictement inchangé.
  */
 
 namespace hmi {
-
-/**
- * @brief Un quad texturé à dessiner : rectangle en **unités monde**, région de texture
- *        (coordonnées normalisées) et teinte.
- *
- * Le coin est haut-gauche, l'axe Y va vers le bas (convention du projet). Les coordonnées
- * de texture `u,v` sont normalisées dans [0, 1] ; la conversion depuis une région d'atlas
- * en pixels est faite en amont (par le rendu des sprites).
- */
-struct SpriteQuad {
-    float x = 0.0f;
-    float y = 0.0f;
-    float width = 0.0f;
-    float height = 0.0f;
-    float u0 = 0.0f;
-    float v0 = 0.0f;
-    float u1 = 1.0f;
-    float v1 = 1.0f;
-    float r = 1.0f;
-    float g = 1.0f;
-    float b = 1.0f;
-    float a = 1.0f;
-};
-
-/**
- * @brief Un segment épais à dessiner : deux extrémités en **unités monde**, une épaisseur
- *        (perpendiculaire au segment, unités monde) et une teinte.
- *
- * Contrairement à `SpriteQuad` (rectangle toujours aligné aux axes), ce quad peut être **orienté**
- * dans n'importe quelle direction — utilisé pour les liens de mécanismes (`LOT-37`, flèches
- * déclencheur → cible). Mêmes conventions que `SpriteQuad` (Y vers le bas, UV normalisées).
- */
-struct LineQuad {
-    float ax = 0.0f;
-    float ay = 0.0f;
-    float bx = 0.0f;
-    float by = 0.0f;
-    float thickness = 0.0f;
-    float u0 = 0.0f;
-    float v0 = 0.0f;
-    float u1 = 1.0f;
-    float v1 = 1.0f;
-    float r = 1.0f;
-    float g = 1.0f;
-    float b = 1.0f;
-    float a = 1.0f;
-};
 
 /**
  * @brief Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage

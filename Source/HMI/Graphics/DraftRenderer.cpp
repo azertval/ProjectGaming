@@ -17,8 +17,17 @@
 
 namespace hmi {
 
+namespace {
+// Ordre de dessin des aides d'edition **a l'interieur** du calque EditorOverlay : la grille sous
+// les liens, les liens sous l'apercu de selection. Ces valeurs jouent le role de
+// `core::Sprite::layer` pour des primitives qui ne viennent d'aucune entite.
+constexpr std::int32_t OVERLAY_ORDER_GRID = 0;
+constexpr std::int32_t OVERLAY_ORDER_LINKS = 1;
+constexpr std::int32_t OVERLAY_ORDER_HIGHLIGHT = 2;
+}  // namespace
+
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
-    : _batch(batch), _atlas(atlas), _renderer(batch, atlas) {}
+    : _batch(batch), _atlas(atlas) {}
 
 void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
@@ -28,45 +37,58 @@ void DraftRenderer::render(
         rebuild(draft);
         _dirty = false;
     }
-    _renderer.render(_world, camera, 1.0f);
+
+    // Une seule scene pour toute l'image : l'ordre visuel est porte par les calques, plus par
+    // l'ordre des appels de dessin (LOT-40). L'ordre de composition ci-dessous reste celui d'avant
+    // le lot -- a calque et texture egaux, le tri stable le preserve tel quel.
+    _scene.clear();
+    _scene.setVisibleBounds(camera.visibleBounds());
+    composeWorldSprites(_scene, _world, _atlas.textureView(), _atlas.width(), _atlas.height(),
+                        1.0f);
     if (showGrid) {
-        drawGrid(draft, camera);
+        composeGrid(draft);
     }
-    drawLinks(draft, camera, linkOverlay);
+    composeLinks(draft, linkOverlay);
     if (highlight) {
-        const core::GridPosition mn = highlight->first;
-        const core::GridPosition mx = highlight->second;
-        const float atlasWidth = static_cast<float>(_atlas.width());
-        const float atlasHeight = static_cast<float>(_atlas.height());
-        const core::AtlasRegion solid = _atlas.tile(0, 0);
-        SpriteQuad quad;
-        quad.x = static_cast<float>(mn.column);
-        quad.y = static_cast<float>(mn.row);
-        quad.width = static_cast<float>(mx.column - mn.column + 1);
-        quad.height = static_cast<float>(mx.row - mn.row + 1);
-        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
-        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
-        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
-        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
-        quad.r = 0.3f;
-        quad.g = 0.7f;
-        quad.b = 1.0f;
-        quad.a = 0.28f;  // voile bleu semi-transparent (aperçu rectangle/sélection)
-        _batch.begin(camera.projectionMatrix(), _atlas.textureView());
-        _batch.draw(quad);
-        _batch.end();
+        composeHighlight(highlight->first, highlight->second);
     }
+    _scene.sort();
+    submitComposedScene(_batch, camera.projectionMatrix(), _scene);
 }
 
-void DraftRenderer::drawGrid(const core::LevelDraft& draft, const Camera2D& camera) {
+// Compose le voile d'apercu d'une zone (outil Rectangle/Selection) sur le calque d'edition.
+void DraftRenderer::composeHighlight(const core::GridPosition& minimum,
+                                     const core::GridPosition& maximum) {
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    SpriteQuad quad;
+    quad.x = static_cast<float>(minimum.column);
+    quad.y = static_cast<float>(minimum.row);
+    quad.width = static_cast<float>(maximum.column - minimum.column + 1);
+    quad.height = static_cast<float>(maximum.row - minimum.row + 1);
+    quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+    quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+    quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+    quad.r = 0.3f;
+    quad.g = 0.7f;
+    quad.b = 1.0f;
+    quad.a = 0.28f;  // voile bleu semi-transparent (apercu rectangle/selection)
+    _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_HIGHLIGHT,
+                     quad);
+}
+
+// Compose la grille de repere (frontieres de cases + de salles) sur le calque d'edition.
+void DraftRenderer::composeGrid(const core::LevelDraft& draft) {
     const int width = draft.tileMap().width();
     const int height = draft.tileMap().height();
     const core::AtlasRegion solid =
-        _atlas.tile(0, 0);  // région opaque unie (teintée pour la ligne)
+        _atlas.tile(0, 0);  // region opaque unie (teintee pour la ligne)
     const float atlasWidth = static_cast<float>(_atlas.width());
     const float atlasHeight = static_cast<float>(_atlas.height());
 
-    // Fabrique un quad plein (UV de la région opaque) à une position/taille et teinte données.
+    // Fabrique un quad plein (UV de la region opaque) a une position/taille et teinte donnees.
     const auto lineQuad = [&](float x, float y, float w, float h, float r, float g, float b,
                               float a) {
         SpriteQuad quad;
@@ -84,38 +106,38 @@ void DraftRenderer::drawGrid(const core::LevelDraft& draft, const Camera2D& came
         quad.a = a;
         return quad;
     };
+    const auto add = [&](const SpriteQuad& quad) {
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_GRID,
+                         quad);
+    };
 
-    _batch.begin(camera.projectionMatrix(), _atlas.textureView());
-
-    // Grille de cases : lignes fines, faible alpha (repère de placement, EX-EDIT-023).
-    constexpr float LINE = 0.035f;  // épaisseur en unités monde (fraction de case)
+    // Grille de cases : lignes fines, faible alpha (repere de placement, EX-EDIT-023).
+    constexpr float LINE = 0.035f;  // epaisseur en unites monde (fraction de case)
     const float w = static_cast<float>(width);
     const float h = static_cast<float>(height);
     for (int column = 0; column <= width; ++column) {
-        _batch.draw(lineQuad(static_cast<float>(column) - LINE * 0.5f, 0.0f, LINE, h, 1.0f, 1.0f,
-                             1.0f, 0.18f));
+        add(lineQuad(static_cast<float>(column) - LINE * 0.5f, 0.0f, LINE, h, 1.0f, 1.0f, 1.0f,
+                     0.18f));
     }
     for (int row = 0; row <= height; ++row) {
-        _batch.draw(lineQuad(0.0f, static_cast<float>(row) - LINE * 0.5f, w, LINE, 1.0f, 1.0f, 1.0f,
-                             0.18f));
+        add(lineQuad(0.0f, static_cast<float>(row) - LINE * 0.5f, w, LINE, 1.0f, 1.0f, 1.0f,
+                     0.18f));
     }
 
-    // Frontières de salles (RoomGrid, LOT-32) : plus épaisses, teinte ambre.
+    // Frontieres de salles (RoomGrid, LOT-32) : plus epaisses, teinte ambre.
     constexpr float ROOM_LINE = 0.09f;
     for (int column = 0; column * RoomGrid::ROOM_WIDTH_TILES <= width; ++column) {
         const float x = static_cast<float>(std::min(column * RoomGrid::ROOM_WIDTH_TILES, width));
-        _batch.draw(lineQuad(x - ROOM_LINE * 0.5f, 0.0f, ROOM_LINE, h, 1.0f, 0.85f, 0.3f, 0.5f));
+        add(lineQuad(x - ROOM_LINE * 0.5f, 0.0f, ROOM_LINE, h, 1.0f, 0.85f, 0.3f, 0.5f));
     }
     for (int row = 0; row * RoomGrid::ROOM_HEIGHT_TILES <= height; ++row) {
         const float y = static_cast<float>(std::min(row * RoomGrid::ROOM_HEIGHT_TILES, height));
-        _batch.draw(lineQuad(0.0f, y - ROOM_LINE * 0.5f, w, ROOM_LINE, 1.0f, 0.85f, 0.3f, 0.5f));
+        add(lineQuad(0.0f, y - ROOM_LINE * 0.5f, w, ROOM_LINE, 1.0f, 0.85f, 0.3f, 0.5f));
     }
-
-    _batch.end();
 }
 
-void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& camera,
-                              const LinkOverlayState& overlay) {
+// Compose les liens de mecanismes (fleches declencheur -> cible) sur le calque d'edition.
+void DraftRenderer::composeLinks(const core::LevelDraft& draft, const LinkOverlayState& overlay) {
     const std::vector<LinkRow> rows = buildLinkRows(draft);
     if (rows.empty() && !overlay.pendingLink) {
         return;  // rien a dessiner (ni liaison, ni geste de creation en cours).
@@ -167,12 +189,13 @@ void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& cam
         quad.a = alpha;
         return quad;
     };
+    const auto addLine = [&](const LineQuad& quad) {
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_LINKS, quad);
+    };
 
     constexpr float LINE_THICKNESS = 0.045f;
     constexpr float HIGHLIGHT_THICKNESS = 0.08f;
     constexpr float PENDING_THICKNESS = 0.03f;
-
-    _batch.begin(camera.projectionMatrix(), _atlas.textureView());
 
     // Case en attente (premier clic de l'outil Lien) : voile plein pour la signaler.
     if (overlay.pendingLink) {
@@ -189,7 +212,8 @@ void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& cam
         pendingQuad.g = 0.9f;
         pendingQuad.b = 0.2f;
         pendingQuad.a = 0.35f;
-        _batch.draw(pendingQuad);
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_LINKS,
+                         pendingQuad);
 
         // Trait provisoire vers la case survolee, si distincte (retour visuel du geste en cours).
         if (overlay.hoveredCell && *overlay.hoveredCell != *overlay.pendingLink) {
@@ -197,7 +221,7 @@ void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& cam
                                      static_cast<float>(overlay.pendingLink->row) + 0.5f};
             const core::Vector2 to{static_cast<float>(overlay.hoveredCell->column) + 0.5f,
                                    static_cast<float>(overlay.hoveredCell->row) + 0.5f};
-            _batch.draw(segment(from, to, PENDING_THICKNESS, 1.0f, 0.9f, 0.2f, 0.7f));
+            addLine(segment(from, to, PENDING_THICKNESS, 1.0f, 0.9f, 0.2f, 0.7f));
         }
     }
 
@@ -219,13 +243,11 @@ void DraftRenderer::drawLinks(const core::LevelDraft& draft, const Camera2D& cam
         const float alpha = highlighted ? 0.95f : 0.65f;
         const float thickness = highlighted ? HIGHLIGHT_THICKNESS : LINE_THICKNESS;
 
-        _batch.draw(segment(line.a, line.b, thickness, r, g, b, alpha));
+        addLine(segment(line.a, line.b, thickness, r, g, b, alpha));
         const ArrowHead head = arrowHead(line.a, line.b);
-        _batch.draw(segment(line.b, head.left, thickness, r, g, b, alpha));
-        _batch.draw(segment(line.b, head.right, thickness, r, g, b, alpha));
+        addLine(segment(line.b, head.left, thickness, r, g, b, alpha));
+        addLine(segment(line.b, head.right, thickness, r, g, b, alpha));
     }
-
-    _batch.end();
 }
 
 void DraftRenderer::rebuild(const core::LevelDraft& draft) {
@@ -248,8 +270,10 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
                                                 core::Vector2{scale, scale}, 0.0f});
             core::Sprite sprite;
             sprite.region = regionForTile(type, _atlas);
-            sprite.layer = 0;
             sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
+            // Aucun calque a fixer : une entite sans `RenderLayerTag` est dessinee sur
+            // RenderLayer::Tile (hmi::DEFAULT_RENDER_LAYER), et `core::Sprite::layer` garde sa
+            // valeur par defaut -- le tri fin entre tuiles n'a pas lieu d'etre.
             _world.addComponent(entity, sprite);
         }
     }

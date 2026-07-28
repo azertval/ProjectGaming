@@ -37,7 +37,9 @@ void buildLevelScene(World& world, const Level& level,
 
             Sprite sprite;
             sprite.region = regionForTile(type);
-            sprite.layer = 0;
+            // `layer` garde sa valeur par defaut : il n'ordonne que les sprites d'un **meme**
+            // calque de rendu, et toutes les tuiles partagent le leur. Le calque lui-meme est une
+            // notion de presentation (hmi::RenderLayer, LOT-40) que `Core` ignore (EX-NFR-011).
             world.addComponent(entity, sprite);
         }
     }
