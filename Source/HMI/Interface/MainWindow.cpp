@@ -1,16 +1,14 @@
 #include "HMI/Interface/MainWindow.h"
 
-#include <vector>
-
 #include <QAction>
 #include <QApplication>
 #include <QCheckBox>
 #include <QCloseEvent>
-#include <QKeyEvent>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QFormLayout>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QMenu>
 #include <QMenuBar>
@@ -19,27 +17,27 @@
 #include <QSpinBox>
 #include <QStackedWidget>
 #include <QStatusBar>
+#include <QString>
 #include <QTimer>
 #include <QVBoxLayout>
-#include <QString>
 #include <QWidget>
-
+#include <ctime>
 #include <filesystem>
+#include <vector>
 
-#include "HMI/Game/GameViewport.h"
+#include "Core/Diagnostics/MemoryLogSink.h"
+#include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
-#include "HMI/Interface/MainMenu.h"
-#include "HMI/Interface/OptionsPage.h"
+#include "HMI/Editor/LinkPanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/ToolPanel.h"
+#include "HMI/Game/GameViewport.h"
 #include "HMI/HmiLog.h"
-#include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Input/GamepadButton.h"
+#include "HMI/Interface/MainMenu.h"
+#include "HMI/Interface/OptionsPage.h"
 #include "HMI/Platform/ExecutableDirectory.h"
-#include "Core/Diagnostics/MemoryLogSink.h"
 #include "ui_MainWindow.h"
-
-#include <ctime>
 
 namespace hmi {
 
@@ -47,9 +45,11 @@ namespace {
 
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
-constexpr int LAYOUT_VERSION = 2;  // 2 : dock « Statut » retiré (invalide les dispositions v1)
+constexpr int LAYOUT_VERSION =
+    3;  // 3 : dock « Liens » ajouté (LOT-37, invalide les dispositions v2)
 
-// Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`, HMI/main.cpp).
+// Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`,
+// HMI/main.cpp).
 constexpr char GEOMETRY_KEY[] = "mainWindow/geometry";
 constexpr char STATE_KEY[] = "mainWindow/state";
 
@@ -65,14 +65,15 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _palette(nullptr),
       _levels(nullptr),
       _tools(nullptr),
+      _links(nullptr),
       _loc(hmi::executableDirectory() / "Localization"),
       _sessionLog(sessionLog) {
     _ui->setupUi(this);  // barre de menus + docks (coquilles) depuis MainWindow.ui.
 
     // Catalogue de traduction : français par défaut (repli), langue active depuis les réglages.
     static_cast<void>(_loc.loadDefaultLanguage("fr"));
-    const QString savedLanguage = QSettings().value(QStringLiteral("language"),
-                                                    QStringLiteral("fr")).toString();
+    const QString savedLanguage =
+        QSettings().value(QStringLiteral("language"), QStringLiteral("fr")).toString();
     if (savedLanguage != QLatin1String("fr")) {
         static_cast<void>(_loc.loadLanguage(savedLanguage.toStdString()));
     }
@@ -85,7 +86,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Central : menu principal, options et viewport empilés (remplace le centralHost du .ui).
     _menu = new MainMenu();
-    _options = new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
+    _options =
+        new OptionsPage(_viewport, hmi::executableDirectory() / "Settings" / "keybindings.json");
     _stack = new QStackedWidget(this);
     _stack->addWidget(_menu);
     _stack->addWidget(_options);
@@ -115,6 +117,14 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _viewport->openLevel(std::filesystem::path(path.toStdString()));
     });
 
+    // Panneau Liens : reste synchronise avec le brouillon (LOT-37) ; selectionner une ligne
+    // surligne la liaison dans le viewport, supprimer delegue au viewport (seul proprietaire).
+    connect(_viewport, &GameViewport::draftChanged, this,
+            [this] { _links->refresh(_viewport->draft()); });
+    connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
+    connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
+    _links->refresh(_viewport->draft());  // etat initial (avant tout draftChanged).
+
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
     connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
@@ -122,7 +132,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_menu, &MainMenu::quitRequested, this, &MainWindow::close);
     // Retour au menu à la fin d'une partie (ou Échap en mode jeu).
     connect(_viewport, &GameViewport::exitToMenuRequested, this, &MainWindow::showMenu);
-    // Page Options : retour au menu, bascule plein écran, changement de langue, sauvegarde des logs.
+    // Page Options : retour au menu, bascule plein écran, changement de langue, sauvegarde des
+    // logs.
     connect(_options, &OptionsPage::backRequested, this, &MainWindow::showMenu);
     connect(_options, &OptionsPage::fullscreenRequested, this,
             [this](bool enabled) { enabled ? showFullScreen() : showNormal(); });
@@ -146,7 +157,8 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 }
 
 void MainWindow::setDocksVisible(bool visible) {
-    for (QDockWidget* const dock : {_ui->PalettePanel, _ui->ToolPanel, _ui->LevelsPanel}) {
+    for (QDockWidget* const dock :
+         {_ui->PalettePanel, _ui->ToolPanel, _ui->LevelsPanel, _ui->LinksPanel}) {
         dock->setVisible(visible);
     }
 }
@@ -179,16 +191,25 @@ void MainWindow::showGame() {
     statusBar()->clearMessage();
     _editorContainer->setFocus();
 
-    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au menu.
+    // Séquence de niveaux démo (même ordre que le jeu historique) — Échap ou la fin revient au
+    // menu.
     const std::filesystem::path levels = hmi::executableDirectory() / "Levels";
     _viewport->startGame({
-        levels / "demo-deplacement.json", levels / "demo-saut.json",
-        levels / "demo-double-saut.json", levels / "demo-wall-jump.json",
-        levels / "demo-dash.json", levels / "demo-interrupteur.json",
-        levels / "demo-plaque-pression.json", levels / "demo-bloc.json",
-        levels / "demo-budget.json", levels / "demo-pente.json", levels / "demo-arrondi.json",
-        levels / "demo-bloc-reduit.json", levels / "demo-dangers-avances.json",
-        levels / "demo-final.json", levels / "demo-salles.json",
+        levels / "demo-deplacement.json",
+        levels / "demo-saut.json",
+        levels / "demo-double-saut.json",
+        levels / "demo-wall-jump.json",
+        levels / "demo-dash.json",
+        levels / "demo-interrupteur.json",
+        levels / "demo-plaque-pression.json",
+        levels / "demo-bloc.json",
+        levels / "demo-budget.json",
+        levels / "demo-pente.json",
+        levels / "demo-arrondi.json",
+        levels / "demo-bloc-reduit.json",
+        levels / "demo-dangers-avances.json",
+        levels / "demo-final.json",
+        levels / "demo-salles.json",
     });
 }
 
@@ -204,30 +225,36 @@ void MainWindow::showOptions() {
 MainWindow::~MainWindow() = default;
 
 void MainWindow::buildUi() {
-    // Contenu des docks : les coquilles (`PalettePanel`/`ToolPanel`/`LevelsPanel`) et leur agencement
-    // viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés en code.
+    // Contenu des docks : les coquilles (`PalettePanel`/`ToolPanel`/`LevelsPanel`) et leur
+    // agencement viennent du `.ui` ; leurs widgets, paramétrés (chemins, dépendances), sont créés
+    // en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
     _tools = new ToolPanel(_ui->ToolPanel);
     _ui->ToolPanel->setWidget(_tools);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);
+    _links = new LinkPanel(_ui->LinksPanel);
+    _ui->LinksPanel->setWidget(_links);
 
     // Branchement du fonctionnel sur les actions déclarées dans le `.ui` (libellés posés par
-    // retranslateUi ; les raccourcis Ctrl+S/P/Ctrl+Z sont gérés par le viewport, ces entrées servent
-    // la découvrabilité).
+    // retranslateUi ; les raccourcis Ctrl+S/P/Ctrl+Z sont gérés par le viewport, ces entrées
+    // servent la découvrabilité).
     connect(_ui->actMainMenu, &QAction::triggered, this, &MainWindow::showMenu);
     connect(_ui->actQuit, &QAction::triggered, this, &MainWindow::close);
     connect(_ui->actSave, &QAction::triggered, _viewport, [this] { _viewport->save(); });
-    connect(_ui->actPlaytest, &QAction::triggered, _viewport, [this] { _viewport->startPlaytest(); });
+    connect(_ui->actPlaytest, &QAction::triggered, _viewport,
+            [this] { _viewport->startPlaytest(); });
     connect(_ui->actResize, &QAction::triggered, this, [this] { openResizeDialog(); });
     connect(_ui->actResetLayout, &QAction::triggered, this,
             [this] { restoreState(_defaultState, LAYOUT_VERSION); });
 
-    // Bascules de visibilité des docks (dynamiques) : insérées avant « Réinitialiser la disposition ».
+    // Bascules de visibilité des docks (dynamiques) : insérées avant « Réinitialiser la disposition
+    // ».
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->PalettePanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LevelsPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->ToolPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 }
 
@@ -261,8 +288,7 @@ void MainWindow::openResizeDialog() {
     // Confirmation si le redimensionnement supprimerait du contenu déjà posé (EX-EDIT-012).
     if (_viewport->wouldResizeDrop(width, height)) {
         const QMessageBox::StandardButton answer = QMessageBox::question(
-            this, text("dialog.resize_title"),
-            text("dialog.resize_drop").arg(width).arg(height));
+            this, text("dialog.resize_title"), text("dialog.resize_drop").arg(width).arg(height));
         if (answer != QMessageBox::Yes) {
             return;
         }
@@ -306,8 +332,8 @@ void MainWindow::pollMenuGamepad() {
 
     // Poste un événement clavier Qt à la cible focalisée (repli : page courante de la pile), pour
     // que la manette pilote la **navigation de focus** standard de Qt sans code de layout dédié.
-    QWidget* const target =
-        QApplication::focusWidget() != nullptr ? QApplication::focusWidget() : _stack->currentWidget();
+    QWidget* const target = QApplication::focusWidget() != nullptr ? QApplication::focusWidget()
+                                                                   : _stack->currentWidget();
     const auto post = [target](Qt::Key key, Qt::KeyboardModifiers mods) {
         if (target == nullptr) {
             return;
@@ -329,7 +355,8 @@ void MainWindow::pollMenuGamepad() {
         post(Qt::Key_Return, Qt::NoModifier);
     }
     // B : retour contextuel (depuis Options vers le menu), sans quitter depuis le menu principal.
-    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B) && _stack->currentWidget() == _options) {
+    if (_menuPadInput.gamepadButtonPressed(GamepadButton::B) &&
+        _stack->currentWidget() == _options) {
         showMenu();
     }
 
@@ -347,6 +374,7 @@ void MainWindow::retranslateUi() {
     _ui->PalettePanel->setWindowTitle(text("dock.palette"));
     _ui->ToolPanel->setWindowTitle(text("dock.tools"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
+    _ui->LinksPanel->setWindowTitle(text("dock.links"));
 
     // Barre de menus.
     _ui->appMenu->setTitle(text("menubar.application"));
@@ -365,6 +393,7 @@ void MainWindow::retranslateUi() {
     _palette->retranslateUi(_loc);
     _tools->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
+    _links->retranslateUi(_loc);
 
     // Rafraîchit le message d'aide s'il est visible (mode éditeur).
     if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {

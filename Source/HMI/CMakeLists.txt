@@ -82,9 +82,12 @@ add_executable(ProjectGaming
     Editor/PalettePanel.cpp
     Editor/ToolPanel.cpp
     Editor/LevelBrowserPanel.cpp
+    Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
     Editor/LevelFileOperations.cpp
     Editor/LevelNameValidation.cpp
+    Editor/LinkGeometry.cpp
+    Editor/LinkGesture.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).

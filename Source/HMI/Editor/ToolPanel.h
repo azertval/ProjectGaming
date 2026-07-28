@@ -1,8 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include <QWidget>
+#include <memory>
 
 #include "HMI/Editor/EditorTool.h"
 
@@ -20,7 +19,7 @@ namespace hmi {
 class Localization;
 
 /**
- * @brief Sélecteur d'outil d'édition (`EX-EDIT-014`) : Pinceau, Rectangle, Sélection.
+ * @brief Sélecteur d'outil d'édition (`EX-EDIT-014`) : Pinceau, Rectangle, Sélection, Lien.
  *
  * Mise en page dans `ToolPanel.ui` (boutons radio, exclusifs entre frères). Changer d'outil émet
  * `toolSelected`, consommé par le viewport (`GameViewport::setTool`). Pinceau actif par défaut.

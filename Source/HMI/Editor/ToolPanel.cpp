@@ -26,6 +26,11 @@ ToolPanel::ToolPanel(QWidget* parent) : QWidget(parent), _ui(std::make_unique<Ui
             emit toolSelected(hmi::EditorTool::Selection);
         }
     });
+    connect(_ui->linkRadio, &QRadioButton::toggled, this, [this](bool on) {
+        if (on) {
+            emit toolSelected(hmi::EditorTool::Link);
+        }
+    });
 }
 
 ToolPanel::~ToolPanel() = default;
@@ -34,6 +39,7 @@ void ToolPanel::retranslateUi(const Localization& loc) {
     _ui->paintRadio->setText(QString::fromStdString(loc.text("tool.brush")));
     _ui->rectangleRadio->setText(QString::fromStdString(loc.text("tool.rectangle")));
     _ui->selectionRadio->setText(QString::fromStdString(loc.text("tool.selection")));
+    _ui->linkRadio->setText(QString::fromStdString(loc.text("tool.link")));
 }
 
 }  // namespace hmi

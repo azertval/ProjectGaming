@@ -1,7 +1,17 @@
 # LOT-37 — Refonte IHM (Qt) : liens de mécanismes visuels (traits/flèches) {#lot-37}
 
-> Statut : **non commencé**. Prérequis : [LOT-35](@ref lot-35) (éditeur Qt) ; complémentaire de
+> Statut : **fait**. Prérequis : [LOT-35](@ref lot-35) (éditeur Qt) ; complémentaire de
 > [LOT-36](@ref lot-36).
+>
+> **Note (cadrage vs implémentation)** : ce lot a été cadré avant le `LOT-38` (retrait de l'éditeur
+> « maison » historique). Les chemins mentionnés ci-dessous (`Source/Editor`, `EditorController`,
+> `LINK_TINTS`, prédicats `isTriggerTile`/`isLinkTargetTile` du legacy) appartenaient à ce code
+> **supprimé** ; l'implémentation réelle vit dans l'arborescence Qt actuelle : géométrie/gestes
+> purs dans `Source/HMI/Editor/{LinkGeometry,LinkGesture}.*`, rendu dans
+> `Source/HMI/Graphics/DraftRenderer.cpp` (+ primitive `hmi::LineQuad` dans `SpriteBatch`), geste
+> interactif dans `Source/HMI/Game/GameViewport.*` via un **outil dédié** `EditorTool::Link`
+> (panneau Outils) plutôt qu'un raccourci `Maj+clic`, et panneau dans
+> `Source/HMI/Editor/LinkPanel.*`. Voir @ref guide-editeur pour la description à jour.
 
 ## Objectif
 Rendre **lisible et éditable** la liaison des interrupteurs, principal point de douleur cité par le
@@ -24,9 +34,8 @@ et éditant les liaisons.
 - **Panneau « Liens »** (`QDockWidget`) : liste des liaisons du niveau (déclencheur → cible, avec
   coordonnées et type) ; sélectionner une entrée **met en surbrillance** le trait correspondant ;
   **supprimer** une liaison depuis le panneau.
-- **Création/suppression de lien** conservée au geste (sélection déclencheur puis cible), mais avec
-  **retour visuel immédiat** (trait provisoire pendant la création) ; bascule débloquée par le rendu
-  explicite.
+- **Création/suppression de lien** on passe par un outil de sélection de déclencheur puis de cible ; la liaison est **créée immédiatement** et
+  apparaît dans le viewport ; refaire la même paire la supprime (bascule conservée). Suppression de la mechanique de maj-clic
 - Réutilise **intégralement** le modèle : `LevelDraft::linkMechanism` / `unlinkMechanism`, vecteurs
   `Mechanism` / `DangerLink`, distinction `isTriggerTile` / `isLinkTargetTile`.
 - Documentation (guide éditeur — section liaisons) et tests de la logique nouvelle (géométrie des
@@ -66,9 +75,9 @@ et éditant les liaisons.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-primitive-ligne-geometrie.md) | Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable) | `Source/HMI/Graphics`, `Source/Editor` | ⬜ |
-| [TACHE-02](tache-02-rendu-liens-creation.md) | Rendu des liens + création avec retour visuel immédiat dans le viewport | `Source/Editor` | ⬜ |
-| [TACHE-03](tache-03-panneau-liens-doc.md) | Panneau « Liens » (liste, surbrillance, suppression) ; doc & vérification | `Source/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-primitive-ligne-geometrie.md) | Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable) | `Source/HMI/Graphics`, `Source/HMI/Editor` | ✅ |
+| [TACHE-02](tache-02-rendu-liens-creation.md) | Rendu des liens + création avec retour visuel immédiat dans le viewport | `Source/HMI/Editor`, `Source/HMI/Game` | ✅ |
+| [TACHE-03](tache-03-panneau-liens-doc.md) | Panneau « Liens » (liste, surbrillance, suppression) ; doc & vérification | `Source/HMI/Editor`, `Source/HMI/Interface`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Chaque liaison déclencheur→cible du niveau est dessinée comme un **trait/flèche explicite** dans le

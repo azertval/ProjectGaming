@@ -1,14 +1,13 @@
 #pragma once
 
+#include <QString>
+#include <QWindow>
 #include <chrono>
 #include <filesystem>
 #include <memory>
 #include <optional>
 #include <utility>
 #include <vector>
-
-#include <QString>
-#include <QWindow>
 
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
@@ -24,7 +23,8 @@
 
 /**
  * @file HMI/Game/GameViewport.h
- * @brief Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai (LOT-34/35).
+ * @brief Viewport de l'éditeur : rendu Direct3D 11 du brouillon d'édition et de l'essai
+ * (LOT-34/35).
  */
 
 namespace hmi {
@@ -72,13 +72,14 @@ public:
         _loc = loc;
     }
 
-    /// Accès **modifiable** aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes
-    /// bindings, donc un changement s'applique immédiatement.
+    /// Accès **modifiable** aux touches de jeu (pour le remappage) : la session de jeu lit ces
+    /// mêmes bindings, donc un changement s'applique immédiatement.
     [[nodiscard]] hmi::GameKeyBindings& gameBindings() noexcept {
         return _gameBindings;
     }
 
-    /// Accès **modifiable** aux boutons manette (pour le remappage), même principe que `gameBindings`.
+    /// Accès **modifiable** aux boutons manette (pour le remappage), même principe que
+    /// `gameBindings`.
     [[nodiscard]] hmi::GamepadBindings& gamepadBindings() noexcept {
         return _gamepadBindings;
     }
@@ -98,8 +99,8 @@ public:
     /// Lance l'essai immédiat (`P`) sur un brouillon valide ; message d'erreur sinon.
     void startPlaytest();
 
-    /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap` ou
-    /// la fin de la séquence émet `exitToMenuRequested`.
+    /// Lance le **jeu** : joue la séquence de niveaux @p levels (mode « Jouer » du menu). `Échap`
+    /// ou la fin de la séquence émet `exitToMenuRequested`.
     void startGame(std::vector<std::filesystem::path> levels);
 
     /// Active/désactive la synchronisation verticale (`EX-REN-022`) ; appliqué au device D3D11.
@@ -119,11 +120,27 @@ public:
     [[nodiscard]] int levelWidth() const;
     [[nodiscard]] int levelHeight() const;
 
+    /// @return Le brouillon en cours d'édition (lecture seule) — consommé par le panneau « Liens ».
+    [[nodiscard]] const core::LevelDraft& draft() const noexcept {
+        return _draft;
+    }
+
+    /// Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le
+    /// panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.
+    void setHighlightedLink(std::optional<std::pair<core::GridPosition, core::GridPosition>> link);
+
+    /// Supprime la liaison dont la cible est @p targetPosition (bouton « Supprimer » du panneau
+    /// « Liens ») ; sans effet si @p targetPosition n'a pas de liaison.
+    void unlinkMechanism(core::GridPosition targetPosition);
+
 signals:
     /// Message d'état à afficher (enregistrement, essai, erreur de validation…).
     void statusMessage(const QString& message);
     /// Demande de retour au menu principal (fin de partie ou `Échap` en mode jeu).
     void exitToMenuRequested();
+    /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
+    /// « Liens » se resynchronise dessus (`refresh`).
+    void draftChanged();
 
 protected:
     bool event(QEvent* event) override;
@@ -148,8 +165,8 @@ private:
     void updateEditCamera();
     /// Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.
     [[nodiscard]] std::optional<core::GridPosition> cellAt(const QMouseEvent* event);
-    /// Case de grille sous @p event, **bornée** à la grille (jamais hors bornes) — pour les glissers
-    /// rectangle/sélection dont le curseur peut dépasser légèrement les bords.
+    /// Case de grille sous @p event, **bornée** à la grille (jamais hors bornes) — pour les
+    /// glissers rectangle/sélection dont le curseur peut dépasser légèrement les bords.
     [[nodiscard]] core::GridPosition clampedCell(const QMouseEvent* event);
     /// Peint le type actif à la case sous @p event, si valide (invalide la scène rendue).
     void paintAt(const QMouseEvent* event);
@@ -160,7 +177,16 @@ private:
     /// Colle le presse-papiers à la case survolée (`Ctrl+V`).
     void pasteClipboard();
     /// Zone à mettre en surbrillance (glisser en cours, sinon sélection mémorisée), le cas échéant.
-    [[nodiscard]] std::optional<std::pair<core::GridPosition, core::GridPosition>> highlight() const;
+    [[nodiscard]] std::optional<std::pair<core::GridPosition, core::GridPosition>> highlight()
+        const;
+    /// Résout le clic de l'outil Lien (`hmi::resolveLinkClick`) et l'applique (attente, liaison).
+    void handleLinkClick(const QMouseEvent* event);
+    /// @return true si (@p switchPosition, @p targetPosition) est déjà une liaison du brouillon.
+    [[nodiscard]] bool linkExists(core::GridPosition switchPosition,
+                                  core::GridPosition targetPosition) const;
+    /// Invalide le rendu du brouillon et notifie les panneaux dépendants (`draftChanged`) — à
+    /// appeler après toute mutation de `_draft` (peinture, lien, undo/redo, chargement…).
+    void markDraftMutated();
 
     [[nodiscard]] int pixelWidth() const;
     [[nodiscard]] int pixelHeight() const;
@@ -182,30 +208,35 @@ private:
     Clock::time_point _previousFrame;
     bool _loopStarted = false;
 
-    core::LevelDraft _draft;            ///< Brouillon en cours d'édition (source de vérité).
-    hmi::Camera2D _camera;              ///< Caméra d'édition (cadre le niveau entier).
+    core::LevelDraft _draft;  ///< Brouillon en cours d'édition (source de vérité).
+    hmi::Camera2D _camera;    ///< Caméra d'édition (cadre le niveau entier).
     core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
-    hmi::EditorTool _tool = hmi::EditorTool::Paint;      ///< Outil d'édition actif (barre d'outils).
-    bool _painting = false;            ///< Un glisser de peinture (Pinceau) est en cours.
-    bool _dragging = false;            ///< Un glisser Rectangle/Sélection est en cours.
-    core::GridPosition _dragStart{};   ///< Case de départ du glisser Rectangle/Sélection.
-    core::GridPosition _dragCurrent{}; ///< Case courante du glisser (pour l'aperçu).
-    core::GridPosition _hoverCell{};   ///< Dernière case survolée (cible du collage).
+    hmi::EditorTool _tool = hmi::EditorTool::Paint;  ///< Outil d'édition actif (barre d'outils).
+    bool _painting = false;             ///< Un glisser de peinture (Pinceau) est en cours.
+    bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.
+    core::GridPosition _dragStart{};    ///< Case de départ du glisser Rectangle/Sélection.
+    core::GridPosition _dragCurrent{};  ///< Case courante du glisser (pour l'aperçu).
+    core::GridPosition _hoverCell{};    ///< Dernière case survolée (cible du collage).
     /// Sélection mémorisée (bornes min/max incluses), pour copier (`Ctrl+C`).
     const Localization* _loc = nullptr;  ///< Catalogue pour localiser les messages d'état.
 
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selection;
+    /// Case du déclencheur/de la cible en attente d'appariement (outil Lien, premier clic).
+    std::optional<core::GridPosition> _pendingLink;
+    /// Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance.
+    std::optional<std::pair<core::GridPosition, core::GridPosition>> _selectedLink;
     /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
     std::vector<std::vector<core::TileType>> _clipboard;
-    bool _dirty = false;               ///< Modifications non enregistrées (garde-fou d'ouverture).
-    bool _showGrid = true;             ///< Grille de repère (cases + salles) affichée (bascule F10).
-    bool _vsync = true;                ///< Synchronisation verticale (appliquée au device D3D11).
-    bool _gameMode = false;            ///< La session courante est une **partie** (menu Jouer) et
-                                       ///< non un essai depuis l'éditeur (enchaînement/retour menu).
+    bool _dirty = false;     ///< Modifications non enregistrées (garde-fou d'ouverture).
+    bool _showGrid = true;   ///< Grille de repère (cases + salles) affichée (bascule F10).
+    bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
+    bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
+                             ///< non un essai depuis l'éditeur (enchaînement/retour menu).
     std::vector<std::filesystem::path> _gameLevels;  ///< Séquence de niveaux du mode jeu.
-    std::size_t _gameLevel = 0;        ///< Indice du niveau courant dans la séquence.
+    std::size_t _gameLevel = 0;                      ///< Indice du niveau courant dans la séquence.
 
-    /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35 TACHE-04).
+    /// Session de jeu de l'essai immédiat ; nulle en mode édition (essai ajouté au LOT-35
+    /// TACHE-04).
     std::optional<hmi::GameSession> _session;
 };
 

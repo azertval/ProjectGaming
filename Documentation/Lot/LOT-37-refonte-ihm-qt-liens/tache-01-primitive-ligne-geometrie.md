@@ -1,6 +1,10 @@
 # TACHE-01 — Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable) {#lot-37-tache-01-primitive-ligne-geometrie}
 
-**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Editor` · **Statut :** non commencé
+**Lot :** [LOT-37](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** fait
+
+> Réalisé dans `Source/HMI/Graphics/SpriteBatch.{h,cpp}` (`hmi::LineQuad` + `draw(const LineQuad&)`,
+> même tampon/index buffer que `draw(SpriteQuad)`) et `Source/HMI/Editor/LinkGeometry.{h,cpp}`
+> (chemin réel, pas `Source/Editor` comme cadré initialement — voir note en tête de l'épic).
 
 ## Contexte
 Le rendu 2D actuel (`hmi::SpriteBatch`) ne dessine que des **quads texturés** : il n'existe **aucune

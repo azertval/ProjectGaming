@@ -38,6 +38,30 @@ struct SpriteQuad {
 };
 
 /**
+ * @brief Un segment épais à dessiner : deux extrémités en **unités monde**, une épaisseur
+ *        (perpendiculaire au segment, unités monde) et une teinte.
+ *
+ * Contrairement à `SpriteQuad` (rectangle toujours aligné aux axes), ce quad peut être **orienté**
+ * dans n'importe quelle direction — utilisé pour les liens de mécanismes (`LOT-37`, flèches
+ * déclencheur → cible). Mêmes conventions que `SpriteQuad` (Y vers le bas, UV normalisées).
+ */
+struct LineQuad {
+    float ax = 0.0f;
+    float ay = 0.0f;
+    float bx = 0.0f;
+    float by = 0.0f;
+    float thickness = 0.0f;
+    float u0 = 0.0f;
+    float v0 = 0.0f;
+    float u1 = 1.0f;
+    float v1 = 1.0f;
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;
+};
+
+/**
  * @brief Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage
  *        *nearest* (pixel art).
  *
@@ -72,6 +96,13 @@ public:
      * @param quad Quad à dessiner (unités monde, UV normalisées, teinte).
      */
     void draw(const SpriteQuad& quad);
+
+    /**
+     * @brief Ajoute un segment épais (orienté librement) au lot courant.
+     * @param line Segment à dessiner (unités monde, UV normalisées, teinte). Sans effet si les
+     *             deux extrémités coïncident (segment dégénéré).
+     */
+    void draw(const LineQuad& line);
 
     /// Termine le lot : émet le dessin des quads accumulés.
     void end();

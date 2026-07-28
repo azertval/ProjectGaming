@@ -7,6 +7,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-37 — Liens de mécanismes par traits/flèches** (`EX-IHM-030`, `EX-IHM-031`) : la liaison
+  déclencheur → cible (interrupteur/plaque → porte, danger commuté) était jusqu'ici signalée par une
+  simple teinte de case, illisible au-delà de quelques liens. Chaque liaison est désormais dessinée
+  comme une **flèche explicite** dans le viewport (`hmi::DraftRenderer::drawLinks`, nouvelle
+  primitive de segment orienté `hmi::LineQuad` sur `hmi::SpriteBatch`), alignée au zoom/pan courant.
+  Un **outil « Lien » dédié** (`hmi::EditorTool::Link`, panneau Outils) remplace le geste au clic :
+  cliquer un déclencheur passe en attente de cible, cliquer une cible crée la liaison (rejouer la
+  paire la supprime) ; `Échap` annule une attente en cours. Plusieurs liens partageant un
+  déclencheur s'écartent en **éventail** depuis une base commune plutôt que de se superposer. Un
+  **panneau « Liens »** (dock Qt) liste toutes les liaisons du niveau, met en surbrillance celle
+  sélectionnée et permet de la supprimer. Géométrie et machine à état du geste
+  (`hmi::LinkGeometry`, `hmi::LinkGesture`) sont pures et testées sans GPU/Qt (`EX-NFR-010`) ; le
+  modèle de liaison (`core::LevelDraft::linkMechanism`/`unlinkMechanism`) est inchangé.
+
 - **LOT-34 → LOT-38 — Refonte de l'IHM vers Qt** (`EX-IHM-*`, `EX-BUILD-010`) : toute l'interface
   hors-jeu (menu, options, remappage clavier/manette, éditeur de niveaux) est désormais une
   application **Qt 6** (`ProjectGaming`), le **rendu in-game restant Direct3D 11** embarqué dans un
