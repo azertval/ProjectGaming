@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: hmi::SpriteRenderer::LayeredQuad Struct Reference</title>
+<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/TextureCache.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('structhmi_1_1SpriteRenderer_1_1LayeredQuad.html','','structhmi_1_1SpriteRenderer_1_1LayeredQuad-members'); });
+$(function(){initNavTree('TextureCache_8h.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -89,53 +89,39 @@ $(function(){initNavTree('structhmi_1_1SpriteRenderer_1_1LayeredQuad.html','','s
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">hmi::SpriteRenderer::LayeredQuad Struct Reference</div></div>
+  <div class="headertitle"><div class="title">TextureCache.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Un quad prêt à dessiner, associé à sa couche (pour le tri).  
- <a href="#details">More...</a></p>
+<p>Registre de textures chargées à la demande par <b>nom logique</b> (<span class="tt">EX-REN-043</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;d3d11.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="AssetContract_8h_source.html">HMI/Graphics/AssetContract.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="AssetPaths_8h_source.html">HMI/Graphics/AssetPaths.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TextureLoader_8h_source.html">HMI/Graphics/TextureLoader.h</a>&quot;</code><br />
+</div>
+<p><a href="TextureCache_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7f5eff7b482e40a676dfab85ccc7f0c2" id="r_a7f5eff7b482e40a676dfab85ccc7f0c2"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a7f5eff7b482e40a676dfab85ccc7f0c2">layer</a></td></tr>
-<tr class="memitem:a10b7a486b74827ac1d3d6a0c58efe78f" id="r_a10b7a486b74827ac1d3d6a0c58efe78f"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a10b7a486b74827ac1d3d6a0c58efe78f">quad</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3ATextureCache" id="r_hmi_3A_3ATextureCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.  <a href="classhmi_1_1TextureCache.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a32457118c4e60dff8da0ba9839c0f29a" id="r_a32457118c4e60dff8da0ba9839c0f29a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a32457118c4e60dff8da0ba9839c0f29a">hmi::resolveOrPlaceholder</a> (<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
+<tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Un quad prêt à dessiner, associé à sa couche (pour le tri). </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a7f5eff7b482e40a676dfab85ccc7f0c2" name="a7f5eff7b482e40a676dfab85ccc7f0c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f5eff7b482e40a676dfab85ccc7f0c2">&#9670;&#160;</a></span>layer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::int32_t hmi::SpriteRenderer::LayeredQuad::layer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a10b7a486b74827ac1d3d6a0c58efe78f" name="a10b7a486b74827ac1d3d6a0c58efe78f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10b7a486b74827ac1d3d6a0c58efe78f">&#9670;&#160;</a></span>quad</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> hmi::SpriteRenderer::LayeredQuad::quad</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/<a class="el" href="SpriteRenderer_8h_source.html">SpriteRenderer.h</a></li>
-</ul>
-</div><!-- contents -->
+<div class="textblock"><p>Registre de textures chargées à la demande par <b>nom logique</b> (<span class="tt">EX-REN-043</span>). </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -148,7 +134,7 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1SpriteRenderer.html">SpriteRenderer</a></li><li class="navelem"><a href="structhmi_1_1SpriteRenderer_1_1LayeredQuad.html">LayeredQuad</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="TextureCache_8h.html">TextureCache.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

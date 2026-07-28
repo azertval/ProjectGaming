@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (359)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (388)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -43,7 +43,7 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (5)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (23)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (52)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
@@ -101,29 +101,30 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"SessionLog_8h_source.html",
-"classcore_1_1Level.html#a6222b34ab7079f9ce8044892436e5313",
-"classcore_1_1View_1_1Iterator.html#a9b2b7209e204230168642ba185a83f2b",
-"classhmi_1_1GameViewport.html#a1a527f3ff564f927ece3eca7644dfef5",
-"classhmi_1_1GraphicsDevice.html#a8ec875fd4b1765cbead5860c176da11c",
-"classhmi_1_1MainMenu.html#a6ea568ee837e5b07a5bbb69824421183",
-"classhmi_1_1ToolPanel.html#ab1e856f382539bf2e6df5546a0dd94d7",
-"guide-entrees.html#autotoc_md74",
-"lot-03.html#autotoc_md350",
-"lot-07-tache-04-validation.html#autotoc_md623",
-"lot-12-tache-01-donnees.html#autotoc_md843",
-"lot-17.html#autotoc_md1040",
-"lot-24-tache-02-collision-boite-boite.html#autotoc_md1286",
-"lot-30.html#autotoc_md1471",
-"lot-36.html#autotoc_md1697",
-"lot-42.html#autotoc_md1904",
-"lot-49-tache-02-rendu-couches.html#autotoc_md2170",
-"lot-55.html#autotoc_md2359",
-"spec-architecture.html",
-"structcore_1_1PhysicsConfig.html#a0fdb33afff65f36642d32a0714f9a642",
-"structhmi_1_1LoadedTexture.html",
-"test__input__state_8cpp.html#aa8e6d3ad41aa204883ebcd46b5406b41",
-"test__physique__personnage_8cpp.html#ab6be7decf9201b8ffb23a507d450b7b1"
+"QtKeyMap_8h_source.html",
+"classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d",
+"classcore_1_1View.html#a4888128d907a06adce68b142bcc867ce",
+"classhmi_1_1GameSession.html#a6bb897af2e39b7bb5bbf7507d4f7b6ad",
+"classhmi_1_1GamepadBindingsWidget.html#a6a92916cdc5c225f2bdb62a388092a3d",
+"classhmi_1_1LinkPanel.html",
+"classhmi_1_1SpriteBatch.html",
+"functions_func_b.html",
+"lot-01-tache-02-init-direct3d11.html#autotoc_md284",
+"lot-05-tache-04-camera-2d.html#autotoc_md506",
+"lot-09-tache-04-coyote-buffering.html#autotoc_md726",
+"lot-15-tache-01-entrees-molette-texte.html#autotoc_md947",
+"lot-20.html#autotoc_md1137",
+"lot-27-tache-02-documentation-verification.html#autotoc_md1389",
+"lot-33.html#autotoc_md1576",
+"lot-39.html#autotoc_md1798",
+"lot-46-tache-01-modele-clip.html#autotoc_md2053",
+"lot-52-tache-01-police-bitmap.html#autotoc_md2274",
+"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875afef46e5063ce3dc78b8ae64fa474241d",
+"spec-gameplay.html#autotoc_md241",
+"structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031",
+"structhmi_1_1SceneStatistics.html#ab6da0ac15fcd9fb0e99f694ca5ba9753",
+"test__level__draft_8cpp.html#a4347303bd7168d872740e6e8bab5e63a",
+"test__player__input__mapper_8cpp.html#a0077cf1727eec8790568618d004b88bc"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

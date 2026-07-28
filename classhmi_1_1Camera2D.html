@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2f872fc80538490f888f3eef52498dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position monde en pixels écran.  <br /></td></tr>
 <tr class="memitem:aea18d5858adba920f73a1a252c3be08d" id="r_aea18d5858adba920f73a1a252c3be08d"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aea18d5858adba920f73a1a252c3be08d">screenToWorld</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;screen) const</td></tr>
 <tr class="memdesc:aea18d5858adba920f73a1a252c3be08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position écran (pixels) en unités monde.  <br /></td></tr>
+<tr class="memitem:a471c631178660b8fcd3d9f8072ef6dfb" id="r_a471c631178660b8fcd3d9f8072ef6dfb"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a471c631178660b8fcd3d9f8072ef6dfb">visibleBounds</a> () const</td></tr>
+<tr class="memdesc:a471c631178660b8fcd3d9f8072ef6dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle du monde effectivement cadré par la caméra.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -394,6 +396,34 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a471c631178660b8fcd3d9f8072ef6dfb" name="a471c631178660b8fcd3d9f8072ef6dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a471c631178660b8fcd3d9f8072ef6dfb">&#9670;&#160;</a></span>visibleBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::Camera2D::visibleBounds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rectangle du monde effectivement cadré par la caméra. </p>
+<p>Base du <b>culling</b> (<span class="tt">EX-NFR-005</span>) : une primitive dont la boîte englobante n'intersecte pas ce rectangle (élargi d'une marge, cf. <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e" title="Marge de culling, en unités monde, ajoutée de chaque côté du cadrage visible.">hmi::ComposedScene::CULLING_MARGIN_UNITS</a></span>) n'a aucune raison d'être soumise. Dérivé de <span class="tt"><a class="el" href="#aea18d5858adba920f73a1a252c3be08d" title="Convertit une position écran (pixels) en unités monde.">screenToWorld</a></span> : aucune notion de cadrage nouvelle n'est introduite, la caméra reste la seule source de vérité. </p><dl class="section return"><dt>Returns</dt><dd>Le rectangle visible, en unités monde (coin haut-gauche + dimensions). </dd></dl>
 
 </div>
 </div>

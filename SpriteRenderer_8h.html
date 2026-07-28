@@ -95,8 +95,8 @@ $(function(){initNavTree('SpriteRenderer_8h.html','',''); });
 
 <p>Rend les entités de l'ECS possédant un <span class="tt">Transform</span> et un <span class="tt">Sprite</span>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;DirectXMath.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SpriteBatch_8h_source.html">HMI/Graphics/SpriteBatch.h</a>&quot;</code><br />
 </div>
 <p><a href="SpriteRenderer_8h_source.html">Go to the source code of this file.</a></p>
@@ -104,15 +104,18 @@ $(function(){initNavTree('SpriteRenderer_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteRenderer" id="r_hmi_3A_3ASpriteRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteRenderer.html">hmi::SpriteRenderer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par couche.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3ASpriteRenderer_3A_3ALayeredQuad" id="r_hmi_3A_3ASpriteRenderer_3A_3ALayeredQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteRenderer_1_1LayeredQuad.html">hmi::SpriteRenderer::LayeredQuad</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quad prêt à dessiner, associé à sa couche (pour le tri).  <a href="structhmi_1_1SpriteRenderer_1_1LayeredQuad.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a533df804a658915efda4f8f6c918496e">hmi::submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
+<tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Rend les entités de l'ECS possédant un <span class="tt">Transform</span> et un <span class="tt">Sprite</span>. </p>

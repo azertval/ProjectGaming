@@ -3,7 +3,9 @@ var hierarchy =
     [ "core::Aabb", "structcore_1_1Aabb.html", null ],
     [ "core::Animation", "structcore_1_1Animation.html", null ],
     [ "hmi::ArrowHead", "structhmi_1_1ArrowHead.html", null ],
+    [ "hmi::AssetDimensionContract", "structhmi_1_1AssetDimensionContract.html", null ],
     [ "hmi::AssetPaths", "classhmi_1_1AssetPaths.html", null ],
+    [ "hmi::AssetValidation", "structhmi_1_1AssetValidation.html", null ],
     [ "hmi::AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],
@@ -12,6 +14,8 @@ var hierarchy =
     [ "core::CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],
     [ "core::Color", "structcore_1_1Color.html", null ],
+    [ "hmi::ComposedQuad", "structhmi_1_1ComposedQuad.html", null ],
+    [ "hmi::ComposedScene", "classhmi_1_1ComposedScene.html", null ],
     [ "core::DangerBlinkConfig", "structcore_1_1DangerBlinkConfig.html", null ],
     [ "core::DangerController", "classcore_1_1DangerController.html", null ],
     [ "core::DangerLink", "structcore_1_1DangerLink.html", null ],
@@ -44,7 +48,6 @@ var hierarchy =
       [ "core::MovementSystem", "classcore_1_1MovementSystem.html", null ]
     ] ],
     [ "core::View&lt; Components &gt;::Iterator", "classcore_1_1View_1_1Iterator.html", null ],
-    [ "hmi::SpriteRenderer::LayeredQuad", "structhmi_1_1SpriteRenderer_1_1LayeredQuad.html", null ],
     [ "core::Level", "classcore_1_1Level.html", null ],
     [ "core::LevelDraft", "classcore_1_1LevelDraft.html", null ],
     [ "hmi::LevelFileOperations", "classhmi_1_1LevelFileOperations.html", null ],
@@ -70,6 +73,7 @@ var hierarchy =
     [ "QMainWindow", null, [
       [ "hmi::MainWindow", "classhmi_1_1MainWindow.html", null ]
     ] ],
+    [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "QWidget", null, [
       [ "hmi::GamepadBindingsWidget", "classhmi_1_1GamepadBindingsWidget.html", null ],
       [ "hmi::KeybindingsWidget", "classhmi_1_1KeybindingsWidget.html", null ],
@@ -84,8 +88,10 @@ var hierarchy =
       [ "hmi::GameViewport", "classhmi_1_1GameViewport.html", null ]
     ] ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
+    [ "hmi::RenderLayerTag", "structhmi_1_1RenderLayerTag.html", null ],
     [ "hmi::RoomBounds", "structhmi_1_1RoomBounds.html", null ],
     [ "hmi::RoomGrid", "classhmi_1_1RoomGrid.html", null ],
+    [ "hmi::SceneStatistics", "structhmi_1_1SceneStatistics.html", null ],
     [ "core::SlopeFollowResult", "structcore_1_1SlopeFollowResult.html", null ],
     [ "core::Sprite", "structcore_1_1Sprite.html", null ],
     [ "hmi::SpriteBatch", "classhmi_1_1SpriteBatch.html", null ],
@@ -94,6 +100,7 @@ var hierarchy =
     [ "core::LevelDraft::State", "structcore_1_1LevelDraft_1_1State.html", null ],
     [ "core::SweepResult", "structcore_1_1SweepResult.html", null ],
     [ "hmi::TextureAtlas", "classhmi_1_1TextureAtlas.html", null ],
+    [ "hmi::TextureCache", "classhmi_1_1TextureCache.html", null ],
     [ "hmi::TileCategory", "structhmi_1_1TileCategory.html", null ],
     [ "hmi::TileEntry", "structhmi_1_1TileEntry.html", null ],
     [ "core::TileMap", "classcore_1_1TileMap.html", null ],

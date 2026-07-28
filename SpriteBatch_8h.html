@@ -100,15 +100,12 @@ $(function(){initNavTree('SpriteBatch_8h.html','',''); });
 <code>#include &lt;DirectXMath.h&gt;</code><br />
 <code>#include &lt;d3d11.h&gt;</code><br />
 <code>#include &lt;wrl/client.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Quad_8h_source.html">HMI/Graphics/Quad.h</a>&quot;</code><br />
 </div>
 <p><a href="SpriteBatch_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3ASpriteQuad" id="r_hmi_3A_3ASpriteQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteQuad.html">hmi::SpriteQuad</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quad texturé à dessiner : rectangle en <b>unités monde</b>, région de texture (coordonnées normalisées) et teinte.  <a href="structhmi_1_1SpriteQuad.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3ALineQuad" id="r_hmi_3A_3ALineQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LineQuad.html">hmi::LineQuad</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un segment épais à dessiner : deux extrémités en <b>unités monde</b>, une épaisseur (perpendiculaire au segment, unités monde) et une teinte.  <a href="structhmi_1_1LineQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteBatch" id="r_hmi_3A_3ASpriteBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage <em>nearest</em> (pixel art).  <a href="classhmi_1_1SpriteBatch.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteBatch_3A_3AVertex" id="r_hmi_3A_3ASpriteBatch_3A_3AVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteBatch_1_1Vertex.html">hmi::SpriteBatch::Vertex</a></td></tr>
@@ -120,6 +117,7 @@ Namespaces</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pipeline de rendu 2D : accumule des quads texturés et les dessine par lots. </p>
+<p>Les primitives elles-mêmes (<span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span>, <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span>) vivent depuis <span class="tt">LOT-40</span> dans <span class="tt"><a class="el" href="Quad_8h.html" title="Primitives de dessin 2D (quads texturés), indépendantes de Direct3D.">HMI/Graphics/Quad.h</a></span>, sans dépendance Direct3D, pour que la <b>composition</b> du rendu puisse les manipuler sans GPU (<span class="tt">EX-NFR-004</span>). Ce fichier les réexpose : le contrat public de <span class="tt">SpriteBatch</span> et de ses appelants est strictement inchangé. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

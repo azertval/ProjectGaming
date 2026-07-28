@@ -93,7 +93,7 @@ $(function(){initNavTree('lot-40-tache-04-quad-recorder.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-40-fondations-rendu-textures_2tache-04-quad-recorder"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-40.html#md_Lot_2LOT-40-fondations-rendu-textures_2epic" title="Lot/LOT-40-fondations-rendu-textures/epic.md">LOT-40</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-40.html#md_Lot_2LOT-40-fondations-rendu-textures_2epic" title="Lot/LOT-40-fondations-rendu-textures/epic.md">LOT-40</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Test</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1855"></a>
 Contexte</h1>
 <p>Le programme d'habillage empile, lot après lot, six couches de rendu dont l'<b>ordre</b>, la <b>priorité de résolution</b> (surcharge par case &gt; skin &gt; repli) et l'<b>isolement</b> en mode aperçu sont autant de règles qui cassent silencieusement. Or tous les critères d'acceptation rédigés jusqu'ici — « rendu pixel-identique », « identique bit à bit », « ordre de calque attendu » — sont formulés comme des <b>vérifications manuelles</b>, dans un projet qui compte par ailleurs plus de quatre cents cas de test et une exigence explicite de testabilité hors GPU (<span class="tt">EX-NFR-010</span>).</p>
@@ -110,7 +110,7 @@ Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/QuadRecorder.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Graphics/SpriteRenderer.{h,cpp}</span>, <span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span> (séparation composition / soumission).</li>
-<li><span class="tt">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</span> (nouveau).</li>
+<li><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/Test/CMakeLists.txt</span> (ajout des <span class="tt">.cpp</span> purs recompilés par les tests).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1858"></a>

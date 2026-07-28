@@ -127,10 +127,20 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt.  <a href="classhmi_1_1GameViewport.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AssetDimensionContract" id="r_AssetDimensionContract"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensions attendues d'une famille d'assets.  <a href="structhmi_1_1AssetDimensionContract.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AssetValidation" id="r_AssetValidation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetValidation.html">AssetValidation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verdict de validation d'un asset, avec son message exploitable.  <a href="structhmi_1_1AssetValidation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetPaths" id="r_AssetPaths"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetPaths.html">AssetPaths</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout des noms d'assets logiques vers des chemins de fichiers, dans un dossier donné.  <a href="classhmi_1_1AssetPaths.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Camera2D" id="r_Camera2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ComposedQuad" id="r_ComposedQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une primitive prête à soumettre, avec tout ce qui détermine <b>quand</b> la dessiner.  <a href="structhmi_1_1ComposedQuad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneStatistics" id="r_SceneStatistics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteurs d'une image composée, pour l'observabilité du volume soumis (<span class="tt">EX-NFR-005</span>).  <a href="structhmi_1_1SceneStatistics.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ComposedScene" id="r_ComposedScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste <b>ordonnée</b> des primitives d'une image, indépendante de Direct3D.  <a href="classhmi_1_1ComposedScene.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkOverlayState" id="r_LinkOverlayState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'affichage des liens de mécanismes (LOT-37), fourni par le viewport à chaque rendu.  <a href="structhmi_1_1LinkOverlayState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftRenderer" id="r_DraftRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a></td></tr>
@@ -141,20 +151,26 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une entité au <b>pas de simulation précédent</b>, pour l'interpolation de rendu (<span class="tt">EX-ARCH-031</span>).  <a href="structhmi_1_1PreviousPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ProceduralAtlasImage" id="r_ProceduralAtlasImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels d'un atlas généré en mémoire, au format <span class="tt">R8G8B8A8_UNORM</span> (ordre mémoire R,G,B,A).  <a href="structhmi_1_1ProceduralAtlasImage.html#details">More...</a><br /></td></tr>
-<tr class="memitem:RoomBounds" id="r_RoomBounds"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RoomBounds.html">RoomBounds</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle (en cases) d'une salle, borné aux dimensions réelles du niveau.  <a href="structhmi_1_1RoomBounds.html#details">More...</a><br /></td></tr>
-<tr class="memitem:RoomGrid" id="r_RoomGrid"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1RoomGrid.html">RoomGrid</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitionne une grille de niveau en un tableau de <b>salles</b> de taille fixe, façon <em>Celeste</em> (<span class="tt">LOT-32</span>).  <a href="classhmi_1_1RoomGrid.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteQuad" id="r_SpriteQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quad texturé à dessiner : rectangle en <b>unités monde</b>, région de texture (coordonnées normalisées) et teinte.  <a href="structhmi_1_1SpriteQuad.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LineQuad" id="r_LineQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un segment épais à dessiner : deux extrémités en <b>unités monde</b>, une épaisseur (perpendiculaire au segment, unités monde) et une teinte.  <a href="structhmi_1_1LineQuad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuadRecorder" id="r_QuadRecorder"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1QuadRecorder.html">QuadRecorder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capture la liste des primitives d'une image et répond aux questions qu'un test se pose.  <a href="classhmi_1_1QuadRecorder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RenderLayerTag" id="r_RenderLayerTag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RenderLayerTag.html">RenderLayerTag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composant de présentation fixant le calque de dessin d'une entité.  <a href="structhmi_1_1RenderLayerTag.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RoomBounds" id="r_RoomBounds"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RoomBounds.html">RoomBounds</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle (en cases) d'une salle, borné aux dimensions réelles du niveau.  <a href="structhmi_1_1RoomBounds.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RoomGrid" id="r_RoomGrid"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1RoomGrid.html">RoomGrid</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitionne une grille de niveau en un tableau de <b>salles</b> de taille fixe, façon <em>Celeste</em> (<span class="tt">LOT-32</span>).  <a href="classhmi_1_1RoomGrid.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteBatch" id="r_SpriteBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage <em>nearest</em> (pixel art).  <a href="classhmi_1_1SpriteBatch.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteRenderer" id="r_SpriteRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteRenderer.html">SpriteRenderer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par couche.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.  <a href="classhmi_1_1SpriteRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TextureAtlas" id="r_TextureAtlas"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas et table de régions, chargée depuis un <b>fichier image</b> avec repli <b>procédural</b> (<span class="tt">EX-REN-041</span>/<span class="tt">EX-REN-042</span>).  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TextureCache" id="r_TextureCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.  <a href="classhmi_1_1TextureCache.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DecodedImage" id="r_DecodedImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels RGBA décodés d'un fichier image, alpha <b>non prémultiplié</b> (cohérent avec le blend state de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">SpriteBatch</a></span>, <span class="tt">D3D11_BLEND_SRC_ALPHA</span>), au format <span class="tt">R8G8B8A8_UNORM</span>.  <a href="structhmi_1_1DecodedImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LoadedTexture" id="r_LoadedTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a></td></tr>
@@ -184,6 +200,11 @@ Classes</h2></td></tr>
 <tr class="memitem:Localization" id="r_Localization"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Localization.html">Localization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  <a href="classhmi_1_1Localization.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a979f7ffd7c87877cb1f65f0d08e4419d" id="r_a979f7ffd7c87877cb1f65f0d08e4419d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> = void*</td></tr>
+<tr class="memdesc:a979f7ffd7c87877cb1f65f0d08e4419d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identité <b>opaque</b> d'une texture liée, du point de vue de la composition.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a02048ad8ad69a87a10e8307ac2bd68dd" id="r_a02048ad8ad69a87a10e8307ac2bd68dd"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> { <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">Paint</a>
@@ -206,6 +227,37 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
+<tr class="memitem:a0030e1768b551f6d1bc0a9fa566d2003" id="r_a0030e1768b551f6d1bc0a9fa566d2003"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> { <br />
+&#160;&#160;<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f">Atlas</a>
+, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff">TileSkin</a>
+, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f">AutotileSheet</a>
+, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419">Background</a>
+, <br />
+&#160;&#160;<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003a497031794414a552435f90151ac3b54b">Object</a>
+, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714">CharacterSheet</a>
+, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44">Decor</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a0030e1768b551f6d1bc0a9fa566d2003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Famille d'un asset graphique, qui détermine les dimensions attendues du fichier image.  <a href="#a0030e1768b551f6d1bc0a9fa566d2003">More...</a><br /></td></tr>
+<tr class="memitem:aa9ff839f9bcc1bb899b24cb8026ab2b3" id="r_aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">QuadKind</a> { <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd">Sprite</a>
+, <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4">Line</a>
+ }</td></tr>
+<tr class="memdesc:aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.  <a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">More...</a><br /></td></tr>
+<tr class="memitem:a9b5452f2d3a1019a3229b90a4f000919" id="r_a9b5452f2d3a1019a3229b90a4f000919"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> : std::int32_t { <br />
+&#160;&#160;<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419">Background</a> = 0
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44">Decor</a>
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c">Shadow</a>
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">Tile</a>
+, <br />
+&#160;&#160;<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b">Object</a>
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234">Player</a>
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f">Foreground</a>
+, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b">UI</a>
+, <br />
+&#160;&#160;<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751">EditorOverlay</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a9b5452f2d3a1019a3229b90a4f000919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calques de dessin, du plus <b>arrière</b> au plus <b>avant</b> (<span class="tt">EX-REN-014</span>, <span class="tt">EX-DEC-002</span>).  <a href="#a9b5452f2d3a1019a3229b90a4f000919">More...</a><br /></td></tr>
 <tr class="memitem:aa4f5968d7b564d555f29fdc5d2fc9585" id="r_aa4f5968d7b564d555f29fdc5d2fc9585"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> { <br />
 &#160;&#160;<a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354">Save</a>
 , <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
@@ -313,10 +365,36 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7f0f0f4f71e52b8deb6fb88a8d6411d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Lien » sur <code class="param">clickedCell</code> selon l'attente courante.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
+<tr class="memitem:ab940bcb1480c0e6616726dd361be3c1d" id="r_ab940bcb1480c0e6616726dd361be3c1d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab940bcb1480c0e6616726dd361be3c1d">assetFamilyName</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
+<tr class="memdesc:ab940bcb1480c0e6616726dd361be3c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'une famille d'assets, utilisé dans les messages de journalisation.  <br /></td></tr>
+<tr class="memitem:a842c2e980bf7c8686d4a549d583d6866" id="r_a842c2e980bf7c8686d4a549d583d6866"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a>&#160;</td><td class="memItemRight"><a class="el" href="#a842c2e980bf7c8686d4a549d583d6866">assetDimensionContract</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
+<tr class="memdesc:a842c2e980bf7c8686d4a549d583d6866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrat de dimensions d'une famille d'assets.  <br /></td></tr>
+<tr class="memitem:aa04b1535f9fb0ceb7138c6b6c58c15a9" id="r_aa04b1535f9fb0ceb7138c6b6c58c15a9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa04b1535f9fb0ceb7138c6b6c58c15a9">describeContract</a> (const <a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a> &amp;contract)</td></tr>
+<tr class="memdesc:aa04b1535f9fb0ceb7138c6b6c58c15a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description en français des dimensions attendues (« 16×16 px », « multiple de 16 px… »).  <br /></td></tr>
+<tr class="memitem:ab24a5852795a7f93e35b8ab9ad8e9c9c" id="r_ab24a5852795a7f93e35b8ab9ad8e9c9c"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetValidation.html">AssetValidation</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab24a5852795a7f93e35b8ab9ad8e9c9c">validateAsset</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, const std::string &amp;fileName, int width, int height)</td></tr>
+<tr class="memdesc:ab24a5852795a7f93e35b8ab9ad8e9c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valide les dimensions d'un asset décodé contre le contrat de sa famille (<span class="tt">EX-REN-007</span>).  <br /></td></tr>
+<tr class="memitem:aabc578b802bb386e63d830e168140fe7" id="r_aabc578b802bb386e63d830e168140fe7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aabc578b802bb386e63d830e168140fe7">formatSceneStatistics</a> (const <a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> &amp;statistics)</td></tr>
+<tr class="memdesc:aabc578b802bb386e63d830e168140fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résumé des compteurs d'une image, pour la journalisation de diagnostic (<span class="tt">EX-NFR-005</span>).  <br /></td></tr>
+<tr class="memitem:af7d9b42fc7c496a35a24169feddc6ab8" id="r_af7d9b42fc7c496a35a24169feddc6ab8"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7d9b42fc7c496a35a24169feddc6ab8">spriteQuadBounds</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad) noexcept</td></tr>
+<tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
+<tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#adbdaec090bf424bf2ec812fb1587c782">lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
+<tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
+<tr class="memitem:aae4284312a956fc5a625785576f3c0e5" id="r_aae4284312a956fc5a625785576f3c0e5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aae4284312a956fc5a625785576f3c0e5">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, int textureWidth, int textureHeight, float interpolationAlpha)</td></tr>
+<tr class="memdesc:aae4284312a956fc5a625785576f3c0e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:aa0d169ee450492a9aa3795d23e95e4ba" id="r_aa0d169ee450492a9aa3795d23e95e4ba"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa0d169ee450492a9aa3795d23e95e4ba">buildMissingTextureImage</a> (int size=<a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a>)</td></tr>
+<tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
+<tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
+<tr class="memdesc:a23394f99f0606e53aafbeca5ed51496b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement émis lorsqu'un asset attendu est introuvable ou refusé.  <br /></td></tr>
 <tr class="memitem:ad7faa7f521b06a1d55c7ff9357d2ebfc" id="r_ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad7faa7f521b06a1d55c7ff9357d2ebfc">flatPlayerFrameIndex</a> (<a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a> clip, int frameIndex)</td></tr>
 <tr class="memdesc:ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>.  <br /></td></tr>
 <tr class="memitem:a0fa1fc503abd25e16f2e3d52f6c8d540" id="r_a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540">buildProceduralAtlasImage</a> ()</td></tr>
 <tr class="memdesc:a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>.  <br /></td></tr>
+<tr class="memitem:a8b8fd5c80e500ad266167edacf261714" id="r_a8b8fd5c80e500ad266167edacf261714"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8b8fd5c80e500ad266167edacf261714">renderLayerName</a> (<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
+<tr class="memdesc:a8b8fd5c80e500ad266167edacf261714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'un calque, pour la journalisation et les messages d'échec de test.  <br /></td></tr>
+<tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a533df804a658915efda4f8f6c918496e">submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
+<tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
+<tr class="memitem:a32457118c4e60dff8da0ba9839c0f29a" id="r_a32457118c4e60dff8da0ba9839c0f29a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a">resolveOrPlaceholder</a> (<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const std::string &amp;fileName, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
+<tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image (PNG au minimum) en pixels RGBA.  <br /></td></tr>
 <tr class="memitem:a98f0f2d822288b333e00905f4cc60165" id="r_a98f0f2d822288b333e00905f4cc60165"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98f0f2d822288b333e00905f4cc60165">createTexture</a> (ID3D11Device *device, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
@@ -344,6 +422,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a75cfef1e5eb0b5569ebd42c004d73ce3" id="r_a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a> = 16</td></tr>
+<tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
+<tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
+<tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
+<tr class="memitem:ab6e44ad3d54b0383ef13f332d290df46" id="r_ab6e44ad3d54b0383ef13f332d290df46"><td class="memItemLeft">constexpr <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46">DEFAULT_RENDER_LAYER</a> = <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td></tr>
+<tr class="memdesc:ab6e44ad3d54b0383ef13f332d290df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>.  <br /></td></tr>
 <tr class="memitem:af2f4a1af04682540c1b84611a24aa42c" id="r_af2f4a1af04682540c1b84611a24aa42c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c">EDITOR_ACTION_COUNT</a> = 9</td></tr>
 <tr class="memdesc:af2f4a1af04682540c1b84611a24aa42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">EditorAction</a></span>).  <br /></td></tr>
 <tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 6</td></tr>
@@ -351,7 +435,66 @@ Variables</h2></td></tr>
 <tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
 <tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>).  <br /></td></tr>
 </table>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a979f7ffd7c87877cb1f65f0d08e4419d" name="a979f7ffd7c87877cb1f65f0d08e4419d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a979f7ffd7c87877cb1f65f0d08e4419d">&#9670;&#160;</a></span>TextureHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">hmi::TextureHandle</a> = void*</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identité <b>opaque</b> d'une texture liée, du point de vue de la composition. </p>
+<p>La composition du rendu ne fait que <b>comparer</b> et <b>regrouper</b> des textures ; elle n'a jamais besoin d'en connaître le type Direct3D. Ce typage volontairement opaque permet de la garder libre de <span class="tt">&lt;d3d11.h&gt;</span> (et donc testable sans GPU, <span class="tt">EX-NFR-004</span>) : côté soumission, <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span> reconvertit la valeur en <span class="tt">ID3D11ShaderResourceView*</span>, seule couche qui en connaisse le type réel. Une valeur nulle désigne « aucune texture liée ». </p>
+
+</div>
+</div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a0030e1768b551f6d1bc0a9fa566d2003" name="a0030e1768b551f6d1bc0a9fa566d2003"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0030e1768b551f6d1bc0a9fa566d2003">&#9670;&#160;</a></span>AssetFamily</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">hmi::AssetFamily</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Famille d'un asset graphique, qui détermine les dimensions attendues du fichier image. </p>
+<p>Chaque famille correspond à un usage du programme d'habillage (<span class="tt">LOT-40</span> → <span class="tt">LOT-55</span>) : ce n'est pas une classification esthétique mais le <b>contrat</b> que le fichier doit respecter pour être découpable par le rendu. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f" name="a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f"></a>Atlas&#160;</td><td class="fielddoc"><p>Atlas historique du jeu (<span class="tt">Assets/atlas.png</span>) : grille de tuiles carrées + images du personnage sous la grille (<span class="tt">LOT-39</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff" name="a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff"></a>TileSkin&#160;</td><td class="fielddoc"><p>Skin d'une tuile isolée : exactement une case (<span class="tt">LOT-42</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f" name="a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f"></a>AutotileSheet&#160;</td><td class="fielddoc"><p>Planche à raccords automatiques : grille de cases entières, au moins 4×4 (<span class="tt">LOT-42</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419" name="a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"><p>Image de fond de niveau : dimensions libres, l'étirement est fait au rendu (<span class="tt">LOT-44</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003a497031794414a552435f90151ac3b54b" name="a0030e1768b551f6d1bc0a9fa566d2003a497031794414a552435f90151ac3b54b"></a>Object&#160;</td><td class="fielddoc"><p>Texture d'un objet interactif (interrupteur, porte, danger) : grille de cases (<span class="tt">LOT-45</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714" name="a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714"></a>CharacterSheet&#160;</td><td class="fielddoc"><p>Spritesheet du personnage : grille d'images carrées de la taille d'une case (<span class="tt">LOT-48</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44" name="a0030e1768b551f6d1bc0a9fa566d2003ae953e8671da3a0647c0939df8ebe8e44"></a>Decor&#160;</td><td class="fielddoc"><p>Élément de décor libre : dimensions libres, posé sans contrainte de grille (<span class="tt">LOT-49</span>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa4f5968d7b564d555f29fdc5d2fc9585" name="aa4f5968d7b564d555f29fdc5d2fc9585"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4f5968d7b564d555f29fdc5d2fc9585">&#9670;&#160;</a></span>EditorAction</h2>
 
@@ -637,6 +780,84 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa9ff839f9bcc1bb899b24cb8026ab2b3" name="aa9ff839f9bcc1bb899b24cb8026ab2b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">&#9670;&#160;</a></span>QuadKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">hmi::QuadKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd" name="aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd"></a>Sprite&#160;</td><td class="fielddoc"><p><span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> : rectangle aligné sur les axes. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4" name="aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4"></a>Line&#160;</td><td class="fielddoc"><p><span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span> : segment épais, orienté librement. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a9b5452f2d3a1019a3229b90a4f000919" name="a9b5452f2d3a1019a3229b90a4f000919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b5452f2d3a1019a3229b90a4f000919">&#9670;&#160;</a></span>RenderLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">hmi::RenderLayer</a> : std::int32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calques de dessin, du plus <b>arrière</b> au plus <b>avant</b> (<span class="tt">EX-REN-014</span>, <span class="tt">EX-DEC-002</span>). </p>
+<p>L'<b>ordre de déclaration est l'ordre de dessin</b> : une valeur déclarée plus bas est dessinée par-dessus les précédentes. C'est le <b>seul</b> ordonnancement de calques du projet — aucun lot ne doit en inventer un concurrent, sous peine de rendre l'ordre visuel dépendant de qui dessine en dernier (<span class="tt">EX-REN-014</span>).</p>
+<p>Toutes les valeurs sont réservées <b>dès <span class="tt">LOT-40</span></b>, même celles qu'aucun code n'utilise encore (<span class="tt">Background</span> en <span class="tt">LOT-44</span>, <span class="tt">Decor</span>/<span class="tt">Foreground</span> en <span class="tt">LOT-49</span>, <span class="tt">Shadow</span> en <span class="tt">LOT-55</span>, <span class="tt">Object</span> en <span class="tt">LOT-45</span>, <span class="tt">UI</span> en <span class="tt">LOT-52</span>) : c'est précisément cette anticipation qui évite qu'un lot suivant réinvente son propre empilement. Seules <span class="tt">Tile</span>, <span class="tt">Player</span> et <span class="tt">EditorOverlay</span> sont utilisées à ce jour, et elles reproduisent exactement l'ordre d'avant le lot (tuiles sous personnage, aides d'édition au-dessus de tout).</p>
+<p><span class="tt">Foreground</span> est <b>au-dessus</b> de <span class="tt">Player</span> par construction : c'est le contrat de lecture « ce qui passe devant le personnage n'est pas physique » (<span class="tt">EX-DEC-002</span>).</p>
+<p>Notion de <b>présentation</b> (<span class="tt">HMI</span>) : <span class="tt">Core</span> l'ignore et continue de ne connaître que <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span>, entier de tri <b>fin à l'intérieur</b> d'un calque (<span class="tt">EX-NFR-011</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419" name="a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"><p>Image de fond du niveau (<span class="tt">LOT-44</span>, <span class="tt">EX-REN-044</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" name="a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44"></a>Decor&#160;</td><td class="fielddoc"><p>Décors d'arrière-plan, éventuellement en parallaxe (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c" name="a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c"></a>Shadow&#160;</td><td class="fielddoc"><p>Ombres portées des tuiles solides (<span class="tt">LOT-55</span>, <span class="tt">EX-REN-045</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" name="a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152"></a>Tile&#160;</td><td class="fielddoc"><p>Tuiles physiques du niveau — le seul calque peuplé avant <span class="tt">LOT-42</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b" name="a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b"></a>Object&#160;</td><td class="fielddoc"><p>Objets interactifs (interrupteurs, portes, dangers) (<span class="tt">LOT-45</span>/<span class="tt">LOT-47</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" name="a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234"></a>Player&#160;</td><td class="fielddoc"><p>Personnage joueur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" name="a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f"></a>Foreground&#160;</td><td class="fielddoc"><p>Décors de <b>premier plan</b>, dessinés par-dessus le personnage (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" name="a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b"></a>UI&#160;</td><td class="fielddoc"><p>Texte et interface en scène (<span class="tt">LOT-52</span>, <span class="tt">EX-REN-031</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" name="a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751"></a>EditorOverlay&#160;</td><td class="fielddoc"><p>Aides d'édition : grille de repère, liens de mécanismes, aperçu de sélection. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a42f96951bfec11435da37c91ee377046" name="a42f96951bfec11435da37c91ee377046"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42f96951bfec11435da37c91ee377046">&#9670;&#160;</a></span>arrowHead()</h2>
@@ -677,6 +898,74 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a842c2e980bf7c8686d4a549d583d6866" name="a842c2e980bf7c8686d4a549d583d6866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a842c2e980bf7c8686d4a549d583d6866">&#9670;&#160;</a></span>assetDimensionContract()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a> hmi::assetDimensionContract </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contrat de dimensions d'une famille d'assets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">family</td><td>Famille dont on veut le contrat. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les dimensions attendues pour cette famille. </dd></dl>
+
+</div>
+</div>
+<a id="ab940bcb1480c0e6616726dd361be3c1d" name="ab940bcb1480c0e6616726dd361be3c1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab940bcb1480c0e6616726dd361be3c1d">&#9670;&#160;</a></span>assetFamilyName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * hmi::assetFamilyName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom lisible d'une famille d'assets, utilisé dans les messages de journalisation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">family</td><td>Famille à nommer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom de la famille (chaîne statique, jamais nulle). </dd></dl>
+
+</div>
+</div>
 <a id="a5308a5fca2e3f3a42451aaf1719d3ab4" name="a5308a5fca2e3f3a42451aaf1719d3ab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5308a5fca2e3f3a42451aaf1719d3ab4">&#9670;&#160;</a></span>buildLinkRows()</h2>
 
@@ -708,6 +997,40 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Les liaisons, dans un ordre stable. </dd></dl>
+
+</div>
+</div>
+<a id="aa0d169ee450492a9aa3795d23e95e4ba" name="aa0d169ee450492a9aa3795d23e95e4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d169ee450492a9aa3795d23e95e4ba">&#9670;&#160;</a></span>buildMissingTextureImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a> hmi::buildMissingTextureImage </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir. </p>
+<p>Sœur de <span class="tt"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">hmi::buildProceduralAtlasImage</a></span> : logique <b>pure</b> et <b>déterministe</b>, sans dépendance Direct3D (<span class="tt">EX-NFR-010</span>). Le repli est volontairement <b>opaque</b> et magenta : il doit être impossible de le confondre avec un asset réel (aucune palette du jeu n'utilise le magenta) ni avec un trou de rendu (une zone transparente passerait inaperçue). Un asset manquant doit se voir, pas se deviner. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Côté de l'image générée, en pixels (&gt; 0 ; <span class="tt"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">MISSING_TEXTURE_SIZE</a></span> par défaut). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image générée (dimensions et pixels <span class="tt">R8G8B8A8_UNORM</span>). </dd></dl>
 
 </div>
 </div>
@@ -808,6 +1131,61 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aae4284312a956fc5a625785576f3c0e5" name="aae4284312a956fc5a625785576f3c0e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4284312a956fc5a625785576f3c0e5">&#9670;&#160;</a></span>composeWorldSprites()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::composeWorldSprites </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1World.html">core::World</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>texture</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose les entités affichables d'un monde ECS en primitives. </p>
+<p>Parcourt les entités portant un <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> <b>et</b> un <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, résout la région d'atlas en coordonnées de texture normalisées, applique l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) et empile un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> par entité. Lecture <b>seule</b> de l'ECS (<span class="tt">EX-ARCH-012</span>) : ni la simulation ni l'interpolation ne sont affectées, y compris pour une entité écartée par le culling (elle reste simulée, elle n'est simplement pas dessinée).</p>
+<p>Le calque de chaque entité vient de son <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>, ou vaut <span class="tt"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> en son absence ; <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> reste le tri <b>fin</b> à l'intérieur de ce calque. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
+    <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt">Transform</span>, <span class="tt">Sprite</span>, <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span>, <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">RenderLayerTag</a></span>. </td></tr>
+    <tr><td class="paramname">texture</td><td>Texture liée à ces sprites (l'atlas, aujourd'hui). </td></tr>
+    <tr><td class="paramname">textureWidth</td><td>Largeur de cette texture, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">textureHeight</td><td>Hauteur de cette texture, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>) ; <span class="tt">0</span> reproduit le rendu non interpolé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a98f0f2d822288b333e00905f4cc60165" name="a98f0f2d822288b333e00905f4cc60165"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98f0f2d822288b333e00905f4cc60165">&#9670;&#160;</a></span>createTexture()</h2>
 
@@ -893,6 +1271,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa04b1535f9fb0ceb7138c6b6c58c15a9" name="aa04b1535f9fb0ceb7138c6b6c58c15a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04b1535f9fb0ceb7138c6b6c58c15a9">&#9670;&#160;</a></span>describeContract()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::describeContract </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>contract</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description en français des dimensions attendues (« 16×16 px », « multiple de 16 px… »). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">contract</td><td>Contrat à décrire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La description, telle qu'elle apparaît dans le message d'un asset refusé. </dd></dl>
+
+</div>
+</div>
 <a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
 
@@ -957,6 +1369,40 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'index à plat de cette image dans la grille. </dd></dl>
+
+</div>
+</div>
+<a id="aabc578b802bb386e63d830e168140fe7" name="aabc578b802bb386e63d830e168140fe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc578b802bb386e63d830e168140fe7">&#9670;&#160;</a></span>formatSceneStatistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::formatSceneStatistics </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>statistics</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résumé des compteurs d'une image, pour la journalisation de diagnostic (<span class="tt">EX-NFR-005</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">statistics</td><td>Compteurs à formater. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une ligne lisible : composées, écartées, soumises, passes. </dd></dl>
 
 </div>
 </div>
@@ -1114,6 +1560,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="adbdaec090bf424bf2ec812fb1587c782" name="adbdaec090bf424bf2ec812fb1587c782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbdaec090bf424bf2ec812fb1587c782">&#9670;&#160;</a></span>lineQuadBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::lineQuadBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Boîte englobante d'un segment épais, en unités monde. </p>
+<p>Englobe les deux extrémités <b>et</b> l'épaisseur (élargie d'une demi-épaisseur de chaque côté) : un segment horizontal ou vertical aurait sinon une boîte d'aire nulle, systématiquement écartée par le culling. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quad</td><td>Primitive à borner. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Son rectangle englobant. </dd></dl>
+
+</div>
+</div>
 <a id="a8d04fa0354b5ffe2e3807c7b4cbc9e5a" name="a8d04fa0354b5ffe2e3807c7b4cbc9e5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d04fa0354b5ffe2e3807c7b4cbc9e5a">&#9670;&#160;</a></span>linkSegment()</h2>
 
@@ -1204,6 +1684,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a23394f99f0606e53aafbeca5ed51496b" name="a23394f99f0606e53aafbeca5ed51496b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23394f99f0606e53aafbeca5ed51496b">&#9670;&#160;</a></span>missingTextureWarning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::missingTextureWarning </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Message d'avertissement émis lorsqu'un asset attendu est introuvable ou refusé. </p>
+<p>Fonction <b>pure</b>, séparée de la journalisation elle-même pour être assertable sans GPU : le message doit <b>nommer l'asset attendu</b>, seule information qui permette à l'auteur de savoir quoi créer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>Nom logique de l'asset attendu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le message d'avertissement, en français. </dd></dl>
+
+</div>
+</div>
 <a id="a1b53de392afb0dfdf5cdef4543fb672d" name="a1b53de392afb0dfdf5cdef4543fb672d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b53de392afb0dfdf5cdef4543fb672d">&#9670;&#160;</a></span>qtKeyToHmiKey()</h2>
 
@@ -1271,6 +1785,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8b8fd5c80e500ad266167edacf261714" name="a8b8fd5c80e500ad266167edacf261714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b8fd5c80e500ad266167edacf261714">&#9670;&#160;</a></span>renderLayerName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * hmi::renderLayerName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom lisible d'un calque, pour la journalisation et les messages d'échec de test. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>Calque à nommer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom du calque (chaîne statique, jamais nulle). </dd></dl>
+
+</div>
+</div>
 <a id="a7f0f0f4f71e52b8deb6fb88a8d6411d9" name="a7f0f0f4f71e52b8deb6fb88a8d6411d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9">&#9670;&#160;</a></span>resolveLinkClick()</h2>
 
@@ -1319,6 +1867,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La décision à appliquer. </dd></dl>
+
+</div>
+</div>
+<a id="a32457118c4e60dff8da0ba9839c0f29a" name="a32457118c4e60dff8da0ba9839c0f29a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32457118c4e60dff8da0ba9839c0f29a">&#9670;&#160;</a></span>resolveOrPlaceholder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> * hmi::resolveOrPlaceholder </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut. </p>
+<p><b>Point de résolution unique</b> du repli : tous les lots d'habillage (<span class="tt">LOT-42</span>, <span class="tt">LOT-44</span>, <span class="tt">LOT-45</span>, <span class="tt">LOT-49</span>) passent par ici plutôt que de réimplémenter chacun son propre comportement de secours — c'est la seule façon de garantir qu'un asset manquant se voie toujours de la même manière et soit toujours journalisé (<span class="tt">EX-NFR-040</span>, <span class="tt">EX-REN-007</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cache</td><td>Cache interrogé (et propriétaire du damier partagé). </td></tr>
+    <tr><td class="paramname">fileName</td><td>Nom logique de l'asset attendu, repris dans l'avertissement journalisé. </td></tr>
+    <tr><td class="paramname">family</td><td>Famille de l'asset, qui fixe les dimensions attendues. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture de l'asset si elle est disponible, sinon le damier de repli ; <span class="tt">nullptr</span> seulement si même le damier n'a pas pu être créé. </dd></dl>
 
 </div>
 </div>
@@ -1426,6 +2019,76 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position dans la grille, ou <span class="tt">std::nullopt</span> si <code class="param">type</code> n'a pas de silhouette inclinée/ courbe. </dd></dl>
+
+</div>
+</div>
+<a id="af7d9b42fc7c496a35a24169feddc6ab8" name="af7d9b42fc7c496a35a24169feddc6ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7d9b42fc7c496a35a24169feddc6ab8">&#9670;&#160;</a></span>spriteQuadBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::spriteQuadBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Boîte englobante d'un rectangle texturé, en unités monde. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quad</td><td>Primitive à borner. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Son rectangle englobant. </dd></dl>
+
+</div>
+</div>
+<a id="a533df804a658915efda4f8f6c918496e" name="a533df804a658915efda4f8f6c918496e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a533df804a658915efda4f8f6c918496e">&#9670;&#160;</a></span>submitComposedScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::submitComposedScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>batch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DirectX::XMFLOAT4X4 &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Soumet une scène composée au pipeline de dessin, une passe par groupe de texture. </p>
+<p>Seul endroit du rendu qui reconvertit une <span class="tt"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d" title="Identité opaque d&#39;une texture liée, du point de vue de la composition.">hmi::TextureHandle</a></span> en ressource Direct3D : c'est la <b>frontière</b> entre la composition (pure, testable sans GPU) et la soumission. Émet un <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#a4876bd6f672a6dbdc6dd166fcecb971d" title="Démarre un lot : configure les états et la texture, et la projection caméra.">SpriteBatch::begin</a>/end</span> par groupe <b>contigu</b> de même texture, dans l'ordre de la scène — donc dans l'ordre des calques, que <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">ComposedScene::sort()</a></span> a rendu prioritaire (<span class="tt">EX-REN-043</span>). Le contrat public de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></span> est strictement inchangé. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">batch</td><td>Pipeline de quads texturés (non possédé). </td></tr>
+    <tr><td class="paramname">projection</td><td>Matrice de projection monde → clip (fournie par la caméra). </td></tr>
+    <tr><td class="paramname">scene</td><td>Scène <b>déjà triée</b> (<span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">ComposedScene::sort()</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1538,7 +2201,82 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab24a5852795a7f93e35b8ab9ad8e9c9c" name="ab24a5852795a7f93e35b8ab9ad8e9c9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab24a5852795a7f93e35b8ab9ad8e9c9c">&#9670;&#160;</a></span>validateAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AssetValidation.html">AssetValidation</a> hmi::validateAsset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Valide les dimensions d'un asset décodé contre le contrat de sa famille (<span class="tt">EX-REN-007</span>). </p>
+<p>Fonction <b>pure</b> : elle ne lit aucun fichier et ne touche pas au GPU — c'est ce qui la rend testable en isolation (<span class="tt">EX-NFR-010</span>), et ce qui impose de l'appeler entre le <b>décodage</b> et l'<b>upload</b>. Sans elle, un PNG aux mauvaises dimensions ne produit aucune erreur mais des artefacts de filtrage silencieux (échantillonnage <em>nearest</em>, sans mipmap, <span class="tt">EX-ARCH-022</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">family</td><td>Famille de l'asset, qui fixe les dimensions attendues. </td></tr>
+    <tr><td class="paramname">fileName</td><td>Nom logique du fichier, repris tel quel dans le message d'erreur. </td></tr>
+    <tr><td class="paramname">width</td><td>Largeur décodée, en pixels. </td></tr>
+    <tr><td class="paramname">height</td><td>Hauteur décodée, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le verdict, accompagné d'un message nommant le fichier, le trouvé et l'attendu si l'asset est refusé. </dd></dl>
+
+</div>
+</div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ab6e44ad3d54b0383ef13f332d290df46" name="ab6e44ad3d54b0383ef13f332d290df46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6e44ad3d54b0383ef13f332d290df46">&#9670;&#160;</a></span>DEFAULT_RENDER_LAYER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> hmi::DEFAULT_RENDER_LAYER = <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>. </p>
+
+</div>
+</div>
 <a id="af2f4a1af04682540c1b84611a24aa42c" name="af2f4a1af04682540c1b84611a24aa42c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2f4a1af04682540c1b84611a24aa42c">&#9670;&#160;</a></span>EDITOR_ACTION_COUNT</h2>
 
@@ -1608,6 +2346,54 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>). </p>
+
+</div>
+</div>
+<a id="a7cc024ad45faf8aabf192a70d2090ac6" name="a7cc024ad45faf8aabf192a70d2090ac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc024ad45faf8aabf192a70d2090ac6">&#9670;&#160;</a></span>MISSING_TEXTURE_CHECKER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MISSING_TEXTURE_CHECKER_SIZE = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit. </p>
+
+</div>
+</div>
+<a id="a75cfef1e5eb0b5569ebd42c004d73ce3" name="a75cfef1e5eb0b5569ebd42c004d73ce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75cfef1e5eb0b5569ebd42c004d73ce3">&#9670;&#160;</a></span>MISSING_TEXTURE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MISSING_TEXTURE_SIZE = 16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>). </p>
 
 </div>
 </div>

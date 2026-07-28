@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ProjectGaming: /home/runner/work/ProjectGaming/ProjectGaming/Source/Test/Unit/Editor Directory Reference</title>
+<title>ProjectGaming: hmi::RenderLayerTag Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('dir_72f94039b203173a88806b7e5cad74af.html','',''); });
+$(function(){initNavTree('structhmi_1_1RenderLayerTag.html','','structhmi_1_1RenderLayerTag-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -89,17 +89,43 @@ $(function(){initNavTree('dir_72f94039b203173a88806b7e5cad74af.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Editor Directory Reference</div></div>
+  <div class="headertitle"><div class="title">hmi::RenderLayerTag Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Composant de présentation fixant le calque de dessin d'une entité.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="RenderLayer_8h_source.html">RenderLayer.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:test_5Flevel_5Ffile_5Foperations_2Ecpp" id="r_test_5Flevel_5Ffile_5Foperations_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="test__level__file__operations_8cpp.html">test_level_file_operations.cpp</a></td></tr>
-<tr class="memitem:test_5Flink_5Fgeometry_2Ecpp" id="r_test_5Flink_5Fgeometry_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="test__link__geometry_8cpp.html">test_link_geometry.cpp</a></td></tr>
-<tr class="memitem:test_5Flink_5Fgesture_2Ecpp" id="r_test_5Flink_5Fgesture_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="test__link__gesture_8cpp.html">test_link_gesture.cpp</a></td></tr>
-<tr class="memitem:test_5Ftile_5Ftaxonomy_2Ecpp" id="r_test_5Ftile_5Ftaxonomy_2Ecpp"><td class="memItemLeft"><span class="icondoc"><div class="doc-icon"></div></span>&#160;</td><td class="memItemRight"><a class="el" href="test__tile__taxonomy_8cpp.html">test_tile_taxonomy.cpp</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a5e570c7cddb738155928eeeb2d4aaab2" id="r_a5e570c7cddb738155928eeeb2d4aaab2"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5e570c7cddb738155928eeeb2d4aaab2">value</a> = <a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td></tr>
+<tr class="memdesc:a5e570c7cddb738155928eeeb2d4aaab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque de dessin de l'entité.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Composant de présentation fixant le calque de dessin d'une entité. </p>
+<p>Vit côté <span class="tt">HMI</span> (comme <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) : <span class="tt">Core</span> ne connaît pas <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">RenderLayer</a></span> (<span class="tt">EX-NFR-011</span>). Une entité <b>sans</b> ce composant est dessinée sur <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">RenderLayer::Tile</a></span>, qui est le cas de très loin le plus fréquent (toutes les tuiles d'un niveau) — l'absence de composant est donc le défaut utile, et non un oubli. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a5e570c7cddb738155928eeeb2d4aaab2" name="a5e570c7cddb738155928eeeb2d4aaab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e570c7cddb738155928eeeb2d4aaab2">&#9670;&#160;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> hmi::RenderLayerTag::value = <a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calque de dessin de l'entité. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/ProjectGaming/ProjectGaming/Source/HMI/Graphics/<a class="el" href="RenderLayer_8h_source.html">RenderLayer.h</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -113,7 +139,7 @@ Files</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1RenderLayerTag.html">RenderLayerTag</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

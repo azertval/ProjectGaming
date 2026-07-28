@@ -6,5 +6,7 @@ var searchData=
   ['collider_3',['Collider',['../structcore_1_1Collider.html',1,'core']]],
   ['color_4',['Color',['../structcore_1_1Color.html',1,'core']]],
   ['componentpool_5',['ComponentPool',['../classcore_1_1ComponentPool.html',1,'core']]],
-  ['consolelogsink_6',['ConsoleLogSink',['../classcore_1_1ConsoleLogSink.html',1,'core']]]
+  ['composedquad_6',['ComposedQuad',['../structhmi_1_1ComposedQuad.html',1,'hmi']]],
+  ['composedscene_7',['ComposedScene',['../classhmi_1_1ComposedScene.html',1,'hmi']]],
+  ['consolelogsink_8',['ConsoleLogSink',['../classcore_1_1ConsoleLogSink.html',1,'core']]]
 ];

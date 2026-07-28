@@ -8,6 +8,7 @@ var classhmi_1_1Camera2D =
     [ "setCenter", "classhmi_1_1Camera2D.html#a93c7658e7e6beddb7002f8b2223145d3", null ],
     [ "setViewportSize", "classhmi_1_1Camera2D.html#aa82aa311014992d26f26c47db0f3d89c", null ],
     [ "setZoom", "classhmi_1_1Camera2D.html#a6f952a49e27d13539d5ab592233228a9", null ],
+    [ "visibleBounds", "classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb", null ],
     [ "worldToScreen", "classhmi_1_1Camera2D.html#a2f872fc80538490f888f3eef52498dfb", null ],
     [ "_center", "classhmi_1_1Camera2D.html#ab11e9713f8b1ccad4cb98a5c2807a410", null ],
     [ "_viewportHeight", "classhmi_1_1Camera2D.html#adfbd3dc1e9d3a0840f9fed36c57d47a6", null ],

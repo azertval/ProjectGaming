@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['slopefollowresult_0',['SlopeFollowResult',['../structcore_1_1SlopeFollowResult.html',1,'core']]],
-  ['sprite_1',['Sprite',['../structcore_1_1Sprite.html',1,'core']]],
-  ['spritebatch_2',['SpriteBatch',['../classhmi_1_1SpriteBatch.html',1,'hmi']]],
-  ['spritequad_3',['SpriteQuad',['../structhmi_1_1SpriteQuad.html',1,'hmi']]],
-  ['spriterenderer_4',['SpriteRenderer',['../classhmi_1_1SpriteRenderer.html',1,'hmi']]],
-  ['state_5',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
-  ['sweepresult_6',['SweepResult',['../structcore_1_1SweepResult.html',1,'core']]]
+  ['rect_0',['Rect',['../structcore_1_1Rect.html',1,'core']]],
+  ['renderlayertag_1',['RenderLayerTag',['../structhmi_1_1RenderLayerTag.html',1,'hmi']]],
+  ['roombounds_2',['RoomBounds',['../structhmi_1_1RoomBounds.html',1,'hmi']]],
+  ['roomgrid_3',['RoomGrid',['../classhmi_1_1RoomGrid.html',1,'hmi']]]
 ];

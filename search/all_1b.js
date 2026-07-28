@@ -189,7 +189,7 @@ var searchData=
   ['planche_20à_20raccords_186',['TACHE-04 — Aperçu live et mode planche à raccords',['../lot-54-tache-04-apercu-live-planche.html',1,'lot-54']]],
   ['plaque_20de_20pression_187',['TACHE-02 — Plaque de pression',['../lot-19-tache-02-plaque-de-pression.html',1,'lot-19']]],
   ['plaque_20de_20pression_188',['LOT-19 — Physique newtonienne et plaque de pression',['../lot-19.html',1,'lots']]],
-  ['player_189',['Player',['../structcore_1_1Player.html',1,'core']]],
+  ['player_189',['Player',['../structcore_1_1Player.html',1,'core::Player'],['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234',1,'hmi::Player']]],
   ['player_20level_20levelloader_190',['TACHE-01 — Données : budget (Player, Level, LevelLoader)',['../lot-12-tache-01-donnees.html',1,'lot-12']]],
   ['player_20physicsconfig_191',['Player PhysicsConfig',['../lot-10-tache-01-donnees.html',1,'TACHE-01 — Données des mécaniques (PlayerInput, Player, PhysicsConfig)'],['../lot-09-tache-01-donnees-saut.html',1,'TACHE-01 — Données du saut : PlayerInput, Player, PhysicsConfig']]],
   ['player_2eh_192',['Player.h',['../Player_8h.html',1,'']]],

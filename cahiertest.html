@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>441 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>470 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (359)</h1>
+Tests unitaires (388)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -1966,7 +1966,43 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Graphics (23)</h3>
+Graphics (52)</h3>
+<p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetContractTest.SkinDeTuileConformeAccepte</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:22</span></sub>  </td><td class="markdownTableBodyNone">Un skin de tuile de 16x16 px est accepte.  </td><td class="markdownTableBodyNone">1. Valider un asset de la famille « skin de tuile » aux dimensions d'une case.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">validation.valid</span> est vrai.<br  />
+Vérifie que <span class="tt">validation.message.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AssetContractTest.SkinDeTuileNonConformeRefuseAvecMessage</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:41</span></sub>  </td><td class="markdownTableBodyNone">Un skin de tuile non conforme est refuse avec un message exploitable.  </td><td class="markdownTableBodyNone">1. Valider un skin de tuile de 24x16 px.<br  />
+2. Inspecter le message d'erreur.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">validation.valid</span> est faux.<br  />
+Vérifie que <span class="tt">contains(validation.message, "mur.png")</span> est vrai.<br  />
+Vérifie que <span class="tt">contains(validation.message, "24x16")</span> est vrai.<br  />
+Vérifie que <span class="tt">contains(validation.message, "16x16")</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetContractTest.PlancheARaccordsExigeQuatreCasesMinimum</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Une planche a raccords exige un multiple de case et au moins 4x4 cases.  </td><td class="markdownTableBodyNone">1. Valider une planche 4x4 cases, puis 3x4 cases, puis un multiple rompu.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f" title="Planche à raccords automatiques : grille de cases entières, au moins 4×4 (LOT-42).">hmi::AssetFamily::AutotileSheet</a>, "sol.png", 4 * TILE, 4 * TILE).valid</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f" title="Planche à raccords automatiques : grille de cases entières, au moins 4×4 (LOT-42).">hmi::AssetFamily::AutotileSheet</a>, "sol.png", 3 * TILE, 4 * TILE).valid</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003a43d654bfc07197e5e982b9e03f64477f" title="Planche à raccords automatiques : grille de cases entières, au moins 4×4 (LOT-42).">hmi::AssetFamily::AutotileSheet</a>, "sol.png", 4 * TILE + 1, 4 * TILE) .valid</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AssetContractTest.FondDeNiveauSansContrainteDeGrille</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:83</span></sub>  </td><td class="markdownTableBodyNone">Un fond de niveau accepte toute dimension strictement positive.  </td><td class="markdownTableBodyNone">1. Valider un fond aux dimensions quelconques, puis un fond de largeur nulle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond de niveau : dimensions libres, l&#39;étirement est fait au rendu (LOT-44).">hmi::AssetFamily::Background</a>, "foret.png", 640, 361).valid</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond de niveau : dimensions libres, l&#39;étirement est fait au rendu (LOT-44).">hmi::AssetFamily::Background</a>, "foret.png", 0, 361).valid</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetContractTest.SpritesheetPersonnageMultipleDeCase</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Une spritesheet de personnage doit se decouper en cases entieres.  </td><td class="markdownTableBodyNone">1. Valider une spritesheet multiple de la case, puis une spritesheet decalee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714" title="Spritesheet du personnage : grille d&#39;images carrées de la taille d&#39;une case (LOT-48).">hmi::AssetFamily::CharacterSheet</a>, "heros.png", 5 * TILE, 3 * TILE) .valid</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aeb7e99d2187282628ef8b4c20cf7a714" title="Spritesheet du personnage : grille d&#39;images carrées de la taille d&#39;une case (LOT-48).">hmi::AssetFamily::CharacterSheet</a>, "heros.png", 5 * TILE, 3 * TILE + 7) .valid</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>AssetContractTest.AtlasLivreConforme</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:118</span></sub>  </td><td class="markdownTableBodyNone">L'atlas historique reste conforme au contrat de sa famille.  </td><td class="markdownTableBodyNone">1. Valider les dimensions de la grille d'atlas livree.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab24a5852795a7f93e35b8ab9ad8e9c9c" title="Valide les dimensions d&#39;un asset décodé contre le contrat de sa famille (EX-REN-007).">hmi::validateAsset</a>(<a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f" title="Atlas historique du jeu (Assets/atlas.png) : grille de tuiles carrées + images du personnage sous la ...">hmi::AssetFamily::Atlas</a>, "atlas.png", gridSide, gridSide + 2 * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a>) .valid</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>AssetContractTest.ToutesLesFamillesSontNommees</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">Source/Test/Unit/HMI/Graphics/test_asset_contract.cpp</a>:135</span></sub>  </td><td class="markdownTableBodyNone">Chaque famille d'asset porte un nom lisible non vide.  </td><td class="markdownTableBodyNone">1. Nommer chaque famille declaree.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">name.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">name</span> diffère de <span class="tt">"Inconnu"</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__asset__paths_8cpp.html" title="Tests unitaires de la résolution de chemins d&#39;assets (LOT-39, EX-NFR-010/EX-NFR-040).">test_asset_paths.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2041,6 +2077,35 @@ Vérifie que <span class="tt">100.0f * <a class="el" href="classhmi_1_1Camera2D.
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">zoomSansMarge</span> vaut <span class="tt">5.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">zoomAvecMarge</span> vaut <span class="tt">4.0f</span> (comparaison flottante).  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">test_missing_texture.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>MissingTextureTest.DimensionsAttendues</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:27</span></sub>  </td><td class="markdownTableBodyNone">Le damier genere a les dimensions demandees.  </td><td class="markdownTableBodyNone">1. Generer le damier par defaut, puis un damier de 32 px.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">image.width</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">image.height</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">image.pixels.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(image.width) * static_cast&lt;std::size_t&gt;(image.height)</span>.<br  />
+Vérifie que <span class="tt">large.width</span> vaut <span class="tt">32</span>.<br  />
+Vérifie que <span class="tt">large.height</span> vaut <span class="tt">32</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>MissingTextureTest.GenerationDeterministe</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:49</span></sub>  </td><td class="markdownTableBodyNone">La generation du damier est deterministe.  </td><td class="markdownTableBodyNone">1. Generer deux fois le damier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aa0d169ee450492a9aa3795d23e95e4ba" title="Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.">hmi::buildMissingTextureImage()</a>.pixels</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aa0d169ee450492a9aa3795d23e95e4ba" title="Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.">hmi::buildMissingTextureImage()</a>.pixels</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>MissingTextureTest.CarreauxAlternesMagentaEtNoir</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Les carreaux du damier alternent magenta et noir.  </td><td class="markdownTableBodyNone">1. Generer le damier.<br  />
+2. Lire un pixel de chacun des quatre premiers carreaux.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">pixelAt(image, 0, 0)</span> vaut <span class="tt">MAGENTA</span>.<br  />
+Vérifie que <span class="tt">pixelAt(image, STEP, 0)</span> vaut <span class="tt">BLACK</span>.<br  />
+Vérifie que <span class="tt">pixelAt(image, 0, STEP)</span> vaut <span class="tt">BLACK</span>.<br  />
+Vérifie que <span class="tt">pixelAt(image, STEP, STEP)</span> vaut <span class="tt">MAGENTA</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>MissingTextureTest.DamierEntierementOpaque</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:84</span></sub>  </td><td class="markdownTableBodyNone">Tous les pixels du damier sont opaques.  </td><td class="markdownTableBodyNone">1. Generer le damier.<br  />
+2. Verifier le canal alpha de chaque pixel.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">pixel &gt;&gt; 24</span> vaut <span class="tt">0xFFu</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>MissingTextureTest.AvertissementNommeAsset</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">L'avertissement de texture manquante nomme l'asset attendu.  </td><td class="markdownTableBodyNone">1. Construire le message pour un asset donne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">message.find("Backgrounds/foret.png")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">test_procedural_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2062,6 +2127,147 @@ Vérifie que <span class="tt">first.pixels</span> vaut <span class="tt">second.p
 <sub><span class="tt"><a class="el" href="test__procedural__atlas_8cpp.html" title="Tests unitaires de la génération procédurale de l&#39;atlas de repli (LOT-39, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp</a>:60</span></sub>  </td><td class="markdownTableBodyNone">La dernière tuile de la grille contient des pixels opaques et transparents (damier).  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sawOpaque</span> est vrai.<br  />
 Vérifie que <span class="tt">sawTransparent</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">test_quad_recorder.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.CalquePrimeSurTexture</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:55</span></sub>  </td><td class="markdownTableBodyNone">Le calque prime sur la texture dans l'ordre de soumission.  </td><td class="markdownTableBodyNone">1. Composer un quad Player (texture A) puis un quad Tile (texture B).<br  />
+2. Trier et capturer la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.quads()[0].layer</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span>.<br  />
+Vérifie que <span class="tt">recorder.quads()[1].layer</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span>.<br  />
+Vérifie que <span class="tt">recorder.isLayerOrderRespected()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.TroisCalquesDeuxTexturesOrdonnes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:81</span></sub>  </td><td class="markdownTableBodyNone">Trois calques et deux textures : ordre des calques et groupes de texture contigus.  </td><td class="markdownTableBodyNone">1. Composer six quads en alternant calques et textures.<br  />
+2. Trier et capturer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.isLayerOrderRespected()</span> est vrai.<br  />
+Vérifie que <span class="tt">recorder.areTextureGroupsContiguous()</span> est vrai.<br  />
+Vérifie que <span class="tt">layers.size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">layers[0]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond du niveau (LOT-44, EX-REN-044).">hmi::RenderLayer::Background</a></span>.<br  />
+Vérifie que <span class="tt">layers[1]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span>.<br  />
+Vérifie que <span class="tt">layers[2]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Tile)</span> vaut <span class="tt">3</span>.<br  />
+Vérifie que <span class="tt">recorder.countWithTexture(textureA)</span> vaut <span class="tt">3</span>.<br  />
+Vérifie que <span class="tt">recorder.countWithTexture(textureB)</span> vaut <span class="tt">3</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.TriStableAClefEgale</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:118</span></sub>  </td><td class="markdownTableBodyNone">Le tri est stable : a cle egale l'ordre de composition est preserve.  </td><td class="markdownTableBodyNone">1. Composer trois quads identiques en cle, a des positions differentes.<br  />
+2. Trier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[0].sprite.x</span> vaut <span class="tt">3.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">scene.quads()[1].sprite.x</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">scene.quads()[2].sprite.x</span> vaut <span class="tt">2.0f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.TriFinParSpriteLayer</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:142</span></sub>  </td><td class="markdownTableBodyNone">Le tri fin par Sprite::layer subsiste a l'interieur d'un calque.  </td><td class="markdownTableBodyNone">1. Composer trois quads du meme calque avec des tris fins decroissants.<br  />
+2. Trier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[0].sortOrder</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[1].sortOrder</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[2].sortOrder</span> vaut <span class="tt">2</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.DeuxTexturesDeuxPasses</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:166</span></sub>  </td><td class="markdownTableBodyNone">Le nombre de passes egale le nombre de groupes de texture.  </td><td class="markdownTableBodyNone">1. Composer quatre quads d'un meme calque en alternant deux textures.<br  />
+2. Trier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.batchCount()</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">recorder.textureSequence().size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">recorder.areTextureGroupsContiguous()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.RectanglesEtSegmentsMelanges</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:193</span></sub>  </td><td class="markdownTableBodyNone">Segments et rectangles cohabitent dans la meme scene ordonnee.  </td><td class="markdownTableBodyNone">1. Composer un rectangle puis un segment sur le meme calque.<br  />
+2. Trier et capturer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[0].kind</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd" title="hmi::SpriteQuad : rectangle aligné sur les axes.">hmi::QuadKind::Sprite</a></span>.<br  />
+Vérifie que <span class="tt">scene.quads()[1].kind</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4" title="hmi::LineQuad : segment épais, orienté librement.">hmi::QuadKind::Line</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.SceneDeReferenceNonRegression</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">Non-regression : la scene de reference produit les primitives attendues.  </td><td class="markdownTableBodyNone">1. Peupler un monde de trois tuiles puis d'un personnage tague Player.<br  />
+2. Composer la scene et la trier.<br  />
+3. Capturer et inspecter la liste.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">4u</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Tile)</span> vaut <span class="tt">3</span>.<br  />
+Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Player)</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">recorder.isLayerOrderRespected()</span> est vrai.<br  />
+Vérifie que <span class="tt">recorder.quads()[0].sprite.x</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[1].sprite.x</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[2].sprite.x</span> vaut <span class="tt">2.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[3].layer</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span>.<br  />
+Vérifie que <span class="tt">recorder.quads()[0].sprite.width</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[3].sprite.width</span> vaut <span class="tt">0.4f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[3].sprite.height</span> vaut <span class="tt">0.8f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.quads()[3].sprite.v0</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">recorder.statistics().batches</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">recorder.statistics().culled</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">recorder.statistics().submitted</span> vaut <span class="tt">4</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.CalqueParDefautSansTag</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:280</span></sub>  </td><td class="markdownTableBodyNone">Une entite sans RenderLayerTag est composee sur le calque des tuiles.  </td><td class="markdownTableBodyNone">1. Composer un monde d'une seule entite non taguee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[0].layer</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>QuadRecorderTest.OrdonnancementDeclare</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__quad__recorder_8cpp.html" title="Tests unitaires de la composition du rendu et de sa capture sans GPU (LOT-40, EX-NFR-004,...">Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp</a>:302</span></sub>  </td><td class="markdownTableBodyNone">L'ordonnancement place le premier plan au-dessus du personnage.  </td><td class="markdownTableBodyNone">1. Comparer les valeurs declarees de l'enumeration des calques.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond du niveau (LOT-44, EX-REN-044).">hmi::RenderLayer::Background</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">hmi::RenderLayer::Decor</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">hmi::RenderLayer::Decor</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c" title="Ombres portées des tuiles solides (LOT-55, EX-REN-045).">hmi::RenderLayer::Shadow</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a3f39588bb19e28051d9aedfbb170025c" title="Ombres portées des tuiles solides (LOT-55, EX-REN-045).">hmi::RenderLayer::Shadow</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b" title="Objets interactifs (interrupteurs, portes, dangers) (LOT-45/LOT-47).">hmi::RenderLayer::Object</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b" title="Objets interactifs (interrupteurs, portes, dangers) (LOT-45/LOT-47).">hmi::RenderLayer::Object</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" title="Texte et interface en scène (LOT-52, EX-REN-031).">hmi::RenderLayer::UI</a></span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" title="Texte et interface en scène (LOT-52, EX-REN-031).">hmi::RenderLayer::UI</a></span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a94f3616c83f30ab5a328e602bbb7d751" title="Aides d&#39;édition : grille de repère, liens de mécanismes, aperçu de sélection.">hmi::RenderLayer::EditorOverlay</a></span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">test_render_culling.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.SansCadrageAucunRejet</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:50</span></sub>  </td><td class="markdownTableBodyNone">Sans cadrage fixe, aucune primitive n'est ecartee.  </td><td class="markdownTableBodyNone">1. Composer un quad tres eloigne dans une scene sans cadrage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.isCullingEnabled()</span> est faux.<br  />
+Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(9999.0f, 9999.0f))</span> est vrai.<br  />
+Vérifie que <span class="tt">scene.statistics().culled</span> vaut <span class="tt">0</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.HorsCadrageEcarte</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:68</span></sub>  </td><td class="markdownTableBodyNone">Une primitive hors cadrage est ecartee, la meme dans le cadrage est conservee.  </td><td class="markdownTableBodyNone">1. Fixer le cadrage de reference.<br  />
+2. Composer un quad dedans, puis un quad loin dehors.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(15.0f, 15.0f))</span> est vrai.<br  />
+Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(80.0f, 15.0f))</span> est faux.<br  />
+Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">recorder.containsSpriteAt(15.0f, 15.0f)</span> est vrai.<br  />
+Vérifie que <span class="tt">recorder.statistics().considered</span> vaut <span class="tt">2</span>.<br  />
+Vérifie que <span class="tt">recorder.statistics().culled</span> vaut <span class="tt">1</span>.<br  />
+Vérifie que <span class="tt">recorder.statistics().submitted</span> vaut <span class="tt">1</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.AChevalSurLaFrontiereConserve</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:97</span></sub>  </td><td class="markdownTableBodyNone">Une primitive a cheval sur la frontiere du cadrage est conservee.  </td><td class="markdownTableBodyNone">1. Fixer le cadrage de reference.<br  />
+2. Composer un quad chevauchant le bord droit, puis un quad entierement dans la marge.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(29.5f, 15.0f))</span> est vrai.<br  />
+Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(30.2f, 15.0f))</span> est vrai.<br  />
+Vérifie que <span class="tt">scene.addSprite(<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a>, texture, 0, tileQuad(31.5f, 15.0f))</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.SegmentHorizontalConserve</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:120</span></sub>  </td><td class="markdownTableBodyNone">Un segment horizontal traversant le cadrage est conserve.  </td><td class="markdownTableBodyNone">1. Fixer le cadrage de reference.<br  />
+2. Composer un segment horizontal a l'interieur, puis un segment horizontal tres au-dessus.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.addLine(hmi::RenderLayer::EditorOverlay, texture, 0, inside)</span> est vrai.<br  />
+Vérifie que <span class="tt">scene.addLine(hmi::RenderLayer::EditorOverlay, texture, 0, outside)</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.PrimitiveEtireeConservee</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:150</span></sub>  </td><td class="markdownTableBodyNone">Une primitive etiree dont l'ancrage est hors cadrage reste soumise.  </td><td class="markdownTableBodyNone">1. Fixer le cadrage de reference.<br  />
+2. Composer un quad ancre en (0, 0) et large de 200 unites.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.addSprite(hmi::RenderLayer::Background, texture, 0, background)</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.VolumeProportionnelALaSalleVisible</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:174</span></sub>  </td><td class="markdownTableBodyNone">Le volume compose depend de la salle visible, pas de la taille du niveau.  </td><td class="markdownTableBodyNone">1. Peupler une ligne de tuiles couvrant trois salles.<br  />
+2. Cadrer la premiere salle.<br  />
+3. Composer la scene.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.statistics().considered</span> vaut <span class="tt">LEVEL_WIDTH</span>.<br  />
+Vérifie que <span class="tt">scene.statistics().submitted</span> vaut <span class="tt">ROOM_WIDTH + 1</span>.<br  />
+Vérifie que <span class="tt">scene.statistics().culled</span> vaut <span class="tt">LEVEL_WIDTH - ROOM_WIDTH - 1</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.MargeAppliqueeSurLesQuatreCotes</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:209</span></sub>  </td><td class="markdownTableBodyNone">Le cadrage de culling est le cadrage visible elargi de la marge.  </td><td class="markdownTableBodyNone">1. Fixer le cadrage de reference.<br  />
+2. Lire le rectangle de culling.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bounds.left()</span> vaut <span class="tt">VISIBLE_BOUNDS.left() - MARGIN</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.top()</span> vaut <span class="tt">VISIBLE_BOUNDS.top() - MARGIN</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.right()</span> vaut <span class="tt">VISIBLE_BOUNDS.right() + MARGIN</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.bottom()</span> vaut <span class="tt">VISIBLE_BOUNDS.bottom() + MARGIN</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>RenderCullingTest.CadrageDeLaCamera</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__render__culling_8cpp.html" title="Tests unitaires du culling par cadrage caméra (LOT-40, EX-NFR-005, EX-REN-015).">Source/Test/Unit/HMI/Graphics/test_render_culling.cpp</a>:230</span></sub>  </td><td class="markdownTableBodyNone">La camera fournit le rectangle monde qu'elle cadre.  </td><td class="markdownTableBodyNone">1. Centrer une camera 320x160 sur (10, 5) au zoom 1.<br  />
+2. Lire son cadrage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">bounds.left()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.top()</span> vaut <span class="tt">0.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.size.x</span> vaut <span class="tt">20.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">bounds.size.y</span> vaut <span class="tt">10.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">camera.visibleBounds().size.x</span> vaut <span class="tt">10.0f</span> (comparaison flottante).  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">test_room_grid.cpp</a></span></b></p>
 <table class="markdownTable">

@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['v_0',['v',['../structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9',1,'hmi::SpriteBatch::Vertex']]],
-  ['v0_1',['v0',['../structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252',1,'hmi::SpriteQuad::v0'],['../structhmi_1_1LineQuad.html#accaf53500d04a45aea0c4c8823a01703',1,'hmi::LineQuad::v0']]],
-  ['v1_2',['v1',['../structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2',1,'hmi::SpriteQuad::v1'],['../structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339',1,'hmi::LineQuad::v1']]],
-  ['value_3',['value',['../structcore_1_1Velocity.html#ad6dd1b25f77f486834db55aa9c384b66',1,'core::Velocity::value'],['../structhmi_1_1PreviousPosition.html#abdda43ddf20dfb53ef9a71023e330209',1,'hmi::PreviousPosition::value']]],
-  ['view_4',['view',['../structhmi_1_1LoadedTexture.html#ae83354736dadd0d73dbe567cac01b353',1,'hmi::LoadedTexture']]]
+  ['walldirection_0',['wallDirection',['../structcore_1_1Player.html#adff2c3089248a9bc8bcc286dff1550ce',1,'core::Player']]],
+  ['walljumplocktime_1',['wallJumpLockTime',['../structcore_1_1PhysicsConfig.html#a2aed664da44b757c3e23cfe105bb34c7',1,'core::PhysicsConfig']]],
+  ['walljumplocktimer_2',['wallJumpLockTimer',['../structcore_1_1Player.html#ab37e8efccea023b2f1d4f6adada4290b',1,'core::Player']]],
+  ['walljumpspeedx_3',['wallJumpSpeedX',['../structcore_1_1PhysicsConfig.html#a58542418c2b5c5c883337bd8a23297a7',1,'core::PhysicsConfig']]],
+  ['walljumpspeedy_4',['wallJumpSpeedY',['../structcore_1_1PhysicsConfig.html#aef6fbf45958ba26e09a1e9c78cfa268b',1,'core::PhysicsConfig']]],
+  ['wallslidespeed_5',['wallSlideSpeed',['../structcore_1_1PhysicsConfig.html#af147f8c04010b7b16faf1989c171bd4a',1,'core::PhysicsConfig']]],
+  ['width_6',['width',['../structcore_1_1AtlasRegion.html#ae9205702dd6b5eaef583116869e8ce73',1,'core::AtlasRegion::width'],['../structhmi_1_1ProceduralAtlasImage.html#a5e64957b189f33bd6abcf1ffb2466253',1,'hmi::ProceduralAtlasImage::width'],['../structhmi_1_1SpriteQuad.html#a7f473f58edf9e7c97b268324b914cfaf',1,'hmi::SpriteQuad::width'],['../structhmi_1_1RoomBounds.html#aafb711f5650f2bbadbad71aadec73076',1,'hmi::RoomBounds::width'],['../structhmi_1_1DecodedImage.html#adf724d1823f51b2e78a1da608dd94a7e',1,'hmi::DecodedImage::width'],['../structhmi_1_1LoadedTexture.html#a1530f7a7b5a8c3b036b8ec279c55b330',1,'hmi::LoadedTexture::width']]]
 ];
