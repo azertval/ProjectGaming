@@ -29,6 +29,7 @@ namespace hmi {
 
 class SpriteBatch;
 class TextureAtlas;
+class TextureCache;
 class InputState;
 
 /**
@@ -54,13 +55,17 @@ public:
      * @param atlas           Atlas de tuiles fournissant les régions de sprites.
      * @param viewportWidth   Largeur initiale de la surface de rendu, en pixels.
      * @param viewportHeight  Hauteur initiale de la surface de rendu, en pixels.
+     * @param cache           Cache de textures, propriétaire du damier de repli du mode Texture
+     *                        (référence conservée, doit survivre à la session, `LOT-41`).
      * @param level           Niveau déjà validé à jouer.
-     * @param gameBindings    Touches clavier de jeu (référence conservée, doit survivre à la session).
-     * @param gamepadBindings Boutons manette de jeu (référence conservée, doit survivre à la session).
+     * @param gameBindings    Touches clavier de jeu (référence conservée, doit survivre à la
+     * session).
+     * @param gamepadBindings Boutons manette de jeu (référence conservée, doit survivre à la
+     * session).
      */
-    GameSession(SpriteBatch& batch, const TextureAtlas& atlas, int viewportWidth, int viewportHeight,
-                core::Level level, const GameKeyBindings& gameBindings,
-                const GamepadBindings& gamepadBindings);
+    GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
+                int viewportWidth, int viewportHeight, core::Level level,
+                const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings);
 
     /**
      * @brief Simule le niveau d'un pas fixe (mécanismes, blocs, physique, animation, dangers).
@@ -73,8 +78,10 @@ public:
     /// Recharge le niveau courant (personnage à l'entrée, mécanismes et budgets remis).
     void reload();
 
-    /// Dessine la scène du niveau (rien si le chargement a échoué).
-    void render(int viewportWidth, int viewportHeight, float interpolationAlpha);
+    /// Dessine la scène du niveau (rien si le chargement a échoué). @p mode choisit le rendu
+    /// Physique ou Texture (`EX-REN-046`, `LOT-41`) : bascule purement visuelle, sans effet sur la
+    /// simulation ni sur la scène ECS.
+    void render(int viewportWidth, int viewportHeight, RenderMode mode, float interpolationAlpha);
 
     /// @return true si un niveau est chargé et simulable.
     [[nodiscard]] bool loaded() const {

@@ -18,6 +18,7 @@ namespace hmi {
 
 class Camera2D;
 class TextureAtlas;
+class TextureCache;
 
 /**
  * @brief Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.
@@ -33,6 +34,17 @@ class TextureAtlas;
  */
 void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projection,
                          const ComposedScene& scene);
+
+/**
+ * @brief Textures liables par la composition d'une scène, atlas **et** damier de repli.
+ *
+ * Point d'assemblage unique, partagé par le jeu et l'éditeur (`LOT-41`) : le damier est résolu
+ * **à la demande** auprès du cache, donc créé seulement si un rendu en mode Texture a lieu.
+ * @param atlas Atlas du jeu.
+ * @param cache Cache de textures, propriétaire du damier partagé.
+ * @return Les deux textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
+ */
+[[nodiscard]] SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache);
 
 /**
  * @brief Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.
@@ -53,8 +65,10 @@ public:
      * @brief Construit le rendu de sprites.
      * @param batch Pipeline de quads texturés utilisé pour dessiner (non possédé).
      * @param atlas Atlas fournissant la texture et ses dimensions (non possédé).
+     * @param cache Cache de textures, propriétaire du damier de repli lié en mode Texture
+     *              (non possédé, `LOT-41`).
      */
-    SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas);
+    SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache);
 
     /**
      * @brief Dessine toutes les entités affichables du monde, vues par la caméra.
@@ -63,6 +77,8 @@ public:
      * (`EX-NFR-005`) ; une entité écartée reste simulée normalement (`EX-ARCH-012`).
      * @param world  Monde dont on lit les composants `Transform` et `Sprite`.
      * @param camera Caméra fournissant la projection monde → écran et le cadrage visible.
+     * @param mode   Mode de rendu courant (`EX-REN-046`) : bascule purement **visuelle**, sans
+     *               effet sur la scène ECS ni sur la simulation.
      * @param interpolationAlpha Facteur d'interpolation `[0, 1[` entre le pas de simulation
      *        précédent et le pas courant (`EX-ARCH-031`,
      * `core::FixedTimestep::interpolationAlpha`). Une entité portant un `hmi::PreviousPosition` est
@@ -70,7 +86,8 @@ public:
      * composant (tuiles fixes) est dessinée à sa position courante. `0` reproduit le comportement
      * non interpolé.
      */
-    void render(core::World& world, const Camera2D& camera, float interpolationAlpha);
+    void render(core::World& world, const Camera2D& camera, RenderMode mode,
+                float interpolationAlpha);
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {
@@ -85,6 +102,7 @@ private:
 
     SpriteBatch* _batch;         // non possédé
     const TextureAtlas* _atlas;  // non possédé
+    TextureCache* _cache;        // non possédé
     ComposedScene _scene;
     SceneStatistics _loggedStatistics;
 };

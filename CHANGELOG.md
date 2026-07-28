@@ -7,6 +7,28 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-41 — Bascule Physique/Texture (`F8`)** (`EX-REN-046`) : une commande **fixe et non
+  remappable** bascule, en édition, en essai **et** en jeu réel, entre le rendu **Physique**
+  (couleur plate par type de tuile — la lecture directe des collisions, comportement historique
+  strictement inchangé) et le rendu **Texture** (habillage, construit à partir de `LOT-42`).
+  - `hmi::RenderMode` et `hmi::resolveTileAppearance` — **point de résolution unique** de
+    l'apparence, appelé à la **composition** et non à la construction de la scène : basculer de
+    mode ne reconstruit jamais l'ECS, ne coûte aucun pas de simulation et n'a aucun effet rémanent.
+    Le mode Texture affiche pour l'instant le damier magenta partout, ce qui est le comportement
+    attendu tant qu'aucun skin n'existe (`EX-NFR-040`). La géométrie composée est **identique**
+    dans les deux modes : seule la texture échantillonnée change.
+  - `F8` est traité en dur dans `hmi::GameViewport::keyPressEvent`, avant toute autre branche pour
+    couvrir les trois contextes — même parti pris que `F10` (grille de repère). La touche
+    n'apparaît dans **aucune** table de remappage : `hmi::qtKeyToHmiKey` ne traduit pas
+    `Qt::Key_F8`, elle ne peut donc structurellement pas être liée à une action (`EX-CTRL-012`).
+  - **Défaut `Texture` dans toutes les configurations de build** et **persistance** du dernier
+    choix entre deux sessions (`QSettings`, `EX-IHM-011`) : deux binaires du même code ne doivent
+    jamais afficher un rendu différent par défaut, et reperdre son mode d'affichage à chaque
+    lancement serait une friction quotidienne pendant treize lots. Une préférence absente, vide ou
+    corrompue retombe silencieusement sur `Texture`.
+  - `hmi::TextureCache` est désormais **câblé en production** (porté par `hmi::GameViewport`,
+    propriétaire du damier partagé et point d'entrée des skins à partir de `LOT-42`).
+
 - **LOT-40 — Fondations du rendu texturé : calques nommés, multi-textures, testabilité, culling**
   (`EX-REN-043`, `EX-REN-007`, `EX-NFR-004`, `EX-NFR-005`, précise `EX-REN-014`) : lot **structurel**
   qui ne change aucun pixel affiché, mais lève les quatre verrous qui bloquaient tout le programme

@@ -20,6 +20,7 @@ namespace hmi {
 
 class SpriteBatch;
 class TextureAtlas;
+class TextureCache;
 class Camera2D;
 
 /**
@@ -56,17 +57,20 @@ struct LinkOverlayState {
  */
 class DraftRenderer {
 public:
-    DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas);
+    DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache);
 
     /// Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée). Si @p showGrid,
     /// superpose la grille de repère (frontières de cases + frontières de salles) — aide au
     /// placement, équivalent de la bascule `F10` de l'éditeur historique (`EX-EDIT-023`). Si
     /// @p highlight est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de
     /// l'outil Rectangle/Sélection. @p linkOverlay pilote l'affichage des liens de mécanismes
-    /// (flèches, trait provisoire, surbrillance — `EX-IHM-030`).
+    /// (flèches, trait provisoire, surbrillance — `EX-IHM-030`). @p mode choisit le rendu
+    /// Physique ou Texture des tuiles (`EX-REN-046`, `LOT-41`) ; les **aides d'édition** (grille,
+    /// liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas
+    /// de l'habillage.
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
-                const LinkOverlayState& linkOverlay);
+                const LinkOverlayState& linkOverlay, RenderMode mode);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -90,6 +94,7 @@ private:
 
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;
+    TextureCache& _cache;
     ComposedScene _scene;
     core::World _world;
     bool _dirty = true;

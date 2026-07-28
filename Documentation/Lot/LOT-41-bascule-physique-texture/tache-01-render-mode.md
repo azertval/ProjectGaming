@@ -1,6 +1,6 @@
 # TACHE-01 — *RenderMode* et câblage du viewport {#lot-41-tache-01-render-mode}
 
-**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le rendu actuel n'a qu'un mode : la couleur plate par type de tuile, résolue par

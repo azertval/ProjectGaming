@@ -13,6 +13,7 @@
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TextureCache.h"
 #include "HMI/Graphics/TileVisuals.h"
 
 namespace hmi {
@@ -26,13 +27,13 @@ constexpr std::int32_t OVERLAY_ORDER_LINKS = 1;
 constexpr std::int32_t OVERLAY_ORDER_HIGHLIGHT = 2;
 }  // namespace
 
-DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas)
-    : _batch(batch), _atlas(atlas) {}
+DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
+    : _batch(batch), _atlas(atlas), _cache(cache) {}
 
 void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
-    const LinkOverlayState& linkOverlay) {
+    const LinkOverlayState& linkOverlay, RenderMode mode) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -43,8 +44,7 @@ void DraftRenderer::render(
     // le lot -- a calque et texture egaux, le tri stable le preserve tel quel.
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
-    composeWorldSprites(_scene, _world, _atlas.textureView(), _atlas.width(), _atlas.height(),
-                        1.0f);
+    composeWorldSprites(_scene, _world, mode, sceneTextures(_atlas, _cache), 1.0f);
     if (showGrid) {
         composeGrid(draft);
     }

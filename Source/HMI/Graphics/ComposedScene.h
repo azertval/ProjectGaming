@@ -8,6 +8,8 @@
 #include "Core/Math/Rect.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
+#include "HMI/Graphics/RenderMode.h"
+#include "HMI/Graphics/TileAppearance.h"
 
 /**
  * @file HMI/Graphics/ComposedScene.h
@@ -221,17 +223,20 @@ private:
  * Le calque de chaque entité vient de son `hmi::RenderLayerTag`, ou vaut
  * `hmi::DEFAULT_RENDER_LAYER` en son absence ; `core::Sprite::layer` reste le tri **fin** à
  * l'intérieur de ce calque.
+ *
+ * L'apparence de chaque entité — texture liée et région échantillonnée — est résolue **ici**, à la
+ * composition, par `hmi::resolveTileAppearance` (`LOT-41`) : changer de mode de rendu ne
+ * reconstruit donc jamais la scène ECS.
  * @param scene              Scène à remplir (non vidée : la composition peut être cumulative).
  * @param world              Monde dont on lit `Transform`, `Sprite`, `PreviousPosition`,
  *                           `RenderLayerTag`.
- * @param texture            Texture liée à ces sprites (l'atlas, aujourd'hui).
- * @param textureWidth       Largeur de cette texture, en pixels (> 0).
- * @param textureHeight      Hauteur de cette texture, en pixels (> 0).
+ * @param mode               Mode de rendu courant (`EX-REN-046`).
+ * @param textures           Textures liables et leurs dimensions (atlas et damier de repli).
  * @param interpolationAlpha Facteur d'interpolation `[0, 1[` entre le pas de simulation précédent
  *                           et le pas courant (`EX-ARCH-031`) ; `0` reproduit le rendu non
  *                           interpolé.
  */
-void composeWorldSprites(ComposedScene& scene, core::World& world, TextureHandle texture,
-                         int textureWidth, int textureHeight, float interpolationAlpha);
+void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
+                         const SceneTextures& textures, float interpolationAlpha);
 
 }  // namespace hmi

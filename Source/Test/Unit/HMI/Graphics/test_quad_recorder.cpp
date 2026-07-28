@@ -10,6 +10,7 @@
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/QuadRecorder.h"
 #include "HMI/Graphics/RenderLayer.h"
 
@@ -23,8 +24,17 @@ int secondTextureStorage = 0;
 hmi::TextureHandle textureA = &firstTextureStorage;
 hmi::TextureHandle textureB = &secondTextureStorage;
 
-/// Dimensions de la texture de reference des tests (grille de 5 cases de 16 px).
-constexpr int TEXTURE_SIDE = 80;
+/// Textures de reference des tests : atlas de 80x80 (grille de 5 cases de 16 px) et damier.
+hmi::SceneTextures testTextures() {
+    hmi::SceneTextures textures;
+    textures.atlas = textureA;
+    textures.atlasWidth = 80;
+    textures.atlasHeight = 80;
+    textures.missing = textureB;
+    textures.missingWidth = hmi::MISSING_TEXTURE_SIZE;
+    textures.missingHeight = hmi::MISSING_TEXTURE_SIZE;
+    return textures;
+}
 
 /// Rectangle minimal a une position donnee, pour distinguer les primitives entre elles.
 hmi::SpriteQuad quadAt(float x, float y) {
@@ -243,7 +253,7 @@ TEST(QuadRecorderTest, SceneDeReferenceNonRegression) {
     world.addComponent(player, hmi::RenderLayerTag{hmi::RenderLayer::Player});
 
     hmi::ComposedScene scene;
-    hmi::composeWorldSprites(scene, world, textureA, TEXTURE_SIDE, TEXTURE_SIDE, 0.0f);
+    hmi::composeWorldSprites(scene, world, hmi::RenderMode::Physique, testTextures(), 0.0f);
     scene.sort();
 
     hmi::QuadRecorder recorder;
@@ -289,7 +299,7 @@ TEST(QuadRecorderTest, CalqueParDefautSansTag) {
     addTile(world, 4.0f, 4.0f);
 
     hmi::ComposedScene scene;
-    hmi::composeWorldSprites(scene, world, textureA, TEXTURE_SIDE, TEXTURE_SIDE, 0.0f);
+    hmi::composeWorldSprites(scene, world, hmi::RenderMode::Physique, testTextures(), 0.0f);
 
     ASSERT_EQ(scene.size(), 1u);
     EXPECT_EQ(scene.quads()[0].layer, hmi::DEFAULT_RENDER_LAYER);

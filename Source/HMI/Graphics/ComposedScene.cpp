@@ -163,19 +163,24 @@ core::Rect lineQuadBounds(const LineQuad& quad) noexcept {
 }
 
 // Compose les entites affichables d'un monde ECS en primitives (lecture seule de l'ECS).
-void composeWorldSprites(ComposedScene& scene, core::World& world, TextureHandle texture,
-                         int textureWidth, int textureHeight, float interpolationAlpha) {
-    const float atlasWidth = static_cast<float>(textureWidth);
-    const float atlasHeight = static_cast<float>(textureHeight);
-
+void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
+                         const SceneTextures& textures, float interpolationAlpha) {
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
-            const core::AtlasRegion& region = sprite.region;
+            // Apparence resolue par le point d'appel unique (LOT-41) : c'est ici, a la
+            // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas.
+            const TileAppearance appearance = resolveTileAppearance(mode, sprite.region);
+            const core::AtlasRegion& region = appearance.region;
+            const TextureHandle texture = textures.textureFor(appearance.source);
+            const float atlasWidth = static_cast<float>(textures.widthFor(appearance.source));
+            const float atlasHeight = static_cast<float>(textures.heightFor(appearance.source));
 
             // Taille du sprite en unites monde : la region (en pixels) ramenee a l'echelle du
             // monde (16 px/unite), multipliee par l'echelle du Transform. Le zoom est applique
-            // plus tard par la projection de la camera.
+            // plus tard par la projection de la camera. Le damier de repli fait exactement une
+            // case (MISSING_TEXTURE_SIZE == TILE_SIZE) : la geometrie composee est donc la meme
+            // dans les deux modes, seule la texture echantillonnee change.
             const float worldWidth =
                 static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
             const float worldHeight =

@@ -18,10 +18,17 @@ l'interface (français/anglais) à tout moment.
 | Sauter (hauteur variable selon la durée d'appui) | **Espace** ou **W** | **A** |
 | Dash (8 directions, selon les touches directionnelles maintenues) | **Maj** | Épaule droite (**RB**) |
 | Viser le dash vers le haut / le bas | **↑** / **↓** | Stick gauche / D-pad |
+| Voir le niveau tel qu'il est construit | **F8** | — |
 | Quitter vers le menu | **Échap** | **B** ou **Start** |
 
 Une manette **XInput** peut être branchée ou débranchée à tout moment ; elle **complète** le
 clavier plutôt que de le remplacer (les deux fonctionnent simultanément).
+
+**F8** bascule entre deux façons de voir le niveau. L'affichage normal montre le niveau **habillé** ;
+l'autre le montre **tel qu'il est réellement construit**, chaque case dans une couleur unie selon
+son rôle — pratique pour comprendre exactement où commence un sol, une pente ou un piège quand un
+passage résiste. La bascule ne change rien au jeu lui-même : ni la difficulté, ni la position du
+personnage, ni la progression. Le choix est conservé pour les fois suivantes.
 
 ## Objectif d'un niveau
 

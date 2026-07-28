@@ -295,11 +295,21 @@ image), `HMI` sait seule **à quoi ça ressemble** (quels pixels).
 
 ## \ref hmi::SpriteRenderer "hmi::SpriteRenderer" : le pont ECS → écran
 
-C'est ici que les fils se rejoignent : `SpriteRenderer::render(world, camera)` parcourt le `World`
-(@ref guide-ecs) par une **vue** sur les entités possédant à la fois `core::Transform` (position,
-échelle, rotation) et `core::Sprite` (région d'atlas, couche, teinte) — exactement le motif vue +
-lambda décrit dans @ref guide-ecs. Pour chacune, il résout la région d'atlas en UV, construit un
-`SpriteQuad` en unités monde, et l'empile.
+C'est ici que les fils se rejoignent. Depuis le `LOT-40`, le rendu se fait en **deux temps
+distincts**, et cette séparation est le point le plus important de la page :
+
+1. la **composition** (`hmi::composeWorldSprites` → `hmi::ComposedScene`) parcourt le `World`
+   (@ref guide-ecs) par une **vue** sur les entités possédant à la fois `core::Transform` et
+   `core::Sprite`, résout l'apparence, construit un `SpriteQuad` en unités monde et l'empile dans
+   une liste ordonnée. C'est de la logique **pure** : aucun appel Direct3D ;
+2. la **soumission** (`hmi::submitComposedScene`) parcourt cette liste et l'envoie au
+   `SpriteBatch`, une passe `begin`/`end` par groupe contigu de même texture.
+
+Pourquoi couper en deux ? Parce que la première moitié devient **testable sans GPU**
+(`EX-NFR-004`) : `hmi::QuadRecorder` capture la liste composée et permet d'**asserter** l'ordre des
+calques, le regroupement par texture ou l'effet du culling, là où il fallait auparavant regarder
+l'écran et juger à l'œil. Un critère d'acceptation du type « le rendu n'a pas changé » cesse d'être
+une impression pour devenir un test.
 
 Un détail important : les sprites sont **triés par couche** (`Sprite::layer`, un entier — plus
 grand = dessiné **au-dessus**) avant d'être soumis au `SpriteBatch`. Sans ce tri, l'ordre de dessin
@@ -307,13 +317,52 @@ suivrait l'ordre arbitraire d'itération de la vue ECS (@ref guide-ecs — le sp
 aucun ordre stable vis-à-vis du sens du jeu), et un élément de décor pourrait apparaître par-dessus
 le personnage un pas sur deux.
 
-En l'état, cet entier n'a que **deux valeurs en usage**, écrites en dur là où les entités sont
-créées : `0` pour les tuiles et `100` pour le personnage. C'est suffisant tant qu'il n'existe qu'une
-seule texture et deux sortes de choses à dessiner, mais ce n'est pas un ordonnancement : rien ne
-documente ce que valent `0` et `100`, ni où s'insérerait un fond ou un décor de premier plan. Le
-`LOT-40` remplace ces valeurs par un jeu de calques **nommé** (fond, décor, ombres, tuiles, objets,
-personnage, premier plan, interface, aides d'édition — `EX-REN-014`), `Sprite::layer` conservant son
-rôle de tri **fin à l'intérieur** d'un calque.
+Cet entier a longtemps eu **deux valeurs magiques** écrites en dur là où les entités sont créées
+(`0` pour les tuiles, `100` pour le personnage) : suffisant, mais ce n'était pas un ordonnancement
+— rien ne documentait ce que valaient `0` et `100`, ni où s'insérerait un fond ou un décor de
+premier plan. Le `LOT-40` les a remplacées par `hmi::RenderLayer`, un jeu de calques **nommé** et
+unique (`EX-REN-014`) :
+
+    Background · Decor · Shadow · Tile · Object · Player · Foreground · UI · EditorOverlay
+
+L'ordre de déclaration **est** l'ordre de dessin. Une entité porte son calque via le composant de
+présentation `hmi::RenderLayerTag` ; en son absence elle est dessinée sur `Tile`, le cas de très
+loin le plus fréquent. `core::Sprite::layer` conserve son rôle de tri **fin à l'intérieur** d'un
+calque, et `Core` continue d'ignorer complètement l'existence des calques (`EX-NFR-011`) : c'est
+une notion de présentation.
+
+Le tri de la scène composée est donc : **calque**, puis **texture** (regroupement, dans l'ordre de
+première apparition), puis `Sprite::layer`. Jamais l'inverse — regrouper par texture ne doit sous
+aucun prétexte faire passer une primitive devant une primitive d'un calque inférieur. Le tri est
+**stable**, ce qui garantit qu'à clé égale l'ordre de composition est préservé.
+
+### Ne dessiner que ce qui se voit : le culling (`LOT-40`)
+
+La composition écarte toute primitive dont la boîte englobante n'intersecte pas le cadrage de la
+caméra (`hmi::Camera2D::visibleBounds`), élargi d'une **marge d'une case** pour qu'une entité à
+cheval sur la frontière ne disparaisse pas prématurément. Le test porte sur la boîte englobante
+**réelle** et non sur la position d'ancrage : un fond étiré sur tout le niveau reste soumis même si
+son coin est hors champ. Le culling est purement visuel — une entité écartée continue d'être
+simulée normalement (`EX-ARCH-012`). Les compteurs de l'image (composées, écartées, soumises,
+passes) sont exposés par `hmi::ComposedScene::statistics` et journalisés quand ils changent.
+
+### Deux modes de rendu : Physique et Texture (`LOT-41`)
+
+`hmi::RenderMode` a deux valeurs. **Physique** est le rendu historique : une couleur plate par type
+de tuile, qui donne la lecture directe de la géométrie de collision. **Texture** est l'habillage,
+construit lot après lot à partir du `LOT-42` ; tant qu'aucun skin n'existe, il affiche
+légitimement le damier magenta partout.
+
+La touche **`F8`** bascule entre les deux, en édition, en essai et en jeu réel. Elle est traitée en
+dur dans `hmi::GameViewport::keyPressEvent`, **hors** des tables de remappage — même parti pris que
+`F10` pour la grille de repère : une bascule d'affichage n'est pas une action de gameplay. Le choix
+est persisté (`QSettings`, `EX-IHM-011`) et le défaut est **Texture dans toutes les configurations
+de build**, pour que deux binaires du même code ne puissent jamais afficher un rendu différent.
+
+Le mode agit à un **point de résolution unique**, `hmi::resolveTileAppearance`, appelé à la
+**composition** : basculer ne reconstruit donc jamais la scène ECS, ne coûte aucun pas de
+simulation, et n'a aucun effet rémanent. C'est là que le `LOT-42` insérera la priorité
+« surcharge par case > skin de tuile > damier ».
 
 `SpriteRenderer` **lit** l'ECS mais ne le modifie **jamais** (`EX-ARCH-012`) — le rendu est un
 simple observateur de l'état de simulation, jamais une source de vérité. Ce n'est délibérément
@@ -373,20 +422,22 @@ de cette frame ont eu lieu.
 
 ## Ce qui vient ensuite : le programme d'habillage (`LOT-40` → `LOT-55`)
 
-Le pipeline décrit dans cette page est volontairement minimal : **une** texture liée par lot de
-dessin, deux valeurs de couche, aucun culling, et une seule façon de représenter l'état d'un objet
-— la teinte. Cela suffisait au rendu en couleurs plates ; cela ne suffit plus dès qu'on veut de
-vraies textures.
+Le pipeline d'origine était volontairement minimal : **une** texture liée par lot de dessin, deux
+valeurs de couche, aucun culling, et une seule façon de représenter l'état d'un objet — la teinte.
+Cela suffisait au rendu en couleurs plates ; cela ne suffit plus dès qu'on veut de vraies textures.
+Les deux premiers lots du programme (`LOT-40` et `LOT-41`) ont levé les verrous structurels ; les
+suivants ajoutent le contenu visuel.
 
 Un programme de seize lots est cadré pour lever ces limites (voir [les lots](@ref lots)). Les points
 de cette page qu'il modifie, dans l'ordre :
 
-- **`LOT-40`** — un registre de textures par nom logique, des calques nommés (`EX-REN-014`), le
-  regroupement des quads par `(calque, texture)` avec plusieurs passes `begin`/`end`, la validation
-  des dimensions d'asset, le culling par salle, et une capture des primitives soumises qui rend le
-  rendu vérifiable **sans GPU**.
-- **`LOT-41`** — une bascule `F8` entre le rendu **Physique** (celui d'aujourd'hui, couleurs plates)
-  et le rendu **Texture**.
+- **`LOT-40`** — *livré* : registre de textures par nom logique, calques nommés, regroupement des
+  quads par `(calque, texture)`, validation des dimensions d'asset, culling, capture des primitives
+  (décrits plus haut dans cette page).
+- **`LOT-41`** — *livré* : la bascule `F8` entre rendu **Physique** et rendu **Texture** (décrite
+  plus haut dans cette page).
+- **`LOT-42`** — le **skin des tuiles** et les raccords automatiques : le lot à partir duquel le
+  mode Texture cesse d'afficher un damier.
 - **`LOT-46`** — les animations décrites par des **données** et non par un `enum` figé, applicables
   à toute entité et plus seulement au personnage.
 - **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
@@ -400,6 +451,11 @@ fil de leur intégration.
 - `hmi::GraphicsDevice`, `hmi::GameViewport`, `hmi::Camera2D`.
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::TextureAtlas`, `hmi::SpriteRenderer`,
   `hmi::DraftRenderer`.
+- `hmi::RenderLayer`, `hmi::RenderLayerTag`, `hmi::ComposedScene`, `hmi::QuadRecorder`,
+  `hmi::TextureCache`, `hmi::validateAsset`, `hmi::buildMissingTextureImage` — fondations du rendu
+  texturé (`LOT-40`, `EX-REN-043`/`EX-REN-007`/`EX-NFR-004`/`EX-NFR-005`).
+- `hmi::RenderMode`, `hmi::resolveTileAppearance` — bascule Physique/Texture (`LOT-41`,
+  `EX-REN-046`).
 - `hmi::AssetPaths`, `hmi::TextureLoader` (`decodeImageFile`, `createTexture`,
   `loadTextureFromFile`), `hmi::buildProceduralAtlasImage` — pipeline de textures depuis fichiers et
   repli procédural (`LOT-39`, `EX-REN-041`/`EX-REN-042`).

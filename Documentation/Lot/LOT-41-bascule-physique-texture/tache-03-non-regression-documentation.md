@@ -1,6 +1,6 @@
 # TACHE-03 — Non-régression du mode Physique et documentation {#lot-41-tache-03-non-regression-documentation}
 
-**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/Test`, `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-41](epic.md) · **Emplacement :** `Source/Test`, `Documentation` · **Statut :** fait
 
 ## Contexte
 Le mode Physique est la **référence** de tout le programme : c'est lui qui donne la lecture directe
