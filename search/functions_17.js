@@ -10,5 +10,6 @@ var searchData=
   ['_7emainwindow_7',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
   ['_7eoptionspage_8',['~OptionsPage',['../classhmi_1_1OptionsPage.html#aedd14b2f20d69aee127aaa93b779a6d6',1,'hmi::OptionsPage']]],
   ['_7espritebatch_9',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#ae81bf5e883aafc69903b1c90873d67ef',1,'hmi::SpriteBatch']]],
-  ['_7etoolpanel_10',['~ToolPanel',['../classhmi_1_1ToolPanel.html#ae73d919adbc5cdaa78afa9326ec7155c',1,'hmi::ToolPanel']]]
+  ['_7etexturepanel_10',['~TexturePanel',['../classhmi_1_1TexturePanel.html#af9948eba8e1ae33c5f2dcf1cc3d42790',1,'hmi::TexturePanel']]],
+  ['_7etoolpanel_11',['~ToolPanel',['../classhmi_1_1ToolPanel.html#ae73d919adbc5cdaa78afa9326ec7155c',1,'hmi::ToolPanel']]]
 ];

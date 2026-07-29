@@ -17,11 +17,12 @@ var searchData=
   ['isenabled_14',['isEnabled',['../classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26',1,'core::Logger']]],
   ['isfollowablesurface_15',['isFollowableSurface',['../namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90',1,'core']]],
   ['isfree_16',['isFree',['../classcore_1_1BlockController.html#ae5d19a4dc18ad9c51e5bc78623df190b',1,'core::BlockController']]],
-  ['islayerorderrespected_17',['isLayerOrderRespected',['../classhmi_1_1QuadRecorder.html#acec4dde66b15ad82a4fe5e6f6ab898c2',1,'hmi::QuadRecorder']]],
-  ['islinktargettile_18',['isLinkTargetTile',['../namespacehmi.html#abc01bff6f3bc784144a6436903733777',1,'hmi']]],
-  ['issolid_19',['isSolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
-  ['istriggertile_20',['isTriggerTile',['../namespacehmi.html#acdad993bffcbcda789815eccabbf17bb',1,'hmi']]],
-  ['isvalidlevelname_21',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
-  ['isvisible_22',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
-  ['iterator_23',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['isinsidesilhouette_17',['isInsideSilhouette',['../namespacehmi.html#a4c1e8f8b25b6e5fe20c207887cd1dc33',1,'hmi']]],
+  ['islayerorderrespected_18',['isLayerOrderRespected',['../classhmi_1_1QuadRecorder.html#acec4dde66b15ad82a4fe5e6f6ab898c2',1,'hmi::QuadRecorder']]],
+  ['islinktargettile_19',['isLinkTargetTile',['../namespacehmi.html#abc01bff6f3bc784144a6436903733777',1,'hmi']]],
+  ['issolid_20',['isSolid',['../classcore_1_1TileMap.html#acc50d7a0a8bdb26db3694ddacd37f457',1,'core::TileMap::isSolid()'],['../namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb',1,'core::isSolid()']]],
+  ['istriggertile_21',['isTriggerTile',['../namespacehmi.html#acdad993bffcbcda789815eccabbf17bb',1,'hmi']]],
+  ['isvalidlevelname_22',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
+  ['isvisible_23',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
+  ['iterator_24',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

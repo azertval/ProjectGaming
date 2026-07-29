@@ -93,16 +93,18 @@ $(function(){initNavTree('structhmi_1_1SceneTextures.html','','structhmi_1_1Scen
 </div><!--header-->
 <div class="contents">
 
-<p>Textures liables par la composition d'une scène, et leurs dimensions.  
+<p>Textures liables par la composition d'une scène, et de quoi choisir laquelle lier.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TileAppearance_8h_source.html">TileAppearance.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad04fa46448f836a6499496219c45273d" id="r_ad04fa46448f836a6499496219c45273d"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad04fa46448f836a6499496219c45273d">textureFor</a> (<a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a> source) const noexcept</td></tr>
-<tr class="memitem:a111a4b423646347be4f8d86db6657755" id="r_a111a4b423646347be4f8d86db6657755"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a111a4b423646347be4f8d86db6657755">widthFor</a> (<a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a> source) const noexcept</td></tr>
-<tr class="memitem:aa43fe9f2ae369ad511f2f2bf49e14b50" id="r_aa43fe9f2ae369ad511f2f2bf49e14b50"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa43fe9f2ae369ad511f2f2bf49e14b50">heightFor</a> (<a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a> source) const noexcept</td></tr>
+<tr class="memitem:a465f7f5e22a70103368698309d6959b4" id="r_a465f7f5e22a70103368698309d6959b4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a465f7f5e22a70103368698309d6959b4">skinIndexOf</a> (std::string_view asset, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) const noexcept</td></tr>
+<tr class="memdesc:a465f7f5e22a70103368698309d6959b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du skin chargé pour un asset et un type de tuile donnés.  <br /></td></tr>
+<tr class="memitem:a9e1ba31d45289522af77d0046ba4985a" id="r_a9e1ba31d45289522af77d0046ba4985a"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e1ba31d45289522af77d0046ba4985a">textureFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
+<tr class="memitem:acfdc279bc1f8f78d0781b2d6a2e2c633" id="r_acfdc279bc1f8f78d0781b2d6a2e2c633"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#acfdc279bc1f8f78d0781b2d6a2e2c633">widthFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
+<tr class="memitem:abce6688963dc3a0b879a9b86391326e8" id="r_abce6688963dc3a0b879a9b86391326e8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abce6688963dc3a0b879a9b86391326e8">heightFor</a> (const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;appearance) const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -118,13 +120,24 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5f3ab270a3963d1d214c9e7fa0b27390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du damier, en pixels.  <br /></td></tr>
 <tr class="memitem:a40f4f8e34b7c5fbeeeee31cf81fb9ee8" id="r_a40f4f8e34b7c5fbeeeee31cf81fb9ee8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a40f4f8e34b7c5fbeeeee31cf81fb9ee8">missingHeight</a> = 0</td></tr>
 <tr class="memdesc:a40f4f8e34b7c5fbeeeee31cf81fb9ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur du damier, en pixels.  <br /></td></tr>
+<tr class="memitem:a316efe3bb546e62e2e79d67812d4171c" id="r_a316efe3bb546e62e2e79d67812d4171c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a316efe3bb546e62e2e79d67812d4171c">skins</a></td></tr>
+<tr class="memdesc:a316efe3bb546e62e2e79d67812d4171c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skins déjà chargés, adressés par index (<span class="tt"><a class="el" href="structhmi_1_1TileAppearance.html#a785246a0c5ccb220dedafb953211e5f2" title="Index du skin dans hmi::SceneTextures::skins.">hmi::TileAppearance::skinIndex</a></span>).  <br /></td></tr>
+<tr class="memitem:ae0670f032cee5efe39413b81fd16f70b" id="r_ae0670f032cee5efe39413b81fd16f70b"><td class="memItemLeft">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae0670f032cee5efe39413b81fd16f70b">skinCatalog</a> = nullptr</td></tr>
+<tr class="memdesc:ae0670f032cee5efe39413b81fd16f70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins, ou <span class="tt">nullptr</span> si aucun n'est chargé (tout retombe au damier).  <br /></td></tr>
+<tr class="memitem:a1a7d49eb5842bb0fd960fe53cb4159e5" id="r_a1a7d49eb5842bb0fd960fe53cb4159e5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1a7d49eb5842bb0fd960fe53cb4159e5">skinSet</a></td></tr>
+<tr class="memdesc:a1a7d49eb5842bb0fd960fe53cb4159e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du jeu de skins courant. Vide pour utiliser le jeu par défaut du catalogue.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae83b442462e930af0119fca496278da3" id="r_ae83b442462e930af0119fca496278da3"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae83b442462e930af0119fca496278da3">skinAt</a> (int index) const noexcept</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Textures liables par la composition d'une scène, et leurs dimensions. </p>
-<p>Regroupées en une seule donnée parce qu'elles vont toujours ensemble : une texture sans ses dimensions ne permet pas de normaliser des coordonnées de texture, et la composition doit pouvoir servir les deux branches de <span class="tt"><a class="el" href="namespacehmi.html#a1294ade391964ea7b2c323d49903460d" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> sans rien demander au GPU. </p>
+<div class="textblock"><p>Textures liables par la composition d'une scène, et de quoi choisir laquelle lier. </p>
+<p>Regroupées en une seule donnée parce qu'elles vont toujours ensemble : une texture sans ses dimensions ne permet pas de normaliser des coordonnées de texture, et la composition doit pouvoir servir toutes les branches de <span class="tt"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> sans rien demander au GPU.</p>
+<p>Porte aussi le <b>catalogue</b> et le <b>jeu courant</b> (<span class="tt">LOT-42</span>) : ce sont eux qui décident quelle texture lier, au même titre que les textures elles-mêmes. Les y placer garde la composition paramétrée par une seule donnée, et laisse la fonction de résolution pure et testable sans GPU (<span class="tt">EX-NFR-004</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="aa43fe9f2ae369ad511f2f2bf49e14b50" name="aa43fe9f2ae369ad511f2f2bf49e14b50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa43fe9f2ae369ad511f2f2bf49e14b50">&#9670;&#160;</a></span>heightFor()</h2>
+<a id="abce6688963dc3a0b879a9b86391326e8" name="abce6688963dc3a0b879a9b86391326e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce6688963dc3a0b879a9b86391326e8">&#9670;&#160;</a></span>heightFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,7 +148,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">int hmi::SceneTextures::heightFor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a></td>          <td class="paramname"><span class="paramname"><em>source</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>appearance</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -145,12 +158,76 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La hauteur, en pixels, de la texture correspondant à une source résolue. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La hauteur, en pixels, de la texture correspondant à une apparence résolue. </dd></dl>
 
 </div>
 </div>
-<a id="ad04fa46448f836a6499496219c45273d" name="ad04fa46448f836a6499496219c45273d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad04fa46448f836a6499496219c45273d">&#9670;&#160;</a></span>textureFor()</h2>
+<a id="ae83b442462e930af0119fca496278da3" name="ae83b442462e930af0119fca496278da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae83b442462e930af0119fca496278da3">&#9670;&#160;</a></span>skinAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> * hmi::SceneTextures::skinAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a465f7f5e22a70103368698309d6959b4" name="a465f7f5e22a70103368698309d6959b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a465f7f5e22a70103368698309d6959b4">&#9670;&#160;</a></span>skinIndexOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneTextures::skinIndexOf </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>asset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index du skin chargé pour un asset et un type de tuile donnés. </p>
+<p>Compare sans jamais construire de chaîne : cette recherche a lieu pour <b>chaque primitive de chaque image</b>, et une clé textuelle assemblée à la volée y allouerait à ce rythme. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">asset</td><td>Nom du fichier cherché. </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile, qui détermine si c'est la variante détourée qu'il faut. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Son index dans <span class="tt"><a class="el" href="#a316efe3bb546e62e2e79d67812d4171c" title="Skins déjà chargés, adressés par index (hmi::TileAppearance::skinIndex).">skins</a></span>, ou <span class="tt">-1</span> si la variante voulue n'est pas chargée. </dd></dl>
+
+</div>
+</div>
+<a id="a9e1ba31d45289522af77d0046ba4985a" name="a9e1ba31d45289522af77d0046ba4985a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1ba31d45289522af77d0046ba4985a">&#9670;&#160;</a></span>textureFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +238,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::SceneTextures::textureFor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a></td>          <td class="paramname"><span class="paramname"><em>source</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>appearance</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -171,12 +248,12 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La texture correspondant à une source résolue (<span class="tt">nullptr</span> si non fournie). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture correspondant à une apparence résolue (<span class="tt">nullptr</span> si non fournie). </dd></dl>
 
 </div>
 </div>
-<a id="a111a4b423646347be4f8d86db6657755" name="a111a4b423646347be4f8d86db6657755"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a111a4b423646347be4f8d86db6657755">&#9670;&#160;</a></span>widthFor()</h2>
+<a id="acfdc279bc1f8f78d0781b2d6a2e2c633" name="acfdc279bc1f8f78d0781b2d6a2e2c633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfdc279bc1f8f78d0781b2d6a2e2c633">&#9670;&#160;</a></span>widthFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +264,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">int hmi::SceneTextures::widthFor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a></td>          <td class="paramname"><span class="paramname"><em>source</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>appearance</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -197,7 +274,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La largeur, en pixels, de la texture correspondant à une source résolue. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La largeur, en pixels, de la texture correspondant à une apparence résolue. </dd></dl>
 
 </div>
 </div>
@@ -295,6 +372,54 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Largeur du damier, en pixels. </p>
+
+</div>
+</div>
+<a id="ae0670f032cee5efe39413b81fd16f70b" name="ae0670f032cee5efe39413b81fd16f70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0670f032cee5efe39413b81fd16f70b">&#9670;&#160;</a></span>skinCatalog</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a>* hmi::SceneTextures::skinCatalog = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catalogue des jeux de skins, ou <span class="tt">nullptr</span> si aucun n'est chargé (tout retombe au damier). </p>
+
+</div>
+</div>
+<a id="a316efe3bb546e62e2e79d67812d4171c" name="a316efe3bb546e62e2e79d67812d4171c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a316efe3bb546e62e2e79d67812d4171c">&#9670;&#160;</a></span>skins</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a>&gt; hmi::SceneTextures::skins</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Skins déjà chargés, adressés par index (<span class="tt"><a class="el" href="structhmi_1_1TileAppearance.html#a785246a0c5ccb220dedafb953211e5f2" title="Index du skin dans hmi::SceneTextures::skins.">hmi::TileAppearance::skinIndex</a></span>). </p>
+
+</div>
+</div>
+<a id="a1a7d49eb5842bb0fd960fe53cb4159e5" name="a1a7d49eb5842bb0fd960fe53cb4159e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7d49eb5842bb0fd960fe53cb4159e5">&#9670;&#160;</a></span>skinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::SceneTextures::skinSet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nom du jeu de skins courant. Vide pour utiliser le jeu par défaut du catalogue. </p>
 
 </div>
 </div>

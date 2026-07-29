@@ -14,7 +14,7 @@ var searchData=
   ['2_20réutilisation_20cohérence_11',['2. Réutilisation &amp;amp; cohérence',['../spec-editeur.html#autotoc_md216',1,'']]],
   ['2_20rendu_202d_12',['2. Rendu 2D',['../spec-rendu-technique.html#autotoc_md256',1,'']]],
   ['2_20suivi_20de_20pente_20et_20d_20arrondi_20ex_20gp_20003_20ex_20gp_20004_13',['2. Suivi de pente et d&apos;arrondi (EX-GP-003, EX-GP-004)',['../guide-physique.html#autotoc_md132',1,'']]],
-  ['20_14',['20',['../guide-entrees.html#autotoc_md77',1,'La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)'],['../cahiertest.html#autotoc_md10',1,'Math (20)']]],
+  ['20_14',['20',['../cahiertest.html#autotoc_md15',1,'Editor (20)'],['../guide-entrees.html#autotoc_md77',1,'La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)'],['../cahiertest.html#autotoc_md10',1,'Math (20)']]],
   ['20_20—_20manette_20et_20menu_20d_20options_15',['LOT-20 — Manette et menu d&apos;options',['../lot-20.html',1,'lots']]],
   ['21_20—_20bloc_20poussable_16',['LOT-21 — Bloc poussable',['../lot-21.html',1,'lots']]],
   ['22_20—_20pentes_20réelles_17',['LOT-22 — Pentes réelles',['../lot-22.html',1,'lots']]],

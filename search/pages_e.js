@@ -178,7 +178,7 @@ var searchData=
   ['de_20l_20interface_20_3a_20hmi_3a_3alocalization_20hmi_3a_3alocalization_175',['La langue de l&apos;interface : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Localization.html&quot; title=&quot;hmi::Localization&quot;&gt;hmi::Localization&lt;/a&gt;',['../guide-entrees.html#autotoc_md80',1,'']]],
   ['de_20la_20disposition_176',['TACHE-01 — `QMainWindow` à docks + persistance `QSettings` de la disposition',['../lot-35-tache-01-fenetre-docks-persistance.html',1,'lot-35']]],
   ['de_20la_20documentation_177',['LOT-13 — Consolidation de la documentation',['../lot-13.html',1,'lots']]],
-  ['de_20la_20grille_20aux_20entités_20_3a_20core_3a_3abuildlevelscene_20buildlevelscene_178',['De la grille aux entités : &lt;a class=&quot;el&quot; href=&quot;namespacecore.html#acb711314315ff134ed9c25c09b4cebe4&quot; title=&quot;core::buildLevelScene&quot;&gt;buildLevelScene&lt;/a&gt;',['../guide-niveaux.html#autotoc_md118',1,'']]],
+  ['de_20la_20grille_20aux_20entités_20_3a_20core_3a_3abuildlevelscene_20buildlevelscene_178',['De la grille aux entités : &lt;a class=&quot;el&quot; href=&quot;namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b&quot; title=&quot;core::buildLevelScene&quot;&gt;buildLevelScene&lt;/a&gt;',['../guide-niveaux.html#autotoc_md118',1,'']]],
   ['de_20la_20mort_20»_179',['La « spirale de la mort »',['../guide-boucle.html#autotoc_md35',1,'']]],
   ['de_20la_20sélection_20poignées_20et_20aimantation_180',['TACHE-03 — Rendu de la sélection, poignées et aimantation',['../lot-50-tache-03-selection-poignees.html',1,'lot-50']]],
   ['de_20langue_181',['TACHE-08 — Sélecteur de langue',['../lot-06-tache-08-selecteur-langue.html',1,'lot-06']]],

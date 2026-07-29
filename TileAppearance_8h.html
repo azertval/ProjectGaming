@@ -95,9 +95,16 @@ $(function(){initNavTree('TileAppearance_8h.html','',''); });
 
 <p>Point de résolution <b>unique</b> de l'apparence d'une entité affichée (<span class="tt">EX-REN-046</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderMode_8h_source.html">HMI/Graphics/RenderMode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SkinCatalog_8h_source.html">HMI/Graphics/SkinCatalog.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SlopeMask_8h_source.html">HMI/Graphics/SlopeMask.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileSkinTag_8h_source.html">HMI/Graphics/TileSkinTag.h</a>&quot;</code><br />
 </div>
 <p><a href="TileAppearance_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,8 +112,10 @@ $(function(){initNavTree('TileAppearance_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ATileAppearance" id="r_hmi_3A_3ATileAppearance"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileAppearance.html">hmi::TileAppearance</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence résolue d'une primitive : quelle texture lier, et quelle région y échantillonner.  <a href="structhmi_1_1TileAppearance.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3ASkinTexture" id="r_hmi_3A_3ASkinTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinTexture.html">hmi::SkinTexture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skin déjà chargé, prêt à être lié par la composition.  <a href="structhmi_1_1SkinTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASceneTextures" id="r_hmi_3A_3ASceneTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTextures.html">hmi::SceneTextures</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, et leurs dimensions.  <a href="structhmi_1_1SceneTextures.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, et de quoi choisir laquelle lier.  <a href="structhmi_1_1SceneTextures.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -116,13 +125,14 @@ Namespaces</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:ac32d81972d12a0b2475fc009eefee225" id="r_ac32d81972d12a0b2475fc009eefee225"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">hmi::AppearanceSource</a> { <a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f">hmi::Atlas</a>
 , <a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f">hmi::MissingTexture</a>
+, <a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf">hmi::Skin</a>
  }</td></tr>
 <tr class="memdesc:ac32d81972d12a0b2475fc009eefee225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'où provient l'apparence résolue.  <a href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1294ade391964ea7b2c323d49903460d" id="r_a1294ade391964ea7b2c323d49903460d"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1294ade391964ea7b2c323d49903460d">hmi::resolveTileAppearance</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion) noexcept</td></tr>
-<tr class="memdesc:a1294ade391964ea7b2c323d49903460d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
+<tr class="memitem:ab158a76df687b49eeccc12df1438d3ce" id="r_ab158a76df687b49eeccc12df1438d3ce"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce">hmi::resolveTileAppearance</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
+<tr class="memdesc:ab158a76df687b49eeccc12df1438d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Point de résolution <b>unique</b> de l'apparence d'une entité affichée (<span class="tt">EX-REN-046</span>). </p>

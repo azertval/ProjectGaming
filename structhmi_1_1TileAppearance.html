@@ -104,6 +104,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a6e0cf1961a31c1fc6ba9ca5e73088f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture à lier.  <br /></td></tr>
 <tr class="memitem:a109ec7f7f5274abd9fd592acd04f5bc5" id="r_a109ec7f7f5274abd9fd592acd04f5bc5"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a109ec7f7f5274abd9fd592acd04f5bc5">region</a> {}</td></tr>
 <tr class="memdesc:a109ec7f7f5274abd9fd592acd04f5bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région à échantillonner <b>dans cette texture</b>, en pixels.  <br /></td></tr>
+<tr class="memitem:a785246a0c5ccb220dedafb953211e5f2" id="r_a785246a0c5ccb220dedafb953211e5f2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a785246a0c5ccb220dedafb953211e5f2">skinIndex</a> = -1</td></tr>
+<tr class="memdesc:a785246a0c5ccb220dedafb953211e5f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du skin dans <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html#a316efe3bb546e62e2e79d67812d4171c" title="Skins déjà chargés, adressés par index (hmi::TileAppearance::skinIndex).">hmi::SceneTextures::skins</a></span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Apparence résolue d'une primitive : quelle texture lier, et quelle région y échantillonner. </p>
@@ -121,6 +123,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Région à échantillonner <b>dans cette texture</b>, en pixels. </p>
+
+</div>
+</div>
+<a id="a785246a0c5ccb220dedafb953211e5f2" name="a785246a0c5ccb220dedafb953211e5f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785246a0c5ccb220dedafb953211e5f2">&#9670;&#160;</a></span>skinIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::TileAppearance::skinIndex = -1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Index du skin dans <span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html#a316efe3bb546e62e2e79d67812d4171c" title="Skins déjà chargés, adressés par index (hmi::TileAppearance::skinIndex).">hmi::SceneTextures::skins</a></span>. </p>
+<p>N'a de sens que si <span class="tt"><a class="el" href="#a6e0cf1961a31c1fc6ba9ca5e73088f5f" title="Texture à lier.">source</a></span> vaut <span class="tt">Skin</span> ; vaut <span class="tt">-1</span> sinon. Un <b>index</b> plutôt qu'un nom de fichier : la composition s'exécute à chaque image et ne doit ni allouer ni comparer de chaînes. </p>
 
 </div>
 </div>

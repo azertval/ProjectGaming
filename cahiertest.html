@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>479 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>537 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (397)</h1>
+Tests unitaires (455)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -668,7 +668,7 @@ Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="stru
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{4, 1})</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-Levels (115)</h3>
+Levels (119)</h3>
 <p><b><span class="tt"><a class="el" href="test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX-GP-050).">test_danger_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1472,6 +1472,30 @@ Vérifie que <span class="tt">config.period</span> vaut <span class="tt">90</spa
 Vérifie que <span class="tt">config.phase</span> vaut <span class="tt">15</span>.<br  />
 Vérifie que <span class="tt">config.activeDuration</span> vaut <span class="tt">30</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">test_tile_type_name.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileTypeNameTest.AllerRetourSurTousLesTypes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">Source/Test/Unit/Core/Levels/test_tile_type_name.cpp</a>:25</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile fait l'aller-retour par son nom textuel sans perte.  </td><td class="markdownTableBodyNone">1. Pour les trente types, convertir le type en nom, puis le nom en type.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">parsed.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*parsed</span> vaut <span class="tt">type</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileTypeNameTest.LesNomsSontUniques</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">Source/Test/Unit/Core/Levels/test_tile_type_name.cpp</a>:45</span></sub>  </td><td class="markdownTableBodyNone">Deux types de tuiles distincts ne portent jamais le meme nom.  </td><td class="markdownTableBodyNone">1. Collecter les noms des trente types dans un ensemble.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">names.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(LAST_TILE_TYPE + 1)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileTypeNameTest.NomInconnuRefuse</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">Source/Test/Unit/Core/Levels/test_tile_type_name.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Un nom de type inconnu est refuse au lieu d'etre devine.  </td><td class="markdownTableBodyNone">1. Convertir une chaine vide, un nom inexistant et un nom de casse differente.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacecore.html#ad675f8ce2e7f29908cbe3e7701336ef8" title="Convertit un nom textuel en type de tuile.">core::parseTileType</a>("").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#ad675f8ce2e7f29908cbe3e7701336ef8" title="Convertit un nom textuel en type de tuile.">core::parseTileType</a>("mur").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacecore.html#ad675f8ce2e7f29908cbe3e7701336ef8" title="Convertit un nom textuel en type de tuile.">core::parseTileType</a>("Solid").has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileTypeNameTest.NomsDuFormatDeNiveauInchanges</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__type__name_8cpp.html" title="Tests unitaires de la correspondance type de tuile &lt;-&gt; nom textuel (LOT-42, EX-LVL-003).">Source/Test/Unit/Core/Levels/test_tile_type_name.cpp</a>:80</span></sub>  </td><td class="markdownTableBodyNone">Les noms du format de niveau restent inchanges.  </td><td class="markdownTableBodyNone">1. Verifier le nom de quelques types representatifs de chaque famille.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">core::tileTypeName(core::TileType::Solid)</span> vaut <span class="tt">"solid"</span>.<br  />
+Vérifie que <span class="tt">core::tileTypeName(core::TileType::PressurePlate)</span> vaut <span class="tt">"pressurePlate"</span>.<br  />
+Vérifie que <span class="tt">core::tileTypeName(core::TileType::SlopeUpRight)</span> vaut <span class="tt">"slopeUpRight"</span>.<br  />
+Vérifie que <span class="tt">core::tileTypeName(core::TileType::ConcaveDownLeft)</span> vaut <span class="tt">"concaveDownLeft"</span>.<br  />
+Vérifie que <span class="tt">core::tileTypeName(core::TileType::DangerBlink)</span> vaut <span class="tt">"dangerBlink"</span>.  </td></tr>
+</table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Math (20)</h3>
 <p><b><span class="tt"><a class="el" href="test__math__utils_8cpp.html" title="Tests unitaires des utilitaires mathématiques (comparaison flottante).">test_math_utils.cpp</a></span></b></p>
@@ -1930,7 +1954,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (5)</h3>
+Editor (20)</h3>
 <p><b><span class="tt"><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1965,8 +1989,88 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263f
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>("Niveau 1")</span> vaut <span class="tt">"Niveau 1"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">test_palette_appearance.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.ModePhysiqueMontreLaCouleurPlate</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:39</span></sub>  </td><td class="markdownTableBodyNone">En mode Physique, la palette montre la couleur plate du type.  </td><td class="markdownTableBodyNone">1. Demander la vignette de Solid en mode Physique, alors qu'un skin lui est assigne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">thumbnail.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f" title="Couleur plate de l&#39;atlas : mode Physique, ou repli si l&#39;atlas fait foi.">hmi::PaletteThumbnailSource::Atlas</a></span>.<br  />
+Vérifie que <span class="tt">thumbnail.region.x</span> vaut <span class="tt">physical.x</span>.<br  />
+Vérifie que <span class="tt">thumbnail.region.y</span> vaut <span class="tt">physical.y</span>.<br  />
+Vérifie que <span class="tt">thumbnail.masked</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.ModeTextureMontreLeSkin</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">En mode Texture, la palette montre le fichier reellement assigne.  </td><td class="markdownTableBodyNone">1. Demander la vignette de Block, assigne a un skin en mode image unique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">thumbnail.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf" title="Fichier de skin, dans le dossier Assets/Skins/.">hmi::PaletteThumbnailSource::Skin</a></span>.<br  />
+Vérifie que <span class="tt">thumbnail.asset</span> vaut <span class="tt">"crate.png"</span>.<br  />
+Vérifie que <span class="tt">thumbnail.region.width</span> vaut <span class="tt">TILE</span>.<br  />
+Vérifie que <span class="tt">thumbnail.masked</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.SkinARaccordsMontreLaCaseRepresentative</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:84</span></sub>  </td><td class="markdownTableBodyNone">Un skin a raccords montre l'interieur plein de sa planche.  </td><td class="markdownTableBodyNone">1. Demander la vignette de Solid, assigne a une planche a raccords.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">thumbnail.region.x</span> vaut <span class="tt">cell.column * TILE</span>.<br  />
+Vérifie que <span class="tt">thumbnail.region.y</span> vaut <span class="tt">cell.row * TILE</span>.<br  />
+Vérifie que <span class="tt">thumbnail.region.width</span> vaut <span class="tt">TILE</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.PenteSkinneeEstDetouree</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:108</span></sub>  </td><td class="markdownTableBodyNone">Une pente skinnee est signalee comme devant etre detouree.  </td><td class="markdownTableBodyNone">1. Demander la vignette d'une pente montante assignee a un skin.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">slope.masked</span> est vrai.<br  />
+Vérifie que <span class="tt">block.masked</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.TypeNonSkinneMontreLeDamier</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:132</span></sub>  </td><td class="markdownTableBodyNone">Un type non skinne montre le damier dans la palette, comme dans le niveau.  </td><td class="markdownTableBodyNone">1. Demander la vignette d'un type absent du catalogue, en mode Texture.<br  />
+ 2. Demander une vignette sans catalogue du tout.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">unassigned.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta : le type n&#39;est pas encore habillé (EX-NFR-040).">hmi::PaletteThumbnailSource::MissingTexture</a></span>.<br  />
+Vérifie que <span class="tt">unassigned.region.width</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">noCatalog.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta : le type n&#39;est pas encore habillé (EX-NFR-040).">hmi::PaletteThumbnailSource::MissingTexture</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>PaletteAppearanceTest.PaletteEtCanevasDecidentPareil</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp</a>:158</span></sub>  </td><td class="markdownTableBodyNone">La palette et le canevas resolvent la meme source pour chaque type.  </td><td class="markdownTableBodyNone">1. Pour plusieurs types et les deux modes, comparer la source choisie par la palette a celle choisie par la resolution du canevas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sameAtlas \|\| sameSkin \|\| sameMissing</span> est vrai.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">test_skin_assignments.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.ChaqueTypeApparaitUneFois</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:59</span></sub>  </td><td class="markdownTableBodyNone">Chaque type de tuile peignable apparait exactement une fois dans le panneau.  </td><td class="markdownTableBodyNone">1. Construire les lignes du panneau pour un catalogue quelconque.<br  />
+ 2. Collecter les types de toutes les lignes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">seen.insert(row.type).second</span> est vrai.<br  />
+Vérifie que <span class="tt">row.type</span> diffère de <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span>.<br  />
+Vérifie que <span class="tt">seen</span> vaut <span class="tt">expected</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.LignesRefletentLAssignation</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Les lignes du panneau refletent l'assignation courante du jeu consulte.  </td><td class="markdownTableBodyNone">1. Construire les lignes pour un catalogue ou seul Solid est assigne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">row.asset</span> vaut <span class="tt">"stone.png"</span>.<br  />
+Vérifie que <span class="tt">row.mode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522" title="Planche de 4×4 cases, dont celle affichée est choisie selon les quatre voisins solides (hmi::autotile...">hmi::SkinMode::Bitmask16</a></span>.<br  />
+Vérifie que <span class="tt">row.asset.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.SectionsSuiventLaPalette</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:121</span></sub>  </td><td class="markdownTableBodyNone">Les sections du panneau suivent les categories de la palette.  </td><td class="markdownTableBodyNone">1. Comparer les libelles de sections aux categories de la taxonomie.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">sectionLabels</span> vaut <span class="tt">categoryLabels</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.AssignationPuisRetraitDepuisLePanneau</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:148</span></sub>  </td><td class="markdownTableBodyNone">Assigner puis retirer un skin depuis le panneau modifie le catalogue.  </td><td class="markdownTableBodyNone">1. Appliquer une assignation a un type non skinne, puis relire les lignes.<br  />
+ 2. Appliquer une assignation vide au meme type, puis relire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">assigned.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">assigned-&gt;asset</span> vaut <span class="tt">"spikes.png"</span>.<br  />
+Vérifie que <span class="tt">catalog.resolve("foret", <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a>).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.JeuNonPreciseViseLeDefaut</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:174</span></sub>  </td><td class="markdownTableBodyNone">Une assignation sans jeu precise vise le jeu par defaut.  </td><td class="markdownTableBodyNone">1. Appliquer une assignation en passant un nom de jeu vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.defaultSetName()</span> vaut <span class="tt">"foret"</span>.<br  />
+Vérifie que <span class="tt">assignments.find(core::TileType::Door)</span> diffère de <span class="tt">assignments.end()</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.BalayageNeRetientQueLesImages</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:193</span></sub>  </td><td class="markdownTableBodyNone">Le balayage du dossier de skins ne retient que les images, triees.  </td><td class="markdownTableBodyNone">1. Creer un dossier contenant deux PNG, un fichier texte et un README.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">assets</span> vaut <span class="tt">expected</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.DossierAbsentListeVide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:217</span></sub>  </td><td class="markdownTableBodyNone">Un dossier de skins absent donne une liste vide, sans erreur.  </td><td class="markdownTableBodyNone">1. Balayer un chemin qui n'existe pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acfc16de3fc9ebf22b724eeaa552313bf" title="Liste les fichiers de skins disponibles, par balayage d&#39;un dossier.">hmi::listSkinAssets</a>(std::filesystem::temp_directory_path() / "projectgaming_dossier_inexistant") .empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.LibellesTaxonomieTraduitsDansLesDeuxLangues</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:233</span></sub>  </td><td class="markdownTableBodyNone">Chaque libelle de la taxonomie a une traduction dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Pour chaque libelle de la taxonomie, obtenir sa cle de traduction.<br  />
+ 2. Verifier que la cle est resolue en francais puis en anglais.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loc.loadLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">key.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinAssignmentsTest.LibellesDuPanneauTraduits</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__assignments_8cpp.html" title="Tests unitaires de la logique du panneau « Textures » (LOT-42 TACHE-04).">Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp</a>:273</span></sub>  </td><td class="markdownTableBodyNone">Les libelles propres au panneau Textures existent dans les deux catalogues.  </td><td class="markdownTableBodyNone">1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loc.loadLanguage(language)</span> est vrai.<br  />
+Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
+</table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Graphics (61)</h3>
+Graphics (100)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2296,14 +2400,14 @@ Vérifie que <span class="tt">appearance.region.width</span> vaut <span class="t
 Vérifie que <span class="tt">appearance.region.height</span> vaut <span class="tt">expected.height</span>.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>RenderModeTest.ModeTextureRetombeSurLeDamier</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:152</span></sub>  </td><td class="markdownTableBodyNone">En mode Texture, toute tuile retombe sur le damier de repli.  </td><td class="markdownTableBodyNone">1. Pour chaque type de tuile, resoudre l'apparence en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta de repli : texture attendue mais pas encore disponible (EX-NFR-040).">hmi::AppearanceSource::MissingTexture</a></span>.<br  />
+<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:152</span></sub>  </td><td class="markdownTableBodyNone">En mode Texture, une entite sans marque d'habillage retombe sur le damier.  </td><td class="markdownTableBodyNone">1. Resoudre l'apparence en mode Texture sans marque d'habillage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta de repli : texture attendue mais pas encore disponible (EX-NFR-040).">hmi::AppearanceSource::MissingTexture</a></span>.<br  />
 Vérifie que <span class="tt">appearance.region.x</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">appearance.region.y</span> vaut <span class="tt">0</span>.<br  />
 Vérifie que <span class="tt">appearance.region.width</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
 Vérifie que <span class="tt">appearance.region.height</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>RenderModeTest.ModePhysiqueNonRegression</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:177</span></sub>  </td><td class="markdownTableBodyNone">Non-regression : le mode Physique produit les primitives d'avant le lot.  </td><td class="markdownTableBodyNone">1. Composer la scene de reference en mode Physique.<br  />
+<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:179</span></sub>  </td><td class="markdownTableBodyNone">Non-regression : le mode Physique produit les primitives d'avant le lot.  </td><td class="markdownTableBodyNone">1. Composer la scene de reference en mode Physique.<br  />
 2. Inspecter la liste capturee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.size()</span> vaut <span class="tt">4u</span>.<br  />
 Vérifie que <span class="tt">recorder.isLayerOrderRespected()</span> est vrai.<br  />
 Vérifie que <span class="tt">recorder.countOnLayer(hmi::RenderLayer::Tile)</span> vaut <span class="tt">3</span>.<br  />
@@ -2314,7 +2418,7 @@ Vérifie que <span class="tt">recorder.quads()[1].sprite.u0</span> vaut <span cl
 Vérifie que <span class="tt">recorder.quads()[1].sprite.u1</span> vaut <span class="tt">32.0f / 80.0f</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>RenderModeTest.ModeTextureConserveLaGeometrie</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:212</span></sub>  </td><td class="markdownTableBodyNone">Le mode Texture lie le damier sans changer la geometrie composee.  </td><td class="markdownTableBodyNone">1. Composer la scene de reference dans les deux modes.<br  />
+<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:214</span></sub>  </td><td class="markdownTableBodyNone">Le mode Texture lie le damier sans changer la geometrie composee.  </td><td class="markdownTableBodyNone">1. Composer la scene de reference dans les deux modes.<br  />
 2. Comparer textures, positions et tailles.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">physique.size()</span> vaut <span class="tt">texture.size()</span>.<br  />
 Vérifie que <span class="tt">texture[i].texture</span> vaut <span class="tt">testTextures().missing</span>.<br  />
 Vérifie que <span class="tt">texture[i].layer</span> vaut <span class="tt">physique[i].layer</span>.<br  />
@@ -2324,7 +2428,7 @@ Vérifie que <span class="tt">texture[i].sprite.width</span> vaut <span class="t
 Vérifie que <span class="tt">texture[i].sprite.height</span> vaut <span class="tt">physique[i].sprite.height</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><b>RenderModeTest.BasculeSansEffetRemanent</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:245</span></sub>  </td><td class="markdownTableBodyNone">La bascule Physique -&gt; Texture -&gt; Physique est sans effet remanent.  </td><td class="markdownTableBodyNone">1. Composer en Physique, puis en Texture, puis de nouveau en Physique.<br  />
+<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:247</span></sub>  </td><td class="markdownTableBodyNone">La bascule Physique -&gt; Texture -&gt; Physique est sans effet remanent.  </td><td class="markdownTableBodyNone">1. Composer en Physique, puis en Texture, puis de nouveau en Physique.<br  />
 2. Comparer la premiere et la troisieme liste.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">before.size()</span> vaut <span class="tt">after.size()</span>.<br  />
 Vérifie que <span class="tt">after[i].texture</span> vaut <span class="tt">before[i].texture</span>.<br  />
 Vérifie que <span class="tt">after[i].layer</span> vaut <span class="tt">before[i].layer</span>.<br  />
@@ -2334,7 +2438,7 @@ Vérifie que <span class="tt">after[i].sprite.u0</span> vaut <span class="tt">be
 Vérifie que <span class="tt">after[i].sprite.v1</span> vaut <span class="tt">before[i].sprite.v1</span> (comparaison flottante).  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>RenderModeTest.F8HorsDesTablesDeRemappage</b> (Critique)<br  />
-<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:284</span></sub>  </td><td class="markdownTableBodyNone">F8 n'apparait dans aucune table de remappage.  </td><td class="markdownTableBodyNone">1. Parcourir les touches par defaut de toutes les actions de jeu et d'edition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">static_cast&lt;int&gt;(key)</span> diffère de <span class="tt">VIRTUAL_KEY_F8</span>.<br  />
+<sub><span class="tt"><a class="el" href="test__render__mode_8cpp.html" title="Tests unitaires de la bascule Physique/Texture (LOT-41, EX-REN-046).">Source/Test/Unit/HMI/Graphics/test_render_mode.cpp</a>:286</span></sub>  </td><td class="markdownTableBodyNone">F8 n'apparait dans aucune table de remappage.  </td><td class="markdownTableBodyNone">1. Parcourir les touches par defaut de toutes les actions de jeu et d'edition.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">static_cast&lt;int&gt;(key)</span> diffère de <span class="tt">VIRTUAL_KEY_F8</span>.<br  />
 Vérifie que <span class="tt">static_cast&lt;int&gt;(key)</span> diffère de <span class="tt">VIRTUAL_KEY_F8</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__room__grid_8cpp.html" title="Tests unitaires de la partition d&#39;un niveau en salles (RoomGrid, LOT-32).">test_room_grid.cpp</a></span></b></p>
@@ -2381,6 +2485,151 @@ Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_
 2. Interroger <span class="tt">roomIndexAt</span> avec des coordonnées négatives puis très supérieures aux bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{-100, -100})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.<br  />
 Vérifie que <span class="tt">grid.roomIndexAt(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{1000, 1000})</span> vaut <span class="tt">(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{0, 0})</span>.  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">test_skin_catalog.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.AllerRetourDuNomDeMode</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:82</span></sub>  </td><td class="markdownTableBodyNone">Le nom persiste d'un mode de skin fait l'aller-retour sans perte.  </td><td class="markdownTableBodyNone">1. Convertir chaque mode en nom, puis le nom en mode.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">parsed.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*parsed</span> vaut <span class="tt">mode</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7a7e2e0b4ed018b8acae760f5678b94" title="Mode de skin correspondant à un nom lu dans un fichier.">hmi::skinModeFromName</a>("").has_value()</span> est faux.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#ab7a7e2e0b4ed018b8acae760f5678b94" title="Mode de skin correspondant à un nom lu dans un fichier.">hmi::skinModeFromName</a>("bitmask47").has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.AllerRetourLectureEcriture</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">Un catalogue fait l'aller-retour lecture -&gt; ecriture -&gt; lecture sans perte.  </td><td class="markdownTableBodyNone">1. Lire le catalogue de reference (deux jeux).<br  />
+ 2. Le reserialiser puis le relire.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">reread.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reread.catalog-&gt;setNames()</span> vaut <span class="tt">original.setNames()</span>.<br  />
+Vérifie que <span class="tt">reread.catalog-&gt;defaultSetName()</span> vaut <span class="tt">original.defaultSetName()</span>.<br  />
+Vérifie que <span class="tt">reread.catalog-&gt;assignments(setName)</span> vaut <span class="tt">original.assignments(setName)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.ResolutionDansUnJeuExistant</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:126</span></sub>  </td><td class="markdownTableBodyNone">La resolution rend l'asset et le mode assignes dans le jeu demande.  </td><td class="markdownTableBodyNone">1. Resoudre Solid et Block dans le jeu « foret », puis Solid dans « grotte ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">solid.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">solid-&gt;asset</span> vaut <span class="tt">"stone.png"</span>.<br  />
+Vérifie que <span class="tt">solid-&gt;mode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522" title="Planche de 4×4 cases, dont celle affichée est choisie selon les quatre voisins solides (hmi::autotile...">hmi::SkinMode::Bitmask16</a></span>.<br  />
+Vérifie que <span class="tt">block.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">block-&gt;asset</span> vaut <span class="tt">"crate.png"</span>.<br  />
+Vérifie que <span class="tt">block-&gt;mode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">hmi::SkinMode::Single</a></span>.<br  />
+Vérifie que <span class="tt">cave.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">cave-&gt;asset</span> vaut <span class="tt">"rock.png"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.JeuInexistantRetombeSurLeDefaut</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:157</span></sub>  </td><td class="markdownTableBodyNone">Un jeu inexistant retombe sur le jeu par defaut plutot que de ne rien rendre.  </td><td class="markdownTableBodyNone">1. Resoudre Solid dans un jeu qui n'existe pas.<br  />
+ 2. Resoudre Solid en demandant explicitement le defaut (nom vide).  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">missing.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">missing-&gt;asset</span> vaut <span class="tt">"stone.png"</span>.<br  />
+Vérifie que <span class="tt">byDefault.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">byDefault-&gt;asset</span> vaut <span class="tt">"stone.png"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.TypeNonSkinneNeResoudRien</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:180</span></sub>  </td><td class="markdownTableBodyNone">Un type de tuile sans skin assigne ne resout aucune entree.  </td><td class="markdownTableBodyNone">1. Resoudre un type absent du jeu « foret », puis un type absent de « grotte ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.resolve("foret", <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a>).has_value()</span> est faux.<br  />
+Vérifie que <span class="tt">catalog.resolve("grotte", <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae1e4c8c9ccd9fc39c391da4bcd093fb2">core::TileType::Block</a>).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.JsonMalformeSignale</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:198</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de skins malforme est signale sans lever d'exception.  </td><td class="markdownTableBodyNone">1. Lire une chaine qui n'est pas du JSON, puis un JSON dont la racine est un tableau.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">broken.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">broken.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77dae41199faa7290c167f70f314c5e6c165" title="JSON malformé, ou racine qui n&#39;est pas un objet.">hmi::SkinCatalogError::ParseError</a></span>.<br  />
+Vérifie que <span class="tt">broken.error.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">notObject.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">notObject.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77dae41199faa7290c167f70f314c5e6c165" title="JSON malformé, ou racine qui n&#39;est pas un objet.">hmi::SkinCatalogError::ParseError</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.VersionInconnueRefusee</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:218</span></sub>  </td><td class="markdownTableBodyNone">Une version de format superieure a celle geree est refusee explicitement.  </td><td class="markdownTableBodyNone">1. Lire un catalogue dont la version vaut celle geree, puis une superieure.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">current.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">future.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">future.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77da0f89bc98e9b12bdeda0604e57bdc0518" title="Numéro de version supérieur à SkinCatalog::FORMAT_VERSION.">hmi::SkinCatalogError::UnsupportedVersion</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.TypeOuModeInconnuSignale</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:239</span></sub>  </td><td class="markdownTableBodyNone">Un type de tuile ou un mode de skin inconnu est signale a la lecture.  </td><td class="markdownTableBodyNone">1. Lire un catalogue citant un type de tuile inexistant.<br  />
+ 2. Lire un catalogue citant un mode inexistant, puis une entree sans asset.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">badType.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">badType.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d" title="Structure inattendue (« jeux » absent, entrée sans « asset »…).">hmi::SkinCatalogError::MalformedStructure</a></span>.<br  />
+Vérifie que <span class="tt">badMode.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">badMode.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d" title="Structure inattendue (« jeux » absent, entrée sans « asset »…).">hmi::SkinCatalogError::MalformedStructure</a></span>.<br  />
+Vérifie que <span class="tt">noAsset.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">noAsset.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d" title="Structure inattendue (« jeux » absent, entrée sans « asset »…).">hmi::SkinCatalogError::MalformedStructure</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.DefautInexistantSignale</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:266</span></sub>  </td><td class="markdownTableBodyNone">Un jeu par defaut qui ne designe aucun jeu existant est signale.  </td><td class="markdownTableBodyNone">1. Lire un catalogue dont le champ « defaut » cite un jeu absent de « jeux ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d" title="Structure inattendue (« jeux » absent, entrée sans « asset »…).">hmi::SkinCatalogError::MalformedStructure</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.ModeAbsentVautSingle</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:283</span></sub>  </td><td class="markdownTableBodyNone">Une entree sans champ « mode » est lue en mode image unique.  </td><td class="markdownTableBodyNone">1. Lire une entree ne portant que le champ « asset ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">entry.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">entry-&gt;mode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">hmi::SkinMode::Single</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.FichierAbsentSignale</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:303</span></sub>  </td><td class="markdownTableBodyNone">Un fichier de skins absent est signale par un code dedie, sans exception.  </td><td class="markdownTableBodyNone">1. Lire un chemin qui n'existe pas.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est faux.<br  />
+Vérifie que <span class="tt">result.errorCode</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ae064c48cb814db754a1228bda7b8d77da2767828026039e8ba7b38973cbb701f2" title="Fichier absent. Cas légitime, pas une anomalie (voir ci-dessous).">hmi::SkinCatalogError::FileNotFound</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.EcritureSurDisqueRelisible</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:320</span></sub>  </td><td class="markdownTableBodyNone">Le catalogue ecrit sur disque est relu a l'identique.  </td><td class="markdownTableBodyNone">1. Ecrire le catalogue de reference dans un fichier temporaire.<br  />
+ 2. Le relire depuis ce fichier.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.saveToFile(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">reread.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reread.catalog-&gt;assignments("foret")</span> vaut <span class="tt">catalog.assignments("foret")</span>.<br  />
+Vérifie que <span class="tt">reread.catalog-&gt;defaultSetName()</span> vaut <span class="tt">catalog.defaultSetName()</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.AssignationPuisRetrait</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:345</span></sub>  </td><td class="markdownTableBodyNone">Assigner puis retirer un skin change la resolution du type concerne.  </td><td class="markdownTableBodyNone">1. Assigner un asset a Danger dans un catalogue vide, puis resoudre.<br  />
+ 2. Retirer l'assignation, puis resoudre a nouveau.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.defaultSetName()</span> vaut <span class="tt">"foret"</span>.<br  />
+Vérifie que <span class="tt">assigned.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">assigned-&gt;asset</span> vaut <span class="tt">"spikes.png"</span>.<br  />
+Vérifie que <span class="tt">catalog.resolve("foret", <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a990816b607ebf99b1415760965e4d564">core::TileType::Danger</a>).has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.OrdreDesJeuxStable</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:372</span></sub>  </td><td class="markdownTableBodyNone">Les noms de jeux sont rendus dans un ordre alphabetique stable.  </td><td class="markdownTableBodyNone">1. Creer trois jeux dans un ordre quelconque.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">catalog.setNames()</span> vaut <span class="tt">expected</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.CatalogueLivreValide</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:393</span></sub>  </td><td class="markdownTableBodyNone">Le fichier de skins livre avec le jeu se lit sans erreur.  </td><td class="markdownTableBodyNone">1. Lire Source/Elements/Assets/skins.json depuis les sources.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">sets.empty()</span> est faux.<br  />
+Vérifie que <span class="tt">std::find(sets.begin(), sets.end(), result.catalog-&gt;defaultSetName())</span> diffère de <span class="tt">sets.end()</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SkinCatalogTest.AssetsDuCatalogueLivreConformes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a>:416</span></sub>  </td><td class="markdownTableBodyNone">Chaque asset reference par le catalogue livre existe aux bonnes dimensions.  </td><td class="markdownTableBodyNone">1. Lire le catalogue livre et parcourir toutes les assignations de tous les jeux.<br  />
+ 2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
+Vérifie que <span class="tt">size.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">size-&gt;first</span> vaut <span class="tt">expected</span>.<br  />
+Vérifie que <span class="tt">size-&gt;second</span> vaut <span class="tt">expected</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">test_slope_mask.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.DouzeTypesOntUneSilhouette</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:38</span></sub>  </td><td class="markdownTableBodyNone">Seuls les douze types de pentes et arrondis ont une silhouette.  </td><td class="markdownTableBodyNone">1. Interroger hasSilhouette pour les douze types listes.<br  />
+ 2. L'interroger pour des types carres representatifs.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::hasSilhouette(type)</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#aa9e6d80a32a4e383a6413ef674feef96" title="Nombre de types à silhouette.">hmi::SILHOUETTE_TILE_TYPE_COUNT</a></span> vaut <span class="tt">12</span>.<br  />
+Vérifie que <span class="tt">hmi::hasSilhouette(core::TileType::Solid)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::hasSilhouette(core::TileType::Block)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::hasSilhouette(core::TileType::Danger)</span> est faux.<br  />
+Vérifie que <span class="tt">hmi::hasSilhouette(core::TileType::Empty)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.MasqueIdentiqueALAtlasProcedural</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">Le masque coincide pixel a pixel avec la silhouette de l'atlas procedural.  </td><td class="markdownTableBodyNone">1. Generer l'atlas procedural.<br  />
+ 2. Pour chacun des douze types, comparer chaque pixel de sa case a isInsideSilhouette.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">position.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">alphaOf(pixel) != 0</span> vaut <span class="tt">inside</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.PenteMontantePleineEnBas</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Une pente montante vers la droite est pleine sous sa surface, vide au-dessus.  </td><td class="markdownTableBodyNone">1. Tester les quatre coins de la case d'une pente montante vers la droite.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::isInsideSilhouette(core::TileType::SlopeUpRight, LAST, LAST, TILE)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::isInsideSilhouette(core::TileType::SlopeUpRight, 0, LAST, TILE)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::isInsideSilhouette(core::TileType::SlopeUpRight, LAST, 0, TILE)</span> est vrai.<br  />
+Vérifie que <span class="tt">hmi::isInsideSilhouette(core::TileType::SlopeUpRight, 0, 0, TILE)</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.PenteDePlafondMiroirVertical</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">Chaque silhouette de plafond est le miroir vertical de celle de sol.  </td><td class="markdownTableBodyNone">1. Pour les six paires sol/plafond, comparer chaque pixel du plafond au pixel verticalement symetrique de la variante de sol.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">surface.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a4c1e8f8b25b6e5fe20c207887cd1dc33" title="Indique si un pixel appartient à la matière d&#39;une tuile à silhouette.">hmi::isInsideSilhouette</a>(pair.ceiling, x, y, TILE)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a4c1e8f8b25b6e5fe20c207887cd1dc33" title="Indique si un pixel appartient à la matière d&#39;une tuile à silhouette.">hmi::isInsideSilhouette</a>(pair.floor, x, LAST - y, TILE)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.DetourageTransparenceFranche</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:169</span></sub>  </td><td class="markdownTableBodyNone">Le detourage rend transparents les pixels hors silhouette, et eux seuls.  </td><td class="markdownTableBodyNone">1. Detourer une image entierement opaque a la silhouette d'une pente.<br  />
+ 2. Comparer l'alpha de chaque pixel a l'appartenance a la silhouette.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">alpha == 0 \|\| alpha == 255</span> est vrai.<br  />
+Vérifie que <span class="tt">alpha != 0</span> vaut <span class="tt">hmi::isInsideSilhouette(core::TileType::RoundedUpLeft, x, y, TILE)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.TypeCarreNonDetoure</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:196</span></sub>  </td><td class="markdownTableBodyNone">Un type de tuile carre n'est pas detoure.  </td><td class="markdownTableBodyNone">1. Detourer une image opaque a la silhouette de Solid, puis de Block et Danger.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">alphaOf(pixel)</span> vaut <span class="tt">255u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>SlopeMaskTest.ImageNonCarreeInchangee</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">Source/Test/Unit/HMI/Graphics/test_slope_mask.cpp</a>:217</span></sub>  </td><td class="markdownTableBodyNone">Une image non carree ou de dimensions incoherentes n'est pas detouree.  </td><td class="markdownTableBodyNone">1. Detourer une image rectangulaire, puis une image dont la taille ne correspond pas aux dimensions annoncees.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rectangle</span> vaut <span class="tt">rectangleBefore</span>.<br  />
+Vérifie que <span class="tt">tooSmall</span> vaut <span class="tt">tooSmallBefore</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__texture__atlas_8cpp.html" title="Tests unitaires du mapping de régions de hmi::TextureAtlas (LOT-39, non-régression).">test_texture_atlas.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2407,6 +2656,95 @@ Vérifie que <span class="tt">runFirst.x</span> vaut <span class="tt">(runFlatIn
 Vérifie que <span class="tt">runFirst.y</span> vaut <span class="tt">gridSide + (runFlatIndex / <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></span>.<br  />
 Vérifie que <span class="tt">jump.x</span> vaut <span class="tt">(jumpFlatIndex % <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></span>.<br  />
 Vérifie que <span class="tt">jump.y</span> vaut <span class="tt">gridSide + (jumpFlatIndex / <a class="el" href="classhmi_1_1TextureAtlas.html#a90d3bb2a735849cfd51205cc53f0fa58" title="Nombre de colonnes de la grille d&#39;images du personnage (largeur de la grille de tuiles,...">hmi::TextureAtlas::PLAYER_FRAME_COLUMNS</a>) * <a class="el" href="classhmi_1_1TextureAtlas.html#a7a54a37b7f1e32434c9dca034e03ed1a" title="Côté d&#39;une image d&#39;animation du personnage, en pixels.">hmi::TextureAtlas::PLAYER_FRAME_SIZE</a></span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">test_tile_autotile.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.SeizeConfigurationsSeizeCasesDistinctes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:26</span></sub>  </td><td class="markdownTableBodyNone">Les seize configurations de voisinage donnent seize cases distinctes.  </td><td class="markdownTableBodyNone">1. Calculer la case de chacun des seize masques possibles.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">cell.column</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
+Vérifie que <span class="tt">cell.row</span> est supérieur ou égal à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">cell.row</span> est strictement inférieur à <span class="tt"><a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
+Vérifie que <span class="tt">cells.size()</span> vaut <span class="tt">static_cast&lt;std::size_t&gt;(<a class="el" href="namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb" title="Nombre de configurations de voisinage distinctes.">hmi::AUTOTILE_CONFIGURATION_COUNT</a>)</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.TableDeCorrespondanceExhaustive</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:52</span></sub>  </td><td class="markdownTableBodyNone">Chaque masque de voisinage designe la case attendue de la planche.  </td><td class="markdownTableBodyNone">1. Verifier la case des seize masques, un a un.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">cell.column</span> vaut <span class="tt">expected.column</span>.<br  />
+Vérifie que <span class="tt">cell.row</span> vaut <span class="tt">expected.row</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.ExterieurDeLaGrilleCompteSolide</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:94</span></sub>  </td><td class="markdownTableBodyNone">L'exterieur de la grille compte comme solide.  </td><td class="markdownTableBodyNone">1. Placer un solide isole dans le coin haut-gauche d'une grille vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899" title="Voisin du dessus solide.">hmi::NEIGHBOR_UP</a>) != 0</span> est vrai.<br  />
+Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea68f6464eef6db912e7119136d0434a4e" title="Voisin de gauche solide.">hmi::NEIGHBOR_LEFT</a>) != 0</span> est vrai.<br  />
+Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est faux.<br  />
+Vérifie que <span class="tt">(mask &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726eacb74c4b7fffb91a3bb82742c2f5383b4" title="Voisin du dessous solide.">hmi::NEIGHBOR_DOWN</a>) != 0</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.TuileIsoleeAuCentre</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:116</span></sub>  </td><td class="markdownTableBodyNone">Une tuile solide entouree de vide donne la configuration isolee.  </td><td class="markdownTableBodyNone">1. Placer un solide au centre d'une grille vide, loin des bords.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::solidNeighborMask(tiles, 2, 2)</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">hmi::autotileCell(0)</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{0, 0})</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.DessusDePlateformeDistinctDeLInterieur</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:133</span></sub>  </td><td class="markdownTableBodyNone">Le dessus d'une plateforme pleine differe de son interieur.  </td><td class="markdownTableBodyNone">1. Remplir de solide les lignes 2 a 4 d'une grille vide.<br  />
+ 2. Comparer la case de la ligne de surface et celle d'une case enfouie.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">surface</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{2, 3})</span>.<br  />
+Vérifie que <span class="tt">inside</span> vaut <span class="tt">(<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{3, 3})</span>.<br  />
+Vérifie que <span class="tt">surface == inside</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.RaccordEntreTypesSolidesDifferents</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:161</span></sub>  </td><td class="markdownTableBodyNone">Le voisinage est celui de la solidite, pas du type de tuile.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, un bloc poussable.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.PenteNonCompteeCommeVoisinSolide</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:180</span></sub>  </td><td class="markdownTableBodyNone">Une pente n'est pas comptee comme voisin solide.  </td><td class="markdownTableBodyNone">1. Placer un solide et, a sa droite, une pente montante.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">(hmi::solidNeighborMask(tiles, 2, 2) &amp; <a class="el" href="namespacehmi.html#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" title="Voisin de droite solide.">hmi::NEIGHBOR_RIGHT</a>) != 0</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.CaseRepresentativeEstLInterieurPlein</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:199</span></sub>  </td><td class="markdownTableBodyNone">La case representative d'une planche est son interieur plein.  </td><td class="markdownTableBodyNone">1. Demander la case representative de la planche.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c" title="Case représentative d&#39;une planche : l&#39;intérieur plein (quatre voisins solides).">hmi::autotileRepresentativeCell()</a></span> vaut <span class="tt">full</span>.<br  />
+Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a9e828846d7bde545c8e1ec0a0b1fc73c" title="Case représentative d&#39;une planche : l&#39;intérieur plein (quatre voisins solides).">hmi::autotileRepresentativeCell()</a> == (<a class="el" href="structhmi_1_1AutotileCell.html" title="Position d&#39;une case dans la planche de raccords, en cases (origine haut-gauche).">hmi::AutotileCell</a>{0, 0})</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileAutotileTest.BitsParasitesIgnores</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__autotile_8cpp.html" title="Tests unitaires des raccords automatiques (LOT-42, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp</a>:216</span></sub>  </td><td class="markdownTableBodyNone">Un masque portant des bits parasites reste dans la planche.  </td><td class="markdownTableBodyNone">1. Demander la case d'un masque dont les bits de poids fort sont a 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::autotileCell(noisy)</span> vaut <span class="tt">hmi::autotileCell(hmi::NEIGHBOR_UP)</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">test_tile_skin_resolution.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.ModePhysiqueIgnoreLesSkins</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:64</span></sub>  </td><td class="markdownTableBodyNone">Le mode Physique rend la region d'atlas meme quand un skin est assigne.  </td><td class="markdownTableBodyNone">1. Resoudre une tuile Solid skinnee, en mode Physique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f" title="Atlas du jeu : couleur plate par type de tuile, images du personnage, aides d&#39;édition.">hmi::AppearanceSource::Atlas</a></span>.<br  />
+Vérifie que <span class="tt">appearance.region.x</span> vaut <span class="tt">physical.x</span>.<br  />
+Vérifie que <span class="tt">appearance.region.y</span> vaut <span class="tt">physical.y</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.SkinSingleRendLImageEntiere</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:89</span></sub>  </td><td class="markdownTableBodyNone">Un skin en mode image unique rend l'image entiere.  </td><td class="markdownTableBodyNone">1. Resoudre une tuile Block, assignee a un skin en mode single, en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf" title="Skin assigné au type de tuile, désigné par hmi::TileAppearance::skinIndex (LOT-42).">hmi::AppearanceSource::Skin</a></span>.<br  />
+Vérifie que <span class="tt">appearance.region.x</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">appearance.region.y</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">appearance.region.width</span> vaut <span class="tt">TILE</span>.<br  />
+Vérifie que <span class="tt">appearance.region.height</span> vaut <span class="tt">TILE</span>.<br  />
+Vérifie que <span class="tt">textures.textureFor(appearance)</span> vaut <span class="tt">&amp;crateStorage</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.SkinBitmaskChoisitSaCase</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:115</span></sub>  </td><td class="markdownTableBodyNone">Un skin a raccords choisit sa case selon le voisinage solide.  </td><td class="markdownTableBodyNone">1. Resoudre une tuile Solid entouree de solide, puis la meme isolee.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">insideAppearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf" title="Skin assigné au type de tuile, désigné par hmi::TileAppearance::skinIndex (LOT-42).">hmi::AppearanceSource::Skin</a></span>.<br  />
+Vérifie que <span class="tt">aloneAppearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf" title="Skin assigné au type de tuile, désigné par hmi::TileAppearance::skinIndex (LOT-42).">hmi::AppearanceSource::Skin</a></span>.<br  />
+Vérifie que <span class="tt">textures.textureFor(insideAppearance)</span> vaut <span class="tt">&amp;stoneStorage</span>.<br  />
+Vérifie que <span class="tt">insideAppearance.region.x</span> vaut <span class="tt">fullCell.column * TILE</span>.<br  />
+Vérifie que <span class="tt">insideAppearance.region.y</span> vaut <span class="tt">fullCell.row * TILE</span>.<br  />
+Vérifie que <span class="tt">aloneAppearance.region.x</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">aloneAppearance.region.y</span> vaut <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">insideAppearance.region.x</span> diffère de <span class="tt">aloneAppearance.region.x</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.TypeNonSkinneRetombeSurLeDamier</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:153</span></sub>  </td><td class="markdownTableBodyNone">Un type de tuile sans skin assigne retombe sur le damier.  </td><td class="markdownTableBodyNone">1. Resoudre une tuile Danger, absente du catalogue, en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta de repli : texture attendue mais pas encore disponible (EX-NFR-040).">hmi::AppearanceSource::MissingTexture</a></span>.<br  />
+Vérifie que <span class="tt">appearance.region.width</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">textures.textureFor(appearance)</span> vaut <span class="tt">&amp;missingStorage</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.SkinNonChargeRetombeSurLeDamier</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:177</span></sub>  </td><td class="markdownTableBodyNone">Un skin assigne dont la texture n'est pas chargee retombe sur le damier.  </td><td class="markdownTableBodyNone">1. Assigner un asset absent des textures chargees, puis resoudre en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta de repli : texture attendue mais pas encore disponible (EX-NFR-040).">hmi::AppearanceSource::MissingTexture</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.SansCatalogueToutRetombeSurLeDamier</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:201</span></sub>  </td><td class="markdownTableBodyNone">En l'absence de catalogue de skins, tout retombe sur le damier.  </td><td class="markdownTableBodyNone">1. Resoudre une tuile Solid avec des textures sans catalogue.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.source</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" title="Damier magenta de repli : texture attendue mais pas encore disponible (EX-NFR-040).">hmi::AppearanceSource::MissingTexture</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>TileSkinResolutionTest.IndexDeSkinInvalideBorne</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__tile__skin__resolution_8cpp.html" title="Tests unitaires de la résolution d&#39;apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).">Source/Test/Unit/HMI/Graphics/test_tile_skin_resolution.cpp</a>:222</span></sub>  </td><td class="markdownTableBodyNone">Un index de skin invalide retombe sur le damier sans lecture hors bornes.  </td><td class="markdownTableBodyNone">1. Interroger les textures avec une apparence portant un index hors bornes.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">textures.textureFor(broken)</span> vaut <span class="tt">&amp;missingStorage</span>.<br  />
+Vérifie que <span class="tt">textures.widthFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">textures.heightFor(broken)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
 Input (63)</h3>

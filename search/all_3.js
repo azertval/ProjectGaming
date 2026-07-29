@@ -33,6 +33,5 @@ var searchData=
   ['37_20ex_20ihm_20030_20ex_20ihm_20031_30',['Lier des mécanismes dans l&apos;éditeur (&lt;span class=&quot;tt&quot;&gt;LOT-37&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-IHM-030&lt;/span&gt;/&lt;span class=&quot;tt&quot;&gt;EX-IHM-031&lt;/span&gt;)',['../guide-editeur.html#autotoc_md58',1,'']]],
   ['38_20—_20refonte_20ihm_20qt_20_3a_20menus_20options_20remappage_20retrait_20du_20legacy_20ui_31',['LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp;amp; retrait du legacy UI',['../lot-38.html',1,'lots']]],
   ['39_32',['39',['../cahiertest.html#autotoc_md11',1,'Physics (39)'],['../lot-34.html#autotoc_md1607',1,'Programme de refonte de l&apos;IHM (LOT-34 → LOT-39)']]],
-  ['39_20—_20refonte_20ihm_20qt_20_3a_20textures_20depuis_20fichiers_20loader_20assets_33',['LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)',['../lot-39.html',1,'lots']]],
-  ['397_34',['Tests unitaires (397)',['../cahiertest.html#autotoc_md4',1,'']]]
+  ['39_20—_20refonte_20ihm_20qt_20_3a_20textures_20depuis_20fichiers_20loader_20assets_33',['LOT-39 — Refonte IHM (Qt) : textures depuis fichiers (loader + assets)',['../lot-39.html',1,'lots']]]
 ];

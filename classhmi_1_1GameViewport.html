@@ -112,6 +112,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a02acfb1387ff9e966f73e33f0e666894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande de retour au menu principal (fin de partie ou <span class="tt">Échap</span> en mode jeu).  <br /></td></tr>
 <tr class="memitem:a3646e1f1bc4d4ee8ab7c45af7410f56e" id="r_a3646e1f1bc4d4ee8ab7c45af7410f56e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3646e1f1bc4d4ee8ab7c45af7410f56e">draftChanged</a> ()</td></tr>
 <tr class="memdesc:a3646e1f1bc4d4ee8ab7c45af7410f56e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau « Liens » se resynchronise dessus (<span class="tt">refresh</span>).  <br /></td></tr>
+<tr class="memitem:afff694683060b7d90ea17722220f8e33" id="r_afff694683060b7d90ea17722220f8e33"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afff694683060b7d90ea17722220f8e33">renderModeChanged</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
+<tr class="memdesc:afff694683060b7d90ea17722220f8e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode de rendu vient de basculer (<span class="tt">F8</span>) — la palette met ses vignettes à jour pour rester fidèle au canevas (<span class="tt">EX-EDIT-027</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -152,6 +154,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae7ad870c084ca5c30be9891d70250638" id="r_ae7ad870c084ca5c30be9891d70250638"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7ad870c084ca5c30be9891d70250638">unlinkMechanism</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition)</td></tr>
 <tr class="memdesc:ae7ad870c084ca5c30be9891d70250638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime la liaison dont la cible est <code class="param">targetPosition</code> (bouton « Supprimer » du panneau « Liens ») ; sans effet si <code class="param">targetPosition</code> n'a pas de liaison.  <br /></td></tr>
 <tr class="memitem:a5f1055b69e7ae6b225e46936159184af" id="r_a5f1055b69e7ae6b225e46936159184af"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f1055b69e7ae6b225e46936159184af">renderMode</a> () const noexcept</td></tr>
+<tr class="memitem:ae7d92dd84fe3f73c2c13f2562daa761e" id="r_ae7d92dd84fe3f73c2c13f2562daa761e"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e">skinCatalog</a> () noexcept</td></tr>
+<tr class="memdesc:ae7d92dd84fe3f73c2c13f2562daa761e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins, édité par le panneau « Textures » (<span class="tt">LOT-42</span>).  <br /></td></tr>
+<tr class="memitem:ab1634dd73825b6d371c062bf557cd3d5" id="r_ab1634dd73825b6d371c062bf557cd3d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab1634dd73825b6d371c062bf557cd3d5">setSkinSet</a> (const std::string &amp;setName)</td></tr>
+<tr class="memdesc:ab1634dd73825b6d371c062bf557cd3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le jeu de skins à utiliser pour le rendu (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:a682255be40d1c669df3888777d1d5cea" id="r_a682255be40d1c669df3888777d1d5cea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a682255be40d1c669df3888777d1d5cea">setRenderMode</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:a682255be40d1c669df3888777d1d5cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit le mode de rendu et <b>persiste</b> le choix (<span class="tt">EX-REN-046</span>, <span class="tt">EX-IHM-011</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -214,6 +220,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a59a93eb0995d3ebd1f0547b569ff0b9c" id="r_a59a93eb0995d3ebd1f0547b569ff0b9c"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureAtlas.html">hmi::TextureAtlas</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59a93eb0995d3ebd1f0547b569ff0b9c">_atlas</a></td></tr>
 <tr class="memitem:a22acfc4d63a401176b695f09d71ec03b" id="r_a22acfc4d63a401176b695f09d71ec03b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureCache.html">hmi::TextureCache</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22acfc4d63a401176b695f09d71ec03b">_textureCache</a></td></tr>
 <tr class="memitem:acb6b47f4e35e9c42a6354f799d90e066" id="r_acb6b47f4e35e9c42a6354f799d90e066"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1DraftRenderer.html">hmi::DraftRenderer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb6b47f4e35e9c42a6354f799d90e066">_draftRenderer</a></td></tr>
+<tr class="memitem:aeac238dcd6e5acc5b30326e29643e214" id="r_aeac238dcd6e5acc5b30326e29643e214"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">hmi::SkinCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeac238dcd6e5acc5b30326e29643e214">_skins</a></td></tr>
+<tr class="memdesc:aeac238dcd6e5acc5b30326e29643e214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins (<span class="tt">LOT-42</span>), lu au démarrage depuis <span class="tt">Assets/skins.json</span>.  <br /></td></tr>
+<tr class="memitem:a18df9fc7817cad1954a2008e827ac3c6" id="r_a18df9fc7817cad1954a2008e827ac3c6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a18df9fc7817cad1954a2008e827ac3c6">_skinSet</a></td></tr>
+<tr class="memdesc:a18df9fc7817cad1954a2008e827ac3c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de skins courant ; vide pour le jeu par défaut du catalogue.  <br /></td></tr>
 <tr class="memitem:acd267663dc14c010857f9d3156526e94" id="r_acd267663dc14c010857f9d3156526e94"><td class="memItemLeft"><a class="el" href="classhmi_1_1GameKeyBindings.html">hmi::GameKeyBindings</a>&#160;</td><td class="memItemRight"><a class="el" href="#acd267663dc14c010857f9d3156526e94">_gameBindings</a></td></tr>
 <tr class="memitem:abc7a2f75a50f5b1fd0f6a7b8237e621f" id="r_abc7a2f75a50f5b1fd0f6a7b8237e621f"><td class="memItemLeft"><a class="el" href="classhmi_1_1GamepadBindings.html">hmi::GamepadBindings</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc7a2f75a50f5b1fd0f6a7b8237e621f">_gamepadBindings</a></td></tr>
 <tr class="memitem:ab07f0b981e5691b293d269d3f638466c" id="r_ab07f0b981e5691b293d269d3f638466c"><td class="memItemLeft"><a class="el" href="classhmi_1_1InputState.html">hmi::InputState</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab07f0b981e5691b293d269d3f638466c">_input</a></td></tr>
@@ -1228,6 +1238,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afff694683060b7d90ea17722220f8e33" name="afff694683060b7d90ea17722220f8e33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff694683060b7d90ea17722220f8e33">&#9670;&#160;</a></span>renderModeChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::renderModeChanged </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le mode de rendu vient de basculer (<span class="tt">F8</span>) — la palette met ses vignettes à jour pour rester fidèle au canevas (<span class="tt">EX-EDIT-027</span>). </p>
+
+</div>
+</div>
 <a id="a264b2047d89de02557e1c65a15c6dd31" name="a264b2047d89de02557e1c65a15c6dd31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a264b2047d89de02557e1c65a15c6dd31">&#9670;&#160;</a></span>resizeEvent()</h2>
 
@@ -1393,6 +1430,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab1634dd73825b6d371c062bf557cd3d5" name="ab1634dd73825b6d371c062bf557cd3d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1634dd73825b6d371c062bf557cd3d5">&#9670;&#160;</a></span>setSkinSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setSkinSet </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>setName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Désigne le jeu de skins à utiliser pour le rendu (<span class="tt">LOT-42</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">setName</td><td>Nom du jeu ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="acc27da0c06a8e0aeb8ef46dcc8efd187" name="acc27da0c06a8e0aeb8ef46dcc8efd187"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc27da0c06a8e0aeb8ef46dcc8efd187">&#9670;&#160;</a></span>setTool()</h2>
 
@@ -1444,6 +1506,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Active/désactive la synchronisation verticale (<span class="tt">EX-REN-022</span>) ; appliqué au device D3D11. </p>
+
+</div>
+</div>
+<a id="ae7d92dd84fe3f73c2c13f2562daa761e" name="ae7d92dd84fe3f73c2c13f2562daa761e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d92dd84fe3f73c2c13f2562daa761e">&#9670;&#160;</a></span>skinCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp; hmi::GameViewport::skinCatalog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catalogue des jeux de skins, édité par le panneau « Textures » (<span class="tt">LOT-42</span>). </p>
+<p>Le viewport en reste <b>propriétaire</b> : le panneau agit dessus, et le rendu voit les mêmes assignations à l'image suivante, sans reconstruire la scène. </p><dl class="section return"><dt>Returns</dt><dd>Le catalogue. </dd></dl>
 
 </div>
 </div>
@@ -2420,6 +2510,55 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Grille de repère (cases + salles) affichée (bascule F10). </p>
+
+</div>
+</div>
+<a id="aeac238dcd6e5acc5b30326e29643e214" name="aeac238dcd6e5acc5b30326e29643e214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac238dcd6e5acc5b30326e29643e214">&#9670;&#160;</a></span>_skins</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SkinCatalog.html">hmi::SkinCatalog</a> hmi::GameViewport::_skins</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catalogue des jeux de skins (<span class="tt">LOT-42</span>), lu au démarrage depuis <span class="tt">Assets/skins.json</span>. </p>
+<p>Vide si le fichier est absent ou illisible : tout retombe alors sur le damier, sans bloquer. </p>
+
+</div>
+</div>
+<a id="a18df9fc7817cad1954a2008e827ac3c6" name="a18df9fc7817cad1954a2008e827ac3c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18df9fc7817cad1954a2008e827ac3c6">&#9670;&#160;</a></span>_skinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::GameViewport::_skinSet</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jeu de skins courant ; vide pour le jeu par défaut du catalogue. </p>
 
 </div>
 </div>

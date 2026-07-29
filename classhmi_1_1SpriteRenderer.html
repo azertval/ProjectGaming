@@ -105,6 +105,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2be090c0def751a04ce5c321ce987c2" id="r_ae2be090c0def751a04ce5c321ce987c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2be090c0def751a04ce5c321ce987c2">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha)</td></tr>
 <tr class="memdesc:ae2be090c0def751a04ce5c321ce987c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
 <tr class="memitem:a53acb5abdc7ce0f58489ab13524a0ee6" id="r_a53acb5abdc7ce0f58489ab13524a0ee6"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a53acb5abdc7ce0f58489ab13524a0ee6">lastScene</a> () const noexcept</td></tr>
+<tr class="memitem:ae24bab2aac2a8f86ef642d04112075e7" id="r_ae24bab2aac2a8f86ef642d04112075e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae24bab2aac2a8f86ef642d04112075e7">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
+<tr class="memdesc:ae24bab2aac2a8f86ef642d04112075e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -116,6 +118,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a3713ab82000ed036e519adbcee39604d" id="r_a3713ab82000ed036e519adbcee39604d"><td class="memItemLeft"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a3713ab82000ed036e519adbcee39604d">_batch</a></td></tr>
 <tr class="memitem:a04fd47eebcd7ecb9d26079bb3281e79e" id="r_a04fd47eebcd7ecb9d26079bb3281e79e"><td class="memItemLeft">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a04fd47eebcd7ecb9d26079bb3281e79e">_atlas</a></td></tr>
 <tr class="memitem:a602b47dbb5998673ed6dd935f1b2dbce" id="r_a602b47dbb5998673ed6dd935f1b2dbce"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a602b47dbb5998673ed6dd935f1b2dbce">_cache</a></td></tr>
+<tr class="memitem:a1b630d6b7944ad90bccc3fda0bfbd947" id="r_a1b630d6b7944ad90bccc3fda0bfbd947"><td class="memItemLeft">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1b630d6b7944ad90bccc3fda0bfbd947">_skins</a> = nullptr</td></tr>
+<tr class="memitem:aba01eeb9b54423bea300687d66c88dec" id="r_aba01eeb9b54423bea300687d66c88dec"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aba01eeb9b54423bea300687d66c88dec">_skinSet</a></td></tr>
 <tr class="memitem:a9f9fc752a5d262e9f34dbc7db44e353f" id="r_a9f9fc752a5d262e9f34dbc7db44e353f"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f9fc752a5d262e9f34dbc7db44e353f">_scene</a></td></tr>
 <tr class="memitem:aa7c16f2da80c0b84ffe633535f070c01" id="r_aa7c16f2da80c0b84ffe633535f070c01"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7c16f2da80c0b84ffe633535f070c01">_loggedStatistics</a></td></tr>
 </table>
@@ -256,6 +260,44 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae24bab2aac2a8f86ef642d04112075e7" name="ae24bab2aac2a8f86ef642d04112075e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24bab2aac2a8f86ef642d04112075e7">&#9670;&#160;</a></span>setSkins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::SpriteRenderer::setSkins </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>skins</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>). </p>
+<p>Le catalogue n'est <b>pas</b> copié : l'appelant en reste propriétaire et doit le maintenir en vie. Réassigner un skin dans le catalogue se voit à l'image suivante, sans reconstruire la scène ECS — c'est tout l'intérêt de résoudre l'apparence à la composition. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skins</td><td>Catalogue, ou <span class="tt">nullptr</span> pour retomber entièrement sur le damier. </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu courant ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a04fd47eebcd7ecb9d26079bb3281e79e" name="a04fd47eebcd7ecb9d26079bb3281e79e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04fd47eebcd7ecb9d26079bb3281e79e">&#9670;&#160;</a></span>_atlas</h2>
@@ -356,6 +398,50 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> hmi::SpriteRenderer::_scene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b630d6b7944ad90bccc3fda0bfbd947" name="a1b630d6b7944ad90bccc3fda0bfbd947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b630d6b7944ad90bccc3fda0bfbd947">&#9670;&#160;</a></span>_skins</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a>* hmi::SpriteRenderer::_skins = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba01eeb9b54423bea300687d66c88dec" name="aba01eeb9b54423bea300687d66c88dec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba01eeb9b54423bea300687d66c88dec">&#9670;&#160;</a></span>_skinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::SpriteRenderer::_skinSet</td>
         </tr>
       </table>
   </td>

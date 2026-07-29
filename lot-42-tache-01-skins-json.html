@@ -93,10 +93,10 @@ $(function(){initNavTree('lot-42-tache-01-skins-json.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-01-skins-json"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1912"></a>
 Contexte</h1>
-<p>L'association type de tuile → apparence est aujourd'hui <b>codée en dur</b> dans <span class="tt"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt"><a class="el" href="TileVisuals_8cpp.html">TileVisuals.cpp</a></span>) : une table de trente entrées pointant vers des cases de l'atlas procédural. C'est la bonne solution pour des couleurs plates ; c'en est une mauvaise pour des textures, que le level designer doit pouvoir changer sans recompiler.</p>
+<p>L'association type de tuile → apparence est aujourd'hui <b>codée en dur</b> dans <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt"><a class="el" href="TileVisuals_8cpp.html">TileVisuals.cpp</a></span>) : une table de trente entrées pointant vers des cases de l'atlas procédural. C'est la bonne solution pour des couleurs plates ; c'en est une mauvaise pour des textures, que le level designer doit pouvoir changer sans recompiler.</p>
 <p>Deux exigences structurent le format dès sa création, parce qu'aucune des deux ne peut être ajoutée après coup sans migration : le regroupement en <b>jeux nommés</b> (<span class="tt">EX-EDIT-024</span>) et le <b>mode de rendu</b> par type (<span class="tt">EX-EDIT-025</span>).</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1913"></a>
 Travail à réaliser</h1>
@@ -123,7 +123,7 @@ Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/SkinCatalog.{h,cpp}</span> (nouveau) — format, lecture, écriture, résolution.</li>
 <li><span class="tt">Source/Elements/Assets/skins.json</span> (nouveau), <span class="tt">Source/HMI/CMakeLists.txt</span> (copie <span class="tt">POST_BUILD</span>).</li>
-<li><span class="tt">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</span> (nouveau).</li>
+<li><span class="tt"><a class="el" href="test__skin__catalog_8cpp.html" title="Tests unitaires du catalogue de skins (LOT-42, EX-EDIT-042, EX-EDIT-024).">Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp</a></span> (nouveau).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1915"></a>
 Tests (obligatoires)</h1>

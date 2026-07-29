@@ -113,8 +113,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décision résultant de <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">resolveLinkClick</a></span> : action à appliquer et paramètres associés.  <a href="structhmi_1_1LinkGestureDecision.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkPanel" id="r_LinkPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LinkPanel.html">LinkPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vue tabulaire des liaisons (<span class="tt">Mechanism</span>/<span class="tt">DangerLink</span>) du brouillon courant (<span class="tt">EX-IHM-031</span>).  <a href="classhmi_1_1LinkPanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PaletteThumbnail" id="r_PaletteThumbnail"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette à afficher pour un type de tuile : d'où la lire, et quelle région y prendre.  <a href="structhmi_1_1PaletteThumbnail.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Palette de tuiles en <b>arbre</b> (<span class="tt">QTreeView</span>) : catégories → sous-groupes → tuiles.  <a href="classhmi_1_1PalettePanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinRow" id="r_SkinRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinRow.html">SkinRow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne du panneau : un type de tuile et l'apparence qui lui est assignée, s'il y en a une.  <a href="structhmi_1_1SkinRow.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinSection" id="r_SkinSection"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un groupe de lignes, correspondant à une catégorie de la palette.  <a href="structhmi_1_1SkinSection.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TexturePanel" id="r_TexturePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TexturePanel.html">TexturePanel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau d'habillage, organisé en <b>sections</b> extensibles (<span class="tt">EX-EDIT-042</span>, <span class="tt">EX-EDIT-024</span>).  <a href="classhmi_1_1TexturePanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileEntry" id="r_TileEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileEntry.html">TileEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une tuile sélectionnable : son type et son libellé affiché.  <a href="structhmi_1_1TileEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileSubgroup" id="r_TileSubgroup"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileSubgroup.html">TileSubgroup</a></td></tr>
@@ -163,6 +171,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle (en cases) d'une salle, borné aux dimensions réelles du niveau.  <a href="structhmi_1_1RoomBounds.html#details">More...</a><br /></td></tr>
 <tr class="memitem:RoomGrid" id="r_RoomGrid"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1RoomGrid.html">RoomGrid</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitionne une grille de niveau en un tableau de <b>salles</b> de taille fixe, façon <em>Celeste</em> (<span class="tt">LOT-32</span>).  <a href="classhmi_1_1RoomGrid.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinEntry" id="r_SkinEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinEntry.html">SkinEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence assignée à un type de tuile : le fichier à utiliser et son découpage.  <a href="structhmi_1_1SkinEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinCatalog" id="r_SkinCatalog"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins : <span class="tt">(jeu, type de tuile) → { asset, mode }</span>.  <a href="classhmi_1_1SkinCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinCatalogResult" id="r_SkinCatalogResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinCatalogResult.html">SkinCatalogResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de catalogue : soit un <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">SkinCatalog</a></span>, soit une <b>erreur</b> décrite.  <a href="structhmi_1_1SkinCatalogResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteBatch" id="r_SpriteBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage <em>nearest</em> (pixel art).  <a href="classhmi_1_1SpriteBatch.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteRenderer" id="r_SpriteRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteRenderer.html">SpriteRenderer</a></td></tr>
@@ -177,8 +191,14 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture Direct3D 11 chargée et sa vue de ressource (RAII, <span class="tt">ComPtr</span>).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TileAppearance" id="r_TileAppearance"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence résolue d'une primitive : quelle texture lier, et quelle région y échantillonner.  <a href="structhmi_1_1TileAppearance.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkinTexture" id="r_SkinTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skin déjà chargé, prêt à être lié par la composition.  <a href="structhmi_1_1SkinTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneTextures" id="r_SceneTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, et leurs dimensions.  <a href="structhmi_1_1SceneTextures.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, et de quoi choisir laquelle lier.  <a href="structhmi_1_1SceneTextures.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AutotileCell" id="r_AutotileCell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une case dans la planche de raccords, en cases (origine haut-gauche).  <a href="structhmi_1_1AutotileCell.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TileSkinTag" id="r_TileSkinTag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type de tuile et voisinage solide d'une entité affichée, pour la résolution de son skin.  <a href="structhmi_1_1TileSkinTag.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AtlasGridPosition" id="r_AtlasGridPosition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position (colonne, ligne) d'une tuile dans la grille procédurale de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></span>.  <a href="structhmi_1_1AtlasGridPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorKeyBindings" id="r_EditorKeyBindings"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorKeyBindings.html">EditorKeyBindings</a></td></tr>
@@ -231,6 +251,11 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ace704959d626f266592987f16eb2f3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon/l'état d'édition suite à un clic de l'outil « Lien ».  <a href="#ace704959d626f266592987f16eb2f3d5">More...</a><br /></td></tr>
+<tr class="memitem:a484fc821d307ce050da2a61ed1760a8d" id="r_a484fc821d307ce050da2a61ed1760a8d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a484fc821d307ce050da2a61ed1760a8d">PaletteThumbnailSource</a> { <a class="el" href="#a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f">Atlas</a>
+, <a class="el" href="#a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf">Skin</a>
+, <a class="el" href="#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
+ }</td></tr>
+<tr class="memdesc:a484fc821d307ce050da2a61ed1760a8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">D'où provient la vignette affichée par la palette pour un type de tuile.  <a href="#a484fc821d307ce050da2a61ed1760a8d">More...</a><br /></td></tr>
 <tr class="memitem:a0030e1768b551f6d1bc0a9fa566d2003" id="r_a0030e1768b551f6d1bc0a9fa566d2003"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> { <br />
 &#160;&#160;<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f">Atlas</a>
 , <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff">TileSkin</a>
@@ -266,10 +291,31 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">Texture</a>
  }</td></tr>
 <tr class="memdesc:ace25c100da588ab6050fb0f486d61d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu de la scène : lecture directe des collisions, ou habillage.  <a href="#ace25c100da588ab6050fb0f486d61d54">More...</a><br /></td></tr>
+<tr class="memitem:ac69176e5c8acf86f4990696f7f54f11e" id="r_ac69176e5c8acf86f4990696f7f54f11e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> { <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e">Single</a>
+, <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522">Bitmask16</a>
+ }</td></tr>
+<tr class="memdesc:ac69176e5c8acf86f4990696f7f54f11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manière dont l'asset d'un type de tuile est découpé à l'affichage (<span class="tt">EX-EDIT-025</span>).  <a href="#ac69176e5c8acf86f4990696f7f54f11e">More...</a><br /></td></tr>
+<tr class="memitem:ae064c48cb814db754a1228bda7b8d77d" id="r_ae064c48cb814db754a1228bda7b8d77d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae064c48cb814db754a1228bda7b8d77d">SkinCatalogError</a> { <br />
+&#160;&#160;<a class="el" href="#ae064c48cb814db754a1228bda7b8d77da6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#ae064c48cb814db754a1228bda7b8d77da2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+, <a class="el" href="#ae064c48cb814db754a1228bda7b8d77dae41199faa7290c167f70f314c5e6c165">ParseError</a>
+, <a class="el" href="#ae064c48cb814db754a1228bda7b8d77da0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</a>
+, <br />
+&#160;&#160;<a class="el" href="#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d">MalformedStructure</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae064c48cb814db754a1228bda7b8d77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de lecture d'un <span class="tt">skins.json</span> (même esprit que <span class="tt"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823" title="Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).">core::LevelValidationError</a></span>).  <a href="#ae064c48cb814db754a1228bda7b8d77d">More...</a><br /></td></tr>
 <tr class="memitem:ac32d81972d12a0b2475fc009eefee225" id="r_ac32d81972d12a0b2475fc009eefee225"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac32d81972d12a0b2475fc009eefee225">AppearanceSource</a> { <a class="el" href="#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f">Atlas</a>
 , <a class="el" href="#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f">MissingTexture</a>
+, <a class="el" href="#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf">Skin</a>
  }</td></tr>
 <tr class="memdesc:ac32d81972d12a0b2475fc009eefee225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'où provient l'apparence résolue.  <a href="#ac32d81972d12a0b2475fc009eefee225">More...</a><br /></td></tr>
+<tr class="memitem:a904bd9605b7079403b098a5e97e9726e" id="r_a904bd9605b7079403b098a5e97e9726e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a904bd9605b7079403b098a5e97e9726e">NeighborBits</a> : std::uint8_t { <a class="el" href="#a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899">NEIGHBOR_UP</a> = 1u &lt;&lt; 0
+, <a class="el" href="#a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a">NEIGHBOR_RIGHT</a> = 1u &lt;&lt; 1
+, <a class="el" href="#a904bd9605b7079403b098a5e97e9726eacb74c4b7fffb91a3bb82742c2f5383b4">NEIGHBOR_DOWN</a> = 1u &lt;&lt; 2
+, <a class="el" href="#a904bd9605b7079403b098a5e97e9726ea68f6464eef6db912e7119136d0434a4e">NEIGHBOR_LEFT</a> = 1u &lt;&lt; 3
+ }</td></tr>
+<tr class="memdesc:a904bd9605b7079403b098a5e97e9726e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits du masque de voisinage, un par voisin <b>orthogonal</b> solide.  <a href="#a904bd9605b7079403b098a5e97e9726e">More...</a><br /></td></tr>
 <tr class="memitem:aa4f5968d7b564d555f29fdc5d2fc9585" id="r_aa4f5968d7b564d555f29fdc5d2fc9585"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585">EditorAction</a> { <br />
 &#160;&#160;<a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354">Save</a>
 , <a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
@@ -375,6 +421,18 @@ Functions</h2></td></tr>
 <tr class="memitem:abc01bff6f3bc784144a6436903733777" id="r_abc01bff6f3bc784144a6436903733777"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#abc01bff6f3bc784144a6436903733777">isLinkTargetTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memitem:a7f0f0f4f71e52b8deb6fb88a8d6411d9" id="r_a7f0f0f4f71e52b8deb6fb88a8d6411d9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LinkGestureDecision.html">LinkGestureDecision</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9">resolveLinkClick</a> (std::optional&lt; <a class="el" href="structhmi_1_1PendingLink.html">PendingLink</a> &gt; pending, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> clickedCell, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> clickedTileType, bool alreadyLinked) noexcept</td></tr>
 <tr class="memdesc:a7f0f0f4f71e52b8deb6fb88a8d6411d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Lien » sur <code class="param">clickedCell</code> selon l'attente courante.  <br /></td></tr>
+<tr class="memitem:aa391954b311db21fd63162e8ec40fcc5" id="r_aa391954b311db21fd63162e8ec40fcc5"><td class="memItemLeft"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa391954b311db21fd63162e8ec40fcc5">paletteThumbnail</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog, std::string_view setName)</td></tr>
+<tr class="memdesc:aa391954b311db21fd63162e8ec40fcc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la vignette à afficher pour un type de tuile dans la palette.  <br /></td></tr>
+<tr class="memitem:ab7217d187da26402006a3c0d1eb98cbb" id="r_ab7217d187da26402006a3c0d1eb98cbb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7217d187da26402006a3c0d1eb98cbb">buildSkinRows</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName)</td></tr>
+<tr class="memdesc:ab7217d187da26402006a3c0d1eb98cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes du panneau pour un jeu de skins donné.  <br /></td></tr>
+<tr class="memitem:acfc16de3fc9ebf22b724eeaa552313bf" id="r_acfc16de3fc9ebf22b724eeaa552313bf"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acfc16de3fc9ebf22b724eeaa552313bf">listSkinAssets</a> (const std::filesystem::path &amp;skinsDirectory)</td></tr>
+<tr class="memdesc:acfc16de3fc9ebf22b724eeaa552313bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste les fichiers de skins disponibles, par balayage d'un dossier.  <br /></td></tr>
+<tr class="memitem:a996180d6d3e7f5351cb2fd138872dbe4" id="r_a996180d6d3e7f5351cb2fd138872dbe4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a996180d6d3e7f5351cb2fd138872dbe4">applySkinAssignment</a> (<a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const std::string &amp;asset, <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> mode)</td></tr>
+<tr class="memdesc:a996180d6d3e7f5351cb2fd138872dbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique une assignation à un catalogue, ou la retire.  <br /></td></tr>
+<tr class="memitem:acf25ab803e9993cf5baab355d23f8ca9" id="r_acf25ab803e9993cf5baab355d23f8ca9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acf25ab803e9993cf5baab355d23f8ca9">taxonomyLabelKey</a> (const std::string &amp;label)</td></tr>
+<tr class="memdesc:acf25ab803e9993cf5baab355d23f8ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction d'un libellé de la taxonomie.  <br /></td></tr>
+<tr class="memitem:a62841e1d2bd66f14e276709d5f41acb0" id="r_a62841e1d2bd66f14e276709d5f41acb0"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a62841e1d2bd66f14e276709d5f41acb0">localizedTaxonomyLabel</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *loc, const std::string &amp;label)</td></tr>
+<tr class="memdesc:a62841e1d2bd66f14e276709d5f41acb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libellé de taxonomie traduit dans la langue active.  <br /></td></tr>
 <tr class="memitem:a324d7671eeb331de4b3459d66be9d0ca" id="r_a324d7671eeb331de4b3459d66be9d0ca"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca">tileTaxonomy</a> ()</td></tr>
 <tr class="memdesc:a324d7671eeb331de4b3459d66be9d0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.  <br /></td></tr>
 <tr class="memitem:ab940bcb1480c0e6616726dd361be3c1d" id="r_ab940bcb1480c0e6616726dd361be3c1d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab940bcb1480c0e6616726dd361be3c1d">assetFamilyName</a> (<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) noexcept</td></tr>
@@ -407,10 +465,20 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8e40b7d9a122c5304de1782b079c3637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom persisté d'un mode de rendu (valeur écrite dans les préférences).  <br /></td></tr>
 <tr class="memitem:a3159aa4ba6c589c9813db6e524f19785" id="r_a3159aa4ba6c589c9813db6e524f19785"><td class="memItemLeft"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3159aa4ba6c589c9813db6e524f19785">renderModeFromName</a> (const std::string &amp;name) noexcept</td></tr>
 <tr class="memdesc:a3159aa4ba6c589c9813db6e524f19785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de rendu correspondant à un nom persisté.  <br /></td></tr>
+<tr class="memitem:aacad28238195c8395f4229ab6d861b6d" id="r_aacad28238195c8395f4229ab6d861b6d"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aacad28238195c8395f4229ab6d861b6d">skinModeName</a> (<a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> mode) noexcept</td></tr>
+<tr class="memdesc:aacad28238195c8395f4229ab6d861b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom persisté d'un mode de skin (valeur écrite dans <span class="tt">skins.json</span>).  <br /></td></tr>
+<tr class="memitem:ab7a7e2e0b4ed018b8acae760f5678b94" id="r_ab7a7e2e0b4ed018b8acae760f5678b94"><td class="memItemLeft">std::optional&lt; <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7a7e2e0b4ed018b8acae760f5678b94">skinModeFromName</a> (std::string_view name) noexcept</td></tr>
+<tr class="memdesc:ab7a7e2e0b4ed018b8acae760f5678b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode de skin correspondant à un nom lu dans un fichier.  <br /></td></tr>
+<tr class="memitem:a8a000913259074c63f34b46b7d67864e" id="r_a8a000913259074c63f34b46b7d67864e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8a000913259074c63f34b46b7d67864e">hasSilhouette</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:a8a000913259074c63f34b46b7d67864e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile a une silhouette autre qu'un carré plein.  <br /></td></tr>
+<tr class="memitem:a4c1e8f8b25b6e5fe20c207887cd1dc33" id="r_a4c1e8f8b25b6e5fe20c207887cd1dc33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4c1e8f8b25b6e5fe20c207887cd1dc33">isInsideSilhouette</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, int localX, int localY, int size) noexcept</td></tr>
+<tr class="memdesc:a4c1e8f8b25b6e5fe20c207887cd1dc33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un pixel appartient à la <b>matière</b> d'une tuile à silhouette.  <br /></td></tr>
+<tr class="memitem:aff5a499bb21016a452b381ee65602b3a" id="r_aff5a499bb21016a452b381ee65602b3a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff5a499bb21016a452b381ee65602b3a">applySilhouetteMask</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, int width, int height, std::vector&lt; std::uint32_t &gt; &amp;pixels)</td></tr>
+<tr class="memdesc:aff5a499bb21016a452b381ee65602b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la silhouette d'un type à une image carrée, en rendant transparent l'extérieur.  <br /></td></tr>
 <tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a533df804a658915efda4f8f6c918496e">submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
-<tr class="memitem:a5c470a200f1476e14a200b1fabf4b18d" id="r_a5c470a200f1476e14a200b1fabf4b18d"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5c470a200f1476e14a200b1fabf4b18d">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
-<tr class="memdesc:a5c470a200f1476e14a200b1fabf4b18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène, atlas <b>et</b> damier de repli.  <br /></td></tr>
+<tr class="memitem:a61a3e541d9241813dbf1f451064898f2" id="r_a61a3e541d9241813dbf1f451064898f2"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a61a3e541d9241813dbf1f451064898f2">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={})</td></tr>
+<tr class="memdesc:a61a3e541d9241813dbf1f451064898f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
 <tr class="memitem:a32457118c4e60dff8da0ba9839c0f29a" id="r_a32457118c4e60dff8da0ba9839c0f29a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a">resolveOrPlaceholder</a> (<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const std::string &amp;fileName, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
 <tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
@@ -419,10 +487,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a98f0f2d822288b333e00905f4cc60165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée une texture Direct3D 11 immuable à partir de pixels RGBA déjà décodés.  <br /></td></tr>
 <tr class="memitem:af6ffcc39449660c80e3c1c5a53e6c1ec" id="r_af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6ffcc39449660c80e3c1c5a53e6c1ec">loadTextureFromFile</a> (ID3D11Device *device, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
-<tr class="memitem:a1294ade391964ea7b2c323d49903460d" id="r_a1294ade391964ea7b2c323d49903460d"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1294ade391964ea7b2c323d49903460d">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion) noexcept</td></tr>
-<tr class="memdesc:a1294ade391964ea7b2c323d49903460d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
-<tr class="memitem:a2c8e7957dacab70252bf7edbdc80422e" id="r_a2c8e7957dacab70252bf7edbdc80422e"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2c8e7957dacab70252bf7edbdc80422e">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas)</td></tr>
-<tr class="memdesc:a2c8e7957dacab70252bf7edbdc80422e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
+<tr class="memitem:ab158a76df687b49eeccc12df1438d3ce" id="r_ab158a76df687b49eeccc12df1438d3ce"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
+<tr class="memdesc:ab158a76df687b49eeccc12df1438d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
+<tr class="memitem:a6d5ae4c4504ac24560454bb394e9ad1a" id="r_a6d5ae4c4504ac24560454bb394e9ad1a"><td class="memItemLeft">std::uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a6d5ae4c4504ac24560454bb394e9ad1a">solidNeighborMask</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tiles, int column, int row) noexcept</td></tr>
+<tr class="memdesc:a6d5ae4c4504ac24560454bb394e9ad1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le masque de voisinage solide d'une case de la grille.  <br /></td></tr>
+<tr class="memitem:a34134b921b6e696d52d483a74483aab1" id="r_a34134b921b6e696d52d483a74483aab1"><td class="memItemLeft"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a>&#160;</td><td class="memItemRight"><a class="el" href="#a34134b921b6e696d52d483a74483aab1">autotileCell</a> (std::uint8_t mask) noexcept</td></tr>
+<tr class="memdesc:a34134b921b6e696d52d483a74483aab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case de la planche 4×4 correspondant à un masque de voisinage.  <br /></td></tr>
+<tr class="memitem:a9e828846d7bde545c8e1ec0a0b1fc73c" id="r_a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="memItemLeft"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e828846d7bde545c8e1ec0a0b1fc73c">autotileRepresentativeCell</a> () noexcept</td></tr>
+<tr class="memdesc:a9e828846d7bde545c8e1ec0a0b1fc73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case représentative d'une planche : l'<b>intérieur plein</b> (quatre voisins solides).  <br /></td></tr>
+<tr class="memitem:a597b9471d79c0d524b3dedbf52c2fac6" id="r_a597b9471d79c0d524b3dedbf52c2fac6"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6">regionForTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
+<tr class="memdesc:a597b9471d79c0d524b3dedbf52c2fac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3a1050ef6cc138977442e9d4206cb3b1">slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a3a1050ef6cc138977442e9d4206cb3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette inclinée/courbe : pentes/arrondis convexes ou concaves de <b>sol</b>, suivables (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>, <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-007</span>) ou de <b>plafond</b>, solides (<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span>).  <br /></td></tr>
 <tr class="memitem:ae5554638874ee3372dad502cfe2e594e" id="r_ae5554638874ee3372dad502cfe2e594e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae5554638874ee3372dad502cfe2e594e">gamepadButtonDisplayName</a> (<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> button)</td></tr>
@@ -450,6 +524,16 @@ Variables</h2></td></tr>
 <tr class="memdesc:ab6e44ad3d54b0383ef13f332d290df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>.  <br /></td></tr>
 <tr class="memitem:a6757e25cf3a1020826327afe0dd194d3" id="r_a6757e25cf3a1020826327afe0dd194d3"><td class="memItemLeft">constexpr <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a> = <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">RenderMode::Texture</a></td></tr>
 <tr class="memdesc:a6757e25cf3a1020826327afe0dd194d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode appliqué au premier lancement et à défaut de préférence exploitable.  <br /></td></tr>
+<tr class="memitem:a37c697d0c580a4d6aa3313ee67dc6103" id="r_a37c697d0c580a4d6aa3313ee67dc6103"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a37c697d0c580a4d6aa3313ee67dc6103">SILHOUETTE_TILE_TYPES</a> []</td></tr>
+<tr class="memdesc:a37c697d0c580a4d6aa3313ee67dc6103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les douze types de tuiles à silhouette <b>inclinée ou courbe</b>.  <br /></td></tr>
+<tr class="memitem:aa9e6d80a32a4e383a6413ef674feef96" id="r_aa9e6d80a32a4e383a6413ef674feef96"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa9e6d80a32a4e383a6413ef674feef96">SILHOUETTE_TILE_TYPE_COUNT</a></td></tr>
+<tr class="memdesc:aa9e6d80a32a4e383a6413ef674feef96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de types à silhouette.  <br /></td></tr>
+<tr class="memitem:ab94e51ddc058f58bc9dd1692a7568be0" id="r_ab94e51ddc058f58bc9dd1692a7568be0"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab94e51ddc058f58bc9dd1692a7568be0">SKINS_SUBDIRECTORY</a> = &quot;Skins/&quot;</td></tr>
+<tr class="memdesc:ab94e51ddc058f58bc9dd1692a7568be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des skins de tuiles, relatif au dossier d'assets (<span class="tt">LOT-42</span>).  <br /></td></tr>
+<tr class="memitem:a645fa51fe9636c77f3b67558bb094d23" id="r_a645fa51fe9636c77f3b67558bb094d23"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a645fa51fe9636c77f3b67558bb094d23">AUTOTILE_SHEET_SIDE</a> = 4</td></tr>
+<tr class="memdesc:a645fa51fe9636c77f3b67558bb094d23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).  <br /></td></tr>
+<tr class="memitem:a58aec3b5e8b7ff780934f969eb35febb" id="r_a58aec3b5e8b7ff780934f969eb35febb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a58aec3b5e8b7ff780934f969eb35febb">AUTOTILE_CONFIGURATION_COUNT</a> = <a class="el" href="#a645fa51fe9636c77f3b67558bb094d23">AUTOTILE_SHEET_SIDE</a> * <a class="el" href="#a645fa51fe9636c77f3b67558bb094d23">AUTOTILE_SHEET_SIDE</a></td></tr>
+<tr class="memdesc:a58aec3b5e8b7ff780934f969eb35febb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de configurations de voisinage distinctes.  <br /></td></tr>
 <tr class="memitem:af2f4a1af04682540c1b84611a24aa42c" id="r_af2f4a1af04682540c1b84611a24aa42c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c">EDITOR_ACTION_COUNT</a> = 9</td></tr>
 <tr class="memdesc:af2f4a1af04682540c1b84611a24aa42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">EditorAction</a></span>).  <br /></td></tr>
 <tr class="memitem:ab42b3bed825ef5b3664995a516c4eb8d" id="r_ab42b3bed825ef5b3664995a516c4eb8d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ab42b3bed825ef5b3664995a516c4eb8d">GAME_ACTION_COUNT</a> = 6</td></tr>
@@ -501,6 +585,8 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f" name="ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f"></a>Atlas&#160;</td><td class="fielddoc"><p>Atlas du jeu : couleur plate par type de tuile, images du personnage, aides d'édition. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f" name="ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f"></a>MissingTexture&#160;</td><td class="fielddoc"><p>Damier magenta de repli : texture attendue mais pas encore disponible (<span class="tt">EX-NFR-040</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf" name="ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf"></a>Skin&#160;</td><td class="fielddoc"><p>Skin assigné au type de tuile, désigné par <span class="tt"><a class="el" href="structhmi_1_1TileAppearance.html#a785246a0c5ccb220dedafb953211e5f2" title="Index du skin dans hmi::SceneTextures::skins.">hmi::TileAppearance::skinIndex</a></span> (<span class="tt">LOT-42</span>). </p>
 </td></tr>
 </table>
 
@@ -832,6 +918,65 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a904bd9605b7079403b098a5e97e9726e" name="a904bd9605b7079403b098a5e97e9726e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a904bd9605b7079403b098a5e97e9726e">&#9670;&#160;</a></span>NeighborBits</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a904bd9605b7079403b098a5e97e9726e">hmi::NeighborBits</a> : std::uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bits du masque de voisinage, un par voisin <b>orthogonal</b> solide. </p>
+<p>Quatre voisins et non huit : seize configurations couvrent bords et coins concaves, et demandent à l'auteur une planche de seize cases plutôt que quarante-sept — proportionné à un jeu dont les assets sont dessinés à la main. Le champ <span class="tt">mode</span> de <span class="tt"><a class="el" href="structhmi_1_1SkinEntry.html" title="Apparence assignée à un type de tuile : le fichier à utiliser et son découpage.">hmi::SkinEntry</a></span> permettra d'ajouter un <span class="tt">bitmask47</span> sans refonte si ce rendu s'avère insuffisant. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899" name="a904bd9605b7079403b098a5e97e9726ea61271f72df64bd77b3a36dd3cd10c899"></a>NEIGHBOR_UP&#160;</td><td class="fielddoc"><p>Voisin du dessus solide. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a" name="a904bd9605b7079403b098a5e97e9726ea6dec95bf21538a7b8aa476a3ab10274a"></a>NEIGHBOR_RIGHT&#160;</td><td class="fielddoc"><p>Voisin de droite solide. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a904bd9605b7079403b098a5e97e9726eacb74c4b7fffb91a3bb82742c2f5383b4" name="a904bd9605b7079403b098a5e97e9726eacb74c4b7fffb91a3bb82742c2f5383b4"></a>NEIGHBOR_DOWN&#160;</td><td class="fielddoc"><p>Voisin du dessous solide. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a904bd9605b7079403b098a5e97e9726ea68f6464eef6db912e7119136d0434a4e" name="a904bd9605b7079403b098a5e97e9726ea68f6464eef6db912e7119136d0434a4e"></a>NEIGHBOR_LEFT&#160;</td><td class="fielddoc"><p>Voisin de gauche solide. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a484fc821d307ce050da2a61ed1760a8d" name="a484fc821d307ce050da2a61ed1760a8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484fc821d307ce050da2a61ed1760a8d">&#9670;&#160;</a></span>PaletteThumbnailSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a484fc821d307ce050da2a61ed1760a8d">hmi::PaletteThumbnailSource</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>D'où provient la vignette affichée par la palette pour un type de tuile. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f" name="a484fc821d307ce050da2a61ed1760a8daa6567816e007283cf9781c35b95dd56f"></a>Atlas&#160;</td><td class="fielddoc"><p>Couleur plate de l'atlas : mode Physique, ou repli si l'atlas fait foi. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf" name="a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf"></a>Skin&#160;</td><td class="fielddoc"><p>Fichier de skin, dans le dossier <span class="tt">Assets/Skins/</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f" name="a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f"></a>MissingTexture&#160;</td><td class="fielddoc"><p>Damier magenta : le type n'est pas encore habillé (<span class="tt">EX-NFR-040</span>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa9ff839f9bcc1bb899b24cb8026ab2b3" name="aa9ff839f9bcc1bb899b24cb8026ab2b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">&#9670;&#160;</a></span>QuadKind</h2>
 
@@ -931,7 +1076,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Mode de rendu de la scène : lecture directe des collisions, ou habillage. </p>
-<p>Deux valeurs, jamais trois : la superposition et le contrôle <b>fin par calque</b> relèvent de <span class="tt">LOT-51</span> et sont délibérément une autre notion. La bascule est purement <b>visuelle</b> — elle ne touche ni la simulation, ni la scène ECS, seulement la résolution de l'apparence (<span class="tt"><a class="el" href="#a1294ade391964ea7b2c323d49903460d" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>). </p>
+<p>Deux valeurs, jamais trois : la superposition et le contrôle <b>fin par calque</b> relèvent de <span class="tt">LOT-51</span> et sont délibérément une autre notion. La bascule est purement <b>visuelle</b> — elle ne touche ni la simulation, ni la scène ECS, seulement la résolution de l'apparence (<span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" name="ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb"></a>Physique&#160;</td><td class="fielddoc"><p>Couleur plate par type de tuile : la géométrie de collision se lit directement à l'écran. </p>
 </td></tr>
@@ -942,7 +1087,168 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae064c48cb814db754a1228bda7b8d77d" name="ae064c48cb814db754a1228bda7b8d77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae064c48cb814db754a1228bda7b8d77d">&#9670;&#160;</a></span>SkinCatalogError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ae064c48cb814db754a1228bda7b8d77d">hmi::SkinCatalogError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégorie d'échec de lecture d'un <span class="tt">skins.json</span> (même esprit que <span class="tt"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823" title="Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).">core::LevelValidationError</a></span>). </p>
+<p>Complète le message technique d'un code <b>programmatique</b>, pour qu'un appelant puisse réagir sans analyser le texte du message — une comparaison de sous-chaînes se casserait à la première reformulation. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae064c48cb814db754a1228bda7b8d77da6adf97f83acf6453d4a6a4b1070f3754" name="ae064c48cb814db754a1228bda7b8d77da6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Pas d'erreur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae064c48cb814db754a1228bda7b8d77da2767828026039e8ba7b38973cbb701f2" name="ae064c48cb814db754a1228bda7b8d77da2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier absent. Cas <b>légitime</b>, pas une anomalie (voir ci-dessous). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae064c48cb814db754a1228bda7b8d77dae41199faa7290c167f70f314c5e6c165" name="ae064c48cb814db754a1228bda7b8d77dae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"><p>JSON malformé, ou racine qui n'est pas un objet. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae064c48cb814db754a1228bda7b8d77da0f89bc98e9b12bdeda0604e57bdc0518" name="ae064c48cb814db754a1228bda7b8d77da0f89bc98e9b12bdeda0604e57bdc0518"></a>UnsupportedVersion&#160;</td><td class="fielddoc"><p>Numéro de version supérieur à <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729" title="Version du format écrite dans le fichier, et plus élevée qui soit lue.">SkinCatalog::FORMAT_VERSION</a></span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d" name="ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d"></a>MalformedStructure&#160;</td><td class="fielddoc"><p>Structure inattendue (« jeux » absent, entrée sans « asset »…). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ac69176e5c8acf86f4990696f7f54f11e" name="ac69176e5c8acf86f4990696f7f54f11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69176e5c8acf86f4990696f7f54f11e">&#9670;&#160;</a></span>SkinMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">hmi::SkinMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manière dont l'asset d'un type de tuile est découpé à l'affichage (<span class="tt">EX-EDIT-025</span>). </p>
+<p>Le mode est porté <b>par type</b>, jamais par jeu : un même jeu contient des types à raccords (les solides) et des types à image unique (dangers, mécanismes). Un mode global forcerait des exceptions dans le code de rendu. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" name="ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e"></a>Single&#160;</td><td class="fielddoc"><p>Image unique, utilisée telle quelle. </p>
+<p>Seul mode qui ait un sens pour un type dont le voisinage n'en a pas : dangers, interrupteurs, portes, blocs, pentes et arrondis. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522" name="ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522"></a>Bitmask16&#160;</td><td class="fielddoc"><p>Planche de 4×4 cases, dont celle affichée est choisie selon les quatre voisins solides (<span class="tt"><a class="el" href="#a34134b921b6e696d52d483a74483aab1" title="Case de la planche 4×4 correspondant à un masque de voisinage.">hmi::autotileCell</a></span>). </p>
+<p>Dé-répétition et bords distincts de l'intérieur. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aff5a499bb21016a452b381ee65602b3a" name="aff5a499bb21016a452b381ee65602b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff5a499bb21016a452b381ee65602b3a">&#9670;&#160;</a></span>applySilhouetteMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applySilhouetteMask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::uint32_t &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>pixels</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applique la silhouette d'un type à une image carrée, en rendant transparent l'extérieur. </p>
+<p>L'artiste peint un carré plein ; le moteur le découpe à la forme exacte de la hitbox. Sur une case de 16×16 le coût est négligeable, mais le résultat n'en est pas moins mis en cache (<span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>) plutôt que recalculé à chaque image.</p>
+<p>Sans effet si <code class="param">type</code> n'a pas de silhouette, ou si l'image n'est pas carrée — un skin destiné à un type carré ne doit pas être découpé par accident. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile dont on applique la silhouette. </td></tr>
+    <tr><td class="paramname">width</td><td>Largeur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">height</td><td>Hauteur de l'image, en pixels. </td></tr>
+    <tr><td class="paramname">pixels</td><td>Pixels <span class="tt">R8G8B8A8_UNORM</span>, modifiés sur place ; taille attendue <span class="tt">width * height</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a996180d6d3e7f5351cb2fd138872dbe4" name="a996180d6d3e7f5351cb2fd138872dbe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a996180d6d3e7f5351cb2fd138872dbe4">&#9670;&#160;</a></span>applySkinAssignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::applySkinAssignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>setName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>asset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applique une assignation à un catalogue, ou la retire. </p>
+<p>Point unique de la modification, pour que le panneau n'ait pas à décider lui-même ce que signifie « aucun skin » — un <span class="tt">asset</span> vide <b>retire</b> l'assignation, et le type redevient non skinné plutôt que d'être associé à un fichier de nom vide. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">catalog</td><td>Catalogue modifié. </td></tr>
+    <tr><td class="paramname">setName</td><td>Jeu concerné ; vide pour le jeu par défaut du catalogue. </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+    <tr><td class="paramname">asset</td><td>Fichier à assigner, ou chaîne vide pour retirer l'assignation. </td></tr>
+    <tr><td class="paramname">mode</td><td>Mode de découpage appliqué si <code class="param">asset</code> est renseigné. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a42f96951bfec11435da37c91ee377046" name="a42f96951bfec11435da37c91ee377046"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42f96951bfec11435da37c91ee377046">&#9670;&#160;</a></span>arrowHead()</h2>
 
@@ -1050,6 +1356,68 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a34134b921b6e696d52d483a74483aab1" name="a34134b921b6e696d52d483a74483aab1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34134b921b6e696d52d483a74483aab1">&#9670;&#160;</a></span>autotileCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a> hmi::autotileCell </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t</td>          <td class="paramname"><span class="paramname"><em>mask</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Case de la planche 4×4 correspondant à un masque de voisinage. </p>
+<p>La correspondance est une constante figée, documentée configuration par configuration dans l'implémentation, et vérifiée exhaustivement sur les seize valeurs. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td>Masque de voisinage (seuls les quatre bits de poids faible sont lus). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La case à échantillonner dans la planche. </dd></dl>
+
+</div>
+</div>
+<a id="a9e828846d7bde545c8e1ec0a0b1fc73c" name="a9e828846d7bde545c8e1ec0a0b1fc73c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e828846d7bde545c8e1ec0a0b1fc73c">&#9670;&#160;</a></span>autotileRepresentativeCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a> hmi::autotileRepresentativeCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Case représentative d'une planche : l'<b>intérieur plein</b> (quatre voisins solides). </p>
+<p>Utilisée là où une seule image doit résumer un skin à raccords — la vignette de la palette de l'éditeur (<span class="tt">EX-EDIT-027</span>). L'intérieur plein est le motif de fond du skin ; la case zéro, elle, serait la tuile isolée, un cas particulier peu représentatif. </p><dl class="section return"><dt>Returns</dt><dd>La case d'intérieur plein. </dd></dl>
+
+</div>
+</div>
 <a id="a5308a5fca2e3f3a42451aaf1719d3ab4" name="a5308a5fca2e3f3a42451aaf1719d3ab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5308a5fca2e3f3a42451aaf1719d3ab4">&#9670;&#160;</a></span>buildLinkRows()</h2>
 
@@ -1143,6 +1511,48 @@ Variables</h2></td></tr>
 
 <p>Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>. </p>
 <p>Logique pure (<span class="tt">EX-NFR-010</span>), sans dépendance Direct3D/Qt : utilisée à la fois par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (repli si l'asset fichier est absent/illisible, <span class="tt">EX-NFR-040</span>) et par l'export ponctuel de l'atlas de base en fichier (<span class="tt">--export-atlas</span>, cf. <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>), pour que les deux chemins restent l'unique source de vérité de ce contenu. </p><dl class="section return"><dt>Returns</dt><dd>L'image générée (dimensions et pixels). </dd></dl>
+
+</div>
+</div>
+<a id="ab7217d187da26402006a3c0d1eb98cbb" name="ab7217d187da26402006a3c0d1eb98cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7217d187da26402006a3c0d1eb98cbb">&#9670;&#160;</a></span>buildSkinRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a> &gt; hmi::buildSkinRows </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>setName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit les lignes du panneau pour un jeu de skins donné. </p>
+<p>Réutilise la <b>taxonomie de la palette</b> (<span class="tt"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca" title="Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.">hmi::tileTaxonomy</a></span>) plutôt que d'énumérer les trente types à plat : une liste plate serait inutilisable, et deux organisations différentes entre la palette et ce panneau obligeraient le level designer à réapprendre où trouver chaque tuile.</p>
+<p>Les sous-groupes de la taxonomie sont <b>aplatis</b> dans leur catégorie : le panneau n'a pas de sélection à opérer, seulement une assignation par type, et un troisième niveau de repli n'apporterait rien.</p>
+<p><span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></span> est exclu : une case vide n'affiche rien, elle n'a pas d'apparence à assigner.</p>
+<p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">catalog</td><td>Catalogue interrogé pour l'assignation courante de chaque type. </td></tr>
+    <tr><td class="paramname">setName</td><td>Nom du jeu de skins consulté ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les sections, dans l'ordre de la taxonomie. </dd></dl>
 
 </div>
 </div>
@@ -1252,7 +1662,7 @@ Variables</h2></td></tr>
 <p>Compose les entités affichables d'un monde ECS en primitives. </p>
 <p>Parcourt les entités portant un <span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> <b>et</b> un <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, résout la région d'atlas en coordonnées de texture normalisées, applique l'interpolation de rendu (<span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span>) et empile un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span> par entité. Lecture <b>seule</b> de l'ECS (<span class="tt">EX-ARCH-012</span>) : ni la simulation ni l'interpolation ne sont affectées, y compris pour une entité écartée par le culling (elle reste simulée, elle n'est simplement pas dessinée).</p>
 <p>Le calque de chaque entité vient de son <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>, ou vaut <span class="tt"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46" title="Calque appliqué à une entité dépourvue de hmi::RenderLayerTag.">hmi::DEFAULT_RENDER_LAYER</a></span> en son absence ; <span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span> reste le tri <b>fin</b> à l'intérieur de ce calque.</p>
-<p>L'apparence de chaque entité — texture liée et région échantillonnée — est résolue <b>ici</b>, à la composition, par <span class="tt"><a class="el" href="#a1294ade391964ea7b2c323d49903460d" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> (<span class="tt">LOT-41</span>) : changer de mode de rendu ne reconstruit donc jamais la scène ECS. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>L'apparence de chaque entité — texture liée et région échantillonnée — est résolue <b>ici</b>, à la composition, par <span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span> (<span class="tt">LOT-41</span>) : changer de mode de rendu ne reconstruit donc jamais la scène ECS. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scene</td><td>Scène à remplir (non vidée : la composition peut être cumulative). </td></tr>
     <tr><td class="paramname">world</td><td>Monde dont on lit <span class="tt">Transform</span>, <span class="tt">Sprite</span>, <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">PreviousPosition</a></span>, <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">RenderLayerTag</a></span>. </td></tr>
@@ -1519,6 +1929,93 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8a000913259074c63f34b46b7d67864e" name="a8a000913259074c63f34b46b7d67864e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a000913259074c63f34b46b7d67864e">&#9670;&#160;</a></span>hasSilhouette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::hasSilhouette </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si un type de tuile a une silhouette autre qu'un carré plein. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour les douze pentes et arrondis, false pour tous les autres types — qui ne doivent jamais être détourés. </dd></dl>
+
+</div>
+</div>
+<a id="a4c1e8f8b25b6e5fe20c207887cd1dc33" name="a4c1e8f8b25b6e5fe20c207887cd1dc33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c1e8f8b25b6e5fe20c207887cd1dc33">&#9670;&#160;</a></span>isInsideSilhouette()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isInsideSilhouette </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>localX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>localY</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si un pixel appartient à la <b>matière</b> d'une tuile à silhouette. </p>
+<p><b>Point de vérité unique</b> de la silhouette affichée, partagé par la génération de l'atlas procédural (<span class="tt">hmi::buildProceduralAtlas</span>) et par le détourage des skins (<span class="tt">LOT-42</span>). La géométrie elle-même reste celle de <span class="tt">Core</span> — <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></span>, <span class="tt"><a class="el" href="namespacecore.html#a391389199b2161535d2aa57f225ef65f">core::isCeilingSlope</a></span>, les fonctions que suit la <b>physique</b>. La réimplémenter ici ferait diverger l'affichage de la hitbox, précisément le défaut que le projet évite depuis le <span class="tt">LOT-22</span>.</p>
+<p>La bordure est <b>franche</b> (dedans/dehors, jamais d'anticrénelage) : le rendu est en pixel art filtré en plus proche voisin (<span class="tt">EX-ARCH-022</span>), un bord adouci créerait un halo.</p>
+<p>L'échantillonnage se fait au <b>bord</b> des pixels de coin et non à leur centre : sans cela, la colonne de pixels la plus proche du bord plein d'un arrondi <b>concave</b> (tangente quasi verticale à cet endroit) manque la vraie valeur de bord d'environ un quart de case, visible comme une encoche là où la silhouette doit au contraire être quasiment pleine. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile ; un type sans silhouette rend toujours true (carré plein). </td></tr>
+    <tr><td class="paramname">localX</td><td>Colonne du pixel dans la case, 0-based. </td></tr>
+    <tr><td class="paramname">localY</td><td>Ligne du pixel dans la case, 0-based. </td></tr>
+    <tr><td class="paramname">size</td><td>Côté de la case en pixels (doit être supérieur à 1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true si le pixel est dans la matière, false s'il est du côté vide. </dd></dl>
+
+</div>
+</div>
 <a id="abc01bff6f3bc784144a6436903733777" name="abc01bff6f3bc784144a6436903733777"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc01bff6f3bc784144a6436903733777">&#9670;&#160;</a></span>isLinkTargetTile()</h2>
 
@@ -1724,6 +2221,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="acfc16de3fc9ebf22b724eeaa552313bf" name="acfc16de3fc9ebf22b724eeaa552313bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc16de3fc9ebf22b724eeaa552313bf">&#9670;&#160;</a></span>listSkinAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::listSkinAssets </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>skinsDirectory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Liste les fichiers de skins disponibles, par balayage d'un dossier. </p>
+<p>Le level designer choisit dans cette liste : aucune saisie de chemin, qui serait à la fois pénible et source de configurations invalides. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skinsDirectory</td><td>Dossier balayé (typiquement <span class="tt"><a class="el" href="#a18648161d8a6c752202b6034613a947b" title="Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...">executableDirectory()</a>/Assets/Skins</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les noms de fichiers image, triés par ordre alphabétique ; vide si le dossier est absent — un état de départ légitime, pas une erreur. </dd></dl>
+
+</div>
+</div>
 <a id="af6ffcc39449660c80e3c1c5a53e6c1ec" name="af6ffcc39449660c80e3c1c5a53e6c1ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6ffcc39449660c80e3c1c5a53e6c1ec">&#9670;&#160;</a></span>loadTextureFromFile()</h2>
 
@@ -1763,6 +2294,45 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a62841e1d2bd66f14e276709d5f41acb0" name="a62841e1d2bd66f14e276709d5f41acb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62841e1d2bd66f14e276709d5f41acb0">&#9670;&#160;</a></span>localizedTaxonomyLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::localizedTaxonomyLabel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *</td>          <td class="paramname"><span class="paramname"><em>loc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>label</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Libellé de taxonomie traduit dans la langue active. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loc</td><td>Catalogue de traduction, ou <span class="tt">nullptr</span> avant la première retraduction. </td></tr>
+    <tr><td class="paramname">label</td><td>Libellé issu de la taxonomie. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le libellé traduit, ou le libellé source à défaut de catalogue ou de clé. </dd></dl>
+
+</div>
+</div>
 <a id="a23394f99f0606e53aafbeca5ed51496b" name="a23394f99f0606e53aafbeca5ed51496b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23394f99f0606e53aafbeca5ed51496b">&#9670;&#160;</a></span>missingTextureWarning()</h2>
 
@@ -1797,6 +2367,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa391954b311db21fd63162e8ec40fcc5" name="aa391954b311db21fd63162e8ec40fcc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa391954b311db21fd63162e8ec40fcc5">&#9670;&#160;</a></span>paletteThumbnail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a> hmi::paletteThumbnail </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>physicalRegion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>setName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Choisit la vignette à afficher pour un type de tuile dans la palette. </p>
+<p>Peindre sans voir ce que l'on pose serait une régression d'usage introduite par le <span class="tt">LOT-42</span> lui-même : dès que le canevas affiche des textures, une palette qui continue de montrer des pastilles de couleur fait choisir « la tuile violette » à l'aveugle.</p>
+<p>Applique <b>exactement</b> la même priorité que le canevas (<span class="tt"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>) — mode Physique → couleur plate ; sinon skin assigné ; sinon damier. Les deux ne peuvent diverger que si l'on duplique la décision, d'où cette fonction unique plutôt qu'un choix pris dans le widget.</p>
+<p>Un type en mode <span class="tt">bitmask16</span> rend la case <b>représentative</b> de la planche (l'intérieur plein) : la planche entière serait illisible en vignette, et la case zéro — la tuile isolée — serait un cas particulier peu représentatif du motif.</p>
+<p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt">EX-REN-046</span>). </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile dont on veut la vignette. </td></tr>
+    <tr><td class="paramname">physicalRegion</td><td>Région d'atlas du type en mode Physique (<span class="tt"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span>). </td></tr>
+    <tr><td class="paramname">catalog</td><td>Catalogue des skins, ou <span class="tt">nullptr</span> si aucun n'est chargé. </td></tr>
+    <tr><td class="paramname">setName</td><td>Jeu de skins courant ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La vignette à afficher. </dd></dl>
+
+</div>
+</div>
 <a id="a1b53de392afb0dfdf5cdef4543fb672d" name="a1b53de392afb0dfdf5cdef4543fb672d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b53de392afb0dfdf5cdef4543fb672d">&#9670;&#160;</a></span>qtKeyToHmiKey()</h2>
 
@@ -1825,8 +2455,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c8e7957dacab70252bf7edbdc80422e" name="a2c8e7957dacab70252bf7edbdc80422e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c8e7957dacab70252bf7edbdc80422e">&#9670;&#160;</a></span>regionForTile()</h2>
+<a id="a597b9471d79c0d524b3dedbf52c2fac6" name="a597b9471d79c0d524b3dedbf52c2fac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a597b9471d79c0d524b3dedbf52c2fac6">&#9670;&#160;</a></span>regionForTile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1837,12 +2467,8 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::regionForTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>atlas</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1853,10 +2479,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Région d'atlas (couleur procédurale) associée à un type de tuile. </p>
-<p><b>Unique</b> correspondance type → région, utilisée par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a></span> (rendu d'un niveau joué), <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> (canevas de l'éditeur) et la palette de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous-groupes → tuiles.">hmi::PalettePanel</a></span>) : le canevas de l'éditeur est un aperçu <b>fidèle</b> (même forme — triangle/courbe pour les pentes/ arrondis, <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>, <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span> — et, combinée à <span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span> côté appelant, même taille pour les blocs réduits, <span class="tt">EX-GP-005</span>) de ce que le joueur verra en jouant le niveau (<span class="tt">P</span>), sans simplification qui pourrait induire en erreur pendant l'édition. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><b>Unique</b> correspondance type → région, utilisée par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a></span> (rendu d'un niveau joué), <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> (canevas de l'éditeur) et la palette de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous-groupes → tuiles.">hmi::PalettePanel</a></span>) : le canevas de l'éditeur est un aperçu <b>fidèle</b> (même forme — triangle/courbe pour les pentes/ arrondis, <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>, <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span> — et, combinée à <span class="tt"><a class="el" href="namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a" title="Facteur de taille visuel/collision d&#39;une tuile bloc réduite (EX-GP-005).">core::tileVisualScale</a></span> côté appelant, même taille pour les blocs réduits, <span class="tt">EX-GP-005</span>) de ce que le joueur verra en jouant le niveau (<span class="tt">P</span>), sans simplification qui pourrait induire en erreur pendant l'édition. Ne dépend que de la <b>géométrie de grille</b> de <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> (constantes et découpage statiques), jamais d'une texture chargée : la palette de l'éditeur peut donc l'appeler sans device Direct3D, ce qu'un widget Qt ne doit de toute façon jamais exiger. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>Type de tuile (<span class="tt">Empty</span> renvoie une région arbitraire, jamais dessinée en pratique — les cases vides ne sont pas rendues par l'appelant). </td></tr>
-    <tr><td class="paramname">atlas</td><td>Atlas fournissant les régions. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2062,8 +2687,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a1294ade391964ea7b2c323d49903460d" name="a1294ade391964ea7b2c323d49903460d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1294ade391964ea7b2c323d49903460d">&#9670;&#160;</a></span>resolveTileAppearance()</h2>
+<a id="ab158a76df687b49eeccc12df1438d3ce" name="ab158a76df687b49eeccc12df1438d3ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab158a76df687b49eeccc12df1438d3ce">&#9670;&#160;</a></span>resolveTileAppearance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2079,7 +2704,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>physicalRegion</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>physicalRegion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *</td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -2091,18 +2726,21 @@ Variables</h2></td></tr>
 
 <p>Résout l'apparence d'une entité affichée selon le mode de rendu courant. </p>
 <p><b>Point d'appel unique</b> de cette décision, partagé par le jeu et l'éditeur : c'est ce qui garantit que le canevas de l'éditeur montre exactement ce que le joueur verra. Fonction <b>pure</b> (aucune dépendance GPU), appelée à la <b>composition</b> et non à la construction de la scène : basculer de mode ne reconstruit donc jamais l'ECS, seule la résolution change.</p>
-<p>Deux branches à ce stade :</p><ul>
-<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" title="Couleur plate par type de tuile : la géométrie de collision se lit directement à l&#39;écran.">RenderMode::Physique</a></span> → la région d'atlas déjà portée par le <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, c'est-à-dire le résultat de <span class="tt"><a class="el" href="#a2c8e7957dacab70252bf7edbdc80422e" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> — comportement strictement inchangé ;</li>
-<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> → le damier magenta en entier, aucun skin n'existant encore.</li>
-</ul>
-<p>Les branches suivantes (<span class="tt">LOT-42</span> : surcharge par case &gt; skin de tuile &gt; damier) s'inséreront <b>ici</b>, sans changer la forme de la fonction ni ses appelants. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Ordre de priorité en mode Texture (<span class="tt">LOT-42</span>) : <b>skin de tuile &gt; damier</b>. La surcharge par case viendra s'insérer en tête au <span class="tt">LOT-45</span>, sans changer la forme de la fonction.</p><ul>
+<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54acda371792a8e564f310b48ba0004f5eb" title="Couleur plate par type de tuile : la géométrie de collision se lit directement à l&#39;écran.">RenderMode::Physique</a></span> → la région d'atlas déjà portée par le <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>, c'est-à-dire le résultat de <span class="tt"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> — comportement strictement inchangé, quel que soit le reste ;</li>
+<li><span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span> + entité habillable dont le type est skinné <b>et</b> dont le skin est chargé → la case du skin (l'image entière en mode <span class="tt">single</span>, la case choisie par les raccords en mode <span class="tt">bitmask16</span>) ;</li>
+<li>tout autre cas (entité sans <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span>, type non skinné, asset absent ou refusé) → le damier magenta en entier. C'est un état <b>normal</b> du programme d'habillage tant que tous les types ne sont pas habillés, pas un défaut (<span class="tt">EX-NFR-040</span>). <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mode</td><td>Mode de rendu courant. </td></tr>
     <tr><td class="paramname">physicalRegion</td><td>Région d'atlas de l'entité en mode Physique (<span class="tt"><a class="el" href="structcore_1_1Sprite.html#a6388caacbea8c28cb9e8956cd46e9b2c" title="Région de l&#39;atlas à échantillonner (en pixels).">core::Sprite::region</a></span>). </td></tr>
+    <tr><td class="paramname">tag</td><td>Type et voisinage de la tuile, ou <span class="tt">nullptr</span> pour une entité non habillable (personnage, aides d'édition) — qui reste alors au damier en mode Texture. </td></tr>
+    <tr><td class="paramname">textures</td><td>Textures liables, catalogue et jeu de skins courant. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'apparence à utiliser pour composer la primitive. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -2145,8 +2783,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5c470a200f1476e14a200b1fabf4b18d" name="a5c470a200f1476e14a200b1fabf4b18d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c470a200f1476e14a200b1fabf4b18d">&#9670;&#160;</a></span>sceneTextures()</h2>
+<a id="a61a3e541d9241813dbf1f451064898f2" name="a61a3e541d9241813dbf1f451064898f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61a3e541d9241813dbf1f451064898f2">&#9670;&#160;</a></span>sceneTextures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2162,7 +2800,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>skins</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -2172,15 +2820,17 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Textures liables par la composition d'une scène, atlas <b>et</b> damier de repli. </p>
-<p>Point d'assemblage unique, partagé par le jeu et l'éditeur (<span class="tt">LOT-41</span>) : le damier est résolu <b>à la demande</b> auprès du cache, donc créé seulement si un rendu en mode Texture a lieu. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Textures liables par la composition d'une scène : atlas, damier de repli et skins. </p>
+<p>Point d'assemblage unique, partagé par le jeu et l'éditeur (<span class="tt">LOT-41</span>) : le damier est résolu <b>à la demande</b> auprès du cache, donc créé seulement si un rendu en mode Texture a lieu. Les skins du jeu courant sont chargés par le même cache, qui ne relit le disque qu'au premier accès et mémorise aussi les échecs — appeler cette fonction à chaque image reste donc bon marché. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">atlas</td><td>Atlas du jeu. </td></tr>
-    <tr><td class="paramname">cache</td><td>Cache de textures, propriétaire du damier partagé. </td></tr>
+    <tr><td class="paramname">cache</td><td>Cache de textures, propriétaire du damier partagé et des skins. </td></tr>
+    <tr><td class="paramname">skins</td><td>Catalogue des jeux de skins, ou <span class="tt">nullptr</span> si aucun n'est chargé (<span class="tt">LOT-42</span>). </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu de skins courant ; vide pour le jeu par défaut du catalogue. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les deux textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -2218,6 +2868,74 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab7a7e2e0b4ed018b8acae760f5678b94" name="ab7a7e2e0b4ed018b8acae760f5678b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a7e2e0b4ed018b8acae760f5678b94">&#9670;&#160;</a></span>skinModeFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> &gt; hmi::skinModeFromName </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mode de skin correspondant à un nom lu dans un fichier. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nom lu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le mode correspondant, ou <span class="tt">std::nullopt</span> si <code class="param">name</code> n'en désigne aucun — un mode inconnu est une donnée invalide à signaler, jamais un mode deviné. </dd></dl>
+
+</div>
+</div>
+<a id="aacad28238195c8395f4229ab6d861b6d" name="aacad28238195c8395f4229ab6d861b6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacad28238195c8395f4229ab6d861b6d">&#9670;&#160;</a></span>skinModeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * hmi::skinModeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom persisté d'un mode de skin (valeur écrite dans <span class="tt">skins.json</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode à nommer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">"single"</span> ou <span class="tt">"bitmask16"</span> (chaîne statique, jamais nulle). </dd></dl>
+
+</div>
+</div>
 <a id="a3a1050ef6cc138977442e9d4206cb3b1" name="a3a1050ef6cc138977442e9d4206cb3b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a1050ef6cc138977442e9d4206cb3b1">&#9670;&#160;</a></span>slopeTileGridPosition()</h2>
 
@@ -2242,13 +2960,61 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette inclinée/courbe : pentes/arrondis convexes ou concaves de <b>sol</b>, suivables (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>, <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-007</span>) ou de <b>plafond</b>, solides (<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span>). </p>
-<p>Seule source de vérité pour cette association : utilisée par <span class="tt"><a class="el" href="#a2c8e7957dacab70252bf7edbdc80422e" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">regionForTile</a></span> (couleur) <b>et</b> par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></span> (génération d'un masque de forme triangulaire/courbe à cet emplacement, plutôt qu'un carré plein, pour que l'affichage corresponde à la silhouette réelle — hitbox pour les variantes de sol via <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, silhouette purement visuelle pour les variantes de plafond, solides par ailleurs) — dupliquer ces coordonnées aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Seule source de vérité pour cette association : utilisée par <span class="tt"><a class="el" href="#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">regionForTile</a></span> (couleur) <b>et</b> par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">TextureAtlas</a></span> (génération d'un masque de forme triangulaire/courbe à cet emplacement, plutôt qu'un carré plein, pour que l'affichage corresponde à la silhouette réelle — hitbox pour les variantes de sol via <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, silhouette purement visuelle pour les variantes de plafond, solides par ailleurs) — dupliquer ces coordonnées aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position dans la grille, ou <span class="tt">std::nullopt</span> si <code class="param">type</code> n'a pas de silhouette inclinée/ courbe. </dd></dl>
+
+</div>
+</div>
+<a id="a6d5ae4c4504ac24560454bb394e9ad1a" name="a6d5ae4c4504ac24560454bb394e9ad1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d5ae4c4504ac24560454bb394e9ad1a">&#9670;&#160;</a></span>solidNeighborMask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t hmi::solidNeighborMask </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tiles</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule le masque de voisinage solide d'une case de la grille. </p>
+<p><b>L'extérieur de la grille compte comme solide.</b> Convention explicite et non implicite : un mur de bordure afficherait sinon un contour sur sa face invisible, hors du niveau, ce qui donne l'impression que le décor s'arrête en plein vide. Le revers — un niveau ouvert sur l'extérieur ne montre pas de bord franc à sa limite — est sans conséquence, la caméra ne dépassant pas les bornes du niveau.</p>
+<p><b>Le voisinage est celui de la solidité, pas du type</b> : <span class="tt">Solid</span> et les trois tailles de <span class="tt">Block</span> se raccordent entre eux (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>). Se raccorder au seul type identique laisserait une couture visible partout où un bloc jouxte un mur, alors que les deux forment visuellement la même matière. Les pentes et arrondis ne sont jamais solides : ils ne participent donc pas au voisinage et restent en mode <span class="tt">single</span>, avec leur masque de silhouette.</p>
+<p>La grille passée doit être celle <b>du niveau</b>, jamais la grille de collision d'un <span class="tt"><a class="el" href="classcore_1_1MechanismController.html" title="Fait vivre les mécanismes interrupteur/plaque ↔ porte d&#39;un niveau (EX-GP-020, EX-GP-021,...">core::MechanismController</a></span> : une porte qui s'ouvre ne doit pas changer l'habillage des murs qui l'entourent.</p>
+<p>Fonction <b>pure</b>, testable sans GPU (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tiles</td><td>Grille du niveau. </td></tr>
+    <tr><td class="paramname">column</td><td>Colonne de la case examinée. </td></tr>
+    <tr><td class="paramname">row</td><td>Ligne de la case examinée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le masque des quatre voisins solides (combinaison de <span class="tt"><a class="el" href="#a904bd9605b7079403b098a5e97e9726e" title="Bits du masque de voisinage, un par voisin orthogonal solide.">hmi::NeighborBits</a></span>, 0 à 15). </dd></dl>
 
 </div>
 </div>
@@ -2319,6 +3085,40 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="acf25ab803e9993cf5baab355d23f8ca9" name="acf25ab803e9993cf5baab355d23f8ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf25ab803e9993cf5baab355d23f8ca9">&#9670;&#160;</a></span>taxonomyLabelKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::taxonomyLabelKey </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>label</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clé de traduction d'un libellé de la taxonomie. </p>
+<p><span class="tt"><a class="el" href="#a324d7671eeb331de4b3459d66be9d0ca" title="Taxonomie complète des types de tuiles peignables, en catégories/sous-groupes.">hmi::tileTaxonomy</a></span> reste une logique <b>pure</b>, sans dépendance i18n : elle porte des libellés français, qui servent aussi de clés de correspondance ici. Cette table est le point <b>unique</b> de la conversion, partagé par tous les panneaux qui affichent des types de tuiles — la palette (<span class="tt">LOT-35</span>) et le panneau « Textures » (<span class="tt">LOT-42</span>). Deux copies divergeraient au premier libellé ajouté, et un panneau afficherait alors du français au milieu d'une interface anglaise. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">label</td><td>Libellé issu de la taxonomie. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La clé de traduction, ou une chaîne vide si le libellé n'en a pas. </dd></dl>
 
 </div>
 </div>
@@ -2483,6 +3283,54 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a58aec3b5e8b7ff780934f969eb35febb" name="a58aec3b5e8b7ff780934f969eb35febb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58aec3b5e8b7ff780934f969eb35febb">&#9670;&#160;</a></span>AUTOTILE_CONFIGURATION_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AUTOTILE_CONFIGURATION_COUNT = <a class="el" href="#a645fa51fe9636c77f3b67558bb094d23">AUTOTILE_SHEET_SIDE</a> * <a class="el" href="#a645fa51fe9636c77f3b67558bb094d23">AUTOTILE_SHEET_SIDE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de configurations de voisinage distinctes. </p>
+
+</div>
+</div>
+<a id="a645fa51fe9636c77f3b67558bb094d23" name="a645fa51fe9636c77f3b67558bb094d23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a645fa51fe9636c77f3b67558bb094d23">&#9670;&#160;</a></span>AUTOTILE_SHEET_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::AUTOTILE_SHEET_SIDE = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de cases par côté de la planche de raccords (4×4 = seize configurations). </p>
+
+</div>
+</div>
 <a id="ab6e44ad3d54b0383ef13f332d290df46" name="ab6e44ad3d54b0383ef13f332d290df46"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6e44ad3d54b0383ef13f332d290df46">&#9670;&#160;</a></span>DEFAULT_RENDER_LAYER</h2>
 
@@ -2649,6 +3497,102 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>). </p>
+
+</div>
+</div>
+<a id="aa9e6d80a32a4e383a6413ef674feef96" name="aa9e6d80a32a4e383a6413ef674feef96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e6d80a32a4e383a6413ef674feef96">&#9670;&#160;</a></span>SILHOUETTE_TILE_TYPE_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SILHOUETTE_TILE_TYPE_COUNT</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                            =</div>
+<div class="line"><span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a37c697d0c580a4d6aa3313ee67dc6103">SILHOUETTE_TILE_TYPES</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a37c697d0c580a4d6aa3313ee67dc6103">SILHOUETTE_TILE_TYPES</a>[0]))</div>
+<div class="ttc" id="anamespacehmi_html_a37c697d0c580a4d6aa3313ee67dc6103"><div class="ttname"><a href="#a37c697d0c580a4d6aa3313ee67dc6103">hmi::SILHOUETTE_TILE_TYPES</a></div><div class="ttdeci">constexpr core::TileType SILHOUETTE_TILE_TYPES[]</div><div class="ttdoc">Les douze types de tuiles à silhouette inclinée ou courbe.</div><div class="ttdef"><b>Definition</b> SlopeMask.h:22</div></div>
+</div><!-- fragment -->
+<p>Nombre de types à silhouette. </p>
+
+</div>
+</div>
+<a id="a37c697d0c580a4d6aa3313ee67dc6103" name="a37c697d0c580a4d6aa3313ee67dc6103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c697d0c580a4d6aa3313ee67dc6103">&#9670;&#160;</a></span>SILHOUETTE_TILE_TYPES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> hmi::SILHOUETTE_TILE_TYPES[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                                      = {</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a>,     <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df">core::TileType::SlopeUpLeft</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4">core::TileType::RoundedUpRight</a>,   <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b">core::TileType::RoundedUpLeft</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a>,   <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7">core::TileType::SlopeDownLeft</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f">core::TileType::RoundedDownRight</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a>,   <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a>,</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a20468175811d78065c822520dd14c54b">core::TileType::SlopeDownRight</a></div><div class="ttdeci">@ SlopeDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:83</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6963fec4d3928056fb763a8d4c82883b">core::TileType::RoundedUpLeft</a></div><div class="ttdeci">@ RoundedUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:80</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a6d03d7bc46f5ed6091e390a1c7f49baf">core::TileType::RoundedDownLeft</a></div><div class="ttdeci">@ RoundedDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:86</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a84e112227c7b90d17dcb8a6e1004843f">core::TileType::RoundedDownRight</a></div><div class="ttdeci">@ RoundedDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:85</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a87b7d5e6f98d176a866a072d25e63c55">core::TileType::ConcaveUpLeft</a></div><div class="ttdeci">@ ConcaveUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:88</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a">core::TileType::ConcaveDownRight</a></div><div class="ttdeci">@ ConcaveDownRight</div><div class="ttdef"><b>Definition</b> TileType.h:89</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab81d2eb0ab13b40ec1728b800be095df">core::TileType::SlopeUpLeft</a></div><div class="ttdeci">@ SlopeUpLeft</div><div class="ttdef"><b>Definition</b> TileType.h:78</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abcf1fc088fbcb56f1dd49a1e0c1d9ed7">core::TileType::SlopeDownLeft</a></div><div class="ttdeci">@ SlopeDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:84</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac18882beab092f98847290af4d9d91d7">core::TileType::ConcaveDownLeft</a></div><div class="ttdeci">@ ConcaveDownLeft</div><div class="ttdef"><b>Definition</b> TileType.h:90</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ac3788beeaeebff60bbe61cfec12b6f60">core::TileType::ConcaveUpRight</a></div><div class="ttdeci">@ ConcaveUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:87</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad2cf32fa44b3bf07a5a273efbd0d4015">core::TileType::SlopeUpRight</a></div><div class="ttdeci">@ SlopeUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:77</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4">core::TileType::RoundedUpRight</a></div><div class="ttdeci">@ RoundedUpRight</div><div class="ttdef"><b>Definition</b> TileType.h:79</div></div>
+</div><!-- fragment -->
+<p>Les douze types de tuiles à silhouette <b>inclinée ou courbe</b>. </p>
+<p>Pentes et arrondis, convexes et concaves, au sol comme au plafond (<span class="tt">EX-GP-003</span>, <span class="tt">EX-GP-004</span>, <span class="tt">EX-GP-006</span>, <span class="tt">EX-GP-007</span>). Seule liste à parcourir : <span class="tt"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> n'est pas énumérable en C++, et ces douze types sont les seuls dont l'apparence n'est pas un carré plein. </p>
+
+</div>
+</div>
+<a id="ab94e51ddc058f58bc9dd1692a7568be0" name="ab94e51ddc058f58bc9dd1692a7568be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab94e51ddc058f58bc9dd1692a7568be0">&#9670;&#160;</a></span>SKINS_SUBDIRECTORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string hmi::SKINS_SUBDIRECTORY = &quot;Skins/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sous-dossier des skins de tuiles, relatif au dossier d'assets (<span class="tt">LOT-42</span>). </p>
 
 </div>
 </div>

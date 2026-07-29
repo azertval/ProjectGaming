@@ -298,17 +298,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a6c0f85da9ce20757943b19c8034f459e" id="r_a6c0f85da9ce20757943b19c8034f459e"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e">dangerHitbox</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, int col, int row) noexcept</td></tr>
 <tr class="memdesc:a6c0f85da9ce20757943b19c8034f459e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>mortel</b> d'une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêmes unités que <span class="tt"><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></span> consommé par <span class="tt"><a class="el" href="#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>).  <br /></td></tr>
 <tr class="memitem:a9f0f0ad0f3b02c7ddf6b34dffba56669" id="r_a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9f0f0ad0f3b02c7ddf6b34dffba56669">isDangerTileType</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
-<tr class="memdesc:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#acb711314315ff134ed9c25c09b4cebe4" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié).  <br /></td></tr>
+<tr class="memdesc:a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié).  <br /></td></tr>
 <tr class="memitem:a02b4ac39e4a1c16efbe9ff53132d9a95" id="r_a02b4ac39e4a1c16efbe9ff53132d9a95"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a02b4ac39e4a1c16efbe9ff53132d9a95">operator==</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="memitem:a29323798eff97fce936a3352846efb93" id="r_a29323798eff97fce936a3352846efb93"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a29323798eff97fce936a3352846efb93">operator!=</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> left, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> right) noexcept</td></tr>
 <tr class="memitem:a23087f4f32dfa24ad53d7a9811ae351d" id="r_a23087f4f32dfa24ad53d7a9811ae351d"><td class="memItemLeft"><a class="el" href="#a60398ec3835dd2882a7d3a9eaddb65aa">LevelOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a23087f4f32dfa24ad53d7a9811ae351d">evaluateOutcome</a> (const <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &amp;playerBox, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">Aabb</a> &gt; &amp;extraDangerBoxes={})</td></tr>
 <tr class="memdesc:a23087f4f32dfa24ad53d7a9811ae351d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Détermine l'issue du niveau à partir de la <b>boîte</b> du personnage.  <br /></td></tr>
-<tr class="memitem:acb711314315ff134ed9c25c09b4cebe4" id="r_acb711314315ff134ed9c25c09b4cebe4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acb711314315ff134ed9c25c09b4cebe4">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile)</td></tr>
-<tr class="memdesc:acb711314315ff134ed9c25c09b4cebe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
+<tr class="memitem:a671cc58bea9439fdb3ea23009b0da54b" id="r_a671cc58bea9439fdb3ea23009b0da54b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b">buildLevelScene</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;regionForTile, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;onTileEntity={})</td></tr>
+<tr class="memdesc:a671cc58bea9439fdb3ea23009b0da54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par tuile non vide</b> du niveau.  <br /></td></tr>
 <tr class="memitem:a105a7f2ca0f25e01231a9bc1bbc36ebb" id="r_a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#a105a7f2ca0f25e01231a9bc1bbc36ebb">isSolid</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:a105a7f2ca0f25e01231a9bc1bbc36ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile bloque le déplacement de manière <b>statique</b>.  <br /></td></tr>
 <tr class="memitem:a9b733af18a1507c5dc7b4ffdd88d8b6a" id="r_a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a9b733af18a1507c5dc7b4ffdd88d8b6a">tileVisualScale</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:a9b733af18a1507c5dc7b4ffdd88d8b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de taille <b>visuel/collision</b> d'une tuile bloc réduite (<span class="tt">EX-GP-005</span>).  <br /></td></tr>
+<tr class="memitem:a43329559445927c3a2d55531287292d6" id="r_a43329559445927c3a2d55531287292d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a43329559445927c3a2d55531287292d6">tileTypeName</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type)</td></tr>
+<tr class="memdesc:a43329559445927c3a2d55531287292d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un type de tuile en son nom textuel.  <br /></td></tr>
+<tr class="memitem:ad675f8ce2e7f29908cbe3e7701336ef8" id="r_ad675f8ce2e7f29908cbe3e7701336ef8"><td class="memItemLeft">std::optional&lt; <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad675f8ce2e7f29908cbe3e7701336ef8">parseTileType</a> (std::string_view name)</td></tr>
+<tr class="memdesc:ad675f8ce2e7f29908cbe3e7701336ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un nom textuel en type de tuile.  <br /></td></tr>
 <tr class="memitem:a69640dd3c9f3f8778a7c7621839c3794" id="r_a69640dd3c9f3f8778a7c7621839c3794"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a69640dd3c9f3f8778a7c7621839c3794">approximatelyEqual</a> (float lhs, float rhs, float tolerance=<a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a>)</td></tr>
 <tr class="memdesc:a69640dd3c9f3f8778a7c7621839c3794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare deux flottants à une tolérance relative-absolue près.  <br /></td></tr>
 <tr class="memitem:a0bc000366ab7d8c9d1a897385b813a68" id="r_a0bc000366ab7d8c9d1a897385b813a68"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0bc000366ab7d8c9d1a897385b813a68">operator+</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;lhs, const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;rhs)</td></tr>
@@ -660,8 +664,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acb711314315ff134ed9c25c09b4cebe4" name="acb711314315ff134ed9c25c09b4cebe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb711314315ff134ed9c25c09b4cebe4">&#9670;&#160;</a></span>buildLevelScene()</h2>
+<a id="a671cc58bea9439fdb3ea23009b0da54b" name="a671cc58bea9439fdb3ea23009b0da54b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671cc58bea9439fdb3ea23009b0da54b">&#9670;&#160;</a></span>buildLevelScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,7 +683,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>regionForTile</em></span>&#160;)</td>
+          <td class="paramtype">const std::function&lt; <a class="el" href="structcore_1_1AtlasRegion.html">AtlasRegion</a>(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>regionForTile</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>, int, int)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>onTileEntity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -691,6 +700,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">world</td><td>Monde à peupler. </td></tr>
     <tr><td class="paramname">level</td><td>Niveau source. </td></tr>
     <tr><td class="paramname">regionForTile</td><td>Correspondance type de tuile → région d'atlas (dépendance de rendu injectée). </td></tr>
+    <tr><td class="paramname">onTileEntity</td><td>Rappel invoqué après la création de chaque entité tuile, avec son type et sa case. Permet à la couche de présentation d'y attacher ses <b>propres</b> composants (<span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span>, <span class="tt">LOT-42</span>) sans que <span class="tt">Core</span> connaisse la notion d'habillage (<span class="tt">EX-NFR-011</span>) — même principe d'injection que <code class="param">regionForTile</code>. Vide par défaut. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1074,7 +1084,7 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </table>
 </div><div class="memdoc">
 
-<p>Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#acb711314315ff134ed9c25c09b4cebe4" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié). </p>
+<p>Vrai pour les huit types de danger (<span class="tt">Danger</span> classique et les sept variantes de <span class="tt">LOT-31</span>), pour lesquels <span class="tt"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e" title="Rectangle mortel d&#39;une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêm...">dangerHitbox</a></span> décrit une géométrie <b>significative</b> (case pleine ou bande directionnelle) — utilisé par le rendu (<span class="tt"><a class="el" href="#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) pour ne recalculer le rectangle affiché qu'à ces types précis, laissant les autres à leur case pleine par défaut (<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">Transform</a></span> non modifié). </p>
 
 </div>
 </div>
@@ -1470,6 +1480,40 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 </div>
 </div>
+<a id="ad675f8ce2e7f29908cbe3e7701336ef8" name="ad675f8ce2e7f29908cbe3e7701336ef8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad675f8ce2e7f29908cbe3e7701336ef8">&#9670;&#160;</a></span>parseTileType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> &gt; core::parseTileType </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit un nom textuel en type de tuile. </p>
+<p>Inverse exact de <span class="tt"><a class="el" href="#a43329559445927c3a2d55531287292d6" title="Convertit un type de tuile en son nom textuel.">core::tileTypeName</a></span> : tout nom qu'il produit est accepté ici, et réciproquement (propriété vérifiée par test sur les trente types). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nom textuel, tel qu'écrit dans un fichier. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le type correspondant, ou <span class="tt">std::nullopt</span> si le nom est inconnu — un nom inconnu est une donnée invalide à signaler, jamais un type deviné. </dd></dl>
+
+</div>
+</div>
 <a id="a6b2b8e5dc4a0b610cc1225c14e1ce5cb" name="a6b2b8e5dc4a0b610cc1225c14e1ce5cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">&#9670;&#160;</a></span>playerSize()</h2>
 
@@ -1805,6 +1849,41 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position finale, l'indicateur de blocage par axe et l'occurrence d'un contact — même structure <span class="tt"><a class="el" href="structcore_1_1SweepResult.html" title="Résultat d&#39;un balayage : où la boîte s&#39;arrête et sur quels axes elle a été bloquée.">core::SweepResult</a></span> que <span class="tt"><a class="el" href="#a4ca635df367666624247837feb2af5a5" title="Déplace box de delta en s&#39;arrêtant au premier contact avec une tuile solide, puis en glissant le long...">sweepAabb</a></span>, pour une composition directe côté appelant. </dd></dl>
+
+</div>
+</div>
+<a id="a43329559445927c3a2d55531287292d6" name="a43329559445927c3a2d55531287292d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43329559445927c3a2d55531287292d6">&#9670;&#160;</a></span>tileTypeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::tileTypeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit un type de tuile en son nom textuel. </p>
+<p>Point unique de vérité de la correspondance type ↔ nom, partagé par le format de niveau (<span class="tt"><a class="el" href="classcore_1_1LevelWriter.html" title="Sérialise un niveau vers le format JSON défini par EX-LVL-003.">core::LevelWriter</a></span>, <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">core::LevelLoader</a></span>) et par les configurations de présentation qui désignent des types de tuiles (<span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span>, <span class="tt">EX-EDIT-042</span>). Deux tables distinctes divergeraient au premier type ajouté : un niveau écrit avec un nom qu'un autre lecteur ne reconnaîtrait pas.</p>
+<p>Le <span class="tt">switch</span> est <b>exhaustif et sans <span class="tt">default</span></b> : ajouter une valeur à <span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;un niveau (EX-GP-001).">core::TileType</a></span> sans lui donner de nom devient une erreur de compilation (<span class="tt">/W4 /WX</span>), et non un nom silencieusement faux. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom textuel du type (<span class="tt">"solid"</span>, <span class="tt">"slopeUpRight"</span>…). </dd></dl>
 
 </div>
 </div>

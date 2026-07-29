@@ -8,10 +8,13 @@ var classhmi_1_1DraftRenderer =
     [ "lastScene", "classhmi_1_1DraftRenderer.html#acbb89fb6d31cb5718dece21322b1630c", null ],
     [ "rebuild", "classhmi_1_1DraftRenderer.html#a3d4077be5ae7aa58ff2c349443f97d65", null ],
     [ "render", "classhmi_1_1DraftRenderer.html#ad06718626de934f7624fa5221a79ef0e", null ],
+    [ "setSkins", "classhmi_1_1DraftRenderer.html#a2034472c87db59e7a7941c945e9d61f4", null ],
     [ "_atlas", "classhmi_1_1DraftRenderer.html#a823f254cf3e79362168f4f5e3fa526a1", null ],
     [ "_batch", "classhmi_1_1DraftRenderer.html#a0b67904e6c3e241a281be17dafe27398", null ],
     [ "_cache", "classhmi_1_1DraftRenderer.html#aee0b5e62d6615dc8fede40871395017f", null ],
     [ "_dirty", "classhmi_1_1DraftRenderer.html#a8d81eec42fa953e30cc22510831e6d0d", null ],
     [ "_scene", "classhmi_1_1DraftRenderer.html#ab0e865117967424e741c7163552d57b5", null ],
+    [ "_skins", "classhmi_1_1DraftRenderer.html#ac2404f33b0fc05a3623d744e78e2755e", null ],
+    [ "_skinSet", "classhmi_1_1DraftRenderer.html#a1106a948203446e8847a7d5e2a429d4e", null ],
     [ "_world", "classhmi_1_1DraftRenderer.html#aa731650ada5f6cfd09d4c94aee44b0fb", null ]
 ];

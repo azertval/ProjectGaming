@@ -93,10 +93,10 @@ $(function(){initNavTree('lot-42-tache-05-palette-fidele.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-42-skin-tuiles-autotiling_2tache-05-palette-fidele"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-42.html#md_Lot_2LOT-42-skin-tuiles-autotiling_2epic" title="Lot/LOT-42-skin-tuiles-autotiling/epic.md">LOT-42</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1940"></a>
 Contexte</h1>
-<p><span class="tt"><a class="el" href="classhmi_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous-groupes → tuiles.">hmi::PalettePanel</a></span> affiche chaque type de tuile par sa <b>couleur plate</b>, obtenue via <span class="tt"><a class="el" href="namespacehmi.html#a2c8e7957dacab70252bf7edbdc80422e" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt">TileVisuals</span>). C'était fidèle tant que le rendu n'avait qu'un mode.</p>
+<p><span class="tt"><a class="el" href="classhmi_1_1PalettePanel.html" title="Palette de tuiles en arbre (QTreeView) : catégories → sous-groupes → tuiles.">hmi::PalettePanel</a></span> affiche chaque type de tuile par sa <b>couleur plate</b>, obtenue via <span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> (<span class="tt">TileVisuals</span>). C'était fidèle tant que le rendu n'avait qu'un mode.</p>
 <p>Dès ce lot, ce n'est plus vrai : en mode Texture, le canevas affiche des textures et la palette continuerait d'afficher des pastilles de couleur. Le level designer choisirait « la tuile violette » sans voir ce qu'il pose. C'est une régression d'usage introduite par le lot lui-même — d'où une tâche dédiée plutôt qu'une correction ultérieure.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1941"></a>
 Travail à réaliser</h1>

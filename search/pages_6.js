@@ -7,6 +7,5 @@ var searchData=
   ['6_20robustesse_20et_20confort_20d_20édition_20lot_2015_4',['6. Robustesse et confort d&apos;édition (LOT-15)',['../spec-editeur.html#autotoc_md221',1,'']]],
   ['6_20wall_20jump_20et_20wall_20slide_5',['6. Wall jump et wall slide',['../guide-physique.html#autotoc_md141',1,'']]],
   ['60_6',['Physique Personnage — &lt;span class=&quot;tt&quot;&gt;test_physique_personnage.cpp&lt;/span&gt; (60)',['../cahiertest.html#autotoc_md26',1,'']]],
-  ['61_7',['Graphics (61)',['../cahiertest.html#autotoc_md16',1,'']]],
-  ['63_8',['Input (63)',['../cahiertest.html#autotoc_md17',1,'']]]
+  ['63_7',['Input (63)',['../cahiertest.html#autotoc_md17',1,'']]]
 ];

@@ -223,9 +223,12 @@ var NAVTREEINDEX0 =
 "OptionsPage_8cpp.html":[10,0,3,1,5,8],
 "OptionsPage_8h.html":[10,0,3,1,5,9],
 "OptionsPage_8h_source.html":[10,0,3,1,5,9],
-"PalettePanel_8cpp.html":[10,0,3,1,1,13],
-"PalettePanel_8h.html":[10,0,3,1,1,14],
-"PalettePanel_8h_source.html":[10,0,3,1,1,14],
+"PaletteAppearance_8cpp.html":[10,0,3,1,1,13],
+"PaletteAppearance_8h.html":[10,0,3,1,1,14],
+"PaletteAppearance_8h_source.html":[10,0,3,1,1,14],
+"PalettePanel_8cpp.html":[10,0,3,1,1,15],
+"PalettePanel_8h.html":[10,0,3,1,1,16],
+"PalettePanel_8h_source.html":[10,0,3,1,1,16],
 "PhysicsConfig_8h.html":[10,0,3,0,5,3],
 "PhysicsConfig_8h_source.html":[10,0,3,0,5,3],
 "PhysicsLog_8h.html":[10,0,3,0,5,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "PreviousPosition_8h.html":[10,0,3,1,3,15],
 "PreviousPosition_8h_source.html":[10,0,3,1,3,15],
 "ProceduralAtlas_8cpp.html":[10,0,3,1,3,16],
-"ProceduralAtlas_8h.html":[10,0,3,1,3,17],
-"ProceduralAtlas_8h_source.html":[10,0,3,1,3,17],
-"QtKeyMap_8cpp.html":[10,0,3,1,4,17],
-"QtKeyMap_8h.html":[10,0,3,1,4,18]
+"ProceduralAtlas_8h.html":[10,0,3,1,3,17]
 };

@@ -72,7 +72,7 @@ var guide =
         [ "Exemple concret", "guide-niveaux.html#autotoc_md116", null ],
         [ "Validation", "guide-niveaux.html#autotoc_md117", null ]
       ] ],
-      [ "De la grille aux entités : <a class=\"el\" href=\"namespacecore.html#acb711314315ff134ed9c25c09b4cebe4\" title=\"core::buildLevelScene\">buildLevelScene</a>", "guide-niveaux.html#autotoc_md118", null ],
+      [ "De la grille aux entités : <a class=\"el\" href=\"namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b\" title=\"core::buildLevelScene\">buildLevelScene</a>", "guide-niveaux.html#autotoc_md118", null ],
       [ "Mécanismes déclencheur ↔ porte", "guide-niveaux.html#autotoc_md119", null ],
       [ "Blocs poussables", "guide-niveaux.html#autotoc_md120", [
         [ "Blocs à taille réduite (<span class=\"tt\">×0.5</span>/<span class=\"tt\">×0.25</span>)", "guide-niveaux.html#autotoc_md121", null ]

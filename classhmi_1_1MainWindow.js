@@ -31,6 +31,7 @@ var classhmi_1_1MainWindow =
     [ "_palette", "classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08", null ],
     [ "_sessionLog", "classhmi_1_1MainWindow.html#a48ba153acc890d6de84fe2847b5162a9", null ],
     [ "_stack", "classhmi_1_1MainWindow.html#a408483202779acb367aee2733d8b28c7", null ],
+    [ "_textures", "classhmi_1_1MainWindow.html#a5602a56b2b14b4139a7512c0acf75a3e", null ],
     [ "_tools", "classhmi_1_1MainWindow.html#a0a6c265c4c2be66172210f86051c0303", null ],
     [ "_ui", "classhmi_1_1MainWindow.html#abbf193c38db62a49872c5a57b1b61cce", null ],
     [ "_viewport", "classhmi_1_1MainWindow.html#a1ed57ff25b1be1c311886896b1ae444f", null ]

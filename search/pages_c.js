@@ -60,6 +60,6 @@ var searchData=
   ['buffering_57',['TACHE-04 — Coyote time + jump buffering',['../lot-09-tache-04-coyote-buffering.html',1,'lot-09']]],
   ['build_20dépendances_58',['6. Build &amp;amp; dépendances',['../spec-exigences.html#autotoc_md233',1,'']]],
   ['build_20test_20coverage_59',['4. Provisionnement CI (&lt;span class=&quot;tt&quot;&gt;.github/workflows/ci.yml&lt;/span&gt;, job &lt;span class=&quot;tt&quot;&gt;build-test-coverage&lt;/span&gt;)',['../lot-34-tache-01-provisionnement-qt-build.html#autotoc_md1623',1,'']]],
-  ['buildlevelscene_60',['De la grille aux entités : &lt;a class=&quot;el&quot; href=&quot;namespacecore.html#acb711314315ff134ed9c25c09b4cebe4&quot; title=&quot;core::buildLevelScene&quot;&gt;buildLevelScene&lt;/a&gt;',['../guide-niveaux.html#autotoc_md118',1,'']]],
+  ['buildlevelscene_60',['De la grille aux entités : &lt;a class=&quot;el&quot; href=&quot;namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b&quot; title=&quot;core::buildLevelScene&quot;&gt;buildLevelScene&lt;/a&gt;',['../guide-niveaux.html#autotoc_md118',1,'']]],
   ['burst_20durée_20recharge_20au_20sol_61',['TACHE-05 — Dash 8 directions (burst, durée, recharge au sol)',['../lot-10-tache-05-dash.html',1,'lot-10']]]
 ];

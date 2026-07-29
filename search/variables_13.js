@@ -2,7 +2,7 @@ var searchData=
 [
   ['target_0',['target',['../structhmi_1_1LinkRow.html#a98d23366fd703c30065ab65735b12808',1,'hmi::LinkRow']]],
   ['targetposition_1',['targetPosition',['../structhmi_1_1LinkGestureDecision.html#a3ad9aa3ddf5ba1b555df0a74e9868f22',1,'hmi::LinkGestureDecision']]],
-  ['texture_2',['texture',['../structhmi_1_1ComposedQuad.html#ae60fed5ca333bf4624a68a71840ffae9',1,'hmi::ComposedQuad::texture'],['../structhmi_1_1LoadedTexture.html#ab2f05e252e47f73496b4b7a7eba9a5c7',1,'hmi::LoadedTexture::texture']]],
+  ['texture_2',['texture',['../structhmi_1_1ComposedQuad.html#ae60fed5ca333bf4624a68a71840ffae9',1,'hmi::ComposedQuad::texture'],['../structhmi_1_1LoadedTexture.html#ab2f05e252e47f73496b4b7a7eba9a5c7',1,'hmi::LoadedTexture::texture'],['../structhmi_1_1SkinTexture.html#a6b18174685c79ae55ddc563e29a7b130',1,'hmi::SkinTexture::texture']]],
   ['texturerank_3',['textureRank',['../structhmi_1_1ComposedQuad.html#ae365a53aba8a97c1fe1fd8d28311b7e9',1,'hmi::ComposedQuad']]],
   ['thickness_4',['thickness',['../structhmi_1_1LineQuad.html#abe3bbbecb8fc8b1aaedba4a5d4eeaef5',1,'hmi::LineQuad']]],
   ['tile_5fsize_5',['TILE_SIZE',['../classhmi_1_1TextureAtlas.html#aacbd0307d4440f04585dee673ca56d9d',1,'hmi::TextureAtlas']]],
@@ -14,5 +14,6 @@ var searchData=
   ['topy_11',['topY',['../structcore_1_1CeilingSlopeFollowResult.html#a1621909caf4fecdc1bd3d1f880dbef58',1,'core::CeilingSlopeFollowResult']]],
   ['trigger_12',['trigger',['../structhmi_1_1LinkRow.html#a93d02effe5cbd921e51baa5b4700076a',1,'hmi::LinkRow']]],
   ['triggerposition_13',['triggerPosition',['../structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e',1,'core::DangerLink']]],
-  ['type_14',['type',['../structhmi_1_1TileEntry.html#a9c1d5d345916c39548749b802bd7deb9',1,'hmi::TileEntry']]]
+  ['type_14',['type',['../structhmi_1_1SkinRow.html#aab2e46edc96113bb33a3e70e451507e1',1,'hmi::SkinRow::type'],['../structhmi_1_1TileEntry.html#a9c1d5d345916c39548749b802bd7deb9',1,'hmi::TileEntry::type'],['../structhmi_1_1TileSkinTag.html#af27ab75e03393c0fd46707ed7306232d',1,'hmi::TileSkinTag::type']]],
+  ['typelabel_15',['typeLabel',['../structhmi_1_1SkinRow.html#a770046b5c0e30e8b55f7f69705d8dde4',1,'hmi::SkinRow']]]
 ];

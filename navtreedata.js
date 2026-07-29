@@ -30,20 +30,20 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (397)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (455)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
           [ "Gameplay (29)", "cahiertest.html#autotoc_md8", null ],
-          [ "Levels (115)", "cahiertest.html#autotoc_md9", null ],
+          [ "Levels (119)", "cahiertest.html#autotoc_md9", null ],
           [ "Math (20)", "cahiertest.html#autotoc_md10", null ],
           [ "Physics (39)", "cahiertest.html#autotoc_md11", null ],
           [ "Time (6)", "cahiertest.html#autotoc_md12", null ]
         ] ],
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
-          [ "Editor (5)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (61)", "cahiertest.html#autotoc_md16", null ],
+          [ "Editor (20)", "cahiertest.html#autotoc_md15", null ],
+          [ "Graphics (100)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
@@ -72,7 +72,8 @@ var NAVTREE =
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -101,30 +102,32 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"QtKeyMap_8h_source.html",
-"classcore_1_1Level.html#a08c4420372462d6e7991956902906da5",
-"classcore_1_1View.html",
-"classhmi_1_1GameSession.html#a5f23e0b481948049670ef0f68a7ee2a9",
-"classhmi_1_1GamepadBindings.html#a52cc705912b4ac461a8bb0a61bbb669f",
-"classhmi_1_1LevelFileOperations.html#a0f2a3f81e7b378c50c4448c292ec2499",
-"classhmi_1_1RoomGrid.html#a0b955c9993b7ea1652cec0f9c8cae916",
-"dir_eb79fe5178d7fc2870e7466b17886675.html",
-"guide.html",
-"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md490",
-"lot-09-tache-02-mapping-saut.html#autotoc_md710",
-"lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md931",
-"lot-20-tache-02-menu-options.html#autotoc_md1152",
-"lot-26.html",
-"lot-33-tache-02-presentation-flip.html#autotoc_md1594",
-"lot-39-tache-02-texture-atlas-fichier.html#autotoc_md1816",
-"lot-45-tache-03-section-objets-priorite.html#autotoc_md2037",
-"lot-51-tache-03-controles-documentation.html#autotoc_md2258",
-"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a8d3cc14a525220bed75962c275dbb33a",
-"spec-editeur.html#autotoc_md214",
-"structcore_1_1Player.html#a57dfc80a1b22f8c10cd6a2cff4b9e47e",
-"structhmi_1_1PreviousPosition.html",
-"test__game__key__bindings_8cpp.html#aefabd82b32fad6abdbd816b5e62c40ff",
-"test__physique__personnage_8cpp.html#a3e508644de4c4f901c0d9970e0d3b183"
+"ProceduralAtlas_8h_source.html",
+"classcore_1_1FixedTimestep.html#ae7a5246f4627d623295e99431af3af36",
+"classcore_1_1MovementSystem.html",
+"classhmi_1_1GameKeyBindings.html#afbe5d66a276ac24e83e5c6701d598004",
+"classhmi_1_1GameViewport.html#ae0c7a5dd8a430f39cbc0fbd1e200a574",
+"classhmi_1_1KeybindingsWidget.html#adfb3f1bc4826280f3de23a4ad75de2f6",
+"classhmi_1_1PalettePanel.html#a55f489cad83581ca9ad21114a02e7d7a",
+"classhmi_1_1TextureCache.html#aede852089e7c06705756d4120ec256a4",
+"guide-boucle.html#autotoc_md33",
+"lot-03-tache-01-math-core.html#autotoc_md363",
+"lot-06-tache-08-selecteur-langue.html#autotoc_md583",
+"lot-10.html#autotoc_md752",
+"lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1025",
+"lot-23-tache-01-modele-tuile-arrondie.html#autotoc_md1246",
+"lot-29.html#autotoc_md1429",
+"lot-35-tache-04-redim-enregistrement-essai.html#autotoc_md1688",
+"lot-41.html#autotoc_md1879",
+"lot-47.html#autotoc_md2093",
+"lot-54-tache-03-ouvrir-enregistrer.html#autotoc_md2352",
+"namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0",
+"structcore_1_1Aabb.html#a2997b415856d8782b84bad849cf29301",
+"structcore_1_1SweepResult.html",
+"structhmi_1_1SceneTextures.html#a40f4f8e34b7c5fbeeeee31cf81fb9ee8",
+"test__entity__manager_8cpp.html#a34a624133f4f1ed4ed2a42c6713ff65d",
+"test__niveau__ecs_8cpp.html#a4bfc8b7cf1efa66873c575bc504a3238",
+"test__tile__taxonomy_8cpp.html#a177c33858097ed44da8cc183d0002603"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

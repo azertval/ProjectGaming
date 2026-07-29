@@ -17,5 +17,7 @@ var dir_e9bc3547f945e106b199f4f7c7c6d92f =
     [ "LevelWriter.h", "LevelWriter_8h.html", "LevelWriter_8h" ],
     [ "TileMap.cpp", "TileMap_8cpp.html", null ],
     [ "TileMap.h", "TileMap_8h.html", "TileMap_8h" ],
-    [ "TileType.h", "TileType_8h.html", "TileType_8h" ]
+    [ "TileType.h", "TileType_8h.html", "TileType_8h" ],
+    [ "TileTypeName.cpp", "TileTypeName_8cpp.html", "TileTypeName_8cpp" ],
+    [ "TileTypeName.h", "TileTypeName_8h.html", "TileTypeName_8h" ]
 ];

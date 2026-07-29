@@ -9,11 +9,12 @@ var searchData=
   ['bottom_6',['bottom',['../structcore_1_1Rect.html#a6a76a493f43a69284836f6d078aca2f4',1,'core::Rect']]],
   ['boxat_7',['boxAt',['../classcore_1_1BlockController.html#ace9150fb416f7dae1e95b6eb1b7225fe',1,'core::BlockController']]],
   ['buildjson_8',['buildJson',['../classcore_1_1LevelWriter.html#a2160c458a44bc8d289cd033756bd43c5',1,'core::LevelWriter']]],
-  ['buildlevelscene_9',['buildLevelScene',['../namespacecore.html#acb711314315ff134ed9c25c09b4cebe4',1,'core']]],
+  ['buildlevelscene_9',['buildLevelScene',['../namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b',1,'core']]],
   ['buildlinkrows_10',['buildLinkRows',['../namespacehmi.html#a5308a5fca2e3f3a42451aaf1719d3ab4',1,'hmi']]],
   ['buildmissingtextureimage_11',['buildMissingTextureImage',['../namespacehmi.html#aa0d169ee450492a9aa3795d23e95e4ba',1,'hmi']]],
   ['buildmodel_12',['buildModel',['../classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364',1,'hmi::PalettePanel']]],
   ['buildproceduralatlasimage_13',['buildProceduralAtlasImage',['../namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540',1,'hmi']]],
-  ['buildui_14',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
-  ['button_15',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
+  ['buildskinrows_14',['buildSkinRows',['../namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb',1,'hmi']]],
+  ['buildui_15',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
+  ['button_16',['button',['../classhmi_1_1GamepadBindings.html#a0ed690827fac65b25557c931c28c77ac',1,'hmi::GamepadBindings']]]
 ];

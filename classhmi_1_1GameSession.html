@@ -108,6 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acb992fe3f9402a56c9546fb62c450a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recharge le niveau courant (personnage à l'entrée, mécanismes et budgets remis).  <br /></td></tr>
 <tr class="memitem:a8c26c9a8cbd1841bd091a5eb2299017a" id="r_a8c26c9a8cbd1841bd091a5eb2299017a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a">render</a> (int viewportWidth, int viewportHeight, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha)</td></tr>
 <tr class="memdesc:a8c26c9a8cbd1841bd091a5eb2299017a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la scène du niveau (rien si le chargement a échoué).  <br /></td></tr>
+<tr class="memitem:af73e9ba375e947026121ce9e52d0e1aa" id="r_af73e9ba375e947026121ce9e52d0e1aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af73e9ba375e947026121ce9e52d0e1aa">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
+<tr class="memdesc:af73e9ba375e947026121ce9e52d0e1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:abe7a3f556c45b3b07541f43b6d8461fa" id="r_abe7a3f556c45b3b07541f43b6d8461fa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abe7a3f556c45b3b07541f43b6d8461fa">loaded</a> () const</td></tr>
 <tr class="memitem:ab05b61b6e50db6f365702dad1810732f" id="r_ab05b61b6e50db6f365702dad1810732f"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab05b61b6e50db6f365702dad1810732f">loadError</a> () const</td></tr>
 </table><table class="memberdecls">
@@ -525,6 +527,44 @@ Private Attributes</h2></td></tr>
 
 <p>Dessine la scène du niveau (rien si le chargement a échoué). </p>
 <p><code class="param">mode</code> choisit le rendu Physique ou Texture (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) : bascule purement visuelle, sans effet sur la simulation ni sur la scène ECS. </p>
+
+</div>
+</div>
+<a id="af73e9ba375e947026121ce9e52d0e1aa" name="af73e9ba375e947026121ce9e52d0e1aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73e9ba375e947026121ce9e52d0e1aa">&#9670;&#160;</a></span>setSkins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::setSkins </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>skins</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>). </p>
+<p>Le catalogue n'est <b>pas</b> copié : l'appelant en reste propriétaire et doit le maintenir en vie au moins aussi longtemps que la session. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skins</td><td>Catalogue, ou <span class="tt">nullptr</span> pour retomber entièrement sur le damier. </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu courant ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

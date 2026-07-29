@@ -106,6 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a866ad56f7e8a029aaff1b8b72210c30a" id="r_a866ad56f7e8a029aaff1b8b72210c30a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a866ad56f7e8a029aaff1b8b72210c30a">invalidate</a> () noexcept</td></tr>
 <tr class="memdesc:a866ad56f7e8a029aaff1b8b72210c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#ad06718626de934f7624fa5221a79ef0e" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).  <br /></td></tr>
 <tr class="memitem:acbb89fb6d31cb5718dece21322b1630c" id="r_acbb89fb6d31cb5718dece21322b1630c"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acbb89fb6d31cb5718dece21322b1630c">lastScene</a> () const noexcept</td></tr>
+<tr class="memitem:a2034472c87db59e7a7941c945e9d61f4" id="r_a2034472c87db59e7a7941c945e9d61f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2034472c87db59e7a7941c945e9d61f4">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
+<tr class="memdesc:a2034472c87db59e7a7941c945e9d61f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -122,6 +124,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0b67904e6c3e241a281be17dafe27398" id="r_a0b67904e6c3e241a281be17dafe27398"><td class="memItemLeft"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0b67904e6c3e241a281be17dafe27398">_batch</a></td></tr>
 <tr class="memitem:a823f254cf3e79362168f4f5e3fa526a1" id="r_a823f254cf3e79362168f4f5e3fa526a1"><td class="memItemLeft">const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a823f254cf3e79362168f4f5e3fa526a1">_atlas</a></td></tr>
 <tr class="memitem:aee0b5e62d6615dc8fede40871395017f" id="r_aee0b5e62d6615dc8fede40871395017f"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aee0b5e62d6615dc8fede40871395017f">_cache</a></td></tr>
+<tr class="memitem:ac2404f33b0fc05a3623d744e78e2755e" id="r_ac2404f33b0fc05a3623d744e78e2755e"><td class="memItemLeft">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac2404f33b0fc05a3623d744e78e2755e">_skins</a> = nullptr</td></tr>
+<tr class="memitem:a1106a948203446e8847a7d5e2a429d4e" id="r_a1106a948203446e8847a7d5e2a429d4e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1106a948203446e8847a7d5e2a429d4e">_skinSet</a></td></tr>
 <tr class="memitem:ab0e865117967424e741c7163552d57b5" id="r_ab0e865117967424e741c7163552d57b5"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0e865117967424e741c7163552d57b5">_scene</a></td></tr>
 <tr class="memitem:aa731650ada5f6cfd09d4c94aee44b0fb" id="r_aa731650ada5f6cfd09d4c94aee44b0fb"><td class="memItemLeft"><a class="el" href="classcore_1_1World.html">core::World</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa731650ada5f6cfd09d4c94aee44b0fb">_world</a></td></tr>
 <tr class="memitem:a8d81eec42fa953e30cc22510831e6d0d" id="r_a8d81eec42fa953e30cc22510831e6d0d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8d81eec42fa953e30cc22510831e6d0d">_dirty</a> = true</td></tr>
@@ -369,6 +373,44 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2034472c87db59e7a7941c945e9d61f4" name="a2034472c87db59e7a7941c945e9d61f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2034472c87db59e7a7941c945e9d61f4">&#9670;&#160;</a></span>setSkins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DraftRenderer::setSkins </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>skins</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>). </p>
+<p>Le catalogue n'est <b>pas</b> copié : l'appelant en reste propriétaire. Réassigner un skin s'y voit à l'image suivante, sans reconstruire le brouillon ni la scène. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skins</td><td>Catalogue, ou <span class="tt">nullptr</span> pour retomber entièrement sur le damier. </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu courant ; vide pour le jeu par défaut du catalogue. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a823f254cf3e79362168f4f5e3fa526a1" name="a823f254cf3e79362168f4f5e3fa526a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a823f254cf3e79362168f4f5e3fa526a1">&#9670;&#160;</a></span>_atlas</h2>
@@ -469,6 +511,50 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> hmi::DraftRenderer::_scene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2404f33b0fc05a3623d744e78e2755e" name="ac2404f33b0fc05a3623d744e78e2755e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2404f33b0fc05a3623d744e78e2755e">&#9670;&#160;</a></span>_skins</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a>* hmi::DraftRenderer::_skins = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1106a948203446e8847a7d5e2a429d4e" name="a1106a948203446e8847a7d5e2a429d4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1106a948203446e8847a7d5e2a429d4e">&#9670;&#160;</a></span>_skinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::DraftRenderer::_skinSet</td>
         </tr>
       </table>
   </td>

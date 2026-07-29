@@ -106,6 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adf079bf9ca4b4e74bca79c59e4857dfd" id="r_adf079bf9ca4b4e74bca79c59e4857dfd"><td class="memItemLeft"><a class="el" href="#a01918dc9b37d964e74a2cda82d5933c0">TextureCache</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adf079bf9ca4b4e74bca79c59e4857dfd">operator=</a> (const <a class="el" href="#a01918dc9b37d964e74a2cda82d5933c0">TextureCache</a> &amp;)=delete</td></tr>
 <tr class="memitem:aede852089e7c06705756d4120ec256a4" id="r_aede852089e7c06705756d4120ec256a4"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aede852089e7c06705756d4120ec256a4">get</a> (const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
 <tr class="memdesc:aede852089e7c06705756d4120ec256a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, en la chargeant au premier accès.  <br /></td></tr>
+<tr class="memitem:a37bf2cb7f585146525bf9551e4e56ede" id="r_a37bf2cb7f585146525bf9551e4e56ede"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a37bf2cb7f585146525bf9551e4e56ede">getMasked</a> (const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
+<tr class="memdesc:a37bf2cb7f585146525bf9551e4e56ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la variante d'un asset <b>détourée</b> à la silhouette d'un type de tuile.  <br /></td></tr>
 <tr class="memitem:a324622b81a525996c2c2fef648ca1e49" id="r_a324622b81a525996c2c2fef648ca1e49"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49">invalidate</a> (const std::string &amp;fileName)</td></tr>
 <tr class="memdesc:a324622b81a525996c2c2fef648ca1e49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire une entrée du cache, de sorte que le prochain <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> relise le fichier.  <br /></td></tr>
 <tr class="memitem:a12ace6c083ac9c91eff8686bd0039a4b" id="r_a12ace6c083ac9c91eff8686bd0039a4b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b">invalidateAll</a> ()</td></tr>
@@ -117,8 +119,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a76e8ea9cb0cee866ee1196e0db116dc5" id="r_a76e8ea9cb0cee866ee1196e0db116dc5"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a76e8ea9cb0cee866ee1196e0db116dc5">load</a> (const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family) const</td></tr>
-<tr class="memdesc:a76e8ea9cb0cee866ee1196e0db116dc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge et valide un asset depuis le disque, sans passer par le cache.  <br /></td></tr>
+<tr class="memitem:ae1e131bf205906a4f5356a07aa3f5879" id="r_ae1e131bf205906a4f5356a07aa3f5879"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae1e131bf205906a4f5356a07aa3f5879">load</a> (const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, std::optional&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; maskType=std::nullopt) const</td></tr>
+<tr class="memdesc:ae1e131bf205906a4f5356a07aa3f5879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge et valide un asset depuis le disque, sans passer par le cache.  <br /></td></tr>
+<tr class="memitem:ac28feac2b71b9c2f751d189cbd28a47c" id="r_ac28feac2b71b9c2f751d189cbd28a47c"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac28feac2b71b9c2f751d189cbd28a47c">getUnderKey</a> (const std::string &amp;cacheKey, const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, std::optional&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; maskType)</td></tr>
+<tr class="memdesc:ac28feac2b71b9c2f751d189cbd28a47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient une entrée du cache sous une clé donnée, en la chargeant au premier accès.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -283,6 +287,94 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a37bf2cb7f585146525bf9551e4e56ede" name="a37bf2cb7f585146525bf9551e4e56ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37bf2cb7f585146525bf9551e4e56ede">&#9670;&#160;</a></span>getMasked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> * hmi::TextureCache::getMasked </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtient la variante d'un asset <b>détourée</b> à la silhouette d'un type de tuile. </p>
+<p>Un skin fourni par l'auteur est une image carrée ; l'afficher tel quel sur une pente donnerait un carré plein là où le personnage passe, et la lecture du niveau serait fausse (<span class="tt">LOT-42</span> TACHE-03). Le détourage est appliqué <b>une fois</b>, au chargement, puis conservé comme toute autre entrée du cache.</p>
+<p>La variante détourée est mémorisée sous une <b>clé distincte</b> de l'originale : un même fichier peut être assigné à la fois à un type carré et à une pente sans que l'un abîme l'autre.</p>
+<p>Un type <b>sans</b> silhouette (<span class="tt"><a class="el" href="namespacehmi.html#a8a000913259074c63f34b46b7d67864e" title="Indique si un type de tuile a une silhouette autre qu&#39;un carré plein.">hmi::hasSilhouette</a></span>) n'est pas détouré : l'appel équivaut alors à <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>Nom logique du fichier, relatif au dossier d'assets. </td></tr>
+    <tr><td class="paramname">family</td><td>Famille de l'asset, qui fixe les dimensions attendues (<span class="tt">EX-REN-007</span>). </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile dont la silhouette est appliquée. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture détourée (propriété du cache), ou <span class="tt">nullptr</span> si l'asset est absent, illisible ou non conforme — jamais d'exception (<span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
+<a id="ac28feac2b71b9c2f751d189cbd28a47c" name="ac28feac2b71b9c2f751d189cbd28a47c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28feac2b71b9c2f751d189cbd28a47c">&#9670;&#160;</a></span>getUnderKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> * hmi::TextureCache::getUnderKey </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>cacheKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>maskType</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtient une entrée du cache sous une clé donnée, en la chargeant au premier accès. </p>
+
+</div>
+</div>
 <a id="a324622b81a525996c2c2fef648ca1e49" name="a324622b81a525996c2c2fef648ca1e49"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a324622b81a525996c2c2fef648ca1e49">&#9670;&#160;</a></span>invalidate()</h2>
 
@@ -327,8 +419,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a76e8ea9cb0cee866ee1196e0db116dc5" name="a76e8ea9cb0cee866ee1196e0db116dc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76e8ea9cb0cee866ee1196e0db116dc5">&#9670;&#160;</a></span>load()</h2>
+<a id="ae1e131bf205906a4f5356a07aa3f5879" name="ae1e131bf205906a4f5356a07aa3f5879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1e131bf205906a4f5356a07aa3f5879">&#9670;&#160;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +436,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>&#160;) const</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>maskType</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -355,6 +452,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Charge et valide un asset depuis le disque, sans passer par le cache. </p>
+<p>Applique la silhouette de <code class="param">maskType</code> si ce type en a une (détourage des pentes, <span class="tt">LOT-42</span>). </p>
 
 </div>
 </div>

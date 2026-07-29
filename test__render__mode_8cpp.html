@@ -119,7 +119,7 @@ Functions</h2></td></tr>
 <tr class="memitem:af387bcce22e37e034aef0f486e63f553" id="r_af387bcce22e37e034aef0f486e63f553"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af387bcce22e37e034aef0f486e63f553">TEST</a> (RenderModeTest, ModePhysiqueRendLaRegionDAtlas)</td></tr>
 <tr class="memdesc:af387bcce22e37e034aef0f486e63f553"><td class="mdescLeft">&#160;</td><td class="mdescRight">En mode Physique, le résolveur rend <b>exactement</b> la région d'atlas attendue pour chaque type de tuile : le mode de référence est inchangé.  <br /></td></tr>
 <tr class="memitem:ae6b501665394ecfc5d9d42009016398b" id="r_ae6b501665394ecfc5d9d42009016398b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae6b501665394ecfc5d9d42009016398b">TEST</a> (RenderModeTest, ModeTextureRetombeSurLeDamier)</td></tr>
-<tr class="memdesc:ae6b501665394ecfc5d9d42009016398b"><td class="mdescLeft">&#160;</td><td class="mdescRight">En mode Texture, toute tuile retombe sur le damier de repli en entier : aucun skin n'existe avant LOT-42, et c'est le comportement attendu.  <br /></td></tr>
+<tr class="memdesc:ae6b501665394ecfc5d9d42009016398b"><td class="mdescLeft">&#160;</td><td class="mdescRight">En mode Texture, une entité <b>sans marque d'habillage</b> retombe sur le damier de repli : c'est le cas du personnage et des aides d'édition, jamais habillés.  <br /></td></tr>
 <tr class="memitem:aa3f316927e8a70f9bac71a6149f92b9f" id="r_aa3f316927e8a70f9bac71a6149f92b9f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa3f316927e8a70f9bac71a6149f92b9f">TEST</a> (RenderModeTest, ModePhysiqueNonRegression)</td></tr>
 <tr class="memdesc:aa3f316927e8a70f9bac71a6149f92b9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-régression : en mode Physique, la scène de référence produit exactement les primitives d'avant le lot — mêmes positions, mêmes régions, mêmes calques, même ordre.  <br /></td></tr>
 <tr class="memitem:a9f372e74db01ee39e6272880ea191c41" id="r_a9f372e74db01ee39e6272880ea191c41"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9f372e74db01ee39e6272880ea191c41">TEST</a> (RenderModeTest, ModeTextureConserveLaGeometrie)</td></tr>
@@ -357,12 +357,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>En mode Texture, toute tuile retombe sur le damier de repli en entier : aucun skin n'existe avant LOT-42, et c'est le comportement attendu. </p>
-<p><b>Cas de test :</b> <b>En mode Texture, toute tuile retombe sur le damier de repli.</b><br  />
+<p>En mode Texture, une entité <b>sans marque d'habillage</b> retombe sur le damier de repli : c'est le cas du personnage et des aides d'édition, jamais habillés. </p>
+<p><b>Cas de test :</b> <b>En mode Texture, une entite sans marque d'habillage retombe sur le damier.</b><br  />
  <b>Categorie :</b> Unitaire · Render Mode<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Pour chaque type de tuile, resoudre l'apparence en mode Texture.<br  />
+ 1. Resoudre l'apparence en mode Texture sans marque d'habillage.<br  />
  <b>Resultat attendu :</b> La source est le damier et la region couvre le damier entier. </p>
 
 </div>

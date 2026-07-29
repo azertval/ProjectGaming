@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tiletype_0',['TileType',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875',1,'core']]]
+  ['quadkind_0',['QuadKind',['../namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3',1,'hmi']]]
 ];

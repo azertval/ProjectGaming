@@ -26,6 +26,10 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "RenderMode.h", "RenderMode_8h.html", "RenderMode_8h" ],
     [ "RoomGrid.cpp", "RoomGrid_8cpp.html", null ],
     [ "RoomGrid.h", "RoomGrid_8h.html", "RoomGrid_8h" ],
+    [ "SkinCatalog.cpp", "SkinCatalog_8cpp.html", "SkinCatalog_8cpp" ],
+    [ "SkinCatalog.h", "SkinCatalog_8h.html", "SkinCatalog_8h" ],
+    [ "SlopeMask.cpp", "SlopeMask_8cpp.html", "SlopeMask_8cpp" ],
+    [ "SlopeMask.h", "SlopeMask_8h.html", "SlopeMask_8h" ],
     [ "SpriteBatch.cpp", "SpriteBatch_8cpp.html", null ],
     [ "SpriteBatch.h", "SpriteBatch_8h.html", "SpriteBatch_8h" ],
     [ "SpriteRenderer.cpp", "SpriteRenderer_8cpp.html", "SpriteRenderer_8cpp" ],
@@ -39,6 +43,9 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "TextureLoader.h", "TextureLoader_8h.html", "TextureLoader_8h" ],
     [ "TileAppearance.cpp", "TileAppearance_8cpp.html", "TileAppearance_8cpp" ],
     [ "TileAppearance.h", "TileAppearance_8h.html", "TileAppearance_8h" ],
+    [ "TileAutotile.cpp", "TileAutotile_8cpp.html", "TileAutotile_8cpp" ],
+    [ "TileAutotile.h", "TileAutotile_8h.html", "TileAutotile_8h" ],
+    [ "TileSkinTag.h", "TileSkinTag_8h.html", "TileSkinTag_8h" ],
     [ "TileVisuals.cpp", "TileVisuals_8cpp.html", "TileVisuals_8cpp" ],
     [ "TileVisuals.h", "TileVisuals_8h.html", "TileVisuals_8h" ]
 ];
