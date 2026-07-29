@@ -14,8 +14,10 @@ CREATE_SUBDIRS         = NO
 INPUT                  = index.md \
                          CahierTest.md \
                          Guide \
+                         Guide-Annexe \
                          Specification \
                          Lot \
+                         Lot-Annexe \
                          Manuel \
                          ../Source
 RECURSIVE              = YES
