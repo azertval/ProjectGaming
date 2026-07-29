@@ -179,8 +179,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 }
 
 void MainWindow::setDocksVisible(bool visible) {
-    for (QDockWidget* const dock :
-         {_ui->PalettePanel, _ui->ToolPanel, _ui->LevelsPanel, _ui->LinksPanel}) {
+    // TOUS les docks, retrouves dynamiquement, plutot qu'une liste ecrite a la main : celle-ci
+    // laissait echapper silencieusement chaque dock ajoute ensuite, qui restait alors affiche
+    // par-dessus le menu principal et le jeu (constate avec le dock « Textures » du LOT-42).
+    // Les panneaux d'edition n'ont de sens qu'en mode edition (EX-IHM-010).
+    for (QDockWidget* const dock : findChildren<QDockWidget*>()) {
         dock->setVisible(visible);
     }
 }
