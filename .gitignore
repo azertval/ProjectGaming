@@ -59,6 +59,9 @@ coverage.xml
 coverage-html/
 *.cov
 
+# --- Sorties d'entraînement IA (générées, programme Lot-Annexe) ---
+/TrainingRuns/
+
 # --- Divers ---
 *.log
 *.tmp
