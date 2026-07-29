@@ -71,5 +71,9 @@ niveau et apparition du personnage) et les types de retour de `step` — le corp
   `/W4 /WX` sans avertissement ; Doxygen à jour. `step` est déclaré mais son corps est laissé à
   TACHE-02 (pas de DoD sur le comportement de simulation ici).
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — agent, environnement, boucle `reset`/`step`, épisode,
+propriété de Markov.
+
 ## Exigences
 `EX-IA-005` (nouvelle, partagée avec TACHE-02 à TACHE-05 de ce lot).

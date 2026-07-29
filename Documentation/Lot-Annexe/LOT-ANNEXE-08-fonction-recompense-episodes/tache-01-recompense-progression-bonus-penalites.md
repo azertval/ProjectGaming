@@ -47,5 +47,11 @@ seules, le signal scalaire que tout algorithme d'apprentissage du programme cher
 - `RewardConfig`/`computeReward` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (récompense, conception d'une fonction de récompense
+(*shaping*, *reward hacking*), épisode et horizon), en particulier ses sections 6.1 (récompense
+creuse contre dense), 6.3 (*shaping* par potentiel : pourquoi une **différence** de distance et non
+une distance) et 6.4 (ordres de grandeur entre les termes).
+
 ## Exigences
 `EX-IA-009` (nouvelle, partagée avec TACHE-02/03 du même lot).

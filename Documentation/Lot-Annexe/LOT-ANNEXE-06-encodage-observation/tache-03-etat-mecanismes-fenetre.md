@@ -70,5 +70,10 @@ distinguer une porte franchissable d'un mur. Cette tâche superpose cet état à
 - `HeadlessLevelEnvironment` étendu et `MechanismStateEncoder` testés (`ctest` vert) sur les cas
   ci-dessus ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (état et observation, conception d'une observation :
+one-hot, normalisation, observation partielle), en particulier sa section 3.1 (complétude contre
+taille de l'observation).
+
 ## Exigences
 `EX-IA-006` (nouvelle).

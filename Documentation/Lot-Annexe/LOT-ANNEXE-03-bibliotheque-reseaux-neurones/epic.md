@@ -26,6 +26,11 @@ d'actions pré-enregistrée obtenue **hors ligne** à partir d'un modèle charg�
 - **Activations différentiables** : `sigmoid` et `softmax`, ajoutées à l'ensemble d'opérations posé
   par `LOT-ANNEXE-02` via sa fabrique générique (`unaryOp`/`binaryOp`) — `relu`/`tanhOp`, déjà
   livrées par `LOT-ANNEXE-02`, sont réutilisées telles quelles.
+- **Opérations différentiables complémentaires** (`subtract`, `divide`, `addScalar`,
+  `multiplyScalar`, `logOp`, `expOp`, `selectIndex`, `minimum`, `clamp`) : complètent l'ensemble
+  livré par `LOT-ANNEXE-02`, qui les avait explicitement reportées ici faute de consommateur. Elles
+  sont ajoutées dans `Math/Autodiff/Ops.h`, via la même fabrique `unaryOp`/`binaryOp`, sans toucher
+  au moteur. Sans elles, aucune perte de *policy gradient* n'est écrivable (`LOT-ANNEXE-12`).
 - **Composition en réseau** (`aisolver::nn::Network`) : séquence de couches (+ activation associée
   à chacune), `forward()` bout-en-bout, accès aux paramètres de toutes les couches (pour
   l'optimiseur, `LOT-ANNEXE-04`).
@@ -85,8 +90,9 @@ Goodfellow, Bengio, Courville (2016, référence générale) — bibliographie c
 ## Exigences couvertes
 - Nouvelle : \anchor EX-IA-003 **EX-IA-003** — Le programme d'IA doit disposer d'une bibliothèque de
   réseaux de neurones **implémentée en interne** (couche dense, activations différentiables,
-  composition en réseau, initialisation Xavier/He, sérialisation versionnée des poids), sans
-  dépendance à un framework de calcul numérique ou d'apprentissage automatique tiers.
+  opérations différentiables complémentaires, composition en réseau, initialisation Xavier/He,
+  sérialisation versionnée des poids), sans dépendance à un framework de calcul numérique ou
+  d'apprentissage automatique tiers.
 - Réutilisées : `EX-IA-001` (`Tensor<float>`, `Rng`), `EX-IA-002` (moteur d'autodiff, fabrique
   générique d'opérations différentiables), `EX-NFR-010`/`EX-NFR-012`/`EX-NFR-013`/`EX-NFR-020`
   (testabilité headless, conventions, `/W4 /WX`, couverture de tests), `EX-ARCH-001` (sens de
@@ -102,7 +108,8 @@ Goodfellow, Bengio, Courville (2016, référence générale) — bibliographie c
 | [TACHE-02](tache-02-activations.md) | Fonctions d'activation différentiables (`sigmoid`, `softmax`) | `Source/AiSolver/Nn` | ⬜ |
 | [TACHE-03](tache-03-composition-reseau.md) | Composition en réseau (`Network`) | `Source/AiSolver/Nn` | ⬜ |
 | [TACHE-04](tache-04-initialisation-serialisation.md) | Initialisation des poids et sérialisation | `Source/AiSolver/Nn` | ⬜ |
-| [TACHE-05](tache-05-tests.md) | Tests : reproductibilité, stabilité numérique | `Source/Test/Unit/AiSolver/Nn` | ⬜ |
+| [TACHE-05](tache-05-operations-differentiables-complementaires.md) | Opérations différentiables complémentaires (`log`, `exp`, `divide`, `selectIndex`, `minimum`, `clamp`…) | `Source/AiSolver/Math/Autodiff` | ⬜ |
+| [TACHE-06](tache-06-tests.md) | Tests : reproductibilité, stabilité numérique | `Source/Test/Unit/AiSolver/Nn` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. Un `Network` composé de plusieurs `Dense` avec activations mêlées (`relu`, `tanh`, `sigmoid`,
@@ -110,14 +117,17 @@ Goodfellow, Bengio, Courville (2016, référence générale) — bibliographie c
    perte scalaire construite sur cette sortie produit des gradients non nuls sur **tous** les
    paramètres du réseau.
 2. `sigmoid` et `softmax` passent le contrôle de gradient de `LOT-ANNEXE-02` (`GradientCheck.h`)
-   avant d'être utilisées dans un `Dense`/`Network`.
+   avant d'être utilisées dans un `Dense`/`Network`. Les neuf opérations complémentaires de
+   TACHE-05 passent le **même** contrôle, et la chaîne
+   `multiplyScalar(logOp(selectIndex(softmax(sortie), a)), -G)` — squelette exact de la perte de
+   `LOT-ANNEXE-12` — produit des gradients non nuls sur tous les poids traversés.
 3. Deux réseaux construits avec les **mêmes** poids (chargés depuis le même fichier sérialisé) et la
    **même** entrée produisent une sortie **identique** (reproductibilité, `EX-NFR-002` par analogie
    — déterminisme).
 4. Un réseau sauvegardé (`LOT-ANNEXE-03` TACHE-04) puis rechargé produit une sortie identique à
    l'original, pour la même entrée.
 5. Aucune sortie `NaN`/`inf` sur des entrées de forme et d'amplitude plausibles, y compris aux
-   extrêmes (test dédié, TACHE-05).
+   extrêmes (test dédié, TACHE-06).
 6. Logique nouvelle **couverte par des tests** (`ctest` vert), déterministe, sans GPU. Build
    `/W4 /WX` sans avertissement, Doxygen et `scripts/lint_exigences.py` verts.
 
@@ -132,4 +142,5 @@ optimiseur ajuste les paramètres exposés par `Network::parameters()`).
 - @subpage lot-annexe-03-tache-02-activations
 - @subpage lot-annexe-03-tache-03-composition-reseau
 - @subpage lot-annexe-03-tache-04-initialisation-serialisation
-- @subpage lot-annexe-03-tache-05-tests
+- @subpage lot-annexe-03-tache-05-operations-differentiables-complementaires
+- @subpage lot-annexe-03-tache-06-tests

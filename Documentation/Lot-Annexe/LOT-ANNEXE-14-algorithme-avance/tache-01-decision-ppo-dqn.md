@@ -32,10 +32,11 @@ Documenter le choix retenu et sa justification en tête de ce fichier (ou dans u
 - **`aisolver::training::computePpoClippedLoss`**
   (`Source/AiSolver/Training/Advanced/PpoLoss.h/.cpp`) : perte de politique
   `-min(ratio × avantage, clip(ratio, 1−ε_clip, 1+ε_clip) × avantage)` par pas, moyennée sur le
-  batch, construite comme graphe d'autodiff (le `min` et le `clip` doivent être des opérations
-  supportées ou composables à partir des primitives déjà exposées par le moteur d'autodiff de
-  LOT-ANNEXE-02 — si `min`/`clip` n'existent pas encore comme nœuds, les exprimer à partir des
-  opérations existantes, ex. combinaisons de comparaisons et de sélections).
+  batch, construite comme graphe d'autodiff. Les quatre opérations nécessaires existent déjà et
+  n'ont pas à être réécrites : `expOp` (pour le ratio), `minimum`, `clamp` et `multiplyScalar` sont
+  livrées par @ref lot-annexe-03-tache-05-operations-differentiables-complementaires, avec leur
+  convention de sous-gradient documentée (`clamp` ne laisse passer aucun gradient sur un élément
+  rogné — c'est exactement l'effet stabilisateur recherché par PPO, pas un effet de bord).
 - **Plusieurs époques d'optimisation par batch** : la boucle réoptimise la politique (et le critique,
   réutilisé de LOT-ANNEXE-13 sans changement de nature) un nombre configurable de fois (ex. 3 à 10)
   sur le **même** batch de trajectoires collecté, avant de recollecter un nouveau batch — c'est la
@@ -105,6 +106,10 @@ Documenter le choix retenu et sa justification en tête de ce fichier (ou dans u
 ## Définition de fait (DoD)
 - Décision PPO/DQN documentée et justifiée par les résultats de LOT-ANNEXE-13 ; algorithme retenu
   implémenté et testé (`ctest` vert) ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
+
+## Notions abordées
+@ref guide-annexe-ppo-dqn — PPO (limitation du pas par *clipping*) et DQN (valeur d'action, rejeu
+d'expérience, réseau cible).
 
 ## Exigences
 `EX-IA-015` (nouvelle, couverte par le lot).

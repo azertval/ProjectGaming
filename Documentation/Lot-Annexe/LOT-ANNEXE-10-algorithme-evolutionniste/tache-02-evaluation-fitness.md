@@ -61,5 +61,9 @@ LOT-ANNEXE-08.
 - Évaluation de fitness disponible, déterministe et testée (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — population, fitness, sélection, croisement,
+mutation.
+
 ## Exigences
 Aucune exigence propre — contribue à `EX-IA-011` (déclarée en TACHE-04).

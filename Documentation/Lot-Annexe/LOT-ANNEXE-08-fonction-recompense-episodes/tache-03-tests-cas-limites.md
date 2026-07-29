@@ -47,5 +47,10 @@ du jeu, condition posée par le critère d'acceptation 4 de l'épic.
 - Les deux suites de tests vertes (`ctest`) ; build `/W4 /WX` sans avertissement ; Doxygen à jour ;
   `EX-IA-009` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (récompense, conception d'une fonction de récompense
+(*shaping*, *reward hacking*), épisode et horizon), en particulier sa section 6.2 (*reward hacking*
+: l'agent optimise la lettre de la récompense, pas l'intention).
+
 ## Exigences
 `EX-IA-009` (nouvelle, du même lot).

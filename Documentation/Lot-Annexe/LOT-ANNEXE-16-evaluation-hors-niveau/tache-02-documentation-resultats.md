@@ -43,5 +43,9 @@ du code — pour qu'ils restent consultables sans avoir à relancer la campagne 
 - `resultats-transfert.md` rédigé et lié depuis l'`epic.md` du lot une fois la campagne de TACHE-01
   exécutée ; Doxygen à jour (nouveau fichier intégré à la navigation si nécessaire).
 
+## Notions abordées
+@ref guide-annexe-evaluation-rl — généralisation hors du niveau d'entraînement, sur-apprentissage à
+un seul environnement.
+
 ## Exigences
 `EX-IA-017` (nouvelle, du même lot).

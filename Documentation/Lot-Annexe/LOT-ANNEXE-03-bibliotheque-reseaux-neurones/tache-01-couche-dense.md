@@ -48,7 +48,7 @@ composer ces deux opérations à la main pour chaque couche d'un réseau serait 
 - **`forward` différentiable de bout en bout** : `autodiff::backward()` appliqué à une perte scalaire
   construite sur la sortie de `forward()` produit des gradients **non nuls** sur `_weights` et
   `_bias` (démontre que `Dense` s'intègre correctement au graphe de `LOT-ANNEXE-02`, sans encore
-  vérifier leur exactitude numérique — couvert par TACHE-05 via `GradientCheck.h`).
+  vérifier leur exactitude numérique — couvert par TACHE-06 via `GradientCheck.h`).
 - **Deux couches indépendantes ont des poids différents** (avec une graine de `Rng` différente, ou
   la même graine consommée séquentiellement) : garde-fou contre une initialisation accidentellement
   constante.
@@ -71,6 +71,10 @@ composer ces deux opérations à la main pour chaque couche d'un réseau serait 
 ## Définition de fait (DoD)
 - `Dense` disponible et testé (`ctest` vert) pour la forme, les paramètres exposés et
   l'intégration au graphe d'autodiff ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
+
+## Notions abordées
+@ref guide-annexe-reseaux-neurones — neurone, couche dense, fonctions d'activation, initialisation
+des poids.
 
 ## Exigences
 Contribue à `EX-IA-003` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

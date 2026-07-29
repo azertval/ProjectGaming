@@ -56,5 +56,9 @@ et la connecte à `TrainingStatsRecorder` (LOT-ANNEXE-09) pour rendre chaque gé
 - Boucle de génération disponible, testée (`ctest` vert), journalisée via `TrainingStatsRecorder` ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour ; `EX-IA-011` déclarée.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — population, fitness, sélection, croisement,
+mutation.
+
 ## Exigences
 `EX-IA-011` (nouvelle).

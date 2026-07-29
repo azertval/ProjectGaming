@@ -48,5 +48,9 @@ séquence exportée rejouable.
 - Les trois suites de tests vertes (`ctest`), y compris le test de bout en bout ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — action, espace d'action, politique déterministe ou
+stochastique, exploration.
+
 ## Exigences
 `EX-IA-007`, `EX-IA-008` (nouvelles, du même lot).

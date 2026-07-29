@@ -60,5 +60,10 @@ reproductibilité du RNG dont dépend tout le programme d'entraînement à venir
   build `/W4 /WX` sans avertissement ; critères d'acceptation de [l'épic](epic.md) vérifiés un par
   un avant de marquer `LOT-ANNEXE-01` terminé.
 
+## Notions abordées
+@ref guide-annexe-algebre-tensorielle (tenseurs, forme et *stride*, produit matriciel, réductions,
+générateurs pseudo-aléatoires), en particulier sa section 6 (pourquoi une erreur de forme est un bug
+et non une erreur à gérer).
+
 ## Exigences
 Contribue à `EX-IA-001` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

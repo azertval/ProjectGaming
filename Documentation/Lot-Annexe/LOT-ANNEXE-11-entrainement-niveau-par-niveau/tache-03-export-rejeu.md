@@ -60,5 +60,9 @@ tâche est aussi celle qui assemble TACHE-01 et TACHE-02 en un point d'entrée e
 - Export disponible et testé (`ctest` vert, round-trip vérifié), point d'entrée minimal fonctionnel
   bout en bout ; build `/W4 /WX` sans avertissement ; Doxygen à jour ; `EX-IA-012` déclarée.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — boucle générationnelle, élitisme, reproductibilité
+d'un entraînement.
+
 ## Exigences
 `EX-IA-012` (nouvelle).

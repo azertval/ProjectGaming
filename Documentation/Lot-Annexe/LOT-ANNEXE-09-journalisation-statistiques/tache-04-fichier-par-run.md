@@ -45,5 +45,9 @@ se marchent jamais dessus, et où ces fichiers générés vivent dans l'arboresc
 - `makeTrainingRunPath`/`generateRunId` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — récompense cumulée (retour), plafond de performance
+d'un entraînement.
+
 ## Exigences
 `EX-IA-010` (nouvelle, partagée avec TACHE-01/02/03/05 du même lot).

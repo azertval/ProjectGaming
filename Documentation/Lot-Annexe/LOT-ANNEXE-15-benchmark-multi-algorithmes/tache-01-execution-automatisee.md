@@ -120,5 +120,9 @@ question, brique de base du harnais de `LOT-ANNEXE-15`.
   `BenchmarkRunner` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans avertissement ;
   Doxygen à jour ; `EX-IA-016` déclarée.
 
+## Notions abordées
+@ref guide-annexe-evaluation-rl — variance entre exécutions, graines multiples, mesure honnête d'un
+agent entraîné.
+
 ## Exigences
 `EX-IA-016` (nouvelle, déclarée dans `epic.md` — partagée avec TACHE-02/03 du même lot).

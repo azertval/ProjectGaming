@@ -62,5 +62,9 @@ dispose déjà d'une cible stable.
 - `ReplayFile`/`writeReplay`/`readReplay` disponibles et testés (`ctest` vert), format documenté ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour ; `EX-IA-008` déclarée.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — action, espace d'action, politique déterministe ou
+stochastique, exploration.
+
 ## Exigences
 `EX-IA-008` (nouvelle).

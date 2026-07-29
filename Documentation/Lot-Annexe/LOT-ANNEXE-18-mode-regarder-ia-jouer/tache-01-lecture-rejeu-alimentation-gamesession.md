@@ -67,5 +67,10 @@ simulation. Pour rejouer un fichier de rejeu, il faut pouvoir fournir directemen
   vert), aucune régression sur les tests existants ; build `/W4 /WX` sans avertissement ; Doxygen à
   jour.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-019` (nouvelle, partagée avec TACHE-02/03 du même lot).

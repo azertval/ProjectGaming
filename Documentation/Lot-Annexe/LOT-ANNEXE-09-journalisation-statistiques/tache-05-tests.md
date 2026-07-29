@@ -42,5 +42,9 @@ assemblées.
 - Les deux suites de tests vertes (`ctest`) ; build `/W4 /WX` sans avertissement ; Doxygen à jour ;
   `EX-IA-010` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — récompense cumulée (retour), plafond de performance
+d'un entraînement.
+
 ## Exigences
 `EX-IA-010` (nouvelle, du même lot).

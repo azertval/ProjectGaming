@@ -52,5 +52,10 @@ au parcours existant « Jouer » (`hmi::MainWindow::startGame`, séquence `demo-
 - Entrée de menu et `GameViewport::startReplay` disponibles et testés dans la mesure du possible
   (`ctest` vert pour la partie non-Qt) ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-019` (nouvelle, partagée avec TACHE-01/03 du même lot).

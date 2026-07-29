@@ -68,5 +68,9 @@ complet que consommeront les algorithmes d'apprentissage (génération 2/3) et l
 - `Network` disponible et testé (`ctest` vert) pour la composition, l'accès aux paramètres et la
   rétropropagation de bout en bout ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-reseaux-neurones — neurone, couche dense, fonctions d'activation, initialisation
+des poids.
+
 ## Exigences
 Contribue à `EX-IA-003` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

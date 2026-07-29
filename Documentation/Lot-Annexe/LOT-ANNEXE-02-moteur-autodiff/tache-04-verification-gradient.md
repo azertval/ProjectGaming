@@ -76,5 +76,9 @@ contrôle avant d'être utilisée par un réseau réel.
   le test négatif de détection de régression) ; build `/W4 /WX` sans avertissement ; Doxygen à jour ;
   critères d'acceptation de [l'épic](epic.md) vérifiés avant de marquer `LOT-ANNEXE-02` terminé.
 
+## Notions abordées
+@ref guide-annexe-autodiff (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode
+inverse), en particulier sa section 8 (vérification par différences finies centrées).
+
 ## Exigences
 Contribue à `EX-IA-002` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

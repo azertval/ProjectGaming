@@ -68,5 +68,9 @@ la génération 2 (LOT-ANNEXE-10). Le comparateur de convergence introduit par L
   Doxygen à jour ; `EX-IA-015` déclarée comme couverte, mesure comparative à l'appui — clôture de
   l'exigence ferme d'apprentissage par gradient de la génération 3.
 
+## Notions abordées
+@ref guide-annexe-ppo-dqn — PPO (limitation du pas par *clipping*) et DQN (valeur d'action, rejeu
+d'expérience, réseau cible).
+
 ## Exigences
 `EX-IA-015` (nouvelle, mesurée par ce lot de comparaison).

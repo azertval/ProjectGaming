@@ -55,5 +55,8 @@ notamment attendu pour les algorithmes de génération 3 (`LOT-ANNEXE-12`/`13`/`
 - `Adam` disponible et testé (`ctest` vert), convergence démontrée sur un cas où SGD peine ; build
   `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-optimisation — descente de gradient, taux d'apprentissage, inertie, Adam.
+
 ## Exigences
 `EX-IA-004` (nouvelle, partagée avec TACHE-01/03 du même lot).

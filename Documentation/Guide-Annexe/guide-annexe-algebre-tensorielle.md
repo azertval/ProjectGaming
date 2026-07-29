@@ -198,6 +198,19 @@ entraînement ou comparer équitablement deux réglages d'hyperparamètres.
 délibéré : c'est de la bibliothèque standard, pas un framework d'apprentissage automatique, donc
 hors du périmètre de la contrainte « from scratch, sans dépendance » du programme.
 
+**Un piège à connaître : moteur ≠ loi de probabilité.** Un PRNG comme Mersenne Twister produit des
+entiers bruts sur 64 bits. Pour en tirer un flottant dans `[0, 1)`, un entier dans `[a, b]` ou un
+nombre gaussien, il faut une **loi de probabilité** appliquée par-dessus le moteur. La bibliothèque
+standard en fournit (`std::uniform_real_distribution`, `std::uniform_int_distribution`,
+`std::normal_distribution`) — mais la norme C++ spécifie **la suite exacte de valeurs produite par
+`std::mt19937_64`** et **ne spécifie pas** celle produite par ces distributions : deux compilateurs
+(ou deux versions du même) peuvent en donner des résultats différents pour la même graine, tout en
+étant parfaitement conformes. Un programme qui veut de la reproductibilité *portable* doit donc
+appliquer les lois lui-même, à partir de la sortie brute du moteur — c'est ce que fait
+`aisolver::Rng` (LOT-ANNEXE-01, TACHE-01) : conversion sur 24 bits pour `nextFloat`, tirage par
+rejet pour `nextInt` (le modulo simple biaise légèrement les dernières valeurs de la plage), et
+Box-Muller ci-dessous pour `nextGaussian`.
+
 **Du tirage uniforme au tirage gaussien** : `std::mt19937_64` (comme la plupart des PRNG) produit
 nativement des nombres **uniformément** répartis dans un intervalle (chaque valeur a la même
 chance d'apparaître). La mutation évolutionniste (chapitre

@@ -71,5 +71,9 @@ toucher à `Node.h`.
 - `add`, `multiply`, `matmul`, `relu`, `tanhOp` disponibles, testés (`ctest` vert) sur la passe
   avant et la composition ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-autodiff (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode
+inverse), en particulier ses sections 2 (règle de la chaîne) et 9 (fabrique générique d'opérations).
+
 ## Exigences
 Contribue à `EX-IA-002` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

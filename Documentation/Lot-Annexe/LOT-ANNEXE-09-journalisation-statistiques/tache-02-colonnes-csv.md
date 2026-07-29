@@ -43,5 +43,9 @@ le harnais de benchmark (`LOT-ANNEXE-15`) puisse plus tard lire ces fichiers de 
 - `csvHeader`/`csvRow` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans avertissement ;
   Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — récompense cumulée (retour), plafond de performance
+d'un entraînement.
+
 ## Exigences
 `EX-IA-010` (nouvelle, partagée avec TACHE-01/03/04/05 du même lot).

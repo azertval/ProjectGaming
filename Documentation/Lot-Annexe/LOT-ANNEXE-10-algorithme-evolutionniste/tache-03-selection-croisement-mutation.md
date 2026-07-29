@@ -65,5 +65,9 @@ parents plus aptes (sélection), les combiner (croisement), introduire de la var
 - Opérateurs génétiques disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans avertissement ;
   Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — population, fitness, sélection, croisement,
+mutation.
+
 ## Exigences
 Aucune exigence propre — contribue à `EX-IA-011` (déclarée en TACHE-04).
