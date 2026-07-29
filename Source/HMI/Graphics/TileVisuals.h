@@ -12,8 +12,6 @@
 
 namespace hmi {
 
-class TextureAtlas;
-
 /**
  * @brief Région d'atlas (couleur procédurale) associée à un type de tuile.
  *
@@ -24,12 +22,14 @@ class TextureAtlas;
  * `core::tileVisualScale` côté appelant, même taille pour les blocs réduits, `EX-GP-005`) de ce
  * que le joueur verra en jouant le niveau (`P`), sans simplification qui pourrait induire en
  * erreur pendant l'édition.
- * @param type  Type de tuile (`Empty` renvoie une région arbitraire, jamais dessinée en pratique
- *              — les cases vides ne sont pas rendues par l'appelant).
- * @param atlas Atlas fournissant les régions.
+ * Ne dépend que de la **géométrie de grille** de `hmi::TextureAtlas` (constantes et découpage
+ * statiques), jamais d'une texture chargée : la palette de l'éditeur peut donc l'appeler sans
+ * device Direct3D, ce qu'un widget Qt ne doit de toute façon jamais exiger.
+ * @param type Type de tuile (`Empty` renvoie une région arbitraire, jamais dessinée en pratique
+ *             — les cases vides ne sont pas rendues par l'appelant).
  * @return La région d'atlas à échantillonner pour ce type.
  */
-[[nodiscard]] core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas);
+[[nodiscard]] core::AtlasRegion regionForTile(core::TileType type);
 
 /// Position (colonne, ligne) d'une tuile dans la grille procédurale de `TextureAtlas`.
 struct AtlasGridPosition {

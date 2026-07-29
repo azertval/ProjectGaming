@@ -5,10 +5,10 @@
 namespace hmi {
 
 // Region d'atlas (couleur) associee a chaque type de tuile, pour un rendu distinct.
-core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) {
+core::AtlasRegion regionForTile(core::TileType type) {
     switch (type) {
         case core::TileType::Solid:
-            return atlas.tile(0, 2);  // gris
+            return TextureAtlas::tile(0, 2);  // gris
         case core::TileType::Danger:
         case core::TileType::DangerUp:
         case core::TileType::DangerDown:
@@ -22,19 +22,19 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             // DraftRenderer.cpp) distingue deja les variantes directionnelles ; simplification
             // assumee pour Mobile/Commute/Clignotant (memes couleur/forme que Danger classique,
             // seul leur TYPE — visible dans la palette — les distingue a l'edition).
-            return atlas.tile(0, 0);  // rouge
+            return TextureAtlas::tile(0, 0);  // rouge
         case core::TileType::Entry:
-            return atlas.tile(1, 0);  // vert
+            return TextureAtlas::tile(1, 0);  // vert
         case core::TileType::Exit:
-            return atlas.tile(2, 0);  // bleu
+            return TextureAtlas::tile(2, 0);  // bleu
         case core::TileType::Switch:
-            return atlas.tile(3, 0);  // jaune
+            return TextureAtlas::tile(3, 0);  // jaune
         case core::TileType::PressurePlate:
-            return atlas.tile(1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
+            return TextureAtlas::tile(1, 1);  // cyan (libere par LOT-17 : ancien placeholder du personnage)
         case core::TileType::Door:
-            return atlas.tile(2, 1);  // orange
+            return TextureAtlas::tile(2, 1);  // orange
         case core::TileType::Block:
-            return atlas.tile(3, 1);  // violet
+            return TextureAtlas::tile(3, 1);  // violet
         case core::TileType::SlopeUpRight:
         case core::TileType::SlopeUpLeft:
         case core::TileType::RoundedUpRight:
@@ -51,16 +51,16 @@ core::AtlasRegion regionForTile(core::TileType type, const TextureAtlas& atlas) 
             // gris — même matériau qu'un `Solid` standard, cf. TextureAtlas::slopeShapePixel) :
             // voir slopeTileGridPosition, seule source de vérité pour ces coordonnées.
             const AtlasGridPosition position = *slopeTileGridPosition(type);
-            return atlas.tile(position.column, position.row);
+            return TextureAtlas::tile(position.column, position.row);
         }
         case core::TileType::BlockHalf:
-            return atlas.tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
+            return TextureAtlas::tile(1, 3);  // gris foncé (variante teintée du bloc plein, EX-GP-005)
         case core::TileType::BlockQuarter:
-            return atlas.tile(0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
+            return TextureAtlas::tile(0, 3);  // gris clair (plus le bloc est petit, plus la teinte s'éclaircit)
         case core::TileType::Empty:
             break;
     }
-    return atlas.tile(0, 0);
+    return TextureAtlas::tile(0, 0);
 }
 
 // Position dans la grille de tuiles reservee a un type de tuile a profil suivable — voir la

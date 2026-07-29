@@ -9,77 +9,11 @@
 
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
 
 namespace core {
 
 namespace {
-
-// Convertit un TileType en son nom JSON (inverse de parseTileType, LevelLoader.cpp).
-[[nodiscard]] std::string tileTypeName(TileType type) {
-    switch (type) {
-        case TileType::Empty:
-            return "empty";  // jamais émis : les cases vides sont omises de 'tiles'.
-        case TileType::Solid:
-            return "solid";
-        case TileType::Danger:
-            return "danger";
-        case TileType::Entry:
-            return "entry";
-        case TileType::Exit:
-            return "exit";
-        case TileType::Switch:
-            return "switch";
-        case TileType::Door:
-            return "door";
-        case TileType::PressurePlate:
-            return "pressurePlate";
-        case TileType::Block:
-            return "block";
-        case TileType::SlopeUpRight:
-            return "slopeUpRight";
-        case TileType::SlopeUpLeft:
-            return "slopeUpLeft";
-        case TileType::RoundedUpRight:
-            return "roundedUpRight";
-        case TileType::RoundedUpLeft:
-            return "roundedUpLeft";
-        case TileType::BlockHalf:
-            return "blockHalf";
-        case TileType::BlockQuarter:
-            return "blockQuarter";
-        case TileType::SlopeDownRight:
-            return "slopeDownRight";
-        case TileType::SlopeDownLeft:
-            return "slopeDownLeft";
-        case TileType::RoundedDownRight:
-            return "roundedDownRight";
-        case TileType::RoundedDownLeft:
-            return "roundedDownLeft";
-        case TileType::ConcaveUpRight:
-            return "concaveUpRight";
-        case TileType::ConcaveUpLeft:
-            return "concaveUpLeft";
-        case TileType::ConcaveDownRight:
-            return "concaveDownRight";
-        case TileType::ConcaveDownLeft:
-            return "concaveDownLeft";
-        case TileType::DangerUp:
-            return "dangerUp";
-        case TileType::DangerDown:
-            return "dangerDown";
-        case TileType::DangerLeft:
-            return "dangerLeft";
-        case TileType::DangerRight:
-            return "dangerRight";
-        case TileType::DangerMover:
-            return "dangerMover";
-        case TileType::DangerSwitched:
-            return "dangerSwitched";
-        case TileType::DangerBlink:
-            return "dangerBlink";
-    }
-    return "empty";
-}
 
 // Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,
 // EX-GP-020/EX-GP-025) : les deux partagent la même règle d'identifiant (LevelLoader.cpp).

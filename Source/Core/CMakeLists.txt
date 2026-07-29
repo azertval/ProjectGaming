@@ -9,6 +9,7 @@ add_library(Core STATIC
     Ecs/Systems/CharacterPhysicsSystem.cpp
     Ecs/Systems/AnimationSystem.cpp
     Levels/TileMap.cpp
+    Levels/TileTypeName.cpp
     Levels/LevelLoader.cpp
     Levels/LevelWriter.cpp
     Levels/LevelDraft.cpp

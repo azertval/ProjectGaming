@@ -20,6 +20,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Levels/test_danger_geometry.cpp
+    Unit/Core/Levels/test_tile_type_name.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -49,10 +50,16 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_quad_recorder.cpp
     Unit/HMI/Graphics/test_render_culling.cpp
     Unit/HMI/Graphics/test_render_mode.cpp
+    Unit/HMI/Graphics/test_skin_catalog.cpp
+    Unit/HMI/Graphics/test_tile_autotile.cpp
+    Unit/HMI/Graphics/test_tile_skin_resolution.cpp
+    Unit/HMI/Graphics/test_slope_mask.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
+    Unit/HMI/Editor/test_skin_assignments.cpp
+    Unit/HMI/Editor/test_palette_appearance.cpp
     Unit/HMI/Editor/test_level_file_operations.cpp
     Unit/HMI/Editor/test_link_geometry.cpp
     Unit/HMI/Editor/test_link_gesture.cpp
@@ -82,6 +89,15 @@ add_executable(UnitTests
     # pure (aucune dependance Qt/GPU) : testables hors GPU.
     ../HMI/Graphics/RenderMode.cpp
     ../HMI/Graphics/TileAppearance.cpp
+    # Le catalogue de skins (LOT-42) est une configuration de presentation lue/ecrite en JSON,
+    # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
+    ../HMI/Graphics/SkinCatalog.cpp
+    # La table de raccords automatiques (LOT-42) est de la pure arithmetique de voisinage, sans
+    # texture ni GPU : testable exhaustivement hors GPU (EX-NFR-004).
+    ../HMI/Graphics/TileAutotile.cpp
+    # La silhouette des pentes (LOT-42) ne fait que decider quels pixels sont dans la matiere,
+    # a partir de la geometrie de Core : testable hors GPU, et comparable a l'atlas procedural.
+    ../HMI/Graphics/SlopeMask.cpp
     # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
     # ProceduralAtlas.cpp : testable hors GPU.
     ../HMI/Graphics/MissingTexture.cpp
@@ -110,6 +126,13 @@ add_executable(UnitTests
     ../HMI/Editor/LevelNameValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
     ../HMI/Editor/TileTaxonomy.cpp
+    # La logique alimentant le panneau « Textures » (LOT-42) est separee du widget Qt : lignes a
+    # afficher, balayage du dossier de skins, effet d'une assignation. Testable sans Qt.
+    ../HMI/Editor/TaxonomyLabels.cpp
+    ../HMI/Editor/SkinAssignments.cpp
+    # Le choix de vignette de la palette (LOT-42) applique la meme priorite que le canevas, sans
+    # aucune dependance Qt/GPU : c'est ce qui permet de verifier qu'ils ne divergent pas.
+    ../HMI/Editor/PaletteAppearance.cpp
     # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
     # (LevelNameValidation.cpp est déjà compilé plus haut.)
     ../HMI/Editor/LevelFileOperations.cpp
@@ -133,7 +156,8 @@ target_link_libraries(UnitTests PRIVATE
 # Chemins (source) des assets, pour vérifier que le contenu livré (niveaux, catalogues) se charge.
 target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
-    PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
+    PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
+    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests

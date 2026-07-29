@@ -17,6 +17,7 @@
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/RenderMode.h"
+#include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
@@ -141,6 +142,23 @@ public:
     }
 
     /**
+     * @brief Catalogue des jeux de skins, édité par le panneau « Textures » (`LOT-42`).
+     *
+     * Le viewport en reste **propriétaire** : le panneau agit dessus, et le rendu voit les mêmes
+     * assignations à l'image suivante, sans reconstruire la scène.
+     * @return Le catalogue.
+     */
+    [[nodiscard]] SkinCatalog& skinCatalog() noexcept {
+        return _skins;
+    }
+
+    /**
+     * @brief Désigne le jeu de skins à utiliser pour le rendu (`LOT-42`).
+     * @param setName Nom du jeu ; vide pour le jeu par défaut du catalogue.
+     */
+    void setSkinSet(const std::string& setName);
+
+    /**
      * @brief Choisit le mode de rendu et **persiste** le choix (`EX-REN-046`, `EX-IHM-011`).
      *
      * Purement visuel : ni la simulation, ni la scène ECS, ni le brouillon ne sont touchés — la
@@ -157,6 +175,9 @@ signals:
     /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
     /// « Liens » se resynchronise dessus (`refresh`).
     void draftChanged();
+    /// Le mode de rendu vient de basculer (`F8`) — la palette met ses vignettes à jour pour rester
+    /// fidèle au canevas (`EX-EDIT-027`).
+    void renderModeChanged(RenderMode mode);
 
 protected:
     bool event(QEvent* event) override;
@@ -217,6 +238,11 @@ private:
     std::unique_ptr<hmi::TextureAtlas> _atlas;
     std::unique_ptr<hmi::TextureCache> _textureCache;
     std::unique_ptr<hmi::DraftRenderer> _draftRenderer;
+    /// Catalogue des jeux de skins (`LOT-42`), lu au démarrage depuis `Assets/skins.json`. Vide si
+    /// le fichier est absent ou illisible : tout retombe alors sur le damier, sans bloquer.
+    hmi::SkinCatalog _skins;
+    /// Jeu de skins courant ; vide pour le jeu par défaut du catalogue.
+    std::string _skinSet;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
     hmi::InputState _input;

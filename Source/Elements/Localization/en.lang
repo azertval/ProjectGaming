@@ -26,6 +26,15 @@ dock.palette = Palette
 dock.tools = Tools
 dock.levels = Levels
 dock.links = Links
+dock.textures = Textures
+
+# Textures panel (LOT-42)
+textures.skin_set = Skin set
+textures.section_skins = Skins
+textures.column_type = Tile type
+textures.column_asset = File
+textures.column_mode = Mode
+textures.none = (none)
 
 # Status bar and dialogs
 status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid

@@ -8,6 +8,7 @@
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/PreviousPosition.h"
+#include "HMI/Graphics/TileSkinTag.h"
 
 namespace hmi {
 
@@ -168,13 +169,20 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
+            // Type et voisinage de la tuile, quand l'entite en porte un (LOT-42) : c'est de la
+            // que vient le choix du skin. Une entite sans ce composant n'est pas habillable.
+            const TileSkinTag* skinTag = world.hasComponent<TileSkinTag>(entity)
+                                             ? &world.getComponent<TileSkinTag>(entity)
+                                             : nullptr;
+
             // Apparence resolue par le point d'appel unique (LOT-41) : c'est ici, a la
             // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas.
-            const TileAppearance appearance = resolveTileAppearance(mode, sprite.region);
+            const TileAppearance appearance =
+                resolveTileAppearance(mode, sprite.region, skinTag, textures);
             const core::AtlasRegion& region = appearance.region;
-            const TextureHandle texture = textures.textureFor(appearance.source);
-            const float atlasWidth = static_cast<float>(textures.widthFor(appearance.source));
-            const float atlasHeight = static_cast<float>(textures.heightFor(appearance.source));
+            const TextureHandle texture = textures.textureFor(appearance);
+            const float atlasWidth = static_cast<float>(textures.widthFor(appearance));
+            const float atlasHeight = static_cast<float>(textures.heightFor(appearance));
 
             // Taille du sprite en unites monde : la region (en pixels) ramenee a l'echelle du
             // monde (16 px/unite), multipliee par l'echelle du Transform. Le zoom est applique

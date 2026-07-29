@@ -14,6 +14,8 @@
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
+#include "HMI/Graphics/TileAutotile.h"
+#include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
 
 namespace hmi {
@@ -44,7 +46,7 @@ void DraftRenderer::render(
     // le lot -- a calque et texture egaux, le tri stable le preserve tel quel.
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
-    composeWorldSprites(_scene, _world, mode, sceneTextures(_atlas, _cache), 1.0f);
+    composeWorldSprites(_scene, _world, mode, sceneTextures(_atlas, _cache, _skins, _skinSet), 1.0f);
     if (showGrid) {
         composeGrid(draft);
     }
@@ -269,12 +271,15 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
                                                               static_cast<float>(row) + margin},
                                                 core::Vector2{scale, scale}, 0.0f});
             core::Sprite sprite;
-            sprite.region = regionForTile(type, _atlas);
+            sprite.region = regionForTile(type);
             sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
             // Aucun calque a fixer : une entite sans `RenderLayerTag` est dessinee sur
             // RenderLayer::Tile (hmi::DEFAULT_RENDER_LAYER), et `core::Sprite::layer` garde sa
             // valeur par defaut -- le tri fin entre tuiles n'a pas lieu d'etre.
             _world.addComponent(entity, sprite);
+            // Marque d'habillage (LOT-42), identique a celle posee en jeu : c'est ce qui fait que
+            // le canevas de l'editeur montre exactement ce que le joueur verra.
+            _world.addComponent(entity, TileSkinTag{type, solidNeighborMask(map, column, row)});
         }
     }
 }

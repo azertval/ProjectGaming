@@ -1,6 +1,6 @@
 # TACHE-03 — Masquage alpha automatique des pentes et arrondis {#lot-42-tache-03-masquage-pentes}
 
-**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Douze types de tuiles ont une **silhouette non carrée** : pentes montantes et descendantes, arrondis

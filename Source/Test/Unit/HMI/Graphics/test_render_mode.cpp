@@ -134,8 +134,8 @@ TEST(RenderModeTest, ModePhysiqueRendLaRegionDAtlas) {
     for (int row = 0; row < hmi::TextureAtlas::TILES_PER_SIDE; ++row) {
         for (int column = 0; column < hmi::TextureAtlas::TILES_PER_SIDE; ++column) {
             const core::AtlasRegion expected = hmi::TextureAtlas::tile(column, row);
-            const hmi::TileAppearance appearance =
-                hmi::resolveTileAppearance(hmi::RenderMode::Physique, expected);
+            const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
+                hmi::RenderMode::Physique, expected, nullptr, testTextures());
 
             EXPECT_EQ(appearance.source, hmi::AppearanceSource::Atlas);
             EXPECT_EQ(appearance.region.x, expected.x);
@@ -147,20 +147,22 @@ TEST(RenderModeTest, ModePhysiqueRendLaRegionDAtlas) {
 }
 
 /**
- * @brief En mode Texture, toute tuile retombe sur le damier de repli en entier : aucun skin
- *        n'existe avant LOT-42, et c'est le comportement attendu.
- * \castest{<b>En mode Texture, toute tuile retombe sur le damier de repli.</b><br/>
+ * @brief En mode Texture, une entité **sans marque d'habillage** retombe sur le damier de repli :
+ *        c'est le cas du personnage et des aides d'édition, jamais habillés.
+ * \castest{<b>En mode Texture, une entite sans marque d'habillage retombe sur le damier.</b><br/>
  * \tcat Unitaire · Render Mode<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Pour chaque type de tuile, resoudre l'apparence en mode Texture.<br/>
+ * \tetapes 1. Resoudre l'apparence en mode Texture sans marque d'habillage.<br/>
  * \tattendu La source est le damier et la region couvre le damier entier.
  * }
  */
 TEST(RenderModeTest, ModeTextureRetombeSurLeDamier) {
     for (int row = 0; row < hmi::TextureAtlas::TILES_PER_SIDE; ++row) {
         for (int column = 0; column < hmi::TextureAtlas::TILES_PER_SIDE; ++column) {
-            const hmi::TileAppearance appearance = hmi::resolveTileAppearance(
-                hmi::RenderMode::Texture, hmi::TextureAtlas::tile(column, row));
+            const hmi::TileAppearance appearance =
+                hmi::resolveTileAppearance(hmi::RenderMode::Texture,
+                                           hmi::TextureAtlas::tile(column, row), nullptr,
+                                           testTextures());
 
             EXPECT_EQ(appearance.source, hmi::AppearanceSource::MissingTexture);
             EXPECT_EQ(appearance.region.x, 0);

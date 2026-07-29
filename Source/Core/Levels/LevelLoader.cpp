@@ -13,6 +13,7 @@
 #include "Core/Levels/LevelsLog.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
 
 namespace core {
 
@@ -24,101 +25,6 @@ namespace {
 [[nodiscard]] LevelLoadResult failure(std::string message, LevelValidationError code) {
     LEVELS_LOG_WARNING("Echec du chargement : " + message);
     return LevelLoadResult{std::nullopt, std::move(message), code};
-}
-
-// Convertit un nom de type de tuile du fichier en TileType (nullopt si inconnu).
-[[nodiscard]] std::optional<TileType> parseTileType(const std::string& name) {
-    if (name == "empty") {
-        return TileType::Empty;
-    }
-    if (name == "solid") {
-        return TileType::Solid;
-    }
-    if (name == "danger") {
-        return TileType::Danger;
-    }
-    if (name == "entry") {
-        return TileType::Entry;
-    }
-    if (name == "exit") {
-        return TileType::Exit;
-    }
-    if (name == "switch") {
-        return TileType::Switch;
-    }
-    if (name == "door") {
-        return TileType::Door;
-    }
-    if (name == "pressurePlate") {
-        return TileType::PressurePlate;
-    }
-    if (name == "block") {
-        return TileType::Block;
-    }
-    if (name == "slopeUpRight") {
-        return TileType::SlopeUpRight;
-    }
-    if (name == "slopeUpLeft") {
-        return TileType::SlopeUpLeft;
-    }
-    if (name == "roundedUpRight") {
-        return TileType::RoundedUpRight;
-    }
-    if (name == "roundedUpLeft") {
-        return TileType::RoundedUpLeft;
-    }
-    if (name == "blockHalf") {
-        return TileType::BlockHalf;
-    }
-    if (name == "blockQuarter") {
-        return TileType::BlockQuarter;
-    }
-    if (name == "slopeDownRight") {
-        return TileType::SlopeDownRight;
-    }
-    if (name == "slopeDownLeft") {
-        return TileType::SlopeDownLeft;
-    }
-    if (name == "roundedDownRight") {
-        return TileType::RoundedDownRight;
-    }
-    if (name == "roundedDownLeft") {
-        return TileType::RoundedDownLeft;
-    }
-    if (name == "concaveUpRight") {
-        return TileType::ConcaveUpRight;
-    }
-    if (name == "concaveUpLeft") {
-        return TileType::ConcaveUpLeft;
-    }
-    if (name == "concaveDownRight") {
-        return TileType::ConcaveDownRight;
-    }
-    if (name == "concaveDownLeft") {
-        return TileType::ConcaveDownLeft;
-    }
-    if (name == "dangerUp") {
-        return TileType::DangerUp;
-    }
-    if (name == "dangerDown") {
-        return TileType::DangerDown;
-    }
-    if (name == "dangerLeft") {
-        return TileType::DangerLeft;
-    }
-    if (name == "dangerRight") {
-        return TileType::DangerRight;
-    }
-    if (name == "dangerMover") {
-        return TileType::DangerMover;
-    }
-    if (name == "dangerSwitched") {
-        return TileType::DangerSwitched;
-    }
-    if (name == "dangerBlink") {
-        return TileType::DangerBlink;
-    }
-    return std::nullopt;
 }
 
 // Vrai pour les tuiles "déclencheur" liables à une porte (interrupteur ou plaque de pression,

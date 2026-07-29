@@ -34,6 +34,7 @@ class PalettePanel;
 class ToolPanel;
 class LevelBrowserPanel;
 class LinkPanel;
+class TexturePanel;
 
 /**
  * @brief Fenêtre principale de l'application Qt : **poste de travail d'éditeur** à panneaux
@@ -104,6 +105,7 @@ private:
         _levels;               ///< Liste/gestion des fichiers de niveaux (contenu du dock Niveaux).
     ToolPanel* _tools;         ///< Sélecteur d'outil d'édition (contenu du dock Outils).
     LinkPanel* _links;         ///< Liste/gestion des liaisons de mécanismes (dock Liens, LOT-37).
+    TexturePanel* _textures;   ///< Habillage : jeu de skins et assignations (dock Textures, LOT-42).
     QByteArray _defaultState;  ///< Disposition par défaut (pour « Réinitialiser la disposition »).
 
     Localization _loc;  ///< Catalogue de traduction (i18n), source de tous les textes.

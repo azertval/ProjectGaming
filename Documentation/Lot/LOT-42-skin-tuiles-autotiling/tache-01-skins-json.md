@@ -1,6 +1,6 @@
 # TACHE-01 — `skins.json` : format versionné et jeux de skins {#lot-42-tache-01-skins-json}
 
-**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 L'association type de tuile → apparence est aujourd'hui **codée en dur** dans

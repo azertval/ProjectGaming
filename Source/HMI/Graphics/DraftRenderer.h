@@ -83,6 +83,19 @@ public:
         return _scene;
     }
 
+    /**
+     * @brief Désigne le catalogue de skins et le jeu à utiliser en mode Texture (`LOT-42`).
+     *
+     * Le catalogue n'est **pas** copié : l'appelant en reste propriétaire. Réassigner un skin s'y
+     * voit à l'image suivante, sans reconstruire le brouillon ni la scène.
+     * @param skins   Catalogue, ou `nullptr` pour retomber entièrement sur le damier.
+     * @param skinSet Nom du jeu courant ; vide pour le jeu par défaut du catalogue.
+     */
+    void setSkins(const SkinCatalog* skins, std::string skinSet = {}) {
+        _skins = skins;
+        _skinSet = std::move(skinSet);
+    }
+
 private:
     void rebuild(const core::LevelDraft& draft);
     /// Compose la grille de repère (frontières de cases + de salles) sur le calque d'édition.
@@ -95,6 +108,8 @@ private:
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;
     TextureCache& _cache;
+    const SkinCatalog* _skins = nullptr;  // non possédé
+    std::string _skinSet;
     ComposedScene _scene;
     core::World _world;
     bool _dirty = true;

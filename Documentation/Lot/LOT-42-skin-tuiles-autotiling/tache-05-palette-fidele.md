@@ -1,6 +1,6 @@
 # TACHE-05 — Palette de l'éditeur fidèle au mode de rendu {#lot-42-tache-05-palette-fidele}
 
-**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 `hmi::PalettePanel` affiche chaque type de tuile par sa **couleur plate**, obtenue via

@@ -1,6 +1,6 @@
 # TACHE-04 — Panneau Qt « Textures » (section Skins) {#lot-42-tache-04-panneau-textures}
 
-**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` · **Statut :** non commencé
+**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` · **Statut :** fait
 
 ## Contexte
 C'est le **premier** panneau du programme d'habillage, et le seul : LOT-44 (Fond), LOT-45 (Objets),

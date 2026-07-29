@@ -4,7 +4,7 @@
 
 #include "Core/Ecs/Components/Animation.h"
 #include "Core/Levels/TileType.h"
-#include "Core/Physics/SlopeGeometry.h"
+#include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TileVisuals.h"
 
@@ -67,23 +67,10 @@ bool inRange(int value, int low, int high) {
     return value >= low && value <= high;
 }
 
-// Les douze types a silhouette inclinee/courbe (pente/arrondi convexe ou concave de sol,
-// suivables, EX-GP-003/EX-GP-004/EX-GP-007 ; ou de plafond, solides, EX-GP-006/EX-GP-007) dont la
-// case d'atlas recoit un masque de forme (triangle/courbe) plutot qu'un carre plein — la seule
-// liste a parcourir, TileType n'etant pas enumerable directement en C++.
-constexpr core::TileType kSlopeTileTypes[] = {
-    core::TileType::SlopeUpRight,     core::TileType::SlopeUpLeft,
-    core::TileType::RoundedUpRight,   core::TileType::RoundedUpLeft,
-    core::TileType::SlopeDownRight,   core::TileType::SlopeDownLeft,
-    core::TileType::RoundedDownRight, core::TileType::RoundedDownLeft,
-    core::TileType::ConcaveUpRight,   core::TileType::ConcaveUpLeft,
-    core::TileType::ConcaveDownRight, core::TileType::ConcaveDownLeft,
-};
-
 // Type de tuile a silhouette inclinee/courbe dont la case d'atlas est (tileColumn, tileRow), s'il
-// y en a un.
+// y en a un. La liste des douze types vit dans SlopeMask.h, avec la silhouette elle-meme.
 std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRow) {
-    for (const core::TileType type : kSlopeTileTypes) {
+    for (const core::TileType type : SILHOUETTE_TILE_TYPES) {
         const std::optional<hmi::AtlasGridPosition> position = hmi::slopeTileGridPosition(type);
         if (position && position->column == tileColumn && position->row == tileRow) {
             return type;
@@ -104,31 +91,16 @@ std::optional<core::TileType> slopeTypeAtGridPosition(int tileColumn, int tileRo
 // cas, l'affichage correspond exactement a la hitbox reelle (core::resolveSlopeFollow /
 // core::resolveCeilingSlopeFollow, pas de solidite statique via core::isSolid).
 std::uint32_t slopeShapePixel(core::TileType type, int localX, int localY) {
-    // Échantillonne au bord des pixels de coin (0 et TILE_SIZE-1 atteignent exactement 0,0/1,0),
-    // pas à leur centre (`(localX+0.5)/TILE_SIZE` ne dépasse jamais 0,969 pour le dernier pixel) :
-    // sans ça, la colonne de pixels la plus proche du bord « plein » d'un arrondi CONCAVE (tangente
-    // quasi verticale à cet endroit précis, EX-GP-007) manque la vraie valeur de bord par une marge
-    // significative (~0,25 de hauteur de case) — visible comme une encoche grossière juste là où la
-    // silhouette doit au contraire être quasiment pleine. Négligeable pour les pentes/arrondis
-    // convexes existants (tangente raide du côté CREUX plutôt que du côté plein, donc jamais à un
-    // bord critique pour le raccord entre deux cases).
-    constexpr float LAST_INDEX = static_cast<float>(TextureAtlas::TILE_SIZE - 1);
-    const float normalizedX = static_cast<float>(localX) / LAST_INDEX;
-    const float normalizedY = static_cast<float>(localY) / LAST_INDEX;
-    const bool isCeiling = core::isCeilingSlope(type);
-    const std::optional<float> surfaceHeight = isCeiling
-                                                   ? core::ceilingSlopeHeight(type, normalizedX)
-                                                   : core::slopeSurfaceHeight(type, normalizedX);
-    if (!surfaceHeight) {
-        return pack(0, 0, 0, 0);
+    // Appartenance a la matiere deleguee a hmi::isInsideSilhouette (LOT-42), point de verite unique
+    // partage avec le detourage des skins : deux implementations de la meme silhouette finiraient
+    // par diverger, et un skin decoupe autrement que l'atlas se verrait immediatement a la bascule
+    // Physique/Texture.
+    if (!isInsideSilhouette(type, localX, localY, TextureAtlas::TILE_SIZE)) {
+        return pack(0, 0, 0, 0);  // du cote vide de la silhouette : transparent
     }
-    const bool solid = isCeiling ? normalizedY <= *surfaceHeight : normalizedY >= *surfaceHeight;
-    if (solid) {
-        // Meme case que Solid (colonne 0, ligne 2 — TileVisuals.cpp::regionForTile) : gris,
-        // reutilise ici comme indice de palette plutot que la couleur propre de `type`.
-        return tileColor(2 * TextureAtlas::TILES_PER_SIDE);
-    }
-    return pack(0, 0, 0, 0);  // du cote vide de la silhouette : transparent
+    // Meme case que Solid (colonne 0, ligne 2 — TileVisuals.cpp::regionForTile) : gris, reutilise
+    // ici comme indice de palette plutot que la couleur propre de `type`.
+    return tileColor(2 * TextureAtlas::TILES_PER_SIDE);
 }
 
 // Largeur des bras : ecartes du corps ou resserres (variation de pose entre images d'un meme

@@ -1,7 +1,11 @@
 #include "HMI/Editor/PalettePanel.h"
 
+#include <QColor>
+#include <QIcon>
+#include <QImage>
 #include <QItemSelectionModel>
 #include <QModelIndex>
+#include <QPixmap>
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QString>
@@ -9,10 +13,22 @@
 #include <QVBoxLayout>
 #include <QVariant>
 
+#include <cstdint>
+#include <cstring>
+#include <optional>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
+#include "HMI/Editor/PaletteAppearance.h"
+#include "HMI/Editor/TaxonomyLabels.h"
 #include "HMI/Editor/TileTaxonomy.h"
+#include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/SlopeMask.h"
+#include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TextureLoader.h"
+#include "HMI/Graphics/TileVisuals.h"
 #include "HMI/Localization/Localization.h"
 
 namespace hmi {
@@ -22,48 +38,17 @@ namespace {
 // Rôle de données portant le `core::TileType` d'une feuille (les en-têtes n'en ont pas).
 constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
 
-// Table libellé (français, source de la taxonomie) -> clé de traduction (anglais). La taxonomie
-// reste une logique pure sans dépendance i18n ; la palette résout ses libellés ici.
+// Libelle de taxonomie traduit. La table libelle -> cle vit dans TaxonomyLabels : point unique
+// partage avec le panneau « Textures » (LOT-42). Deux copies divergeraient au premier libelle
+// ajoute, et un panneau afficherait alors du francais dans une interface anglaise.
 [[nodiscard]] QString localized(const Localization* loc, const std::string& label) {
-    static const std::unordered_map<std::string, std::string> keys = {
-        {"Tuile", "palette.cat.tile"},
-        {"Interactif", "palette.cat.interactive"},
-        {"Piège", "palette.cat.trap"},
-        {"Jalon", "palette.cat.marker"},
-        {"Pente", "palette.sub.slope"},
-        {"Arrondi", "palette.sub.rounded"},
-        {"Concave", "palette.sub.concave"},
-        {"Bloc poussable", "palette.sub.block"},
-        {"Directionnel", "palette.sub.directional"},
-        {"Vide (gomme)", "palette.tile.empty"},
-        {"Plein", "palette.tile.solid"},
-        {"Montée droite", "palette.tile.rise_right"},
-        {"Montée gauche", "palette.tile.rise_left"},
-        {"Plafond droite", "palette.tile.ceiling_right"},
-        {"Plafond gauche", "palette.tile.ceiling_left"},
-        {"Demi (½)", "palette.tile.half"},
-        {"Quart (¼)", "palette.tile.quarter"},
-        {"Interrupteur", "palette.tile.switch"},
-        {"Plaque de pression", "palette.tile.plate"},
-        {"Porte", "palette.tile.door"},
-        {"Danger", "palette.tile.danger"},
-        {"Danger mobile", "palette.tile.danger_moving"},
-        {"Danger commuté", "palette.tile.danger_switched"},
-        {"Danger clignotant", "palette.tile.danger_blink"},
-        {"Pics vers le haut", "palette.tile.spikes_up"},
-        {"Pics vers le bas", "palette.tile.spikes_down"},
-        {"Pics vers la gauche", "palette.tile.spikes_left"},
-        {"Pics vers la droite", "palette.tile.spikes_right"},
-        {"Entrée", "palette.tile.entry"},
-        {"Sortie", "palette.tile.exit"},
-    };
-    if (loc != nullptr) {
-        if (const auto found = keys.find(label); found != keys.end()) {
-            return QString::fromStdString(loc->text(found->second));
-        }
-    }
-    return QString::fromStdString(label);  // repli : libellé source (français).
+    return QString::fromStdString(localizedTaxonomyLabel(loc, label));
 }
+
+// Cote des vignettes de la palette, en pixels d'ecran. Multiple entier de la taille d'une case
+// (16) : toute autre valeur reechantillonnerait le pixel art de travers, meme en plus proche
+// voisin.
+constexpr int THUMBNAIL_SIZE = TextureAtlas::TILE_SIZE * 2;
 
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry, const Localization* loc) {
@@ -71,6 +56,17 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
     item->setEditable(false);
     item->setData(static_cast<int>(entry.type), TILE_TYPE_ROLE);
     return item;
+}
+
+// Convertit des pixels RGBA decodes en QImage, sans copier la source deux fois.
+[[nodiscard]] QImage toImage(const DecodedImage& decoded) {
+    QImage image(decoded.width, decoded.height, QImage::Format_RGBA8888);
+    for (int y = 0; y < decoded.height; ++y) {
+        const std::uint32_t* const row =
+            decoded.pixels.data() + static_cast<std::size_t>(y) * decoded.width;
+        std::memcpy(image.scanLine(y), row, static_cast<std::size_t>(decoded.width) * 4);
+    }
+    return image;
 }
 
 // Crée un en-tête (catégorie/sous-groupe) : affiché, mais non sélectionnable comme tuile.
@@ -104,12 +100,16 @@ void PalettePanel::buildModel() {
     for (const TileCategory& category : tileTaxonomy()) {
         QStandardItem* const categoryItem = makeHeader(localized(_loc, category.label));
         for (const TileEntry& entry : category.tiles) {
-            categoryItem->appendRow(makeLeaf(entry, _loc));
+            QStandardItem* const leaf = makeLeaf(entry, _loc);
+            leaf->setIcon(QIcon(thumbnailFor(entry.type)));
+            categoryItem->appendRow(leaf);
         }
         for (const TileSubgroup& subgroup : category.subgroups) {
             QStandardItem* const subgroupItem = makeHeader(localized(_loc, subgroup.label));
             for (const TileEntry& entry : subgroup.tiles) {
-                subgroupItem->appendRow(makeLeaf(entry, _loc));
+                QStandardItem* const leaf = makeLeaf(entry, _loc);
+                leaf->setIcon(QIcon(thumbnailFor(entry.type)));
+                subgroupItem->appendRow(leaf);
             }
             categoryItem->appendRow(subgroupItem);
         }
@@ -122,6 +122,77 @@ void PalettePanel::retranslateUi(const Localization& loc) {
     _model->clear();
     buildModel();
     _tree->expandAll();
+}
+
+void PalettePanel::setSkinSource(std::filesystem::path skinsDirectory, const SkinCatalog* catalog) {
+    _skinsDirectory = std::move(skinsDirectory);
+    _catalog = catalog;
+}
+
+void PalettePanel::refreshThumbnails(RenderMode mode, const std::string& setName) {
+    _mode = mode;
+    _skinSet = setName;
+    // Les images decodees restent valables : c'est le CHOIX de vignette qui change, pas le contenu
+    // des fichiers. Seul le rechargement a chaud (LOT-43) devra vider ce cache.
+    _model->clear();
+    buildModel();
+    _tree->expandAll();
+}
+
+// Vignette d'un type dans le mode courant : meme decision que le canevas, rendue en pixels ici.
+QPixmap PalettePanel::thumbnailFor(core::TileType type) {
+    const PaletteThumbnail thumbnail =
+        paletteThumbnail(_mode, type, regionForTile(type), _catalog, _skinSet);
+
+    QImage source;
+    switch (thumbnail.source) {
+        case PaletteThumbnailSource::Skin: {
+            // Decodage CPU uniquement : un widget Qt ne doit jamais dependre du device Direct3D.
+            const auto cached = _decoded.find(thumbnail.asset);
+            if (cached != _decoded.end()) {
+                source = cached->second.toImage();
+            } else {
+                const std::optional<DecodedImage> decoded =
+                    decodeImageFile(_skinsDirectory / thumbnail.asset);
+                if (!decoded) {
+                    return QPixmap{};  // fichier illisible : aucune vignette plutot qu'un plantage.
+                }
+                source = toImage(*decoded);
+                _decoded.emplace(thumbnail.asset, QPixmap::fromImage(source));
+            }
+            break;
+        }
+        case PaletteThumbnailSource::MissingTexture: {
+            const ProceduralAtlasImage missing = buildMissingTextureImage();
+            source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
+            break;
+        }
+        case PaletteThumbnailSource::Atlas: {
+            const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
+            source = toImage(DecodedImage{atlas.width, atlas.height, atlas.pixels});
+            break;
+        }
+    }
+
+    const core::AtlasRegion& region = thumbnail.region;
+    QImage tile = source.copy(region.x, region.y, region.width, region.height);
+    if (thumbnail.masked) {
+        // Meme detourage que le canevas : sans lui, une pente s'afficherait en carre plein dans la
+        // palette alors qu'elle est decoupee dans le niveau.
+        tile = tile.convertToFormat(QImage::Format_RGBA8888);
+        for (int y = 0; y < tile.height(); ++y) {
+            for (int x = 0; x < tile.width(); ++x) {
+                if (!isInsideSilhouette(type, x, y, tile.width())) {
+                    tile.setPixelColor(x, y, QColor(0, 0, 0, 0));
+                }
+            }
+        }
+    }
+
+    // Mise a l'echelle en PLUS PROCHE VOISIN : l'interpolation lisse par defaut de Qt rendrait le
+    // pixel art flou, incoherent avec le rendu du canevas (EX-ARCH-022).
+    return QPixmap::fromImage(
+        tile.scaled(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
 }
 
 void PalettePanel::onCurrentChanged(const QModelIndex& current) {

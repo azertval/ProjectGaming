@@ -29,6 +29,7 @@
 #include "HMI/Diagnostics/SessionLog.h"
 #include "HMI/Editor/LevelBrowserPanel.h"
 #include "HMI/Editor/LinkPanel.h"
+#include "HMI/Editor/TexturePanel.h"
 #include "HMI/Editor/PalettePanel.h"
 #include "HMI/Editor/ToolPanel.h"
 #include "HMI/Game/GameViewport.h"
@@ -66,6 +67,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
       _levels(nullptr),
       _tools(nullptr),
       _links(nullptr),
+      _textures(nullptr),
       _loc(hmi::executableDirectory() / "Localization"),
       _sessionLog(sessionLog) {
     _ui->setupUi(this);  // barre de menus + docks (coquilles) depuis MainWindow.ui.
@@ -125,6 +127,26 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
     _links->refresh(_viewport->draft());  // etat initial (avant tout draftChanged).
 
+    // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
+    // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
+    // donc l'image suivante suffit a montrer le resultat (LOT-42).
+    _textures->setCatalog(&_viewport->skinCatalog());
+
+    // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
+    // aux trois evenements qui rendent ses vignettes obsoletes -- bascule de mode, changement de
+    // jeu, reassignation. Peindre sans voir ce que l'on pose serait une regression d'usage.
+    _palette->setSkinSource(hmi::executableDirectory() / "Assets" / "Skins",
+                            &_viewport->skinCatalog());
+    _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+
+    connect(_textures, &TexturePanel::assignmentsChanged, this, [this] {
+        _viewport->setSkinSet(_textures->currentSet());
+        _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+    });
+    connect(_viewport, &GameViewport::renderModeChanged, this, [this](RenderMode mode) {
+        _palette->refreshThumbnails(mode, _textures->currentSet());
+    });
+
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
     connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);
@@ -157,8 +179,11 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 }
 
 void MainWindow::setDocksVisible(bool visible) {
-    for (QDockWidget* const dock :
-         {_ui->PalettePanel, _ui->ToolPanel, _ui->LevelsPanel, _ui->LinksPanel}) {
+    // TOUS les docks, retrouves dynamiquement, plutot qu'une liste ecrite a la main : celle-ci
+    // laissait echapper silencieusement chaque dock ajoute ensuite, qui restait alors affiche
+    // par-dessus le menu principal et le jeu (constate avec le dock « Textures » du LOT-42).
+    // Les panneaux d'edition n'ont de sens qu'en mode edition (EX-IHM-010).
+    for (QDockWidget* const dock : findChildren<QDockWidget*>()) {
         dock->setVisible(visible);
     }
 }
@@ -236,6 +261,12 @@ void MainWindow::buildUi() {
     _ui->LevelsPanel->setWidget(_levels);
     _links = new LinkPanel(_ui->LinksPanel);
     _ui->LinksPanel->setWidget(_links);
+    // Panneau d'habillage (LOT-42) : écrit `skins.json` au chemin **déployé**, exactement comme
+    // l'enregistrement d'un niveau — aucun nouveau mécanisme d'écriture.
+    _textures = new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
+                                 hmi::executableDirectory() / "Assets" / "skins.json",
+                                 _ui->TexturesPanel);
+    _ui->TexturesPanel->setWidget(_textures);
 
     // Branchement du fonctionnel sur les actions déclarées dans le `.ui` (libellés posés par
     // retranslateUi ; les raccourcis Ctrl+S/P/Ctrl+Z sont gérés par le viewport, ces entrées
@@ -255,6 +286,7 @@ void MainWindow::buildUi() {
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LevelsPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->ToolPanel->toggleViewAction());
     _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->LinksPanel->toggleViewAction());
+    _ui->viewMenu->insertAction(_ui->actResetLayout, _ui->TexturesPanel->toggleViewAction());
     _ui->viewMenu->insertSeparator(_ui->actResetLayout);
 }
 
@@ -375,6 +407,7 @@ void MainWindow::retranslateUi() {
     _ui->ToolPanel->setWindowTitle(text("dock.tools"));
     _ui->LevelsPanel->setWindowTitle(text("dock.levels"));
     _ui->LinksPanel->setWindowTitle(text("dock.links"));
+    _ui->TexturesPanel->setWindowTitle(text("dock.textures"));
 
     // Barre de menus.
     _ui->appMenu->setTitle(text("menubar.application"));
@@ -394,6 +427,7 @@ void MainWindow::retranslateUi() {
     _tools->retranslateUi(_loc);
     _levels->retranslateUi(_loc);
     _links->retranslateUi(_loc);
+    _textures->retranslateUi(_loc);
 
     // Rafraîchit le message d'aide s'il est visible (mode éditeur).
     if (_stack->currentWidget() == _editorContainer && menuBar()->isVisible()) {

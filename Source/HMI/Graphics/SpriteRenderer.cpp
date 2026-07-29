@@ -41,8 +41,9 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
     }
 }
 
-// Textures liables par la composition d'une scene, atlas et damier de repli (point unique).
-SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache) {
+// Textures liables par la composition d'une scene : atlas, damier de repli et skins (point unique).
+SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
+                            const SkinCatalog* skins, const std::string& skinSet) {
     SceneTextures textures;
     textures.atlas = atlas.textureView();
     textures.atlasWidth = atlas.width();
@@ -52,6 +53,36 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache) {
         textures.missing = missing->view.Get();
         textures.missingWidth = missing->width;
         textures.missingHeight = missing->height;
+    }
+
+    textures.skinCatalog = skins;
+    textures.skinSet = skinSet;
+    if (skins == nullptr) {
+        return textures;
+    }
+
+    // Charge les skins du jeu courant. Le TextureCache ne relit le disque qu'au premier acces et
+    // memorise aussi les echecs : cet appel par image reste donc une recherche en table. Un asset
+    // absent ou refuse par le contrat n'est simplement pas ajoute -- la resolution le verra
+    // manquant et retombera sur le damier, apres l'unique avertissement deja journalise.
+    const std::string& effectiveSet = skinSet.empty() ? skins->defaultSetName() : skinSet;
+    for (const auto& [type, entry] : skins->assignments(effectiveSet)) {
+        if (textures.skinIndexOf(entry.asset, type) >= 0) {
+            continue;  // variante deja chargee : plusieurs types carres peuvent partager un asset.
+        }
+        const AssetFamily family =
+            entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
+        // Un type a silhouette recoit l'image detouree, distincte de l'originale et calculee une
+        // seule fois (LOT-42 TACHE-03).
+        const LoadedTexture* loaded =
+            cache.getMasked(SKINS_SUBDIRECTORY + entry.asset, family, type);
+        if (loaded == nullptr) {
+            continue;
+        }
+        const std::optional<core::TileType> maskType =
+            hasSilhouette(type) ? std::optional<core::TileType>{type} : std::nullopt;
+        textures.skins.push_back(
+            SkinTexture{entry.asset, maskType, loaded->view.Get(), loaded->width, loaded->height});
     }
     return textures;
 }
@@ -65,7 +96,8 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             float interpolationAlpha) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
-    composeWorldSprites(_scene, world, mode, sceneTextures(*_atlas, *_cache), interpolationAlpha);
+    composeWorldSprites(_scene, world, mode, sceneTextures(*_atlas, *_cache, _skins, _skinSet),
+                        interpolationAlpha);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

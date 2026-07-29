@@ -49,6 +49,15 @@ jobs:
       - name: Test (CTest)
         run: ctest --preset vs
 
+      - name: Verifier que l'executable est bien produit
+        shell: pwsh
+        # Si Qt n'est pas résolu, la cible ProjectGaming est ignorée et le build « réussit » sans
+        # produire d'application : une panne muette que seul ce contrôle rend visible.
+        run: |
+          $exe = 'build/vs/bin/Debug/ProjectGaming.exe'
+          if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
+          Write-Host "OK : $exe"
+
       - name: Install OpenCppCoverage
         run: choco install opencppcoverage -y --no-progress
 
@@ -70,6 +79,51 @@ jobs:
           path: |
             coverage.xml
             coverage-html/
+
+  build-ninja:
+    # Le preset `vs` s'appuie sur MSBuild, qui établit lui-même l'environnement MSVC ; le preset
+    # `ninja` hérite au contraire de celui du terminal. N'étant couvert par aucun job, il avait
+    # silencieusement cessé de fonctionner. Ce job garantit que les deux générateurs restent
+    # utilisables — et vérifie au passage la détection automatique de Qt (via QT_ROOT_DIR).
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.1'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Install Ninja
+        run: choco install ninja -y --no-progress
+
+      - name: Configure, build et test (Ninja, environnement x64)
+        shell: cmd
+        # vcvars64.bat doit être appelé dans le MÊME processus que CMake : son effet est
+        # l'environnement du shell, que `run` ne conserve pas d'une étape à l'autre. vswhere
+        # localise l'installation sans coder en dur l'édition de Visual Studio de l'image.
+        run: |
+          for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do (
+            call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          )
+          cmake --preset ninja || exit /b 1
+          cmake --build --preset ninja || exit /b 1
+          ctest --preset ninja || exit /b 1
+
+      - name: Verifier que l'executable est bien produit
+        shell: pwsh
+        # Sans Qt, la cible ProjectGaming est ignorée et le build « réussit » sans exécutable :
+        # c'est exactement la panne que ce lot corrige, donc on l'érige en contrôle.
+        run: |
+          $exe = 'build/ninja/bin/ProjectGaming.exe'
+          if (-not (Test-Path $exe)) { throw "Executable absent : $exe" }
+          Write-Host "OK : $exe"
 
   lint-exigences:
     # Contrôle du référentiel d'exigences (EX-...) : unicité des déclarations et

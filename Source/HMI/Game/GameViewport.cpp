@@ -93,7 +93,8 @@ void GameViewport::setRenderMode(RenderMode mode) {
                          QString::fromLatin1(renderModeName(mode)));
     HMI_LOG_INFO(std::string{"Rendu : mode "} + renderModeName(mode) + ".");
     // Aucune invalidation du brouillon : la scene ECS est inchangee, seule la resolution de
-    // l'apparence differe (LOT-41).
+    // l'apparence differe (LOT-41). La palette, elle, doit suivre pour rester fidele au canevas.
+    emit renderModeChanged(mode);
 }
 
 int GameViewport::pixelWidth() const {
@@ -120,6 +121,16 @@ void GameViewport::ensureResources() {
     _textureCache = std::make_unique<hmi::TextureCache>(
         _graphics->device(), hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
+
+    // Catalogue des skins (LOT-42), lu a cote de l'executable comme les niveaux et les traductions.
+    // Fichier absent ou illisible : catalogue vide, tout retombe sur le damier -- un etat de depart
+    // legitime, pas une erreur bloquante (EX-NFR-040).
+    hmi::SkinCatalogResult skins =
+        hmi::SkinCatalog::loadFromFile(hmi::executableDirectory() / "Assets" / "skins.json");
+    if (skins.ok()) {
+        _skins = std::move(*skins.catalog);
+    }
+    _draftRenderer->setSkins(&_skins);
 
     // LOT-35 : ouvre un niveau de démonstration comme brouillon éditable (le sélecteur de niveaux
     // arrive au LOT-36). Échec récupérable : on garde le brouillon vierge.
@@ -251,6 +262,18 @@ void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
     _draft.unlinkMechanism(targetPosition);
     _dirty = true;
     markDraftMutated();
+}
+
+void GameViewport::setSkinSet(const std::string& setName) {
+    // Le catalogue est deja a jour (le panneau agit dessus directement) : il n'y a que le jeu
+    // courant a propager, et l'image suivante montrera le resultat. Aucune scene a reconstruire.
+    if (_draftRenderer) {
+        _draftRenderer->setSkins(&_skins, setName);
+    }
+    if (_session) {
+        _session->setSkins(&_skins, setName);
+    }
+    _skinSet = setName;
 }
 
 bool GameViewport::linkExists(core::GridPosition switchPosition,
@@ -551,6 +574,8 @@ void GameViewport::startPlaytest() {
     ensureResources();
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*validated.level), _gameBindings, _gamepadBindings);
+    // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
+    _session->setSkins(&_skins, _skinSet);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
 }
@@ -604,6 +629,7 @@ void GameViewport::loadGameLevel(std::size_t index) {
                  " charge : " + _gameLevels[index].filename().string());
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*loaded.level), _gameBindings, _gamepadBindings);
+    _session->setSkins(&_skins, _skinSet);
 }
 
 void GameViewport::resizeLevel(int width, int height) {

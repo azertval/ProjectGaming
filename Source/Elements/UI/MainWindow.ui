@@ -49,6 +49,11 @@
    <attribute name="dockWidgetArea"><number>2</number></attribute>
    <widget class="QWidget" name="linksContents"/>
   </widget>
+  <widget class="QDockWidget" name="TexturesPanel">
+   <property name="windowTitle"><string>Textures</string></property>
+   <attribute name="dockWidgetArea"><number>2</number></attribute>
+   <widget class="QWidget" name="texturesContents"/>
+  </widget>
   <action name="actMainMenu"><property name="text"><string>Menu principal</string></property></action>
   <action name="actQuit"><property name="text"><string>Quitter</string></property></action>
   <action name="actSave"><property name="text"><string>Enregistrer (Ctrl+S)</string></property></action>

@@ -22,6 +22,8 @@
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TileAutotile.h"
+#include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
@@ -56,9 +58,17 @@ void GameSession::loadLevel(core::Level level) {
     _roomGrid.emplace(_levelWidth, _levelHeight);
     _currentRoomIndex = _roomGrid->roomIndexAt(levelRef.entry());
     centerCameraOnRoom(_currentRoomIndex);
-    // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure.
-    core::buildLevelScene(_world, levelRef,
-                          [this](core::TileType type) { return regionForTile(type, _atlas); });
+    // La correspondance type -> region d'atlas (rendu) est injectee dans la projection pure, et
+    // chaque entite tuile recoit sa marque d'habillage (type + voisinage solide, LOT-42). Le
+    // masque ne depend que de la grille du niveau : le calculer ici, une fois, evite de le
+    // refaire a chaque image sans rendre la scene dependante du mode de rendu.
+    const core::TileMap& sceneMap = levelRef.tileMap();
+    core::buildLevelScene(
+        _world, levelRef, [this](core::TileType type) { return regionForTile(type); },
+        [this, &sceneMap](core::Entity entity, core::TileType type, int column, int row) {
+            _world.addComponent(entity,
+                                TileSkinTag{type, solidNeighborMask(sceneMap, column, row)});
+        });
     // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
     _mechanisms.emplace(levelRef);
     // Repere l'entite-tuile de chaque porte (avant le spawn du perso) pour le retour visuel d'etat.
