@@ -3,6 +3,8 @@
  * @brief Tests unitaires de la résolution d'apparence par skin (LOT-42, EX-EDIT-042, EX-EDIT-025).
  */
 
+#include <optional>
+
 #include <gtest/gtest.h>
 
 #include "Core/Ecs/Components/Sprite.h"
@@ -45,9 +47,10 @@ hmi::SceneTextures texturesWith(const hmi::SkinCatalog& catalog) {
     textures.missing = &missingStorage;
     textures.missingWidth = hmi::MISSING_TEXTURE_SIZE;
     textures.missingHeight = hmi::MISSING_TEXTURE_SIZE;
+    // Aucun des deux types n'a de silhouette : leur variante est l'image d'origine (maskType vide).
     textures.skins = {
-        hmi::SkinTexture{"stone.png", &stoneStorage, TILE * 4, TILE * 4},
-        hmi::SkinTexture{"crate.png", &crateStorage, TILE, TILE},
+        hmi::SkinTexture{"stone.png", std::nullopt, &stoneStorage, TILE * 4, TILE * 4},
+        hmi::SkinTexture{"crate.png", std::nullopt, &crateStorage, TILE, TILE},
     };
     textures.skinCatalog = &catalog;
     textures.skinSet = "foret";

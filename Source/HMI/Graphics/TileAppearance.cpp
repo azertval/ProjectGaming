@@ -60,7 +60,7 @@ TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& p
 
     // Skin assigne mais texture pas (encore) chargee -- fichier absent, illisible ou refuse par le
     // contrat d'asset : damier, l'avertissement ayant deja ete journalise par le TextureCache.
-    const int index = textures.skinIndexOf(entry->asset);
+    const int index = textures.skinIndexOf(entry->asset, tag->type);
     if (index < 0) {
         return missingAppearance();
     }

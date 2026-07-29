@@ -1,7 +1,9 @@
 #include "HMI/Graphics/TextureCache.h"
 
 #include <utility>
+#include <vector>
 
+#include "Core/Levels/TileTypeName.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
 
@@ -14,8 +16,8 @@ TextureCache::TextureCache(ID3D11Device* device, AssetPaths paths)
 // Charge et valide un asset depuis le disque, sans passer par le cache. Les trois causes d'echec
 // (chemin introuvable, decodage impossible, dimensions non conformes) sont journalisees
 // distinctement : le message doit dire quoi corriger, pas seulement que ca a rate.
-std::optional<LoadedTexture> TextureCache::load(const std::string& fileName,
-                                                AssetFamily family) const {
+std::optional<LoadedTexture> TextureCache::load(const std::string& fileName, AssetFamily family,
+                                                std::optional<core::TileType> maskType) const {
     const std::optional<std::filesystem::path> path = _paths.resolve(fileName);
     if (!path) {
         GRAPHICS_LOG_WARNING(missingTextureWarning(fileName));
@@ -37,8 +39,16 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName,
         return std::nullopt;
     }
 
+    // Detourage a la silhouette du type, entre validation et upload : l'artiste peint un carre
+    // plein, le moteur le decoupe une fois pour toutes (LOT-42 TACHE-03). Sans effet pour un type
+    // sans silhouette.
+    std::vector<std::uint32_t> pixels = image->pixels;
+    if (maskType) {
+        applySilhouetteMask(*maskType, image->width, image->height, pixels);
+    }
+
     std::optional<LoadedTexture> texture =
-        createTexture(_device, image->width, image->height, image->pixels);
+        createTexture(_device, image->width, image->height, pixels);
     if (!texture) {
         GRAPHICS_LOG_WARNING("Creation Direct3D de la texture " + fileName + " impossible.");
         return std::nullopt;
@@ -51,14 +61,32 @@ std::optional<LoadedTexture> TextureCache::load(const std::string& fileName,
 // Obtient la texture d'un asset, en la chargeant au premier acces.
 // La texture chargee (propriete du cache), ou nullptr si l'asset est absent/illisible/non conforme.
 const LoadedTexture* TextureCache::get(const std::string& fileName, AssetFamily family) {
+    return getUnderKey(fileName, fileName, family, std::nullopt);
+}
+
+// Obtient la variante d'un asset detouree a la silhouette d'un type de tuile.
+const LoadedTexture* TextureCache::getMasked(const std::string& fileName, AssetFamily family,
+                                             core::TileType type) {
+    if (!hasSilhouette(type)) {
+        return get(fileName, family);  // type carre : rien a detourer.
+    }
+    // Cle distincte de l'originale, et distincte d'un type a l'autre : un meme fichier peut etre
+    // assigne a un type carre et a plusieurs pentes sans que les variantes se marchent dessus.
+    return getUnderKey(fileName + "#" + core::tileTypeName(type), fileName, family, type);
+}
+
+// Obtient une entree du cache sous une cle donnee, en la chargeant au premier acces.
+const LoadedTexture* TextureCache::getUnderKey(const std::string& cacheKey,
+                                               const std::string& fileName, AssetFamily family,
+                                               std::optional<core::TileType> maskType) {
     // Un echec deja constate est memorise (entree a std::nullopt) : sans cela, un asset manquant
     // relirait le disque et rejouerait son avertissement a chaque image.
-    const auto found = _entries.find(fileName);
+    const auto found = _entries.find(cacheKey);
     if (found != _entries.end()) {
         return found->second ? &*found->second : nullptr;
     }
 
-    const auto inserted = _entries.emplace(fileName, load(fileName, family)).first;
+    const auto inserted = _entries.emplace(cacheKey, load(fileName, family, maskType)).first;
     return inserted->second ? &*inserted->second : nullptr;
 }
 

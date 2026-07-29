@@ -6,8 +6,10 @@
 
 #include <d3d11.h>
 
+#include "Core/Levels/TileType.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
+#include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TextureLoader.h"
 
 /**
@@ -74,6 +76,29 @@ public:
     [[nodiscard]] const LoadedTexture* get(const std::string& fileName, AssetFamily family);
 
     /**
+     * @brief Obtient la variante d'un asset **détourée** à la silhouette d'un type de tuile.
+     *
+     * Un skin fourni par l'auteur est une image carrée ; l'afficher tel quel sur une pente
+     * donnerait un carré plein là où le personnage passe, et la lecture du niveau serait fausse
+     * (`LOT-42` TACHE-03). Le détourage est appliqué **une fois**, au chargement, puis conservé
+     * comme toute autre entrée du cache.
+     *
+     * La variante détourée est mémorisée sous une **clé distincte** de l'originale : un même
+     * fichier peut être assigné à la fois à un type carré et à une pente sans que l'un abîme
+     * l'autre.
+     *
+     * Un type **sans** silhouette (`hmi::hasSilhouette`) n'est pas détouré : l'appel équivaut
+     * alors à `get`.
+     * @param fileName Nom logique du fichier, relatif au dossier d'assets.
+     * @param family   Famille de l'asset, qui fixe les dimensions attendues (`EX-REN-007`).
+     * @param type     Type de tuile dont la silhouette est appliquée.
+     * @return La texture détourée (propriété du cache), ou `nullptr` si l'asset est absent,
+     *         illisible ou non conforme — jamais d'exception (`EX-NFR-040`).
+     */
+    [[nodiscard]] const LoadedTexture* getMasked(const std::string& fileName, AssetFamily family,
+                                                 core::TileType type);
+
+    /**
      * @brief Retire une entrée du cache, de sorte que le prochain `get` relise le fichier.
      *
      * Retire aussi un éventuel **échec** mémorisé : c'est ce qui permet à un asset créé après coup
@@ -106,9 +131,16 @@ public:
     }
 
 private:
-    /// Charge et valide un asset depuis le disque, sans passer par le cache.
-    [[nodiscard]] std::optional<LoadedTexture> load(const std::string& fileName,
-                                                    AssetFamily family) const;
+    /// Charge et valide un asset depuis le disque, sans passer par le cache. Applique la
+    /// silhouette de @p maskType si ce type en a une (détourage des pentes, `LOT-42`).
+    [[nodiscard]] std::optional<LoadedTexture> load(
+        const std::string& fileName, AssetFamily family,
+        std::optional<core::TileType> maskType = std::nullopt) const;
+
+    /// Obtient une entrée du cache sous une clé donnée, en la chargeant au premier accès.
+    [[nodiscard]] const LoadedTexture* getUnderKey(const std::string& cacheKey,
+                                                   const std::string& fileName, AssetFamily family,
+                                                   std::optional<core::TileType> maskType);
 
     ID3D11Device* _device;  // non possédé
     AssetPaths _paths;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -8,6 +9,7 @@
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/RenderMode.h"
 #include "HMI/Graphics/SkinCatalog.h"
+#include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TileSkinTag.h"
 
 /**
@@ -43,6 +45,10 @@ struct TileAppearance {
 struct SkinTexture {
     /// Nom logique du fichier (clé de correspondance avec `hmi::SkinEntry::asset`).
     std::string asset;
+    /// Type dont la **silhouette** a été appliquée à l'image, s'il y a lieu (`LOT-42` TACHE-03).
+    /// Vide pour l'image d'origine, non détourée. Un même fichier peut donc être présent
+    /// plusieurs fois — une entrée par découpe — sans qu'une variante n'abîme les autres.
+    std::optional<core::TileType> maskType;
     /// Texture chargée (non possédée : propriété du `hmi::TextureCache`).
     TextureHandle texture = nullptr;
     /// Largeur de la texture, en pixels.
@@ -85,13 +91,22 @@ struct SceneTextures {
     std::string skinSet;
 
     /**
-     * @brief Index d'un skin chargé, par son nom logique.
+     * @brief Index du skin chargé pour un asset et un type de tuile donnés.
+     *
+     * Compare sans jamais construire de chaîne : cette recherche a lieu pour **chaque primitive
+     * de chaque image**, et une clé textuelle assemblée à la volée y allouerait à ce rythme.
      * @param asset Nom du fichier cherché.
-     * @return Son index dans `skins`, ou `-1` s'il n'est pas chargé.
+     * @param type  Type de tuile, qui détermine si c'est la variante détourée qu'il faut.
+     * @return Son index dans `skins`, ou `-1` si la variante voulue n'est pas chargée.
      */
-    [[nodiscard]] int skinIndexOf(std::string_view asset) const noexcept {
+    [[nodiscard]] int skinIndexOf(std::string_view asset, core::TileType type) const noexcept {
+        const bool masked = hasSilhouette(type);
         for (std::size_t index = 0; index < skins.size(); ++index) {
-            if (skins[index].asset == asset) {
+            const SkinTexture& skin = skins[index];
+            if (skin.asset != asset) {
+                continue;
+            }
+            if (masked ? (skin.maskType == type) : !skin.maskType.has_value()) {
                 return static_cast<int>(index);
             }
         }

@@ -53,6 +53,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_skin_catalog.cpp
     Unit/HMI/Graphics/test_tile_autotile.cpp
     Unit/HMI/Graphics/test_tile_skin_resolution.cpp
+    Unit/HMI/Graphics/test_slope_mask.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -92,6 +93,9 @@ add_executable(UnitTests
     # La table de raccords automatiques (LOT-42) est de la pure arithmetique de voisinage, sans
     # texture ni GPU : testable exhaustivement hors GPU (EX-NFR-004).
     ../HMI/Graphics/TileAutotile.cpp
+    # La silhouette des pentes (LOT-42) ne fait que decider quels pixels sont dans la matiere,
+    # a partir de la geometrie de Core : testable hors GPU, et comparable a l'atlas procedural.
+    ../HMI/Graphics/SlopeMask.cpp
     # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
     # ProceduralAtlas.cpp : testable hors GPU.
     ../HMI/Graphics/MissingTexture.cpp

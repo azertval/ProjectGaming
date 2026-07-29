@@ -67,18 +67,22 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
     // manquant et retombera sur le damier, apres l'unique avertissement deja journalise.
     const std::string& effectiveSet = skinSet.empty() ? skins->defaultSetName() : skinSet;
     for (const auto& [type, entry] : skins->assignments(effectiveSet)) {
-        (void)type;
-        if (textures.skinIndexOf(entry.asset) >= 0) {
-            continue;  // plusieurs types peuvent partager un meme asset : ne le charger qu'une fois.
+        if (textures.skinIndexOf(entry.asset, type) >= 0) {
+            continue;  // variante deja chargee : plusieurs types carres peuvent partager un asset.
         }
         const AssetFamily family =
             entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
-        const LoadedTexture* loaded = cache.get(SKINS_SUBDIRECTORY + entry.asset, family);
+        // Un type a silhouette recoit l'image detouree, distincte de l'originale et calculee une
+        // seule fois (LOT-42 TACHE-03).
+        const LoadedTexture* loaded =
+            cache.getMasked(SKINS_SUBDIRECTORY + entry.asset, family, type);
         if (loaded == nullptr) {
             continue;
         }
+        const std::optional<core::TileType> maskType =
+            hasSilhouette(type) ? std::optional<core::TileType>{type} : std::nullopt;
         textures.skins.push_back(
-            SkinTexture{entry.asset, loaded->view.Get(), loaded->width, loaded->height});
+            SkinTexture{entry.asset, maskType, loaded->view.Get(), loaded->width, loaded->height});
     }
     return textures;
 }
