@@ -52,5 +52,9 @@ distinct.
 ## Définition de fait (DoD)
 - Les deux fichiers de test compilent et passent (`ctest` vert) ; build `/W4 /WX` sans avertissement.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — état et observation, conception d'une observation :
+one-hot, normalisation, observation partielle.
+
 ## Exigences
 `EX-IA-006` (nouvelle).

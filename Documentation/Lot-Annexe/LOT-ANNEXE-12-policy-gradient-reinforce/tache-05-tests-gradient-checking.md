@@ -58,5 +58,8 @@ niveau de contrôle fixe versionné avec les tests.
   `/W4 /WX` sans avertissement ; `EX-IA-013` couverte de bout en bout par au moins un test
   d'intégration (le trainer complet) en plus des tests unitaires par brique.
 
+## Notions abordées
+@ref guide-annexe-reinforce — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.
+
 ## Exigences
 `EX-IA-013` (nouvelle, vérifiée par ce lot de tests).

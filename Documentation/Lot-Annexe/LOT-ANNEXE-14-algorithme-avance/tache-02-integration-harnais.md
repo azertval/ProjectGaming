@@ -68,5 +68,9 @@ TACHE-03 plus difficile qu'elle ne devrait l'être.
 - Trainer retenu intégré au harnais existant, testé (`ctest` vert), CSV compatible avec les lots
   amont ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-ppo-dqn — PPO (limitation du pas par *clipping*) et DQN (valeur d'action, rejeu
+d'expérience, réseau cible).
+
 ## Exigences
 `EX-IA-015` (nouvelle).

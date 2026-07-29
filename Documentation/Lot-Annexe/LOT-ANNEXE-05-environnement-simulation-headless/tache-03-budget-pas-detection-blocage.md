@@ -67,5 +67,9 @@ sur blocage (cette politique appartient à LOT-ANNEXE-08).
 - Budget de pas et compteurs de progression disponibles et testés (`ctest` vert) ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — agent, environnement, boucle `reset`/`step`, épisode,
+propriété de Markov.
+
 ## Exigences
 `EX-IA-005` (nouvelle).

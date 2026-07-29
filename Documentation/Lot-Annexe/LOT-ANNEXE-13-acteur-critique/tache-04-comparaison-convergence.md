@@ -63,5 +63,8 @@ et le socle sur lequel repose la décision de cadrage différée de LOT-ANNEXE-1
   fois et son résultat consigné dans `epic.md` ; build `/W4 /WX` sans avertissement ; Doxygen à
   jour ; `EX-IA-014` déclarée comme couverte, mesure de convergence à l'appui.
 
+## Notions abordées
+@ref guide-annexe-acteur-critique — variance du gradient, fonction de valeur, critique, avantage.
+
 ## Exigences
 `EX-IA-014` (nouvelle, mesurée par ce lot de comparaison).

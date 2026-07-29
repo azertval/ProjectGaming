@@ -48,5 +48,9 @@ colonnes qui rendent un plateau visible directement.
 - `MovingAverageTracker` disponible et testé (`ctest` vert), intégré à `TrainingStatsRecorder` ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — récompense cumulée (retour), plafond de performance
+d'un entraînement.
+
 ## Exigences
 `EX-IA-010` (nouvelle, partagée avec TACHE-01/02/04/05 du même lot).

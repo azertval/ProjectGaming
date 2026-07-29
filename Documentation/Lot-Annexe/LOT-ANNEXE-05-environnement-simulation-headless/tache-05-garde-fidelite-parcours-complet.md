@@ -67,5 +67,9 @@ a échoué »).
 - `playLevel()` étendu et `FideliteParPas` verts en CI (`ctest`) sur les 15 niveaux ; test existant
   `FranchitTouteLaSequence` toujours vert ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — agent, environnement, boucle `reset`/`step`, épisode,
+propriété de Markov.
+
 ## Exigences
 `EX-IA-005` (nouvelle).

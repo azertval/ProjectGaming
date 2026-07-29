@@ -56,5 +56,9 @@ final (`LOT-ANNEXE-11`), un choix explorant la distribution pendant l'entraînem
 - `decodeArgmax`/`decodeStochastic` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — action, espace d'action, politique déterministe ou
+stochastique, exploration.
+
 ## Exigences
 `EX-IA-007` (nouvelle, partagée avec TACHE-01/03/04 du même lot).

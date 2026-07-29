@@ -15,7 +15,7 @@ que `backward()` puisse ensuite propager le gradient jusqu'aux poids du réseau 
 ## Travail à réaliser
 - **`aisolver::training::computeReinforceLoss`**
   (`Source/AiSolver/Training/PolicyGradient/ReinforceLoss.h/.cpp`) : fonction
-  `autodiff::Value computeReinforceLoss(nn::PolicyNetwork& policy, const Trajectory& trajectory, const std::vector<float>& returns)` —
+  `autodiff::NodePtr computeReinforceLoss(nn::Network& policy, const Trajectory& trajectory, const std::vector<float>& returns)` —
   pour chaque pas `t` de la trajectoire : **rejoue** le passage avant de la politique sur
   l'observation `s_t` (nouveau nœud de graphe, poids du réseau **actuels**, potentiellement déjà mis
   à jour depuis la collecte si l'entraînement enchaîne plusieurs passes — ce lot fait une seule
@@ -23,6 +23,14 @@ que `backward()` puisse ensuite propager le gradient jusqu'aux poids du réseau 
   log-probabilité de l'action `a_t` effectivement jouée (même indice que celui enregistré dans
   `TrajectoryStep`, pas une nouvelle action tirée), multiplie par `-returns[t]` ; somme les termes de
   tous les pas en un unique nœud scalaire.
+- **Opérations d'autodiff mises en œuvre**, toutes livrées par
+  @ref lot-annexe-03-tache-05-operations-differentiables-complementaires — aucune ne doit être
+  réécrite ici : `selectIndex(distribution, step.actionIndex)` pour extraire la probabilité de
+  l'action jouée **en restant dans le graphe**, `logOp` pour en prendre le logarithme,
+  `multiplyScalar(…, -returns[t])` pour appliquer le retour (grandeur détachée, jamais un nœud),
+  `add` (LOT-ANNEXE-02) pour cumuler les pas, puis `multiplyScalar(…, 1.0f / nombreDePas)` pour la
+  moyenne. Si l'une de ces opérations manque à l'appel du lot, c'est `LOT-ANNEXE-03` (TACHE-05) qui
+  est incomplet — ne pas contourner en calculant un gradient à la main.
 - Le graphe résultant est un graphe d'autodiff **normal** : `backward()` (LOT-ANNEXE-02) sur ce nœud
   final calcule, par rétropropagation, le gradient de la perte par rapport à **tous** les paramètres
   du réseau de politique traversés par le passage avant — aucun calcul de gradient écrit à la main
@@ -70,6 +78,11 @@ que `backward()` puisse ensuite propager le gradient jusqu'aux poids du réseau 
 ## Définition de fait (DoD)
 - `computeReinforceLoss` disponible, gradient checking vert (`ctest`) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour ; `EX-IA-013` effectivement exercée par ce calcul.
+
+## Notions abordées
+@ref guide-annexe-reinforce (policy gradient, trajectoire, retour actualisé, algorithme REINFORCE),
+ainsi que @ref guide-annexe-autodiff : la perte est un **graphe** dont `backward()` tire le
+gradient, pas un nombre calculé une fois pour toutes.
 
 ## Exigences
 `EX-IA-013` (nouvelle).

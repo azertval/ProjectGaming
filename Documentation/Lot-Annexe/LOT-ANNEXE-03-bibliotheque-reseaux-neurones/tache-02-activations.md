@@ -67,5 +67,9 @@ choisit parmi plusieurs actions possibles, génération 2/3).
 - `sigmoid`/`softmax` disponibles, testées (`ctest` vert), gradient vérifié par `GradientCheck.h` ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-reseaux-neurones — neurone, couche dense, fonctions d'activation, initialisation
+des poids.
+
 ## Exigences
 Contribue à `EX-IA-003` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

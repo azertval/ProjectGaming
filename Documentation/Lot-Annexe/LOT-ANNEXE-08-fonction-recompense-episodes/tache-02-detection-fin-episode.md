@@ -44,5 +44,10 @@ progresse plus) et un plafond dur de pas — sans quoi un épisode pourrait dure
 - `EpisodeStatus`/`classifyEpisode` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (récompense, conception d'une fonction de récompense
+(*shaping*, *reward hacking*), épisode et horizon), en particulier sa section 7 (épisode, horizon,
+fins artificielles : plafond de pas et blocage).
+
 ## Exigences
 `EX-IA-009` (nouvelle, partagée avec TACHE-01/03 du même lot).

@@ -59,5 +59,10 @@ Python autonome, sur le modèle exact de `scripts/check_demo_sequence.py` déjà
 - `check_ai_replays.py` fonctionnel, testé manuellement sur les cas listés ; valeur d'empreinte
   vérifiée identique à l'implémentation C++ sur au moins un fichier de référence commun.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-021` (nouvelle, partagée avec TACHE-02 du même lot).

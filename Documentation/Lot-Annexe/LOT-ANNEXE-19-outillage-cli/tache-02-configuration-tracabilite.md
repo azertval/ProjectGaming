@@ -54,5 +54,10 @@ après coup, condition de reproductibilité d'un run passé (critère d'acceptat
 - `TrainingConfig`/`loadTrainingConfig` disponibles et testés (`ctest` vert), traçabilité vérifiée
   de bout en bout ; build `/W4 /WX` sans avertissement ; Doxygen à jour ; `EX-IA-020` déclarée.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-020` (nouvelle, du même lot).

@@ -62,5 +62,10 @@ normalisation) et les réductions globales (nécessaires à une fonction de pert
 - Opérations élémentaires et réductions disponibles, testées (`ctest` vert), Doxygen à jour ; build
   `/W4 /WX` sans avertissement.
 
+## Notions abordées
+@ref guide-annexe-algebre-tensorielle (tenseurs, forme et *stride*, produit matriciel, réductions,
+générateurs pseudo-aléatoires), en particulier ses sections 3 (opérations élément par élément,
+diffusion scalaire) et 5 (réductions).
+
 ## Exigences
 Contribue à `EX-IA-001` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

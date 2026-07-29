@@ -70,5 +70,9 @@ sans introduire aucun mécanisme logiciel qui l'imposerait.
 - Tableau rédigé, cohérent avec la séquence `demo-*.json` réelle du jeu au moment de la rédaction,
   revu.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — boucle générationnelle, élitisme, reproductibilité
+d'un entraînement.
+
 ## Exigences
 Aucune exigence propre — contribue à `EX-IA-012` (documentation d'usage, aucun code).

@@ -74,5 +74,10 @@ les feuilles — pour que chaque `Node::grad` reflète la dérivée de la racine
   partagé et l'assertion sur racine non scalaire ; build `/W4 /WX` sans avertissement ; Doxygen à
   jour.
 
+## Notions abordées
+@ref guide-annexe-autodiff (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode
+inverse), en particulier ses sections 5 (rétropropagation pas à pas), 6 (accumulation des gradients
+par `+=`) et 7 (parcours topologique inverse).
+
 ## Exigences
 Contribue à `EX-IA-002` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

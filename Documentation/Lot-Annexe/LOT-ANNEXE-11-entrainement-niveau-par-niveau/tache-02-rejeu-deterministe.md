@@ -56,5 +56,9 @@ réseau lui-même, qui sera exportée (TACHE-03) et qui pourrait un jour être r
 - Rejeu déterministe disponible, testé (`ctest` vert), cohérent avec l'évaluation de fitness de
   LOT-ANNEXE-10 ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — boucle générationnelle, élitisme, reproductibilité
+d'un entraînement.
+
 ## Exigences
 Aucune exigence propre — contribue à `EX-IA-012` (déclarée en TACHE-03).

@@ -13,7 +13,7 @@ architecture différente (une sortie scalaire au lieu d'une distribution sur l'e
 un nouveau mécanisme.
 
 ## Travail à réaliser
-- **`aisolver::nn::CriticNetwork`** (`Source/AiSolver/Training/ActorCritic/CriticNetwork.h/.cpp`) :
+- **`aisolver::training::CriticNetwork`** (`Source/AiSolver/Training/ActorCritic/CriticNetwork.h/.cpp`) :
   réseau construit avec les couches de LOT-ANNEXE-03 (mêmes types de couches denses/activations que
   le réseau de politique), même encodage d'observation en entrée (LOT-ANNEXE-06) que la politique,
   **une seule sortie scalaire** (pas de couche de normalisation en distribution comme pour la
@@ -21,7 +21,7 @@ un nouveau mécanisme.
 - Constructeur paramétré par la taille de l'observation encodée et la taille de la ou des couches
   cachées (configuration séparée de celle de la politique — aucune contrainte à ce qu'elles soient
   identiques).
-- Méthode `autodiff::Value forward(const Observation& observation)` — un unique passage avant, nœud
+- Méthode `autodiff::NodePtr forward(const Observation& observation)` — un unique passage avant, nœud
   de graphe d'autodiff en sortie, réutilisable directement par TACHE-03 pour la rétropropagation de
   la perte du critique.
 - Initialisation des poids : réutilise le même schéma d'initialisation (et le même générateur
@@ -41,8 +41,8 @@ un nouveau mécanisme.
 - **Sensibilité aux poids** : une perturbation des poids du critique change la valeur de sortie pour
   une même observation (vérifie que le réseau n'est pas dégénéré/constant après construction).
 - **Indépendance du réseau de politique** : construire et faire varier un `CriticNetwork` n'affecte
-  en rien les sorties d'un `PolicyNetwork` construit séparément sur la même observation (pas de
-  poids ou d'état partagé accidentel).
+  en rien les sorties du réseau de politique (`nn::Network`, LOT-ANNEXE-03) construit séparément
+  sur la même observation (pas de poids ou d'état partagé accidentel).
 
 ## Points d'attention
 - **Aucun partage de poids avec le réseau de politique** (décision de cadrage de l'épic) : même si
@@ -58,6 +58,9 @@ un nouveau mécanisme.
 ## Définition de fait (DoD)
 - `CriticNetwork` disponible et testé (`ctest` vert) ; build `/W4 /WX` sans avertissement ; Doxygen
   à jour.
+
+## Notions abordées
+@ref guide-annexe-acteur-critique — variance du gradient, fonction de valeur, critique, avantage.
 
 ## Exigences
 `EX-IA-014` (nouvelle, couverte par le lot).

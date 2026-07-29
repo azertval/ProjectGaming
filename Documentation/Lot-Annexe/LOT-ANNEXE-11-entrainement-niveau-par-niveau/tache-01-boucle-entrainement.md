@@ -66,5 +66,9 @@ forme la plus concrète du programme Lot-Annexe.
 - `LevelTrainingSession` disponible et testée (`ctest` vert), les deux chemins d'arrêt exercés ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-algorithmes-evolutionnistes — boucle générationnelle, élitisme, reproductibilité
+d'un entraînement.
+
 ## Exigences
 Aucune exigence propre — contribue à `EX-IA-012` (déclarée en TACHE-03).

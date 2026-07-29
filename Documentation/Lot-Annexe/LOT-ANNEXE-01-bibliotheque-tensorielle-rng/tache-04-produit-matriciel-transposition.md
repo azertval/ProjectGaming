@@ -55,5 +55,10 @@ Les opérations élémentaires (TACHE-03) ne suffisent pas à exprimer une couch
 - `matmul`/`transpose` disponibles, testés (`ctest` vert) sur cas connus et cas limites, Doxygen à
   jour (complexité documentée) ; build `/W4 /WX` sans avertissement.
 
+## Notions abordées
+@ref guide-annexe-algebre-tensorielle (tenseurs, forme et *stride*, produit matriciel, réductions,
+générateurs pseudo-aléatoires), en particulier sa section 4 (produit matriciel, exemple travaillé à
+la main, transposition).
+
 ## Exigences
 Contribue à `EX-IA-001` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

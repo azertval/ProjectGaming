@@ -40,5 +40,10 @@ exécuter automatiquement sur chaque Pull Request, à côté des vérifications 
 - Étape CI ajoutée et vérifiée en conditions réelles (échec provoqué puis corrigé sur une branche
   de test) ; `README.md` à jour ; `EX-IA-021` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-021` (nouvelle, du même lot).

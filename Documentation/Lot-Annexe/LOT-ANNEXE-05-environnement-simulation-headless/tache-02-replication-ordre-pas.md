@@ -78,5 +78,9 @@ cadrage de l'épic).
   mécanique (mécanisme, plaque, bloc plein, bloc réduit, danger avancé) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — agent, environnement, boucle `reset`/`step`, épisode,
+propriété de Markov.
+
 ## Exigences
 `EX-IA-005` (nouvelle, portée principalement par cette tâche).

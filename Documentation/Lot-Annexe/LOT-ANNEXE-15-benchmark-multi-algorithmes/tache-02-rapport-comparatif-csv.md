@@ -46,5 +46,9 @@ algorithme se comporte le mieux sur quel niveau ? ».
 - `BenchmarkReport` disponible et testé (`ctest` vert) ; build `/W4 /WX` sans avertissement ;
   Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-evaluation-rl — variance entre exécutions, graines multiples, mesure honnête d'un
+agent entraîné.
+
 ## Exigences
 `EX-IA-016` (nouvelle, partagée avec TACHE-01/03 du même lot).
