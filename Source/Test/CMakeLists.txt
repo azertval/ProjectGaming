@@ -20,6 +20,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_draft.cpp
     Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Levels/test_danger_geometry.cpp
+    Unit/Core/Levels/test_tile_type_name.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -49,6 +50,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_quad_recorder.cpp
     Unit/HMI/Graphics/test_render_culling.cpp
     Unit/HMI/Graphics/test_render_mode.cpp
+    Unit/HMI/Graphics/test_skin_catalog.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -82,6 +84,9 @@ add_executable(UnitTests
     # pure (aucune dependance Qt/GPU) : testables hors GPU.
     ../HMI/Graphics/RenderMode.cpp
     ../HMI/Graphics/TileAppearance.cpp
+    # Le catalogue de skins (LOT-42) est une configuration de presentation lue/ecrite en JSON,
+    # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
+    ../HMI/Graphics/SkinCatalog.cpp
     # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
     # ProceduralAtlas.cpp : testable hors GPU.
     ../HMI/Graphics/MissingTexture.cpp
@@ -133,7 +138,8 @@ target_link_libraries(UnitTests PRIVATE
 # Chemins (source) des assets, pour vérifier que le contenu livré (niveaux, catalogues) se charge.
 target_compile_definitions(UnitTests PRIVATE
     PROJECTGAMING_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
-    PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
+    PROJECTGAMING_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"
+    PROJECTGAMING_ASSETS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
 
 # Tests d'intégration : plusieurs briques assemblées collaborant de bout en bout.
 add_executable(IntegrationTests
