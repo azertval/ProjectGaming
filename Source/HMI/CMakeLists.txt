@@ -23,12 +23,53 @@ if(NOT BUILD_EDITOR_QT)
     return()
 endif()
 
+# --- Découverte de Qt sans configuration manuelle ---
+# find_package() ne consulte que CMAKE_PREFIX_PATH. Or l'installateur officiel Qt place ses
+# versions dans <racine>/<version>/<compilateur> — un emplacement que CMake ne connaît pas. Sur un
+# poste neuf, la configuration ne trouvait donc rien et la cible était ignorée *en silence* : le
+# build « réussissait » sans jamais produire d'exécutable. On complète la recherche par les
+# emplacements conventionnels, en les ajoutant **en fin** de liste pour qu'un choix explicite
+# (-DCMAKE_PREFIX_PATH, -DQt6_DIR) garde toujours la priorité.
+set(_qt_hints "")
+
+# Variables d'environnement usuelles. QT_ROOT_DIR est exporté par install-qt-action (CI) ;
+# QTDIR est la convention historique de l'installateur.
+foreach(_qt_var QT_ROOT_DIR Qt6_ROOT QTDIR)
+    if(DEFINED ENV{${_qt_var}})
+        list(APPEND _qt_hints "$ENV{${_qt_var}}")
+    endif()
+endforeach()
+
+# Arborescences de l'installateur officiel. Le tri décroissant naturel place la version la plus
+# récente en tête (6.10 avant 6.8, ce qu'un tri lexicographique ferait à l'envers).
+if(WIN32)
+    file(GLOB _qt_installs
+        "$ENV{SystemDrive}/Qt/*/msvc*_64"
+        "C:/Qt/*/msvc*_64"
+        "D:/Qt/*/msvc*_64")
+else()
+    file(GLOB _qt_installs
+        "$ENV{HOME}/Qt/*/gcc_64"
+        "/opt/Qt/*/gcc_64")
+endif()
+list(SORT _qt_installs COMPARE NATURAL ORDER DESCENDING)
+list(APPEND _qt_hints ${_qt_installs})
+
+if(_qt_hints)
+    list(REMOVE_DUPLICATES _qt_hints)
+    list(APPEND CMAKE_PREFIX_PATH ${_qt_hints})
+endif()
+
 find_package(Qt6 QUIET COMPONENTS Widgets Gui)
 if(NOT Qt6_FOUND)
-    message(STATUS
-        "ProjectGaming : Qt6 introuvable, cible ignorée. "
-        "Définir CMAKE_PREFIX_PATH vers une installation Qt (ex. C:/Qt/6.8.1/msvc2022_64) "
-        "ou passer -DBUILD_EDITOR_QT=OFF.")
+    # Avertissement et non simple statut : sans Qt il n'y a **aucun exécutable**, seulement les
+    # tests. Passer inaperçu est précisément ce qui rendait l'absence d'exe difficile à diagnostiquer.
+    message(WARNING
+        "ProjectGaming : Qt6 introuvable, cible ignorée — AUCUN EXÉCUTABLE ne sera produit.\n"
+        "Emplacements examinés : ${_qt_hints}\n"
+        "Corriger en installant Qt via l'installateur officiel, ou en désignant l'installation :\n"
+        "  cmake --preset ninja -DCMAKE_PREFIX_PATH=<chemin>/msvc2022_64\n"
+        "Passer -DBUILD_EDITOR_QT=OFF pour ne construire que les tests, sans cet avertissement.")
     return()
 endif()
 

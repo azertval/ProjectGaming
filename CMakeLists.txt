@@ -10,6 +10,56 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# --- Cohérence de l'environnement MSVC (générateurs hors Visual Studio) ---
+# Les générateurs Ninja / Makefiles n'établissent pas l'environnement MSVC : ils héritent des
+# variables LIB et INCLUDE du terminal appelant. Or une invite « Developer PowerShell/Command
+# Prompt » démarre en **x86** par défaut. Le compilateur sélectionné par CMake est alors x64, mais
+# l'éditeur de liens reçoit les bibliothèques x86 : le build échoue sur des centaines de « symbole
+# externe non résolu » (LNK2001) que rien ne rattache à la cause réelle. On détecte l'incohérence
+# à la configuration, seul endroit où le message peut être compris.
+#
+# Le générateur Visual Studio est exempt : MSBuild établit son propre environnement.
+#
+# Deux incohérences distinctes sont possibles, toutes deux silencieuses jusqu'à l'édition de liens :
+#  - terminal x86 : CMake sélectionne le compilateur 32 bits et produit une build 32 bits
+#    parfaitement cohérente… mais inutilisable, Qt (msvc*_64) et Direct3D 11 étant fournis en x64.
+#    Symptôme observé : « Qt6 introuvable », donc aucun exécutable ;
+#  - compilateur x64 imposé (cache d'un IDE) mais LIB héritée d'un terminal x86 : des centaines de
+#    LNK2001 sans rapport apparent avec la cause.
+option(SKIP_MSVC_ENV_CHECK "Désactiver la vérification d'architecture de l'environnement MSVC" OFF)
+if(MSVC AND NOT SKIP_MSVC_ENV_CHECK AND NOT CMAKE_GENERATOR MATCHES "Visual Studio")
+    set(_msvc_env_hint
+        "Corriger en construisant via le script fourni, qui établit lui-même l'environnement :\n"
+        "  pwsh scripts/build.ps1\n"
+        "Ou en ouvrant un terminal x64 avant CMake (vcvars64.bat, ou « x64 Native Tools Command "
+        "Prompt » — la « Developer PowerShell » démarre en x86).\n"
+        "Passer -DSKIP_MSVC_ENV_CHECK=ON pour outrepasser cette vérification.")
+
+    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+        message(FATAL_ERROR
+            "Environnement de compilation 32 bits — ce projet cible x64.\n"
+            "  Compilateur : ${CMAKE_CXX_COMPILER}\n"
+            "Le terminal appelant a été ouvert en x86, et les générateurs hors Visual Studio en "
+            "héritent. La build serait cohérente mais inutilisable : Qt (msvc*_64) ne serait pas "
+            "trouvé et aucun exécutable ne serait produit.\n"
+            ${_msvc_env_hint})
+    endif()
+
+    # LIB est la variable que consulte l'éditeur de liens ; les chemins MSVC s'y terminent
+    # invariablement par lib/<arch>.
+    string(REPLACE "\\" "/" _msvc_lib_env "$ENV{LIB}")
+    string(TOLOWER "${_msvc_lib_env}" _msvc_lib_env)
+    if(NOT _msvc_lib_env MATCHES "/lib/x64(/|;|$)")
+        message(FATAL_ERROR
+            "Environnement MSVC incohérent : compilateur x64, bibliothèques non x64.\n"
+            "  Compilateur  : ${CMAKE_CXX_COMPILER}\n"
+            "  Variable LIB : $ENV{LIB}\n"
+            "L'édition de liens échouerait sur des centaines de symboles externes non résolus "
+            "(LNK2001) sans rapport apparent avec la cause.\n"
+            ${_msvc_env_hint})
+    endif()
+endif()
+
 # --- Dossiers de sortie ---
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
