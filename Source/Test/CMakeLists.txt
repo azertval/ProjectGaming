@@ -58,6 +58,7 @@ add_executable(UnitTests
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
+    Unit/HMI/Editor/test_skin_assignments.cpp
     Unit/HMI/Editor/test_level_file_operations.cpp
     Unit/HMI/Editor/test_link_geometry.cpp
     Unit/HMI/Editor/test_link_gesture.cpp
@@ -124,6 +125,10 @@ add_executable(UnitTests
     ../HMI/Editor/LevelNameValidation.cpp
     # La taxonomie de la palette Qt (catégories/sous-groupes) est pure, testable hors GPU/Qt.
     ../HMI/Editor/TileTaxonomy.cpp
+    # La logique alimentant le panneau « Textures » (LOT-42) est separee du widget Qt : lignes a
+    # afficher, balayage du dossier de skins, effet d'une assignation. Testable sans Qt.
+    ../HMI/Editor/TaxonomyLabels.cpp
+    ../HMI/Editor/SkinAssignments.cpp
     # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
     # (LevelNameValidation.cpp est déjà compilé plus haut.)
     ../HMI/Editor/LevelFileOperations.cpp

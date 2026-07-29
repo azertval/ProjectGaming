@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TexturePanel</class>
+ <!-- Panneau « Textures » (LOT-42). Conçu en SECTIONS dès ce lot : LOT-44 (Fond), LOT-45 (Objets),
+      LOT-47 (Animations) et LOT-50 (Décors) y ajouteront la leur en insérant un onglet, sans
+      toucher aux existantes ni au câblage de MainWindow.
+      Les libellés posés ici sont des repères pour Qt Designer : retranslateUi les remplace tous
+      par le catalogue de traduction (EX-REN-033). -->
+ <widget class="QWidget" name="TexturePanel">
+  <layout class="QVBoxLayout" name="rootLayout">
+   <item>
+    <layout class="QHBoxLayout" name="setLayout">
+     <item>
+      <widget class="QLabel" name="setLabel">
+       <property name="text"><string>Jeu de skins</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="setSelector"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="sections">
+     <property name="currentIndex"><number>0</number></property>
+     <widget class="QWidget" name="skinsTab">
+      <attribute name="title"><string>Skins</string></attribute>
+      <layout class="QVBoxLayout" name="skinsLayout">
+       <item>
+        <widget class="QTreeView" name="skinsTree">
+         <property name="rootIsDecorated"><bool>true</bool></property>
+         <property name="alternatingRowColors"><bool>true</bool></property>
+         <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

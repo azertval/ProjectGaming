@@ -103,7 +103,7 @@ réutilisé (pas remplacé) par LOT-43/44/45/50.
 | [TACHE-01](tache-01-skins-json.md) | `skins.json` versionné, jeux de skins, lecture/écriture, résolution `TileType → asset + mode` | `Source/HMI/Graphics` | ✅ |
 | [TACHE-02](tache-02-raccords-automatiques.md) | Table de raccords automatiques (voisinage solide → case de planche), pure et testée | `Source/HMI/Graphics` | ✅ |
 | [TACHE-03](tache-03-masquage-pentes.md) | Masquage alpha automatique des pentes/arrondis au chargement d'un skin | `Source/HMI/Graphics` | ✅ |
-| [TACHE-04](tache-04-panneau-textures.md) | Panneau Qt « Textures » (jeu courant + section Skins) + dossier `Assets/Skins/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-04](tache-04-panneau-textures.md) | Panneau Qt « Textures » (jeu courant + section Skins) + dossier `Assets/Skins/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` | ✅ |
 | [TACHE-05](tache-05-palette-fidele.md) | Palette de l'éditeur fidèle au mode de rendu courant | `Source/HMI/Editor` | ⬜ |
 
 ## Critères d'acceptation du lot

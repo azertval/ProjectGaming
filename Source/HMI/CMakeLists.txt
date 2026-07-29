@@ -139,6 +139,9 @@ add_executable(ProjectGaming
     Editor/LevelBrowserPanel.cpp
     Editor/LinkPanel.cpp
     Editor/TileTaxonomy.cpp
+    Editor/TaxonomyLabels.cpp
+    Editor/TexturePanel.cpp
+    Editor/SkinAssignments.cpp
     Editor/LevelFileOperations.cpp
     Editor/LevelNameValidation.cpp
     Editor/LinkGeometry.cpp
@@ -150,6 +153,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/MainMenu.ui
     ${ELEMENTS_UI}/OptionsPage.ui
     ${ELEMENTS_UI}/ToolPanel.ui
+    ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
 )
 

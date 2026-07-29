@@ -142,6 +142,23 @@ public:
     }
 
     /**
+     * @brief Catalogue des jeux de skins, édité par le panneau « Textures » (`LOT-42`).
+     *
+     * Le viewport en reste **propriétaire** : le panneau agit dessus, et le rendu voit les mêmes
+     * assignations à l'image suivante, sans reconstruire la scène.
+     * @return Le catalogue.
+     */
+    [[nodiscard]] SkinCatalog& skinCatalog() noexcept {
+        return _skins;
+    }
+
+    /**
+     * @brief Désigne le jeu de skins à utiliser pour le rendu (`LOT-42`).
+     * @param setName Nom du jeu ; vide pour le jeu par défaut du catalogue.
+     */
+    void setSkinSet(const std::string& setName);
+
+    /**
      * @brief Choisit le mode de rendu et **persiste** le choix (`EX-REN-046`, `EX-IHM-011`).
      *
      * Purement visuel : ni la simulation, ni la scène ECS, ni le brouillon ne sont touchés — la
@@ -221,6 +238,8 @@ private:
     /// Catalogue des jeux de skins (`LOT-42`), lu au démarrage depuis `Assets/skins.json`. Vide si
     /// le fichier est absent ou illisible : tout retombe alors sur le damier, sans bloquer.
     hmi::SkinCatalog _skins;
+    /// Jeu de skins courant ; vide pour le jeu par défaut du catalogue.
+    std::string _skinSet;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
     hmi::InputState _input;

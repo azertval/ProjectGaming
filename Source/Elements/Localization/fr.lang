@@ -27,6 +27,15 @@ dock.palette = Palette
 dock.tools = Outils
 dock.levels = Niveaux
 dock.links = Liens
+dock.textures = Textures
+
+# Panneau Textures (LOT-42)
+textures.skin_set = Jeu de skins
+textures.section_skins = Skins
+textures.column_type = Type de tuile
+textures.column_asset = Fichier
+textures.column_mode = Mode
+textures.none = (aucun)
 
 # Barre de statut et dialogues
 status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille

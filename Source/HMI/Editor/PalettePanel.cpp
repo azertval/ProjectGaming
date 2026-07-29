@@ -12,6 +12,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "HMI/Editor/TaxonomyLabels.h"
 #include "HMI/Editor/TileTaxonomy.h"
 #include "HMI/Localization/Localization.h"
 
@@ -22,47 +23,11 @@ namespace {
 // Rôle de données portant le `core::TileType` d'une feuille (les en-têtes n'en ont pas).
 constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
 
-// Table libellé (français, source de la taxonomie) -> clé de traduction (anglais). La taxonomie
-// reste une logique pure sans dépendance i18n ; la palette résout ses libellés ici.
+// Libelle de taxonomie traduit. La table libelle -> cle vit dans TaxonomyLabels : point unique
+// partage avec le panneau « Textures » (LOT-42). Deux copies divergeraient au premier libelle
+// ajoute, et un panneau afficherait alors du francais dans une interface anglaise.
 [[nodiscard]] QString localized(const Localization* loc, const std::string& label) {
-    static const std::unordered_map<std::string, std::string> keys = {
-        {"Tuile", "palette.cat.tile"},
-        {"Interactif", "palette.cat.interactive"},
-        {"Piège", "palette.cat.trap"},
-        {"Jalon", "palette.cat.marker"},
-        {"Pente", "palette.sub.slope"},
-        {"Arrondi", "palette.sub.rounded"},
-        {"Concave", "palette.sub.concave"},
-        {"Bloc poussable", "palette.sub.block"},
-        {"Directionnel", "palette.sub.directional"},
-        {"Vide (gomme)", "palette.tile.empty"},
-        {"Plein", "palette.tile.solid"},
-        {"Montée droite", "palette.tile.rise_right"},
-        {"Montée gauche", "palette.tile.rise_left"},
-        {"Plafond droite", "palette.tile.ceiling_right"},
-        {"Plafond gauche", "palette.tile.ceiling_left"},
-        {"Demi (½)", "palette.tile.half"},
-        {"Quart (¼)", "palette.tile.quarter"},
-        {"Interrupteur", "palette.tile.switch"},
-        {"Plaque de pression", "palette.tile.plate"},
-        {"Porte", "palette.tile.door"},
-        {"Danger", "palette.tile.danger"},
-        {"Danger mobile", "palette.tile.danger_moving"},
-        {"Danger commuté", "palette.tile.danger_switched"},
-        {"Danger clignotant", "palette.tile.danger_blink"},
-        {"Pics vers le haut", "palette.tile.spikes_up"},
-        {"Pics vers le bas", "palette.tile.spikes_down"},
-        {"Pics vers la gauche", "palette.tile.spikes_left"},
-        {"Pics vers la droite", "palette.tile.spikes_right"},
-        {"Entrée", "palette.tile.entry"},
-        {"Sortie", "palette.tile.exit"},
-    };
-    if (loc != nullptr) {
-        if (const auto found = keys.find(label); found != keys.end()) {
-            return QString::fromStdString(loc->text(found->second));
-        }
-    }
-    return QString::fromStdString(label);  // repli : libellé source (français).
+    return QString::fromStdString(localizedTaxonomyLabel(loc, label));
 }
 
 // Crée une feuille sélectionnable portant son type de tuile.

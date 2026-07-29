@@ -263,6 +263,18 @@ void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
     markDraftMutated();
 }
 
+void GameViewport::setSkinSet(const std::string& setName) {
+    // Le catalogue est deja a jour (le panneau agit dessus directement) : il n'y a que le jeu
+    // courant a propager, et l'image suivante montrera le resultat. Aucune scene a reconstruire.
+    if (_draftRenderer) {
+        _draftRenderer->setSkins(&_skins, setName);
+    }
+    if (_session) {
+        _session->setSkins(&_skins, setName);
+    }
+    _skinSet = setName;
+}
+
 bool GameViewport::linkExists(core::GridPosition switchPosition,
                               core::GridPosition targetPosition) const {
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {
@@ -562,7 +574,7 @@ void GameViewport::startPlaytest() {
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*validated.level), _gameBindings, _gamepadBindings);
     // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
-    _session->setSkins(&_skins);
+    _session->setSkins(&_skins, _skinSet);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
 }
@@ -616,7 +628,7 @@ void GameViewport::loadGameLevel(std::size_t index) {
                  " charge : " + _gameLevels[index].filename().string());
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*loaded.level), _gameBindings, _gamepadBindings);
-    _session->setSkins(&_skins);
+    _session->setSkins(&_skins, _skinSet);
 }
 
 void GameViewport::resizeLevel(int width, int height) {

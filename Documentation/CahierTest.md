@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**521 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**530 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (439)
+## Tests unitaires (448)
 
 ### Core
 
@@ -438,7 +438,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (5)
+#### Editor (14)
 
 **`test_level_name_validation.cpp`**
 
@@ -449,6 +449,20 @@
 | **LevelNameValidationTest.CaractereInterditInvalide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:42`</sub> | Un nom contenant un caractère interdit par le système de fichiers Windows est invalide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Niveau:1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau/1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\\\1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau*1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau?1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\"1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau<1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau>1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\|1")` est faux. |
 | **LevelNameValidationTest.NomAccentueValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:67`</sub> | Un nom accentué (Unicode) reste valide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Fort\\xC3\\xA9resse")` est vrai. |
 | **LevelNameValidationTest.TrimRetireLesEspacesDeBord** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:81`</sub> | trimLevelName retire les espaces de bord sans toucher au contenu. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::trimLevelName(" Niveau 1 ")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName(" ")` vaut `""`. |
+
+**`test_skin_assignments.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **SkinAssignmentsTest.ChaqueTypeApparaitUneFois** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:59`</sub> | Chaque type de tuile peignable apparait exactement une fois dans le panneau. | 1. Construire les lignes du panneau pour un catalogue quelconque.<br/> 2. Collecter les types de toutes les lignes. | Vérifie que `seen.insert(row.type).second` est vrai.<br/>Vérifie que `row.type` diffère de `core::TileType::Empty`.<br/>Vérifie que `seen` vaut `expected`. |
+| **SkinAssignmentsTest.LignesRefletentLAssignation** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:96`</sub> | Les lignes du panneau refletent l'assignation courante du jeu consulte. | 1. Construire les lignes pour un catalogue ou seul Solid est assigne. | Vérifie que `row.asset` vaut `"stone.png"`.<br/>Vérifie que `row.mode` vaut `hmi::SkinMode::Bitmask16`.<br/>Vérifie que `row.asset.empty()` est vrai. |
+| **SkinAssignmentsTest.SectionsSuiventLaPalette** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:121`</sub> | Les sections du panneau suivent les categories de la palette. | 1. Comparer les libelles de sections aux categories de la taxonomie. | Vérifie que `sectionLabels` vaut `categoryLabels`. |
+| **SkinAssignmentsTest.AssignationPuisRetraitDepuisLePanneau** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:148`</sub> | Assigner puis retirer un skin depuis le panneau modifie le catalogue. | 1. Appliquer une assignation a un type non skinne, puis relire les lignes.<br/> 2. Appliquer une assignation vide au meme type, puis relire. | Vérifie que `assigned.has_value()` est vrai.<br/>Vérifie que `assigned->asset` vaut `"spikes.png"`.<br/>Vérifie que `catalog.resolve("foret", core::TileType::Danger).has_value()` est faux. |
+| **SkinAssignmentsTest.JeuNonPreciseViseLeDefaut** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:174`</sub> | Une assignation sans jeu precise vise le jeu par defaut. | 1. Appliquer une assignation en passant un nom de jeu vide. | Vérifie que `catalog.defaultSetName()` vaut `"foret"`.<br/>Vérifie que `assignments.find(core::TileType::Door)` diffère de `assignments.end()`. |
+| **SkinAssignmentsTest.BalayageNeRetientQueLesImages** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:193`</sub> | Le balayage du dossier de skins ne retient que les images, triees. | 1. Creer un dossier contenant deux PNG, un fichier texte et un README. | Vérifie que `assets` vaut `expected`. |
+| **SkinAssignmentsTest.DossierAbsentListeVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:217`</sub> | Un dossier de skins absent donne une liste vide, sans erreur. | 1. Balayer un chemin qui n'existe pas. | Vérifie que `hmi::listSkinAssets(std::filesystem::temp_directory_path() / "projectgaming_dossier_inexistant") .empty()` est vrai. |
+| **SkinAssignmentsTest.LibellesTaxonomieTraduitsDansLesDeuxLangues** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:233`</sub> | Chaque libelle de la taxonomie a une traduction dans les deux catalogues. | 1. Pour chaque libelle de la taxonomie, obtenir sa cle de traduction.<br/> 2. Verifier que la cle est resolue en francais puis en anglais. | Vérifie que `loc.loadLanguage(language)` est vrai.<br/>Vérifie que `key.empty()` est faux.<br/>Vérifie que `loc.text(key)` diffère de `key`. |
+| **SkinAssignmentsTest.LibellesDuPanneauTraduits** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_skin_assignments.cpp:273`</sub> | Les libelles propres au panneau Textures existent dans les deux catalogues. | 1. Pour chaque cle utilisee par le panneau, la resoudre en francais puis en anglais. | Vérifie que `loc.loadLanguage(language)` est vrai.<br/>Vérifie que `loc.text(key)` diffère de `key`. |
 
 #### Graphics (99)
 
