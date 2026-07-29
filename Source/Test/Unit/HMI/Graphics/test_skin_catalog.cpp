@@ -4,8 +4,11 @@
  */
 
 #include <algorithm>
+#include <cstring>
 #include <filesystem>
+#include <fstream>
 #include <map>
+#include <utility>
 #include <optional>
 #include <string>
 #include <vector>
@@ -13,7 +16,10 @@
 #include <gtest/gtest.h>
 
 #include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
 #include "HMI/Graphics/SkinCatalog.h"
+#include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TileAutotile.h"
 
 namespace {
 
@@ -43,6 +49,30 @@ hmi::SkinCatalog referenceCatalog() {
 /// Chemin temporaire unique pour les tests d'ecriture.
 std::filesystem::path tempSkinsPath(const std::string& suffix) {
     return std::filesystem::temp_directory_path() / ("projectgaming_skins_" + suffix + ".json");
+}
+
+/// Dimensions d'un PNG, lues dans son en-tete IHDR (largeur et hauteur, gros-boutistes).
+/// Evite de dependre d'un decodeur d'image dans un test qui ne verifie que des dimensions.
+std::optional<std::pair<int, int>> pngSize(const std::filesystem::path& path) {
+    std::ifstream file(path, std::ios::binary);
+    if (!file) {
+        return std::nullopt;
+    }
+    unsigned char header[24]{};
+    file.read(reinterpret_cast<char*>(header), sizeof(header));
+    if (file.gcount() != static_cast<std::streamsize>(sizeof(header))) {
+        return std::nullopt;
+    }
+    static const unsigned char signature[8] = {0x89, 'P', 'N', 'G', '\r', '\n', 0x1A, '\n'};
+    if (std::memcmp(header, signature, sizeof(signature)) != 0) {
+        return std::nullopt;
+    }
+    const auto readBigEndian = [&header](std::size_t offset) {
+        return (static_cast<int>(header[offset]) << 24) |
+               (static_cast<int>(header[offset + 1]) << 16) |
+               (static_cast<int>(header[offset + 2]) << 8) | static_cast<int>(header[offset + 3]);
+    };
+    return std::pair<int, int>{readBigEndian(16), readBigEndian(20)};
 }
 
 }  // namespace
@@ -379,4 +409,42 @@ TEST(SkinCatalogTest, CatalogueLivreValide) {
     ASSERT_FALSE(sets.empty());
     EXPECT_NE(std::find(sets.begin(), sets.end(), result.catalog->defaultSetName()), sets.end())
         << "le jeu par defaut doit exister";
+}
+
+/**
+ * @brief Chaque asset reference par le catalogue livre existe et respecte son contrat.
+ * \castest{<b>Chaque asset reference par le catalogue livre existe aux bonnes dimensions.</b><br/>
+ * \tcat Unitaire · Catalogue de skins<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lire le catalogue livre et parcourir toutes les assignations de tous les jeux.<br/>
+ * 2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions.<br/>
+ * \tattendu Un skin single fait une case, une planche a raccords en fait 4x4.
+ * }
+ */
+TEST(SkinCatalogTest, AssetsDuCatalogueLivreConformes) {
+    const std::filesystem::path assets{PROJECTGAMING_ASSETS_DIR};
+    const hmi::SkinCatalogResult result = hmi::SkinCatalog::loadFromFile(assets / "skins.json");
+    ASSERT_TRUE(result.ok()) << result.error;
+
+    constexpr int TILE = hmi::TextureAtlas::TILE_SIZE;
+    for (const std::string& setName : result.catalog->setNames()) {
+        for (const auto& [type, entry] : result.catalog->assignments(setName)) {
+            const std::filesystem::path path = assets / "Skins" / entry.asset;
+            ASSERT_TRUE(std::filesystem::exists(path))
+                << "asset reference mais absent : " << path.string();
+
+            const std::optional<std::pair<int, int>> size = pngSize(path);
+            ASSERT_TRUE(size.has_value()) << "PNG illisible : " << path.string();
+
+            // Un asset aux mauvaises dimensions est refuse au chargement (EX-REN-007) et la tuile
+            // retombe au damier : le catalogue livre serait alors muet mais inoperant.
+            const int expected = entry.mode == hmi::SkinMode::Bitmask16
+                                     ? TILE * hmi::AUTOTILE_SHEET_SIDE
+                                     : TILE;
+            EXPECT_EQ(size->first, expected)
+                << entry.asset << " (" << hmi::skinModeName(entry.mode)
+                << ") pour le type " << core::tileTypeName(type);
+            EXPECT_EQ(size->second, expected) << entry.asset;
+        }
+    }
 }
