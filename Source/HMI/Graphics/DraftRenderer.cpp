@@ -271,7 +271,7 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
                                                               static_cast<float>(row) + margin},
                                                 core::Vector2{scale, scale}, 0.0f});
             core::Sprite sprite;
-            sprite.region = regionForTile(type, _atlas);
+            sprite.region = regionForTile(type);
             sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
             // Aucun calque a fixer : une entite sans `RenderLayerTag` est dessinee sur
             // RenderLayer::Tile (hmi::DEFAULT_RENDER_LAYER), et `core::Sprite::layer` garde sa

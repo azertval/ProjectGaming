@@ -142,6 +142,7 @@ add_executable(ProjectGaming
     Editor/TaxonomyLabels.cpp
     Editor/TexturePanel.cpp
     Editor/SkinAssignments.cpp
+    Editor/PaletteAppearance.cpp
     Editor/LevelFileOperations.cpp
     Editor/LevelNameValidation.cpp
     Editor/LinkGeometry.cpp

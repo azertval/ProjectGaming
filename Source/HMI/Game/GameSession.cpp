@@ -64,7 +64,7 @@ void GameSession::loadLevel(core::Level level) {
     // refaire a chaque image sans rendre la scene dependante du mode de rendu.
     const core::TileMap& sceneMap = levelRef.tileMap();
     core::buildLevelScene(
-        _world, levelRef, [this](core::TileType type) { return regionForTile(type, _atlas); },
+        _world, levelRef, [this](core::TileType type) { return regionForTile(type); },
         [this, &sceneMap](core::Entity entity, core::TileType type, int column, int row) {
             _world.addComponent(entity,
                                 TileSkinTag{type, solidNeighborMask(sceneMap, column, row)});

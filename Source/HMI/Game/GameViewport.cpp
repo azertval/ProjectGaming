@@ -93,7 +93,8 @@ void GameViewport::setRenderMode(RenderMode mode) {
                          QString::fromLatin1(renderModeName(mode)));
     HMI_LOG_INFO(std::string{"Rendu : mode "} + renderModeName(mode) + ".");
     // Aucune invalidation du brouillon : la scene ECS est inchangee, seule la resolution de
-    // l'apparence differe (LOT-41).
+    // l'apparence differe (LOT-41). La palette, elle, doit suivre pour rester fidele au canevas.
+    emit renderModeChanged(mode);
 }
 
 int GameViewport::pixelWidth() const {

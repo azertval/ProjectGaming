@@ -1,6 +1,6 @@
 # LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques {#lot-42}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41). Répond à la
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41). Répond à la
 > demande d'origine (« définir les textures utilisées par un bloc »).
 
 ## Objectif
@@ -104,7 +104,7 @@ réutilisé (pas remplacé) par LOT-43/44/45/50.
 | [TACHE-02](tache-02-raccords-automatiques.md) | Table de raccords automatiques (voisinage solide → case de planche), pure et testée | `Source/HMI/Graphics` | ✅ |
 | [TACHE-03](tache-03-masquage-pentes.md) | Masquage alpha automatique des pentes/arrondis au chargement d'un skin | `Source/HMI/Graphics` | ✅ |
 | [TACHE-04](tache-04-panneau-textures.md) | Panneau Qt « Textures » (jeu courant + section Skins) + dossier `Assets/Skins/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/Interface`, `Source/HMI/CMakeLists.txt` | ✅ |
-| [TACHE-05](tache-05-palette-fidele.md) | Palette de l'éditeur fidèle au mode de rendu courant | `Source/HMI/Editor` | ⬜ |
+| [TACHE-05](tache-05-palette-fidele.md) | Palette de l'éditeur fidèle au mode de rendu courant | `Source/HMI/Editor` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Assigner un skin à un type de tuile depuis le panneau « Textures » le rend visible dans le niveau

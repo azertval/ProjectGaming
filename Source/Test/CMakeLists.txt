@@ -59,6 +59,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_level_name_validation.cpp
     Unit/HMI/Editor/test_tile_taxonomy.cpp
     Unit/HMI/Editor/test_skin_assignments.cpp
+    Unit/HMI/Editor/test_palette_appearance.cpp
     Unit/HMI/Editor/test_level_file_operations.cpp
     Unit/HMI/Editor/test_link_geometry.cpp
     Unit/HMI/Editor/test_link_gesture.cpp
@@ -129,6 +130,9 @@ add_executable(UnitTests
     # afficher, balayage du dossier de skins, effet d'une assignation. Testable sans Qt.
     ../HMI/Editor/TaxonomyLabels.cpp
     ../HMI/Editor/SkinAssignments.cpp
+    # Le choix de vignette de la palette (LOT-42) applique la meme priorite que le canevas, sans
+    # aucune dependance Qt/GPU : c'est ce qui permet de verifier qu'ils ne divergent pas.
+    ../HMI/Editor/PaletteAppearance.cpp
     # Les opérations fichiers de niveaux (créer/renommer/dupliquer/supprimer) sont pures, testables.
     # (LevelNameValidation.cpp est déjà compilé plus haut.)
     ../HMI/Editor/LevelFileOperations.cpp

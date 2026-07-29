@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**530 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**536 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (448)
+## Tests unitaires (454)
 
 ### Core
 
@@ -438,7 +438,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (14)
+#### Editor (20)
 
 **`test_level_name_validation.cpp`**
 
@@ -449,6 +449,17 @@
 | **LevelNameValidationTest.CaractereInterditInvalide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:42`</sub> | Un nom contenant un caractère interdit par le système de fichiers Windows est invalide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Niveau:1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau/1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\\\1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau*1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau?1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\"1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau<1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau>1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\|1")` est faux. |
 | **LevelNameValidationTest.NomAccentueValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:67`</sub> | Un nom accentué (Unicode) reste valide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Fort\\xC3\\xA9resse")` est vrai. |
 | **LevelNameValidationTest.TrimRetireLesEspacesDeBord** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:81`</sub> | trimLevelName retire les espaces de bord sans toucher au contenu. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::trimLevelName(" Niveau 1 ")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName(" ")` vaut `""`. |
+
+**`test_palette_appearance.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **PaletteAppearanceTest.ModePhysiqueMontreLaCouleurPlate** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:39`</sub> | En mode Physique, la palette montre la couleur plate du type. | 1. Demander la vignette de Solid en mode Physique, alors qu'un skin lui est assigne. | Vérifie que `thumbnail.source` vaut `hmi::PaletteThumbnailSource::Atlas`.<br/>Vérifie que `thumbnail.region.x` vaut `physical.x`.<br/>Vérifie que `thumbnail.region.y` vaut `physical.y`.<br/>Vérifie que `thumbnail.masked` est faux. |
+| **PaletteAppearanceTest.ModeTextureMontreLeSkin** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:61`</sub> | En mode Texture, la palette montre le fichier reellement assigne. | 1. Demander la vignette de Block, assigne a un skin en mode image unique. | Vérifie que `thumbnail.source` vaut `hmi::PaletteThumbnailSource::Skin`.<br/>Vérifie que `thumbnail.asset` vaut `"crate.png"`.<br/>Vérifie que `thumbnail.region.width` vaut `TILE`.<br/>Vérifie que `thumbnail.masked` est faux. |
+| **PaletteAppearanceTest.SkinARaccordsMontreLaCaseRepresentative** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:84`</sub> | Un skin a raccords montre l'interieur plein de sa planche. | 1. Demander la vignette de Solid, assigne a une planche a raccords. | Vérifie que `thumbnail.region.x` vaut `cell.column * TILE`.<br/>Vérifie que `thumbnail.region.y` vaut `cell.row * TILE`.<br/>Vérifie que `thumbnail.region.width` vaut `TILE`. |
+| **PaletteAppearanceTest.PenteSkinneeEstDetouree** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:108`</sub> | Une pente skinnee est signalee comme devant etre detouree. | 1. Demander la vignette d'une pente montante assignee a un skin. | Vérifie que `slope.masked` est vrai.<br/>Vérifie que `block.masked` est faux. |
+| **PaletteAppearanceTest.TypeNonSkinneMontreLeDamier** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:132`</sub> | Un type non skinne montre le damier dans la palette, comme dans le niveau. | 1. Demander la vignette d'un type absent du catalogue, en mode Texture.<br/> 2. Demander une vignette sans catalogue du tout. | Vérifie que `unassigned.source` vaut `hmi::PaletteThumbnailSource::MissingTexture`.<br/>Vérifie que `unassigned.region.width` vaut `hmi::MISSING_TEXTURE_SIZE`.<br/>Vérifie que `noCatalog.source` vaut `hmi::PaletteThumbnailSource::MissingTexture`. |
+| **PaletteAppearanceTest.PaletteEtCanevasDecidentPareil** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_palette_appearance.cpp:158`</sub> | La palette et le canevas resolvent la meme source pour chaque type. | 1. Pour plusieurs types et les deux modes, comparer la source choisie par la palette a celle choisie par la resolution du canevas. | Vérifie que `sameAtlas \|\| sameSkin \|\| sameMissing` est vrai. |
 
 **`test_skin_assignments.cpp`**
 

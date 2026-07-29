@@ -131,9 +131,20 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
     // donc l'image suivante suffit a montrer le resultat (LOT-42).
     _textures->setCatalog(&_viewport->skinCatalog());
+
+    // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
+    // aux trois evenements qui rendent ses vignettes obsoletes -- bascule de mode, changement de
+    // jeu, reassignation. Peindre sans voir ce que l'on pose serait une regression d'usage.
+    _palette->setSkinSource(hmi::executableDirectory() / "Assets" / "Skins",
+                            &_viewport->skinCatalog());
+    _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+
     connect(_textures, &TexturePanel::assignmentsChanged, this, [this] {
         _viewport->setSkinSet(_textures->currentSet());
-        _palette->retranslateUi(_loc);  // vignettes de la palette : suivent l'assignation courante.
+        _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+    });
+    connect(_viewport, &GameViewport::renderModeChanged, this, [this](RenderMode mode) {
+        _palette->refreshThumbnails(mode, _textures->currentSet());
     });
 
     // Navigation depuis le menu principal.

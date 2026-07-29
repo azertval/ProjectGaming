@@ -175,6 +175,9 @@ signals:
     /// Le brouillon vient d'être modifié (peinture, undo/redo, chargement, lien…) — le panneau
     /// « Liens » se resynchronise dessus (`refresh`).
     void draftChanged();
+    /// Le mode de rendu vient de basculer (`F8`) — la palette met ses vignettes à jour pour rester
+    /// fidèle au canevas (`EX-EDIT-027`).
+    void renderModeChanged(RenderMode mode);
 
 protected:
     bool event(QEvent* event) override;
