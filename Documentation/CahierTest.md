@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**498 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**507 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (416)
+## Tests unitaires (425)
 
 ### Core
 
@@ -450,7 +450,7 @@
 | **LevelNameValidationTest.NomAccentueValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:67`</sub> | Un nom accentué (Unicode) reste valide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Fort\\xC3\\xA9resse")` est vrai. |
 | **LevelNameValidationTest.TrimRetireLesEspacesDeBord** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:81`</sub> | trimLevelName retire les espaces de bord sans toucher au contenu. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::trimLevelName(" Niveau 1 ")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName(" ")` vaut `""`. |
 
-#### Graphics (76)
+#### Graphics (85)
 
 **`test_asset_contract.cpp`**
 
@@ -582,6 +582,20 @@
 |---|---|---|---|
 | **TextureAtlasTest.TileRenvoieLeRectangleAttendu** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp:16`</sub> | tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `origin.x` vaut `0`.<br/>Vérifie que `origin.y` vaut `0`.<br/>Vérifie que `origin.width` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `origin.height` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.x` vaut `2 * hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.y` vaut `1 * hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.width` vaut `hmi::TextureAtlas::TILE_SIZE`.<br/>Vérifie que `secondRow.height` vaut `hmi::TextureAtlas::TILE_SIZE`. |
 | **TextureAtlasTest.PlayerFrameRegionSousLaGrilleDeTuiles** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_texture_atlas.cpp:42`</sub> | playerFrameRegion place les images du personnage sous la grille de tuiles, dans l'ordre Idle, Run, Jump. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `idleFirst.x` vaut `0`.<br/>Vérifie que `idleFirst.y` vaut `gridSide`.<br/>Vérifie que `idleFirst.width` vaut `hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `idleFirst.height` vaut `hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `runFirst.x` vaut `(runFlatIndex % hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `runFirst.y` vaut `gridSide + (runFlatIndex / hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `jump.x` vaut `(jumpFlatIndex % hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`.<br/>Vérifie que `jump.y` vaut `gridSide + (jumpFlatIndex / hmi::TextureAtlas::PLAYER_FRAME_COLUMNS) * hmi::TextureAtlas::PLAYER_FRAME_SIZE`. |
+
+**`test_tile_autotile.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **TileAutotileTest.SeizeConfigurationsSeizeCasesDistinctes** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:26`</sub> | Les seize configurations de voisinage donnent seize cases distinctes. | 1. Calculer la case de chacun des seize masques possibles. | Vérifie que `cell.column` est supérieur ou égal à `0`.<br/>Vérifie que `cell.column` est strictement inférieur à `hmi::AUTOTILE_SHEET_SIDE`.<br/>Vérifie que `cell.row` est supérieur ou égal à `0`.<br/>Vérifie que `cell.row` est strictement inférieur à `hmi::AUTOTILE_SHEET_SIDE`.<br/>Vérifie que `cells.size()` vaut `static_cast<std::size_t>(hmi::AUTOTILE_CONFIGURATION_COUNT)`. |
+| **TileAutotileTest.TableDeCorrespondanceExhaustive** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:52`</sub> | Chaque masque de voisinage designe la case attendue de la planche. | 1. Verifier la case des seize masques, un a un. | Vérifie que `cell.column` vaut `expected.column`.<br/>Vérifie que `cell.row` vaut `expected.row`. |
+| **TileAutotileTest.ExterieurDeLaGrilleCompteSolide** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:94`</sub> | L'exterieur de la grille compte comme solide. | 1. Placer un solide isole dans le coin haut-gauche d'une grille vide. | Vérifie que `(mask & hmi::NEIGHBOR_UP) != 0` est vrai.<br/>Vérifie que `(mask & hmi::NEIGHBOR_LEFT) != 0` est vrai.<br/>Vérifie que `(mask & hmi::NEIGHBOR_RIGHT) != 0` est faux.<br/>Vérifie que `(mask & hmi::NEIGHBOR_DOWN) != 0` est faux. |
+| **TileAutotileTest.TuileIsoleeAuCentre** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:116`</sub> | Une tuile solide entouree de vide donne la configuration isolee. | 1. Placer un solide au centre d'une grille vide, loin des bords. | Vérifie que `hmi::solidNeighborMask(tiles, 2, 2)` vaut `0`.<br/>Vérifie que `hmi::autotileCell(0)` vaut `(hmi::AutotileCell{0, 0})`. |
+| **TileAutotileTest.DessusDePlateformeDistinctDeLInterieur** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:133`</sub> | Le dessus d'une plateforme pleine differe de son interieur. | 1. Remplir de solide les lignes 2 a 4 d'une grille vide.<br/> 2. Comparer la case de la ligne de surface et celle d'une case enfouie. | Vérifie que `surface` vaut `(hmi::AutotileCell{2, 3})`.<br/>Vérifie que `inside` vaut `(hmi::AutotileCell{3, 3})`.<br/>Vérifie que `surface == inside` est faux. |
+| **TileAutotileTest.RaccordEntreTypesSolidesDifferents** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:161`</sub> | Le voisinage est celui de la solidite, pas du type de tuile. | 1. Placer un solide et, a sa droite, un bloc poussable. | Vérifie que `(hmi::solidNeighborMask(tiles, 2, 2) & hmi::NEIGHBOR_RIGHT) != 0` est vrai. |
+| **TileAutotileTest.PenteNonCompteeCommeVoisinSolide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:180`</sub> | Une pente n'est pas comptee comme voisin solide. | 1. Placer un solide et, a sa droite, une pente montante. | Vérifie que `(hmi::solidNeighborMask(tiles, 2, 2) & hmi::NEIGHBOR_RIGHT) != 0` est faux. |
+| **TileAutotileTest.CaseRepresentativeEstLInterieurPlein** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:199`</sub> | La case representative d'une planche est son interieur plein. | 1. Demander la case representative de la planche. | Vérifie que `hmi::autotileRepresentativeCell()` vaut `full`.<br/>Vérifie que `hmi::autotileRepresentativeCell() == (hmi::AutotileCell{0, 0})` est faux. |
+| **TileAutotileTest.BitsParasitesIgnores** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_tile_autotile.cpp:216`</sub> | Un masque portant des bits parasites reste dans la planche. | 1. Demander la case d'un masque dont les bits de poids fort sont a 1. | Vérifie que `hmi::autotileCell(noisy)` vaut `hmi::autotileCell(hmi::NEIGHBOR_UP)`. |
 
 #### Input (63)
 

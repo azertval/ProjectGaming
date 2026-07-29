@@ -51,6 +51,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_render_culling.cpp
     Unit/HMI/Graphics/test_render_mode.cpp
     Unit/HMI/Graphics/test_skin_catalog.cpp
+    Unit/HMI/Graphics/test_tile_autotile.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -87,6 +88,9 @@ add_executable(UnitTests
     # Le catalogue de skins (LOT-42) est une configuration de presentation lue/ecrite en JSON,
     # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
     ../HMI/Graphics/SkinCatalog.cpp
+    # La table de raccords automatiques (LOT-42) est de la pure arithmetique de voisinage, sans
+    # texture ni GPU : testable exhaustivement hors GPU (EX-NFR-004).
+    ../HMI/Graphics/TileAutotile.cpp
     # Le damier magenta de repli (LOT-40) ne produit que des pixels en memoire, comme
     # ProceduralAtlas.cpp : testable hors GPU.
     ../HMI/Graphics/MissingTexture.cpp
