@@ -17,6 +17,7 @@
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/RenderMode.h"
+#include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
@@ -217,6 +218,9 @@ private:
     std::unique_ptr<hmi::TextureAtlas> _atlas;
     std::unique_ptr<hmi::TextureCache> _textureCache;
     std::unique_ptr<hmi::DraftRenderer> _draftRenderer;
+    /// Catalogue des jeux de skins (`LOT-42`), lu au démarrage depuis `Assets/skins.json`. Vide si
+    /// le fichier est absent ou illisible : tout retombe alors sur le damier, sans bloquer.
+    hmi::SkinCatalog _skins;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
     hmi::InputState _input;

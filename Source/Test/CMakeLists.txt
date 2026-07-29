@@ -52,6 +52,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_render_mode.cpp
     Unit/HMI/Graphics/test_skin_catalog.cpp
     Unit/HMI/Graphics/test_tile_autotile.cpp
+    Unit/HMI/Graphics/test_tile_skin_resolution.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp

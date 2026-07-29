@@ -12,7 +12,8 @@ namespace core {
 
 // Peuple un World d'une entite (Transform + Sprite) par tuile non vide du niveau.
 void buildLevelScene(World& world, const Level& level,
-                     const std::function<AtlasRegion(TileType)>& regionForTile) {
+                     const std::function<AtlasRegion(TileType)>& regionForTile,
+                     const std::function<void(Entity, TileType, int, int)>& onTileEntity) {
     const TileMap& map = level.tileMap();
     for (int row = 0; row < map.height(); ++row) {
         for (int column = 0; column < map.width(); ++column) {
@@ -41,6 +42,12 @@ void buildLevelScene(World& world, const Level& level,
             // calque de rendu, et toutes les tuiles partagent le leur. Le calque lui-meme est une
             // notion de presentation (hmi::RenderLayer, LOT-40) que `Core` ignore (EX-NFR-011).
             world.addComponent(entity, sprite);
+
+            // La presentation attache ici ses propres composants (habillage) : Core fournit le
+            // point d'accroche, sans rien savoir de ce qui s'y greffe.
+            if (onTileEntity) {
+                onTileEntity(entity, type, column, row);
+            }
         }
     }
 }

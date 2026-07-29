@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
+#include "Core/Ecs/Entity.h"
 #include "Core/Levels/TileType.h"
 
 /**
@@ -26,8 +27,14 @@ class Level;
  * @param world         Monde à peupler.
  * @param level         Niveau source.
  * @param regionForTile Correspondance type de tuile → région d'atlas (dépendance de rendu injectée).
+ * @param onTileEntity  Rappel invoqué après la création de chaque entité tuile, avec son type et
+ *                      sa case. Permet à la couche de présentation d'y attacher ses **propres**
+ *                      composants (`hmi::TileSkinTag`, `LOT-42`) sans que `Core` connaisse la
+ *                      notion d'habillage (`EX-NFR-011`) — même principe d'injection que
+ *                      @p regionForTile. Vide par défaut.
  */
-void buildLevelScene(World& world, const Level& level,
-                     const std::function<AtlasRegion(TileType)>& regionForTile);
+void buildLevelScene(
+    World& world, const Level& level, const std::function<AtlasRegion(TileType)>& regionForTile,
+    const std::function<void(Entity, TileType, int, int)>& onTileEntity = {});
 
 }  // namespace core

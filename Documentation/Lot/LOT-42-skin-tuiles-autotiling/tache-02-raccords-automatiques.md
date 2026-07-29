@@ -1,6 +1,6 @@
 # TACHE-02 — Raccords automatiques : voisinage solide → case de planche {#lot-42-tache-02-raccords-automatiques}
 
-**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-42](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Une image unique par type de tuile répète la même case partout : un mur de vingt tuiles affiche

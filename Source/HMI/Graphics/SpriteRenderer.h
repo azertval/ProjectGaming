@@ -1,8 +1,12 @@
 #pragma once
 
+#include <string>
+#include <utility>
+
 #include <DirectXMath.h>
 
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Graphics/SpriteBatch.h"
 
 /**
@@ -35,16 +39,25 @@ class TextureCache;
 void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projection,
                          const ComposedScene& scene);
 
+/// Sous-dossier des skins de tuiles, relatif au dossier d'assets (`LOT-42`).
+inline const std::string SKINS_SUBDIRECTORY = "Skins/";
+
 /**
- * @brief Textures liables par la composition d'une scène, atlas **et** damier de repli.
+ * @brief Textures liables par la composition d'une scène : atlas, damier de repli et skins.
  *
  * Point d'assemblage unique, partagé par le jeu et l'éditeur (`LOT-41`) : le damier est résolu
- * **à la demande** auprès du cache, donc créé seulement si un rendu en mode Texture a lieu.
- * @param atlas Atlas du jeu.
- * @param cache Cache de textures, propriétaire du damier partagé.
- * @return Les deux textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
+ * **à la demande** auprès du cache, donc créé seulement si un rendu en mode Texture a lieu. Les
+ * skins du jeu courant sont chargés par le même cache, qui ne relit le disque qu'au premier accès
+ * et mémorise aussi les échecs — appeler cette fonction à chaque image reste donc bon marché.
+ * @param atlas   Atlas du jeu.
+ * @param cache   Cache de textures, propriétaire du damier partagé et des skins.
+ * @param skins   Catalogue des jeux de skins, ou `nullptr` si aucun n'est chargé (`LOT-42`).
+ * @param skinSet Nom du jeu de skins courant ; vide pour le jeu par défaut du catalogue.
+ * @return Les textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
  */
-[[nodiscard]] SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache);
+[[nodiscard]] SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
+                                          const SkinCatalog* skins = nullptr,
+                                          const std::string& skinSet = {});
 
 /**
  * @brief Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.
@@ -94,15 +107,31 @@ public:
         return _scene;
     }
 
+    /**
+     * @brief Désigne le catalogue de skins et le jeu à utiliser en mode Texture (`LOT-42`).
+     *
+     * Le catalogue n'est **pas** copié : l'appelant en reste propriétaire et doit le maintenir en
+     * vie. Réassigner un skin dans le catalogue se voit à l'image suivante, sans reconstruire la
+     * scène ECS — c'est tout l'intérêt de résoudre l'apparence à la composition.
+     * @param skins   Catalogue, ou `nullptr` pour retomber entièrement sur le damier.
+     * @param skinSet Nom du jeu courant ; vide pour le jeu par défaut du catalogue.
+     */
+    void setSkins(const SkinCatalog* skins, std::string skinSet = {}) {
+        _skins = skins;
+        _skinSet = std::move(skinSet);
+    }
+
 private:
     /// Journalise les compteurs de l'image **seulement** s'ils ont changé depuis la précédente :
     /// le volume soumis reste observable (`EX-NFR-005`) sans écrire une ligne par image, ce que
     /// `GraphicsLog` proscrit sur un chemin de dessin.
     void logStatisticsIfChanged();
 
-    SpriteBatch* _batch;         // non possédé
-    const TextureAtlas* _atlas;  // non possédé
-    TextureCache* _cache;        // non possédé
+    SpriteBatch* _batch;                 // non possédé
+    const TextureAtlas* _atlas;          // non possédé
+    TextureCache* _cache;                // non possédé
+    const SkinCatalog* _skins = nullptr;  // non possédé
+    std::string _skinSet;
     ComposedScene _scene;
     SceneStatistics _loggedStatistics;
 };

@@ -121,6 +121,16 @@ void GameViewport::ensureResources() {
         _graphics->device(), hmi::AssetPaths{hmi::executableDirectory() / "Assets"});
     _draftRenderer = std::make_unique<hmi::DraftRenderer>(*_spriteBatch, *_atlas, *_textureCache);
 
+    // Catalogue des skins (LOT-42), lu a cote de l'executable comme les niveaux et les traductions.
+    // Fichier absent ou illisible : catalogue vide, tout retombe sur le damier -- un etat de depart
+    // legitime, pas une erreur bloquante (EX-NFR-040).
+    hmi::SkinCatalogResult skins =
+        hmi::SkinCatalog::loadFromFile(hmi::executableDirectory() / "Assets" / "skins.json");
+    if (skins.ok()) {
+        _skins = std::move(*skins.catalog);
+    }
+    _draftRenderer->setSkins(&_skins);
+
     // LOT-35 : ouvre un niveau de démonstration comme brouillon éditable (le sélecteur de niveaux
     // arrive au LOT-36). Échec récupérable : on garde le brouillon vierge.
     const std::filesystem::path levelPath =
@@ -551,6 +561,8 @@ void GameViewport::startPlaytest() {
     ensureResources();
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*validated.level), _gameBindings, _gamepadBindings);
+    // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
+    _session->setSkins(&_skins);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
     emit statusMessage(statusText("status.playtesting"));
 }
@@ -604,6 +616,7 @@ void GameViewport::loadGameLevel(std::size_t index) {
                  " charge : " + _gameLevels[index].filename().string());
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
                      std::move(*loaded.level), _gameBindings, _gamepadBindings);
+    _session->setSkins(&_skins);
 }
 
 void GameViewport::resizeLevel(int width, int height) {

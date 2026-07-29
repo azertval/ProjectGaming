@@ -83,6 +83,18 @@ public:
     /// simulation ni sur la scène ECS.
     void render(int viewportWidth, int viewportHeight, RenderMode mode, float interpolationAlpha);
 
+    /**
+     * @brief Désigne le catalogue de skins et le jeu à utiliser en mode Texture (`LOT-42`).
+     *
+     * Le catalogue n'est **pas** copié : l'appelant en reste propriétaire et doit le maintenir en
+     * vie au moins aussi longtemps que la session.
+     * @param skins   Catalogue, ou `nullptr` pour retomber entièrement sur le damier.
+     * @param skinSet Nom du jeu courant ; vide pour le jeu par défaut du catalogue.
+     */
+    void setSkins(const SkinCatalog* skins, std::string skinSet = {}) {
+        _renderer.setSkins(skins, std::move(skinSet));
+    }
+
     /// @return true si un niveau est chargé et simulable.
     [[nodiscard]] bool loaded() const {
         return _level.has_value();
