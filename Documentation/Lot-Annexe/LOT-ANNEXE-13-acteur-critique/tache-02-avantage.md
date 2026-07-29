@@ -14,7 +14,7 @@ beaucoup plus discriminant que le retour brut de tout l'épisode.
 ## Travail à réaliser
 - **`aisolver::training::computeAdvantages`**
   (`Source/AiSolver/Training/ActorCritic/AdvantageCalculator.h/.cpp`) : fonction
-  `std::vector<float> computeAdvantages(const std::vector<float>& returns, nn::CriticNetwork& critic, const Trajectory& trajectory)` —
+  `std::vector<float> computeAdvantages(const std::vector<float>& returns, training::CriticNetwork& critic, const Trajectory& trajectory)` —
   pour chaque pas, appelle `critic.forward` sur l'observation du pas (valeur détachée du graphe,
   `float`, pour ce calcul de diagnostic/vecteur), calcule `advantage_t = returns[t] − valeur_t`.
 - **`aisolver::training::computeActorCriticLoss`**
@@ -70,6 +70,9 @@ beaucoup plus discriminant que le retour brut de tout l'épisode.
 ## Définition de fait (DoD)
 - `computeAdvantages` et `computeActorCriticLoss` disponibles et testés (`ctest` vert), y compris
   non-régression de LOT-ANNEXE-12 ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
+
+## Notions abordées
+@ref guide-annexe-acteur-critique — variance du gradient, fonction de valeur, critique, avantage.
 
 ## Exigences
 `EX-IA-014` (nouvelle).

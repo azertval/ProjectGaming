@@ -60,5 +60,9 @@ exact de `Source/Core/CMakeLists.txt`.
   `SystemTests` compilent et s'exécutent avec les tests de ce lot ; build `/W4 /WX` sans
   avertissement.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — agent, environnement, boucle `reset`/`step`, épisode,
+propriété de Markov.
+
 ## Exigences
 `EX-IA-005` (nouvelle).

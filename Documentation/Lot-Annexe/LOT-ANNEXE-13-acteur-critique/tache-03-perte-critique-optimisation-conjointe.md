@@ -13,7 +13,7 @@ qui optimise **les deux réseaux à chaque épisode**, en réutilisant et en ét
 ## Travail à réaliser
 - **`aisolver::training::computeCriticLoss`**
   (`Source/AiSolver/Training/ActorCritic/CriticLoss.h/.cpp`) : fonction
-  `autodiff::Value computeCriticLoss(nn::CriticNetwork& critic, const Trajectory& trajectory, const std::vector<float>& returns)` —
+  `autodiff::NodePtr computeCriticLoss(training::CriticNetwork& critic, const Trajectory& trajectory, const std::vector<float>& returns)` —
   pour chaque pas, rejoue `critic.forward` sur l'observation (nœud de graphe, poids du critique
   actuels), calcule l'écart quadratique `(valeur_t − returns[t])²`, moyenne sur l'épisode. Graphe
   d'autodiff indépendant de celui de la perte de politique (TACHE-02).
@@ -71,6 +71,9 @@ qui optimise **les deux réseaux à chaque épisode**, en réutilisant et en ét
 - `computeCriticLoss` et `ActorCriticTrainer` disponibles et testés (`ctest` vert), convergence du
   critique observée sur le niveau de contrôle ; build `/W4 /WX` sans avertissement ; Doxygen à jour ;
   `EX-IA-014` déclarée dans l'épic.
+
+## Notions abordées
+@ref guide-annexe-acteur-critique — variance du gradient, fonction de valeur, critique, avantage.
 
 ## Exigences
 `EX-IA-014` (nouvelle).

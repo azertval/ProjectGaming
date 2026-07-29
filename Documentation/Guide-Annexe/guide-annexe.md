@@ -27,8 +27,10 @@ abordées » plutôt que de répéter l'explication.
 - @subpage guide-annexe-optimisation — descente de gradient, inertie, Adam : comment un gradient
   devient une mise à jour de poids (LOT-ANNEXE-04).
 - @subpage guide-annexe-apprentissage-renforcement — vocabulaire de base de l'apprentissage par
-  renforcement : agent, environnement, état, action, récompense, politique, épisode
-  (LOT-ANNEXE-05 à 09).
+  renforcement (agent, environnement, état, action, récompense, politique, épisode), puis les deux
+  choix de conception qui décident de la réussite d'un agent : **concevoir une observation**
+  (one-hot, normalisation, observation partielle — LOT-ANNEXE-06) et **concevoir une récompense**
+  (*shaping*, *reward hacking*, shaping par potentiel — LOT-ANNEXE-08). (LOT-ANNEXE-05 à 09.)
 - @subpage guide-annexe-algorithmes-evolutionnistes — sélection naturelle appliquée à des poids de
   réseau : population, mutation, sélection (LOT-ANNEXE-10/11).
 - @subpage guide-annexe-reinforce — le premier algorithme d'apprentissage par renforcement à base

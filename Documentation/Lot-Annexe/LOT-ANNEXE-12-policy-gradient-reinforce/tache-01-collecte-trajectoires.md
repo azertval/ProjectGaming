@@ -21,9 +21,15 @@ log-probabilité de l'action effectivement choisie, indispensable à la perte.
 - **`aisolver::training::Trajectory`** (même fichier) : `std::vector<TrajectoryStep> steps;` plus un
   indicateur de fin d'épisode (`EpisodeOutcome` réutilisé de LOT-ANNEXE-08 : victoire, échec,
   timeout).
+- **Le « réseau de politique » n'est pas un type nouveau** : c'est un `aisolver::nn::Network`
+  (LOT-ANNEXE-03, TACHE-03) dont la couche de sortie a `outputSize` égal au nombre d'actions de
+  l'espace discret (LOT-ANNEXE-07) et pour activation `nn::softmax` (LOT-ANNEXE-03, TACHE-02) — sa
+  sortie est donc déjà une distribution de probabilité sur les actions. Aucune classe
+  `PolicyNetwork` dédiée n'est introduite : la composition suffit, et le critique de LOT-ANNEXE-13
+  réutilise la même bibliothèque avec une autre configuration.
 - **`aisolver::training::TrajectoryCollector`**
   (`Source/AiSolver/Training/PolicyGradient/TrajectoryCollector.h/.cpp`) : méthode
-  `Trajectory collectEpisode(HeadlessLevelEnvironment& env, nn::PolicyNetwork& policy, rng::Generator& rng)` —
+  `Trajectory collectEpisode(HeadlessLevelEnvironment& env, nn::Network& policy, aisolver::Rng& rng)` —
   boucle jusqu'à fin d'épisode : encode l'observation courante, passe **avant** (forward) dans le
   réseau de politique pour obtenir la distribution sur l'espace d'action, **échantillonne** une
   action selon cette distribution avec le générateur pseudo-aléatoire de LOT-ANNEXE-01 (jamais
@@ -49,7 +55,7 @@ log-probabilité de l'action effectivement choisie, indispensable à la perte.
 - **Log-probabilités valides** : chaque `logProbability` stocké est `≤ 0` (log d'une probabilité
   dans `]0, 1]`) et correspond bien à l'action enregistrée dans le même `TrajectoryStep` (recalcul
   indépendant à partir de la distribution et comparaison à la tolérance flottante usuelle).
-- **Déterminisme à graine fixée** : deux collectes avec le même `rng::Generator` initialisé à la
+- **Déterminisme à graine fixée** : deux collectes avec le même `aisolver::Rng` initialisé à la
   même graine et le même réseau de politique produisent des trajectoires **identiques** pas à pas.
 - **Couverture de l'espace d'action** : sur un grand nombre d'épisodes avec une politique proche de
   l'uniforme (poids initiaux), toutes les actions de l'espace (LOT-ANNEXE-07) sont échantillonnées
@@ -68,6 +74,9 @@ log-probabilité de l'action effectivement choisie, indispensable à la perte.
 ## Définition de fait (DoD)
 - `Trajectory`, `TrajectoryStep` et `TrajectoryCollector` disponibles et testés (`ctest` vert) ;
   build `/W4 /WX` sans avertissement ; Doxygen à jour.
+
+## Notions abordées
+@ref guide-annexe-reinforce — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.
 
 ## Exigences
 `EX-IA-013` (nouvelle, couverte par le lot).

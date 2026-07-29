@@ -62,6 +62,11 @@ ces champs sans casser les fichiers déjà écrits.
   (`ctest` vert) ; build `/W4 /WX` sans avertissement ; Doxygen à jour. Aucune exigence propre à
   cette tâche (raffinement du format couvert par les exigences de `LOT-ANNEXE-07`).
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 Aucune exigence propre à cette tâche (raffinement du format de rejeu v1, couvert par les exigences
 déclarées en `LOT-ANNEXE-07`).

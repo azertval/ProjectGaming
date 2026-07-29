@@ -63,5 +63,10 @@ personnage, encodée en one-hot — sur laquelle TACHE-03 superposera l'état dy
 - `TileWindowEncoder` compile et est testé (`ctest` vert) sur les cas ci-dessus ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (état et observation, conception d'une observation :
+one-hot, normalisation, observation partielle), en particulier ses sections 3.2 (encodage one-hot
+d'une grandeur catégorielle) et 3.1 (fenêtre centrée sur le personnage, invariance par translation).
+
 ## Exigences
 `EX-IA-006` (nouvelle).

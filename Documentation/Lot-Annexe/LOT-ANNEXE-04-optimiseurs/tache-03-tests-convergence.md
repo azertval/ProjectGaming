@@ -54,5 +54,8 @@ les deux optimiseurs sur des cas partagés.
 - Suite `test_convergence.cpp` verte pour les deux optimiseurs sur les deux problèmes jouets ;
   build `/W4 /WX` sans avertissement ; `EX-IA-004` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+@ref guide-annexe-optimisation — descente de gradient, taux d'apprentissage, inertie, Adam.
+
 ## Exigences
 `EX-IA-004` (nouvelle, partagée avec TACHE-01/02 du même lot).

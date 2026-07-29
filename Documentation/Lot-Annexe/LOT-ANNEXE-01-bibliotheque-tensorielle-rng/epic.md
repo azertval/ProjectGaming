@@ -23,7 +23,8 @@ tout est écrit à la main, en C++20 standard.
 - **RNG déterministe** (`aisolver::Rng`) : seed explicite obligatoire, `std::mt19937_64` comme
   moteur (bibliothèque standard C++, pas un framework de calcul numérique — autorisée malgré la
   contrainte « from scratch »), API `nextFloat()`/`nextFloat(min, max)`/`nextGaussian(mean,
-  stddev)`/`nextInt(min, max)`.
+  stddev)`/`nextInt(min, max)`, chacune dérivée **à la main** de la sortie brute du moteur
+  (cf. décision de cadrage ci-dessous).
 - **`Tensor<T>`** : conteneur N-D à forme et *stride* explicites, allocation contiguë, indexation
   multi-dimensionnelle et vues (reshape/sous-vues sans copie de données).
 - **Opérations élémentaires** : addition, soustraction, multiplication, division composante à
@@ -70,6 +71,16 @@ tout est écrit à la main, en C++20 standard.
   politique que les autres invariants internes de `Core` (`Documentation/Specification/conventions.md`,
   catégorie « erreur de programmation »). Une forme incompatible ne peut résulter que d'un bug dans
   le code appelant (réseau mal composé), jamais d'une entrée utilisateur.
+- **Les lois de probabilité sont calculées à la main, pas déléguées à `std::…_distribution`.** La
+  norme C++ spécifie la suite de valeurs produite par `std::mt19937_64` (bit à bit, quelle que soit
+  l'implémentation), mais **pas** celle produite par `std::uniform_real_distribution`,
+  `std::uniform_int_distribution` ou `std::normal_distribution` : deux bibliothèques standard
+  peuvent légitimement en donner des suites différentes pour la même graine. Comme la
+  reproductibilité à partir de la seule graine est la raison d'être de cette classe — et qu'elle est
+  vérifiée en intégration continue sur des rejeux exportés (LOT-ANNEXE-20) —, `Rng` dérive
+  lui-même ses tirages : mapping entier→`float` sur 24 bits, tirage entier par rejet,
+  transformation de Box-Muller pour la loi normale. Coût : quelques lignes d'arithmétique de plus,
+  toutes couvertes par les sources citées dans @ref guide-annexe-algebre-tensorielle.
 - **`aisolver::Rng` est mono-thread, sans garantie de sécurité concurrente** : le programme
   d'entraînement (génération 2/3) reste séquentiel (`EX-ARCH-060`, boucle mono-thread déjà actée
   pour le jeu) ; paralléliser l'entraînement plus tard impliquerait une instance de `Rng` par

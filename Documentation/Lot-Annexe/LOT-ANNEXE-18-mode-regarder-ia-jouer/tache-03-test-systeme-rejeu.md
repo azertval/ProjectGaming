@@ -49,5 +49,10 @@ victoire observée à l'entraînement.
 - `test_rejeu_ia.cpp` vert (`ctest`), fixture committée et documentée ; build `/W4 /WX` sans
   avertissement ; `EX-IA-019` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+Aucune notion d'apprentissage automatique nouvelle : cette tâche est d'ordre logiciel (format de
+fichier, outillage, intégration continue). Le vocabulaire employé (épisode, rejeu, politique, agent)
+est défini dans @ref guide-annexe-apprentissage-renforcement.
+
 ## Exigences
 `EX-IA-019` (nouvelle, du même lot).

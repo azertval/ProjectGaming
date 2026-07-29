@@ -1,4 +1,4 @@
-# TACHE-05 — Tests : reproductibilité, stabilité numérique {#lot-annexe-03-tache-05-tests}
+# TACHE-06 — Tests : reproductibilité, stabilité numérique {#lot-annexe-03-tache-06-tests}
 
 **Lot :** [LOT-ANNEXE-03](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Nn` · **Statut :** à faire
 
@@ -55,6 +55,10 @@ d'acceptation 3/4/5 de l'épic.
 ## Définition de fait (DoD)
 - Les deux suites de tests vertes (`ctest`) ; build `/W4 /WX` sans avertissement ; Doxygen à jour ;
   `EX-IA-003` déclarée dans l'`epic.md` du lot.
+
+## Notions abordées
+@ref guide-annexe-reseaux-neurones — neurone, couche dense, fonctions d'activation, initialisation
+des poids.
 
 ## Exigences
 `EX-IA-003` (nouvelle, du même lot).

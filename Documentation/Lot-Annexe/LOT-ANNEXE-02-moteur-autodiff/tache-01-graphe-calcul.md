@@ -69,5 +69,9 @@ forme, et la connaissance de **comment** le régénérer localement à partir de
 - `Node`, `NodePtr`, `variable`, `unaryOp`, `binaryOp` disponibles et testés (`ctest` vert) ; build
   `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-autodiff (dérivée, règle de la chaîne, graphe de calcul, rétropropagation en mode
+inverse), en particulier sa section 3 (graphe de calcul construit à l'exécution, *define-by-run*).
+
 ## Exigences
 Contribue à `EX-IA-002` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

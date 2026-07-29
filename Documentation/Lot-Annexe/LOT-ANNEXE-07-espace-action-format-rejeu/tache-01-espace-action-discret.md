@@ -47,5 +47,9 @@ sortie continue non bornée. Cette tâche définit l'énumération finie qui fai
 - `ActionSpace` et `toPlayerInput` disponibles et testés (`ctest` vert) ; build `/W4 /WX` sans
   avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement — action, espace d'action, politique déterministe ou
+stochastique, exploration.
+
 ## Exigences
 `EX-IA-007` (nouvelle, partagée avec TACHE-02/03/04 du même lot).

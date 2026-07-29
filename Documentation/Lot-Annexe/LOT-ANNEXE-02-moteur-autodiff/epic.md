@@ -40,9 +40,14 @@ la main.
 - **Dérivées d'ordre supérieur** (gradient du gradient) : l'entraînement par gradient visé
   (génération 3, SGD/Adam en `LOT-ANNEXE-04`) n'a besoin que du premier ordre — ajouter le second
   ordre maintenant serait un investissement sans consommateur identifié.
-- **Opérations non encore consommées** (division, exponentielle, logarithme, softmax) : reportées à
-  `LOT-ANNEXE-03`, où `sigmoid`/`softmax` seront ajoutées via la fabrique générique posée ici, au
-  moment où un réseau réel les consomme — évite du code différentiable non exercé par un usage réel.
+- **Opérations non encore consommées** (soustraction, division, exponentielle, logarithme,
+  sélection d'un indice, `minimum`/`clamp`, `sigmoid`/`softmax`) : reportées à `LOT-ANNEXE-03`, qui
+  les ajoute via la fabrique générique posée ici — `sigmoid`/`softmax` en TACHE-02, les autres en
+  TACHE-05 (@ref lot-annexe-03-tache-05-operations-differentiables-complementaires) —, au moment où
+  un réseau et une perte réels les consomment ; évite du code différentiable non exercé par un
+  usage réel. **Attention** : ces opérations ne sont pas facultatives pour autant, la génération 3
+  en dépend entièrement (`-log π(a|s) × G` n'est pas exprimable sans `logOp` ni `selectIndex`) —
+  leur report est une question de calendrier, pas de périmètre du programme.
 - **Parallélisation du graphe** (construction ou parcours multi-thread) : cohérent avec le RNG
   mono-thread de `LOT-ANNEXE-01` et la boucle mono-thread déjà actée pour le jeu (`EX-ARCH-060`).
 - **Réutilisation/mise en cache d'un graphe entre deux passes avant** : chaque passe avant reconstruit

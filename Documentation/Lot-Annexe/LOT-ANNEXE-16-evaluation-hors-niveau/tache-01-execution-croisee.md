@@ -58,5 +58,9 @@ les deux niveaux.
 - `CrossLevelBenchmarkResult`/`runCrossLevelCampaign`/surcharge de `writeCsv` disponibles et
   testés (`ctest` vert) ; build `/W4 /WX` sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-evaluation-rl — généralisation hors du niveau d'entraînement, sur-apprentissage à
+un seul environnement.
+
 ## Exigences
 `EX-IA-017` (nouvelle, partagée avec TACHE-02 du même lot).

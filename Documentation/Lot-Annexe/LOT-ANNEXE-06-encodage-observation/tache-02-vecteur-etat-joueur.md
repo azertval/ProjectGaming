@@ -64,5 +64,11 @@ Velocity`, tels qu'exposés par `HeadlessLevelEnvironment::StepObservation` (LOT
 - `PlayerStateEncoder` compile et est testé (`ctest` vert) sur les cas ci-dessus ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-apprentissage-renforcement (état et observation, conception d'une observation :
+one-hot, normalisation, observation partielle), en particulier ses sections 3.3 (mise à la même
+échelle des grandeurs continues) et 3.4 (observation partielle : pourquoi la vitesse fait partie de
+l'observation).
+
 ## Exigences
 `EX-IA-006` (nouvelle).

@@ -70,5 +70,10 @@ contiguë, vues sans copie.
 - `Tensor<float>` disponible, testé (`ctest` vert), Doxygen à jour sur la classe et chaque méthode
   publique ; build `/W4 /WX` sans avertissement.
 
+## Notions abordées
+@ref guide-annexe-algebre-tensorielle (tenseurs, forme et *stride*, produit matriciel, réductions,
+générateurs pseudo-aléatoires), en particulier sa section 2 (représentation en mémoire : forme,
+*stride*, tampon contigu, vue sans copie).
+
 ## Exigences
 Contribue à `EX-IA-001` (déclarée dans [l'épic](epic.md)) ; aucune exigence propre à cette tâche.

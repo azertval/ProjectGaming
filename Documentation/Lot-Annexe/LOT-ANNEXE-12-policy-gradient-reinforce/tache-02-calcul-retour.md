@@ -54,5 +54,8 @@ critère de fin, y compris le timeout).
 - `computeReturns` disponible et testée (`ctest` vert) ; build `/W4 /WX` sans avertissement ;
   Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-reinforce — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.
+
 ## Exigences
 `EX-IA-013` (nouvelle, couverte par le lot).

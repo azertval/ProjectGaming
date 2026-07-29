@@ -54,5 +54,9 @@ perçue par la politique, pour révéler cet écart.
 - `NoisyObservationWrapper`/`runWithNoise` disponibles et testés (`ctest` vert) ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour ; `EX-IA-016` déclarée dans l'`epic.md` du lot.
 
+## Notions abordées
+@ref guide-annexe-evaluation-rl — variance entre exécutions, graines multiples, mesure honnête d'un
+agent entraîné.
+
 ## Exigences
 `EX-IA-016` (nouvelle, partagée avec TACHE-01/02 du même lot).

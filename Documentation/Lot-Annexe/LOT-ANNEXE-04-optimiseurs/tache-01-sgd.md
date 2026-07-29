@@ -55,5 +55,8 @@ paramètres exposés par `nn::Network` (`LOT-ANNEXE-03`).
 - `Sgd` (avec et sans inertie) et `zeroGrad` disponibles et testés (`ctest` vert) ; build `/W4 /WX`
   sans avertissement ; Doxygen à jour.
 
+## Notions abordées
+@ref guide-annexe-optimisation — descente de gradient, taux d'apprentissage, inertie, Adam.
+
 ## Exigences
 `EX-IA-004` (nouvelle, partagée avec TACHE-02/03 du même lot).

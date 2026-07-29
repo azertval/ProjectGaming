@@ -67,5 +67,8 @@ optimiseur de LOT-ANNEXE-04, et journalise la progression via `TrainingStatsReco
   contrôle ; build `/W4 /WX` sans avertissement ; Doxygen à jour ; `EX-IA-013` déclarée dans
   l'épic.
 
+## Notions abordées
+@ref guide-annexe-reinforce — policy gradient, trajectoire, retour actualisé, algorithme REINFORCE.
+
 ## Exigences
 `EX-IA-013` (nouvelle).
