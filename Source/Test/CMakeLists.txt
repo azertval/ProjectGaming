@@ -32,6 +32,12 @@ add_executable(UnitTests
     Unit/Core/Diagnostics/test_log_format.cpp
     Unit/Core/Diagnostics/test_assert.cpp
     Unit/Core/Diagnostics/test_log_level_parse.cpp
+    # Squelette du module AiSolver (LOT-ANNEXE-01) : câblage des tests, corps des classes à
+    # implémenter tâche par tâche.
+    Unit/AiSolver/Math/test_rng.cpp
+    Unit/AiSolver/Math/test_tensor.cpp
+    Unit/AiSolver/Math/test_tensor_ops.cpp
+    Unit/AiSolver/Math/test_matmul.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
@@ -121,6 +127,7 @@ add_executable(UnitTests
 
 target_link_libraries(UnitTests PRIVATE
     Core
+    AiSolver
     GTest::gtest_main
     project_warnings
     project_options
