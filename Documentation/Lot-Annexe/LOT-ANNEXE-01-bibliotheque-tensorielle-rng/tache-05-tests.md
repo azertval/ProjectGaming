@@ -1,6 +1,6 @@
 # TACHE-05 — Tests : formes incompatibles, cas limites, non-régression, reproductibilité du RNG {#lot-annexe-01-tache-05-tests}
 
-**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 Les quatre tâches précédentes livrent chacune leurs propres cas de test « au fil de l'eau » (listés

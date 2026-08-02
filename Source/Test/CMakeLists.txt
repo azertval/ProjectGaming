@@ -29,15 +29,17 @@ add_executable(UnitTests
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
     Unit/Core/Diagnostics/test_sinks.cpp
+    Unit/Core/Diagnostics/test_file_log_sink.cpp
     Unit/Core/Diagnostics/test_log_format.cpp
     Unit/Core/Diagnostics/test_assert.cpp
     Unit/Core/Diagnostics/test_log_level_parse.cpp
-    # Squelette du module AiSolver (LOT-ANNEXE-01) : câblage des tests, corps des classes à
-    # implémenter tâche par tâche.
+    # Bibliothèque de calcul numérique maison pour l'IA de résolution autonome (LOT-ANNEXE-01,
+    # programme annexe @ref lots-annexe) : tenseurs, opérations, RNG déterministe.
     Unit/AiSolver/Math/test_rng.cpp
     Unit/AiSolver/Math/test_tensor.cpp
     Unit/AiSolver/Math/test_tensor_ops.cpp
     Unit/AiSolver/Math/test_matmul.cpp
+    Unit/AiSolver/Math/test_tensor_integration.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

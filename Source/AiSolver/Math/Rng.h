@@ -13,9 +13,11 @@ namespace aisolver {
 /**
  * @brief Source d'aléatoire déterministe et reproductible à partir d'une seule graine.
  *
- * @note Squelette (LOT-ANNEXE-01, TACHE-01) : signatures et câblage du module `AiSolver` en
- * place ; corps des méthodes à implémenter par la tâche elle-même, voir
- * `Documentation/Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/tache-01-rng-deterministe.md`.
+ * @note Aucune loi de probabilité de la bibliothèque standard (`std::…_distribution`) n'est
+ * utilisée : la norme C++ ne garantit que la suite de `std::mt19937_64` lui-même, pas celle
+ * d'une distribution — chaque méthode dérive donc sa valeur à la main de `_engine()`, seul état
+ * persistant de la classe (voir
+ * `Documentation/Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/tache-01-rng-deterministe.md`).
  */
 class Rng {
 public:

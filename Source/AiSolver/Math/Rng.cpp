@@ -1,5 +1,10 @@
 #include "AiSolver/Math/Rng.h"
 
+#include <cmath>
+#include <limits>
+
+#include "Core/Diagnostics/Assert.h"
+
 namespace aisolver {
 
 Rng::Rng(std::uint64_t seed) : _engine(seed) {}
@@ -14,6 +19,7 @@ float Rng::nextFloat() {
 
 // Flottant uniforme dans [min, max), obtenu par mise à l'échelle et translation de nextFloat().
 float Rng::nextFloat(float min, float max) {
+    PROJECTGAMING_ASSERT(min < max, "Rng::nextFloat(min, max) : min doit etre < max");
     return min + nextFloat() * (max - min);
 }
 
@@ -40,8 +46,10 @@ float Rng::nextGaussian(float mean, float stddev) {
 // puis on renvoie min + valeur % range — le rejet élimine le biais (léger mais réel)
 // du modulo simple sur les dernières valeurs de la plage. 
 int Rng::nextInt(int min, int max) {
-    int range = max - min + 1;
-    std::uint64_t limit = std::numeric_limits<std::uint64_t>::max() - std::numeric_limits<std::uint64_t>::max() % range;
+    PROJECTGAMING_ASSERT(min <= max, "Rng::nextInt(min, max) : min doit etre <= max");
+    const auto range = static_cast<std::uint64_t>(max - min) + 1;
+    const std::uint64_t limit =
+        std::numeric_limits<std::uint64_t>::max() - std::numeric_limits<std::uint64_t>::max() % range;
     std::uint64_t value;
     do {
         value = _engine();

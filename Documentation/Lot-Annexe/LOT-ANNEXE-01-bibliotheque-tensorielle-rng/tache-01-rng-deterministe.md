@@ -1,6 +1,6 @@
 # TACHE-01 — RNG déterministe {#lot-annexe-01-tache-01-rng-deterministe}
 
-**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 Première tâche du programme annexe : elle crée le module `Source/AiSolver` lui-même (aucun fichier
