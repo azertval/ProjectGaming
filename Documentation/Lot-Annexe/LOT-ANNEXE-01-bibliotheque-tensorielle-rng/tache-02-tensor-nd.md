@@ -1,6 +1,6 @@
 # TACHE-02 — Conteneur N-D (`Tensor`) {#lot-annexe-01-tache-02-tensor-nd}
 
-**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 `Rng` (TACHE-01) fournit l'aléatoire ; il manque encore le conteneur numérique sur lequel tout le

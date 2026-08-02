@@ -1,6 +1,6 @@
 # TACHE-03 — Opérations élémentaires et réductions {#lot-annexe-01-tache-03-operations-reductions}
 
-**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 `Tensor<T>` (TACHE-02) sait stocker et indexer des valeurs, mais n'offre encore aucun calcul. Cette

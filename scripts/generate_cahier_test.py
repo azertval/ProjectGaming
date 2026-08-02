@@ -22,10 +22,10 @@ TEST_ROOT = 'Source/Test'
 OUTPUT_PATH = 'Documentation/CahierTest.md'
 
 # Un bloc castest s'étend de `\castest{` jusqu'à la fermeture `}` puis `*/`, immédiatement suivi
-# de la déclaration du test (TEST(Suite, Nom)) : les deux sont capturés ensemble pour associer
-# chaque cas de test à son emplacement dans le code.
+# de la déclaration du test (TEST(Suite, Nom) ou TEST_F(Suite, Nom) pour un cas avec fixture) : les
+# deux sont capturés ensemble pour associer chaque cas de test à son emplacement dans le code.
 CASTEST_RE = re.compile(
-    r'\\castest\{(?P<content>.*?)\}\s*\n\s*\*/\s*\nTEST\(\s*(?P<suite>[^,]+),\s*(?P<name>[^)]+)\)',
+    r'\\castest\{(?P<content>.*?)\}\s*\n\s*\*/\s*\nTEST(?:_F)?\(\s*(?P<suite>[^,]+),\s*(?P<name>[^)]+)\)',
     re.DOTALL)
 
 FIELD_RE = re.compile(r'\\t(cat|crit|etapes|attendu)\s+')

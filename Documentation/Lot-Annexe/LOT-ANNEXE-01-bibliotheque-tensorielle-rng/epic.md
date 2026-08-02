@@ -1,6 +1,6 @@
 # LOT-ANNEXE-01 — Bibliothèque tensorielle et RNG maison {#lot-annexe-01}
 
-> Statut : **non commencé**. Premier lot du programme [Lots annexes](@ref lots-annexe) — aucun
+> Statut : **fait**. Premier lot du programme [Lots annexes](@ref lots-annexe) — aucun
 > prérequis. Pose la brique de calcul numérique (tenseurs, opérations, RNG déterministe) sur
 > laquelle s'appuient tous les lots suivants, de l'autodiff (`LOT-ANNEXE-02`) à l'entraînement
 > (générations 2 et 3).
@@ -113,11 +113,11 @@ dans le chapitre.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-rng-deterministe.md) | RNG déterministe (`Rng`) | `Source/AiSolver/Math` | ⬜ |
-| [TACHE-02](tache-02-tensor-nd.md) | `Tensor<T>` : conteneur N-D | `Source/AiSolver/Math` | ⬜ |
-| [TACHE-03](tache-03-operations-reductions.md) | Opérations élémentaires et réductions | `Source/AiSolver/Math` | ⬜ |
-| [TACHE-04](tache-04-produit-matriciel-transposition.md) | Produit matriciel et transposition | `Source/AiSolver/Math` | ⬜ |
-| [TACHE-05](tache-05-tests.md) | Tests : formes incompatibles, cas limites, non-régression, reproductibilité du RNG | `Source/Test/Unit/AiSolver/Math` | ⬜ |
+| [TACHE-01](tache-01-rng-deterministe.md) | RNG déterministe (`Rng`) | `Source/AiSolver/Math` | ✅ |
+| [TACHE-02](tache-02-tensor-nd.md) | `Tensor<T>` : conteneur N-D | `Source/AiSolver/Math` | ✅ |
+| [TACHE-03](tache-03-operations-reductions.md) | Opérations élémentaires et réductions | `Source/AiSolver/Math` | ✅ |
+| [TACHE-04](tache-04-produit-matriciel-transposition.md) | Produit matriciel et transposition | `Source/AiSolver/Math` | ✅ |
+| [TACHE-05](tache-05-tests.md) | Tests : formes incompatibles, cas limites, non-régression, reproductibilité du RNG | `Source/Test/Unit/AiSolver/Math` | ✅ |
 
 ## Critères d'acceptation du lot
 1. `Source/AiSolver` existe comme bibliothèque CMake compilable indépendamment, liée uniquement à
