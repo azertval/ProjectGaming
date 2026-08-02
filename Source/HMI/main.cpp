@@ -17,6 +17,7 @@
 #include <QString>
 #include <QTranslator>
 #include <cstdint>
+#include <ctime>
 #include <filesystem>
 #include <memory>
 #include <optional>
@@ -26,6 +27,7 @@
 #include "Core/BuildConfig.h"
 #include "Core/Core.h"
 #include "Core/Diagnostics/ConsoleLogSink.h"
+#include "Core/Diagnostics/FileLogSink.h"
 #include "Core/Diagnostics/LogLevel.h"
 #include "Core/Diagnostics/LogLevelParse.h"
 #include "Core/Diagnostics/Logger.h"
@@ -73,6 +75,21 @@ namespace {
 }
 
 /**
+ * @brief Chemin d'un fichier de log horodaté pour la session en cours, à côté de l'exécutable.
+ *
+ * Un nom distinct par lancement (dossier `Logs/` créé au besoin par `FileLogSink`) : un crash
+ * n'écrase jamais les preuves du lancement précédent, contrairement à un nom de fichier fixe.
+ */
+[[nodiscard]] std::filesystem::path timestampedLogFilePath() {
+    const std::time_t now = std::time(nullptr);
+    std::tm local{};
+    localtime_s(&local, &now);
+    char stamp[32] = {};
+    std::strftime(stamp, sizeof(stamp), "%Y%m%d_%H%M%S", &local);
+    return hmi::executableDirectory() / "Logs" / (std::string("run_") + stamp + ".log");
+}
+
+/**
  * @brief Détermine le niveau de log minimum au lancement.
  *
  * Par défaut `Trace`. La variable d'environnement `PROJECTGAMING_LOG_LEVEL` puis, avec priorité,
@@ -110,8 +127,10 @@ namespace {
  */
 int main(int argc, char** argv) {
     // Journaliseur. En développement : sortie console et capture en mémoire (`MemoryLogSink`,
-    // collectée par `Core` — cf. le guide de journalisation). En Release : aucun sink (l'exécutable
-    // n'a pas de console et une croissance mémoire serait inutile).
+    // collectée par `Core` — cf. le guide de journalisation ; export manuel possible depuis les
+    // Options). En développement ET en release : fichier horodaté sous `Logs/`, flush immédiat à
+    // chaque message (`FileLogSink`) — c'est ce qui reste lisible après un arrêt brutal (crash),
+    // y compris en release où il n'y a ni console ni bouton d'export à atteindre après coup.
     core::MemoryLogSink* sessionLog = nullptr;
     if constexpr (core::kDeveloperBuild) {
         core::defaultLogger().addSink(std::make_unique<core::ConsoleLogSink>());
@@ -119,6 +138,7 @@ int main(int argc, char** argv) {
         sessionLog = memorySink.get();
         core::defaultLogger().addSink(std::move(memorySink));
     }
+    core::defaultLogger().addSink(std::make_unique<core::FileLogSink>(timestampedLogFilePath()));
 
     // Niveau de log configurable au lancement (env PROJECTGAMING_LOG_LEVEL ou --log-level=).
     bool invalidLogLevel = false;

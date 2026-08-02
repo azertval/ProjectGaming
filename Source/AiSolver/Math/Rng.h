@@ -1,55 +1,58 @@
-// SPDX-FileCopyrightText: 2026 Valentin Eloy
-// SPDX-License-Identifier: GPL-3.0-or-later
-
 #pragma once
 
+#include <cstdint>
+#include <random>
+
 /**
- * @file Source/AiSolver/Math/Rng.h
- * @brief Générateur de nombres pseudo-aléatoires (PRNG) pour
- * l'IA
+ * @file AiSolver/Math/Rng.h
+ * @brief Générateur pseudo-aléatoire déterministe du programme d'IA maison (aisolver::Rng).
  */
 
 namespace aisolver {
+
 /**
- * @brief Générateur de nombres pseudo-aléatoires (PRNG) pour l'IA
+ * @brief Source d'aléatoire déterministe et reproductible à partir d'une seule graine.
+ *
+ * @note Aucune loi de probabilité de la bibliothèque standard (`std::…_distribution`) n'est
+ * utilisée : la norme C++ ne garantit que la suite de `std::mt19937_64` lui-même, pas celle
+ * d'une distribution — chaque méthode dérive donc sa valeur à la main de `_engine()`, seul état
+ * persistant de la classe (voir
+ * `Documentation/Lot-Annexe/LOT-ANNEXE-01-bibliotheque-tensorielle-rng/tache-01-rng-deterministe.md`).
  */
 class Rng {
 public:
     /**
-     * @brief Constructeur du générateur de nombres pseudo-aléatoires
-     * @param seed Graine pour le générateur
+     * @brief Construit le générateur à partir d'une graine explicite.
+     * @param seed Graine ; aucune valeur par défaut (jamais dérivée de l'horloge).
      */
     explicit Rng(std::uint64_t seed);
+
+    /// @return Flottant uniforme dans `[0, 1)`.
+    [[nodiscard]] float nextFloat();
+
     /**
-     * @brief Génère un nombre flottant aléatoire entre 0 et 1
-     * pas de constructeur par défaut (une graine doit toujours être fournie explicitement, jamais
-     * dérivée de l'horloge).
-     * @return Nombre flottant aléatoire
+     * @brief Flottant uniforme dans un intervalle donné.
+     * @param min Borne inférieure (incluse).
+     * @param max Borne supérieure (exclue).
      */
-    float nextFloat();
+    [[nodiscard]] float nextFloat(float min, float max);
+
     /**
-     * @brief Génère un nombre flottant aléatoire entre min et max
-     * @param min Valeur minimale
-     * @param max Valeur maximale
-     * @return Nombre flottant aléatoire
+     * @brief Tirage gaussien (transformation de Box-Muller).
+     * @param mean   Moyenne de la loi normale.
+     * @param stddev Écart-type de la loi normale.
      */
-    float nextFloat(float min, float max);
+    [[nodiscard]] float nextGaussian(float mean = 0.0f, float stddev = 1.0f);
+
     /**
-     * @brief Génère un nombre flottant aléatoire selon une distribution gaussienne
-     * @param mean Valeur moyenne
-     * @param stddev Écart-type
-     * @return Nombre flottant aléatoire
+     * @brief Entier uniforme dans un intervalle donné (bornes incluses), par rejet.
+     * @param min Borne inférieure (incluse).
+     * @param max Borne supérieure (incluse).
      */
-    float nextGaussian(float mean = 0.0f, float stddev = 1.0f);
-    /**
-     * @brief Génère un nombre entier aléatoire entre min et max
-     * @param min Valeur minimale
-     * @param max Valeur maximale
-     * @return Nombre entier aléatoire
-     */
-    int nextInt(int min, int max);
+    [[nodiscard]] int nextInt(int min, int max);
 
 private:
-}
+    std::mt19937_64 _engine;
+};
 
 }  // namespace aisolver

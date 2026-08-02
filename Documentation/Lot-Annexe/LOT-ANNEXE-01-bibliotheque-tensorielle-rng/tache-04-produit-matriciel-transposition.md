@@ -1,6 +1,6 @@
 # TACHE-04 — Produit matriciel et transposition {#lot-annexe-01-tache-04-produit-matriciel-transposition}
 
-**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-01](epic.md) · **Emplacement :** `Source/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 Les opérations élémentaires (TACHE-03) ne suffisent pas à exprimer une couche dense (`y = W·x + b`)

@@ -5,7 +5,7 @@ Outils transverses de diagnostic : **journalisation** et **assertions**.
 ## Journalisation
 - `LogLevel` — niveaux `Trace` / `Info` / `Warning` / `Error`.
 - `Logger` — filtre par niveau minimal et diffuse vers des sinks ; `defaultLogger()` est l'instance globale.
-- `ILogSink` — destination ; implémentations : `ConsoleLogSink` (console + débogueur), `MemoryLogSink` (tests).
+- `ILogSink` — destination ; implémentations : `ConsoleLogSink` (console + débogueur), `MemoryLogSink` (tests, export manuel via `hmi::saveSessionLog`), `FileLogSink` (fichier, flush immédiat à chaque message — survit à un arrêt brutal/crash, contrairement aux deux autres).
 - `Log.h` — macros génériques capturant **catégorie**, niveau, fichier/ligne et horodatage.
 - `LogFormat.h` (`formatLogLine`) — compose une ligne de log (horodatage, niveau, catégorie, fichier/ligne, message), fonction pure et testable.
 - `LogLevelParse.h` (`parseLogLevel`) — convertit une chaîne (« trace », « info », « warning », « error ») en `LogLevel`, pour configurer le niveau minimal au lancement sans recompiler.
