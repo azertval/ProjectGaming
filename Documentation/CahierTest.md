@@ -1,12 +1,12 @@
 # Cahier de test {#cahiertest}
 
-**589 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**595 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (507)
+## Tests unitaires (513)
 
 ### AiSolver
 
-#### Math (47)
+#### Math (53)
 
 **`test_autodiff_backward.cpp`**
 
@@ -18,6 +18,17 @@
 | **BackwardTest.ChaineMatmulAddRelu** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:103`</sub> | Backward : chaîne `matmul` + `add` + `relu`. | 1. Poser `w = [[2, -1]]` (1x2), `x = [[3], [1]]` (2x1), `b = [[-1]]` (1x1), entrées choisies pour que la somme reste strictement positive (hors du point non dérivable de `relu`).<br/>2. Calculer `y = relu(add(matmul(w, x), b))`.<br/>3. Appeler `backward(y)`. | Vérifie que `y->value.shape()` vaut `(std::vector<std::size_t>{1, 1})`.<br/>Vérifie que `y->value.at({0, 0})` vaut `4.0f`, à `TOLERANCE` près.<br/>Vérifie que `w->grad.at({0, 0})` vaut `3.0f`, à `TOLERANCE` près.<br/>Vérifie que `w->grad.at({0, 1})` vaut `1.0f`, à `TOLERANCE` près.<br/>Vérifie que `x->grad.at({0, 0})` vaut `2.0f`, à `TOLERANCE` près.<br/>Vérifie que `x->grad.at({1, 0})` vaut `-1.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0, 0})` vaut `1.0f`, à `TOLERANCE` près. |
 | **BackwardTest.AssertionRacineNonScalaire** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:147`</sub> | Backward : assertion sur racine non scalaire. | 1. Construire une feuille de forme `{2}`.<br/>2. Appeler `backward()` dessus. | Vérifie que l'opération lève bien une exception `std::runtime_error`. |
 | **BackwardTest.DeuxAppelsSansZeroGradAccumulent** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:171`</sub> | Backward : deux appels successifs sans `zeroGrad()` accumulent. | 1. Construire `y = add(a, b)`.<br/>2. Appeler `backward(y)` deux fois de suite, sans `zeroGrad()` entre les deux. | Vérifie que `a->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près. |
+
+**`test_autodiff_gradient_checking.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **GradientCheckingTest.Add** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:39`</sub> | Gradient checking : `add`. | 1. Tirer deux tenseurs `2x2` aléatoires (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = add(inputs[0], inputs[1])`. | Vérifie que `result.passed` est vrai. |
+| **GradientCheckingTest.Multiply** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:60`</sub> | Gradient checking : `multiply`. | 1. Tirer deux tenseurs `2x2` aléatoires (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = multiply(inputs[0], inputs[1])`. | Vérifie que `result.passed` est vrai. |
+| **GradientCheckingTest.Matmul** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:80`</sub> | Gradient checking : `matmul`. | 1. Tirer `a` `[2,3]` et `b` `[3,2]` aléatoires (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = matmul(a, b)`. | Vérifie que `result.passed` est vrai. |
+| **GradientCheckingTest.Relu** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:102`</sub> | Gradient checking : `relu`. | 1. Tirer un tenseur `2x2` dans `[-3,-0.5] ∪ [0.5,3]` (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = relu(input)`. | Vérifie que `result.passed` est vrai. |
+| **GradientCheckingTest.TanhOp** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:130`</sub> | Gradient checking : `tanhOp`. | 1. Tirer un tenseur `2x2` dans `[-1.5, 1.5]` (graine fixe).<br/>2. Appeler `checkGradient` avec `buildGraph = tanhOp(input)`. | Vérifie que `result.passed` est vrai. |
+| **GradientCheckingTest.DetecteUneReglederivationFausse** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp:151`</sub> | Gradient checking : détecte une régression volontaire. | 1. Tirer deux tenseurs `2x2` aléatoires (graine fixe).<br/>2. Appeler `checkGradient` avec une addition dont la règle de dérivation vers le premier parent double le gradient de sortie. | Vérifie que `result.passed` est faux. |
 
 **`test_autodiff_node.cpp`**
 
