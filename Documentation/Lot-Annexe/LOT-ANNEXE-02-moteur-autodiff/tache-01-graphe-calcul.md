@@ -1,6 +1,6 @@
 # TACHE-01 — Graphe de calcul dynamique (`Node`) {#lot-annexe-02-tache-01-graphe-calcul}
 
-**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** fait
 
 ## Contexte
 Première tâche du lot : elle pose la structure de données porteuse de tout le moteur — le nœud de

@@ -1,6 +1,6 @@
 # TACHE-03 — `backward()` : parcours topologique inverse {#lot-annexe-02-tache-03-retropropagation}
 
-**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** fait
 
 ## Contexte
 `Node` sait enregistrer sa règle de dérivation locale (TACHE-01) et cinq opérations savent

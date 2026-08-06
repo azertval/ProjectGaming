@@ -1,6 +1,6 @@
 # TACHE-02 — Opérations différentiables de base {#lot-annexe-02-tache-02-operations-differentiables}
 
-**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/AiSolver/Math/Autodiff` · **Statut :** fait
 
 ## Contexte
 `Node`, `unaryOp` et `binaryOp` (TACHE-01) posent la mécanique générique mais ne fournissent encore

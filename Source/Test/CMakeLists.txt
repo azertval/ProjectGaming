@@ -53,6 +53,15 @@ add_executable(UnitTests
     Unit/AiSolver/Math/test_tensor_ops.cpp
     Unit/AiSolver/Math/test_matmul.cpp
     Unit/AiSolver/Math/test_tensor_integration.cpp
+    # Graphe de calcul dynamique de l'autodiff maison (LOT-ANNEXE-02, TACHE-01).
+    Unit/AiSolver/Math/test_autodiff_node.cpp
+    # Operations differentiables de base de l'autodiff maison (LOT-ANNEXE-02, TACHE-02).
+    Unit/AiSolver/Math/test_autodiff_ops.cpp
+    # backward() : parcours topologique inverse de l'autodiff maison (LOT-ANNEXE-02, TACHE-03).
+    Unit/AiSolver/Math/test_autodiff_backward.cpp
+    # Verification de gradient par differences finies (LOT-ANNEXE-02, TACHE-04) ; GradientCheck.h
+    # est header-only, inclus directement par ce fichier de test (pas d'entree propre ici).
+    Unit/AiSolver/Math/test_autodiff_gradient_checking.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp
