@@ -6,6 +6,9 @@ add_library(AiSolver STATIC
     # Graphe de calcul dynamique de l'autodiff maison (LOT-ANNEXE-02) : Node.h/TensorOps.h restent
     # header-only, seule la fabrique generique (variable/unaryOp/binaryOp) est compilee ici.
     Math/Autodiff/Node.cpp
+    # Operations differentiables de base (LOT-ANNEXE-02, TACHE-02), construites au-dessus de la
+    # fabrique generique ci-dessus.
+    Math/Autodiff/Ops.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
