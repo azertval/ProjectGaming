@@ -1,6 +1,6 @@
 # TACHE-04 — Vérification de gradient par différences finies {#lot-annexe-02-tache-04-verification-gradient}
 
-**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Math` · **Statut :** à faire
+**Lot :** [LOT-ANNEXE-02](epic.md) · **Emplacement :** `Source/Test/Unit/AiSolver/Math` · **Statut :** fait
 
 ## Contexte
 `backward()` (TACHE-03) calcule des gradients **analytiques**, dérivés à la main pour chacune des
