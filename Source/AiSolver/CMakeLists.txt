@@ -1,7 +1,11 @@
-# Bibliothèque AiSolver : calcul numérique maison (tenseurs, RNG) pour le programme annexe d'IA de
-# résolution autonome (@ref lots-annexe) — aucune dépendance à un framework de calcul tiers.
+# Bibliothèque AiSolver : calcul numérique maison (tenseurs, RNG) et différentiation automatique
+# pour le programme annexe d'IA de résolution autonome (@ref lots-annexe) — aucune dépendance à un
+# framework de calcul tiers.
 add_library(AiSolver STATIC
     Math/Rng.cpp
+    # Graphe de calcul dynamique de l'autodiff maison (LOT-ANNEXE-02) : Node.h/TensorOps.h restent
+    # header-only, seule la fabrique generique (variable/unaryOp/binaryOp) est compilee ici.
+    Math/Autodiff/Node.cpp
 )
 
 # Racine d'inclusion = Source/ : les en-têtes s'incluent par chemin complet depuis la racine
