@@ -104,7 +104,7 @@ bibliographie complète dans le chapitre.
 |-------|----------|-------------|:----:|
 | [TACHE-01](tache-01-graphe-calcul.md) | Graphe de calcul dynamique (`Node`) | `Source/AiSolver/Math/Autodiff` | ✅ |
 | [TACHE-02](tache-02-operations-differentiables.md) | Opérations différentiables de base | `Source/AiSolver/Math/Autodiff` | ✅ |
-| [TACHE-03](tache-03-retropropagation.md) | `backward()` : parcours topologique inverse | `Source/AiSolver/Math/Autodiff` | ⬜ |
+| [TACHE-03](tache-03-retropropagation.md) | `backward()` : parcours topologique inverse | `Source/AiSolver/Math/Autodiff` | ✅ |
 | [TACHE-04](tache-04-verification-gradient.md) | Vérification de gradient par différences finies | `Source/Test/Unit/AiSolver/Math` | ⬜ |
 
 ## Critères d'acceptation du lot

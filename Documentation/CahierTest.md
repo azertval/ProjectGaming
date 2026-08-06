@@ -1,12 +1,23 @@
 # Cahier de test {#cahiertest}
 
-**583 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**589 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (501)
+## Tests unitaires (507)
 
 ### AiSolver
 
-#### Math (41)
+#### Math (47)
+
+**`test_autodiff_backward.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **BackwardTest.SommeDeDeuxFeuilles** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:34`</sub> | Backward : `y = a + b`. | 1. Construire deux feuilles scalaires.<br/>2. Calculer `y = add(a, b)`.<br/> 3. Appeler `backward(y)`. | Vérifie que `a->grad.at({0})` vaut `1.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `1.0f`, à `TOLERANCE` près. |
+| **BackwardTest.ProduitDeDeuxFeuilles** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:55`</sub> | Backward : `y = a * b`. | 1. Construire deux feuilles scalaires `3` et `5`.<br/>2. Calculer `y = multiply(a, b)`.<br/>3. Appeler `backward(y)`. | Vérifie que `a->grad.at({0})` vaut `b->value.at({0})`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `a->value.at({0})`, à `TOLERANCE` près.<br/>Vérifie que `a->grad.at({0})` vaut `5.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `3.0f`, à `TOLERANCE` près. |
+| **BackwardTest.NoeudReutiliseAccumule** (Critique)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:78`</sub> | Backward : nœud réutilisé accumule ses contributions. | 1. Construire deux feuilles scalaires.<br/>2. Calculer `ab = add(a, b)` puis `y = add(ab, a)`.<br/>3. Appeler `backward(y)`. | Vérifie que `y->value.at({0})` vaut `7.0f`, à `TOLERANCE` près.<br/>Vérifie que `a->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `1.0f`, à `TOLERANCE` près. |
+| **BackwardTest.ChaineMatmulAddRelu** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:103`</sub> | Backward : chaîne `matmul` + `add` + `relu`. | 1. Poser `w = [[2, -1]]` (1x2), `x = [[3], [1]]` (2x1), `b = [[-1]]` (1x1), entrées choisies pour que la somme reste strictement positive (hors du point non dérivable de `relu`).<br/>2. Calculer `y = relu(add(matmul(w, x), b))`.<br/>3. Appeler `backward(y)`. | Vérifie que `y->value.shape()` vaut `(std::vector<std::size_t>{1, 1})`.<br/>Vérifie que `y->value.at({0, 0})` vaut `4.0f`, à `TOLERANCE` près.<br/>Vérifie que `w->grad.at({0, 0})` vaut `3.0f`, à `TOLERANCE` près.<br/>Vérifie que `w->grad.at({0, 1})` vaut `1.0f`, à `TOLERANCE` près.<br/>Vérifie que `x->grad.at({0, 0})` vaut `2.0f`, à `TOLERANCE` près.<br/>Vérifie que `x->grad.at({1, 0})` vaut `-1.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0, 0})` vaut `1.0f`, à `TOLERANCE` près. |
+| **BackwardTest.AssertionRacineNonScalaire** (Majeur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:147`</sub> | Backward : assertion sur racine non scalaire. | 1. Construire une feuille de forme `{2}`.<br/>2. Appeler `backward()` dessus. | Vérifie que l'opération lève bien une exception `std::runtime_error`. |
+| **BackwardTest.DeuxAppelsSansZeroGradAccumulent** (Mineur)<br/><sub>`Source/Test/Unit/AiSolver/Math/test_autodiff_backward.cpp:171`</sub> | Backward : deux appels successifs sans `zeroGrad()` accumulent. | 1. Construire `y = add(a, b)`.<br/>2. Appeler `backward(y)` deux fois de suite, sans `zeroGrad()` entre les deux. | Vérifie que `a->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près.<br/>Vérifie que `b->grad.at({0})` vaut `2.0f`, à `TOLERANCE` près. |
 
 **`test_autodiff_node.cpp`**
 

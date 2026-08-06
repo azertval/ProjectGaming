@@ -45,6 +45,8 @@ add_executable(UnitTests
     Unit/AiSolver/Math/test_autodiff_node.cpp
     # Operations differentiables de base de l'autodiff maison (LOT-ANNEXE-02, TACHE-02).
     Unit/AiSolver/Math/test_autodiff_ops.cpp
+    # backward() : parcours topologique inverse de l'autodiff maison (LOT-ANNEXE-02, TACHE-03).
+    Unit/AiSolver/Math/test_autodiff_backward.cpp
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_player_input_mapper.cpp
     Unit/HMI/Input/test_game_key_bindings.cpp

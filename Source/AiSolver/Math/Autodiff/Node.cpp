@@ -1,6 +1,10 @@
 #include "AiSolver/Math/Autodiff/Node.h"
 
+#include <unordered_set>
+#include <vector>
+
 #include "AiSolver/Math/TensorOps.h"
+#include "Core/Diagnostics/Assert.h"
 
 namespace aisolver::autodiff {
 
@@ -60,6 +64,41 @@ NodePtr binaryOp(
         b->grad = add(b->grad, localGradB(output->value, output->grad, a->value, b->value));
     };
     return result;
+}
+
+void backward(const NodePtr& root) {
+    PROJECTGAMING_ASSERT(root->value.size() == 1,
+                          "backward() : la racine doit etre un tenseur scalaire (un seul element)");
+
+    // Derivee d'une quantite par rapport a elle-meme.
+    root->grad = Tensor<float>(root->value.shape());
+    root->grad.data()[0] = 1.0f;
+
+    // Tri topologique par parcours en profondeur post-fixe : un noeud n'est pousse dans `order`
+    // qu'apres tous ses parents, donc `order` va des feuilles vers `root`. La deduplication par
+    // adresse brute (Node*) est sans risque de cycle : un graphe construit uniquement par
+    // unaryOp/binaryOp ne peut referencer qu'un noeud deja existant.
+    std::vector<Node*> order;
+    std::unordered_set<Node*> visited;
+    const std::function<void(const NodePtr&)> visit = [&](const NodePtr& node) {
+        if (!visited.insert(node.get()).second) {
+            return;
+        }
+        for (const NodePtr& parent : node->_parents) {
+            visit(parent);
+        }
+        order.push_back(node.get());
+    };
+    visit(root);
+
+    // Propagation de root vers les feuilles (ordre inverse de `order`) : quand _backwardFn() est
+    // appelee sur un noeud, son propre grad est deja completement accumule (tous les noeuds qui
+    // l'utilisent comme parent ont ete traites avant lui dans ce parcours).
+    for (auto it = order.rbegin(); it != order.rend(); ++it) {
+        if ((*it)->_backwardFn) {
+            (*it)->_backwardFn();
+        }
+    }
 }
 
 }  // namespace aisolver::autodiff

@@ -118,4 +118,23 @@ private:
                                  const Tensor<float>&)>
         localGradB);
 
+/**
+ * @brief Rétropropagation : déclenche toutes les règles de dérivation locales du graphe atteignable
+ * depuis `root`, de la racine vers les feuilles.
+ *
+ * Initialise `root->grad` à `1` (dérivée d'une quantité par rapport à elle-même), construit un tri
+ * topologique du graphe par parcours en profondeur post-fixe (chaque nœud après ses parents), puis
+ * appelle `_backwardFn()` sur chaque nœud de ce tri en ordre inverse (de `root` vers les feuilles) :
+ * chaque appel accumule (`+=`) sa contribution dans le(s) `grad` du(des) parent(s) direct(s). Les
+ * feuilles produites par `variable()` n'ont pas de `_backwardFn` et sont ignorées.
+ *
+ * N'appelle jamais `zeroGrad()` : appeler `backward()` deux fois de suite sur le même graphe sans
+ * `zeroGrad()` entre les deux accumule par-dessus les gradients précédents, à la charge de
+ * l'appelant (typiquement l'optimiseur, `LOT-ANNEXE-04`).
+ *
+ * @param root Nœud racine, dont dérive la rétropropagation ; doit être **scalaire**
+ *             (`root->value.size() == 1`, `PROJECTGAMING_ASSERT` sinon).
+ */
+void backward(const NodePtr& root);
+
 }  // namespace aisolver::autodiff
