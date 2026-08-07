@@ -98,6 +98,33 @@ par ses clips (`hmi::AnimationCatalog`). Un asset sans ce fichier reste une imag
 ni avertissement — voir `Skins/README.md` pour le format et les exemples livrés (`water`, `lava`,
 `torch`) et `Documentation/Lot/LOT-46-moteur-animation/` pour le détail du moteur.
 
+## Apparence des mécanismes (`LOT-47`)
+
+Une porte, un interrupteur, une plaque de pression et les dangers commuté/temporisé/mobile
+changent d'apparence selon leur **état logique**, en mode Texture : `hmi::MechanismVisuals`
+traduit l'état lu dans `Core` en **nom de clip attendu**, que l'asset assigné au type (section
+« Animations » du panneau « Textures », ou skin ordinaire de la section « Skins » — même
+mécanisme, `hmi::SkinCatalog`) doit fournir dans son `<asset>.anim.json`.
+
+Convention de noms, un asset par famille :
+
+| Famille (`core::TileType`) | Clips attendus |
+|---|---|
+| `Door` (porte) | `closed`, `opening`, `open`, `closing` — `opening`/`closing` sont des transitions jouées **une fois** (`"loop": false`), qui enchaînent sur l'état cible via `"next"` (`opening.next = "open"`, `closing.next = "closed"`). |
+| `Switch` (interrupteur) | `inactive`, `active` |
+| `PressurePlate` (plaque de pression) | `released`, `pressed` |
+| `DangerSwitched` (danger commuté) | `inactive`, `active` |
+| `DangerBlink` (danger temporisé) | `harmless`, `lethal` |
+| `DangerMover` (danger mobile) | `idle` (un seul clip : l'état est porté par la position, pas par une bascule) |
+
+Un asset qui ne fournit pas un clip attendu **n'efface pas** la tuile : le jeu retombe sur le
+premier clip disponible (repli lisible) et journalise l'état et le clip manquants **une seule
+fois**, jamais à chaque pas. Le panneau « Textures » (section « Animations ») diagnostique ces
+clips manquants sans lancer le jeu. Seule la **porte** transitionne visiblement ; les autres
+familles basculent directement d'un état à l'autre. Cette apparence reste purement visuelle : la
+collision d'une porte bascule au pas fixe où `core::MechanismController` le décide, jamais à la
+fin d'une transition (voir `Documentation/Lot/LOT-47-etats-visuels-mecanismes/`).
+
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions

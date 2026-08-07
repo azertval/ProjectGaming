@@ -61,6 +61,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_texture_resolution.cpp
     Unit/HMI/Graphics/test_slope_mask.cpp
     Unit/HMI/Graphics/test_cache_registry.cpp
+    Unit/HMI/Graphics/test_mechanism_visuals.cpp
+    Unit/HMI/Graphics/test_mechanism_transitions.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -74,6 +76,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_library.cpp
     Unit/HMI/Editor/test_asset_file_operations.cpp
     Unit/HMI/Editor/test_asset_references.cpp
+    Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -169,6 +172,12 @@ add_executable(UnitTests
     ../HMI/Editor/AssetFileOperations.cpp
     # Détection des références à un asset dans skins.json (LOT-43) : pure, sans Qt/GPU/fichier.
     ../HMI/Editor/AssetReferences.cpp
+    # La correspondance etat logique -> clip des mecanismes (LOT-47) est une fonction pure, sans
+    # dependance GPU/Qt/ECS : testable exhaustivement hors GPU.
+    ../HMI/Graphics/MechanismVisuals.cpp
+    # Les lignes du panneau « Textures » / section Animations et leur diagnostic de clips
+    # manquants (LOT-47) sont une logique pure (filesystem + AnimationCatalog), testable sans Qt.
+    ../HMI/Editor/MechanismAnimationAssignments.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

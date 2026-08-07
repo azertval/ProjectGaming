@@ -1,6 +1,6 @@
 # LOT-47 — États visuels des mécanismes {#lot-47}
 
-> Statut : **non commencé**. Prérequis : [LOT-45](@ref lot-45) (texture par instance),
+> Statut : **fait**. Prérequis : [LOT-45](@ref lot-45) (texture par instance),
 > [LOT-46](@ref lot-46) (moteur d'animation).
 
 ## Objectif
@@ -68,10 +68,10 @@ résultat pire que l'état actuel, parce que l'incohérence deviendrait visible.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-correspondance-etat-clip.md) | Correspondance état logique → clip (fonction pure, testée sans GPU) | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-transitions.md) | Transitions jouées une fois (ouverture/fermeture) + repli sur clip manquant | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
-| [TACHE-03](tache-03-retrait-modulation-opacite.md) | Retrait des modulations d'opacité de `GameSession` | `Source/HMI/Game` | ⬜ |
-| [TACHE-04](tache-04-section-animations.md) | Section « Animations » du panneau « Textures » + assets par défaut | `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-correspondance-etat-clip.md) | Correspondance état logique → clip (fonction pure, testée sans GPU) | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-transitions.md) | Transitions jouées une fois (ouverture/fermeture) + repli sur clip manquant | `Source/HMI/Graphics`, `Source/HMI/Game` | ✅ |
+| [TACHE-03](tache-03-retrait-modulation-opacite.md) | Retrait des modulations d'opacité de `GameSession` | `Source/HMI/Game` | ✅ |
+| [TACHE-04](tache-04-section-animations.md) | Section « Animations » du panneau « Textures » + assets par défaut | `Source/HMI/Editor` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Une porte, un interrupteur, une plaque de pression, un danger commuté et un danger temporisé

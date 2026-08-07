@@ -56,6 +56,13 @@ textures.objects_remove = Remove
 textures.objects_column_position = Position
 textures.objects_column_asset = File
 
+# "Animations" section of the Textures panel (LOT-47)
+textures.section_animations = Animations
+textures.animations_column_diagnostic = Clips
+textures.animations_preview = Preview
+textures.animations_complete = Complete
+textures.animations_missing = Missing
+
 # Shared asset library (LOT-43)
 assets.search = Search…
 assets.none = (none)

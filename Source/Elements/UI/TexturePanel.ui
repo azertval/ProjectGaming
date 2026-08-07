@@ -126,6 +126,46 @@
        </item>
       </layout>
      </widget>
+     <!-- Section « Animations » (LOT-47) : asset anime par defaut de chaque famille de mecanisme
+          a etat (porte, interrupteur, plaque, dangers commute/temporise/mobile), stocke comme un
+          skin de type ordinaire (meme catalogue, meme jeu courant), avec en plus le diagnostic
+          des clips manquants et un apercu de lecture. Meme patron de section embarquee que
+          « Fond »/« Objets » ci-dessus. -->
+     <widget class="QWidget" name="animationsTab">
+      <attribute name="title"><string>Animations</string></attribute>
+      <layout class="QVBoxLayout" name="animationsLayout">
+       <item>
+        <widget class="QTreeView" name="animationsTree">
+         <property name="rootIsDecorated"><bool>false</bool></property>
+         <property name="alternatingRowColors"><bool>true</bool></property>
+         <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+         <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="animationPreviewLayout">
+         <item>
+          <widget class="QLabel" name="animationPreviewCaption">
+           <property name="text"><string>Apercu</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="animationPreviewLabel">
+           <property name="minimumSize"><size><width>64</width><height>64</height></size></property>
+           <property name="maximumSize"><size><width>64</width><height>64</height></size></property>
+           <property name="frameShape"><enum>QFrame::Box</enum></property>
+           <property name="alignment"><set>Qt::AlignCenter</set></property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="animationPreviewSpacer">
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

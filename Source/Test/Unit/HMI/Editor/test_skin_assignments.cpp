@@ -280,9 +280,18 @@ TEST(SkinAssignmentsTest, LibellesTaxonomieTraduitsDansLesDeuxLangues) {
 TEST(SkinAssignmentsTest, LibellesDuPanneauTraduits) {
     // Aucun libelle en dur (EX-REN-033) : regle bloquante du projet, pas une preference.
     const std::vector<std::string> keys{
-        "dock.textures",         "textures.skin_set",     "textures.section_skins",
-        "textures.column_type",  "textures.column_asset", "textures.column_mode",
+        "dock.textures",
+        "textures.skin_set",
+        "textures.section_skins",
+        "textures.column_type",
+        "textures.column_asset",
+        "textures.column_mode",
         "textures.none",
+        "textures.section_animations",
+        "textures.animations_column_diagnostic",
+        "textures.animations_preview",
+        "textures.animations_complete",
+        "textures.animations_missing",
     };
 
     for (const std::string& language : {"fr", "en"}) {

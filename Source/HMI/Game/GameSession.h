@@ -17,6 +17,7 @@
 #include "Core/Levels/LevelOutcome.h"
 #include "Core/Physics/Aabb.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Input/GameKeyBindings.h"
@@ -113,10 +114,24 @@ private:
     void loadLevel(core::Level level);
     void spawnPlayer(core::GridPosition entry);
     void snapshotPreviousPositions();
-    void refreshDoorVisuals();
     void refreshBlockVisuals();
     void refreshDangerVisuals();
-    void refreshDangerStateVisuals();
+    /// Apparence des mécanismes pilotée par leur état logique (`LOT-47`, `EX-REN-006`) : projette
+    /// l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au **pas fixe**
+    /// — la simulation n'en dépend jamais, seule l'apparence en résulte (`EX-ARCH-012`).
+    void updateMechanismVisuals(float fixedDelta);
+    /// Applique la correspondance état → clip à **une** entité-tuile de mécanisme : résout l'asset
+    /// effectivement lié (via le point de résolution unique `hmi::resolveTileAppearance`, jamais
+    /// dupliqué ici), avance son horloge propre et écrit l'image courante sur son `TileSkinTag`
+    /// (`LOT-47` TACHE-02). Sans effet (répli sur l'image statique existante) si l'entité n'est pas
+    /// repérée, si son type n'est pas un mécanisme à état, ou si l'asset résolu n'est pas animé.
+    void applyMechanismVisual(core::Entity entity, bool active, MechanismVisualState& state,
+                              const SceneTextures& textures, float fixedDelta);
+    /// Modulation d'opacité de **diagnostic**, réservée au mode Physique (`LOT-47` TACHE-03) : ce
+    /// mode n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif
+    /// d'un mécanisme inactif. Appelée à chaque `render()` (décision purement visuelle, dépendante
+    /// du mode courant) ; force l'alpha à 1 en mode Texture, où l'état se voit désormais au clip.
+    void refreshMechanismDiagnosticTint(RenderMode mode);
     [[nodiscard]] std::vector<core::Aabb> collectActiveDangerBoxes() const;
     void refreshPlayerSprite();
     void centerCameraOnRoom(core::GridPosition roomIndex);
@@ -137,6 +152,10 @@ private:
     std::optional<core::Level> _level;
     std::optional<core::MechanismController> _mechanisms;
     std::vector<core::Entity> _doorEntities;
+    /// Entité-tuile du déclencheur (interrupteur/plaque de pression) de chaque mécanisme, même
+    /// ordre que `_doorEntities` (`LOT-47` : le déclencheur change aussi d'apparence, plus
+    /// seulement la porte qu'il actionne).
+    std::vector<core::Entity> _switchEntities;
     std::optional<core::BlockController> _blocks;
     std::optional<core::DangerController> _dangers;
     std::vector<core::Entity> _moverEntities;
@@ -164,6 +183,17 @@ private:
     /// signalee : evite de journaliser a chaque pas fixe (GraphicsLog proscrit un message par
     /// image/pas).
     std::set<std::string> _warnedExcludedAnimations;
+
+    // Apparence des mecanismes pilotee par l'etat (LOT-47) : une horloge par instance suivie (porte,
+    // declencheur, danger commute/temporise/mobile), independante de _tileAnimations ci-dessus.
+    std::vector<MechanismVisualState> _doorVisuals;
+    std::vector<MechanismVisualState> _switchVisuals;
+    std::vector<MechanismVisualState> _dangerSwitchedVisuals;
+    std::vector<MechanismVisualState> _dangerBlinkVisuals;
+    std::vector<MechanismVisualState> _dangerMoverVisuals;
+    /// Couples (asset, clip attendu) deja signales comme manquants : un seul message par combinaison
+    /// pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47 TACHE-02).
+    std::set<std::string> _warnedMissingMechanismClips;
 };
 
 }  // namespace hmi

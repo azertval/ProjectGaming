@@ -160,6 +160,38 @@ def spikes() -> Image:
     return cell
 
 
+def entry_icon() -> Image:
+    """Point d'entree : arche verte, fleche entrante -- skin `single` pour `Entry`."""
+    frame: Color = (40, 90, 40, 255)
+    glow: Color = (96, 200, 96, 255)
+    arrow: Color = (210, 244, 210, 255)
+
+    cell = Image(TILE, TILE, TRANSPARENT)
+    cell.fill_rect(1, 1, 2, TILE - 2, frame)  # montant gauche
+    cell.fill_rect(TILE - 3, 1, 2, TILE - 2, frame)  # montant droit
+    cell.fill_rect(1, 1, TILE - 2, 2, frame)  # linteau
+    cell.fill_rect(4, 4, TILE - 8, TILE - 6, glow)  # lueur du passage
+    for row in range(4):  # fleche pointant vers l'interieur (bas), largeur croissante
+        width = 4 + row
+        cell.fill_rect(6 - row // 2, 6 + row, width, 1, arrow)
+    return cell
+
+
+def exit_icon() -> Image:
+    """Point de sortie : fanion dore hisse -- skin `single` pour `Exit`."""
+    pole: Color = (90, 74, 40, 255)
+    flag_light: Color = (240, 200, 64, 255)
+    flag_dark: Color = (196, 156, 32, 255)
+
+    cell = Image(TILE, TILE, TRANSPARENT)
+    cell.fill_rect(2, 1, 2, TILE - 2, pole)  # hampe
+    for row in range(6):  # fanion triangulaire, raye
+        width = 8 - row
+        cell.fill_rect(4, 1 + row, width, 1, flag_light if row % 2 == 0 else flag_dark)
+    cell.fill_rect(1, TILE - 3, 6, 2, pole)  # socle
+    return cell
+
+
 def slope_block() -> Image:
     """Carre PLEIN destine aux pentes et arrondis.
 
@@ -179,6 +211,8 @@ SKINS = {
     "crate.png": crate,
     "spikes.png": spikes,
     "slope_stone.png": slope_block,
+    "entry.png": entry_icon,
+    "exit.png": exit_icon,
 }
 
 

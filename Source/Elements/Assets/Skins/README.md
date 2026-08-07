@@ -23,9 +23,9 @@ silencieux.
 
 ## Contenu actuel : des skins de **test**
 
-Les quatre images présentes sont **schématiques** et servent à vérifier que le moteur d'habillage
-fonctionne, pas à habiller le jeu. Elles sont générées par script, donc reproductibles et
-modifiables sans éditeur d'image :
+Ces images sont **schématiques** et servent à vérifier que le moteur d'habillage fonctionne, pas
+à habiller le jeu. Elles sont générées par script, donc reproductibles et modifiables sans
+éditeur d'image :
 
 ```
 python scripts/generate_test_skins.py
@@ -37,6 +37,8 @@ python scripts/generate_test_skins.py
 | `crate.png` | 16×16 | un skin `single` sur les trois tailles de bloc |
 | `spikes.png` | 16×16 | un skin `single` **à transparence** (dangers) |
 | `slope_stone.png` | 16×16 | le **détourage automatique** : carré plein, découpé par le moteur à la silhouette de chaque pente |
+| `entry.png` | 16×16 | un skin `single` pour le jalon `Entry` (arche verte, flèche entrante) |
+| `exit.png` | 16×16 | un skin `single` pour le jalon `Exit` (fanion doré) |
 
 Le catalogue livré (`../skins.json`) les assigne dans un jeu nommé `test`, et propose un second jeu
 `aucun`, vide, pour vérifier d'un coup d'œil le sélecteur de jeu et le repli en damier.
@@ -61,3 +63,27 @@ python scripts/generate_test_animations.py
 Non assignés dans `skins.json` : les affecter à un type depuis le panneau « Textures » de
 l'éditeur (mode `single` uniquement — `bitmask16` exclut l'animation, `LOT-46` TACHE-05) est un
 choix de contenu, pas une conséquence du moteur.
+
+## Assets des mécanismes à état (`LOT-47`)
+
+Six assets animés, un par famille de mécanisme (porte, interrupteur, plaque de pression, dangers
+commuté/temporisé/mobile), générés par script comme ci-dessus :
+
+```
+python scripts/generate_mechanism_animations.py
+```
+
+| Fichier | Clips | Type assigné (jeu `test`) |
+|---|---|---|
+| `door.png` + `door.anim.json` | `closed`, `opening`, `open`, `closing` | `door` |
+| `switch.png` + `switch.anim.json` | `inactive`, `active` | `switch` |
+| `plate.png` + `plate.anim.json` | `released`, `pressed` | `pressurePlate` |
+| `danger_switched.png` + `danger_switched.anim.json` | `inactive`, `active` | `dangerSwitched` |
+| `danger_blink.png` + `danger_blink.anim.json` | `harmless`, `lethal` | `dangerBlink` |
+| `danger_mover.png` + `danger_mover.anim.json` | `idle` | `dangerMover` |
+
+Contrairement aux assets animés de démonstration du `LOT-46` (`water`/`lava`/`torch`, jamais
+assignés), ceux-ci **sont** assignés dans le jeu `test` de `../skins.json` : c'est le contenu par
+défaut qui rend visible, dès le premier lancement, la correspondance état → clip du `LOT-47` (voir
+`Documentation/Lot/LOT-47-etats-visuels-mecanismes/`) — un artiste les remplacera sans toucher au
+code, exactement comme les autres skins de ce dossier.

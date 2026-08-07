@@ -122,6 +122,7 @@ add_executable(ProjectGaming
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
+    Graphics/MechanismVisuals.cpp
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
@@ -154,6 +155,7 @@ add_executable(ProjectGaming
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp
     Editor/AssetReferences.cpp
+    Editor/MechanismAnimationAssignments.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).

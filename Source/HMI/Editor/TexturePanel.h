@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QImage>
 #include <QPixmap>
 #include <QWidget>
 #include <filesystem>
@@ -9,9 +10,11 @@
 #include <unordered_map>
 #include <vector>
 
+#include "Core/Ecs/Components/Animation.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileType.h"
+#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/SkinCatalog.h"
 
 /**
@@ -22,6 +25,7 @@
 class QModelIndex;
 class QStandardItem;
 class QStandardItemModel;
+class QTimer;
 
 namespace Ui {
 class TexturePanel;
@@ -157,12 +161,36 @@ private:
     void rebuildObjectRows();
     void onObjectsSelectionChanged();
     void onObjectsRemoveClicked();
+    /// Reconstruit l'arbre de la section « Animations » (`LOT-47` TACHE-04) depuis le catalogue et
+    /// le diagnostic de clips manquants (`hmi::buildMechanismAnimationRows`).
+    void rebuildAnimationsTree();
+    /// Ouvre le selecteur a vignettes sur un double-clic dans la colonne Fichier de l'arbre
+    /// « Animations » (meme patron que `onAssetColumnActivated`, un mecanisme est un type de tuile
+    /// comme un autre pour `hmi::SkinCatalog`).
+    void onAnimationsAssetActivated(const QModelIndex& index);
+    /// Charge l'apercu (spritesheet decodee + description d'animation) de la ligne selectionnee.
+    void onAnimationsSelectionChanged();
+    /// Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (`LOT-47`
+    /// TACHE-04) : lecture en temps reel du meme catalogue que le jeu (`hmi::AnimationCatalog`),
+    /// pas une reimplementation parallele.
+    void tickAnimationPreview();
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
     AssetThumbnailView* _backgroundView;  ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
     AssetThumbnailView* _objectView;      ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
     QStandardItemModel* _objectsModel;    ///< Modèle du tableau des surcharges (LOT-45).
+    QStandardItemModel* _animationsModel;  ///< Modèle de l'arbre de la section « Animations » (LOT-47).
+    QTimer* _animationPreviewTimer;        ///< Fait avancer l'aperçu de la section « Animations ».
+    /// Spritesheet décodée de l'asset actuellement prévisualisé (vide si aucune sélection/asset
+    /// illisible) — décodée une fois par sélection, pas à chaque image de la minuterie.
+    QImage _animationPreviewSheet;
+    /// Description d'animation de l'asset prévisualisé, ou `std::nullopt` si absente/invalide/non
+    /// sélectionnée : l'aperçu reste alors sur l'image entière de `_animationPreviewSheet`.
+    std::optional<AnimationDescription> _animationPreviewDescription;
+    /// Horloge d'aperçu, avancée par `_animationPreviewTimer` (temps réel, comme l'aperçu
+    /// d'édition de `hmi::DraftRenderer` — la détermination n'a pas de sens hors simulation).
+    core::Animation _animationPreviewAnimation;
     std::filesystem::path _skinsDirectory;
     std::filesystem::path _catalogPath;
     std::filesystem::path _backgroundsDirectory;

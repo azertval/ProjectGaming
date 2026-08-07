@@ -19,10 +19,13 @@
 #include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
+#include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
+#include "HMI/Graphics/TileAppearance.h"
 #include "HMI/Graphics/TileAutotile.h"
 #include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
@@ -109,6 +112,25 @@ void GameSession::loadLevel(core::Level level) {
             });
         _doorEntities.push_back(doorEntity);
     }
+    _doorVisuals.assign(_doorEntities.size(), MechanismVisualState{});
+    // Repere l'entite-tuile du DECLENCHEUR (interrupteur/plaque de pression) de chaque mecanisme,
+    // meme ordre que _doorEntities (LOT-47 : le declencheur change aussi d'apparence).
+    _switchEntities.clear();
+    for (const core::Mechanism& mechanism : _mechanisms->mechanisms()) {
+        core::Entity switchEntity{};
+        bool found = false;
+        _world.view<core::Transform, core::Sprite>().each(
+            [&](core::Entity entity, core::Transform& transform, core::Sprite&) {
+                if (!found &&
+                    static_cast<int>(transform.position.x) == mechanism.switchPosition.column &&
+                    static_cast<int>(transform.position.y) == mechanism.switchPosition.row) {
+                    switchEntity = entity;
+                    found = true;
+                }
+            });
+        _switchEntities.push_back(switchEntity);
+    }
+    _switchVisuals.assign(_switchEntities.size(), MechanismVisualState{});
     // Dangers mobile/temporise (EX-GP-051/053) : compteur de pas fixes a zero pour ce niveau.
     _dangers.emplace(levelRef);
     // Repere l'entite-tuile de chaque danger mobile (a sa position de DEPART) pour la repositionner
@@ -136,8 +158,9 @@ void GameSession::loadLevel(core::Level level) {
         }
         _moverEntities.push_back(moverEntity);
     }
-    // Dangers commute/temporise (EX-GP-052/053) : une entite-tuile par danger, pour la teinter
-    // selon son etat actif/inactif (refreshDangerStateVisuals).
+    _dangerMoverVisuals.assign(_moverEntities.size(), MechanismVisualState{});
+    // Dangers commute/temporise (EX-GP-052/053) : une entite-tuile par danger, dont l'apparence
+    // suit desormais l'etat actif/inactif (LOT-47, updateMechanismVisuals).
     _dangerSwitchedEntities.clear();
     for (const core::DangerLink& link : levelRef.dangerLinks()) {
         core::Entity dangerEntity{};
@@ -153,6 +176,7 @@ void GameSession::loadLevel(core::Level level) {
             });
         _dangerSwitchedEntities.push_back(dangerEntity);
     }
+    _dangerSwitchedVisuals.assign(_dangerSwitchedEntities.size(), MechanismVisualState{});
     _dangerBlinkEntities.clear();
     for (const core::DangerBlinkConfig& config : levelRef.blinkConfigs()) {
         core::Entity dangerEntity{};
@@ -167,6 +191,7 @@ void GameSession::loadLevel(core::Level level) {
             });
         _dangerBlinkEntities.push_back(dangerEntity);
     }
+    _dangerBlinkVisuals.assign(_dangerBlinkEntities.size(), MechanismVisualState{});
     // Blocs poussables (EX-GP-022) : une entite-tuile par bloc, reperee a sa position de depart.
     _blocks.emplace(levelRef);
     _blockEntities.clear();
@@ -229,14 +254,131 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
                         PreviousPosition{core::playerSpawnPosition(entry.column, entry.row)});
 }
 
-void GameSession::refreshDoorVisuals() {
+// Applique la correspondance etat -> clip a UNE entite-tuile de mecanisme (voir en-tete).
+void GameSession::applyMechanismVisual(core::Entity entity, bool active, MechanismVisualState& state,
+                                       const SceneTextures& textures, float fixedDelta) {
+    if (!_world.hasComponent<TileSkinTag>(entity) || !_world.hasComponent<core::Sprite>(entity)) {
+        return;  // entite-tuile non reperee (robustesse) : rien a faire, meme garde que le reste.
+    }
+    TileSkinTag& tag = _world.getComponent<TileSkinTag>(entity);
+    // Par defaut : pas d'image par instance -- repli sur l'horloge partagee par asset (LOT-46) ou
+    // sur l'image entiere, selon ce que resolveTileAppearance decide plus bas au rendu.
+    tag.animatedFrame.reset();
+
+    if (!isStatefulMechanism(tag.type)) {
+        return;
+    }
+
+    // Asset effectivement lie a CETTE tuile, via le point de resolution UNIQUE (LOT-41) -- jamais
+    // duplique ici : la hierarchie surcharge (LOT-45) > skin de type (LOT-42) > damier reste celle
+    // du rendu. On ignore la region retournee (calculee sans connaitre l'etat), seuls la source et
+    // l'index servent a retrouver l'asset et ses dimensions.
+    const core::Sprite& sprite = _world.getComponent<core::Sprite>(entity);
+    const TileAppearance appearance =
+        resolveTileAppearance(RenderMode::Texture, sprite.region, &tag, textures);
+
+    std::string assetPath;
+    int width = 0;
+    int height = 0;
+    if (appearance.source == AppearanceSource::Skin) {
+        const SkinTexture& skin = textures.skins[static_cast<std::size_t>(appearance.skinIndex)];
+        assetPath = SKINS_SUBDIRECTORY + skin.asset;
+        width = skin.width;
+        height = skin.height;
+    } else if (appearance.source == AppearanceSource::Override) {
+        const SkinTexture& object = textures.objects[static_cast<std::size_t>(appearance.skinIndex)];
+        assetPath = OBJECTS_SUBDIRECTORY + object.asset;
+        width = object.width;
+        height = object.height;
+    } else {
+        return;  // damier de repli (aucun asset assigne/charge) : rien a animer, deja journalise.
+    }
+
+    const AnimationDescription* description = _cache.getAnimation(assetPath, width, height);
+    if (description == nullptr) {
+        return;  // pas de fichier d'animation : image fixe, cas legitime et silencieux (LOT-46).
+    }
+
+    // Decision (transition/etat cible/repli) et progression : logique pure, testee hors GPU
+    // (hmi::MechanismVisuals, LOT-47 TACHE-02) -- cette fonction ne fait que lui fournir l'asset
+    // effectivement lie et ecrire le resultat sur la marque de presentation de la tuile.
+    tag.animatedFrame = advanceMechanismVisual(state, *description, tag.type, active, assetPath,
+                                               fixedDelta, _warnedMissingMechanismClips);
+}
+
+// Apparence des mecanismes pilotee par leur etat logique, au pas fixe (voir en-tete).
+void GameSession::updateMechanismVisuals(float fixedDelta) {
+    // Textures resolues UNE fois pour ce pas : c'est precisement ce pas qui calcule l'image par
+    // instance de chaque mecanisme (tileAnimations vide -- l'horloge partagee par asset, LOT-46,
+    // n'a rien a apporter ici, seule la resolution asset/dimensions de sceneTextures sert).
+    const SceneTextures textures =
+        sceneTextures(_atlas, _cache, _tileSkins, _tileSkinSet, _level->textureOverrides(), {});
+
+    for (std::size_t index = 0; index < _doorEntities.size(); ++index) {
+        applyMechanismVisual(_doorEntities[index], _mechanisms->isDoorOpen(index), _doorVisuals[index],
+                             textures, fixedDelta);
+    }
+    for (std::size_t index = 0; index < _switchEntities.size(); ++index) {
+        applyMechanismVisual(_switchEntities[index], _mechanisms->isDoorOpen(index),
+                             _switchVisuals[index], textures, fixedDelta);
+    }
+    const std::vector<core::DangerLink>& links = _level->dangerLinks();
+    for (std::size_t index = 0; index < _dangerSwitchedEntities.size(); ++index) {
+        const bool active = _mechanisms->isDangerActive(links[index].dangerPosition);
+        applyMechanismVisual(_dangerSwitchedEntities[index], active, _dangerSwitchedVisuals[index],
+                             textures, fixedDelta);
+    }
+    const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
+    for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
+        const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
+        applyMechanismVisual(_dangerBlinkEntities[index], active, _dangerBlinkVisuals[index], textures,
+                             fixedDelta);
+    }
+    for (std::size_t index = 0; index < _moverEntities.size(); ++index) {
+        // Danger mobile : un seul clip (l'etat est porte par la position, pas par ce booleen) --
+        // "actif" constant n'y declenche donc jamais de changement au-dela du calcul initial.
+        applyMechanismVisual(_moverEntities[index], true, _dangerMoverVisuals[index], textures,
+                             fixedDelta);
+    }
+}
+
+// Modulation d'opacite de diagnostic, reservee au mode Physique (voir en-tete).
+void GameSession::refreshMechanismDiagnosticTint(RenderMode mode) {
+    constexpr float INACTIVE_ALPHA = 0.35f;
+    constexpr float ACTIVE_ALPHA = 1.0f;
+    constexpr float DOOR_OPEN_ALPHA = 0.25f;
+    constexpr float DOOR_CLOSED_ALPHA = 1.0f;
+
     for (std::size_t index = 0; index < _doorEntities.size(); ++index) {
         const core::Entity door = _doorEntities[index];
         if (!_world.hasComponent<core::Sprite>(door)) {
-            continue;  // porte non reperee (robustesse) : rien a faire
+            continue;  // porte non reperee (robustesse) : rien a faire.
         }
-        const float alpha = _mechanisms->isDoorOpen(index) ? 0.25f : 1.0f;
+        const float alpha = mechanismDiagnosticAlpha(mode, _mechanisms->isDoorOpen(index),
+                                                      DOOR_OPEN_ALPHA, DOOR_CLOSED_ALPHA);
         _world.getComponent<core::Sprite>(door).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
+    }
+
+    const std::vector<core::DangerLink>& links = _level->dangerLinks();
+    for (std::size_t index = 0; index < _dangerSwitchedEntities.size(); ++index) {
+        const core::Entity entity = _dangerSwitchedEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;
+        }
+        const bool active = _mechanisms->isDangerActive(links[index].dangerPosition);
+        const float alpha = mechanismDiagnosticAlpha(mode, active, ACTIVE_ALPHA, INACTIVE_ALPHA);
+        _world.getComponent<core::Sprite>(entity).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
+    }
+
+    const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
+    for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
+        const core::Entity entity = _dangerBlinkEntities[index];
+        if (!_world.hasComponent<core::Sprite>(entity)) {
+            continue;
+        }
+        const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
+        const float alpha = mechanismDiagnosticAlpha(mode, active, ACTIVE_ALPHA, INACTIVE_ALPHA);
+        _world.getComponent<core::Sprite>(entity).tint = core::Color{1.0f, 1.0f, 1.0f, alpha};
     }
 }
 
@@ -265,33 +407,6 @@ void GameSession::refreshDangerVisuals() {
         }
         core::Transform& transform = _world.getComponent<core::Transform>(mover);
         transform.position = _dangers->moverBox(index).min;
-    }
-}
-
-void GameSession::refreshDangerStateVisuals() {
-    constexpr float INACTIVE_ALPHA = 0.35f;
-    constexpr float ACTIVE_ALPHA = 1.0f;
-
-    const std::vector<core::DangerLink>& links = _level->dangerLinks();
-    for (std::size_t index = 0; index < _dangerSwitchedEntities.size(); ++index) {
-        const core::Entity entity = _dangerSwitchedEntities[index];
-        if (!_world.hasComponent<core::Sprite>(entity)) {
-            continue;  // entite-tuile non reperee (robustesse) : rien a faire
-        }
-        const bool active = _mechanisms->isDangerActive(links[index].dangerPosition);
-        _world.getComponent<core::Sprite>(entity).tint =
-            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
-    }
-
-    const std::vector<core::DangerBlinkConfig>& blinkConfigs = _level->blinkConfigs();
-    for (std::size_t index = 0; index < _dangerBlinkEntities.size(); ++index) {
-        const core::Entity entity = _dangerBlinkEntities[index];
-        if (!_world.hasComponent<core::Sprite>(entity)) {
-            continue;
-        }
-        const bool active = _dangers->isBlinkActive(blinkConfigs[index].position);
-        _world.getComponent<core::Sprite>(entity).tint =
-            core::Color{1.0f, 1.0f, 1.0f, active ? ACTIVE_ALPHA : INACTIVE_ALPHA};
     }
 }
 
@@ -448,13 +563,16 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
     // portes.
     const float playerMass = _world.getComponent<core::Player>(_player).mass;
     _mechanisms->update(box, playerMass);
-    refreshDoorVisuals();
 
     // 4bis. Dangers mobile/temporise (EX-GP-051/053) : avance le compteur deterministe, puis
-    // replace les sprites des dangers mobiles ; teinte les commutes/temporises selon leur etat.
+    // replace les sprites des dangers mobiles (position simulee, pas un artifice visuel).
     _dangers->update();
     refreshDangerVisuals();
-    refreshDangerStateVisuals();
+
+    // 4ter. Apparence des mecanismes pilotee par l'etat logique (LOT-47, EX-REN-006) : porte,
+    // declencheur, dangers commute/temporise/mobile -- correspondance + transitions, au meme pas
+    // fixe que tout ce qui precede (la simulation, elle, n'en depend jamais).
+    updateMechanismVisuals(fixedDelta);
 
     // 5. Issue du niveau. Sur echec : rechargement complet depuis le Level en memoire. Sur reussite
     // :
@@ -474,6 +592,9 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
         return;
     }
     refreshPlayerSprite();
+    // Modulation d'opacite de diagnostic, mode Physique uniquement (LOT-47 TACHE-03) : decision
+    // purement visuelle et dependante du mode courant, elle vit ici plutot qu'au pas fixe.
+    refreshMechanismDiagnosticTint(mode);
 
     _camera.setViewportSize(viewportWidth, viewportHeight);
     // Zoom pour faire tenir la SALLE COURANTE dans la fenetre (LOT-32, EX-REN-015).

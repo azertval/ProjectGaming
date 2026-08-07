@@ -418,7 +418,8 @@ TEST(SkinCatalogTest, CatalogueLivreValide) {
  * \tcrit Critique<br/>
  * \tetapes 1. Lire le catalogue livre et parcourir toutes les assignations de tous les jeux.<br/>
  * 2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions.<br/>
- * \tattendu Un skin single fait une case, une planche a raccords en fait 4x4.
+ * \tattendu Un skin single fait une case (ou une bande horizontale de cases pour un skin single
+ * ANIME, `LOT-46`), une planche a raccords en fait 4x4.
  * }
  */
 TEST(SkinCatalogTest, AssetsDuCatalogueLivreConformes) {
@@ -437,14 +438,23 @@ TEST(SkinCatalogTest, AssetsDuCatalogueLivreConformes) {
             ASSERT_TRUE(size.has_value()) << "PNG illisible : " << path.string();
 
             // Un asset aux mauvaises dimensions est refuse au chargement (EX-REN-007) et la tuile
-            // retombe au damier : le catalogue livre serait alors muet mais inoperant.
-            const int expected = entry.mode == hmi::SkinMode::Bitmask16
-                                     ? TILE * hmi::AUTOTILE_SHEET_SIDE
-                                     : TILE;
-            EXPECT_EQ(size->first, expected)
-                << entry.asset << " (" << hmi::skinModeName(entry.mode)
-                << ") pour le type " << core::tileTypeName(type);
-            EXPECT_EQ(size->second, expected) << entry.asset;
+            // retombe au damier : le catalogue livre serait alors muet mais inoperant. Une planche
+            // a raccords fait exactement 4x4 cases ; un skin single fait toujours UNE case de haut,
+            // mais peut faire plusieurs cases de large s'il est anime (bande horizontale,
+            // Skins/README.md, LOT-46) -- la largeur exacte depend alors du nombre d'images, propre
+            // a chaque asset, pas une constante unique comme pour bitmask16.
+            if (entry.mode == hmi::SkinMode::Bitmask16) {
+                EXPECT_EQ(size->first, TILE * hmi::AUTOTILE_SHEET_SIDE)
+                    << entry.asset << " pour le type " << core::tileTypeName(type);
+                EXPECT_EQ(size->second, TILE * hmi::AUTOTILE_SHEET_SIDE) << entry.asset;
+            } else {
+                EXPECT_EQ(size->second, TILE)
+                    << entry.asset << " pour le type " << core::tileTypeName(type);
+                EXPECT_GT(size->first, 0) << entry.asset;
+                EXPECT_EQ(size->first % TILE, 0)
+                    << entry.asset << " : largeur non multiple d'une case (single anime attendu "
+                    << "en bande horizontale, TILE*N).";
+            }
         }
     }
 }

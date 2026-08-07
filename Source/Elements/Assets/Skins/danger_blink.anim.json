@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "frameWidth": 16,
+  "frameHeight": 16,
+  "clips": {
+    "harmless": {
+      "frames": [
+        0
+      ],
+      "loop": true
+    },
+    "lethal": {
+      "frames": [
+        1
+      ],
+      "loop": true
+    }
+  }
+}
