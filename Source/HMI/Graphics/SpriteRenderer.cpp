@@ -1,5 +1,6 @@
 #include "HMI/Graphics/SpriteRenderer.h"
 
+#include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Levels/Level.h"
 #include "HMI/Graphics/AnimationCatalog.h"
@@ -137,6 +138,51 @@ BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& bac
         return {};  // meme le damier de repli n'a pas pu etre cree (device perdu).
     }
     return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
+}
+
+// Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir en-tete).
+void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
+                           TextureCache& cache, float deltaSeconds,
+                           std::unordered_map<std::string, core::Animation>& tileAnimations,
+                           std::set<std::string>& warnedExclusions) {
+    if (skins == nullptr) {
+        return;
+    }
+    const std::string& effectiveSet = skinSet.empty() ? skins->defaultSetName() : skinSet;
+    for (const auto& [type, entry] : skins->assignments(effectiveSet)) {
+        const AssetFamily family =
+            entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
+        const LoadedTexture* loaded = cache.get(SKINS_SUBDIRECTORY + entry.asset, family);
+        if (loaded == nullptr) {
+            continue;  // asset absent/illisible/refuse : deja journalise par le TextureCache.
+        }
+        const AnimationDescription* description =
+            cache.getAnimation(entry.asset, loaded->width, loaded->height);
+        if (description == nullptr) {
+            continue;  // pas de fichier d'animation : image fixe, cas par defaut silencieux.
+        }
+
+        // bitmask16 et silhouette detouree excluent l'animation (limite assumee, epic LOT-46
+        // TACHE-05) : signale UNE fois par asset plutot que silencieusement ignore.
+        if (animationExcludedForTile(entry.mode, type)) {
+            if (warnedExclusions.insert(entry.asset).second) {
+                GRAPHICS_LOG_WARNING(
+                    "Animation de '" + entry.asset + "' ignoree : combinaison non supportee (" +
+                    std::string(entry.mode == SkinMode::Bitmask16 ? "mode bitmask16"
+                                                                   : "silhouette detouree") +
+                    " + animation, LOT-46).");
+            }
+            continue;
+        }
+
+        core::Animation& animation = tileAnimations[entry.asset];
+        if (!animation.clips) {
+            // Premiere rencontre de cet asset : associe son jeu de clips (copie immuable,
+            // partagee par toutes les tuiles de ce type via sceneTextures -- LOT-46 TACHE-05).
+            animation.clips = std::make_shared<core::ClipSet>(description->clips);
+        }
+        core::advanceAnimation(animation, deltaSeconds);
+    }
 }
 
 // Construit le rendu de sprites.

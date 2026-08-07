@@ -1,8 +1,12 @@
 #pragma once
 
 #include <optional>
+#include <set>
+#include <string>
+#include <unordered_map>
 #include <utility>
 
+#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/World.h"
 #include "Core/Levels/GridPosition.h"
 #include "HMI/Graphics/SpriteRenderer.h"
@@ -70,10 +74,13 @@ public:
     /// de l'habillage. Si @p showTextureOverrides, les cases portant une surcharge de texture par
     /// instance (`EX-EDIT-043`, `LOT-45`) sont signalées sur le calque d'édition — actif seulement
     /// quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils.
+    /// @p deltaSeconds avance l'aperçu des tuiles animées (`LOT-46` TACHE-05) en **temps réel** —
+    /// contrairement à la simulation (`hmi::GameSession`), l'aperçu d'édition n'a aucune exigence
+    /// de déterminisme (`EX-NFR-002` ne s'applique qu'en jeu) ; `0` (par défaut) fige l'animation.
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
                 const LinkOverlayState& linkOverlay, RenderMode mode,
-                bool showTextureOverrides = false);
+                bool showTextureOverrides = false, float deltaSeconds = 0.0f);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -119,6 +126,13 @@ private:
     ComposedScene _scene;
     core::World _world;
     bool _dirty = true;
+    /// Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque
+    /// render() -- distincte de celle de GameSession (pas fixe) : l'apercu d'edition n'a pas
+    /// besoin d'etre deterministe.
+    std::unordered_map<std::string, core::Animation> _tileAnimations;
+    /// Assets deja signales pour une combinaison exclue (bitmask16/silhouette + animation) :
+    /// memorise pour ne jamais journaliser a chaque image.
+    std::set<std::string> _warnedExcludedAnimations;
 };
 
 }  // namespace hmi

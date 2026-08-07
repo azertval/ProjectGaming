@@ -19,7 +19,6 @@
 #include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
-#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -329,46 +328,8 @@ void GameSession::refreshPlayerSprite() {
 
 // Avance l'horloge d'animation partagee des tuiles animees, au pas fixe (LOT-46 TACHE-05).
 void GameSession::updateTileAnimations(float fixedDelta) {
-    if (_tileSkins == nullptr) {
-        return;
-    }
-    const std::string& effectiveSet =
-        _tileSkinSet.empty() ? _tileSkins->defaultSetName() : _tileSkinSet;
-    for (const auto& [type, entry] : _tileSkins->assignments(effectiveSet)) {
-        const AssetFamily family =
-            entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
-        const LoadedTexture* loaded = _cache.get(SKINS_SUBDIRECTORY + entry.asset, family);
-        if (loaded == nullptr) {
-            continue;  // asset absent/illisible/refuse : deja journalise par le TextureCache.
-        }
-        const AnimationDescription* description =
-            _cache.getAnimation(entry.asset, loaded->width, loaded->height);
-        if (description == nullptr) {
-            continue;  // pas de fichier d'animation : image fixe, cas par defaut silencieux.
-        }
-
-        // bitmask16 et silhouette detouree excluent l'animation (limite assumee, cf. epic
-        // LOT-46 TACHE-05, hmi::animationExcludedForTile) : signale UNE fois par asset plutot
-        // que silencieusement ignore.
-        if (animationExcludedForTile(entry.mode, type)) {
-            if (_warnedExcludedAnimations.insert(entry.asset).second) {
-                HMI_LOG_WARNING(
-                    "Animation de '" + entry.asset + "' ignoree : combinaison non supportee (" +
-                    std::string(entry.mode == SkinMode::Bitmask16 ? "mode bitmask16"
-                                                                   : "silhouette detouree") +
-                    " + animation, LOT-46).");
-            }
-            continue;
-        }
-
-        core::Animation& animation = _tileAnimations[entry.asset];
-        if (!animation.clips) {
-            // Premiere rencontre de cet asset : associe son jeu de clips (copie immuable,
-            // partagee par toutes les tuiles de ce type via sceneTextures -- LOT-46 TACHE-05).
-            animation.clips = std::make_shared<core::ClipSet>(description->clips);
-        }
-        core::advanceAnimation(animation, fixedDelta);
-    }
+    advanceTileAnimations(_tileSkins, _tileSkinSet, _cache, fixedDelta, _tileAnimations,
+                          _warnedExcludedAnimations);
 }
 
 void GameSession::snapshotPreviousPositions() {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <set>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -47,6 +48,30 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
 
 /// Sous-dossier des skins de tuiles, relatif au dossier d'assets (`LOT-42`).
 inline const std::string SKINS_SUBDIRECTORY = "Skins/";
+
+/**
+ * @brief Avance l'horloge d'animation partagée des tuiles animées d'un jeu de skins courant
+ *        (`LOT-46` TACHE-05).
+ *
+ * Facteur commun à `hmi::GameSession` (pas fixe, déterministe, `EX-NFR-002`) et
+ * `hmi::DraftRenderer` (temps réel de l'aperçu d'édition — la détermination n'a pas de sens hors
+ * simulation) : découvre les assets animés du jeu de skins courant (mode `Single`, sans
+ * silhouette — `bitmask16` et silhouette détourée excluent l'animation,
+ * `hmi::animationExcludedForTile`, signalé une fois par asset via @p warnedExclusions) et avance
+ * leur horloge partagée d'un pas. Une entrée par **asset**, jamais par tuile : toutes les tuiles
+ * d'un même type animé restent ainsi en phase, sans coût par case.
+ * @param skins           Catalogue de skins courant, ou `nullptr` (rien à faire).
+ * @param skinSet         Nom du jeu courant ; vide pour le jeu par défaut du catalogue.
+ * @param cache           Cache de textures (résolution de l'asset et de sa description).
+ * @param deltaSeconds    Durée à avancer.
+ * @param tileAnimations  Horloge partagée, mise à jour en place.
+ * @param warnedExclusions Assets déjà signalés pour une combinaison exclue (mémorisation, pour ne
+ *                        jamais journaliser à chaque image).
+ */
+void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
+                           TextureCache& cache, float deltaSeconds,
+                           std::unordered_map<std::string, core::Animation>& tileAnimations,
+                           std::set<std::string>& warnedExclusions);
 
 /// Sous-dossier des fonds de niveau, relatif au dossier d'assets (`LOT-44`).
 inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
