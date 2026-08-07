@@ -1,6 +1,6 @@
 # TACHE-03 — Format `nom-asset.anim.json` : lecture et mise en cache {#lot-46-tache-03-format-anim-json}
 
-**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Les clips sont désormais des données (TACHE-01), mais rien ne les décrit encore : il faut un format

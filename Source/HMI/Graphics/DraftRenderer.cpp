@@ -36,11 +36,17 @@ DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, Text
 void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
-    const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides) {
+    const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides,
+    float deltaSeconds) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
     }
+
+    // Apercu des tuiles animees (LOT-46 TACHE-05), en temps reel : meme mecanisme que
+    // GameSession, mais sans exigence de determinisme (EX-NFR-002 ne s'applique qu'en jeu).
+    advanceTileAnimations(_skins, _skinSet, _cache, deltaSeconds, _tileAnimations,
+                          _warnedExcludedAnimations);
 
     // Une seule scene pour toute l'image : l'ordre visuel est porte par les calques, plus par
     // l'ordre des appels de dessin (LOT-40). L'ordre de composition ci-dessous reste celui d'avant
@@ -49,9 +55,10 @@ void DraftRenderer::render(
     _scene.setVisibleBounds(camera.visibleBounds());
     composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
                       draft.tileMap().width(), draft.tileMap().height(), mode);
-    composeWorldSprites(
-        _scene, _world, mode,
-        sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides()), 1.0f);
+    composeWorldSprites(_scene, _world, mode,
+                        sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(),
+                                      _tileAnimations),
+                        1.0f);
     if (showGrid) {
         composeGrid(draft);
     }

@@ -85,14 +85,55 @@ const LoadedTexture* TextureCache::getUnderKey(const std::string& cacheKey,
     return _entries.getOrLoad(cacheKey, [&] { return load(fileName, family, maskType); });
 }
 
-// Retire une entree du cache, de sorte que le prochain get relise le fichier.
-void TextureCache::invalidate(const std::string& fileName) {
-    _entries.invalidate(fileName);
+// Charge et valide la description d'animation d'un asset depuis le disque (sans cache).
+std::optional<AnimationDescription> TextureCache::loadAnimation(const std::string& fileName,
+                                                                 int textureWidth,
+                                                                 int textureHeight) const {
+    const std::string descriptorName = AnimationCatalog::descriptorFileName(fileName);
+    const std::optional<std::filesystem::path> path = _paths.resolve(descriptorName);
+    if (!path) {
+        // Absence de fichier = image fixe : cas par defaut, silencieux (pas d'avertissement,
+        // LOT-46 TACHE-03) -- a la difference d'un asset texture introuvable (load(), ci-dessus).
+        return std::nullopt;
+    }
+
+    const AnimationDescriptionResult result = AnimationCatalog::loadFromFile(*path);
+    if (!result.ok()) {
+        GRAPHICS_LOG_WARNING("Animation " + fileName + " : " + result.error);
+        return std::nullopt;
+    }
+
+    const AssetValidation validation = AnimationCatalog::validateAgainstTexture(
+        *result.description, fileName, textureWidth, textureHeight);
+    if (!validation.valid) {
+        GRAPHICS_LOG_WARNING(validation.message);
+        return std::nullopt;
+    }
+
+    GRAPHICS_LOG_INFO("Animation chargee : " + descriptorName + " (" +
+                      std::to_string(result.description->clips.clipCount()) + " clip(s)).");
+    return result.description;
 }
 
-// Retire toutes les entrees du cache (rechargement global).
+// Obtient la description d'animation d'un asset, en la chargeant au premier acces.
+const AnimationDescription* TextureCache::getAnimation(const std::string& fileName,
+                                                        int textureWidth, int textureHeight) {
+    return _animationEntries.getOrLoad(
+        fileName, [&] { return loadAnimation(fileName, textureWidth, textureHeight); });
+}
+
+// Retire une entree du cache, de sorte que le prochain get relise le fichier. Invalidation
+// conjointe (LOT-46 TACHE-03) : la description d'animation associee, sous la meme cle, est
+// retiree en meme temps que la texture -- un seul point d'invalidation pour l'appelant.
+void TextureCache::invalidate(const std::string& fileName) {
+    _entries.invalidate(fileName);
+    _animationEntries.invalidate(fileName);
+}
+
+// Retire toutes les entrees du cache (rechargement global), textures et animations.
 void TextureCache::invalidateAll() {
     _entries.invalidateAll();
+    _animationEntries.invalidateAll();
 }
 
 // Texture de repli en damier magenta, creee une seule fois a la demande.

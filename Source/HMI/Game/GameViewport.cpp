@@ -507,11 +507,11 @@ void GameViewport::tick() {
         _input.beginFrame();
     }
 
-    renderFrame();
+    renderFrame(elapsedSeconds);
     requestUpdate();
 }
 
-void GameViewport::renderFrame() {
+void GameViewport::renderFrame(float deltaSeconds) {
     if (!isExposed()) {
         return;
     }
@@ -529,7 +529,7 @@ void GameViewport::renderFrame() {
         // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres outils.
         const bool showTextureOverrides = _tool == hmi::EditorTool::TextureAssign;
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
-                               showTextureOverrides);
+                               showTextureOverrides, deltaSeconds);
     }
     _graphics->present();
 }

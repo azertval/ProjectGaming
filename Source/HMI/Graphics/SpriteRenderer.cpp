@@ -1,7 +1,9 @@
 #include "HMI/Graphics/SpriteRenderer.h"
 
+#include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/World.h"
 #include "Core/Levels/Level.h"
+#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -45,7 +47,8 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
 // Textures liables par la composition d'une scene : atlas, damier de repli et skins (point unique).
 SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
                             const SkinCatalog* skins, const std::string& skinSet,
-                            const std::vector<core::TileTextureOverride>& textureOverrides) {
+                            const std::vector<core::TileTextureOverride>& textureOverrides,
+                            const std::unordered_map<std::string, core::Animation>& tileAnimations) {
     SceneTextures textures;
     textures.atlas = atlas.textureView();
     textures.atlasWidth = atlas.width();
@@ -98,8 +101,25 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         }
         const std::optional<core::TileType> maskType =
             hasSilhouette(type) ? std::optional<core::TileType>{type} : std::nullopt;
-        textures.skins.push_back(
-            SkinTexture{entry.asset, maskType, loaded->view.Get(), loaded->width, loaded->height});
+
+        // Image COURANTE d'un asset anime (LOT-46 TACHE-05), uniquement en mode Single sans
+        // silhouette : bitmask16 et le detourage de silhouette excluent l'animation (limite
+        // assumee, cf. GameSession::updateTileAnimations qui la signale). L'horloge partagee est
+        // deja avancee au pas fixe ; ici on ne fait QUE traduire son etat courant en region.
+        std::optional<core::AtlasRegion> animatedFrame;
+        if (!animationExcludedForTile(entry.mode, type)) {
+            const auto animationEntry = tileAnimations.find(entry.asset);
+            if (animationEntry != tileAnimations.end()) {
+                if (const AnimationDescription* description = cache.getAnimation(
+                        SKINS_SUBDIRECTORY + entry.asset, loaded->width, loaded->height)) {
+                    animatedFrame =
+                        AnimationCatalog::currentFrameRegion(*description, animationEntry->second);
+                }
+            }
+        }
+
+        textures.skins.push_back(SkinTexture{entry.asset, maskType, loaded->view.Get(),
+                                             loaded->width, loaded->height, animatedFrame});
     }
     return textures;
 }
@@ -120,6 +140,51 @@ BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& bac
     return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
 }
 
+// Avance l'horloge d'animation partagee des tuiles animees d'un jeu de skins courant (voir en-tete).
+void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
+                           TextureCache& cache, float deltaSeconds,
+                           std::unordered_map<std::string, core::Animation>& tileAnimations,
+                           std::set<std::string>& warnedExclusions) {
+    if (skins == nullptr) {
+        return;
+    }
+    const std::string& effectiveSet = skinSet.empty() ? skins->defaultSetName() : skinSet;
+    for (const auto& [type, entry] : skins->assignments(effectiveSet)) {
+        const AssetFamily family =
+            entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
+        const LoadedTexture* loaded = cache.get(SKINS_SUBDIRECTORY + entry.asset, family);
+        if (loaded == nullptr) {
+            continue;  // asset absent/illisible/refuse : deja journalise par le TextureCache.
+        }
+        const AnimationDescription* description =
+            cache.getAnimation(SKINS_SUBDIRECTORY + entry.asset, loaded->width, loaded->height);
+        if (description == nullptr) {
+            continue;  // pas de fichier d'animation : image fixe, cas par defaut silencieux.
+        }
+
+        // bitmask16 et silhouette detouree excluent l'animation (limite assumee, epic LOT-46
+        // TACHE-05) : signale UNE fois par asset plutot que silencieusement ignore.
+        if (animationExcludedForTile(entry.mode, type)) {
+            if (warnedExclusions.insert(entry.asset).second) {
+                GRAPHICS_LOG_WARNING(
+                    "Animation de '" + entry.asset + "' ignoree : combinaison non supportee (" +
+                    std::string(entry.mode == SkinMode::Bitmask16 ? "mode bitmask16"
+                                                                   : "silhouette detouree") +
+                    " + animation, LOT-46).");
+            }
+            continue;
+        }
+
+        core::Animation& animation = tileAnimations[entry.asset];
+        if (!animation.clips) {
+            // Premiere rencontre de cet asset : associe son jeu de clips (copie immuable,
+            // partagee par toutes les tuiles de ce type via sceneTextures -- LOT-46 TACHE-05).
+            animation.clips = std::make_shared<core::ClipSet>(description->clips);
+        }
+        core::advanceAnimation(animation, deltaSeconds);
+    }
+}
+
 // Construit le rendu de sprites.
 SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
     : _batch(&batch), _atlas(&atlas), _cache(&cache) {}
@@ -129,14 +194,16 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             float interpolationAlpha,
                             const std::optional<std::string>& background, int levelWidth,
                             int levelHeight,
-                            const std::vector<core::TileTextureOverride>& textureOverrides) {
+                            const std::vector<core::TileTextureOverride>& textureOverrides,
+                            const std::unordered_map<std::string, core::Animation>& tileAnimations) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
-    composeWorldSprites(_scene, world, mode,
-                        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides),
-                        interpolationAlpha);
+    composeWorldSprites(
+        _scene, world, mode,
+        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations),
+        interpolationAlpha);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

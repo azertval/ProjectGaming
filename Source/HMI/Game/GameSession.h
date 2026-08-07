@@ -1,7 +1,9 @@
 #pragma once
 
 #include <optional>
+#include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "Core/Ecs/Systems/AnimationSystem.h"
@@ -92,6 +94,8 @@ public:
      * @param skinSet Nom du jeu courant ; vide pour le jeu par défaut du catalogue.
      */
     void setSkins(const SkinCatalog* skins, std::string skinSet = {}) {
+        _tileSkins = skins;
+        _tileSkinSet = skinSet;
         _renderer.setSkins(skins, std::move(skinSet));
     }
 
@@ -117,8 +121,14 @@ private:
     void refreshPlayerSprite();
     void centerCameraOnRoom(core::GridPosition roomIndex);
     void updateCurrentRoom();
+    /// Avance l'horloge d'animation partagée des tuiles animées (`LOT-46` TACHE-05), au **pas
+    /// fixe** : une entrée de `_tileAnimations` par asset animé du jeu de skins courant, en mode
+    /// `SkinMode::Single` sans silhouette (`bitmask16` et silhouette détourée excluent
+    /// l'animation, signalé une fois par asset via `_warnedExcludedAnimations`).
+    void updateTileAnimations(float fixedDelta);
 
     const TextureAtlas& _atlas;
+    TextureCache& _cache;
     const GameKeyBindings& _gameBindings;
     const GamepadBindings& _gamepadBindings;
     core::World _world;
@@ -141,6 +151,19 @@ private:
     std::optional<RoomGrid> _roomGrid;
     core::GridPosition _currentRoomIndex{};
     std::string _loadError;
+
+    // Habillage des tuiles (LOT-46 TACHE-05) : copie locale de ce que setSkins() transmet aussi a
+    // _renderer, necessaire pour decouvrir les assets animes au pas fixe (update()), independamment
+    // du rendu (render()).
+    const SkinCatalog* _tileSkins = nullptr;  // non possede
+    std::string _tileSkinSet;
+    /// Horloge d'animation partagee, une entree par asset de tuile anime (nom de fichier -> etat).
+    /// Avancee une fois par asset et par pas fixe, jamais une fois par case (LOT-46 TACHE-05).
+    std::unordered_map<std::string, core::Animation> _tileAnimations;
+    /// Assets pour lesquels la combinaison (bitmask16 ou silhouette) + animation a deja ete
+    /// signalee : evite de journaliser a chaque pas fixe (GraphicsLog proscrit un message par
+    /// image/pas).
+    std::set<std::string> _warnedExcludedAnimations;
 };
 
 }  // namespace hmi

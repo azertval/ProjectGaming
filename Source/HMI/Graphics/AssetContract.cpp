@@ -38,9 +38,14 @@ AssetDimensionContract assetDimensionContract(AssetFamily family) noexcept {
             contract.minimumTiles = TextureAtlas::TILES_PER_SIDE;
             return contract;
         case AssetFamily::TileSkin:
-            // Exactement une case : un skin de tuile plus grand serait tronque silencieusement.
-            contract.exactWidth = TextureAtlas::TILE_SIZE;
+            // Une case de haut, un multiple de case en largeur : le cas historique (une seule
+            // case, LOT-42) est le cas particulier a une image ; un skin ANIME (LOT-46) est une
+            // spritesheet horizontale sur ce meme rang, plusieurs images de large. La coherence
+            // fine avec un eventuel fichier d'animation (nombre exact d'images, indices
+            // references) releve de hmi::AnimationCatalog::validateAgainstTexture, en aval.
             contract.exactHeight = TextureAtlas::TILE_SIZE;
+            contract.multipleOfTileSize = true;
+            contract.minimumTiles = 1;
             return contract;
         case AssetFamily::AutotileSheet:
             // Planche a raccords bitmask (LOT-42) : au moins 4x4 cases pour couvrir les 16

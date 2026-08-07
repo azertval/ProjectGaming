@@ -20,7 +20,7 @@ core::AtlasRegion TextureAtlas::tile(int column, int row) {
 }
 
 // Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.
-core::AtlasRegion TextureAtlas::playerFrameRegion(core::AnimationClip clip, int frameIndex) {
+core::AtlasRegion TextureAtlas::playerFrameRegion(PlayerClipKind clip, int frameIndex) {
     const int flatIndex = flatPlayerFrameIndex(clip, frameIndex);
     const int column = flatIndex % PLAYER_FRAME_COLUMNS;
     const int row = flatIndex / PLAYER_FRAME_COLUMNS;

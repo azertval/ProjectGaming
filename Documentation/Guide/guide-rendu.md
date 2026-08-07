@@ -276,22 +276,48 @@ coordonnées de pixel) — direct à lire et à ajuster pour une forme humanoïd
 (2 `Idle`, 4 `Run`, 1 `Jump`) sont produites par la même logique, avec des paramètres différents —
 pas 7 fonctions dupliquées.
 
-### L'animation : une projection de l'état physique, pas un état séparé
+### L'animation : des clips en données, une progression générale (`LOT-46`)
 
-`EX-REN-012` demande une animation par séquence d'images (repos, course, saut). Le clip actif et
-l'image courante sont portés par un composant `core::Animation` (`clip`, `frameIndex`, `elapsed`)
-et mis à jour chaque pas fixe par `core::AnimationSystem` (@ref guide-ecs) — **entièrement côté
-`Core`**, sans dépendance aux pixels ni à `HMI` (`EX-ARCH-011`) : le système lit
-`Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem` **pour le
-même pas** — l'ordre d'appel dans `GameSession::update` est significatif, @ref guide-ecs) pour
-déterminer si le personnage est en l'air, en train de courir, ou immobile ; aucun nouvel état n'est
-ajouté à `core::Player`, l'animation est une pure **conséquence** de l'état physique existant.
+`EX-REN-005`/`EX-REN-012` demandent une animation par séquence d'images, décrite par des
+**données** plutôt que codée en dur, et applicable à **toute** entité — pas seulement au
+personnage. Un clip (`core::AnimationClip`) est une donnée pure : un nom, une suite d'indices
+d'images, une durée par image, bouclé ou joué une fois (`core::ClipEndMode`) avec un clip suivant.
+Plusieurs clips forment un `core::ClipSet`, adressable par nom et résolu en index à l'ajout — la
+progression au pas fixe ne compare donc jamais de chaîne. Le composant `core::Animation` référence
+ce jeu de clips (`clips`, partagé via `shared_ptr` — plusieurs entités animées par le même jeu,
+comme toutes les tuiles d'eau d'un niveau, n'en dupliquent pas le contenu), le clip courant déjà
+résolu (`clipIndex`), l'image courante (`frameIndex`) et le temps écoulé (`elapsed`).
 
-Côté `HMI`, `GameSession::render` appelle `refreshPlayerSprite()` **à chaque frame** (pas seulement
-au spawn, à la différence de LOT-17) : elle lit `core::Animation` du personnage et met à jour
-`sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex)`. C'est la même
-séparation que partout ailleurs dans le rendu : `Core` décide **quoi** afficher (quel clip, quelle
-image), `HMI` sait seule **à quoi ça ressemble** (quels pixels).
+`core::AnimationSystem::update` (@ref guide-ecs) fait deux choses, dans une seule traversée des
+entités portant `core::Animation` — **entièrement côté `Core`**, sans dépendance aux pixels ni à
+`HMI` (`EX-ARCH-011`) :
+
+1. **projection**, spécifique au personnage : pour une entité `Player` + `Velocity` + `Animation`,
+   lit `Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem`
+   **pour le même pas** — l'ordre d'appel dans `GameSession::update` reste significatif) pour
+   choisir le clip cible par son **nom** (« idle », « run », « jump ») ; un changement de clip
+   réinitialise net l'image et le chronomètre, et consomme le pas sans faire progresser l'image ;
+2. **progression**, générale (`core::advanceAnimation`, réutilisable hors ECS) : avance l'image
+   courante selon la durée du clip résolu, boucle ou bascule sur le clip suivant en fin de clip
+   joué une fois. Une entité sans projection spécifique (une tuile animée, `LOT-46` TACHE-05)
+   progresse par ce seul mécanisme.
+
+Le personnage reste le seul consommateur de la projection ; son jeu de clips migré à l'identique
+(mêmes durées, mêmes images qu'avant `LOT-46`) est construit par `core::playerClipSet()`. Côté
+`HMI`, `GameSession::render` appelle toujours `refreshPlayerSprite()` à chaque image : elle lit
+`core::Animation` du personnage et traduit `clipIndex`/`frameIndex` en région via
+`_atlas.playerFrameRegion(hmi::PlayerClipKind, frameIndex)` — `hmi::PlayerClipKind` est une
+énumération **côté présentation seulement** (`ProceduralAtlas.h`), distincte de `core::AnimationClip`
+générique : `Core` ignore désormais jusqu'à l'existence de ces trois poses en particulier
+(`EX-ARCH-012`).
+
+Une description `nom-asset.anim.json` (`hmi::AnimationCatalog`), lue à côté de l'asset et mise en
+cache par `hmi::TextureCache` (invalidée conjointement avec la texture), permet d'animer un skin de
+tuile (eau, lave, torche) sans code supplémentaire : une horloge d'animation est alors partagée par
+**asset**, pas par tuile (`GameSession::updateTileAnimations`, avancée au pas fixe), pour que toutes
+les tuiles d'un même type restent en phase sans coût par case ; la région courante est résolue à la
+**composition** (`hmi::sceneTextures`/`resolveTileAppearance`), jamais écrite dans `core::Sprite`.
+Un asset sans fichier d'animation reste une image fixe, sans erreur ni avertissement.
 
 ## \ref hmi::SpriteRenderer "hmi::SpriteRenderer" : le pont ECS → écran
 
@@ -438,8 +464,8 @@ de cette page qu'il modifie, dans l'ordre :
   plus haut dans cette page).
 - **`LOT-42`** — le **skin des tuiles** et les raccords automatiques : le lot à partir duquel le
   mode Texture cesse d'afficher un damier.
-- **`LOT-46`** — les animations décrites par des **données** et non par un `enum` figé, applicables
-  à toute entité et plus seulement au personnage.
+- **`LOT-46`** — *livré* : les animations décrites par des **données** et non par un `enum` figé,
+  applicables à toute entité et plus seulement au personnage (décrit plus haut dans cette page).
 - **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
   personnage.
 - **`LOT-52`** — le retour du texte dans la scène rendue.

@@ -256,7 +256,10 @@ protected:
 private:
     void ensureResources();
     void tick();
-    void renderFrame();
+    /// @p deltaSeconds : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance
+    /// l'aperçu des tuiles animées de l'éditeur) ; `0` (défaut) pour un redessin sans avancer
+    /// l'aperçu (redimensionnement).
+    void renderFrame(float deltaSeconds = 0.0f);
     void stopPlaytest();  ///< Termine l'essai et restitue l'éditeur (brouillon intact).
     void loadGameLevel(std::size_t index);  ///< Charge le niveau @p index de la séquence de jeu.
     void updateMousePosition(const QMouseEvent* event);

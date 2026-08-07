@@ -5,6 +5,7 @@ add_library(Core STATIC
     Math/Rect.cpp
     Ecs/EntityManager.cpp
     Ecs/World.cpp
+    Ecs/AnimationClip.cpp
     Ecs/Systems/MovementSystem.cpp
     Ecs/Systems/CharacterPhysicsSystem.cpp
     Ecs/Systems/AnimationSystem.cpp

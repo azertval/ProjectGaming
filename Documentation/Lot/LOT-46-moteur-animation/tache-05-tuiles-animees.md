@@ -1,6 +1,6 @@
 # TACHE-05 — Skins de tuiles animés {#lot-46-tache-05-tuiles-animees}
 
-**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Une fois le moteur généralisé, animer une tuile ne demande presque rien : un skin (LOT-42) désigne

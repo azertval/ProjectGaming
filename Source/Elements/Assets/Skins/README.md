@@ -7,8 +7,12 @@ l'éditeur : la liste est peuplée par **balayage de ce dossier**, jamais par sa
 
 Dimensions attendues, validées au chargement (`EX-REN-007`) :
 
-- **16×16 pixels** pour un skin en mode `single` ;
-- **64×64 pixels** (4×4 cases de 16) pour une planche en mode `bitmask16`.
+- **16×16 pixels** pour un skin en mode `single` fixe, ou **16×(16×N) pixels** (une case de haut,
+  N cases de large) pour un skin en mode `single` **animé** — une spritesheet horizontale dont
+  chaque case est une image, décrite par un fichier `<asset>.anim.json` à côté du PNG (`LOT-46`,
+  voir `Documentation/Lot/LOT-46-moteur-animation/`) ;
+- **64×64 pixels** (4×4 cases de 16) pour une planche en mode `bitmask16` — `bitmask16` exclut
+  l'animation (limite assumée, `LOT-46` TACHE-05).
 
 La convention de contenu de chaque case d'une planche est décrite dans le
 [README du dossier parent](../README.md).
@@ -39,3 +43,21 @@ Le catalogue livré (`../skins.json`) les assigne dans un jeu nommé `test`, et 
 
 Un artiste remplacera ces fichiers par les vrais assets, sans toucher au code : c'est précisément
 ce que le format permet.
+
+## Skins **animés** de démonstration (`LOT-46`)
+
+Trois assets animés, générés par script comme ci-dessus (même esprit, sans dépendance externe) :
+
+```
+python scripts/generate_test_animations.py
+```
+
+| Fichier | Clip | Sert à vérifier |
+|---|---|---|
+| `water.png` + `water.anim.json` | `wave`, 4 images, 0,15 s/image | une nappe d'eau ondulante |
+| `lava.png` + `lava.anim.json` | `bubble`, 4 images, 0,2 s/image | une coulée de lave |
+| `torch.png` + `torch.anim.json` | `flicker`, 3 images, 0,1 s/image | une flamme qui vacille |
+
+Non assignés dans `skins.json` : les affecter à un type depuis le panneau « Textures » de
+l'éditeur (mode `single` uniquement — `bitmask16` exclut l'animation, `LOT-46` TACHE-05) est un
+choix de contenu, pas une conséquence du moteur.

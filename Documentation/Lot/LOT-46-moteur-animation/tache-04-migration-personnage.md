@@ -1,6 +1,6 @@
 # TACHE-04 — Migration des clips du personnage {#lot-46-tache-04-migration-personnage}
 
-**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core`, `Source/HMI/Graphics`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-46](epic.md) · **Emplacement :** `Source/Core`, `Source/HMI/Graphics`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 Le personnage est le seul consommateur actuel de l'animation, et il l'utilise à travers trois

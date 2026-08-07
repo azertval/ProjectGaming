@@ -59,6 +59,11 @@ struct SkinTexture {
     int width = 0;
     /// Hauteur de la texture, en pixels.
     int height = 0;
+    /// Région de l'image **courante** à échantillonner si cet asset est animé (`LOT-46`
+    /// TACHE-05), `std::nullopt` sinon (image fixe : région entière, comme avant ce lot). N'a de
+    /// sens qu'en mode `SkinMode::Single` sans silhouette : `bitmask16` et le détourage de
+    /// silhouette excluent l'animation (limite assumée, voir `resolveTileAppearance`).
+    std::optional<core::AtlasRegion> animatedFrame;
 };
 
 /**
@@ -242,5 +247,21 @@ private:
                                                    const core::AtlasRegion& physicalRegion,
                                                    const TileSkinTag* tag,
                                                    const SceneTextures& textures) noexcept;
+
+/**
+ * @brief Indique si la combinaison (mode de skin, type de tuile) exclut l'animation
+ *        (`LOT-46` TACHE-05).
+ *
+ * `SkinMode::Bitmask16` (la case dépend du voisinage solide) et une silhouette détourée
+ * (pente/arrondi, `hmi::hasSilhouette`) choisissent déjà la case à échantillonner dans l'image ;
+ * l'animation en ajouterait une seconde façon, jamais implémentée — limite assumée plutôt que
+ * silencieuse (voir l'epic `LOT-46`). Fonction **pure**, testable sans GPU : c'est elle que
+ * `GameSession::updateTileAnimations` interroge pour décider de signaler la combinaison au lieu
+ * de l'ignorer.
+ * @param mode Mode de découpage du skin assigné.
+ * @param type Type de tuile concerné.
+ * @return `true` si l'animation doit être ignorée pour cette combinaison.
+ */
+[[nodiscard]] bool animationExcludedForTile(SkinMode mode, core::TileType type) noexcept;
 
 }  // namespace hmi
