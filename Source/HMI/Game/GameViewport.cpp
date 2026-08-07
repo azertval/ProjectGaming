@@ -159,14 +159,44 @@ void GameViewport::ensureResources() {
 }
 
 void GameViewport::updateEditCamera() {
+    _camera.setViewportSize(pixelWidth(), pixelHeight());
+    if (_manualCamera) {
+        _camera.setZoom(_manualZoom);
+        _camera.setCenter(_manualCenter);
+        return;
+    }
     const int levelWidth = _draft.tileMap().width();
     const int levelHeight = _draft.tileMap().height();
-    _camera.setViewportSize(pixelWidth(), pixelHeight());
     _camera.setZoom(hmi::Camera2D::fitZoom(
         static_cast<float>(pixelWidth()), static_cast<float>(pixelHeight()),
         static_cast<float>(levelWidth), static_cast<float>(levelHeight), 0.92f));
     _camera.setCenter(core::Vector2{static_cast<float>(levelWidth) * 0.5f,
                                     static_cast<float>(levelHeight) * 0.5f});
+}
+
+core::Vector2 GameViewport::screenPosition(const QMouseEvent* event) const {
+    const qreal ratio = devicePixelRatio();
+    return core::Vector2{static_cast<float>(event->position().x() * ratio),
+                         static_cast<float>(event->position().y() * ratio)};
+}
+
+float GameViewport::minManualZoom() const {
+    return hmi::Camera2D::fitZoom(
+        static_cast<float>(pixelWidth()), static_cast<float>(pixelHeight()),
+        static_cast<float>(_draft.tileMap().width()), static_cast<float>(_draft.tileMap().height()),
+        0.92f);
+}
+
+float GameViewport::maxManualZoom() const {
+    // Laisse au moins 4 cases visibles sur le plus petit axe de l'ecran : precision jugee
+    // suffisante pour poser un bloc (ajustement post-livraison, LOT-15). Borne au minimum : un
+    // niveau plus petit que 4 cases sur un axe rendrait sinon ce maximum inferieur au minimum
+    // (std::clamp exige min <= max), verrouillant le zoom a l'ajustement automatique.
+    constexpr float MINIMUM_VISIBLE_CELLS = 4.0f;
+    const float smallerAxis =
+        static_cast<float>((std::min)(pixelWidth(), pixelHeight()));
+    const float rawMax = smallerAxis / (MINIMUM_VISIBLE_CELLS * hmi::Camera2D::PIXELS_PER_UNIT);
+    return (std::max)(rawMax, minManualZoom());
 }
 
 std::optional<core::GridPosition> GameViewport::cellAt(const QMouseEvent* event) {
@@ -614,6 +644,10 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         _showGrid = !_showGrid;  // bascule de la grille de repère (comme l'éditeur historique).
         return;
     }
+    if (event->key() == Qt::Key_0) {
+        _manualCamera = false;  // reinitialise au cadrage automatique (LOT-15).
+        return;
+    }
     if (event->isAutoRepeat()) {
         return;
     }
@@ -662,6 +696,7 @@ void GameViewport::openLevel(const std::filesystem::path& path) {
     _dirty = false;
     _pendingLink.reset();
     _selectedLink.reset();
+    _manualCamera = false;  // cadrage automatique sur le niveau ouvert (LOT-15), pas l'ancien pan/zoom.
     markDraftMutated();
     HMI_LOG_INFO("Editeur : niveau ouvert : " + path.string());
     emit statusMessage(
@@ -787,11 +822,12 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
         return;
     }
     if (event->button() == Qt::RightButton) {
-        // Seul l'outil « Texture par instance » (LOT-45) reagit au clic droit (retrait explicite) ;
-        // les autres outils l'ignorent, comme avant ce lot.
-        if (_tool == hmi::EditorTool::TextureAssign) {
-            handleTextureAssignClick(event, /*rightClick=*/true);
-        }
+        // Le bouton droit sert au pan (glisser) ET, pour l'outil « Texture par instance »
+        // (LOT-45), au retrait explicite (clic sans glisser) -- la decision entre les deux est
+        // prise a la relache, une fois qu'on sait si un glisser a eu lieu.
+        _rightDragging = true;
+        _cameraPanned = false;
+        _rightDragLastScreen = screenPosition(event);
         return;
     }
     if (event->button() != Qt::LeftButton) {
@@ -823,6 +859,17 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonUp(*button);
     }
+    if (event->button() == Qt::RightButton) {
+        // Glisser droit sans mouvement significatif = un clic : l'outil « Texture par instance »
+        // (LOT-45) y retire l'override de la case, les autres outils l'ignorent (aucun clic droit
+        // avant ce lot). Un glisser (pan) ne declenche jamais d'action d'edition.
+        if (_rightDragging && !_cameraPanned && _tool == hmi::EditorTool::TextureAssign) {
+            handleTextureAssignClick(event, /*rightClick=*/true);
+        }
+        _rightDragging = false;
+        _cameraPanned = false;
+        return;
+    }
     if (event->button() != Qt::LeftButton) {
         return;
     }
@@ -847,6 +894,26 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
     if (_session) {
         return;
     }
+    if (_rightDragging) {
+        constexpr float PAN_THRESHOLD_PIXELS = 3.0f;  // au-dela : un glisser, pas un clic.
+        const core::Vector2 current = screenPosition(event);
+        const core::Vector2 delta = current - _rightDragLastScreen;
+        if (std::abs(delta.x) > PAN_THRESHOLD_PIXELS || std::abs(delta.y) > PAN_THRESHOLD_PIXELS) {
+            _cameraPanned = true;
+        }
+        if (!_manualCamera) {
+            // Premier glisser : demarre le cadrage manuel a partir du cadrage automatique
+            // courant, pour ne pas faire sauter la vue.
+            updateEditCamera();
+            _manualZoom = _camera.zoom();
+            _manualCenter = _camera.center();
+            _manualCamera = true;
+        }
+        const float scale = hmi::Camera2D::PIXELS_PER_UNIT * _manualZoom;
+        _manualCenter.x -= delta.x / scale;
+        _manualCenter.y -= delta.y / scale;
+        _rightDragLastScreen = current;
+    }
     if (const std::optional<core::GridPosition> cell = cellAt(event)) {
         _hoverCell = *cell;  // cible du collage (Ctrl+V)
     }
@@ -859,6 +926,23 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
 
 void GameViewport::wheelEvent(QWheelEvent* event) {
     _input.onMouseWheel(event->angleDelta().y());
+    if (_session) {
+        return;  // essai/jeu : la molette n'alimente que l'input, aucun zoom manuel.
+    }
+    const int notches = event->angleDelta().y() / 120;  // 120 = un cran de molette (Qt/Win32).
+    if (notches == 0) {
+        return;
+    }
+    if (!_manualCamera) {
+        // Premier cran : demarre le cadrage manuel a partir du cadrage automatique courant, pour
+        // ne pas faire sauter la vue au premier zoom.
+        updateEditCamera();
+        _manualZoom = _camera.zoom();
+        _manualCenter = _camera.center();
+        _manualCamera = true;
+    }
+    _manualZoom = std::clamp(_manualZoom + static_cast<float>(notches), minManualZoom(),
+                             maxManualZoom());
 }
 
 }  // namespace hmi

@@ -71,7 +71,7 @@ assets.references_warning = « %1 » est utilisé par : %2
 assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
-status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille
+status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille · molette : zoom · clic droit : déplacer · 0 : recadrer
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau

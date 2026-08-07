@@ -12,3 +12,15 @@ nombre d'images restant libre : seule la **première case** (coin haut-gauche) e
 lot — un asset animé (plusieurs cases) s'affiche donc en image fixe jusqu'à ce que `LOT-46` ajoute
 le choix du clip, sans que le format d'override change ensuite. Un fichier absent ou illisible
 retombe sur le damier magenta, avec un avertissement journalisé nommant l'asset (`EX-NFR-040`).
+
+## Contenu actuel : textures de **test**
+
+`door_red.png` et `crate_blue.png` sont **schématiques** et servent à vérifier l'assignation par
+instance (priorité sur le skin du type), pas à habiller le jeu. Générées par script, donc
+reproductibles et modifiables sans éditeur d'image :
+
+```
+python scripts/generate_test_objects.py
+```
+
+Un artiste les remplacera par les vrais assets, sans toucher au code.
