@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**580 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**584 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (497)
+## Tests unitaires (501)
 
 ### Core
 
@@ -468,7 +468,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (20)
+#### Editor (24)
 
 **`test_level_name_validation.cpp`**
 
@@ -479,6 +479,15 @@
 | **LevelNameValidationTest.CaractereInterditInvalide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:42`</sub> | Un nom contenant un caractère interdit par le système de fichiers Windows est invalide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Niveau:1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau/1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\\\1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau*1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau?1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\\"1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau<1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau>1")` est faux.<br/>Vérifie que `hmi::isValidLevelName("Niveau\|1")` est faux. |
 | **LevelNameValidationTest.NomAccentueValide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:67`</sub> | Un nom accentué (Unicode) reste valide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::isValidLevelName("Fort\\xC3\\xA9resse")` est vrai. |
 | **LevelNameValidationTest.TrimRetireLesEspacesDeBord** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_level_name_validation.cpp:81`</sub> | trimLevelName retire les espaces de bord sans toucher au contenu. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::trimLevelName(" Niveau 1 ")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.<br/>Vérifie que `hmi::trimLevelName(" ")` vaut `""`. |
+
+**`test_mechanism_animation_assignments.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **MechanismAnimationAssignmentsTest.UneLigneParFamille** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp:61`</sub> | La section Animations propose exactement les six familles de mecanismes a etat. | 1. Construire les lignes pour un catalogue vide. | Vérifie que `rows.size()` vaut `std::size(hmi::MECHANISM_ANIMATION_TYPES)`.<br/>Vérifie que `rows[index].type` vaut `hmi::MECHANISM_ANIMATION_TYPES[index]`.<br/>Vérifie que `rows[index].asset.empty()` est vrai.<br/>Vérifie que `rows[index].missingClips.empty()` est vrai. |
+| **MechanismAnimationAssignmentsTest.AssetSansAnimationListeToutManquant** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp:87`</sub> | Un asset assigne sans .anim.json liste tous les clips attendus comme manquants. | 1. Assigner un asset a Door, sans creer de fichier d'animation. | Vérifie que `door` diffère de `nullptr`.<br/>Vérifie que `door->asset` vaut `"door.png"`.<br/>Vérifie que `door->missingClips` vaut `hmi::mechanismExpectedClips(core::TileType::Door)`. |
+| **MechanismAnimationAssignmentsTest.AssetCompletNeManqueRien** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp:111`</sub> | Un asset fournissant tous les clips attendus ne signale rien de manquant. | 1. Assigner un asset a Switch et deposer un .anim.json avec ses deux clips attendus. | Vérifie que `row` diffère de `nullptr`.<br/>Vérifie que `row->missingClips.empty()` est vrai. |
+| **MechanismAnimationAssignmentsTest.AssetPartielSignaleLeReste** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp:137`</sub> | Un asset partiel signale uniquement les clips absents. | 1. Assigner un asset a Door dont le .anim.json ne fournit que « closed » et « open ». | Vérifie que `door` diffère de `nullptr`.<br/>Vérifie que `door->missingClips` vaut `(std::vector<std::string>{hmi::MECHANISM_CLIP_DOOR_OPENING, hmi::MECHANISM_CLIP_DOOR_CLOSING})`. |
 
 **`test_palette_appearance.cpp`**
 
@@ -644,7 +653,7 @@
 | **SkinCatalogTest.AssignationPuisRetrait** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp:345`</sub> | Assigner puis retirer un skin change la resolution du type concerne. | 1. Assigner un asset a Danger dans un catalogue vide, puis resoudre.<br/> 2. Retirer l'assignation, puis resoudre a nouveau. | Vérifie que `catalog.defaultSetName()` vaut `"foret"`.<br/>Vérifie que `assigned.has_value()` est vrai.<br/>Vérifie que `assigned->asset` vaut `"spikes.png"`.<br/>Vérifie que `catalog.resolve("foret", core::TileType::Danger).has_value()` est faux. |
 | **SkinCatalogTest.OrdreDesJeuxStable** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp:372`</sub> | Les noms de jeux sont rendus dans un ordre alphabetique stable. | 1. Creer trois jeux dans un ordre quelconque. | Vérifie que `catalog.setNames()` vaut `expected`. |
 | **SkinCatalogTest.CatalogueLivreValide** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp:393`</sub> | Le fichier de skins livre avec le jeu se lit sans erreur. | 1. Lire Source/Elements/Assets/skins.json depuis les sources. | Vérifie que `std::filesystem::exists(path)` est vrai.<br/>Vérifie que `result.ok()` est vrai.<br/>Vérifie que `sets.empty()` est faux.<br/>Vérifie que `std::find(sets.begin(), sets.end(), result.catalog->defaultSetName())` diffère de `sets.end()`. |
-| **SkinCatalogTest.AssetsDuCatalogueLivreConformes** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp:416`</sub> | Chaque asset reference par le catalogue livre existe aux bonnes dimensions. | 1. Lire le catalogue livre et parcourir toutes les assignations de tous les jeux.<br/> 2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `std::filesystem::exists(path)` est vrai.<br/>Vérifie que `size.has_value()` est vrai.<br/>Vérifie que `size->first` vaut `expected`.<br/>Vérifie que `size->second` vaut `expected`. |
+| **SkinCatalogTest.AssetsDuCatalogueLivreConformes** (Critique)<br/><sub>`Source/Test/Unit/HMI/Graphics/test_skin_catalog.cpp:416`</sub> | Chaque asset reference par le catalogue livre existe aux bonnes dimensions. | 1. Lire le catalogue livre et parcourir toutes les assignations de tous les jeux.<br/> 2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions. | Vérifie que `result.ok()` est vrai.<br/>Vérifie que `std::filesystem::exists(path)` est vrai.<br/>Vérifie que `size.has_value()` est vrai.<br/>Vérifie que `size->first` vaut `TILE * hmi::AUTOTILE_SHEET_SIDE`.<br/>Vérifie que `size->second` vaut `TILE * hmi::AUTOTILE_SHEET_SIDE`.<br/>Vérifie que `size->second` vaut `TILE`.<br/>Vérifie que `size->first` est strictement supérieur à `0`.<br/>Vérifie que `size->first % TILE` vaut `0`. |
 
 **`test_slope_mask.cpp`**
 
