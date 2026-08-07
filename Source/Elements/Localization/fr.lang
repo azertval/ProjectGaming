@@ -72,6 +72,9 @@ assets.operation_failed = Opération impossible
 
 # Barre de statut et dialogues
 status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer · F10 : grille · molette : zoom · clic droit : déplacer · 0 : recadrer
+status.texture_assigned = Texture assignée : %1
+status.texture_removed = Texture retirée.
+status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau

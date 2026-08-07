@@ -341,16 +341,25 @@ void GameViewport::handleTextureAssignClick(const QMouseEvent* event, bool right
         *cell, clickedType, existingOverride, _activeTextureAsset, rightClick);
     switch (decision.action) {
         case hmi::TextureAssignAction::Ignore:
+            // Cas silencieux le plus deroutant : cliquer pour assigner sans avoir choisi d'asset
+            // dans la bibliotheque "Objets" ne fait rien -- le signaler, sinon l'action semble ne
+            // pas marcher du tout.
+            if (!rightClick && clickedType != core::TileType::Empty && !_activeTextureAsset) {
+                emit statusMessage(statusText("status.texture_no_asset_selected"));
+            }
             break;
         case hmi::TextureAssignAction::Assign:
             _draft.setTextureOverride(decision.cell, decision.assetName);
             _dirty = true;
             markDraftMutated();
+            emit statusMessage(statusText("status.texture_assigned")
+                                   .arg(QString::fromStdString(decision.assetName)));
             break;
         case hmi::TextureAssignAction::Remove:
             _draft.removeTextureOverride(decision.cell);
             _dirty = true;
             markDraftMutated();
+            emit statusMessage(statusText("status.texture_removed"));
             break;
     }
 }
