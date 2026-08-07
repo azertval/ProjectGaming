@@ -9,6 +9,7 @@ add_executable(UnitTests
     Unit/Core/Math/test_rect.cpp
     Unit/Core/Math/test_math_utils.cpp
     Unit/Core/Ecs/test_entity_manager.cpp
+    Unit/Core/Ecs/test_animation_clip.cpp
     Unit/Core/Ecs/test_component_pool.cpp
     Unit/Core/Ecs/test_view.cpp
     Unit/Core/Ecs/test_world.cpp
@@ -46,6 +47,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_asset_paths.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_texture_atlas.cpp
+    Unit/HMI/Graphics/test_animation_catalog.cpp
+    Unit/HMI/Graphics/test_animated_tiles.cpp
     Unit/HMI/Graphics/test_asset_contract.cpp
     Unit/HMI/Graphics/test_missing_texture.cpp
     Unit/HMI/Graphics/test_quad_recorder.cpp
@@ -100,6 +103,9 @@ add_executable(UnitTests
     # Le catalogue de skins (LOT-42) est une configuration de presentation lue/ecrite en JSON,
     # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
     ../HMI/Graphics/SkinCatalog.cpp
+    # Le format d'animation nom-asset.anim.json (LOT-46) est une lecture/validation JSON pure,
+    # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
+    ../HMI/Graphics/AnimationCatalog.cpp
     # La table de raccords automatiques (LOT-42) est de la pure arithmetique de voisinage, sans
     # texture ni GPU : testable exhaustivement hors GPU (EX-NFR-004).
     ../HMI/Graphics/TileAutotile.cpp

@@ -2,7 +2,6 @@
 
 #include <optional>
 
-#include "Core/Ecs/Components/Animation.h"
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -195,18 +194,18 @@ struct Pose {
     LegPose legs;
 };
 
-Pose poseFor(core::AnimationClip clip, int frameIndex) {
+Pose poseFor(PlayerClipKind clip, int frameIndex) {
     switch (clip) {
-        case core::AnimationClip::Idle:
+        case PlayerClipKind::Idle:
             // Image 0 : bras relaches. Image 1 : legerement resserres (respiration/attente).
             return (frameIndex == 0) ? Pose{ArmPose::Wide, LegPose::Neutral}
                                      : Pose{ArmPose::Tucked, LegPose::Neutral};
-        case core::AnimationClip::Run:
+        case PlayerClipKind::Run:
             // Alterne jambes ecartees (phase basse, bras relaches) et jambes neutres (phase
             // haute, bras resserres) : deux poses distinctes suffisent a lire un cycle de course.
             return (frameIndex % 2 == 0) ? Pose{ArmPose::Wide, LegPose::Apart}
                                          : Pose{ArmPose::Tucked, LegPose::Neutral};
-        case core::AnimationClip::Jump:
+        case PlayerClipKind::Jump:
             return Pose{ArmPose::Wide, LegPose::Tucked};
     }
     return Pose{ArmPose::Wide, LegPose::Neutral};
@@ -214,14 +213,14 @@ Pose poseFor(core::AnimationClip clip, int frameIndex) {
 }  // namespace
 
 // Index à plat (0-based) d'une image dans la grille sous les tuiles.
-int flatPlayerFrameIndex(core::AnimationClip clip, int frameIndex) {
+int flatPlayerFrameIndex(PlayerClipKind clip, int frameIndex) {
     switch (clip) {
-        case core::AnimationClip::Idle:
+        case PlayerClipKind::Idle:
             return frameIndex;
-        case core::AnimationClip::Run:
-            return core::IDLE_FRAME_COUNT + frameIndex;
-        case core::AnimationClip::Jump:
-            return core::IDLE_FRAME_COUNT + core::RUN_FRAME_COUNT + frameIndex;
+        case PlayerClipKind::Run:
+            return PLAYER_IDLE_FRAME_COUNT + frameIndex;
+        case PlayerClipKind::Jump:
+            return PLAYER_IDLE_FRAME_COUNT + PLAYER_RUN_FRAME_COUNT + frameIndex;
     }
     return 0;
 }
@@ -232,7 +231,8 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
     // La grille d'images du personnage est ajoutee sous la grille de tuiles, dans la meme
     // texture (le rendu ne dessine qu'une seule texture par passe, cf. SpriteRenderer). Le
     // nombre total d'images (Idle + Run + Jump) determine le nombre de lignes necessaires.
-    const int totalFrames = core::IDLE_FRAME_COUNT + core::RUN_FRAME_COUNT + core::JUMP_FRAME_COUNT;
+    const int totalFrames =
+        PLAYER_IDLE_FRAME_COUNT + PLAYER_RUN_FRAME_COUNT + PLAYER_JUMP_FRAME_COUNT;
     const int frameRows =
         (totalFrames + TextureAtlas::PLAYER_FRAME_COLUMNS - 1) / TextureAtlas::PLAYER_FRAME_COLUMNS;
     const int framesTop = gridSide;
@@ -273,9 +273,9 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
     }
 
     // Chaque image (clip, index) occupe un bloc 16x16 de la grille sous les tuiles, dans
-    // l'ordre Idle, Run, Jump (celui de core::AnimationClip — un seul ordre, partage avec
+    // l'ordre Idle, Run, Jump (celui de hmi::PlayerClipKind — un seul ordre, partage avec
     // TextureAtlas::playerFrameRegion, pas de table de correspondance dupliquee).
-    auto paintFrame = [&](core::AnimationClip clip, int frameIndex) {
+    auto paintFrame = [&](PlayerClipKind clip, int frameIndex) {
         const Pose pose = poseFor(clip, frameIndex);
         const int flatIndex = flatPlayerFrameIndex(clip, frameIndex);
         const int column = flatIndex % TextureAtlas::PLAYER_FRAME_COLUMNS;
@@ -292,14 +292,14 @@ ProceduralAtlasImage buildProceduralAtlasImage() {
             }
         }
     };
-    for (int frame = 0; frame < core::IDLE_FRAME_COUNT; ++frame) {
-        paintFrame(core::AnimationClip::Idle, frame);
+    for (int frame = 0; frame < PLAYER_IDLE_FRAME_COUNT; ++frame) {
+        paintFrame(PlayerClipKind::Idle, frame);
     }
-    for (int frame = 0; frame < core::RUN_FRAME_COUNT; ++frame) {
-        paintFrame(core::AnimationClip::Run, frame);
+    for (int frame = 0; frame < PLAYER_RUN_FRAME_COUNT; ++frame) {
+        paintFrame(PlayerClipKind::Run, frame);
     }
-    for (int frame = 0; frame < core::JUMP_FRAME_COUNT; ++frame) {
-        paintFrame(core::AnimationClip::Jump, frame);
+    for (int frame = 0; frame < PLAYER_JUMP_FRAME_COUNT; ++frame) {
+        paintFrame(PlayerClipKind::Jump, frame);
     }
 
     return image;

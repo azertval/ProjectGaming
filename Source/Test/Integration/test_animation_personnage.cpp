@@ -2,10 +2,11 @@
  * @file test_animation_personnage.cpp
  * @brief Tests d'intégration de l'animation du personnage : ECS + système d'animation assemblés.
  *
- * `AnimationSystem` dérive le clip (`Idle`/`Run`/`Jump`) et l'image courante de l'état physique
- * du personnage (`Player::grounded`, `Velocity`). On vérifie la sélection de clip, le bouclage des
- * images à la bonne cadence, la réinitialisation nette au changement de clip, et l'absence
- * d'effet sur une entité sans composant `Animation`.
+ * `AnimationSystem` dérive le clip (idle/run/jump) et l'image courante de l'état physique du
+ * personnage (`Player::grounded`, `Velocity`). Test de **référence** (`LOT-46` TACHE-04) : la
+ * migration vers le moteur générique piloté par données ne doit produire **aucune** différence de
+ * comportement — mêmes attentes qu'avant le lot, exprimées avec la nouvelle API (`clipIndex`
+ * résolu dans `core::playerClipSet()`, plutôt que l'ancien `enum class core::AnimationClip`).
  */
 
 #include <gtest/gtest.h>
@@ -26,7 +27,10 @@ core::Entity spawnCharacter(core::World& world, bool grounded, float velocityX) 
     player.grounded = grounded;
     world.addComponent(entity, player);
     world.addComponent(entity, core::Velocity{core::Vector2{velocityX, 0.0f}});
-    world.addComponent(entity, core::Animation{});
+    core::Animation animation;
+    animation.clips = core::playerClipSet();
+    animation.clipIndex = core::PLAYER_CLIP_IDLE;
+    world.addComponent(entity, animation);
     return entity;
 }
 }  // namespace
@@ -51,14 +55,14 @@ TEST(AnimationPersonnageIntegration, ImmobileAuSolEstEnRepos) {
     system.update(world, STEP);
 
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
-    EXPECT_EQ(animation.clip, core::AnimationClip::Idle);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_IDLE);
     EXPECT_EQ(animation.frameIndex, 0);
 
     // 0,5 s à 60 Hz = 30 pas : l'image de repos doit avoir bouclé au moins une fois (2 images).
     for (int i = 0; i < 31; ++i) {
         system.update(world, STEP);
     }
-    EXPECT_EQ(animation.clip, core::AnimationClip::Idle);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_IDLE);
     EXPECT_EQ(animation.frameIndex, 1);
 }
 
@@ -79,10 +83,10 @@ TEST(AnimationPersonnageIntegration, EnMouvementAuSolCourt) {
     const core::Entity entity = spawnCharacter(world, /*grounded=*/true, /*velocityX=*/3.0f);
 
     core::AnimationSystem system;
-    system.update(world, STEP);
+    system.update(world, STEP);  // Idle -> Run : consomme le pas de transition (pas d'accumulation).
 
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
-    EXPECT_EQ(animation.clip, core::AnimationClip::Run);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_RUN);
     EXPECT_EQ(animation.frameIndex, 0);
 
     // Durée d'une image de course : 0,1 s (6 pas à 60 Hz). Vérifie le passage 0 -> 1 -> 2 -> 3 -> 0.
@@ -90,7 +94,7 @@ TEST(AnimationPersonnageIntegration, EnMouvementAuSolCourt) {
         for (int i = 0; i < 6; ++i) {
             system.update(world, STEP);
         }
-        EXPECT_EQ(animation.clip, core::AnimationClip::Run);
+        EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_RUN);
         EXPECT_EQ(animation.frameIndex, expectedFrame);
     }
 }
@@ -116,7 +120,7 @@ TEST(AnimationPersonnageIntegration, EnLAirEstEnSaut) {
     }
 
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
-    EXPECT_EQ(animation.clip, core::AnimationClip::Jump);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_JUMP);
     EXPECT_EQ(animation.frameIndex, 0);
 }
 
@@ -133,12 +137,7 @@ TEST(AnimationPersonnageIntegration, EnLAirEstEnSaut) {
  */
 TEST(AnimationPersonnageIntegration, ChangementDeClipReinitialiseLImage) {
     core::World world;
-    const core::Entity entity = world.createEntity();
-    core::Player player;
-    player.grounded = true;
-    world.addComponent(entity, player);
-    world.addComponent(entity, core::Velocity{core::Vector2{3.0f, 0.0f}});
-    world.addComponent(entity, core::Animation{});
+    const core::Entity entity = spawnCharacter(world, /*grounded=*/true, /*velocityX=*/3.0f);
     core::Velocity& velocity = world.getComponent<core::Velocity>(entity);
 
     core::AnimationSystem system;
@@ -148,7 +147,7 @@ TEST(AnimationPersonnageIntegration, ChangementDeClipReinitialiseLImage) {
         system.update(world, STEP);
     }
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
-    ASSERT_EQ(animation.clip, core::AnimationClip::Run);
+    ASSERT_EQ(animation.clipIndex, core::PLAYER_CLIP_RUN);
     ASSERT_EQ(animation.frameIndex, 1);
 
     // Décollage : au sol -> en l'air, en cours de course.
@@ -156,7 +155,7 @@ TEST(AnimationPersonnageIntegration, ChangementDeClipReinitialiseLImage) {
     velocity.value.x = 3.0f;
     system.update(world, STEP);
 
-    EXPECT_EQ(animation.clip, core::AnimationClip::Jump);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_JUMP);
     EXPECT_EQ(animation.frameIndex, 0);
     EXPECT_FLOAT_EQ(animation.elapsed, 0.0f);
 }
@@ -183,4 +182,32 @@ TEST(AnimationPersonnageIntegration, EntiteSansAnimationIgnoree) {
     }
 
     EXPECT_FALSE(world.hasComponent<core::Animation>(entity));
+}
+
+/**
+ * @brief Une entité portant Animation mais sans jeu de clips assigné n'est pas affectée
+ *        (`EX-NFR-040`) : aucune donnée à progresser, ni plantage.
+ * \castest{<b>Une entité Animation sans jeu de clips assigné reste inerte, sans planter.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'animation reste à ses valeurs par défaut, sans exception.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, AnimationSansJeuDeClipsResteInerte) {
+    core::World world;
+    const core::Entity entity = world.createEntity();
+    world.addComponent(entity, core::Player{});
+    world.addComponent(entity, core::Velocity{});
+    world.addComponent(entity, core::Animation{});  // clips == nullptr
+
+    core::AnimationSystem system;
+    for (int i = 0; i < 10; ++i) {
+        system.update(world, STEP);
+    }
+
+    const core::Animation& animation = world.getComponent<core::Animation>(entity);
+    EXPECT_EQ(animation.clipIndex, 0);
+    EXPECT_EQ(animation.frameIndex, 0);
 }

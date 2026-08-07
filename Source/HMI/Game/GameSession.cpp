@@ -19,9 +19,11 @@
 #include "Core/Physics/AabbVsAabb.h"
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
+#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
+#include "HMI/Graphics/TextureCache.h"
 #include "HMI/Graphics/TileAutotile.h"
 #include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
@@ -31,11 +33,29 @@
 
 namespace hmi {
 
+namespace {
+// Traduit l'index de clip resolu par Core (core::PLAYER_CLIP_IDLE/_RUN/_JUMP, core::playerClipSet)
+// en identite de clip cote presentation (hmi::PlayerClipKind, ProceduralAtlas.h) : les deux ordres
+// sont deliberement les memes, mais restent deux enumerations distinctes de part et d'autre de la
+// frontiere Core/HMI (EX-ARCH-012) -- Core ne connait pas hmi::PlayerClipKind.
+PlayerClipKind playerClipKindFromIndex(int clipIndex) {
+    switch (clipIndex) {
+        case core::PLAYER_CLIP_RUN:
+            return PlayerClipKind::Run;
+        case core::PLAYER_CLIP_JUMP:
+            return PlayerClipKind::Jump;
+        default:
+            return PlayerClipKind::Idle;
+    }
+}
+}  // namespace
+
 GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
                          int viewportWidth, int viewportHeight, core::Level level,
                          const GameKeyBindings& gameBindings,
                          const GamepadBindings& gamepadBindings)
     : _atlas(atlas),
+      _cache(cache),
       _gameBindings(gameBindings),
       _gamepadBindings(gamepadBindings),
       _camera(viewportWidth, viewportHeight),
@@ -195,9 +215,12 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
     playerComponent.jumpsRemaining = _level->jumpBudget();
     playerComponent.dashesRemaining = _level->dashBudget();
     _world.addComponent(_player, playerComponent);
-    _world.addComponent(_player, core::Animation{});
+    core::Animation animation;
+    animation.clips = core::playerClipSet();
+    animation.clipIndex = core::PLAYER_CLIP_IDLE;
+    _world.addComponent(_player, animation);
     core::Sprite sprite;
-    sprite.region = _atlas.playerFrameRegion(core::AnimationClip::Idle, 0);
+    sprite.region = _atlas.playerFrameRegion(PlayerClipKind::Idle, 0);
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
     // Calque de dessin nomme (LOT-40, EX-REN-014) : le personnage passe devant les tuiles parce
@@ -300,7 +323,52 @@ std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() const {
 void GameSession::refreshPlayerSprite() {
     const core::Animation& animation = _world.getComponent<core::Animation>(_player);
     core::Sprite& sprite = _world.getComponent<core::Sprite>(_player);
-    sprite.region = _atlas.playerFrameRegion(animation.clip, animation.frameIndex);
+    sprite.region = _atlas.playerFrameRegion(playerClipKindFromIndex(animation.clipIndex),
+                                             animation.frameIndex);
+}
+
+// Avance l'horloge d'animation partagee des tuiles animees, au pas fixe (LOT-46 TACHE-05).
+void GameSession::updateTileAnimations(float fixedDelta) {
+    if (_tileSkins == nullptr) {
+        return;
+    }
+    const std::string& effectiveSet =
+        _tileSkinSet.empty() ? _tileSkins->defaultSetName() : _tileSkinSet;
+    for (const auto& [type, entry] : _tileSkins->assignments(effectiveSet)) {
+        const AssetFamily family =
+            entry.mode == SkinMode::Bitmask16 ? AssetFamily::AutotileSheet : AssetFamily::TileSkin;
+        const LoadedTexture* loaded = _cache.get(SKINS_SUBDIRECTORY + entry.asset, family);
+        if (loaded == nullptr) {
+            continue;  // asset absent/illisible/refuse : deja journalise par le TextureCache.
+        }
+        const AnimationDescription* description =
+            _cache.getAnimation(entry.asset, loaded->width, loaded->height);
+        if (description == nullptr) {
+            continue;  // pas de fichier d'animation : image fixe, cas par defaut silencieux.
+        }
+
+        // bitmask16 et silhouette detouree excluent l'animation (limite assumee, cf. epic
+        // LOT-46 TACHE-05, hmi::animationExcludedForTile) : signale UNE fois par asset plutot
+        // que silencieusement ignore.
+        if (animationExcludedForTile(entry.mode, type)) {
+            if (_warnedExcludedAnimations.insert(entry.asset).second) {
+                HMI_LOG_WARNING(
+                    "Animation de '" + entry.asset + "' ignoree : combinaison non supportee (" +
+                    std::string(entry.mode == SkinMode::Bitmask16 ? "mode bitmask16"
+                                                                   : "silhouette detouree") +
+                    " + animation, LOT-46).");
+            }
+            continue;
+        }
+
+        core::Animation& animation = _tileAnimations[entry.asset];
+        if (!animation.clips) {
+            // Premiere rencontre de cet asset : associe son jeu de clips (copie immuable,
+            // partagee par toutes les tuiles de ce type via sceneTextures -- LOT-46 TACHE-05).
+            animation.clips = std::make_shared<core::ClipSet>(description->clips);
+        }
+        core::advanceAnimation(animation, fixedDelta);
+    }
 }
 
 void GameSession::snapshotPreviousPositions() {
@@ -403,6 +471,9 @@ core::LevelOutcome GameSession::update(const InputState& input, float fixedDelta
 
     // 2ter. Animation (EX-REN-012) : derivee de l'etat physique qui vient d'etre mis a jour.
     _animation.update(_world, fixedDelta);
+    // 2ter bis. Tuiles animees (LOT-46 TACHE-05) : horloge partagee par asset, au meme pas fixe
+    // (jamais au rythme du rendu, pour rester deterministe -- EX-NFR-002).
+    updateTileAnimations(fixedDelta);
 
     // 3. Boite du personnage apres deplacement.
     const core::Transform& transform = _world.getComponent<core::Transform>(_player);
@@ -453,7 +524,7 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
-                     _levelHeight, _level->textureOverrides());
+                     _levelHeight, _level->textureOverrides(), _tileAnimations);
 }
 
 }  // namespace hmi

@@ -2,11 +2,13 @@
 
 #include <optional>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
 #include <DirectXMath.h>
 
+#include "Core/Ecs/Components/Animation.h"
 #include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SkinCatalog.h"
@@ -67,12 +69,17 @@ inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
  *                 `LOT-45`) ; chaque asset distinct est chargé une fois (`hmi::SceneTextures::
  *                 objects`), un asset déjà chargé ou introuvable étant silencieusement ignoré (la
  *                 résolution retombe sur le damier, avertissement déjà journalisé par le cache).
+ * @param tileAnimations Horloge d'animation partagée par asset de tuile (`LOT-46` TACHE-05,
+ *                 `GameSession::updateTileAnimations`, avancée au **pas fixe**) : un skin en mode
+ *                 `SkinMode::Single`, sans silhouette, dont l'asset est animé et présent dans
+ *                 cette table échantillonne l'image **courante** plutôt que l'image entière.
  * @return Les textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
  */
 [[nodiscard]] SceneTextures sceneTextures(
     const TextureAtlas& atlas, TextureCache& cache, const SkinCatalog* skins = nullptr,
     const std::string& skinSet = {},
-    const std::vector<core::TileTextureOverride>& textureOverrides = {});
+    const std::vector<core::TileTextureOverride>& textureOverrides = {},
+    const std::unordered_map<std::string, core::Animation>& tileAnimations = {});
 
 /**
  * @brief Résout la texture de fond d'un niveau (accès `TextureCache`/GPU, `LOT-44`).
@@ -137,11 +144,14 @@ public:
      * @param levelHeight Hauteur du niveau, en unités monde.
      * @param textureOverrides Surcharges de texture par instance du niveau courant (`EX-EDIT-043`,
      *                    `LOT-45`), transmises telles quelles à `hmi::sceneTextures`.
+     * @param tileAnimations Horloge d'animation partagée par asset de tuile (`LOT-46` TACHE-05),
+     *                    transmise telle quelle à `hmi::sceneTextures`.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
                 int levelWidth = 0, int levelHeight = 0,
-                const std::vector<core::TileTextureOverride>& textureOverrides = {});
+                const std::vector<core::TileTextureOverride>& textureOverrides = {},
+                const std::unordered_map<std::string, core::Animation>& tileAnimations = {});
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

@@ -3,8 +3,8 @@
 #include <d3d11.h>
 #include <wrl/client.h>
 
-#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Sprite.h"
+#include "HMI/Graphics/ProceduralAtlas.h"
 
 /**
  * @file HMI/Graphics/TextureAtlas.h
@@ -86,12 +86,11 @@ public:
      *
      * Pure arithmétique de grille (aucun état d'instance) : `static`, testable sans GPU
      * (`EX-NFR-010`).
-     * @param clip       Clip d'animation (`EX-REN-012`).
+     * @param clip       Clip d'animation du personnage (`hmi::PlayerClipKind`, `EX-REN-012`).
      * @param frameIndex Index de l'image dans le clip (0-based).
      * @return La région d'atlas (16×16, carrée) de cette image (`EX-REN-011`).
      */
-    [[nodiscard]] static core::AtlasRegion playerFrameRegion(core::AnimationClip clip,
-                                                             int frameIndex);
+    [[nodiscard]] static core::AtlasRegion playerFrameRegion(PlayerClipKind clip, int frameIndex);
 
 private:
     /// Essaie de charger `Assets/atlas.png`. @return true si la texture a été créée avec succès.

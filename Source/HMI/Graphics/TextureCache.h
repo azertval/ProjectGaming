@@ -6,6 +6,7 @@
 #include <d3d11.h>
 
 #include "Core/Levels/TileType.h"
+#include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
 #include "HMI/Graphics/CacheRegistry.h"
@@ -99,15 +100,36 @@ public:
                                                  core::TileType type);
 
     /**
+     * @brief Obtient la description d'animation d'un asset (`nom-asset.anim.json`, `LOT-46`
+     *        TACHE-03), en la chargeant et la validant au premier accès.
+     *
+     * **Absence de fichier** : cas par défaut (asset non animé), renvoie `nullptr` **sans
+     * avertissement**. **Fichier présent mais invalide**, ou incohérent avec les dimensions
+     * décodées du PNG (@p textureWidth/@p textureHeight, déjà connues via `get`/`getMasked`) :
+     * `nullptr`, avec un avertissement journalisé une seule fois (même mémoïsation des échecs que
+     * `get`, `EX-NFR-040`).
+     * @param fileName      Nom logique de l'asset animé (ex. « water.png »), pas du descripteur.
+     * @param textureWidth  Largeur décodée du PNG de cet asset, en pixels.
+     * @param textureHeight Hauteur décodée du PNG de cet asset, en pixels.
+     * @return La description, ou `nullptr` si l'asset n'est pas animé ou que sa description est
+     *         invalide.
+     */
+    [[nodiscard]] const AnimationDescription* getAnimation(const std::string& fileName,
+                                                            int textureWidth, int textureHeight);
+
+    /**
      * @brief Retire une entrée du cache, de sorte que le prochain `get` relise le fichier.
      *
-     * Retire aussi un éventuel **échec** mémorisé : c'est ce qui permet à un asset créé après coup
-     * d'être pris en compte sans redémarrer (rechargement à chaud, `LOT-43`).
+     * Retire aussi un éventuel **échec** mémorisé, et la description d'animation associée le cas
+     * échéant (`getAnimation`, `LOT-46` TACHE-03, invalidation **conjointe**) : c'est ce qui
+     * permet à un asset créé ou modifié après coup — texture ou son fichier d'animation — d'être
+     * pris en compte sans redémarrer (rechargement à chaud, `LOT-43`).
      * @param fileName Nom logique du fichier à oublier (sans effet s'il n'est pas en cache).
      */
     void invalidate(const std::string& fileName);
 
-    /// Retire **toutes** les entrées du cache (rechargement global, `LOT-43`/`LOT-54`).
+    /// Retire **toutes** les entrées du cache (rechargement global, `LOT-43`/`LOT-54`), textures
+    /// **et** descriptions d'animation (invalidation conjointe, `LOT-46` TACHE-03).
     void invalidateAll();
 
     /// @return Le nombre d'entrées mémorisées (succès **et** échecs), pour le diagnostic.
@@ -142,12 +164,23 @@ private:
                                                    const std::string& fileName, AssetFamily family,
                                                    std::optional<core::TileType> maskType);
 
+    /// Charge et valide la description d'animation d'un asset depuis le disque (sans cache),
+    /// via `hmi::AnimationCatalog`. `std::nullopt` couvre aussi bien l'absence de fichier
+    /// (silencieuse) qu'un échec de lecture/validation (journalisé par `getAnimation`).
+    [[nodiscard]] std::optional<AnimationDescription> loadAnimation(const std::string& fileName,
+                                                                     int textureWidth,
+                                                                     int textureHeight) const;
+
     ID3D11Device* _device;  // non possédé
     AssetPaths _paths;
     /// Nom logique → texture chargée ; mémorise aussi un **échec** déjà journalisé. La
     /// mémoïsation/invalidation elle-même est factorisée dans `hmi::CacheRegistry` (`LOT-43`),
     /// testable sans GPU ; seul le **chargement** (`load`) reste ici, spécifique à Direct3D 11.
     CacheRegistry<LoadedTexture> _entries;
+    /// Nom logique → description d'animation, sous la **même clé** que `_entries` (`LOT-46`
+    /// TACHE-03) : c'est ce qui permet à `invalidate`/`invalidateAll` de rester le seul point
+    /// d'invalidation, conjointe entre texture et animation.
+    CacheRegistry<AnimationDescription> _animationEntries;
     std::optional<LoadedTexture> _missingTexture;
 };
 

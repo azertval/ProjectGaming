@@ -24,15 +24,22 @@ namespace {
 }
 
 // Region a echantillonner dans un skin, selon son mode de decoupage.
-[[nodiscard]] core::AtlasRegion skinRegion(const SkinEntry& entry,
-                                           const TileSkinTag& tag) noexcept {
+[[nodiscard]] core::AtlasRegion skinRegion(const SkinEntry& entry, const TileSkinTag& tag,
+                                           const SkinTexture& texture) noexcept {
     constexpr int SIZE = TextureAtlas::TILE_SIZE;
     if (entry.mode == SkinMode::Bitmask16) {
         // La case depend du voisinage solide, calcule une fois a la construction de la scene.
+        // Bitmask16 exclut l'animation (LOT-46 TACHE-05, limite assumee) : texture.animatedFrame
+        // n'est jamais renseigne pour ce mode (voir hmi::sceneTextures), ignore ici de toute facon.
         const AutotileCell cell = autotileCell(tag.neighborMask);
         return core::AtlasRegion{cell.column * SIZE, cell.row * SIZE, SIZE, SIZE};
     }
-    // Mode single : l'image entiere, qui fait exactement une case (contrat d'asset TileSkin).
+    // Mode single anime (LOT-46 TACHE-05) : l'image COURANTE plutot que l'image entiere.
+    if (texture.animatedFrame) {
+        return *texture.animatedFrame;
+    }
+    // Mode single, non anime : l'image entiere, qui fait exactement une case (contrat d'asset
+    // TileSkin).
     return core::AtlasRegion{0, 0, SIZE, SIZE};
 }
 
@@ -82,7 +89,14 @@ TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& p
         return missingAppearance();
     }
 
-    return TileAppearance{AppearanceSource::Skin, skinRegion(*entry, *tag), index};
+    return TileAppearance{AppearanceSource::Skin,
+                          skinRegion(*entry, *tag, textures.skins[static_cast<std::size_t>(index)]),
+                          index};
+}
+
+// Indique si la combinaison (mode de skin, type de tuile) exclut l'animation (voir en-tete).
+bool animationExcludedForTile(SkinMode mode, core::TileType type) noexcept {
+    return mode == SkinMode::Bitmask16 || hasSilhouette(type);
 }
 
 }  // namespace hmi
