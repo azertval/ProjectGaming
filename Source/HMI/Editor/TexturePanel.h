@@ -1,9 +1,11 @@
 #pragma once
 
+#include <QPixmap>
 #include <QWidget>
 #include <filesystem>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/SkinCatalog.h"
@@ -39,7 +41,8 @@ class Localization;
  * `assignmentsChanged`, que le viewport et la palette consomment pour se rafraîchir.
  *
  * La logique alimentant l'arbre est **hors** du widget (`hmi::buildSkinRows`,
- * `hmi::listSkinAssets`, `hmi::applySkinAssignment`), donc testée sans Qt (`EX-NFR-010`).
+ * `hmi::applySkinAssignment`), donc testée sans Qt (`EX-NFR-010`). Le choix du fichier assigné à un
+ * type se fait par vignettes (`hmi::AssetThumbnailView`, `LOT-43`), pas par saisie de nom.
  */
 class TexturePanel : public QWidget {
     Q_OBJECT
@@ -69,16 +72,32 @@ public:
     /// Applique la langue active (titre des sections, en-têtes de colonnes, libellés de types).
     void retranslateUi(const Localization& loc);
 
+    /**
+     * @brief Recharge l'arbre depuis le disque après un rechargement à chaud (`LOT-43` TACHE-03).
+     *
+     * Vide le cache de vignettes des lignes (un fichier a pu être modifié hors de l'application)
+     * puis reconstruit l'arbre : le catalogue lui-même est déjà à jour (rechargé en place par
+     * l'appelant, `GameViewport::reloadAssets`), seuls le balayage du dossier et les vignettes
+     * doivent être refaits.
+     */
+    void reloadAssets();
+
 signals:
     /// Émis après toute modification d'assignation ou changement de jeu courant, une fois le
     /// catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.
     void assignmentsChanged();
+    /// Émis quand l'utilisateur demande un rechargement à chaud des textures (`LOT-43` TACHE-03).
+    void reloadRequested();
 
 private:
     void rebuildTree();
     void onSetChanged(int index);
     void onItemChanged(QStandardItem* item);
+    void onAssetColumnActivated(const QModelIndex& index);
     void save();
+    /// Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en
+    /// cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, `LOT-40`).
+    [[nodiscard]] QPixmap thumbnailFor(const std::string& asset);
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
@@ -86,9 +105,10 @@ private:
     std::filesystem::path _catalogPath;
     SkinCatalog* _catalog = nullptr;  ///< Non possédé (propriété de `GameViewport`).
     std::string _currentSet;
-    std::vector<std::string> _assets;    ///< Fichiers assignables, balayés au dernier rafraîchissement.
     bool _updating = false;              ///< Garde de réentrance pendant la reconstruction du modèle.
     const Localization* _loc = nullptr;  ///< Catalogue courant (nul avant première retraduction).
+    /// Fichier de skin (vide pour « aucun ») -> vignette décodée. Vidé par `reloadAssets`.
+    std::unordered_map<std::string, QPixmap> _thumbnails;
 };
 
 }  // namespace hmi

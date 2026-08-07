@@ -276,6 +276,32 @@ void GameViewport::setSkinSet(const std::string& setName) {
     _skinSet = setName;
 }
 
+void GameViewport::reloadAssets() {
+    // Invalidation avant relecture du catalogue : un asset renomme doit disparaitre du cache
+    // AVANT que la nouvelle assignation ne pointe vers son remplacant.
+    if (_textureCache) {
+        _textureCache->invalidateAll();
+    }
+    // skins.json a pu changer hors de l'application (renommage/suppression d'un asset) : on le
+    // relit entierement, comme au demarrage. _skins garde son adresse (membre) : DraftRenderer et
+    // la session en cours, qui n'en detiennent qu'un pointeur, voient le nouveau contenu sans
+    // etre re-cables (LOT-42).
+    hmi::SkinCatalogResult skins =
+        hmi::SkinCatalog::loadFromFile(hmi::executableDirectory() / "Assets" / "skins.json");
+    if (skins.ok()) {
+        _skins = std::move(*skins.catalog);
+    }
+    // Aucune reconstruction de scene necessaire : l'apparence est resolue a la composition de
+    // chaque image (hmi::DraftRenderer), donc l'image suivante montre deja le resultat (LOT-42).
+    HMI_LOG_INFO("Viewport : rechargement a chaud des assets.");
+}
+
+void GameViewport::invalidateAsset(const std::string& fileName) {
+    if (_textureCache) {
+        _textureCache->invalidate(fileName);
+    }
+}
+
 bool GameViewport::linkExists(core::GridPosition switchPosition,
                               core::GridPosition targetPosition) const {
     for (const core::Mechanism& mechanism : _draft.mechanisms()) {

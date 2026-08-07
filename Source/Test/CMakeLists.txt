@@ -54,6 +54,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_tile_autotile.cpp
     Unit/HMI/Graphics/test_tile_skin_resolution.cpp
     Unit/HMI/Graphics/test_slope_mask.cpp
+    Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -63,6 +64,9 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_level_file_operations.cpp
     Unit/HMI/Editor/test_link_geometry.cpp
     Unit/HMI/Editor/test_link_gesture.cpp
+    Unit/HMI/Editor/test_asset_library.cpp
+    Unit/HMI/Editor/test_asset_file_operations.cpp
+    Unit/HMI/Editor/test_asset_references.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
     ../HMI/Graphics/Camera2D.cpp
@@ -140,6 +144,14 @@ add_executable(UnitTests
     # logique pure, testable hors GPU/Qt.
     ../HMI/Editor/LinkGeometry.cpp
     ../HMI/Editor/LinkGesture.cpp
+    # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
+    # testable hors Qt.
+    ../HMI/Editor/AssetLibrary.cpp
+    # Opérations fichiers sur les assets (LOT-43), pendant d'AssetLibrary/LevelFileOperations :
+    # le décodage (Qt) reste chez l'appelant, cette classe ne fait que std::filesystem.
+    ../HMI/Editor/AssetFileOperations.cpp
+    # Détection des références à un asset dans skins.json (LOT-43) : pure, sans Qt/GPU/fichier.
+    ../HMI/Editor/AssetReferences.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

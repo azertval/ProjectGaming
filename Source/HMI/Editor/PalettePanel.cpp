@@ -133,10 +133,15 @@ void PalettePanel::refreshThumbnails(RenderMode mode, const std::string& setName
     _mode = mode;
     _skinSet = setName;
     // Les images decodees restent valables : c'est le CHOIX de vignette qui change, pas le contenu
-    // des fichiers. Seul le rechargement a chaud (LOT-43) devra vider ce cache.
+    // des fichiers. clearThumbnailCache() vide le cache quand le contenu a reellement change
+    // (rechargement a chaud, LOT-43).
     _model->clear();
     buildModel();
     _tree->expandAll();
+}
+
+void PalettePanel::clearThumbnailCache() {
+    _decoded.clear();
 }
 
 // Vignette d'un type dans le mode courant : meme decision que le canevas, rendue en pixels ici.

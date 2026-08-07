@@ -35,6 +35,23 @@ textures.column_type = Tile type
 textures.column_asset = File
 textures.column_mode = Mode
 textures.none = (none)
+textures.pick_asset = Choose an asset
+textures.reload = Reload
+textures.reload_tooltip = Reload textures from disk
+textures.reload_done = Textures reloaded.
+
+# Shared asset library (LOT-43)
+assets.search = Search…
+assets.none = (none)
+assets.import = Import
+assets.rename = Rename
+assets.duplicate = Duplicate
+assets.delete = Delete
+assets.rename_prompt = New name:
+assets.delete_title = Delete
+assets.delete_confirm = Permanently delete “%1”?
+assets.references_warning = “%1” is used by: %2
+assets.operation_failed = Operation failed
 
 # Status bar and dialogs
 status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F10: grid

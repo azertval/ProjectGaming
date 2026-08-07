@@ -1,6 +1,6 @@
 # TACHE-01 — Widget de vignettes partagé {#lot-43-tache-01-widget-vignettes}
 
-**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le panneau « Textures » livré en LOT-42 sélectionne les assets par **liste de noms de fichiers**.

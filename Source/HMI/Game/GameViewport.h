@@ -159,6 +159,26 @@ public:
     void setSkinSet(const std::string& setName);
 
     /**
+     * @brief Rechargement à chaud **global** des assets graphiques (`LOT-43` TACHE-03).
+     *
+     * Invalide tout le `TextureCache` et relit `skins.json` — un asset a pu être modifié,
+     * renommé ou ajouté hors de l'application. Ne touche ni au brouillon en cours d'édition ni à
+     * son historique d'annulation : c'est une opération de **présentation**, pas d'édition.
+     * L'apparence est résolue à la composition de chaque image (`hmi::DraftRenderer`), donc
+     * l'image suivante suffit à montrer le résultat — aucune reconstruction de scène nécessaire.
+     */
+    void reloadAssets();
+
+    /**
+     * @brief Rechargement à chaud **ciblé** d'un seul asset (`LOT-43` TACHE-03).
+     *
+     * Évite de relire toute la bibliothèque à chaque sauvegarde — utilisé par l'atelier pixel art
+     * (`LOT-54`) après chaque enregistrement.
+     * @param fileName Nom logique de l'asset à invalider (relatif à `Assets/`).
+     */
+    void invalidateAsset(const std::string& fileName);
+
+    /**
      * @brief Choisit le mode de rendu et **persiste** le choix (`EX-REN-046`, `EX-IHM-011`).
      *
      * Purement visuel : ni la simulation, ni la scène ECS, ni le brouillon ne sont touchés — la

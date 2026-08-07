@@ -79,25 +79,20 @@ const LoadedTexture* TextureCache::getMasked(const std::string& fileName, AssetF
 const LoadedTexture* TextureCache::getUnderKey(const std::string& cacheKey,
                                                const std::string& fileName, AssetFamily family,
                                                std::optional<core::TileType> maskType) {
-    // Un echec deja constate est memorise (entree a std::nullopt) : sans cela, un asset manquant
-    // relirait le disque et rejouerait son avertissement a chaque image.
-    const auto found = _entries.find(cacheKey);
-    if (found != _entries.end()) {
-        return found->second ? &*found->second : nullptr;
-    }
-
-    const auto inserted = _entries.emplace(cacheKey, load(fileName, family, maskType)).first;
-    return inserted->second ? &*inserted->second : nullptr;
+    // La memoisation (et la memorisation d'un echec deja constate) est deleguee a CacheRegistry :
+    // sans elle, un asset manquant relirait le disque et rejouerait son avertissement a chaque
+    // image.
+    return _entries.getOrLoad(cacheKey, [&] { return load(fileName, family, maskType); });
 }
 
 // Retire une entree du cache, de sorte que le prochain get relise le fichier.
 void TextureCache::invalidate(const std::string& fileName) {
-    _entries.erase(fileName);
+    _entries.invalidate(fileName);
 }
 
 // Retire toutes les entrees du cache (rechargement global).
 void TextureCache::invalidateAll() {
-    _entries.clear();
+    _entries.invalidateAll();
 }
 
 // Texture de repli en damier magenta, creee une seule fois a la demande.

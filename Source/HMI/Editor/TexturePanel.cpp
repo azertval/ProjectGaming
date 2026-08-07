@@ -2,9 +2,14 @@
 
 #include <QAbstractItemModel>
 #include <QComboBox>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QHeaderView>
+#include <QIcon>
+#include <QImage>
 #include <QList>
 #include <QModelIndex>
+#include <QPushButton>
 #include <QSignalBlocker>
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -12,13 +17,23 @@
 #include <QStringList>
 #include <QStyledItemDelegate>
 #include <QTreeView>
+#include <QVBoxLayout>
 #include <QVariant>
 
+#include <cstdint>
+#include <cstring>
+#include <optional>
 #include <utility>
+#include <vector>
 
+#include "HMI/Editor/AssetReferences.h"
+#include "HMI/Editor/AssetThumbnailView.h"
 #include "HMI/Editor/SkinAssignments.h"
 #include "HMI/Editor/TaxonomyLabels.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/ProceduralAtlas.h"
+#include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Localization/Localization.h"
 #include "ui_TexturePanel.h"
 
@@ -35,6 +50,10 @@ constexpr int COLUMN_COUNT = 3;
 // Role portant le core::TileType d'une ligne (les en-tetes de section n'en ont pas).
 constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
 
+// Cote des vignettes affichees dans l'arbre, en pixels d'ecran (repere visuel, pas une vignette
+// de selection -- le choix se fait dans AssetPickerDialog, a une taille plus grande).
+constexpr int ROW_ICON_SIZE = 20;
+
 // Valeur affichee pour « aucun skin assigne ». Traduite : c'est une entree de liste comme une
 // autre pour l'utilisateur.
 [[nodiscard]] QString noneLabel(const Localization* loc) {
@@ -42,10 +61,26 @@ constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
                           : QString::fromStdString(loc->text("textures.none"));
 }
 
-// Editeur en liste fermee, dont les choix sont portes par la cellule (role Qt::UserRole).
-// Le delegue par defaut de Qt offrirait un champ de saisie libre : l'utilisateur pourrait y taper
-// un nom de fichier inexistant, ce que le cadrage du lot exclut explicitement (selection par
-// balayage de dossier, jamais de saisie de chemin).
+// Texte localise d'une cle (repli sur la cle si aucun catalogue -- ne survient pas en pratique).
+[[nodiscard]] QString t(const Localization* loc, const char* key) {
+    return loc != nullptr ? QString::fromStdString(loc->text(key)) : QString::fromLatin1(key);
+}
+
+// Convertit des pixels RGBA decodes en QImage. Meme conversion que PalettePanel/
+// AssetThumbnailView : trop petite pour justifier une fonction partagee entre trois widgets
+// independants.
+[[nodiscard]] QImage toImage(const DecodedImage& decoded) {
+    QImage image(decoded.width, decoded.height, QImage::Format_RGBA8888);
+    for (int y = 0; y < decoded.height; ++y) {
+        const std::uint32_t* const row =
+            decoded.pixels.data() + static_cast<std::size_t>(y) * decoded.width;
+        std::memcpy(image.scanLine(y), row, static_cast<std::size_t>(decoded.width) * 4);
+    }
+    return image;
+}
+
+// Editeur en liste fermee pour la colonne Mode (deux choix fixes) : le seul delegue par defaut de
+// Qt offrirait une saisie libre, incoherente avec des valeurs enumerees.
 class ChoiceDelegate : public QStyledItemDelegate {
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
@@ -71,6 +106,47 @@ public:
     }
 };
 
+// Dialogue de selection d'un asset a vignettes (LOT-43 TACHE-01), enveloppe minimale autour du
+// widget partage : ce panneau ne connait que les skins, donc configure AssetThumbnailView pour
+// cette semantique (dossier, famille, verificateur de references) sans que le widget lui-meme en
+// sache quoi que ce soit.
+class AssetPickerDialog : public QDialog {
+public:
+    AssetPickerDialog(std::filesystem::path directory, const Localization* loc, QWidget* parent)
+        : QDialog(parent), _view(new AssetThumbnailView(this)) {
+        setWindowTitle(t(loc, "textures.pick_asset"));
+        _view->setAssetFamily(AssetFamily::TileSkin);
+        if (loc != nullptr) {
+            _view->retranslateUi(*loc);
+        }
+        _view->setDirectory(std::move(directory));
+
+        auto* const buttons =
+            new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+        connect(buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
+        connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
+        connect(_view, &AssetThumbnailView::assetActivated, this, [this] { accept(); });
+
+        auto* const layout = new QVBoxLayout(this);
+        layout->addWidget(_view);
+        layout->addWidget(buttons);
+        resize(480, 360);
+    }
+
+    void setReferenceChecker(AssetThumbnailView::ReferenceChecker checker) {
+        _view->setReferenceChecker(std::move(checker));
+    }
+    void selectAsset(const std::string& fileName) {
+        _view->selectAsset(fileName);
+    }
+    [[nodiscard]] std::string selectedAsset() const {
+        return _view->selectedAsset();
+    }
+
+private:
+    AssetThumbnailView* _view;
+};
+
 }  // namespace
 
 TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
@@ -84,12 +160,16 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
     _model->setColumnCount(COLUMN_COUNT);
     _ui->skinsTree->setModel(_model);
     _ui->skinsTree->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    // Fichier et mode se choisissent dans une liste fermee, jamais en saisie libre.
-    _ui->skinsTree->setItemDelegateForColumn(COLUMN_ASSET, new ChoiceDelegate(this));
+    // Le mode se choisit dans une liste fermee (deux valeurs) ; le fichier se choisit desormais
+    // par vignettes (LOT-43 TACHE-01), via un double-clic ouvrant AssetPickerDialog.
     _ui->skinsTree->setItemDelegateForColumn(COLUMN_MODE, new ChoiceDelegate(this));
 
     connect(_ui->setSelector, &QComboBox::currentIndexChanged, this, &TexturePanel::onSetChanged);
     connect(_model, &QStandardItemModel::itemChanged, this, &TexturePanel::onItemChanged);
+    connect(_ui->skinsTree, &QTreeView::doubleClicked, this,
+            &TexturePanel::onAssetColumnActivated);
+    connect(_ui->reloadButton, &QPushButton::clicked, this,
+            [this] { emit reloadRequested(); });
 }
 
 TexturePanel::~TexturePanel() = default;
@@ -103,6 +183,8 @@ void TexturePanel::setCatalog(SkinCatalog* catalog) {
 void TexturePanel::retranslateUi(const Localization& loc) {
     _loc = &loc;
     _ui->setLabel->setText(QString::fromStdString(loc.text("textures.skin_set")));
+    _ui->reloadButton->setText(QString::fromStdString(loc.text("textures.reload")));
+    _ui->reloadButton->setToolTip(QString::fromStdString(loc.text("textures.reload_tooltip")));
     _ui->sections->setTabText(0, QString::fromStdString(loc.text("textures.section_skins")));
     rebuildTree();
 }
@@ -120,9 +202,6 @@ void TexturePanel::rebuildTree() {
                         QString::fromStdString(_loc->text("textures.column_asset")),
                         QString::fromStdString(_loc->text("textures.column_mode"))});
     }
-
-    // Liste des fichiers assignables, par balayage : aucune saisie de chemin par l'utilisateur.
-    _assets = listSkinAssets(_skinsDirectory);
 
     // Selecteur de jeu, resynchronise sans emettre de changement de selection parasite.
     const QSignalBlocker blocker(_ui->setSelector);
@@ -145,15 +224,13 @@ void TexturePanel::rebuildTree() {
                 typeItem->setEditable(false);
                 typeItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
 
-                // Le fichier et le mode sont des listes fermees : l'utilisateur choisit, il ne
-                // saisit pas. Les valeurs possibles sont portees par l'item (delegue de Qt).
-                QStringList assetChoices{noneLabel(_loc)};
-                for (const std::string& asset : _assets) {
-                    assetChoices << QString::fromStdString(asset);
-                }
+                // Le fichier se choisit par vignettes (double-clic -> AssetPickerDialog), jamais en
+                // saisie libre ni en liste texte (LOT-43 TACHE-01) : la cellule affiche le nom et
+                // une vignette, mais n'est plus editable directement.
                 auto* const assetItem = new QStandardItem(
                     row.asset.empty() ? noneLabel(_loc) : QString::fromStdString(row.asset));
-                assetItem->setData(assetChoices, Qt::UserRole);
+                assetItem->setEditable(false);
+                assetItem->setIcon(QIcon(thumbnailFor(row.asset)));
                 assetItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
 
                 auto* const modeItem =
@@ -216,6 +293,72 @@ void TexturePanel::onItemChanged(QStandardItem* item) {
     applySkinAssignment(*_catalog, _currentSet, type, asset, mode);
     save();
     emit assignmentsChanged();
+}
+
+// Ouvre le selecteur a vignettes sur un double-clic dans la colonne Fichier (LOT-43 TACHE-01).
+// Le resultat est applique via _model->setData(..., Qt::EditRole), qui declenche itemChanged ->
+// onItemChanged exactement comme l'ancien delegue en liste texte : aucun cablage supplementaire.
+void TexturePanel::onAssetColumnActivated(const QModelIndex& index) {
+    if (_catalog == nullptr || index.column() != COLUMN_ASSET) {
+        return;
+    }
+    if (!index.data(TILE_TYPE_ROLE).isValid()) {
+        return;  // en-tete de section : rien a choisir.
+    }
+
+    const QString currentText = index.data(Qt::DisplayRole).toString();
+    const std::string currentAsset =
+        currentText == noneLabel(_loc) ? std::string{} : currentText.toStdString();
+
+    AssetPickerDialog dialog(_skinsDirectory, _loc, this);
+    // Le panneau ne connait que les jeux de skins : c'est lui qui sait CE QUI peut referencer un
+    // asset, le widget partage n'en sait rien (voir sa doc de classe).
+    dialog.setReferenceChecker([this](const std::string& fileName) {
+        std::vector<std::string> lines;
+        for (const AssetReference& reference : findSkinCatalogReferences(*_catalog, fileName)) {
+            lines.push_back(reference.setName + " (" + reference.typeName + ")");
+        }
+        return lines;
+    });
+    dialog.selectAsset(currentAsset);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+    const std::string chosen = dialog.selectedAsset();
+    const QString displayText = chosen.empty() ? noneLabel(_loc) : QString::fromStdString(chosen);
+    _model->setData(index, displayText, Qt::EditRole);
+}
+
+// Vignette d'un fichier de skin, decodee au premier besoin puis mise en cache par nom (dossier
+// fixe pour ce panneau, _skinsDirectory).
+QPixmap TexturePanel::thumbnailFor(const std::string& asset) {
+    const auto cached = _thumbnails.find(asset);
+    if (cached != _thumbnails.end()) {
+        return cached->second;
+    }
+
+    QImage source;
+    const std::optional<DecodedImage> decoded =
+        asset.empty() ? std::nullopt : decodeImageFile(_skinsDirectory / asset);
+    if (decoded) {
+        source = toImage(*decoded);
+    } else {
+        // « Aucun » assigne ou fichier illisible : meme repli que le rendu (LOT-40), pour que la
+        // ligne ne prenne pas silencieusement l'apparence d'un skin different.
+        const ProceduralAtlasImage missing = buildMissingTextureImage();
+        source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
+    }
+
+    const QPixmap pixmap = QPixmap::fromImage(source.scaled(
+        ROW_ICON_SIZE, ROW_ICON_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    _thumbnails.emplace(asset, pixmap);
+    return pixmap;
+}
+
+void TexturePanel::reloadAssets() {
+    _thumbnails.clear();
+    rebuildTree();
 }
 
 // Enregistre le catalogue au chemin deploye, comme l'enregistrement d'un niveau.

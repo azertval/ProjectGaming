@@ -147,6 +147,19 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _palette->refreshThumbnails(mode, _textures->currentSet());
     });
 
+    // Rechargement a chaud (LOT-43 TACHE-03) : un asset modifie/renomme/ajoute hors de
+    // l'application n'est repris qu'a la demande explicite -- une surveillance automatique de
+    // dossier a ete ecartee (editeurs d'image externes ecrivant en plusieurs passes, risque de
+    // recharger un fichier partiellement ecrit). Invalider le TextureCache PUIS vider les caches
+    // de vignettes, dans cet ordre : les vignettes redecoderont depuis un cache deja purge.
+    connect(_textures, &TexturePanel::reloadRequested, this, [this] {
+        _viewport->reloadAssets();
+        _textures->reloadAssets();
+        _palette->clearThumbnailCache();
+        _palette->refreshThumbnails(_viewport->renderMode(), _textures->currentSet());
+        statusBar()->showMessage(text("textures.reload_done"), 3000);
+    });
+
     // Navigation depuis le menu principal.
     connect(_menu, &MainMenu::editorRequested, this, &MainWindow::showEditor);
     connect(_menu, &MainMenu::playRequested, this, &MainWindow::showGame);

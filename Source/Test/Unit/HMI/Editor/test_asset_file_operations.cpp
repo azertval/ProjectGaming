@@ -1,0 +1,144 @@
+/**
+ * @file test_asset_file_operations.cpp
+ * @brief Tests unitaires des opérations fichiers sur les assets (LOT-43 TACHE-02).
+ */
+
+#include <cstdint>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <system_error>
+
+#include <gtest/gtest.h>
+
+#include "HMI/Editor/AssetFileOperations.h"
+#include "HMI/Graphics/AssetContract.h"
+#include "HMI/Graphics/TextureAtlas.h"
+
+namespace {
+
+// Fournit deux dossiers temporaires vierges par test (source externe + dossier gere).
+class AssetFileOps : public ::testing::Test {
+protected:
+    std::filesystem::path dir;
+    std::filesystem::path externalDir;
+
+    void SetUp() override {
+        const std::string suffix = std::to_string(reinterpret_cast<std::uintptr_t>(this));
+        dir = std::filesystem::temp_directory_path() / ("pg_assetops_" + suffix);
+        externalDir = std::filesystem::temp_directory_path() / ("pg_assetops_ext_" + suffix);
+        std::filesystem::create_directories(dir);
+        std::filesystem::create_directories(externalDir);
+    }
+    void TearDown() override {
+        std::error_code error;
+        std::filesystem::remove_all(dir, error);
+        std::filesystem::remove_all(externalDir, error);
+    }
+
+    // Cree un fichier externe (hors du dossier gere), pret a etre importe.
+    std::filesystem::path makeExternalFile(const std::string& name) {
+        const std::filesystem::path path = externalDir / name;
+        std::ofstream file(path);
+        file << "contenu";
+        return path;
+    }
+};
+
+}  // namespace
+
+TEST_F(AssetFileOps, ImporteUnAssetConforme) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+
+    const hmi::FileOpResult result =
+        ops.import(source, hmi::AssetFamily::TileSkin, hmi::TextureAtlas::TILE_SIZE,
+                  hmi::TextureAtlas::TILE_SIZE);
+
+    ASSERT_TRUE(result.ok) << result.error;
+    EXPECT_TRUE(std::filesystem::exists(result.path));
+    EXPECT_TRUE(std::filesystem::exists(source)) << "l'import doit COPIER, jamais deplacer";
+}
+
+TEST_F(AssetFileOps, RefuseUnAssetNonConforme) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+
+    const hmi::FileOpResult result =
+        ops.import(source, hmi::AssetFamily::TileSkin, hmi::TextureAtlas::TILE_SIZE + 1,
+                  hmi::TextureAtlas::TILE_SIZE);
+
+    EXPECT_FALSE(result.ok);
+    EXPECT_NE(result.error.find("mur.png"), std::string::npos) << "le message doit nommer le fichier";
+    EXPECT_TRUE(ops.list().empty()) << "un asset refuse ne doit pas etre copie";
+}
+
+TEST_F(AssetFileOps, RefuseUneCollisionAlImport) {
+    const std::filesystem::path first = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+    ASSERT_TRUE(ops.import(first, hmi::AssetFamily::Background, 4, 4).ok);
+
+    // Un second fichier externe, de meme nom, importe dans le meme dossier gere.
+    const std::filesystem::path second = externalDir / "sous_dossier";
+    std::filesystem::create_directories(second);
+    std::ofstream(second / "mur.png") << "autre contenu";
+
+    const hmi::FileOpResult result =
+        ops.import(second / "mur.png", hmi::AssetFamily::Background, 4, 4);
+    EXPECT_FALSE(result.ok);
+}
+
+TEST_F(AssetFileOps, RenommeEtConserveLExtension) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+    const hmi::FileOpResult imported = ops.import(source, hmi::AssetFamily::Background, 4, 4);
+    ASSERT_TRUE(imported.ok) << imported.error;
+
+    const hmi::FileOpResult renamed = ops.rename(imported.path, "pierre");
+    ASSERT_TRUE(renamed.ok) << renamed.error;
+    EXPECT_EQ(renamed.path.filename().string(), "pierre.png");
+    EXPECT_FALSE(std::filesystem::exists(imported.path));
+}
+
+TEST_F(AssetFileOps, RefuseUnNomInvalideAuRenommage) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+    const hmi::FileOpResult imported = ops.import(source, hmi::AssetFamily::Background, 4, 4);
+    ASSERT_TRUE(imported.ok) << imported.error;
+
+    EXPECT_FALSE(ops.rename(imported.path, "a/b").ok);  // barre oblique interdite
+    EXPECT_TRUE(std::filesystem::exists(imported.path)) << "un renommage refuse ne doit rien changer";
+}
+
+TEST_F(AssetFileOps, DupliqueSousUnNomUnique) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+    const hmi::FileOpResult imported = ops.import(source, hmi::AssetFamily::Background, 4, 4);
+    ASSERT_TRUE(imported.ok) << imported.error;
+
+    const hmi::FileOpResult first = ops.duplicate(imported.path);
+    const hmi::FileOpResult second = ops.duplicate(imported.path);
+    ASSERT_TRUE(first.ok) << first.error;
+    ASSERT_TRUE(second.ok) << second.error;
+    EXPECT_NE(first.path, second.path);
+    EXPECT_EQ(ops.list().size(), 3U);
+}
+
+TEST_F(AssetFileOps, SupprimeLeFichier) {
+    const std::filesystem::path source = makeExternalFile("mur.png");
+    const hmi::AssetFileOperations ops(dir);
+    const hmi::FileOpResult imported = ops.import(source, hmi::AssetFamily::Background, 4, 4);
+    ASSERT_TRUE(imported.ok) << imported.error;
+
+    EXPECT_TRUE(ops.remove(imported.path).ok);
+    EXPECT_FALSE(std::filesystem::exists(imported.path));
+}
+
+TEST_F(AssetFileOps, OperationSurFichierAbsentEchoueProprement) {
+    const hmi::AssetFileOperations ops(dir);
+    const std::filesystem::path absent = dir / "inexistant.png";
+
+    EXPECT_FALSE(ops.rename(absent, "autre").ok);
+    EXPECT_FALSE(ops.duplicate(absent).ok);
+    EXPECT_FALSE(ops.remove(absent).ok);
+}
