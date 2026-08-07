@@ -18,6 +18,7 @@ var searchData=
   ['keyreleased_15',['keyReleased',['../classhmi_1_1InputState.html#ae58b5ee926c82c8f62bf57ee7e446ac4',1,'hmi::InputState']]],
   ['keyreleaseevent_16',['keyReleaseEvent',['../classhmi_1_1GameViewport.html#aeab73386d2f7ed680a6bee08b923d1c9',1,'hmi::GameViewport']]],
   ['kind_17',['kind',['../structhmi_1_1LinkRow.html#a94244c8504c1e369911da965056b39c9',1,'hmi::LinkRow::kind'],['../structhmi_1_1ComposedQuad.html#a11f80072d43177fd77c938bb6efaab02',1,'hmi::ComposedQuad::kind']]],
-  ['kplayerheight_18',['kPlayerHeight',['../namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a',1,'core']]],
-  ['kplayerwidth_19',['kPlayerWidth',['../namespacecore.html#af90aca85784a36802e810be93df9800f',1,'core']]]
+  ['klevelformatversion_18',['kLevelFormatVersion',['../namespacecore.html#a4e9944a74ac070775a2730be05705abb',1,'core']]],
+  ['kplayerheight_19',['kPlayerHeight',['../namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a',1,'core']]],
+  ['kplayerwidth_20',['kPlayerWidth',['../namespacecore.html#af90aca85784a36802e810be93df9800f',1,'core']]]
 ];

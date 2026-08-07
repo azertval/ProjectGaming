@@ -11,6 +11,8 @@ var hierarchy =
     [ "hmi::AtlasGridPosition", "structhmi_1_1AtlasGridPosition.html", null ],
     [ "core::AtlasRegion", "structcore_1_1AtlasRegion.html", null ],
     [ "hmi::AutotileCell", "structhmi_1_1AutotileCell.html", null ],
+    [ "hmi::BackgroundFit", "structhmi_1_1BackgroundFit.html", null ],
+    [ "hmi::BackgroundTexture", "structhmi_1_1BackgroundTexture.html", null ],
     [ "core::BlockController", "classcore_1_1BlockController.html", null ],
     [ "hmi::CacheRegistry&lt; Resource &gt;", "classhmi_1_1CacheRegistry.html", null ],
     [ "hmi::Camera2D", "classhmi_1_1Camera2D.html", null ],

@@ -227,6 +227,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc">InvalidExitCount</a>
 , <a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb">UnresolvedMechanism</a>
 , <a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+, <a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4">UnsupportedFormatVersion</a>
 <br />
  }</td></tr>
 <tr class="memdesc:af2a63d18c9ef40479ebdc204e726e823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de chargement/validation d'un niveau (LOT-15, <span class="tt">EX-EDIT-012</span>).  <a href="#af2a63d18c9ef40479ebdc204e726e823">More...</a><br /></td></tr>
@@ -356,6 +357,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
 <tr class="memitem:aa10b66433e2fea5a1103518ca7015a3a" id="r_aa10b66433e2fea5a1103518ca7015a3a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa10b66433e2fea5a1103518ca7015a3a">kDangerEdgeThickness</a> = 0.25f</td></tr>
 <tr class="memdesc:aa10b66433e2fea5a1103518ca7015a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Épaisseur (fraction d'une case) de la bande mortelle d'un danger <b>directionnel</b> (<span class="tt">DangerUp</span>/<span class="tt">DangerDown</span>/<span class="tt">DangerLeft</span>/<span class="tt">DangerRight</span>, <span class="tt">EX-GP-050</span>).  <br /></td></tr>
+<tr class="memitem:a4e9944a74ac070775a2730be05705abb" id="r_a4e9944a74ac070775a2730be05705abb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e9944a74ac070775a2730be05705abb">kLevelFormatVersion</a> = 1</td></tr>
+<tr class="memdesc:a4e9944a74ac070775a2730be05705abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de niveau JSON (<span class="tt">EX-LVL-005</span>).  <br /></td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
 <tr class="memitem:af90aca85784a36802e810be93df9800f" id="r_af90aca85784a36802e810be93df9800f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#af90aca85784a36802e810be93df9800f">kPlayerWidth</a> = 0.4f</td></tr>
@@ -521,6 +524,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb" name="af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb"></a>UnresolvedMechanism&#160;</td><td class="fielddoc"><p>Porte ou danger commuté lié à un identifiant d'interrupteur inexistant. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2" name="af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier de niveau introuvable sur disque. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4" name="af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4"></a>UnsupportedFormatVersion&#160;</td><td class="fielddoc"><p><span class="tt">"version"</span> du fichier supérieure à celle gérée (<span class="tt">EX-LVL-005</span>). </p>
 </td></tr>
 </table>
 
@@ -2099,6 +2104,31 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 <p>Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>. </p>
 <p>S'appuie sur <span class="tt">NDEBUG</span> (défini par le compilateur en Release). Sert à n'inclure que dans les builds de développement des éléments d'outillage (par exemple des boutons de débogage de l'interface), à utiliser de préférence avec <span class="tt">if constexpr</span> pour éliminer le code en Release. </p>
+
+</div>
+</div>
+<a id="a4e9944a74ac070775a2730be05705abb" name="a4e9944a74ac070775a2730be05705abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9944a74ac070775a2730be05705abb">&#9670;&#160;</a></span>kLevelFormatVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::kLevelFormatVersion = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Version courante du format de niveau JSON (<span class="tt">EX-LVL-005</span>). </p>
+<p>Écrite par <span class="tt"><a class="el" href="classcore_1_1LevelWriter.html" title="Sérialise un niveau vers le format JSON défini par EX-LVL-003.">LevelWriter</a></span> dans le champ racine <span class="tt">"version"</span>. Un fichier sans ce champ est lu comme la version initiale (0), sans erreur ni avertissement — rétrocompatibilité des niveaux antérieurs à ce champ (<span class="tt">LOT-44</span>). Une version supérieure à celle-ci est une erreur exploitable (<span class="tt"><a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4" title="&quot;version&quot; du fichier supérieure à celle gérée (EX-LVL-005).">LevelValidationError::UnsupportedFormatVersion</a></span>), pas une lecture au mieux. </p>
 
 </div>
 </div>

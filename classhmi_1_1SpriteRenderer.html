@@ -102,8 +102,8 @@ $(function(){initNavTree('classhmi_1_1SpriteRenderer.html','','classhmi_1_1Sprit
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a80280a51830068380f867a58686317d9" id="r_a80280a51830068380f867a58686317d9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80280a51830068380f867a58686317d9">SpriteRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
 <tr class="memdesc:a80280a51830068380f867a58686317d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le rendu de sprites.  <br /></td></tr>
-<tr class="memitem:ae2be090c0def751a04ce5c321ce987c2" id="r_ae2be090c0def751a04ce5c321ce987c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2be090c0def751a04ce5c321ce987c2">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha)</td></tr>
-<tr class="memdesc:ae2be090c0def751a04ce5c321ce987c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
+<tr class="memitem:ae3be839a5e991703f6ebb08c269f06bb" id="r_ae3be839a5e991703f6ebb08c269f06bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae3be839a5e991703f6ebb08c269f06bb">render</a> (<a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, float interpolationAlpha, const std::optional&lt; std::string &gt; &amp;background={}, int levelWidth=0, int levelHeight=0)</td></tr>
+<tr class="memdesc:ae3be839a5e991703f6ebb08c269f06bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine toutes les entités affichables du monde, vues par la caméra.  <br /></td></tr>
 <tr class="memitem:a53acb5abdc7ce0f58489ab13524a0ee6" id="r_a53acb5abdc7ce0f58489ab13524a0ee6"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a53acb5abdc7ce0f58489ab13524a0ee6">lastScene</a> () const noexcept</td></tr>
 <tr class="memitem:ae24bab2aac2a8f86ef642d04112075e7" id="r_ae24bab2aac2a8f86ef642d04112075e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae24bab2aac2a8f86ef642d04112075e7">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
 <tr class="memdesc:ae24bab2aac2a8f86ef642d04112075e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
@@ -218,8 +218,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae2be090c0def751a04ce5c321ce987c2" name="ae2be090c0def751a04ce5c321ce987c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2be090c0def751a04ce5c321ce987c2">&#9670;&#160;</a></span>render()</h2>
+<a id="ae3be839a5e991703f6ebb08c269f06bb" name="ae3be839a5e991703f6ebb08c269f06bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3be839a5e991703f6ebb08c269f06bb">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +242,22 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>background</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>levelWidth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>levelHeight</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -254,6 +269,9 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">camera</td><td>Caméra fournissant la projection monde → écran et le cadrage visible. </td></tr>
     <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt">EX-REN-046</span>) : bascule purement <b>visuelle</b>, sans effet sur la scène ECS ni sur la simulation. </td></tr>
     <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>, <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html#ab7f7f880eef11df91ab7bc647e19bf56" title="Fraction de pas restant dans l&#39;accumulateur, pour l&#39;interpolation du rendu.">core::FixedTimestep::interpolationAlpha</a></span>). Une entité portant un <span class="tt"><a class="el" href="structhmi_1_1PreviousPosition.html" title="Position d&#39;une entité au pas de simulation précédent, pour l&#39;interpolation de rendu (EX-ARCH-031).">hmi::PreviousPosition</a></span> est dessinée à <span class="tt">lerp(précédente, courante, alpha)</span> (mouvement lisse) ; une entité sans ce composant (tuiles fixes) est dessinée à sa position courante. <span class="tt">0</span> reproduit le comportement non interpolé. </td></tr>
+    <tr><td class="paramname">background</td><td>Nom de l'asset de fond du niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f">core::Level::background</a></span>, <span class="tt">LOT-44</span>), ou absent ; composé sous tout le reste (<span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419" title="Image de fond du niveau (LOT-44, EX-REN-044).">RenderLayer::Background</a></span>), uniquement en mode <span class="tt"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span>. </td></tr>
+    <tr><td class="paramname">levelWidth</td><td>Largeur du niveau, en unités monde (une case = une unité) ; ignoré si <code class="param">background</code> est absent. </td></tr>
+    <tr><td class="paramname">levelHeight</td><td>Hauteur du niveau, en unités monde. </td></tr>
   </table>
   </dd>
 </dl>

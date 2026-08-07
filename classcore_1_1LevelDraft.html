@@ -137,6 +137,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a30ce05ac3504f6052e888647232e251d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le budget de dashs (<span class="tt">-1</span> = illimité).  <br /></td></tr>
 <tr class="memitem:af06a5338ba049934b8b217c6e0345546" id="r_af06a5338ba049934b8b217c6e0345546"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af06a5338ba049934b8b217c6e0345546">setName</a> (std::string <a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a>)</td></tr>
 <tr class="memdesc:af06a5338ba049934b8b217c6e0345546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le niveau.  <br /></td></tr>
+<tr class="memitem:afaced983e3b9e6538a4b83d57a11adc1" id="r_afaced983e3b9e6538a4b83d57a11adc1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afaced983e3b9e6538a4b83d57a11adc1">setBackground</a> (std::optional&lt; std::string &gt; <a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a>)</td></tr>
+<tr class="memdesc:afaced983e3b9e6538a4b83d57a11adc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne l'asset de fond du niveau (<span class="tt">EX-REN-044</span>), annulable.  <br /></td></tr>
+<tr class="memitem:ae33a484d3d22515294b55c47efb85b58" id="r_ae33a484d3d22515294b55c47efb85b58"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae33a484d3d22515294b55c47efb85b58">setSkinSet</a> (std::optional&lt; std::string &gt; <a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a>)</td></tr>
+<tr class="memdesc:ae33a484d3d22515294b55c47efb85b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne le jeu de skins du niveau (<span class="tt">EX-EDIT-024</span>), annulable.  <br /></td></tr>
 <tr class="memitem:a7ac47bce808a2ac8e8fce362411269cf" id="r_a7ac47bce808a2ac8e8fce362411269cf"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7ac47bce808a2ac8e8fce362411269cf">name</a> () const noexcept</td></tr>
 <tr class="memitem:acc48e2f45fb3db53de09e30f60f75845" id="r_acc48e2f45fb3db53de09e30f60f75845"><td class="memItemLeft">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acc48e2f45fb3db53de09e30f60f75845">tileMap</a> () const noexcept</td></tr>
 <tr class="memitem:a7614f7f0cdaea145907831e56781182b" id="r_a7614f7f0cdaea145907831e56781182b"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7614f7f0cdaea145907831e56781182b">entry</a> () const noexcept</td></tr>
@@ -147,6 +151,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad7a21f008704e147cb459f4ee5cf2a02" id="r_ad7a21f008704e147cb459f4ee5cf2a02"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad7a21f008704e147cb459f4ee5cf2a02">blinkConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:a5c63e9d12c9473f4aa8693b04f3293ff" id="r_a5c63e9d12c9473f4aa8693b04f3293ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ac8048001ee2bf60309c234ff6f717ff4" id="r_ac8048001ee2bf60309c234ff6f717ff4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a> () const noexcept</td></tr>
+<tr class="memitem:ae10fca65c113da45ec8bf89846979889" id="r_ae10fca65c113da45ec8bf89846979889"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a> () const noexcept</td></tr>
+<tr class="memitem:a67618564911cd89f947a0d2b1c47f774" id="r_a67618564911cd89f947a0d2b1c47f774"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a> () const noexcept</td></tr>
 <tr class="memitem:a0017cadc8caea0b43ba08b120ce76bb0" id="r_a0017cadc8caea0b43ba08b120ce76bb0"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelLoadResult.html">LevelLoadResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0017cadc8caea0b43ba08b120ce76bb0">toLevel</a> () const</td></tr>
 <tr class="memdesc:a0017cadc8caea0b43ba08b120ce76bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit le brouillon en <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">Level</a></span> <b>validé</b> (<span class="tt">EX-EDIT-007</span>), en repassant par la même validation que <span class="tt"><a class="el" href="classcore_1_1LevelLoader.html" title="Charge un niveau au format JSON (objet {name, width, height, tiles} où tiles est une liste d&#39;objets {...">LevelLoader</a></span> (sérialise puis recharge : aucune règle dupliquée, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -187,6 +193,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4cc74d2b0cfae3b30c75e4b7f8e8cdf8" id="r_a4cc74d2b0cfae3b30c75e4b7f8e8cdf8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1DangerLink.html">DangerLink</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4cc74d2b0cfae3b30c75e4b7f8e8cdf8">_dangerLinks</a></td></tr>
 <tr class="memitem:af6b68c82b46cd7bdcd5f12744cfa56fa" id="r_af6b68c82b46cd7bdcd5f12744cfa56fa"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1DangerMoverConfig.html">DangerMoverConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af6b68c82b46cd7bdcd5f12744cfa56fa">_moverConfigs</a></td></tr>
 <tr class="memitem:ad7d569c635ee03e35d1d3699bfd1d14b" id="r_ad7d569c635ee03e35d1d3699bfd1d14b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad7d569c635ee03e35d1d3699bfd1d14b">_blinkConfigs</a></td></tr>
+<tr class="memitem:a092ed94e8ecc1a8aee79de183afe6338" id="r_a092ed94e8ecc1a8aee79de183afe6338"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a092ed94e8ecc1a8aee79de183afe6338">_background</a></td></tr>
+<tr class="memitem:ae457b861d1482369c3d63cf424b073a6" id="r_ae457b861d1482369c3d63cf424b073a6"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae457b861d1482369c3d63cf424b073a6">_skinSet</a></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -226,6 +234,32 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ae10fca65c113da45ec8bf89846979889" name="ae10fca65c113da45ec8bf89846979889"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10fca65c113da45ec8bf89846979889">&#9670;&#160;</a></span>background()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; std::string &gt; &amp; core::LevelDraft::background </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'asset de fond courant (<span class="tt">EX-REN-044</span>), absent si aucun n'est posé. </dd></dl>
+
+</div>
+</div>
 <a id="ad7a21f008704e147cb459f4ee5cf2a02" name="ad7a21f008704e147cb459f4ee5cf2a02"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7a21f008704e147cb459f4ee5cf2a02">&#9670;&#160;</a></span>blinkConfigs()</h2>
 
@@ -853,6 +887,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afaced983e3b9e6538a4b83d57a11adc1" name="afaced983e3b9e6538a4b83d57a11adc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaced983e3b9e6538a4b83d57a11adc1">&#9670;&#160;</a></span>setBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setBackground </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>background</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne l'asset de fond du niveau (<span class="tt">EX-REN-044</span>), annulable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a></td><td>Nom de l'asset (ex. <span class="tt">"forest.png"</span>), ou vide pour retirer le fond posé. Une chaîne, jamais un handle : <span class="tt">Core</span> ignore tout du dossier d'assets. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab8a12378f12ab51439fd692cde093bcc" name="ab8a12378f12ab51439fd692cde093bcc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8a12378f12ab51439fd692cde093bcc">&#9670;&#160;</a></span>setBlinkConfig()</h2>
 
@@ -1105,6 +1164,57 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae33a484d3d22515294b55c47efb85b58" name="ae33a484d3d22515294b55c47efb85b58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae33a484d3d22515294b55c47efb85b58">&#9670;&#160;</a></span>setSkinSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::setSkinSet </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne le jeu de skins du niveau (<span class="tt">EX-EDIT-024</span>), annulable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a67618564911cd89f947a0d2b1c47f774">skinSet</a></td><td>Nom du jeu (<span class="tt">skins.json</span>), ou vide pour le jeu par défaut. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a67618564911cd89f947a0d2b1c47f774" name="a67618564911cd89f947a0d2b1c47f774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67618564911cd89f947a0d2b1c47f774">&#9670;&#160;</a></span>skinSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; std::string &gt; &amp; core::LevelDraft::skinSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le jeu de skins courant du niveau (<span class="tt">EX-EDIT-024</span>), absent pour le jeu par défaut. </dd></dl>
+
+</div>
+</div>
 <a id="a89fced43d78e2f2fcd89fd03b75373bc" name="a89fced43d78e2f2fcd89fd03b75373bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89fced43d78e2f2fcd89fd03b75373bc">&#9670;&#160;</a></span>snapshot()</h2>
 
@@ -1266,6 +1376,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a092ed94e8ecc1a8aee79de183afe6338" name="a092ed94e8ecc1a8aee79de183afe6338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a092ed94e8ecc1a8aee79de183afe6338">&#9670;&#160;</a></span>_background</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; core::LevelDraft::_background</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad7d569c635ee03e35d1d3699bfd1d14b" name="ad7d569c635ee03e35d1d3699bfd1d14b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7d569c635ee03e35d1d3699bfd1d14b">&#9670;&#160;</a></span>_blinkConfigs</h2>
 
@@ -1475,6 +1607,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a>&gt; core::LevelDraft::_redoHistory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae457b861d1482369c3d63cf424b073a6" name="ae457b861d1482369c3d63cf424b073a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae457b861d1482369c3d63cf424b073a6">&#9670;&#160;</a></span>_skinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; core::LevelDraft::_skinSet</td>
         </tr>
       </table>
   </td>

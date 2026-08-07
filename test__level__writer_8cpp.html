@@ -121,6 +121,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac815651c8d27505bbe352765fc16b8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre arrondis concaves (sol et plafond) survivent à un aller-retour JSON (<span class="tt">EX-GP-007</span>).  <br /></td></tr>
 <tr class="memitem:af35896f7efd723541c3ff4bb55ba2e6d" id="r_af35896f7efd723541c3ff4bb55ba2e6d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af35896f7efd723541c3ff4bb55ba2e6d">TEST</a> (LevelWriterTest, BudgetsIllimitesOmisDuJson)</td></tr>
 <tr class="memdesc:af35896f7efd723541c3ff4bb55ba2e6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les budgets illimités (-1) ne sont pas écrits dans le JSON produit.  <br /></td></tr>
+<tr class="memitem:a0695318fd6561a23e3547ad1d2a104dd" id="r_a0695318fd6561a23e3547ad1d2a104dd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0695318fd6561a23e3547ad1d2a104dd">TEST</a> (LevelWriterTest, FondEtJeuDeSkinsSurviventAuRoundTrip)</td></tr>
+<tr class="memdesc:a0695318fd6561a23e3547ad1d2a104dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fond et le jeu de skins survivent au round-trip (sérialisation puis rechargement, <span class="tt">EX-REN-044</span>, <span class="tt">EX-EDIT-024</span>).  <br /></td></tr>
+<tr class="memitem:a06bb9e17539a281e7f66fe8167ae5fed" id="r_a06bb9e17539a281e7f66fe8167ae5fed"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a06bb9e17539a281e7f66fe8167ae5fed">TEST</a> (LevelWriterTest, SansFondNiJeuDeSkinsLesClesSontOmisesDuJson)</td></tr>
+<tr class="memdesc:a06bb9e17539a281e7f66fe8167ae5fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau sans fond ni jeu de skins n'écrit ni l'une ni l'autre clé dans le JSON produit (<span class="tt">EX-REN-044</span>, <span class="tt">EX-EDIT-024</span>) ; le champ <span class="tt">"version"</span>, lui, est toujours écrit.  <br /></td></tr>
 <tr class="memitem:a50f6b6bb3596c39258d8da757802b750" id="r_a50f6b6bb3596c39258d8da757802b750"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a50f6b6bb3596c39258d8da757802b750">TEST</a> (LevelWriterTest, InterrupteurNonRelieRegenereUnIdentifiant)</td></tr>
 <tr class="memdesc:a50f6b6bb3596c39258d8da757802b750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.  <br /></td></tr>
 <tr class="memitem:aed8d3fba9cca56d8e7cd26f62897b4fe" id="r_aed8d3fba9cca56d8e7cd26f62897b4fe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed8d3fba9cca56d8e7cd26f62897b4fe">TEST</a> (LevelWriterTest, NiveauPuzzleLivreSurvieAuRoundTrip)</td></tr>
@@ -142,7 +146,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac815651c8d27505bbe352765fc16b8c6" name="ac815651c8d27505bbe352765fc16b8c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac815651c8d27505bbe352765fc16b8c6">&#9670;&#160;</a></span>TEST() <span class="overload">[1/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac815651c8d27505bbe352765fc16b8c6">&#9670;&#160;</a></span>TEST() <span class="overload">[1/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +176,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a851fdd91ec7674bf6eb5893f39e87ab9" name="a851fdd91ec7674bf6eb5893f39e87ab9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a851fdd91ec7674bf6eb5893f39e87ab9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a851fdd91ec7674bf6eb5893f39e87ab9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +206,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adbcd37e977093979b380dcb4e89223c1" name="adbcd37e977093979b380dcb4e89223c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbcd37e977093979b380dcb4e89223c1">&#9670;&#160;</a></span>TEST() <span class="overload">[3/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adbcd37e977093979b380dcb4e89223c1">&#9670;&#160;</a></span>TEST() <span class="overload">[3/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +236,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa8d67496fbeca91cb650819de1eff770" name="aa8d67496fbeca91cb650819de1eff770"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d67496fbeca91cb650819de1eff770">&#9670;&#160;</a></span>TEST() <span class="overload">[4/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d67496fbeca91cb650819de1eff770">&#9670;&#160;</a></span>TEST() <span class="overload">[4/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,7 +266,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af35896f7efd723541c3ff4bb55ba2e6d" name="af35896f7efd723541c3ff4bb55ba2e6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af35896f7efd723541c3ff4bb55ba2e6d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af35896f7efd723541c3ff4bb55ba2e6d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +296,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acd74726ff284246b6b7c4df612ac5a23" name="acd74726ff284246b6b7c4df612ac5a23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd74726ff284246b6b7c4df612ac5a23">&#9670;&#160;</a></span>TEST() <span class="overload">[6/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acd74726ff284246b6b7c4df612ac5a23">&#9670;&#160;</a></span>TEST() <span class="overload">[6/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +326,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab8da6d2ae8b2f07e8fd969752e39c0df" name="ab8da6d2ae8b2f07e8fd969752e39c0df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8da6d2ae8b2f07e8fd969752e39c0df">&#9670;&#160;</a></span>TEST() <span class="overload">[7/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8da6d2ae8b2f07e8fd969752e39c0df">&#9670;&#160;</a></span>TEST() <span class="overload">[7/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +356,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9c97557731a891e08890b707fd5284a4" name="a9c97557731a891e08890b707fd5284a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c97557731a891e08890b707fd5284a4">&#9670;&#160;</a></span>TEST() <span class="overload">[8/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c97557731a891e08890b707fd5284a4">&#9670;&#160;</a></span>TEST() <span class="overload">[8/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -382,7 +386,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aaebe16b33250f1cde93573a2fb09e729" name="aaebe16b33250f1cde93573a2fb09e729"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaebe16b33250f1cde93573a2fb09e729">&#9670;&#160;</a></span>TEST() <span class="overload">[9/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaebe16b33250f1cde93573a2fb09e729">&#9670;&#160;</a></span>TEST() <span class="overload">[9/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,8 +415,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0695318fd6561a23e3547ad1d2a104dd" name="a0695318fd6561a23e3547ad1d2a104dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0695318fd6561a23e3547ad1d2a104dd">&#9670;&#160;</a></span>TEST() <span class="overload">[10/19]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FondEtJeuDeSkinsSurviventAuRoundTrip</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le fond et le jeu de skins survivent au round-trip (sérialisation puis rechargement, <span class="tt">EX-REN-044</span>, <span class="tt">EX-EDIT-024</span>). </p>
+<p><b>Cas de test :</b> <b>Le fond et le jeu de skins survivent au round-trip.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Le fond et le jeu de skins survivent au round-trip. </p>
+
+</div>
+</div>
 <a id="a50f6b6bb3596c39258d8da757802b750" name="a50f6b6bb3596c39258d8da757802b750"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50f6b6bb3596c39258d8da757802b750">&#9670;&#160;</a></span>TEST() <span class="overload">[10/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f6b6bb3596c39258d8da757802b750">&#9670;&#160;</a></span>TEST() <span class="overload">[11/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -442,7 +476,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aed8d3fba9cca56d8e7cd26f62897b4fe" name="aed8d3fba9cca56d8e7cd26f62897b4fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed8d3fba9cca56d8e7cd26f62897b4fe">&#9670;&#160;</a></span>TEST() <span class="overload">[11/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8d3fba9cca56d8e7cd26f62897b4fe">&#9670;&#160;</a></span>TEST() <span class="overload">[12/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,7 +506,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1418ff84f950e288518387b56ec9bcaa" name="a1418ff84f950e288518387b56ec9bcaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1418ff84f950e288518387b56ec9bcaa">&#9670;&#160;</a></span>TEST() <span class="overload">[12/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1418ff84f950e288518387b56ec9bcaa">&#9670;&#160;</a></span>TEST() <span class="overload">[13/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -502,7 +536,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a026680ce06e14d0530b673cb42034095" name="a026680ce06e14d0530b673cb42034095"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026680ce06e14d0530b673cb42034095">&#9670;&#160;</a></span>TEST() <span class="overload">[13/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a026680ce06e14d0530b673cb42034095">&#9670;&#160;</a></span>TEST() <span class="overload">[14/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,7 +566,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7a409f69729e36b289ea6934747e7b33" name="a7a409f69729e36b289ea6934747e7b33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a409f69729e36b289ea6934747e7b33">&#9670;&#160;</a></span>TEST() <span class="overload">[14/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a409f69729e36b289ea6934747e7b33">&#9670;&#160;</a></span>TEST() <span class="overload">[15/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -562,7 +596,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a08700befe0d47aa314315dc519624d58" name="a08700befe0d47aa314315dc519624d58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08700befe0d47aa314315dc519624d58">&#9670;&#160;</a></span>TEST() <span class="overload">[15/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a08700befe0d47aa314315dc519624d58">&#9670;&#160;</a></span>TEST() <span class="overload">[16/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -591,8 +625,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a06bb9e17539a281e7f66fe8167ae5fed" name="a06bb9e17539a281e7f66fe8167ae5fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06bb9e17539a281e7f66fe8167ae5fed">&#9670;&#160;</a></span>TEST() <span class="overload">[17/19]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelWriterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SansFondNiJeuDeSkinsLesClesSontOmisesDuJson</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un niveau sans fond ni jeu de skins n'écrit ni l'une ni l'autre clé dans le JSON produit (<span class="tt">EX-REN-044</span>, <span class="tt">EX-EDIT-024</span>) ; le champ <span class="tt">"version"</span>, lui, est toujours écrit. </p>
+<p><b>Cas de test :</b> <b>Sans fond ni jeu de skins, les cles sont absentes du JSON produit.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Writer<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> Sans fond ni jeu de skins, les cles sont absentes du JSON produit. </p>
+
+</div>
+</div>
 <a id="a73cdc6e0f8e5beee55ad9dce966ec9e0" name="a73cdc6e0f8e5beee55ad9dce966ec9e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[16/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73cdc6e0f8e5beee55ad9dce966ec9e0">&#9670;&#160;</a></span>TEST() <span class="overload">[18/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -622,7 +686,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="adc9dc018aeddfbd32ced5b9eee36b083" name="adc9dc018aeddfbd32ced5b9eee36b083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[17/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9dc018aeddfbd32ced5b9eee36b083">&#9670;&#160;</a></span>TEST() <span class="overload">[19/19]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

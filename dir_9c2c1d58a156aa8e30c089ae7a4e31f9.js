@@ -2,6 +2,7 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
 [
     [ "test_asset_contract.cpp", "test__asset__contract_8cpp.html", "test__asset__contract_8cpp" ],
     [ "test_asset_paths.cpp", "test__asset__paths_8cpp.html", "test__asset__paths_8cpp" ],
+    [ "test_background_fit.cpp", "test__background__fit_8cpp.html", "test__background__fit_8cpp" ],
     [ "test_cache_registry.cpp", "test__cache__registry_8cpp.html", "test__cache__registry_8cpp" ],
     [ "test_camera2d.cpp", "test__camera2d_8cpp.html", "test__camera2d_8cpp" ],
     [ "test_missing_texture.cpp", "test__missing__texture_8cpp.html", "test__missing__texture_8cpp" ],

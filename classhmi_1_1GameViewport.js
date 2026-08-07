@@ -45,6 +45,8 @@ var classhmi_1_1GameViewport =
     [ "save", "classhmi_1_1GameViewport.html#a414edeb77630817f1fcedcccd100850a", null ],
     [ "setActiveTile", "classhmi_1_1GameViewport.html#aa1b0f14b74c790ed226ce9ad3302eaa5", null ],
     [ "setHighlightedLink", "classhmi_1_1GameViewport.html#accdd8d909af2dbb3fb790734c6a643b5", null ],
+    [ "setLevelBackground", "classhmi_1_1GameViewport.html#acfc8846bf80901c47e4639b84142f52c", null ],
+    [ "setLevelSkinSet", "classhmi_1_1GameViewport.html#aadfe43ddd5e59b2aff37d65d26796d80", null ],
     [ "setLocalization", "classhmi_1_1GameViewport.html#a30fb475c885ff369c5710284cf1450eb", null ],
     [ "setRenderMode", "classhmi_1_1GameViewport.html#a682255be40d1c669df3888777d1d5cea", null ],
     [ "setSkinSet", "classhmi_1_1GameViewport.html#ab1634dd73825b6d371c062bf557cd3d5", null ],

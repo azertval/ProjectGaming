@@ -75,6 +75,8 @@ var annotated_dup =
       [ "AssetDimensionContract", "structhmi_1_1AssetDimensionContract.html", "structhmi_1_1AssetDimensionContract" ],
       [ "AssetValidation", "structhmi_1_1AssetValidation.html", "structhmi_1_1AssetValidation" ],
       [ "AssetPaths", "classhmi_1_1AssetPaths.html", "classhmi_1_1AssetPaths" ],
+      [ "BackgroundFit", "structhmi_1_1BackgroundFit.html", "structhmi_1_1BackgroundFit" ],
+      [ "BackgroundTexture", "structhmi_1_1BackgroundTexture.html", "structhmi_1_1BackgroundTexture" ],
       [ "CacheRegistry", "classhmi_1_1CacheRegistry.html", "classhmi_1_1CacheRegistry" ],
       [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
       [ "ComposedQuad", "structhmi_1_1ComposedQuad.html", "structhmi_1_1ComposedQuad" ],

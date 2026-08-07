@@ -30,12 +30,12 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (455)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (472)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
           [ "Gameplay (29)", "cahiertest.html#autotoc_md8", null ],
-          [ "Levels (119)", "cahiertest.html#autotoc_md9", null ],
+          [ "Levels (129)", "cahiertest.html#autotoc_md9", null ],
           [ "Math (20)", "cahiertest.html#autotoc_md10", null ],
           [ "Physics (39)", "cahiertest.html#autotoc_md11", null ],
           [ "Time (6)", "cahiertest.html#autotoc_md12", null ]
@@ -43,7 +43,7 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (20)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (100)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (107)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
@@ -102,32 +102,33 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"PhysicsLog_8h_source.html",
-"classcore_1_1EntityManager.html#ab174963453832efe0d7fe31442b066e0",
-"classcore_1_1MechanismController.html#af0a5619d75dbb52d9cb0f27b8d524864",
-"classhmi_1_1ComposedScene.html",
-"classhmi_1_1GameViewport.html#a3fc8dc73d01e346896da05e3e0644750",
-"classhmi_1_1GraphicsDevice.html#ab21b773d7079c0f42fad09278d514b4c",
-"classhmi_1_1MainMenu.html#afe28566f3472f5af7ea7e39e868fdb86",
-"classhmi_1_1SpriteBatch.html#a90680553464dbc60a2bea77f7ebf5fa5",
-"dir_adeee896fff163070c16c17abb9970bc.html",
-"guide-rendu.html#autotoc_md147",
-"lot-04.html#autotoc_md403",
-"lot-08.html",
-"lot-14-tache-04-undo-redo.html#autotoc_md913",
-"lot-19.html#autotoc_md1096",
-"lot-26-tache-01-modele-physique-plafond.html#autotoc_md1356",
-"lot-32.html#autotoc_md1538",
-"lot-38.html#autotoc_md1760",
-"lot-45-tache-01-modele-override.html#autotoc_md2019",
-"lot-51-tache-01-visibilite-calques.html#autotoc_md2240",
-"namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa",
-"namespacehmi.html#ae5554638874ee3372dad502cfe2e594e",
-"structcore_1_1Mechanism.html",
-"structhmi_1_1FileOpResult.html#ab28ea2cfc9a1c46c078439898fec2e71",
-"structhmi_1_1TileAppearance.html",
-"test__level__draft_8cpp.html#a6897e537a38977efc975e688aa750dbd",
-"test__player__input__mapper_8cpp.html#a141830898bb9816f9d63687a070e81ce"
+"PhysicsLog_8h.html#a602c6fdf34ece20682530c61fd8decf1",
+"classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a",
+"classcore_1_1MechanismController.html#a1e47d5dd2d42858c06f2920c7c42cdee",
+"classhmi_1_1Camera2D.html#a2f872fc80538490f888f3eef52498dfb",
+"classhmi_1_1GameViewport.html#a1f2f909759ccc5199434aaba3e9c5766",
+"classhmi_1_1GraphicsDevice.html#a17adb7f269e8e68ce29c9065c53507b5",
+"classhmi_1_1Localization.html#ab339c94377a439fd48a11b08e81af542",
+"classhmi_1_1SkinCatalog.html#ad04a32a030e2bb069c16ef4233a7d729",
+"dir_38531c41d46d453c586174f8aa624a92.html",
+"guide-maths.html#autotoc_md107",
+"lot-04-tache-04-pages-specification.html#autotoc_md434",
+"lot-08-tache-01-composants-personnage.html#autotoc_md655",
+"lot-12.html#autotoc_md837",
+"lot-18.html#autotoc_md1065",
+"lot-25-tache-01-inventaire-conception.html#autotoc_md1317",
+"lot-31.html#autotoc_md1504",
+"lot-37.html#autotoc_md1729",
+"lot-43.html#autotoc_md1950",
+"lot-50-tache-01-mutateurs-decor.html#autotoc_md2202",
+"namespacecore.html#a0019562e8e9658def020086ee4d49425",
+"namespacehmi.html#aabc578b802bb386e63d830e168140fe7",
+"structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38",
+"structhmi_1_1AssetReference.html#a8c0ab8c39484e934f966d253f8855121",
+"structhmi_1_1SkinRow.html#a01f2cabaa149a69569b36c3dbdb2ca5f",
+"test__fixed__timestep_8cpp.html#a457164cdbbb863703ed750b88bd3d544",
+"test__missing__texture_8cpp.html#a7074abbeca6af9aa5e861cfa8dfc87fe",
+"test__tile__skin__resolution_8cpp.html#ac6dcdb75363c4bd6a5bc24dd30595102"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

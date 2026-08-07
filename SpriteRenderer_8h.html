@@ -95,9 +95,11 @@ $(function(){initNavTree('SpriteRenderer_8h.html','',''); });
 
 <p>Rend les entités de l'ECS possédant un <span class="tt">Transform</span> et un <span class="tt">Sprite</span>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;DirectXMath.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="BackgroundRenderer_8h_source.html">HMI/Graphics/BackgroundRenderer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SkinCatalog_8h_source.html">HMI/Graphics/SkinCatalog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SpriteBatch_8h_source.html">HMI/Graphics/SpriteBatch.h</a>&quot;</code><br />
@@ -121,11 +123,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
 <tr class="memitem:a61a3e541d9241813dbf1f451064898f2" id="r_a61a3e541d9241813dbf1f451064898f2"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a61a3e541d9241813dbf1f451064898f2">hmi::sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={})</td></tr>
 <tr class="memdesc:a61a3e541d9241813dbf1f451064898f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
+<tr class="memitem:af1d89363ce904e2b4a68eeaa7503c066" id="r_af1d89363ce904e2b4a68eeaa7503c066"><td class="memItemLeft"><a class="el" href="structhmi_1_1BackgroundTexture.html">BackgroundTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af1d89363ce904e2b4a68eeaa7503c066">hmi::resolveBackgroundTexture</a> (const std::optional&lt; std::string &gt; &amp;background, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
+<tr class="memdesc:af1d89363ce904e2b4a68eeaa7503c066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ab94e51ddc058f58bc9dd1692a7568be0" id="r_ab94e51ddc058f58bc9dd1692a7568be0"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab94e51ddc058f58bc9dd1692a7568be0">hmi::SKINS_SUBDIRECTORY</a> = &quot;Skins/&quot;</td></tr>
 <tr class="memdesc:ab94e51ddc058f58bc9dd1692a7568be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des skins de tuiles, relatif au dossier d'assets (<span class="tt">LOT-42</span>).  <br /></td></tr>
+<tr class="memitem:af60773e2d5fc279ec892b1f4eadd5181" id="r_af60773e2d5fc279ec892b1f4eadd5181"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af60773e2d5fc279ec892b1f4eadd5181">hmi::BACKGROUNDS_SUBDIRECTORY</a> = &quot;Backgrounds/&quot;</td></tr>
+<tr class="memdesc:af60773e2d5fc279ec892b1f4eadd5181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des fonds de niveau, relatif au dossier d'assets (<span class="tt">LOT-44</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Rend les entités de l'ECS possédant un <span class="tt">Transform</span> et un <span class="tt">Sprite</span>. </p>

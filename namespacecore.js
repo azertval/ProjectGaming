@@ -72,7 +72,8 @@ var namespacecore =
       [ "InvalidEntryCount", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff", null ],
       [ "InvalidExitCount", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ab32719130f8dc09d1e17c52f6198aefc", null ],
       [ "UnresolvedMechanism", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05250c1ea0ea6727aa6506464d5af1bb", null ],
-      [ "FileNotFound", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2", null ]
+      [ "FileNotFound", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a2767828026039e8ba7b38973cbb701f2", null ],
+      [ "UnsupportedFormatVersion", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a7d194788f42fea83b92833f89101a8f4", null ]
     ] ],
     [ "LogLevel", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3", [
       [ "Trace", "namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1", null ],
@@ -155,6 +156,7 @@ var namespacecore =
     [ "JUMP_FRAME_COUNT", "namespacecore.html#ae3c64100a95020d369b6f4b976fe0ffe", null ],
     [ "kDangerEdgeThickness", "namespacecore.html#aa10b66433e2fea5a1103518ca7015a3a", null ],
     [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ],
+    [ "kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ],
     [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
     [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ],
     [ "RUN_FRAME_COUNT", "namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d", null ]

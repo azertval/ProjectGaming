@@ -1,6 +1,7 @@
 var classcore_1_1Level =
 [
-    [ "Level", "classcore_1_1Level.html#a4150370ce64cdc907377a852aedf073c", null ],
+    [ "Level", "classcore_1_1Level.html#a8ad319ac0a02b32fab0a895b8f8552aa", null ],
+    [ "background", "classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f", null ],
     [ "blinkConfigs", "classcore_1_1Level.html#a9e1c9105ee90597836bf6addcbb0d98d", null ],
     [ "dangerLinks", "classcore_1_1Level.html#ac843149dd61590cf118ab6339a65e470", null ],
     [ "dashBudget", "classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d", null ],
@@ -10,7 +11,9 @@ var classcore_1_1Level =
     [ "mechanisms", "classcore_1_1Level.html#a2a38db06b24c085d46e05e4d02a66e09", null ],
     [ "moverConfigs", "classcore_1_1Level.html#a4cae6fe32995982eebc6c73c4bfbae10", null ],
     [ "name", "classcore_1_1Level.html#a5980749eacb886074a65f8e06f51fb59", null ],
+    [ "skinSet", "classcore_1_1Level.html#a8d161da24a222053000c9ec45669dfc2", null ],
     [ "tileMap", "classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef", null ],
+    [ "_background", "classcore_1_1Level.html#aaf8f4ab21758836b96c34acab1a6f12d", null ],
     [ "_blinkConfigs", "classcore_1_1Level.html#abd32b32f40b636b0adc934fc70d9c6b4", null ],
     [ "_dangerLinks", "classcore_1_1Level.html#a5ef3a5dd968618ce18b29f28094eda09", null ],
     [ "_dashBudget", "classcore_1_1Level.html#a53b19e727268358e358529a51e37c322", null ],
@@ -20,5 +23,6 @@ var classcore_1_1Level =
     [ "_mechanisms", "classcore_1_1Level.html#a0a2cadc567615ea7c452624534a17573", null ],
     [ "_moverConfigs", "classcore_1_1Level.html#ad8da1bb1d67dfb8dfcae3aaf357bacfb", null ],
     [ "_name", "classcore_1_1Level.html#a7783acfe25a83f5df8e60c257ece69d9", null ],
+    [ "_skinSet", "classcore_1_1Level.html#aa6c9ea29b3fa298fa480ec4a3aa66f2a", null ],
     [ "_tileMap", "classcore_1_1Level.html#a39c02aac063492852131eca383eb1e1a", null ]
 ];

@@ -153,6 +153,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:accdd8d909af2dbb3fb790734c6a643b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon.  <br /></td></tr>
 <tr class="memitem:ae7ad870c084ca5c30be9891d70250638" id="r_ae7ad870c084ca5c30be9891d70250638"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7ad870c084ca5c30be9891d70250638">unlinkMechanism</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition)</td></tr>
 <tr class="memdesc:ae7ad870c084ca5c30be9891d70250638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime la liaison dont la cible est <code class="param">targetPosition</code> (bouton « Supprimer » du panneau « Liens ») ; sans effet si <code class="param">targetPosition</code> n'a pas de liaison.  <br /></td></tr>
+<tr class="memitem:acfc8846bf80901c47e4639b84142f52c" id="r_acfc8846bf80901c47e4639b84142f52c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfc8846bf80901c47e4639b84142f52c">setLevelBackground</a> (std::optional&lt; std::string &gt; background)</td></tr>
+<tr class="memdesc:acfc8846bf80901c47e4639b84142f52c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne l'asset de fond du niveau courant (section « Fond », <span class="tt">LOT-44</span>).  <br /></td></tr>
+<tr class="memitem:aadfe43ddd5e59b2aff37d65d26796d80" id="r_aadfe43ddd5e59b2aff37d65d26796d80"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aadfe43ddd5e59b2aff37d65d26796d80">setLevelSkinSet</a> (std::optional&lt; std::string &gt; skinSet)</td></tr>
+<tr class="memdesc:aadfe43ddd5e59b2aff37d65d26796d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne le jeu de skins du niveau courant (section « Fond », <span class="tt">LOT-44</span>).  <br /></td></tr>
 <tr class="memitem:a5f1055b69e7ae6b225e46936159184af" id="r_a5f1055b69e7ae6b225e46936159184af"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5f1055b69e7ae6b225e46936159184af">renderMode</a> () const noexcept</td></tr>
 <tr class="memitem:ae7d92dd84fe3f73c2c13f2562daa761e" id="r_ae7d92dd84fe3f73c2c13f2562daa761e"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae7d92dd84fe3f73c2c13f2562daa761e">skinCatalog</a> () noexcept</td></tr>
 <tr class="memdesc:ae7d92dd84fe3f73c2c13f2562daa761e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins, édité par le panneau « Textures » (<span class="tt">LOT-42</span>).  <br /></td></tr>
@@ -1424,6 +1428,56 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Met en surbrillance la liaison (déclencheur, cible) dans le viewport (sélection depuis le panneau « Liens ») ; n'affecte que le rendu, pas le brouillon. </p>
+
+</div>
+</div>
+<a id="acfc8846bf80901c47e4639b84142f52c" name="acfc8846bf80901c47e4639b84142f52c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc8846bf80901c47e4639b84142f52c">&#9670;&#160;</a></span>setLevelBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setLevelBackground </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>background</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne l'asset de fond du niveau courant (section « Fond », <span class="tt">LOT-44</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">background</td><td>Nom de l'asset (<span class="tt">Assets/Backgrounds/*.png</span>), ou absent pour retirer le fond posé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aadfe43ddd5e59b2aff37d65d26796d80" name="aadfe43ddd5e59b2aff37d65d26796d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadfe43ddd5e59b2aff37d65d26796d80">&#9670;&#160;</a></span>setLevelSkinSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setLevelSkinSet </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigne le jeu de skins du niveau courant (section « Fond », <span class="tt">LOT-44</span>). </p>
+<p>Propriété <b>persistée du niveau</b> (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a67618564911cd89f947a0d2b1c47f774">core::LevelDraft::skinSet</a></span>) : distincte du jeu de skins <b>courant d'édition</b> (<span class="tt"><a class="el" href="#ab1634dd73825b6d371c062bf557cd3d5" title="Désigne le jeu de skins à utiliser pour le rendu (LOT-42).">setSkinSet</a></span>, session de l'éditeur, <span class="tt">LOT-42</span>) — les deux ne se contaminent jamais l'un l'autre. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu (<span class="tt">skins.json</span>), ou absent pour le jeu par défaut. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

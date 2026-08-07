@@ -110,14 +110,20 @@ Signals</h2></td></tr>
 <tr class="memdesc:a8beee864e1295689d194f5e2a3b8d7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis après toute modification d'assignation ou changement de jeu courant, une fois le catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.  <br /></td></tr>
 <tr class="memitem:a266d026178e467fbfb91fb351b2399e7" id="r_a266d026178e467fbfb91fb351b2399e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a266d026178e467fbfb91fb351b2399e7">reloadRequested</a> ()</td></tr>
 <tr class="memdesc:a266d026178e467fbfb91fb351b2399e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur demande un rechargement à chaud des textures (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
+<tr class="memitem:a68512ca2144f0717636c1f48d3b5ffd8" id="r_a68512ca2144f0717636c1f48d3b5ffd8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a68512ca2144f0717636c1f48d3b5ffd8">backgroundChanged</a> (const QString &amp;fileName)</td></tr>
+<tr class="memdesc:a68512ca2144f0717636c1f48d3b5ffd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un fond dans la section « Fond » (<span class="tt">LOT-44</span>) : nom de l'asset, vide pour « aucun fond ».  <br /></td></tr>
+<tr class="memitem:a14735adac3bd42b177a10ec98e2cf527" id="r_a14735adac3bd42b177a10ec98e2cf527"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14735adac3bd42b177a10ec98e2cf527">levelSkinSetChanged</a> (const QString &amp;setName)</td></tr>
+<tr class="memdesc:a14735adac3bd42b177a10ec98e2cf527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit le jeu de skins <b>du niveau</b> (<span class="tt">LOT-44</span>), distinct du jeu courant d'édition : nom du jeu, vide pour « jeu par défaut ».  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af3ff04e1686ccf33e431be9b3bc5a1ea" id="r_af3ff04e1686ccf33e431be9b3bc5a1ea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af3ff04e1686ccf33e431be9b3bc5a1ea">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, QWidget *parent=nullptr)</td></tr>
-<tr class="memdesc:af3ff04e1686ccf33e431be9b3bc5a1ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
+<tr class="memitem:a5bb7540871daadc6745dfec4271d191c" id="r_a5bb7540871daadc6745dfec4271d191c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5bb7540871daadc6745dfec4271d191c">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, std::filesystem::path backgroundsDirectory, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a5bb7540871daadc6745dfec4271d191c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
 <tr class="memitem:af9948eba8e1ae33c5f2dcf1cc3d42790" id="r_af9948eba8e1ae33c5f2dcf1cc3d42790"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af9948eba8e1ae33c5f2dcf1cc3d42790">~TexturePanel</a> () override</td></tr>
 <tr class="memitem:ab68661f6c1fb3a92bca60bff222f6423" id="r_ab68661f6c1fb3a92bca60bff222f6423"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423">setCatalog</a> (<a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog)</td></tr>
 <tr class="memdesc:ab68661f6c1fb3a92bca60bff222f6423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confie au panneau le catalogue à éditer.  <br /></td></tr>
+<tr class="memitem:ad8ba70ed6f484d3a30ffc3235b13d6e1" id="r_ad8ba70ed6f484d3a30ffc3235b13d6e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1">setLevelProperties</a> (const std::optional&lt; std::string &gt; &amp;background, const std::optional&lt; std::string &gt; &amp;skinSet)</td></tr>
+<tr class="memdesc:ad8ba70ed6f484d3a30ffc3235b13d6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronise la section « Fond » avec le niveau courant (<span class="tt">LOT-44</span>).  <br /></td></tr>
 <tr class="memitem:a0e91d775329d3d2c60ddf558379d76d3" id="r_a0e91d775329d3d2c60ddf558379d76d3"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0e91d775329d3d2c60ddf558379d76d3">currentSet</a> () const noexcept</td></tr>
 <tr class="memitem:a3117139a9fc1fac2d1a5331c36f88694" id="r_a3117139a9fc1fac2d1a5331c36f88694"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3117139a9fc1fac2d1a5331c36f88694">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a3117139a9fc1fac2d1a5331c36f88694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active (titre des sections, en-têtes de colonnes, libellés de types).  <br /></td></tr>
@@ -133,16 +139,24 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a55e61afec038df32026c0c41a6c606cc" id="r_a55e61afec038df32026c0c41a6c606cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55e61afec038df32026c0c41a6c606cc">save</a> ()</td></tr>
 <tr class="memitem:a4af3d78ff3009ccd51e057588acaf63e" id="r_a4af3d78ff3009ccd51e057588acaf63e"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e">thumbnailFor</a> (const std::string &amp;asset)</td></tr>
 <tr class="memdesc:a4af3d78ff3009ccd51e057588acaf63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, <span class="tt">LOT-40</span>).  <br /></td></tr>
+<tr class="memitem:a8191178ea4259916e0bfc4729c69d48e" id="r_a8191178ea4259916e0bfc4729c69d48e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8191178ea4259916e0bfc4729c69d48e">rebuildLevelSkinSetSelector</a> ()</td></tr>
+<tr class="memdesc:a8191178ea4259916e0bfc4729c69d48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste du sélecteur de jeu de skins <b>du niveau</b> (section « Fond »), à partir des jeux du catalogue, plus l'entrée « jeu par défaut ».  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a86bcd4ae88dbdc7a95cb7f17655ee8a0" id="r_a86bcd4ae88dbdc7a95cb7f17655ee8a0"><td class="memItemLeft">std::unique_ptr&lt; Ui::TexturePanel &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86bcd4ae88dbdc7a95cb7f17655ee8a0">_ui</a></td></tr>
 <tr class="memitem:a333f70eb897f6bfe586f90b23853aa73" id="r_a333f70eb897f6bfe586f90b23853aa73"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a333f70eb897f6bfe586f90b23853aa73">_model</a></td></tr>
+<tr class="memitem:a8900f1bd4dd38c73eca12d47e4b82875" id="r_a8900f1bd4dd38c73eca12d47e4b82875"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8900f1bd4dd38c73eca12d47e4b82875">_backgroundView</a></td></tr>
+<tr class="memdesc:a8900f1bd4dd38c73eca12d47e4b82875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Backgrounds/</span> (LOT-44).  <br /></td></tr>
 <tr class="memitem:a7adaa51b0922db2f2c3c6e3c076d91e0" id="r_a7adaa51b0922db2f2c3c6e3c076d91e0"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a7adaa51b0922db2f2c3c6e3c076d91e0">_skinsDirectory</a></td></tr>
 <tr class="memitem:ab34fd9852d1e50ff3d063ee2c38e3f33" id="r_ab34fd9852d1e50ff3d063ee2c38e3f33"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab34fd9852d1e50ff3d063ee2c38e3f33">_catalogPath</a></td></tr>
+<tr class="memitem:a33abf9819a780a7de48c412af68d16ae" id="r_a33abf9819a780a7de48c412af68d16ae"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a33abf9819a780a7de48c412af68d16ae">_backgroundsDirectory</a></td></tr>
 <tr class="memitem:a8686f12685ae19a07b1b5307c1933e65" id="r_a8686f12685ae19a07b1b5307c1933e65"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8686f12685ae19a07b1b5307c1933e65">_catalog</a> = nullptr</td></tr>
 <tr class="memdesc:a8686f12685ae19a07b1b5307c1933e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non possédé (propriété de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>).  <br /></td></tr>
 <tr class="memitem:aa2fe2666a58c938bddea969c2294644d" id="r_aa2fe2666a58c938bddea969c2294644d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa2fe2666a58c938bddea969c2294644d">_currentSet</a></td></tr>
+<tr class="memitem:a7d3776990d11880d96ae05010bba1579" id="r_a7d3776990d11880d96ae05010bba1579"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7d3776990d11880d96ae05010bba1579">_levelBackground</a></td></tr>
+<tr class="memdesc:a7d3776990d11880d96ae05010bba1579"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernières valeurs poussées par <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span> (LOT-44) : reappliquées après tout rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo).  <br /></td></tr>
+<tr class="memitem:adc38e5378ec00a5d2278bb96fe43aaf5" id="r_adc38e5378ec00a5d2278bb96fe43aaf5"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc38e5378ec00a5d2278bb96fe43aaf5">_levelSkinSet</a></td></tr>
 <tr class="memitem:ac317d14b1a5d2d5d67ea0048b84fb0b4" id="r_ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac317d14b1a5d2d5d67ea0048b84fb0b4">_updating</a> = false</td></tr>
 <tr class="memdesc:ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde de réentrance pendant la reconstruction du modèle.  <br /></td></tr>
 <tr class="memitem:a6616dfc18655f4200948ccc9efe8cf72" id="r_a6616dfc18655f4200948ccc9efe8cf72"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6616dfc18655f4200948ccc9efe8cf72">_loc</a> = nullptr</td></tr>
@@ -156,8 +170,8 @@ Private Attributes</h2></td></tr>
 <p>Le panneau <b>ne possède pas</b> le catalogue : il agit sur celui que lui confie <span class="tt"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423" title="Confie au panneau le catalogue à éditer.">setCatalog</a></span>, dont <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement. Toute modification est écrite sur disque (<span class="tt">skins.json</span>, au chemin déployé) et signalée par <span class="tt"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed" title="Émis après toute modification d&#39;assignation ou changement de jeu courant, une fois le catalogue à jou...">assignmentsChanged</a></span>, que le viewport et la palette consomment pour se rafraîchir.</p>
 <p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). Le choix du fichier assigné à un type se fait par vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>), pas par saisie de nom. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af3ff04e1686ccf33e431be9b3bc5a1ea" name="af3ff04e1686ccf33e431be9b3bc5a1ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3ff04e1686ccf33e431be9b3bc5a1ea">&#9670;&#160;</a></span>TexturePanel()</h2>
+<a id="a5bb7540871daadc6745dfec4271d191c" name="a5bb7540871daadc6745dfec4271d191c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb7540871daadc6745dfec4271d191c">&#9670;&#160;</a></span>TexturePanel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,6 +192,11 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>backgroundsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
@@ -193,6 +212,7 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">skinsDirectory</td><td>Dossier balayé pour peupler la liste des fichiers assignables. </td></tr>
     <tr><td class="paramname">catalogPath</td><td>Chemin d'écriture de <span class="tt">skins.json</span>. </td></tr>
+    <tr><td class="paramname">backgroundsDirectory</td><td>Dossier balayé pour peupler la grille de fonds (section « Fond », <span class="tt">LOT-44</span>). </td></tr>
     <tr><td class="paramname">parent</td><td>Widget parent. </td></tr>
   </table>
   </dd>
@@ -253,6 +273,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a68512ca2144f0717636c1f48d3b5ffd8" name="a68512ca2144f0717636c1f48d3b5ffd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68512ca2144f0717636c1f48d3b5ffd8">&#9670;&#160;</a></span>backgroundChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::backgroundChanged </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit un fond dans la section « Fond » (<span class="tt">LOT-44</span>) : nom de l'asset, vide pour « aucun fond ». </p>
+
+</div>
+</div>
 <a id="a0e91d775329d3d2c60ddf558379d76d3" name="a0e91d775329d3d2c60ddf558379d76d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e91d775329d3d2c60ddf558379d76d3">&#9670;&#160;</a></span>currentSet()</h2>
 
@@ -276,6 +323,33 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nom du jeu de skins actuellement sélectionné. </dd></dl>
+
+</div>
+</div>
+<a id="a14735adac3bd42b177a10ec98e2cf527" name="a14735adac3bd42b177a10ec98e2cf527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14735adac3bd42b177a10ec98e2cf527">&#9670;&#160;</a></span>levelSkinSetChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::levelSkinSetChanged </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>setName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit le jeu de skins <b>du niveau</b> (<span class="tt">LOT-44</span>), distinct du jeu courant d'édition : nom du jeu, vide pour « jeu par défaut ». </p>
 
 </div>
 </div>
@@ -351,6 +425,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8191178ea4259916e0bfc4729c69d48e" name="a8191178ea4259916e0bfc4729c69d48e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8191178ea4259916e0bfc4729c69d48e">&#9670;&#160;</a></span>rebuildLevelSkinSetSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildLevelSkinSetSelector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit la liste du sélecteur de jeu de skins <b>du niveau</b> (section « Fond »), à partir des jeux du catalogue, plus l'entrée « jeu par défaut ». </p>
 
 </div>
 </div>
@@ -495,6 +596,36 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad8ba70ed6f484d3a30ffc3235b13d6e1" name="ad8ba70ed6f484d3a30ffc3235b13d6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ba70ed6f484d3a30ffc3235b13d6e1">&#9670;&#160;</a></span>setLevelProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::setLevelProperties </td>
+          <td>(</td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>background</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Synchronise la section « Fond » avec le niveau courant (<span class="tt">LOT-44</span>). </p>
+<p>À appeler après tout changement de brouillon (ouverture, undo/redo, chargement) pour que la sélection affichée reste fidèle au niveau — l'inverse du sens habituel des signaux de ce panneau (ici c'est l'appelant qui pousse l'état, la section ne le possède pas). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">background</td><td>Asset de fond du niveau courant (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#ae10fca65c113da45ec8bf89846979889">core::LevelDraft::background</a></span>). </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Jeu de skins du niveau courant (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a67618564911cd89f947a0d2b1c47f774">core::LevelDraft::skinSet</a></span>), distinct du jeu courant d'édition (<span class="tt"><a class="el" href="#a0e91d775329d3d2c60ddf558379d76d3">currentSet</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a4af3d78ff3009ccd51e057588acaf63e" name="a4af3d78ff3009ccd51e057588acaf63e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4af3d78ff3009ccd51e057588acaf63e">&#9670;&#160;</a></span>thumbnailFor()</h2>
 
@@ -523,6 +654,52 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a33abf9819a780a7de48c412af68d16ae" name="a33abf9819a780a7de48c412af68d16ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33abf9819a780a7de48c412af68d16ae">&#9670;&#160;</a></span>_backgroundsDirectory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::TexturePanel::_backgroundsDirectory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8900f1bd4dd38c73eca12d47e4b82875" name="a8900f1bd4dd38c73eca12d47e4b82875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8900f1bd4dd38c73eca12d47e4b82875">&#9670;&#160;</a></span>_backgroundView</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a>* hmi::TexturePanel::_backgroundView</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Grille de vignettes de <span class="tt">Assets/Backgrounds/</span> (LOT-44). </p>
+
+</div>
+</div>
 <a id="a8686f12685ae19a07b1b5307c1933e65" name="a8686f12685ae19a07b1b5307c1933e65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8686f12685ae19a07b1b5307c1933e65">&#9670;&#160;</a></span>_catalog</h2>
 
@@ -580,6 +757,52 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string hmi::TexturePanel::_currentSet</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d3776990d11880d96ae05010bba1579" name="a7d3776990d11880d96ae05010bba1579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d3776990d11880d96ae05010bba1579">&#9670;&#160;</a></span>_levelBackground</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; hmi::TexturePanel::_levelBackground</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernières valeurs poussées par <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span> (LOT-44) : reappliquées après tout rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo). </p>
+
+</div>
+</div>
+<a id="adc38e5378ec00a5d2278bb96fe43aaf5" name="adc38e5378ec00a5d2278bb96fe43aaf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc38e5378ec00a5d2278bb96fe43aaf5">&#9670;&#160;</a></span>_levelSkinSet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; hmi::TexturePanel::_levelSkinSet</td>
         </tr>
       </table>
   </td>
