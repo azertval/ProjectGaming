@@ -14,17 +14,51 @@ namespace {
 // tolere ; idle ne doit jamais se declencher a tort pour un personnage reellement en mouvement).
 constexpr float MOVING_THRESHOLD = 0.01f;
 
-// Noms des clips du personnage, migres tels quels depuis l'ancien enum (LOT-18) : seule source de
-// verite de ces chaines, partagee entre la construction du jeu (playerClipSet) et la projection
-// (targetClipName) -- les dupliquer ailleurs risquerait de les laisser diverger silencieusement.
+// Noms des clips du personnage, migres tels quels depuis l'ancien enum (LOT-18), etendus par
+// LOT-48 TACHE-02 : seule source de verite de ces chaines, partagee entre la construction du jeu
+// (playerClipSet) et la projection (targetClipName) -- les dupliquer ailleurs risquerait de les
+// laisser diverger silencieusement.
 constexpr const char* PLAYER_CLIP_NAME_IDLE = "idle";
 constexpr const char* PLAYER_CLIP_NAME_RUN = "run";
 constexpr const char* PLAYER_CLIP_NAME_JUMP = "jump";
+constexpr const char* PLAYER_CLIP_NAME_FALL = "fall";
+constexpr const char* PLAYER_CLIP_NAME_LAND = "land";
+constexpr const char* PLAYER_CLIP_NAME_WALLSLIDE = "wallslide";
+constexpr const char* PLAYER_CLIP_NAME_DASH = "dash";
 
-// Determine le nom du clip cible a partir de l'etat physique courant (projection, cf. en-tete).
-const char* targetClipName(const Player& player, const Velocity& velocity) {
+// Vrai si l'index designe l'un des clips AERIENS (saut, chute, glissade murale) : c'est depuis
+// l'un de ces trois clips qu'un contact au sol declenche la transition d'atterrissage
+// ci-dessous -- pas depuis idle/run/dash/land lui-meme (LOT-48 TACHE-02).
+bool isAirborneClip(int clipIndex) {
+    return clipIndex == PLAYER_CLIP_JUMP || clipIndex == PLAYER_CLIP_FALL ||
+           clipIndex == PLAYER_CLIP_WALLSLIDE;
+}
+
+// Determine le nom du clip cible a partir de l'etat physique courant et du clip actuellement
+// resolu (projection, cf. en-tete). Ordre de priorite EXPLICITE (LOT-48 TACHE-02), du plus fort
+// au plus faible :
+//   1. dash       -- dashTimer actif, domine tout le reste (y compris un atterrissage en cours) ;
+//   2. land       -- transition d'atterrissage : soit deja en cours (clip courant == land, on la
+//                    laisse se terminer), soit qui debute a l'instant (au sol ce pas-ci, alors
+//                    qu'un clip AERIEN etait resolu au pas precedent -- comparaison avec le pas
+//                    precedent, comme les transitions de mecanismes, LOT-47 TACHE-02) ;
+//   3. wallslide  -- contact mural en l'air (wallDirection non nul, pas au sol) ;
+//   4. fall/jump  -- en l'air, signe de la vitesse verticale (Y vers le bas : positive = chute) ;
+//   5. run/idle   -- au sol, seuil de vitesse horizontale existant, inchange depuis LOT-18.
+const char* targetClipName(const Player& player, const Velocity& velocity,
+                           const Animation& animation) {
+    if (player.dashTimer > 0.0f) {
+        return PLAYER_CLIP_NAME_DASH;
+    }
+    if (animation.clipIndex == PLAYER_CLIP_LAND ||
+        (player.grounded && isAirborneClip(animation.clipIndex))) {
+        return PLAYER_CLIP_NAME_LAND;
+    }
     if (!player.grounded) {
-        return PLAYER_CLIP_NAME_JUMP;
+        if (player.wallDirection != 0.0f) {
+            return PLAYER_CLIP_NAME_WALLSLIDE;
+        }
+        return (velocity.value.y > 0.0f) ? PLAYER_CLIP_NAME_FALL : PLAYER_CLIP_NAME_JUMP;
     }
     if (std::abs(velocity.value.x) > MOVING_THRESHOLD) {
         return PLAYER_CLIP_NAME_RUN;
@@ -76,8 +110,44 @@ std::shared_ptr<const ClipSet> playerClipSet() {
         jump.endMode = ClipEndMode::Loop;
         clips->addClip(jump);
 
-        // Ordre de construction = PLAYER_CLIP_IDLE/RUN/JUMP (AnimationSystem.h) : seule source de
-        // verite partagee avec la traduction en region d'atlas cote HMI (LOT-46 TACHE-04).
+        // Quatre clips LOT-48 (TACHE-02), sans pose procedurale dediee -- HMI les fait retomber
+        // sur le clip le plus proche declare (hmi::resolveDeclaredPlayerClip) aussi bien pour
+        // l'atlas procedural que pour une spritesheet externe partielle.
+        AnimationClip fall;
+        fall.name = PLAYER_CLIP_NAME_FALL;
+        fall.frames = {0};  // pose unique, comme jump : distinguee par le NOM du clip, pas l'image.
+        fall.frameDuration = 0.0f;
+        fall.endMode = ClipEndMode::Loop;
+        clips->addClip(fall);
+
+        AnimationClip land;
+        land.name = PLAYER_CLIP_NAME_LAND;
+        // Transition jouee UNE fois (LOT-47 TACHE-02 pour le meme patron cote mecanismes), puis
+        // bascule sur idle -- immediatement corrigee vers run par le pas suivant si le personnage
+        // est deja en mouvement (targetClipName est reevalue a chaque pas, cf. en-tete).
+        land.frames = {0, 1};
+        land.frameDuration = 0.08f;
+        land.endMode = ClipEndMode::OneShot;
+        land.nextClip = PLAYER_CLIP_NAME_IDLE;
+        clips->addClip(land);
+
+        AnimationClip wallslide;
+        wallslide.name = PLAYER_CLIP_NAME_WALLSLIDE;
+        wallslide.frames = {0};  // pose unique : contact mural continu, pas de cycle d'images.
+        wallslide.frameDuration = 0.0f;
+        wallslide.endMode = ClipEndMode::Loop;
+        clips->addClip(wallslide);
+
+        AnimationClip dash;
+        dash.name = PLAYER_CLIP_NAME_DASH;
+        dash.frames = {0};  // pose unique : le dash est bref (Player::dashTimer), pas de cycle.
+        dash.frameDuration = 0.0f;
+        dash.endMode = ClipEndMode::Loop;
+        clips->addClip(dash);
+
+        // Ordre de construction = PLAYER_CLIP_IDLE/RUN/JUMP/FALL/LAND/WALLSLIDE/DASH
+        // (AnimationSystem.h) : seule source de verite partagee avec la traduction en region
+        // d'atlas cote HMI (LOT-46 TACHE-04, etendue LOT-48).
         return clips;
     }();
     return shared;
@@ -144,8 +214,8 @@ void AnimationSystem::update(World& world, float fixedDelta) {
         if (world.hasComponent<Player>(entity) && world.hasComponent<Velocity>(entity)) {
             const Player& player = world.getComponent<Player>(entity);
             const Velocity& velocity = world.getComponent<Velocity>(entity);
-            justChanged =
-                setTargetClip(animation, *animation.clips, targetClipName(player, velocity));
+            justChanged = setTargetClip(animation, *animation.clips,
+                                        targetClipName(player, velocity, animation));
         }
         if (justChanged) {
             return;

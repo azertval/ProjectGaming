@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstddef>
 #include <string>
+#include <vector>
 
 #include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Collider.h"
@@ -21,6 +22,8 @@
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/MechanismVisuals.h"
+#include "HMI/Graphics/PlayerSprite.h"
+#include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -36,19 +39,36 @@
 namespace hmi {
 
 namespace {
-// Traduit l'index de clip resolu par Core (core::PLAYER_CLIP_IDLE/_RUN/_JUMP, core::playerClipSet)
-// en identite de clip cote presentation (hmi::PlayerClipKind, ProceduralAtlas.h) : les deux ordres
-// sont deliberement les memes, mais restent deux enumerations distinctes de part et d'autre de la
-// frontiere Core/HMI (EX-ARCH-012) -- Core ne connait pas hmi::PlayerClipKind.
-PlayerClipKind playerClipKindFromIndex(int clipIndex) {
-    switch (clipIndex) {
-        case core::PLAYER_CLIP_RUN:
-            return PlayerClipKind::Run;
-        case core::PLAYER_CLIP_JUMP:
-            return PlayerClipKind::Jump;
-        default:
-            return PlayerClipKind::Idle;
+// Nombre d'images procedurales d'un PlayerClipKind (ProceduralAtlas.h) : seule source de verite
+// deja etablie par LOT-18/LOT-46, reprise ici pour borner animation.frameIndex (Core) au cycle
+// procedural, quel que soit le nombre d'images du clip Core resolu (LOT-48).
+int proceduralFrameCount(PlayerClipKind kind) {
+    switch (kind) {
+        case PlayerClipKind::Idle:
+            return PLAYER_IDLE_FRAME_COUNT;
+        case PlayerClipKind::Run:
+            return PLAYER_RUN_FRAME_COUNT;
+        case PlayerClipKind::Jump:
+            return PLAYER_JUMP_FRAME_COUNT;
     }
+    return 1;
+}
+
+// Traduit un NOM de clip resolu par Core (core::playerClipSet()->clipAt(...).name) en identite de
+// clip cote presentation (hmi::PlayerClipKind, ProceduralAtlas.h). L'atlas procedural ne sait
+// dessiner que trois poses (Idle/Run/Jump, LOT-18) : les quatre clips LOT-48 (fall/land/wallslide/
+// dash) retombent sur le plus proche via la MEME chaine de repli qu'une spritesheet externe
+// partielle (hmi::resolveDeclaredPlayerClip, hmi::proceduralPlayerClipNames) -- l'atlas procedural
+// est traite comme une spritesheet qui n'en declare que trois.
+PlayerClipKind proceduralClipKindFor(const std::string& clipName) {
+    const std::string resolved = resolveDeclaredPlayerClip(proceduralPlayerClipNames(), clipName);
+    if (resolved == "run") {
+        return PlayerClipKind::Run;
+    }
+    if (resolved == "jump") {
+        return PlayerClipKind::Jump;
+    }
+    return PlayerClipKind::Idle;
 }
 }  // namespace
 
@@ -247,6 +267,10 @@ void GameSession::spawnPlayer(core::GridPosition entry) {
     sprite.region = _atlas.playerFrameRegion(PlayerClipKind::Idle, 0);
     sprite.tint = core::Color{1.0f, 1.0f, 1.0f, 1.0f};
     _world.addComponent(_player, sprite);
+    // Habillage du personnage (LOT-48) : resolu chaque image par refreshPlayerSprite, valeurs
+    // par defaut sans effet tant qu'un premier appel n'a pas eu lieu (RenderMode::Physique inchange
+    // entre-temps, puisqu'il ne consulte que core::Sprite::region ci-dessus).
+    _world.addComponent(_player, PlayerSpriteTag{});
     // Calque de dessin nomme (LOT-40, EX-REN-014) : le personnage passe devant les tuiles parce
     // qu'il est sur RenderLayer::Player, plus parce qu'on lui aurait attribue un entier plus grand.
     _world.addComponent(_player, RenderLayerTag{RenderLayer::Player});
@@ -434,11 +458,66 @@ std::vector<core::Aabb> GameSession::collectActiveDangerBoxes() const {
     return boxes;
 }
 
+// Resout l'apparence du personnage pour l'image courante : region procedurale (Physique, et repli
+// de Texture) + habillage Texture (spritesheet externe si chargee, LOT-48).
 void GameSession::refreshPlayerSprite() {
     const core::Animation& animation = _world.getComponent<core::Animation>(_player);
+    const core::Player& player = _world.getComponent<core::Player>(_player);
     core::Sprite& sprite = _world.getComponent<core::Sprite>(_player);
-    sprite.region = _atlas.playerFrameRegion(playerClipKindFromIndex(animation.clipIndex),
-                                             animation.frameIndex);
+    PlayerSpriteTag& tag = _world.getComponent<PlayerSpriteTag>(_player);
+
+    const std::string clipName =
+        animation.clips ? std::string(animation.clips->clipAt(animation.clipIndex).name) : "idle";
+
+    // Region PROCEDURALE : comportement de RenderMode::Physique strictement inchange depuis avant
+    // LOT-48 (core::Sprite::region), et repli de RenderMode::Texture en l'absence de spritesheet
+    // externe (AC#2 du lot) -- calculee une seule fois, partagee par les deux usages.
+    const PlayerClipKind proceduralKind = proceduralClipKindFor(clipName);
+    const int proceduralFrame = animation.frameIndex % proceduralFrameCount(proceduralKind);
+    const core::AtlasRegion proceduralRegion = _atlas.playerFrameRegion(proceduralKind, proceduralFrame);
+    sprite.region = proceduralRegion;
+
+    core::AtlasRegion textureRegion = proceduralRegion;
+    bool usesCharacterSheet = false;
+    core::Vector2 imageSizePixels{static_cast<float>(TextureAtlas::PLAYER_FRAME_SIZE),
+                                  static_cast<float>(TextureAtlas::PLAYER_FRAME_SIZE)};
+
+    if (const LoadedTexture* sheet = _cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME,
+                                                AssetFamily::CharacterSheet)) {
+        if (const AnimationDescription* description = _cache.getAnimation(
+                PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME, sheet->width, sheet->height)) {
+            // Noms effectivement declares par CETTE spritesheet (peut-etre partielle) : le repli
+            // (chute -> saut, atterrissage -> repos, ...) est le meme mecanisme que pour l'atlas
+            // procedural ci-dessus, seul l'ensemble declare differe.
+            std::vector<std::string> declaredNames;
+            declaredNames.reserve(static_cast<std::size_t>(description->clips.clipCount()));
+            for (int index = 0; index < description->clips.clipCount(); ++index) {
+                declaredNames.emplace_back(description->clips.clipAt(index).name);
+            }
+            const std::string resolvedName = resolveDeclaredPlayerClip(declaredNames, clipName);
+            const int resolvedIndex = description->clips.indexOf(resolvedName);
+            const core::AnimationClip& sheetClip =
+                description->clips.clipAt(resolvedIndex >= 0 ? resolvedIndex : 0);
+            const int frameSheetIndex =
+                sheetClip.frames.empty()
+                    ? 0
+                    : sheetClip.frames[static_cast<std::size_t>(animation.frameIndex) %
+                                       sheetClip.frames.size()];
+            textureRegion = AnimationCatalog::frameRegion(*description, frameSheetIndex);
+            usesCharacterSheet = true;
+            imageSizePixels = core::Vector2{static_cast<float>(description->frameWidth),
+                                            static_cast<float>(description->frameHeight)};
+        }
+    }
+
+    const PlayerSpriteQuad quad = computePlayerSpriteQuad(imageSizePixels, core::playerSize());
+    tag.textureRegion = textureRegion;
+    tag.usesCharacterSheet = usesCharacterSheet;
+    tag.quadOffset = quad.offset;
+    tag.quadSize = quad.size;
+    // Orientation (LOT-48 TACHE-03) : sens du deplacement, maintenu par la physique
+    // (core::Player::facing), sans que le rendu n'ait a le recalculer.
+    tag.flipHorizontal = player.facing < 0.0f;
 }
 
 // Avance l'horloge d'animation partagee des tuiles animees, au pas fixe (LOT-46 TACHE-05).

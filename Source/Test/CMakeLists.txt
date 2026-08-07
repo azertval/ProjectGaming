@@ -49,6 +49,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_texture_atlas.cpp
     Unit/HMI/Graphics/test_animation_catalog.cpp
     Unit/HMI/Graphics/test_animated_tiles.cpp
+    Unit/HMI/Graphics/test_player_sprite.cpp
     Unit/HMI/Graphics/test_asset_contract.cpp
     Unit/HMI/Graphics/test_missing_texture.cpp
     Unit/HMI/Graphics/test_quad_recorder.cpp
@@ -109,6 +110,9 @@ add_executable(UnitTests
     # Le format d'animation nom-asset.anim.json (LOT-46) est une lecture/validation JSON pure,
     # sans dependance Qt/GPU : testable hors GPU (EX-NFR-010).
     ../HMI/Graphics/AnimationCatalog.cpp
+    # L'ancrage image/hitbox et la resolution de clip par repli du personnage (LOT-48) sont des
+    # fonctions pures (aucune dependance GPU/fichier) : testables hors GPU.
+    ../HMI/Graphics/PlayerSprite.cpp
     # La table de raccords automatiques (LOT-42) est de la pure arithmetique de voisinage, sans
     # texture ni GPU : testable exhaustivement hors GPU (EX-NFR-004).
     ../HMI/Graphics/TileAutotile.cpp

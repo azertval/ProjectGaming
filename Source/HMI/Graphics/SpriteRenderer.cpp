@@ -6,6 +6,7 @@
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 
@@ -58,6 +59,17 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         textures.missing = missing->view.Get();
         textures.missingWidth = missing->width;
         textures.missingHeight = missing->height;
+    }
+
+    // Spritesheet externe du personnage (LOT-48), independamment du catalogue de skins : le
+    // personnage n'est pas une tuile, sa resolution vit hors de hmi::resolveTileAppearance
+    // (GameSession::refreshPlayerSprite compose PlayerSpriteTag a partir de cette texture, avec
+    // repli sur l'atlas si absente/invalide -- meme avertissement deja journalise par le cache).
+    if (const LoadedTexture* sheet = cache.get(PLAYER_SUBDIRECTORY + PLAYER_SHEET_FILE_NAME,
+                                               AssetFamily::CharacterSheet)) {
+        textures.characterSheet = sheet->view.Get();
+        textures.characterSheetWidth = sheet->width;
+        textures.characterSheetHeight = sheet->height;
     }
 
     // Charge les surcharges de texture par instance (EX-EDIT-043, LOT-45), independamment du

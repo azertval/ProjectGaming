@@ -33,6 +33,20 @@ core::Entity spawnCharacter(core::World& world, bool grounded, float velocityX) 
     world.addComponent(entity, animation);
     return entity;
 }
+
+// Personnage complet (Player + Velocity + Animation), pour les scenarios LOT-48 TACHE-02 qui ont
+// besoin de regler dashTimer/wallDirection/velocity.y en plus de grounded/velocity.x.
+core::Entity spawnFullCharacter(core::World& world, const core::Player& player,
+                                const core::Velocity& velocity) {
+    const core::Entity entity = world.createEntity();
+    world.addComponent(entity, player);
+    world.addComponent(entity, velocity);
+    core::Animation animation;
+    animation.clips = core::playerClipSet();
+    animation.clipIndex = core::PLAYER_CLIP_IDLE;
+    world.addComponent(entity, animation);
+    return entity;
+}
 }  // namespace
 
 /**
@@ -210,4 +224,199 @@ TEST(AnimationPersonnageIntegration, AnimationSansJeuDeClipsResteInerte) {
     const core::Animation& animation = world.getComponent<core::Animation>(entity);
     EXPECT_EQ(animation.clipIndex, 0);
     EXPECT_EQ(animation.frameIndex, 0);
+}
+
+/**
+ * @brief En l'air et en train de descendre (vitesse verticale positive), le clip est Fall,
+ *        distinct de Jump (`LOT-48` TACHE-02).
+ * \castest{<b>En l'air et en train de descendre, le clip est Fall.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Placer le personnage en l'air, vitesse verticale positive (chute).<br/>2. Executer
+ * un pas.<br/>
+ * \tattendu Le clip resolu est Fall, pas Jump.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, EnChuteEstDistinctDuSaut) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    const core::Entity entity =
+        spawnFullCharacter(world, player, core::Velocity{core::Vector2{0.0f, 5.0f}});
+
+    core::AnimationSystem system;
+    system.update(world, STEP);
+
+    const core::Animation& animation = world.getComponent<core::Animation>(entity);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_FALL);
+}
+
+/**
+ * @brief En l'air et en train de monter (vitesse verticale negative ou nulle, apex compris), le
+ *        clip reste Jump.
+ * \castest{<b>En l'air en montee ou a l'apex, le clip est Jump.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Placer le personnage en l'air, vitesse verticale nulle (apex).<br/>2. Executer un
+ * pas.<br/>
+ * \tattendu Le clip resolu est Jump.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, ApexSuspenduResteEnSaut) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    const core::Entity entity =
+        spawnFullCharacter(world, player, core::Velocity{core::Vector2{0.0f, 0.0f}});
+
+    core::AnimationSystem system;
+    system.update(world, STEP);
+
+    const core::Animation& animation = world.getComponent<core::Animation>(entity);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_JUMP);
+}
+
+/**
+ * @brief Contact mural en l'air (wallDirection non nul, pas au sol) : le clip est WallSlide, quel
+ *        que soit le signe de la vitesse verticale.
+ * \castest{<b>Contact mural en l'air : le clip est WallSlide.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Placer le personnage en l'air, au contact d'un mur.<br/>2. Executer un pas.<br/>
+ * \tattendu Le clip resolu est WallSlide, pas Fall/Jump.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, ContactMuralEstEnGlissade) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    player.wallDirection = -1.0f;
+    const core::Entity entity =
+        spawnFullCharacter(world, player, core::Velocity{core::Vector2{0.0f, 2.0f}});
+
+    core::AnimationSystem system;
+    system.update(world, STEP);
+
+    const core::Animation& animation = world.getComponent<core::Animation>(entity);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_WALLSLIDE);
+}
+
+/**
+ * @brief Le dash est prioritaire sur tout le reste, y compris une chute en cours.
+ * \castest{<b>Le dash domine la chute (combinaison ambigue).</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Placer le personnage en chute, dashTimer actif.<br/>2. Executer un pas.<br/>
+ * \tattendu Le clip resolu est Dash.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, DashDomineLaChute) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    player.dashTimer = 0.1f;
+    const core::Entity entity =
+        spawnFullCharacter(world, player, core::Velocity{core::Vector2{4.0f, 5.0f}});
+
+    core::AnimationSystem system;
+    system.update(world, STEP);
+
+    const core::Animation& animation = world.getComponent<core::Animation>(entity);
+    EXPECT_EQ(animation.clipIndex, core::PLAYER_CLIP_DASH);
+}
+
+/**
+ * @brief Le dash est prioritaire meme sur un atterrissage en cours.
+ * \castest{<b>Le dash domine un atterrissage en cours.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Faire atterrir le personnage (transition Land engagee).<br/>2. Declencher un dash au
+ * pas suivant.<br/>
+ * \tattendu Le clip resolu bascule sur Dash, interrompant Land.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, DashInterrompLAtterrissage) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    core::Velocity velocity{core::Vector2{0.0f, 3.0f}};
+    const core::Entity entity = spawnFullCharacter(world, player, velocity);
+
+    core::AnimationSystem system;
+    system.update(world, STEP);  // en l'air : Fall.
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_FALL);
+
+    world.getComponent<core::Player>(entity).grounded = true;  // contact au sol.
+    system.update(world, STEP);
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_LAND);
+
+    world.getComponent<core::Player>(entity).dashTimer = 0.1f;  // dash au pas suivant.
+    system.update(world, STEP);
+    EXPECT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_DASH);
+}
+
+/**
+ * @brief Un contact au sol depuis un clip aerien (Jump/Fall/WallSlide) declenche l'atterrissage
+ *        (transition detectee par comparaison avec le clip du pas precedent, comme les
+ *        transitions de mecanismes, `LOT-47` TACHE-02), qui enchaine sur Idle ou Run une fois
+ *        jouee.
+ * \castest{<b>Un contact au sol depuis un clip aerien declenche Land, qui enchaine sur Idle.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Faire chuter le personnage (Fall).<br/>2. Le poser au sol, immobile.<br/>3.
+ * Executer jusqu'a la fin de la transition.<br/>
+ * \tattendu Land se joue une fois puis bascule sur Idle.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, AtterrissageEnchaineSurRepos) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    core::Velocity velocity{core::Vector2{0.0f, 3.0f}};
+    const core::Entity entity = spawnFullCharacter(world, player, velocity);
+
+    core::AnimationSystem system;
+    system.update(world, STEP);  // Fall.
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_FALL);
+
+    world.getComponent<core::Player>(entity).grounded = true;
+    world.getComponent<core::Velocity>(entity).value.x = 0.0f;
+    system.update(world, STEP);  // Fall -> Land : consomme le pas de transition.
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_LAND);
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).frameIndex, 0);
+
+    // Land : 2 images de 0,08 s (0,16 s, 10 pas a 60 Hz) avant bascule sur Idle.
+    for (int i = 0; i < 10; ++i) {
+        system.update(world, STEP);
+    }
+    EXPECT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_IDLE);
+}
+
+/**
+ * @brief Une glissade murale a l'instant du contact au sol declenche l'atterrissage (WallSlide est
+ *        un clip aerien, meme priorite que Jump/Fall).
+ * \castest{<b>Glissade murale au moment du contact au sol : atterrissage.</b><br/>
+ * \tcat Integration · Animation Personnage<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Placer le personnage en glissade murale.<br/>2. Le poser au sol.<br/>3. Executer un
+ * pas.<br/>
+ * \tattendu Le clip resolu est Land, pas WallSlide ni Idle.
+ * }
+ */
+TEST(AnimationPersonnageIntegration, GlissadeMuraleAuContactDeclencheAtterrissage) {
+    core::World world;
+    core::Player player;
+    player.grounded = false;
+    player.wallDirection = 1.0f;
+    core::Velocity velocity{core::Vector2{0.0f, 1.0f}};
+    const core::Entity entity = spawnFullCharacter(world, player, velocity);
+
+    core::AnimationSystem system;
+    system.update(world, STEP);  // WallSlide.
+    ASSERT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_WALLSLIDE);
+
+    world.getComponent<core::Player>(entity).grounded = true;
+    world.getComponent<core::Player>(entity).wallDirection = 0.0f;  // plus de contact mural au sol.
+    system.update(world, STEP);
+    EXPECT_EQ(world.getComponent<core::Animation>(entity).clipIndex, core::PLAYER_CLIP_LAND);
 }

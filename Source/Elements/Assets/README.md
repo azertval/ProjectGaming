@@ -125,10 +125,38 @@ familles basculent directement d'un état à l'autre. Cette apparence reste pure
 collision d'une porte bascule au pas fixe où `core::MechanismController` le décide, jamais à la
 fin d'une transition (voir `Documentation/Lot/LOT-47-etats-visuels-mecanismes/`).
 
+## `Player/` — spritesheet du personnage (`LOT-48`)
+
+Un fichier `Player/player.png`, accompagné de sa description `Player/player.anim.json` (même
+format que `Skins/`, `hmi::AnimationCatalog`), habille le personnage en mode Texture — grille
+d'images de la taille d'une case ou d'un multiple (`hmi::AssetFamily::CharacterSheet`, une bande
+horizontale, une image par case, comme un skin animé). Fichier absent ou invalide : repli
+automatique sur la silhouette procédurale historique (`atlas.png`), sans plantage ni avertissement
+bloquant — le jeu reste jouable et lisible sans aucun asset.
+
+**Ancrage image ↔ hitbox** : la taille de l'image est **indépendante** de la boîte de collision
+(`core::playerSize()`, 0,4×0,8 unité, seule source de vérité de la hitbox — ce fichier ne la
+modifie jamais). Le point d'ancrage est fixe et non configurable : le **centre-bas** de l'image
+coïncide avec le centre-bas de la hitbox (`hmi::computePlayerSpriteQuad`). Une image plus grande
+que la hitbox (cape, cheveux, effet de dash) déborde donc symétriquement de chaque côté et vers le
+haut, jamais vers le bas ni les côtés de façon asymétrique — c'est ce qui permet à l'auteur de
+dessiner un personnage aligné sans calcul : centrer le sujet horizontalement, poser ses pieds en
+bas de chaque image.
+
+**Un seul sens dessiné** : le personnage regarde par défaut vers la **droite** ; le jeu retourne
+l'image horizontalement quand `core::Player::facing` pointe vers la gauche (aucun art à dupliquer).
+
+**Clips attendus**, projetés depuis l'état de simulation (`core::AnimationSystem`) : `idle`, `run`,
+`jump`, `fall` (chute, distincte du saut), `land` (atterrissage, transition jouée une fois),
+`wallslide` (glissade murale), `dash`. Un clip non fourni par la spritesheet **n'empêche pas** de
+l'utiliser : le jeu retombe sur le plus proche déclaré (`fall → jump`, `land → idle`,
+`wallslide → jump`, `dash → run`) — une spritesheet ne dessinant que `idle`/`run`/`jump` reste donc
+parfaitement valide, exactement comme l'atlas procédural qu'elle remplace.
+
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions
-attendues **validées au chargement** (`EX-REN-007`) : `Player/` (`LOT-48`), `Decors/` (`LOT-49`).
+attendues **validées au chargement** (`EX-REN-007`) : `Decors/` (`LOT-49`).
 
 Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
 sans relancer l'application.

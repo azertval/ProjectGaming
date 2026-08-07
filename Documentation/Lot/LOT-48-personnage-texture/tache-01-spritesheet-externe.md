@@ -1,6 +1,6 @@
 # TACHE-01 — Spritesheet externe et ancrage image/hitbox {#lot-48-tache-01-spritesheet-externe}
 
-**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le personnage est dessiné par *hmi::playerPixel* (`ProceduralAtlas.cpp`) : une silhouette humanoïde

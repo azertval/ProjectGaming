@@ -258,6 +258,45 @@ personnage sa proportion finale deux fois plus haute que large. Une région déj
 donc dessinée **pré-compressée** de moitié en hauteur dans son canevas carré, pour retrouver ses
 proportions naturelles une fois étirée par l'échelle du `Transform`.
 
+Cette contrainte (région carrée + pré-compression) reste **exacte pour ce chemin précis** : l'atlas
+procédural, utilisé tel quel en `RenderMode::Physique` et comme repli de `RenderMode::Texture` en
+l'absence de spritesheet externe (`core::Sprite::region`/`Transform::scale`, **inchangés** depuis
+avant `LOT-48`). Elle ne s'applique plus à la spritesheet externe du personnage — voir la section
+suivante.
+
+### `LOT-48` : spritesheet externe et découplage image/hitbox
+
+Le personnage était le seul sprite du jeu resté hors du programme d'habillage (`LOT-40` → `LOT-47`)
+: en `RenderMode::Texture`, faute de `hmi::TileSkinTag` (réservé aux tuiles), il retombait sur le
+damier magenta. `hmi::PlayerSpriteTag` (`HMI/Graphics/PlayerSpriteTag.h`) referme cet écart par un
+mécanisme **dédié**, parallèle à `hmi::resolveTileAppearance` plutôt que branché dessus (le
+personnage n'est pas une tuile) : `hmi::composeWorldSprites` reconnaît l'entité qui porte ce
+composant et l'affiche selon son quad et sa texture **résolus**, en `RenderMode::Texture`
+uniquement — `RenderMode::Physique` continue de lire `core::Sprite::region`/`Transform::scale`
+exactement comme avant.
+
+`GameSession::refreshPlayerSprite()` résout, chaque image :
+
+1. La **spritesheet** (`Assets/Player/player.png`, `hmi::AssetFamily::CharacterSheet`), chargée par
+   le `TextureCache` avec sa description `player.anim.json` (même format que `LOT-46`) ; absente ou
+   invalide, repli sur l'atlas procédural — `hmi::PlayerSpriteTag::usesCharacterSheet` indique
+   laquelle des deux textures lier.
+2. Le **clip à afficher** : `core::AnimationSystem` résout un nom parmi sept (`idle`, `run`, `jump`,
+   `fall`, `land`, `wallslide`, `dash`, voir plus bas) ; ni la spritesheet ni l'atlas procédural
+   (qui n'en connaît que trois) n'ont à tous les fournir — `hmi::resolveDeclaredPlayerClip` fait
+   retomber un clip absent sur le plus proche déclaré (`fall → jump`, `land → idle`,
+   `wallslide → jump`, `dash → run`), chaîne de repli **unique**, appliquée identiquement à la
+   spritesheet et à l'atlas procédural (traité comme une spritesheet qui n'en déclare que trois,
+   `hmi::proceduralPlayerClipNames`).
+3. Le **quad** : `hmi::computePlayerSpriteQuad` (fonction pure, testée sans GPU) ancre le
+   **centre-bas** de l'image sur le centre-bas de `core::playerSize()` — la seule source de vérité
+   de la hitbox, jamais lue en écriture par ce calcul. Une image plus grande ou plus large que la
+   hitbox (cape, cheveux, effet de dash) déborde donc symétriquement, sans jamais déplacer la
+   collision (`EX-ARCH-012`). L'ancrage horizontal centré rend le retournement (point 4) gratuit en
+   position.
+4. L'**orientation** : `core::Player::facing` détermine `hmi::PlayerSpriteTag::flipHorizontal` ;
+   `hmi::composeWorldSprites` échange alors `u0`/`u1` du quad composé, sans toucher `quadOffset`.
+
 Ce choix — étendre l'atlas existant plutôt que placer le personnage dans une texture séparée —
 découle directement de la contrainte de batching énoncée plus haut : le personnage est dessiné à
 **chaque** frame parmi des centaines d'autres sprites, d'où l'obligation de partager la texture de
@@ -293,23 +332,33 @@ entités portant `core::Animation` — **entièrement côté `Core`**, sans dép
 `HMI` (`EX-ARCH-011`) :
 
 1. **projection**, spécifique au personnage : pour une entité `Player` + `Velocity` + `Animation`,
-   lit `Player::grounded` et `Velocity::value.x` (déjà calculés par `CharacterPhysicsSystem`
-   **pour le même pas** — l'ordre d'appel dans `GameSession::update` reste significatif) pour
-   choisir le clip cible par son **nom** (« idle », « run », « jump ») ; un changement de clip
-   réinitialise net l'image et le chronomètre, et consomme le pas sans faire progresser l'image ;
+   lit l'état physique déjà calculé par `CharacterPhysicsSystem` **pour le même pas** (l'ordre
+   d'appel dans `GameSession::update` reste significatif) pour choisir le clip cible par son
+   **nom**, parmi sept depuis `LOT-48` : « idle », « run », « jump », « fall », « land »,
+   « wallslide », « dash », par ordre de priorité **explicite** (`core::AnimationSystem.cpp`,
+   fonction `targetClipName`) — dash (`dashTimer` actif) domine tout, puis un atterrissage en cours
+   ou qui débute (transition détectée par comparaison du clip **résolu au pas précédent** avec les
+   trois clips aériens, comme les transitions de mécanismes `LOT-47` TACHE-02), puis glissade
+   murale, puis chute/saut (signe de la vitesse verticale), puis course/repos ; un changement de
+   clip réinitialise net l'image et le chronomètre, et consomme le pas sans faire progresser
+   l'image. Aucun champ n'a été ajouté à `core::Player` pour cette extension : l'animation reste une
+   **conséquence** de l'état physique existant (`EX-ARCH-012`) ;
 2. **progression**, générale (`core::advanceAnimation`, réutilisable hors ECS) : avance l'image
    courante selon la durée du clip résolu, boucle ou bascule sur le clip suivant en fin de clip
-   joué une fois. Une entité sans projection spécifique (une tuile animée, `LOT-46` TACHE-05)
-   progresse par ce seul mécanisme.
+   joué une fois — c'est ce mécanisme, déjà générique depuis `LOT-46`, qui enchaîne « land » sur
+   « idle » une fois sa brève transition jouée. Une entité sans projection spécifique (une tuile
+   animée, `LOT-46` TACHE-05) progresse par ce seul mécanisme.
 
-Le personnage reste le seul consommateur de la projection ; son jeu de clips migré à l'identique
-(mêmes durées, mêmes images qu'avant `LOT-46`) est construit par `core::playerClipSet()`. Côté
-`HMI`, `GameSession::render` appelle toujours `refreshPlayerSprite()` à chaque image : elle lit
-`core::Animation` du personnage et traduit `clipIndex`/`frameIndex` en région via
-`_atlas.playerFrameRegion(hmi::PlayerClipKind, frameIndex)` — `hmi::PlayerClipKind` est une
-énumération **côté présentation seulement** (`ProceduralAtlas.h`), distincte de `core::AnimationClip`
-générique : `Core` ignore désormais jusqu'à l'existence de ces trois poses en particulier
-(`EX-ARCH-012`).
+Le personnage reste le seul consommateur de la projection ; son jeu de clips (`core::playerClipSet()`)
+n'a pas de pose procédurale dédiée pour les quatre clips `LOT-48` : `HMI` les fait retomber sur le
+plus proche déclaré (voir la section précédente), `Core` n'a pas à le savoir. Côté `HMI`,
+`GameSession::render` appelle toujours `refreshPlayerSprite()` à chaque image : elle lit
+`core::Animation` du personnage, résout le nom du clip courant (`core::ClipSet::clipAt(clipIndex)
+.name`) et en tire à la fois la région **procédurale** (`core::Sprite::region`, comportement
+inchangé) et l'apparence **habillée** (`hmi::PlayerSpriteTag`, `LOT-48`, section précédente).
+`hmi::PlayerClipKind` reste une énumération **côté présentation seulement**
+(`ProceduralAtlas.h`), distincte de `core::AnimationClip` générique : `Core` ignore jusqu'à
+l'existence de ces trois poses procédurales en particulier (`EX-ARCH-012`).
 
 Une description `nom-asset.anim.json` (`hmi::AnimationCatalog`), lue à côté de l'asset et mise en
 cache par `hmi::TextureCache` (invalidée conjointement avec la texture), permet d'animer un skin de
