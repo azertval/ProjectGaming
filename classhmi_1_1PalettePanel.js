@@ -2,6 +2,7 @@ var classhmi_1_1PalettePanel =
 [
     [ "PalettePanel", "classhmi_1_1PalettePanel.html#aca2b8a823be65548be1dc034db9c3de4", null ],
     [ "buildModel", "classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364", null ],
+    [ "clearThumbnailCache", "classhmi_1_1PalettePanel.html#a87d8b6fe8c8e5368cd13f730e8ca3f77", null ],
     [ "onCurrentChanged", "classhmi_1_1PalettePanel.html#ab9b24b5798171c54e5b7f569f97b51a2", null ],
     [ "refreshThumbnails", "classhmi_1_1PalettePanel.html#a10233aeb65931df202507bb41fa053d4", null ],
     [ "retranslateUi", "classhmi_1_1PalettePanel.html#a55f489cad83581ca9ad21114a02e7d7a", null ],

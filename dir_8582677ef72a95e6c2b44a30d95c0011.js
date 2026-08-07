@@ -1,5 +1,13 @@
 var dir_8582677ef72a95e6c2b44a30d95c0011 =
 [
+    [ "AssetFileOperations.cpp", "AssetFileOperations_8cpp.html", null ],
+    [ "AssetFileOperations.h", "AssetFileOperations_8h.html", "AssetFileOperations_8h" ],
+    [ "AssetLibrary.cpp", "AssetLibrary_8cpp.html", "AssetLibrary_8cpp" ],
+    [ "AssetLibrary.h", "AssetLibrary_8h.html", "AssetLibrary_8h" ],
+    [ "AssetReferences.cpp", "AssetReferences_8cpp.html", "AssetReferences_8cpp" ],
+    [ "AssetReferences.h", "AssetReferences_8h.html", "AssetReferences_8h" ],
+    [ "AssetThumbnailView.cpp", "AssetThumbnailView_8cpp.html", null ],
+    [ "AssetThumbnailView.h", "AssetThumbnailView_8h.html", "AssetThumbnailView_8h" ],
     [ "EditorTool.h", "EditorTool_8h.html", "EditorTool_8h" ],
     [ "LevelBrowserPanel.cpp", "LevelBrowserPanel_8cpp.html", null ],
     [ "LevelBrowserPanel.h", "LevelBrowserPanel_8h.html", "LevelBrowserPanel_8h" ],

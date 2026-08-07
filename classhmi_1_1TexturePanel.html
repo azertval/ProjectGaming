@@ -108,6 +108,8 @@ Inheritance diagram for hmi::TexturePanel:</div>
 Signals</h2></td></tr>
 <tr class="memitem:a8beee864e1295689d194f5e2a3b8d7ed" id="r_a8beee864e1295689d194f5e2a3b8d7ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed">assignmentsChanged</a> ()</td></tr>
 <tr class="memdesc:a8beee864e1295689d194f5e2a3b8d7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis après toute modification d'assignation ou changement de jeu courant, une fois le catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.  <br /></td></tr>
+<tr class="memitem:a266d026178e467fbfb91fb351b2399e7" id="r_a266d026178e467fbfb91fb351b2399e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a266d026178e467fbfb91fb351b2399e7">reloadRequested</a> ()</td></tr>
+<tr class="memdesc:a266d026178e467fbfb91fb351b2399e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur demande un rechargement à chaud des textures (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -119,13 +121,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0e91d775329d3d2c60ddf558379d76d3" id="r_a0e91d775329d3d2c60ddf558379d76d3"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0e91d775329d3d2c60ddf558379d76d3">currentSet</a> () const noexcept</td></tr>
 <tr class="memitem:a3117139a9fc1fac2d1a5331c36f88694" id="r_a3117139a9fc1fac2d1a5331c36f88694"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3117139a9fc1fac2d1a5331c36f88694">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a3117139a9fc1fac2d1a5331c36f88694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active (titre des sections, en-têtes de colonnes, libellés de types).  <br /></td></tr>
+<tr class="memitem:af82527067fd5d09d052714df4797ef2a" id="r_af82527067fd5d09d052714df4797ef2a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af82527067fd5d09d052714df4797ef2a">reloadAssets</a> ()</td></tr>
+<tr class="memdesc:af82527067fd5d09d052714df4797ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recharge l'arbre depuis le disque après un rechargement à chaud (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a98f467bc620f51cf5b86539debe3cbf4" id="r_a98f467bc620f51cf5b86539debe3cbf4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a98f467bc620f51cf5b86539debe3cbf4">rebuildTree</a> ()</td></tr>
 <tr class="memitem:a3b5ce3fa2412f227b1aeac447868d971" id="r_a3b5ce3fa2412f227b1aeac447868d971"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b5ce3fa2412f227b1aeac447868d971">onSetChanged</a> (int index)</td></tr>
 <tr class="memitem:adb7d2eba98a66372205d288d69553fb8" id="r_adb7d2eba98a66372205d288d69553fb8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adb7d2eba98a66372205d288d69553fb8">onItemChanged</a> (QStandardItem *item)</td></tr>
+<tr class="memitem:a24080a7182c58d0870a553c660a94136" id="r_a24080a7182c58d0870a553c660a94136"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a24080a7182c58d0870a553c660a94136">onAssetColumnActivated</a> (const QModelIndex &amp;index)</td></tr>
 <tr class="memitem:a55e61afec038df32026c0c41a6c606cc" id="r_a55e61afec038df32026c0c41a6c606cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55e61afec038df32026c0c41a6c606cc">save</a> ()</td></tr>
+<tr class="memitem:a4af3d78ff3009ccd51e057588acaf63e" id="r_a4af3d78ff3009ccd51e057588acaf63e"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e">thumbnailFor</a> (const std::string &amp;asset)</td></tr>
+<tr class="memdesc:a4af3d78ff3009ccd51e057588acaf63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, <span class="tt">LOT-40</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -136,18 +143,18 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8686f12685ae19a07b1b5307c1933e65" id="r_a8686f12685ae19a07b1b5307c1933e65"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8686f12685ae19a07b1b5307c1933e65">_catalog</a> = nullptr</td></tr>
 <tr class="memdesc:a8686f12685ae19a07b1b5307c1933e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non possédé (propriété de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>).  <br /></td></tr>
 <tr class="memitem:aa2fe2666a58c938bddea969c2294644d" id="r_aa2fe2666a58c938bddea969c2294644d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa2fe2666a58c938bddea969c2294644d">_currentSet</a></td></tr>
-<tr class="memitem:a219ad5bf974e498df9d75ea1e5652519" id="r_a219ad5bf974e498df9d75ea1e5652519"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a219ad5bf974e498df9d75ea1e5652519">_assets</a></td></tr>
-<tr class="memdesc:a219ad5bf974e498df9d75ea1e5652519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichiers assignables, balayés au dernier rafraîchissement.  <br /></td></tr>
 <tr class="memitem:ac317d14b1a5d2d5d67ea0048b84fb0b4" id="r_ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac317d14b1a5d2d5d67ea0048b84fb0b4">_updating</a> = false</td></tr>
 <tr class="memdesc:ac317d14b1a5d2d5d67ea0048b84fb0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garde de réentrance pendant la reconstruction du modèle.  <br /></td></tr>
 <tr class="memitem:a6616dfc18655f4200948ccc9efe8cf72" id="r_a6616dfc18655f4200948ccc9efe8cf72"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6616dfc18655f4200948ccc9efe8cf72">_loc</a> = nullptr</td></tr>
 <tr class="memdesc:a6616dfc18655f4200948ccc9efe8cf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue courant (nul avant première retraduction).  <br /></td></tr>
+<tr class="memitem:a9e694f31bc413efe84cc2ac00d265165" id="r_a9e694f31bc413efe84cc2ac00d265165"><td class="memItemLeft">std::unordered_map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9e694f31bc413efe84cc2ac00d265165">_thumbnails</a></td></tr>
+<tr class="memdesc:a9e694f31bc413efe84cc2ac00d265165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier de skin (vide pour « aucun ») -&gt; vignette décodée. Vidé par <span class="tt"><a class="el" href="#af82527067fd5d09d052714df4797ef2a" title="Recharge l&#39;arbre depuis le disque après un rechargement à chaud (LOT-43 TACHE-03).">reloadAssets</a></span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Panneau d'habillage, organisé en <b>sections</b> extensibles (<span class="tt">EX-EDIT-042</span>, <span class="tt">EX-EDIT-024</span>). </p>
 <p>Premier — et unique — panneau du programme d'habillage : <span class="tt">LOT-44</span> (Fond), <span class="tt">LOT-45</span> (Objets), <span class="tt">LOT-47</span> (Animations) et <span class="tt">LOT-50</span> (Décors) y ajouteront leur onglet plutôt que de créer chacun leur dock. C'est la raison d'être de la structure en onglets dès ce lot : sans elle, chaque lot suivant créerait le sien et l'éditeur finirait avec cinq panneaux d'habillage.</p>
 <p>Le panneau <b>ne possède pas</b> le catalogue : il agit sur celui que lui confie <span class="tt"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423" title="Confie au panneau le catalogue à éditer.">setCatalog</a></span>, dont <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement. Toute modification est écrite sur disque (<span class="tt">skins.json</span>, au chemin déployé) et signalée par <span class="tt"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed" title="Émis après toute modification d&#39;assignation ou changement de jeu courant, une fois le catalogue à jou...">assignmentsChanged</a></span>, que le viewport et la palette consomment pour se rafraîchir.</p>
-<p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#acfc16de3fc9ebf22b724eeaa552313bf" title="Liste les fichiers de skins disponibles, par balayage d&#39;un dossier.">hmi::listSkinAssets</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). </p>
+<p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). Le choix du fichier assigné à un type se fait par vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>), pas par saisie de nom. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af3ff04e1686ccf33e431be9b3bc5a1ea" name="af3ff04e1686ccf33e431be9b3bc5a1ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3ff04e1686ccf33e431be9b3bc5a1ea">&#9670;&#160;</a></span>TexturePanel()</h2>
@@ -272,6 +279,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a24080a7182c58d0870a553c660a94136" name="a24080a7182c58d0870a553c660a94136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24080a7182c58d0870a553c660a94136">&#9670;&#160;</a></span>onAssetColumnActivated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onAssetColumnActivated </td>
+          <td>(</td>
+          <td class="paramtype">const QModelIndex &amp;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adb7d2eba98a66372205d288d69553fb8" name="adb7d2eba98a66372205d288d69553fb8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb7d2eba98a66372205d288d69553fb8">&#9670;&#160;</a></span>onItemChanged()</h2>
 
@@ -347,6 +379,53 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af82527067fd5d09d052714df4797ef2a" name="af82527067fd5d09d052714df4797ef2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af82527067fd5d09d052714df4797ef2a">&#9670;&#160;</a></span>reloadAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::reloadAssets </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recharge l'arbre depuis le disque après un rechargement à chaud (<span class="tt">LOT-43</span> TACHE-03). </p>
+<p>Vide le cache de vignettes des lignes (un fichier a pu être modifié hors de l'application) puis reconstruit l'arbre : le catalogue lui-même est déjà à jour (rechargé en place par l'appelant, <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a75183d22f18c6565b01bf59f59f18a1a" title="Rechargement à chaud global des assets graphiques (LOT-43 TACHE-03).">GameViewport::reloadAssets</a></span>), seuls le balayage du dossier et les vignettes doivent être refaits. </p>
+
+</div>
+</div>
+<a id="a266d026178e467fbfb91fb351b2399e7" name="a266d026178e467fbfb91fb351b2399e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a266d026178e467fbfb91fb351b2399e7">&#9670;&#160;</a></span>reloadRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::reloadRequested </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur demande un rechargement à chaud des textures (<span class="tt">LOT-43</span> TACHE-03). </p>
+
+</div>
+</div>
 <a id="a3117139a9fc1fac2d1a5331c36f88694" name="a3117139a9fc1fac2d1a5331c36f88694"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3117139a9fc1fac2d1a5331c36f88694">&#9670;&#160;</a></span>retranslateUi()</h2>
 
@@ -416,9 +495,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a219ad5bf974e498df9d75ea1e5652519" name="a219ad5bf974e498df9d75ea1e5652519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a219ad5bf974e498df9d75ea1e5652519">&#9670;&#160;</a></span>_assets</h2>
+<a id="a4af3d78ff3009ccd51e057588acaf63e" name="a4af3d78ff3009ccd51e057588acaf63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af3d78ff3009ccd51e057588acaf63e">&#9670;&#160;</a></span>thumbnailFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,20 +505,24 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::string&gt; hmi::TexturePanel::_assets</td>
+          <td class="memname">QPixmap hmi::TexturePanel::thumbnailFor </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>asset</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Fichiers assignables, balayés au dernier rafraîchissement. </p>
+<p>Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, <span class="tt">LOT-40</span>). </p>
 
 </div>
 </div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a8686f12685ae19a07b1b5307c1933e65" name="a8686f12685ae19a07b1b5307c1933e65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8686f12685ae19a07b1b5307c1933e65">&#9670;&#160;</a></span>_catalog</h2>
 
@@ -574,6 +656,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e694f31bc413efe84cc2ac00d265165" name="a9e694f31bc413efe84cc2ac00d265165"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e694f31bc413efe84cc2ac00d265165">&#9670;&#160;</a></span>_thumbnails</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, QPixmap&gt; hmi::TexturePanel::_thumbnails</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fichier de skin (vide pour « aucun ») -&gt; vignette décodée. Vidé par <span class="tt"><a class="el" href="#af82527067fd5d09d052714df4797ef2a" title="Recharge l&#39;arbre depuis le disque après un rechargement à chaud (LOT-43 TACHE-03).">reloadAssets</a></span>. </p>
 
 </div>
 </div>

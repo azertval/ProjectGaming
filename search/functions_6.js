@@ -15,6 +15,7 @@ var searchData=
   ['get_12',['get',['../classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08',1,'core::ComponentPool::get(Entity entity)'],['../classcore_1_1ComponentPool.html#a4ccf1839af203e6487c32b9a8c1ae00a',1,'core::ComponentPool::get(Entity entity) const'],['../classhmi_1_1TextureCache.html#aede852089e7c06705756d4120ec256a4',1,'hmi::TextureCache::get()']]],
   ['getcomponent_13',['getComponent',['../classcore_1_1World.html#ad309a6878e57a98c201d168571da20dd',1,'core::World']]],
   ['getmasked_14',['getMasked',['../classhmi_1_1TextureCache.html#a37bf2cb7f585146525bf9551e4e56ede',1,'hmi::TextureCache']]],
-  ['getunderkey_15',['getUnderKey',['../classhmi_1_1TextureCache.html#ac28feac2b71b9c2f751d189cbd28a47c',1,'hmi::TextureCache']]],
-  ['graphicsdevice_16',['GraphicsDevice',['../classhmi_1_1GraphicsDevice.html#ab2f74262d1db46c396485185a6a069cc',1,'hmi::GraphicsDevice::GraphicsDevice(HWND window, int width, int height)'],['../classhmi_1_1GraphicsDevice.html#a2596298ef621bc08f76c48aa349e286a',1,'hmi::GraphicsDevice::GraphicsDevice(const GraphicsDevice &amp;)=delete']]]
+  ['getorload_15',['getOrLoad',['../classhmi_1_1CacheRegistry.html#a908d1f3eb7c3853ed4c843c5fb27f466',1,'hmi::CacheRegistry']]],
+  ['getunderkey_16',['getUnderKey',['../classhmi_1_1TextureCache.html#ac28feac2b71b9c2f751d189cbd28a47c',1,'hmi::TextureCache']]],
+  ['graphicsdevice_17',['GraphicsDevice',['../classhmi_1_1GraphicsDevice.html#ab2f74262d1db46c396485185a6a069cc',1,'hmi::GraphicsDevice::GraphicsDevice(HWND window, int width, int height)'],['../classhmi_1_1GraphicsDevice.html#a2596298ef621bc08f76c48aa349e286a',1,'hmi::GraphicsDevice::GraphicsDevice(const GraphicsDevice &amp;)=delete']]]
 ];

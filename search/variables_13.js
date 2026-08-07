@@ -15,5 +15,6 @@ var searchData=
   ['trigger_12',['trigger',['../structhmi_1_1LinkRow.html#a93d02effe5cbd921e51baa5b4700076a',1,'hmi::LinkRow']]],
   ['triggerposition_13',['triggerPosition',['../structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e',1,'core::DangerLink']]],
   ['type_14',['type',['../structhmi_1_1SkinRow.html#aab2e46edc96113bb33a3e70e451507e1',1,'hmi::SkinRow::type'],['../structhmi_1_1TileEntry.html#a9c1d5d345916c39548749b802bd7deb9',1,'hmi::TileEntry::type'],['../structhmi_1_1TileSkinTag.html#af27ab75e03393c0fd46707ed7306232d',1,'hmi::TileSkinTag::type']]],
-  ['typelabel_15',['typeLabel',['../structhmi_1_1SkinRow.html#a770046b5c0e30e8b55f7f69705d8dde4',1,'hmi::SkinRow']]]
+  ['typelabel_15',['typeLabel',['../structhmi_1_1SkinRow.html#a770046b5c0e30e8b55f7f69705d8dde4',1,'hmi::SkinRow']]],
+  ['typename_16',['typeName',['../structhmi_1_1AssetReference.html#a636c024ee797ff2d5a226207884b7845',1,'hmi::AssetReference']]]
 ];

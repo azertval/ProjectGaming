@@ -95,6 +95,12 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:AssetFileOperations" id="r_AssetFileOperations"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetFileOperations.html">AssetFileOperations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opérations sur les fichiers d'un dossier d'assets, <b>sans dépendance Qt/GPU</b>.  <a href="classhmi_1_1AssetFileOperations.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AssetReference" id="r_AssetReference"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une référence nommée à un asset : dans quel jeu de skins, pour quel type de tuile.  <a href="structhmi_1_1AssetReference.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AssetThumbnailView" id="r_AssetThumbnailView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes d'un dossier d'assets, avec recherche, sélection et gestion des fichiers (importer/renommer/dupliquer/supprimer).  <a href="classhmi_1_1AssetThumbnailView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelBrowserPanel" id="r_LevelBrowserPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer.  <a href="classhmi_1_1LevelBrowserPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileOpResult" id="r_FileOpResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a></td></tr>
@@ -141,6 +147,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verdict de validation d'un asset, avec son message exploitable.  <a href="structhmi_1_1AssetValidation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetPaths" id="r_AssetPaths"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetPaths.html">AssetPaths</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout des noms d'assets logiques vers des chemins de fichiers, dans un dossier donné.  <a href="classhmi_1_1AssetPaths.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CacheRegistry" id="r_CacheRegistry"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mémoïsation par clé logique : charge au premier accès, retient aussi un <b>échec</b>, et s'invalide par clé ou entièrement.  <a href="classhmi_1_1CacheRegistry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Camera2D" id="r_Camera2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ComposedQuad" id="r_ComposedQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a></td></tr>
@@ -407,6 +415,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5bc539b762cfd88b17c71d8a44a1a22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble les messages de log en un texte (une ligne par message).  <br /></td></tr>
 <tr class="memitem:a680b600014001a99d296df386e7ed9d8" id="r_a680b600014001a99d296df386e7ed9d8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a680b600014001a99d296df386e7ed9d8">saveSessionLog</a> (const std::vector&lt; <a class="el" href="structcore_1_1MemoryLogSink_1_1Entry.html">core::MemoryLogSink::Entry</a> &gt; &amp;entries, const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a680b600014001a99d296df386e7ed9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre les messages de log de la session dans un fichier.  <br /></td></tr>
+<tr class="memitem:afd6b5a676aa84f6f9f7c16eb9de83f9a" id="r_afd6b5a676aa84f6f9f7c16eb9de83f9a"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afd6b5a676aa84f6f9f7c16eb9de83f9a">listAssetFiles</a> (const std::filesystem::path &amp;directory, const std::string &amp;filterText={})</td></tr>
+<tr class="memdesc:afd6b5a676aa84f6f9f7c16eb9de83f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste les fichiers image d'un dossier, filtrés par un texte de recherche.  <br /></td></tr>
+<tr class="memitem:ab28a0db7bcd8252c1df7c0f37443e0f2" id="r_ab28a0db7bcd8252c1df7c0f37443e0f2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab28a0db7bcd8252c1df7c0f37443e0f2">findSkinCatalogReferences</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, const std::string &amp;fileName)</td></tr>
+<tr class="memdesc:ab28a0db7bcd8252c1df7c0f37443e0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repère toutes les entrées de <span class="tt">skins.json</span> qui citent un fichier donné.  <br /></td></tr>
+<tr class="memitem:a5788fed057d46145b1fcb3d9ed9c2ec1" id="r_a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5788fed057d46145b1fcb3d9ed9c2ec1">describeReferences</a> (const std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt; &amp;references)</td></tr>
+<tr class="memdesc:a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement listant des références, une par jeu de skins.  <br /></td></tr>
 <tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
 <tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
@@ -1794,6 +1808,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a5788fed057d46145b1fcb3d9ed9c2ec1" name="a5788fed057d46145b1fcb3d9ed9c2ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5788fed057d46145b1fcb3d9ed9c2ec1">&#9670;&#160;</a></span>describeReferences()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::describeReferences </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>references</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Message d'avertissement listant des références, une par jeu de skins. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">references</td><td>Références à décrire (typiquement le résultat de <span class="tt"><a class="el" href="#ab28a0db7bcd8252c1df7c0f37443e0f2" title="Repère toutes les entrées de skins.json qui citent un fichier donné.">findSkinCatalogReferences</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le message en français, ou une chaîne vide si <code class="param">references</code> est vide. </dd></dl>
+
+</div>
+</div>
 <a id="a18648161d8a6c752202b6034613a947b" name="a18648161d8a6c752202b6034613a947b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18648161d8a6c752202b6034613a947b">&#9670;&#160;</a></span>executableDirectory()</h2>
 
@@ -1819,6 +1867,47 @@ Variables</h2></td></tr>
 
 <p>Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le chemin du dossier de l'exécutable. </dd></dl>
+
+</div>
+</div>
+<a id="ab28a0db7bcd8252c1df7c0f37443e0f2" name="ab28a0db7bcd8252c1df7c0f37443e0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab28a0db7bcd8252c1df7c0f37443e0f2">&#9670;&#160;</a></span>findSkinCatalogReferences()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt; hmi::findSkinCatalogReferences </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Repère toutes les entrées de <span class="tt">skins.json</span> qui citent un fichier donné. </p>
+<p>Les références aux assets se font par <b>nom de fichier</b> : sans cette détection, renommer ou supprimer un asset casse silencieusement les jeux de skins qui le citent (<span class="tt">LOT-43</span> TACHE-02).</p>
+<p><b>Portée actuelle</b> : seul <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span> peut référencer un asset aujourd'hui — <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span> ne porte encore aucun champ de ce type (le fond de niveau, la désignation d'un jeu de skins par un niveau, etc. sont posés à partir de <span class="tt">LOT-44</span>). Cette fonction est le point d'extension déjà en place : les lots suivants y ajouteront la détection des niveaux sur disque sans changer sa signature ni celle de <span class="tt"><a class="el" href="#a5788fed057d46145b1fcb3d9ed9c2ec1" title="Message d&#39;avertissement listant des références, une par jeu de skins.">describeReferences</a></span>.</p>
+<p>Logique <b>pure</b> (aucune dépendance Qt/GPU/fichier), testable en isolation (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">catalog</td><td>Catalogue interrogé (tous les jeux, pas seulement le courant). </td></tr>
+    <tr><td class="paramname">fileName</td><td>Nom de fichier recherché, comparé <b>exactement</b> (pas de sous-chaîne : un nom proche mais différent ne doit jamais déclencher de faux positif). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les références trouvées, dans l'ordre des jeux puis des types du catalogue ; vide si aucune. </dd></dl>
 
 </div>
 </div>
@@ -2218,6 +2307,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le segment (centres de case), décalé si <span class="tt">fanCount &gt; 1</span>. </dd></dl>
+
+</div>
+</div>
+<a id="afd6b5a676aa84f6f9f7c16eb9de83f9a" name="afd6b5a676aa84f6f9f7c16eb9de83f9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd6b5a676aa84f6f9f7c16eb9de83f9a">&#9670;&#160;</a></span>listAssetFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::listAssetFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filterText</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Liste les fichiers image d'un dossier, filtrés par un texte de recherche. </p>
+<p>Logique <b>pure</b> (aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>) : c'est la balayage qui alimente <span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, réutilisable tel quel par toutes les sections du panneau « Textures » (Skins, puis Fond, Objets, Animations, Décors). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>Dossier balayé (typiquement un sous-dossier de <span class="tt">Assets/</span>). </td></tr>
+    <tr><td class="paramname">filterText</td><td>Sous-chaîne recherchée dans le nom de fichier, comparaison insensible à la casse ; vide pour ne filtrer sur rien. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les noms de fichiers image correspondants, triés par ordre alphabétique ; vide si le dossier est absent — un état de départ légitime, pas une erreur. </dd></dl>
 
 </div>
 </div>

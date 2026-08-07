@@ -4,6 +4,7 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "AssetContract.h", "AssetContract_8h.html", "AssetContract_8h" ],
     [ "AssetPaths.cpp", "AssetPaths_8cpp.html", null ],
     [ "AssetPaths.h", "AssetPaths_8h.html", "AssetPaths_8h" ],
+    [ "CacheRegistry.h", "CacheRegistry_8h.html", "CacheRegistry_8h" ],
     [ "Camera2D.cpp", "Camera2D_8cpp.html", null ],
     [ "Camera2D.h", "Camera2D_8h.html", "Camera2D_8h" ],
     [ "ComposedScene.cpp", "ComposedScene_8cpp.html", "ComposedScene_8cpp" ],

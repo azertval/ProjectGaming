@@ -128,8 +128,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:adab1a2b7a97e0f37cd991e302e7b3602" id="r_adab1a2b7a97e0f37cd991e302e7b3602"><td class="memItemLeft">ID3D11Device *&#160;</td><td class="memItemRight"><a class="el" href="#adab1a2b7a97e0f37cd991e302e7b3602">_device</a></td></tr>
 <tr class="memitem:ad66e7bbcd0556e4fccc7dbb009a1d2b8" id="r_ad66e7bbcd0556e4fccc7dbb009a1d2b8"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetPaths.html">AssetPaths</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad66e7bbcd0556e4fccc7dbb009a1d2b8">_paths</a></td></tr>
-<tr class="memitem:abaca06cec4bb94e088f78c1c65ec8172" id="r_abaca06cec4bb94e088f78c1c65ec8172"><td class="memItemLeft">std::unordered_map&lt; std::string, std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abaca06cec4bb94e088f78c1c65ec8172">_entries</a></td></tr>
-<tr class="memdesc:abaca06cec4bb94e088f78c1c65ec8172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique → texture chargée ; <span class="tt">std::nullopt</span> mémorise un <b>échec</b> déjà journalisé.  <br /></td></tr>
+<tr class="memitem:ad7f17051cf5b1b1e30badc27867951a0" id="r_ad7f17051cf5b1b1e30badc27867951a0"><td class="memItemLeft"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a>&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad7f17051cf5b1b1e30badc27867951a0">_entries</a></td></tr>
+<tr class="memdesc:ad7f17051cf5b1b1e30badc27867951a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique → texture chargée ; mémorise aussi un <b>échec</b> déjà journalisé.  <br /></td></tr>
 <tr class="memitem:a2e085900c9d152f6727327c9492c9ccf" id="r_a2e085900c9d152f6727327c9492c9ccf"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2e085900c9d152f6727327c9492c9ccf">_missingTexture</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -532,8 +532,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="abaca06cec4bb94e088f78c1c65ec8172" name="abaca06cec4bb94e088f78c1c65ec8172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaca06cec4bb94e088f78c1c65ec8172">&#9670;&#160;</a></span>_entries</h2>
+<a id="ad7f17051cf5b1b1e30badc27867951a0" name="ad7f17051cf5b1b1e30badc27867951a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f17051cf5b1b1e30badc27867951a0">&#9670;&#160;</a></span>_entries</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,7 +542,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;std::string, std::optional&lt;<a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&gt; &gt; hmi::TextureCache::_entries</td>
+          <td class="memname"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a>&lt;<a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&gt; hmi::TextureCache::_entries</td>
         </tr>
       </table>
   </td>
@@ -552,7 +552,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Nom logique → texture chargée ; <span class="tt">std::nullopt</span> mémorise un <b>échec</b> déjà journalisé. </p>
+<p>Nom logique → texture chargée ; mémorise aussi un <b>échec</b> déjà journalisé. </p>
+<p>La mémoïsation/invalidation elle-même est factorisée dans <span class="tt"><a class="el" href="classhmi_1_1CacheRegistry.html" title="Mémoïsation par clé logique : charge au premier accès, retient aussi un échec, et s&#39;invalide par clé ...">hmi::CacheRegistry</a></span> (<span class="tt">LOT-43</span>), testable sans GPU ; seul le <b>chargement</b> (<span class="tt"><a class="el" href="#ae1e131bf205906a4f5356a07aa3f5879" title="Charge et valide un asset depuis le disque, sans passer par le cache.">load</a></span>) reste ici, spécifique à Direct3D 11. </p>
 
 </div>
 </div>

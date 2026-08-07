@@ -49,6 +49,9 @@ var annotated_dup =
       [ "FixedTimestep", "classcore_1_1FixedTimestep.html", "classcore_1_1FixedTimestep" ]
     ] ],
     [ "hmi", "namespacehmi.html", [
+      [ "AssetFileOperations", "classhmi_1_1AssetFileOperations.html", "classhmi_1_1AssetFileOperations" ],
+      [ "AssetReference", "structhmi_1_1AssetReference.html", "structhmi_1_1AssetReference" ],
+      [ "AssetThumbnailView", "classhmi_1_1AssetThumbnailView.html", "classhmi_1_1AssetThumbnailView" ],
       [ "LevelBrowserPanel", "classhmi_1_1LevelBrowserPanel.html", "classhmi_1_1LevelBrowserPanel" ],
       [ "FileOpResult", "structhmi_1_1FileOpResult.html", "structhmi_1_1FileOpResult" ],
       [ "LevelFileOperations", "classhmi_1_1LevelFileOperations.html", "classhmi_1_1LevelFileOperations" ],
@@ -72,6 +75,7 @@ var annotated_dup =
       [ "AssetDimensionContract", "structhmi_1_1AssetDimensionContract.html", "structhmi_1_1AssetDimensionContract" ],
       [ "AssetValidation", "structhmi_1_1AssetValidation.html", "structhmi_1_1AssetValidation" ],
       [ "AssetPaths", "classhmi_1_1AssetPaths.html", "classhmi_1_1AssetPaths" ],
+      [ "CacheRegistry", "classhmi_1_1CacheRegistry.html", "classhmi_1_1CacheRegistry" ],
       [ "Camera2D", "classhmi_1_1Camera2D.html", "classhmi_1_1Camera2D" ],
       [ "ComposedQuad", "structhmi_1_1ComposedQuad.html", "structhmi_1_1ComposedQuad" ],
       [ "SceneStatistics", "structhmi_1_1SceneStatistics.html", "structhmi_1_1SceneStatistics" ],

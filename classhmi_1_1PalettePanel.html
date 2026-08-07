@@ -119,6 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a345a8c94ce91ac6d6f9c091c8d31f0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne de quoi afficher des vignettes fidèles au canevas (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:a10233aeb65931df202507bb41fa053d4" id="r_a10233aeb65931df202507bb41fa053d4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10233aeb65931df202507bb41fa053d4">refreshThumbnails</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const std::string &amp;setName)</td></tr>
 <tr class="memdesc:a10233aeb65931df202507bb41fa053d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rafraîchit les vignettes de la palette (<span class="tt">EX-EDIT-027</span>).  <br /></td></tr>
+<tr class="memitem:a87d8b6fe8c8e5368cd13f730e8ca3f77" id="r_a87d8b6fe8c8e5368cd13f730e8ca3f77"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87d8b6fe8c8e5368cd13f730e8ca3f77">clearThumbnailCache</a> ()</td></tr>
+<tr class="memdesc:a87d8b6fe8c8e5368cd13f730e8ca3f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide le cache d'images décodées (rechargement à chaud, <span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -194,6 +196,26 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87d8b6fe8c8e5368cd13f730e8ca3f77" name="a87d8b6fe8c8e5368cd13f730e8ca3f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d8b6fe8c8e5368cd13f730e8ca3f77">&#9670;&#160;</a></span>clearThumbnailCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PalettePanel::clearThumbnailCache </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vide le cache d'images décodées (rechargement à chaud, <span class="tt">LOT-43</span> TACHE-03). </p>
+<p>Sans effet visible tant que <span class="tt"><a class="el" href="#a10233aeb65931df202507bb41fa053d4" title="Rafraîchit les vignettes de la palette (EX-EDIT-027).">refreshThumbnails</a></span> n'est pas rappelé ensuite : un fichier modifié hors de l'application reste caché tant que le décodage n'est pas rejoué. </p>
 
 </div>
 </div>

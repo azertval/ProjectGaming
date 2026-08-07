@@ -158,6 +158,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae7d92dd84fe3f73c2c13f2562daa761e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue des jeux de skins, édité par le panneau « Textures » (<span class="tt">LOT-42</span>).  <br /></td></tr>
 <tr class="memitem:ab1634dd73825b6d371c062bf557cd3d5" id="r_ab1634dd73825b6d371c062bf557cd3d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab1634dd73825b6d371c062bf557cd3d5">setSkinSet</a> (const std::string &amp;setName)</td></tr>
 <tr class="memdesc:ab1634dd73825b6d371c062bf557cd3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le jeu de skins à utiliser pour le rendu (<span class="tt">LOT-42</span>).  <br /></td></tr>
+<tr class="memitem:a75183d22f18c6565b01bf59f59f18a1a" id="r_a75183d22f18c6565b01bf59f59f18a1a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a75183d22f18c6565b01bf59f59f18a1a">reloadAssets</a> ()</td></tr>
+<tr class="memdesc:a75183d22f18c6565b01bf59f59f18a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rechargement à chaud <b>global</b> des assets graphiques (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
+<tr class="memitem:a447c144c52c54657cb29e4b7473e8f3b" id="r_a447c144c52c54657cb29e4b7473e8f3b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a447c144c52c54657cb29e4b7473e8f3b">invalidateAsset</a> (const std::string &amp;fileName)</td></tr>
+<tr class="memdesc:a447c144c52c54657cb29e4b7473e8f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rechargement à chaud <b>ciblé</b> d'un seul asset (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 <tr class="memitem:a682255be40d1c669df3888777d1d5cea" id="r_a682255be40d1c669df3888777d1d5cea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a682255be40d1c669df3888777d1d5cea">setRenderMode</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
 <tr class="memdesc:a682255be40d1c669df3888777d1d5cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit le mode de rendu et <b>persiste</b> le choix (<span class="tt">EX-REN-046</span>, <span class="tt">EX-IHM-011</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -753,6 +757,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a447c144c52c54657cb29e4b7473e8f3b" name="a447c144c52c54657cb29e4b7473e8f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447c144c52c54657cb29e4b7473e8f3b">&#9670;&#160;</a></span>invalidateAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::invalidateAsset </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rechargement à chaud <b>ciblé</b> d'un seul asset (<span class="tt">LOT-43</span> TACHE-03). </p>
+<p>Évite de relire toute la bibliothèque à chaque sauvegarde — utilisé par l'atelier pixel art (<span class="tt">LOT-54</span>) après chaque enregistrement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>Nom logique de l'asset à invalider (relatif à <span class="tt">Assets/</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a206c034f1553b285c8f153deba15b404" name="a206c034f1553b285c8f153deba15b404"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a206c034f1553b285c8f153deba15b404">&#9670;&#160;</a></span>isDirty()</h2>
 
@@ -1184,6 +1213,26 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75183d22f18c6565b01bf59f59f18a1a" name="a75183d22f18c6565b01bf59f59f18a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75183d22f18c6565b01bf59f59f18a1a">&#9670;&#160;</a></span>reloadAssets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::reloadAssets </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rechargement à chaud <b>global</b> des assets graphiques (<span class="tt">LOT-43</span> TACHE-03). </p>
+<p>Invalide tout le <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span> et relit <span class="tt">skins.json</span> — un asset a pu être modifié, renommé ou ajouté hors de l'application. Ne touche ni au brouillon en cours d'édition ni à son historique d'annulation : c'est une opération de <b>présentation</b>, pas d'édition. L'apparence est résolue à la composition de chaque image (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>), donc l'image suivante suffit à montrer le résultat — aucune reconstruction de scène nécessaire. </p>
 
 </div>
 </div>

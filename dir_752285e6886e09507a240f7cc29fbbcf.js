@@ -1,5 +1,8 @@
 var dir_752285e6886e09507a240f7cc29fbbcf =
 [
+    [ "test_asset_file_operations.cpp", "test__asset__file__operations_8cpp.html", "test__asset__file__operations_8cpp" ],
+    [ "test_asset_library.cpp", "test__asset__library_8cpp.html", "test__asset__library_8cpp" ],
+    [ "test_asset_references.cpp", "test__asset__references_8cpp.html", "test__asset__references_8cpp" ],
     [ "test_level_file_operations.cpp", "test__level__file__operations_8cpp.html", "test__level__file__operations_8cpp" ],
     [ "test_level_name_validation.cpp", "test__level__name__validation_8cpp.html", "test__level__name__validation_8cpp" ],
     [ "test_link_geometry.cpp", "test__link__geometry_8cpp.html", "test__link__geometry_8cpp" ],
