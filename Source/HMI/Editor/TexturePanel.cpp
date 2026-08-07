@@ -19,6 +19,7 @@
 #include <QStringList>
 #include <QStyledItemDelegate>
 #include <QTableView>
+#include <QTimer>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
@@ -26,16 +27,21 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
+#include <memory>
 #include <optional>
 #include <utility>
 #include <vector>
 
+#include "Core/Ecs/AnimationClip.h"
+#include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Levels/LevelDraft.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/AssetThumbnailView.h"
+#include "HMI/Editor/MechanismAnimationAssignments.h"
 #include "HMI/Editor/SkinAssignments.h"
 #include "HMI/Editor/TaxonomyLabels.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
 #include "HMI/Graphics/TextureLoader.h"
@@ -56,6 +62,21 @@ constexpr int COLUMN_COUNT = 3;
 constexpr int OBJECTS_COLUMN_POSITION = 0;
 constexpr int OBJECTS_COLUMN_ASSET = 1;
 constexpr int OBJECTS_COLUMN_COUNT = 2;
+
+// Colonnes de l'arbre de la section « Animations » (LOT-47) : famille de mecanisme, fichier
+// assigne, diagnostic des clips manquants.
+constexpr int ANIMATIONS_COLUMN_TYPE = 0;
+constexpr int ANIMATIONS_COLUMN_ASSET = 1;
+constexpr int ANIMATIONS_COLUMN_DIAGNOSTIC = 2;
+constexpr int ANIMATIONS_COLUMN_COUNT = 3;
+
+// Intervalle de la minuterie d'apercu (LOT-47 TACHE-04) : temps reel (comme l'apercu d'edition de
+// hmi::DraftRenderer), pas la determination du pas fixe -- suffisant pour "verifier le rythme"
+// sans entrer en mode essai.
+constexpr int ANIMATION_PREVIEW_INTERVAL_MS = 66;
+// Facteur d'agrandissement de la vignette d'apercu (une case de 16x16 px serait illisible telle
+// quelle dans le panneau).
+constexpr int ANIMATION_PREVIEW_SCALE = 4;
 
 // Libelle "(colonne, ligne)" d'une position de grille -- meme format que LinkPanel.cpp.
 QString positionText(core::GridPosition position) {
@@ -87,6 +108,23 @@ constexpr int ROW_ICON_SIZE = 20;
 // Texte localise d'une cle (repli sur la cle si aucun catalogue -- ne survient pas en pratique).
 [[nodiscard]] QString t(const Localization* loc, const char* key) {
     return loc != nullptr ? QString::fromStdString(loc->text(key)) : QString::fromLatin1(key);
+}
+
+// Texte de diagnostic d'une ligne de la section « Animations » (LOT-47) : vide sans asset assigne
+// -- rien a diagnostiquer -- « complet » si tous les clips attendus sont presents, sinon la liste
+// des clips manquants.
+[[nodiscard]] QString diagnosticText(const Localization* loc, const MechanismAnimationRow& row) {
+    if (row.asset.empty()) {
+        return QString();
+    }
+    if (row.missingClips.empty()) {
+        return t(loc, "textures.animations_complete");
+    }
+    QStringList missing;
+    for (const std::string& clipName : row.missingClips) {
+        missing << QString::fromStdString(clipName);
+    }
+    return t(loc, "textures.animations_missing") + QStringLiteral(" : ") + missing.join(", ");
 }
 
 // Convertit des pixels RGBA decodes en QImage. Meme conversion que PalettePanel/
@@ -181,6 +219,8 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
       _backgroundView(nullptr),
       _objectView(nullptr),
       _objectsModel(new QStandardItemModel(0, OBJECTS_COLUMN_COUNT, this)),
+      _animationsModel(new QStandardItemModel(0, ANIMATIONS_COLUMN_COUNT, this)),
+      _animationPreviewTimer(new QTimer(this)),
       _skinsDirectory(std::move(skinsDirectory)),
       _catalogPath(std::move(catalogPath)),
       _backgroundsDirectory(std::move(backgroundsDirectory)),
@@ -236,6 +276,19 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
             [this] { onObjectsSelectionChanged(); });
     connect(_ui->objectsRemoveButton, &QPushButton::clicked, this,
             [this] { onObjectsRemoveClicked(); });
+
+    // Section « Animations » (LOT-47) : asset anime par defaut de chaque famille de mecanisme a
+    // etat, stocke comme un skin de type ordinaire (meme catalogue, meme jeu courant) -- avec le
+    // diagnostic des clips manquants et un apercu qui rejoue le meme catalogue d'animation que le
+    // jeu (hmi::AnimationCatalog), pas une reimplementation parallele.
+    _ui->animationsTree->setModel(_animationsModel);
+    _ui->animationsTree->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    connect(_ui->animationsTree, &QTreeView::doubleClicked, this,
+            &TexturePanel::onAnimationsAssetActivated);
+    connect(_ui->animationsTree->selectionModel(), &QItemSelectionModel::currentRowChanged, this,
+            [this] { onAnimationsSelectionChanged(); });
+    connect(_animationPreviewTimer, &QTimer::timeout, this, &TexturePanel::tickAnimationPreview);
+    _animationPreviewTimer->start(ANIMATION_PREVIEW_INTERVAL_MS);
 }
 
 TexturePanel::~TexturePanel() = default;
@@ -245,6 +298,7 @@ void TexturePanel::setCatalog(SkinCatalog* catalog) {
     _currentSet = catalog == nullptr ? std::string{} : catalog->defaultSetName();
     rebuildTree();
     rebuildLevelSkinSetSelector();
+    rebuildAnimationsTree();
 }
 
 void TexturePanel::setLevelProperties(const std::optional<std::string>& background,
@@ -269,6 +323,7 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->sections->setTabText(0, QString::fromStdString(loc.text("textures.section_skins")));
     _ui->sections->setTabText(1, QString::fromStdString(loc.text("textures.section_background")));
     _ui->sections->setTabText(2, QString::fromStdString(loc.text("textures.section_objects")));
+    _ui->sections->setTabText(3, QString::fromStdString(loc.text("textures.section_animations")));
     _ui->backgroundModeHintLabel->setText(
         QString::fromStdString(loc.text("textures.background_mode_hint")));
     _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));
@@ -281,11 +336,18 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _objectsModel->setHorizontalHeaderLabels(
         {QString::fromStdString(loc.text("textures.objects_column_position")),
          QString::fromStdString(loc.text("textures.objects_column_asset"))});
+    _ui->animationPreviewCaption->setText(
+        QString::fromStdString(loc.text("textures.animations_preview")));
+    _animationsModel->setHorizontalHeaderLabels(
+        {QString::fromStdString(loc.text("textures.column_type")),
+         QString::fromStdString(loc.text("textures.column_asset")),
+         QString::fromStdString(loc.text("textures.animations_column_diagnostic"))});
     _backgroundView->retranslateUi(loc);
     _objectView->retranslateUi(loc);
     rebuildTree();
     rebuildLevelSkinSetSelector();  // le libelle "jeu par defaut" vient de changer de langue
     rebuildObjectRows();
+    rebuildAnimationsTree();
 }
 
 // Reconstruit entierement l'arbre depuis le catalogue et le contenu du dossier de skins.
@@ -357,6 +419,7 @@ void TexturePanel::onSetChanged(int index) {
     }
     _currentSet = _ui->setSelector->itemText(index).toStdString();
     rebuildTree();
+    rebuildAnimationsTree();
     emit assignmentsChanged();
 }
 
@@ -391,6 +454,7 @@ void TexturePanel::onItemChanged(QStandardItem* item) {
 
     applySkinAssignment(*_catalog, _currentSet, type, asset, mode);
     save();
+    rebuildAnimationsTree();  // le type modifie peut etre l'une des six familles de mecanismes.
     emit assignmentsChanged();
 }
 
@@ -485,6 +549,11 @@ void TexturePanel::reloadAssets() {
     _backgroundView->selectAsset(_levelBackground.value_or(std::string{}));
     _objectView->clearCache();
     _objectView->refresh();
+    // Un fichier d'animation a pu changer hors application : le diagnostic et l'apercu doivent
+    // relire le disque, pas une copie memorisee (LOT-43 TACHE-03, LOT-47).
+    _animationPreviewSheet = QImage();
+    _animationPreviewDescription.reset();
+    rebuildAnimationsTree();
 }
 
 // Resynchronise la section « Objets » avec le brouillon courant (LOT-45).
@@ -542,6 +611,145 @@ void TexturePanel::onObjectsRemoveClicked() {
         return;
     }
     emit textureOverrideRemoveRequested(_objectRows[static_cast<std::size_t>(row)].position);
+}
+
+// Reconstruit l'arbre de la section « Animations » (LOT-47 TACHE-04) : logique hors du widget
+// (hmi::buildMechanismAnimationRows), meme patron que rebuildTree pour les skins.
+void TexturePanel::rebuildAnimationsTree() {
+    _animationsModel->removeRows(0, _animationsModel->rowCount());
+    if (_loc != nullptr) {
+        _animationsModel->setHorizontalHeaderLabels(
+            {QString::fromStdString(_loc->text("textures.column_type")),
+             QString::fromStdString(_loc->text("textures.column_asset")),
+             QString::fromStdString(_loc->text("textures.animations_column_diagnostic"))});
+    }
+    if (_catalog == nullptr) {
+        return;
+    }
+
+    for (const MechanismAnimationRow& row : buildMechanismAnimationRows(*_catalog, _currentSet,
+                                                                        _skinsDirectory)) {
+        auto* const typeItem =
+            new QStandardItem(QString::fromStdString(localizedTaxonomyLabel(_loc, row.typeLabel)));
+        typeItem->setEditable(false);
+        typeItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
+
+        auto* const assetItem = new QStandardItem(
+            row.asset.empty() ? noneLabel(_loc) : QString::fromStdString(row.asset));
+        assetItem->setEditable(false);
+        assetItem->setIcon(QIcon(thumbnailFor(row.asset)));
+        assetItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
+
+        auto* const diagnosticItem = new QStandardItem(diagnosticText(_loc, row));
+        diagnosticItem->setEditable(false);
+        diagnosticItem->setData(static_cast<int>(row.type), TILE_TYPE_ROLE);
+
+        _animationsModel->appendRow(QList<QStandardItem*>{typeItem, assetItem, diagnosticItem});
+    }
+}
+
+// Ouvre le selecteur a vignettes sur un double-clic dans la colonne Fichier de l'arbre
+// « Animations » (meme patron que onAssetColumnActivated : un mecanisme est un type de tuile
+// comme un autre pour hmi::SkinCatalog, seul le mode SkinMode::Single a un sens ici, EX-REN-046).
+void TexturePanel::onAnimationsAssetActivated(const QModelIndex& index) {
+    if (_catalog == nullptr || index.column() != ANIMATIONS_COLUMN_ASSET) {
+        return;
+    }
+    const QVariant typeData = index.data(TILE_TYPE_ROLE);
+    if (!typeData.isValid()) {
+        return;
+    }
+    const auto type = static_cast<core::TileType>(typeData.toInt());
+
+    const QString currentText = index.data(Qt::DisplayRole).toString();
+    const std::string currentAsset =
+        currentText == noneLabel(_loc) ? std::string{} : currentText.toStdString();
+
+    AssetPickerDialog dialog(_skinsDirectory, _loc, this);
+    dialog.setReferenceChecker([this](const std::string& fileName) {
+        std::vector<std::string> lines;
+        for (const AssetReference& reference : findSkinCatalogReferences(*_catalog, fileName)) {
+            lines.push_back(reference.setName + " (" + reference.typeName + ")");
+        }
+        return lines;
+    });
+    dialog.selectAsset(currentAsset);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+    // Toujours SkinMode::Single : un mecanisme a etat n'a pas de voisinage a raccorder (LOT-47
+    // TACHE-01, meme famille que dangers/blocs dans la section « Skins »).
+    applySkinAssignment(*_catalog, _currentSet, type, dialog.selectedAsset(), SkinMode::Single);
+    save();
+    rebuildTree();  // le meme catalogue alimente aussi la section « Skins ».
+    rebuildAnimationsTree();
+    emit assignmentsChanged();
+}
+
+// Charge l'apercu (spritesheet decodee + description d'animation) de la ligne selectionnee.
+void TexturePanel::onAnimationsSelectionChanged() {
+    _animationPreviewSheet = QImage();
+    _animationPreviewDescription.reset();
+    _animationPreviewAnimation = core::Animation{};
+
+    const QModelIndexList selected = _ui->animationsTree->selectionModel()->selectedRows();
+    if (selected.isEmpty() || _catalog == nullptr) {
+        return;
+    }
+    const QVariant typeData = selected.first().data(TILE_TYPE_ROLE);
+    if (!typeData.isValid()) {
+        return;
+    }
+    const auto type = static_cast<core::TileType>(typeData.toInt());
+    const std::optional<SkinEntry> entry = _catalog->resolve(_currentSet, type);
+    if (!entry || entry->asset.empty()) {
+        return;
+    }
+
+    const std::optional<DecodedImage> decoded = decodeImageFile(_skinsDirectory / entry->asset);
+    if (!decoded) {
+        return;
+    }
+    _animationPreviewSheet = toImage(*decoded);
+
+    const AnimationDescriptionResult result = AnimationCatalog::loadFromFile(
+        _skinsDirectory / AnimationCatalog::descriptorFileName(entry->asset));
+    if (!result.ok()) {
+        return;  // asset non anime (ou description invalide) : l'apercu reste sur l'image entiere.
+    }
+    _animationPreviewDescription = result.description;
+    _animationPreviewAnimation.clips =
+        std::make_shared<core::ClipSet>(_animationPreviewDescription->clips);
+    // Etat "au repos" (porte fermee, interrupteur/plaque relache, danger inoffensif...) : la
+    // transition elle-meme se voit en jeu, l'apercu montre l'apparence de base (LOT-47 TACHE-04).
+    const std::string clipName = mechanismTargetClip(type, false).value_or(std::string{});
+    const int clipIndex = _animationPreviewDescription->clips.indexOf(clipName);
+    _animationPreviewAnimation.clipIndex = clipIndex >= 0 ? clipIndex : 0;
+}
+
+// Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (LOT-47 TACHE-04).
+void TexturePanel::tickAnimationPreview() {
+    if (_animationPreviewSheet.isNull()) {
+        _ui->animationPreviewLabel->clear();
+        return;
+    }
+
+    QImage frame;
+    if (_animationPreviewDescription && _animationPreviewAnimation.clips) {
+        core::advanceAnimation(_animationPreviewAnimation,
+                               static_cast<float>(ANIMATION_PREVIEW_INTERVAL_MS) / 1000.0f);
+        const core::AtlasRegion region = AnimationCatalog::currentFrameRegion(
+            *_animationPreviewDescription, _animationPreviewAnimation);
+        frame = _animationPreviewSheet.copy(region.x, region.y, region.width, region.height);
+    } else {
+        frame = _animationPreviewSheet;
+    }
+
+    const QPixmap pixmap = QPixmap::fromImage(frame.scaled(
+        frame.width() * ANIMATION_PREVIEW_SCALE, frame.height() * ANIMATION_PREVIEW_SCALE,
+        Qt::KeepAspectRatio, Qt::FastTransformation));
+    _ui->animationPreviewLabel->setPixmap(pixmap);
 }
 
 // Enregistre le catalogue au chemin deploye, comme l'enregistrement d'un niveau.

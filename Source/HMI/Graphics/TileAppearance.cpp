@@ -34,6 +34,12 @@ namespace {
         const AutotileCell cell = autotileCell(tag.neighborMask);
         return core::AtlasRegion{cell.column * SIZE, cell.row * SIZE, SIZE, SIZE};
     }
+    // Image courante PAR INSTANCE d'un mecanisme (LOT-47) : prioritaire sur l'horloge partagee par
+    // asset ci-dessous, seule capable de distinguer deux tuiles du meme asset a des etats differents
+    // (une porte ouverte a cote d'une porte fermee, par exemple).
+    if (tag.animatedFrame) {
+        return *tag.animatedFrame;
+    }
     // Mode single anime (LOT-46 TACHE-05) : l'image COURANTE plutot que l'image entiere.
     if (texture.animatedFrame) {
         return *texture.animatedFrame;
@@ -68,9 +74,12 @@ TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& p
         if (index < 0) {
             return missingAppearance();
         }
+        // Image courante par instance (LOT-47), meme priorite que pour un skin ci-dessous ; a
+        // defaut, l'image entiere (surcharge non animee, comportement inchange depuis LOT-45).
         constexpr int SIZE = TextureAtlas::TILE_SIZE;
-        return TileAppearance{AppearanceSource::Override, core::AtlasRegion{0, 0, SIZE, SIZE},
-                              index};
+        const core::AtlasRegion region =
+            tag->animatedFrame ? *tag->animatedFrame : core::AtlasRegion{0, 0, SIZE, SIZE};
+        return TileAppearance{AppearanceSource::Override, region, index};
     }
 
     if (textures.skinCatalog == nullptr) {

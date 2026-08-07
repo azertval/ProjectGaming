@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "frameWidth": 16,
+  "frameHeight": 16,
+  "clips": {
+    "released": {
+      "frames": [
+        0
+      ],
+      "loop": true
+    },
+    "pressed": {
+      "frames": [
+        1
+      ],
+      "loop": true
+    }
+  }
+}
