@@ -110,8 +110,8 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         if (!animationExcludedForTile(entry.mode, type)) {
             const auto animationEntry = tileAnimations.find(entry.asset);
             if (animationEntry != tileAnimations.end()) {
-                if (const AnimationDescription* description =
-                        cache.getAnimation(entry.asset, loaded->width, loaded->height)) {
+                if (const AnimationDescription* description = cache.getAnimation(
+                        SKINS_SUBDIRECTORY + entry.asset, loaded->width, loaded->height)) {
                     animatedFrame =
                         AnimationCatalog::currentFrameRegion(*description, animationEntry->second);
                 }
@@ -157,7 +157,7 @@ void advanceTileAnimations(const SkinCatalog* skins, const std::string& skinSet,
             continue;  // asset absent/illisible/refuse : deja journalise par le TextureCache.
         }
         const AnimationDescription* description =
-            cache.getAnimation(entry.asset, loaded->width, loaded->height);
+            cache.getAnimation(SKINS_SUBDIRECTORY + entry.asset, loaded->width, loaded->height);
         if (description == nullptr) {
             continue;  // pas de fichier d'animation : image fixe, cas par defaut silencieux.
         }
