@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (497)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (501)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -42,7 +42,7 @@ var NAVTREE =
         ] ],
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
-          [ "Editor (20)", "cahiertest.html#autotoc_md15", null ],
+          [ "Editor (24)", "cahiertest.html#autotoc_md15", null ],
           [ "Graphics (117)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
@@ -102,34 +102,34 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"PalettePanel_8h.html",
-"classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db",
-"classcore_1_1LevelWriter.html#a05e43ed02f2e27c65514facf6b813c75",
-"classhmi_1_1AssetThumbnailView.html#a75510601d7c608bd13ce33ab360679a8",
-"classhmi_1_1GameSession.html#a704567d8e068fe547c071d3718bbe263",
-"classhmi_1_1GameViewport.html#ae419f03e1eb9fb6705b9d6301ddb471d",
-"classhmi_1_1KeybindingsWidget.html#ac1abe98752f61be32fa6f294f68d524f",
-"classhmi_1_1PalettePanel.html#a41293567f5813d2d68819193c823e846",
-"classhmi_1_1TextureCache.html#ad7f17051cf5b1b1e30badc27867951a0",
-"functions_m.html",
-"lot-01.html#autotoc_md270",
-"lot-05.html#autotoc_md479",
-"lot-09.html#autotoc_md699",
-"lot-15-tache-04-camera-pan-zoom.html#autotoc_md972",
-"lot-21-tache-03-documentation-verification.html#autotoc_md1193",
-"lot-28-tache-02-editeur-rendu.html#autotoc_md1414",
-"lot-34-tache-02-viewport-d3d11-embarque.html#autotoc_md1636",
-"lot-40-tache-04-quad-recorder.html",
-"lot-46-tache-05-tuiles-animees.html",
-"lot-52.html#autotoc_md2268",
-"namespacehmi.html",
-"spec-controles.html#autotoc_md184",
-"structcore_1_1PhysicsConfig.html",
-"structhmi_1_1ComposedQuad.html#a11f80072d43177fd77c938bb6efaab02",
-"structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d",
-"test__editor__key__bindings_8cpp.html#a7e139883b69684535dd6d95235351978",
-"test__mechanism__controller_8cpp.html#a559051c9aeba73678f0b9ec80aa6e233",
-"test__texture__assign__gesture_8cpp.html#aee5cee9d0d56892929d0539da611905f"
+"OptionsPage_8h.html",
+"classcore_1_1DangerController.html#a4ff53c713255329f9bcaa28cae14d9a2",
+"classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89",
+"classhmi_1_1AssetThumbnailView.html#a5d35cf5702f2dadec1ac0c383e02cdb4",
+"classhmi_1_1GameSession.html#a5f23e0b481948049670ef0f68a7ee2a9",
+"classhmi_1_1GameViewport.html#acd267663dc14c010857f9d3156526e94",
+"classhmi_1_1InputState.html#ae58b5ee926c82c8f62bf57ee7e446ac4",
+"classhmi_1_1OptionsPage.html#a8987aa73dc8efea3e4b6f92a92106858",
+"classhmi_1_1TextureCache.html#a1107f9ce2c7733737b0aae9791eaacec",
+"functions.html",
+"index.html#autotoc_md1",
+"lot-05-tache-03-atlas-procedural.html#autotoc_md495",
+"lot-09-tache-02-mapping-saut.html#autotoc_md716",
+"lot-14.html#autotoc_md884",
+"lot-20-tache-03-documentation-verification.html",
+"lot-26.html#autotoc_md1348",
+"lot-33-tache-03-interpolation-rendu.html#autotoc_md1599",
+"lot-39-tache-03-convention-assets-doc.html#autotoc_md1821",
+"lot-45.html#autotoc_md2011",
+"lot-51.html#autotoc_md2232",
+"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d",
+"namespacehmi.html#ace704959d626f266592987f16eb2f3d5",
+"structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38",
+"structhmi_1_1AnimationDescriptionResult.html#a8e45bcf520db8ee10785009747812ea0",
+"structhmi_1_1SceneTextures.html#a316efe3bb546e62e2e79d67812d4171c",
+"test__asset__references_8cpp.html#aaedc0804cd47a782723dcaee8ee2d2e1",
+"test__level__name__validation_8cpp.html",
+"test__room__grid_8cpp.html#a30660f3b4b10e952b806f44a8a95cb66"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

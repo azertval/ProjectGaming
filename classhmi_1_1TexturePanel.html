@@ -153,6 +153,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a493879465156760b5b52ca39ec9ccca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau des surcharges depuis <span class="tt"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad" title="Surcharges affichées par le tableau, indexées comme ses lignes (LOT-45).">_objectRows</a></span> (tri stable par position, déjà posé par <span class="tt"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a" title="Resynchronise la section « Objets » avec le brouillon courant (LOT-45).">refreshObjects</a></span>).  <br /></td></tr>
 <tr class="memitem:a1a464e0a2180e8fd80d1f9c9cd8ff56a" id="r_a1a464e0a2180e8fd80d1f9c9cd8ff56a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a464e0a2180e8fd80d1f9c9cd8ff56a">onObjectsSelectionChanged</a> ()</td></tr>
 <tr class="memitem:a6fb19ac7103cdc8a0b959972e0baf768" id="r_a6fb19ac7103cdc8a0b959972e0baf768"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6fb19ac7103cdc8a0b959972e0baf768">onObjectsRemoveClicked</a> ()</td></tr>
+<tr class="memitem:a6873ea62a9100ec5ba676d7ca6c42fed" id="r_a6873ea62a9100ec5ba676d7ca6c42fed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6873ea62a9100ec5ba676d7ca6c42fed">rebuildAnimationsTree</a> ()</td></tr>
+<tr class="memdesc:a6873ea62a9100ec5ba676d7ca6c42fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit l'arbre de la section « Animations » (<span class="tt">LOT-47</span> TACHE-04) depuis le catalogue et le diagnostic de clips manquants (<span class="tt"><a class="el" href="namespacehmi.html#abe8227bea2ef2342d62abed6e4704b0e" title="Construit les lignes de la section « Animations », diagnostic de clips manquants compris.">hmi::buildMechanismAnimationRows</a></span>).  <br /></td></tr>
+<tr class="memitem:a68857e8af8072e751793c13ee22aac0c" id="r_a68857e8af8072e751793c13ee22aac0c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a68857e8af8072e751793c13ee22aac0c">onAnimationsAssetActivated</a> (const QModelIndex &amp;index)</td></tr>
+<tr class="memdesc:a68857e8af8072e751793c13ee22aac0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre le selecteur a vignettes sur un double-clic dans la colonne Fichier de l'arbre « Animations » (meme patron que <span class="tt"><a class="el" href="#a24080a7182c58d0870a553c660a94136">onAssetColumnActivated</a></span>, un mecanisme est un type de tuile comme un autre pour <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span>).  <br /></td></tr>
+<tr class="memitem:a8ae09e24a36d04218664fe6fe0776db5" id="r_a8ae09e24a36d04218664fe6fe0776db5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ae09e24a36d04218664fe6fe0776db5">onAnimationsSelectionChanged</a> ()</td></tr>
+<tr class="memdesc:a8ae09e24a36d04218664fe6fe0776db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge l'apercu (spritesheet decodee + description d'animation) de la ligne selectionnee.  <br /></td></tr>
+<tr class="memitem:a8f596754205c547cb8e7e99560afa2f0" id="r_a8f596754205c547cb8e7e99560afa2f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f596754205c547cb8e7e99560afa2f0">tickAnimationPreview</a> ()</td></tr>
+<tr class="memdesc:a8f596754205c547cb8e7e99560afa2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (<span class="tt">LOT-47</span> TACHE-04) : lecture en temps reel du meme catalogue que le jeu (<span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>), pas une reimplementation parallele.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -164,6 +172,16 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:acf031fb663a7e4279d6411082d743944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Objects/</span> (LOT-45).  <br /></td></tr>
 <tr class="memitem:acba4631e26bc2ce0b919ee9676d4275f" id="r_acba4631e26bc2ce0b919ee9676d4275f"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#acba4631e26bc2ce0b919ee9676d4275f">_objectsModel</a></td></tr>
 <tr class="memdesc:acba4631e26bc2ce0b919ee9676d4275f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle du tableau des surcharges (LOT-45).  <br /></td></tr>
+<tr class="memitem:afea9d88ada3a99e41160194c821c3e05" id="r_afea9d88ada3a99e41160194c821c3e05"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#afea9d88ada3a99e41160194c821c3e05">_animationsModel</a></td></tr>
+<tr class="memdesc:afea9d88ada3a99e41160194c821c3e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle de l'arbre de la section « Animations » (LOT-47).  <br /></td></tr>
+<tr class="memitem:a4b2b9263dd65b896be2f989e36e94c45" id="r_a4b2b9263dd65b896be2f989e36e94c45"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a4b2b9263dd65b896be2f989e36e94c45">_animationPreviewTimer</a></td></tr>
+<tr class="memdesc:a4b2b9263dd65b896be2f989e36e94c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer l'aperçu de la section « Animations ».  <br /></td></tr>
+<tr class="memitem:a29aac1cec019944e00abf4decbaf7928" id="r_a29aac1cec019944e00abf4decbaf7928"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a29aac1cec019944e00abf4decbaf7928">_animationPreviewSheet</a></td></tr>
+<tr class="memdesc:a29aac1cec019944e00abf4decbaf7928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spritesheet décodée de l'asset actuellement prévisualisé (vide si aucune sélection/asset illisible) — décodée une fois par sélection, pas à chaque image de la minuterie.  <br /></td></tr>
+<tr class="memitem:a6a4b59fc8d38d9338d4f8d02db052829" id="r_a6a4b59fc8d38d9338d4f8d02db052829"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6a4b59fc8d38d9338d4f8d02db052829">_animationPreviewDescription</a></td></tr>
+<tr class="memdesc:a6a4b59fc8d38d9338d4f8d02db052829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'animation de l'asset prévisualisé, ou <span class="tt">std::nullopt</span> si absente/invalide/non sélectionnée : l'aperçu reste alors sur l'image entière de <span class="tt"><a class="el" href="#a29aac1cec019944e00abf4decbaf7928" title="Spritesheet décodée de l&#39;asset actuellement prévisualisé (vide si aucune sélection/asset illisible) —...">_animationPreviewSheet</a></span>.  <br /></td></tr>
+<tr class="memitem:a546862a994570e4a6822b2a79f508168" id="r_a546862a994570e4a6822b2a79f508168"><td class="memItemLeft"><a class="el" href="structcore_1_1Animation.html">core::Animation</a>&#160;</td><td class="memItemRight"><a class="el" href="#a546862a994570e4a6822b2a79f508168">_animationPreviewAnimation</a></td></tr>
+<tr class="memdesc:a546862a994570e4a6822b2a79f508168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'aperçu, avancée par <span class="tt"><a class="el" href="#a4b2b9263dd65b896be2f989e36e94c45" title="Fait avancer l&#39;aperçu de la section « Animations ».">_animationPreviewTimer</a></span> (temps réel, comme l'aperçu d'édition de <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> — la détermination n'a pas de sens hors simulation).  <br /></td></tr>
 <tr class="memitem:a7adaa51b0922db2f2c3c6e3c076d91e0" id="r_a7adaa51b0922db2f2c3c6e3c076d91e0"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a7adaa51b0922db2f2c3c6e3c076d91e0">_skinsDirectory</a></td></tr>
 <tr class="memitem:ab34fd9852d1e50ff3d063ee2c38e3f33" id="r_ab34fd9852d1e50ff3d063ee2c38e3f33"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab34fd9852d1e50ff3d063ee2c38e3f33">_catalogPath</a></td></tr>
 <tr class="memitem:a33abf9819a780a7de48c412af68d16ae" id="r_a33abf9819a780a7de48c412af68d16ae"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a33abf9819a780a7de48c412af68d16ae">_backgroundsDirectory</a></td></tr>
@@ -378,6 +396,60 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a68857e8af8072e751793c13ee22aac0c" name="a68857e8af8072e751793c13ee22aac0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68857e8af8072e751793c13ee22aac0c">&#9670;&#160;</a></span>onAnimationsAssetActivated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onAnimationsAssetActivated </td>
+          <td>(</td>
+          <td class="paramtype">const QModelIndex &amp;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre le selecteur a vignettes sur un double-clic dans la colonne Fichier de l'arbre « Animations » (meme patron que <span class="tt"><a class="el" href="#a24080a7182c58d0870a553c660a94136">onAssetColumnActivated</a></span>, un mecanisme est un type de tuile comme un autre pour <span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span>). </p>
+
+</div>
+</div>
+<a id="a8ae09e24a36d04218664fe6fe0776db5" name="a8ae09e24a36d04218664fe6fe0776db5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae09e24a36d04218664fe6fe0776db5">&#9670;&#160;</a></span>onAnimationsSelectionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onAnimationsSelectionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge l'apercu (spritesheet decodee + description d'animation) de la ligne selectionnee. </p>
+
+</div>
+</div>
 <a id="a24080a7182c58d0870a553c660a94136" name="a24080a7182c58d0870a553c660a94136"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24080a7182c58d0870a553c660a94136">&#9670;&#160;</a></span>onAssetColumnActivated()</h2>
 
@@ -500,6 +572,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6873ea62a9100ec5ba676d7ca6c42fed" name="a6873ea62a9100ec5ba676d7ca6c42fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6873ea62a9100ec5ba676d7ca6c42fed">&#9670;&#160;</a></span>rebuildAnimationsTree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildAnimationsTree </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit l'arbre de la section « Animations » (<span class="tt">LOT-47</span> TACHE-04) depuis le catalogue et le diagnostic de clips manquants (<span class="tt"><a class="el" href="namespacehmi.html#abe8227bea2ef2342d62abed6e4704b0e" title="Construit les lignes de la section « Animations », diagnostic de clips manquants compris.">hmi::buildMechanismAnimationRows</a></span>). </p>
 
 </div>
 </div>
@@ -861,7 +960,154 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8f596754205c547cb8e7e99560afa2f0" name="a8f596754205c547cb8e7e99560afa2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f596754205c547cb8e7e99560afa2f0">&#9670;&#160;</a></span>tickAnimationPreview()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::tickAnimationPreview </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (<span class="tt">LOT-47</span> TACHE-04) : lecture en temps reel du meme catalogue que le jeu (<span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>), pas une reimplementation parallele. </p>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a546862a994570e4a6822b2a79f508168" name="a546862a994570e4a6822b2a79f508168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a546862a994570e4a6822b2a79f508168">&#9670;&#160;</a></span>_animationPreviewAnimation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Animation.html">core::Animation</a> hmi::TexturePanel::_animationPreviewAnimation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Horloge d'aperçu, avancée par <span class="tt"><a class="el" href="#a4b2b9263dd65b896be2f989e36e94c45" title="Fait avancer l&#39;aperçu de la section « Animations ».">_animationPreviewTimer</a></span> (temps réel, comme l'aperçu d'édition de <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> — la détermination n'a pas de sens hors simulation). </p>
+
+</div>
+</div>
+<a id="a6a4b59fc8d38d9338d4f8d02db052829" name="a6a4b59fc8d38d9338d4f8d02db052829"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4b59fc8d38d9338d4f8d02db052829">&#9670;&#160;</a></span>_animationPreviewDescription</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a>&gt; hmi::TexturePanel::_animationPreviewDescription</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Description d'animation de l'asset prévisualisé, ou <span class="tt">std::nullopt</span> si absente/invalide/non sélectionnée : l'aperçu reste alors sur l'image entière de <span class="tt"><a class="el" href="#a29aac1cec019944e00abf4decbaf7928" title="Spritesheet décodée de l&#39;asset actuellement prévisualisé (vide si aucune sélection/asset illisible) —...">_animationPreviewSheet</a></span>. </p>
+
+</div>
+</div>
+<a id="a29aac1cec019944e00abf4decbaf7928" name="a29aac1cec019944e00abf4decbaf7928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29aac1cec019944e00abf4decbaf7928">&#9670;&#160;</a></span>_animationPreviewSheet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QImage hmi::TexturePanel::_animationPreviewSheet</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Spritesheet décodée de l'asset actuellement prévisualisé (vide si aucune sélection/asset illisible) — décodée une fois par sélection, pas à chaque image de la minuterie. </p>
+
+</div>
+</div>
+<a id="a4b2b9263dd65b896be2f989e36e94c45" name="a4b2b9263dd65b896be2f989e36e94c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b2b9263dd65b896be2f989e36e94c45">&#9670;&#160;</a></span>_animationPreviewTimer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTimer* hmi::TexturePanel::_animationPreviewTimer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fait avancer l'aperçu de la section « Animations ». </p>
+
+</div>
+</div>
+<a id="afea9d88ada3a99e41160194c821c3e05" name="afea9d88ada3a99e41160194c821c3e05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afea9d88ada3a99e41160194c821c3e05">&#9670;&#160;</a></span>_animationsModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStandardItemModel* hmi::TexturePanel::_animationsModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modèle de l'arbre de la section « Animations » (LOT-47). </p>
+
+</div>
+</div>
 <a id="a33abf9819a780a7de48c412af68d16ae" name="a33abf9819a780a7de48c412af68d16ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33abf9819a780a7de48c412af68d16ae">&#9670;&#160;</a></span>_backgroundsDirectory</h2>
 

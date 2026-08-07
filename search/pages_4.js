@@ -27,6 +27,5 @@ var searchData=
   ['47_20—_20états_20visuels_20des_20mécanismes_24',['LOT-47 — États visuels des mécanismes',['../lot-47.html',1,'lots']]],
   ['48_20—_20personnage_20_3a_20skin_20et_20animations_20depuis_20fichier_25',['LOT-48 — Personnage : skin et animations depuis fichier',['../lot-48.html',1,'lots']]],
   ['49_20—_20décors_20libres_20_3a_20modèle_20rendu_20et_20parallaxe_26',['LOT-49 — Décors libres : modèle, rendu et parallaxe',['../lot-49.html',1,'lots']]],
-  ['497_27',['Tests unitaires (497)',['../cahiertest.html#autotoc_md4',1,'']]],
-  ['4bis_20décors_20pixel_20art_20post_20mvp_20intégré_20à_20l_20éditeur_28',['4bis. Décors &amp;amp; pixel art (post-MVP, intégré à l&apos;éditeur)',['../spec-editeur.html#autotoc_md219',1,'']]]
+  ['4bis_20décors_20pixel_20art_20post_20mvp_20intégré_20à_20l_20éditeur_27',['4bis. Décors &amp;amp; pixel art (post-MVP, intégré à l&apos;éditeur)',['../spec-editeur.html#autotoc_md219',1,'']]]
 ];

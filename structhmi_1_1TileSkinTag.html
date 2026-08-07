@@ -106,6 +106,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a8ac9f76d95de0f6c8f8298e76c0ce704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masque des quatre voisins solides (<span class="tt"><a class="el" href="namespacehmi.html#a6d5ae4c4504ac24560454bb394e9ad1a" title="Calcule le masque de voisinage solide d&#39;une case de la grille.">hmi::solidNeighborMask</a></span>), pour le mode <span class="tt">bitmask16</span>.  <br /></td></tr>
 <tr class="memitem:a6449615c56d78758cfd1ced852b902ca" id="r_a6449615c56d78758cfd1ced852b902ca"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6449615c56d78758cfd1ced852b902ca">overrideAsset</a></td></tr>
 <tr class="memdesc:a6449615c56d78758cfd1ced852b902ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de l'asset assigné <b>par instance</b> à cette case (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>), prioritaire sur le skin du type ; vide si la case n'a pas de surcharge.  <br /></td></tr>
+<tr class="memitem:a911bf19f0ce47dfffc68209f3e96581f" id="r_a911bf19f0ce47dfffc68209f3e96581f"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a911bf19f0ce47dfffc68209f3e96581f">animatedFrame</a></td></tr>
+<tr class="memdesc:a911bf19f0ce47dfffc68209f3e96581f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image <b>courante</b>, par instance, d'un mécanisme animé (<span class="tt">LOT-47</span>) : recalculée chaque pas fixe par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> d'après l'état logique de <b>cette</b> tuile (porte, interrupteur, danger…), prioritaire sur l'horloge partagée par asset de <span class="tt"><a class="el" href="structhmi_1_1SkinTexture.html#adb205ea88fb4f3ffa43f9e210046042c" title="Région de l&#39;image courante à échantillonner si cet asset est animé (LOT-46 TACHE-05),...">hmi::SkinTexture::animatedFrame</a></span> (<span class="tt">LOT-46</span> TACHE-05, décorative, en phase pour toutes les tuiles d'un même asset).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type de tuile et voisinage solide d'une entité affichée, pour la résolution de son skin. </p>
@@ -113,6 +115,23 @@ Public Attributes</h2></td></tr>
 <p>Le masque de voisinage est calculé <b>une fois</b>, à la construction de la scène : il ne dépend que de la grille du niveau, jamais du mode de rendu ni du jeu de skins courant. Basculer de mode (<span class="tt">F8</span>) ou réassigner un skin ne reconstruit donc pas la scène ECS — la règle posée par le <span class="tt">LOT-41</span> reste tenue.</p>
 <p>Une entité <b>sans</b> ce composant (le personnage, les aides d'édition) n'est jamais habillée : elle garde l'apparence résolue en mode Physique. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a911bf19f0ce47dfffc68209f3e96581f" name="a911bf19f0ce47dfffc68209f3e96581f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a911bf19f0ce47dfffc68209f3e96581f">&#9670;&#160;</a></span>animatedFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&gt; hmi::TileSkinTag::animatedFrame</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Image <b>courante</b>, par instance, d'un mécanisme animé (<span class="tt">LOT-47</span>) : recalculée chaque pas fixe par <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> d'après l'état logique de <b>cette</b> tuile (porte, interrupteur, danger…), prioritaire sur l'horloge partagée par asset de <span class="tt"><a class="el" href="structhmi_1_1SkinTexture.html#adb205ea88fb4f3ffa43f9e210046042c" title="Région de l&#39;image courante à échantillonner si cet asset est animé (LOT-46 TACHE-05),...">hmi::SkinTexture::animatedFrame</a></span> (<span class="tt">LOT-46</span> TACHE-05, décorative, en phase pour toutes les tuiles d'un même asset). </p>
+<p>Les deux mécanismes coexistent parce que leurs granularités diffèrent : une nappe d'eau anime tout un asset en phase, une porte anime <b>une case précise</b>, indépendamment de ses voisines de même asset. <span class="tt">std::nullopt</span> hors mécanisme (repli sur l'horloge partagée, ou sur l'image entière). </p>
+
+</div>
+</div>
 <a id="a8ac9f76d95de0f6c8f8298e76c0ce704" name="a8ac9f76d95de0f6c8f8298e76c0ce704"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ac9f76d95de0f6c8f8298e76c0ce704">&#9670;&#160;</a></span>neighborMask</h2>
 

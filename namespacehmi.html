@@ -119,6 +119,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décision résultant de <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">resolveLinkClick</a></span> : action à appliquer et paramètres associés.  <a href="structhmi_1_1LinkGestureDecision.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkPanel" id="r_LinkPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LinkPanel.html">LinkPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vue tabulaire des liaisons (<span class="tt">Mechanism</span>/<span class="tt">DangerLink</span>) du brouillon courant (<span class="tt">EX-IHM-031</span>).  <a href="classhmi_1_1LinkPanel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MechanismAnimationRow" id="r_MechanismAnimationRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismAnimationRow.html">MechanismAnimationRow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne de la section « Animations » : une famille de mécanisme, l'asset qui lui sert d'apparence par défaut, et le diagnostic de clips manquants pour cet asset.  <a href="structhmi_1_1MechanismAnimationRow.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PaletteThumbnail" id="r_PaletteThumbnail"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette à afficher pour un type de tuile : d'où la lire, et quelle région y prendre.  <a href="structhmi_1_1PaletteThumbnail.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
@@ -175,6 +177,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> en cours d'édition.  <a href="classhmi_1_1DraftRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GraphicsDevice" id="r_GraphicsDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GraphicsDevice.html">GraphicsDevice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).  <a href="classhmi_1_1GraphicsDevice.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MechanismVisualState" id="r_MechanismVisualState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de présentation d'un mécanisme animé, par <b>instance</b> (<span class="tt">LOT-47</span> TACHE-02).  <a href="structhmi_1_1MechanismVisualState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PreviousPosition" id="r_PreviousPosition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PreviousPosition.html">PreviousPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une entité au <b>pas de simulation précédent</b>, pour l'interpolation de rendu (<span class="tt">EX-ARCH-031</span>).  <a href="structhmi_1_1PreviousPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ProceduralAtlasImage" id="r_ProceduralAtlasImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a></td></tr>
@@ -475,6 +479,8 @@ Functions</h2></td></tr>
 <tr class="memitem:abc01bff6f3bc784144a6436903733777" id="r_abc01bff6f3bc784144a6436903733777"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#abc01bff6f3bc784144a6436903733777">isLinkTargetTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memitem:a7f0f0f4f71e52b8deb6fb88a8d6411d9" id="r_a7f0f0f4f71e52b8deb6fb88a8d6411d9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LinkGestureDecision.html">LinkGestureDecision</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9">resolveLinkClick</a> (std::optional&lt; <a class="el" href="structhmi_1_1PendingLink.html">PendingLink</a> &gt; pending, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> clickedCell, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> clickedTileType, bool alreadyLinked) noexcept</td></tr>
 <tr class="memdesc:a7f0f0f4f71e52b8deb6fb88a8d6411d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Lien » sur <code class="param">clickedCell</code> selon l'attente courante.  <br /></td></tr>
+<tr class="memitem:abe8227bea2ef2342d62abed6e4704b0e" id="r_abe8227bea2ef2342d62abed6e4704b0e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismAnimationRow.html">MechanismAnimationRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe8227bea2ef2342d62abed6e4704b0e">buildMechanismAnimationRows</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName, const std::filesystem::path &amp;skinsDirectory)</td></tr>
+<tr class="memdesc:abe8227bea2ef2342d62abed6e4704b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes de la section « Animations », diagnostic de clips manquants compris.  <br /></td></tr>
 <tr class="memitem:aa391954b311db21fd63162e8ec40fcc5" id="r_aa391954b311db21fd63162e8ec40fcc5"><td class="memItemLeft"><a class="el" href="structhmi_1_1PaletteThumbnail.html">PaletteThumbnail</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa391954b311db21fd63162e8ec40fcc5">paletteThumbnail</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog, std::string_view setName)</td></tr>
 <tr class="memdesc:aa391954b311db21fd63162e8ec40fcc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la vignette à afficher pour un type de tuile dans la palette.  <br /></td></tr>
 <tr class="memitem:ab7217d187da26402006a3c0d1eb98cbb" id="r_ab7217d187da26402006a3c0d1eb98cbb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinSection.html">SkinSection</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab7217d187da26402006a3c0d1eb98cbb">buildSkinRows</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;catalog, std::string_view setName)</td></tr>
@@ -511,6 +517,18 @@ Functions</h2></td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
 <tr class="memitem:aa9cace554e4d6b94002e17f27585f11b" id="r_aa9cace554e4d6b94002e17f27585f11b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha)</td></tr>
 <tr class="memdesc:aa9cace554e4d6b94002e17f27585f11b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:aaed807c56ca3863821f035b79b34b36e" id="r_aaed807c56ca3863821f035b79b34b36e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aaed807c56ca3863821f035b79b34b36e">isStatefulMechanism</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:aaed807c56ca3863821f035b79b34b36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile est un <b>mécanisme à état</b>, dont l'apparence dépend d'une donnée lue en lecture seule dans <span class="tt">Core</span> (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
+<tr class="memitem:aedfb47ad3a21cd6303a86480c769ee5c" id="r_aedfb47ad3a21cd6303a86480c769ee5c"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aedfb47ad3a21cd6303a86480c769ee5c">mechanismTargetClip</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, bool active) noexcept</td></tr>
+<tr class="memdesc:aedfb47ad3a21cd6303a86480c769ee5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du clip d'<b>état cible</b> d'un mécanisme, d'après son type et son état logique courant.  <br /></td></tr>
+<tr class="memitem:a67e32b533b89743ae50c1d72d83da2cd" id="r_a67e32b533b89743ae50c1d72d83da2cd"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a67e32b533b89743ae50c1d72d83da2cd">mechanismTransitionClip</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, bool wasActive, bool isActive) noexcept</td></tr>
+<tr class="memdesc:a67e32b533b89743ae50c1d72d83da2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du clip de <b>transition</b> joué une fois lors d'un changement d'état (<span class="tt">LOT-47</span> TACHE-02), s'il y a lieu.  <br /></td></tr>
+<tr class="memitem:a63712e5bdef5622bbd0d5d9044109a11" id="r_a63712e5bdef5622bbd0d5d9044109a11"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a63712e5bdef5622bbd0d5d9044109a11">mechanismExpectedClips</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
+<tr class="memdesc:a63712e5bdef5622bbd0d5d9044109a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Noms de clip attendus par la correspondance pour un type de mécanisme, dans l'ordre du tableau ci-dessus (utilisé par le diagnostic du panneau « Textures », <span class="tt">LOT-47</span> TACHE-04).  <br /></td></tr>
+<tr class="memitem:a1b3ff267d602e9a58fb61f2b5eb22ff8" id="r_a1b3ff267d602e9a58fb61f2b5eb22ff8"><td class="memItemLeft"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1b3ff267d602e9a58fb61f2b5eb22ff8">advanceMechanismVisual</a> (<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;state, const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &amp;description, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, bool active, const std::string &amp;assetKey, float fixedDelta, std::set&lt; std::string &gt; &amp;warnedMissingClips)</td></tr>
+<tr class="memdesc:a1b3ff267d602e9a58fb61f2b5eb22ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait progresser l'animation d'<b>une</b> instance de mécanisme d'un pas fixe : détecte un changement d'état, choisit le clip approprié (transition ou état cible, avec repli sur clip manquant), avance l'image courante, et renvoie la région à afficher (<span class="tt">LOT-47</span> TACHE-02).  <br /></td></tr>
+<tr class="memitem:a10b777ad8b1b8017294d405fe557f5e3" id="r_a10b777ad8b1b8017294d405fe557f5e3"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a10b777ad8b1b8017294d405fe557f5e3">mechanismDiagnosticAlpha</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, bool active, float activeAlpha, float inactiveAlpha) noexcept</td></tr>
+<tr class="memdesc:a10b777ad8b1b8017294d405fe557f5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alpha de <b>diagnostic</b>, réservé au mode Physique (<span class="tt">LOT-47</span> TACHE-03).  <br /></td></tr>
 <tr class="memitem:aa0d169ee450492a9aa3795d23e95e4ba" id="r_aa0d169ee450492a9aa3795d23e95e4ba"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa0d169ee450492a9aa3795d23e95e4ba">buildMissingTextureImage</a> (int size=<a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a>)</td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
@@ -581,9 +599,31 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1b53de392afb0dfdf5cdef4543fb672d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>.  <br /></td></tr>
 <tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
 <tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
+<tr class="memitem:ad674a6058a9d73bac93466d37cedcf71" id="r_ad674a6058a9d73bac93466d37cedcf71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad674a6058a9d73bac93466d37cedcf71">TEST</a> (MechanismTransitionsTest, PremierCalculRejointEtatCibleSansTransition)</td></tr>
+<tr class="memitem:a90e6d84c42db35e9f30e38f1aa000054" id="r_a90e6d84c42db35e9f30e38f1aa000054"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a90e6d84c42db35e9f30e38f1aa000054">TEST</a> (MechanismTransitionsTest, ChangementDetatDeclencheLaTransitionUneSeuleFois)</td></tr>
+<tr class="memitem:a625cc20c906a0d415fdf2655a672bd46" id="r_a625cc20c906a0d415fdf2655a672bd46"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a625cc20c906a0d415fdf2655a672bd46">TEST</a> (MechanismTransitionsTest, ClipDeTransitionAbsentBasculeDirectementSansAvertissement)</td></tr>
+<tr class="memitem:a1dfc69c100079f94448e2b12a99d6a90" id="r_a1dfc69c100079f94448e2b12a99d6a90"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1dfc69c100079f94448e2b12a99d6a90">TEST</a> (MechanismTransitionsTest, ClipDEtatAbsentReplieEtJournaliseUneSeuleFois)</td></tr>
+<tr class="memitem:a4dc5a434d1a5329d868b55bd13b1278d" id="r_a4dc5a434d1a5329d868b55bd13b1278d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4dc5a434d1a5329d868b55bd13b1278d">TEST</a> (MechanismTransitionsTest, AucunChangementNeReinitialisePasLimageEnCours)</td></tr>
+<tr class="memitem:a280d7aec474da3bc7a0e244d4cf5b336" id="r_a280d7aec474da3bc7a0e244d4cf5b336"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a280d7aec474da3bc7a0e244d4cf5b336">TEST</a> (MechanismTransitionsTest, SeuleLaPorteTransitionneLesAutresBasculentDirectement)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a71400cfb82eb06125e98cf974b6dc1be" id="r_a71400cfb82eb06125e98cf974b6dc1be"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be">MECHANISM_ANIMATION_TYPES</a> []</td></tr>
+<tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
+<tr class="memitem:a202cf813b8a09a5a8b784fa543250ce8" id="r_a202cf813b8a09a5a8b784fa543250ce8"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a202cf813b8a09a5a8b784fa543250ce8">MECHANISM_CLIP_DOOR_CLOSED</a> = &quot;closed&quot;</td></tr>
+<tr class="memdesc:a202cf813b8a09a5a8b784fa543250ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Noms de clip conventionnels, documentés dans <span class="tt">Source/Elements/Assets/README.md</span> — c'est le contrat qu'un auteur d'asset doit respecter pour que son animation soit reconnue.  <br /></td></tr>
+<tr class="memitem:a300d76e8ed6b73b7dba74ce128204700" id="r_a300d76e8ed6b73b7dba74ce128204700"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a300d76e8ed6b73b7dba74ce128204700">MECHANISM_CLIP_DOOR_OPENING</a> = &quot;opening&quot;</td></tr>
+<tr class="memitem:af5ef94c6c6db4926588946b675dd9ee3" id="r_af5ef94c6c6db4926588946b675dd9ee3"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#af5ef94c6c6db4926588946b675dd9ee3">MECHANISM_CLIP_DOOR_OPEN</a> = &quot;open&quot;</td></tr>
+<tr class="memitem:a846678ae501557ed45ba0990582586d7" id="r_a846678ae501557ed45ba0990582586d7"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a846678ae501557ed45ba0990582586d7">MECHANISM_CLIP_DOOR_CLOSING</a> = &quot;closing&quot;</td></tr>
+<tr class="memitem:a1bb91a4e58e43581cf3acefad414ffd7" id="r_a1bb91a4e58e43581cf3acefad414ffd7"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a1bb91a4e58e43581cf3acefad414ffd7">MECHANISM_CLIP_SWITCH_INACTIVE</a> = &quot;inactive&quot;</td></tr>
+<tr class="memitem:ab23937c0e128070e181891b2a9a7eae1" id="r_ab23937c0e128070e181891b2a9a7eae1"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab23937c0e128070e181891b2a9a7eae1">MECHANISM_CLIP_SWITCH_ACTIVE</a> = &quot;active&quot;</td></tr>
+<tr class="memitem:a3539267126754138eae099565325811e" id="r_a3539267126754138eae099565325811e"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a3539267126754138eae099565325811e">MECHANISM_CLIP_PLATE_RELEASED</a> = &quot;released&quot;</td></tr>
+<tr class="memitem:a8a617709d23679922bd8098dc4afee0f" id="r_a8a617709d23679922bd8098dc4afee0f"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8a617709d23679922bd8098dc4afee0f">MECHANISM_CLIP_PLATE_PRESSED</a> = &quot;pressed&quot;</td></tr>
+<tr class="memitem:a85ab077348471d311254f768ec24afc1" id="r_a85ab077348471d311254f768ec24afc1"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a85ab077348471d311254f768ec24afc1">MECHANISM_CLIP_DANGER_SWITCHED_INACTIVE</a> = &quot;inactive&quot;</td></tr>
+<tr class="memitem:a4bc3dc73b66203b874f9e193a5e6ed8d" id="r_a4bc3dc73b66203b874f9e193a5e6ed8d"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a4bc3dc73b66203b874f9e193a5e6ed8d">MECHANISM_CLIP_DANGER_SWITCHED_ACTIVE</a> = &quot;active&quot;</td></tr>
+<tr class="memitem:a6194b73bf7ba4768f2bbaccbfaeb72ea" id="r_a6194b73bf7ba4768f2bbaccbfaeb72ea"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a6194b73bf7ba4768f2bbaccbfaeb72ea">MECHANISM_CLIP_DANGER_BLINK_HARMLESS</a> = &quot;harmless&quot;</td></tr>
+<tr class="memitem:a98ca4f5688bc7745232e8eb5a8c6d789" id="r_a98ca4f5688bc7745232e8eb5a8c6d789"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a98ca4f5688bc7745232e8eb5a8c6d789">MECHANISM_CLIP_DANGER_BLINK_LETHAL</a> = &quot;lethal&quot;</td></tr>
+<tr class="memitem:ad6061faeaa0415f901323570684554a2" id="r_ad6061faeaa0415f901323570684554a2"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#ad6061faeaa0415f901323570684554a2">MECHANISM_CLIP_DANGER_MOVER_IDLE</a> = &quot;idle&quot;</td></tr>
 <tr class="memitem:a75cfef1e5eb0b5569ebd42c004d73ce3" id="r_a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a75cfef1e5eb0b5569ebd42c004d73ce3">MISSING_TEXTURE_SIZE</a> = 16</td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
@@ -1342,6 +1382,75 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a1b3ff267d602e9a58fb61f2b5eb22ff8" name="a1b3ff267d602e9a58fb61f2b5eb22ff8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3ff267d602e9a58fb61f2b5eb22ff8">&#9670;&#160;</a></span>advanceMechanismVisual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::advanceMechanismVisual </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>description</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>assetKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>warnedMissingClips</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fait progresser l'animation d'<b>une</b> instance de mécanisme d'un pas fixe : détecte un changement d'état, choisit le clip approprié (transition ou état cible, avec repli sur clip manquant), avance l'image courante, et renvoie la région à afficher (<span class="tt">LOT-47</span> TACHE-02). </p>
+<p>Logique <b>pure</b> (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>/<span class="tt"><a class="el" href="classcore_1_1ClipSet.html" title="Ensemble nommé de clips, adressable par nom — l&#39;unité que décrit un fichier nom-asset....">core::ClipSet</a></span>/<span class="tt"><a class="el" href="structhmi_1_1AnimationDescription.html" title="Description d&#39;animation d&#39;un asset : disposition de sa spritesheet et ses clips.">hmi::AnimationDescription</a></span> uniquement, aucun GPU/Qt/ECS), testable en isolation. Ne redéclenche <b>jamais</b> de transition tant que l'état logique ne change pas — comparaison au pas précédent, portée par <code class="param">state</code>. Au tout premier appel pour une instance (<span class="tt">state.initialized == false</span>, typiquement juste après un chargement/rechargement de niveau), rejoint directement le clip d'état cible, <b>sans</b> transition. Un clip de transition absent bascule directement sur le clip d'état cible, sans avertissement (cas légitime) ; un clip d'<b>état</b> absent journalise un avertissement, <b>une seule fois</b> par combinaison (asset, clip), puis replie sur le premier clip disponible. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État de présentation de cette instance, muté en place. </td></tr>
+    <tr><td class="paramname">description</td><td>Description de l'asset effectivement lié à cette instance. </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile du mécanisme. </td></tr>
+    <tr><td class="paramname">active</td><td>État logique courant (sans effet pour <span class="tt">DangerMover</span>, voir <span class="tt"><a class="el" href="#aedfb47ad3a21cd6303a86480c769ee5c" title="Nom du clip d&#39;état cible d&#39;un mécanisme, d&#39;après son type et son état logique courant.">mechanismTargetClip</a></span>). </td></tr>
+    <tr><td class="paramname">assetKey</td><td>Identifiant de l'asset (typiquement son chemin), pour dédoublonner le journal d'avertissements. </td></tr>
+    <tr><td class="paramname">fixedDelta</td><td>Durée du pas de simulation, en secondes. </td></tr>
+    <tr><td class="paramname">warnedMissingClips</td><td>Combinaisons (asset, clip d'état) déjà signalées manquantes, mutées en place — un seul message par combinaison pour toute la session. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La région de la spritesheet à afficher pour l'image courante. </dd></dl>
+
+</div>
+</div>
 <a id="a400619b6396af0caf3768b3778730809" name="a400619b6396af0caf3768b3778730809"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a400619b6396af0caf3768b3778730809">&#9670;&#160;</a></span>advanceTileAnimations()</h2>
 
@@ -1726,6 +1835,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Les liaisons, dans un ordre stable. </dd></dl>
+
+</div>
+</div>
+<a id="abe8227bea2ef2342d62abed6e4704b0e" name="abe8227bea2ef2342d62abed6e4704b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8227bea2ef2342d62abed6e4704b0e">&#9670;&#160;</a></span>buildMechanismAnimationRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MechanismAnimationRow.html">MechanismAnimationRow</a> &gt; hmi::buildMechanismAnimationRows </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>setName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>skinsDirectory</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit les lignes de la section « Animations », diagnostic de clips manquants compris. </p>
+<p>Logique <b>pure</b> (<span class="tt">std::filesystem</span> + <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>, aucune dépendance Qt/GPU), testable en isolation (<span class="tt">EX-NFR-010</span>). Stockage identique à un skin de type (<span class="tt"><a class="el" href="classhmi_1_1SkinCatalog.html" title="Catalogue des jeux de skins : (jeu, type de tuile) → { asset, mode }.">hmi::SkinCatalog</a></span>, <span class="tt">LOT-42</span>) : ce n'est pas une seconde configuration, seulement une vue dédiée à six types particuliers, avec un diagnostic que la section « Skins » n'offre pas. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">catalog</td><td>Catalogue interrogé pour l'assignation courante de chaque famille. </td></tr>
+    <tr><td class="paramname">setName</td><td>Jeu de skins consulté ; vide pour le jeu par défaut du catalogue. </td></tr>
+    <tr><td class="paramname">skinsDirectory</td><td>Dossier des skins, pour lire le descripteur d'animation de l'asset assigné (<span class="tt">&lt;asset&gt;.anim.json</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Une ligne par famille de <span class="tt"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be" title="Les six familles de mécanismes à état dont l&#39;apparence est pilotée par un clip (LOT-47),...">MECHANISM_ANIMATION_TYPES</a></span>, dans cet ordre. </dd></dl>
 
 </div>
 </div>
@@ -2498,6 +2652,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aaed807c56ca3863821f035b79b34b36e" name="aaed807c56ca3863821f035b79b34b36e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed807c56ca3863821f035b79b34b36e">&#9670;&#160;</a></span>isStatefulMechanism()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isStatefulMechanism </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si un type de tuile est un <b>mécanisme à état</b>, dont l'apparence dépend d'une donnée lue en lecture seule dans <span class="tt">Core</span> (<span class="tt">EX-ARCH-012</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true pour <span class="tt">Door</span>, <span class="tt">Switch</span>, <span class="tt">PressurePlate</span>, <span class="tt">DangerSwitched</span>, <span class="tt">DangerBlink</span>, <span class="tt">DangerMover</span> ; false pour tout autre type (aucune demande de clip à produire). </dd></dl>
+
+</div>
+</div>
 <a id="acdad993bffcbcda789815eccabbf17bb" name="acdad993bffcbcda789815eccabbf17bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acdad993bffcbcda789815eccabbf17bb">&#9670;&#160;</a></span>isTriggerTile()</h2>
 
@@ -2825,6 +3013,175 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le libellé traduit, ou le libellé source à défaut de catalogue ou de clé. </dd></dl>
+
+</div>
+</div>
+<a id="a10b777ad8b1b8017294d405fe557f5e3" name="a10b777ad8b1b8017294d405fe557f5e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b777ad8b1b8017294d405fe557f5e3">&#9670;&#160;</a></span>mechanismDiagnosticAlpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::mechanismDiagnosticAlpha </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>activeAlpha</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>inactiveAlpha</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Alpha de <b>diagnostic</b>, réservé au mode Physique (<span class="tt">LOT-47</span> TACHE-03). </p>
+<p>Le mode Physique n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif d'un mécanisme inactif ; le mode Texture, lui, montre désormais l'état au clip, jamais à l'alpha — la teinte y redevient un pur ajustement colorimétrique (<span class="tt">EX-REN-046</span>). Fonction <b>pure</b>, testable sans GPU : <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> ne fait que lui fournir le mode courant, l'état et la paire d'alpha propre à la famille de mécanisme concernée (porte : ouverte plus transparente ; danger : actif plus opaque — deux sens opposés, jamais une formule unique). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode de rendu courant. </td></tr>
+    <tr><td class="paramname">active</td><td>État logique du mécanisme. </td></tr>
+    <tr><td class="paramname">activeAlpha</td><td>Alpha appliqué quand <code class="param">active</code> vaut <span class="tt">true</span>, en mode Physique. </td></tr>
+    <tr><td class="paramname">inactiveAlpha</td><td>Alpha appliqué quand <code class="param">active</code> vaut <span class="tt">false</span>, en mode Physique. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">1.0f</span> en mode Texture (toujours) ; <code class="param">activeAlpha</code> ou <code class="param">inactiveAlpha</code> en mode Physique. </dd></dl>
+
+</div>
+</div>
+<a id="a63712e5bdef5622bbd0d5d9044109a11" name="a63712e5bdef5622bbd0d5d9044109a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63712e5bdef5622bbd0d5d9044109a11">&#9670;&#160;</a></span>mechanismExpectedClips()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::mechanismExpectedClips </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Noms de clip attendus par la correspondance pour un type de mécanisme, dans l'ordre du tableau ci-dessus (utilisé par le diagnostic du panneau « Textures », <span class="tt">LOT-47</span> TACHE-04). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les noms de clip attendus, dans un ordre stable ; vide si <code class="param">type</code> n'est pas un mécanisme à état. </dd></dl>
+
+</div>
+</div>
+<a id="aedfb47ad3a21cd6303a86480c769ee5c" name="aedfb47ad3a21cd6303a86480c769ee5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedfb47ad3a21cd6303a86480c769ee5c">&#9670;&#160;</a></span>mechanismTargetClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::string &gt; hmi::mechanismTargetClip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom du clip d'<b>état cible</b> d'un mécanisme, d'après son type et son état logique courant. </p>
+<p>Fonction <b>pure</b> : ni GPU, ni Qt, ni ECS — seulement la table de correspondance (<span class="tt">LOT-47</span> TACHE-01). Un type sans état renvoie <span class="tt">std::nullopt</span> : c'est à l'appelant de ne rien demander, plutôt qu'à cette fonction d'inventer une réponse. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+    <tr><td class="paramname">active</td><td>État logique courant : porte ouverte, interrupteur/plaque actionné, danger commuté actif, danger temporisé mortel. Sans effet pour <span class="tt">DangerMover</span> (un seul clip, l'état est porté par la position, pas par ce booléen). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom du clip d'état cible, ou <span class="tt">std::nullopt</span> si <code class="param">type</code> n'est pas un mécanisme à état. </dd></dl>
+
+</div>
+</div>
+<a id="a67e32b533b89743ae50c1d72d83da2cd" name="a67e32b533b89743ae50c1d72d83da2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e32b533b89743ae50c1d72d83da2cd">&#9670;&#160;</a></span>mechanismTransitionClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::string &gt; hmi::mechanismTransitionClip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>wasActive</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isActive</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom du clip de <b>transition</b> joué une fois lors d'un changement d'état (<span class="tt">LOT-47</span> TACHE-02), s'il y a lieu. </p>
+<p>Seule <span class="tt">Door</span> transitionne visiblement (<span class="tt">closed → opening → open</span>, <span class="tt">open → closing → closed</span>) ; les autres familles basculent directement sur leur clip d'état cible (<span class="tt"><a class="el" href="#aedfb47ad3a21cd6303a86480c769ee5c" title="Nom du clip d&#39;état cible d&#39;un mécanisme, d&#39;après son type et son état logique courant.">mechanismTargetClip</a></span>). Fonction <b>pure</b>, ne consulte aucun catalogue d'asset : c'est à l'appelant de vérifier que le clip retourné existe réellement dans le jeu de clips de l'asset assigné, et de replier sur <span class="tt"><a class="el" href="#aedfb47ad3a21cd6303a86480c769ee5c" title="Nom du clip d&#39;état cible d&#39;un mécanisme, d&#39;après son type et son état logique courant.">mechanismTargetClip</a></span> sinon (<span class="tt">LOT-47</span> TACHE-02, repli sur clip manquant). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Type de tuile. </td></tr>
+    <tr><td class="paramname">wasActive</td><td>État logique au pas précédent. </td></tr>
+    <tr><td class="paramname">isActive</td><td>État logique au pas courant. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom du clip de transition, ou <span class="tt">std::nullopt</span> si <code class="param">type</code> ne transitionne pas ou que l'état n'a pas changé. </dd></dl>
 
 </div>
 </div>
@@ -3727,6 +4084,132 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4dc5a434d1a5329d868b55bd13b1278d" name="a4dc5a434d1a5329d868b55bd13b1278d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc5a434d1a5329d868b55bd13b1278d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AucunChangementNeReinitialisePasLimageEnCours</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90e6d84c42db35e9f30e38f1aa000054" name="a90e6d84c42db35e9f30e38f1aa000054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90e6d84c42db35e9f30e38f1aa000054">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChangementDetatDeclencheLaTransitionUneSeuleFois</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1dfc69c100079f94448e2b12a99d6a90" name="a1dfc69c100079f94448e2b12a99d6a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dfc69c100079f94448e2b12a99d6a90">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClipDEtatAbsentReplieEtJournaliseUneSeuleFois</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a625cc20c906a0d415fdf2655a672bd46" name="a625cc20c906a0d415fdf2655a672bd46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a625cc20c906a0d415fdf2655a672bd46">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ClipDeTransitionAbsentBasculeDirectementSansAvertissement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad674a6058a9d73bac93466d37cedcf71" name="ad674a6058a9d73bac93466d37cedcf71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad674a6058a9d73bac93466d37cedcf71">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PremierCalculRejointEtatCibleSansTransition</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a280d7aec474da3bc7a0e244d4cf5b336" name="a280d7aec474da3bc7a0e244d4cf5b336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a280d7aec474da3bc7a0e244d4cf5b336">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::TEST </td>
+          <td>(</td>
+          <td class="paramtype">MechanismTransitionsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SeuleLaPorteTransitionneLesAutresBasculentDirectement</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae8ea482206091a0f850c865f8de6f5fb" name="ae8ea482206091a0f850c865f8de6f5fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8ea482206091a0f850c865f8de6f5fb">&#9670;&#160;</a></span>textureOverrideAt()</h2>
 
@@ -4117,6 +4600,328 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002, LOT-30).">GamepadButton</a></span>). </p>
+
+</div>
+</div>
+<a id="a71400cfb82eb06125e98cf974b6dc1be" name="a71400cfb82eb06125e98cf974b6dc1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71400cfb82eb06125e98cf974b6dc1be">&#9670;&#160;</a></span>MECHANISM_ANIMATION_TYPES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> hmi::MECHANISM_ANIMATION_TYPES[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                                          = {</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a>,          <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a>,       <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a>,</div>
+<div class="line">    <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a>, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a>,</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a4115ad497e280a49d0ae72f68dc3fc86">core::TileType::PressurePlate</a></div><div class="ttdeci">@ PressurePlate</div><div class="ttdef"><b>Definition</b> TileType.h:75</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d">core::TileType::DangerMover</a></div><div class="ttdeci">@ DangerMover</div><div class="ttdef"><b>Definition</b> TileType.h:95</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb">core::TileType::DangerSwitched</a></div><div class="ttdeci">@ DangerSwitched</div><div class="ttdef"><b>Definition</b> TileType.h:96</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875abbc155fb2b111bf61c4f5ff892915e6b">core::TileType::Switch</a></div><div class="ttdeci">@ Switch</div><div class="ttdef"><b>Definition</b> TileType.h:73</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de">core::TileType::DangerBlink</a></div><div class="ttdeci">@ DangerBlink</div><div class="ttdef"><b>Definition</b> TileType.h:97</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875af44e14d49cd011d1e873d9fe0c4624f1">core::TileType::Door</a></div><div class="ttdeci">@ Door</div><div class="ttdef"><b>Definition</b> TileType.h:74</div></div>
+</div><!-- fragment -->
+<p>Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ». </p>
+
+</div>
+</div>
+<a id="a6194b73bf7ba4768f2bbaccbfaeb72ea" name="a6194b73bf7ba4768f2bbaccbfaeb72ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6194b73bf7ba4768f2bbaccbfaeb72ea">&#9670;&#160;</a></span>MECHANISM_CLIP_DANGER_BLINK_HARMLESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DANGER_BLINK_HARMLESS = &quot;harmless&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98ca4f5688bc7745232e8eb5a8c6d789" name="a98ca4f5688bc7745232e8eb5a8c6d789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ca4f5688bc7745232e8eb5a8c6d789">&#9670;&#160;</a></span>MECHANISM_CLIP_DANGER_BLINK_LETHAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DANGER_BLINK_LETHAL = &quot;lethal&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6061faeaa0415f901323570684554a2" name="ad6061faeaa0415f901323570684554a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6061faeaa0415f901323570684554a2">&#9670;&#160;</a></span>MECHANISM_CLIP_DANGER_MOVER_IDLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DANGER_MOVER_IDLE = &quot;idle&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bc3dc73b66203b874f9e193a5e6ed8d" name="a4bc3dc73b66203b874f9e193a5e6ed8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bc3dc73b66203b874f9e193a5e6ed8d">&#9670;&#160;</a></span>MECHANISM_CLIP_DANGER_SWITCHED_ACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DANGER_SWITCHED_ACTIVE = &quot;active&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85ab077348471d311254f768ec24afc1" name="a85ab077348471d311254f768ec24afc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ab077348471d311254f768ec24afc1">&#9670;&#160;</a></span>MECHANISM_CLIP_DANGER_SWITCHED_INACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DANGER_SWITCHED_INACTIVE = &quot;inactive&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a202cf813b8a09a5a8b784fa543250ce8" name="a202cf813b8a09a5a8b784fa543250ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202cf813b8a09a5a8b784fa543250ce8">&#9670;&#160;</a></span>MECHANISM_CLIP_DOOR_CLOSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DOOR_CLOSED = &quot;closed&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Noms de clip conventionnels, documentés dans <span class="tt">Source/Elements/Assets/README.md</span> — c'est le contrat qu'un auteur d'asset doit respecter pour que son animation soit reconnue. </p>
+
+</div>
+</div>
+<a id="a846678ae501557ed45ba0990582586d7" name="a846678ae501557ed45ba0990582586d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a846678ae501557ed45ba0990582586d7">&#9670;&#160;</a></span>MECHANISM_CLIP_DOOR_CLOSING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DOOR_CLOSING = &quot;closing&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5ef94c6c6db4926588946b675dd9ee3" name="af5ef94c6c6db4926588946b675dd9ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5ef94c6c6db4926588946b675dd9ee3">&#9670;&#160;</a></span>MECHANISM_CLIP_DOOR_OPEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DOOR_OPEN = &quot;open&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a300d76e8ed6b73b7dba74ce128204700" name="a300d76e8ed6b73b7dba74ce128204700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a300d76e8ed6b73b7dba74ce128204700">&#9670;&#160;</a></span>MECHANISM_CLIP_DOOR_OPENING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_DOOR_OPENING = &quot;opening&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8a617709d23679922bd8098dc4afee0f" name="a8a617709d23679922bd8098dc4afee0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a617709d23679922bd8098dc4afee0f">&#9670;&#160;</a></span>MECHANISM_CLIP_PLATE_PRESSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_PLATE_PRESSED = &quot;pressed&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3539267126754138eae099565325811e" name="a3539267126754138eae099565325811e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3539267126754138eae099565325811e">&#9670;&#160;</a></span>MECHANISM_CLIP_PLATE_RELEASED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_PLATE_RELEASED = &quot;released&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab23937c0e128070e181891b2a9a7eae1" name="ab23937c0e128070e181891b2a9a7eae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23937c0e128070e181891b2a9a7eae1">&#9670;&#160;</a></span>MECHANISM_CLIP_SWITCH_ACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_SWITCH_ACTIVE = &quot;active&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1bb91a4e58e43581cf3acefad414ffd7" name="a1bb91a4e58e43581cf3acefad414ffd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bb91a4e58e43581cf3acefad414ffd7">&#9670;&#160;</a></span>MECHANISM_CLIP_SWITCH_INACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* hmi::MECHANISM_CLIP_SWITCH_INACTIVE = &quot;inactive&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -93,7 +93,7 @@ $(function(){initNavTree('lot-47-tache-03-retrait-modulation-opacite.html','',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-47-etats-visuels-mecanismes_2tache-03-retrait-modulation-opacite"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2109"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> code aujourd'hui l'état des mécanismes dans le <b>canal alpha</b> de la teinte :</p>
@@ -115,14 +115,15 @@ Travail à réaliser</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2111"></a>
 Fichiers impactés</h1>
 <ul>
-<li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span>.</li>
-<li><span class="tt">Source/Test/Unit/HMI/Graphics/test_mechanism_visuals.cpp</span> (assertions d'absence de modulation).</li>
+<li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span> : <span class="tt">refreshMechanismDiagnosticTint</span>, appelée au <b>rendu</b> (dépend du mode courant, décision purement visuelle), remplace <span class="tt">refreshDoorVisuals</span>/ <span class="tt">refreshDangerStateVisuals</span>.</li>
+<li><span class="tt">Source/HMI/Graphics/MechanismVisuals.{h,cpp}</span> : <span class="tt">mechanismDiagnosticAlpha</span>, la décision elle-même extraite en fonction <b>pure</b> (mode + état + paire d'alpha → alpha), pour rester testable sans GPU — <span class="tt">GameSession</span> ne fait plus que l'appeler et écrire le résultat sur <span class="tt">tint</span>.</li>
+<li><span class="tt"><a class="el" href="test__mechanism__visuals_8cpp.html">Source/Test/Unit/HMI/Graphics/test_mechanism_visuals.cpp</a></span> (tests de <span class="tt">mechanismDiagnosticAlpha</span>).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2112"></a>
 Tests (obligatoires)</h1>
 <ul>
-<li>En mode <b>Texture</b>, aucun quad de mécanisme n'a une teinte alpha différente de 1 — asserté via le <em>QuadRecorder</em>.</li>
-<li>En mode <b>Physique</b>, le comportement retenu ci-dessus est celui observé (porte ouverte distinguable).</li>
+<li>En mode <b>Texture</b>, <span class="tt">mechanismDiagnosticAlpha</span> renvoie toujours <span class="tt">1.0</span>, quel que soit l'état : c'est la garantie qu'aucun quad de mécanisme n'a une teinte alpha différente de 1 dans ce mode (<span class="tt">GameSession</span> ne fait qu'écrire cette valeur sur <span class="tt"><a class="el" href="structcore_1_1Sprite.html#aa14509186966df68f09f59dfda0e2318" title="Teinte multiplicative appliquée à la texture (blanc opaque = inchangée).">core::Sprite::tint</a></span>, sans autre logique).</li>
+<li>En mode <b>Physique</b>, <span class="tt">mechanismDiagnosticAlpha</span> renvoie la paire d'alpha fournie par l'appelant — porte ouverte distinguable, danger actif distinguable.</li>
 <li>Les tests de gameplay existants (mécanismes, dangers, blocs) passent <b>sans modification</b> : ce lot ne touche pas la simulation.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2113"></a>

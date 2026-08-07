@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"classcore_1_1DangerController.html#a4ff53c713255329f9bcaa28cae14d9a2":[9,0,0,26,6],
+"classcore_1_1DangerController.html#a568290c7f989985a44dcf0aa243f6551":[8,0,0,26,7],
+"classcore_1_1DangerController.html#a568290c7f989985a44dcf0aa243f6551":[9,0,0,26,7],
+"classcore_1_1DangerController.html#a74fd296c8a3dac7f5be61a35134b0a43":[8,0,0,26,1],
+"classcore_1_1DangerController.html#a74fd296c8a3dac7f5be61a35134b0a43":[9,0,0,26,1],
+"classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db":[8,0,0,26,4],
 "classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db":[9,0,0,26,4],
 "classcore_1_1DangerController.html#a7867b1c24db00d9a71d92cb6003194bf":[8,0,0,26,5],
 "classcore_1_1DangerController.html#a7867b1c24db00d9a71d92cb6003194bf":[9,0,0,26,5],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "classcore_1_1LevelDraft.html#afd9f6ad59cb50ecb09377b4a3b2874d2":[9,0,0,35,14],
 "classcore_1_1LevelLoader.html":[8,0,0,37],
 "classcore_1_1LevelLoader.html":[9,0,0,37],
-"classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89":[8,0,0,37,1],
-"classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89":[9,0,0,37,1],
-"classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543":[8,0,0,37,0],
-"classcore_1_1LevelLoader.html#a49dba279ed545b7230ceeb8752e63543":[9,0,0,37,0],
-"classcore_1_1LevelWriter.html":[8,0,0,38],
-"classcore_1_1LevelWriter.html":[9,0,0,38],
-"classcore_1_1LevelWriter.html#a05e43ed02f2e27c65514facf6b813c75":[8,0,0,38,0]
+"classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89":[8,0,0,37,1]
 };

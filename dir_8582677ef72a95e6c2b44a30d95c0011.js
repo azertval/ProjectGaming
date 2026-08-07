@@ -21,6 +21,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "LinkGesture.h", "LinkGesture_8h.html", "LinkGesture_8h" ],
     [ "LinkPanel.cpp", "LinkPanel_8cpp.html", null ],
     [ "LinkPanel.h", "LinkPanel_8h.html", "LinkPanel_8h" ],
+    [ "MechanismAnimationAssignments.cpp", "MechanismAnimationAssignments_8cpp.html", "MechanismAnimationAssignments_8cpp" ],
+    [ "MechanismAnimationAssignments.h", "MechanismAnimationAssignments_8h.html", "MechanismAnimationAssignments_8h" ],
     [ "PaletteAppearance.cpp", "PaletteAppearance_8cpp.html", "PaletteAppearance_8cpp" ],
     [ "PaletteAppearance.h", "PaletteAppearance_8h.html", "PaletteAppearance_8h" ],
     [ "PalettePanel.cpp", "PalettePanel_8cpp.html", null ],

@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>580 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>584 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (497)</h1>
+Tests unitaires (501)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -2122,7 +2122,7 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (20)</h3>
+Editor (24)</h3>
 <p><b><span class="tt"><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2156,6 +2156,30 @@ Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#abf93f3d263f
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" Niveau 1 ")</span> vaut <span class="tt">"Niveau 1"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>("Niveau 1")</span> vaut <span class="tt">"Niveau 1"</span>.<br  />
 Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e" title="Retire les espaces de bord de name (le nom réellement utilisé une fois confirmé).">hmi::trimLevelName</a>(" ")</span> vaut <span class="tt">""</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__mechanism__animation__assignments_8cpp.html" title="Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).">test_mechanism_animation_assignments.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>MechanismAnimationAssignmentsTest.UneLigneParFamille</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__mechanism__animation__assignments_8cpp.html" title="Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).">Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp</a>:61</span></sub>  </td><td class="markdownTableBodyNone">La section Animations propose exactement les six familles de mecanismes a etat.  </td><td class="markdownTableBodyNone">1. Construire les lignes pour un catalogue vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rows.size()</span> vaut <span class="tt">std::size(hmi::MECHANISM_ANIMATION_TYPES)</span>.<br  />
+Vérifie que <span class="tt">rows[index].type</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a71400cfb82eb06125e98cf974b6dc1be" title="Les six familles de mécanismes à état dont l&#39;apparence est pilotée par un clip (LOT-47),...">hmi::MECHANISM_ANIMATION_TYPES</a>[index]</span>.<br  />
+Vérifie que <span class="tt">rows[index].asset.empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">rows[index].missingClips.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>MechanismAnimationAssignmentsTest.AssetSansAnimationListeToutManquant</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__mechanism__animation__assignments_8cpp.html" title="Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).">Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp</a>:87</span></sub>  </td><td class="markdownTableBodyNone">Un asset assigne sans .anim.json liste tous les clips attendus comme manquants.  </td><td class="markdownTableBodyNone">1. Assigner un asset a Door, sans creer de fichier d'animation.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">door</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">door-&gt;asset</span> vaut <span class="tt">"door.png"</span>.<br  />
+Vérifie que <span class="tt">door-&gt;missingClips</span> vaut <span class="tt">hmi::mechanismExpectedClips(core::TileType::Door)</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>MechanismAnimationAssignmentsTest.AssetCompletNeManqueRien</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__mechanism__animation__assignments_8cpp.html" title="Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).">Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp</a>:111</span></sub>  </td><td class="markdownTableBodyNone">Un asset fournissant tous les clips attendus ne signale rien de manquant.  </td><td class="markdownTableBodyNone">1. Assigner un asset a Switch et deposer un .anim.json avec ses deux clips attendus.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">row</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">row-&gt;missingClips.empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>MechanismAnimationAssignmentsTest.AssetPartielSignaleLeReste</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__mechanism__animation__assignments_8cpp.html" title="Tests unitaires de la section « Animations » du panneau « Textures » (LOT-47 TACHE-04).">Source/Test/Unit/HMI/Editor/test_mechanism_animation_assignments.cpp</a>:137</span></sub>  </td><td class="markdownTableBodyNone">Un asset partiel signale uniquement les clips absents.  </td><td class="markdownTableBodyNone">1. Assigner un asset a Door dont le .anim.json ne fournit que « closed » et « open ».  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">door</span> diffère de <span class="tt">nullptr</span>.<br  />
+Vérifie que <span class="tt">door-&gt;missingClips</span> vaut <span class="tt">(std::vector&lt;std::string&gt;{<a class="el" href="namespacehmi.html#a300d76e8ed6b73b7dba74ce128204700">hmi::MECHANISM_CLIP_DOOR_OPENING</a>, <a class="el" href="namespacehmi.html#a846678ae501557ed45ba0990582586d7">hmi::MECHANISM_CLIP_DOOR_CLOSING</a>})</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__palette__appearance_8cpp.html" title="Tests unitaires du choix de vignette de la palette (LOT-42 TACHE-05, EX-EDIT-027).">test_palette_appearance.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2804,8 +2828,11 @@ Vérifie que <span class="tt">std::find(sets.begin(), sets.end(), result.catalog
  2. Pour chaque asset, verifier sa presence dans Assets/Skins puis ses dimensions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">result.ok()</span> est vrai.<br  />
 Vérifie que <span class="tt">std::filesystem::exists(path)</span> est vrai.<br  />
 Vérifie que <span class="tt">size.has_value()</span> est vrai.<br  />
-Vérifie que <span class="tt">size-&gt;first</span> vaut <span class="tt">expected</span>.<br  />
-Vérifie que <span class="tt">size-&gt;second</span> vaut <span class="tt">expected</span>.  </td></tr>
+Vérifie que <span class="tt">size-&gt;first</span> vaut <span class="tt">TILE * <a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
+Vérifie que <span class="tt">size-&gt;second</span> vaut <span class="tt">TILE * <a class="el" href="namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23" title="Nombre de cases par côté de la planche de raccords (4×4 = seize configurations).">hmi::AUTOTILE_SHEET_SIDE</a></span>.<br  />
+Vérifie que <span class="tt">size-&gt;second</span> vaut <span class="tt">TILE</span>.<br  />
+Vérifie que <span class="tt">size-&gt;first</span> est strictement supérieur à <span class="tt">0</span>.<br  />
+Vérifie que <span class="tt">size-&gt;first % TILE</span> vaut <span class="tt">0</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__slope__mask_8cpp.html" title="Tests unitaires du masque de silhouette des pentes et arrondis (LOT-42 TACHE-03).">test_slope_mask.cpp</a></span></b></p>
 <table class="markdownTable">

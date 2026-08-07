@@ -118,10 +118,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a64603ed7de0dfef91052394d9e59b9a0" id="r_a64603ed7de0dfef91052394d9e59b9a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a64603ed7de0dfef91052394d9e59b9a0">loadLevel</a> (<a class="el" href="classcore_1_1Level.html">core::Level</a> level)</td></tr>
 <tr class="memitem:a4db26f5baed613a962f368bc27c4dbe8" id="r_a4db26f5baed613a962f368bc27c4dbe8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4db26f5baed613a962f368bc27c4dbe8">spawnPlayer</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> entry)</td></tr>
 <tr class="memitem:a6bb897af2e39b7bb5bbf7507d4f7b6ad" id="r_a6bb897af2e39b7bb5bbf7507d4f7b6ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6bb897af2e39b7bb5bbf7507d4f7b6ad">snapshotPreviousPositions</a> ()</td></tr>
-<tr class="memitem:a668cf4176ae1249f8baa58d4d3b0992f" id="r_a668cf4176ae1249f8baa58d4d3b0992f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a668cf4176ae1249f8baa58d4d3b0992f">refreshDoorVisuals</a> ()</td></tr>
 <tr class="memitem:a07859790cd2650e474452b47229d82f0" id="r_a07859790cd2650e474452b47229d82f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a07859790cd2650e474452b47229d82f0">refreshBlockVisuals</a> ()</td></tr>
 <tr class="memitem:a872c364ddc81ce08e017c066ab4bb564" id="r_a872c364ddc81ce08e017c066ab4bb564"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a872c364ddc81ce08e017c066ab4bb564">refreshDangerVisuals</a> ()</td></tr>
-<tr class="memitem:a406f2f5a94a68cc27011f5498a93d2a8" id="r_a406f2f5a94a68cc27011f5498a93d2a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a406f2f5a94a68cc27011f5498a93d2a8">refreshDangerStateVisuals</a> ()</td></tr>
+<tr class="memitem:a2a575a6cc519a25b3a6bee83876d11bb" id="r_a2a575a6cc519a25b3a6bee83876d11bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a575a6cc519a25b3a6bee83876d11bb">updateMechanismVisuals</a> (float fixedDelta)</td></tr>
+<tr class="memdesc:a2a575a6cc519a25b3a6bee83876d11bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence des mécanismes pilotée par leur état logique (<span class="tt">LOT-47</span>, <span class="tt">EX-REN-006</span>) : projette l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au <b>pas fixe</b> — la simulation n'en dépend jamais, seule l'apparence en résulte (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
+<tr class="memitem:a4577277ae3fbf8339c2cbfae5f3ca1db" id="r_a4577277ae3fbf8339c2cbfae5f3ca1db"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4577277ae3fbf8339c2cbfae5f3ca1db">applyMechanismVisual</a> (<a class="el" href="structcore_1_1Entity.html">core::Entity</a> entity, bool active, <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;state, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float fixedDelta)</td></tr>
+<tr class="memdesc:a4577277ae3fbf8339c2cbfae5f3ca1db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la correspondance état → clip à <b>une</b> entité-tuile de mécanisme : résout l'asset effectivement lié (via le point de résolution unique <span class="tt"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>, jamais dupliqué ici), avance son horloge propre et écrit l'image courante sur son <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">TileSkinTag</a></span> (<span class="tt">LOT-47</span> TACHE-02).  <br /></td></tr>
+<tr class="memitem:a145412952ef3851d1811c5f3563df655" id="r_a145412952ef3851d1811c5f3563df655"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a145412952ef3851d1811c5f3563df655">refreshMechanismDiagnosticTint</a> (<a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode)</td></tr>
+<tr class="memdesc:a145412952ef3851d1811c5f3563df655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modulation d'opacité de <b>diagnostic</b>, réservée au mode Physique (<span class="tt">LOT-47</span> TACHE-03) : ce mode n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif d'un mécanisme inactif.  <br /></td></tr>
 <tr class="memitem:ac10c3bdbe4a4715de7320c888fb34ffc" id="r_ac10c3bdbe4a4715de7320c888fb34ffc"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Aabb.html">core::Aabb</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac10c3bdbe4a4715de7320c888fb34ffc">collectActiveDangerBoxes</a> () const</td></tr>
 <tr class="memitem:a8eeeb9edf5dcfa6ee6cbb928e7e05a56" id="r_a8eeeb9edf5dcfa6ee6cbb928e7e05a56"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">refreshPlayerSprite</a> ()</td></tr>
 <tr class="memitem:aff76760d9036a937f3b5f9cc83bc109a" id="r_aff76760d9036a937f3b5f9cc83bc109a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff76760d9036a937f3b5f9cc83bc109a">centerCameraOnRoom</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> roomIndex)</td></tr>
@@ -141,6 +145,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a5f23e0b481948049670ef0f68a7ee2a9" id="r_a5f23e0b481948049670ef0f68a7ee2a9"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1Level.html">core::Level</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5f23e0b481948049670ef0f68a7ee2a9">_level</a></td></tr>
 <tr class="memitem:ad7f5689b0c78b0c55e46c2a675bb3144" id="r_ad7f5689b0c78b0c55e46c2a675bb3144"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1MechanismController.html">core::MechanismController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad7f5689b0c78b0c55e46c2a675bb3144">_mechanisms</a></td></tr>
 <tr class="memitem:ae86ee3a6eb41ee50f77652c6ba24a8cb" id="r_ae86ee3a6eb41ee50f77652c6ba24a8cb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae86ee3a6eb41ee50f77652c6ba24a8cb">_doorEntities</a></td></tr>
+<tr class="memitem:acc0e74d080c43350649b3580a5d574ec" id="r_acc0e74d080c43350649b3580a5d574ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acc0e74d080c43350649b3580a5d574ec">_switchEntities</a></td></tr>
+<tr class="memdesc:acc0e74d080c43350649b3580a5d574ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité-tuile du déclencheur (interrupteur/plaque de pression) de chaque mécanisme, même ordre que <span class="tt"><a class="el" href="#ae86ee3a6eb41ee50f77652c6ba24a8cb">_doorEntities</a></span> (<span class="tt">LOT-47</span> : le déclencheur change aussi d'apparence, plus seulement la porte qu'il actionne).  <br /></td></tr>
 <tr class="memitem:a704567d8e068fe547c071d3718bbe263" id="r_a704567d8e068fe547c071d3718bbe263"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1BlockController.html">core::BlockController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a704567d8e068fe547c071d3718bbe263">_blocks</a></td></tr>
 <tr class="memitem:a75f6316bb7007ec4c6d5a3c23d43b97b" id="r_a75f6316bb7007ec4c6d5a3c23d43b97b"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1DangerController.html">core::DangerController</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75f6316bb7007ec4c6d5a3c23d43b97b">_dangers</a></td></tr>
 <tr class="memitem:af755f8c1e80831f2d69c64d18bca52e9" id="r_af755f8c1e80831f2d69c64d18bca52e9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Entity.html">core::Entity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af755f8c1e80831f2d69c64d18bca52e9">_moverEntities</a></td></tr>
@@ -161,6 +167,13 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6ab22efca0e53c493f10c9afa18943ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'animation partagee, une entree par asset de tuile anime (nom de fichier -&gt; etat).  <br /></td></tr>
 <tr class="memitem:a62f1df42a4460ab63c9628f0b4399556" id="r_a62f1df42a4460ab63c9628f0b4399556"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a62f1df42a4460ab63c9628f0b4399556">_warnedExcludedAnimations</a></td></tr>
 <tr class="memdesc:a62f1df42a4460ab63c9628f0b4399556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assets pour lesquels la combinaison (bitmask16 ou silhouette) + animation a deja ete signalee : evite de journaliser a chaque pas fixe (GraphicsLog proscrit un message par image/pas).  <br /></td></tr>
+<tr class="memitem:a14e4923728f4e0066b3454d84d8cfd8d" id="r_a14e4923728f4e0066b3454d84d8cfd8d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a14e4923728f4e0066b3454d84d8cfd8d">_doorVisuals</a></td></tr>
+<tr class="memitem:a9cc4ceac45be4afaf7dc4bf336293e95" id="r_a9cc4ceac45be4afaf7dc4bf336293e95"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9cc4ceac45be4afaf7dc4bf336293e95">_switchVisuals</a></td></tr>
+<tr class="memitem:a767ffa343f92328260f917e130c4077c" id="r_a767ffa343f92328260f917e130c4077c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a767ffa343f92328260f917e130c4077c">_dangerSwitchedVisuals</a></td></tr>
+<tr class="memitem:af23cea534a8ba8010139b1dce22ae371" id="r_af23cea534a8ba8010139b1dce22ae371"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af23cea534a8ba8010139b1dce22ae371">_dangerBlinkVisuals</a></td></tr>
+<tr class="memitem:a8bf7fb9a5061ae37b5918d8668e3d981" id="r_a8bf7fb9a5061ae37b5918d8668e3d981"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8bf7fb9a5061ae37b5918d8668e3d981">_dangerMoverVisuals</a></td></tr>
+<tr class="memitem:a26dc0fafe6519dee52b2e27800ae82f9" id="r_a26dc0fafe6519dee52b2e27800ae82f9"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a26dc0fafe6519dee52b2e27800ae82f9">_warnedMissingMechanismClips</a></td></tr>
+<tr class="memdesc:a26dc0fafe6519dee52b2e27800ae82f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couples (asset, clip attendu) deja signales comme manquants : un seul message par combinaison pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47 TACHE-02).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran. </p>
@@ -234,6 +247,53 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a4577277ae3fbf8339c2cbfae5f3ca1db" name="a4577277ae3fbf8339c2cbfae5f3ca1db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4577277ae3fbf8339c2cbfae5f3ca1db">&#9670;&#160;</a></span>applyMechanismVisual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::applyMechanismVisual </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Entity.html">core::Entity</a></td>          <td class="paramname"><span class="paramname"><em>entity</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applique la correspondance état → clip à <b>une</b> entité-tuile de mécanisme : résout l'asset effectivement lié (via le point de résolution unique <span class="tt"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>, jamais dupliqué ici), avance son horloge propre et écrit l'image courante sur son <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">TileSkinTag</a></span> (<span class="tt">LOT-47</span> TACHE-02). </p>
+<p>Sans effet (répli sur l'image statique existante) si l'entité n'est pas repérée, si son type n'est pas un mécanisme à état, ou si l'asset résolu n'est pas animé. </p>
+
+</div>
+</div>
 <a id="aff76760d9036a937f3b5f9cc83bc109a" name="aff76760d9036a937f3b5f9cc83bc109a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff76760d9036a937f3b5f9cc83bc109a">&#9670;&#160;</a></span>centerCameraOnRoom()</h2>
 
@@ -386,31 +446,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a406f2f5a94a68cc27011f5498a93d2a8" name="a406f2f5a94a68cc27011f5498a93d2a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a406f2f5a94a68cc27011f5498a93d2a8">&#9670;&#160;</a></span>refreshDangerStateVisuals()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::GameSession::refreshDangerStateVisuals </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a872c364ddc81ce08e017c066ab4bb564" name="a872c364ddc81ce08e017c066ab4bb564"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a872c364ddc81ce08e017c066ab4bb564">&#9670;&#160;</a></span>refreshDangerVisuals()</h2>
 
@@ -436,8 +471,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a668cf4176ae1249f8baa58d4d3b0992f" name="a668cf4176ae1249f8baa58d4d3b0992f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a668cf4176ae1249f8baa58d4d3b0992f">&#9670;&#160;</a></span>refreshDoorVisuals()</h2>
+<a id="a145412952ef3851d1811c5f3563df655" name="a145412952ef3851d1811c5f3563df655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145412952ef3851d1811c5f3563df655">&#9670;&#160;</a></span>refreshMechanismDiagnosticTint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -446,9 +481,9 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::GameSession::refreshDoorVisuals </td>
+          <td class="memname">void hmi::GameSession::refreshMechanismDiagnosticTint </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -458,6 +493,9 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Modulation d'opacité de <b>diagnostic</b>, réservée au mode Physique (<span class="tt">LOT-47</span> TACHE-03) : ce mode n'a pas d'assets animés et doit conserver un moyen de distinguer un mécanisme actif d'un mécanisme inactif. </p>
+<p>Appelée à chaque <span class="tt"><a class="el" href="#a8c26c9a8cbd1841bd091a5eb2299017a" title="Dessine la scène du niveau (rien si le chargement a échoué).">render()</a></span> (décision purement visuelle, dépendante du mode courant) ; force l'alpha à 1 en mode Texture, où l'état se voit désormais au clip. </p>
 
 </div>
 </div>
@@ -683,6 +721,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2a575a6cc519a25b3a6bee83876d11bb" name="a2a575a6cc519a25b3a6bee83876d11bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a575a6cc519a25b3a6bee83876d11bb">&#9670;&#160;</a></span>updateMechanismVisuals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameSession::updateMechanismVisuals </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apparence des mécanismes pilotée par leur état logique (<span class="tt">LOT-47</span>, <span class="tt">EX-REN-006</span>) : projette l'état de chaque mécanisme suivi sur un clip (correspondance + transitions), au <b>pas fixe</b> — la simulation n'en dépend jamais, seule l'apparence en résulte (<span class="tt">EX-ARCH-012</span>). </p>
+
+</div>
+</div>
 <a id="a930a2413f190c4c2ce9bfdea2ea4eadb" name="a930a2413f190c4c2ce9bfdea2ea4eadb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a930a2413f190c4c2ce9bfdea2ea4eadb">&#9670;&#160;</a></span>updateTileAnimations()</h2>
 
@@ -887,6 +952,50 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af23cea534a8ba8010139b1dce22ae371" name="af23cea534a8ba8010139b1dce22ae371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23cea534a8ba8010139b1dce22ae371">&#9670;&#160;</a></span>_dangerBlinkVisuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a>&gt; hmi::GameSession::_dangerBlinkVisuals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bf7fb9a5061ae37b5918d8668e3d981" name="a8bf7fb9a5061ae37b5918d8668e3d981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bf7fb9a5061ae37b5918d8668e3d981">&#9670;&#160;</a></span>_dangerMoverVisuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a>&gt; hmi::GameSession::_dangerMoverVisuals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a75f6316bb7007ec4c6d5a3c23d43b97b" name="a75f6316bb7007ec4c6d5a3c23d43b97b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75f6316bb7007ec4c6d5a3c23d43b97b">&#9670;&#160;</a></span>_dangers</h2>
 
@@ -931,6 +1040,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a767ffa343f92328260f917e130c4077c" name="a767ffa343f92328260f917e130c4077c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a767ffa343f92328260f917e130c4077c">&#9670;&#160;</a></span>_dangerSwitchedVisuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a>&gt; hmi::GameSession::_dangerSwitchedVisuals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae86ee3a6eb41ee50f77652c6ba24a8cb" name="ae86ee3a6eb41ee50f77652c6ba24a8cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae86ee3a6eb41ee50f77652c6ba24a8cb">&#9670;&#160;</a></span>_doorEntities</h2>
 
@@ -942,6 +1073,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::GameSession::_doorEntities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14e4923728f4e0066b3454d84d8cfd8d" name="a14e4923728f4e0066b3454d84d8cfd8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14e4923728f4e0066b3454d84d8cfd8d">&#9670;&#160;</a></span>_doorVisuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a>&gt; hmi::GameSession::_doorVisuals</td>
         </tr>
       </table>
   </td>
@@ -1217,6 +1370,52 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="acc0e74d080c43350649b3580a5d574ec" name="acc0e74d080c43350649b3580a5d574ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc0e74d080c43350649b3580a5d574ec">&#9670;&#160;</a></span>_switchEntities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Entity.html">core::Entity</a>&gt; hmi::GameSession::_switchEntities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Entité-tuile du déclencheur (interrupteur/plaque de pression) de chaque mécanisme, même ordre que <span class="tt"><a class="el" href="#ae86ee3a6eb41ee50f77652c6ba24a8cb">_doorEntities</a></span> (<span class="tt">LOT-47</span> : le déclencheur change aussi d'apparence, plus seulement la porte qu'il actionne). </p>
+
+</div>
+</div>
+<a id="a9cc4ceac45be4afaf7dc4bf336293e95" name="a9cc4ceac45be4afaf7dc4bf336293e95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc4ceac45be4afaf7dc4bf336293e95">&#9670;&#160;</a></span>_switchVisuals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a>&gt; hmi::GameSession::_switchVisuals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6ab22efca0e53c493f10c9afa18943ba" name="a6ab22efca0e53c493f10c9afa18943ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ab22efca0e53c493f10c9afa18943ba">&#9670;&#160;</a></span>_tileAnimations</h2>
 
@@ -1307,6 +1506,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Assets pour lesquels la combinaison (bitmask16 ou silhouette) + animation a deja ete signalee : evite de journaliser a chaque pas fixe (GraphicsLog proscrit un message par image/pas). </p>
+
+</div>
+</div>
+<a id="a26dc0fafe6519dee52b2e27800ae82f9" name="a26dc0fafe6519dee52b2e27800ae82f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26dc0fafe6519dee52b2e27800ae82f9">&#9670;&#160;</a></span>_warnedMissingMechanismClips</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; hmi::GameSession::_warnedMissingMechanismClips</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couples (asset, clip attendu) deja signales comme manquants : un seul message par combinaison pour toute la session, meme principe que _warnedExcludedAnimations (LOT-47 TACHE-02). </p>
 
 </div>
 </div>

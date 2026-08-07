@@ -56,7 +56,7 @@ var searchData=
   ['unités_20monde_20et_20pixels_20_3a_20hmi_3a_3acamera2d_20hmi_3a_3acamera2d_53',['Unités monde et pixels : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Camera2D.html&quot; title=&quot;hmi::Camera2D&quot;&gt;hmi::Camera2D&lt;/a&gt;',['../guide-rendu.html#autotoc_md147',1,'']]],
   ['unitaire_54',['Vérification (visuelle, pas de test unitaire)',['../lot-08-tache-06-integration-jouable.html#autotoc_md689',1,'']]],
   ['unitaire_20—_20brique_20gpu_55',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md824',1,'']]],
-  ['unitaires_20497_56',['Tests unitaires (497)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['unitaires_20501_56',['Tests unitaires (501)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['unknowntiletype_57',['UnknownTileType',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e',1,'core']]],
   ['unlink_58',['Unlink',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5ac1a39b6a60f8b2f87e23d60ab649d994',1,'hmi']]],
   ['unlinkmechanism_59',['unlinkMechanism',['../classcore_1_1LevelDraft.html#a146bf5eda5759568e54fb0318039498b',1,'core::LevelDraft::unlinkMechanism()'],['../classhmi_1_1GameViewport.html#ae7ad870c084ca5c30be9891d70250638',1,'hmi::GameViewport::unlinkMechanism()']]],
@@ -67,10 +67,11 @@ var searchData=
   ['update_64',['update',['../classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4',1,'core::ISystem::update()'],['../classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8',1,'core::AnimationSystem::update()'],['../classcore_1_1CharacterPhysicsSystem.html#a0ff9c69450962a56c6ec576b2b2c332d',1,'core::CharacterPhysicsSystem::update()'],['../classcore_1_1MovementSystem.html#af4476267f1301a583126866e01567b1f',1,'core::MovementSystem::update()'],['../classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251',1,'core::World::update()'],['../classcore_1_1BlockController.html#a38dd7d13518168abfbe6d56b11cf279f',1,'core::BlockController::update()'],['../classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db',1,'core::DangerController::update()'],['../classcore_1_1MechanismController.html#a1b1a329fda4104534e1e54402ddf528c',1,'core::MechanismController::update()'],['../classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2',1,'hmi::GameSession::update(const InputState &amp;input, float fixedDelta)']]],
   ['updatecurrentroom_65',['updateCurrentRoom',['../classhmi_1_1GameSession.html#a626952821cb4fc9a0144a4bdf6b9eaaf',1,'hmi::GameSession']]],
   ['updateeditcamera_66',['updateEditCamera',['../classhmi_1_1GameViewport.html#a751bc28ce93fe7547fafd85eeae90feb',1,'hmi::GameViewport']]],
-  ['updatemouseposition_67',['updateMousePosition',['../classhmi_1_1GameViewport.html#ab2638f80f14726b02741409d6ff1f960',1,'hmi::GameViewport']]],
-  ['updatestatus_68',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]],
-  ['updatetileanimations_69',['updateTileAnimations',['../classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb',1,'hmi::GameSession']]],
-  ['utilisateur_70',['utilisateur',['../lot-15-tache-01-entrees-molette-texte.html#autotoc_md951',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-04-camera-pan-zoom.html#autotoc_md971',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-06-decouvrabilite.html#autotoc_md988',1,'Ajustement post-livraison (essai utilisateur)'],['../manuel.html',1,'Manuel utilisateur']]],
-  ['utilisateur_20ihm_71',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
-  ['utilisateur_20squelette_20première_20page_72',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]
+  ['updatemechanismvisuals_67',['updateMechanismVisuals',['../classhmi_1_1GameSession.html#a2a575a6cc519a25b3a6bee83876d11bb',1,'hmi::GameSession']]],
+  ['updatemouseposition_68',['updateMousePosition',['../classhmi_1_1GameViewport.html#ab2638f80f14726b02741409d6ff1f960',1,'hmi::GameViewport']]],
+  ['updatestatus_69',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]],
+  ['updatetileanimations_70',['updateTileAnimations',['../classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb',1,'hmi::GameSession']]],
+  ['utilisateur_71',['utilisateur',['../lot-15-tache-01-entrees-molette-texte.html#autotoc_md951',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-04-camera-pan-zoom.html#autotoc_md971',1,'Ajustement post-livraison (essai utilisateur)'],['../lot-15-tache-06-decouvrabilite.html#autotoc_md988',1,'Ajustement post-livraison (essai utilisateur)'],['../manuel.html',1,'Manuel utilisateur']]],
+  ['utilisateur_20ihm_72',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
+  ['utilisateur_20squelette_20première_20page_73',['TACHE-06 — Manuel utilisateur (squelette + première page)',['../lot-04-tache-06-manuel-utilisateur.html',1,'lot-04']]]
 ];

@@ -93,7 +93,7 @@ $(function(){initNavTree('lot-47-tache-02-transitions.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-47-etats-visuels-mecanismes_2tache-02-transitions"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-47.html#md_Lot_2LOT-47-etats-visuels-mecanismes_2epic" title="Lot/LOT-47-etats-visuels-mecanismes/epic.md">LOT-47</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Game</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2102"></a>
 Contexte</h1>
 <p>Une porte qui passe instantanément de « fermée » à « ouverte » reste un changement d'image, pas une ouverture. Ce sont les <b>transitions</b> qui donnent l'impression du mécanisme.</p>
@@ -110,9 +110,11 @@ Travail à réaliser</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2104"></a>
 Fichiers impactés</h1>
 <ul>
-<li><span class="tt">Source/HMI/Graphics/MechanismVisuals.{h,cpp}</span>.</li>
-<li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span>.</li>
-<li><span class="tt">Source/Test/Unit/HMI/Graphics/test_mechanism_transitions.cpp</span> (nouveau).</li>
+<li><span class="tt">Source/HMI/Graphics/MechanismVisuals.{h,cpp}</span> : état <span class="tt">MechanismVisualState</span> par instance et <span class="tt">advanceMechanismVisual</span> (décision + progression, logique pure).</li>
+<li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span> : résout l'asset effectivement lié à chaque instance (via <span class="tt"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">hmi::resolveTileAppearance</a></span>, point unique, jamais dupliqué) et écrit le résultat sur sa tuile.</li>
+<li><span class="tt"><a class="el" href="TileSkinTag_8h.html" title="Marque de présentation portée par une entité tuile, pour résoudre son skin (EX-EDIT-042,...">Source/HMI/Graphics/TileSkinTag.h</a></span> : nouveau champ <span class="tt">animatedFrame</span>, image courante <b>par instance</b>, prioritaire sur l'horloge partagée par asset de <span class="tt">LOT-46</span> TACHE-05 (qui ne peut pas, à elle seule, distinguer deux tuiles du même asset à des états différents).</li>
+<li><span class="tt"><a class="el" href="TileAppearance_8cpp.html">Source/HMI/Graphics/TileAppearance.cpp</a></span> : <span class="tt">resolveTileAppearance</span> consulte <span class="tt">animatedFrame</span> en priorité, pour les sources <span class="tt">Skin</span> et <span class="tt">Override</span>.</li>
+<li><span class="tt"><a class="el" href="test__mechanism__transitions_8cpp.html" title="Tests unitaires des transitions et du repli sur clip manquant (LOT-47 TACHE-02).">Source/Test/Unit/HMI/Graphics/test_mechanism_transitions.cpp</a></span> (nouveau).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2105"></a>
 Tests (obligatoires)</h1>
