@@ -56,6 +56,44 @@ TEST(AssetContractTest, SkinDeTuileNonConformeRefuseAvecMessage) {
 }
 
 /**
+ * @brief Un skin de tuile ANIME (`LOT-46`) est une spritesheet horizontale sur un seul rang :
+ *        plusieurs cases de large, une case de haut. La cohérence fine (nombre d'images, indices
+ *        référencés par les clips) relève de `hmi::AnimationCatalog::validateAgainstTexture`.
+ * \castest{<b>Une spritesheet animee (plusieurs cases de large, une case de haut) est
+ * acceptee.</b><br/>
+ * \tcat Unitaire · Asset Contract<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Valider un skin de tuile de 64x16 px (4 images).<br/>
+ * \tattendu La validation reussit.
+ * }
+ */
+TEST(AssetContractTest, SkinDeTuileAnimeSpritesheetHorizontaleAcceptee) {
+    const hmi::AssetValidation validation =
+        hmi::validateAsset(hmi::AssetFamily::TileSkin, "water.png", hmi::TextureAtlas::TILE_SIZE * 4,
+                           hmi::TextureAtlas::TILE_SIZE);
+
+    EXPECT_TRUE(validation.valid) << validation.message;
+}
+
+/**
+ * @brief Un skin de tuile de plus d'un rang (hauteur multiple de la case, mais pas exactement une
+ *        case) reste refusé : la spritesheet animée n'a jamais qu'un seul rang (`LOT-46`).
+ * \castest{<b>Une image sur plusieurs rangs (hauteur non conforme) est refusee.</b><br/>
+ * \tcat Unitaire · Asset Contract<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Valider un skin de tuile de 16x32 px.<br/>
+ * \tattendu La validation echoue.
+ * }
+ */
+TEST(AssetContractTest, SkinDeTuileSurPlusieursRangsRefuse) {
+    const hmi::AssetValidation validation = hmi::validateAsset(
+        hmi::AssetFamily::TileSkin, "mur.png", hmi::TextureAtlas::TILE_SIZE,
+        hmi::TextureAtlas::TILE_SIZE * 2);
+
+    EXPECT_FALSE(validation.valid);
+}
+
+/**
  * @brief Une planche à raccords doit être un multiple de la taille de tuile et compter au moins
  *        4x4 cases.
  * \castest{<b>Une planche a raccords exige un multiple de case et au moins 4x4 cases.</b><br/>

@@ -90,11 +90,18 @@ Un niveau peut assigner une texture à **une case précise** (`core::TileTexture
 `EX-EDIT-043`), sélectionnée depuis la section « Objets » du panneau « Textures » — prioritaire sur
 le skin de son type. Voir `Objects/README.md` pour le détail du format attendu.
 
+## Animations (`LOT-46`)
+
+Un asset de `Skins/` (mode `single`) accompagné d'un fichier `<asset>.anim.json` de même nom
+s'anime : la spritesheet est une bande horizontale (une case de haut, une image par case), décrite
+par ses clips (`hmi::AnimationCatalog`). Un asset sans ce fichier reste une image fixe, sans erreur
+ni avertissement — voir `Skins/README.md` pour le format et les exemples livrés (`water`, `lava`,
+`torch`) et `Documentation/Lot/LOT-46-moteur-animation/` pour le détail du moteur.
+
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions
-attendues **validées au chargement** (`EX-REN-007`) : `Player/` (`LOT-48`), `Decors/` (`LOT-49`),
-plus des fichiers `<asset>.anim.json` décrivant les animations (`LOT-46`).
+attendues **validées au chargement** (`EX-REN-007`) : `Player/` (`LOT-48`), `Decors/` (`LOT-49`).
 
 Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
 sans relancer l'application.
