@@ -1,6 +1,6 @@
 # TACHE-01 — `TileTextureOverride` : modèle, JSON, nettoyage et historique {#lot-45-tache-01-modele-override}
 
-**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** non commencé
+**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
 ## Contexte
 `core::TileMap` est une grille **dense** d'une `TileType` par case, sans métadonnée numérique par

@@ -130,6 +130,20 @@ public:
     void setBlinkConfig(GridPosition position, int period, int phase, int activeDuration);
 
     /**
+     * @brief Assigne (ou remplace) la texture affichée pour **une case précise** (`EX-EDIT-043`),
+     *        prioritaire sur le skin de son type (LOT-42).
+     *
+     * Repeindre un **autre** type de tuile sur @p position retire l'override (funnel
+     * `removeLinkedDataAt`) ; repeindre le **même** type le conserve. Ne voyage pas avec
+     * `paintRegion` (collage) : un override reste attaché à sa case d'origine.
+     * @pre La case @p position porte un type de tuile non `Empty`.
+     */
+    void setTextureOverride(GridPosition position, std::string assetName);
+
+    /// Retire l'override de texture de @p position, s'il y en a un. Sans effet sinon.
+    void removeTextureOverride(GridPosition position);
+
+    /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
      *
      * Agrandir complète les nouvelles cases en `Empty` ; réduire **tronque** silencieusement le
@@ -248,6 +262,11 @@ public:
         return _blinkConfigs;
     }
 
+    /// @return Les textures assignées par instance du niveau (`EX-EDIT-043`).
+    [[nodiscard]] const std::vector<TileTextureOverride>& textureOverrides() const noexcept {
+        return _textureOverrides;
+    }
+
     /// @return Le budget de sauts courant (`-1` = illimité).
     [[nodiscard]] int jumpBudget() const noexcept {
         return _jumpBudget;
@@ -291,9 +310,12 @@ private:
     void setExitInternal(int column, int row);
 
     /// Retire toute liaison/configuration référençant @p position (déclencheur, porte, danger
-    /// commuté, ou configuration de danger mobile/temporisé) — appelé avant de reposer un autre
-    /// type sur une case qui en portait une, pour ne jamais laisser d'entrée orpheline.
-    void removeLinkedDataAt(GridPosition position);
+    /// commuté, configuration de danger mobile/temporisé, ou override de texture) — appelé avant
+    /// de reposer un autre type sur une case qui en portait une, pour ne jamais laisser d'entrée
+    /// orpheline. @p keepTextureOverride préserve l'override de texture (repeindre le **même**
+    /// type ne doit pas effacer un habillage, `EX-EDIT-043`) ; les autres données annexes sont
+    /// toujours retirées, comme avant ce paramètre.
+    void removeLinkedDataAt(GridPosition position, bool keepTextureOverride = false);
 
     /// État complet du brouillon, hors historique (utilisé pour les snapshots undo/redo).
     struct State {
@@ -309,6 +331,7 @@ private:
         std::vector<DangerBlinkConfig> blinkConfigs;
         std::optional<std::string> background;
         std::optional<std::string> skinSet;
+        std::vector<TileTextureOverride> textureOverrides;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -333,6 +356,7 @@ private:
     std::vector<DangerBlinkConfig> _blinkConfigs;
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
+    std::vector<TileTextureOverride> _textureOverrides;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

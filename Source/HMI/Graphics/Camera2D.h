@@ -52,6 +52,16 @@ public:
      */
     void setZoom(float zoom);
 
+    /// @return Le centre courant de la caméra, en unités monde.
+    [[nodiscard]] const core::Vector2& center() const noexcept {
+        return _center;
+    }
+
+    /// @return Le facteur de zoom courant.
+    [[nodiscard]] float zoom() const noexcept {
+        return _zoom;
+    }
+
     /**
      * @brief Matrice de projection monde → clip, pour le vertex shader.
      * @return La matrice (ligne-major DirectXMath) transformant une position monde en clip.

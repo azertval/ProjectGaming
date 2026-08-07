@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <optional>
+#include <string>
 
 #include "Core/Levels/TileType.h"
 
@@ -34,6 +36,10 @@ struct TileSkinTag {
     core::TileType type{};
     /// Masque des quatre voisins solides (`hmi::solidNeighborMask`), pour le mode `bitmask16`.
     std::uint8_t neighborMask = 0;
+    /// Nom de l'asset assigné **par instance** à cette case (`EX-EDIT-043`, `LOT-45`), prioritaire
+    /// sur le skin du type ; vide si la case n'a pas de surcharge. Calculé une fois à la
+    /// construction de la scène (`hmi::textureOverrideAt`), même principe que `neighborMask`.
+    std::optional<std::string> overrideAsset;
 };
 
 }  // namespace hmi

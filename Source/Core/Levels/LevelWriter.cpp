@@ -27,7 +27,8 @@ namespace {
 std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
-                     level.blinkConfigs(), level.background(), level.skinSet());
+                     level.blinkConfigs(), level.background(), level.skinSet(),
+                     level.textureOverrides());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -46,7 +47,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                    const std::vector<DangerMoverConfig>& moverConfigs,
                                    const std::vector<DangerBlinkConfig>& blinkConfigs,
                                    const std::optional<std::string>& background,
-                                   const std::optional<std::string>& skinSet) {
+                                   const std::optional<std::string>& skinSet,
+                                   const std::vector<TileTextureOverride>& textureOverrides) {
     nlohmann::json root;
     root["version"] = kLevelFormatVersion;
     root["name"] = name;
@@ -116,6 +118,14 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                 config);
     }
 
+    // Position -> nom d'asset de la texture assignee par instance (EX-EDIT-043), independamment
+    // du type de la tuile a cette position.
+    std::map<std::pair<int, int>, std::string> textureOverrideByPosition;
+    for (const TileTextureOverride& override : textureOverrides) {
+        textureOverrideByPosition.emplace(
+            std::make_pair(override.position.column, override.position.row), override.assetName);
+    }
+
     nlohmann::json tiles = nlohmann::json::array();
     for (int row = 0; row < tileMap.height(); ++row) {
         for (int column = 0; column < tileMap.width(); ++column) {
@@ -156,6 +166,12 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                     tile["phase"] = found->second.phase;
                     tile["activeDuration"] = found->second.activeDuration;
                 }
+            }
+            // Texture assignee par instance (EX-EDIT-043) : independante du type, peut
+            // accompagner n'importe quel champ ci-dessus.
+            const auto overrideFound = textureOverrideByPosition.find(std::make_pair(column, row));
+            if (overrideFound != textureOverrideByPosition.end()) {
+                tile["texture"] = overrideFound->second;
             }
             tiles.push_back(std::move(tile));
         }

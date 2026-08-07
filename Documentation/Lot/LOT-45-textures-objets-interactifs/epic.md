@@ -1,6 +1,6 @@
 # LOT-45 — Objet interactif : texture par instance {#lot-45}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41),
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41),
 > [LOT-42](@ref lot-42), [LOT-44](@ref lot-44) (version du format de niveau).
 
 ## Objectif
@@ -65,9 +65,9 @@ relèvent des décors (LOT-49).
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-override.md) | `TileTextureOverride` sur `Level`/`LevelDraft` + JSON + nettoyage (`removeLinkedDataAt`, `resize`) + undo/redo | `Source/Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-outil-assignation.md) | Nouvelle valeur *TextureAssign* de `hmi::EditorTool` + geste pur d'assignation | `Source/HMI/Editor` | ⬜ |
-| [TACHE-03](tache-03-section-objets-priorite.md) | Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier `Assets/Objects/` | `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-override.md) | `TileTextureOverride` sur `Level`/`LevelDraft` + JSON + nettoyage (`removeLinkedDataAt`, `resize`) + undo/redo | `Source/Core/Levels` | ✅ |
+| [TACHE-02](tache-02-outil-assignation.md) | Nouvelle valeur *TextureAssign* de `hmi::EditorTool` + geste pur d'assignation | `Source/HMI/Editor` | ✅ |
+| [TACHE-03](tache-03-section-objets-priorite.md) | Section « Objets » du panneau « Textures » + résolution de priorité au rendu + dossier `Assets/Objects/` | `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Assigner une texture à une case précise l'affiche avec cette texture, même si son type a un skin

@@ -27,6 +27,7 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._blinkConfigs = level.blinkConfigs();
     draft._background = level.background();
     draft._skinSet = level.skinSet();
+    draft._textureOverrides = level.textureOverrides();
     return draft;
 }
 
@@ -71,7 +72,10 @@ void LevelDraft::paintTileInternal(int column, int row, TileType type) {
     if (_exit && *_exit == position) {
         _exit.reset();
     }
-    removeLinkedDataAt(position);
+    // Reposer le meme type ne doit pas effacer un habillage (EX-EDIT-043) : un coup de pinceau
+    // involontaire sur une case deja du bon type effacerait sinon un override de texture.
+    const bool sameType = _tileMap.tile(column, row) == type;
+    removeLinkedDataAt(position, /*keepTextureOverride=*/sameType);
     _tileMap.setTile(column, row, type);
 }
 
@@ -184,6 +188,25 @@ void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase,
     _blinkConfigs.push_back(DangerBlinkConfig{position, period, phase, activeDuration});
 }
 
+void LevelDraft::setTextureOverride(GridPosition position, std::string assetName) {
+    pushUndo();
+    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
+                                           [position](const TileTextureOverride& override) {
+                                               return override.position == position;
+                                           }),
+                            _textureOverrides.end());
+    _textureOverrides.push_back(TileTextureOverride{position, std::move(assetName)});
+}
+
+void LevelDraft::removeTextureOverride(GridPosition position) {
+    pushUndo();
+    _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
+                                           [position](const TileTextureOverride& override) {
+                                               return override.position == position;
+                                           }),
+                            _textureOverrides.end());
+}
+
 void LevelDraft::setBackground(std::optional<std::string> background) {
     pushUndo();
     _background = std::move(background);
@@ -241,6 +264,13 @@ void LevelDraft::resize(int width, int height) {
                                                                       config.position.row);
                                        }),
                         _blinkConfigs.end());
+    _textureOverrides.erase(
+        std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
+                       [this](const TileTextureOverride& override) {
+                           return !_tileMap.inBounds(override.position.column,
+                                                       override.position.row);
+                       }),
+        _textureOverrides.end());
 }
 
 bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
@@ -274,6 +304,11 @@ bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
             return true;
         }
     }
+    for (const TileTextureOverride& override : _textureOverrides) {
+        if (outOfBounds(override.position)) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -300,7 +335,7 @@ bool LevelDraft::redo() {
 LevelDraft::State LevelDraft::snapshot() const {
     return State{_name,        _tileMap,     _entry,        _exit,         _mechanisms,
                  _jumpBudget,  _dashBudget,  _dangerLinks,  _moverConfigs, _blinkConfigs,
-                 _background,  _skinSet};
+                 _background,  _skinSet,     _textureOverrides};
 }
 
 void LevelDraft::restore(State state) {
@@ -316,6 +351,7 @@ void LevelDraft::restore(State state) {
     _blinkConfigs = std::move(state.blinkConfigs);
     _background = std::move(state.background);
     _skinSet = std::move(state.skinSet);
+    _textureOverrides = std::move(state.textureOverrides);
 }
 
 void LevelDraft::pushUndo() {
@@ -324,13 +360,13 @@ void LevelDraft::pushUndo() {
 }
 
 LevelLoadResult LevelDraft::toLevel() const {
-    const std::string json =
-        LevelWriter::buildJson(_name, _tileMap, _mechanisms, _jumpBudget, _dashBudget,
-                               _dangerLinks, _moverConfigs, _blinkConfigs, _background, _skinSet);
+    const std::string json = LevelWriter::buildJson(
+        _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
+        _blinkConfigs, _background, _skinSet, _textureOverrides);
     return LevelLoader::loadFromString(json);
 }
 
-void LevelDraft::removeLinkedDataAt(GridPosition position) {
+void LevelDraft::removeLinkedDataAt(GridPosition position, bool keepTextureOverride) {
     _mechanisms.erase(std::remove_if(_mechanisms.begin(), _mechanisms.end(),
                                      [position](const Mechanism& mechanism) {
                                          return mechanism.switchPosition == position ||
@@ -353,6 +389,13 @@ void LevelDraft::removeLinkedDataAt(GridPosition position) {
                                            return config.position == position;
                                        }),
                         _blinkConfigs.end());
+    if (!keepTextureOverride) {
+        _textureOverrides.erase(std::remove_if(_textureOverrides.begin(), _textureOverrides.end(),
+                                               [position](const TileTextureOverride& override) {
+                                                   return override.position == position;
+                                               }),
+                                _textureOverrides.end());
+    }
 }
 
 }  // namespace core

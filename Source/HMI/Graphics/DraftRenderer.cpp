@@ -27,6 +27,7 @@ namespace {
 constexpr std::int32_t OVERLAY_ORDER_GRID = 0;
 constexpr std::int32_t OVERLAY_ORDER_LINKS = 1;
 constexpr std::int32_t OVERLAY_ORDER_HIGHLIGHT = 2;
+constexpr std::int32_t OVERLAY_ORDER_TEXTURE_OVERRIDES = 3;
 }  // namespace
 
 DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
@@ -35,7 +36,7 @@ DraftRenderer::DraftRenderer(SpriteBatch& batch, const TextureAtlas& atlas, Text
 void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
-    const LinkOverlayState& linkOverlay, RenderMode mode) {
+    const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -48,11 +49,16 @@ void DraftRenderer::render(
     _scene.setVisibleBounds(camera.visibleBounds());
     composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
                       draft.tileMap().width(), draft.tileMap().height(), mode);
-    composeWorldSprites(_scene, _world, mode, sceneTextures(_atlas, _cache, _skins, _skinSet), 1.0f);
+    composeWorldSprites(
+        _scene, _world, mode,
+        sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides()), 1.0f);
     if (showGrid) {
         composeGrid(draft);
     }
     composeLinks(draft, linkOverlay);
+    if (showTextureOverrides) {
+        composeTextureOverrideMarkers(draft);
+    }
     if (highlight) {
         composeHighlight(highlight->first, highlight->second);
     }
@@ -81,6 +87,33 @@ void DraftRenderer::composeHighlight(const core::GridPosition& minimum,
     quad.a = 0.28f;  // voile bleu semi-transparent (apercu rectangle/selection)
     _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), OVERLAY_ORDER_HIGHLIGHT,
                      quad);
+}
+
+// Signale les cases portant une surcharge de texture par instance (EX-EDIT-043, LOT-45) : un petit
+// marqueur au coin haut-droit de chaque case habillee, visible seulement quand l'outil dedie est
+// actif (showTextureOverrides du render()).
+void DraftRenderer::composeTextureOverrideMarkers(const core::LevelDraft& draft) {
+    const float atlasWidth = static_cast<float>(_atlas.width());
+    const float atlasHeight = static_cast<float>(_atlas.height());
+    const core::AtlasRegion solid = _atlas.tile(0, 0);
+    constexpr float MARKER_SIZE = 0.28f;  // fraction d'une case
+    for (const core::TileTextureOverride& override : draft.textureOverrides()) {
+        SpriteQuad quad;
+        quad.x = static_cast<float>(override.position.column) + 1.0f - MARKER_SIZE;
+        quad.y = static_cast<float>(override.position.row);
+        quad.width = MARKER_SIZE;
+        quad.height = MARKER_SIZE;
+        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
+        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
+        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+        quad.r = 1.0f;
+        quad.g = 0.85f;
+        quad.b = 0.1f;
+        quad.a = 0.9f;  // jaune dore, oppose au bleu du voile de selection/rectangle
+        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(),
+                         OVERLAY_ORDER_TEXTURE_OVERRIDES, quad);
+    }
 }
 
 // Compose la grille de repere (frontieres de cases + de salles) sur le calque d'edition.
@@ -280,8 +313,13 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
             // valeur par defaut -- le tri fin entre tuiles n'a pas lieu d'etre.
             _world.addComponent(entity, sprite);
             // Marque d'habillage (LOT-42), identique a celle posee en jeu : c'est ce qui fait que
-            // le canevas de l'editeur montre exactement ce que le joueur verra.
-            _world.addComponent(entity, TileSkinTag{type, solidNeighborMask(map, column, row)});
+            // le canevas de l'editeur montre exactement ce que le joueur verra. La surcharge de
+            // texture par instance (EX-EDIT-043, LOT-45) y est resolue une fois, ici, comme le
+            // voisinage solide.
+            _world.addComponent(
+                entity, TileSkinTag{type, solidNeighborMask(map, column, row),
+                                    textureOverrideAt(draft.textureOverrides(),
+                                                       core::GridPosition{column, row})});
         }
     }
 }

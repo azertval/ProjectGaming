@@ -85,6 +85,47 @@
        </item>
       </layout>
      </widget>
+     <!-- Section « Objets » (LOT-45) : texture par instance, prioritaire sur le skin du type
+          (EX-EDIT-043). Meme patron de section embarquee que « Fond » ci-dessus, sans panneau
+          separe. -->
+     <widget class="QWidget" name="objectsTab">
+      <attribute name="title"><string>Objets</string></attribute>
+      <layout class="QVBoxLayout" name="objectsLayout">
+       <item>
+        <widget class="QLabel" name="objectsAssetLabel">
+         <property name="text"><string>Asset a assigner</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="objectPickerContainer">
+         <layout class="QVBoxLayout" name="objectPickerContainerLayout">
+          <property name="leftMargin"><number>0</number></property>
+          <property name="topMargin"><number>0</number></property>
+          <property name="rightMargin"><number>0</number></property>
+          <property name="bottomMargin"><number>0</number></property>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="objectsListLabel">
+         <property name="text"><string>Surcharges du niveau</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableView" name="objectsTable">
+         <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+         <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+         <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="objectsRemoveButton">
+         <property name="text"><string>Retirer</string></property>
+         <property name="enabled"><bool>false</bool></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

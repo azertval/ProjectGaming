@@ -33,6 +33,8 @@ namespace {
             return "aide";
         case EditorAction::Rename:
             return "renommer";
+        case EditorAction::TextureAssignTool:
+            return "outilTexture";
     }
     return "";
 }
@@ -59,6 +61,8 @@ Key EditorKeyBindings::defaultKey(EditorAction action) noexcept {
             return Key::F1;
         case EditorAction::Rename:
             return Key::F2;
+        case EditorAction::TextureAssignTool:
+            return Key::T;
     }
     return Key::Escape;  // inatteignable : switch exhaustif sur EditorAction ci-dessus.
 }

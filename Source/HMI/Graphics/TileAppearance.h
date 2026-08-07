@@ -27,6 +27,10 @@ enum class AppearanceSource {
     MissingTexture,
     /// Skin assigné au type de tuile, désigné par `hmi::TileAppearance::skinIndex` (`LOT-42`).
     Skin,
+    /// Texture assignée **par instance** à la case, désignée par `hmi::TileAppearance::skinIndex`
+    /// (index dans `hmi::SceneTextures::objects`) — prioritaire sur `Skin` (`EX-EDIT-043`,
+    /// `LOT-45`).
+    Override,
 };
 
 /// Apparence résolue d'une primitive : quelle texture lier, et quelle région y échantillonner.
@@ -35,9 +39,9 @@ struct TileAppearance {
     AppearanceSource source = AppearanceSource::Atlas;
     /// Région à échantillonner **dans cette texture**, en pixels.
     core::AtlasRegion region{};
-    /// Index du skin dans `hmi::SceneTextures::skins`. N'a de sens que si `source` vaut `Skin` ;
-    /// vaut `-1` sinon. Un **index** plutôt qu'un nom de fichier : la composition s'exécute à
-    /// chaque image et ne doit ni allouer ni comparer de chaînes.
+    /// Index dans `hmi::SceneTextures::skins` (source `Skin`) ou `hmi::SceneTextures::objects`
+    /// (source `Override`) ; vaut `-1` sinon. Un **index** plutôt qu'un nom de fichier : la
+    /// composition s'exécute à chaque image et ne doit ni allouer ni comparer de chaînes.
     int skinIndex = -1;
 };
 
@@ -90,6 +94,11 @@ struct SceneTextures {
     /// Nom du jeu de skins courant. Vide pour utiliser le jeu par défaut du catalogue.
     std::string skinSet;
 
+    /// Textures assignées **par instance** (`EX-EDIT-043`, `LOT-45`), adressées par index. `asset`
+    /// est le seul champ significatif (`maskType` toujours vide : une surcharge n'est jamais
+    /// détourée à une silhouette, contrairement à un skin de type).
+    std::vector<SkinTexture> objects;
+
     /**
      * @brief Index du skin chargé pour un asset et un type de tuile donnés.
      *
@@ -113,6 +122,23 @@ struct SceneTextures {
         return -1;
     }
 
+    /**
+     * @brief Index de la texture d'objet chargée pour un asset donné (`EX-EDIT-043`, `LOT-45`).
+     *
+     * Pas de silhouette à considérer (contrairement à `skinIndexOf`) : une surcharge n'est jamais
+     * détourée, elle s'affiche telle quelle.
+     * @param asset Nom du fichier cherché.
+     * @return Son index dans `objects`, ou `-1` si non chargé.
+     */
+    [[nodiscard]] int objectIndexOf(std::string_view asset) const noexcept {
+        for (std::size_t index = 0; index < objects.size(); ++index) {
+            if (objects[index].asset == asset) {
+                return static_cast<int>(index);
+            }
+        }
+        return -1;
+    }
+
     /// @return La texture correspondant à une apparence résolue (`nullptr` si non fournie).
     [[nodiscard]] TextureHandle textureFor(const TileAppearance& appearance) const noexcept {
         switch (appearance.source) {
@@ -123,6 +149,9 @@ struct SceneTextures {
             case AppearanceSource::Skin:
                 return skinAt(appearance.skinIndex) ? skinAt(appearance.skinIndex)->texture
                                                     : missing;
+            case AppearanceSource::Override:
+                return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->texture
+                                                       : missing;
         }
         return missing;
     }
@@ -137,6 +166,9 @@ struct SceneTextures {
             case AppearanceSource::Skin:
                 return skinAt(appearance.skinIndex) ? skinAt(appearance.skinIndex)->width
                                                     : missingWidth;
+            case AppearanceSource::Override:
+                return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->width
+                                                       : missingWidth;
         }
         return missingWidth;
     }
@@ -151,6 +183,9 @@ struct SceneTextures {
             case AppearanceSource::Skin:
                 return skinAt(appearance.skinIndex) ? skinAt(appearance.skinIndex)->height
                                                     : missingHeight;
+            case AppearanceSource::Override:
+                return objectAt(appearance.skinIndex) ? objectAt(appearance.skinIndex)->height
+                                                       : missingHeight;
         }
         return missingHeight;
     }
@@ -164,6 +199,14 @@ private:
         }
         return &skins[static_cast<std::size_t>(index)];
     }
+
+    // Meme garde-fou que skinAt, pour le tableau d'objets (EX-EDIT-043, LOT-45).
+    [[nodiscard]] const SkinTexture* objectAt(int index) const noexcept {
+        if (index < 0 || static_cast<std::size_t>(index) >= objects.size()) {
+            return nullptr;
+        }
+        return &objects[static_cast<std::size_t>(index)];
+    }
 };
 
 /**
@@ -174,13 +217,17 @@ private:
  * **pure** (aucune dépendance GPU), appelée à la **composition** et non à la construction de la
  * scène : basculer de mode ne reconstruit donc jamais l'ECS, seule la résolution change.
  *
- * Ordre de priorité en mode Texture (`LOT-42`) : **skin de tuile > damier**. La surcharge par case
- * viendra s'insérer en tête au `LOT-45`, sans changer la forme de la fonction.
+ * Ordre de priorité en mode Texture : **surcharge par instance (`LOT-45`) > skin de tuile
+ * (`LOT-42`) > damier**.
  * - `RenderMode::Physique` → la région d'atlas déjà portée par le `core::Sprite`, c'est-à-dire le
  *   résultat de `hmi::regionForTile` — comportement strictement inchangé, quel que soit le reste ;
- * - `RenderMode::Texture` + entité habillable dont le type est skinné **et** dont le skin est
- *   chargé → la case du skin (l'image entière en mode `single`, la case choisie par les raccords
- *   en mode `bitmask16`) ;
+ * - `RenderMode::Texture` + entité portant une surcharge (`hmi::TileSkinTag::overrideAsset`)
+ *   **chargée** → l'image entière de la surcharge (`EX-EDIT-043`) ; une surcharge posée mais dont
+ *   l'asset est introuvable retombe **directement** sur le damier, jamais sur le skin du type
+ *   (sinon l'auteur croit son assignation prise en compte alors qu'elle est cassée) ;
+ * - `RenderMode::Texture` + entité habillable (sans surcharge) dont le type est skinné **et** dont
+ *   le skin est chargé → la case du skin (l'image entière en mode `single`, la case choisie par
+ *   les raccords en mode `bitmask16`) ;
  * - tout autre cas (entité sans `hmi::TileSkinTag`, type non skinné, asset absent ou refusé) → le
  *   damier magenta en entier. C'est un état **normal** du programme d'habillage tant que tous les
  *   types ne sont pas habillés, pas un défaut (`EX-NFR-040`).

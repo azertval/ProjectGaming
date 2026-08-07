@@ -35,6 +35,18 @@ TEST(Camera2DTest, CentreAuMilieuDeLEcran) {
     EXPECT_NEAR(screen.y, HEIGHT * 0.5f, TOLERANCE);
 }
 
+// center()/zoom() renvoient exactement ce que setCenter()/setZoom() ont pose -- necessaire au
+// pan/zoom manuel de l'editeur, qui repart du cadrage courant au premier geste.
+TEST(Camera2DTest, CenterEtZoomRenvoientLesValeursPosees) {
+    hmi::Camera2D camera(WIDTH, HEIGHT);
+    camera.setCenter(core::Vector2{3.0f, 4.0f});
+    camera.setZoom(2.5f);
+
+    EXPECT_FLOAT_EQ(camera.center().x, 3.0f);
+    EXPECT_FLOAT_EQ(camera.center().y, 4.0f);
+    EXPECT_FLOAT_EQ(camera.zoom(), 2.5f);
+}
+
 /**
  * @brief Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.
  * \castest{<b>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</b><br/>

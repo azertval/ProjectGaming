@@ -104,6 +104,9 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // Changer d'outil dans le panneau Outils met à jour l'outil actif du viewport.
     connect(_tools, &ToolPanel::toolSelected, _viewport,
             [this](hmi::EditorTool tool) { _viewport->setTool(tool); });
+    // Raccourci clavier de l'outil « Texture par instance » (LOT-45) : resynchronise le panneau
+    // sans reboucler (setActiveTool n'emet pas toolSelected).
+    connect(_viewport, &GameViewport::toolChanged, _tools, &ToolPanel::setActiveTool);
     // Les messages d'état du viewport (enregistrement, essai, erreurs) s'affichent en bas.
     connect(_viewport, &GameViewport::statusMessage, this,
             [this](const QString& message) { statusBar()->showMessage(message, 5000); });
@@ -126,10 +129,25 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     connect(_viewport, &GameViewport::draftChanged, this, [this] {
         _links->refresh(_viewport->draft());
         _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
+        _textures->refreshObjects(_viewport->draft());
     });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
     connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
     _links->refresh(_viewport->draft());  // etat initial (avant tout draftChanged).
+
+    // Section « Objets » (LOT-45) : meme separation que le panneau Liens -- choisir un asset arme
+    // l'outil « Texture par instance », la selection d'une ligne surligne dans le viewport, le
+    // retrait passe par le viewport (seul proprietaire du brouillon).
+    connect(_textures, &TexturePanel::textureOverrideAssetSelected, _viewport,
+            [this](const QString& fileName) {
+                _viewport->setActiveTextureAsset(
+                    fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
+            });
+    connect(_textures, &TexturePanel::textureOverrideSelectionChanged, _viewport,
+            &GameViewport::setHighlightedTextureOverride);
+    connect(_textures, &TexturePanel::textureOverrideRemoveRequested, _viewport,
+            &GameViewport::removeTextureOverride);
+    _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -295,6 +313,7 @@ void MainWindow::buildUi() {
     _textures = new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
                                  hmi::executableDirectory() / "Assets" / "skins.json",
                                  hmi::executableDirectory() / "Assets" / "Backgrounds",
+                                 hmi::executableDirectory() / "Assets" / "Objects",
                                  _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 

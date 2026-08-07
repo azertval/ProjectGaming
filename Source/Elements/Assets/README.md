@@ -84,11 +84,17 @@ Un niveau peut désigner une image de `Backgrounds/` comme fond (`core::Level::b
 **libres** : le rendu étire l'image sur les bornes du niveau en préservant son ratio d'aspect
 (recadrage par le centre sur la dimension excédentaire, jamais de déformation).
 
+## `Objects/` — textures d'objets interactifs (`LOT-45`)
+
+Un niveau peut assigner une texture à **une case précise** (`core::TileTextureOverride`,
+`EX-EDIT-043`), sélectionnée depuis la section « Objets » du panneau « Textures » — prioritaire sur
+le skin de son type. Voir `Objects/README.md` pour le détail du format attendu.
+
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions
-attendues **validées au chargement** (`EX-REN-007`) : `Objects/` (`LOT-45`), `Player/` (`LOT-48`),
-`Decors/` (`LOT-49`), plus des fichiers `<asset>.anim.json` décrivant les animations (`LOT-46`).
+attendues **validées au chargement** (`EX-REN-007`) : `Player/` (`LOT-48`), `Decors/` (`LOT-49`),
+plus des fichiers `<asset>.anim.json` décrivant les animations (`LOT-46`).
 
 Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
 sans relancer l'application.

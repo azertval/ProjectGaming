@@ -18,6 +18,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/RenderMode.h"
 #include "HMI/Graphics/SkinCatalog.h"
+#include "HMI/Input/EditorKeyBindings.h"
 #include "HMI/Input/GameKeyBindings.h"
 #include "HMI/Input/GamepadBindings.h"
 #include "HMI/Input/GamepadPoller.h"
@@ -44,11 +45,13 @@ namespace hmi {
  * @brief Fenêtre native (`QWindow`) où Direct3D 11 présente, embarquée dans Qt.
  *
  * **Mode édition** (LOT-35) : affiche le brouillon (`core::LevelDraft`) via `hmi::DraftRenderer`,
- * caméra cadrant le niveau entier. Le clic/glisser gauche **peint** le type de tuile actif
- * (`setActiveTile`, fourni par la palette) à la case survolée (`core::LevelDraft::paintTile`) ;
- * `Ctrl+Z`/`Ctrl+Y` annulent/refont. **Mode essai** (LOT-35 TACHE-04) : une `hmi::GameSession`
- * rejoue le niveau ; sa boucle à pas fixe (`core::FixedTimestep`) et ses entrées (Qt + XInput)
- * reprennent la discipline du `LOT-33`.
+ * caméra cadrant le niveau entier par défaut. Le clic/glisser gauche **peint** le type de tuile
+ * actif (`setActiveTile`, fourni par la palette) à la case survolée (`core::LevelDraft::
+ * paintTile`) ; `Ctrl+Z`/`Ctrl+Y` annulent/refont. La molette **zoome** manuellement (borné entre
+ * l'ajustement automatique et 4 cases visibles sur le plus petit axe) et le glisser **bouton
+ * droit** déplace la caméra (« pan ») ; `0` revient au cadrage automatique (LOT-15). **Mode essai**
+ * (LOT-35 TACHE-04) : une `hmi::GameSession` rejoue le niveau ; sa boucle à pas fixe
+ * (`core::FixedTimestep`) et ses entrées (Qt + XInput) reprennent la discipline du `LOT-33`.
  */
 class GameViewport : public QWindow {
     Q_OBJECT
@@ -65,10 +68,21 @@ public:
         _activeTile = type;
     }
 
-    /// Définit l'outil d'édition actif (pinceau, rectangle, sélection ; relié à la barre d'outils).
-    void setTool(hmi::EditorTool tool) noexcept {
-        _tool = tool;
+    /// Définit l'asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), relié à la
+    /// sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.
+    void setActiveTextureAsset(std::optional<std::string> asset) noexcept {
+        _activeTextureAsset = std::move(asset);
     }
+
+    /**
+     * @brief Définit l'outil d'édition actif (pinceau, rectangle, sélection, lien, texture par
+     *        instance).
+     *
+     * Émet `toolChanged` si l'outil change réellement, pour que la barre d'outils reste
+     * synchronisée quand le changement vient d'ailleurs qu'un clic sur son panneau — le raccourci
+     * clavier de l'outil « Texture par instance » (`LOT-45`), aujourd'hui seul cas.
+     */
+    void setTool(hmi::EditorTool tool);
 
     /// Fournit le catalogue de traduction (les messages d'état émis sont alors localisés).
     void setLocalization(const Localization* loc) noexcept {
@@ -135,6 +149,15 @@ public:
     /// Supprime la liaison dont la cible est @p targetPosition (bouton « Supprimer » du panneau
     /// « Liens ») ; sans effet si @p targetPosition n'a pas de liaison.
     void unlinkMechanism(core::GridPosition targetPosition);
+
+    /// Retire l'override de texture de @p position (bouton « Retirer » de la section « Objets »,
+    /// `LOT-45`) ; sans effet si @p position n'en a pas.
+    void removeTextureOverride(core::GridPosition position);
+
+    /// Met en surbrillance une case portant un override (sélection depuis la section « Objets »,
+    /// `LOT-45`) ; n'affecte que le rendu, pas le brouillon. Réutilise le même voile que l'outil
+    /// Rectangle/Sélection (case unique).
+    void setHighlightedTextureOverride(std::optional<core::GridPosition> position);
 
     /**
      * @brief Assigne l'asset de fond du niveau courant (section « Fond », `LOT-44`).
@@ -215,6 +238,9 @@ signals:
     /// Le mode de rendu vient de basculer (`F8`) — la palette met ses vignettes à jour pour rester
     /// fidèle au canevas (`EX-EDIT-027`).
     void renderModeChanged(RenderMode mode);
+    /// L'outil actif vient de changer par un moyen autre que le panneau Outils (raccourci clavier,
+    /// `LOT-45`) — le panneau se resynchronise sans reboucler.
+    void toolChanged(hmi::EditorTool tool);
 
 protected:
     bool event(QEvent* event) override;
@@ -235,8 +261,18 @@ private:
     void loadGameLevel(std::size_t index);  ///< Charge le niveau @p index de la séquence de jeu.
     void updateMousePosition(const QMouseEvent* event);
 
-    /// Recale la caméra d'édition pour cadrer le niveau entier dans la surface courante.
+    /// Recale la caméra d'édition : cadrage automatique sur le niveau entier, sauf pan/zoom manuel
+    /// actif (molette/glisser bouton droit), auquel cas la caméra manuelle est réappliquée.
     void updateEditCamera();
+    /// Position écran (pixels physiques) d'un événement souris, convertie par le ratio d'affichage
+    /// — même conversion que `updateMousePosition`, réutilisée pour le pan manuel.
+    [[nodiscard]] core::Vector2 screenPosition(const QMouseEvent* event) const;
+    /// @return Le zoom manuel minimal autorisé : celui de l'ajustement automatique du brouillon
+    /// courant (rien à voir de plus loin).
+    [[nodiscard]] float minManualZoom() const;
+    /// @return Le zoom manuel maximal autorisé : la valeur laissant encore 4 cases visibles sur le
+    /// plus petit axe de l'écran (précision jugée suffisante pour poser un bloc).
+    [[nodiscard]] float maxManualZoom() const;
     /// Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.
     [[nodiscard]] std::optional<core::GridPosition> cellAt(const QMouseEvent* event);
     /// Case de grille sous @p event, **bornée** à la grille (jamais hors bornes) — pour les
@@ -255,6 +291,9 @@ private:
         const;
     /// Résout le clic de l'outil Lien (`hmi::resolveLinkClick`) et l'applique (attente, liaison).
     void handleLinkClick(const QMouseEvent* event);
+    /// Résout le clic de l'outil « Texture par instance » (`hmi::resolveTextureAssignClick`) et
+    /// l'applique (assignation/retrait) ; @p rightClick distingue le clic droit (retrait explicite).
+    void handleTextureAssignClick(const QMouseEvent* event, bool rightClick);
     /// @return true si (@p switchPosition, @p targetPosition) est déjà une liaison du brouillon.
     [[nodiscard]] bool linkExists(core::GridPosition switchPosition,
                                   core::GridPosition targetPosition) const;
@@ -282,6 +321,7 @@ private:
     std::string _skinSet;
     hmi::GameKeyBindings _gameBindings;
     hmi::GamepadBindings _gamepadBindings;
+    hmi::EditorKeyBindings _editorBindings;  ///< Raccourcis d'éditeur remappables (`LOT-45`).
     hmi::InputState _input;
     hmi::GamepadPoller _gamepad;
     core::FixedTimestep _timestep;
@@ -289,8 +329,23 @@ private:
     bool _loopStarted = false;
 
     core::LevelDraft _draft;  ///< Brouillon en cours d'édition (source de vérité).
-    hmi::Camera2D _camera;    ///< Caméra d'édition (cadre le niveau entier).
+    hmi::Camera2D _camera;    ///< Caméra d'édition (cadre le niveau entier par défaut).
+    /// `true` dès que la molette ou un glisser bouton droit a été utilisé : la caméra suit
+    /// `_manualZoom`/`_manualCenter` plutôt que le cadrage automatique, jusqu'à la réinitialisation
+    /// (`0`) ou l'ouverture d'un autre niveau. Restaure le pan/zoom manuel de l'éditeur historique
+    /// (`EditorScreen`, LOT-15), perdu lors de la réécriture Direct3D11/Qt.
+    bool _manualCamera = false;
+    float _manualZoom = 1.0f;            ///< Zoom manuel courant, actif si `_manualCamera`.
+    core::Vector2 _manualCenter{};       ///< Centre manuel courant, actif si `_manualCamera`.
+    bool _rightDragging = false;         ///< Un glisser bouton droit est en cours (pan potentiel).
+    /// `true` dès qu'un glisser bouton droit a dépassé le seuil de mouvement : distingue un pan
+    /// d'un simple clic droit (retrait d'override, outil « Texture par instance »).
+    bool _cameraPanned = false;
+    core::Vector2 _rightDragLastScreen{};  ///< Dernière position écran du glisser droit en cours.
     core::TileType _activeTile = core::TileType::Solid;  ///< Type peint au clic (palette).
+    /// Asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), vide si aucun n'est
+    /// sélectionné dans la bibliothèque « Objets ».
+    std::optional<std::string> _activeTextureAsset;
     hmi::EditorTool _tool = hmi::EditorTool::Paint;  ///< Outil d'édition actif (barre d'outils).
     bool _painting = false;             ///< Un glisser de peinture (Pinceau) est en cours.
     bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.
@@ -305,6 +360,9 @@ private:
     std::optional<core::GridPosition> _pendingLink;
     /// Liaison sélectionnée dans le panneau « Liens » (déclencheur, cible) : mise en surbrillance.
     std::optional<std::pair<core::GridPosition, core::GridPosition>> _selectedLink;
+    /// Case sélectionnée dans la section « Objets » du panneau « Textures » (`LOT-45`) : mise en
+    /// surbrillance, même voile que l'outil Rectangle/Sélection.
+    std::optional<core::GridPosition> _highlightedOverride;
     /// Presse-papiers local (types de tuiles, `[ligne][colonne]`), pour `Ctrl+C`/`Ctrl+V`.
     std::vector<std::vector<core::TileType>> _clipboard;
     bool _dirty = false;    ///< Modifications non enregistrées (garde-fou d'ouverture).

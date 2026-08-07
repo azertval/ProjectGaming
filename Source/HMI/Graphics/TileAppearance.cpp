@@ -48,8 +48,25 @@ TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& p
         return TileAppearance{AppearanceSource::Atlas, physicalRegion, -1};
     }
 
-    // Entite non habillable (personnage, aides d'edition) ou catalogue absent : damier.
-    if (tag == nullptr || textures.skinCatalog == nullptr) {
+    // Entite non habillable (personnage, aides d'edition) : damier.
+    if (tag == nullptr) {
+        return missingAppearance();
+    }
+
+    // Surcharge de texture par instance (EX-EDIT-043, LOT-45) : prioritaire sur le skin du type,
+    // lui-meme prioritaire sur le damier -- verifiee avant tout acces au catalogue de skins. Un
+    // asset introuvable retombe directement sur le damier, jamais sur le skin du type.
+    if (tag->overrideAsset) {
+        const int index = textures.objectIndexOf(*tag->overrideAsset);
+        if (index < 0) {
+            return missingAppearance();
+        }
+        constexpr int SIZE = TextureAtlas::TILE_SIZE;
+        return TileAppearance{AppearanceSource::Override, core::AtlasRegion{0, 0, SIZE, SIZE},
+                              index};
+    }
+
+    if (textures.skinCatalog == nullptr) {
         return missingAppearance();
     }
 

@@ -17,7 +17,10 @@ namespace hmi {
  * plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ;
  * refaire la même paire la supprime (bascule) — voir `hmi::resolveLinkClick`. `Échap` annule une
  * attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon.
+ * `TextureAssign` (`LOT-45`, `EX-EDIT-043`) assigne une texture par instance à une case : clic
+ * gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic
+ * droit retire l'assignation — voir `hmi::resolveTextureAssignClick`.
  */
-enum class EditorTool { Paint, Rectangle, Selection, Link };
+enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign };
 
 }  // namespace hmi

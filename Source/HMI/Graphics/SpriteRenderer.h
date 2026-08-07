@@ -3,6 +3,7 @@
 #include <optional>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <DirectXMath.h>
 
@@ -18,6 +19,7 @@
 
 namespace core {
 class World;
+struct TileTextureOverride;
 }
 
 namespace hmi {
@@ -47,6 +49,9 @@ inline const std::string SKINS_SUBDIRECTORY = "Skins/";
 /// Sous-dossier des fonds de niveau, relatif au dossier d'assets (`LOT-44`).
 inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
 
+/// Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (`LOT-45`).
+inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
+
 /**
  * @brief Textures liables par la composition d'une scène : atlas, damier de repli et skins.
  *
@@ -58,11 +63,16 @@ inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
  * @param cache   Cache de textures, propriétaire du damier partagé et des skins.
  * @param skins   Catalogue des jeux de skins, ou `nullptr` si aucun n'est chargé (`LOT-42`).
  * @param skinSet Nom du jeu de skins courant ; vide pour le jeu par défaut du catalogue.
+ * @param textureOverrides Surcharges de texture par instance du niveau courant (`EX-EDIT-043`,
+ *                 `LOT-45`) ; chaque asset distinct est chargé une fois (`hmi::SceneTextures::
+ *                 objects`), un asset déjà chargé ou introuvable étant silencieusement ignoré (la
+ *                 résolution retombe sur le damier, avertissement déjà journalisé par le cache).
  * @return Les textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
  */
-[[nodiscard]] SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
-                                          const SkinCatalog* skins = nullptr,
-                                          const std::string& skinSet = {});
+[[nodiscard]] SceneTextures sceneTextures(
+    const TextureAtlas& atlas, TextureCache& cache, const SkinCatalog* skins = nullptr,
+    const std::string& skinSet = {},
+    const std::vector<core::TileTextureOverride>& textureOverrides = {});
 
 /**
  * @brief Résout la texture de fond d'un niveau (accès `TextureCache`/GPU, `LOT-44`).
@@ -125,10 +135,13 @@ public:
      * @param levelWidth  Largeur du niveau, en unités monde (une case = une unité) ; ignoré si
      *                    @p background est absent.
      * @param levelHeight Hauteur du niveau, en unités monde.
+     * @param textureOverrides Surcharges de texture par instance du niveau courant (`EX-EDIT-043`,
+     *                    `LOT-45`), transmises telles quelles à `hmi::sceneTextures`.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
-                int levelWidth = 0, int levelHeight = 0);
+                int levelWidth = 0, int levelHeight = 0,
+                const std::vector<core::TileTextureOverride>& textureOverrides = {});
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

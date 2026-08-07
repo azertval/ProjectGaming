@@ -43,6 +43,7 @@ enum class Key : std::uint16_t {
     Q = 0x51,
     R = 0x52,  // Ctrl+R : redimensionner par saisie directe (éditeur, LOT-16)
     S = 0x53,  // Ctrl+S : enregistrer (éditeur, LOT-14)
+    T = 0x54,  // Outil « Texture par instance » (éditeur, LOT-45)
     V = 0x56,  // Ctrl+V : coller une zone (éditeur, LOT-15)
     W = 0x57,
     Y = 0x59,    // Ctrl+Y : refaire (éditeur, LOT-14)

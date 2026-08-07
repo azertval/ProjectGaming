@@ -1,6 +1,7 @@
 #include "HMI/Graphics/SpriteRenderer.h"
 
 #include "Core/Ecs/World.h"
+#include "Core/Levels/Level.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -43,7 +44,8 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
 
 // Textures liables par la composition d'une scene : atlas, damier de repli et skins (point unique).
 SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
-                            const SkinCatalog* skins, const std::string& skinSet) {
+                            const SkinCatalog* skins, const std::string& skinSet,
+                            const std::vector<core::TileTextureOverride>& textureOverrides) {
     SceneTextures textures;
     textures.atlas = atlas.textureView();
     textures.atlasWidth = atlas.width();
@@ -53,6 +55,21 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         textures.missing = missing->view.Get();
         textures.missingWidth = missing->width;
         textures.missingHeight = missing->height;
+    }
+
+    // Charge les surcharges de texture par instance (EX-EDIT-043, LOT-45), independamment du
+    // catalogue de skins : plusieurs cases peuvent partager le meme asset, charge une seule fois.
+    for (const core::TileTextureOverride& override : textureOverrides) {
+        if (textures.objectIndexOf(override.assetName) >= 0) {
+            continue;  // asset deja charge.
+        }
+        const LoadedTexture* loaded =
+            cache.get(OBJECTS_SUBDIRECTORY + override.assetName, AssetFamily::Object);
+        if (loaded == nullptr) {
+            continue;  // absent/illisible/refuse : la resolution retombera sur le damier.
+        }
+        textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->view.Get(),
+                                               loaded->width, loaded->height});
     }
 
     textures.skinCatalog = skins;
@@ -111,12 +128,14 @@ SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, Te
 void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMode mode,
                             float interpolationAlpha,
                             const std::optional<std::string>& background, int levelWidth,
-                            int levelHeight) {
+                            int levelHeight,
+                            const std::vector<core::TileTextureOverride>& textureOverrides) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
-    composeWorldSprites(_scene, world, mode, sceneTextures(*_atlas, *_cache, _skins, _skinSet),
+    composeWorldSprites(_scene, world, mode,
+                        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides),
                         interpolationAlpha);
     _scene.sort();
     logStatisticsIfChanged();

@@ -148,6 +148,7 @@ add_executable(ProjectGaming
     Editor/LevelNameValidation.cpp
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
+    Editor/TextureAssignGesture.cpp
     Editor/AssetLibrary.cpp
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp

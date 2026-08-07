@@ -34,6 +34,15 @@ public:
     /// Applique la langue active aux libellés des outils.
     void retranslateUi(const Localization& loc);
 
+    /**
+     * @brief Coche le bouton radio de @p tool sans émettre `toolSelected` (`LOT-45`).
+     *
+     * Resynchronise le panneau quand l'outil change par un autre moyen que ses propres boutons —
+     * le raccourci clavier de « Texture par instance ». Émettre `toolSelected` ici rebouclerait
+     * sur `GameViewport::setTool`, déjà à jour.
+     */
+    void setActiveTool(hmi::EditorTool tool);
+
 signals:
     void toolSelected(hmi::EditorTool tool);
 

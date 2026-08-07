@@ -1,6 +1,6 @@
 # TACHE-02 — Outil et geste d'assignation de texture {#lot-45-tache-02-outil-assignation}
 
-**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 L'éditeur dispose déjà d'outils sélectionnables (`hmi::EditorTool` : Pinceau, Rectangle, Sélection,
