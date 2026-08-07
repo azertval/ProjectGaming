@@ -18,6 +18,12 @@
      <item>
       <widget class="QComboBox" name="setSelector"/>
      </item>
+     <item>
+      <widget class="QPushButton" name="reloadButton">
+       <property name="text"><string>Recharger</string></property>
+       <property name="toolTip"><string>Recharge les textures depuis le disque</string></property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

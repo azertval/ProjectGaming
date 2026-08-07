@@ -1,6 +1,6 @@
 # LOT-43 — Bibliothèque d'assets : vignettes, import, rechargement à chaud {#lot-43}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache* et son invalidation),
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (*TextureCache* et son invalidation),
 > [LOT-42](@ref lot-42) (panneau « Textures »).
 
 ## Objectif
@@ -61,9 +61,9 @@ suit, pas un confort de fin de programme.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-widget-vignettes.md) | Widget de vignettes partagé (décodage CPU → `QPixmap`) | `Source/HMI/Editor` | ⬜ |
-| [TACHE-02](tache-02-gestion-fichiers.md) | Import, renommage, duplication, suppression + détection des références | `Source/HMI/Editor` | ⬜ |
-| [TACHE-03](tache-03-rechargement-chaud.md) | Rechargement à chaud (invalidation *TextureCache* + régénération des vignettes) | `Source/HMI/Graphics`, `Source/HMI/Editor` | ⬜ |
+| [TACHE-01](tache-01-widget-vignettes.md) | Widget de vignettes partagé (décodage CPU → `QPixmap`) | `Source/HMI/Editor` | ✅ |
+| [TACHE-02](tache-02-gestion-fichiers.md) | Import, renommage, duplication, suppression + détection des références | `Source/HMI/Editor` | ✅ |
+| [TACHE-03](tache-03-rechargement-chaud.md) | Rechargement à chaud (invalidation *TextureCache* + régénération des vignettes) | `Source/HMI/Graphics`, `Source/HMI/Editor` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Les sections du panneau « Textures » affichent des vignettes au lieu d'une liste texte, sans

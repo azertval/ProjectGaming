@@ -147,6 +147,10 @@ add_executable(ProjectGaming
     Editor/LevelNameValidation.cpp
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
+    Editor/AssetLibrary.cpp
+    Editor/AssetThumbnailView.cpp
+    Editor/AssetFileOperations.cpp
+    Editor/AssetReferences.cpp
     # Ressource embarquée (thème .qss) — traitée par AUTORCC.
     ${ELEMENTS_UI}/resources.qrc
     # Mises en page Qt Designer — traitées par AUTOUIC (génèrent ui_*.h).
@@ -156,6 +160,7 @@ add_executable(ProjectGaming
     ${ELEMENTS_UI}/ToolPanel.ui
     ${ELEMENTS_UI}/TexturePanel.ui
     ${ELEMENTS_UI}/LevelBrowserPanel.ui
+    ${ELEMENTS_UI}/AssetThumbnailView.ui
 )
 
 # Racine d'inclusion Source/ (pour les includes "HMI/..." et "Core/...").

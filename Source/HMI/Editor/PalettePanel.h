@@ -63,6 +63,14 @@ public:
      */
     void refreshThumbnails(RenderMode mode, const std::string& setName);
 
+    /**
+     * @brief Vide le cache d'images décodées (rechargement à chaud, `LOT-43` TACHE-03).
+     *
+     * Sans effet visible tant que `refreshThumbnails` n'est pas rappelé ensuite : un fichier
+     * modifié hors de l'application reste caché tant que le décodage n'est pas rejoué.
+     */
+    void clearThumbnailCache();
+
 signals:
     /// Émis quand l'utilisateur sélectionne une tuile (feuille) dans l'arbre.
     void tileSelected(core::TileType type);

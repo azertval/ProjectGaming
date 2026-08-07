@@ -2,13 +2,13 @@
 
 #include <optional>
 #include <string>
-#include <unordered_map>
 
 #include <d3d11.h>
 
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
+#include "HMI/Graphics/CacheRegistry.h"
 #include "HMI/Graphics/SlopeMask.h"
 #include "HMI/Graphics/TextureLoader.h"
 
@@ -144,8 +144,10 @@ private:
 
     ID3D11Device* _device;  // non possédé
     AssetPaths _paths;
-    /// Nom logique → texture chargée ; `std::nullopt` mémorise un **échec** déjà journalisé.
-    std::unordered_map<std::string, std::optional<LoadedTexture>> _entries;
+    /// Nom logique → texture chargée ; mémorise aussi un **échec** déjà journalisé. La
+    /// mémoïsation/invalidation elle-même est factorisée dans `hmi::CacheRegistry` (`LOT-43`),
+    /// testable sans GPU ; seul le **chargement** (`load`) reste ici, spécifique à Direct3D 11.
+    CacheRegistry<LoadedTexture> _entries;
     std::optional<LoadedTexture> _missingTexture;
 };
 

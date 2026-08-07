@@ -1,6 +1,6 @@
 # TACHE-02 — Import, renommage, duplication, suppression et détection des références {#lot-43-tache-02-gestion-fichiers}
 
-**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-43](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Pour habiller un niveau, l'auteur doit aujourd'hui quitter l'application, copier un PNG dans le bon
