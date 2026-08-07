@@ -12,14 +12,14 @@
 #include "HMI/Input/EditorKeyBindings.h"
 
 /**
- * @brief Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la construction.
- * \castest{<b>Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la
+ * @brief Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la construction.
+ * \castest{<b>Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la
  * construction.</b><br/>
  * \tcat Unitaire · Editor Key Bindings<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
  * verifier les assertions.<br/>
- * \tattendu Les neuf actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2) à la
+ * \tattendu Les dix actions ont leurs valeurs par défaut (S/Z/Y/C/V/P/F10/F1/F2/T) à la
  * construction.
  * }
  */
@@ -34,6 +34,7 @@ TEST(EditorKeyBindingsTest, ValeursParDefautALaConstruction) {
     EXPECT_EQ(bindings.key(hmi::EditorAction::ToggleGrid), hmi::Key::F10);
     EXPECT_EQ(bindings.key(hmi::EditorAction::ToggleHelp), hmi::Key::F1);
     EXPECT_EQ(bindings.key(hmi::EditorAction::Rename), hmi::Key::F2);
+    EXPECT_EQ(bindings.key(hmi::EditorAction::TextureAssignTool), hmi::Key::T);
 }
 
 /**

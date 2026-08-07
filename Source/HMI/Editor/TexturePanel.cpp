@@ -1,12 +1,14 @@
 #include "HMI/Editor/TexturePanel.h"
 
 #include <QAbstractItemModel>
+#include <QAbstractItemView>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QHeaderView>
 #include <QIcon>
 #include <QImage>
+#include <QItemSelectionModel>
 #include <QList>
 #include <QModelIndex>
 #include <QPushButton>
@@ -16,16 +18,19 @@
 #include <QString>
 #include <QStringList>
 #include <QStyledItemDelegate>
+#include <QTableView>
 #include <QTreeView>
 #include <QVBoxLayout>
 #include <QVariant>
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <optional>
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/LevelDraft.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/AssetThumbnailView.h"
 #include "HMI/Editor/SkinAssignments.h"
@@ -46,6 +51,16 @@ constexpr int COLUMN_TYPE = 0;
 constexpr int COLUMN_ASSET = 1;
 constexpr int COLUMN_MODE = 2;
 constexpr int COLUMN_COUNT = 3;
+
+// Colonnes du tableau des surcharges de la section « Objets » (LOT-45) : position et asset.
+constexpr int OBJECTS_COLUMN_POSITION = 0;
+constexpr int OBJECTS_COLUMN_ASSET = 1;
+constexpr int OBJECTS_COLUMN_COUNT = 2;
+
+// Libelle "(colonne, ligne)" d'une position de grille -- meme format que LinkPanel.cpp.
+QString positionText(core::GridPosition position) {
+    return QStringLiteral("(%1, %2)").arg(position.column).arg(position.row);
+}
 
 // Role portant le core::TileType d'une ligne (les en-tetes de section n'en ont pas).
 constexpr int TILE_TYPE_ROLE = Qt::UserRole + 1;
@@ -158,14 +173,18 @@ private:
 }  // namespace
 
 TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
-                           std::filesystem::path backgroundsDirectory, QWidget* parent)
+                           std::filesystem::path backgroundsDirectory,
+                           std::filesystem::path objectsDirectory, QWidget* parent)
     : QWidget(parent),
       _ui(std::make_unique<Ui::TexturePanel>()),
       _model(new QStandardItemModel(this)),
       _backgroundView(nullptr),
+      _objectView(nullptr),
+      _objectsModel(new QStandardItemModel(0, OBJECTS_COLUMN_COUNT, this)),
       _skinsDirectory(std::move(skinsDirectory)),
       _catalogPath(std::move(catalogPath)),
-      _backgroundsDirectory(std::move(backgroundsDirectory)) {
+      _backgroundsDirectory(std::move(backgroundsDirectory)),
+      _objectsDirectory(std::move(objectsDirectory)) {
     _ui->setupUi(this);
     _model->setColumnCount(COLUMN_COUNT);
     _ui->skinsTree->setModel(_model);
@@ -197,6 +216,26 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
         const QString text = _ui->levelSkinSetSelector->itemText(index);
         emit levelSkinSetChanged(text == defaultSetLabel(_loc) ? QString() : text);
     });
+
+    // Section « Objets » (LOT-45) : grille de vignettes pour choisir l'asset actif de l'outil
+    // « Texture par instance » (aucune entree "(aucun)" -- selectionner une case vide n'a pas de
+    // sens, on choisit toujours un asset avant d'assigner), plus le tableau des surcharges deja
+    // posees sur le niveau, avec surbrillance croisee et retrait.
+    _objectView = new AssetThumbnailView(this);
+    _objectView->setAssetFamily(AssetFamily::Object);
+    _objectView->setNoneOptionVisible(false);
+    _objectView->setDirectory(_objectsDirectory);
+    _ui->objectPickerContainerLayout->addWidget(_objectView);
+    connect(_objectView, &AssetThumbnailView::assetSelected, this,
+            [this](const QString& fileName) { emit textureOverrideAssetSelected(fileName); });
+
+    _ui->objectsTable->setModel(_objectsModel);
+    _ui->objectsTable->horizontalHeader()->setStretchLastSection(true);
+    _ui->objectsTable->verticalHeader()->setVisible(false);
+    connect(_ui->objectsTable->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            [this] { onObjectsSelectionChanged(); });
+    connect(_ui->objectsRemoveButton, &QPushButton::clicked, this,
+            [this] { onObjectsRemoveClicked(); });
 }
 
 TexturePanel::~TexturePanel() = default;
@@ -229,15 +268,24 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->reloadButton->setToolTip(QString::fromStdString(loc.text("textures.reload_tooltip")));
     _ui->sections->setTabText(0, QString::fromStdString(loc.text("textures.section_skins")));
     _ui->sections->setTabText(1, QString::fromStdString(loc.text("textures.section_background")));
+    _ui->sections->setTabText(2, QString::fromStdString(loc.text("textures.section_objects")));
     _ui->backgroundModeHintLabel->setText(
         QString::fromStdString(loc.text("textures.background_mode_hint")));
     _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));
     _ui->levelSkinSetLabel->setText(QString::fromStdString(loc.text("textures.level_skin_set")));
     _ui->levelSkinSetLabel->setToolTip(
         QString::fromStdString(loc.text("textures.level_skin_set_tooltip")));
+    _ui->objectsAssetLabel->setText(QString::fromStdString(loc.text("textures.objects_asset_label")));
+    _ui->objectsListLabel->setText(QString::fromStdString(loc.text("textures.objects_list_label")));
+    _ui->objectsRemoveButton->setText(QString::fromStdString(loc.text("textures.objects_remove")));
+    _objectsModel->setHorizontalHeaderLabels(
+        {QString::fromStdString(loc.text("textures.objects_column_position")),
+         QString::fromStdString(loc.text("textures.objects_column_asset"))});
     _backgroundView->retranslateUi(loc);
+    _objectView->retranslateUi(loc);
     rebuildTree();
     rebuildLevelSkinSetSelector();  // le libelle "jeu par defaut" vient de changer de langue
+    rebuildObjectRows();
 }
 
 // Reconstruit entierement l'arbre depuis le catalogue et le contenu du dossier de skins.
@@ -435,6 +483,65 @@ void TexturePanel::reloadAssets() {
     // application) : la resynchroniser avec la propriete du niveau, sans reemettre le signal.
     const QSignalBlocker blocker(_backgroundView);
     _backgroundView->selectAsset(_levelBackground.value_or(std::string{}));
+    _objectView->clearCache();
+    _objectView->refresh();
+}
+
+// Resynchronise la section « Objets » avec le brouillon courant (LOT-45).
+void TexturePanel::refreshObjects(const core::LevelDraft& draft) {
+    _objectRows = draft.textureOverrides();
+    // Tri stable par position (colonne puis ligne) : un grand niveau peut porter beaucoup de
+    // surcharges, une liste dans l'ordre d'insertion serait illisible.
+    std::stable_sort(_objectRows.begin(), _objectRows.end(),
+                     [](const core::TileTextureOverride& lhs, const core::TileTextureOverride& rhs) {
+                         if (lhs.position.column != rhs.position.column) {
+                             return lhs.position.column < rhs.position.column;
+                         }
+                         return lhs.position.row < rhs.position.row;
+                     });
+    rebuildObjectRows();
+}
+
+// Reconstruit le tableau depuis _objectRows.
+void TexturePanel::rebuildObjectRows() {
+    _objectsModel->removeRows(0, _objectsModel->rowCount());
+    for (const core::TileTextureOverride& override : _objectRows) {
+        auto* const positionItem = new QStandardItem(positionText(override.position));
+        auto* const assetItem = new QStandardItem(QString::fromStdString(override.assetName));
+        positionItem->setEditable(false);
+        assetItem->setEditable(false);
+        _objectsModel->appendRow(QList<QStandardItem*>{positionItem, assetItem});
+    }
+    _ui->objectsRemoveButton->setEnabled(false);
+}
+
+void TexturePanel::onObjectsSelectionChanged() {
+    const QModelIndexList selected = _ui->objectsTable->selectionModel()->selectedRows();
+    if (selected.isEmpty()) {
+        _ui->objectsRemoveButton->setEnabled(false);
+        emit textureOverrideSelectionChanged(std::nullopt);
+        return;
+    }
+    const int row = selected.first().row();
+    if (row < 0 || static_cast<std::size_t>(row) >= _objectRows.size()) {
+        _ui->objectsRemoveButton->setEnabled(false);
+        emit textureOverrideSelectionChanged(std::nullopt);
+        return;
+    }
+    _ui->objectsRemoveButton->setEnabled(true);
+    emit textureOverrideSelectionChanged(_objectRows[static_cast<std::size_t>(row)].position);
+}
+
+void TexturePanel::onObjectsRemoveClicked() {
+    const QModelIndexList selected = _ui->objectsTable->selectionModel()->selectedRows();
+    if (selected.isEmpty()) {
+        return;
+    }
+    const int row = selected.first().row();
+    if (row < 0 || static_cast<std::size_t>(row) >= _objectRows.size()) {
+        return;
+    }
+    emit textureOverrideRemoveRequested(_objectRows[static_cast<std::size_t>(row)].position);
 }
 
 // Enregistre le catalogue au chemin deploye, comme l'enregistrement d'un niveau.

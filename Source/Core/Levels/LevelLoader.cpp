@@ -110,6 +110,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         std::vector<DangerSwitchedLink> switchedDangers;
         std::vector<DangerMoverConfig> moverConfigs;
         std::vector<DangerBlinkConfig> blinkConfigs;
+        std::vector<TileTextureOverride> textureOverrides;
 
         // Chaque objet de 'tiles' place une tuile dans la grille.
         for (const nlohmann::json& tile : root.at("tiles")) {
@@ -133,6 +134,13 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                LevelValidationError::DuplicatePosition);
             }
             map.setTile(x, y, *type);
+
+            // Texture assignee par instance (EX-EDIT-043), independante du type de tuile : pas
+            // de liste blanche (usage purement visuel, contrairement aux liens de mecanismes).
+            if (tile.contains("texture")) {
+                textureOverrides.push_back(
+                    TileTextureOverride{GridPosition{x, y}, tile.at("texture").get<std::string>()});
+            }
 
             if (*type == TileType::Entry) {
                 entry = GridPosition{x, y};
@@ -234,7 +242,7 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                      std::move(mechanisms), jumpBudget, dashBudget,
                                      std::move(dangerLinks), std::move(moverConfigs),
                                      std::move(blinkConfigs), std::move(background),
-                                     std::move(skinSet)),
+                                     std::move(skinSet), std::move(textureOverrides)),
                                {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);

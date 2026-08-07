@@ -67,6 +67,8 @@ public:
      *                     `activeDuration`.
      * @param background   Nom de l'asset de fond (`EX-REN-044`), omis du JSON si absent.
      * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), omis du JSON si absent.
+     * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`) ; une tuile sans
+     *                     override correspondant est émise sans champ `"texture"`.
      * @return Le contenu JSON correspondant.
      */
     [[nodiscard]] static std::string buildJson(
@@ -75,7 +77,8 @@ public:
         const std::vector<DangerMoverConfig>& moverConfigs = {},
         const std::vector<DangerBlinkConfig>& blinkConfigs = {},
         const std::optional<std::string>& background = std::nullopt,
-        const std::optional<std::string>& skinSet = std::nullopt);
+        const std::optional<std::string>& skinSet = std::nullopt,
+        const std::vector<TileTextureOverride>& textureOverrides = {});
 };
 
 }  // namespace core

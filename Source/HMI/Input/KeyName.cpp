@@ -55,6 +55,8 @@ std::string keyDisplayName(Key key) {
             return "R";
         case Key::S:
             return "S";
+        case Key::T:
+            return "T";
         case Key::V:
             return "V";
         case Key::W:

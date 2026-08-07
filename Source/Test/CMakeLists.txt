@@ -21,6 +21,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_outcome.cpp
     Unit/Core/Levels/test_danger_geometry.cpp
     Unit/Core/Levels/test_tile_type_name.cpp
+    Unit/Core/Levels/test_tile_texture_override.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -54,6 +55,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_skin_catalog.cpp
     Unit/HMI/Graphics/test_tile_autotile.cpp
     Unit/HMI/Graphics/test_tile_skin_resolution.cpp
+    Unit/HMI/Graphics/test_texture_resolution.cpp
     Unit/HMI/Graphics/test_slope_mask.cpp
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Localization/test_localization.cpp
@@ -65,6 +67,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_level_file_operations.cpp
     Unit/HMI/Editor/test_link_geometry.cpp
     Unit/HMI/Editor/test_link_gesture.cpp
+    Unit/HMI/Editor/test_texture_assign_gesture.cpp
     Unit/HMI/Editor/test_asset_library.cpp
     Unit/HMI/Editor/test_asset_file_operations.cpp
     Unit/HMI/Editor/test_asset_references.cpp
@@ -149,6 +152,9 @@ add_executable(UnitTests
     # logique pure, testable hors GPU/Qt.
     ../HMI/Editor/LinkGeometry.cpp
     ../HMI/Editor/LinkGesture.cpp
+    # Geste pur de l'outil « Texture par instance » (LOT-45) : meme patron que LinkGesture.cpp,
+    # testable hors Qt/GPU.
+    ../HMI/Editor/TextureAssignGesture.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
     # testable hors Qt.
     ../HMI/Editor/AssetLibrary.cpp

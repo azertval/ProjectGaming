@@ -67,10 +67,13 @@ public:
     /// (flèches, trait provisoire, surbrillance — `EX-IHM-030`). @p mode choisit le rendu
     /// Physique ou Texture des tuiles (`EX-REN-046`, `LOT-41`) ; les **aides d'édition** (grille,
     /// liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas
-    /// de l'habillage.
+    /// de l'habillage. Si @p showTextureOverrides, les cases portant une surcharge de texture par
+    /// instance (`EX-EDIT-043`, `LOT-45`) sont signalées sur le calque d'édition — actif seulement
+    /// quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils.
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
-                const LinkOverlayState& linkOverlay, RenderMode mode);
+                const LinkOverlayState& linkOverlay, RenderMode mode,
+                bool showTextureOverrides = false);
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).
@@ -104,6 +107,9 @@ private:
     void composeLinks(const core::LevelDraft& draft, const LinkOverlayState& overlay);
     /// Compose le voile d'aperçu d'une zone (outil Rectangle/Sélection) sur le calque d'édition.
     void composeHighlight(const core::GridPosition& minimum, const core::GridPosition& maximum);
+    /// Signale les cases portant une surcharge de texture par instance sur le calque d'édition
+    /// (`EX-EDIT-043`, `LOT-45`).
+    void composeTextureOverrideMarkers(const core::LevelDraft& draft);
 
     SpriteBatch& _batch;
     const TextureAtlas& _atlas;

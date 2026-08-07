@@ -49,6 +49,14 @@ textures.level_skin_set = Jeu de skins du niveau
 textures.level_skin_set_tooltip = Jeu de skins utilisé par CE niveau, distinct du sélecteur « Jeu de skins » ci-dessus (jeu courant d'édition).
 textures.default_set = (jeu par défaut)
 
+# Section « Objets » du panneau Textures (LOT-45)
+textures.section_objects = Objets
+textures.objects_asset_label = Asset à assigner
+textures.objects_list_label = Surcharges du niveau
+textures.objects_remove = Retirer
+textures.objects_column_position = Position
+textures.objects_column_asset = Fichier
+
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…
 assets.none = (aucun)
@@ -76,6 +84,7 @@ tool.brush = Pinceau
 tool.rectangle = Rectangle
 tool.selection = Sélection
 tool.link = Lien
+tool.texture_assign = Texture
 
 # Panneau Liens (LOT-37)
 link.column.type = Type

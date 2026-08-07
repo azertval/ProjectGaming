@@ -7,7 +7,10 @@
 #include <optional>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/SkinCatalog.h"
 
@@ -23,6 +26,10 @@ class QStandardItemModel;
 namespace Ui {
 class TexturePanel;
 }
+
+namespace core {
+class LevelDraft;
+}  // namespace core
 
 namespace hmi {
 
@@ -56,10 +63,13 @@ public:
      * @param catalogPath          Chemin d'écriture de `skins.json`.
      * @param backgroundsDirectory Dossier balayé pour peupler la grille de fonds (section « Fond »,
      *                             `LOT-44`).
+     * @param objectsDirectory     Dossier balayé pour peupler la grille d'assets de la section
+     *                             « Objets » (`LOT-45`).
      * @param parent               Widget parent.
      */
     explicit TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
-                          std::filesystem::path backgroundsDirectory, QWidget* parent = nullptr);
+                          std::filesystem::path backgroundsDirectory,
+                          std::filesystem::path objectsDirectory, QWidget* parent = nullptr);
     ~TexturePanel() override;
 
     /**
@@ -99,6 +109,16 @@ public:
      */
     void reloadAssets();
 
+    /**
+     * @brief Resynchronise la section « Objets » avec le brouillon courant (`LOT-45`).
+     *
+     * À appeler après tout changement de brouillon (peinture, undo/redo, chargement), comme
+     * `LinkPanel::refresh` : reconstruit la liste des surcharges depuis @p draft, sans en garder de
+     * copie entre deux appels.
+     * @param draft Brouillon dont on lit `textureOverrides()`.
+     */
+    void refreshObjects(const core::LevelDraft& draft);
+
 signals:
     /// Émis après toute modification d'assignation ou changement de jeu courant, une fois le
     /// catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.
@@ -111,6 +131,14 @@ signals:
     /// Émis quand l'utilisateur choisit le jeu de skins **du niveau** (`LOT-44`), distinct du jeu
     /// courant d'édition : nom du jeu, vide pour « jeu par défaut ».
     void levelSkinSetChanged(const QString& setName);
+    /// Émis quand l'utilisateur choisit un asset dans la grille « Objets » (`LOT-45`) : asset actif
+    /// de l'outil « Texture par instance » ; vide si aucun n'est sélectionné.
+    void textureOverrideAssetSelected(const QString& fileName);
+    /// Émis quand la sélection change dans la liste des surcharges du niveau (surbrillance dans le
+    /// viewport), ou `std::nullopt` si aucune ligne n'est sélectionnée.
+    void textureOverrideSelectionChanged(std::optional<core::GridPosition> position);
+    /// Émis par le bouton « Retirer » de la section « Objets » pour la ligne sélectionnée.
+    void textureOverrideRemoveRequested(core::GridPosition position);
 
 private:
     void rebuildTree();
@@ -124,13 +152,23 @@ private:
     /// Reconstruit la liste du sélecteur de jeu de skins **du niveau** (section « Fond »), à partir
     /// des jeux du catalogue, plus l'entrée « jeu par défaut ».
     void rebuildLevelSkinSetSelector();
+    /// Reconstruit le tableau des surcharges depuis `_objectRows` (tri stable par position, déjà
+    /// posé par `refreshObjects`).
+    void rebuildObjectRows();
+    void onObjectsSelectionChanged();
+    void onObjectsRemoveClicked();
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
     AssetThumbnailView* _backgroundView;  ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
+    AssetThumbnailView* _objectView;      ///< Grille de vignettes de `Assets/Objects/` (LOT-45).
+    QStandardItemModel* _objectsModel;    ///< Modèle du tableau des surcharges (LOT-45).
     std::filesystem::path _skinsDirectory;
     std::filesystem::path _catalogPath;
     std::filesystem::path _backgroundsDirectory;
+    std::filesystem::path _objectsDirectory;
+    /// Surcharges affichées par le tableau, indexées comme ses lignes (`LOT-45`).
+    std::vector<core::TileTextureOverride> _objectRows;
     SkinCatalog* _catalog = nullptr;  ///< Non possédé (propriété de `GameViewport`).
     std::string _currentSet;
     /// Dernières valeurs poussées par `setLevelProperties` (LOT-44) : reappliquées après tout

@@ -85,6 +85,20 @@ struct DangerBlinkConfig {
 };
 
 /**
+ * @brief Texture assignée explicitement à **une case précise**, prioritaire sur le skin de son
+ *        type (`EX-EDIT-043`, LOT-42).
+ *
+ * Même patron que `Mechanism`/`DangerLink`/`DangerMoverConfig`/`DangerBlinkConfig` : vecteur
+ * annexe de `Level`, keyé par position, `TileMap` ne portant qu'un `TileType` par case. Le nom
+ * d'asset est une simple chaîne : `Core` ne vérifie pas son existence (`EX-NFR-011`), un override
+ * pointant un fichier absent reste un niveau valide.
+ */
+struct TileTextureOverride {
+    GridPosition position;
+    std::string assetName;
+};
+
+/**
  * @brief Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.
  *
  * Assemblé par le chargeur (après parsing et validation) puis lu par le rendu et, à terme, le
@@ -109,6 +123,8 @@ public:
      *                     chaîne, jamais un handle de texture : `Core` ignore tout du rendu.
      * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), vide pour le jeu par
      *                     défaut.
+     * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`), prioritaires sur
+     *                     le skin de leur type.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -116,7 +132,8 @@ public:
           std::vector<DangerMoverConfig> moverConfigs = {},
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
-          std::optional<std::string> skinSet = std::nullopt)
+          std::optional<std::string> skinSet = std::nullopt,
+          std::vector<TileTextureOverride> textureOverrides = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -128,7 +145,8 @@ public:
           _moverConfigs(std::move(moverConfigs)),
           _blinkConfigs(std::move(blinkConfigs)),
           _background(std::move(background)),
-          _skinSet(std::move(skinSet)) {}
+          _skinSet(std::move(skinSet)),
+          _textureOverrides(std::move(textureOverrides)) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -192,6 +210,11 @@ public:
         return _skinSet;
     }
 
+    /// @return Les textures assignées par instance du niveau (`EX-EDIT-043`).
+    [[nodiscard]] const std::vector<TileTextureOverride>& textureOverrides() const noexcept {
+        return _textureOverrides;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -205,6 +228,7 @@ private:
     std::vector<DangerBlinkConfig> _blinkConfigs;
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
+    std::vector<TileTextureOverride> _textureOverrides;
 };
 
 }  // namespace core

@@ -1,6 +1,6 @@
 # TACHE-03 — Section « Objets » et priorité de résolution {#lot-45-tache-03-section-objets-priorite}
 
-**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` · **Statut :** non commencé
+**Lot :** [LOT-45](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/Graphics`, `Source/HMI/CMakeLists.txt` · **Statut :** fait
 
 ## Contexte
 Avec ce lot, une case peut recevoir son apparence de trois sources concurrentes : sa **surcharge**

@@ -22,6 +22,7 @@
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
+#include "HMI/Editor/TextureAssignGesture.h"
 #include "HMI/Input/QtKeyMap.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
 #include "HMI/Graphics/AssetPaths.h"
@@ -67,6 +68,7 @@ GameViewport::GameViewport(QWindow* parent)
     : QWindow(parent),
       _gameBindings(hmi::GameKeyBindings::load(keybindingsPath())),
       _gamepadBindings(hmi::GamepadBindings::load(keybindingsPath())),
+      _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("Nouveau niveau", 24, 14)),
       _camera(1280, 720) {
     // Restaure le mode de rendu du dernier lancement (EX-IHM-011). Une preference absente, vide ou
@@ -80,6 +82,17 @@ GameViewport::GameViewport(QWindow* parent)
 }
 
 GameViewport::~GameViewport() = default;
+
+void GameViewport::setTool(hmi::EditorTool tool) {
+    if (_tool == tool) {
+        return;
+    }
+    _tool = tool;
+    emit toolChanged(tool);
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();  // le retour visuel des overrides depend de l'outil actif.
+    }
+}
 
 // Choisit le mode de rendu et persiste le choix (EX-REN-046, EX-IHM-011).
 void GameViewport::setRenderMode(RenderMode mode) {
@@ -240,6 +253,9 @@ std::optional<std::pair<core::GridPosition, core::GridPosition>> GameViewport::h
                               core::GridPosition{std::max(_dragStart.column, _dragCurrent.column),
                                                  std::max(_dragStart.row, _dragCurrent.row)});
     }
+    if (_highlightedOverride) {
+        return std::make_pair(*_highlightedOverride, *_highlightedOverride);
+    }
     return _selection;
 }
 
@@ -262,6 +278,51 @@ void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
     _draft.unlinkMechanism(targetPosition);
     _dirty = true;
     markDraftMutated();
+}
+
+void GameViewport::removeTextureOverride(core::GridPosition position) {
+    _draft.removeTextureOverride(position);
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setHighlightedTextureOverride(std::optional<core::GridPosition> position) {
+    _highlightedOverride = position;  // presentation seule : aucune mutation du brouillon.
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::handleTextureAssignClick(const QMouseEvent* event, bool rightClick) {
+    const std::optional<core::GridPosition> cell = cellAt(event);
+    if (!cell) {
+        return;
+    }
+    const core::TileType clickedType = _draft.tileMap().tile(cell->column, cell->row);
+    std::optional<std::string> existingOverride;
+    for (const core::TileTextureOverride& override : _draft.textureOverrides()) {
+        if (override.position == *cell) {
+            existingOverride = override.assetName;
+            break;
+        }
+    }
+
+    const hmi::TextureAssignDecision decision = hmi::resolveTextureAssignClick(
+        *cell, clickedType, existingOverride, _activeTextureAsset, rightClick);
+    switch (decision.action) {
+        case hmi::TextureAssignAction::Ignore:
+            break;
+        case hmi::TextureAssignAction::Assign:
+            _draft.setTextureOverride(decision.cell, decision.assetName);
+            _dirty = true;
+            markDraftMutated();
+            break;
+        case hmi::TextureAssignAction::Remove:
+            _draft.removeTextureOverride(decision.cell);
+            _dirty = true;
+            markDraftMutated();
+            break;
+    }
 }
 
 void GameViewport::setLevelBackground(std::optional<std::string> background) {
@@ -425,7 +486,11 @@ void GameViewport::renderFrame() {
         linkOverlay.hoveredCell = _hoverCell;
         linkOverlay.pendingLink = _pendingLink;
         linkOverlay.selectedLink = _selectedLink;
-        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode);
+        // Retour visuel des cases habillees (LOT-45) : seulement quand l'outil dedie est actif,
+        // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres outils.
+        const bool showTextureOverrides = _tool == hmi::EditorTool::TextureAssign;
+        _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
+                               showTextureOverrides);
     }
     _graphics->present();
 }
@@ -550,6 +615,11 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         return;
     }
     if (event->isAutoRepeat()) {
+        return;
+    }
+    if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key());
+        key && *key == _editorBindings.key(hmi::EditorAction::TextureAssignTool)) {
+        setTool(hmi::EditorTool::TextureAssign);
         return;
     }
     if (const std::optional<hmi::Key> key = qtKeyToHmiKey(event->key())) {
@@ -713,7 +783,18 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
     if (const std::optional<hmi::MouseButton> button = mapQtMouseButton(event->button())) {
         _input.onMouseButtonDown(*button);
     }
-    if (_session || event->button() != Qt::LeftButton) {
+    if (_session) {
+        return;
+    }
+    if (event->button() == Qt::RightButton) {
+        // Seul l'outil « Texture par instance » (LOT-45) reagit au clic droit (retrait explicite) ;
+        // les autres outils l'ignorent, comme avant ce lot.
+        if (_tool == hmi::EditorTool::TextureAssign) {
+            handleTextureAssignClick(event, /*rightClick=*/true);
+        }
+        return;
+    }
+    if (event->button() != Qt::LeftButton) {
         return;
     }
     // Mode édition : dispatch selon l'outil actif.
@@ -730,6 +811,9 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
             break;
         case hmi::EditorTool::Link:
             handleLinkClick(event);
+            break;
+        case hmi::EditorTool::TextureAssign:
+            handleTextureAssignClick(event, /*rightClick=*/false);
             break;
     }
 }

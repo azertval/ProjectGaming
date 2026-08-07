@@ -48,6 +48,14 @@ textures.level_skin_set = Level skin set
 textures.level_skin_set_tooltip = Skin set used by THIS level, distinct from the "Skin set" selector above (current editing set).
 textures.default_set = (default set)
 
+# "Objects" section of the Textures panel (LOT-45)
+textures.section_objects = Objects
+textures.objects_asset_label = Asset to assign
+textures.objects_list_label = Level overrides
+textures.objects_remove = Remove
+textures.objects_column_position = Position
+textures.objects_column_asset = File
+
 # Shared asset library (LOT-43)
 assets.search = Search…
 assets.none = (none)
@@ -75,6 +83,7 @@ tool.brush = Brush
 tool.rectangle = Rectangle
 tool.selection = Selection
 tool.link = Link
+tool.texture_assign = Texture
 
 # Links panel (LOT-37)
 link.column.type = Type
