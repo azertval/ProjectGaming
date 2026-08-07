@@ -3,7 +3,7 @@ var classhmi_1_1SpriteRenderer =
     [ "SpriteRenderer", "classhmi_1_1SpriteRenderer.html#a80280a51830068380f867a58686317d9", null ],
     [ "lastScene", "classhmi_1_1SpriteRenderer.html#a53acb5abdc7ce0f58489ab13524a0ee6", null ],
     [ "logStatisticsIfChanged", "classhmi_1_1SpriteRenderer.html#a796e552b16b1c726e9bd44016c965783", null ],
-    [ "render", "classhmi_1_1SpriteRenderer.html#ae4694f5e6d7b0e9ecdb88b0af04c1e9d", null ],
+    [ "render", "classhmi_1_1SpriteRenderer.html#a21f34cd944edc7555ea6cdebc7401148", null ],
     [ "setSkins", "classhmi_1_1SpriteRenderer.html#ae24bab2aac2a8f86ef642d04112075e7", null ],
     [ "_atlas", "classhmi_1_1SpriteRenderer.html#a04fd47eebcd7ecb9d26079bb3281e79e", null ],
     [ "_batch", "classhmi_1_1SpriteRenderer.html#a3713ab82000ed036e519adbcee39604d", null ],

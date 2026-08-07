@@ -197,7 +197,8 @@ Private Types</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ade04cd4034cab1c4bd405a1539492812" id="r_ade04cd4034cab1c4bd405a1539492812"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade04cd4034cab1c4bd405a1539492812">ensureResources</a> ()</td></tr>
 <tr class="memitem:a9ffcd8a18e982d581b30126ab08407fd" id="r_a9ffcd8a18e982d581b30126ab08407fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9ffcd8a18e982d581b30126ab08407fd">tick</a> ()</td></tr>
-<tr class="memitem:a0e18c6287cdd458eb797cfff8049e829" id="r_a0e18c6287cdd458eb797cfff8049e829"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0e18c6287cdd458eb797cfff8049e829">renderFrame</a> ()</td></tr>
+<tr class="memitem:acabefda16573458d0d6d86bd29b400e4" id="r_acabefda16573458d0d6d86bd29b400e4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acabefda16573458d0d6d86bd29b400e4">renderFrame</a> (float deltaSeconds=0.0f)</td></tr>
+<tr class="memdesc:acabefda16573458d0d6d86bd29b400e4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur) ; <span class="tt">0</span> (défaut) pour un redessin sans avancer l'aperçu (redimensionnement).  <br /></td></tr>
 <tr class="memitem:ae0c7a5dd8a430f39cbc0fbd1e200a574" id="r_ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae0c7a5dd8a430f39cbc0fbd1e200a574">stopPlaytest</a> ()</td></tr>
 <tr class="memdesc:ae0c7a5dd8a430f39cbc0fbd1e200a574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine l'essai et restitue l'éditeur (brouillon intact).  <br /></td></tr>
 <tr class="memitem:ae1a38ed54a427056246e325402516f72" id="r_ae1a38ed54a427056246e325402516f72"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae1a38ed54a427056246e325402516f72">loadGameLevel</a> (std::size_t index)</td></tr>
@@ -1375,8 +1376,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
-<a id="a0e18c6287cdd458eb797cfff8049e829" name="a0e18c6287cdd458eb797cfff8049e829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e18c6287cdd458eb797cfff8049e829">&#9670;&#160;</a></span>renderFrame()</h2>
+<a id="acabefda16573458d0d6d86bd29b400e4" name="acabefda16573458d0d6d86bd29b400e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acabefda16573458d0d6d86bd29b400e4">&#9670;&#160;</a></span>renderFrame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1387,7 +1388,7 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
         <tr>
           <td class="memname">void hmi::GameViewport::renderFrame </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSeconds</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0f</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1397,6 +1398,8 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p><code class="param">deltaSeconds</code> : temps réel écoulé depuis l'image précédente (LOT-46 TACHE-05, avance l'aperçu des tuiles animées de l'éditeur) ; <span class="tt">0</span> (défaut) pour un redessin sans avancer l'aperçu (redimensionnement). </p>
 
 </div>
 </div>

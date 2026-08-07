@@ -126,8 +126,8 @@ var searchData=
   ['remplissage_20rectangulaire_20sélection_20copier_20coller_123',['TACHE-05 — Outils de zone : remplissage rectangulaire, sélection, copier/coller',['../lot-15-tache-05-outils-rectangle-selection.html',1,'lot-15']]],
   ['rename_124',['Rename',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50',1,'hmi']]],
   ['rename_125',['rename',['../classhmi_1_1AssetFileOperations.html#ad5ed3d26da2e502c377c2056b63a7cf7',1,'hmi::AssetFileOperations::rename()'],['../classhmi_1_1LevelFileOperations.html#a29deaa627df5f9e76a87300523963593',1,'hmi::LevelFileOperations::rename()']]],
-  ['render_126',['render',['../classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a',1,'hmi::GameSession::render()'],['../classhmi_1_1DraftRenderer.html#a74884f8cfbc96d679469c12442abae59',1,'hmi::DraftRenderer::render()'],['../classhmi_1_1SpriteRenderer.html#ae4694f5e6d7b0e9ecdb88b0af04c1e9d',1,'hmi::SpriteRenderer::render()']]],
-  ['renderframe_127',['renderFrame',['../classhmi_1_1GameViewport.html#a0e18c6287cdd458eb797cfff8049e829',1,'hmi::GameViewport']]],
+  ['render_126',['render',['../classhmi_1_1GameSession.html#a8c26c9a8cbd1841bd091a5eb2299017a',1,'hmi::GameSession::render()'],['../classhmi_1_1DraftRenderer.html#a87e2f17c3851ee853d996c0b62e396ae',1,'hmi::DraftRenderer::render()'],['../classhmi_1_1SpriteRenderer.html#a21f34cd944edc7555ea6cdebc7401148',1,'hmi::SpriteRenderer::render()']]],
+  ['renderframe_127',['renderFrame',['../classhmi_1_1GameViewport.html#acabefda16573458d0d6d86bd29b400e4',1,'hmi::GameViewport']]],
   ['renderlayer_128',['RenderLayer',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919',1,'hmi']]],
   ['renderlayer_20regroupement_20des_20quads_20par_20calque_20texture_129',['TACHE-02 — *RenderLayer* + regroupement des quads par (calque, texture)',['../lot-40-tache-02-rendu-multicouche.html',1,'lot-40']]],
   ['renderlayer_2eh_130',['RenderLayer.h',['../RenderLayer_8h.html',1,'']]],
@@ -226,6 +226,5 @@ var searchData=
   ['roundedupright_223',['RoundedUpRight',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae818c3e2caa396d31600b85dc40f70e4',1,'core']]],
   ['row_224',['row',['../structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589',1,'core::GridPosition::row'],['../structhmi_1_1RoomBounds.html#a1eacf6e3d973a83b8ed5c4f5f5ef5d62',1,'hmi::RoomBounds::row'],['../structhmi_1_1AutotileCell.html#af0563e130bf797a533e67e0991494450',1,'hmi::AutotileCell::row'],['../structhmi_1_1AtlasGridPosition.html#acc93aa984a8ce2639e60970b35a59d77',1,'hmi::AtlasGridPosition::row']]],
   ['rows_225',['rows',['../structhmi_1_1SkinSection.html#a57e6adcbf198c9092de2a0f033c57e12',1,'hmi::SkinSection::rows'],['../classhmi_1_1RoomGrid.html#a29d559696ed713fbfc5cafae728100d9',1,'hmi::RoomGrid::rows()']]],
-  ['run_226',['Run',['../namespacecore.html#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d',1,'core']]],
-  ['run_5fframe_5fcount_227',['RUN_FRAME_COUNT',['../namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d',1,'core']]]
+  ['run_226',['Run',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d',1,'hmi']]]
 ];

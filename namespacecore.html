@@ -108,12 +108,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.  <a href="classcore_1_1Logger.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MemoryLogSink" id="r_MemoryLogSink"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1MemoryLogSink.html">MemoryLogSink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sink de test : mémorise les messages reçus pour inspection.  <a href="classcore_1_1MemoryLogSink.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AnimationClip" id="r_AnimationClip"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1AnimationClip.html">AnimationClip</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip d'animation : une suite d'images, une durée par image, une manière de finir.  <a href="structcore_1_1AnimationClip.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ClipSet" id="r_ClipSet"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ClipSet.html">ClipSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensemble nommé de clips, adressable par nom — l'unité que décrit un fichier <span class="tt">nom-asset.anim.json</span> (<span class="tt">LOT-46</span> TACHE-03).  <a href="classcore_1_1ClipSet.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IComponentPool" id="r_IComponentPool"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1IComponentPool.html">IComponentPool</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface type-effacée d'une pool de composants.  <a href="classcore_1_1IComponentPool.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ComponentPool" id="r_ComponentPool"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ComponentPool.html">ComponentPool</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stockage dense des composants d'un type <span class="tt">T</span>, indexé par entité (sparse set).  <a href="classcore_1_1ComponentPool.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Animation" id="r_Animation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Animation.html">Animation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel jeu de clips, quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Collider" id="r_Collider"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Collider.html">Collider</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étendue physique d'une entité pour la collision : une boîte <b>alignée aux axes</b> (AABB).  <a href="structcore_1_1Collider.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Player" id="r_Player"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Player.html">Player</a></td></tr>
@@ -135,7 +139,7 @@ Classes</h2></td></tr>
 <tr class="memitem:ISystem" id="r_ISystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ISystem.html">ISystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface d'un système : porte la logique itérant sur les composants.  <a href="classcore_1_1ISystem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AnimationSystem" id="r_AnimationSystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1AnimationSystem.html">AnimationSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer l'état d'animation (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span>) de chaque personnage, au pas fixe.  <a href="classcore_1_1AnimationSystem.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait progresser l'animation de toute entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>, et projette l'état physique du personnage sur son clip cible.  <a href="classcore_1_1AnimationSystem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CharacterPhysicsSystem" id="r_CharacterPhysicsSystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html">CharacterPhysicsSystem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait évoluer le personnage jouable d'un pas fixe : intention horizontale, gravité continue, collisions <b>continues</b> contre les tuiles solides, et état « au sol ».  <a href="classcore_1_1CharacterPhysicsSystem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MovementSystem" id="r_MovementSystem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1MovementSystem.html">MovementSystem</a></td></tr>
@@ -206,11 +210,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>
  }</td></tr>
 <tr class="memdesc:aa9b5a444ee11933c91d5e3235aa5b5e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Niveau d'un message de journalisation (ordre croissant de gravité).  <a href="#aa9b5a444ee11933c91d5e3235aa5b5e3">More...</a><br /></td></tr>
-<tr class="memitem:a799a99a97ade0219550e8316e18aa860" id="r_a799a99a97ade0219550e8316e18aa860"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a799a99a97ade0219550e8316e18aa860">AnimationClip</a> { <a class="el" href="#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c">Idle</a>
-, <a class="el" href="#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d">Run</a>
-, <a class="el" href="#a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed">Jump</a>
+<tr class="memitem:a71fba78b647ce3be2a8b78f79c84f522" id="r_a71fba78b647ce3be2a8b78f79c84f522"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522">ClipEndMode</a> { <a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745">Loop</a>
+, <a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481">OneShot</a>
  }</td></tr>
-<tr class="memdesc:a799a99a97ade0219550e8316e18aa860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip d'animation du personnage (<span class="tt">EX-REN-012</span>).  <a href="#a799a99a97ade0219550e8316e18aa860">More...</a><br /></td></tr>
+<tr class="memdesc:a71fba78b647ce3be2a8b78f79c84f522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manière dont un clip se termine à la dernière image.  <a href="#a71fba78b647ce3be2a8b78f79c84f522">More...</a><br /></td></tr>
 <tr class="memitem:a691dfee41b7946ec78288271f8925d51" id="r_a691dfee41b7946ec78288271f8925d51"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a691dfee41b7946ec78288271f8925d51">DangerMoverAxis</a> { <a class="el" href="#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f">Horizontal</a>
 , <a class="el" href="#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012">Vertical</a>
  }</td></tr>
@@ -298,6 +301,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a44fc8d654b0e55558cf5e5a4258b5081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un niveau en libellé lisible.  <br /></td></tr>
 <tr class="memitem:ae8ce294afb9bbebacf6676020a0e223a" id="r_ae8ce294afb9bbebacf6676020a0e223a"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae8ce294afb9bbebacf6676020a0e223a">parseLogLevel</a> (std::string_view text)</td></tr>
 <tr class="memdesc:ae8ce294afb9bbebacf6676020a0e223a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une chaîne en niveau de log (insensible à la casse).  <br /></td></tr>
+<tr class="memitem:a15c89d2a138a59d257f395dcf95efc26" id="r_a15c89d2a138a59d257f395dcf95efc26"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ClipSet.html">ClipSet</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26">playerClipSet</a> ()</td></tr>
+<tr class="memdesc:a15c89d2a138a59d257f395dcf95efc26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jeu de clips du personnage, migré tel quel depuis l'ancien dispositif figé (<span class="tt">LOT-18</span>).  <br /></td></tr>
+<tr class="memitem:a209ceac8415ddadd8463746b94934eed" id="r_a209ceac8415ddadd8463746b94934eed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a209ceac8415ddadd8463746b94934eed">advanceAnimation</a> (<a class="el" href="structcore_1_1Animation.html">Animation</a> &amp;animation, float fixedDelta)</td></tr>
+<tr class="memdesc:a209ceac8415ddadd8463746b94934eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait progresser une seule animation d'un pas fixe (image courante, bouclage/bascule).  <br /></td></tr>
 <tr class="memitem:a6c0f85da9ce20757943b19c8034f459e" id="r_a6c0f85da9ce20757943b19c8034f459e"><td class="memItemLeft"><a class="el" href="structcore_1_1Aabb.html">Aabb</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6c0f85da9ce20757943b19c8034f459e">dangerHitbox</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type, int col, int row) noexcept</td></tr>
 <tr class="memdesc:a6c0f85da9ce20757943b19c8034f459e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle <b>mortel</b> d'une case de danger, en unités de grille (une case = 1×1, origine haut-gauche — mêmes unités que <span class="tt"><a class="el" href="structcore_1_1Aabb.html" title="Rectangle aligné aux axes, décrit par ses coins min (haut-gauche) et max (bas-droite),...">core::Aabb</a></span> consommé par <span class="tt"><a class="el" href="#a23087f4f32dfa24ad53d7a9811ae351d" title="Détermine l&#39;issue du niveau à partir de la boîte du personnage.">core::evaluateOutcome</a></span>).  <br /></td></tr>
 <tr class="memitem:a9f0f0ad0f3b02c7ddf6b34dffba56669" id="r_a9f0f0ad0f3b02c7ddf6b34dffba56669"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9f0f0ad0f3b02c7ddf6b34dffba56669">isDangerTileType</a> (<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a> type) noexcept</td></tr>
@@ -349,14 +356,14 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ada3f6bef6b32bd54ea16d550e0769fb1" id="r_ada3f6bef6b32bd54ea16d550e0769fb1"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ada3f6bef6b32bd54ea16d550e0769fb1">kDeveloperBuild</a> = true</td></tr>
 <tr class="memdesc:ada3f6bef6b32bd54ea16d550e0769fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai dans les builds de <b>développement</b> (Debug), faux en <b>Release</b>.  <br /></td></tr>
-<tr class="memitem:a572ec27480068f4deb0511ed85244e68" id="r_a572ec27480068f4deb0511ed85244e68"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a572ec27480068f4deb0511ed85244e68">IDLE_FRAME_COUNT</a> = 2</td></tr>
-<tr class="memdesc:a572ec27480068f4deb0511ed85244e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Idle</span>. Seule source de vérité (<span class="tt">Core</span> et <span class="tt">HMI</span>, cf. LOT-18).  <br /></td></tr>
-<tr class="memitem:a7670734985ecf5fc4b23cf34f941a13d" id="r_a7670734985ecf5fc4b23cf34f941a13d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7670734985ecf5fc4b23cf34f941a13d">RUN_FRAME_COUNT</a> = 4</td></tr>
-<tr class="memdesc:a7670734985ecf5fc4b23cf34f941a13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Run</span>.  <br /></td></tr>
-<tr class="memitem:ae3c64100a95020d369b6f4b976fe0ffe" id="r_ae3c64100a95020d369b6f4b976fe0ffe"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ae3c64100a95020d369b6f4b976fe0ffe">JUMP_FRAME_COUNT</a> = 1</td></tr>
-<tr class="memdesc:ae3c64100a95020d369b6f4b976fe0ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Jump</span> (pose unique, jamais animée).  <br /></td></tr>
 <tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
+<tr class="memitem:a2b3cb5d42063608aa724d3b47aab0a6e" id="r_a2b3cb5d42063608aa724d3b47aab0a6e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e">PLAYER_CLIP_IDLE</a> = 0</td></tr>
+<tr class="memdesc:a2b3cb5d42063608aa724d3b47aab0a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du clip « idle » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> — ordre <b>stable</b>, seule source de vérité partagée avec <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#a67c6c296ba526f4bba63ce804b01b37b" title="Région (en pixels) d&#39;une image d&#39;animation du personnage, sous la grille de tuiles.">hmi::TextureAtlas::playerFrameRegion</a></span> (traduction en région d'atlas, <span class="tt">LOT-46</span> TACHE-04) : ne pas réordonner sans mettre à jour <span class="tt">HMI</span> en conséquence.  <br /></td></tr>
+<tr class="memitem:a07165b3796d0b5e77c2ecbc046696a5a" id="r_a07165b3796d0b5e77c2ecbc046696a5a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a07165b3796d0b5e77c2ecbc046696a5a">PLAYER_CLIP_RUN</a> = 1</td></tr>
+<tr class="memdesc:a07165b3796d0b5e77c2ecbc046696a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du clip « run » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (voir <span class="tt"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e" title="Index du clip « idle » dans core::playerClipSet() — ordre stable, seule source de vérité partagée ave...">PLAYER_CLIP_IDLE</a></span>).  <br /></td></tr>
+<tr class="memitem:a8fe767302a92e721e28a90cc9651f2bc" id="r_a8fe767302a92e721e28a90cc9651f2bc"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a8fe767302a92e721e28a90cc9651f2bc">PLAYER_CLIP_JUMP</a> = 2</td></tr>
+<tr class="memdesc:a8fe767302a92e721e28a90cc9651f2bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index du clip « jump » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (voir <span class="tt"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e" title="Index du clip « idle » dans core::playerClipSet() — ordre stable, seule source de vérité partagée ave...">PLAYER_CLIP_IDLE</a></span>).  <br /></td></tr>
 <tr class="memitem:aa10b66433e2fea5a1103518ca7015a3a" id="r_aa10b66433e2fea5a1103518ca7015a3a"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa10b66433e2fea5a1103518ca7015a3a">kDangerEdgeThickness</a> = 0.25f</td></tr>
 <tr class="memdesc:aa10b66433e2fea5a1103518ca7015a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Épaisseur (fraction d'une case) de la bande mortelle d'un danger <b>directionnel</b> (<span class="tt">DangerUp</span>/<span class="tt">DangerDown</span>/<span class="tt">DangerLeft</span>/<span class="tt">DangerRight</span>, <span class="tt">EX-GP-050</span>).  <br /></td></tr>
 <tr class="memitem:a4e9944a74ac070775a2730be05705abb" id="r_a4e9944a74ac070775a2730be05705abb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e9944a74ac070775a2730be05705abb">kLevelFormatVersion</a> = 1</td></tr>
@@ -390,8 +397,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="a799a99a97ade0219550e8316e18aa860" name="a799a99a97ade0219550e8316e18aa860"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a799a99a97ade0219550e8316e18aa860">&#9670;&#160;</a></span>AnimationClip</h2>
+<a id="a71fba78b647ce3be2a8b78f79c84f522" name="a71fba78b647ce3be2a8b78f79c84f522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71fba78b647ce3be2a8b78f79c84f522">&#9670;&#160;</a></span>ClipEndMode</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,7 +407,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum class <a class="el" href="#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a></td>
+          <td class="memname">enum class <a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522">core::ClipEndMode</a></td>
         </tr>
       </table>
   </td>
@@ -410,13 +417,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Clip d'animation du personnage (<span class="tt">EX-REN-012</span>). </p>
+<p>Manière dont un clip se termine à la dernière image. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c" name="a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c"></a>Idle&#160;</td><td class="fielddoc"><p>Immobile, au sol. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745" name="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745"></a>Loop&#160;</td><td class="fielddoc"><p>Revient à la première image et continue (comportement historique, <span class="tt">EX-REN-012</span>). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d" name="a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"><p>Déplacement horizontal, au sol. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed" name="a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"><p>En l'air (saut ou chute) — pose unique, pas un cycle. </p>
+<tr><td class="fieldname"><a id="a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481" name="a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481"></a>OneShot&#160;</td><td class="fielddoc"><p>S'arrête à la dernière image puis bascule sur <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html#a508d5f46279f56ab33ec39cd1fceae13" title="Nom du clip suivant, consulté seulement si endMode == OneShot.">AnimationClip::nextClip</a></span> (<span class="tt">LOT-47</span>). </p>
 </td></tr>
 </table>
 
@@ -625,6 +630,36 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a209ceac8415ddadd8463746b94934eed" name="a209ceac8415ddadd8463746b94934eed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a209ceac8415ddadd8463746b94934eed">&#9670;&#160;</a></span>advanceAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::advanceAnimation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Animation.html">Animation</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>animation</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>fixedDelta</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait progresser une seule animation d'un pas fixe (image courante, bouclage/bascule). </p>
+<p>Extrait de <span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8" title="Applique un pas de simulation d&#39;animation à toutes les entités animées.">AnimationSystem::update</a></span> pour être réutilisable <b>hors ECS</b> : <span class="tt">LOT-46</span> TACHE-05 anime des tuiles partageant un même asset (eau, lave) via une horloge unique par asset plutôt qu'une entité par case, précisément pour éviter de répéter cette progression une fois par case. Sans effet si <span class="tt">animation.clips</span> est nul ou vide (<span class="tt">EX-NFR-040</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">animation</td><td>État d'animation à faire progresser. </td></tr>
+    <tr><td class="paramname">fixedDelta</td><td>Durée du pas de simulation, en secondes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a69640dd3c9f3f8778a7c7621839c3794" name="a69640dd3c9f3f8778a7c7621839c3794"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69640dd3c9f3f8778a7c7621839c3794">&#9670;&#160;</a></span>approximatelyEqual()</h2>
 
@@ -1521,6 +1556,35 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 </div>
 </div>
+<a id="a15c89d2a138a59d257f395dcf95efc26" name="a15c89d2a138a59d257f395dcf95efc26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15c89d2a138a59d257f395dcf95efc26">&#9670;&#160;</a></span>playerClipSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ClipSet.html">ClipSet</a> &gt; core::playerClipSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Jeu de clips du personnage, migré tel quel depuis l'ancien dispositif figé (<span class="tt">LOT-18</span>). </p>
+<p>Trois clips nommés (« idle », « run », « jump »), mêmes durées (repos 0,5 s ; course 0,1 s) et mêmes nombres d'images (2, 4, 1) qu'avant <span class="tt">LOT-46</span> : ce lot est une refonte d'infrastructure, l'animation à l'écran ne doit strictement pas changer (<span class="tt">LOT-46</span> TACHE-04).</p>
+<p>Instance <b>partagée</b> (même <span class="tt">shared_ptr</span> renvoyé à chaque appel) : tous les personnages d'une session utilisent le même jeu de clips, immuable. </p><dl class="section return"><dt>Returns</dt><dd>Le jeu de clips du personnage. </dd></dl>
+
+</div>
+</div>
 <a id="a6b2b8e5dc4a0b610cc1225c14e1ce5cb" name="a6b2b8e5dc4a0b610cc1225c14e1ce5cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">&#9670;&#160;</a></span>playerSize()</h2>
 
@@ -1987,30 +2051,6 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 </div>
 </div>
-<a id="a572ec27480068f4deb0511ed85244e68" name="a572ec27480068f4deb0511ed85244e68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a572ec27480068f4deb0511ed85244e68">&#9670;&#160;</a></span>IDLE_FRAME_COUNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int core::IDLE_FRAME_COUNT = 2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nombre d'images du clip <span class="tt">Idle</span>. Seule source de vérité (<span class="tt">Core</span> et <span class="tt">HMI</span>, cf. LOT-18). </p>
-
-</div>
-</div>
 <a id="a2a9202a1a89eacaec610bdc83b0ff272" name="a2a9202a1a89eacaec610bdc83b0ff272"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a9202a1a89eacaec610bdc83b0ff272">&#9670;&#160;</a></span>INVALID_ENTITY</h2>
 
@@ -2032,30 +2072,6 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </div><div class="memdoc">
 
 <p>Entité invalide conventionnelle : ne désigne jamais une entité vivante. </p>
-
-</div>
-</div>
-<a id="ae3c64100a95020d369b6f4b976fe0ffe" name="ae3c64100a95020d369b6f4b976fe0ffe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3c64100a95020d369b6f4b976fe0ffe">&#9670;&#160;</a></span>JUMP_FRAME_COUNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int core::JUMP_FRAME_COUNT = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nombre d'images du clip <span class="tt">Jump</span> (pose unique, jamais animée). </p>
 
 </div>
 </div>
@@ -2182,8 +2198,8 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 
 </div>
 </div>
-<a id="a7670734985ecf5fc4b23cf34f941a13d" name="a7670734985ecf5fc4b23cf34f941a13d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7670734985ecf5fc4b23cf34f941a13d">&#9670;&#160;</a></span>RUN_FRAME_COUNT</h2>
+<a id="a2b3cb5d42063608aa724d3b47aab0a6e" name="a2b3cb5d42063608aa724d3b47aab0a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3cb5d42063608aa724d3b47aab0a6e">&#9670;&#160;</a></span>PLAYER_CLIP_IDLE</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2192,7 +2208,7 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int core::RUN_FRAME_COUNT = 4</td>
+          <td class="memname">int core::PLAYER_CLIP_IDLE = 0</td>
         </tr>
       </table>
   </td>
@@ -2202,7 +2218,55 @@ slopeSurfaceHeight(type miroir, localX)</span>), pas une famille de formules dup
 </table>
 </div><div class="memdoc">
 
-<p>Nombre d'images du clip <span class="tt">Run</span>. </p>
+<p>Index du clip « idle » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> — ordre <b>stable</b>, seule source de vérité partagée avec <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#a67c6c296ba526f4bba63ce804b01b37b" title="Région (en pixels) d&#39;une image d&#39;animation du personnage, sous la grille de tuiles.">hmi::TextureAtlas::playerFrameRegion</a></span> (traduction en région d'atlas, <span class="tt">LOT-46</span> TACHE-04) : ne pas réordonner sans mettre à jour <span class="tt">HMI</span> en conséquence. </p>
+
+</div>
+</div>
+<a id="a8fe767302a92e721e28a90cc9651f2bc" name="a8fe767302a92e721e28a90cc9651f2bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe767302a92e721e28a90cc9651f2bc">&#9670;&#160;</a></span>PLAYER_CLIP_JUMP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::PLAYER_CLIP_JUMP = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index du clip « jump » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (voir <span class="tt"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e" title="Index du clip « idle » dans core::playerClipSet() — ordre stable, seule source de vérité partagée ave...">PLAYER_CLIP_IDLE</a></span>). </p>
+
+</div>
+</div>
+<a id="a07165b3796d0b5e77c2ecbc046696a5a" name="a07165b3796d0b5e77c2ecbc046696a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07165b3796d0b5e77c2ecbc046696a5a">&#9670;&#160;</a></span>PLAYER_CLIP_RUN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::PLAYER_CLIP_RUN = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index du clip « run » dans <span class="tt"><a class="el" href="#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (voir <span class="tt"><a class="el" href="#a2b3cb5d42063608aa724d3b47aab0a6e" title="Index du clip « idle » dans core::playerClipSet() — ordre stable, seule source de vérité partagée ave...">PLAYER_CLIP_IDLE</a></span>). </p>
 
 </div>
 </div>

@@ -93,16 +93,16 @@ $(function(){initNavTree('lot-46-tache-02-systeme-generalise.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-02-systeme-generalise"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs/Systems</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2057"></a>
 Contexte</h1>
-<p><span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8" title="Applique un pas de simulation d&#39;animation à tous les personnages.">core::AnimationSystem::update</a></span> parcourt aujourd'hui <span class="tt">view&lt;Player, Velocity, Animation&gt;</span> : par construction, <b>seul le personnage</b> peut être animé. Une porte, une torche ou une plaque portant un composant <span class="tt">Animation</span> seraient simplement ignorées.</p>
+<p><span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8" title="Applique un pas de simulation d&#39;animation à toutes les entités animées.">core::AnimationSystem::update</a></span> parcourt aujourd'hui <span class="tt">view&lt;Player, Velocity, Animation&gt;</span> : par construction, <b>seul le personnage</b> peut être animé. Une porte, une torche ou une plaque portant un composant <span class="tt">Animation</span> seraient simplement ignorées.</p>
 <p>Le système fait par ailleurs deux choses distinctes qu'il faut séparer : <b>choisir</b> le clip (projection de l'état physique du personnage, via <span class="tt">targetClip()</span>) et <b>faire avancer</b> l'animation (accumulation du temps, changement d'image, bouclage). Seule la seconde est générale.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2058"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Séparer les deux responsabilités</b> :<ul>
-<li>une progression <b>générale</b>, appliquée à toute entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span> : accumuler le temps du pas fixe, avancer l'index d'image, boucler ou passer au clip suivant en fin de clip joué une fois ;</li>
+<li>une progression <b>générale</b>, appliquée à toute entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> : accumuler le temps du pas fixe, avancer l'index d'image, boucler ou passer au clip suivant en fin de clip joué une fois ;</li>
 <li>la <b>projection</b> état → clip du personnage, qui reste spécifique et conserve sa forme actuelle (<span class="tt">!grounded</span> → saut, <span class="tt">|vitesse.x| &gt; seuil</span> → course, sinon repos), enrichie en LOT-48.</li>
 </ul>
 </li>

@@ -93,7 +93,7 @@ $(function(){initNavTree('classcore_1_1AnimationSystem.html','','classcore_1_1An
 </div><!--header-->
 <div class="contents">
 
-<p>Fait évoluer l'état d'animation (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span>) de chaque personnage, au pas fixe.  
+<p>Fait progresser l'animation de toute entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>, et projette l'état physique du personnage sur son clip cible.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="AnimationSystem_8h_source.html">AnimationSystem.h</a>&gt;</code></p>
@@ -110,13 +110,17 @@ Inheritance diagram for core::AnimationSystem:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af5da04fcf16d71fb7d6181377e8251a8" id="r_af5da04fcf16d71fb7d6181377e8251a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af5da04fcf16d71fb7d6181377e8251a8">update</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, float fixedDelta) override</td></tr>
-<tr class="memdesc:af5da04fcf16d71fb7d6181377e8251a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un pas de simulation d'animation à tous les personnages.  <br /></td></tr>
+<tr class="memdesc:af5da04fcf16d71fb7d6181377e8251a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un pas de simulation d'animation à toutes les entités animées.  <br /></td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1ISystem"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classcore_1_1ISystem')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classcore_1_1ISystem.html">core::ISystem</a></td></tr>
 <tr class="memitem:a720a3e2dcc57e50cc42fb24b73a8bf9a inherit pub_methods_classcore_1_1ISystem" id="r_a720a3e2dcc57e50cc42fb24b73a8bf9a"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a">~ISystem</a> ()=default</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fait évoluer l'état d'animation (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span>) de chaque personnage, au pas fixe. </p>
-<p>Pour chaque entité possédant <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">core::Player</a></span>, <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">core::Velocity</a></span> et <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span> : détermine le clip actif à partir de <span class="tt"><a class="el" href="structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085" title="Vrai si le personnage repose sur une surface solide ; calculé par la physique.">Player::grounded</a></span> et de la vitesse horizontale (en l'air → <span class="tt">Jump</span> ; au sol et en mouvement → <span class="tt">Run</span> ; au sol et immobile → <span class="tt">Idle</span>), puis avance l'image courante avec bouclage selon le nombre d'images du clip (<span class="tt"><a class="el" href="namespacecore.html#a572ec27480068f4deb0511ed85244e68" title="Nombre d&#39;images du clip Idle. Seule source de vérité (Core et HMI, cf. LOT-18).">core::IDLE_FRAME_COUNT</a></span>, etc.).</p>
+<div class="textblock"><p>Fait progresser l'animation de toute entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>, et projette l'état physique du personnage sur son clip cible. </p>
+<p>Deux responsabilités distinctes (<span class="tt">LOT-46</span> TACHE-02) :</p><ul>
+<li><b>projection</b>, spécifique au personnage : pour chaque entité <span class="tt"><a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">Player</a></span> + <span class="tt"><a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">Velocity</a></span> + <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">Animation</a></span>, détermine le clip actif à partir de <span class="tt"><a class="el" href="structcore_1_1Player.html#a36776822edfa4ee73e00f620aa007085" title="Vrai si le personnage repose sur une surface solide ; calculé par la physique.">Player::grounded</a></span> et de la vitesse horizontale (en l'air → saut ; au sol et en mouvement → course ; au sol et immobile → repos), comme avant <span class="tt">LOT-46</span> (<span class="tt">targetClip</span>, désormais résolu par nom plutôt que par valeur d'<span class="tt">enum</span>) ;</li>
+<li><b>progression</b>, générale : pour <b>toute</b> entité portant <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> (personnage, tuiles animées, <span class="tt">LOT-46</span> TACHE-05), avance l'image courante selon la durée du clip résolu, boucle ou bascule sur le clip suivant en fin de clip joué une fois (<span class="tt"><a class="el" href="namespacecore.html#a71fba78b647ce3be2a8b78f79c84f522" title="Manière dont un clip se termine à la dernière image.">core::ClipEndMode</a>::
+  OneShot</span>).</li>
+</ul>
 <p>Un changement de clip réinitialise immédiatement l'image à 0 (pas de transition progressive). Toute la logique vit ici ; les composants restent des <b>données pures</b> (<span class="tt">EX-ARCH-011</span>). Déterministe au pas fixe (<span class="tt">EX-NFR-002</span>), testable sans GPU (<span class="tt">EX-NFR-010</span>).</p>
 <p>Doit s'exécuter <b>après</b> <span class="tt"><a class="el" href="classcore_1_1CharacterPhysicsSystem.html" title="Fait évoluer le personnage jouable d&#39;un pas fixe : intention horizontale, gravité continue,...">CharacterPhysicsSystem</a></span> dans la boucle d'un écran : il lit l'état <span class="tt">grounded</span> calculé par la physique pour le <b>même</b> pas. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
@@ -147,10 +151,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Applique un pas de simulation d'animation à tous les personnages. </p>
+<p>Applique un pas de simulation d'animation à toutes les entités animées. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">world</td><td>Monde ECS (entités <a class="el" href="structcore_1_1Player.html" title="Marque l&#39;entité contrôlable par le joueur et porte son état de contact au sol.">Player</a> + <a class="el" href="structcore_1_1Velocity.html" title="Vitesse linéaire d&#39;une entité, en unités monde par seconde.">Velocity</a> + <a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">Animation</a>). </td></tr>
+    <tr><td class="paramname">world</td><td>Monde ECS. </td></tr>
     <tr><td class="paramname">fixedDelta</td><td>Durée du pas de simulation, en secondes. </td></tr>
   </table>
   </dd>

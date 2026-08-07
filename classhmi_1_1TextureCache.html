@@ -108,10 +108,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aede852089e7c06705756d4120ec256a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, en la chargeant au premier accès.  <br /></td></tr>
 <tr class="memitem:a37bf2cb7f585146525bf9551e4e56ede" id="r_a37bf2cb7f585146525bf9551e4e56ede"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a37bf2cb7f585146525bf9551e4e56ede">getMasked</a> (const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a37bf2cb7f585146525bf9551e4e56ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la variante d'un asset <b>détourée</b> à la silhouette d'un type de tuile.  <br /></td></tr>
+<tr class="memitem:adc423d6e4c3d29a98857e9ef090b4870" id="r_adc423d6e4c3d29a98857e9ef090b4870"><td class="memItemLeft">const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adc423d6e4c3d29a98857e9ef090b4870">getAnimation</a> (const std::string &amp;fileName, int textureWidth, int textureHeight)</td></tr>
+<tr class="memdesc:adc423d6e4c3d29a98857e9ef090b4870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la description d'animation d'un asset (<span class="tt">nom-asset.anim.json</span>, <span class="tt">LOT-46</span> TACHE-03), en la chargeant et la validant au premier accès.  <br /></td></tr>
 <tr class="memitem:a324622b81a525996c2c2fef648ca1e49" id="r_a324622b81a525996c2c2fef648ca1e49"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49">invalidate</a> (const std::string &amp;fileName)</td></tr>
 <tr class="memdesc:a324622b81a525996c2c2fef648ca1e49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire une entrée du cache, de sorte que le prochain <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> relise le fichier.  <br /></td></tr>
 <tr class="memitem:a12ace6c083ac9c91eff8686bd0039a4b" id="r_a12ace6c083ac9c91eff8686bd0039a4b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b">invalidateAll</a> ()</td></tr>
-<tr class="memdesc:a12ace6c083ac9c91eff8686bd0039a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire <b>toutes</b> les entrées du cache (rechargement global, <span class="tt">LOT-43</span>/<span class="tt">LOT-54</span>).  <br /></td></tr>
+<tr class="memdesc:a12ace6c083ac9c91eff8686bd0039a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire <b>toutes</b> les entrées du cache (rechargement global, <span class="tt">LOT-43</span>/<span class="tt">LOT-54</span>), textures <b>et</b> descriptions d'animation (invalidation conjointe, <span class="tt">LOT-46</span> TACHE-03).  <br /></td></tr>
 <tr class="memitem:aad87b9660035bbe18c6573a962622388" id="r_aad87b9660035bbe18c6573a962622388"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aad87b9660035bbe18c6573a962622388">entryCount</a> () const noexcept</td></tr>
 <tr class="memitem:a802c6b9b9c2e7799d2cd81277199ef44" id="r_a802c6b9b9c2e7799d2cd81277199ef44"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a802c6b9b9c2e7799d2cd81277199ef44">missingTexture</a> ()</td></tr>
 <tr class="memdesc:a802c6b9b9c2e7799d2cd81277199ef44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture de repli en damier magenta, créée <b>une seule fois</b> à la demande.  <br /></td></tr>
@@ -123,6 +125,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ae1e131bf205906a4f5356a07aa3f5879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge et valide un asset depuis le disque, sans passer par le cache.  <br /></td></tr>
 <tr class="memitem:ac28feac2b71b9c2f751d189cbd28a47c" id="r_ac28feac2b71b9c2f751d189cbd28a47c"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac28feac2b71b9c2f751d189cbd28a47c">getUnderKey</a> (const std::string &amp;cacheKey, const std::string &amp;fileName, <a class="el" href="namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family, std::optional&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; maskType)</td></tr>
 <tr class="memdesc:ac28feac2b71b9c2f751d189cbd28a47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient une entrée du cache sous une clé donnée, en la chargeant au premier accès.  <br /></td></tr>
+<tr class="memitem:a083e7d115a6a86f3e7ca7e6c3eef3316" id="r_a083e7d115a6a86f3e7ca7e6c3eef3316"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a083e7d115a6a86f3e7ca7e6c3eef3316">loadAnimation</a> (const std::string &amp;fileName, int textureWidth, int textureHeight) const</td></tr>
+<tr class="memdesc:a083e7d115a6a86f3e7ca7e6c3eef3316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge et valide la description d'animation d'un asset depuis le disque (sans cache), via <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -130,6 +134,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad66e7bbcd0556e4fccc7dbb009a1d2b8" id="r_ad66e7bbcd0556e4fccc7dbb009a1d2b8"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetPaths.html">AssetPaths</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad66e7bbcd0556e4fccc7dbb009a1d2b8">_paths</a></td></tr>
 <tr class="memitem:ad7f17051cf5b1b1e30badc27867951a0" id="r_ad7f17051cf5b1b1e30badc27867951a0"><td class="memItemLeft"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a>&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad7f17051cf5b1b1e30badc27867951a0">_entries</a></td></tr>
 <tr class="memdesc:ad7f17051cf5b1b1e30badc27867951a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique → texture chargée ; mémorise aussi un <b>échec</b> déjà journalisé.  <br /></td></tr>
+<tr class="memitem:a1107f9ce2c7733737b0aae9791eaacec" id="r_a1107f9ce2c7733737b0aae9791eaacec"><td class="memItemLeft"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a>&lt; <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1107f9ce2c7733737b0aae9791eaacec">_animationEntries</a></td></tr>
+<tr class="memdesc:a1107f9ce2c7733737b0aae9791eaacec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique → description d'animation, sous la <b>même clé</b> que <span class="tt"><a class="el" href="#ad7f17051cf5b1b1e30badc27867951a0" title="Nom logique → texture chargée ; mémorise aussi un échec déjà journalisé.">_entries</a></span> (<span class="tt">LOT-46</span> TACHE-03) : c'est ce qui permet à <span class="tt"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49" title="Retire une entrée du cache, de sorte que le prochain get relise le fichier.">invalidate</a></span>/<span class="tt"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b" title="Retire toutes les entrées du cache (rechargement global, LOT-43/LOT-54), textures et descriptions d&#39;a...">invalidateAll</a></span> de rester le seul point d'invalidation, conjointe entre texture et animation.  <br /></td></tr>
 <tr class="memitem:a2e085900c9d152f6727327c9492c9ccf" id="r_a2e085900c9d152f6727327c9492c9ccf"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2e085900c9d152f6727327c9492c9ccf">_missingTexture</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -138,7 +144,7 @@ Private Attributes</h2></td></tr>
 <p>Ne réimplémente ni le décodage ni l'upload : il compose <span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html#a03a95267511103f4a1f0b67a2624b5e3" title="Résout un nom de fichier logique vers un chemin existant dans le dossier d&#39;assets.">hmi::AssetPaths::resolve</a></span> et <span class="tt"><a class="el" href="namespacehmi.html#af6ffcc39449660c80e3c1c5a53e6c1ec" title="Décode un fichier image puis crée la texture Direct3D 11 correspondante.">hmi::loadTextureFromFile</a></span> (<span class="tt">LOT-39</span>), exactement comme <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span>. Toutes les ressources Direct3D sont détenues en RAII (<span class="tt">Microsoft::WRL::ComPtr</span>) et libérées à la destruction du cache (<span class="tt">EX-NFR-041</span>).</p>
 <p>Un asset absent, illisible ou non conforme est un cas <b>attendu</b> (<span class="tt">EX-NFR-040</span>) : <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> renvoie <span class="tt">nullptr</span> sans exception, après un avertissement journalisé <b>une seule fois</b> par nom — le résultat négatif est mémorisé pour ne pas retenter une lecture disque à chaque image, et pour ne pas noyer le journal. Les appelants qui veulent une texture <em>quoi qu'il arrive</em> passent par <span class="tt"><a class="el" href="namespacehmi.html#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, point de résolution unique du repli en damier (<span class="tt">LOT-40</span> TACHE-03).</p>
 <p><b>Aucune éviction</b> : le cache grossit avec les assets rencontrés et n'est jamais purgé de lui-même (décision de cadrage <span class="tt">LOT-40</span> — les assets sont bornés). <span class="tt"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49" title="Retire une entrée du cache, de sorte que le prochain get relise le fichier.">invalidate</a></span> sert au <b>rechargement</b> (à chaud, <span class="tt">LOT-43</span> ; aperçu de l'atelier, <span class="tt">LOT-54</span>), pas à une politique mémoire.</p>
-<p><b>Durée de vie des handles</b> : <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> renvoie un pointeur vers une entrée du cache, valide tant que l'entrée n'est pas invalidée. <span class="tt"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49" title="Retire une entrée du cache, de sorte que le prochain get relise le fichier.">invalidate</a></span>/<span class="tt"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b" title="Retire toutes les entrées du cache (rechargement global, LOT-43/LOT-54).">invalidateAll</a></span> <b>détruisent</b> l'entrée, donc les ressources Direct3D si personne d'autre ne les retient : ils ne doivent être appelés qu'<b>entre deux images</b>, jamais pendant la composition d'une image. Un appelant qui souhaite conserver une texture au-delà d'une image en copie le <span class="tt">ComPtr</span> — c'est le contrat explicite, pas une invalidation différée cachée. </p>
+<p><b>Durée de vie des handles</b> : <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> renvoie un pointeur vers une entrée du cache, valide tant que l'entrée n'est pas invalidée. <span class="tt"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49" title="Retire une entrée du cache, de sorte que le prochain get relise le fichier.">invalidate</a></span>/<span class="tt"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b" title="Retire toutes les entrées du cache (rechargement global, LOT-43/LOT-54), textures et descriptions d&#39;a...">invalidateAll</a></span> <b>détruisent</b> l'entrée, donc les ressources Direct3D si personne d'autre ne les retient : ils ne doivent être appelés qu'<b>entre deux images</b>, jamais pendant la composition d'une image. Un appelant qui souhaite conserver une texture au-delà d'une image en copie le <span class="tt">ComPtr</span> — c'est le contrat explicite, pas une invalidation différée cachée. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a01918dc9b37d964e74a2cda82d5933c0" name="a01918dc9b37d964e74a2cda82d5933c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01918dc9b37d964e74a2cda82d5933c0">&#9670;&#160;</a></span>TextureCache() <span class="overload">[1/2]</span></h2>
@@ -287,6 +293,51 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adc423d6e4c3d29a98857e9ef090b4870" name="adc423d6e4c3d29a98857e9ef090b4870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc423d6e4c3d29a98857e9ef090b4870">&#9670;&#160;</a></span>getAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> * hmi::TextureCache::getAnimation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtient la description d'animation d'un asset (<span class="tt">nom-asset.anim.json</span>, <span class="tt">LOT-46</span> TACHE-03), en la chargeant et la validant au premier accès. </p>
+<p><b>Absence de fichier</b> : cas par défaut (asset non animé), renvoie <span class="tt">nullptr</span> <b>sans avertissement</b>. <b>Fichier présent mais invalide</b>, ou incohérent avec les dimensions décodées du PNG (<code class="param">textureWidth/<code class="param">textureHeight</code>,</code> déjà connues via <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span>/<span class="tt"><a class="el" href="#a37bf2cb7f585146525bf9551e4e56ede" title="Obtient la variante d&#39;un asset détourée à la silhouette d&#39;un type de tuile.">getMasked</a></span>) : <span class="tt">nullptr</span>, avec un avertissement journalisé une seule fois (même mémoïsation des échecs que <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span>, <span class="tt">EX-NFR-040</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>Nom logique de l'asset animé (ex. « water.png »), pas du descripteur. </td></tr>
+    <tr><td class="paramname">textureWidth</td><td>Largeur décodée du PNG de cet asset, en pixels. </td></tr>
+    <tr><td class="paramname">textureHeight</td><td>Hauteur décodée du PNG de cet asset, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La description, ou <span class="tt">nullptr</span> si l'asset n'est pas animé ou que sa description est invalide. </dd></dl>
+
+</div>
+</div>
 <a id="a37bf2cb7f585146525bf9551e4e56ede" name="a37bf2cb7f585146525bf9551e4e56ede"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37bf2cb7f585146525bf9551e4e56ede">&#9670;&#160;</a></span>getMasked()</h2>
 
@@ -391,7 +442,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retire une entrée du cache, de sorte que le prochain <span class="tt"><a class="el" href="#aede852089e7c06705756d4120ec256a4" title="Obtient la texture d&#39;un asset, en la chargeant au premier accès.">get</a></span> relise le fichier. </p>
-<p>Retire aussi un éventuel <b>échec</b> mémorisé : c'est ce qui permet à un asset créé après coup d'être pris en compte sans redémarrer (rechargement à chaud, <span class="tt">LOT-43</span>). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Retire aussi un éventuel <b>échec</b> mémorisé, et la description d'animation associée le cas échéant (<span class="tt"><a class="el" href="#adc423d6e4c3d29a98857e9ef090b4870" title="Obtient la description d&#39;animation d&#39;un asset (nom-asset.anim.json, LOT-46 TACHE-03),...">getAnimation</a></span>, <span class="tt">LOT-46</span> TACHE-03, invalidation <b>conjointe</b>) : c'est ce qui permet à un asset créé ou modifié après coup — texture ou son fichier d'animation — d'être pris en compte sans redémarrer (rechargement à chaud, <span class="tt">LOT-43</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fileName</td><td>Nom logique du fichier à oublier (sans effet s'il n'est pas en cache). </td></tr>
   </table>
@@ -415,7 +466,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retire <b>toutes</b> les entrées du cache (rechargement global, <span class="tt">LOT-43</span>/<span class="tt">LOT-54</span>). </p>
+<p>Retire <b>toutes</b> les entrées du cache (rechargement global, <span class="tt">LOT-43</span>/<span class="tt">LOT-54</span>), textures <b>et</b> descriptions d'animation (invalidation conjointe, <span class="tt">LOT-46</span> TACHE-03). </p>
 
 </div>
 </div>
@@ -453,6 +504,43 @@ Private Attributes</h2></td></tr>
 
 <p>Charge et valide un asset depuis le disque, sans passer par le cache. </p>
 <p>Applique la silhouette de <code class="param">maskType</code> si ce type en a une (détourage des pentes, <span class="tt">LOT-42</span>). </p>
+
+</div>
+</div>
+<a id="a083e7d115a6a86f3e7ca7e6c3eef3316" name="a083e7d115a6a86f3e7ca7e6c3eef3316"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a083e7d115a6a86f3e7ca7e6c3eef3316">&#9670;&#160;</a></span>loadAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &gt; hmi::TextureCache::loadAnimation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>textureHeight</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge et valide la description d'animation d'un asset depuis le disque (sans cache), via <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>. </p>
+<p><span class="tt">std::nullopt</span> couvre aussi bien l'absence de fichier (silencieuse) qu'un échec de lecture/validation (journalisé par <span class="tt"><a class="el" href="#adc423d6e4c3d29a98857e9ef090b4870" title="Obtient la description d&#39;animation d&#39;un asset (nom-asset.anim.json, LOT-46 TACHE-03),...">getAnimation</a></span>). </p>
 
 </div>
 </div>
@@ -510,6 +598,30 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a1107f9ce2c7733737b0aae9791eaacec" name="a1107f9ce2c7733737b0aae9791eaacec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1107f9ce2c7733737b0aae9791eaacec">&#9670;&#160;</a></span>_animationEntries</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1CacheRegistry.html">CacheRegistry</a>&lt;<a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a>&gt; hmi::TextureCache::_animationEntries</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom logique → description d'animation, sous la <b>même clé</b> que <span class="tt"><a class="el" href="#ad7f17051cf5b1b1e30badc27867951a0" title="Nom logique → texture chargée ; mémorise aussi un échec déjà journalisé.">_entries</a></span> (<span class="tt">LOT-46</span> TACHE-03) : c'est ce qui permet à <span class="tt"><a class="el" href="#a324622b81a525996c2c2fef648ca1e49" title="Retire une entrée du cache, de sorte que le prochain get relise le fichier.">invalidate</a></span>/<span class="tt"><a class="el" href="#a12ace6c083ac9c91eff8686bd0039a4b" title="Retire toutes les entrées du cache (rechargement global, LOT-43/LOT-54), textures et descriptions d&#39;a...">invalidateAll</a></span> de rester le seul point d'invalidation, conjointe entre texture et animation. </p>
+
+</div>
+</div>
 <a id="adab1a2b7a97e0f37cd991e302e7b3602" name="adab1a2b7a97e0f37cd991e302e7b3602"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adab1a2b7a97e0f37cd991e302e7b3602">&#9670;&#160;</a></span>_device</h2>
 

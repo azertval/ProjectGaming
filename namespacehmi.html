@@ -143,6 +143,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fenêtre native (<span class="tt">QWindow</span>) où Direct3D 11 présente, embarquée dans Qt.  <a href="classhmi_1_1GameViewport.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AnimationDescription" id="r_AnimationDescription"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'animation d'un asset : disposition de sa spritesheet et ses clips.  <a href="structhmi_1_1AnimationDescription.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AnimationDescriptionResult" id="r_AnimationDescriptionResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AnimationDescriptionResult.html">AnimationDescriptionResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de description : soit une <span class="tt"><a class="el" href="structhmi_1_1AnimationDescription.html" title="Description d&#39;animation d&#39;un asset : disposition de sa spritesheet et ses clips.">AnimationDescription</a></span>, soit une <b>erreur</b> décrite.  <a href="structhmi_1_1AnimationDescriptionResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AnimationCatalog" id="r_AnimationCatalog"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AnimationCatalog.html">AnimationCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture, validation et traduction en région de texture du format <span class="tt">nom-asset.anim.json</span>.  <a href="classhmi_1_1AnimationCatalog.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetDimensionContract" id="r_AssetDimensionContract"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetDimensionContract.html">AssetDimensionContract</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensions attendues d'une famille d'assets.  <a href="structhmi_1_1AssetDimensionContract.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetValidation" id="r_AssetValidation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetValidation.html">AssetValidation</a></td></tr>
@@ -279,6 +285,17 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717">Remove</a>
  }</td></tr>
 <tr class="memdesc:a76066d550faf628786294c82cd2d12a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer sur le brouillon suite à un clic de l'outil « Texture par instance ».  <a href="#a76066d550faf628786294c82cd2d12a4">More...</a><br /></td></tr>
+<tr class="memitem:afee4dd05bda0b2293c4a99a73cb7eb8f" id="r_afee4dd05bda0b2293c4a99a73cb7eb8f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f">AnimationCatalogError</a> { <br />
+&#160;&#160;<a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+, <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165">ParseError</a>
+, <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</a>
+, <br />
+&#160;&#160;<a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d">MalformedStructure</a>
+, <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20">IncoherentFrameSize</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:afee4dd05bda0b2293c4a99a73cb7eb8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de lecture d'une description d'animation (même esprit que <span class="tt"><a class="el" href="#ae064c48cb814db754a1228bda7b8d77d" title="Catégorie d&#39;échec de lecture d&#39;un skins.json (même esprit que core::LevelValidationError).">hmi::SkinCatalogError</a></span>/<span class="tt"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823" title="Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).">core::LevelValidationError</a></span>).  <a href="#afee4dd05bda0b2293c4a99a73cb7eb8f">More...</a><br /></td></tr>
 <tr class="memitem:a0030e1768b551f6d1bc0a9fa566d2003" id="r_a0030e1768b551f6d1bc0a9fa566d2003"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> { <br />
 &#160;&#160;<a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f">Atlas</a>
 , <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003ab9f26e792765678622367e1d286be9ff">TileSkin</a>
@@ -295,6 +312,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4">Line</a>
  }</td></tr>
 <tr class="memdesc:aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.  <a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">More...</a><br /></td></tr>
+<tr class="memitem:a01d3aca49804e2e7ac13786499fe7bf4" id="r_a01d3aca49804e2e7ac13786499fe7bf4"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a> { <a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c">Idle</a>
+, <a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d">Run</a>
+, <a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4a101f693f72287a2819a364f64ca1c0ed">Jump</a>
+ }</td></tr>
+<tr class="memdesc:a01d3aca49804e2e7ac13786499fe7bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identité des trois clips historiques du personnage, <b>côté présentation seulement</b>.  <a href="#a01d3aca49804e2e7ac13786499fe7bf4">More...</a><br /></td></tr>
 <tr class="memitem:a9b5452f2d3a1019a3229b90a4f000919" id="r_a9b5452f2d3a1019a3229b90a4f000919"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> : std::int32_t { <br />
 &#160;&#160;<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919aa9ded1e5ce5d75814730bb4caaf49419">Background</a> = 0
 , <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44">Decor</a>
@@ -493,8 +515,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
 <tr class="memdesc:a23394f99f0606e53aafbeca5ed51496b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement émis lorsqu'un asset attendu est introuvable ou refusé.  <br /></td></tr>
-<tr class="memitem:ad7faa7f521b06a1d55c7ff9357d2ebfc" id="r_ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad7faa7f521b06a1d55c7ff9357d2ebfc">flatPlayerFrameIndex</a> (<a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a> clip, int frameIndex)</td></tr>
-<tr class="memdesc:ad7faa7f521b06a1d55c7ff9357d2ebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>.  <br /></td></tr>
+<tr class="memitem:a8286de42af940b050fe6db5bf4950b50" id="r_a8286de42af940b050fe6db5bf4950b50"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8286de42af940b050fe6db5bf4950b50">flatPlayerFrameIndex</a> (<a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a> clip, int frameIndex)</td></tr>
+<tr class="memdesc:a8286de42af940b050fe6db5bf4950b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..PLAYER_IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>.  <br /></td></tr>
 <tr class="memitem:a0fa1fc503abd25e16f2e3d52f6c8d540" id="r_a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540">buildProceduralAtlasImage</a> ()</td></tr>
 <tr class="memdesc:a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, l'atlas procédural historique (grille de tuiles + images du personnage), de façon <b>déterministe</b>.  <br /></td></tr>
 <tr class="memitem:a8b8fd5c80e500ad266167edacf261714" id="r_a8b8fd5c80e500ad266167edacf261714"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a8b8fd5c80e500ad266167edacf261714">renderLayerName</a> (<a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
@@ -515,10 +537,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:aff5a499bb21016a452b381ee65602b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la silhouette d'un type à une image carrée, en rendant transparent l'extérieur.  <br /></td></tr>
 <tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a533df804a658915efda4f8f6c918496e">submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
-<tr class="memitem:ad19713f79553957d14d745cb3d84d03a" id="r_ad19713f79553957d14d745cb3d84d03a"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad19713f79553957d14d745cb3d84d03a">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={}, const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;textureOverrides={})</td></tr>
-<tr class="memdesc:ad19713f79553957d14d745cb3d84d03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
+<tr class="memitem:a27b2297508a6410d2885eeeb226c7ca9" id="r_a27b2297508a6410d2885eeeb226c7ca9"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27b2297508a6410d2885eeeb226c7ca9">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={}, const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;textureOverrides={}, const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;tileAnimations={})</td></tr>
+<tr class="memdesc:a27b2297508a6410d2885eeeb226c7ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
 <tr class="memitem:af1d89363ce904e2b4a68eeaa7503c066" id="r_af1d89363ce904e2b4a68eeaa7503c066"><td class="memItemLeft"><a class="el" href="structhmi_1_1BackgroundTexture.html">BackgroundTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#af1d89363ce904e2b4a68eeaa7503c066">resolveBackgroundTexture</a> (const std::optional&lt; std::string &gt; &amp;background, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
 <tr class="memdesc:af1d89363ce904e2b4a68eeaa7503c066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>).  <br /></td></tr>
+<tr class="memitem:a400619b6396af0caf3768b3778730809" id="r_a400619b6396af0caf3768b3778730809"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a400619b6396af0caf3768b3778730809">advanceTileAnimations</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, const std::string &amp;skinSet, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, float deltaSeconds, std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;tileAnimations, std::set&lt; std::string &gt; &amp;warnedExclusions)</td></tr>
+<tr class="memdesc:a400619b6396af0caf3768b3778730809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance l'horloge d'animation partagée des tuiles animées d'un jeu de skins courant (<span class="tt">LOT-46</span> TACHE-05).  <br /></td></tr>
 <tr class="memitem:a32457118c4e60dff8da0ba9839c0f29a" id="r_a32457118c4e60dff8da0ba9839c0f29a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a">resolveOrPlaceholder</a> (<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const std::string &amp;fileName, <a class="el" href="#a0030e1768b551f6d1bc0a9fa566d2003">AssetFamily</a> family)</td></tr>
 <tr class="memdesc:a32457118c4e60dff8da0ba9839c0f29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtient la texture d'un asset, ou le <b>repli en damier magenta</b> à défaut.  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
@@ -529,6 +553,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:af6ffcc39449660c80e3c1c5a53e6c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image puis crée la texture Direct3D 11 correspondante.  <br /></td></tr>
 <tr class="memitem:ab158a76df687b49eeccc12df1438d3ce" id="r_ab158a76df687b49eeccc12df1438d3ce"><td class="memItemLeft"><a class="el" href="structhmi_1_1TileAppearance.html">TileAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab158a76df687b49eeccc12df1438d3ce">resolveTileAppearance</a> (<a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &amp;physicalRegion, const <a class="el" href="structhmi_1_1TileSkinTag.html">TileSkinTag</a> *tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
 <tr class="memdesc:ab158a76df687b49eeccc12df1438d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'une entité affichée selon le mode de rendu courant.  <br /></td></tr>
+<tr class="memitem:ad7099b7e079afed3ba2eee64261b1725" id="r_ad7099b7e079afed3ba2eee64261b1725"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad7099b7e079afed3ba2eee64261b1725">animationExcludedForTile</a> (<a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a> mode, <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
+<tr class="memdesc:ad7099b7e079afed3ba2eee64261b1725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si la combinaison (mode de skin, type de tuile) exclut l'animation (<span class="tt">LOT-46</span> TACHE-05).  <br /></td></tr>
 <tr class="memitem:a6d5ae4c4504ac24560454bb394e9ad1a" id="r_a6d5ae4c4504ac24560454bb394e9ad1a"><td class="memItemLeft">std::uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a6d5ae4c4504ac24560454bb394e9ad1a">solidNeighborMask</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;tiles, int column, int row) noexcept</td></tr>
 <tr class="memdesc:a6d5ae4c4504ac24560454bb394e9ad1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le masque de voisinage solide d'une case de la grille.  <br /></td></tr>
 <tr class="memitem:a34134b921b6e696d52d483a74483aab1" id="r_a34134b921b6e696d52d483a74483aab1"><td class="memItemLeft"><a class="el" href="structhmi_1_1AutotileCell.html">AutotileCell</a>&#160;</td><td class="memItemRight"><a class="el" href="#a34134b921b6e696d52d483a74483aab1">autotileCell</a> (std::uint8_t mask) noexcept</td></tr>
@@ -562,6 +588,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
+<tr class="memitem:a2d9518f5e334bdfb798bf8748141a5ef" id="r_a2d9518f5e334bdfb798bf8748141a5ef"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a2d9518f5e334bdfb798bf8748141a5ef">PLAYER_IDLE_FRAME_COUNT</a> = 2</td></tr>
+<tr class="memdesc:a2d9518f5e334bdfb798bf8748141a5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Idle</span>.  <br /></td></tr>
+<tr class="memitem:ad7c36223ccc4c82e7dd0f53719779608" id="r_ad7c36223ccc4c82e7dd0f53719779608"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ad7c36223ccc4c82e7dd0f53719779608">PLAYER_RUN_FRAME_COUNT</a> = 4</td></tr>
+<tr class="memdesc:ad7c36223ccc4c82e7dd0f53719779608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Run</span>.  <br /></td></tr>
+<tr class="memitem:adc630e46d6be29b1305a960eca55744c" id="r_adc630e46d6be29b1305a960eca55744c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#adc630e46d6be29b1305a960eca55744c">PLAYER_JUMP_FRAME_COUNT</a> = 1</td></tr>
+<tr class="memdesc:adc630e46d6be29b1305a960eca55744c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Jump</span> (pose unique, jamais animée).  <br /></td></tr>
 <tr class="memitem:ab6e44ad3d54b0383ef13f332d290df46" id="r_ab6e44ad3d54b0383ef13f332d290df46"><td class="memItemLeft">constexpr <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab6e44ad3d54b0383ef13f332d290df46">DEFAULT_RENDER_LAYER</a> = <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td></tr>
 <tr class="memdesc:ab6e44ad3d54b0383ef13f332d290df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calque appliqué à une entité dépourvue de <span class="tt"><a class="el" href="structhmi_1_1RenderLayerTag.html" title="Composant de présentation fixant le calque de dessin d&#39;une entité.">hmi::RenderLayerTag</a></span>.  <br /></td></tr>
 <tr class="memitem:a6757e25cf3a1020826327afe0dd194d3" id="r_a6757e25cf3a1020826327afe0dd194d3"><td class="memItemLeft">constexpr <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6757e25cf3a1020826327afe0dd194d3">DEFAULT_RENDER_MODE</a> = <a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b">RenderMode::Texture</a></td></tr>
@@ -606,6 +638,44 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="afee4dd05bda0b2293c4a99a73cb7eb8f" name="afee4dd05bda0b2293c4a99a73cb7eb8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afee4dd05bda0b2293c4a99a73cb7eb8f">&#9670;&#160;</a></span>AnimationCatalogError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f">hmi::AnimationCatalogError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégorie d'échec de lecture d'une description d'animation (même esprit que <span class="tt"><a class="el" href="#ae064c48cb814db754a1228bda7b8d77d" title="Catégorie d&#39;échec de lecture d&#39;un skins.json (même esprit que core::LevelValidationError).">hmi::SkinCatalogError</a></span>/<span class="tt"><a class="el" href="namespacecore.html#af2a63d18c9ef40479ebdc204e726e823" title="Catégorie d&#39;échec de chargement/validation d&#39;un niveau (LOT-15, EX-EDIT-012).">core::LevelValidationError</a></span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754" name="afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Pas d'erreur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2" name="afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier absent. Cas <b>légitime</b> (image fixe), pas une anomalie. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165" name="afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"><p>JSON malformé, ou racine qui n'est pas un objet. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518" name="afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518"></a>UnsupportedVersion&#160;</td><td class="fielddoc"><p>Numéro de version supérieur à <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html#a2e32d9448dc4a00346eba59a2aa27e75" title="Version du format écrite dans le fichier, et plus élevée qui soit lue (voir hmi::SkinCatalog::FORMAT_...">AnimationCatalog::FORMAT_VERSION</a></span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d" name="afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d"></a>MalformedStructure&#160;</td><td class="fielddoc"><p>Structure inattendue (clip sans « frames », <span class="tt">next</span> inexistant…). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20" name="afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20"></a>IncoherentFrameSize&#160;</td><td class="fielddoc"><p>Taille d'image déclarée incohérente avec les dimensions du PNG. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="ac32d81972d12a0b2475fc009eefee225" name="ac32d81972d12a0b2475fc009eefee225"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac32d81972d12a0b2475fc009eefee225">&#9670;&#160;</a></span>AppearanceSource</h2>
 
@@ -1029,6 +1099,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a01d3aca49804e2e7ac13786499fe7bf4" name="a01d3aca49804e2e7ac13786499fe7bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01d3aca49804e2e7ac13786499fe7bf4">&#9670;&#160;</a></span>PlayerClipKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4">hmi::PlayerClipKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identité des trois clips historiques du personnage, <b>côté présentation seulement</b>. </p>
+<p>Distinct de <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> (donnée générique, <span class="tt">LOT-46</span>) : l'atlas procédural reste le repli et la <b>référence</b> visuelle du personnage (<span class="tt">LOT-39</span>), peint « en dur » à partir de trois poses connues à la compilation — <span class="tt">Core</span> n'a, depuis <span class="tt">LOT-46</span>, plus aucune connaissance de ces trois clips en particulier (<span class="tt">EX-ARCH-012</span>). L'ordre des valeurs est celui de <span class="tt"><a class="el" href="namespacecore.html#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (<span class="tt"><a class="el" href="AnimationSystem_8h.html" title="Système d&#39;animation générique, piloté par données (LOT-46).">Core/Ecs/Systems/AnimationSystem.h</a></span>, <span class="tt">PLAYER_CLIP_IDLE</span>/<span class="tt">_RUN</span>/ <span class="tt">_JUMP</span>) : c'est <span class="tt">HMI</span> (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">GameSession::refreshPlayerSprite</a></span>) qui fait le pont entre l'index de clip résolu par <span class="tt">Core</span> et cette énumération. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c" name="a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c"></a>Idle&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d" name="a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01d3aca49804e2e7ac13786499fe7bf4a101f693f72287a2819a364f64ca1c0ed" name="a01d3aca49804e2e7ac13786499fe7bf4a101f693f72287a2819a364f64ca1c0ed"></a>Jump&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa9ff839f9bcc1bb899b24cb8026ab2b3" name="aa9ff839f9bcc1bb899b24cb8026ab2b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9ff839f9bcc1bb899b24cb8026ab2b3">&#9670;&#160;</a></span>QuadKind</h2>
 
@@ -1242,6 +1342,99 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a400619b6396af0caf3768b3778730809" name="a400619b6396af0caf3768b3778730809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400619b6396af0caf3768b3778730809">&#9670;&#160;</a></span>advanceTileAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::advanceTileAnimations </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>skins</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>skinSet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSeconds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tileAnimations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>warnedExclusions</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance l'horloge d'animation partagée des tuiles animées d'un jeu de skins courant (<span class="tt">LOT-46</span> TACHE-05). </p>
+<p>Facteur commun à <span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span> (pas fixe, déterministe, <span class="tt">EX-NFR-002</span>) et <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> (temps réel de l'aperçu d'édition — la détermination n'a pas de sens hors simulation) : découvre les assets animés du jeu de skins courant (mode <span class="tt">Single</span>, sans silhouette — <span class="tt">bitmask16</span> et silhouette détourée excluent l'animation, <span class="tt"><a class="el" href="#ad7099b7e079afed3ba2eee64261b1725" title="Indique si la combinaison (mode de skin, type de tuile) exclut l&#39;animation (LOT-46 TACHE-05).">hmi::animationExcludedForTile</a></span>, signalé une fois par asset via <code class="param">warnedExclusions</code>) et avance leur horloge partagée d'un pas. Une entrée par <b>asset</b>, jamais par tuile : toutes les tuiles d'un même type animé restent ainsi en phase, sans coût par case. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skins</td><td>Catalogue de skins courant, ou <span class="tt">nullptr</span> (rien à faire). </td></tr>
+    <tr><td class="paramname">skinSet</td><td>Nom du jeu courant ; vide pour le jeu par défaut du catalogue. </td></tr>
+    <tr><td class="paramname">cache</td><td>Cache de textures (résolution de l'asset et de sa description). </td></tr>
+    <tr><td class="paramname">deltaSeconds</td><td>Durée à avancer. </td></tr>
+    <tr><td class="paramname">tileAnimations</td><td>Horloge partagée, mise à jour en place. </td></tr>
+    <tr><td class="paramname">warnedExclusions</td><td>Assets déjà signalés pour une combinaison exclue (mémorisation, pour ne jamais journaliser à chaque image). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad7099b7e079afed3ba2eee64261b1725" name="ad7099b7e079afed3ba2eee64261b1725"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7099b7e079afed3ba2eee64261b1725">&#9670;&#160;</a></span>animationExcludedForTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::animationExcludedForTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11e">SkinMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indique si la combinaison (mode de skin, type de tuile) exclut l'animation (<span class="tt">LOT-46</span> TACHE-05). </p>
+<p><span class="tt"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522" title="Planche de 4×4 cases, dont celle affichée est choisie selon les quatre voisins solides (hmi::autotile...">SkinMode::Bitmask16</a></span> (la case dépend du voisinage solide) et une silhouette détourée (pente/arrondi, <span class="tt"><a class="el" href="#a8a000913259074c63f34b46b7d67864e" title="Indique si un type de tuile a une silhouette autre qu&#39;un carré plein.">hmi::hasSilhouette</a></span>) choisissent déjà la case à échantillonner dans l'image ; l'animation en ajouterait une seconde façon, jamais implémentée — limite assumée plutôt que silencieuse (voir l'epic <span class="tt">LOT-46</span>). Fonction <b>pure</b>, testable sans GPU : c'est elle que <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb" title="Avance l&#39;horloge d&#39;animation partagée des tuiles animées (LOT-46 TACHE-05), au pas fixe : une entrée ...">GameSession::updateTileAnimations</a></span> interroge pour décider de signaler la combinaison au lieu de l'ignorer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Mode de découpage du skin assigné. </td></tr>
+    <tr><td class="paramname">type</td><td>Type de tuile concerné. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si l'animation doit être ignorée pour cette combinaison. </dd></dl>
+
+</div>
+</div>
 <a id="aff5a499bb21016a452b381ee65602b3a" name="aff5a499bb21016a452b381ee65602b3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff5a499bb21016a452b381ee65602b3a">&#9670;&#160;</a></span>applySilhouetteMask()</h2>
 
@@ -2085,8 +2278,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad7faa7f521b06a1d55c7ff9357d2ebfc" name="ad7faa7f521b06a1d55c7ff9357d2ebfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7faa7f521b06a1d55c7ff9357d2ebfc">&#9670;&#160;</a></span>flatPlayerFrameIndex()</h2>
+<a id="a8286de42af940b050fe6db5bf4950b50" name="a8286de42af940b050fe6db5bf4950b50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8286de42af940b050fe6db5bf4950b50">&#9670;&#160;</a></span>flatPlayerFrameIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2097,7 +2290,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">int hmi::flatPlayerFrameIndex </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a></td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a></td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2112,10 +2305,10 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>. </p>
-<p><b>Seule source de vérité</b> de cet ordre, partagée par <span class="tt"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">buildProceduralAtlasImage</a></span> (placement des images) et par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#ac9398f98fbecda8e8e323b9a7647f5cc" title="Région (en pixels) d&#39;une image d&#39;animation du personnage, sous la grille de tuiles.">TextureAtlas::playerFrameRegion</a></span> (résolution de la même région) — les dupliquer aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..PLAYER_IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>. </p>
+<p><b>Seule source de vérité</b> de cet ordre, partagée par <span class="tt"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540" title="Génère, en mémoire, l&#39;atlas procédural historique (grille de tuiles + images du personnage),...">buildProceduralAtlasImage</a></span> (placement des images) et par <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html#a67c6c296ba526f4bba63ce804b01b37b" title="Région (en pixels) d&#39;une image d&#39;animation du personnage, sous la grille de tuiles.">TextureAtlas::playerFrameRegion</a></span> (résolution de la même région) — les dupliquer aux deux endroits risquerait de les laisser diverger silencieusement. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clip</td><td>Clip d'animation (<span class="tt">EX-REN-012</span>). </td></tr>
+    <tr><td class="paramname">clip</td><td>Clip d'animation du personnage. </td></tr>
     <tr><td class="paramname">frameIndex</td><td>Index de l'image dans le clip (0-based). </td></tr>
   </table>
   </dd>
@@ -2921,7 +3114,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>). </p>
-<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#ad19713f79553957d14d745cb3d84d03a" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#a27b2297508a6410d2885eeeb226c7ca9" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">background</td><td>Nom de l'asset de fond du niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f">core::Level::background</a></span>), ou absent. </td></tr>
     <tr><td class="paramname">cache</td><td>Cache de textures, résout l'asset (et son repli en damier). </td></tr>
@@ -3182,8 +3375,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad19713f79553957d14d745cb3d84d03a" name="ad19713f79553957d14d745cb3d84d03a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad19713f79553957d14d745cb3d84d03a">&#9670;&#160;</a></span>sceneTextures()</h2>
+<a id="a27b2297508a6410d2885eeeb226c7ca9" name="a27b2297508a6410d2885eeeb226c7ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27b2297508a6410d2885eeeb226c7ca9">&#9670;&#160;</a></span>sceneTextures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3214,7 +3407,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>textureOverrides</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>textureOverrides</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tileAnimations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -3233,6 +3431,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">skinSet</td><td>Nom du jeu de skins courant ; vide pour le jeu par défaut du catalogue. </td></tr>
     <tr><td class="paramname">textureOverrides</td><td>Surcharges de texture par instance du niveau courant (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) ; chaque asset distinct est chargé une fois (<span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html" title="Textures liables par la composition d&#39;une scène, et de quoi choisir laquelle lier.">hmi::SceneTextures</a>::
                 objects</span>), un asset déjà chargé ou introuvable étant silencieusement ignoré (la résolution retombe sur le damier, avertissement déjà journalisé par le cache). </td></tr>
+    <tr><td class="paramname">tileAnimations</td><td>Horloge d'animation partagée par asset de tuile (<span class="tt">LOT-46</span> TACHE-05, <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb" title="Avance l&#39;horloge d&#39;animation partagée des tuiles animées (LOT-46 TACHE-05), au pas fixe : une entrée ...">GameSession::updateTileAnimations</a></span>, avancée au <b>pas fixe</b>) : un skin en mode <span class="tt"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">SkinMode::Single</a></span>, sans silhouette, dont l'asset est animé et présent dans cette table échantillonne l'image <b>courante</b> plutôt que l'image entière. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3990,6 +4189,79 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (<span class="tt">LOT-45</span>). </p>
+
+</div>
+</div>
+<a id="a2d9518f5e334bdfb798bf8748141a5ef" name="a2d9518f5e334bdfb798bf8748141a5ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d9518f5e334bdfb798bf8748141a5ef">&#9670;&#160;</a></span>PLAYER_IDLE_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PLAYER_IDLE_FRAME_COUNT = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <span class="tt">Idle</span>. </p>
+<p>Seule source de vérité (<span class="tt">LOT-18</span>, migré côté <span class="tt">HMI</span> par <span class="tt">LOT-46</span> puisque seul l'atlas procédural en a encore besoin pour son placement fixe). </p>
+
+</div>
+</div>
+<a id="adc630e46d6be29b1305a960eca55744c" name="adc630e46d6be29b1305a960eca55744c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc630e46d6be29b1305a960eca55744c">&#9670;&#160;</a></span>PLAYER_JUMP_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PLAYER_JUMP_FRAME_COUNT = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <span class="tt">Jump</span> (pose unique, jamais animée). </p>
+
+</div>
+</div>
+<a id="ad7c36223ccc4c82e7dd0f53719779608" name="ad7c36223ccc4c82e7dd0f53719779608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7c36223ccc4c82e7dd0f53719779608">&#9670;&#160;</a></span>PLAYER_RUN_FRAME_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PLAYER_RUN_FRAME_COUNT = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre d'images du clip <span class="tt">Run</span>. </p>
 
 </div>
 </div>

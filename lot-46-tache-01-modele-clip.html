@@ -93,12 +93,12 @@ $(function(){initNavTree('lot-46-tache-01-modele-clip.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-01-modele-clip"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Ecs</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2050"></a>
 Contexte</h1>
 <p>L'animation actuelle est <b>entièrement figée dans le code</b> :</p>
 <ul>
-<li><span class="tt"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860" title="Clip d&#39;animation du personnage (EX-REN-012).">core::AnimationClip</a></span> est un <span class="tt">enum class { Idle, Run, Jump }</span> — trois valeurs, ajoutées à la main ;</li>
+<li><span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> est un <span class="tt">enum class { Idle, Run, Jump }</span> — trois valeurs, ajoutées à la main ;</li>
 <li>le nombre d'images de chaque clip est une constante de compilation (<span class="tt">IDLE_FRAME_COUNT</span>, <span class="tt">RUN_FRAME_COUNT</span>, <span class="tt">JUMP_FRAME_COUNT</span>) ;</li>
 <li>la durée par image aussi (<span class="tt">IDLE_FRAME_DURATION</span>, <span class="tt">RUN_FRAME_DURATION</span>) ;</li>
 <li>tous les clips bouclent, sans exception possible.</li>
@@ -109,7 +109,7 @@ Travail à réaliser</h1>
 <ul>
 <li><b>Modèle de clip</b> (données pures, <span class="tt">Core</span>) : un nom, une suite d'indices d'images, une durée par image, et un mode de fin — <b>bouclé</b> ou <b>joué une fois</b> avec clip suivant.</li>
 <li><b>Jeu de clips</b> : ensemble nommé de clips, adressable par nom. C'est l'unité que décrira le fichier d'animation (TACHE-03).</li>
-<li><b><span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span> révisé</b> : référence le clip courant <b>par nom</b> au sein d'un jeu, conserve l'index d'image et le temps écoulé. Reste une <span class="tt">struct</span> de données pures, sans méthode ni type GPU, conformément au patron des composants ECS.</li>
+<li><b><span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> révisé</b> : référence le clip courant <b>par nom</b> au sein d'un jeu, conserve l'index d'image et le temps écoulé. Reste une <span class="tt">struct</span> de données pures, sans méthode ni type GPU, conformément au patron des composants ECS.</li>
 <li><b>Suppression des constantes figées</b> de <span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Animation.h</a></span> (nombres d'images et durées), remplacées par les données des clips.</li>
 <li><b>Accès sûr</b> : demander un clip inexistant ne doit ni planter ni lever — repli déterministe sur un clip par défaut ou la première image.</li>
 </ul>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Animation_8h.html" title="Composant d&#39;état d&#39;animation par séquence d&#39;images (données pures).">Source/Core/Ecs/Components/Animation.h</a></span>, <span class="tt">Source/Core/Ecs/AnimationClip.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>.</li>
-<li><span class="tt">Source/Test/Unit/Core/Ecs/test_animation_clip.cpp</span> (nouveau).</li>
+<li><span class="tt"><a class="el" href="test__animation__clip_8cpp.html" title="Tests unitaires du modèle de clip d&#39;animation (core::AnimationClip/core::ClipSet, LOT-46 TACHE-01) : ...">Source/Test/Unit/Core/Ecs/test_animation_clip.cpp</a></span> (nouveau).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2053"></a>
 Tests (obligatoires)</h1>
@@ -137,7 +137,7 @@ Points d'attention</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2055"></a>
 Définition de fait (DoD)</h1>
 <ul>
-<li>Un clip est une donnée constructible et interrogeable ; <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span> n'a plus aucune constante de durée ni de nombre d'images ; l'accès à un clip inexistant est sûr ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
+<li>Un clip est une donnée constructible et interrogeable ; <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> n'a plus aucune constante de durée ni de nombre d'images ; l'accès à un clip inexistant est sûr ; tests purs verts ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2056"></a>
 Exigences</h1>

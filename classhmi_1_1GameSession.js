@@ -18,10 +18,12 @@ var classhmi_1_1GameSession =
     [ "spawnPlayer", "classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8", null ],
     [ "update", "classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2", null ],
     [ "updateCurrentRoom", "classhmi_1_1GameSession.html#a626952821cb4fc9a0144a4bdf6b9eaaf", null ],
+    [ "updateTileAnimations", "classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb", null ],
     [ "_animation", "classhmi_1_1GameSession.html#a569da45ea0b788515624b18e06d3d46e", null ],
     [ "_atlas", "classhmi_1_1GameSession.html#a17ea5dde3cb91b218706bcb004238688", null ],
     [ "_blockEntities", "classhmi_1_1GameSession.html#a24601fb7a9766888c41012468830bcb0", null ],
     [ "_blocks", "classhmi_1_1GameSession.html#a704567d8e068fe547c071d3718bbe263", null ],
+    [ "_cache", "classhmi_1_1GameSession.html#a0d07345a966887895af7f1775f47bde7", null ],
     [ "_camera", "classhmi_1_1GameSession.html#aa7cbc29a084978c4d5666d63deb1cbc3", null ],
     [ "_currentRoomIndex", "classhmi_1_1GameSession.html#a49972cbb0c2ec56a6f3e53031fcad0d4", null ],
     [ "_dangerBlinkEntities", "classhmi_1_1GameSession.html#a4626f94bae8605ca5ec679db25e96527", null ],
@@ -40,5 +42,9 @@ var classhmi_1_1GameSession =
     [ "_player", "classhmi_1_1GameSession.html#a03b4d354a896209d942166a919b06a96", null ],
     [ "_renderer", "classhmi_1_1GameSession.html#a7673a4eb5fbc79c45bbbdfe2dd01c0a2", null ],
     [ "_roomGrid", "classhmi_1_1GameSession.html#adb642e446ac548c28b5833442efd175d", null ],
+    [ "_tileAnimations", "classhmi_1_1GameSession.html#a6ab22efca0e53c493f10c9afa18943ba", null ],
+    [ "_tileSkins", "classhmi_1_1GameSession.html#a0110e225fa5b4d77ca2cbf144a6b7aea", null ],
+    [ "_tileSkinSet", "classhmi_1_1GameSession.html#a556b38af0cd3684293a4742cd1e18f47", null ],
+    [ "_warnedExcludedAnimations", "classhmi_1_1GameSession.html#a62f1df42a4460ab63c9628f0b4399556", null ],
     [ "_world", "classhmi_1_1GameSession.html#a142069d46d31d620a9a5222f7cd61645", null ]
 ];

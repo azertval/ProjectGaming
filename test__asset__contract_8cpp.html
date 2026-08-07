@@ -105,6 +105,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac5b4f82684e5efba6588015085a67f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin de tuile exactement à la taille d'une case est accepté.  <br /></td></tr>
 <tr class="memitem:a3e5715154ba737903016f4af23862edf" id="r_a3e5715154ba737903016f4af23862edf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3e5715154ba737903016f4af23862edf">TEST</a> (AssetContractTest, SkinDeTuileNonConformeRefuseAvecMessage)</td></tr>
 <tr class="memdesc:a3e5715154ba737903016f4af23862edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin de tuile aux mauvaises dimensions est refusé, avec un message nommant le fichier, la dimension trouvée et la dimension attendue.  <br /></td></tr>
+<tr class="memitem:a2c93afa21a38092e3686fb33b736a537" id="r_a2c93afa21a38092e3686fb33b736a537"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2c93afa21a38092e3686fb33b736a537">TEST</a> (AssetContractTest, SkinDeTuileAnimeSpritesheetHorizontaleAcceptee)</td></tr>
+<tr class="memdesc:a2c93afa21a38092e3686fb33b736a537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin de tuile ANIME (<span class="tt">LOT-46</span>) est une spritesheet horizontale sur un seul rang : plusieurs cases de large, une case de haut.  <br /></td></tr>
+<tr class="memitem:aefdc3a0d8dda458eee39352efdb2a71e" id="r_aefdc3a0d8dda458eee39352efdb2a71e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aefdc3a0d8dda458eee39352efdb2a71e">TEST</a> (AssetContractTest, SkinDeTuileSurPlusieursRangsRefuse)</td></tr>
+<tr class="memdesc:aefdc3a0d8dda458eee39352efdb2a71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un skin de tuile de plus d'un rang (hauteur multiple de la case, mais pas exactement une case) reste refusé : la spritesheet animée n'a jamais qu'un seul rang (<span class="tt">LOT-46</span>).  <br /></td></tr>
 <tr class="memitem:aee0830b167fa7b37159cc0df229866db" id="r_aee0830b167fa7b37159cc0df229866db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aee0830b167fa7b37159cc0df229866db">TEST</a> (AssetContractTest, PlancheARaccordsExigeQuatreCasesMinimum)</td></tr>
 <tr class="memdesc:aee0830b167fa7b37159cc0df229866db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une planche à raccords doit être un multiple de la taille de tuile et compter au moins 4x4 cases.  <br /></td></tr>
 <tr class="memitem:a0f2c5a245b6efa818ee19f63228c9974" id="r_a0f2c5a245b6efa818ee19f63228c9974"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0f2c5a245b6efa818ee19f63228c9974">TEST</a> (AssetContractTest, FondDeNiveauSansContrainteDeGrille)</td></tr>
@@ -120,7 +124,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="adb675a6a6e7dbadb3c84f048d5f5c299" name="adb675a6a6e7dbadb3c84f048d5f5c299"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb675a6a6e7dbadb3c84f048d5f5c299">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adb675a6a6e7dbadb3c84f048d5f5c299">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,7 +153,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0f2c5a245b6efa818ee19f63228c9974" name="a0f2c5a245b6efa818ee19f63228c9974"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f2c5a245b6efa818ee19f63228c9974">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f2c5a245b6efa818ee19f63228c9974">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +182,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aee0830b167fa7b37159cc0df229866db" name="aee0830b167fa7b37159cc0df229866db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee0830b167fa7b37159cc0df229866db">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0830b167fa7b37159cc0df229866db">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,8 +210,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2c93afa21a38092e3686fb33b736a537" name="a2c93afa21a38092e3686fb33b736a537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c93afa21a38092e3686fb33b736a537">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AssetContractTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SkinDeTuileAnimeSpritesheetHorizontaleAcceptee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un skin de tuile ANIME (<span class="tt">LOT-46</span>) est une spritesheet horizontale sur un seul rang : plusieurs cases de large, une case de haut. </p>
+<p>La cohérence fine (nombre d'images, indices référencés par les clips) relève de <span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html#ad010d712eef036db50679497eb373974" title="Valide la cohérence entre la description et les dimensions décodées du PNG.">hmi::AnimationCatalog::validateAgainstTexture</a></span>. <b>Cas de test :</b> <b>Une spritesheet animee (plusieurs cases de large, une case de haut) est acceptee.</b><br  />
+ <b>Categorie :</b> Unitaire · Asset Contract<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Valider un skin de tuile de 64x16 px (4 images).<br  />
+ <b>Resultat attendu :</b> La validation reussit. </p>
+
+</div>
+</div>
 <a id="ac5b4f82684e5efba6588015085a67f86" name="ac5b4f82684e5efba6588015085a67f86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5b4f82684e5efba6588015085a67f86">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b4f82684e5efba6588015085a67f86">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +269,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3e5715154ba737903016f4af23862edf" name="a3e5715154ba737903016f4af23862edf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e5715154ba737903016f4af23862edf">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e5715154ba737903016f4af23862edf">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,8 +298,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aefdc3a0d8dda458eee39352efdb2a71e" name="aefdc3a0d8dda458eee39352efdb2a71e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefdc3a0d8dda458eee39352efdb2a71e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AssetContractTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SkinDeTuileSurPlusieursRangsRefuse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un skin de tuile de plus d'un rang (hauteur multiple de la case, mais pas exactement une case) reste refusé : la spritesheet animée n'a jamais qu'un seul rang (<span class="tt">LOT-46</span>). </p>
+<p><b>Cas de test :</b> <b>Une image sur plusieurs rangs (hauteur non conforme) est refusee.</b><br  />
+ <b>Categorie :</b> Unitaire · Asset Contract<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Valider un skin de tuile de 16x32 px.<br  />
+ <b>Resultat attendu :</b> La validation echoue. </p>
+
+</div>
+</div>
 <a id="a45a6953ed158c4ae5d65b877548c6a88" name="a45a6953ed158c4ae5d65b877548c6a88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45a6953ed158c4ae5d65b877548c6a88">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45a6953ed158c4ae5d65b877548c6a88">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +357,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a25c06a96b646a07c9969a791f513539e" name="a25c06a96b646a07c9969a791f513539e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25c06a96b646a07c9969a791f513539e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c06a96b646a07c9969a791f513539e">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

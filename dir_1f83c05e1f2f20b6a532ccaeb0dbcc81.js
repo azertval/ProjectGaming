@@ -1,5 +1,7 @@
 var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
 [
+    [ "AnimationCatalog.cpp", "AnimationCatalog_8cpp.html", null ],
+    [ "AnimationCatalog.h", "AnimationCatalog_8h.html", "AnimationCatalog_8h" ],
     [ "AssetContract.cpp", "AssetContract_8cpp.html", "AssetContract_8cpp" ],
     [ "AssetContract.h", "AssetContract_8h.html", "AssetContract_8h" ],
     [ "AssetPaths.cpp", "AssetPaths_8cpp.html", null ],

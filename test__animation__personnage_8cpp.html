@@ -115,13 +115,45 @@ Functions</h2></td></tr>
 <tr class="memdesc:af4976ace456264a084512b4328003d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un changement de clip réinitialise immédiatement l'image et le chronomètre à zéro.  <br /></td></tr>
 <tr class="memitem:a94b553ac3d055dc1002c898b48e73451" id="r_a94b553ac3d055dc1002c898b48e73451"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a94b553ac3d055dc1002c898b48e73451">TEST</a> (AnimationPersonnageIntegration, EntiteSansAnimationIgnoree)</td></tr>
 <tr class="memdesc:a94b553ac3d055dc1002c898b48e73451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entité sans composant Animation n'est pas affectée par le système.  <br /></td></tr>
+<tr class="memitem:a7c4b3841db920f96fa3bdaeba63656f3" id="r_a7c4b3841db920f96fa3bdaeba63656f3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7c4b3841db920f96fa3bdaeba63656f3">TEST</a> (AnimationPersonnageIntegration, AnimationSansJeuDeClipsResteInerte)</td></tr>
+<tr class="memdesc:a7c4b3841db920f96fa3bdaeba63656f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entité portant Animation mais sans jeu de clips assigné n'est pas affectée (<span class="tt">EX-NFR-040</span>) : aucune donnée à progresser, ni plantage.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests d'intégration de l'animation du personnage : ECS + système d'animation assemblés. </p>
-<p><span class="tt">AnimationSystem</span> dérive le clip (<span class="tt">Idle</span>/<span class="tt">Run</span>/<span class="tt">Jump</span>) et l'image courante de l'état physique du personnage (<span class="tt">Player::grounded</span>, <span class="tt">Velocity</span>). On vérifie la sélection de clip, le bouclage des images à la bonne cadence, la réinitialisation nette au changement de clip, et l'absence d'effet sur une entité sans composant <span class="tt">Animation</span>. </p>
+<p><span class="tt">AnimationSystem</span> dérive le clip (idle/run/jump) et l'image courante de l'état physique du personnage (<span class="tt">Player::grounded</span>, <span class="tt">Velocity</span>). Test de <b>référence</b> (<span class="tt">LOT-46</span> TACHE-04) : la migration vers le moteur générique piloté par données ne doit produire <b>aucune</b> différence de comportement — mêmes attentes qu'avant le lot, exprimées avec la nouvelle API (<span class="tt">clipIndex</span> résolu dans <span class="tt"><a class="el" href="namespacecore.html#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span>, plutôt que l'ancien <span class="tt">enum class <a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7c4b3841db920f96fa3bdaeba63656f3" name="a7c4b3841db920f96fa3bdaeba63656f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c4b3841db920f96fa3bdaeba63656f3">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AnimationPersonnageIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AnimationSansJeuDeClipsResteInerte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une entité portant Animation mais sans jeu de clips assigné n'est pas affectée (<span class="tt">EX-NFR-040</span>) : aucune donnée à progresser, ni plantage. </p>
+<p><b>Cas de test :</b> <b>Une entité Animation sans jeu de clips assigné reste inerte, sans planter.</b><br  />
+ <b>Categorie :</b> Integration · Animation Personnage<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.<br  />
+ <b>Resultat attendu :</b> L'animation reste à ses valeurs par défaut, sans exception. </p>
+
+</div>
+</div>
 <a id="af4976ace456264a084512b4328003d29" name="af4976ace456264a084512b4328003d29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4976ace456264a084512b4328003d29">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af4976ace456264a084512b4328003d29">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +183,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a525fe939edd26242eb0d04cd0361f6d5" name="a525fe939edd26242eb0d04cd0361f6d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a525fe939edd26242eb0d04cd0361f6d5">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a525fe939edd26242eb0d04cd0361f6d5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +213,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a69cce02b0150147f506dc00fef8603dc" name="a69cce02b0150147f506dc00fef8603dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69cce02b0150147f506dc00fef8603dc">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a69cce02b0150147f506dc00fef8603dc">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +243,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a94b553ac3d055dc1002c898b48e73451" name="a94b553ac3d055dc1002c898b48e73451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94b553ac3d055dc1002c898b48e73451">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b553ac3d055dc1002c898b48e73451">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,7 +273,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7869699d21aa0764adb7b4f64fd228f2" name="a7869699d21aa0764adb7b4f64fd228f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7869699d21aa0764adb7b4f64fd228f2">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7869699d21aa0764adb7b4f64fd228f2">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

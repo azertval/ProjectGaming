@@ -248,7 +248,7 @@ var searchData=
   ['—_20stockage_20de_20composants_20sparse_20set_20typé_245',['TACHE-03 — Stockage de composants (sparse set typé)',['../lot-03-tache-03-stockage-composants.html',1,'lot-03']]],
   ['—_20système_20de_20rendu_20des_20sprites_20ecs_20→_20écran_246',['TACHE-05 — Système de rendu des sprites (ECS → écran)',['../lot-05-tache-05-systeme-rendu-sprites.html',1,'lot-05']]],
   ['—_20systèmes_20world_20orchestration_20au_20pas_20fixe_247',['TACHE-05 — Systèmes &amp;amp; World (orchestration au pas fixe)',['../lot-03-tache-05-systemes-world.html',1,'lot-03']]],
-  ['—_20test_5fanimation_5fpersonnage_20cpp_205_248',['Animation Personnage — &lt;span class=&quot;tt&quot;&gt;test_animation_personnage.cpp&lt;/span&gt; (5)',['../cahiertest.html#autotoc_md20',1,'']]],
+  ['—_20test_5fanimation_5fpersonnage_20cpp_206_248',['Animation Personnage — &lt;span class=&quot;tt&quot;&gt;test_animation_personnage.cpp&lt;/span&gt; (6)',['../cahiertest.html#autotoc_md20',1,'']]],
   ['—_20test_5fbloc_5freduit_20cpp_202_249',['Bloc Réduit — &lt;span class=&quot;tt&quot;&gt;test_bloc_reduit.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md21',1,'']]],
   ['—_20test_5fboucle_5fsimulation_20cpp_202_250',['Boucle Simulation — &lt;span class=&quot;tt&quot;&gt;test_boucle_simulation.cpp&lt;/span&gt; (2)',['../cahiertest.html#autotoc_md22',1,'']]],
   ['—_20test_5fdanger_5favance_20cpp_204_251',['Dangers avancés — &lt;span class=&quot;tt&quot;&gt;test_danger_avance.cpp&lt;/span&gt; (4)',['../cahiertest.html#autotoc_md23',1,'']]],

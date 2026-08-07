@@ -5,6 +5,8 @@ var namespacecore =
     [ "ILogSink", "classcore_1_1ILogSink.html", "classcore_1_1ILogSink" ],
     [ "Logger", "classcore_1_1Logger.html", "classcore_1_1Logger" ],
     [ "MemoryLogSink", "classcore_1_1MemoryLogSink.html", "classcore_1_1MemoryLogSink" ],
+    [ "AnimationClip", "structcore_1_1AnimationClip.html", "structcore_1_1AnimationClip" ],
+    [ "ClipSet", "classcore_1_1ClipSet.html", "classcore_1_1ClipSet" ],
     [ "IComponentPool", "classcore_1_1IComponentPool.html", "classcore_1_1IComponentPool" ],
     [ "ComponentPool", "classcore_1_1ComponentPool.html", "classcore_1_1ComponentPool" ],
     [ "Animation", "structcore_1_1Animation.html", "structcore_1_1Animation" ],
@@ -48,10 +50,9 @@ var namespacecore =
     [ "SweepResult", "structcore_1_1SweepResult.html", "structcore_1_1SweepResult" ],
     [ "FixedTimestep", "classcore_1_1FixedTimestep.html", "classcore_1_1FixedTimestep" ],
     [ "AssertionHandler", "namespacecore.html#af16dfcce848d49387703fb5a0b155485", null ],
-    [ "AnimationClip", "namespacecore.html#a799a99a97ade0219550e8316e18aa860", [
-      [ "Idle", "namespacecore.html#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c", null ],
-      [ "Run", "namespacecore.html#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d", null ],
-      [ "Jump", "namespacecore.html#a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed", null ]
+    [ "ClipEndMode", "namespacecore.html#a71fba78b647ce3be2a8b78f79c84f522", [
+      [ "Loop", "namespacecore.html#a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745", null ],
+      [ "OneShot", "namespacecore.html#a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481", null ]
     ] ],
     [ "DangerMoverAxis", "namespacecore.html#a691dfee41b7946ec78288271f8925d51", [
       [ "Horizontal", "namespacecore.html#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f", null ],
@@ -114,6 +115,7 @@ var namespacecore =
       [ "DangerSwitched", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aa09137c172f1670a9e45c4e3826f71fb", null ],
       [ "DangerBlink", "namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae24085adb8d13b6f13d9011fab1980de", null ]
     ] ],
+    [ "advanceAnimation", "namespacecore.html#a209ceac8415ddadd8463746b94934eed", null ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
     [ "buildLevelScene", "namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b", null ],
     [ "ceilingSlopeHeight", "namespacecore.html#aef7136a2093c38f28dc2f24fedfae124", null ],
@@ -140,6 +142,7 @@ var namespacecore =
     [ "operator==", "namespacecore.html#a02b4ac39e4a1c16efbe9ff53132d9a95", null ],
     [ "parseLogLevel", "namespacecore.html#ae8ce294afb9bbebacf6676020a0e223a", null ],
     [ "parseTileType", "namespacecore.html#ad675f8ce2e7f29908cbe3e7701336ef8", null ],
+    [ "playerClipSet", "namespacecore.html#a15c89d2a138a59d257f395dcf95efc26", null ],
     [ "playerSize", "namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb", null ],
     [ "playerSpawnPosition", "namespacecore.html#a478b06d0135ab7cd314b90791cfe7ba0", null ],
     [ "resolveCeilingSlopeFollow", "namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1", null ],
@@ -152,13 +155,13 @@ var namespacecore =
     [ "tileVisualScale", "namespacecore.html#a9b733af18a1507c5dc7b4ffdd88d8b6a", null ],
     [ "toString", "namespacecore.html#a44fc8d654b0e55558cf5e5a4258b5081", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
-    [ "IDLE_FRAME_COUNT", "namespacecore.html#a572ec27480068f4deb0511ed85244e68", null ],
     [ "INVALID_ENTITY", "namespacecore.html#a2a9202a1a89eacaec610bdc83b0ff272", null ],
-    [ "JUMP_FRAME_COUNT", "namespacecore.html#ae3c64100a95020d369b6f4b976fe0ffe", null ],
     [ "kDangerEdgeThickness", "namespacecore.html#aa10b66433e2fea5a1103518ca7015a3a", null ],
     [ "kDeveloperBuild", "namespacecore.html#ada3f6bef6b32bd54ea16d550e0769fb1", null ],
     [ "kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ],
     [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
     [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ],
-    [ "RUN_FRAME_COUNT", "namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d", null ]
+    [ "PLAYER_CLIP_IDLE", "namespacecore.html#a2b3cb5d42063608aa724d3b47aab0a6e", null ],
+    [ "PLAYER_CLIP_JUMP", "namespacecore.html#a8fe767302a92e721e28a90cc9651f2bc", null ],
+    [ "PLAYER_CLIP_RUN", "namespacecore.html#a07165b3796d0b5e77c2ecbc046696a5a", null ]
 ];

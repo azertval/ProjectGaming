@@ -2,6 +2,10 @@ var hierarchy =
 [
     [ "core::Aabb", "structcore_1_1Aabb.html", null ],
     [ "core::Animation", "structcore_1_1Animation.html", null ],
+    [ "hmi::AnimationCatalog", "classhmi_1_1AnimationCatalog.html", null ],
+    [ "core::AnimationClip", "structcore_1_1AnimationClip.html", null ],
+    [ "hmi::AnimationDescription", "structhmi_1_1AnimationDescription.html", null ],
+    [ "hmi::AnimationDescriptionResult", "structhmi_1_1AnimationDescriptionResult.html", null ],
     [ "hmi::ArrowHead", "structhmi_1_1ArrowHead.html", null ],
     [ "hmi::AssetDimensionContract", "structhmi_1_1AssetDimensionContract.html", null ],
     [ "hmi::AssetFileOperations", "classhmi_1_1AssetFileOperations.html", null ],
@@ -18,6 +22,7 @@ var hierarchy =
     [ "hmi::Camera2D", "classhmi_1_1Camera2D.html", null ],
     [ "core::CeilingSlopeFollowResult", "structcore_1_1CeilingSlopeFollowResult.html", null ],
     [ "core::CharacterPhysicsSystem", "classcore_1_1CharacterPhysicsSystem.html", null ],
+    [ "core::ClipSet", "classcore_1_1ClipSet.html", null ],
     [ "core::Collider", "structcore_1_1Collider.html", null ],
     [ "core::Color", "structcore_1_1Color.html", null ],
     [ "hmi::ComposedQuad", "structhmi_1_1ComposedQuad.html", null ],

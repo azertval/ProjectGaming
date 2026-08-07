@@ -43,7 +43,7 @@ var searchData=
   ['mainwindow_2eh_40',['MainWindow.h',['../MainWindow_8h.html',1,'']]],
   ['maison_20fenêtre_20win32_20ancienne_20boucle_41',['TACHE-03 — Retrait du legacy UI (écrans maison, fenêtre Win32, ancienne boucle)',['../lot-38-tache-03-retrait-legacy-ui.html',1,'lot-38']]],
   ['maison_20vs_20bibliothèque_42',['⚠️ Décision préalable : ECS maison vs bibliothèque',['../lot-03.html#autotoc_md351',1,'']]],
-  ['malformedstructure_43',['MalformedStructure',['../namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d',1,'hmi']]],
+  ['malformedstructure_43',['MalformedStructure',['../namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d',1,'hmi::MalformedStructure'],['../namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d',1,'hmi::MalformedStructure']]],
   ['manette_44',['manette',['../lot-33-tache-01-entrees-nerveuses.html',1,'TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette'],['../lot-30-tache-01-modele-bindings-manette.html',1,'TACHE-01 — Modèle de bindings manette'],['../lot-38-tache-02-options-remappage-qt.html',1,'TACHE-02 — Options Qt (V-Sync, langue) + remappage jeu/éditeur/manette']]],
   ['manette_20_3a_20une_20seconde_20source_20fusionnée_20en_20lecture_20ex_20ctrl_20002_20lot_2020_45',['La manette : une seconde source, fusionnée en lecture (EX-CTRL-002, LOT-20)',['../guide-entrees.html#autotoc_md77',1,'']]],
   ['manette_20et_20câblage_46',['TACHE-03 — UI de remappage manette et câblage',['../lot-30-tache-03-ui-remappage-manette.html',1,'lot-30']]],

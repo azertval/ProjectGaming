@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['palettethumbnailsource_0',['PaletteThumbnailSource',['../namespacehmi.html#a484fc821d307ce050da2a61ed1760a8d',1,'hmi']]]
+  ['neighborbits_0',['NeighborBits',['../namespacehmi.html#a904bd9605b7079403b098a5e97e9726e',1,'hmi']]]
 ];

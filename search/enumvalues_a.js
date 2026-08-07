@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['malformedstructure_0',['MalformedStructure',['../namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d',1,'hmi']]],
+  ['malformedstructure_0',['MalformedStructure',['../namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d',1,'hmi::MalformedStructure'],['../namespacehmi.html#ae064c48cb814db754a1228bda7b8d77daa809debdbe0cae246d363461916d924d',1,'hmi::MalformedStructure']]],
   ['mechanism_1',['Mechanism',['../namespacehmi.html#ac7ba9ad4c289f6706928912ab9bb0985a7a3d46893bda116f6b56760a98aaf631',1,'hmi']]],
   ['middle_2',['Middle',['../namespacehmi.html#a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05',1,'hmi']]],
   ['missingswitchid_3',['MissingSwitchId',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823aeae00cb222276602db4820c3cad354a3',1,'core']]],

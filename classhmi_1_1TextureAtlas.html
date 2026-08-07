@@ -110,8 +110,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa46183dc6155588289c756f6cdfb100a" id="r_aa46183dc6155588289c756f6cdfb100a"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa46183dc6155588289c756f6cdfb100a">tile</a> (int column, int row)</td></tr>
 <tr class="memdesc:aa46183dc6155588289c756f6cdfb100a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région (en pixels) de la tuile à une position de la grille.  <br /></td></tr>
-<tr class="memitem:ac9398f98fbecda8e8e323b9a7647f5cc" id="r_ac9398f98fbecda8e8e323b9a7647f5cc"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac9398f98fbecda8e8e323b9a7647f5cc">playerFrameRegion</a> (<a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a> clip, int frameIndex)</td></tr>
-<tr class="memdesc:ac9398f98fbecda8e8e323b9a7647f5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.  <br /></td></tr>
+<tr class="memitem:a67c6c296ba526f4bba63ce804b01b37b" id="r_a67c6c296ba526f4bba63ce804b01b37b"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#a67c6c296ba526f4bba63ce804b01b37b">playerFrameRegion</a> (<a class="el" href="namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a> clip, int frameIndex)</td></tr>
+<tr class="memdesc:a67c6c296ba526f4bba63ce804b01b37b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -259,8 +259,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac9398f98fbecda8e8e323b9a7647f5cc" name="ac9398f98fbecda8e8e323b9a7647f5cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9398f98fbecda8e8e323b9a7647f5cc">&#9670;&#160;</a></span>playerFrameRegion()</h2>
+<a id="a67c6c296ba526f4bba63ce804b01b37b" name="a67c6c296ba526f4bba63ce804b01b37b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c6c296ba526f4bba63ce804b01b37b">&#9670;&#160;</a></span>playerFrameRegion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +271,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::TextureAtlas::playerFrameRegion </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a></td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a></td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -289,7 +289,7 @@ Private Attributes</h2></td></tr>
 <p>Région (en pixels) d'une image d'animation du personnage, sous la grille de tuiles. </p>
 <p>Pure arithmétique de grille (aucun état d'instance) : <span class="tt">static</span>, testable sans GPU (<span class="tt">EX-NFR-010</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clip</td><td>Clip d'animation (<span class="tt">EX-REN-012</span>). </td></tr>
+    <tr><td class="paramname">clip</td><td>Clip d'animation du personnage (<span class="tt"><a class="el" href="namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4" title="Identité des trois clips historiques du personnage, côté présentation seulement.">hmi::PlayerClipKind</a></span>, <span class="tt">EX-REN-012</span>). </td></tr>
     <tr><td class="paramname">frameIndex</td><td>Index de l'image dans le clip (0-based). </td></tr>
   </table>
   </dd>

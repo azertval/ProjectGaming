@@ -6,5 +6,6 @@ var searchData=
   ['updatecurrentroom_3',['updateCurrentRoom',['../classhmi_1_1GameSession.html#a626952821cb4fc9a0144a4bdf6b9eaaf',1,'hmi::GameSession']]],
   ['updateeditcamera_4',['updateEditCamera',['../classhmi_1_1GameViewport.html#a751bc28ce93fe7547fafd85eeae90feb',1,'hmi::GameViewport']]],
   ['updatemouseposition_5',['updateMousePosition',['../classhmi_1_1GameViewport.html#ab2638f80f14726b02741409d6ff1f960',1,'hmi::GameViewport']]],
-  ['updatestatus_6',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]]
+  ['updatestatus_6',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]],
+  ['updatetileanimations_7',['updateTileAnimations',['../classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb',1,'hmi::GameSession']]]
 ];

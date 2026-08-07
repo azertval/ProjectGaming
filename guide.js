@@ -113,7 +113,7 @@ var guide =
         [ "Le pipeline de textures depuis fichiers, et son repli procédural", "guide-rendu.html#autotoc_md155", null ],
         [ "<span class=\"tt\">Source/Elements/Assets/</span> : convention et régénération", "guide-rendu.html#autotoc_md156", null ],
         [ "Les images du personnage : pourquoi elles vivent dans le même atlas", "guide-rendu.html#autotoc_md157", null ],
-        [ "L'animation : une projection de l'état physique, pas un état séparé", "guide-rendu.html#autotoc_md158", null ]
+        [ "L'animation : des clips en données, une progression générale (<span class=\"tt\">LOT-46</span>)", "guide-rendu.html#autotoc_md158", null ]
       ] ],
       [ "<a class=\"el\" href=\"classhmi_1_1SpriteRenderer.html\" title=\"hmi::SpriteRenderer\">hmi::SpriteRenderer</a> : le pont ECS → écran", "guide-rendu.html#autotoc_md159", [
         [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md160", null ],

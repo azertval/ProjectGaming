@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dangermoveraxis_0',['DangerMoverAxis',['../namespacecore.html#a691dfee41b7946ec78288271f8925d51',1,'core']]]
+  ['clipendmode_0',['ClipEndMode',['../namespacecore.html#a71fba78b647ce3be2a8b78f79c84f522',1,'core']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['quadkind_0',['QuadKind',['../namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3',1,'hmi']]]
+  ['palettethumbnailsource_0',['PaletteThumbnailSource',['../namespacehmi.html#a484fc821d307ce050da2a61ed1760a8d',1,'hmi']]],
+  ['playerclipkind_1',['PlayerClipKind',['../namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4',1,'hmi']]]
 ];

@@ -93,7 +93,7 @@ $(function(){initNavTree('lot-46-tache-05-tuiles-animees.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-46-moteur-animation_2tache-05-tuiles-animees"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-46.html#md_Lot_2LOT-46-moteur-animation_2epic" title="Lot/LOT-46-moteur-animation/epic.md">LOT-46</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2078"></a>
 Contexte</h1>
 <p>Une fois le moteur généralisé, animer une tuile ne demande presque rien : un skin (LOT-42) désigne un asset, cet asset peut porter une description d'animation (TACHE-03), et la progression est déjà appliquée à toute entité animée (TACHE-02).</p>
@@ -101,7 +101,7 @@ Contexte</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2079"></a>
 Travail à réaliser</h1>
 <ul>
-<li><b>Câblage</b> : lorsqu'un skin désigne un asset animé, les entités de tuiles correspondantes reçoivent un <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel clip, quelle image, depuis combien de temps.">core::Animation</a></span> à la construction de la scène (<span class="tt"><a class="el" href="namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>), et leur région de sprite suit l'image courante.</li>
+<li><b>Câblage</b> : lorsqu'un skin désigne un asset animé, les entités de tuiles correspondantes reçoivent un <span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span> à la construction de la scène (<span class="tt"><a class="el" href="namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b" title="Peuple un World d&#39;une entité par tuile non vide du niveau.">core::buildLevelScene</a></span>), et leur région de sprite suit l'image courante.</li>
 <li><b>Animation partagée</b> : toutes les tuiles d'un même type animé doivent être <b>en phase</b> — une nappe d'eau dont chaque case ondule à son propre rythme serait un artefact, pas un effet. La progression est donc calculée une fois par asset animé, pas une fois par case.</li>
 <li><b>Rendu</b> : aucune modification du pipeline — seule la région de texture change au fil des images, exactement comme pour le personnage.</li>
 <li><b>Interaction avec les raccords automatiques</b> : un type en mode <span class="tt">bitmask16</span> <b>et</b> animé combinerait deux façons de choisir la case dans l'image. Trancher explicitement : soit le mode <span class="tt">bitmask16</span> exclut l'animation, soit la spritesheet contient une planche par image. La première option est la plus simple et suffit au besoin (l'eau et la lave n'ont pas de raccords) ; la documenter comme une limite assumée.</li>
@@ -113,7 +113,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/Levels/LevelScene.{h,cpp}</span> (composant d'animation sur les tuiles concernées).</li>
 <li><span class="tt">Source/HMI/Graphics/TileVisuals.{h,cpp}</span>, <span class="tt">AnimationCatalog.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Game/GameSession.{h,cpp}</span> (mise à jour des régions).</li>
-<li><span class="tt">Source/Test/Unit/HMI/Graphics/test_animated_tiles.cpp</span> (nouveau).</li>
+<li><span class="tt"><a class="el" href="test__animated__tiles_8cpp.html" title="Tests unitaires des tuiles animées (LOT-46 TACHE-05) : horloge partagée par asset,...">Source/Test/Unit/HMI/Graphics/test_animated_tiles.cpp</a></span> (nouveau).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2081"></a>
 Tests (obligatoires)</h1>

@@ -110,10 +110,29 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a53c67da5bb3274996e0523bfa844b429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur de la texture, en pixels.  <br /></td></tr>
 <tr class="memitem:a0316ae368528ded031318a4f742faa2f" id="r_a0316ae368528ded031318a4f742faa2f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0316ae368528ded031318a4f742faa2f">height</a> = 0</td></tr>
 <tr class="memdesc:a0316ae368528ded031318a4f742faa2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la texture, en pixels.  <br /></td></tr>
+<tr class="memitem:adb205ea88fb4f3ffa43f9e210046042c" id="r_adb205ea88fb4f3ffa43f9e210046042c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb205ea88fb4f3ffa43f9e210046042c">animatedFrame</a></td></tr>
+<tr class="memdesc:adb205ea88fb4f3ffa43f9e210046042c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon (image fixe : région entière, comme avant ce lot).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Skin déjà chargé, prêt à être lié par la composition. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="adb205ea88fb4f3ffa43f9e210046042c" name="adb205ea88fb4f3ffa43f9e210046042c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb205ea88fb4f3ffa43f9e210046042c">&#9670;&#160;</a></span>animatedFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&gt; hmi::SkinTexture::animatedFrame</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Région de l'image <b>courante</b> à échantillonner si cet asset est animé (<span class="tt">LOT-46</span> TACHE-05), <span class="tt">std::nullopt</span> sinon (image fixe : région entière, comme avant ce lot). </p>
+<p>N'a de sens qu'en mode <span class="tt"><a class="el" href="namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">SkinMode::Single</a></span> sans silhouette : <span class="tt">bitmask16</span> et le détourage de silhouette excluent l'animation (limite assumée, voir <span class="tt"><a class="el" href="namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce" title="Résout l&#39;apparence d&#39;une entité affichée selon le mode de rendu courant.">resolveTileAppearance</a></span>). </p>
+
+</div>
+</div>
 <a id="a5dfd71c8c1f535c7f6be96c6d66dbcf0" name="a5dfd71c8c1f535c7f6be96c6d66dbcf0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5dfd71c8c1f535c7f6be96c6d66dbcf0">&#9670;&#160;</a></span>asset</h2>
 

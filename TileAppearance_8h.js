@@ -9,5 +9,6 @@ var TileAppearance_8h =
       [ "hmi::AppearanceSource::Skin", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf", null ],
       [ "hmi::AppearanceSource::Override", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a6da8e67225fdcfa78c3ea5dc3154b849", null ]
     ] ],
+    [ "hmi::animationExcludedForTile", "namespacehmi.html#ad7099b7e079afed3ba2eee64261b1725", null ],
     [ "hmi::resolveTileAppearance", "namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce", null ]
 ];

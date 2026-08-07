@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (495)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (497)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -43,13 +43,13 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (20)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (115)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (117)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (79)", "cahiertest.html#autotoc_md19", [
-        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (5)", "cahiertest.html#autotoc_md20", null ],
+      [ "Tests d'intégration (80)", "cahiertest.html#autotoc_md19", [
+        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (6)", "cahiertest.html#autotoc_md20", null ],
         [ "Bloc Réduit — <span class=\"tt\">test_bloc_reduit.cpp</span> (2)", "cahiertest.html#autotoc_md21", null ],
         [ "Boucle Simulation — <span class=\"tt\">test_boucle_simulation.cpp</span> (2)", "cahiertest.html#autotoc_md22", null ],
         [ "Dangers avancés — <span class=\"tt\">test_danger_avance.cpp</span> (4)", "cahiertest.html#autotoc_md23", null ],
@@ -102,33 +102,34 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"PhysicsLog_8h.html#a602c6fdf34ece20682530c61fd8decf1",
-"classcore_1_1EntityManager.html#a71c0c853ef3a13685db216b83c824045",
-"classcore_1_1Logger.html#a6ba9df5830242dec4625286d6c045683",
-"classhmi_1_1CacheRegistry.html#a5d3a39b50bcb94e362266c3d67ffb921",
-"classhmi_1_1GameViewport.html#a0965909558a6381fb2a51b90605b2320",
-"classhmi_1_1GamepadBindingsWidget.html#a3079f3a4c9e4f63c4ab4a723b95a914c",
-"classhmi_1_1LevelFileOperations.html#a2e533f1c6b93d76998a6da32b0a1b157",
-"classhmi_1_1QuadRecorder.html#ae7b026efca021dcceac2c07dddebcf0e",
-"classhmi_1_1TexturePanel.html#a86bcd4ae88dbdc7a95cb7f17655ee8a0",
-"guide-boucle.html#autotoc_md33",
-"lot-03-tache-01-math-core.html#autotoc_md363",
-"lot-06-tache-08-selecteur-langue.html#autotoc_md583",
-"lot-10.html#autotoc_md752",
-"lot-16-tache-02-boite-dialogue-redimensionnement.html#autotoc_md1025",
-"lot-23-tache-01-modele-tuile-arrondie.html#autotoc_md1246",
-"lot-29.html#autotoc_md1429",
-"lot-35-tache-04-redim-enregistrement-essai.html#autotoc_md1688",
-"lot-41.html#autotoc_md1879",
-"lot-47.html#autotoc_md2093",
-"lot-54-tache-03-ouvrir-enregistrer.html#autotoc_md2352",
-"namespacehmi.html#a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9",
-"spec-rendu-technique.html",
-"structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8",
-"structhmi_1_1PaletteThumbnail.html#a96bfe025c3c44818cd830950ccfdd6dc",
-"test__asset__file__operations_8cpp.html#a4b967ac5c934f71007f1a5eaf724325f",
-"test__level__loader_8cpp.html#a8ff384bf0b5bfcadc160d9ba48ef3dac",
-"test__render__culling_8cpp.html#ae1ab5009664ae9c715adcc1757e16b3f"
+"PalettePanel_8h.html",
+"classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db",
+"classcore_1_1LevelWriter.html#a05e43ed02f2e27c65514facf6b813c75",
+"classhmi_1_1AssetThumbnailView.html#a75510601d7c608bd13ce33ab360679a8",
+"classhmi_1_1GameSession.html#a704567d8e068fe547c071d3718bbe263",
+"classhmi_1_1GameViewport.html#ae419f03e1eb9fb6705b9d6301ddb471d",
+"classhmi_1_1KeybindingsWidget.html#ac1abe98752f61be32fa6f294f68d524f",
+"classhmi_1_1PalettePanel.html#a41293567f5813d2d68819193c823e846",
+"classhmi_1_1TextureCache.html#ad7f17051cf5b1b1e30badc27867951a0",
+"functions_m.html",
+"lot-01.html#autotoc_md270",
+"lot-05.html#autotoc_md479",
+"lot-09.html#autotoc_md699",
+"lot-15-tache-04-camera-pan-zoom.html#autotoc_md972",
+"lot-21-tache-03-documentation-verification.html#autotoc_md1193",
+"lot-28-tache-02-editeur-rendu.html#autotoc_md1414",
+"lot-34-tache-02-viewport-d3d11-embarque.html#autotoc_md1636",
+"lot-40-tache-04-quad-recorder.html",
+"lot-46-tache-05-tuiles-animees.html",
+"lot-52.html#autotoc_md2268",
+"namespacehmi.html",
+"spec-controles.html#autotoc_md184",
+"structcore_1_1PhysicsConfig.html",
+"structhmi_1_1ComposedQuad.html#a11f80072d43177fd77c938bb6efaab02",
+"structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d",
+"test__editor__key__bindings_8cpp.html#a7e139883b69684535dd6d95235351978",
+"test__mechanism__controller_8cpp.html#a559051c9aeba73678f0b9ec80aa6e233",
+"test__texture__assign__gesture_8cpp.html#aee5cee9d0d56892929d0539da611905f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

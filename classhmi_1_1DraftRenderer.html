@@ -101,10 +101,10 @@ $(function(){initNavTree('classhmi_1_1DraftRenderer.html','','classhmi_1_1DraftR
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab7ac8e70c8f5d62819348a53803663a3" id="r_ab7ac8e70c8f5d62819348a53803663a3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab7ac8e70c8f5d62819348a53803663a3">DraftRenderer</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
-<tr class="memitem:a74884f8cfbc96d679469c12442abae59" id="r_a74884f8cfbc96d679469c12442abae59"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a74884f8cfbc96d679469c12442abae59">render</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, bool showGrid, const std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; &amp;highlight, const <a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a> &amp;linkOverlay, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, bool showTextureOverrides=false)</td></tr>
-<tr class="memdesc:a74884f8cfbc96d679469c12442abae59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).  <br /></td></tr>
+<tr class="memitem:a87e2f17c3851ee853d996c0b62e396ae" id="r_a87e2f17c3851ee853d996c0b62e396ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87e2f17c3851ee853d996c0b62e396ae">render</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, bool showGrid, const std::optional&lt; std::pair&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; &gt; &amp;highlight, const <a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a> &amp;linkOverlay, <a class="el" href="namespacehmi.html#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, bool showTextureOverrides=false, float deltaSeconds=0.0f)</td></tr>
+<tr class="memdesc:a87e2f17c3851ee853d996c0b62e396ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).  <br /></td></tr>
 <tr class="memitem:a866ad56f7e8a029aaff1b8b72210c30a" id="r_a866ad56f7e8a029aaff1b8b72210c30a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a866ad56f7e8a029aaff1b8b72210c30a">invalidate</a> () noexcept</td></tr>
-<tr class="memdesc:a866ad56f7e8a029aaff1b8b72210c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a74884f8cfbc96d679469c12442abae59" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).  <br /></td></tr>
+<tr class="memdesc:a866ad56f7e8a029aaff1b8b72210c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a87e2f17c3851ee853d996c0b62e396ae" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).  <br /></td></tr>
 <tr class="memitem:acbb89fb6d31cb5718dece21322b1630c" id="r_acbb89fb6d31cb5718dece21322b1630c"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acbb89fb6d31cb5718dece21322b1630c">lastScene</a> () const noexcept</td></tr>
 <tr class="memitem:a2034472c87db59e7a7941c945e9d61f4" id="r_a2034472c87db59e7a7941c945e9d61f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2034472c87db59e7a7941c945e9d61f4">setSkins</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, std::string skinSet={})</td></tr>
 <tr class="memdesc:a2034472c87db59e7a7941c945e9d61f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le catalogue de skins et le jeu à utiliser en mode Texture (<span class="tt">LOT-42</span>).  <br /></td></tr>
@@ -131,6 +131,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ab0e865117967424e741c7163552d57b5" id="r_ab0e865117967424e741c7163552d57b5"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0e865117967424e741c7163552d57b5">_scene</a></td></tr>
 <tr class="memitem:aa731650ada5f6cfd09d4c94aee44b0fb" id="r_aa731650ada5f6cfd09d4c94aee44b0fb"><td class="memItemLeft"><a class="el" href="classcore_1_1World.html">core::World</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa731650ada5f6cfd09d4c94aee44b0fb">_world</a></td></tr>
 <tr class="memitem:a8d81eec42fa953e30cc22510831e6d0d" id="r_a8d81eec42fa953e30cc22510831e6d0d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8d81eec42fa953e30cc22510831e6d0d">_dirty</a> = true</td></tr>
+<tr class="memitem:a21b0dfb3b4d24bb413685d8bb0a3df62" id="r_a21b0dfb3b4d24bb413685d8bb0a3df62"><td class="memItemLeft">std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a21b0dfb3b4d24bb413685d8bb0a3df62">_tileAnimations</a></td></tr>
+<tr class="memdesc:a21b0dfb3b4d24bb413685d8bb0a3df62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a87e2f17c3851ee853d996c0b62e396ae" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe.  <br /></td></tr>
+<tr class="memitem:a5feb3f40fee7a4be60e6df3922202baf" id="r_a5feb3f40fee7a4be60e6df3922202baf"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5feb3f40fee7a4be60e6df3922202baf">_warnedExcludedAnimations</a></td></tr>
+<tr class="memdesc:a5feb3f40fee7a4be60e6df3922202baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assets deja signales pour une combinaison exclue (bitmask16/silhouette + animation) : memorise pour ne jamais journaliser a chaque image.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dessine la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> en cours d'édition. </p>
@@ -303,7 +307,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a74884f8cfbc96d679469c12442abae59" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement). </p>
+<p>Marque la scène comme périmée : elle sera reconstruite au prochain <span class="tt"><a class="el" href="#a87e2f17c3851ee853d996c0b62e396ae" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render</a></span> (à appeler après toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement). </p>
 
 </div>
 </div>
@@ -358,8 +362,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a74884f8cfbc96d679469c12442abae59" name="a74884f8cfbc96d679469c12442abae59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74884f8cfbc96d679469c12442abae59">&#9670;&#160;</a></span>render()</h2>
+<a id="a87e2f17c3851ee853d996c0b62e396ae" name="a87e2f17c3851ee853d996c0b62e396ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e2f17c3851ee853d996c0b62e396ae">&#9670;&#160;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -397,13 +401,18 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>showTextureOverrides</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>showTextureOverrides</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSeconds</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0f</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée). </p>
-<p>Si <code class="param">showGrid</code>, superpose la grille de repère (frontières de cases + frontières de salles) — aide au placement, équivalent de la bascule <span class="tt">F10</span> de l'éditeur historique (<span class="tt">EX-EDIT-023</span>). Si <code class="param">highlight</code> est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de l'outil Rectangle/Sélection. <code class="param">linkOverlay</code> pilote l'affichage des liens de mécanismes (flèches, trait provisoire, surbrillance — <span class="tt">EX-IHM-030</span>). <code class="param">mode</code> choisit le rendu Physique ou Texture des tuiles (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) ; les <b>aides d'édition</b> (grille, liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas de l'habillage. Si <code class="param">showTextureOverrides</code>, les cases portant une surcharge de texture par instance (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) sont signalées sur le calque d'édition — actif seulement quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils. </p>
+<p>Si <code class="param">showGrid</code>, superpose la grille de repère (frontières de cases + frontières de salles) — aide au placement, équivalent de la bascule <span class="tt">F10</span> de l'éditeur historique (<span class="tt">EX-EDIT-023</span>). Si <code class="param">highlight</code> est présent, met en surbrillance la zone (bornes min/max incluses) — aperçu de l'outil Rectangle/Sélection. <code class="param">linkOverlay</code> pilote l'affichage des liens de mécanismes (flèches, trait provisoire, surbrillance — <span class="tt">EX-IHM-030</span>). <code class="param">mode</code> choisit le rendu Physique ou Texture des tuiles (<span class="tt">EX-REN-046</span>, <span class="tt">LOT-41</span>) ; les <b>aides d'édition</b> (grille, liens, aperçu) restent identiques dans les deux modes — ce sont des repères d'édition, pas de l'habillage. Si <code class="param">showTextureOverrides</code>, les cases portant une surcharge de texture par instance (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) sont signalées sur le calque d'édition — actif seulement quand l'outil « Texture par instance » l'est, pour ne pas encombrer les autres outils. <code class="param">deltaSeconds</code> avance l'aperçu des tuiles animées (<span class="tt">LOT-46</span> TACHE-05) en <b>temps réel</b> — contrairement à la simulation (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">hmi::GameSession</a></span>), l'aperçu d'édition n'a aucune exigence de déterminisme (<span class="tt">EX-NFR-002</span> ne s'applique qu'en jeu) ; <span class="tt">0</span> (par défaut) fige l'animation. </p>
 
 </div>
 </div>
@@ -597,6 +606,54 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a21b0dfb3b4d24bb413685d8bb0a3df62" name="a21b0dfb3b4d24bb413685d8bb0a3df62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21b0dfb3b4d24bb413685d8bb0a3df62">&#9670;&#160;</a></span>_tileAnimations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a>&gt; hmi::DraftRenderer::_tileAnimations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Horloge d'animation partagee par asset (LOT-46 TACHE-05), avancee en temps reel a chaque <a class="el" href="#a87e2f17c3851ee853d996c0b62e396ae" title="Rend le brouillon avec la caméra donnée (reconstruit la scène si invalidée).">render()</a> &ndash; distincte de celle de <a class="el" href="classhmi_1_1GameSession.html" title="Simule et rend un seul niveau (déjà validé, en mémoire), indépendamment de toute infrastructure d&#39;écr...">GameSession</a> (pas fixe) : l'apercu d'edition n'a pas besoin d'etre deterministe. </p>
+
+</div>
+</div>
+<a id="a5feb3f40fee7a4be60e6df3922202baf" name="a5feb3f40fee7a4be60e6df3922202baf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5feb3f40fee7a4be60e6df3922202baf">&#9670;&#160;</a></span>_warnedExcludedAnimations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; hmi::DraftRenderer::_warnedExcludedAnimations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assets deja signales pour une combinaison exclue (bitmask16/silhouette + animation) : memorise pour ne jamais journaliser a chaque image. </p>
 
 </div>
 </div>

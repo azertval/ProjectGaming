@@ -1,5 +1,7 @@
 var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
 [
+    [ "test_animated_tiles.cpp", "test__animated__tiles_8cpp.html", "test__animated__tiles_8cpp" ],
+    [ "test_animation_catalog.cpp", "test__animation__catalog_8cpp.html", "test__animation__catalog_8cpp" ],
     [ "test_asset_contract.cpp", "test__asset__contract_8cpp.html", "test__asset__contract_8cpp" ],
     [ "test_asset_paths.cpp", "test__asset__paths_8cpp.html", "test__asset__paths_8cpp" ],
     [ "test_background_fit.cpp", "test__background__fit_8cpp.html", "test__background__fit_8cpp" ],

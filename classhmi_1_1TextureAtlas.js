@@ -4,7 +4,7 @@ var classhmi_1_1TextureAtlas =
     [ "generateProcedural", "classhmi_1_1TextureAtlas.html#a54c3d8031914ddfdece3f11c9f41cef7", null ],
     [ "height", "classhmi_1_1TextureAtlas.html#a4d1a9e1cfc71dd6c1b319ce0dab8a6d7", null ],
     [ "loadFromFile", "classhmi_1_1TextureAtlas.html#a12ec453eff32d5e604f334c93631998a", null ],
-    [ "playerFrameRegion", "classhmi_1_1TextureAtlas.html#ac9398f98fbecda8e8e323b9a7647f5cc", null ],
+    [ "playerFrameRegion", "classhmi_1_1TextureAtlas.html#a67c6c296ba526f4bba63ce804b01b37b", null ],
     [ "textureView", "classhmi_1_1TextureAtlas.html#a96e2b0417805039b574fe0651061b43a", null ],
     [ "tile", "classhmi_1_1TextureAtlas.html#aa46183dc6155588289c756f6cdfb100a", null ],
     [ "width", "classhmi_1_1TextureAtlas.html#a6408ca8d697d60ac8d5da5290b157726", null ],

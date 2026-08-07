@@ -24,6 +24,9 @@ var namespacehmi =
     [ "ToolPanel", "classhmi_1_1ToolPanel.html", "classhmi_1_1ToolPanel" ],
     [ "GameSession", "classhmi_1_1GameSession.html", "classhmi_1_1GameSession" ],
     [ "GameViewport", "classhmi_1_1GameViewport.html", "classhmi_1_1GameViewport" ],
+    [ "AnimationDescription", "structhmi_1_1AnimationDescription.html", "structhmi_1_1AnimationDescription" ],
+    [ "AnimationDescriptionResult", "structhmi_1_1AnimationDescriptionResult.html", "structhmi_1_1AnimationDescriptionResult" ],
+    [ "AnimationCatalog", "classhmi_1_1AnimationCatalog.html", "classhmi_1_1AnimationCatalog" ],
     [ "AssetDimensionContract", "structhmi_1_1AssetDimensionContract.html", "structhmi_1_1AssetDimensionContract" ],
     [ "AssetValidation", "structhmi_1_1AssetValidation.html", "structhmi_1_1AssetValidation" ],
     [ "AssetPaths", "classhmi_1_1AssetPaths.html", "classhmi_1_1AssetPaths" ],
@@ -72,6 +75,14 @@ var namespacehmi =
     [ "OptionsPage", "classhmi_1_1OptionsPage.html", "classhmi_1_1OptionsPage" ],
     [ "Localization", "classhmi_1_1Localization.html", "classhmi_1_1Localization" ],
     [ "TextureHandle", "namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d", null ],
+    [ "AnimationCatalogError", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8f", [
+      [ "None", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "FileNotFound", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2", null ],
+      [ "ParseError", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fae41199faa7290c167f70f314c5e6c165", null ],
+      [ "UnsupportedVersion", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518", null ],
+      [ "MalformedStructure", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8faa809debdbe0cae246d363461916d924d", null ],
+      [ "IncoherentFrameSize", "namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa55fe492f57807b35fd5489f61b967b20", null ]
+    ] ],
     [ "AppearanceSource", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225", [
       [ "Atlas", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f", null ],
       [ "MissingTexture", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f", null ],
@@ -183,6 +194,11 @@ var namespacehmi =
       [ "Skin", "namespacehmi.html#a484fc821d307ce050da2a61ed1760a8da9313566fe19aca293daefe4ce37942bf", null ],
       [ "MissingTexture", "namespacehmi.html#a484fc821d307ce050da2a61ed1760a8dab12558f73b1de2a91f9d7719eea5be7f", null ]
     ] ],
+    [ "PlayerClipKind", "namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4", [
+      [ "Idle", "namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c", null ],
+      [ "Run", "namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d", null ],
+      [ "Jump", "namespacehmi.html#a01d3aca49804e2e7ac13786499fe7bf4a101f693f72287a2819a364f64ca1c0ed", null ]
+    ] ],
     [ "QuadKind", "namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3", [
       [ "Sprite", "namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd", null ],
       [ "Line", "namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4", null ]
@@ -218,6 +234,8 @@ var namespacehmi =
       [ "Assign", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2", null ],
       [ "Remove", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717", null ]
     ] ],
+    [ "advanceTileAnimations", "namespacehmi.html#a400619b6396af0caf3768b3778730809", null ],
+    [ "animationExcludedForTile", "namespacehmi.html#ad7099b7e079afed3ba2eee64261b1725", null ],
     [ "applySilhouetteMask", "namespacehmi.html#aff5a499bb21016a452b381ee65602b3a", null ],
     [ "applySkinAssignment", "namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4", null ],
     [ "arrowHead", "namespacehmi.html#a42f96951bfec11435da37c91ee377046", null ],
@@ -240,7 +258,7 @@ var namespacehmi =
     [ "describeReferences", "namespacehmi.html#a5788fed057d46145b1fcb3d9ed9c2ec1", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "findSkinCatalogReferences", "namespacehmi.html#ab28a0db7bcd8252c1df7c0f37443e0f2", null ],
-    [ "flatPlayerFrameIndex", "namespacehmi.html#ad7faa7f521b06a1d55c7ff9357d2ebfc", null ],
+    [ "flatPlayerFrameIndex", "namespacehmi.html#a8286de42af940b050fe6db5bf4950b50", null ],
     [ "formatSceneStatistics", "namespacehmi.html#aabc578b802bb386e63d830e168140fe7", null ],
     [ "gamepadButtonDisplayName", "namespacehmi.html#ae5554638874ee3372dad502cfe2e594e", null ],
     [ "hasSilhouette", "namespacehmi.html#a8a000913259074c63f34b46b7d67864e", null ],
@@ -268,7 +286,7 @@ var namespacehmi =
     [ "resolveTextureAssignClick", "namespacehmi.html#ad9c60c575bab3fcb92a2876cc1b11bfc", null ],
     [ "resolveTileAppearance", "namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
-    [ "sceneTextures", "namespacehmi.html#ad19713f79553957d14d745cb3d84d03a", null ],
+    [ "sceneTextures", "namespacehmi.html#a27b2297508a6410d2885eeeb226c7ca9", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "skinModeFromName", "namespacehmi.html#ab7a7e2e0b4ed018b8acae760f5678b94", null ],
     [ "skinModeName", "namespacehmi.html#aacad28238195c8395f4229ab6d861b6d", null ],
@@ -293,6 +311,9 @@ var namespacehmi =
     [ "MISSING_TEXTURE_CHECKER_SIZE", "namespacehmi.html#a7cc024ad45faf8aabf192a70d2090ac6", null ],
     [ "MISSING_TEXTURE_SIZE", "namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3", null ],
     [ "OBJECTS_SUBDIRECTORY", "namespacehmi.html#afa41a58e3d0256ebebea73c1b3560810", null ],
+    [ "PLAYER_IDLE_FRAME_COUNT", "namespacehmi.html#a2d9518f5e334bdfb798bf8748141a5ef", null ],
+    [ "PLAYER_JUMP_FRAME_COUNT", "namespacehmi.html#adc630e46d6be29b1305a960eca55744c", null ],
+    [ "PLAYER_RUN_FRAME_COUNT", "namespacehmi.html#ad7c36223ccc4c82e7dd0f53719779608", null ],
     [ "SILHOUETTE_TILE_TYPE_COUNT", "namespacehmi.html#aa9e6d80a32a4e383a6413ef674feef96", null ],
     [ "SILHOUETTE_TILE_TYPES", "namespacehmi.html#a37c697d0c580a4d6aa3313ee67dc6103", null ],
     [ "SKINS_SUBDIRECTORY", "namespacehmi.html#ab94e51ddc058f58bc9dd1692a7568be0", null ]

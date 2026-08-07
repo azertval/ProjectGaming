@@ -95,35 +95,20 @@ $(function(){initNavTree('Animation_8h.html','',''); });
 
 <p>Composant d'état d'animation par séquence d'images (données pures).  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &quot;<a class="el" href="AnimationClip_8h_source.html">Core/Ecs/AnimationClip.h</a>&quot;</code><br />
+</div>
 <p><a href="Animation_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:core_3A_3AAnimation" id="r_core_3A_3AAnimation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Animation.html">core::Animation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'animation courant d'une entité : quel jeu de clips, quel clip, quelle image, depuis combien de temps.  <a href="structcore_1_1Animation.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a799a99a97ade0219550e8316e18aa860" id="r_a799a99a97ade0219550e8316e18aa860"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">core::AnimationClip</a> { <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c">core::Idle</a>
-, <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860ac5301693c4e792bcd5a479ef38fb8f8d">core::Run</a>
-, <a class="el" href="namespacecore.html#a799a99a97ade0219550e8316e18aa860a101f693f72287a2819a364f64ca1c0ed">core::Jump</a>
- }</td></tr>
-<tr class="memdesc:a799a99a97ade0219550e8316e18aa860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clip d'animation du personnage (<span class="tt">EX-REN-012</span>).  <a href="namespacecore.html#a799a99a97ade0219550e8316e18aa860">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a572ec27480068f4deb0511ed85244e68" id="r_a572ec27480068f4deb0511ed85244e68"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a572ec27480068f4deb0511ed85244e68">core::IDLE_FRAME_COUNT</a> = 2</td></tr>
-<tr class="memdesc:a572ec27480068f4deb0511ed85244e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Idle</span>. Seule source de vérité (<span class="tt">Core</span> et <span class="tt">HMI</span>, cf. LOT-18).  <br /></td></tr>
-<tr class="memitem:a7670734985ecf5fc4b23cf34f941a13d" id="r_a7670734985ecf5fc4b23cf34f941a13d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7670734985ecf5fc4b23cf34f941a13d">core::RUN_FRAME_COUNT</a> = 4</td></tr>
-<tr class="memdesc:a7670734985ecf5fc4b23cf34f941a13d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Run</span>.  <br /></td></tr>
-<tr class="memitem:ae3c64100a95020d369b6f4b976fe0ffe" id="r_ae3c64100a95020d369b6f4b976fe0ffe"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae3c64100a95020d369b6f4b976fe0ffe">core::JUMP_FRAME_COUNT</a> = 1</td></tr>
-<tr class="memdesc:ae3c64100a95020d369b6f4b976fe0ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Jump</span> (pose unique, jamais animée).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Composant d'état d'animation par séquence d'images (données pures). </p>

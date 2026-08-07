@@ -26,7 +26,7 @@ var searchData=
   ['11_20habillage_20par_20textures_20et_20décors_20lot_2040_20→_20lot_2055_23',['11. Habillage par textures et décors (&lt;span class=&quot;tt&quot;&gt;LOT-40&lt;/span&gt; → &lt;span class=&quot;tt&quot;&gt;LOT-55&lt;/span&gt;)',['../spec-editeur.html#autotoc_md226',1,'']]],
   ['11_20outillage_20qualité_20automatisé_24',['11. Outillage qualité (automatisé)',['../spec-conventions.html#autotoc_md204',1,'']]],
   ['11_20raii_25',['TACHE-02 — Initialisation Direct3D 11 (RAII)',['../lot-01-tache-02-init-direct3d11.html',1,'lot-01']]],
-  ['115_26',['Graphics (115)',['../cahiertest.html#autotoc_md16',1,'']]],
+  ['117_26',['Graphics (117)',['../cahiertest.html#autotoc_md16',1,'']]],
   ['12_20—_20niveau_20puzzle_20_3a_20mécanismes_20interrupteur_20porte_20budget_20de_20mouvements_27',['LOT-12 — Niveau puzzle : mécanismes interrupteur/porte + budget de mouvements',['../lot-12.html',1,'lots']]],
   ['12_20identifiants_20d_20exigences_20ex_20…_28',['12. Identifiants d&apos;exigences (EX-…)',['../spec-conventions.html#autotoc_md205',1,'']]],
   ['13_20—_20consolidation_20de_20la_20documentation_29',['LOT-13 — Consolidation de la documentation',['../lot-13.html',1,'lots']]],
