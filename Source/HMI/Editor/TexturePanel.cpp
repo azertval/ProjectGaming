@@ -61,6 +61,14 @@ constexpr int ROW_ICON_SIZE = 20;
                           : QString::fromStdString(loc->text("textures.none"));
 }
 
+// Valeur affichee pour « jeu de skins par defaut » dans le selecteur du NIVEAU (section Fond,
+// LOT-44) -- distincte de noneLabel : une chaine vide designe ici le jeu par defaut du catalogue,
+// pas une absence d'assignation.
+[[nodiscard]] QString defaultSetLabel(const Localization* loc) {
+    return loc == nullptr ? QStringLiteral("(jeu par defaut)")
+                          : QString::fromStdString(loc->text("textures.default_set"));
+}
+
 // Texte localise d'une cle (repli sur la cle si aucun catalogue -- ne survient pas en pratique).
 [[nodiscard]] QString t(const Localization* loc, const char* key) {
     return loc != nullptr ? QString::fromStdString(loc->text(key)) : QString::fromLatin1(key);
@@ -150,12 +158,14 @@ private:
 }  // namespace
 
 TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
-                           QWidget* parent)
+                           std::filesystem::path backgroundsDirectory, QWidget* parent)
     : QWidget(parent),
       _ui(std::make_unique<Ui::TexturePanel>()),
       _model(new QStandardItemModel(this)),
+      _backgroundView(nullptr),
       _skinsDirectory(std::move(skinsDirectory)),
-      _catalogPath(std::move(catalogPath)) {
+      _catalogPath(std::move(catalogPath)),
+      _backgroundsDirectory(std::move(backgroundsDirectory)) {
     _ui->setupUi(this);
     _model->setColumnCount(COLUMN_COUNT);
     _ui->skinsTree->setModel(_model);
@@ -170,6 +180,23 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
             &TexturePanel::onAssetColumnActivated);
     connect(_ui->reloadButton, &QPushButton::clicked, this,
             [this] { emit reloadRequested(); });
+
+    // Section « Fond » (LOT-44) : grille de vignettes embarquee directement (pas un dialogue de
+    // selection comme pour les skins) -- selectionner une case choisit le fond immediatement, avec
+    // les memes controles d'import/renommage/suppression que la bibliotheque de skins (LOT-43).
+    _backgroundView = new AssetThumbnailView(this);
+    _backgroundView->setAssetFamily(AssetFamily::Background);
+    _backgroundView->setDirectory(_backgroundsDirectory);
+    _ui->backgroundContainerLayout->addWidget(_backgroundView);
+    connect(_backgroundView, &AssetThumbnailView::assetSelected, this,
+            [this](const QString& fileName) { emit backgroundChanged(fileName); });
+    connect(_ui->levelSkinSetSelector, &QComboBox::currentIndexChanged, this, [this](int index) {
+        if (index < 0) {
+            return;
+        }
+        const QString text = _ui->levelSkinSetSelector->itemText(index);
+        emit levelSkinSetChanged(text == defaultSetLabel(_loc) ? QString() : text);
+    });
 }
 
 TexturePanel::~TexturePanel() = default;
@@ -178,6 +205,21 @@ void TexturePanel::setCatalog(SkinCatalog* catalog) {
     _catalog = catalog;
     _currentSet = catalog == nullptr ? std::string{} : catalog->defaultSetName();
     rebuildTree();
+    rebuildLevelSkinSetSelector();
+}
+
+void TexturePanel::setLevelProperties(const std::optional<std::string>& background,
+                                      const std::optional<std::string>& skinSet) {
+    _levelBackground = background;
+    _levelSkinSet = skinSet;
+    {
+        // Synchronisation programmatique : ne doit jamais reemettre backgroundChanged, sous peine
+        // de reboucler avec l'appelant (GameViewport::setLevelBackground -> draftChanged ->
+        // setLevelProperties -> ...).
+        const QSignalBlocker blocker(_backgroundView);
+        _backgroundView->selectAsset(background.value_or(std::string{}));
+    }
+    rebuildLevelSkinSetSelector();  // bloque son propre signal en interne
 }
 
 void TexturePanel::retranslateUi(const Localization& loc) {
@@ -186,7 +228,16 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->reloadButton->setText(QString::fromStdString(loc.text("textures.reload")));
     _ui->reloadButton->setToolTip(QString::fromStdString(loc.text("textures.reload_tooltip")));
     _ui->sections->setTabText(0, QString::fromStdString(loc.text("textures.section_skins")));
+    _ui->sections->setTabText(1, QString::fromStdString(loc.text("textures.section_background")));
+    _ui->backgroundModeHintLabel->setText(
+        QString::fromStdString(loc.text("textures.background_mode_hint")));
+    _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));
+    _ui->levelSkinSetLabel->setText(QString::fromStdString(loc.text("textures.level_skin_set")));
+    _ui->levelSkinSetLabel->setToolTip(
+        QString::fromStdString(loc.text("textures.level_skin_set_tooltip")));
+    _backgroundView->retranslateUi(loc);
     rebuildTree();
+    rebuildLevelSkinSetSelector();  // le libelle "jeu par defaut" vient de changer de langue
 }
 
 // Reconstruit entierement l'arbre depuis le catalogue et le contenu du dossier de skins.
@@ -356,9 +407,34 @@ QPixmap TexturePanel::thumbnailFor(const std::string& asset) {
     return pixmap;
 }
 
+// Reconstruit la liste du selecteur de jeu de skins DU NIVEAU (section Fond), a partir des jeux du
+// catalogue plus l'entree "jeu par defaut" ; reapplique la derniere valeur poussee par
+// setLevelProperties, sans reemettre levelSkinSetChanged.
+void TexturePanel::rebuildLevelSkinSetSelector() {
+    const QSignalBlocker blocker(_ui->levelSkinSetSelector);
+    _ui->levelSkinSetSelector->clear();
+    _ui->levelSkinSetSelector->addItem(defaultSetLabel(_loc));
+    if (_catalog != nullptr) {
+        for (const std::string& name : _catalog->setNames()) {
+            _ui->levelSkinSetSelector->addItem(QString::fromStdString(name));
+        }
+    }
+    const QString target =
+        _levelSkinSet ? QString::fromStdString(*_levelSkinSet) : defaultSetLabel(_loc);
+    const int index = _ui->levelSkinSetSelector->findText(target);
+    _ui->levelSkinSetSelector->setCurrentIndex(index >= 0 ? index : 0);
+}
+
 void TexturePanel::reloadAssets() {
     _thumbnails.clear();
     rebuildTree();
+    rebuildLevelSkinSetSelector();
+    _backgroundView->clearCache();
+    _backgroundView->refresh();
+    // La selection a pu etre perdue au rafraichissement (fichier renomme/supprime hors
+    // application) : la resynchroniser avec la propriete du niveau, sans reemettre le signal.
+    const QSignalBlocker blocker(_backgroundView);
+    _backgroundView->selectAsset(_levelBackground.value_or(std::string{}));
 }
 
 // Enregistre le catalogue au chemin deploye, comme l'enregistrement d'un niveau.

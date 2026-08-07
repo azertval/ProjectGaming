@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -64,13 +65,17 @@ public:
      * @param blinkConfigs Configurations explicites de dangers temporisés (`EX-GP-053`), même
      *                     remarque que @p moverConfigs pour les champs `period`/`phase`/
      *                     `activeDuration`.
+     * @param background   Nom de l'asset de fond (`EX-REN-044`), omis du JSON si absent.
+     * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), omis du JSON si absent.
      * @return Le contenu JSON correspondant.
      */
     [[nodiscard]] static std::string buildJson(
         const std::string& name, const TileMap& tileMap, const std::vector<Mechanism>& mechanisms,
         int jumpBudget, int dashBudget, const std::vector<DangerLink>& dangerLinks = {},
         const std::vector<DangerMoverConfig>& moverConfigs = {},
-        const std::vector<DangerBlinkConfig>& blinkConfigs = {});
+        const std::vector<DangerBlinkConfig>& blinkConfigs = {},
+        const std::optional<std::string>& background = std::nullopt,
+        const std::optional<std::string>& skinSet = std::nullopt);
 };
 
 }  // namespace core

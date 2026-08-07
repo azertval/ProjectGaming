@@ -41,6 +41,14 @@ textures.reload = Recharger
 textures.reload_tooltip = Recharge les textures depuis le disque
 textures.reload_done = Textures rechargées.
 
+# Section « Fond » du panneau Textures (LOT-44)
+textures.section_background = Fond
+textures.background_mode_hint = Le rendu du fond nécessite le mode Texture (F8).
+textures.background_label = Fond
+textures.level_skin_set = Jeu de skins du niveau
+textures.level_skin_set_tooltip = Jeu de skins utilisé par CE niveau, distinct du sélecteur « Jeu de skins » ci-dessus (jeu courant d'édition).
+textures.default_set = (jeu par défaut)
+
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…
 assets.none = (aucun)

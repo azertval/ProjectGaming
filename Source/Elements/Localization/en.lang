@@ -40,6 +40,14 @@ textures.reload = Reload
 textures.reload_tooltip = Reload textures from disk
 textures.reload_done = Textures reloaded.
 
+# "Background" section of the Textures panel (LOT-44)
+textures.section_background = Background
+textures.background_mode_hint = Background rendering requires Texture mode (F8).
+textures.background_label = Background
+textures.level_skin_set = Level skin set
+textures.level_skin_set_tooltip = Skin set used by THIS level, distinct from the "Skin set" selector above (current editing set).
+textures.default_set = (default set)
+
 # Shared asset library (LOT-43)
 assets.search = Search…
 assets.none = (none)

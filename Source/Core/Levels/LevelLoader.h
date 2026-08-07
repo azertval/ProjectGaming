@@ -34,8 +34,19 @@ enum class LevelValidationError {
     InvalidExitCount,   ///< Zéro ou plusieurs tuiles de sortie (une seule attendue).
     UnresolvedMechanism,  ///< Porte ou danger commuté lié à un identifiant d'interrupteur
                           ///< inexistant.
-    FileNotFound,         ///< Fichier de niveau introuvable sur disque.
+    FileNotFound,          ///< Fichier de niveau introuvable sur disque.
+    UnsupportedFormatVersion,  ///< `"version"` du fichier supérieure à celle gérée (`EX-LVL-005`).
 };
+
+/**
+ * @brief Version courante du format de niveau JSON (`EX-LVL-005`).
+ *
+ * Écrite par `LevelWriter` dans le champ racine `"version"`. Un fichier sans ce champ est lu
+ * comme la version initiale (0), sans erreur ni avertissement — rétrocompatibilité des niveaux
+ * antérieurs à ce champ (`LOT-44`). Une version supérieure à celle-ci est une erreur exploitable
+ * (`LevelValidationError::UnsupportedFormatVersion`), pas une lecture au mieux.
+ */
+inline constexpr int kLevelFormatVersion = 1;
 
 /**
  * @brief Résultat d'un chargement de niveau : soit un `Level`, soit une **erreur** décrite.

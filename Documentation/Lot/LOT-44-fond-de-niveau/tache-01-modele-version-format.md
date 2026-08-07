@@ -1,6 +1,6 @@
 # TACHE-01 — Champs de niveau et version du format {#lot-44-tache-01-modele-version-format}
 
-**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** non commencé
+**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
 ## Contexte
 C'est la **première** extension de `core::Level` du programme d'habillage, et elle en installe le

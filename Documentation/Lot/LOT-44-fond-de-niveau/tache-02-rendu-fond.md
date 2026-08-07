@@ -1,6 +1,6 @@
 # TACHE-02 — Rendu du fond de niveau {#lot-44-tache-02-rendu-fond}
 
-**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Game` · **Statut :** non commencé
+**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Game` · **Statut :** fait
 
 ## Contexte
 Le viewport efface aujourd'hui son back buffer avec une couleur unie bleu-gris

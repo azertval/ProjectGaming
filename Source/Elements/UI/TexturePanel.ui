@@ -41,6 +41,50 @@
        </item>
       </layout>
      </widget>
+     <!-- Section « Fond » (LOT-44) : propriétés DU NIVEAU courant (fond + jeu de skins), pas une
+          configuration globale, distincte du sélecteur « Jeu de skins » ci-dessus (session
+          d'édition courante). S'ajoute sans toucher à l'onglet Skins ni au câblage de MainWindow,
+          exactement comme prévu par la structure en onglets du LOT-42. -->
+     <widget class="QWidget" name="backgroundTab">
+      <attribute name="title"><string>Fond</string></attribute>
+      <layout class="QVBoxLayout" name="backgroundLayout">
+       <item>
+        <widget class="QLabel" name="backgroundModeHintLabel">
+         <property name="text">
+          <string>Le rendu du fond nécessite le mode Texture (F8).</string>
+         </property>
+         <property name="wordWrap"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="levelSkinSetLayout">
+         <item>
+          <widget class="QLabel" name="levelSkinSetLabel">
+           <property name="text"><string>Jeu de skins du niveau</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="levelSkinSetSelector"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="backgroundLabel">
+         <property name="text"><string>Fond</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="backgroundContainer">
+         <layout class="QVBoxLayout" name="backgroundContainerLayout">
+          <property name="leftMargin"><number>0</number></property>
+          <property name="topMargin"><number>0</number></property>
+          <property name="rightMargin"><number>0</number></property>
+          <property name="bottomMargin"><number>0</number></property>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

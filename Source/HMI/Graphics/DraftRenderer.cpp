@@ -46,6 +46,8 @@ void DraftRenderer::render(
     // le lot -- a calque et texture egaux, le tri stable le preserve tel quel.
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
+    composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
+                      draft.tileMap().width(), draft.tileMap().height(), mode);
     composeWorldSprites(_scene, _world, mode, sceneTextures(_atlas, _cache, _skins, _skinSet), 1.0f);
     if (showGrid) {
         composeGrid(draft);

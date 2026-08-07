@@ -121,8 +121,12 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
 
     // Panneau Liens : reste synchronise avec le brouillon (LOT-37) ; selectionner une ligne
     // surligne la liaison dans le viewport, supprimer delegue au viewport (seul proprietaire).
-    connect(_viewport, &GameViewport::draftChanged, this,
-            [this] { _links->refresh(_viewport->draft()); });
+    // Section « Fond » (LOT-44) : meme synchronisation -- le viewport reste seul proprietaire du
+    // brouillon, le panneau ne fait que refleter fond/jeu de skins du niveau courant.
+    connect(_viewport, &GameViewport::draftChanged, this, [this] {
+        _links->refresh(_viewport->draft());
+        _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
+    });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
     connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
     _links->refresh(_viewport->draft());  // etat initial (avant tout draftChanged).
@@ -131,6 +135,18 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
     // donc l'image suivante suffit a montrer le resultat (LOT-42).
     _textures->setCatalog(&_viewport->skinCatalog());
+    _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
+
+    // Section « Fond » (LOT-44) : les deux modifications passent par le viewport (seul
+    // proprietaire du brouillon), exactement comme le panneau Liens ci-dessus.
+    connect(_textures, &TexturePanel::backgroundChanged, _viewport, [this](const QString& name) {
+        _viewport->setLevelBackground(name.isEmpty() ? std::nullopt
+                                                      : std::make_optional(name.toStdString()));
+    });
+    connect(_textures, &TexturePanel::levelSkinSetChanged, _viewport, [this](const QString& name) {
+        _viewport->setLevelSkinSet(name.isEmpty() ? std::nullopt
+                                                   : std::make_optional(name.toStdString()));
+    });
 
     // Palette fidele au canevas (EX-EDIT-027) : elle interroge le MEME catalogue, et se rafraichit
     // aux trois evenements qui rendent ses vignettes obsoletes -- bascule de mode, changement de
@@ -278,6 +294,7 @@ void MainWindow::buildUi() {
     // l'enregistrement d'un niveau — aucun nouveau mécanisme d'écriture.
     _textures = new TexturePanel(hmi::executableDirectory() / "Assets" / "Skins",
                                  hmi::executableDirectory() / "Assets" / "skins.json",
+                                 hmi::executableDirectory() / "Assets" / "Backgrounds",
                                  _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 

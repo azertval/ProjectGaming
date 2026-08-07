@@ -87,15 +87,35 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
     return textures;
 }
 
+// Resout la texture de fond d'un niveau (acces TextureCache/GPU) ; nullptr si aucun fond n'est
+// designe -- distinct du repli en damier, deja gere par resolveOrPlaceholder si un fond est
+// designe mais introuvable.
+BackgroundTexture resolveBackgroundTexture(const std::optional<std::string>& background,
+                                           TextureCache& cache) {
+    if (!background) {
+        return {};
+    }
+    const LoadedTexture* texture = resolveOrPlaceholder(
+        cache, BACKGROUNDS_SUBDIRECTORY + *background, AssetFamily::Background);
+    if (texture == nullptr) {
+        return {};  // meme le damier de repli n'a pas pu etre cree (device perdu).
+    }
+    return BackgroundTexture{texture->view.Get(), texture->width, texture->height};
+}
+
 // Construit le rendu de sprites.
 SpriteRenderer::SpriteRenderer(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache)
     : _batch(&batch), _atlas(&atlas), _cache(&cache) {}
 
 // Dessine toutes les entites affichables du monde, vues par la camera.
 void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMode mode,
-                            float interpolationAlpha) {
+                            float interpolationAlpha,
+                            const std::optional<std::string>& background, int levelWidth,
+                            int levelHeight) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
+    composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
+                      levelHeight, mode);
     composeWorldSprites(_scene, world, mode, sceneTextures(*_atlas, *_cache, _skins, _skinSet),
                         interpolationAlpha);
     _scene.sort();
