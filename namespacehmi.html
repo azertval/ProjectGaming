@@ -179,6 +179,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).  <a href="classhmi_1_1GraphicsDevice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MechanismVisualState" id="r_MechanismVisualState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MechanismVisualState.html">MechanismVisualState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de présentation d'un mécanisme animé, par <b>instance</b> (<span class="tt">LOT-47</span> TACHE-02).  <a href="structhmi_1_1MechanismVisualState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PlayerSpriteQuad" id="r_PlayerSpriteQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position et taille du quad d'affichage du personnage, en unités monde, relatives au coin haut-gauche de sa hitbox (<span class="tt">Transform::position</span>).  <a href="structhmi_1_1PlayerSpriteQuad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PlayerSpriteTag" id="r_PlayerSpriteTag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlayerSpriteTag.html">PlayerSpriteTag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence du personnage en <span class="tt"><a class="el" href="#ace25c100da588ab6050fb0f486d61d54aa3e8ae43188ae76d38f414b2bdb0077b" title="Habillage par textures, construit lot après lot à partir de LOT-42.">RenderMode::Texture</a></span>, résolue chaque image (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">GameSession::refreshPlayerSprite</a></span>) — même patron que <span class="tt"><a class="el" href="structhmi_1_1TileSkinTag.html" title="Type de tuile et voisinage solide d&#39;une entité affichée, pour la résolution de son skin.">hmi::TileSkinTag</a></span> pour les tuiles : le composant restitue côté présentation ce que <span class="tt"><a class="el" href="structcore_1_1Sprite.html" title="Apparence 2D d&#39;une entité : quelle région de l&#39;atlas dessiner, dans quelle couche et avec quelle tein...">core::Sprite</a></span>/<span class="tt"><a class="el" href="structcore_1_1Transform.html" title="Position, échelle et rotation d&#39;une entité, en unités monde (EX-ARCH-020).">core::Transform</a></span> (partagés avec la physique) ne peuvent pas porter sans coupler simulation et rendu.  <a href="structhmi_1_1PlayerSpriteTag.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PreviousPosition" id="r_PreviousPosition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PreviousPosition.html">PreviousPosition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position d'une entité au <b>pas de simulation précédent</b>, pour l'interpolation de rendu (<span class="tt">EX-ARCH-031</span>).  <a href="structhmi_1_1PreviousPosition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ProceduralAtlasImage" id="r_ProceduralAtlasImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a></td></tr>
@@ -533,6 +537,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
 <tr class="memdesc:a23394f99f0606e53aafbeca5ed51496b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement émis lorsqu'un asset attendu est introuvable ou refusé.  <br /></td></tr>
+<tr class="memitem:a0a13a6b4cbedcfe953e4532f97cd953c" id="r_a0a13a6b4cbedcfe953e4532f97cd953c"><td class="memItemLeft"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a13a6b4cbedcfe953e4532f97cd953c">computePlayerSpriteQuad</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> imageSizePixels, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hitboxSize)</td></tr>
+<tr class="memdesc:a0a13a6b4cbedcfe953e4532f97cd953c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le quad d'affichage du personnage à partir de la taille de l'image et de la hitbox, par ancrage <b>centre-bas</b> (<span class="tt">LOT-48</span> TACHE-01).  <br /></td></tr>
+<tr class="memitem:ad9d86326e8a24c761d2b3c04e378a0a1" id="r_ad9d86326e8a24c761d2b3c04e378a0a1"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad9d86326e8a24c761d2b3c04e378a0a1">proceduralPlayerClipNames</a> ()</td></tr>
+<tr class="memdesc:ad9d86326e8a24c761d2b3c04e378a0a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Noms des clips que l'atlas procédural sait dessiner (<span class="tt">Idle</span>/<span class="tt">Run</span>/<span class="tt">Jump</span>, <span class="tt">LOT-18</span>) : seule source de vérité, partagée avec <span class="tt"><a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4" title="Identité des trois clips historiques du personnage, côté présentation seulement.">hmi::PlayerClipKind</a></span> — traitée comme une « spritesheet » n'en déclarant que trois par <span class="tt"><a class="el" href="#a960f7854347fb7ddaff2811de796f3fe" title="Résout un nom de clip demandé vers le plus proche déclaré dans un jeu partiel (LOT-48 TACHE-01/TACHE-...">hmi::resolveDeclaredPlayerClip</a></span>.  <br /></td></tr>
+<tr class="memitem:a960f7854347fb7ddaff2811de796f3fe" id="r_a960f7854347fb7ddaff2811de796f3fe"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a960f7854347fb7ddaff2811de796f3fe">resolveDeclaredPlayerClip</a> (const std::vector&lt; std::string &gt; &amp;declaredNames, std::string_view requested)</td></tr>
+<tr class="memdesc:a960f7854347fb7ddaff2811de796f3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout un nom de clip demandé vers le plus proche <b>déclaré</b> dans un jeu partiel (<span class="tt">LOT-48</span> TACHE-01/TACHE-02).  <br /></td></tr>
 <tr class="memitem:a8286de42af940b050fe6db5bf4950b50" id="r_a8286de42af940b050fe6db5bf4950b50"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8286de42af940b050fe6db5bf4950b50">flatPlayerFrameIndex</a> (<a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4">PlayerClipKind</a> clip, int frameIndex)</td></tr>
 <tr class="memdesc:a8286de42af940b050fe6db5bf4950b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index à plat (0-based) d'une image dans la grille sous les tuiles : <span class="tt">Idle</span> (0..PLAYER_IDLE_FRAME_COUNT-1), puis <span class="tt">Run</span>, puis <span class="tt">Jump</span>.  <br /></td></tr>
 <tr class="memitem:a0fa1fc503abd25e16f2e3d52f6c8d540" id="r_a0fa1fc503abd25e16f2e3d52f6c8d540"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProceduralAtlasImage.html">ProceduralAtlasImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0fa1fc503abd25e16f2e3d52f6c8d540">buildProceduralAtlasImage</a> ()</td></tr>
@@ -628,6 +638,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
+<tr class="memitem:a3056f1e4372f3a240ed0fcb1715237fd" id="r_a3056f1e4372f3a240ed0fcb1715237fd"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3056f1e4372f3a240ed0fcb1715237fd">PLAYER_SUBDIRECTORY</a> = &quot;Player/&quot;</td></tr>
+<tr class="memdesc:a3056f1e4372f3a240ed0fcb1715237fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier de la spritesheet du personnage, relatif au dossier d'assets (<span class="tt">LOT-48</span>).  <br /></td></tr>
+<tr class="memitem:af9d5162737bdb5221fd49e4eeed58380" id="r_af9d5162737bdb5221fd49e4eeed58380"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#af9d5162737bdb5221fd49e4eeed58380">PLAYER_SHEET_FILE_NAME</a> = &quot;player.png&quot;</td></tr>
+<tr class="memdesc:af9d5162737bdb5221fd49e4eeed58380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom logique de la spritesheet du personnage (<span class="tt">LOT-48</span>).  <br /></td></tr>
 <tr class="memitem:a2d9518f5e334bdfb798bf8748141a5ef" id="r_a2d9518f5e334bdfb798bf8748141a5ef"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a2d9518f5e334bdfb798bf8748141a5ef">PLAYER_IDLE_FRAME_COUNT</a> = 2</td></tr>
 <tr class="memdesc:a2d9518f5e334bdfb798bf8748141a5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'images du clip <span class="tt">Idle</span>.  <br /></td></tr>
 <tr class="memitem:ad7c36223ccc4c82e7dd0f53719779608" id="r_ad7c36223ccc4c82e7dd0f53719779608"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ad7c36223ccc4c82e7dd0f53719779608">PLAYER_RUN_FRAME_COUNT</a> = 4</td></tr>
@@ -1160,7 +1174,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Identité des trois clips historiques du personnage, <b>côté présentation seulement</b>. </p>
-<p>Distinct de <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> (donnée générique, <span class="tt">LOT-46</span>) : l'atlas procédural reste le repli et la <b>référence</b> visuelle du personnage (<span class="tt">LOT-39</span>), peint « en dur » à partir de trois poses connues à la compilation — <span class="tt">Core</span> n'a, depuis <span class="tt">LOT-46</span>, plus aucune connaissance de ces trois clips en particulier (<span class="tt">EX-ARCH-012</span>). L'ordre des valeurs est celui de <span class="tt"><a class="el" href="namespacecore.html#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18).">core::playerClipSet()</a></span> (<span class="tt"><a class="el" href="AnimationSystem_8h.html" title="Système d&#39;animation générique, piloté par données (LOT-46).">Core/Ecs/Systems/AnimationSystem.h</a></span>, <span class="tt">PLAYER_CLIP_IDLE</span>/<span class="tt">_RUN</span>/ <span class="tt">_JUMP</span>) : c'est <span class="tt">HMI</span> (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">GameSession::refreshPlayerSprite</a></span>) qui fait le pont entre l'index de clip résolu par <span class="tt">Core</span> et cette énumération. </p>
+<p>Distinct de <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html" title="Clip d&#39;animation : une suite d&#39;images, une durée par image, une manière de finir.">core::AnimationClip</a></span> (donnée générique, <span class="tt">LOT-46</span>) : l'atlas procédural reste le repli et la <b>référence</b> visuelle du personnage (<span class="tt">LOT-39</span>), peint « en dur » à partir de trois poses connues à la compilation — <span class="tt">Core</span> n'a, depuis <span class="tt">LOT-46</span>, plus aucune connaissance de ces trois clips en particulier (<span class="tt">EX-ARCH-012</span>). L'ordre des valeurs est celui de <span class="tt"><a class="el" href="namespacecore.html#a15c89d2a138a59d257f395dcf95efc26" title="Jeu de clips du personnage, migré tel quel depuis l&#39;ancien dispositif figé (LOT-18),...">core::playerClipSet()</a></span> (<span class="tt"><a class="el" href="AnimationSystem_8h.html" title="Système d&#39;animation générique, piloté par données (LOT-46).">Core/Ecs/Systems/AnimationSystem.h</a></span>, <span class="tt">PLAYER_CLIP_IDLE</span>/<span class="tt">_RUN</span>/ <span class="tt">_JUMP</span>) : c'est <span class="tt">HMI</span> (<span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a8eeeb9edf5dcfa6ee6cbb928e7e05a56">GameSession::refreshPlayerSprite</a></span>) qui fait le pont entre l'index de clip résolu par <span class="tt">Core</span> et cette énumération. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c" name="a01d3aca49804e2e7ac13786499fe7bf4ae599161956d626eda4cb0a5ffb85271c"></a>Idle&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d" name="a01d3aca49804e2e7ac13786499fe7bf4ac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"></td></tr>
@@ -2207,6 +2221,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Les UV <span class="tt">[u0,v0]</span>-<span class="tt">[u1,v1]</span> à échantillonner dans l'image. </dd></dl>
+
+</div>
+</div>
+<a id="a0a13a6b4cbedcfe953e4532f97cd953c" name="a0a13a6b4cbedcfe953e4532f97cd953c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a13a6b4cbedcfe953e4532f97cd953c">&#9670;&#160;</a></span>computePlayerSpriteQuad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a> hmi::computePlayerSpriteQuad </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>imageSizePixels</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>hitboxSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule le quad d'affichage du personnage à partir de la taille de l'image et de la hitbox, par ancrage <b>centre-bas</b> (<span class="tt">LOT-48</span> TACHE-01). </p>
+<p>Fonction <b>pure</b>, testable sans GPU (<span class="tt">EX-NFR-010</span>) : le centre-bas de l'image est aligné sur le centre-bas de la hitbox (<span class="tt"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></span>), indépendamment de la taille de l'image — une image plus grande ou plus large que la hitbox ne déplace donc jamais celle-ci (<span class="tt">EX-ARCH-012</span>, la hitbox elle-même n'est <b>jamais</b> lue ni modifiée ici, seulement sa taille). L'ancrage est <b>symétrique</b> horizontalement : le retournement (<span class="tt">LOT-48</span> TACHE-03) n'a besoin d'aucune correction de position, seulement d'un échange des coordonnées de texture. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">imageSizePixels</td><td>Taille de l'image à afficher (une image de la spritesheet, ou de l'image procédurale, toujours carrée), en pixels. </td></tr>
+    <tr><td class="paramname">hitboxSize</td><td>Taille de la boîte de collision (<span class="tt"><a class="el" href="namespacecore.html#a6b2b8e5dc4a0b610cc1225c14e1ce5cb">core::playerSize()</a></span>), en unités monde. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le décalage et la taille du quad, en unités monde, relatifs au coin haut-gauche de la hitbox. </dd></dl>
 
 </div>
 </div>
@@ -3279,6 +3332,33 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ad9d86326e8a24c761d2b3c04e378a0a1" name="ad9d86326e8a24c761d2b3c04e378a0a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9d86326e8a24c761d2b3c04e378a0a1">&#9670;&#160;</a></span>proceduralPlayerClipNames()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::string &gt; &amp; hmi::proceduralPlayerClipNames </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Noms des clips que l'atlas procédural sait dessiner (<span class="tt">Idle</span>/<span class="tt">Run</span>/<span class="tt">Jump</span>, <span class="tt">LOT-18</span>) : seule source de vérité, partagée avec <span class="tt"><a class="el" href="#a01d3aca49804e2e7ac13786499fe7bf4" title="Identité des trois clips historiques du personnage, côté présentation seulement.">hmi::PlayerClipKind</a></span> — traitée comme une « spritesheet » n'en déclarant que trois par <span class="tt"><a class="el" href="#a960f7854347fb7ddaff2811de796f3fe" title="Résout un nom de clip demandé vers le plus proche déclaré dans un jeu partiel (LOT-48 TACHE-01/TACHE-...">hmi::resolveDeclaredPlayerClip</a></span>. </p>
+
+</div>
+</div>
 <a id="a1b53de392afb0dfdf5cdef4543fb672d" name="a1b53de392afb0dfdf5cdef4543fb672d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b53de392afb0dfdf5cdef4543fb672d">&#9670;&#160;</a></span>qtKeyToHmiKey()</h2>
 
@@ -3479,6 +3559,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La texture à composer (<span class="tt"><a class="el" href="#a78c747bc4cd322fc326e0801bbd294d5" title="Compose le fond du niveau sur RenderLayer::Background, s&#39;il y a lieu.">hmi::composeBackground</a></span>) ; <span class="tt">texture == nullptr</span> si aucun fond n'est désigné. </dd></dl>
+
+</div>
+</div>
+<a id="a960f7854347fb7ddaff2811de796f3fe" name="a960f7854347fb7ddaff2811de796f3fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960f7854347fb7ddaff2811de796f3fe">&#9670;&#160;</a></span>resolveDeclaredPlayerClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::resolveDeclaredPlayerClip </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>declaredNames</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>requested</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout un nom de clip demandé vers le plus proche <b>déclaré</b> dans un jeu partiel (<span class="tt">LOT-48</span> TACHE-01/TACHE-02). </p>
+<p>Une spritesheet externe — ou l'atlas procédural, qui n'en déclare que trois (<span class="tt"><a class="el" href="#ad9d86326e8a24c761d2b3c04e378a0a1" title="Noms des clips que l&#39;atlas procédural sait dessiner (Idle/Run/Jump, LOT-18) : seule source de vérité,...">hmi::proceduralPlayerClipNames</a></span>) — peut ne pas fournir tous les clips que <span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait progresser l&#39;animation de toute entité portant core::Animation, et projette l&#39;état physique du p...">core::AnimationSystem</a></span> projette (<span class="tt">fall</span>, <span class="tt">land</span>, <span class="tt">wallslide</span>, <span class="tt">dash</span>). Chaîne de repli <b>fixe</b>, documentée ici comme seule source de vérité : <span class="tt">fall → jump</span>, <span class="tt">land → idle</span>, <span class="tt">wallslide → jump</span>, <span class="tt">dash → run</span>, <span class="tt">run → idle</span>, <span class="tt">jump → idle</span> ; <span class="tt">idle</span> est le dernier recours (toujours supposé déclaré). Fonction <b>pure</b>, testable sans GPU. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">declaredNames</td><td>Noms de clips effectivement fournis par la source consultée. </td></tr>
+    <tr><td class="paramname">requested</td><td>Nom de clip demandé (résolu par <span class="tt"><a class="el" href="classcore_1_1AnimationSystem.html" title="Fait progresser l&#39;animation de toute entité portant core::Animation, et projette l&#39;état physique du p...">core::AnimationSystem</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nom du clip à effectivement afficher : <code class="param">requested</code> s'il est déclaré, sinon le premier nom de la chaîne de repli qui l'est ; <span class="tt">"idle"</span> en dernier recours. </dd></dl>
 
 </div>
 </div>
@@ -5067,6 +5186,54 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nombre d'images du clip <span class="tt">Run</span>. </p>
+
+</div>
+</div>
+<a id="af9d5162737bdb5221fd49e4eeed58380" name="af9d5162737bdb5221fd49e4eeed58380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9d5162737bdb5221fd49e4eeed58380">&#9670;&#160;</a></span>PLAYER_SHEET_FILE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string hmi::PLAYER_SHEET_FILE_NAME = &quot;player.png&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom logique de la spritesheet du personnage (<span class="tt">LOT-48</span>). </p>
+
+</div>
+</div>
+<a id="a3056f1e4372f3a240ed0fcb1715237fd" name="a3056f1e4372f3a240ed0fcb1715237fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3056f1e4372f3a240ed0fcb1715237fd">&#9670;&#160;</a></span>PLAYER_SUBDIRECTORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string hmi::PLAYER_SUBDIRECTORY = &quot;Player/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sous-dossier de la spritesheet du personnage, relatif au dossier d'assets (<span class="tt">LOT-48</span>). </p>
 
 </div>
 </div>

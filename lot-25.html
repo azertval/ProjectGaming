@@ -96,14 +96,14 @@ $(function(){initNavTree('lot-25.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Les niveaux <span class="tt">demo.json</span>…<span class="tt">demo5.json</span> ont grandi <b>un par un, au fil des lots</b>, chacun ajouté pour exercer la mécanique du moment — sans repasse d'ensemble depuis. Plutôt que de les compléter au cas par cas, ce lot <b>vide entièrement</b> le dossier de niveaux démo et repart d'une base neuve, conçue dès le départ pour être <b>modulaire</b> (un niveau par mécanique, nommé et organisé en conséquence) et couvrir <b>systématiquement</b> toutes les mécaniques livrées à ce jour, y compris celles des lots <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>/<span class="tt">LOT-24</span> (pentes, arrondi, blocs à taille fractionnaire). <b>Nombre de niveaux non fixé</b> : décidé en <span class="tt">TACHE-01</span>, à partir d'un inventaire réel des mécaniques à couvrir, pas d'un chiffre choisi à l'avance. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1305"></a>
 Objectif</h1>
 <p>Constat déclencheur : le test système <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> (<span class="tt">ParcoursCompletSysteme.
 FranchitTouteLaSequence</span>) ne rejoue que <span class="tt">demo.json</span> à <span class="tt">demo4.json</span> — <span class="tt">demo5.json</span> (plaque de pression, <span class="tt">LOT-19</span>) n'y figure <b>pas</b>, alors qu'il est bien chargé par le jeu (<span class="tt">Source/HMI/
 <a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>). Plus largement, aucun niveau démo n'exerce le double saut, le wall jump/wall slide, ni les budgets de sauts/dashs (<span class="tt">EX-GP-024</span>) de façon isolée et identifiable — ils sont vérifiés par les tests <b>unitaires</b>/**intégration** (<span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></span>), jamais par un niveau <b>jouable</b>. Ce lot répare cet écart et anticipe les mécaniques des lots <span class="tt">LOT-22</span> à <span class="tt">LOT-24</span>, en repartant d'une base <b>vide</b> plutôt que de continuer à empiler sur l'existant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1306"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1306"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1307"></a>
 Inclus</h2>
 <ul>
 <li><b>Inventaire exhaustif</b> des mécaniques livrées (mouvement, saut simple/variable, coyote time, jump buffering, double saut, wall jump/wall slide, dash 8 directions, gravité asymétrique/apex/ fast-fall, chute newtonienne, interrupteur↔porte, plaque de pression, bloc poussable, budgets de sauts/dashs, <b>pentes</b>, <b>arrondi</b>, <b>blocs à taille fractionnaire</b>) et des mécaniques <b>transverses</b> non spécifiques à un niveau (manette, menu d'options, localisation — non couvertes par des niveaux, hors périmètre de ce lot).</li>
@@ -112,14 +112,14 @@ Inclus</h2>
 <li><b>Niveau final combiné</b> : la séquence se termine par un dernier niveau qui <b>mélange</b> un maximum des mécaniques précédentes (pas une simple répétition isolée) — un test d'intégration jouable, complémentaire aux niveaux isolés qui le précèdent.</li>
 <li><b>Mise à jour de la séquence</b> jouée par le jeu (<span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>) et du test système (<span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span>), pour que les deux restent des reflets fidèles l'un de l'autre.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1307"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1308"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Nouvelles mécaniques</b> — ce lot <b>teste</b> l'existant (et ce que <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>/<span class="tt">LOT-24</span> livreront), n'en ajoute aucune.</li>
 <li><b>Refonte visuelle/artistique</b> au-delà de l'atlas procédural déjà en place.</li>
 <li><b>Mécaniques transverses non liées à un niveau</b> (manette, menu d'options) — déjà couvertes par leurs propres tests unitaires (<span class="tt">LOT-20</span>), sans lien avec la séquence de niveaux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1308"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1309"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Ce lot est séquencé en dernier</b>, après <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>/<span class="tt">LOT-24</span> : il doit pouvoir exercer leurs mécaniques, qui doivent donc déjà exister. Le numéro <span class="tt">LOT-25</span> reflète déjà cet ordre.</li>
@@ -128,7 +128,7 @@ Décisions de cadrage</h1>
 <li><b>Un niveau démo par mécanique (ou petit groupe cohérent), plus un niveau final combiné — pas un « niveau vitrine » unique en remplacement des niveaux isolés.</b> Les niveaux isolés restent la référence pour déboguer (un niveau qui échoue pointe directement vers la mécanique en cause) et maintenir (ajouter une mécanique = ajouter un niveau, jamais retoucher les autres) ; le niveau final combiné s'y <b>ajoute</b>, en dernier, pour vérifier que les mécaniques cohabitent correctement une fois combinées (ex. un dash au-dessus d'une pente, un bloc poussé sur une plaque de pression) — un risque que des niveaux strictement isolés ne peuvent pas révéler.</li>
 <li><b><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span> et <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">test_parcours_complet.cpp</a></span> doivent lister exactement les mêmes fichiers, dans le même ordre.</b> Le décalage constaté avec <span class="tt">demo5.json</span> (chargé en jeu, absent du test système) ne doit plus pouvoir se reproduire silencieusement — envisager en <span class="tt">TACHE-03</span> un test ou un script qui compare les deux listes plutôt que de compter sur la vigilance humaine.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1309"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1310"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -145,7 +145,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-25-tache-04-documentation-verification.html#md_Lot_2LOT-25-niveaux-demo-exhaustifs_2tache-04-documentation-verification" title="Lot/LOT-25-niveaux-demo-exhaustifs/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1310"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1311"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Chaque mécanique de l'inventaire (<span class="tt">TACHE-01</span>) a au moins un niveau démo où elle est <b>nécessaire</b> pour atteindre la sortie (vérifiable en désactivant mentalement la mécanique : le niveau devient infranchissable).</li>
@@ -156,13 +156,13 @@ Critères d'acceptation du lot</h1>
    FranchitTouteLaSequence</span> (voir <span class="tt">TACHE-04</span> pour la justification : session interactive hors périmètre de cette conversation).</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1311"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1312"></a>
 Dépendances</h1>
 <ul>
 <li><b>Dépend de <span class="tt">LOT-22</span>, <span class="tt">LOT-23</span> et <span class="tt">LOT-24</span></b> (doit exercer leurs mécaniques) — à ne pas commencer avant que les trois soient terminés.</li>
 <li>Modifie <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> (LOT-01 et suivants), <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span> (<span class="tt">LOT-13</span>), et le contenu de <span class="tt">Source/Elements/Levels/</span> (tous les lots de gameplay).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1312"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1313"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-25-tache-01-inventaire-conception.html" title="TACHE-01 — Inventaire des mécaniques et conception">TACHE-01 — Inventaire des mécaniques et conception</a></li>

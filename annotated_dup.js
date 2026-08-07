@@ -94,6 +94,8 @@ var annotated_dup =
       [ "DraftRenderer", "classhmi_1_1DraftRenderer.html", "classhmi_1_1DraftRenderer" ],
       [ "GraphicsDevice", "classhmi_1_1GraphicsDevice.html", "classhmi_1_1GraphicsDevice" ],
       [ "MechanismVisualState", "structhmi_1_1MechanismVisualState.html", "structhmi_1_1MechanismVisualState" ],
+      [ "PlayerSpriteQuad", "structhmi_1_1PlayerSpriteQuad.html", "structhmi_1_1PlayerSpriteQuad" ],
+      [ "PlayerSpriteTag", "structhmi_1_1PlayerSpriteTag.html", "structhmi_1_1PlayerSpriteTag" ],
       [ "PreviousPosition", "structhmi_1_1PreviousPosition.html", "structhmi_1_1PreviousPosition" ],
       [ "ProceduralAtlasImage", "structhmi_1_1ProceduralAtlasImage.html", "structhmi_1_1ProceduralAtlasImage" ],
       [ "SpriteQuad", "structhmi_1_1SpriteQuad.html", "structhmi_1_1SpriteQuad" ],

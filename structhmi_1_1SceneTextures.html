@@ -122,6 +122,13 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5f3ab270a3963d1d214c9e7fa0b27390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du damier, en pixels.  <br /></td></tr>
 <tr class="memitem:a40f4f8e34b7c5fbeeeee31cf81fb9ee8" id="r_a40f4f8e34b7c5fbeeeee31cf81fb9ee8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a40f4f8e34b7c5fbeeeee31cf81fb9ee8">missingHeight</a> = 0</td></tr>
 <tr class="memdesc:a40f4f8e34b7c5fbeeeee31cf81fb9ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur du damier, en pixels.  <br /></td></tr>
+<tr class="memitem:a4e00b051177e2867cf09ce0681fcf9cd" id="r_a4e00b051177e2867cf09ce0681fcf9cd"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4e00b051177e2867cf09ce0681fcf9cd">characterSheet</a> = nullptr</td></tr>
+<tr class="memdesc:a4e00b051177e2867cf09ce0681fcf9cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spritesheet externe du personnage (<span class="tt"><a class="el" href="namespacehmi.html#a3056f1e4372f3a240ed0fcb1715237fd" title="Sous-dossier de la spritesheet du personnage, relatif au dossier d&#39;assets (LOT-48).">hmi::PLAYER_SUBDIRECTORY</a></span>/<span class="tt"><a class="el" href="namespacehmi.html#af9d5162737bdb5221fd49e4eeed58380" title="Nom logique de la spritesheet du personnage (LOT-48).">PLAYER_SHEET_FILE_NAME</a></span>, <span class="tt">LOT-48</span>), ou <span class="tt">nullptr</span> si absente/invalide — repli sur l'atlas (<span class="tt"><a class="el" href="structhmi_1_1PlayerSpriteTag.html" title="Apparence du personnage en RenderMode::Texture, résolue chaque image (GameSession::refreshPlayerSprit...">hmi::PlayerSpriteTag</a>::
+usesCharacterSheet</span>), comme <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> retombe déjà sur le procédural.  <br /></td></tr>
+<tr class="memitem:a128662efa22b13bb8df675ee2d385feb" id="r_a128662efa22b13bb8df675ee2d385feb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a128662efa22b13bb8df675ee2d385feb">characterSheetWidth</a> = 0</td></tr>
+<tr class="memdesc:a128662efa22b13bb8df675ee2d385feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur de la spritesheet du personnage, en pixels.  <br /></td></tr>
+<tr class="memitem:a5b50d924a3f3e54e96fc5c47c5486e4e" id="r_a5b50d924a3f3e54e96fc5c47c5486e4e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5b50d924a3f3e54e96fc5c47c5486e4e">characterSheetHeight</a> = 0</td></tr>
+<tr class="memdesc:a5b50d924a3f3e54e96fc5c47c5486e4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la spritesheet du personnage, en pixels.  <br /></td></tr>
 <tr class="memitem:a316efe3bb546e62e2e79d67812d4171c" id="r_a316efe3bb546e62e2e79d67812d4171c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1SkinTexture.html">SkinTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a316efe3bb546e62e2e79d67812d4171c">skins</a></td></tr>
 <tr class="memdesc:a316efe3bb546e62e2e79d67812d4171c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skins déjà chargés, adressés par index (<span class="tt"><a class="el" href="structhmi_1_1TileAppearance.html#a785246a0c5ccb220dedafb953211e5f2" title="Index dans hmi::SceneTextures::skins (source Skin) ou hmi::SceneTextures::objects (source Override) ;...">hmi::TileAppearance::skinIndex</a></span>).  <br /></td></tr>
 <tr class="memitem:ae0670f032cee5efe39413b81fd16f70b" id="r_ae0670f032cee5efe39413b81fd16f70b"><td class="memItemLeft">const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae0670f032cee5efe39413b81fd16f70b">skinCatalog</a> = nullptr</td></tr>
@@ -388,6 +395,55 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Largeur de l'atlas, en pixels. </p>
+
+</div>
+</div>
+<a id="a4e00b051177e2867cf09ce0681fcf9cd" name="a4e00b051177e2867cf09ce0681fcf9cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e00b051177e2867cf09ce0681fcf9cd">&#9670;&#160;</a></span>characterSheet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::SceneTextures::characterSheet = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Spritesheet externe du personnage (<span class="tt"><a class="el" href="namespacehmi.html#a3056f1e4372f3a240ed0fcb1715237fd" title="Sous-dossier de la spritesheet du personnage, relatif au dossier d&#39;assets (LOT-48).">hmi::PLAYER_SUBDIRECTORY</a></span>/<span class="tt"><a class="el" href="namespacehmi.html#af9d5162737bdb5221fd49e4eeed58380" title="Nom logique de la spritesheet du personnage (LOT-48).">PLAYER_SHEET_FILE_NAME</a></span>, <span class="tt">LOT-48</span>), ou <span class="tt">nullptr</span> si absente/invalide — repli sur l'atlas (<span class="tt"><a class="el" href="structhmi_1_1PlayerSpriteTag.html" title="Apparence du personnage en RenderMode::Texture, résolue chaque image (GameSession::refreshPlayerSprit...">hmi::PlayerSpriteTag</a>::
+usesCharacterSheet</span>), comme <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> retombe déjà sur le procédural. </p>
+
+</div>
+</div>
+<a id="a5b50d924a3f3e54e96fc5c47c5486e4e" name="a5b50d924a3f3e54e96fc5c47c5486e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b50d924a3f3e54e96fc5c47c5486e4e">&#9670;&#160;</a></span>characterSheetHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneTextures::characterSheetHeight = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hauteur de la spritesheet du personnage, en pixels. </p>
+
+</div>
+</div>
+<a id="a128662efa22b13bb8df675ee2d385feb" name="a128662efa22b13bb8df675ee2d385feb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a128662efa22b13bb8df675ee2d385feb">&#9670;&#160;</a></span>characterSheetWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneTextures::characterSheetWidth = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Largeur de la spritesheet du personnage, en pixels. </p>
 
 </div>
 </div>

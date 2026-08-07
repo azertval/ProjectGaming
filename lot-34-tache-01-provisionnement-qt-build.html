@@ -94,19 +94,19 @@ $(function(){initNavTree('lot-34-tache-01-provisionnement-qt-build.html','','');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-34-refonte-ihm-qt-socle_2tache-01-provisionnement-qt-build"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-34.html#md_Lot_2LOT-34-refonte-ihm-qt-socle_2epic" title="Lot/LOT-34-refonte-ihm-qt-socle/epic.md">LOT-34</a> · <b>Emplacement :</b> <span class="tt">External</span>, <span class="tt">Source/HMI</span>, <span class="tt">Source/Editor</span>, CMake, <span class="tt">.github/workflows</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1618"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1619"></a>
 Contexte</h1>
 <p>Le projet gère aujourd'hui ses dépendances par <b><span class="tt">FetchContent</span></b> (GoogleTest, nlohmann/json dans <span class="tt">External/CMakeLists.txt</span>) — sans dépendance externe préinstallée. Qt <b>ne se prête pas</b> à <span class="tt">FetchContent</span> (SDK volumineux, compilation longue) : il faut le <b>provisionner</b> (installer) puis le localiser via <span class="tt">find_package(Qt6)</span>. Cette tâche pose ce socle de build <b>avant</b> toute ligne d'UI Qt : intégration CMake, provisionnement local reproductible, provisionnement <b>CI</b> (job requis <span class="tt">build-test-coverage</span>) et <b>release</b> (déploiement des DLL Qt), et scission de <span class="tt">HMI</span> en bibliothèque réutilisable par la future cible Qt tout en gardant l'exécutable historique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1619"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
 Travail à réaliser</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1620"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
 1. <span class="tt">HMI</span> : exécutable → bibliothèque + exécutable legacy conservé</h2>
 <ul>
 <li>Dans <span class="tt">Source/HMI/CMakeLists.txt</span>, extraire le <b>rendu et la plateforme</b> réutilisables dans une <b>bibliothèque statique</b> (p. ex. <span class="tt">HmiRuntime</span>) : <span class="tt">GraphicsDevice</span>, <span class="tt">SpriteBatch</span>, <span class="tt">SpriteRenderer</span>, <span class="tt">TextureAtlas</span>, <span class="tt">Camera2D</span>, <span class="tt">BitmapFont</span>, <span class="tt">FlagIcons</span>, <span class="tt">SaveIcon</span>, <span class="tt">RoomGrid</span>, <span class="tt">TileVisuals</span>, <span class="tt">InputState</span>, <span class="tt">…KeyBindings</span>, <span class="tt">Localization</span>, <span class="tt">ExecutableDirectory</span>. Elle lie <span class="tt">Core</span>, <span class="tt">nlohmann_json</span> et <span class="tt">d3d11 dxgi d3dcompiler xinput</span>.</li>
 <li>L'exécutable <b>historique</b> <span class="tt">ProjectGaming</span> (<span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">main.cpp</a></span>, <span class="tt">hmi::Window</span>, <span class="tt">ScreenManager</span>, <span class="tt">…Screen</span>) <b>reste</b> et lie désormais <span class="tt">HmiRuntime</span> — aucune régression de jeu (coexistence, cf. epic).</li>
 <li>Le copier-après-build des assets (<span class="tt">Localization</span>, <span class="tt">Levels</span>) est préservé (déplacé au besoin sur la cible qui produit l'exe final).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1621"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
 2. Intégration Qt dans CMake</h2>
 <ul>
 <li><span class="tt">find_package(Qt6 REQUIRED COMPONENTS Widgets Gui)</span> (dans <span class="tt">Source/Editor/CMakeLists.txt</span>).</li>
@@ -114,12 +114,12 @@ Travail à réaliser</h1>
 <li>Documenter dans <span class="tt">External/README.md</span> la stratégie Qt (provisionné, non <span class="tt">FetchContent</span>) et la <b>licence LGPLv3 / lien dynamique</b>.</li>
 <li>La cible Qt <span class="tt">ProjectGaming</span> est déclarée ici (vide/minimale à cette tâche : un <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> Qt qui ouvre une fenêtre nue), remplie par TACHE-02/03/04.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1622"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1623"></a>
 3. Provisionnement local</h2>
 <ul>
 <li>Documenter (guide de build) l'installation via <b><span class="tt">aqtinstall</span></b> (<span class="tt">pip install aqtinstall</span> puis <span class="tt">aqt install-qt windows desktop 6.8.1 win64_msvc2022_64 --outputdir C:\Qt</span>) <b>ou</b> l'installeur officiel, et le passage de <span class="tt">CMAKE_PREFIX_PATH</span>/<span class="tt">Qt6_DIR</span> au preset <span class="tt">vs</span> (variable d'environnement ou ajout ciblé au <span class="tt">CMakePresets.json</span>, sans casser un poste sans Qt tant que la cible Qt est optionnelle — voir Points d'attention).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1623"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1624"></a>
 4. Provisionnement CI (<span class="tt">.github/workflows/ci.yml</span>, job <span class="tt">build-test-coverage</span>)</h2>
 <ul>
 <li>Ajouter <b>avant</b> <span class="tt">cmake --preset vs</span> une étape d'installation Qt, avec cache : <div class="fragment"><div class="line">- name: Install Qt</div>
@@ -134,13 +134,13 @@ Travail à réaliser</h1>
 <li>Les jobs <span class="tt">lint-exigences</span> et <span class="tt">docs</span> (Ubuntu) <b>ne changent pas</b> (aucun Qt).</li>
 <li>Vérifier que <span class="tt">ctest --preset vs</span> et la couverture (<span class="tt">UnitTests.exe</span>) restent verts : <span class="tt">UnitTests</span> <b>ne doit pas linker Qt</b> (logique pure + contrôleurs découplés), donc aucune DLL Qt requise à l'exécution des tests.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1624"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1625"></a>
 5. Provisionnement Release (<span class="tt">.github/workflows/release.yml</span>)</h2>
 <ul>
 <li>La release produit un exe <b>autonome <span class="tt">/MTd</span></b>. Qt (LGPL) impose le <b>lien dynamique</b> : ajouter une étape <b><span class="tt">windeployqt</span></b> (<span class="tt">windeployqt build\vs\bin\Debug\ProjectGaming.exe</span>) pour copier les DLL Qt (Core, Gui, Widgets, plugins <span class="tt">platforms/qwindows.dll</span>, styles) à côté de l'exe <b>avant</b> de packager l'archive <span class="tt">debug-latest</span>. Documenter que « exe autonome » devient « exe + DLL Qt ».</li>
 <li>(Le retrait de l'ancien exe et le passage de la release sur <span class="tt">ProjectGaming</span> se finalisent au <a class="el" href="lot-38.html" title="LOT-38 — Refonte IHM (Qt) : menus, options, remappage &amp; retrait du legacy UI">LOT-38</a>, après parité ; à cette tâche, la release peut continuer à packager <span class="tt">ProjectGaming</span>.)</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1625"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1626"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span> (scission bibliothèque <span class="tt">HmiRuntime</span> + exe legacy).</li>
@@ -150,7 +150,7 @@ Fichiers impactés</h1>
 <li><span class="tt">.github/workflows/ci.yml</span> (étape Install Qt), <span class="tt">.github/workflows/release.yml</span> (<span class="tt">windeployqt</span>).</li>
 <li><span class="tt">Documentation/Guide/</span> (guide de build : provisionnement Qt local).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1626"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1627"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Non-régression build</b> : <span class="tt">cmake --preset vs</span> + <span class="tt">cmake --build --preset vs</span> compilent <span class="tt">Core</span>, <span class="tt">HmiRuntime</span>, <span class="tt">ProjectGaming</span> (legacy), <span class="tt">ProjectGaming</span> (nu) et <span class="tt">UnitTests</span>.</li>
@@ -158,7 +158,7 @@ Tests (obligatoires)</h1>
 <li>Vérifier en CI (sur la PR du lot) que l'étape Install Qt + cache fonctionne sur <span class="tt">windows-2022</span>.</li>
 <li>Aucune logique métier nouvelle ici → pas de test unitaire nouveau (tâche d'infrastructure) ; les tests de logique arrivent aux TACHE-03/04.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1627"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1628"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas casser un poste/CI sans Qt involontairement</b> : <span class="tt">find_package(Qt6 REQUIRED)</span> sur la cible Qt fait échouer la config si Qt est absent. Choix à assumer (Qt devient dépendance de build du dépôt) — le documenter clairement ; option de repli : rendre la cible Qt conditionnelle à une option CMake <span class="tt">BUILD_EDITOR_QT</span> (ON par défaut) le temps de la transition.</li>
@@ -166,12 +166,12 @@ Points d'attention</h1>
 <li><b>CRT</b> : Qt msvc2022_64 est en CRT dynamique ; l'exe historique release est <span class="tt">/MTd</span>. La cible Qt utilisera la CRT par défaut du preset — vérifier la cohérence au packaging (windeployqt gère les redistribuables).</li>
 <li><b>Cache CI</b> : <span class="tt">cache: true</span> de l'action évite le re-téléchargement (~1–2 Go) ; clé implicite sur version/arch.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1628"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1629"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">HMI</span> scindé en bibliothèque <span class="tt">HmiRuntime</span> + exe legacy fonctionnel ; cible Qt <span class="tt">ProjectGaming</span> déclarée et configurable via <span class="tt">find_package(Qt6)</span>. CI (<span class="tt">build-test-coverage</span>) installe Qt et reste verte ; provisionnement local et release (<span class="tt">windeployqt</span>) <b>documentés</b>. <span class="tt">/W4 /WX</span>, Doxygen et lint verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1629"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1630"></a>
 Exigences</h1>
 <p><span class="tt">EX-BUILD-010</span> (Qt provisionné et documenté, local + CI + release) ; prépare <span class="tt">EX-IHM-001</span>/<span class="tt">EX-IHM-002</span> (TACHE-02→04). Réutilise <span class="tt">EX-NFR-031</span> (dépendances épinglées) — Qt épinglé sur <span class="tt">6.8.1</span> (l'archi <span class="tt">win64_msvc2022_64</span> requiert Qt 6.8+ ; 6.7 n'expose que <span class="tt">win64_msvc2019_64</span>). </p>
 </div></div><!-- contents -->

@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (501)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (513)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
@@ -43,13 +43,13 @@ var NAVTREE =
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
           [ "Editor (24)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (117)", "cahiertest.html#autotoc_md16", null ],
+          [ "Graphics (129)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
       ] ],
-      [ "Tests d'intégration (80)", "cahiertest.html#autotoc_md19", [
-        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (6)", "cahiertest.html#autotoc_md20", null ],
+      [ "Tests d'intégration (87)", "cahiertest.html#autotoc_md19", [
+        [ "Animation Personnage — <span class=\"tt\">test_animation_personnage.cpp</span> (13)", "cahiertest.html#autotoc_md20", null ],
         [ "Bloc Réduit — <span class=\"tt\">test_bloc_reduit.cpp</span> (2)", "cahiertest.html#autotoc_md21", null ],
         [ "Boucle Simulation — <span class=\"tt\">test_boucle_simulation.cpp</span> (2)", "cahiertest.html#autotoc_md22", null ],
         [ "Dangers avancés — <span class=\"tt\">test_danger_avance.cpp</span> (4)", "cahiertest.html#autotoc_md23", null ],
@@ -103,33 +103,33 @@ var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
 "OptionsPage_8h.html",
-"classcore_1_1DangerController.html#a4ff53c713255329f9bcaa28cae14d9a2",
-"classcore_1_1LevelLoader.html#a4976f03515627ad9fc7bb6f29445df89",
-"classhmi_1_1AssetThumbnailView.html#a5d35cf5702f2dadec1ac0c383e02cdb4",
-"classhmi_1_1GameSession.html#a5f23e0b481948049670ef0f68a7ee2a9",
-"classhmi_1_1GameViewport.html#acd267663dc14c010857f9d3156526e94",
-"classhmi_1_1InputState.html#ae58b5ee926c82c8f62bf57ee7e446ac4",
-"classhmi_1_1OptionsPage.html#a8987aa73dc8efea3e4b6f92a92106858",
-"classhmi_1_1TextureCache.html#a1107f9ce2c7733737b0aae9791eaacec",
-"functions.html",
-"index.html#autotoc_md1",
-"lot-05-tache-03-atlas-procedural.html#autotoc_md495",
-"lot-09-tache-02-mapping-saut.html#autotoc_md716",
-"lot-14.html#autotoc_md884",
-"lot-20-tache-03-documentation-verification.html",
-"lot-26.html#autotoc_md1348",
-"lot-33-tache-03-interpolation-rendu.html#autotoc_md1599",
-"lot-39-tache-03-convention-assets-doc.html#autotoc_md1821",
-"lot-45.html#autotoc_md2011",
-"lot-51.html#autotoc_md2232",
-"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a9be1e41bc76e39e2d71d0bc55947b66d",
-"namespacehmi.html#ace704959d626f266592987f16eb2f3d5",
-"structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38",
-"structhmi_1_1AnimationDescriptionResult.html#a8e45bcf520db8ee10785009747812ea0",
-"structhmi_1_1SceneTextures.html#a316efe3bb546e62e2e79d67812d4171c",
-"test__asset__references_8cpp.html#aaedc0804cd47a782723dcaee8ee2d2e1",
-"test__level__name__validation_8cpp.html",
-"test__room__grid_8cpp.html#a30660f3b4b10e952b806f44a8a95cb66"
+"classcore_1_1DangerController.html",
+"classcore_1_1LevelDraft.html#afd9f6ad59cb50ecb09377b4a3b2874d2",
+"classhmi_1_1AssetThumbnailView.html#a453afb38350b119483327b39f6bcd010",
+"classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8",
+"classhmi_1_1GameViewport.html#acabefda16573458d0d6d86bd29b400e4",
+"classhmi_1_1InputState.html#ad2bafb2610591e06b0e5664c633d236f",
+"classhmi_1_1OptionsPage.html#a5d9315f0aafbff0cf5c7d0779c00aa07",
+"classhmi_1_1TextureCache.html",
+"dir_f32b0d9b03b0388004af79a946f2aff4.html",
+"guide-rendu.html#autotoc_md167",
+"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md490",
+"lot-09-tache-02-mapping-saut.html",
+"lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md931",
+"lot-20-tache-02-menu-options.html#autotoc_md1152",
+"lot-26-tache-03-documentation-verification.html#autotoc_md1374",
+"lot-33-tache-02-presentation-flip.html#autotoc_md1594",
+"lot-39-tache-02-texture-atlas-fichier.html#autotoc_md1816",
+"lot-45-tache-03-section-objets-priorite.html#autotoc_md2037",
+"lot-51-tache-03-controles-documentation.html#autotoc_md2258",
+"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9",
+"namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f",
+"structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e",
+"structcore_1_1Velocity.html#ad6dd1b25f77f486834db55aa9c384b66",
+"structhmi_1_1ProceduralAtlasImage.html#a9793e61a5644666b4d997ae64dde340b",
+"test__animation__personnage_8cpp.html#a69cce02b0150147f506dc00fef8603dc",
+"test__level__file__operations_8cpp.html",
+"test__player__input__mapper_8cpp.html#aa6b0c195db318c3788a8e4552ccaea1e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

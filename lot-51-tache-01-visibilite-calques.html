@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-51-tache-01-visibilite-calques.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-51-visibilite-calques_2tache-01-visibilite-calques"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-51.html#md_Lot_2LOT-51-visibilite-calques_2epic" title="Lot/LOT-51-visibilite-calques/epic.md">LOT-51</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Game</span>, <span class="tt">Source/HMI/Graphics</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2240"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2241"></a>
 Contexte</h1>
 <p>À ce stade du programme, une scène empile fond, décors d'arrière-plan, ombres, tuiles habillées, objets surchargés, personnage et décors de premier plan. Quand quelque chose n'apparaît pas comme prévu, la seule façon de savoir <b>d'où</b> vient le problème est de pouvoir isoler chaque calque.</p>
 <p><span class="tt">F8</span> (LOT-41) ne répond pas à ce besoin : il <b>compose</b> le rendu final (surcharge &gt; skin &gt; damier). Ce mode <b>décompose</b>. Les deux réutilisent le même résolveur, avec des règles d'affichage différentes.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2241"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2242"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Jeu de visibilités</b> : un indicateur activable/désactivable par calque pertinent — Fond, Décor d'arrière-plan, Ombres, Skin des tuiles, Objets interactifs, Personnage, Décor de premier plan. Tous visibles par défaut.</li>
@@ -107,14 +107,14 @@ Travail à réaliser</h1>
 <li><b>Éditeur uniquement</b> : le jeu de visibilités vit dans <span class="tt">GameViewport</span> en mode édition et n'a <b>aucun</b> effet sur <span class="tt">GameSession</span> en mode jeu ou essai.</li>
 <li><b>Aucune persistance</b> entre deux sessions (hors périmètre du lot) : tout revient visible au lancement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2242"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2243"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/LayerVisibility.{h,cpp}</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Game/GameViewport.{h,cpp}</span>, <span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Graphics/test_layer_visibility.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2243"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2244"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Un calque masqué n'émet aucune primitive ; les autres sont inchangés — asserté via le <em>QuadRecorder</em>.</li>
@@ -122,19 +122,19 @@ Tests (obligatoires)</h1>
 <li>Aucun effet sur la composition d'une scène de jeu (<span class="tt">GameSession</span>).</li>
 <li>Sans GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2244"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2245"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas rendre la composition dépendante de l'ordre des indicateurs</b> : masquer un calque ne doit pas modifier l'ordre relatif des autres.</li>
 <li>Le filtrage doit s'appliquer <b>avant</b> le culling ou après, mais de façon décidée : masquer un calque ne doit pas changer les résultats de test du culling.</li>
 <li>Prévoir dès maintenant l'ajout d'un calque : le jeu de visibilités doit être indexé par la valeur de <em>RenderLayer</em>, pas par une liste écrite à la main.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2245"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2246"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Chaque calque peut être masqué et réaffiché indépendamment, en édition uniquement, sans effet sur le jeu ; le filtrage est asserté sans GPU ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2246"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2247"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-044</span> (visibilité par calque) ; réutilise <span class="tt">EX-REN-014</span> (ordonnancement des calques), <span class="tt">EX-REN-043</span> (multi-calques), <span class="tt">EX-REN-046</span> (distinct de la bascule), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

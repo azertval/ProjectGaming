@@ -13,7 +13,10 @@ var searchData=
   ['playerinputmapper_2ecpp_10',['PlayerInputMapper.cpp',['../PlayerInputMapper_8cpp.html',1,'']]],
   ['playerinputmapper_2eh_11',['PlayerInputMapper.h',['../PlayerInputMapper_8h.html',1,'']]],
   ['playerspawn_2eh_12',['PlayerSpawn.h',['../PlayerSpawn_8h.html',1,'']]],
-  ['previousposition_2eh_13',['PreviousPosition.h',['../PreviousPosition_8h.html',1,'']]],
-  ['proceduralatlas_2ecpp_14',['ProceduralAtlas.cpp',['../ProceduralAtlas_8cpp.html',1,'']]],
-  ['proceduralatlas_2eh_15',['ProceduralAtlas.h',['../ProceduralAtlas_8h.html',1,'']]]
+  ['playersprite_2ecpp_13',['PlayerSprite.cpp',['../PlayerSprite_8cpp.html',1,'']]],
+  ['playersprite_2eh_14',['PlayerSprite.h',['../PlayerSprite_8h.html',1,'']]],
+  ['playerspritetag_2eh_15',['PlayerSpriteTag.h',['../PlayerSpriteTag_8h.html',1,'']]],
+  ['previousposition_2eh_16',['PreviousPosition.h',['../PreviousPosition_8h.html',1,'']]],
+  ['proceduralatlas_2ecpp_17',['ProceduralAtlas.cpp',['../ProceduralAtlas_8cpp.html',1,'']]],
+  ['proceduralatlas_2eh_18',['ProceduralAtlas.h',['../ProceduralAtlas_8h.html',1,'']]]
 ];

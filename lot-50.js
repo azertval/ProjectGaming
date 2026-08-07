@@ -1,50 +1,50 @@
 var lot_50 =
 [
-    [ "Objectif", "lot-50.html#autotoc_md2192", null ],
-    [ "Périmètre", "lot-50.html#autotoc_md2193", [
-      [ "Inclus", "lot-50.html#autotoc_md2194", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-50.html#autotoc_md2195", null ]
+    [ "Objectif", "lot-50.html#autotoc_md2193", null ],
+    [ "Périmètre", "lot-50.html#autotoc_md2194", [
+      [ "Inclus", "lot-50.html#autotoc_md2195", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-50.html#autotoc_md2196", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-50.html#autotoc_md2196", null ],
-    [ "Exigences couvertes", "lot-50.html#autotoc_md2197", null ],
-    [ "Découpage", "lot-50.html#autotoc_md2198", null ],
-    [ "Critères d'acceptation du lot", "lot-50.html#autotoc_md2199", null ],
-    [ "Dépendances", "lot-50.html#autotoc_md2200", null ],
-    [ "Navigation des tâches", "lot-50.html#autotoc_md2201", null ],
+    [ "Décisions de cadrage", "lot-50.html#autotoc_md2197", null ],
+    [ "Exigences couvertes", "lot-50.html#autotoc_md2198", null ],
+    [ "Découpage", "lot-50.html#autotoc_md2199", null ],
+    [ "Critères d'acceptation du lot", "lot-50.html#autotoc_md2200", null ],
+    [ "Dépendances", "lot-50.html#autotoc_md2201", null ],
+    [ "Navigation des tâches", "lot-50.html#autotoc_md2202", null ],
     [ "TACHE-01 — Mutateurs de décors sur `LevelDraft`", "lot-50-tache-01-mutateurs-decor.html", [
-      [ "Contexte", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2202", null ],
-      [ "Travail à réaliser", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2203", null ],
-      [ "Fichiers impactés", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2204", null ],
-      [ "Tests (obligatoires)", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2205", null ],
-      [ "Points d'attention", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2206", null ],
-      [ "Définition de fait (DoD)", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2207", null ],
-      [ "Exigences", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2208", null ]
+      [ "Contexte", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2203", null ],
+      [ "Travail à réaliser", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2204", null ],
+      [ "Fichiers impactés", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2205", null ],
+      [ "Tests (obligatoires)", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2206", null ],
+      [ "Points d'attention", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2207", null ],
+      [ "Définition de fait (DoD)", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2208", null ],
+      [ "Exigences", "lot-50-tache-01-mutateurs-decor.html#autotoc_md2209", null ]
     ] ],
     [ "TACHE-02 — Outil de décors et geste pur de manipulation", "lot-50-tache-02-outil-geste.html", [
-      [ "Contexte", "lot-50-tache-02-outil-geste.html#autotoc_md2209", null ],
-      [ "Travail à réaliser", "lot-50-tache-02-outil-geste.html#autotoc_md2210", null ],
-      [ "Fichiers impactés", "lot-50-tache-02-outil-geste.html#autotoc_md2211", null ],
-      [ "Tests (obligatoires)", "lot-50-tache-02-outil-geste.html#autotoc_md2212", null ],
-      [ "Points d'attention", "lot-50-tache-02-outil-geste.html#autotoc_md2213", null ],
-      [ "Définition de fait (DoD)", "lot-50-tache-02-outil-geste.html#autotoc_md2214", null ],
-      [ "Exigences", "lot-50-tache-02-outil-geste.html#autotoc_md2215", null ]
+      [ "Contexte", "lot-50-tache-02-outil-geste.html#autotoc_md2210", null ],
+      [ "Travail à réaliser", "lot-50-tache-02-outil-geste.html#autotoc_md2211", null ],
+      [ "Fichiers impactés", "lot-50-tache-02-outil-geste.html#autotoc_md2212", null ],
+      [ "Tests (obligatoires)", "lot-50-tache-02-outil-geste.html#autotoc_md2213", null ],
+      [ "Points d'attention", "lot-50-tache-02-outil-geste.html#autotoc_md2214", null ],
+      [ "Définition de fait (DoD)", "lot-50-tache-02-outil-geste.html#autotoc_md2215", null ],
+      [ "Exigences", "lot-50-tache-02-outil-geste.html#autotoc_md2216", null ]
     ] ],
     [ "TACHE-03 — Rendu de la sélection, poignées et aimantation", "lot-50-tache-03-selection-poignees.html", [
-      [ "Contexte", "lot-50-tache-03-selection-poignees.html#autotoc_md2216", null ],
-      [ "Travail à réaliser", "lot-50-tache-03-selection-poignees.html#autotoc_md2217", null ],
-      [ "Fichiers impactés", "lot-50-tache-03-selection-poignees.html#autotoc_md2218", null ],
-      [ "Tests (obligatoires)", "lot-50-tache-03-selection-poignees.html#autotoc_md2219", null ],
-      [ "Points d'attention", "lot-50-tache-03-selection-poignees.html#autotoc_md2220", null ],
-      [ "Définition de fait (DoD)", "lot-50-tache-03-selection-poignees.html#autotoc_md2221", null ],
-      [ "Exigences", "lot-50-tache-03-selection-poignees.html#autotoc_md2222", null ]
+      [ "Contexte", "lot-50-tache-03-selection-poignees.html#autotoc_md2217", null ],
+      [ "Travail à réaliser", "lot-50-tache-03-selection-poignees.html#autotoc_md2218", null ],
+      [ "Fichiers impactés", "lot-50-tache-03-selection-poignees.html#autotoc_md2219", null ],
+      [ "Tests (obligatoires)", "lot-50-tache-03-selection-poignees.html#autotoc_md2220", null ],
+      [ "Points d'attention", "lot-50-tache-03-selection-poignees.html#autotoc_md2221", null ],
+      [ "Définition de fait (DoD)", "lot-50-tache-03-selection-poignees.html#autotoc_md2222", null ],
+      [ "Exigences", "lot-50-tache-03-selection-poignees.html#autotoc_md2223", null ]
     ] ],
     [ "TACHE-04 — Section « Décors » du panneau « Textures »", "lot-50-tache-04-section-decors.html", [
-      [ "Contexte", "lot-50-tache-04-section-decors.html#autotoc_md2223", null ],
-      [ "Travail à réaliser", "lot-50-tache-04-section-decors.html#autotoc_md2224", null ],
-      [ "Fichiers impactés", "lot-50-tache-04-section-decors.html#autotoc_md2225", null ],
-      [ "Tests (obligatoires)", "lot-50-tache-04-section-decors.html#autotoc_md2226", null ],
-      [ "Points d'attention", "lot-50-tache-04-section-decors.html#autotoc_md2227", null ],
-      [ "Définition de fait (DoD)", "lot-50-tache-04-section-decors.html#autotoc_md2228", null ],
-      [ "Exigences", "lot-50-tache-04-section-decors.html#autotoc_md2229", null ]
+      [ "Contexte", "lot-50-tache-04-section-decors.html#autotoc_md2224", null ],
+      [ "Travail à réaliser", "lot-50-tache-04-section-decors.html#autotoc_md2225", null ],
+      [ "Fichiers impactés", "lot-50-tache-04-section-decors.html#autotoc_md2226", null ],
+      [ "Tests (obligatoires)", "lot-50-tache-04-section-decors.html#autotoc_md2227", null ],
+      [ "Points d'attention", "lot-50-tache-04-section-decors.html#autotoc_md2228", null ],
+      [ "Définition de fait (DoD)", "lot-50-tache-04-section-decors.html#autotoc_md2229", null ],
+      [ "Exigences", "lot-50-tache-04-section-decors.html#autotoc_md2230", null ]
     ] ]
 ];

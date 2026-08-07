@@ -82,6 +82,8 @@ var hierarchy =
     [ "core::PhysicsConfig", "structcore_1_1PhysicsConfig.html", null ],
     [ "core::Player", "structcore_1_1Player.html", null ],
     [ "core::PlayerInput", "structcore_1_1PlayerInput.html", null ],
+    [ "hmi::PlayerSpriteQuad", "structhmi_1_1PlayerSpriteQuad.html", null ],
+    [ "hmi::PlayerSpriteTag", "structhmi_1_1PlayerSpriteTag.html", null ],
     [ "hmi::PreviousPosition", "structhmi_1_1PreviousPosition.html", null ],
     [ "hmi::ProceduralAtlasImage", "structhmi_1_1ProceduralAtlasImage.html", null ],
     [ "QMainWindow", null, [

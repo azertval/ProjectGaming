@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-06-tache-07-integration-main.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-07-integration-main"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Contexte</h1>
 <p>Tâche d'assemblage. <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> construit aujourd'hui la scène et la rend directement. On remplace cela par une boucle pilotée par le <b>gestionnaire d'écrans</b>, démarrant sur le <b>menu</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Initialiser les ressources partagées (device, <span class="tt">SpriteBatch</span>, atlas, <span class="tt">BitmapFont</span>, <b>catalogue de traduction</b> chargé sur la langue par défaut, TACHE-03) et le gestionnaire d'écrans avec le <span class="tt">MenuScreen</span> comme écran de départ.</li>
@@ -105,12 +105,12 @@ Travail à réaliser</h1>
 <li>Répercuter le redimensionnement (swap chain + caméra des écrans concernés).</li>
 <li>Retirer de <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> la scène de démo (déplacée dans <span class="tt">GameScreen</span>, TACHE-06).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Au lancement, l'exécutable affiche le <b>menu</b> (et non la scène directement).</li>
@@ -118,19 +118,19 @@ Vérifications (obligatoires)</h1>
 <li>Entrées lues <b>une fois par frame</b>, avant la logique ; fermeture propre ; pas de fuite.</li>
 <li>Vérification <b>visuelle</b> de bout en bout (lancer l'exécutable), pas seulement la compilation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
 Points d'attention</h1>
 <ul>
 <li>Ordre par frame : nouvelle frame d'entrées → messages → update écran → rendu.</li>
 <li>La demande de fermeture d'un écran (« Quitter ») doit atteindre la condition d'arrêt de la boucle.</li>
 <li>Gestion des exceptions inchangée (frontière de démarrage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>L'exécutable démarre sur le menu ; les trois options et Échap fonctionnent ; tous les critères d'acceptation de l'<a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">epic</a> satisfaits ; build <span class="tt">/W4 /WX</span>, CI verte, Doxygen et <span class="tt">CHANGELOG.md</span> à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md582"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-030</span>, <span class="tt">EX-CTRL-021</span>, <span class="tt">EX-REN-020</span>, <span class="tt">EX-REN-021</span>. </p>
 </div></div><!-- contents -->

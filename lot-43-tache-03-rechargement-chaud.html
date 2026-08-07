@@ -94,12 +94,12 @@ $(function(){initNavTree('lot-43-tache-03-rechargement-chaud.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-43-bibliotheque-assets_2tache-03-rechargement-chaud"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-43.html#md_Lot_2LOT-43-bibliotheque-assets_2epic" title="Lot/LOT-43-bibliotheque-assets/epic.md">LOT-43</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1971"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1972"></a>
 Contexte</h1>
 <p>Aujourd'hui, <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas et table de régions, chargée depuis un fichier image avec repli procédural (EX-REN-04...">hmi::TextureAtlas</a></span> charge son fichier <b>une fois</b> au démarrage : modifier <span class="tt">atlas.png</span> impose de relancer l'application. Le README des assets le dit explicitement (« pas de rechargement à chaud à ce stade »), et <span class="tt">EX-ARCH-080</span> l'excluait du MVP.</p>
 <p>Ce n'est plus tenable dès qu'on itère sur des textures : c'est la boucle « peindre → regarder → corriger » de six lots entiers, et de l'atelier pixel art (LOT-54) dont l'aperçu live en dépend directement.</p>
 <p>L'API nécessaire a été prévue en amont : <span class="tt">TextureCache::invalidate(name)</span> et <span class="tt">invalidateAll()</span> existent depuis LOT-40, sans appelant.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1972"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1973"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Action « Recharger les textures »</b> dans l'interface d'édition (panneau « Textures » et/ou menu), traduite, qui :<ul>
@@ -113,7 +113,7 @@ Travail à réaliser</h1>
 <li><b>Surveillance de dossier optionnelle</b> (<span class="tt">QFileSystemWatcher</span>) : si elle est retenue, elle doit être <b>débattue et anti-rebond</b> — un éditeur d'image externe écrit souvent un fichier en plusieurs fois, et recharger sur un fichier partiellement écrit produirait un asset invalide. Retenir la surveillance seulement si le comportement est fiable ; sinon, l'action manuelle suffit.</li>
 <li><b>Robustesse</b> : un asset devenu illisible ou invalide entre deux chargements bascule sur le repli (<span class="tt">EX-NFR-040</span>) sans interrompre le rendu ni perdre l'état d'édition.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1973"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1974"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/TextureCache.{h,cpp}</span> (appelants de l'invalidation).</li>
@@ -121,25 +121,25 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Interface/MainWindow.{h,cpp}</span> (entrée de menu, traduction).</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1974"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1975"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Invalidation du cache : après <span class="tt">invalidate(name)</span>, le prochain accès relit le fichier ; les autres entrées sont conservées. <span class="tt">invalidateAll</span> vide tout. Testé sans GPU sur la partie non graphique du cache.</li>
 <li>Un asset devenu invalide après invalidation produit le repli, sans exception.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1975"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1976"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Durée de vie des handles</b> : une texture peut être en cours d'utilisation par la composition de l'image courante au moment de l'invalidation. Respecter le contrat fixé en LOT-40 (TACHE-01) — invalidation en dehors de la composition, ou durée de vie garantie par <span class="tt">ComPtr</span> chez l'appelant.</li>
 <li>Le rechargement ne doit <b>rien</b> changer à l'état du niveau en cours d'édition ni à l'historique d'annulation : c'est une opération de présentation.</li>
 <li>Ne pas recharger pendant un pas de simulation en mode essai.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1976"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1977"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Une action explicite reflète les assets modifiés sur disque sans redémarrer ; le rechargement ciblé est disponible pour l'atelier ; un asset devenu invalide dégrade proprement ; l'invalidation est testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1977"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1978"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-026</span> (rechargement à chaud) ; réutilise <span class="tt">EX-ARCH-080</span> (gestion des ressources, amendée), <span class="tt">EX-NFR-040</span> (repli), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-041</span> (RAII). </p>
 </div></div><!-- contents -->

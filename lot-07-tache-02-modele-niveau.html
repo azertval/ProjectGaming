@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-07-tache-02-modele-niveau.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-07-niveaux_2tache-02-modele-niveau"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-07.html#md_Lot_2LOT-07-niveaux_2epic" title="Lot/LOT-07-niveaux/epic.md">LOT-07</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md606"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
 Contexte</h1>
 <p>Avant de charger un fichier, il faut un <b>modèle en mémoire</b> du niveau. Le gameplay (collisions, mécanismes) et le rendu s'appuieront tous sur cette représentation : une <b>grille de tuiles typées</b> (<span class="tt">EX-GP-001</span>) et les données du niveau (<span class="tt">EX-LVL-002</span>). Le modèle est <b>donnée pure</b> (<span class="tt">EX-ARCH-011</span>), sans dépendance rendu ni fichier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md607"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">TileType</span></b> (<span class="tt">enum class</span>) : <span class="tt">Empty</span>, <span class="tt">Solid</span>, <span class="tt">Danger</span>, <span class="tt">Entry</span>, <span class="tt">Exit</span>, <span class="tt">Switch</span>, <span class="tt">Door</span>.</li>
@@ -105,32 +105,32 @@ Travail à réaliser</h1>
 <li><b><span class="tt">Mechanism</span></b> : liaison d'un <b>interrupteur</b> (position) à une <b>porte</b> (position).</li>
 <li><b><span class="tt">Level</span></b> : <span class="tt">TileMap</span> + position d'<b>entrée</b> + position de <b>sortie</b> + liste de <span class="tt">Mechanism</span> + nom. Accès en lecture ; construit par le chargeur (TACHE-03).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md608"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span>, <span class="tt"><a class="el" href="TileMap_8h.html" title="Grille de tuiles typées d&#39;un niveau.">TileMap.h</a></span>/<span class="tt">.cpp</span>, <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>/<span class="tt">.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md609"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Construction d'une <span class="tt">TileMap</span> de dimensions données ; lecture/écriture d'une tuile à <span class="tt">(colonne, ligne)</span> ; dimensions correctes.</li>
 <li><span class="tt">isSolid</span> vrai pour <span class="tt">Solid</span> (et les types bloquants retenus), faux pour <span class="tt">Empty</span>.</li>
 <li>Un <span class="tt">Level</span> restitue son entrée, sa sortie et ses mécanismes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md610"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Donnée pure</b> : aucun type DirectX ni accès fichier ici ; testable sans fenêtre ni GPU.</li>
 <li>Repère du projet : origine <b>haut-gauche</b>, <span class="tt">[colonne, ligne]</span> (cohérent avec <span class="tt"><a class="el" href="niveaux_8md.html">niveaux.md</a></span> et <span class="tt">EX-ARCH-020</span>).</li>
 <li>Ne pas mélanger état de <b>simulation</b> (positions de mécanismes ouverts/fermés) avec le <b>modèle statique</b> chargé : ce lot ne fait que représenter, le comportement viendra plus tard.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md611"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">TileType</span>/<span class="tt">TileMap</span>/<span class="tt">Level</span> fonctionnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>, documentés.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md612"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md613"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-001</span>, <span class="tt">EX-GP-002</span>, <span class="tt">EX-LVL-002</span>, <span class="tt">EX-ARCH-010</span>, <span class="tt">EX-ARCH-011</span>. </p>
 </div></div><!-- contents -->

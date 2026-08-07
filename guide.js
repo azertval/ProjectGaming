@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md167", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md168", null ],
-    [ "Plan du guide", "guide.html#autotoc_md169", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md168", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md169", null ],
+    [ "Plan du guide", "guide.html#autotoc_md170", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md30", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md31", null ],
@@ -113,17 +113,18 @@ var guide =
         [ "Le pipeline de textures depuis fichiers, et son repli procédural", "guide-rendu.html#autotoc_md155", null ],
         [ "<span class=\"tt\">Source/Elements/Assets/</span> : convention et régénération", "guide-rendu.html#autotoc_md156", null ],
         [ "Les images du personnage : pourquoi elles vivent dans le même atlas", "guide-rendu.html#autotoc_md157", null ],
-        [ "L'animation : des clips en données, une progression générale (<span class=\"tt\">LOT-46</span>)", "guide-rendu.html#autotoc_md158", null ]
+        [ "<span class=\"tt\">LOT-48</span> : spritesheet externe et découplage image/hitbox", "guide-rendu.html#autotoc_md158", null ],
+        [ "L'animation : des clips en données, une progression générale (<span class=\"tt\">LOT-46</span>)", "guide-rendu.html#autotoc_md159", null ]
       ] ],
-      [ "<a class=\"el\" href=\"classhmi_1_1SpriteRenderer.html\" title=\"hmi::SpriteRenderer\">hmi::SpriteRenderer</a> : le pont ECS → écran", "guide-rendu.html#autotoc_md159", [
-        [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md160", null ],
-        [ "Deux modes de rendu : Physique et Texture (<span class=\"tt\">LOT-41</span>)", "guide-rendu.html#autotoc_md161", null ],
-        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md162", null ]
+      [ "<a class=\"el\" href=\"classhmi_1_1SpriteRenderer.html\" title=\"hmi::SpriteRenderer\">hmi::SpriteRenderer</a> : le pont ECS → écran", "guide-rendu.html#autotoc_md160", [
+        [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md161", null ],
+        [ "Deux modes de rendu : Physique et Texture (<span class=\"tt\">LOT-41</span>)", "guide-rendu.html#autotoc_md162", null ],
+        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md163", null ]
       ] ],
-      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md163", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md164", null ],
-      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md165", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md166", null ]
+      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md164", null ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md165", null ],
+      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md166", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md167", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md91", null ],

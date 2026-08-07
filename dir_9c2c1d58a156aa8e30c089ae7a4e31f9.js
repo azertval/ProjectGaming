@@ -10,6 +10,7 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_mechanism_transitions.cpp", "test__mechanism__transitions_8cpp.html", "test__mechanism__transitions_8cpp" ],
     [ "test_mechanism_visuals.cpp", "test__mechanism__visuals_8cpp.html", null ],
     [ "test_missing_texture.cpp", "test__missing__texture_8cpp.html", "test__missing__texture_8cpp" ],
+    [ "test_player_sprite.cpp", "test__player__sprite_8cpp.html", "test__player__sprite_8cpp" ],
     [ "test_procedural_atlas.cpp", "test__procedural__atlas_8cpp.html", "test__procedural__atlas_8cpp" ],
     [ "test_quad_recorder.cpp", "test__quad__recorder_8cpp.html", "test__quad__recorder_8cpp" ],
     [ "test_render_culling.cpp", "test__render__culling_8cpp.html", "test__render__culling_8cpp" ],

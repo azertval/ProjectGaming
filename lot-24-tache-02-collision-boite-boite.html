@@ -94,23 +94,23 @@ $(function(){initNavTree('lot-24-tache-02-collision-boite-boite.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-24-blocs-taille-fractionnaire_2tache-02-collision-boite-boite"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-24.html#md_Lot_2LOT-24-blocs-taille-fractionnaire_2epic" title="Lot/LOT-24-blocs-taille-fractionnaire/epic.md">LOT-24</a> · <b>Emplacement :</b> <span class="tt">Core/Physics</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1282"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1283"></a>
 Contexte</h1>
 <p>Un bloc réduit occupe sa case <b>partiellement</b> : <span class="tt">sweepAabb</span> (solide/vide par case entière, cf. <span class="tt"><a class="el" href="SweptCollision_8cpp.html">Core/Physics/SweptCollision.cpp</a></span>) ne peut pas l'exprimer. Cette tâche ajoute une résolution <b>boîte contre boîte</b>, plus simple qu'un suivi de surface (<span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>) mais nouvelle dans ce moteur (jusqu'ici, toute collision passe par la grille).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1283"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1284"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Nouvelle fonction pure</b>, par exemple <span class="tt">core::sweepAabbVsAabb(box, delta, obstacle)</span> (<span class="tt"><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">Core/Physics/SweptCollision.h</a></span>/<span class="tt">.cpp</span>, ou nouveau fichier dédié si le mélange grille/boîte nuit à la lisibilité) : balayage continu d'une boîte mobile contre une boîte <b>fixe</b> (l'obstacle résolu par l'axe de pénétration minimal, même esprit — clamp direct, pas d'interpolation — que <span class="tt">sweepX</span>/<span class="tt">sweepY</span> existants, pour éviter la même dérive flottante déjà écartée dans <span class="tt"><a class="el" href="SweptCollision_8cpp.html">SweptCollision.cpp</a></span>).</li>
 <li><b><span class="tt"><a class="el" href="CharacterPhysicsSystem_8cpp.html">Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></span></b> (ou l'orchestration côté <span class="tt">HMI/GameScreen</span>, à trancher en implémentant selon où vivent déjà les positions de blocs) : après la résolution sur grille, pour chaque bloc réduit dont la boîte (centrée, taille <span class="tt">facteur × 1</span>) chevauche le chemin du personnage, appliquer <span class="tt">sweepAabbVsAabb</span> et composer le résultat avec celui du balayage sur grille (le plus restrictif des deux l'emporte).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1284"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1285"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="SweptCollision_8h.html" title="Collision continue (balayage) d&#39;une boîte AABB contre une grille de tuiles solides.">Source/Core/Physics/SweptCollision.h</a></span>/<span class="tt">.cpp</span> (ou nouveau fichier dédié).</li>
 <li><span class="tt"><a class="el" href="CharacterPhysicsSystem_8cpp.html">Source/Core/Ecs/Systems/CharacterPhysicsSystem.cpp</a></span> et/ou <span class="tt">Source/HMI/Interface/GameScreen.cpp</span> (selon l'endroit retenu pour composer grille + blocs réduits).</li>
 <li>Tests : nouveau <span class="tt">Source/Test/Unit/Core/Physics/test_sweep_aabb_vs_aabb.cpp</span> + nouveaux cas dans <span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">test_physique_personnage.cpp</a></span> (approche, contact, glissement le long d'un bloc réduit).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1285"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1286"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le personnage est arrêté par un bloc réduit exactement à son bord (pas de pénétration, pas de saut de position).</li>
@@ -118,22 +118,22 @@ Tests (obligatoires)</h1>
 <li>Glissement le long d'un bloc réduit, comme contre un mur classique (cohérence de ressenti).</li>
 <li><b>Régression</b> : tous les tests existants (grille, blocs pleins de <span class="tt">LOT-21</span>) restent verts sans modification.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1286"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1287"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Composer, ne pas remplacer.</b> Le résultat final doit être le plus restrictif entre le balayage sur grille (murs, blocs pleins, sol) et le balayage boîte-boîte (blocs réduits) — jamais l'un au détriment de l'autre. Un personnage ne doit jamais pouvoir traverser un mur classique sous prétexte qu'un bloc réduit était présent ailleurs sur le chemin.</li>
 <li><b>Où vit la composition</b> (<span class="tt">Core</span> vs <span class="tt">HMI</span>) mérite une vraie décision, pas un choix par défaut : <span class="tt">CharacterPhysicsSystem</span> ne connaît aujourd'hui que la grille (<span class="tt">TileMap</span>), pas les positions de blocs (portées par <span class="tt">BlockController</span>, côté <span class="tt">HMI/GameScreen</span> comme <span class="tt">LOT-21</span> l'a établi) — il faudra soit lui faire accepter une liste de boîtes en plus de la grille, soit garder la composition côté <span class="tt">GameScreen</span> après son appel. Documenter le choix retenu ici une fois tranché.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1287"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1288"></a>
 Décision retenue : composition côté <span class="tt">GameScreen</span>, <span class="tt">CharacterPhysicsSystem</span> inchangé</h2>
 <p><span class="tt">HMI::GameScreen::update</span> compose les deux passes <b>après</b> <span class="tt">_physics.update(...)</span> (grille) et <b>avant</b> <span class="tt">_animation.update(...)</span> (l'animation lit <span class="tt">Player::grounded</span>/<span class="tt">Velocity</span>, donc doit voir l'état <b>final</b>) : le déplacement <b>réel</b> obtenu par la grille (<span class="tt">transform.position - previousBox.min</span>) est retesté contre la boîte réelle de chaque bloc réduit (<span class="tt">BlockController::scales()</span>/<span class="tt">boxAt</span>) via <span class="tt"><a class="el" href="namespacecore.html#a0019562e8e9658def020086ee4d49425" title="Déplace box de delta en s&#39;arrêtant au premier contact avec obstacle, une boîte fixe unique (pas une g...">core::sweepAabbVsAabb</a></span>. Par construction, cette seconde passe ne peut que <b>réduire</b> le déplacement (jamais l'étendre) : elle part du résultat déjà restreint par la grille, donc « le plus restrictif des deux l'emporte » est garanti sans calcul supplémentaire. Si <b>plusieurs</b> blocs réduits se trouvent sur le chemin (cas rare, hors du périmètre normal de ce lot), le résultat le plus proche de la position de départ l'emporte <b>par axe</b>, pour rester sûr même dans ce cas non prioritaire.</p>
 <p>Alternative écartée : faire accepter à <span class="tt">CharacterPhysicsSystem</span> une liste de boîtes en plus de la grille. Rejetée pour ne <b>pas</b> faire dépendre le système ECS générique de <span class="tt">BlockController</span> (couplage <span class="tt">Core/Ecs</span> → <span class="tt">Core/Gameplay</span> inexistant ailleurs dans le moteur) et pour rester cohérent avec <span class="tt">LOT-21</span> : <span class="tt">BlockController</span> est déjà orchestré côté <span class="tt">GameScreen</span>, pas injecté dans la physique.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1288"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1289"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Collision boîte-contre-boîte fonctionnelle et testée, composée correctement avec le balayage sur grille ; <b>zéro régression</b> ; build <span class="tt">/W4 /WX</span> sans avertissement. Vérifiée par 6 tests unitaires (<span class="tt">sweepAabbVsAabb</span> seul) et 2 tests d'intégration rejouant l'orchestration exacte de <span class="tt">GameScreen::update</span> (arrêt au bord réel, franchissement de l'espace autour).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1289"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1290"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-005</span> (implémentation complète). </p>
 </div></div><!-- contents -->

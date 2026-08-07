@@ -161,7 +161,11 @@ var namespacecore =
     [ "kLevelFormatVersion", "namespacecore.html#a4e9944a74ac070775a2730be05705abb", null ],
     [ "kPlayerHeight", "namespacecore.html#aaa73b5f2476cf8e0f359e4f05e1b2d9a", null ],
     [ "kPlayerWidth", "namespacecore.html#af90aca85784a36802e810be93df9800f", null ],
+    [ "PLAYER_CLIP_DASH", "namespacecore.html#a29878d049f4e3e4ea35da414d6783daf", null ],
+    [ "PLAYER_CLIP_FALL", "namespacecore.html#a383d9d113ce5c48640f24d6f9759d83c", null ],
     [ "PLAYER_CLIP_IDLE", "namespacecore.html#a2b3cb5d42063608aa724d3b47aab0a6e", null ],
     [ "PLAYER_CLIP_JUMP", "namespacecore.html#a8fe767302a92e721e28a90cc9651f2bc", null ],
-    [ "PLAYER_CLIP_RUN", "namespacecore.html#a07165b3796d0b5e77c2ecbc046696a5a", null ]
+    [ "PLAYER_CLIP_LAND", "namespacecore.html#a75463224decffa9f1ac1f5bf99119eef", null ],
+    [ "PLAYER_CLIP_RUN", "namespacecore.html#a07165b3796d0b5e77c2ecbc046696a5a", null ],
+    [ "PLAYER_CLIP_WALLSLIDE", "namespacecore.html#ab778e77cf62b7d1c11d8038f75cbf020", null ]
 ];

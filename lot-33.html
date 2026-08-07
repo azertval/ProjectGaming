@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-33.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>✅ terminé</b>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1575"></a>
 Objectif</h1>
 <p>Les lots précédents ont bâti le gameplay, l'éditeur et le contenu ; ce lot revient sur des <b>choix techniques historiques de la boucle, du rendu et des entrées</b> qui dégradent le ressenti dès que la machine tourne au-dessus de 60 Hz — l'écran de bureau courant (120/144/240 Hz). Aucun n'était un bug « visible » dans les tests (tous déterministes, sans GPU ni horloge réelle), mais tous se paient en jouabilité. Quatre corrections indépendantes, réunies parce qu'elles partagent la même cause racine — <b>la boucle a toujours supposé un rendu à ~60 Hz calé sur la simulation</b> :</p>
 <ol type="1">
@@ -106,9 +106,9 @@ Objectif</h1>
 <li><b>Présentation <em>blt</em> legacy + absence d'interpolation.</b> La swap chain utilisait l'ancien modèle <span class="tt">DXGI_SWAP_EFFECT_DISCARD</span> (copie supplémentaire, latence) au lieu du modèle <b>flip</b> moderne ; et surtout, la simulation à 60 Hz s'affichait <b>sans interpolation</b> sur des écrans plus rapides, produisant un <em>judder</em> (mouvement en marches d'escalier) même à framerate élevé. Un <b>facteur d'interpolation</b> était pourtant prévu <b>dès le départ</b> dans l'architecture (<span class="tt">EX-ARCH-031</span>) et exposé par <span class="tt">FixedTimestep::interpolationAlpha</span> — mais jamais exploité par le rendu.</li>
 </ol>
 <p>Objectif du lot : rendre le jeu et les interfaces <b>fluides et nerveux quel que soit le framerate d'affichage</b>, sans toucher au déterminisme de la simulation (<span class="tt">EX-NFR-002</span>) — toutes les corrections vivent dans <span class="tt">HMI</span> (boucle, fenêtre, rendu) ou dans une couche de présentation qui <b>lit</b> la simulation sans jamais la modifier.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1576"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1576"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1577"></a>
 Inclus</h2>
 <ul>
 <li><b>Découplage des fronts d'entrée et du rendu</b> (<span class="tt">HMI/Platform/Window</span>, <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></span>) : <span class="tt">pumpMessages</span> draine désormais la manette + les messages clavier/souris dans l'état <b>courant</b> sans avancer les fronts ; une nouvelle <span class="tt">Window::beginInputFrame</span> (recopie courant → précédent) est appelée par la boucle <b>après chaque pas fixe consommé</b>. Un appui capturé sur une frame sans pas de simulation <b>survit</b> jusqu'à ce qu'un pas le lise, au lieu d'être perdu. L'échantillonnage reste <b>une fois par frame, en amont de la logique</b> (<span class="tt">EX-CTRL-021</span> toujours respectée) ; la latence entrée → action reste <b>≤ un pas</b> (<span class="tt">EX-CTRL-020</span>, désormais à tout framerate).</li>
@@ -119,7 +119,7 @@ Inclus</h2>
   alpha)</span> ; les entités fixes (tuiles) restent dessinées à leur position courante, sans surcoût.</li>
 <li>Documentation (guides boucle/rendu/entrées), mise à jour des spécifications concernées, tests.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1577"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1578"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Interpolation de la caméra</b> — la caméra bascule déjà par <b>coupure nette</b> entre salles (<span class="tt">LOT-32</span>, choix assumé façon <em>Celeste</em>) : elle ne suit pas le personnage en continu, il n'y a donc rien à interpoler côté caméra. Seules les <b>entités</b> interpolent.</li>
@@ -128,7 +128,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li><b>Cadence de rendu plafonnée / mise en veille quand <span class="tt">steps == 0</span></b> — la boucle continue de rendre à la fréquence de l'écran (V-Sync régule déjà). Un plafonnement d'économie d'énergie est un sujet distinct, non lié au ressenti.</li>
 <li><b>Remappage, gameplay, contenu</b> — inchangés ; ce lot ne touche que la couche technique boucle/rendu/entrées.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1578"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1579"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Avancer les fronts d'entrée par pas consommé, pas par frame de rendu</b> : c'est la correction minimale qui rétablit <span class="tt">EX-CTRL-020</span>/<span class="tt">EX-CTRL-021</span> à tout framerate sans changer le modèle d'échantillonnage (toujours une lecture OS par frame). Alternative écartée : caler le rendu sur 60 Hz (reviendrait à annuler le découplage logique/rendu voulu par <span class="tt">EX-REN-021</span>).</li>
@@ -138,7 +138,7 @@ Décisions de cadrage</h1>
 <li><b><span class="tt">PreviousPosition</span> est un composant <em>de présentation</em>, côté <span class="tt">HMI</span>, mais rangé dans le <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span></b> : le <span class="tt">World</span> est générique sur le type de composant, donc <span class="tt">HMI</span> peut y stocker sa propre donnée d'interpolation <b>sans modifier <span class="tt">Core</span></b> ni introduire de règle de simulation dépendante du rendu (<span class="tt">EX-NFR-010</span>, <span class="tt">EX-ARCH-011</span>, <span class="tt">EX-ARCH-012</span> intacts). Le rendu <b>lit</b> la simulation (<span class="tt">Transform</span>) et n'interpole que sa copie affichée, sans jamais muter l'état.</li>
 <li><b>Interpoler uniquement les entités réellement mobiles</b> (personnage, dangers mobiles, blocs) via la présence du composant, plutôt que toutes les entités : les centaines de tuiles fixes n'ont pas le composant et sont dessinées à leur position courante (une simple recherche <span class="tt">hasComponent</span> O(1) par entité, négligeable). Interpoler entre deux positions <b>égales</b> serait de toute façon un no-op, mais l'éviter garde le rendu des tuiles strictement inchangé.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1579"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1580"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Nouvelle : <span class="tt">EX-REN-004</span> (modèle de présentation flip, faible latence).</li>
@@ -146,7 +146,7 @@ Exigences couvertes</h1>
 <li>Conformité restaurée à tout framerate (comportement, pas le sens) : <span class="tt">EX-CTRL-020</span> (latence entrée → action ≤ un pas), <span class="tt">EX-CTRL-021</span> (échantillonnage une fois par frame en amont de la logique).</li>
 <li>Réutilisées (inchangées) : <span class="tt">EX-REN-021</span>/<span class="tt">EX-ARCH-030</span> (simulation à pas fixe, rendu découplé), <span class="tt">EX-REN-022</span> (V-Sync activable), <span class="tt">EX-NFR-002</span> (déterminisme), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-ARCH-011</span>/ <span class="tt">EX-ARCH-012</span> (frontière <span class="tt">HMI → Core</span>, composants purs, rendu en lecture seule), <span class="tt">EX-NFR-040</span> (robustesse — manette absente/débranchée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1580"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1581"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -163,7 +163,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-33-tache-04-documentation-verification.html#md_Lot_2LOT-33-fluidite-moteur_2tache-04-documentation-verification" title="Lot/LOT-33-fluidite-moteur/tache-04-documentation-verification.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Documentation, spécifications et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1581"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1582"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Sur un écran à 120/144 Hz, aucun appui (saut, dash, direction) n'est « avalé » : chaque appui consommé par un pas de simulation est pris en compte, quel que soit le framerate de rendu (<span class="tt">EX-CTRL-020</span>/<span class="tt">EX-CTRL-021</span>).</li>
@@ -173,12 +173,12 @@ Critères d'acceptation du lot</h1>
 <li>La simulation reste <b>strictement déterministe</b> : la suite de tests (unitaires, intégration, système) passe à 100 % sans modification de résultat (<span class="tt">EX-NFR-002</span>), et le parcours système franchit toujours toute la séquence de niveaux.</li>
 <li>Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts. Logique nouvelle testable couverte (<span class="tt">InputState::releaseAll</span>, <span class="tt">FixedTimestep::interpolationAlpha</span>) ; l'intégration rendu/présentation (dépendance D3D11) est vérifiée <b>visuellement</b>, comme les autres lots de rendu (cf. <span class="tt">LOT-32</span>).</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1582"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1583"></a>
 Dépendances</h1>
 <ul>
 <li>Étend <span class="tt">hmi::Window</span>/<span class="tt">hmi::main</span> (boucle, <span class="tt">LOT-01</span>), <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">hmi::InputState</a></span> (<span class="tt">LOT-06</span>/<span class="tt">20</span>/<span class="tt">30</span>), <span class="tt"><a class="el" href="classhmi_1_1GraphicsDevice.html" title="Encapsule le device Direct3D 11, sa swap chain et la cible de rendu (RAII).">hmi::GraphicsDevice</a></span> (<span class="tt">LOT-01</span>/<span class="tt">05</span>), <span class="tt"><a class="el" href="classhmi_1_1SpriteRenderer.html" title="Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.">hmi::SpriteRenderer</a></span>/<span class="tt">RenderContext</span> (<span class="tt">LOT-05</span>) et <span class="tt">hmi::GameScreen</span> (<span class="tt">LOT-08</span>…<span class="tt">LOT-32</span>), sans modifier <span class="tt"><a class="el" href="classcore_1_1FixedTimestep.html" title="Convertit un temps réel écoulé variable en un nombre de pas de simulation fixes.">core::FixedTimestep</a></span> (déjà prêt via <span class="tt">interpolationAlpha</span>, <span class="tt">LOT-01</span>) ni aucun composant/système de <span class="tt">Core</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1583"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1584"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-33-tache-01-entrees-nerveuses.html" title="TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette">TACHE-01 — Entrées nerveuses : fronts non perdus, focus, sondage manette</a></li>
