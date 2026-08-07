@@ -106,8 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa82aa311014992d26f26c47db0f3d89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met à jour les dimensions de la surface de rendu (redimensionnement).  <br /></td></tr>
 <tr class="memitem:a93c7658e7e6beddb7002f8b2223145d3" id="r_a93c7658e7e6beddb7002f8b2223145d3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a93c7658e7e6beddb7002f8b2223145d3">setCenter</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;worldCenter)</td></tr>
 <tr class="memdesc:a93c7658e7e6beddb7002f8b2223145d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place le centre de la caméra.  <br /></td></tr>
-<tr class="memitem:a6f952a49e27d13539d5ab592233228a9" id="r_a6f952a49e27d13539d5ab592233228a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f952a49e27d13539d5ab592233228a9">setZoom</a> (float zoom)</td></tr>
+<tr class="memitem:a6f952a49e27d13539d5ab592233228a9" id="r_a6f952a49e27d13539d5ab592233228a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f952a49e27d13539d5ab592233228a9">setZoom</a> (float <a class="el" href="#a1397b9e7944fb98ea697948a5f2ca378">zoom</a>)</td></tr>
 <tr class="memdesc:a6f952a49e27d13539d5ab592233228a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle le facteur de zoom.  <br /></td></tr>
+<tr class="memitem:aed94ae02f2ca33bdda4d93f19ffa5cbb" id="r_aed94ae02f2ca33bdda4d93f19ffa5cbb"><td class="memItemLeft">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aed94ae02f2ca33bdda4d93f19ffa5cbb">center</a> () const noexcept</td></tr>
+<tr class="memitem:a1397b9e7944fb98ea697948a5f2ca378" id="r_a1397b9e7944fb98ea697948a5f2ca378"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a1397b9e7944fb98ea697948a5f2ca378">zoom</a> () const noexcept</td></tr>
 <tr class="memitem:ae4d184982026b7f61e3507c0d264321b" id="r_ae4d184982026b7f61e3507c0d264321b"><td class="memItemLeft">DirectX::XMFLOAT4X4&#160;</td><td class="memItemRight"><a class="el" href="#ae4d184982026b7f61e3507c0d264321b">projectionMatrix</a> () const</td></tr>
 <tr class="memdesc:ae4d184982026b7f61e3507c0d264321b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrice de projection monde → clip, pour le vertex shader.  <br /></td></tr>
 <tr class="memitem:a2f872fc80538490f888f3eef52498dfb" id="r_a2f872fc80538490f888f3eef52498dfb"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2f872fc80538490f888f3eef52498dfb">worldToScreen</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;world) const</td></tr>
@@ -173,6 +175,32 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aed94ae02f2ca33bdda4d93f19ffa5cbb" name="aed94ae02f2ca33bdda4d93f19ffa5cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed94ae02f2ca33bdda4d93f19ffa5cbb">&#9670;&#160;</a></span>center()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp; hmi::Camera2D::center </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le centre courant de la caméra, en unités monde. </dd></dl>
+
+</div>
+</div>
 <a id="a197df5a46fa35ccf6c17df58662b16bb" name="a197df5a46fa35ccf6c17df58662b16bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a197df5a46fa35ccf6c17df58662b16bb">&#9670;&#160;</a></span>fitZoom()</h2>
 
@@ -392,7 +420,7 @@ Private Attributes</h2></td></tr>
 <p>Règle le facteur de zoom. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">zoom</td><td>Multiplicateur d'échelle (&gt; 0 ; entier recommandé). </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a1397b9e7944fb98ea697948a5f2ca378">zoom</a></td><td>Multiplicateur d'échelle (&gt; 0 ; entier recommandé). </td></tr>
   </table>
   </dd>
 </dl>
@@ -458,6 +486,32 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Position en pixels (origine haut-gauche, Y-bas). </dd></dl>
+
+</div>
+</div>
+<a id="a1397b9e7944fb98ea697948a5f2ca378" name="a1397b9e7944fb98ea697948a5f2ca378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1397b9e7944fb98ea697948a5f2ca378">&#9670;&#160;</a></span>zoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::Camera2D::zoom </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de zoom courant. </dd></dl>
 
 </div>
 </div>

@@ -31,6 +31,7 @@ var namespacecore =
     [ "DangerLink", "structcore_1_1DangerLink.html", "structcore_1_1DangerLink" ],
     [ "DangerMoverConfig", "structcore_1_1DangerMoverConfig.html", "structcore_1_1DangerMoverConfig" ],
     [ "DangerBlinkConfig", "structcore_1_1DangerBlinkConfig.html", "structcore_1_1DangerBlinkConfig" ],
+    [ "TileTextureOverride", "structcore_1_1TileTextureOverride.html", "structcore_1_1TileTextureOverride" ],
     [ "Level", "classcore_1_1Level.html", "classcore_1_1Level" ],
     [ "LevelDraft", "classcore_1_1LevelDraft.html", "classcore_1_1LevelDraft" ],
     [ "LevelLoadResult", "structcore_1_1LevelLoadResult.html", "structcore_1_1LevelLoadResult" ],

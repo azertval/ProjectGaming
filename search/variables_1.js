@@ -1,7 +1,7 @@
 var searchData=
 [
   ['a_0',['a',['../structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b',1,'core::Color::a'],['../structhmi_1_1LinkSegment.html#aee08bd222b3b6779ba4682a712961a37',1,'hmi::LinkSegment::a'],['../structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f',1,'hmi::SpriteQuad::a'],['../structhmi_1_1LineQuad.html#ad66407e74212988ac419a0bfe1472806',1,'hmi::LineQuad::a'],['../structhmi_1_1SpriteBatch_1_1Vertex.html#a75f33a9e7282bcd3cd0df7bc1e08870d',1,'hmi::SpriteBatch::Vertex::a']]],
-  ['action_1',['action',['../structhmi_1_1LinkGestureDecision.html#a82612d60258eb16f959bcc9f948e5daf',1,'hmi::LinkGestureDecision']]],
+  ['action_1',['action',['../structhmi_1_1LinkGestureDecision.html#a82612d60258eb16f959bcc9f948e5daf',1,'hmi::LinkGestureDecision::action'],['../structhmi_1_1TextureAssignDecision.html#ae1cbf005293b6615883a6ee5e58a77d0',1,'hmi::TextureAssignDecision::action']]],
   ['activeduration_2',['activeDuration',['../structcore_1_1DangerBlinkConfig.html#a0bdc88ece316562350a6443d3b091167',1,'core::DangerBlinkConfig']]],
   ['airjumps_3',['airJumps',['../structcore_1_1PhysicsConfig.html#aece7832fe12221342224bb69afc9e273',1,'core::PhysicsConfig']]],
   ['airjumpsremaining_4',['airJumpsRemaining',['../structcore_1_1Player.html#a9a15fb635f3f0a169ad0f70c1df2abf9',1,'core::Player']]],
@@ -10,13 +10,14 @@ var searchData=
   ['ascentsweepmaxx_7',['ascentSweepMaxX',['../structcore_1_1Player.html#a1364add72d943586ebc6b36e790bbc58',1,'core::Player']]],
   ['ascentsweepminx_8',['ascentSweepMinX',['../structcore_1_1Player.html#a303e707a1ca641a73738871981824cdb',1,'core::Player']]],
   ['asset_9',['asset',['../structhmi_1_1PaletteThumbnail.html#ad1a1ffe1d09ac17017f6936b70da06c7',1,'hmi::PaletteThumbnail::asset'],['../structhmi_1_1SkinRow.html#a8a28dc8dd09377b02f0f9bb7049f576f',1,'hmi::SkinRow::asset'],['../structhmi_1_1SkinEntry.html#a261f088f4cc42c2fc6c25396497286a9',1,'hmi::SkinEntry::asset'],['../structhmi_1_1SkinTexture.html#a5dfd71c8c1f535c7f6be96c6d66dbcf0',1,'hmi::SkinTexture::asset']]],
-  ['atlas_10',['atlas',['../structhmi_1_1SceneTextures.html#a7d9763188484890ea78646b52d3a9820',1,'hmi::SceneTextures']]],
-  ['atlas_5ffile_5fname_11',['ATLAS_FILE_NAME',['../classhmi_1_1TextureAtlas.html#a27912d71b5e37b2c6b1b1e0594020755',1,'hmi::TextureAtlas']]],
-  ['atlasheight_12',['atlasHeight',['../structhmi_1_1SceneTextures.html#a61f67ca5c6c9cc001366ffbbe462471b',1,'hmi::SceneTextures']]],
-  ['atlaswidth_13',['atlasWidth',['../structhmi_1_1SceneTextures.html#a306ea6dde62238a5a85e3514cc959d92',1,'hmi::SceneTextures']]],
-  ['autotile_5fconfiguration_5fcount_14',['AUTOTILE_CONFIGURATION_COUNT',['../namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb',1,'hmi']]],
-  ['autotile_5fsheet_5fside_15',['AUTOTILE_SHEET_SIDE',['../namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23',1,'hmi']]],
-  ['ax_16',['ax',['../structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1',1,'hmi::LineQuad']]],
-  ['axis_17',['axis',['../structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8',1,'core::DangerMoverConfig']]],
-  ['ay_18',['ay',['../structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69',1,'hmi::LineQuad']]]
+  ['assetname_10',['assetName',['../structcore_1_1TileTextureOverride.html#a3c6992f18eb4035141f8137b11986202',1,'core::TileTextureOverride::assetName'],['../structhmi_1_1TextureAssignDecision.html#a4d7e3de398c84f4406967d0055d3a247',1,'hmi::TextureAssignDecision::assetName']]],
+  ['atlas_11',['atlas',['../structhmi_1_1SceneTextures.html#a7d9763188484890ea78646b52d3a9820',1,'hmi::SceneTextures']]],
+  ['atlas_5ffile_5fname_12',['ATLAS_FILE_NAME',['../classhmi_1_1TextureAtlas.html#a27912d71b5e37b2c6b1b1e0594020755',1,'hmi::TextureAtlas']]],
+  ['atlasheight_13',['atlasHeight',['../structhmi_1_1SceneTextures.html#a61f67ca5c6c9cc001366ffbbe462471b',1,'hmi::SceneTextures']]],
+  ['atlaswidth_14',['atlasWidth',['../structhmi_1_1SceneTextures.html#a306ea6dde62238a5a85e3514cc959d92',1,'hmi::SceneTextures']]],
+  ['autotile_5fconfiguration_5fcount_15',['AUTOTILE_CONFIGURATION_COUNT',['../namespacehmi.html#a58aec3b5e8b7ff780934f969eb35febb',1,'hmi']]],
+  ['autotile_5fsheet_5fside_16',['AUTOTILE_SHEET_SIDE',['../namespacehmi.html#a645fa51fe9636c77f3b67558bb094d23',1,'hmi']]],
+  ['ax_17',['ax',['../structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1',1,'hmi::LineQuad']]],
+  ['axis_18',['axis',['../structcore_1_1DangerMoverConfig.html#a5fb278b81d475fd2c9e9cc4ef0d891d8',1,'core::DangerMoverConfig']]],
+  ['ay_19',['ay',['../structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69',1,'hmi::LineQuad']]]
 ];

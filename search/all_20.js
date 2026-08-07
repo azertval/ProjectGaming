@@ -57,7 +57,7 @@ var searchData=
   ['unités_20monde_20et_20pixels_20_3a_20hmi_3a_3acamera2d_20hmi_3a_3acamera2d_54',['Unités monde et pixels : &lt;a class=&quot;el&quot; href=&quot;classhmi_1_1Camera2D.html&quot; title=&quot;hmi::Camera2D&quot;&gt;hmi::Camera2D&lt;/a&gt;',['../guide-rendu.html#autotoc_md147',1,'']]],
   ['unitaire_55',['Vérification (visuelle, pas de test unitaire)',['../lot-08-tache-06-integration-jouable.html#autotoc_md689',1,'']]],
   ['unitaire_20—_20brique_20gpu_56',['Vérification (visuelle, pas de test unitaire — brique GPU)',['../lot-11-tache-03-personnage-humanoide.html#autotoc_md824',1,'']]],
-  ['unitaires_20472_57',['Tests unitaires (472)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['unitaires_20495_57',['Tests unitaires (495)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['unknowntiletype_58',['UnknownTileType',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a5ffd7fe49fd2b1afb8178546f7a39b8e',1,'core']]],
   ['unlink_59',['Unlink',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5ac1a39b6a60f8b2f87e23d60ab649d994',1,'hmi']]],
   ['unlinkmechanism_60',['unlinkMechanism',['../classcore_1_1LevelDraft.html#a146bf5eda5759568e54fb0318039498b',1,'core::LevelDraft::unlinkMechanism()'],['../classhmi_1_1GameViewport.html#ae7ad870c084ca5c30be9891d70250638',1,'hmi::GameViewport::unlinkMechanism()']]],

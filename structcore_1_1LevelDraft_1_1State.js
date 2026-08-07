@@ -11,5 +11,6 @@ var structcore_1_1LevelDraft_1_1State =
     [ "moverConfigs", "structcore_1_1LevelDraft_1_1State.html#a20a8324c4ab9ed81aab9b55b4846a35e", null ],
     [ "name", "structcore_1_1LevelDraft_1_1State.html#a1e45126155b556533c0115da845a20c4", null ],
     [ "skinSet", "structcore_1_1LevelDraft_1_1State.html#ac6c4d0bd41537d66e602a3bcf839f45b", null ],
+    [ "textureOverrides", "structcore_1_1LevelDraft_1_1State.html#a8de69dc28bee05e4af82df1205dbd2d9", null ],
     [ "tileMap", "structcore_1_1LevelDraft_1_1State.html#afd392763e413940714ac59e7c018de81", null ]
 ];

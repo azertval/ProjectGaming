@@ -22,7 +22,8 @@ var classcore_1_1LevelDraft =
     [ "paintTileInternal", "classcore_1_1LevelDraft.html#a1286763b9db8bf337b2bf3a4d4049917", null ],
     [ "pushUndo", "classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d", null ],
     [ "redo", "classcore_1_1LevelDraft.html#a4c48b964ac9310a3b90a3d364aae97aa", null ],
-    [ "removeLinkedDataAt", "classcore_1_1LevelDraft.html#a8eb7c225596cf109ec334082306475e6", null ],
+    [ "removeLinkedDataAt", "classcore_1_1LevelDraft.html#ac6222b6123bc9c12d22976c642ab0275", null ],
+    [ "removeTextureOverride", "classcore_1_1LevelDraft.html#a6a0636029b5b633d7b93b2ebca0d80c8", null ],
     [ "resize", "classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af", null ],
     [ "restore", "classcore_1_1LevelDraft.html#a320a399e76d85ed27d70875d6b410f93", null ],
     [ "setBackground", "classcore_1_1LevelDraft.html#afaced983e3b9e6538a4b83d57a11adc1", null ],
@@ -36,8 +37,10 @@ var classcore_1_1LevelDraft =
     [ "setMoverConfig", "classcore_1_1LevelDraft.html#ae2df4ef55bd85c10d0d139e9590a7fde", null ],
     [ "setName", "classcore_1_1LevelDraft.html#af06a5338ba049934b8b217c6e0345546", null ],
     [ "setSkinSet", "classcore_1_1LevelDraft.html#ae33a484d3d22515294b55c47efb85b58", null ],
+    [ "setTextureOverride", "classcore_1_1LevelDraft.html#a6820058154fd9e3f777c5fd843b7b0cb", null ],
     [ "skinSet", "classcore_1_1LevelDraft.html#a67618564911cd89f947a0d2b1c47f774", null ],
     [ "snapshot", "classcore_1_1LevelDraft.html#a89fced43d78e2f2fcd89fd03b75373bc", null ],
+    [ "textureOverrides", "classcore_1_1LevelDraft.html#af2eb7b9effb3254a92e30abba631eba9", null ],
     [ "tileMap", "classcore_1_1LevelDraft.html#acc48e2f45fb3db53de09e30f60f75845", null ],
     [ "toLevel", "classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0", null ],
     [ "undo", "classcore_1_1LevelDraft.html#adec82624786f4ad3a83502eccc8712af", null ],
@@ -55,6 +58,7 @@ var classcore_1_1LevelDraft =
     [ "_name", "classcore_1_1LevelDraft.html#ae54c8bad6c149d320bb9cf235cfdfb60", null ],
     [ "_redoHistory", "classcore_1_1LevelDraft.html#a886d07163934d6b0f0f5b8f9da13c410", null ],
     [ "_skinSet", "classcore_1_1LevelDraft.html#ae457b861d1482369c3d63cf424b073a6", null ],
+    [ "_textureOverrides", "classcore_1_1LevelDraft.html#a1549c812b59d506266ccdefb5356b752", null ],
     [ "_tileMap", "classcore_1_1LevelDraft.html#aedde2e76f17607e4c2e9fed98047bd91", null ],
     [ "_undoHistory", "classcore_1_1LevelDraft.html#a86779d05f96a388738e19979489d7a63", null ]
 ];

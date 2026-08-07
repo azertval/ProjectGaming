@@ -150,7 +150,7 @@ var searchData=
   ['leveldraft_20undo_20redo_20copier_20coller_147',['TACHE-03 — Barre d&apos;outils + peinture viewport → `LevelDraft` (undo/redo, copier/coller)',['../lot-35-tache-03-outils-peinture-viewport.html',1,'lot-35']]],
   ['leveldraft_3a_3apaintregion_148',['Peindre par lot sans dupliquer la logique de peinture : &lt;a class=&quot;el&quot; href=&quot;classcore_1_1LevelDraft.html#a7fb667e044067f5e9bf16f747d3f5f8e&quot; title=&quot;core::LevelDraft::paintRegion&quot;&gt;LevelDraft::paintRegion&lt;/a&gt;',['../guide-editeur.html#autotoc_md63',1,'']]],
   ['levelloader_149',['TACHE-01 — Données : budget (Player, Level, LevelLoader)',['../lot-12-tache-01-donnees.html',1,'lot-12']]],
-  ['levels_20129_150',['Levels (129)',['../cahiertest.html#autotoc_md9',1,'']]],
+  ['levels_20144_150',['Levels (144)',['../cahiertest.html#autotoc_md9',1,'']]],
   ['liaison_151',['TACHE-03 — Intégration éditeur (palette, rendu, liaison)',['../lot-31-tache-03-integration-editeur.html',1,'lot-31']]],
   ['liaison_20de_20mécanismes_20redimensionnement_152',['TACHE-03 — Entrée/sortie, liaison de mécanismes, redimensionnement',['../lot-14-tache-03-entree-sortie-mecanismes-redimension.html',1,'lot-14']]],
   ['liaisons_153',['TACHE-01 — Modèle (types, format, généralisation des liaisons)',['../lot-31-tache-01-modele-dangers-avances.html',1,'lot-31']]],

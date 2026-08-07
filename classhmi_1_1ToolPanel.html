@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae73d919adbc5cdaa78afa9326ec7155c" id="r_ae73d919adbc5cdaa78afa9326ec7155c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae73d919adbc5cdaa78afa9326ec7155c">~ToolPanel</a> () override</td></tr>
 <tr class="memitem:a58c3f4f3e479000f63d7cb75f71cd947" id="r_a58c3f4f3e479000f63d7cb75f71cd947"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a58c3f4f3e479000f63d7cb75f71cd947">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a58c3f4f3e479000f63d7cb75f71cd947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active aux libellés des outils.  <br /></td></tr>
+<tr class="memitem:a73f29aa7fab8c82d99807459dca3e898" id="r_a73f29aa7fab8c82d99807459dca3e898"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73f29aa7fab8c82d99807459dca3e898">setActiveTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
+<tr class="memdesc:a73f29aa7fab8c82d99807459dca3e898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche le bouton radio de <code class="param">tool</code> sans émettre <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span> (<span class="tt">LOT-45</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -121,7 +123,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien. </p>
-<p>Mise en page dans <span class="tt">ToolPanel.ui</span> (boutons radio, exclusifs entre frères). Changer d'outil émet <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span>, consommé par le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#acc27da0c06a8e0aeb8ef46dcc8efd187" title="Définit l&#39;outil d&#39;édition actif (pinceau, rectangle, sélection ; relié à la barre d&#39;outils).">GameViewport::setTool</a></span>). Pinceau actif par défaut. </p>
+<p>Mise en page dans <span class="tt">ToolPanel.ui</span> (boutons radio, exclusifs entre frères). Changer d'outil émet <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span>, consommé par le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a0dcbcc0d9c69040710cb070afe2e828c" title="Définit l&#39;outil d&#39;édition actif (pinceau, rectangle, sélection, lien, texture par instance).">GameViewport::setTool</a></span>). Pinceau actif par défaut. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aea9c1fe9ea7349b95b89504f36c88a27" name="aea9c1fe9ea7349b95b89504f36c88a27"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea9c1fe9ea7349b95b89504f36c88a27">&#9670;&#160;</a></span>ToolPanel()</h2>
@@ -190,6 +192,26 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Applique la langue active aux libellés des outils. </p>
+
+</div>
+</div>
+<a id="a73f29aa7fab8c82d99807459dca3e898" name="a73f29aa7fab8c82d99807459dca3e898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f29aa7fab8c82d99807459dca3e898">&#9670;&#160;</a></span>setActiveTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ToolPanel::setActiveTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a></td>          <td class="paramname"><span class="paramname"><em>tool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coche le bouton radio de <code class="param">tool</code> sans émettre <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span> (<span class="tt">LOT-45</span>). </p>
+<p>Resynchronise le panneau quand l'outil change par un autre moyen que ses propres boutons — le raccourci clavier de « Texture par instance ». Émettre <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span> ici rebouclerait sur <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a0dcbcc0d9c69040710cb070afe2e828c" title="Définit l&#39;outil d&#39;édition actif (pinceau, rectangle, sélection, lien, texture par instance).">GameViewport::setTool</a></span>, déjà à jour. </p>
 
 </div>
 </div>

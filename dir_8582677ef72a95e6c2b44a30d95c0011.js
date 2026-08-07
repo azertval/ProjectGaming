@@ -29,6 +29,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "SkinAssignments.h", "SkinAssignments_8h.html", "SkinAssignments_8h" ],
     [ "TaxonomyLabels.cpp", "TaxonomyLabels_8cpp.html", "TaxonomyLabels_8cpp" ],
     [ "TaxonomyLabels.h", "TaxonomyLabels_8h.html", "TaxonomyLabels_8h" ],
+    [ "TextureAssignGesture.cpp", "TextureAssignGesture_8cpp.html", "TextureAssignGesture_8cpp" ],
+    [ "TextureAssignGesture.h", "TextureAssignGesture_8h.html", "TextureAssignGesture_8h" ],
     [ "TexturePanel.cpp", "TexturePanel_8cpp.html", null ],
     [ "TexturePanel.h", "TexturePanel_8h.html", "TexturePanel_8h" ],
     [ "TileTaxonomy.cpp", "TileTaxonomy_8cpp.html", "TileTaxonomy_8cpp" ],

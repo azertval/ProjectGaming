@@ -258,7 +258,7 @@ var searchData=
   ['tests_20système_255',['TACHE-03 — Intégration séquence et tests système',['../lot-25-tache-03-integration-sequence-tests.html',1,'lot-25']]],
   ['tests_20système_203_256',['Tests système (3)',['../cahiertest.html#autotoc_md27',1,'']]],
   ['tests_20système_20guide_20non_20codeur_20git_257',['TACHE-06 — Intégration menu, tests système, guide non-codeur Git',['../lot-14-tache-06-integration-guide-non-codeur.html',1,'lot-14']]],
-  ['tests_20unitaires_20472_258',['Tests unitaires (472)',['../cahiertest.html#autotoc_md4',1,'']]],
+  ['tests_20unitaires_20495_258',['Tests unitaires (495)',['../cahiertest.html#autotoc_md4',1,'']]],
   ['texte_20d_20interface_20_3a_20côté_20qt_20plus_20dans_20le_20pipeline_20direct3d_259',['Le texte d&apos;interface : côté Qt, plus dans le pipeline Direct3D',['../guide-rendu.html#autotoc_md163',1,'']]],
   ['texte_20police_20bitmap_260',['TACHE-02 — Rendu de texte (police bitmap)',['../lot-06-tache-02-rendu-texte-bitmap.html',1,'lot-06']]],
   ['texte_20police_20bitmap_20et_20affichage_20tête_20haute_261',['LOT-52 — Texte, police bitmap et affichage tête haute',['../lot-52.html',1,'lots']]],

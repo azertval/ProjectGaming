@@ -104,6 +104,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:af27ab75e03393c0fd46707ed7306232d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type de la tuile représentée par l'entité.  <br /></td></tr>
 <tr class="memitem:a8ac9f76d95de0f6c8f8298e76c0ce704" id="r_a8ac9f76d95de0f6c8f8298e76c0ce704"><td class="memItemLeft">std::uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a8ac9f76d95de0f6c8f8298e76c0ce704">neighborMask</a> = 0</td></tr>
 <tr class="memdesc:a8ac9f76d95de0f6c8f8298e76c0ce704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Masque des quatre voisins solides (<span class="tt"><a class="el" href="namespacehmi.html#a6d5ae4c4504ac24560454bb394e9ad1a" title="Calcule le masque de voisinage solide d&#39;une case de la grille.">hmi::solidNeighborMask</a></span>), pour le mode <span class="tt">bitmask16</span>.  <br /></td></tr>
+<tr class="memitem:a6449615c56d78758cfd1ced852b902ca" id="r_a6449615c56d78758cfd1ced852b902ca"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6449615c56d78758cfd1ced852b902ca">overrideAsset</a></td></tr>
+<tr class="memdesc:a6449615c56d78758cfd1ced852b902ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de l'asset assigné <b>par instance</b> à cette case (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>), prioritaire sur le skin du type ; vide si la case n'a pas de surcharge.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type de tuile et voisinage solide d'une entité affichée, pour la résolution de son skin. </p>
@@ -124,6 +126,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Masque des quatre voisins solides (<span class="tt"><a class="el" href="namespacehmi.html#a6d5ae4c4504ac24560454bb394e9ad1a" title="Calcule le masque de voisinage solide d&#39;une case de la grille.">hmi::solidNeighborMask</a></span>), pour le mode <span class="tt">bitmask16</span>. </p>
+
+</div>
+</div>
+<a id="a6449615c56d78758cfd1ced852b902ca" name="a6449615c56d78758cfd1ced852b902ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6449615c56d78758cfd1ced852b902ca">&#9670;&#160;</a></span>overrideAsset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; hmi::TileSkinTag::overrideAsset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nom de l'asset assigné <b>par instance</b> à cette case (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>), prioritaire sur le skin du type ; vide si la case n'a pas de surcharge. </p>
+<p>Calculé une fois à la construction de la scène (<span class="tt"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb" title="Cherche la surcharge de texture assignée à une case précise (EX-EDIT-043, LOT-45).">hmi::textureOverrideAt</a></span>), même principe que <span class="tt"><a class="el" href="#a8ac9f76d95de0f6c8f8298e76c0ce704" title="Masque des quatre voisins solides (hmi::solidNeighborMask), pour le mode bitmask16.">neighborMask</a></span>. </p>
 
 </div>
 </div>

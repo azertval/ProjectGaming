@@ -114,11 +114,17 @@ Signals</h2></td></tr>
 <tr class="memdesc:a68512ca2144f0717636c1f48d3b5ffd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un fond dans la section « Fond » (<span class="tt">LOT-44</span>) : nom de l'asset, vide pour « aucun fond ».  <br /></td></tr>
 <tr class="memitem:a14735adac3bd42b177a10ec98e2cf527" id="r_a14735adac3bd42b177a10ec98e2cf527"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14735adac3bd42b177a10ec98e2cf527">levelSkinSetChanged</a> (const QString &amp;setName)</td></tr>
 <tr class="memdesc:a14735adac3bd42b177a10ec98e2cf527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit le jeu de skins <b>du niveau</b> (<span class="tt">LOT-44</span>), distinct du jeu courant d'édition : nom du jeu, vide pour « jeu par défaut ».  <br /></td></tr>
+<tr class="memitem:a8029bfffc687b414735af2a5dbb1fc15" id="r_a8029bfffc687b414735af2a5dbb1fc15"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8029bfffc687b414735af2a5dbb1fc15">textureOverrideAssetSelected</a> (const QString &amp;fileName)</td></tr>
+<tr class="memdesc:a8029bfffc687b414735af2a5dbb1fc15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un asset dans la grille « Objets » (<span class="tt">LOT-45</span>) : asset actif de l'outil « Texture par instance » ; vide si aucun n'est sélectionné.  <br /></td></tr>
+<tr class="memitem:ad88da6cdd120fad270eb8cd56fcd7d1e" id="r_ad88da6cdd120fad270eb8cd56fcd7d1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad88da6cdd120fad270eb8cd56fcd7d1e">textureOverrideSelectionChanged</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; position)</td></tr>
+<tr class="memdesc:ad88da6cdd120fad270eb8cd56fcd7d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand la sélection change dans la liste des surcharges du niveau (surbrillance dans le viewport), ou <span class="tt">std::nullopt</span> si aucune ligne n'est sélectionnée.  <br /></td></tr>
+<tr class="memitem:a697ae60c93093d3d804ff666d5e5563d" id="r_a697ae60c93093d3d804ff666d5e5563d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a697ae60c93093d3d804ff666d5e5563d">textureOverrideRemoveRequested</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> position)</td></tr>
+<tr class="memdesc:a697ae60c93093d3d804ff666d5e5563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Retirer » de la section « Objets » pour la ligne sélectionnée.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5bb7540871daadc6745dfec4271d191c" id="r_a5bb7540871daadc6745dfec4271d191c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5bb7540871daadc6745dfec4271d191c">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, std::filesystem::path backgroundsDirectory, QWidget *parent=nullptr)</td></tr>
-<tr class="memdesc:a5bb7540871daadc6745dfec4271d191c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
+<tr class="memitem:adcb7047845ad82abe9e3e221fe67c722" id="r_adcb7047845ad82abe9e3e221fe67c722"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adcb7047845ad82abe9e3e221fe67c722">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, std::filesystem::path backgroundsDirectory, std::filesystem::path objectsDirectory, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:adcb7047845ad82abe9e3e221fe67c722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
 <tr class="memitem:af9948eba8e1ae33c5f2dcf1cc3d42790" id="r_af9948eba8e1ae33c5f2dcf1cc3d42790"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af9948eba8e1ae33c5f2dcf1cc3d42790">~TexturePanel</a> () override</td></tr>
 <tr class="memitem:ab68661f6c1fb3a92bca60bff222f6423" id="r_ab68661f6c1fb3a92bca60bff222f6423"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423">setCatalog</a> (<a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog)</td></tr>
 <tr class="memdesc:ab68661f6c1fb3a92bca60bff222f6423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confie au panneau le catalogue à éditer.  <br /></td></tr>
@@ -129,6 +135,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3117139a9fc1fac2d1a5331c36f88694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active (titre des sections, en-têtes de colonnes, libellés de types).  <br /></td></tr>
 <tr class="memitem:af82527067fd5d09d052714df4797ef2a" id="r_af82527067fd5d09d052714df4797ef2a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af82527067fd5d09d052714df4797ef2a">reloadAssets</a> ()</td></tr>
 <tr class="memdesc:af82527067fd5d09d052714df4797ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recharge l'arbre depuis le disque après un rechargement à chaud (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
+<tr class="memitem:ab06e11a3895938523f95c28d2884d26a" id="r_ab06e11a3895938523f95c28d2884d26a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a">refreshObjects</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
+<tr class="memdesc:ab06e11a3895938523f95c28d2884d26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la section « Objets » avec le brouillon courant (<span class="tt">LOT-45</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -141,6 +149,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a4af3d78ff3009ccd51e057588acaf63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, <span class="tt">LOT-40</span>).  <br /></td></tr>
 <tr class="memitem:a8191178ea4259916e0bfc4729c69d48e" id="r_a8191178ea4259916e0bfc4729c69d48e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8191178ea4259916e0bfc4729c69d48e">rebuildLevelSkinSetSelector</a> ()</td></tr>
 <tr class="memdesc:a8191178ea4259916e0bfc4729c69d48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit la liste du sélecteur de jeu de skins <b>du niveau</b> (section « Fond »), à partir des jeux du catalogue, plus l'entrée « jeu par défaut ».  <br /></td></tr>
+<tr class="memitem:a493879465156760b5b52ca39ec9ccca7" id="r_a493879465156760b5b52ca39ec9ccca7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a493879465156760b5b52ca39ec9ccca7">rebuildObjectRows</a> ()</td></tr>
+<tr class="memdesc:a493879465156760b5b52ca39ec9ccca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau des surcharges depuis <span class="tt"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad" title="Surcharges affichées par le tableau, indexées comme ses lignes (LOT-45).">_objectRows</a></span> (tri stable par position, déjà posé par <span class="tt"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a" title="Resynchronise la section « Objets » avec le brouillon courant (LOT-45).">refreshObjects</a></span>).  <br /></td></tr>
+<tr class="memitem:a1a464e0a2180e8fd80d1f9c9cd8ff56a" id="r_a1a464e0a2180e8fd80d1f9c9cd8ff56a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a464e0a2180e8fd80d1f9c9cd8ff56a">onObjectsSelectionChanged</a> ()</td></tr>
+<tr class="memitem:a6fb19ac7103cdc8a0b959972e0baf768" id="r_a6fb19ac7103cdc8a0b959972e0baf768"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6fb19ac7103cdc8a0b959972e0baf768">onObjectsRemoveClicked</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -148,9 +160,16 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a333f70eb897f6bfe586f90b23853aa73" id="r_a333f70eb897f6bfe586f90b23853aa73"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a333f70eb897f6bfe586f90b23853aa73">_model</a></td></tr>
 <tr class="memitem:a8900f1bd4dd38c73eca12d47e4b82875" id="r_a8900f1bd4dd38c73eca12d47e4b82875"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8900f1bd4dd38c73eca12d47e4b82875">_backgroundView</a></td></tr>
 <tr class="memdesc:a8900f1bd4dd38c73eca12d47e4b82875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Backgrounds/</span> (LOT-44).  <br /></td></tr>
+<tr class="memitem:acf031fb663a7e4279d6411082d743944" id="r_acf031fb663a7e4279d6411082d743944"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acf031fb663a7e4279d6411082d743944">_objectView</a></td></tr>
+<tr class="memdesc:acf031fb663a7e4279d6411082d743944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Objects/</span> (LOT-45).  <br /></td></tr>
+<tr class="memitem:acba4631e26bc2ce0b919ee9676d4275f" id="r_acba4631e26bc2ce0b919ee9676d4275f"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#acba4631e26bc2ce0b919ee9676d4275f">_objectsModel</a></td></tr>
+<tr class="memdesc:acba4631e26bc2ce0b919ee9676d4275f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle du tableau des surcharges (LOT-45).  <br /></td></tr>
 <tr class="memitem:a7adaa51b0922db2f2c3c6e3c076d91e0" id="r_a7adaa51b0922db2f2c3c6e3c076d91e0"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a7adaa51b0922db2f2c3c6e3c076d91e0">_skinsDirectory</a></td></tr>
 <tr class="memitem:ab34fd9852d1e50ff3d063ee2c38e3f33" id="r_ab34fd9852d1e50ff3d063ee2c38e3f33"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab34fd9852d1e50ff3d063ee2c38e3f33">_catalogPath</a></td></tr>
 <tr class="memitem:a33abf9819a780a7de48c412af68d16ae" id="r_a33abf9819a780a7de48c412af68d16ae"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a33abf9819a780a7de48c412af68d16ae">_backgroundsDirectory</a></td></tr>
+<tr class="memitem:a009d8aa8fc88c8b4e4b3a3ac8ebe1003" id="r_a009d8aa8fc88c8b4e4b3a3ac8ebe1003"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a009d8aa8fc88c8b4e4b3a3ac8ebe1003">_objectsDirectory</a></td></tr>
+<tr class="memitem:a1aa7e19c118c96feaa951cb7063140ad" id="r_a1aa7e19c118c96feaa951cb7063140ad"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad">_objectRows</a></td></tr>
+<tr class="memdesc:a1aa7e19c118c96feaa951cb7063140ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surcharges affichées par le tableau, indexées comme ses lignes (<span class="tt">LOT-45</span>).  <br /></td></tr>
 <tr class="memitem:a8686f12685ae19a07b1b5307c1933e65" id="r_a8686f12685ae19a07b1b5307c1933e65"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8686f12685ae19a07b1b5307c1933e65">_catalog</a> = nullptr</td></tr>
 <tr class="memdesc:a8686f12685ae19a07b1b5307c1933e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non possédé (propriété de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>).  <br /></td></tr>
 <tr class="memitem:aa2fe2666a58c938bddea969c2294644d" id="r_aa2fe2666a58c938bddea969c2294644d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa2fe2666a58c938bddea969c2294644d">_currentSet</a></td></tr>
@@ -170,8 +189,8 @@ Private Attributes</h2></td></tr>
 <p>Le panneau <b>ne possède pas</b> le catalogue : il agit sur celui que lui confie <span class="tt"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423" title="Confie au panneau le catalogue à éditer.">setCatalog</a></span>, dont <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement. Toute modification est écrite sur disque (<span class="tt">skins.json</span>, au chemin déployé) et signalée par <span class="tt"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed" title="Émis après toute modification d&#39;assignation ou changement de jeu courant, une fois le catalogue à jou...">assignmentsChanged</a></span>, que le viewport et la palette consomment pour se rafraîchir.</p>
 <p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). Le choix du fichier assigné à un type se fait par vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>), pas par saisie de nom. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5bb7540871daadc6745dfec4271d191c" name="a5bb7540871daadc6745dfec4271d191c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bb7540871daadc6745dfec4271d191c">&#9670;&#160;</a></span>TexturePanel()</h2>
+<a id="adcb7047845ad82abe9e3e221fe67c722" name="adcb7047845ad82abe9e3e221fe67c722"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcb7047845ad82abe9e3e221fe67c722">&#9670;&#160;</a></span>TexturePanel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,6 +216,11 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>objectsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
@@ -213,6 +237,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">skinsDirectory</td><td>Dossier balayé pour peupler la liste des fichiers assignables. </td></tr>
     <tr><td class="paramname">catalogPath</td><td>Chemin d'écriture de <span class="tt">skins.json</span>. </td></tr>
     <tr><td class="paramname">backgroundsDirectory</td><td>Dossier balayé pour peupler la grille de fonds (section « Fond », <span class="tt">LOT-44</span>). </td></tr>
+    <tr><td class="paramname">objectsDirectory</td><td>Dossier balayé pour peupler la grille d'assets de la section « Objets » (<span class="tt">LOT-45</span>). </td></tr>
     <tr><td class="paramname">parent</td><td>Widget parent. </td></tr>
   </table>
   </dd>
@@ -403,6 +428,56 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fb19ac7103cdc8a0b959972e0baf768" name="a6fb19ac7103cdc8a0b959972e0baf768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fb19ac7103cdc8a0b959972e0baf768">&#9670;&#160;</a></span>onObjectsRemoveClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onObjectsRemoveClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a464e0a2180e8fd80d1f9c9cd8ff56a" name="a1a464e0a2180e8fd80d1f9c9cd8ff56a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a464e0a2180e8fd80d1f9c9cd8ff56a">&#9670;&#160;</a></span>onObjectsSelectionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onObjectsSelectionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3b5ce3fa2412f227b1aeac447868d971" name="a3b5ce3fa2412f227b1aeac447868d971"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b5ce3fa2412f227b1aeac447868d971">&#9670;&#160;</a></span>onSetChanged()</h2>
 
@@ -455,6 +530,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a493879465156760b5b52ca39ec9ccca7" name="a493879465156760b5b52ca39ec9ccca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a493879465156760b5b52ca39ec9ccca7">&#9670;&#160;</a></span>rebuildObjectRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildObjectRows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit le tableau des surcharges depuis <span class="tt"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad" title="Surcharges affichées par le tableau, indexées comme ses lignes (LOT-45).">_objectRows</a></span> (tri stable par position, déjà posé par <span class="tt"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a" title="Resynchronise la section « Objets » avec le brouillon courant (LOT-45).">refreshObjects</a></span>). </p>
+
+</div>
+</div>
 <a id="a98f467bc620f51cf5b86539debe3cbf4" name="a98f467bc620f51cf5b86539debe3cbf4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98f467bc620f51cf5b86539debe3cbf4">&#9670;&#160;</a></span>rebuildTree()</h2>
 
@@ -477,6 +579,31 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab06e11a3895938523f95c28d2884d26a" name="ab06e11a3895938523f95c28d2884d26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06e11a3895938523f95c28d2884d26a">&#9670;&#160;</a></span>refreshObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::refreshObjects </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resynchronise la section « Objets » avec le brouillon courant (<span class="tt">LOT-45</span>). </p>
+<p>À appeler après tout changement de brouillon (peinture, undo/redo, chargement), comme <span class="tt"><a class="el" href="classhmi_1_1LinkPanel.html#aa9289ca3b30988e4287dbb35dfe860ea" title="Reconstruit la liste depuis draft (après toute mutation du brouillon).">LinkPanel::refresh</a></span> : reconstruit la liste des surcharges depuis <code class="param">draft</code>, sans en garder de copie entre deux appels. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draft</td><td>Brouillon dont on lit <span class="tt">textureOverrides()</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -623,6 +750,87 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a8029bfffc687b414735af2a5dbb1fc15" name="a8029bfffc687b414735af2a5dbb1fc15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8029bfffc687b414735af2a5dbb1fc15">&#9670;&#160;</a></span>textureOverrideAssetSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::textureOverrideAssetSelected </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit un asset dans la grille « Objets » (<span class="tt">LOT-45</span>) : asset actif de l'outil « Texture par instance » ; vide si aucun n'est sélectionné. </p>
+
+</div>
+</div>
+<a id="a697ae60c93093d3d804ff666d5e5563d" name="a697ae60c93093d3d804ff666d5e5563d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a697ae60c93093d3d804ff666d5e5563d">&#9670;&#160;</a></span>textureOverrideRemoveRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::textureOverrideRemoveRequested </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Retirer » de la section « Objets » pour la ligne sélectionnée. </p>
+
+</div>
+</div>
+<a id="ad88da6cdd120fad270eb8cd56fcd7d1e" name="ad88da6cdd120fad270eb8cd56fcd7d1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad88da6cdd120fad270eb8cd56fcd7d1e">&#9670;&#160;</a></span>textureOverrideSelectionChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::textureOverrideSelectionChanged </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand la sélection change dans la liste des surcharges du niveau (surbrillance dans le viewport), ou <span class="tt">std::nullopt</span> si aucune ligne n'est sélectionnée. </p>
 
 </div>
 </div>
@@ -857,6 +1065,100 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1aa7e19c118c96feaa951cb7063140ad" name="a1aa7e19c118c96feaa951cb7063140ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aa7e19c118c96feaa951cb7063140ad">&#9670;&#160;</a></span>_objectRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a>&gt; hmi::TexturePanel::_objectRows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Surcharges affichées par le tableau, indexées comme ses lignes (<span class="tt">LOT-45</span>). </p>
+
+</div>
+</div>
+<a id="a009d8aa8fc88c8b4e4b3a3ac8ebe1003" name="a009d8aa8fc88c8b4e4b3a3ac8ebe1003"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a009d8aa8fc88c8b4e4b3a3ac8ebe1003">&#9670;&#160;</a></span>_objectsDirectory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::TexturePanel::_objectsDirectory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acba4631e26bc2ce0b919ee9676d4275f" name="acba4631e26bc2ce0b919ee9676d4275f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba4631e26bc2ce0b919ee9676d4275f">&#9670;&#160;</a></span>_objectsModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStandardItemModel* hmi::TexturePanel::_objectsModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modèle du tableau des surcharges (LOT-45). </p>
+
+</div>
+</div>
+<a id="acf031fb663a7e4279d6411082d743944" name="acf031fb663a7e4279d6411082d743944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf031fb663a7e4279d6411082d743944">&#9670;&#160;</a></span>_objectView</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a>* hmi::TexturePanel::_objectView</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Grille de vignettes de <span class="tt">Assets/Objects/</span> (LOT-45). </p>
 
 </div>
 </div>

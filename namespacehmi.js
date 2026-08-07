@@ -16,6 +16,7 @@ var namespacehmi =
     [ "PalettePanel", "classhmi_1_1PalettePanel.html", "classhmi_1_1PalettePanel" ],
     [ "SkinRow", "structhmi_1_1SkinRow.html", "structhmi_1_1SkinRow" ],
     [ "SkinSection", "structhmi_1_1SkinSection.html", "structhmi_1_1SkinSection" ],
+    [ "TextureAssignDecision", "structhmi_1_1TextureAssignDecision.html", "structhmi_1_1TextureAssignDecision" ],
     [ "TexturePanel", "classhmi_1_1TexturePanel.html", "classhmi_1_1TexturePanel" ],
     [ "TileEntry", "structhmi_1_1TileEntry.html", "structhmi_1_1TileEntry" ],
     [ "TileSubgroup", "structhmi_1_1TileSubgroup.html", "structhmi_1_1TileSubgroup" ],
@@ -74,7 +75,8 @@ var namespacehmi =
     [ "AppearanceSource", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225", [
       [ "Atlas", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f", null ],
       [ "MissingTexture", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225ab12558f73b1de2a91f9d7719eea5be7f", null ],
-      [ "Skin", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf", null ]
+      [ "Skin", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a9313566fe19aca293daefe4ce37942bf", null ],
+      [ "Override", "namespacehmi.html#ac32d81972d12a0b2475fc009eefee225a6da8e67225fdcfa78c3ea5dc3154b849", null ]
     ] ],
     [ "AssetFamily", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003", [
       [ "Atlas", "namespacehmi.html#a0030e1768b551f6d1bc0a9fa566d2003aa6567816e007283cf9781c35b95dd56f", null ],
@@ -94,13 +96,15 @@ var namespacehmi =
       [ "Playtest", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585ab13fc91e5d02ea9e1f1a538504213bea", null ],
       [ "ToggleGrid", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a77bfa926518159e75c2c4b508a81f19e", null ],
       [ "ToggleHelp", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a738a0bf4b0ed8d50e7b558ecb00fa80a", null ],
-      [ "Rename", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50", null ]
+      [ "Rename", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a904a8304056d77e4547744781b7ceb50", null ],
+      [ "TextureAssignTool", "namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a9bf65705792468edbe653567639a35e9", null ]
     ] ],
     [ "EditorTool", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd", [
       [ "Paint", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e", null ],
       [ "Rectangle", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e", null ],
       [ "Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ],
-      [ "Link", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b", null ]
+      [ "Link", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b", null ],
+      [ "TextureAssign", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4", null ]
     ] ],
     [ "GameAction", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867", [
       [ "MoveLeft", "namespacehmi.html#a133516ef8002bd9e4d870db9494f5867ae8a98c6fabdea857c20c91e9bfd318ca", null ],
@@ -142,6 +146,7 @@ var namespacehmi =
       [ "Q", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee", null ],
       [ "R", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6", null ],
       [ "S", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e", null ],
+      [ "T", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab9ece18c950afbfa6b0fdbfa4ff731d3", null ],
       [ "V", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce", null ],
       [ "W", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276", null ],
       [ "Y", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0", null ],
@@ -208,6 +213,11 @@ var namespacehmi =
       [ "Single", "namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e", null ],
       [ "Bitmask16", "namespacehmi.html#ac69176e5c8acf86f4990696f7f54f11ea626462c0578a21deb18ab448defe0522", null ]
     ] ],
+    [ "TextureAssignAction", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4", [
+      [ "Ignore", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9", null ],
+      [ "Assign", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4a185b7133db22230701a857c059360cc2", null ],
+      [ "Remove", "namespacehmi.html#a76066d550faf628786294c82cd2d12a4a1063e38cb53d94d386f21227fcd84717", null ]
+    ] ],
     [ "applySilhouetteMask", "namespacehmi.html#aff5a499bb21016a452b381ee65602b3a", null ],
     [ "applySkinAssignment", "namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4", null ],
     [ "arrowHead", "namespacehmi.html#a42f96951bfec11435da37c91ee377046", null ],
@@ -255,9 +265,10 @@ var namespacehmi =
     [ "resolveBackgroundTexture", "namespacehmi.html#af1d89363ce904e2b4a68eeaa7503c066", null ],
     [ "resolveLinkClick", "namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9", null ],
     [ "resolveOrPlaceholder", "namespacehmi.html#a32457118c4e60dff8da0ba9839c0f29a", null ],
+    [ "resolveTextureAssignClick", "namespacehmi.html#ad9c60c575bab3fcb92a2876cc1b11bfc", null ],
     [ "resolveTileAppearance", "namespacehmi.html#ab158a76df687b49eeccc12df1438d3ce", null ],
     [ "saveSessionLog", "namespacehmi.html#a680b600014001a99d296df386e7ed9d8", null ],
-    [ "sceneTextures", "namespacehmi.html#a61a3e541d9241813dbf1f451064898f2", null ],
+    [ "sceneTextures", "namespacehmi.html#ad19713f79553957d14d745cb3d84d03a", null ],
     [ "serializeSessionLog", "namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b", null ],
     [ "skinModeFromName", "namespacehmi.html#ab7a7e2e0b4ed018b8acae760f5678b94", null ],
     [ "skinModeName", "namespacehmi.html#aacad28238195c8395f4229ab6d861b6d", null ],
@@ -266,6 +277,7 @@ var namespacehmi =
     [ "spriteQuadBounds", "namespacehmi.html#af7d9b42fc7c496a35a24169feddc6ab8", null ],
     [ "submitComposedScene", "namespacehmi.html#a533df804a658915efda4f8f6c918496e", null ],
     [ "taxonomyLabelKey", "namespacehmi.html#acf25ab803e9993cf5baab355d23f8ca9", null ],
+    [ "textureOverrideAt", "namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb", null ],
     [ "tileTaxonomy", "namespacehmi.html#a324d7671eeb331de4b3459d66be9d0ca", null ],
     [ "toPlayerInput", "namespacehmi.html#a2c3341857c60f0bef0a01a6cd10ce5f7", null ],
     [ "trimLevelName", "namespacehmi.html#acb440eec2a1a3d3cc760795b9875ae8e", null ],
@@ -280,6 +292,7 @@ var namespacehmi =
     [ "GAMEPAD_BUTTON_COUNT", "namespacehmi.html#aab59d64d595ba17a55cc07311285ba14", null ],
     [ "MISSING_TEXTURE_CHECKER_SIZE", "namespacehmi.html#a7cc024ad45faf8aabf192a70d2090ac6", null ],
     [ "MISSING_TEXTURE_SIZE", "namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3", null ],
+    [ "OBJECTS_SUBDIRECTORY", "namespacehmi.html#afa41a58e3d0256ebebea73c1b3560810", null ],
     [ "SILHOUETTE_TILE_TYPE_COUNT", "namespacehmi.html#aa9e6d80a32a4e383a6413ef674feef96", null ],
     [ "SILHOUETTE_TILE_TYPES", "namespacehmi.html#a37c697d0c580a4d6aa3313ee67dc6103", null ],
     [ "SKINS_SUBDIRECTORY", "namespacehmi.html#ab94e51ddc058f58bc9dd1692a7568be0", null ]

@@ -93,7 +93,7 @@ $(function(){initNavTree('lot-45-tache-01-modele-override.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-45-textures-objets-interactifs_2tache-01-modele-override"></a></p>
-<p><b>Lot :</b> <a class="el" href="lot-45.html#md_Lot_2LOT-45-textures-objets-interactifs_2epic" title="Lot/LOT-45-textures-objets-interactifs/epic.md">LOT-45</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> non commencé</p>
+<p><b>Lot :</b> <a class="el" href="lot-45.html#md_Lot_2LOT-45-textures-objets-interactifs_2epic" title="Lot/LOT-45-textures-objets-interactifs/epic.md">LOT-45</a> · <b>Emplacement :</b> <span class="tt">Source/Core/Levels</span> · <b>Statut :</b> fait</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2019"></a>
 Contexte</h1>
 <p><span class="tt"><a class="el" href="classcore_1_1TileMap.html" title="Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.">core::TileMap</a></span> est une grille <b>dense</b> d'une <span class="tt">TileType</span> par case, sans métadonnée numérique par case — limite actée en <span class="tt">LOT-19</span> et documentée dans <span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>. Toutes les données par position (mécanismes, liens de danger, configurations de mouvement et de clignotement) vivent donc dans des <b>vecteurs annexes</b> de <span class="tt"><a class="el" href="classcore_1_1Level.html" title="Niveau complet en mémoire : nom, grille de tuiles, entrée/sortie et mécanismes.">core::Level</a></span>, keyés par position.</p>
@@ -101,7 +101,7 @@ Contexte</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2020"></a>
 Travail à réaliser</h1>
 <ul>
-<li><em><b>core::TileTextureOverride</b></em> : une position de grille et un nom d'asset. Vecteur annexe sur <span class="tt">Level</span> et <span class="tt">LevelDraft</span>, accesseur de lecture, mutateurs d'assignation et de retrait.</li>
+<li><em><b><a class="el" href="structcore_1_1TileTextureOverride.html" title="Texture assignée explicitement à une case précise, prioritaire sur le skin de son type (EX-EDIT-043,...">core::TileTextureOverride</a></b></em> : une position de grille et un nom d'asset. Vecteur annexe sur <span class="tt">Level</span> et <span class="tt">LevelDraft</span>, accesseur de lecture, mutateurs d'assignation et de retrait.</li>
 <li><b>JSON</b> : champ optionnel <b>par tuile</b> (ex. <span class="tt">"texture": "door_red.png"</span>), exactement comme <span class="tt">switch.id</span> et <span class="tt">door.opensWith</span>. Rétrocompatible, dans le format versionné de LOT-44.</li>
 <li><b>Nettoyage</b> : brancher l'override sur le funnel <b>existant</b> <span class="tt">LevelDraft::removeLinkedDataAt</span>, appelé par <span class="tt">paintTileInternal</span> — donc par <span class="tt">paintTile</span> <b>et</b> <span class="tt">paintRegion</span>. Repeindre un autre type sur une case retire son override.</li>
 <li><b>Redimensionnement</b> : participer à la troncature silencieuse de <span class="tt">resize</span>, comme les autres données annexes — un override hors des nouvelles bornes disparaît.</li>
@@ -112,7 +112,7 @@ Travail à réaliser</h1>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Source/Core/Levels/Level.h</a></span>, <span class="tt">LevelDraft.{h,cpp}</span>, <span class="tt"><a class="el" href="LevelLoader_8cpp.html">LevelLoader.cpp</a></span>, <span class="tt"><a class="el" href="LevelWriter_8cpp.html">LevelWriter.cpp</a></span>.</li>
-<li><span class="tt">Source/Test/Unit/Core/Levels/test_tile_texture_override.cpp</span> (nouveau).</li>
+<li><span class="tt"><a class="el" href="test__tile__texture__override_8cpp.html" title="Tests unitaires de la texture assignée par instance (LOT-45, EX-EDIT-043).">Source/Test/Unit/Core/Levels/test_tile_texture_override.cpp</a></span> (nouveau).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2022"></a>
 Tests (obligatoires)</h1>

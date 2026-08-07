@@ -6,7 +6,7 @@ var searchData=
   ['idle_3',['Idle',['../namespacecore.html#a799a99a97ade0219550e8316e18aa860ae599161956d626eda4cb0a5ffb85271c',1,'core']]],
   ['idle_5fframe_5fcount_4',['IDLE_FRAME_COUNT',['../namespacecore.html#a572ec27480068f4deb0511ed85244e68',1,'core']]],
   ['ids_20stables_20ancres_20doxygen_20lint_20ci_5',['TACHE-08 — Traçabilité des exigences (IDs stables, ancres Doxygen, lint CI)',['../lot-04-tache-08-tracabilite-exigences.html',1,'lot-04']]],
-  ['ignore_6',['Ignore',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9',1,'hmi']]],
+  ['ignore_6',['Ignore',['../namespacehmi.html#ace704959d626f266592987f16eb2f3d5afd038fc7f319e48f3115d92bf5bdbef9',1,'hmi::Ignore'],['../namespacehmi.html#a76066d550faf628786294c82cd2d12a4afd038fc7f319e48f3115d92bf5bdbef9',1,'hmi::Ignore']]],
   ['ihm_7',['Interface utilisateur (IHM)',['../spec-interface-ihm.html',1,'specifications']]],
   ['ihm_20030_20ex_20ihm_20031_8',['Lier des mécanismes dans l&apos;éditeur (&lt;span class=&quot;tt&quot;&gt;LOT-37&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-IHM-030&lt;/span&gt;/&lt;span class=&quot;tt&quot;&gt;EX-IHM-031&lt;/span&gt;)',['../guide-editeur.html#autotoc_md58',1,'']]],
   ['ihm_20031_9',['Lier des mécanismes dans l&apos;éditeur (&lt;span class=&quot;tt&quot;&gt;LOT-37&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-IHM-030&lt;/span&gt;/&lt;span class=&quot;tt&quot;&gt;EX-IHM-031&lt;/span&gt;)',['../guide-editeur.html#autotoc_md58',1,'']]],

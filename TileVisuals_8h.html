@@ -96,7 +96,11 @@ $(function(){initNavTree('TileVisuals_8h.html','',''); });
 <p>Correspondance type de tuile → région d'atlas, partagée entre le jeu et l'éditeur.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 </div>
 <p><a href="TileVisuals_8h_source.html">Go to the source code of this file.</a></p>
@@ -116,6 +120,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a597b9471d79c0d524b3dedbf52c2fac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région d'atlas (couleur procédurale) associée à un type de tuile.  <br /></td></tr>
 <tr class="memitem:a3a1050ef6cc138977442e9d4206cb3b1" id="r_a3a1050ef6cc138977442e9d4206cb3b1"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AtlasGridPosition.html">AtlasGridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3a1050ef6cc138977442e9d4206cb3b1">hmi::slopeTileGridPosition</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:a3a1050ef6cc138977442e9d4206cb3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position, dans la grille de tuiles procédurale, réservée à un type de tuile à silhouette inclinée/courbe : pentes/arrondis convexes ou concaves de <b>sol</b>, suivables (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>, <span class="tt">EX-GP-003</span>/<span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-007</span>) ou de <b>plafond</b>, solides (<span class="tt">EX-GP-006</span>/<span class="tt">EX-GP-007</span>).  <br /></td></tr>
+<tr class="memitem:ae8ea482206091a0f850c865f8de6f5fb" id="r_ae8ea482206091a0f850c865f8de6f5fb"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae8ea482206091a0f850c865f8de6f5fb">hmi::textureOverrideAt</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;overrides, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> position)</td></tr>
+<tr class="memdesc:ae8ea482206091a0f850c865f8de6f5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche la surcharge de texture assignée à une case précise (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Correspondance type de tuile → région d'atlas, partagée entre le jeu et l'éditeur. </p>

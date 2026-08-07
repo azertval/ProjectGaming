@@ -1,7 +1,7 @@
 var searchData=
 [
   ['catalog_0',['catalog',['../structhmi_1_1SkinCatalogResult.html#af1719aa7be547951dd4792e4fb62366c',1,'hmi::SkinCatalogResult']]],
-  ['cell_1',['cell',['../structhmi_1_1PendingLink.html#ad011ebec683574bef2f7f5f4d7d77805',1,'hmi::PendingLink::cell'],['../structhmi_1_1LinkGestureDecision.html#a494369edc05024a90942ad9de10e0e88',1,'hmi::LinkGestureDecision::cell']]],
+  ['cell_1',['cell',['../structhmi_1_1PendingLink.html#ad011ebec683574bef2f7f5f4d7d77805',1,'hmi::PendingLink::cell'],['../structhmi_1_1LinkGestureDecision.html#a494369edc05024a90942ad9de10e0e88',1,'hmi::LinkGestureDecision::cell'],['../structhmi_1_1TextureAssignDecision.html#a3e52eea7f22dff609d734df17bda8c1e',1,'hmi::TextureAssignDecision::cell']]],
   ['clip_2',['clip',['../structcore_1_1Animation.html#a366d8197577c0cba046a9cf59d27ac92',1,'core::Animation']]],
   ['column_3',['column',['../structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0',1,'core::GridPosition::column'],['../structhmi_1_1RoomBounds.html#a92ab7b8ca1892eb132580cd282f8ca3b',1,'hmi::RoomBounds::column'],['../structhmi_1_1AutotileCell.html#aec8849facc712ea3a1d296b911df4250',1,'hmi::AutotileCell::column'],['../structhmi_1_1AtlasGridPosition.html#aaa94f43780aa3d3571bb673cb4bf55b6',1,'hmi::AtlasGridPosition::column']]],
   ['considered_4',['considered',['../structhmi_1_1SceneStatistics.html#acd46778c69e1a9ae0093a0701d426976',1,'hmi::SceneStatistics']]],
