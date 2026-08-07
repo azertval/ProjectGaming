@@ -1,10 +1,12 @@
 #pragma once
 
+#include <optional>
 #include <string>
 #include <utility>
 
 #include <DirectXMath.h>
 
+#include "HMI/Graphics/BackgroundRenderer.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -42,6 +44,9 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
 /// Sous-dossier des skins de tuiles, relatif au dossier d'assets (`LOT-42`).
 inline const std::string SKINS_SUBDIRECTORY = "Skins/";
 
+/// Sous-dossier des fonds de niveau, relatif au dossier d'assets (`LOT-44`).
+inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
+
 /**
  * @brief Textures liables par la composition d'une scène : atlas, damier de repli et skins.
  *
@@ -58,6 +63,22 @@ inline const std::string SKINS_SUBDIRECTORY = "Skins/";
 [[nodiscard]] SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
                                           const SkinCatalog* skins = nullptr,
                                           const std::string& skinSet = {});
+
+/**
+ * @brief Résout la texture de fond d'un niveau (accès `TextureCache`/GPU, `LOT-44`).
+ *
+ * Point de résolution unique du repli en damier pour le fond (`hmi::resolveOrPlaceholder`,
+ * `EX-NFR-040`) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement
+ * déjà journalisé par le cache. Aucun accès cache n'a lieu si @p background est absent — même
+ * séparation résolution/composition que `hmi::sceneTextures` vis-à-vis de
+ * `hmi::composeWorldSprites`.
+ * @param background Nom de l'asset de fond du niveau (`core::Level::background`), ou absent.
+ * @param cache      Cache de textures, résout l'asset (et son repli en damier).
+ * @return La texture à composer (`hmi::composeBackground`) ; `texture == nullptr` si aucun fond
+ *         n'est désigné.
+ */
+[[nodiscard]] BackgroundTexture resolveBackgroundTexture(
+    const std::optional<std::string>& background, TextureCache& cache);
 
 /**
  * @brief Pont ECS → écran : dessine chaque entité affichable, triée par calque puis par texture.
@@ -98,9 +119,16 @@ public:
      * dessinée à `lerp(précédente, courante, alpha)` (mouvement lisse) ; une entité sans ce
      * composant (tuiles fixes) est dessinée à sa position courante. `0` reproduit le comportement
      * non interpolé.
+     * @param background  Nom de l'asset de fond du niveau (`core::Level::background`, `LOT-44`),
+     *                     ou absent ; composé sous tout le reste (`RenderLayer::Background`),
+     *                     uniquement en mode `RenderMode::Texture`.
+     * @param levelWidth  Largeur du niveau, en unités monde (une case = une unité) ; ignoré si
+     *                    @p background est absent.
+     * @param levelHeight Hauteur du niveau, en unités monde.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
-                float interpolationAlpha);
+                float interpolationAlpha, const std::optional<std::string>& background = {},
+                int levelWidth = 0, int levelHeight = 0);
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

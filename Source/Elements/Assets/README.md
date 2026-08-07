@@ -77,12 +77,18 @@ Deux conventions, explicites parce qu'elles se voient à l'écran :
   partout où ils se touchent. Les pentes et arrondis, jamais solides, ne participent pas au
   voisinage.
 
+## `Backgrounds/` — fonds de niveau (`LOT-44`)
+
+Un niveau peut désigner une image de `Backgrounds/` comme fond (`core::Level::background`,
+`EX-REN-044`), sélectionnée depuis la section « Fond » du panneau « Textures ». Dimensions
+**libres** : le rendu étire l'image sur les bornes du niveau en préservant son ratio d'aspect
+(recadrage par le centre sur la dimension excédentaire, jamais de déformation).
+
 ## À venir (programme `LOT-40` → `LOT-55`)
 
 Ce dossier accueillera d'autres **sous-dossiers par famille d'asset**, chacun avec ses dimensions
-attendues **validées au chargement** (`EX-REN-007`) : `Backgrounds/` (`LOT-44`), `Objects/`
-(`LOT-45`), `Player/` (`LOT-48`), `Decors/` (`LOT-49`), plus des fichiers `<asset>.anim.json`
-décrivant les animations (`LOT-46`).
+attendues **validées au chargement** (`EX-REN-007`) : `Objects/` (`LOT-45`), `Player/` (`LOT-48`),
+`Decors/` (`LOT-49`), plus des fichiers `<asset>.anim.json` décrivant les animations (`LOT-46`).
 
 Le **rechargement à chaud**, absent aujourd'hui, arrive au `LOT-43` : éditer un asset se reflétera
 sans relancer l'application.

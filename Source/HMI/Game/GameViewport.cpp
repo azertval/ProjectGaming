@@ -264,6 +264,18 @@ void GameViewport::unlinkMechanism(core::GridPosition targetPosition) {
     markDraftMutated();
 }
 
+void GameViewport::setLevelBackground(std::optional<std::string> background) {
+    _draft.setBackground(std::move(background));
+    _dirty = true;
+    markDraftMutated();
+}
+
+void GameViewport::setLevelSkinSet(std::optional<std::string> skinSet) {
+    _draft.setSkinSet(std::move(skinSet));
+    _dirty = true;
+    markDraftMutated();
+}
+
 void GameViewport::setSkinSet(const std::string& setName) {
     // Le catalogue est deja a jour (le panneau agit dessus directement) : il n'y a que le jeu
     // courant a propager, et l'image suivante montrera le resultat. Aucune scene a reconstruire.

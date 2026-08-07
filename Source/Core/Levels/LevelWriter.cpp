@@ -7,6 +7,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Levels/TileTypeName.h"
@@ -26,7 +27,7 @@ namespace {
 std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
-                     level.blinkConfigs());
+                     level.blinkConfigs(), level.background(), level.skinSet());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -43,8 +44,11 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                    const std::vector<Mechanism>& mechanisms, int jumpBudget,
                                    int dashBudget, const std::vector<DangerLink>& dangerLinks,
                                    const std::vector<DangerMoverConfig>& moverConfigs,
-                                   const std::vector<DangerBlinkConfig>& blinkConfigs) {
+                                   const std::vector<DangerBlinkConfig>& blinkConfigs,
+                                   const std::optional<std::string>& background,
+                                   const std::optional<std::string>& skinSet) {
     nlohmann::json root;
+    root["version"] = kLevelFormatVersion;
     root["name"] = name;
     root["width"] = tileMap.width();
     root["height"] = tileMap.height();
@@ -53,6 +57,12 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
     }
     if (dashBudget != -1) {
         root["dashBudget"] = dashBudget;
+    }
+    if (background) {
+        root["background"] = *background;
+    }
+    if (skinSet) {
+        root["skinSet"] = *skinSet;
     }
 
     // Identifiants de déclencheurs (interrupteur ou plaque de pression) régénérés de façon

@@ -195,6 +195,19 @@ public:
         _name = std::move(name);
     }
 
+    /**
+     * @brief Assigne l'asset de fond du niveau (`EX-REN-044`), annulable.
+     * @param background Nom de l'asset (ex. `"forest.png"`), ou vide pour retirer le fond posé.
+     *                    Une chaîne, jamais un handle : `Core` ignore tout du dossier d'assets.
+     */
+    void setBackground(std::optional<std::string> background);
+
+    /**
+     * @brief Assigne le jeu de skins du niveau (`EX-EDIT-024`), annulable.
+     * @param skinSet Nom du jeu (`skins.json`), ou vide pour le jeu par défaut.
+     */
+    void setSkinSet(std::optional<std::string> skinSet);
+
     /// @return Le nom courant du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
         return _name;
@@ -245,6 +258,16 @@ public:
         return _dashBudget;
     }
 
+    /// @return L'asset de fond courant (`EX-REN-044`), absent si aucun n'est posé.
+    [[nodiscard]] const std::optional<std::string>& background() const noexcept {
+        return _background;
+    }
+
+    /// @return Le jeu de skins courant du niveau (`EX-EDIT-024`), absent pour le jeu par défaut.
+    [[nodiscard]] const std::optional<std::string>& skinSet() const noexcept {
+        return _skinSet;
+    }
+
     /**
      * @brief Convertit le brouillon en `Level` **validé** (`EX-EDIT-007`), en repassant par la
      *        même validation que `LevelLoader` (sérialise puis recharge : aucune règle
@@ -284,6 +307,8 @@ private:
         std::vector<DangerLink> dangerLinks;
         std::vector<DangerMoverConfig> moverConfigs;
         std::vector<DangerBlinkConfig> blinkConfigs;
+        std::optional<std::string> background;
+        std::optional<std::string> skinSet;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -306,6 +331,8 @@ private:
     std::vector<DangerLink> _dangerLinks;
     std::vector<DangerMoverConfig> _moverConfigs;
     std::vector<DangerBlinkConfig> _blinkConfigs;
+    std::optional<std::string> _background;
+    std::optional<std::string> _skinSet;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

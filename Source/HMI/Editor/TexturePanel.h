@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <filesystem>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -25,6 +26,7 @@ class TexturePanel;
 
 namespace hmi {
 
+class AssetThumbnailView;
 class Localization;
 
 /**
@@ -50,12 +52,14 @@ class TexturePanel : public QWidget {
 public:
     /**
      * @brief Construit le panneau.
-     * @param skinsDirectory Dossier balayé pour peupler la liste des fichiers assignables.
-     * @param catalogPath    Chemin d'écriture de `skins.json`.
-     * @param parent         Widget parent.
+     * @param skinsDirectory       Dossier balayé pour peupler la liste des fichiers assignables.
+     * @param catalogPath          Chemin d'écriture de `skins.json`.
+     * @param backgroundsDirectory Dossier balayé pour peupler la grille de fonds (section « Fond »,
+     *                             `LOT-44`).
+     * @param parent               Widget parent.
      */
     explicit TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
-                          QWidget* parent = nullptr);
+                          std::filesystem::path backgroundsDirectory, QWidget* parent = nullptr);
     ~TexturePanel() override;
 
     /**
@@ -63,6 +67,19 @@ public:
      * @param catalog Catalogue, non possédé, qui doit survivre au panneau.
      */
     void setCatalog(SkinCatalog* catalog);
+
+    /**
+     * @brief Synchronise la section « Fond » avec le niveau courant (`LOT-44`).
+     *
+     * À appeler après tout changement de brouillon (ouverture, undo/redo, chargement) pour que la
+     * sélection affichée reste fidèle au niveau — l'inverse du sens habituel des signaux de ce
+     * panneau (ici c'est l'appelant qui pousse l'état, la section ne le possède pas).
+     * @param background Asset de fond du niveau courant (`core::LevelDraft::background`).
+     * @param skinSet    Jeu de skins du niveau courant (`core::LevelDraft::skinSet`), distinct du
+     *                   jeu courant d'édition (`currentSet`).
+     */
+    void setLevelProperties(const std::optional<std::string>& background,
+                            const std::optional<std::string>& skinSet);
 
     /// @return Le nom du jeu de skins actuellement sélectionné.
     [[nodiscard]] const std::string& currentSet() const noexcept {
@@ -88,6 +105,12 @@ signals:
     void assignmentsChanged();
     /// Émis quand l'utilisateur demande un rechargement à chaud des textures (`LOT-43` TACHE-03).
     void reloadRequested();
+    /// Émis quand l'utilisateur choisit un fond dans la section « Fond » (`LOT-44`) : nom de
+    /// l'asset, vide pour « aucun fond ».
+    void backgroundChanged(const QString& fileName);
+    /// Émis quand l'utilisateur choisit le jeu de skins **du niveau** (`LOT-44`), distinct du jeu
+    /// courant d'édition : nom du jeu, vide pour « jeu par défaut ».
+    void levelSkinSetChanged(const QString& setName);
 
 private:
     void rebuildTree();
@@ -98,13 +121,22 @@ private:
     /// Vignette d'un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en
     /// cache — repli en damier magenta si absent/illisible (cohérent avec le rendu, `LOT-40`).
     [[nodiscard]] QPixmap thumbnailFor(const std::string& asset);
+    /// Reconstruit la liste du sélecteur de jeu de skins **du niveau** (section « Fond »), à partir
+    /// des jeux du catalogue, plus l'entrée « jeu par défaut ».
+    void rebuildLevelSkinSetSelector();
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
+    AssetThumbnailView* _backgroundView;  ///< Grille de vignettes de `Assets/Backgrounds/` (LOT-44).
     std::filesystem::path _skinsDirectory;
     std::filesystem::path _catalogPath;
+    std::filesystem::path _backgroundsDirectory;
     SkinCatalog* _catalog = nullptr;  ///< Non possédé (propriété de `GameViewport`).
     std::string _currentSet;
+    /// Dernières valeurs poussées par `setLevelProperties` (LOT-44) : reappliquées après tout
+    /// rechargement/reconstruction qui perdrait la sélection courante des widgets (grille, combo).
+    std::optional<std::string> _levelBackground;
+    std::optional<std::string> _levelSkinSet;
     bool _updating = false;              ///< Garde de réentrance pendant la reconstruction du modèle.
     const Localization* _loc = nullptr;  ///< Catalogue courant (nul avant première retraduction).
     /// Fichier de skin (vide pour « aucun ») -> vignette décodée. Vidé par `reloadAssets`.

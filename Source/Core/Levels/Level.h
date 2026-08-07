@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -104,12 +105,18 @@ public:
      * @param moverConfigs Paramètres des dangers mobiles (`EX-GP-051`), un par tuile `DangerMover`.
      * @param blinkConfigs Paramètres des dangers temporisés (`EX-GP-053`), un par tuile
      *                     `DangerBlink`.
+     * @param background   Nom de l'asset de fond du niveau (`EX-REN-044`), vide si aucun. Une
+     *                     chaîne, jamais un handle de texture : `Core` ignore tout du rendu.
+     * @param skinSet      Nom du jeu de skins du niveau (`EX-EDIT-024`), vide pour le jeu par
+     *                     défaut.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
           std::vector<DangerLink> dangerLinks = {},
           std::vector<DangerMoverConfig> moverConfigs = {},
-          std::vector<DangerBlinkConfig> blinkConfigs = {})
+          std::vector<DangerBlinkConfig> blinkConfigs = {},
+          std::optional<std::string> background = std::nullopt,
+          std::optional<std::string> skinSet = std::nullopt)
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -119,7 +126,9 @@ public:
           _dashBudget(dashBudget),
           _dangerLinks(std::move(dangerLinks)),
           _moverConfigs(std::move(moverConfigs)),
-          _blinkConfigs(std::move(blinkConfigs)) {}
+          _blinkConfigs(std::move(blinkConfigs)),
+          _background(std::move(background)),
+          _skinSet(std::move(skinSet)) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -171,6 +180,18 @@ public:
         return _blinkConfigs;
     }
 
+    /// @return Le nom de l'asset de fond du niveau (`EX-REN-044`), absent si aucun n'est
+    /// configuré. Une chaîne, jamais un handle : `Core` n'a pas accès au dossier d'assets.
+    [[nodiscard]] const std::optional<std::string>& background() const noexcept {
+        return _background;
+    }
+
+    /// @return Le nom du jeu de skins du niveau (`EX-EDIT-024`), absent si le niveau utilise le
+    /// jeu par défaut.
+    [[nodiscard]] const std::optional<std::string>& skinSet() const noexcept {
+        return _skinSet;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -182,6 +203,8 @@ private:
     std::vector<DangerLink> _dangerLinks;
     std::vector<DangerMoverConfig> _moverConfigs;
     std::vector<DangerBlinkConfig> _blinkConfigs;
+    std::optional<std::string> _background;
+    std::optional<std::string> _skinSet;
 };
 
 }  // namespace core

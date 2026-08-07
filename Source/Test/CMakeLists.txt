@@ -49,6 +49,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_missing_texture.cpp
     Unit/HMI/Graphics/test_quad_recorder.cpp
     Unit/HMI/Graphics/test_render_culling.cpp
+    Unit/HMI/Graphics/test_background_fit.cpp
     Unit/HMI/Graphics/test_render_mode.cpp
     Unit/HMI/Graphics/test_skin_catalog.cpp
     Unit/HMI/Graphics/test_tile_autotile.cpp
@@ -110,6 +111,10 @@ add_executable(UnitTests
     # sans GPU (EX-NFR-004).
     ../HMI/Graphics/ComposedScene.cpp
     ../HMI/Graphics/QuadRecorder.cpp
+    # Le calcul de recadrage du fond et sa composition (LOT-44) sont purs -- la resolution de
+    # texture (acces TextureCache/GPU) est separee dans hmi::resolveBackgroundTexture
+    # (SpriteRenderer.cpp, non compile ici), meme patron que composeWorldSprites/sceneTextures.
+    ../HMI/Graphics/BackgroundRenderer.cpp
     # L'état des entrées est indépendant de la fenêtre (aucun <Windows.h>) : sa
     # source est compilée dans les tests pour valider les fronts en isolation.
     ../HMI/Input/InputState.cpp

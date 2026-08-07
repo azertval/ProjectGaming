@@ -117,6 +117,7 @@ add_executable(ProjectGaming
     Graphics/RoomGrid.cpp
     Graphics/ComposedScene.cpp
     Graphics/QuadRecorder.cpp
+    Graphics/BackgroundRenderer.cpp
     Graphics/SpriteRenderer.cpp
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp

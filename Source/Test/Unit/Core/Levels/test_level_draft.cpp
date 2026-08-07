@@ -520,6 +520,68 @@ TEST(LevelDraftTest, UndoApresLiaisonMecanismeRestitueLAbsenceDeLiaison) {
 }
 
 /**
+ * @brief setBackground/setSkinSet assignent et retirent les champs de fond et de jeu de skins
+ * (`EX-REN-044`, `EX-EDIT-024`), sans effet l'un sur l'autre.
+ * \castest{<b>setBackground/setSkinSet assignent et retirent les champs correspondants.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu setBackground/setSkinSet assignent et retirent les champs correspondants.
+ * }
+ */
+TEST(LevelDraftTest, SetBackgroundEtSetSkinSetAssignentEtRetirent) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    EXPECT_FALSE(draft.background().has_value());
+    EXPECT_FALSE(draft.skinSet().has_value());
+
+    draft.setBackground(std::string{"forest.png"});
+    ASSERT_TRUE(draft.background().has_value());
+    EXPECT_EQ(*draft.background(), "forest.png");
+    EXPECT_FALSE(draft.skinSet().has_value());  // pas de contamination croisee
+
+    draft.setSkinSet(std::string{"foret"});
+    ASSERT_TRUE(draft.skinSet().has_value());
+    EXPECT_EQ(*draft.skinSet(), "foret");
+
+    draft.setBackground(std::nullopt);
+    EXPECT_FALSE(draft.background().has_value());
+    ASSERT_TRUE(draft.skinSet().has_value());  // retirer le fond ne touche pas le jeu de skins
+    EXPECT_EQ(*draft.skinSet(), "foret");
+}
+
+/**
+ * @brief L'annulation d'un changement de fond ou de jeu de skins restitue la valeur précédente
+ * (`EX-REN-044`, `EX-EDIT-024`).
+ * \castest{<b>L'annulation d'un changement de fond ou de jeu de skins restitue la valeur
+ * precedente.</b><br/>
+ * \tcat Unitaire · Level Draft<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu L'annulation d'un changement de fond ou de jeu de skins restitue la valeur precedente.
+ * }
+ */
+TEST(LevelDraftTest, UndoRedoApresChangementDeFondEtDeJeuDeSkins) {
+    LevelDraft draft = LevelDraft::empty("N", 3, 3);
+    draft.setBackground(std::string{"forest.png"});
+    draft.setSkinSet(std::string{"foret"});
+    ASSERT_TRUE(draft.canUndo());
+
+    ASSERT_TRUE(draft.undo());  // annule setSkinSet
+    EXPECT_FALSE(draft.skinSet().has_value());
+    ASSERT_TRUE(draft.background().has_value());
+    EXPECT_EQ(*draft.background(), "forest.png");
+
+    ASSERT_TRUE(draft.undo());  // annule setBackground
+    EXPECT_FALSE(draft.background().has_value());
+
+    ASSERT_TRUE(draft.redo());  // refait setBackground
+    ASSERT_TRUE(draft.background().has_value());
+    EXPECT_EQ(*draft.background(), "forest.png");
+}
+
+/**
  * @brief paintRegion applique un bloc homogène comme une succession de paintTile équivalente.
  * \castest{<b>paintRegion applique un bloc homogène comme une succession de paintTile
  * équivalente.</b><br/>

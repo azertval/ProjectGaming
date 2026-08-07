@@ -347,6 +347,59 @@ TEST(LevelWriterTest, BudgetsIllimitesOmisDuJson) {
 }
 
 /**
+ * @brief Le fond et le jeu de skins survivent au round-trip (sérialisation puis rechargement,
+ * `EX-REN-044`, `EX-EDIT-024`).
+ * \castest{<b>Le fond et le jeu de skins survivent au round-trip.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Le fond et le jeu de skins survivent au round-trip.
+ * }
+ */
+TEST(LevelWriterTest, FondEtJeuDeSkinsSurviventAuRoundTrip) {
+    constexpr const char* LEVEL = R"({
+      "background": "forest.png",
+      "skinSet": "foret",
+      "width": 3, "height": 3,
+      "tiles": [ {"x":0,"y":0,"type":"entry"}, {"x":2,"y":2,"type":"exit"} ] })";
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    const core::LevelLoadResult reloaded = core::LevelLoader::loadFromString(json);
+    ASSERT_TRUE(reloaded.ok()) << reloaded.error;
+
+    ASSERT_TRUE(reloaded.level->background().has_value());
+    EXPECT_EQ(*reloaded.level->background(), "forest.png");
+    ASSERT_TRUE(reloaded.level->skinSet().has_value());
+    EXPECT_EQ(*reloaded.level->skinSet(), "foret");
+}
+
+/**
+ * @brief Un niveau sans fond ni jeu de skins n'écrit ni l'une ni l'autre clé dans le JSON produit
+ * (`EX-REN-044`, `EX-EDIT-024`) ; le champ `"version"`, lui, est toujours écrit.
+ * \castest{<b>Sans fond ni jeu de skins, les cles sont absentes du JSON produit.</b><br/>
+ * \tcat Unitaire · Level Writer<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Sans fond ni jeu de skins, les cles sont absentes du JSON produit.
+ * }
+ */
+TEST(LevelWriterTest, SansFondNiJeuDeSkinsLesClesSontOmisesDuJson) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromString(R"({
+        "width": 3, "height": 3,
+        "tiles": [ {"x":0,"y":0,"type":"entry"}, {"x":2,"y":2,"type":"exit"} ] })");
+    ASSERT_TRUE(loaded.ok()) << loaded.error;
+
+    const std::string json = core::LevelWriter::toJsonString(*loaded.level);
+    EXPECT_EQ(json.find("\"background\""), std::string::npos);
+    EXPECT_EQ(json.find("\"skinSet\""), std::string::npos);
+    EXPECT_NE(json.find("\"version\""), std::string::npos);
+}
+
+/**
  * @brief Un interrupteur non relié à une porte est tout de même sérialisé, avec un identifiant.
  * \castest{<b>Un interrupteur non relié à une porte est tout de même sérialisé, avec un
  * identifiant.</b><br/>

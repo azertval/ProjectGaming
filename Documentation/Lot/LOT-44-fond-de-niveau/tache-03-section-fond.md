@@ -1,6 +1,6 @@
 # TACHE-03 — Section « Fond » et sélecteur de jeu de skins {#lot-44-tache-03-section-fond}
 
-**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` · **Statut :** non commencé
+**Lot :** [LOT-44](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` · **Statut :** fait
 
 ## Contexte
 Les deux champs ajoutés au niveau en TACHE-01 doivent être éditables. C'est la **deuxième** section

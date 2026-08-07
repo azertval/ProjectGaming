@@ -1,6 +1,6 @@
 # LOT-44 — Fond de niveau et versionnement du format {#lot-44}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41),
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40), [LOT-41](@ref lot-41),
 > [LOT-42](@ref lot-42) (panneau « Textures », jeux de skins).
 
 ## Objectif
@@ -72,9 +72,9 @@ donc aussi les deux décisions de format qui en découlent :
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-version-format.md) | Version de format + champs de fond et de jeu de skins sur `Level`/`LevelDraft`, JSON rétrocompatible, undo/redo | `Source/Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-rendu-fond.md) | Rendu du fond (calque *Background*, ratio préservé, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ⬜ |
-| [TACHE-03](tache-03-section-fond.md) | Section « Fond » et sélecteur de jeu de skins du panneau « Textures » + dossier + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-version-format.md) | Version de format + champs de fond et de jeu de skins sur `Level`/`LevelDraft`, JSON rétrocompatible, undo/redo | `Source/Core/Levels` | ✅ |
+| [TACHE-02](tache-02-rendu-fond.md) | Rendu du fond (calque *Background*, ratio préservé, mode Texture) + repli damier si introuvable | `Source/HMI/Graphics`, `Source/HMI/Game` | ✅ |
+| [TACHE-03](tache-03-section-fond.md) | Section « Fond » et sélecteur de jeu de skins du panneau « Textures » + dossier + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un niveau sans fond configuré s'affiche exactement comme avant ce lot (mode Physique **et**

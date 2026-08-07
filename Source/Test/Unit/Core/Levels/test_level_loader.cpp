@@ -59,6 +59,98 @@ TEST(LevelLoaderTest, ChargeUnNiveauValide) {
 }
 
 /**
+ * @brief Un niveau sans champ `"version"` se charge sans erreur ni avertissement, comme la
+ * version initiale du format (`EX-LVL-005`, rétrocompatibilité des niveaux antérieurs à ce
+ * champ).
+ * \castest{<b>Un niveau sans champ version se charge sans erreur.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau sans champ version se charge sans erreur.
+ * }
+ */
+TEST(LevelLoaderTest, NiveauSansVersionSeChargeSansErreur) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(VALID_LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::None);
+}
+
+/**
+ * @brief Un niveau dont la version dépasse celle gérée échoue avec une erreur exploitable
+ * (`EX-LVL-005`), pas une lecture au mieux.
+ * \castest{<b>Un niveau dont la version depasse celle geree echoue proprement.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau dont la version depasse celle geree echoue proprement.
+ * }
+ */
+TEST(LevelLoaderTest, VersionSuperieureALaVersionGereeEchoueProprement) {
+    constexpr const char* LEVEL = R"({
+      "version": 999,
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    EXPECT_FALSE(result.ok());
+    EXPECT_EQ(result.errorCode, core::LevelValidationError::UnsupportedFormatVersion);
+}
+
+/**
+ * @brief Un niveau désignant un fond et un jeu de skins restitue les deux chaînes ; sans eux,
+ * elles sont absentes (`EX-REN-044`, `EX-EDIT-024`).
+ * \castest{<b>Un niveau designant un fond et un jeu de skins restitue les deux champs.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau designant un fond et un jeu de skins restitue les deux champs.
+ * }
+ */
+TEST(LevelLoaderTest, ChargeLeFondEtLeJeuDeSkins) {
+    constexpr const char* LEVEL = R"({
+      "background": "forest.png",
+      "skinSet": "foret",
+      "width": 4,
+      "height": 3,
+      "tiles": [
+        { "x": 1, "y": 1, "type": "entry" },
+        { "x": 3, "y": 2, "type": "exit" }
+      ]
+    })";
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    ASSERT_TRUE(result.level->background().has_value());
+    EXPECT_EQ(*result.level->background(), "forest.png");
+    ASSERT_TRUE(result.level->skinSet().has_value());
+    EXPECT_EQ(*result.level->skinSet(), "foret");
+}
+
+/**
+ * @brief Un niveau sans fond ni jeu de skins désignés n'en restitue aucun (état normal, pas une
+ * anomalie, `EX-REN-044`).
+ * \castest{<b>Un niveau sans fond ni jeu de skins n'en restitue aucun.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un niveau sans fond ni jeu de skins n'en restitue aucun.
+ * }
+ */
+TEST(LevelLoaderTest, SansFondNiJeuDeSkinsLesDeuxChampsSontAbsents) {
+    const core::LevelLoadResult result = core::LevelLoader::loadFromString(VALID_LEVEL);
+    ASSERT_TRUE(result.ok()) << result.error;
+    EXPECT_FALSE(result.level->background().has_value());
+    EXPECT_FALSE(result.level->skinSet().has_value());
+}
+
+/**
  * @brief Une plaque de pression se charge comme un interrupteur : même règle d'identifiant, même
  * résolution de liaison vers une porte (`EX-GP-025`).
  * \castest{<b>Une plaque de pression se charge comme un interrupteur.</b><br/>
@@ -931,4 +1023,32 @@ TEST(LevelLoaderTest, ChargeUnDangerTemporiseValeursExplicites) {
     EXPECT_EQ(config.period, 90);
     EXPECT_EQ(config.phase, 15);
     EXPECT_EQ(config.activeDuration, 30);
+}
+
+/**
+ * @brief Les quinze niveaux de démonstration livrés, aucun ne portant de champ `"version"`, se
+ * chargent tous sans erreur ni avertissement (`EX-LVL-005`, rétrocompatibilité, critère
+ * d'acceptation du LOT-44).
+ * \castest{<b>Les quinze niveaux de demonstration livres se chargent sans erreur.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Balayer le dossier des niveaux livres.<br/>2. Charger chaque fichier.<br/>
+ * \tattendu Chaque niveau se charge sans erreur, avec errorCode == None.
+ * }
+ */
+TEST(LevelLoaderTest, LesQuinzeNiveauxDeDemoSeChargentSansErreur) {
+    const std::filesystem::path levelsDir(PROJECTGAMING_LEVELS_DIR);
+    int checked = 0;
+    for (const std::filesystem::directory_entry& entry :
+        std::filesystem::directory_iterator(levelsDir)) {
+        if (entry.path().extension() != ".json") {
+            continue;
+        }
+        const core::LevelLoadResult result = core::LevelLoader::loadFromFile(entry.path());
+        EXPECT_TRUE(result.ok()) << entry.path().filename().string() << " : " << result.error;
+        EXPECT_EQ(result.errorCode, core::LevelValidationError::None)
+            << entry.path().filename().string();
+        ++checked;
+    }
+    EXPECT_EQ(checked, 15);
 }

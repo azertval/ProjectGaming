@@ -25,6 +25,8 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._dangerLinks = level.dangerLinks();
     draft._moverConfigs = level.moverConfigs();
     draft._blinkConfigs = level.blinkConfigs();
+    draft._background = level.background();
+    draft._skinSet = level.skinSet();
     return draft;
 }
 
@@ -182,6 +184,16 @@ void LevelDraft::setBlinkConfig(GridPosition position, int period, int phase,
     _blinkConfigs.push_back(DangerBlinkConfig{position, period, phase, activeDuration});
 }
 
+void LevelDraft::setBackground(std::optional<std::string> background) {
+    pushUndo();
+    _background = std::move(background);
+}
+
+void LevelDraft::setSkinSet(std::optional<std::string> skinSet) {
+    pushUndo();
+    _skinSet = std::move(skinSet);
+}
+
 void LevelDraft::resize(int width, int height) {
     pushUndo();
     TileMap resized(width, height);
@@ -286,8 +298,9 @@ bool LevelDraft::redo() {
 }
 
 LevelDraft::State LevelDraft::snapshot() const {
-    return State{_name,        _tileMap,      _entry,        _exit,         _mechanisms,
-                 _jumpBudget,  _dashBudget,   _dangerLinks,  _moverConfigs, _blinkConfigs};
+    return State{_name,        _tileMap,     _entry,        _exit,         _mechanisms,
+                 _jumpBudget,  _dashBudget,  _dangerLinks,  _moverConfigs, _blinkConfigs,
+                 _background,  _skinSet};
 }
 
 void LevelDraft::restore(State state) {
@@ -301,6 +314,8 @@ void LevelDraft::restore(State state) {
     _dangerLinks = std::move(state.dangerLinks);
     _moverConfigs = std::move(state.moverConfigs);
     _blinkConfigs = std::move(state.blinkConfigs);
+    _background = std::move(state.background);
+    _skinSet = std::move(state.skinSet);
 }
 
 void LevelDraft::pushUndo() {
@@ -311,7 +326,7 @@ void LevelDraft::pushUndo() {
 LevelLoadResult LevelDraft::toLevel() const {
     const std::string json =
         LevelWriter::buildJson(_name, _tileMap, _mechanisms, _jumpBudget, _dashBudget,
-                               _dangerLinks, _moverConfigs, _blinkConfigs);
+                               _dangerLinks, _moverConfigs, _blinkConfigs, _background, _skinSet);
     return LevelLoader::loadFromString(json);
 }
 

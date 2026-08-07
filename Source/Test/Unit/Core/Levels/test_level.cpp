@@ -202,3 +202,32 @@ TEST(LevelTest, RestitueSesDangersAvances) {
     EXPECT_EQ(level.blinkConfigs().front().phase, 10);
     EXPECT_EQ(level.blinkConfigs().front().activeDuration, 30);
 }
+
+/**
+ * @brief Un Level sans fond ni jeu de skins configurés restitue les deux champs absents
+ * (`EX-REN-044`, `EX-EDIT-024`) ; construit avec les deux, il les restitue tels quels.
+ * \castest{<b>Un Level restitue son fond et son jeu de skins, ou leur absence.</b><br/>
+ * \tcat Unitaire · Level<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et
+ * verifier les assertions.<br/>
+ * \tattendu Un Level restitue son fond et son jeu de skins, ou leur absence.
+ * }
+ */
+TEST(LevelTest, RestitueSonFondEtSonJeuDeSkinsOuLeurAbsence) {
+    core::TileMap map(3, 3);
+    map.setTile(0, 0, core::TileType::Entry);
+    map.setTile(2, 2, core::TileType::Exit);
+
+    const core::Level sansFond("N", map, core::GridPosition{0, 0}, core::GridPosition{2, 2}, {});
+    EXPECT_FALSE(sansFond.background().has_value());
+    EXPECT_FALSE(sansFond.skinSet().has_value());
+
+    const core::Level avecFond("N", std::move(map), core::GridPosition{0, 0},
+                               core::GridPosition{2, 2}, {}, -1, -1, {}, {}, {},
+                               std::string{"forest.png"}, std::string{"foret"});
+    ASSERT_TRUE(avecFond.background().has_value());
+    EXPECT_EQ(*avecFond.background(), "forest.png");
+    ASSERT_TRUE(avecFond.skinSet().has_value());
+    EXPECT_EQ(*avecFond.skinSet(), "foret");
+}

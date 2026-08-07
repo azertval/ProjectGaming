@@ -449,7 +449,8 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     _camera.setZoom(zoom);
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
-    _renderer.render(_world, _camera, mode, interpolationAlpha);
+    _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
+                     _levelHeight);
 }
 
 }  // namespace hmi

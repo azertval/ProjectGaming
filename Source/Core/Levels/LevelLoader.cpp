@@ -75,10 +75,29 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                            LevelValidationError::ParseError);
         }
 
+        // Version du format (EX-LVL-005) : absente = version initiale (0), sans erreur ni
+        // avertissement (rétrocompatibilité des niveaux antérieurs à ce champ, LOT-44).
+        const int version = root.value("version", 0);
+        if (version > kLevelFormatVersion) {
+            return failure("Version de format non geree : " + std::to_string(version) +
+                               " (maximum gere : " + std::to_string(kLevelFormatVersion) + ")",
+                           LevelValidationError::UnsupportedFormatVersion);
+        }
+
         std::string name = root.value("name", std::string{});
         // Budgets de mouvements optionnels (EX-GP-024) ; -1 = illimite.
         const int jumpBudget = root.value("jumpBudget", -1);
         const int dashBudget = root.value("dashBudget", -1);
+        // Asset de fond et jeu de skins du niveau (EX-REN-044/EX-EDIT-024) : chaines optionnelles,
+        // Core ignore tout du dossier d'assets et du mode de rendu (EX-NFR-011).
+        std::optional<std::string> background;
+        if (root.contains("background")) {
+            background = root.at("background").get<std::string>();
+        }
+        std::optional<std::string> skinSet;
+        if (root.contains("skinSet")) {
+            skinSet = root.at("skinSet").get<std::string>();
+        }
         TileMap map(width, height);
 
         GridPosition entry{};
@@ -214,7 +233,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
         return LevelLoadResult{Level(std::move(name), std::move(map), entry, exit,
                                      std::move(mechanisms), jumpBudget, dashBudget,
                                      std::move(dangerLinks), std::move(moverConfigs),
-                                     std::move(blinkConfigs)),
+                                     std::move(blinkConfigs), std::move(background),
+                                     std::move(skinSet)),
                                {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);

@@ -136,6 +136,23 @@ public:
     /// « Liens ») ; sans effet si @p targetPosition n'a pas de liaison.
     void unlinkMechanism(core::GridPosition targetPosition);
 
+    /**
+     * @brief Assigne l'asset de fond du niveau courant (section « Fond », `LOT-44`).
+     * @param background Nom de l'asset (`Assets/Backgrounds/*.png`), ou absent pour retirer le
+     *                    fond posé.
+     */
+    void setLevelBackground(std::optional<std::string> background);
+
+    /**
+     * @brief Assigne le jeu de skins du niveau courant (section « Fond », `LOT-44`).
+     *
+     * Propriété **persistée du niveau** (`core::LevelDraft::skinSet`) : distincte du jeu de skins
+     * **courant d'édition** (`setSkinSet`, session de l'éditeur, `LOT-42`) — les deux ne se
+     * contaminent jamais l'un l'autre.
+     * @param skinSet Nom du jeu (`skins.json`), ou absent pour le jeu par défaut.
+     */
+    void setLevelSkinSet(std::optional<std::string> skinSet);
+
     /// @return Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel.
     [[nodiscard]] RenderMode renderMode() const noexcept {
         return _renderMode;
