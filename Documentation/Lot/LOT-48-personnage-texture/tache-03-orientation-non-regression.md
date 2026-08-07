@@ -1,6 +1,6 @@
 # TACHE-03 — Orientation et non-régression du gameplay {#lot-48-tache-03-orientation-non-regression}
 
-**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** non commencé
+**Lot :** [LOT-48](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/Test` · **Statut :** fait
 
 ## Contexte
 Le personnage regarde toujours dans la même direction : `core::Player::facing` existe et est

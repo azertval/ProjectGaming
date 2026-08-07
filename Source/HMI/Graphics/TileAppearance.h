@@ -92,6 +92,15 @@ struct SceneTextures {
     /// Hauteur du damier, en pixels.
     int missingHeight = 0;
 
+    /// Spritesheet externe du personnage (`hmi::PLAYER_SUBDIRECTORY`/`PLAYER_SHEET_FILE_NAME`,
+    /// `LOT-48`), ou `nullptr` si absente/invalide — repli sur l'atlas (`hmi::PlayerSpriteTag::
+    /// usesCharacterSheet`), comme `hmi::TextureAtlas` retombe déjà sur le procédural.
+    TextureHandle characterSheet = nullptr;
+    /// Largeur de la spritesheet du personnage, en pixels.
+    int characterSheetWidth = 0;
+    /// Hauteur de la spritesheet du personnage, en pixels.
+    int characterSheetHeight = 0;
+
     /// Skins déjà chargés, adressés par index (`hmi::TileAppearance::skinIndex`).
     std::vector<SkinTexture> skins;
     /// Catalogue des jeux de skins, ou `nullptr` si aucun n'est chargé (tout retombe au damier).

@@ -1,12 +1,14 @@
 #include "HMI/Graphics/ComposedScene.h"
 
 #include <algorithm>
+#include <utility>
 
 #include "Core/Ecs/Components/Sprite.h"
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/TileSkinTag.h"
 
@@ -169,30 +171,64 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
-            // Type et voisinage de la tuile, quand l'entite en porte un (LOT-42) : c'est de la
-            // que vient le choix du skin. Une entite sans ce composant n'est pas habillable.
-            const TileSkinTag* skinTag = world.hasComponent<TileSkinTag>(entity)
-                                             ? &world.getComponent<TileSkinTag>(entity)
-                                             : nullptr;
+            // Habillage du personnage (LOT-48), en RenderMode::Texture uniquement : resolu a part
+            // de hmi::resolveTileAppearance (le personnage n'est pas une tuile, cf. PlayerSpriteTag)
+            // -- son quad est decorrelee de la hitbox, contrairement au chemin generique ci-dessous.
+            const PlayerSpriteTag* playerTag = world.hasComponent<PlayerSpriteTag>(entity)
+                                                   ? &world.getComponent<PlayerSpriteTag>(entity)
+                                                   : nullptr;
+            const bool usePlayerAppearance = playerTag != nullptr && mode == RenderMode::Texture;
 
-            // Apparence resolue par le point d'appel unique (LOT-41) : c'est ici, a la
-            // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas.
-            const TileAppearance appearance =
-                resolveTileAppearance(mode, sprite.region, skinTag, textures);
-            const core::AtlasRegion& region = appearance.region;
-            const TextureHandle texture = textures.textureFor(appearance);
-            const float atlasWidth = static_cast<float>(textures.widthFor(appearance));
-            const float atlasHeight = static_cast<float>(textures.heightFor(appearance));
+            core::AtlasRegion region;
+            TextureHandle texture = nullptr;
+            float atlasWidth = 0.0f;
+            float atlasHeight = 0.0f;
+            float worldWidth = 0.0f;
+            float worldHeight = 0.0f;
+            core::Vector2 quadOffset{};
 
-            // Taille du sprite en unites monde : la region (en pixels) ramenee a l'echelle du
-            // monde (16 px/unite), multipliee par l'echelle du Transform. Le zoom est applique
-            // plus tard par la projection de la camera. Le damier de repli fait exactement une
-            // case (MISSING_TEXTURE_SIZE == TILE_SIZE) : la geometrie composee est donc la meme
-            // dans les deux modes, seule la texture echantillonnee change.
-            const float worldWidth =
-                static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
-            const float worldHeight =
-                static_cast<float>(region.height) / Camera2D::PIXELS_PER_UNIT * transform.scale.y;
+            if (usePlayerAppearance) {
+                region = playerTag->textureRegion;
+                if (playerTag->usesCharacterSheet) {
+                    texture = textures.characterSheet;
+                    atlasWidth = static_cast<float>(textures.characterSheetWidth);
+                    atlasHeight = static_cast<float>(textures.characterSheetHeight);
+                } else {
+                    texture = textures.atlas;
+                    atlasWidth = static_cast<float>(textures.atlasWidth);
+                    atlasHeight = static_cast<float>(textures.atlasHeight);
+                }
+                // Taille du quad independante de la hitbox (TACHE-01) : deja en unites monde,
+                // calculee par hmi::computePlayerSpriteQuad -- pas de facteur Transform::scale ici.
+                worldWidth = playerTag->quadSize.x;
+                worldHeight = playerTag->quadSize.y;
+                quadOffset = playerTag->quadOffset;
+            } else {
+                // Type et voisinage de la tuile, quand l'entite en porte un (LOT-42) : c'est de la
+                // que vient le choix du skin. Une entite sans ce composant n'est pas habillable.
+                const TileSkinTag* skinTag = world.hasComponent<TileSkinTag>(entity)
+                                                 ? &world.getComponent<TileSkinTag>(entity)
+                                                 : nullptr;
+
+                // Apparence resolue par le point d'appel unique (LOT-41) : c'est ici, a la
+                // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas.
+                const TileAppearance appearance =
+                    resolveTileAppearance(mode, sprite.region, skinTag, textures);
+                region = appearance.region;
+                texture = textures.textureFor(appearance);
+                atlasWidth = static_cast<float>(textures.widthFor(appearance));
+                atlasHeight = static_cast<float>(textures.heightFor(appearance));
+
+                // Taille du sprite en unites monde : la region (en pixels) ramenee a l'echelle du
+                // monde (16 px/unite), multipliee par l'echelle du Transform. Le zoom est applique
+                // plus tard par la projection de la camera. Le damier de repli fait exactement une
+                // case (MISSING_TEXTURE_SIZE == TILE_SIZE) : la geometrie composee est donc la meme
+                // dans les deux modes, seule la texture echantillonnee change.
+                worldWidth =
+                    static_cast<float>(region.width) / Camera2D::PIXELS_PER_UNIT * transform.scale.x;
+                worldHeight = static_cast<float>(region.height) / Camera2D::PIXELS_PER_UNIT *
+                             transform.scale.y;
+            }
 
             // Position a dessiner : interpolee entre le pas precedent et le pas courant si
             // l'entite porte un `PreviousPosition` (personnage, dangers mobiles, blocs -- mouvement
@@ -204,6 +240,7 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 const core::Vector2 previous = world.getComponent<PreviousPosition>(entity).value;
                 position = previous + (transform.position - previous) * interpolationAlpha;
             }
+            position = position + quadOffset;
 
             SpriteQuad quad;
             quad.x = position.x;
@@ -215,6 +252,11 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             quad.v0 = static_cast<float>(region.y) / atlasHeight;
             quad.u1 = static_cast<float>(region.x + region.width) / atlasWidth;
             quad.v1 = static_cast<float>(region.y + region.height) / atlasHeight;
+            if (usePlayerAppearance && playerTag->flipHorizontal) {
+                // Retournement horizontal (TACHE-03) : u0/u1 echanges, ancrage deja symetrique
+                // (quadOffset ci-dessus ne depend pas du sens) -- aucun decalage de position.
+                std::swap(quad.u0, quad.u1);
+            }
             quad.r = sprite.tint.r;
             quad.g = sprite.tint.g;
             quad.b = sprite.tint.b;

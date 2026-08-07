@@ -1,6 +1,6 @@
 # LOT-48 — Personnage : skin et animations depuis fichier {#lot-48}
 
-> Statut : **non commencé**. Prérequis : [LOT-46](@ref lot-46) (moteur d'animation),
+> Statut : **fait**. Prérequis : [LOT-46](@ref lot-46) (moteur d'animation),
 > [LOT-43](@ref lot-43) (bibliothèque d'assets).
 
 ## Objectif
@@ -66,9 +66,9 @@ rapide et suspension à l'apex (`LOT-11`), dash directionnel — tous rendus par
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-spritesheet-externe.md) | Spritesheet de personnage externe + repli procédural + point d'ancrage image/hitbox | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-nouveaux-clips.md) | Nouveaux clips (chute, atterrissage, glissade murale, dash) projetés depuis l'état de simulation | `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-orientation-non-regression.md) | Orientation par retournement horizontal + non-régression du gameplay | `Source/HMI/Graphics`, `Source/Test` | ⬜ |
+| [TACHE-01](tache-01-spritesheet-externe.md) | Spritesheet de personnage externe + repli procédural + point d'ancrage image/hitbox | `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-nouveaux-clips.md) | Nouveaux clips (chute, atterrissage, glissade murale, dash) projetés depuis l'état de simulation | `Source/Core/Ecs/Systems`, `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-orientation-non-regression.md) | Orientation par retournement horizontal + non-régression du gameplay | `Source/HMI/Graphics`, `Source/Test` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Remplacer le fichier de spritesheet change l'apparence du personnage sans recompiler.

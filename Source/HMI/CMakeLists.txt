@@ -110,6 +110,7 @@ add_executable(ProjectGaming
     Graphics/SlopeMask.cpp
     Graphics/ProceduralAtlas.cpp
     Graphics/AnimationCatalog.cpp
+    Graphics/PlayerSprite.cpp
     Graphics/MissingTexture.cpp
     Graphics/TextureAtlas.cpp
     Graphics/TextureCache.cpp

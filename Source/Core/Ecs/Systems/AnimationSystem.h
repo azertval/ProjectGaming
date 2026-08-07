@@ -14,11 +14,15 @@
 namespace core {
 
 /**
- * @brief Jeu de clips du personnage, migré tel quel depuis l'ancien dispositif figé (`LOT-18`).
+ * @brief Jeu de clips du personnage, migré tel quel depuis l'ancien dispositif figé (`LOT-18`),
+ *        étendu aux états aériens/dash livrés par `LOT-10`/`LOT-11` (`LOT-48` TACHE-02).
  *
- * Trois clips nommés (« idle », « run », « jump »), mêmes durées (repos 0,5 s ; course 0,1 s) et
- * mêmes nombres d'images (2, 4, 1) qu'avant `LOT-46` : ce lot est une refonte d'infrastructure,
- * l'animation à l'écran ne doit strictement pas changer (`LOT-46` TACHE-04).
+ * Sept clips nommés : « idle », « run », « jump » (mêmes durées/nombres d'images qu'avant
+ * `LOT-46`, `LOT-46` TACHE-04), plus « fall », « land », « wallslide », « dash » (`LOT-48`). Ces
+ * quatre nouveaux clips n'ont pas de pose procédurale dédiée (`hmi::PlayerClipKind` reste limité à
+ * trois poses) : c'est `HMI` (`hmi::resolveDeclaredPlayerClip`) qui les fait retomber sur le clip
+ * le plus proche déclaré, aussi bien pour l'atlas procédural que pour une spritesheet externe
+ * partielle — `Core` n'a pas à le savoir (`EX-ARCH-012`).
  *
  * Instance **partagée** (même `shared_ptr` renvoyé à chaque appel) : tous les personnages d'une
  * session utilisent le même jeu de clips, immuable.
@@ -34,6 +38,15 @@ constexpr int PLAYER_CLIP_IDLE = 0;
 constexpr int PLAYER_CLIP_RUN = 1;
 /// Index du clip « jump » dans `core::playerClipSet()` (voir `PLAYER_CLIP_IDLE`).
 constexpr int PLAYER_CLIP_JUMP = 2;
+/// Index du clip « fall » (chute, distincte du saut, `LOT-48`) dans `core::playerClipSet()`.
+constexpr int PLAYER_CLIP_FALL = 3;
+/// Index du clip « land » (atterrissage, transition jouée une fois, `LOT-48`) dans
+/// `core::playerClipSet()`.
+constexpr int PLAYER_CLIP_LAND = 4;
+/// Index du clip « wallslide » (glissade murale, `LOT-48`) dans `core::playerClipSet()`.
+constexpr int PLAYER_CLIP_WALLSLIDE = 5;
+/// Index du clip « dash » dans `core::playerClipSet()` (voir `PLAYER_CLIP_IDLE`).
+constexpr int PLAYER_CLIP_DASH = 6;
 
 /**
  * @brief Fait progresser l'animation de toute entité portant `core::Animation`, et projette
@@ -41,9 +54,11 @@ constexpr int PLAYER_CLIP_JUMP = 2;
  *
  * Deux responsabilités distinctes (`LOT-46` TACHE-02) :
  * - **projection**, spécifique au personnage : pour chaque entité `Player` + `Velocity` +
- *   `Animation`, détermine le clip actif à partir de `Player::grounded` et de la vitesse
- *   horizontale (en l'air → saut ; au sol et en mouvement → course ; au sol et immobile → repos),
- *   comme avant `LOT-46` (`targetClip`, désormais résolu par nom plutôt que par valeur d'`enum`) ;
+ *   `Animation`, détermine le clip actif par ordre de priorité **explicite** (`LOT-48` TACHE-02,
+ *   aucun champ ajouté à `Player` — l'animation reste une conséquence de l'état physique
+ *   existant) : dash (`dashTimer` actif) > atterrissage (transition, cf. `targetClipName`) >
+ *   glissade murale (`wallDirection` non nul, en l'air) > chute/saut (en l'air, signe de la
+ *   vitesse verticale) > course/repos (au sol, seuil `MOVING_THRESHOLD`, comme avant `LOT-46`) ;
  * - **progression**, générale : pour **toute** entité portant `core::Animation` (personnage,
  *   tuiles animées, `LOT-46` TACHE-05), avance l'image courante selon la durée du clip résolu,
  *   boucle ou bascule sur le clip suivant en fin de clip joué une fois (`core::ClipEndMode::
