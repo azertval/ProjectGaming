@@ -45,6 +45,11 @@
        <widget class="QComboBox" name="decorLayerCombo"/>
       </item>
       <item>
+       <widget class="QCheckBox" name="decorSnapCheckBox">
+        <property name="text"><string>Aimanter à la grille</string></property>
+       </widget>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="decorPickerContainerLayout">
         <property name="leftMargin"><number>0</number></property>
         <property name="rightMargin"><number>0</number></property>

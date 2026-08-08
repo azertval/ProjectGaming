@@ -11,9 +11,11 @@
 #include <vector>
 
 #include "Core/Ecs/Components/Animation.h"
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileType.h"
+#include "HMI/Editor/DecorListModel.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/SkinCatalog.h"
 
@@ -69,11 +71,14 @@ public:
      *                             `LOT-44`).
      * @param objectsDirectory     Dossier balayé pour peupler la grille d'assets de la section
      *                             « Objets » (`LOT-45`).
+     * @param decorsDirectory      Dossier balayé pour résoudre les vignettes de la section
+     *                             « Décors » (`LOT-50` TACHE-04) et détecter les assets manquants.
      * @param parent               Widget parent.
      */
     explicit TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
                           std::filesystem::path backgroundsDirectory,
-                          std::filesystem::path objectsDirectory, QWidget* parent = nullptr);
+                          std::filesystem::path objectsDirectory,
+                          std::filesystem::path decorsDirectory, QWidget* parent = nullptr);
     ~TexturePanel() override;
 
     /**
@@ -123,6 +128,20 @@ public:
      */
     void refreshObjects(const core::LevelDraft& draft);
 
+    /**
+     * @brief Resynchronise la section « Décors » avec le brouillon et la sélection courants
+     *        (`LOT-50` TACHE-04).
+     *
+     * À appeler après tout changement de brouillon (comme `refreshObjects`) **et** après tout
+     * changement de sélection venu du canevas (`hmi::GameViewport`) — c'est ce qui tient la
+     * sélection croisée sans qu'aucune des deux vues n'en possède sa propre copie
+     * (« ne pas dupliquer l'état de sélection », TACHE-04).
+     * @param draft         Brouillon dont on lit `decors()`.
+     * @param selectedIndex Décor actuellement sélectionné (rang dans `draft.decors()`), si un
+     *                      l'est.
+     */
+    void refreshDecors(const core::LevelDraft& draft, std::optional<std::size_t> selectedIndex);
+
 signals:
     /// Émis après toute modification d'assignation ou changement de jeu courant, une fois le
     /// catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.
@@ -143,6 +162,22 @@ signals:
     void textureOverrideSelectionChanged(std::optional<core::GridPosition> position);
     /// Émis par le bouton « Retirer » de la section « Objets » pour la ligne sélectionnée.
     void textureOverrideRemoveRequested(core::GridPosition position);
+    /// Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,
+    /// `LOT-50` TACHE-04), ou `std::nullopt` si aucune ligne n'est sélectionnée.
+    void decorSelected(std::optional<std::size_t> index);
+    /// Émis par le bouton « Avancer » pour le décor sélectionné (`hmi::LevelDraft::
+    /// bringDecorForward`).
+    void decorForwardRequested(std::size_t index);
+    /// Émis par le bouton « Reculer » pour le décor sélectionné (`hmi::LevelDraft::
+    /// sendDecorBackward`).
+    void decorBackwardRequested(std::size_t index);
+    /// Émis quand l'utilisateur choisit une nouvelle couche pour le décor sélectionné
+    /// (`core::LevelDraft::setDecorLayer`).
+    void decorLayerChangeRequested(std::size_t index, core::DecorLayer layer);
+    /// Émis par le bouton « Supprimer » pour le décor sélectionné.
+    void decorRemoveRequested(std::size_t index);
+    /// Émis par le bouton « Centrer » : demande de cadrer la caméra sur le décor sélectionné.
+    void decorCenterRequested(std::size_t index);
 
 private:
     void rebuildTree();
@@ -174,6 +209,29 @@ private:
     /// TACHE-04) : lecture en temps reel du meme catalogue que le jeu (`hmi::AnimationCatalog`),
     /// pas une reimplementation parallele.
     void tickAnimationPreview();
+    /// Vignette d'un asset de décor, décodée au premier besoin puis mise en cache (`LOT-50`
+    /// TACHE-04) — même repli en damier magenta que `thumbnailFor` si absent/illisible.
+    [[nodiscard]] QPixmap decorThumbnailFor(const std::string& asset);
+    /// Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil
+    /// Décor, `ToolPanel`).
+    [[nodiscard]] QString decorLayerLabel(core::DecorLayer layer) const;
+    /// Reconstruit le tableau de la section « Décors » depuis `_decorRows` (déjà groupées/triées
+    /// par `refreshDecors`) et resélectionne `_selectedDecorIndex`, **sans** réémettre
+    /// `decorSelected` (resynchronisation programmatique, même garde que `setLevelProperties`).
+    void rebuildDecorRows();
+    /// Active/désactive les boutons d'action et resynchronise le sélecteur de couche avec la ligne
+    /// actuellement sélectionnée dans le tableau — factorisé entre `rebuildDecorRows` (silencieux)
+    /// et `onDecorsSelectionChanged` (qui émet en plus `decorSelected`).
+    void updateDecorActionButtons();
+    /// Rang du décor porté par la ligne actuellement sélectionnée du tableau « Décors » (donnée
+    /// stockée sur l'item lors de `rebuildDecorRows`), ou `std::nullopt` si aucune sélection.
+    [[nodiscard]] std::optional<std::size_t> selectedDecorRowIndex() const;
+    void onDecorsSelectionChanged();
+    void onDecorForwardClicked();
+    void onDecorBackwardClicked();
+    void onDecorLayerComboChanged(int index);
+    void onDecorRemoveClicked();
+    void onDecorCenterClicked();
 
     std::unique_ptr<Ui::TexturePanel> _ui;
     QStandardItemModel* _model;
@@ -191,12 +249,22 @@ private:
     /// Horloge d'aperçu, avancée par `_animationPreviewTimer` (temps réel, comme l'aperçu
     /// d'édition de `hmi::DraftRenderer` — la détermination n'a pas de sens hors simulation).
     core::Animation _animationPreviewAnimation;
+    QStandardItemModel* _decorsModel;  ///< Modèle du tableau de la section « Décors » (`LOT-50`).
     std::filesystem::path _skinsDirectory;
     std::filesystem::path _catalogPath;
     std::filesystem::path _backgroundsDirectory;
     std::filesystem::path _objectsDirectory;
+    std::filesystem::path _decorsDirectory;
     /// Surcharges affichées par le tableau, indexées comme ses lignes (`LOT-45`).
     std::vector<core::TileTextureOverride> _objectRows;
+    /// Lignes affichées par le tableau « Décors », déjà groupées/triées (`LOT-50` TACHE-04).
+    std::vector<DecorListRow> _decorRows;
+    /// Décor actuellement sélectionné (rang dans `core::LevelDraft::decors()`), poussé par
+    /// `refreshDecors` — jamais possédé ici au sens propre, seulement reflété (source unique :
+    /// `hmi::GameViewport`).
+    std::optional<std::size_t> _selectedDecorIndex;
+    /// Fichier de décor -> vignette décodée (`LOT-50`). Vidé par `reloadAssets`.
+    std::unordered_map<std::string, QPixmap> _decorThumbnails;
     SkinCatalog* _catalog = nullptr;  ///< Non possédé (propriété de `GameViewport`).
     std::string _currentSet;
     /// Dernières valeurs poussées par `setLevelProperties` (LOT-44) : reappliquées après tout

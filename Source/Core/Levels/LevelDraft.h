@@ -160,6 +160,86 @@ public:
     void removeDecor(std::size_t index);
 
     /**
+     * @brief Déplace le décor au rang @p index à une nouvelle position libre (`EX-DEC-010`).
+     *
+     * Ne change ni la couche ni le rang : seule `Decor::position` est modifiée.
+     * @param index    Rang dans `decors()`.
+     * @param position Nouvelle position, en unités monde (aucune contrainte de grille).
+     * @return `true` si appliqué ; `false` si @p index est hors bornes (sans effet, `EX-NFR-040`).
+     */
+    bool moveDecor(std::size_t index, Vector2 position);
+
+    /**
+     * @brief Redimensionne le décor au rang @p index (`EX-DEC-010`), en repositionnant son coin
+     *        éventuellement du même geste.
+     *
+     * @p position et @p scale sont appliquées **atomiquement**, en une seule mutation annulable :
+     * redimensionner depuis un coin (poignée, `LOT-50` TACHE-02) déplace le coin **opposé au
+     * coin ancré**, sauf depuis le coin bas-droit — les deux changent donc ensemble le plus
+     * souvent, et scinder l'opération en deux appels (`moveDecor` + `resizeDecor`) empilerait
+     * deux entrées d'historique pour un seul geste utilisateur. Un appelant qui ne change que
+     * l'échelle (ex. futur champ numérique, `LOT-50` TACHE-04) passe simplement la position
+     * courante du décor, inchangée.
+     *
+     * Une échelle non strictement positive sur un axe est **rejetée** (aucune mutation, position
+     * comprise) : un décor invisible (échelle nulle) ou retourné par accident (échelle négative)
+     * serait un piège d'usage plutôt qu'une fonctionnalité.
+     * @param index    Rang dans `decors()`.
+     * @param position Nouvelle position (coin haut-gauche), en unités monde.
+     * @param scale    Nouvelle échelle ; chaque composante doit être strictement positive.
+     * @return `true` si appliqué ; `false` si @p index est hors bornes ou si @p scale n'est pas
+     *         strictement positive sur les deux axes (sans effet, `EX-NFR-040`).
+     */
+    bool resizeDecor(std::size_t index, Vector2 position, Vector2 scale);
+
+    /**
+     * @brief Pivote le décor au rang @p index (`EX-DEC-010`).
+     *
+     * La rotation est **normalisée** dans `[0, 2π[` avant d'être stockée : contrairement à
+     * l'échelle, aucune valeur n'est rejetée, une rotation n'a pas de valeur invalide.
+     * @param index    Rang dans `decors()`.
+     * @param rotation Nouvelle rotation, en radians (n'importe quelle valeur, y compris hors
+     *                 `[0, 2π[` ou négative).
+     * @return `true` si appliqué ; `false` si @p index est hors bornes (sans effet).
+     */
+    bool rotateDecor(std::size_t index, float rotation);
+
+    /**
+     * @brief Change la couche du décor au rang @p index (`EX-DEC-010`, `EX-DEC-002`).
+     *
+     * Comportement défini explicitement (`EX-EDIT-010`, pour ne pas le laisser émerger) : le
+     * décor rejoint la **fin** du vecteur, ce qui en fait le rang le plus élevé (« dessus ») de sa
+     * nouvelle couche — même convention que `addDecor`, qui place toujours un nouveau décor en
+     * fin de vecteur. Sans effet (mais succès) si @p layer est déjà la couche courante du décor.
+     * @param index Rang dans `decors()`.
+     * @param layer Nouvelle couche.
+     * @return Le nouveau rang du décor, ou `std::nullopt` si @p index est hors bornes.
+     */
+    std::optional<std::size_t> setDecorLayer(std::size_t index, DecorLayer layer);
+
+    /**
+     * @brief Avance le décor au rang @p index d'un cran dans l'ordre de superposition **de sa
+     *        couche** (`EX-DEC-010`) : échange avec le décor de même couche immédiatement suivant.
+     *
+     * Ne change jamais la couche du décor (`EX-DEC-002`) : seul l'ordre **à l'intérieur** de sa
+     * couche est affecté. Sans effet (mais succès, rang inchangé) si @p index désigne déjà le
+     * décor le plus en avant de sa couche.
+     * @param index Rang dans `decors()`.
+     * @return Le nouveau rang du décor, ou `std::nullopt` si @p index est hors bornes.
+     */
+    std::optional<std::size_t> bringDecorForward(std::size_t index);
+
+    /// Recule le décor au rang @p index d'un cran dans l'ordre de sa couche (symétrique de
+    /// `bringDecorForward`) : échange avec le décor de même couche immédiatement précédent.
+    std::optional<std::size_t> sendDecorBackward(std::size_t index);
+
+    /// Amène le décor au rang @p index au premier rang (le plus en avant) de sa couche.
+    std::optional<std::size_t> bringDecorToFront(std::size_t index);
+
+    /// Envoie le décor au rang @p index au dernier rang (le plus en arrière) de sa couche.
+    std::optional<std::size_t> sendDecorToBack(std::size_t index);
+
+    /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
      *
      * Agrandir complète les nouvelles cases en `Empty` ; réduire **tronque** silencieusement le

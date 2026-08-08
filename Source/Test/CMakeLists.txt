@@ -24,6 +24,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_tile_type_name.cpp
     Unit/Core/Levels/test_tile_texture_override.cpp
     Unit/Core/Levels/test_decor.cpp
+    Unit/Core/Levels/test_decor_mutations.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -80,7 +81,9 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_library.cpp
     Unit/HMI/Editor/test_asset_file_operations.cpp
     Unit/HMI/Editor/test_asset_references.cpp
-    Unit/HMI/Editor/test_decor_placement_gesture.cpp
+    Unit/HMI/Editor/test_decor_geometry.cpp
+    Unit/HMI/Editor/test_decor_gesture.cpp
+    Unit/HMI/Editor/test_decor_list_model.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
@@ -172,9 +175,12 @@ add_executable(UnitTests
     # Geste pur de l'outil « Texture par instance » (LOT-45) : meme patron que LinkGesture.cpp,
     # testable hors Qt/GPU.
     ../HMI/Editor/TextureAssignGesture.cpp
-    # Geste pur de l'outil « Decor » (LOT-49 TACHE-04) : recherche du decor le plus proche d'un
-    # clic, meme patron que TextureAssignGesture.cpp, testable hors Qt/GPU.
-    ../HMI/Editor/DecorPlacementGesture.cpp
+    # La geometrie partagee du corps/des poignees de decors (LOT-50) et le geste pur de
+    # manipulation sont des fonctions/machine a etats pures, sans dependance GPU/Qt : testables
+    # hors GPU, meme patron que LinkGesture/LinkGeometry (LOT-37).
+    ../HMI/Editor/DecorGeometry.cpp
+    ../HMI/Editor/DecorGesture.cpp
+    ../HMI/Editor/DecorListModel.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
     # testable hors Qt.
     ../HMI/Editor/AssetLibrary.cpp

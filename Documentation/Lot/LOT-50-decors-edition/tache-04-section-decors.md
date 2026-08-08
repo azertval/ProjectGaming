@@ -1,6 +1,6 @@
 # TACHE-04 — Section « Décors » du panneau « Textures » {#lot-50-tache-04-section-decors}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Manipuler des décors uniquement au canevas devient vite impraticable : un décor caché derrière un

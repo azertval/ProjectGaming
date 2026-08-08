@@ -25,8 +25,10 @@
 #include <QVariant>
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <iterator>
 #include <memory>
 #include <optional>
 #include <utility>
@@ -35,8 +37,10 @@
 #include "Core/Ecs/AnimationClip.h"
 #include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Levels/LevelDraft.h"
+#include "HMI/Editor/AssetLibrary.h"
 #include "HMI/Editor/AssetReferences.h"
 #include "HMI/Editor/AssetThumbnailView.h"
+#include "HMI/Editor/DecorListModel.h"
 #include "HMI/Editor/MechanismAnimationAssignments.h"
 #include "HMI/Editor/SkinAssignments.h"
 #include "HMI/Editor/TaxonomyLabels.h"
@@ -62,6 +66,29 @@ constexpr int COLUMN_COUNT = 3;
 constexpr int OBJECTS_COLUMN_POSITION = 0;
 constexpr int OBJECTS_COLUMN_ASSET = 1;
 constexpr int OBJECTS_COLUMN_COUNT = 2;
+
+// Colonnes du tableau de la section « Décors » (LOT-50 TACHE-04) : vignette+asset, couche.
+constexpr int DECORS_COLUMN_ASSET = 0;
+constexpr int DECORS_COLUMN_LAYER = 1;
+constexpr int DECORS_COLUMN_COUNT = 2;
+
+// Ordre des entrees du selecteur de couche de la section « Decors », identique a celui de
+// ToolPanel (LOT-49) : Arriere-plan, Decor, Premier plan.
+constexpr core::DecorLayer DECOR_LAYER_ORDER[] = {
+    core::DecorLayer::Background, core::DecorLayer::Decor, core::DecorLayer::Foreground};
+
+// Rang de core::DecorLayer dans DECOR_LAYER_ORDER (index du selecteur de couche).
+int decorLayerComboIndex(core::DecorLayer layer) noexcept {
+    switch (layer) {
+        case core::DecorLayer::Background:
+            return 0;
+        case core::DecorLayer::Decor:
+            return 1;
+        case core::DecorLayer::Foreground:
+            return 2;
+    }
+    return 1;
+}
 
 // Colonnes de l'arbre de la section « Animations » (LOT-47) : famille de mecanisme, fichier
 // assigne, diagnostic des clips manquants.
@@ -212,7 +239,8 @@ private:
 
 TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem::path catalogPath,
                            std::filesystem::path backgroundsDirectory,
-                           std::filesystem::path objectsDirectory, QWidget* parent)
+                           std::filesystem::path objectsDirectory,
+                           std::filesystem::path decorsDirectory, QWidget* parent)
     : QWidget(parent),
       _ui(std::make_unique<Ui::TexturePanel>()),
       _model(new QStandardItemModel(this)),
@@ -221,10 +249,12 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
       _objectsModel(new QStandardItemModel(0, OBJECTS_COLUMN_COUNT, this)),
       _animationsModel(new QStandardItemModel(0, ANIMATIONS_COLUMN_COUNT, this)),
       _animationPreviewTimer(new QTimer(this)),
+      _decorsModel(new QStandardItemModel(0, DECORS_COLUMN_COUNT, this)),
       _skinsDirectory(std::move(skinsDirectory)),
       _catalogPath(std::move(catalogPath)),
       _backgroundsDirectory(std::move(backgroundsDirectory)),
-      _objectsDirectory(std::move(objectsDirectory)) {
+      _objectsDirectory(std::move(objectsDirectory)),
+      _decorsDirectory(std::move(decorsDirectory)) {
     _ui->setupUi(this);
     _model->setColumnCount(COLUMN_COUNT);
     _ui->skinsTree->setModel(_model);
@@ -289,6 +319,28 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
             [this] { onAnimationsSelectionChanged(); });
     connect(_animationPreviewTimer, &QTimer::timeout, this, &TexturePanel::tickAnimationPreview);
     _animationPreviewTimer->start(ANIMATION_PREVIEW_INTERVAL_MS);
+
+    // Section « Décors » (LOT-50 TACHE-04) : liste groupée par couche (hmi::buildDecorListRows),
+    // sélection croisée avec le canevas, actions de réordonnancement/changement de
+    // couche/suppression/centrage — toutes passent par les mutateurs de TACHE-01 (annulables).
+    _ui->decorsTable->setModel(_decorsModel);
+    _ui->decorsTable->horizontalHeader()->setStretchLastSection(true);
+    _ui->decorsTable->verticalHeader()->setVisible(false);
+    connect(_ui->decorsTable->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            [this] { onDecorsSelectionChanged(); });
+    for (std::size_t i = 0; i < std::size(DECOR_LAYER_ORDER); ++i) {
+        _ui->decorLayerCombo->addItem(QString());
+    }
+    connect(_ui->decorForwardButton, &QPushButton::clicked, this,
+            [this] { onDecorForwardClicked(); });
+    connect(_ui->decorBackwardButton, &QPushButton::clicked, this,
+            [this] { onDecorBackwardClicked(); });
+    connect(_ui->decorLayerCombo, &QComboBox::currentIndexChanged, this,
+            [this](int index) { onDecorLayerComboChanged(index); });
+    connect(_ui->decorRemoveButton, &QPushButton::clicked, this,
+            [this] { onDecorRemoveClicked(); });
+    connect(_ui->decorCenterButton, &QPushButton::clicked, this,
+            [this] { onDecorCenterClicked(); });
 }
 
 TexturePanel::~TexturePanel() = default;
@@ -324,6 +376,7 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->sections->setTabText(1, QString::fromStdString(loc.text("textures.section_background")));
     _ui->sections->setTabText(2, QString::fromStdString(loc.text("textures.section_objects")));
     _ui->sections->setTabText(3, QString::fromStdString(loc.text("textures.section_animations")));
+    _ui->sections->setTabText(4, QString::fromStdString(loc.text("textures.section_decors")));
     _ui->backgroundModeHintLabel->setText(
         QString::fromStdString(loc.text("textures.background_mode_hint")));
     _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));
@@ -342,12 +395,27 @@ void TexturePanel::retranslateUi(const Localization& loc) {
         {QString::fromStdString(loc.text("textures.column_type")),
          QString::fromStdString(loc.text("textures.column_asset")),
          QString::fromStdString(loc.text("textures.animations_column_diagnostic"))});
+    _ui->decorForwardButton->setText(QString::fromStdString(loc.text("textures.decors_forward")));
+    _ui->decorBackwardButton->setText(QString::fromStdString(loc.text("textures.decors_backward")));
+    _ui->decorCenterButton->setText(QString::fromStdString(loc.text("textures.decors_center")));
+    _ui->decorRemoveButton->setText(QString::fromStdString(loc.text("textures.decors_remove")));
+    _decorsModel->setHorizontalHeaderLabels(
+        {QString::fromStdString(loc.text("textures.decors_column_asset")),
+         QString::fromStdString(loc.text("textures.decors_column_layer"))});
+    {
+        const QSignalBlocker comboBlocker(_ui->decorLayerCombo);
+        for (std::size_t i = 0; i < std::size(DECOR_LAYER_ORDER); ++i) {
+            _ui->decorLayerCombo->setItemText(static_cast<int>(i),
+                                              decorLayerLabel(DECOR_LAYER_ORDER[i]));
+        }
+    }
     _backgroundView->retranslateUi(loc);
     _objectView->retranslateUi(loc);
     rebuildTree();
     rebuildLevelSkinSetSelector();  // le libelle "jeu par defaut" vient de changer de langue
     rebuildObjectRows();
     rebuildAnimationsTree();
+    rebuildDecorRows();  // les libelles de couche/le tooltip "asset manquant" dependent de _loc
 }
 
 // Reconstruit entierement l'arbre depuis le catalogue et le contenu du dossier de skins.
@@ -554,6 +622,12 @@ void TexturePanel::reloadAssets() {
     _animationPreviewSheet = QImage();
     _animationPreviewDescription.reset();
     rebuildAnimationsTree();
+    // Le contenu de Assets/Decors/ a pu changer (asset renomme/ajoute/supprime hors application) :
+    // les vignettes sont redecodees ; le statut "asset manquant" se remettra a jour au prochain
+    // refreshDecors (LOT-50 TACHE-04) -- meme limite acceptee que _objectRows ci-dessus, dont le
+    // contenu n'est pas non plus revalide ici.
+    _decorThumbnails.clear();
+    rebuildDecorRows();
 }
 
 // Resynchronise la section « Objets » avec le brouillon courant (LOT-45).
@@ -611,6 +685,164 @@ void TexturePanel::onObjectsRemoveClicked() {
         return;
     }
     emit textureOverrideRemoveRequested(_objectRows[static_cast<std::size_t>(row)].position);
+}
+
+// Vignette d'un asset de decor, decodee au premier besoin puis mise en cache (LOT-50 TACHE-04) --
+// meme repli en damier magenta que thumbnailFor si absent/illisible.
+QPixmap TexturePanel::decorThumbnailFor(const std::string& asset) {
+    const auto cached = _decorThumbnails.find(asset);
+    if (cached != _decorThumbnails.end()) {
+        return cached->second;
+    }
+
+    QImage source;
+    const std::optional<DecodedImage> decoded =
+        asset.empty() ? std::nullopt : decodeImageFile(_decorsDirectory / asset);
+    if (decoded) {
+        source = toImage(*decoded);
+    } else {
+        const ProceduralAtlasImage missing = buildMissingTextureImage();
+        source = toImage(DecodedImage{missing.width, missing.height, missing.pixels});
+    }
+
+    const QPixmap pixmap = QPixmap::fromImage(source.scaled(
+        ROW_ICON_SIZE, ROW_ICON_SIZE, Qt::KeepAspectRatio, Qt::FastTransformation));
+    _decorThumbnails.emplace(asset, pixmap);
+    return pixmap;
+}
+
+// Nom localise d'une couche de decor, pour la colonne Couche et le selecteur de changement de
+// couche -- meme trois libelles que le selecteur de l'outil Decor (ToolPanel, LOT-49).
+QString TexturePanel::decorLayerLabel(core::DecorLayer layer) const {
+    if (_loc == nullptr) {
+        return QString();
+    }
+    switch (layer) {
+        case core::DecorLayer::Background:
+            return QString::fromStdString(_loc->text("tool.decor_layer_background"));
+        case core::DecorLayer::Decor:
+            return QString::fromStdString(_loc->text("tool.decor_layer_decor"));
+        case core::DecorLayer::Foreground:
+            return QString::fromStdString(_loc->text("tool.decor_layer_foreground"));
+    }
+    return QString();
+}
+
+// Resynchronise la section « Decors » avec le brouillon et la selection courants (LOT-50 TACHE-04).
+void TexturePanel::refreshDecors(const core::LevelDraft& draft,
+                                 std::optional<std::size_t> selectedIndex) {
+    _decorRows = buildDecorListRows(draft.decors(), listAssetFiles(_decorsDirectory));
+    _selectedDecorIndex = selectedIndex;
+    rebuildDecorRows();
+}
+
+// Reconstruit le tableau depuis _decorRows, et reselectionne _selectedDecorIndex sans reemettre
+// decorSelected (evite de reboucler avec l'appelant, meme garde que setLevelProperties).
+void TexturePanel::rebuildDecorRows() {
+    const QSignalBlocker tableBlocker(_ui->decorsTable->selectionModel());
+    _decorsModel->removeRows(0, _decorsModel->rowCount());
+    int selectedRow = -1;
+    for (const DecorListRow& row : _decorRows) {
+        auto* const assetItem = new QStandardItem(decorThumbnailFor(row.assetName),
+                                                   QString::fromStdString(row.assetName));
+        auto* const layerItem = new QStandardItem(decorLayerLabel(row.layer));
+        assetItem->setEditable(false);
+        layerItem->setEditable(false);
+        if (row.assetMissing) {
+            // Signale ce que le damier magenta signale deja dans le canevas (EX-NFR-040) : rouge
+            // dans la liste, pour reperer tous les assets manquants d'un coup d'oeil.
+            assetItem->setForeground(QColor(220, 60, 60));
+            assetItem->setToolTip(
+                _loc != nullptr ? QString::fromStdString(_loc->text("textures.decors_missing_asset"))
+                                : QString());
+        }
+        assetItem->setData(static_cast<qulonglong>(row.index), Qt::UserRole);
+        const int newRow = _decorsModel->rowCount();
+        _decorsModel->appendRow(QList<QStandardItem*>{assetItem, layerItem});
+        if (_selectedDecorIndex && *_selectedDecorIndex == row.index) {
+            selectedRow = newRow;
+        }
+    }
+    if (selectedRow >= 0) {
+        _ui->decorsTable->selectRow(selectedRow);
+    }
+    updateDecorActionButtons();
+}
+
+// Active/desactive les boutons d'action et resynchronise le selecteur de couche (voir en-tete) --
+// factorise entre rebuildDecorRows (silencieux) et onDecorsSelectionChanged (qui emet en plus).
+void TexturePanel::updateDecorActionButtons() {
+    const bool hasSelection = _selectedDecorIndex.has_value();
+    _ui->decorForwardButton->setEnabled(hasSelection);
+    _ui->decorBackwardButton->setEnabled(hasSelection);
+    _ui->decorLayerCombo->setEnabled(hasSelection);
+    _ui->decorRemoveButton->setEnabled(hasSelection);
+    _ui->decorCenterButton->setEnabled(hasSelection);
+
+    const QSignalBlocker comboBlocker(_ui->decorLayerCombo);
+    if (!hasSelection) {
+        return;
+    }
+    const auto found = std::find_if(_decorRows.begin(), _decorRows.end(),
+                                    [this](const DecorListRow& row) {
+                                        return row.index == *_selectedDecorIndex;
+                                    });
+    if (found == _decorRows.end()) {
+        return;
+    }
+    _ui->decorLayerCombo->setCurrentIndex(decorLayerComboIndex(found->layer));
+}
+
+// Ligne selectionnee -> rang du decor (donnee stockee sur l'item, meme patron que positionText
+// pour les surcharges), ou std::nullopt si aucune selection valide.
+std::optional<std::size_t> TexturePanel::selectedDecorRowIndex() const {
+    const QModelIndexList selected = _ui->decorsTable->selectionModel()->selectedRows();
+    if (selected.isEmpty()) {
+        return std::nullopt;
+    }
+    const QStandardItem* const item = _decorsModel->item(selected.first().row(), DECORS_COLUMN_ASSET);
+    if (item == nullptr) {
+        return std::nullopt;
+    }
+    return static_cast<std::size_t>(item->data(Qt::UserRole).toULongLong());
+}
+
+void TexturePanel::onDecorsSelectionChanged() {
+    _selectedDecorIndex = selectedDecorRowIndex();
+    updateDecorActionButtons();
+    emit decorSelected(_selectedDecorIndex);
+}
+
+void TexturePanel::onDecorForwardClicked() {
+    if (_selectedDecorIndex) {
+        emit decorForwardRequested(*_selectedDecorIndex);
+    }
+}
+
+void TexturePanel::onDecorBackwardClicked() {
+    if (_selectedDecorIndex) {
+        emit decorBackwardRequested(*_selectedDecorIndex);
+    }
+}
+
+void TexturePanel::onDecorLayerComboChanged(int index) {
+    if (!_selectedDecorIndex || index < 0 ||
+        index >= static_cast<int>(std::size(DECOR_LAYER_ORDER))) {
+        return;
+    }
+    emit decorLayerChangeRequested(*_selectedDecorIndex, DECOR_LAYER_ORDER[index]);
+}
+
+void TexturePanel::onDecorRemoveClicked() {
+    if (_selectedDecorIndex) {
+        emit decorRemoveRequested(*_selectedDecorIndex);
+    }
+}
+
+void TexturePanel::onDecorCenterClicked() {
+    if (_selectedDecorIndex) {
+        emit decorCenterRequested(*_selectedDecorIndex);
+    }
 }
 
 // Reconstruit l'arbre de la section « Animations » (LOT-47 TACHE-04) : logique hors du widget

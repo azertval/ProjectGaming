@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**632 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**638 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (542)
+## Tests unitaires (548)
 
 ### Core
 
@@ -484,16 +484,27 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (28)
+#### Editor (34)
 
-**`test_decor_placement_gesture.cpp`**
+**`test_decor_geometry.cpp`**
 
 | Titre (criticité) | Brief | Étapes | Résultat attendu |
 |---|---|---|---|
-| **DecorPlacementGestureTest.RenvoieLeDecorLePlusProche** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp:25`</sub> | nearestDecorAt renvoie le decor le plus proche. | 1. Placer deux decors a des distances differentes du point clique. | Vérifie que `found.has_value()` est vrai.<br/>Vérifie que `*found` vaut `1u`. |
-| **DecorPlacementGestureTest.HorsDuRayonRenvoieNullopt** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp:45`</sub> | Hors du rayon de detection, aucun decor n'est trouve. | 1. Placer un decor loin du point clique. | Vérifie que `found.has_value()` est faux. |
-| **DecorPlacementGestureTest.SansDecorRenvoieNullopt** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp:63`</sub> | Sans decor, nearestDecorAt renvoie toujours nullopt. | 1. Appeler nearestDecorAt sur un vecteur vide. | Vérifie que `found.has_value()` est faux. |
-| **DecorPlacementGestureTest.ADistanceEgaleLeRangLePlusEleveGagne** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp:79`</sub> | A distance egale, le rang le plus eleve est prefere. | 1. Placer deux decors a exactement la meme distance du point clique. | Vérifie que `found.has_value()` est vrai.<br/>Vérifie que `*found` vaut `1u`. |
+| **DecorGeometryTest.DecorWorldBoundsCalculeLeRectangleEnglobant** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:24`</sub> | decorWorldBounds calcule le rectangle englobant. | 1. Calculer le rectangle d'un decor a echelle non uniforme. | Vérifie que `bounds.position` vaut `(Vector2{3.0f, 4.0f})`.<br/>Vérifie que `bounds.size` vaut `(Vector2{32.0f, 16.0f})`. |
+| **DecorGeometryTest.PoigneesTailleEcranConstante** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:44`</sub> | Les poignees gardent une taille ecran constante quel que soit le zoom. | 1. Calculer les poignees d'un decor a deux echelles ecran differentes. | Vérifie que `wide.topLeft.size.x` vaut `narrow.topLeft.size.x * 2.0f` (comparaison flottante).<br/>Vérifie que `wide.topLeft.size.y` vaut `narrow.topLeft.size.y * 2.0f` (comparaison flottante). |
+| **DecorGeometryTest.PoigneesPositionneesAuxCoinsEtAuDessusDuBordSuperieur** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:65`</sub> | Les poignees sont positionnees sur les coins et au-dessus du bord superieur. | 1. Calculer les poignees d'un decor connu. | Vérifie que `layout.topLeft.contains(Vector2{10.0f, 10.0f})` est vrai.<br/>Vérifie que `layout.topRight.contains(Vector2{14.0f, 10.0f})` est vrai.<br/>Vérifie que `layout.bottomLeft.contains(Vector2{10.0f, 12.0f})` est vrai.<br/>Vérifie que `layout.bottomRight.contains(Vector2{14.0f, 12.0f})` est vrai.<br/>Vérifie que `layout.rotation.position.x + layout.rotation.size.x * 0.5f` vaut `12.0f`, à `1e-3f` près.<br/>Vérifie que `layout.rotation.position.y + layout.rotation.size.y` est strictement inférieur à `10.0f`. |
+| **DecorGeometryTest.HitTestDecorHandlesIdentifieLaPoigneeTouchee** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:88`</sub> | hitTestDecorHandles identifie la poignee touchee. | 1. Tester un point sur chaque poignee, puis un point hors de toutes. | Vérifie que `hmi::hitTestDecorHandles(Vector2{0.0f, 0.0f}, layout)` vaut `hmi::DecorHandle::TopLeft`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{4.0f, 0.0f}, layout)` vaut `hmi::DecorHandle::TopRight`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{0.0f, 2.0f}, layout)` vaut `hmi::DecorHandle::BottomLeft`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{4.0f, 2.0f}, layout)` vaut `hmi::DecorHandle::BottomRight`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{2.0f, -2.4f}, layout)` vaut `hmi::DecorHandle::Rotation`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{2.0f, 1.0f}, layout)` vaut `hmi::DecorHandle::None`. |
+
+**`test_decor_list_model.cpp`**
+
+| Titre (criticité) | Brief | Étapes | Résultat attendu |
+|---|---|---|---|
+| **DecorListModelTest.GroupeLesLignesParCouche** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:31`</sub> | buildDecorListRows groupe les lignes par couche. | 1. Construire des decors sur les trois couches, dans un ordre entremele. | Vérifie que `rows.size()` vaut `4u`.<br/>Vérifie que `rows[0].assetName` vaut `"b.png"`.<br/>Vérifie que `rows[0].layer` vaut `DecorLayer::Background`.<br/>Vérifie que `rows[1].assetName` vaut `"d.png"`.<br/>Vérifie que `rows[1].layer` vaut `DecorLayer::Background`.<br/>Vérifie que `rows[2].assetName` vaut `"c.png"`.<br/>Vérifie que `rows[2].layer` vaut `DecorLayer::Decor`.<br/>Vérifie que `rows[3].assetName` vaut `"a.png"`.<br/>Vérifie que `rows[3].layer` vaut `DecorLayer::Foreground`. |
+| **DecorListModelTest.PreserveLOrdreDeSuperpositionALInterieurDUneCouche** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:61`</sub> | L'ordre de superposition est preserve a l'interieur d'une couche. | 1. Construire trois decors de la meme couche. | Vérifie que `rows.size()` vaut `3u`.<br/>Vérifie que `rows[0].assetName` vaut `"first.png"`.<br/>Vérifie que `rows[1].assetName` vaut `"second.png"`.<br/>Vérifie que `rows[2].assetName` vaut `"third.png"`. |
+| **DecorListModelTest.ChaqueLigneConserveSonRangDOrigine** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:85`</sub> | Chaque ligne porte le rang d'origine du decor. | 1. Construire des decors dont le tri d'affichage change l'ordre. | Vérifie que `rows.size()` vaut `2u`.<br/>Vérifie que `rows[0].assetName` vaut `"background.png"`.<br/>Vérifie que `rows[0].index` vaut `1u`.<br/>Vérifie que `rows[1].assetName` vaut `"foreground.png"`.<br/>Vérifie que `rows[1].index` vaut `0u`. |
+| **DecorListModelTest.AssetIntrouvableEstMarqueManquant** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:109`</sub> | Un asset introuvable est marque manquant. | 1. Construire un decor dont l'asset n'est pas dans la liste des assets connus. | Vérifie que `rows.size()` vaut `1u`.<br/>Vérifie que `rows[0].assetMissing` est vrai. |
+| **DecorListModelTest.AssetPresentNEstPasMarqueManquant** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:128`</sub> | Un asset present n'est pas marque manquant. | 1. Construire un decor dont l'asset est dans la liste des assets connus. | Vérifie que `rows.size()` vaut `1u`.<br/>Vérifie que `rows[0].assetMissing` est faux. |
+| **DecorListModelTest.SansDecorLaListeEstVide** (Mineur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_list_model.cpp:147`</sub> | Sans decor, la liste est vide. | 1. Appeler buildDecorListRows sur un vecteur vide. | Vérifie que `rows.empty()` est vrai. |
 
 **`test_level_name_validation.cpp`**
 

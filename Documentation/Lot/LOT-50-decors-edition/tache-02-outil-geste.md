@@ -1,6 +1,6 @@
 # TACHE-02 — Outil de décors et geste pur de manipulation {#lot-50-tache-02-outil-geste}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Manipuler un décor à la souris est le geste le plus riche de l'éditeur : il faut désigner une cible

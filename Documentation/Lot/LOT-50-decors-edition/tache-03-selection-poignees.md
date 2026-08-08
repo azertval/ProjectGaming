@@ -1,6 +1,6 @@
 # TACHE-03 — Rendu de la sélection, poignées et aimantation {#lot-50-tache-03-selection-poignees}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le geste de TACHE-02 est aveugle sans retour visuel : l'auteur doit voir quel décor est sélectionné,

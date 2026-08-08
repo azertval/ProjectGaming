@@ -130,6 +130,7 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
         _links->refresh(_viewport->draft());
         _textures->setLevelProperties(_viewport->draft().background(), _viewport->draft().skinSet());
         _textures->refreshObjects(_viewport->draft());
+        _textures->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
     });
     connect(_links, &LinkPanel::linkSelected, _viewport, &GameViewport::setHighlightedLink);
     connect(_links, &LinkPanel::deleteRequested, _viewport, &GameViewport::unlinkMechanism);
@@ -155,7 +156,28 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
     });
     connect(_tools, &ToolPanel::decorLayerSelected, _viewport, &GameViewport::setActiveDecorLayer);
+    connect(_tools, &ToolPanel::decorSnapToGridChanged, _viewport, &GameViewport::setDecorSnapToGrid);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
+
+    // Section « Décors » (LOT-50 TACHE-04) : sélection croisée avec le canevas -- une seule
+    // source (`hmi::GameViewport::selectedDecorIndex`), les deux vues ne font que la refléter.
+    // Les actions de la liste (réordonner/changer de couche/supprimer/centrer) passent par les
+    // mêmes mutateurs que le canevas (TACHE-01), donc annulables.
+    connect(_textures, &TexturePanel::decorSelected, _viewport, &GameViewport::selectDecor);
+    connect(_viewport, &GameViewport::decorSelectionChanged, this,
+            [this](std::optional<std::size_t> index) {
+                _textures->refreshDecors(_viewport->draft(), index);
+            });
+    connect(_textures, &TexturePanel::decorForwardRequested, _viewport,
+            &GameViewport::bringDecorForward);
+    connect(_textures, &TexturePanel::decorBackwardRequested, _viewport,
+            &GameViewport::sendDecorBackward);
+    connect(_textures, &TexturePanel::decorLayerChangeRequested, _viewport,
+            &GameViewport::setDecorLayer);
+    connect(_textures, &TexturePanel::decorRemoveRequested, _viewport, &GameViewport::removeDecor);
+    connect(_textures, &TexturePanel::decorCenterRequested, _viewport,
+            &GameViewport::centerCameraOnDecor);
+    _textures->refreshDecors(_viewport->draft(), _viewport->selectedDecorIndex());
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
     // le jeu courant. Aucune scene n'est reconstruite -- l'apparence est resolue a la composition,
@@ -322,6 +344,7 @@ void MainWindow::buildUi() {
                                  hmi::executableDirectory() / "Assets" / "skins.json",
                                  hmi::executableDirectory() / "Assets" / "Backgrounds",
                                  hmi::executableDirectory() / "Assets" / "Objects",
+                                 hmi::executableDirectory() / "Assets" / "Decors",
                                  _ui->TexturesPanel);
     _ui->TexturesPanel->setWidget(_textures);
 
