@@ -30,20 +30,20 @@ var NAVTREE =
     [ "Navigation", "index.html#autotoc_md3", null ],
     [ "Guide du développeur", "guide.html", "guide" ],
     [ "Cahier de test", "cahiertest.html", [
-      [ "Tests unitaires (513)", "cahiertest.html#autotoc_md4", [
+      [ "Tests unitaires (542)", "cahiertest.html#autotoc_md4", [
         [ "Core", "cahiertest.html#autotoc_md5", [
           [ "Diagnostics (14)", "cahiertest.html#autotoc_md6", null ],
           [ "Ecs (34)", "cahiertest.html#autotoc_md7", null ],
           [ "Gameplay (29)", "cahiertest.html#autotoc_md8", null ],
-          [ "Levels (144)", "cahiertest.html#autotoc_md9", null ],
+          [ "Levels (155)", "cahiertest.html#autotoc_md9", null ],
           [ "Math (20)", "cahiertest.html#autotoc_md10", null ],
           [ "Physics (39)", "cahiertest.html#autotoc_md11", null ],
           [ "Time (6)", "cahiertest.html#autotoc_md12", null ]
         ] ],
         [ "HMI", "cahiertest.html#autotoc_md13", [
           [ "Diagnostics (2)", "cahiertest.html#autotoc_md14", null ],
-          [ "Editor (24)", "cahiertest.html#autotoc_md15", null ],
-          [ "Graphics (129)", "cahiertest.html#autotoc_md16", null ],
+          [ "Editor (28)", "cahiertest.html#autotoc_md15", null ],
+          [ "Graphics (143)", "cahiertest.html#autotoc_md16", null ],
           [ "Input (63)", "cahiertest.html#autotoc_md17", null ],
           [ "Localization (8)", "cahiertest.html#autotoc_md18", null ]
         ] ]
@@ -68,7 +68,7 @@ var NAVTREE =
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
@@ -102,34 +102,35 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AabbVsAabb_8cpp.html",
-"OptionsPage_8h.html",
-"classcore_1_1DangerController.html",
-"classcore_1_1LevelDraft.html#afd9f6ad59cb50ecb09377b4a3b2874d2",
-"classhmi_1_1AssetThumbnailView.html#a453afb38350b119483327b39f6bcd010",
-"classhmi_1_1GameSession.html#a4db26f5baed613a962f368bc27c4dbe8",
-"classhmi_1_1GameViewport.html#acabefda16573458d0d6d86bd29b400e4",
-"classhmi_1_1InputState.html#ad2bafb2610591e06b0e5664c633d236f",
-"classhmi_1_1OptionsPage.html#a5d9315f0aafbff0cf5c7d0779c00aa07",
-"classhmi_1_1TextureCache.html",
-"dir_f32b0d9b03b0388004af79a946f2aff4.html",
-"guide-rendu.html#autotoc_md167",
-"lot-05-tache-02-pipeline-quads-textures.html#autotoc_md490",
-"lot-09-tache-02-mapping-saut.html",
-"lot-14-tache-06-integration-guide-non-codeur.html#autotoc_md931",
-"lot-20-tache-02-menu-options.html#autotoc_md1152",
-"lot-26-tache-03-documentation-verification.html#autotoc_md1374",
-"lot-33-tache-02-presentation-flip.html#autotoc_md1594",
-"lot-39-tache-02-texture-atlas-fichier.html#autotoc_md1816",
-"lot-45-tache-03-section-objets-priorite.html#autotoc_md2037",
-"lot-51-tache-03-controles-documentation.html#autotoc_md2258",
-"namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a0be22b181100c4dca91344501b0092f9",
-"namespacehmi.html#ac32d81972d12a0b2475fc009eefee225aa6567816e007283cf9781c35b95dd56f",
-"structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e",
-"structcore_1_1Velocity.html#ad6dd1b25f77f486834db55aa9c384b66",
-"structhmi_1_1ProceduralAtlasImage.html#a9793e61a5644666b4d997ae64dde340b",
-"test__animation__personnage_8cpp.html#a69cce02b0150147f506dc00fef8603dc",
-"test__level__file__operations_8cpp.html",
-"test__player__input__mapper_8cpp.html#aa6b0c195db318c3788a8e4552ccaea1e"
+"MemoryLogSink_8h_source.html",
+"classcore_1_1ComponentPool.html#aa1ea89339a0b953f501acb46dd31cf73",
+"classcore_1_1LevelDraft.html#ae10fca65c113da45ec8bf89846979889",
+"classhmi_1_1AssetThumbnailView.html#a0c6d578c89a4939b848115529b4c500b",
+"classhmi_1_1GameSession.html#a17ea5dde3cb91b218706bcb004238688",
+"classhmi_1_1GameViewport.html#aac05c7a1070af1777f025f5215336aac",
+"classhmi_1_1InputState.html#a7d36fdb64d478ef67dacee6c869432b9",
+"classhmi_1_1MainWindow.html#aa3e0f10b22dd266b5e55a4ab1843e98a",
+"classhmi_1_1TextureAtlas.html",
+"dir_7948254dd9a8fc91331a4d5422a690cb.html",
+"guide-niveaux.html#autotoc_md124",
+"lot-04-tache-06-manuel-utilisateur.html#autotoc_md450",
+"lot-08-tache-03-physique-personnage.html#autotoc_md671",
+"lot-13.html#autotoc_md882",
+"lot-19-tache-01-masse-chute-newtonienne.html#autotoc_md1113",
+"lot-25-tache-03-integration-sequence-tests.html#autotoc_md1333",
+"lot-32-tache-02-camera-salle-jeu.html",
+"lot-38-tache-02-options-remappage-qt.html#autotoc_md1776",
+"lot-44-tache-02-rendu-fond.html#autotoc_md1997",
+"lot-50-tache-03-selection-poignees.html#autotoc_md2218",
+"namespacecore.html#a383d9d113ce5c48640f24d6f9759d83c",
+"namespacehmi.html#a960f7854347fb7ddaff2811de796f3fe",
+"spec-vision.html#autotoc_md264",
+"structcore_1_1PlayerInput.html",
+"structhmi_1_1LineQuad.html#ae8956cc31b9497667597dc2cec9e99eb",
+"structhmi_1_1SpriteBatch_1_1Vertex.html#ad0468112a8605e4ea04c7796474a2e0c",
+"test__decor_8cpp.html#ae592a49dd75e3b2db6a773a5acffb17b",
+"test__localization_8cpp.html#aa0f27340066e9efd017ea009fab79ba7",
+"test__slope__geometry_8cpp.html#a0c2e0c3035a1e4008fd36ad15942a133"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

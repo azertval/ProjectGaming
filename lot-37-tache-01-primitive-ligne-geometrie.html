@@ -97,10 +97,10 @@ $(function(){initNavTree('lot-37-tache-01-primitive-ligne-geometrie.html','','')
 <blockquote class="doxtable">
 <p>Réalisé dans <span class="tt">Source/HMI/Graphics/SpriteBatch.{h,cpp}</span> (<span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span> + <span class="tt">draw(const LineQuad&amp;)</span>, même tampon/index buffer que <span class="tt">draw(SpriteQuad)</span>) et <span class="tt">Source/HMI/Editor/LinkGeometry.{h,cpp}</span> (chemin réel, pas <span class="tt">Source/Editor</span> comme cadré initialement — voir note en tête de l'épic). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1734"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1735"></a>
 Contexte</h1>
 <p>Le rendu 2D actuel (<span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></span>) ne dessine que des <b>quads texturés</b> : il n'existe <b>aucune primitive de ligne</b>, d'où l'affichage des liaisons par teinte de case. Pour dessiner des <b>traits/flèches</b> reliant un déclencheur à sa cible, il faut une primitive de segment. Cette tâche l'ajoute au pipeline et isole la <b>géométrie</b> (segment + tête de flèche entre deux cases) dans une fonction <b>pure testable</b>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1735"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1736"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Primitive de segment</b> : ajouter à <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés en Direct3D 11, avec transparence et échantillonnage nearest (pixel art).">hmi::SpriteBatch</a></span> (ou un utilitaire dédié) le tracé d'un segment d'épaisseur <span class="tt">w</span> entre deux points monde — implémenté comme un <b>quad orienté</b> (rectangle fin aligné sur la direction), technique déjà employée pour la grille de repère (<span class="tt">renderGrid</span> dessine des lignes via quads fins). Option flèche : deux petits segments formant la tête.<ul>
@@ -115,32 +115,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1736"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1737"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/SpriteBatch.{h,cpp}</span> (primitive segment/flèche) ou <span class="tt">Source/HMI/Graphics/PrimitiveBatch.{h,cpp}</span> (nouveau, si séparation préférée).</li>
 <li><span class="tt">Source/Editor/LinkGeometry.{h,cpp}</span> (nouveau, pur).</li>
 <li><span class="tt">Source/Test/Unit/Editor/test_link_geometry.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1737"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1738"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b><span class="tt">LinkGeometry</span> pur</b> (sans GPU) : centres de cases corrects pour diverses positions/tailles ; segment horizontal/vertical/diagonal ; tête de flèche orientée du bon côté ; décalage anti- superposition déterministe. Origine haut-gauche respectée.</li>
 <li><b>Vérification manuelle</b> de la primitive : un segment/flèche s'affiche net à l'écran (épaisseur, couleur), au bon endroit au zoom/pan courant.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1738"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1739"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Réutiliser l'astuce quad-fin</b> de <span class="tt">renderGrid</span> plutôt qu'un nouveau pipeline (pas de nouveau shader) : cohérent avec l'existant, un seul état de rendu.</li>
 <li><b>Épaisseur constante à l'écran</b> vs en unités monde : décider si l'épaisseur suit le zoom (recommandé : épaisseur en pixels écran pour rester lisible à tout zoom) — le documenter.</li>
 <li><b>Origine haut-gauche</b> (<span class="tt">EX-ARCH-020</span>) : pas d'inversion d'axe dans les centres de cases.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1739"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1740"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Primitive segment/flèche disponible dans le pipeline ; <span class="tt">LinkGeometry</span> livré et <b>testé</b> sans GPU ; <span class="tt">/W4 /WX</span> propre ; primitive vérifiée visuellement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1740"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1741"></a>
 Exigences</h1>
 <p>Prépare <span class="tt">EX-IHM-030</span> (liens par traits/flèches) ; <span class="tt">EX-NFR-010</span> (géométrie testable sans GPU) ; réutilise <span class="tt">EX-ARCH-020</span> (origine haut-gauche). </p>
 </div></div><!-- contents -->

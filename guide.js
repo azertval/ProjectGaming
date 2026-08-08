@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md168", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md169", null ],
-    [ "Plan du guide", "guide.html#autotoc_md170", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md169", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md170", null ],
+    [ "Plan du guide", "guide.html#autotoc_md171", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md30", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md31", null ],
@@ -72,7 +72,7 @@ var guide =
         [ "Exemple concret", "guide-niveaux.html#autotoc_md116", null ],
         [ "Validation", "guide-niveaux.html#autotoc_md117", null ]
       ] ],
-      [ "De la grille aux entités : <a class=\"el\" href=\"namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b\" title=\"core::buildLevelScene\">buildLevelScene</a>", "guide-niveaux.html#autotoc_md118", null ],
+      [ "De la grille aux entités : <a class=\"el\" href=\"namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148\" title=\"core::buildLevelScene\">buildLevelScene</a>", "guide-niveaux.html#autotoc_md118", null ],
       [ "Mécanismes déclencheur ↔ porte", "guide-niveaux.html#autotoc_md119", null ],
       [ "Blocs poussables", "guide-niveaux.html#autotoc_md120", [
         [ "Blocs à taille réduite (<span class=\"tt\">×0.5</span>/<span class=\"tt\">×0.25</span>)", "guide-niveaux.html#autotoc_md121", null ]
@@ -119,12 +119,13 @@ var guide =
       [ "<a class=\"el\" href=\"classhmi_1_1SpriteRenderer.html\" title=\"hmi::SpriteRenderer\">hmi::SpriteRenderer</a> : le pont ECS → écran", "guide-rendu.html#autotoc_md160", [
         [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md161", null ],
         [ "Deux modes de rendu : Physique et Texture (<span class=\"tt\">LOT-41</span>)", "guide-rendu.html#autotoc_md162", null ],
-        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md163", null ]
+        [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md163", null ],
+        [ "Décors libres et parallaxe (<span class=\"tt\">LOT-49</span>)", "guide-rendu.html#autotoc_md164", null ]
       ] ],
-      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md164", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md165", null ],
-      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md166", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md167", null ]
+      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md165", null ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md166", null ],
+      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md167", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md168", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md91", null ],

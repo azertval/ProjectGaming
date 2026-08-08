@@ -140,7 +140,7 @@ Classes</h2></td></tr>
 <tr class="memitem:TileCategory" id="r_TileCategory"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1TileCategory.html">TileCategory</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une catégorie de premier niveau : ses tuiles directes + ses sous-groupes repliables.  <a href="structhmi_1_1TileCategory.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ToolPanel" id="r_ToolPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ToolPanel.html">ToolPanel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien.  <a href="classhmi_1_1ToolPanel.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien, Texture par instance, Décor.  <a href="classhmi_1_1ToolPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameSession" id="r_GameSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameSession.html">GameSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simule et rend <b>un seul niveau</b> (déjà validé, en mémoire), indépendamment de toute infrastructure d'écran.  <a href="classhmi_1_1GameSession.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewport" id="r_GameViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewport.html">GameViewport</a></td></tr>
@@ -171,6 +171,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteurs d'une image composée, pour l'observabilité du volume soumis (<span class="tt">EX-NFR-005</span>).  <a href="structhmi_1_1SceneStatistics.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ComposedScene" id="r_ComposedScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liste <b>ordonnée</b> des primitives d'une image, indépendante de Direct3D.  <a href="classhmi_1_1ComposedScene.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorVisualTag" id="r_DecorVisualTag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorVisualTag.html">DecorVisualTag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque de présentation portée par une entité décor, pour résoudre son apparence et sa parallaxe.  <a href="structhmi_1_1DecorVisualTag.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorAppearance" id="r_DecorAppearance"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorAppearance.html">DecorAppearance</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence résolue d'un décor : quelle texture lier, et sa taille en pixels.  <a href="structhmi_1_1DecorAppearance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkOverlayState" id="r_LinkOverlayState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'affichage des liens de mécanismes (LOT-37), fourni par le viewport à chaque rendu.  <a href="structhmi_1_1LinkOverlayState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftRenderer" id="r_DraftRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a></td></tr>
@@ -266,9 +270,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b">Link</a>
 , <br />
 &#160;&#160;<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4">TextureAssign</a>
+, <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44">Decor</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien.">ToolPanel</a></span>.  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
+<tr class="memdesc:a02048ad8ad69a87a10e8307ac2bd68dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>.  <a href="#a02048ad8ad69a87a10e8307ac2bd68dd">More...</a><br /></td></tr>
 <tr class="memitem:ac7ba9ad4c289f6706928912ab9bb0985" id="r_ac7ba9ad4c289f6706928912ab9bb0985"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985">LinkKind</a> { <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a7a3d46893bda116f6b56760a98aaf631">Mechanism</a>
 , <a class="el" href="#ac7ba9ad4c289f6706928912ab9bb0985a4b9c4a190a04fc1db208f8a62ee67619">DangerLink</a>
  }</td></tr>
@@ -469,6 +474,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab28a0db7bcd8252c1df7c0f37443e0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repère toutes les entrées de <span class="tt">skins.json</span> qui citent un fichier donné.  <br /></td></tr>
 <tr class="memitem:a5788fed057d46145b1fcb3d9ed9c2ec1" id="r_a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5788fed057d46145b1fcb3d9ed9c2ec1">describeReferences</a> (const std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt; &amp;references)</td></tr>
 <tr class="memdesc:a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement listant des références, une par jeu de skins.  <br /></td></tr>
+<tr class="memitem:a128cfb0ca7ddd975c1f2c1dac2c52a5a" id="r_a128cfb0ca7ddd975c1f2c1dac2c52a5a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a">nearestDecorAt</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;decors) noexcept</td></tr>
+<tr class="memdesc:a128cfb0ca7ddd975c1f2c1dac2c52a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve le rang du décor le plus proche de <code class="param">worldPosition</code>, dans <span class="tt"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">DECOR_PICK_RADIUS</a></span>.  <br /></td></tr>
 <tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
 <tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
@@ -519,8 +526,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:af7d9b42fc7c496a35a24169feddc6ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un rectangle texturé, en unités monde.  <br /></td></tr>
 <tr class="memitem:adbdaec090bf424bf2ec812fb1587c782" id="r_adbdaec090bf424bf2ec812fb1587c782"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#adbdaec090bf424bf2ec812fb1587c782">lineQuadBounds</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memdesc:adbdaec090bf424bf2ec812fb1587c782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boîte englobante d'un segment épais, en unités monde.  <br /></td></tr>
-<tr class="memitem:aa9cace554e4d6b94002e17f27585f11b" id="r_aa9cace554e4d6b94002e17f27585f11b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha)</td></tr>
-<tr class="memdesc:aa9cace554e4d6b94002e17f27585f11b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:afacba4ee1b4df1a3448bb501cec4b44a" id="r_afacba4ee1b4df1a3448bb501cec4b44a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a">composeWorldSprites</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, <a class="el" href="classcore_1_1World.html">core::World</a> &amp;world, <a class="el" href="#ace25c100da588ab6050fb0f486d61d54">RenderMode</a> mode, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures, float interpolationAlpha, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *camera=nullptr)</td></tr>
+<tr class="memdesc:afacba4ee1b4df1a3448bb501cec4b44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les entités affichables d'un monde ECS en primitives.  <br /></td></tr>
+<tr class="memitem:acce38c10bb9e9e440f634df58c943f35" id="r_acce38c10bb9e9e440f634df58c943f35"><td class="memItemLeft"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#acce38c10bb9e9e440f634df58c943f35">decorRenderLayer</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) noexcept</td></tr>
+<tr class="memdesc:acce38c10bb9e9e440f634df58c943f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projette une couche de décor (<span class="tt">Core</span>) vers son calque de rendu (<span class="tt">HMI</span>), <span class="tt">EX-DEC-002</span>.  <br /></td></tr>
+<tr class="memitem:ac3ffff683e20d285cb666f9785ca0cf1" id="r_ac3ffff683e20d285cb666f9785ca0cf1"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorAppearance.html">DecorAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac3ffff683e20d285cb666f9785ca0cf1">resolveDecorAppearance</a> (const <a class="el" href="structhmi_1_1DecorVisualTag.html">DecorVisualTag</a> &amp;tag, const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;textures) noexcept</td></tr>
+<tr class="memdesc:ac3ffff683e20d285cb666f9785ca0cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout l'apparence d'un décor : asset désigné si chargé, damier de repli sinon.  <br /></td></tr>
 <tr class="memitem:aaed807c56ca3863821f035b79b34b36e" id="r_aaed807c56ca3863821f035b79b34b36e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aaed807c56ca3863821f035b79b34b36e">isStatefulMechanism</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) noexcept</td></tr>
 <tr class="memdesc:aaed807c56ca3863821f035b79b34b36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si un type de tuile est un <b>mécanisme à état</b>, dont l'apparence dépend d'une donnée lue en lecture seule dans <span class="tt">Core</span> (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
 <tr class="memitem:aedfb47ad3a21cd6303a86480c769ee5c" id="r_aedfb47ad3a21cd6303a86480c769ee5c"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aedfb47ad3a21cd6303a86480c769ee5c">mechanismTargetClip</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type, bool active) noexcept</td></tr>
@@ -537,6 +548,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa0d169ee450492a9aa3795d23e95e4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Génère, en mémoire, la texture de repli « asset manquant » : un damier magenta/noir.  <br /></td></tr>
 <tr class="memitem:a23394f99f0606e53aafbeca5ed51496b" id="r_a23394f99f0606e53aafbeca5ed51496b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a23394f99f0606e53aafbeca5ed51496b">missingTextureWarning</a> (const std::string &amp;fileName)</td></tr>
 <tr class="memdesc:a23394f99f0606e53aafbeca5ed51496b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement émis lorsqu'un asset attendu est introuvable ou refusé.  <br /></td></tr>
+<tr class="memitem:a5deae0becbca097ff1447b2f62de20ec" id="r_a5deae0becbca097ff1447b2f62de20ec"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5deae0becbca097ff1447b2f62de20ec">parallaxFactor</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) noexcept</td></tr>
+<tr class="memdesc:a5deae0becbca097ff1447b2f62de20ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de défilement de la couche d'un décor (<span class="tt">EX-DEC-006</span>).  <br /></td></tr>
+<tr class="memitem:a8558cd4ffaa070fd58be27ca40926c53" id="r_a8558cd4ffaa070fd58be27ca40926c53"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53">parallaxRenderPosition</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> decorPosition, float factor, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;cameraBounds) noexcept</td></tr>
+<tr class="memdesc:a8558cd4ffaa070fd58be27ca40926c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la position de <b>rendu</b> d'un décor, décalée par sa parallaxe.  <br /></td></tr>
+<tr class="memitem:a1e5980df41367af8a056278ffa933ea8" id="r_a1e5980df41367af8a056278ffa933ea8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1e5980df41367af8a056278ffa933ea8">roundToScreenPixel</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, float pixelsPerWorldUnit) noexcept</td></tr>
+<tr class="memdesc:a1e5980df41367af8a056278ffa933ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.  <br /></td></tr>
 <tr class="memitem:a0a13a6b4cbedcfe953e4532f97cd953c" id="r_a0a13a6b4cbedcfe953e4532f97cd953c"><td class="memItemLeft"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a13a6b4cbedcfe953e4532f97cd953c">computePlayerSpriteQuad</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> imageSizePixels, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hitboxSize)</td></tr>
 <tr class="memdesc:a0a13a6b4cbedcfe953e4532f97cd953c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le quad d'affichage du personnage à partir de la taille de l'image et de la hitbox, par ancrage <b>centre-bas</b> (<span class="tt">LOT-48</span> TACHE-01).  <br /></td></tr>
 <tr class="memitem:ad9d86326e8a24c761d2b3c04e378a0a1" id="r_ad9d86326e8a24c761d2b3c04e378a0a1"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad9d86326e8a24c761d2b3c04e378a0a1">proceduralPlayerClipNames</a> ()</td></tr>
@@ -565,8 +582,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aff5a499bb21016a452b381ee65602b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la silhouette d'un type à une image carrée, en rendant transparent l'extérieur.  <br /></td></tr>
 <tr class="memitem:a533df804a658915efda4f8f6c918496e" id="r_a533df804a658915efda4f8f6c918496e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a533df804a658915efda4f8f6c918496e">submitComposedScene</a> (<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene)</td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
-<tr class="memitem:a27b2297508a6410d2885eeeb226c7ca9" id="r_a27b2297508a6410d2885eeeb226c7ca9"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27b2297508a6410d2885eeeb226c7ca9">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={}, const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;textureOverrides={}, const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;tileAnimations={})</td></tr>
-<tr class="memdesc:a27b2297508a6410d2885eeeb226c7ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
+<tr class="memitem:a4940bc591cbdc2ca50619bde9fa1527a" id="r_a4940bc591cbdc2ca50619bde9fa1527a"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4940bc591cbdc2ca50619bde9fa1527a">sceneTextures</a> (const <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;atlas, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins=nullptr, const std::string &amp;skinSet={}, const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt; &amp;textureOverrides={}, const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;tileAnimations={}, const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;decors={})</td></tr>
+<tr class="memdesc:a4940bc591cbdc2ca50619bde9fa1527a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Textures liables par la composition d'une scène : atlas, damier de repli et skins.  <br /></td></tr>
 <tr class="memitem:af1d89363ce904e2b4a68eeaa7503c066" id="r_af1d89363ce904e2b4a68eeaa7503c066"><td class="memItemLeft"><a class="el" href="structhmi_1_1BackgroundTexture.html">BackgroundTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#af1d89363ce904e2b4a68eeaa7503c066">resolveBackgroundTexture</a> (const std::optional&lt; std::string &gt; &amp;background, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache)</td></tr>
 <tr class="memdesc:af1d89363ce904e2b4a68eeaa7503c066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>).  <br /></td></tr>
 <tr class="memitem:a400619b6396af0caf3768b3778730809" id="r_a400619b6396af0caf3768b3778730809"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a400619b6396af0caf3768b3778730809">advanceTileAnimations</a> (const <a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *skins, const std::string &amp;skinSet, <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;cache, float deltaSeconds, std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;tileAnimations, std::set&lt; std::string &gt; &amp;warnedExclusions)</td></tr>
@@ -618,8 +635,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:acf63dcd325dad2886e2b1d13813ee219" id="r_acf63dcd325dad2886e2b1d13813ee219"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219">DECOR_PICK_RADIUS</a> = 0.5f</td></tr>
+<tr class="memdesc:acf63dcd325dad2886e2b1d13813ee219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un décor libre n'a pas de case qui le désigne sans ambiguïté, contrairement à une tuile.  <br /></td></tr>
 <tr class="memitem:a71400cfb82eb06125e98cf974b6dc1be" id="r_a71400cfb82eb06125e98cf974b6dc1be"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be">MECHANISM_ANIMATION_TYPES</a> []</td></tr>
 <tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
+<tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
+<tr class="memdesc:ad72608bb6233a89509a4835525f62339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier des décors, relatif au dossier d'assets (<span class="tt">LOT-49</span>).  <br /></td></tr>
 <tr class="memitem:a202cf813b8a09a5a8b784fa543250ce8" id="r_a202cf813b8a09a5a8b784fa543250ce8"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a202cf813b8a09a5a8b784fa543250ce8">MECHANISM_CLIP_DOOR_CLOSED</a> = &quot;closed&quot;</td></tr>
 <tr class="memdesc:a202cf813b8a09a5a8b784fa543250ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Noms de clip conventionnels, documentés dans <span class="tt">Source/Elements/Assets/README.md</span> — c'est le contrat qu'un auteur d'asset doit respecter pour que son animation soit reconnue.  <br /></td></tr>
 <tr class="memitem:a300d76e8ed6b73b7dba74ce128204700" id="r_a300d76e8ed6b73b7dba74ce128204700"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a300d76e8ed6b73b7dba74ce128204700">MECHANISM_CLIP_DOOR_OPENING</a> = &quot;opening&quot;</td></tr>
@@ -638,6 +659,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
+<tr class="memitem:a97bc94aecb6f8b18cfea7a7ab1d51d62" id="r_a97bc94aecb6f8b18cfea7a7ab1d51d62"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a97bc94aecb6f8b18cfea7a7ab1d51d62">PARALLAX_FACTOR_BACKGROUND</a> = 0.5f</td></tr>
+<tr class="memdesc:a97bc94aecb6f8b18cfea7a7ab1d51d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419" title="Arrière-plan : sous les tuiles.">core::DecorLayer::Background</a></span> : défile <b>moins vite</b> que le niveau.  <br /></td></tr>
+<tr class="memitem:aa760534a8b88b2cb6682308554504fc3" id="r_aa760534a8b88b2cb6682308554504fc3"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa760534a8b88b2cb6682308554504fc3">PARALLAX_FACTOR_DECOR</a> = 1.0f</td></tr>
+<tr class="memdesc:aa760534a8b88b2cb6682308554504fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> : <b>solidaire</b> du niveau (valeur de référence, <span class="tt">EX-DEC-006</span>) — un décor de cette couche ne subit jamais de décalage de parallaxe.  <br /></td></tr>
+<tr class="memitem:a90f19fb74cf5fbd041fb171696d66837" id="r_a90f19fb74cf5fbd041fb171696d66837"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a90f19fb74cf5fbd041fb171696d66837">PARALLAX_FACTOR_FOREGROUND</a> = 1.15f</td></tr>
+<tr class="memdesc:a90f19fb74cf5fbd041fb171696d66837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" title="Premier plan : au-dessus du personnage (EX-DEC-002).">core::DecorLayer::Foreground</a></span> : défile <b>plus vite</b> que le niveau.  <br /></td></tr>
 <tr class="memitem:a3056f1e4372f3a240ed0fcb1715237fd" id="r_a3056f1e4372f3a240ed0fcb1715237fd"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3056f1e4372f3a240ed0fcb1715237fd">PLAYER_SUBDIRECTORY</a> = &quot;Player/&quot;</td></tr>
 <tr class="memdesc:a3056f1e4372f3a240ed0fcb1715237fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-dossier de la spritesheet du personnage, relatif au dossier d'assets (<span class="tt">LOT-48</span>).  <br /></td></tr>
 <tr class="memitem:af9d5162737bdb5221fd49e4eeed58380" id="r_af9d5162737bdb5221fd49e4eeed58380"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#af9d5162737bdb5221fd49e4eeed58380">PLAYER_SHEET_FILE_NAME</a> = &quot;player.png&quot;</td></tr>
@@ -863,14 +890,15 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien.">ToolPanel</a></span>. </p>
-<p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. </p>
+<p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>. </p>
+<p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. <span class="tt">Decor</span> (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-001</span>, placement minimal — la manipulation complète relève de <span class="tt">LOT-50</span>) pose un décor libre à la position <b>exacte</b> du clic (jamais calée sur la grille) : clic gauche pose l'asset et la couche sélectionnés dans la bibliothèque de décors, clic droit ou touche « Suppr » retire le décor le plus proche du curseur — voir <span class="tt"><a class="el" href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a" title="Trouve le rang du décor le plus proche de worldPosition, dans DECOR_PICK_RADIUS.">hmi::nearestDecorAt</a></span>. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e" name="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e"></a>Paint&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e" name="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e"></a>Rectangle&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de" name="a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de"></a>Selection&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b" name="a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b"></a>Link&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4" name="a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4"></a>TextureAssign&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44" name="a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44"></a>Decor&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2123,8 +2151,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa9cace554e4d6b94002e17f27585f11b" name="aa9cace554e4d6b94002e17f27585f11b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9cace554e4d6b94002e17f27585f11b">&#9670;&#160;</a></span>composeWorldSprites()</h2>
+<a id="afacba4ee1b4df1a3448bb501cec4b44a" name="afacba4ee1b4df1a3448bb501cec4b44a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afacba4ee1b4df1a3448bb501cec4b44a">&#9670;&#160;</a></span>composeWorldSprites()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2152,7 +2180,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>interpolationAlpha</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> *</td>          <td class="paramname"><span class="paramname"><em>camera</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2167,6 +2200,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">mode</td><td>Mode de rendu courant (<span class="tt">EX-REN-046</span>). </td></tr>
     <tr><td class="paramname">textures</td><td>Textures liables et leurs dimensions (atlas et damier de repli). </td></tr>
     <tr><td class="paramname">interpolationAlpha</td><td>Facteur d'interpolation <span class="tt">[0, 1[</span> entre le pas de simulation précédent et le pas courant (<span class="tt">EX-ARCH-031</span>) ; <span class="tt">0</span> reproduit le rendu non interpolé. </td></tr>
+    <tr><td class="paramname">camera</td><td>Caméra courante, pour la parallaxe des décors (<span class="tt"><a class="el" href="#a5deae0becbca097ff1447b2f62de20ec" title="Facteur de défilement de la couche d&#39;un décor (EX-DEC-006).">hmi::parallaxFactor</a></span>, <span class="tt">EX-DEC-006</span>, <span class="tt">LOT-49</span> TACHE-03) : sa <span class="tt">visibleBounds()</span> sert de rectangle de référence (solidaire de la salle), son zoom d'échelle pour arrondir le décalage au pixel écran (<span class="tt"><a class="el" href="#a1e5980df41367af8a056278ffa933ea8" title="Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.">hmi::roundToScreenPixel</a></span>). Sans effet sur les entités non décor. <span class="tt">nullptr</span> désactive la parallaxe (un décor est alors composé à sa position simulée telle quelle), ce qui reste correct pour un décor de couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> (facteur <span class="tt">1.0</span>, <span class="tt">EX-DEC-006</span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -2345,6 +2379,41 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'image décodée, ou <span class="tt">std::nullopt</span> si le fichier est absent/illisible/format non supporté (erreur récupérable, <span class="tt">EX-NFR-040</span> — jamais d'exception ici). </dd></dl>
+
+</div>
+</div>
+<a id="acce38c10bb9e9e440f634df58c943f35" name="acce38c10bb9e9e440f634df58c943f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acce38c10bb9e9e440f634df58c943f35">&#9670;&#160;</a></span>decorRenderLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> hmi::decorRenderLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Projette une couche de décor (<span class="tt">Core</span>) vers son calque de rendu (<span class="tt">HMI</span>), <span class="tt">EX-DEC-002</span>. </p>
+<p>Fonction <b>pure</b>, triviale mais explicite — c'est le point où la frontière <span class="tt">Core</span>/<span class="tt">HMI</span> est tenue (<span class="tt">EX-NFR-011</span>) : <span class="tt">Core</span> ignore tout de <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919" title="Calques de dessin, du plus arrière au plus avant (EX-REN-014, EX-DEC-002).">hmi::RenderLayer</a></span>.</p>
+<p><span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419" title="Arrière-plan : sous les tuiles.">core::DecorLayer::Background</a></span> et <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> projettent tous deux sur le <b>même</b> <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">RenderLayer::Decor</a></span> : un seul calque « arrière-plan » a été réservé côté rendu (<span class="tt">LOT-40</span>), les trois calques du vocabulaire de conception (arrière-plan/décor/premier plan, <span class="tt"><a class="el" href="decors_8md.html">decors.md</a></span>) ne correspondant qu'à <b>deux</b> intentions de superposition avec les tuiles et le personnage — derrière, ou devant. Le rang dans <span class="tt"><a class="el" href="classcore_1_1Level.html#a677096397aa22dd5a7e3a8ce371a7e9d">core::Level::decors()</a></span> (<span class="tt"><a class="el" href="structcore_1_1Sprite.html#ab90c3529acbce1120cdcf7d3dbb09082" title="Couche de dessin : une valeur plus grande est dessinée au-dessus.">core::Sprite::layer</a></span>) reste le tri fin qui distingue deux décors du même calque, y compris entre <span class="tt">Background</span> et <span class="tt">Decor</span>. <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" title="Premier plan : au-dessus du personnage (EX-DEC-002).">core::DecorLayer::Foreground</a></span> projette sur <span class="tt"><a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">RenderLayer::Foreground</a></span>, au-dessus du personnage. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>Couche de décor, côté <span class="tt">Core</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le calque de rendu correspondant. </dd></dl>
 
 </div>
 </div>
@@ -3272,6 +3341,45 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a128cfb0ca7ddd975c1f2c1dac2c52a5a" name="a128cfb0ca7ddd975c1f2c1dac2c52a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a">&#9670;&#160;</a></span>nearestDecorAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; hmi::nearestDecorAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>decors</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Trouve le rang du décor le plus proche de <code class="param">worldPosition</code>, dans <span class="tt"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">DECOR_PICK_RADIUS</a></span>. </p>
+<p>Fonction <b>pure</b>, testable sans Qt/GPU (même patron que <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>) : ne modifie rien, décrit seulement quel décor un clic de suppression viserait — l'appelant applique <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aedf72e83d2c50fa8a082296cda3f1c20" title="Retire le décor au rang index (EX-DEC-010).">core::LevelDraft::removeDecor</a></span> avec le rang renvoyé. À distance égale, le décor de <b>rang le plus élevé</b> (posé le plus récemment) est préféré : c'est celui dessiné par-dessus les autres de sa couche (<span class="tt">EX-DEC-001</span> TACHE-01, ordre intra-couche), donc le plus probable visé par le clic. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">worldPosition</td><td>Position du clic, en unités monde (jamais calée sur la grille). </td></tr>
+    <tr><td class="paramname">decors</td><td>Décors du brouillon courant, dans leur ordre (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le rang du décor le plus proche, ou <span class="tt">std::nullopt</span> si aucun n'est à portée. </dd></dl>
+
+</div>
+</div>
 <a id="aa391954b311db21fd63162e8ec40fcc5" name="aa391954b311db21fd63162e8ec40fcc5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa391954b311db21fd63162e8ec40fcc5">&#9670;&#160;</a></span>paletteThumbnail()</h2>
 
@@ -3329,6 +3437,86 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La vignette à afficher. </dd></dl>
+
+</div>
+</div>
+<a id="a5deae0becbca097ff1447b2f62de20ec" name="a5deae0becbca097ff1447b2f62de20ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5deae0becbca097ff1447b2f62de20ec">&#9670;&#160;</a></span>parallaxFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::parallaxFactor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de défilement de la couche d'un décor (<span class="tt">EX-DEC-006</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>Couche du décor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le facteur associé (constante nommée, jamais une valeur magique en aval). </dd></dl>
+
+</div>
+</div>
+<a id="a8558cd4ffaa070fd58be27ca40926c53" name="a8558cd4ffaa070fd58be27ca40926c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8558cd4ffaa070fd58be27ca40926c53">&#9670;&#160;</a></span>parallaxRenderPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::parallaxRenderPosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>decorPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>factor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cameraBounds</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule la position de <b>rendu</b> d'un décor, décalée par sa parallaxe. </p>
+<p>Fonction <b>pure</b>, sans état (LOT-49 TACHE-03) : le décalage est calculé <b>relativement au centre de la salle courante</b> (<code class="param">cameraBounds</code>, le rectangle cadré par la caméra — solidaire de la salle, <span class="tt">EX-REN-015</span>) et non en espace niveau absolu. Formulation : la position de rendu est le centre de la salle, plus le déplacement du décor <b>par rapport à ce centre</b>, mis à l'échelle du facteur — de sorte qu'à facteur <span class="tt">1.0</span> (<span class="tt"><a class="el" href="#aa760534a8b88b2cb6682308554504fc3" title="Facteur de la couche core::DecorLayer::Decor : solidaire du niveau (valeur de référence,...">PARALLAX_FACTOR_DECOR</a></span>) la position est <b>inchangée</b>, et que deux décors à la même position relative dans deux salles différentes se retrouvent au même endroit à l'écran, quelle que soit la position absolue de chaque salle.</p>
+<p>C'est le seul comportement cohérent avec une caméra à coupure nette entre salles (<span class="tt">EX-REN-015</span>, <span class="tt">LOT-32</span>) : un décalage absolu en espace niveau ferait sauter le décor à chaque bascule (artefact visible) ; ce décalage-ci se replace au moment exact où toute l'image change déjà (invisible). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decorPosition</td><td>Position simulée du décor (<span class="tt"><a class="el" href="structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac" title="Position en unités monde, flottante : aucune contrainte de grille (EX-DEC-001).">core::Decor::position</a></span>), en unités monde — <b>jamais modifiée</b> par cette fonction : la parallaxe est purement visuelle (<span class="tt">EX-ARCH-012</span>). </td></tr>
+    <tr><td class="paramname">factor</td><td>Facteur de la couche du décor (<span class="tt"><a class="el" href="#a5deae0becbca097ff1447b2f62de20ec" title="Facteur de défilement de la couche d&#39;un décor (EX-DEC-006).">parallaxFactor</a></span>). </td></tr>
+    <tr><td class="paramname">cameraBounds</td><td>Rectangle cadré par la caméra (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb" title="Rectangle du monde effectivement cadré par la caméra.">hmi::Camera2D::visibleBounds</a></span>), en unités monde — solidaire de la salle courante puisque la caméra ne défile jamais. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position à utiliser pour le rendu (et le culling) de ce décor. </dd></dl>
 
 </div>
 </div>
@@ -3551,7 +3739,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Résout la texture de fond d'un niveau (accès <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">TextureCache</a></span>/GPU, <span class="tt">LOT-44</span>). </p>
-<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#a27b2297508a6410d2885eeeb226c7ca9" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Point de résolution unique du repli en damier pour le fond (<span class="tt"><a class="el" href="#a32457118c4e60dff8da0ba9839c0f29a" title="Obtient la texture d&#39;un asset, ou le repli en damier magenta à défaut.">hmi::resolveOrPlaceholder</a></span>, <span class="tt">EX-NFR-040</span>) : un asset absent ou invalide bascule sur le damier magenta, après l'avertissement déjà journalisé par le cache. Aucun accès cache n'a lieu si <code class="param">background</code> est absent — même séparation résolution/composition que <span class="tt"><a class="el" href="#a4940bc591cbdc2ca50619bde9fa1527a" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span> vis-à-vis de <span class="tt"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">background</td><td>Nom de l'asset de fond du niveau (<span class="tt"><a class="el" href="classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f">core::Level::background</a></span>), ou absent. </td></tr>
     <tr><td class="paramname">cache</td><td>Cache de textures, résout l'asset (et son repli en damier). </td></tr>
@@ -3598,6 +3786,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le nom du clip à effectivement afficher : <code class="param">requested</code> s'il est déclaré, sinon le premier nom de la chaîne de repli qui l'est ; <span class="tt">"idle"</span> en dernier recours. </dd></dl>
+
+</div>
+</div>
+<a id="ac3ffff683e20d285cb666f9785ca0cf1" name="ac3ffff683e20d285cb666f9785ca0cf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ffff683e20d285cb666f9785ca0cf1">&#9670;&#160;</a></span>resolveDecorAppearance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecorAppearance.html">DecorAppearance</a> hmi::resolveDecorAppearance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecorVisualTag.html">DecorVisualTag</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SceneTextures.html">SceneTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Résout l'apparence d'un décor : asset désigné si chargé, damier de repli sinon. </p>
+<p>Fonction <b>pure</b> (aucun accès disque/GPU), testable sans GPU (<span class="tt">EX-NFR-004</span>) : la résolution disque/GPU a déjà eu lieu en amont (<span class="tt"><a class="el" href="#a4940bc591cbdc2ca50619bde9fa1527a" title="Textures liables par la composition d&#39;une scène : atlas, damier de repli et skins.">hmi::sceneTextures</a></span>, qui journalise l'avertissement en cas d'asset introuvable, <span class="tt">EX-NFR-040</span>) — cette fonction ne fait que choisir dans ce qui a déjà été chargé. Contrairement au fond de niveau (<span class="tt">LOT-44</span>, absence = état normal), un décor <b>désigné</b> est toujours censé exister : son absence retombe donc directement sur le damier, à sa taille normale (jamais sur une autre apparence). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>Marque de présentation du décor (nom d'asset). </td></tr>
+    <tr><td class="paramname">textures</td><td>Textures déjà chargées par la composition. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La texture à lier et ses dimensions en pixels. </dd></dl>
 
 </div>
 </div>
@@ -3812,6 +4039,45 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a1e5980df41367af8a056278ffa933ea8" name="a1e5980df41367af8a056278ffa933ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e5980df41367af8a056278ffa933ea8">&#9670;&#160;</a></span>roundToScreenPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::roundToScreenPixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>pixelsPerWorldUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net. </p>
+<p>Un décalage de parallaxe fractionnaire produirait un décor flou ou tremblant : le zoom de la caméra est entier quand c'est possible (<span class="tt">EX-ARCH-022</span>), mais un décalage de parallaxe quelconque, lui, ne l'est pas — cette fonction referme cet écart, <b>après</b> application de la parallaxe. Fonction <b>pure</b>, sans dépendance GPU. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">worldPosition</td><td>Position à arrondir, en unités monde. </td></tr>
+    <tr><td class="paramname">pixelsPerWorldUnit</td><td>Échelle courante (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a> * zoom</span>) ; <code class="param">worldPosition</code> est renvoyée inchangée si cette valeur n'est pas strictement positive (robustesse). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position arrondie au pixel écran entier le plus proche. </dd></dl>
+
+</div>
+</div>
 <a id="a680b600014001a99d296df386e7ed9d8" name="a680b600014001a99d296df386e7ed9d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a680b600014001a99d296df386e7ed9d8">&#9670;&#160;</a></span>saveSessionLog()</h2>
 
@@ -3851,8 +4117,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a27b2297508a6410d2885eeeb226c7ca9" name="a27b2297508a6410d2885eeeb226c7ca9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27b2297508a6410d2885eeeb226c7ca9">&#9670;&#160;</a></span>sceneTextures()</h2>
+<a id="a4940bc591cbdc2ca50619bde9fa1527a" name="a4940bc591cbdc2ca50619bde9fa1527a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4940bc591cbdc2ca50619bde9fa1527a">&#9670;&#160;</a></span>sceneTextures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3888,7 +4154,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tileAnimations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tileAnimations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>decors</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -3908,10 +4179,11 @@ Variables</h2></td></tr>
     <tr><td class="paramname">textureOverrides</td><td>Surcharges de texture par instance du niveau courant (<span class="tt">EX-EDIT-043</span>, <span class="tt">LOT-45</span>) ; chaque asset distinct est chargé une fois (<span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html" title="Textures liables par la composition d&#39;une scène, et de quoi choisir laquelle lier.">hmi::SceneTextures</a>::
                 objects</span>), un asset déjà chargé ou introuvable étant silencieusement ignoré (la résolution retombe sur le damier, avertissement déjà journalisé par le cache). </td></tr>
     <tr><td class="paramname">tileAnimations</td><td>Horloge d'animation partagée par asset de tuile (<span class="tt">LOT-46</span> TACHE-05, <span class="tt"><a class="el" href="classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb" title="Avance l&#39;horloge d&#39;animation partagée des tuiles animées (LOT-46 TACHE-05), au pas fixe : une entrée ...">GameSession::updateTileAnimations</a></span>, avancée au <b>pas fixe</b>) : un skin en mode <span class="tt"><a class="el" href="#ac69176e5c8acf86f4990696f7f54f11ea66ba162102bbf6ae31b522aec561735e" title="Image unique, utilisée telle quelle.">SkinMode::Single</a></span>, sans silhouette, dont l'asset est animé et présent dans cette table échantillonne l'image <b>courante</b> plutôt que l'image entière. </td></tr>
+    <tr><td class="paramname">decors</td><td>Décors libres du niveau courant (<span class="tt">EX-DEC-001</span>, <span class="tt">LOT-49</span>) ; chaque asset distinct est chargé une fois (<span class="tt"><a class="el" href="structhmi_1_1SceneTextures.html#a470db204d79ec606b21f0f7bf366d4ed" title="Décors libres chargés (EX-DEC-001, LOT-49), adressés par index.">hmi::SceneTextures::decors</a></span>), même principe que <code class="param">textureOverrides</code>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Les textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#aa9cace554e4d6b94002e17f27585f11b" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les textures et leurs dimensions, prêtes pour <span class="tt"><a class="el" href="#afacba4ee1b4df1a3448bb501cec4b44a" title="Compose les entités affichables d&#39;un monde ECS en primitives.">hmi::composeWorldSprites</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -4601,6 +4873,54 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="acf63dcd325dad2886e2b1d13813ee219" name="acf63dcd325dad2886e2b1d13813ee219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf63dcd325dad2886e2b1d13813ee219">&#9670;&#160;</a></span>DECOR_PICK_RADIUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DECOR_PICK_RADIUS = 0.5f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un décor libre n'a pas de case qui le désigne sans ambiguïté, contrairement à une tuile. </p>
+
+</div>
+</div>
+<a id="ad72608bb6233a89509a4835525f62339" name="ad72608bb6233a89509a4835525f62339"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72608bb6233a89509a4835525f62339">&#9670;&#160;</a></span>DECORS_SUBDIRECTORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string hmi::DECORS_SUBDIRECTORY = &quot;Decors/&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sous-dossier des décors, relatif au dossier d'assets (<span class="tt">LOT-49</span>). </p>
+
+</div>
+</div>
 <a id="ab6e44ad3d54b0383ef13f332d290df46" name="ab6e44ad3d54b0383ef13f332d290df46"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6e44ad3d54b0383ef13f332d290df46">&#9670;&#160;</a></span>DEFAULT_RENDER_LAYER</h2>
 
@@ -5113,6 +5433,78 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (<span class="tt">LOT-45</span>). </p>
+
+</div>
+</div>
+<a id="a97bc94aecb6f8b18cfea7a7ab1d51d62" name="a97bc94aecb6f8b18cfea7a7ab1d51d62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97bc94aecb6f8b18cfea7a7ab1d51d62">&#9670;&#160;</a></span>PARALLAX_FACTOR_BACKGROUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PARALLAX_FACTOR_BACKGROUND = 0.5f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419" title="Arrière-plan : sous les tuiles.">core::DecorLayer::Background</a></span> : défile <b>moins vite</b> que le niveau. </p>
+
+</div>
+</div>
+<a id="aa760534a8b88b2cb6682308554504fc3" name="aa760534a8b88b2cb6682308554504fc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa760534a8b88b2cb6682308554504fc3">&#9670;&#160;</a></span>PARALLAX_FACTOR_DECOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PARALLAX_FACTOR_DECOR = 1.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44" title="Décor : entre les tuiles et le personnage.">core::DecorLayer::Decor</a></span> : <b>solidaire</b> du niveau (valeur de référence, <span class="tt">EX-DEC-006</span>) — un décor de cette couche ne subit jamais de décalage de parallaxe. </p>
+
+</div>
+</div>
+<a id="a90f19fb74cf5fbd041fb171696d66837" name="a90f19fb74cf5fbd041fb171696d66837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90f19fb74cf5fbd041fb171696d66837">&#9670;&#160;</a></span>PARALLAX_FACTOR_FOREGROUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PARALLAX_FACTOR_FOREGROUND = 1.15f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de la couche <span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f" title="Premier plan : au-dessus du personnage (EX-DEC-002).">core::DecorLayer::Foreground</a></span> : défile <b>plus vite</b> que le niveau. </p>
 
 </div>
 </div>

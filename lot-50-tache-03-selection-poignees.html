@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-50-tache-03-selection-poignees.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-50-decors-edition_2tache-03-selection-poignees"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-50.html#md_Lot_2LOT-50-decors-edition_2epic" title="Lot/LOT-50-decors-edition/epic.md">LOT-50</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2217"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2218"></a>
 Contexte</h1>
 <p>Le geste de TACHE-02 est aveugle sans retour visuel : l'auteur doit voir quel décor est sélectionné, où sont les poignées, et si l'aimantation est active.</p>
 <p>L'éditeur dispose déjà des primitives nécessaires : <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> dessine une grille, des voiles de surbrillance et des flèches de liaison, avec un segment orienté (<span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">hmi::LineQuad</a></span>, <span class="tt">LOT-37</span>) et l'astuce consistant à teinter une région d'atlas opaque pour obtenir un rectangle uni. Rien de nouveau n'est requis côté pipeline.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2218"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2219"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Cadre de sélection</b> autour du décor sélectionné, et <b>poignées</b> de redimensionnement aux coins plus une poignée de rotation, dessinés sur le calque <em>EditorOverlay</em> de <em>RenderLayer</em> (LOT-40).</li>
@@ -107,33 +107,33 @@ Travail à réaliser</h1>
 <li><b>Indication d'aimantation</b> : quand elle est active, matérialiser l'alignement (par exemple en accentuant la grille) — sinon l'auteur ne comprend pas pourquoi sa position « saute ».</li>
 <li><b>Jamais en jeu</b> : ces aides n'apparaissent ni en mode jeu, ni en mode essai. C'est le rôle du calque <em>EditorOverlay</em>, qui n'est composé qu'en édition.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2219"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2220"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Graphics/DraftRenderer.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Editor/DecorGesture.{h,cpp}</span> (géométrie des poignées, partie pure).</li>
 <li><span class="tt">Source/Test/Unit/HMI/Editor/test_decor_handles.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2220"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2221"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Géométrie des poignées</b> : pour un décor donné et un zoom donné, les rectangles de poignées sont aux bonnes positions et de taille écran constante — fonction pure, plusieurs zooms testés.</li>
 <li>Cohérence entre la poignée <b>dessinée</b> et la poignée <b>détectée</b> par le geste (TACHE-02) : ce sont les mêmes rectangles, calculés une seule fois.</li>
 <li>Aucun quad d'aide d'édition en mode jeu ou essai — asserté via le <em>QuadRecorder</em>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2221"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2222"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Une seule source pour la géométrie des poignées.</b> Si le rendu et la détection calculent chacun leur rectangle, ils divergeront au premier ajustement de taille, et les poignées ne répondront plus là où elles s'affichent.</li>
 <li>Les aides doivent rester lisibles <b>sur tous les fonds</b> : un cadre clair sur un décor clair disparaît. Prévoir un contraste suffisant (contour à double couleur, ou pointillés).</li>
 <li>Ne pas dessiner de poignées pour un décor situé sur une couche masquée (LOT-51).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2222"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2223"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le décor sélectionné est encadré, ses poignées sont visibles et de taille constante à l'écran, l'aperçu suit le geste, l'aimantation est signalée, et rien n'apparaît en jeu ; la géométrie est partagée avec la détection et testée ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2223"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2224"></a>
 Exigences</h1>
 <p><span class="tt">EX-DEC-010</span> (manipulation de décors), <span class="tt">EX-EDIT-040</span> (édition de décors) ; réutilise <span class="tt">EX-REN-043</span> (calques), <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-ARCH-022</span> (netteté), <span class="tt">EX-NFR-004</span> (vérification sans GPU). </p>
 </div></div><!-- contents -->

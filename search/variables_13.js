@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scale_0',['scale',['../structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9',1,'core::Transform']]],
+  ['scale_0',['scale',['../structcore_1_1Transform.html#a944094d20677cd32afa8804686f9c1a9',1,'core::Transform::scale'],['../structcore_1_1Decor.html#a259c3a655c70cd569b3a612710351041',1,'core::Decor::scale']]],
   ['selectedlink_1',['selectedLink',['../structhmi_1_1LinkOverlayState.html#a6a2ce60b2a89db88a95fec3167d6b427',1,'hmi::LinkOverlayState']]],
   ['setname_2',['setName',['../structhmi_1_1AssetReference.html#a535e25230c071506206619d3c6422a16',1,'hmi::AssetReference']]],
   ['silhouette_5ftile_5ftype_5fcount_3',['SILHOUETTE_TILE_TYPE_COUNT',['../namespacehmi.html#aa9e6d80a32a4e383a6413ef674feef96',1,'hmi']]],

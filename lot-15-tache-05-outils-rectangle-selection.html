@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-15-tache-05-outils-rectangle-selection.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-15-editeur-industriel_2tache-05-outils-rectangle-selection"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-15.html#md_Lot_2LOT-15-editeur-industriel_2epic" title="Lot/LOT-15-editeur-industriel/epic.md">LOT-15</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span>, <span class="tt">HMI/Editor</span>, <span class="tt">HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md975"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md976"></a>
 Contexte</h1>
 <p>Peindre une grande zone ou dupliquer un agencement (une salle, un motif de danger) case par case est long et source d'erreurs. Cette tâche introduit deux outils complémentaires au pinceau existant, sans dupliquer la sémantique déjà portée par <span class="tt">LevelDraft::paintTile</span> (unicité entrée/sortie, nettoyage des liaisons).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md976"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md977"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">LevelDraft::paintRegion(int originColumn, int originRow, const std::vector&lt;std::vector&lt;TileType&gt;&gt;&amp;
@@ -109,14 +109,14 @@ Travail à réaliser</h1>
 <li>Changement d'outil via la barre d'outils (clic, TACHE-06) et/ou <span class="tt">Tab</span> (déjà déclaré, inutilisé dans l'éditeur) qui fait défiler les trois outils dans l'ordre Pinceau → Rectangle → Sélection → Pinceau.</li>
 <li><b>Orthogonalité avec l'existant</b> : le type de tuile sélectionné dans la palette continue de s'appliquer aux outils Pinceau et Rectangle (l'outil Sélection l'ignore : il agit sur les tuiles déjà présentes, pas sur un type à poser). La liaison de mécanismes (Maj+clic, LOT-14) reste disponible <b>quel que soit l'outil actif</b> — c'est un geste distinct (touche <span class="tt">Maj</span> maintenue), prioritaire sur le comportement du glisser normal de l'outil courant, à l'identique de la priorité déjà existante de la palette sur la grille.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md977"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md978"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="LevelDraft_8h.html" title="Représentation mutable d&#39;un niveau en cours d&#39;édition.">Source/Core/Levels/LevelDraft.h</a></span>/<span class="tt">.cpp</span> (<span class="tt">paintRegion</span>, refactor interne de <span class="tt">paintTile</span>).</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>/<span class="tt">.cpp</span> (état outil, rectangle en cours, presse-papiers, prévisualisation).</li>
 <li><span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">Source/Test/Unit/Core/Levels/test_level_draft.cpp</a></span> (nouveaux cas), test système étendu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md978"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md979"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">paintRegion</span> sur un bloc homogène équivaut à peindre chaque case individuellement (même grille résultante), mais avec <b>un seul</b> <span class="tt">undo()</span> nécessaire pour tout annuler.</li>
@@ -128,7 +128,7 @@ Tests (obligatoires)</h1>
 <li>Maj+clic sur un <span class="tt">Switch</span>/<span class="tt">Door</span> produit une liaison quel que soit l'outil actif (Pinceau, Rectangle ou Sélection).</li>
 <li>Changer d'outil pendant un glisser en cours n'applique aucune mutation au <span class="tt">LevelDraft</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md979"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md980"></a>
 Points d'attention</h1>
 <ul>
 <li>Le presse-papiers reste <b>local à <span class="tt">EditorScreen</span></b> (pas de <span class="tt">Core</span>), car il ne représente qu'un découpage temporaire de l'écran, pas un concept persistant du modèle de niveau.</li>
@@ -136,12 +136,12 @@ Points d'attention</h1>
 <li>La prévisualisation (rectangle en cours de glisser) est un rendu <b>par-dessus</b> la grille, sans toucher au <span class="tt">LevelDraft</span> avant relâchement — cohérent avec le principe « un geste = une mutation undoable ».</li>
 <li>Changer d'outil (<span class="tt">Tab</span>, ou clic sur la barre d'outils) pendant un glisser en cours <b>annule</b> le glisser (aucune mutation, aucun ajout au presse-papiers) plutôt que de l'appliquer avec le nouvel outil — évite un résultat surprenant en cas de changement d'avis à mi-geste.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md980"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md981"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Remplissage rectangulaire et sélection/copier-coller opérationnels et testés (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span> ; Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md981"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md982"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-014</span>, <span class="tt">EX-EDIT-010</span> (aucune règle de niveau dupliquée). </p>
 </div></div><!-- contents -->

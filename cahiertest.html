@@ -93,9 +93,9 @@ $(function(){initNavTree('cahiertest.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_CahierTest"></a></p>
-<p><b>603 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
+<p><b>632 cas de test</b>, générés depuis les blocs <span class="tt">\castest{...}</span> du code par <span class="tt">scripts/generate_cahier_test.py</span> (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de <span class="tt">Source/Test/</span> pour rester lisibles page par page.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Tests unitaires (513)</h1>
+Tests unitaires (542)</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Core</h2>
 <p><b><span class="tt"><a class="el" href="test__core_8cpp.html" title="Tests unitaires de la bibliothèque Core (amorçage).">test_core.cpp</a></span></b></p>
@@ -668,7 +668,7 @@ Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="stru
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">controller.isDangerActive(<a class="el" href="structcore_1_1GridPosition.html" title="Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.">core::GridPosition</a>{4, 1})</span> est faux.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-Levels (144)</h3>
+Levels (155)</h3>
 <p><b><span class="tt"><a class="el" href="test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX-GP-050).">test_danger_geometry.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -715,6 +715,92 @@ Vérifie que <span class="tt">box.max.x</span> vaut <span class="tt">1.0f</span>
 Vérifie que <span class="tt">box.min.y</span> vaut <span class="tt">2.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">box.max.x</span> vaut <span class="tt">2.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">box.max.y</span> vaut <span class="tt">3.0f</span> (comparaison flottante).  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">test_decor.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.AddDecorAjouteEnFinDeVecteur</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:29</span></sub>  </td><td class="markdownTableBodyNone">addDecor ajoute un décor en fin de vecteur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].assetName</span> vaut <span class="tt">"bush.png"</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[1].assetName</span> vaut <span class="tt">"torch.png"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorTest.RemoveDecorRetireAuRangDonne</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:50</span></sub>  </td><td class="markdownTableBodyNone">removeDecor retire le décor au rang donné.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].assetName</span> vaut <span class="tt">"torch.png"</span>.<br  />
+Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.SansDecorLeChampDecorsEstAbsentDuJson</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:74</span></sub>  </td><td class="markdownTableBodyNone">Un niveau sans décor n'écrit pas le champ decors.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">loaded.level-&gt;decors().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">json.find("\\"decors\\\\"\")</span> vaut <span class="tt">std::string::npos</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorTest.NiveauSansChampDecorsSeChargeSansDecor</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:96</span></sub>  </td><td class="markdownTableBodyNone">Un niveau sans champ decors se charge sans erreur.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">loaded.level-&gt;decors().empty()</span> est vrai.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.UnDecorRoundTripExactement</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:119</span></sub>  </td><td class="markdownTableBodyNone">Un décor unique round-trip exactement via le JSON.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">built.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">roundTripped.assetName</span> vaut <span class="tt">"tree.png"</span>.<br  />
+Vérifie que <span class="tt">roundTripped.position</span> vaut <span class="tt">(Vector2{3.5f, 7.25f})</span>.<br  />
+Vérifie que <span class="tt">roundTripped.scale</span> vaut <span class="tt">(Vector2{2.0f, 0.5f})</span>.<br  />
+Vérifie que <span class="tt">roundTripped.rotation</span> vaut <span class="tt">1.5f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">roundTripped.layer</span> vaut <span class="tt">DecorLayer::Foreground</span>.<br  />
+Vérifie que <span class="tt">roundTripped.manipulable</span> est vrai.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorTest.OrdrePreserveALEcritureEtALaRelecture</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:158</span></sub>  </td><td class="markdownTableBodyNone">L'ordre des décors est préservé à l'écriture et à la relecture.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">built.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;decors().size()</span> vaut <span class="tt">3u</span>.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;decors()[0].assetName</span> vaut <span class="tt">"mountain.png"</span>.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;decors()[1].assetName</span> vaut <span class="tt">"bush.png"</span>.<br  />
+Vérifie que <span class="tt">reloaded.level-&gt;decors()[2].assetName</span> vaut <span class="tt">"branch.png"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.RedimensionnementConserveLesDecorsHorsBornes</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:196</span></sub>  </td><td class="markdownTableBodyNone">Redimensionner conserve les décors hors bornes.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].position</span> vaut <span class="tt">(Vector2{9.5f, 9.5f})</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorTest.UndoRedoCouvrentUnAjout</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:217</span></sub>  </td><td class="markdownTableBodyNone">undo/redo couvrent un ajout de décor.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">draft.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.decors().empty()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.redo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].assetName</span> vaut <span class="tt">"bush.png"</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.UndoRestitueUnDecorSupprime</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:241</span></sub>  </td><td class="markdownTableBodyNone">undo restitue un décor supprimé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">draft.undo()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].assetName</span> vaut <span class="tt">"bush.png"</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[1].assetName</span> vaut <span class="tt">"torch.png"</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorTest.FromLevelRestitueLesDecors</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:265</span></sub>  </td><td class="markdownTableBodyNone">fromLevel restitue les décors d'un niveau chargé.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">draft.decors().size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].assetName</span> vaut <span class="tt">"bush.png"</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[0].layer</span> vaut <span class="tt">DecorLayer::Background</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[1].assetName</span> vaut <span class="tt">"branch.png"</span>.<br  />
+Vérifie que <span class="tt">draft.decors()[1].layer</span> vaut <span class="tt">DecorLayer::Foreground</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorTest.SansChampLayerLaCoucheParDefautEstDecor</b> (Mineur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor_8cpp.html" title="Tests unitaires du décor libre (LOT-49, EX-DEC-001).">Source/Test/Unit/Core/Levels/test_decor.cpp</a>:298</span></sub>  </td><td class="markdownTableBodyNone">Sans champ layer, la couche par défaut est Decor.  </td><td class="markdownTableBodyNone">1. Mettre en place le contexte du test (arrangement).<br  />
+2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">loaded.ok()</span> est vrai.<br  />
+Vérifie que <span class="tt">loaded.level-&gt;decors().size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">loaded.level-&gt;decors().front().layer</span> vaut <span class="tt">DecorLayer::Decor</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level.">test_level.cpp</a></span></b></p>
 <table class="markdownTable">
@@ -2122,7 +2208,26 @@ Diagnostics (2)</h3>
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt"><a class="el" href="namespacehmi.html#a5bc539b762cfd88b17c71d8a44a1a22b" title="Assemble les messages de log en un texte (une ligne par message).">hmi::serializeSessionLog</a>({})</span> vaut <span class="tt">""</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-Editor (24)</h3>
+Editor (28)</h3>
+<p><b><span class="tt"><a class="el" href="test__decor__placement__gesture_8cpp.html" title="Tests unitaires de la recherche du décor le plus proche d&#39;un clic (LOT-49 TACHE-04).">test_decor_placement_gesture.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorPlacementGestureTest.RenvoieLeDecorLePlusProche</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__placement__gesture_8cpp.html" title="Tests unitaires de la recherche du décor le plus proche d&#39;un clic (LOT-49 TACHE-04).">Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp</a>:25</span></sub>  </td><td class="markdownTableBodyNone">nearestDecorAt renvoie le decor le plus proche.  </td><td class="markdownTableBodyNone">1. Placer deux decors a des distances differentes du point clique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*found</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorPlacementGestureTest.HorsDuRayonRenvoieNullopt</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__placement__gesture_8cpp.html" title="Tests unitaires de la recherche du décor le plus proche d&#39;un clic (LOT-49 TACHE-04).">Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp</a>:45</span></sub>  </td><td class="markdownTableBodyNone">Hors du rayon de detection, aucun decor n'est trouve.  </td><td class="markdownTableBodyNone">1. Placer un decor loin du point clique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found.has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorPlacementGestureTest.SansDecorRenvoieNullopt</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__placement__gesture_8cpp.html" title="Tests unitaires de la recherche du décor le plus proche d&#39;un clic (LOT-49 TACHE-04).">Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Sans decor, nearestDecorAt renvoie toujours nullopt.  </td><td class="markdownTableBodyNone">1. Appeler nearestDecorAt sur un vecteur vide.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found.has_value()</span> est faux.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorPlacementGestureTest.ADistanceEgaleLeRangLePlusEleveGagne</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__placement__gesture_8cpp.html" title="Tests unitaires de la recherche du décor le plus proche d&#39;un clic (LOT-49 TACHE-04).">Source/Test/Unit/HMI/Editor/test_decor_placement_gesture.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">A distance egale, le rang le plus eleve est prefere.  </td><td class="markdownTableBodyNone">1. Placer deux decors a exactement la meme distance du point clique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">found.has_value()</span> est vrai.<br  />
+Vérifie que <span class="tt">*found</span> vaut <span class="tt">1u</span>.  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__level__name__validation_8cpp.html" title="Tests unitaires de la validation d&#39;un nom de niveau saisi (LOT-15, EX-EDIT-009).">test_level_name_validation.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2262,7 +2367,7 @@ Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">
 Vérifie que <span class="tt">loc.text(key)</span> diffère de <span class="tt">key</span>.  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-Graphics (129)</h3>
+Graphics (143)</h3>
 <p><b><span class="tt"><a class="el" href="test__asset__contract_8cpp.html" title="Tests unitaires du contrat de dimensions des assets graphiques (LOT-40, EX-REN-007).">test_asset_contract.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2423,6 +2528,50 @@ Vérifie que <span class="tt">100.0f * <a class="el" href="classhmi_1_1Camera2D.
 2. Executer le scenario et verifier les assertions.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">zoomSansMarge</span> vaut <span class="tt">5.0f</span> (comparaison flottante).<br  />
 Vérifie que <span class="tt">zoomAvecMarge</span> vaut <span class="tt">4.0f</span> (comparaison flottante).  </td></tr>
 </table>
+<p><b><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">test_decor_visuals.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.DecorRenderLayerProjetteLesTroisCouches</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:92</span></sub>  </td><td class="markdownTableBodyNone">decorRenderLayer projette les trois couches sur les deux calques reserves.  </td><td class="markdownTableBodyNone">1. Appeler decorRenderLayer pour chaque DecorLayer.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::decorRenderLayer(DecorLayer::Background)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">hmi::RenderLayer::Decor</a></span>.<br  />
+Vérifie que <span class="tt">hmi::decorRenderLayer(DecorLayer::Decor)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">hmi::RenderLayer::Decor</a></span>.<br  />
+Vérifie que <span class="tt">hmi::decorRenderLayer(DecorLayer::Foreground)</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.ResolveDecorAppearanceRenvoieLAssetCharge</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:109</span></sub>  </td><td class="markdownTableBodyNone">resolveDecorAppearance renvoie l'asset charge.  </td><td class="markdownTableBodyNone">1. Resoudre l'apparence d'un decor dont l'asset est charge.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.texture</span> vaut <span class="tt">decorTexture</span>.<br  />
+Vérifie que <span class="tt">appearance.pixelWidth</span> vaut <span class="tt">48</span>.<br  />
+Vérifie que <span class="tt">appearance.pixelHeight</span> vaut <span class="tt">32</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.ResolveDecorAppearanceRetombeSurLeDamierSiIntrouvable</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:128</span></sub>  </td><td class="markdownTableBodyNone">resolveDecorAppearance retombe sur le damier si l'asset est introuvable.  </td><td class="markdownTableBodyNone">1. Resoudre l'apparence d'un decor dont l'asset n'est pas charge.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">appearance.texture</span> vaut <span class="tt">missingTexture</span>.<br  />
+Vérifie que <span class="tt">appearance.pixelWidth</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.<br  />
+Vérifie que <span class="tt">appearance.pixelHeight</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a75cfef1e5eb0b5569ebd42c004d73ce3" title="Côté, en pixels, du damier de repli généré par défaut (une case, EX-ARCH-021).">hmi::MISSING_TEXTURE_SIZE</a></span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.AucunDecorComposeEnModePhysique</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:147</span></sub>  </td><td class="markdownTableBodyNone">Aucun decor n'est compose en mode Physique.  </td><td class="markdownTableBodyNone">1. Composer un monde contenant un decor, en mode Physique.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.DecorEnModeTextureProduitUnQuadALaTailleDeSonAsset</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:167</span></sub>  </td><td class="markdownTableBodyNone">Un decor en mode Texture produit un quad a la taille de son asset.  </td><td class="markdownTableBodyNone">1. Composer un monde contenant un decor a l'echelle 2, en mode Texture.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">quad.x</span> vaut <span class="tt">3.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.y</span> vaut <span class="tt">4.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.width</span> vaut <span class="tt">48.0f / <a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a> * 2.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">quad.height</span> vaut <span class="tt">32.0f / <a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a> * 2.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">scene.quads()[0].texture</span> vaut <span class="tt">decorTexture</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.PremierPlanApresLePersonnageArrierePlanAvantLesTuiles</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:194</span></sub>  </td><td class="markdownTableBodyNone">Premier plan apres le personnage, arriere-plan avant les tuiles.  </td><td class="markdownTableBodyNone">1. Composer un monde avec un decor d'arriere-plan, une tuile, le personnage et un decor de premier plan.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">recorder.isLayerOrderRespected()</span> est vrai.<br  />
+Vérifie que <span class="tt">sequence.size()</span> vaut <span class="tt">4u</span>.<br  />
+Vérifie que <span class="tt">sequence[0]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ae953e8671da3a0647c0939df8ebe8e44" title="Décors d&#39;arrière-plan, éventuellement en parallaxe (LOT-49, EX-DEC-002).">hmi::RenderLayer::Decor</a></span>.<br  />
+Vérifie que <span class="tt">sequence[1]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152" title="Tuiles physiques du niveau — le seul calque peuplé avant LOT-42.">hmi::RenderLayer::Tile</a></span>.<br  />
+Vérifie que <span class="tt">sequence[2]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">hmi::RenderLayer::Player</a></span>.<br  />
+Vérifie que <span class="tt">sequence[3]</span> vaut <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a45bd1d5b32931106efbf1a82fe6a732f" title="Décors de premier plan, dessinés par-dessus le personnage (LOT-49, EX-DEC-002).">hmi::RenderLayer::Foreground</a></span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>DecorVisualsTest.OrdreIntraCoucheRespecteLeRangDuVecteur</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__decor__visuals_8cpp.html" title="Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02,...">Source/Test/Unit/HMI/Graphics/test_decor_visuals.cpp</a>:228</span></sub>  </td><td class="markdownTableBodyNone">Deux decors de la meme couche respectent l'ordre du vecteur.  </td><td class="markdownTableBodyNone">1. Composer deux decors de meme asset et de meme couche, rangs 0 puis 1.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">2u</span>.<br  />
+Vérifie que <span class="tt">scene.quads()[0].sprite.x</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">scene.quads()[1].sprite.x</span> vaut <span class="tt">5.0f</span> (comparaison flottante).  </td></tr>
+</table>
 <p><b><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">test_missing_texture.cpp</a></span></b></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2451,6 +2600,41 @@ Vérifie que <span class="tt">pixelAt(image, STEP, STEP)</span> vaut <span class
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><b>MissingTextureTest.AvertissementNommeAsset</b> (Majeur)<br  />
 <sub><span class="tt"><a class="el" href="test__missing__texture_8cpp.html" title="Tests unitaires du repli « texture manquante » en damier magenta (LOT-40, EX-NFR-040).">Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp</a>:102</span></sub>  </td><td class="markdownTableBodyNone">L'avertissement de texture manquante nomme l'asset attendu.  </td><td class="markdownTableBodyNone">1. Construire le message pour un asset donne.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">message.find("Backgrounds/foret.png")</span> diffère de <span class="tt">std::string::npos</span>.  </td></tr>
+</table>
+<p><b><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">test_parallax.cpp</a></span></b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Titre (criticité)  </th><th class="markdownTableHeadNone">Brief  </th><th class="markdownTableHeadNone">Étapes  </th><th class="markdownTableHeadNone">Résultat attendu  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParallaxTest.LeFacteurDeLaCoucheDecorVautUn</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:63</span></sub>  </td><td class="markdownTableBodyNone">Le facteur de la couche Decor vaut 1.0, valeur de reference.  </td><td class="markdownTableBodyNone">1. Lire parallaxFactor pour les trois couches.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">hmi::parallaxFactor(DecorLayer::Decor)</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">hmi::parallaxFactor(DecorLayer::Background)</span> est strictement inférieur à <span class="tt">1.0f</span>.<br  />
+Vérifie que <span class="tt">hmi::parallaxFactor(DecorLayer::Foreground)</span> est strictement supérieur à <span class="tt">1.0f</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParallaxTest.FacteurUnLaissePositionInchangee</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:79</span></sub>  </td><td class="markdownTableBodyNone">Facteur 1 laisse la position inchangee.  </td><td class="markdownTableBodyNone">1. Calculer la position de rendu d'un decor a facteur 1.0.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rendered.x</span> vaut <span class="tt">position.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">rendered.y</span> vaut <span class="tt">position.y</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParallaxTest.FacteursOpposesProduisentDesDecalagesOpposesEtProportionnels</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:99</span></sub>  </td><td class="markdownTableBodyNone">Des facteurs opposes autour de 1 produisent des decalages opposes.  </td><td class="markdownTableBodyNone">1. Calculer le decalage pour un facteur inferieur et un facteur superieur a 1, equidistants.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">offsetLower</span> vaut <span class="tt">-offsetHigher</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">offsetLower</span> diffère de <span class="tt">0.0f</span>.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParallaxTest.MemePositionRelativeDonneMemePositionEcranEntreSalles</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:124</span></sub>  </td><td class="markdownTableBodyNone">Meme position relative -&gt; meme position ecran dans deux salles.  </td><td class="markdownTableBodyNone">1. Placer un decor a la meme position RELATIVE dans deux salles de centres differents.<br  />
+2. Calculer sa position de rendu dans chaque salle.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">screen1.x</span> vaut <span class="tt">screen2.x</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">screen1.y</span> vaut <span class="tt">screen2.y</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParallaxTest.RoundToScreenPixelArrondiAuPixelEcran</b> (Majeur)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:157</span></sub>  </td><td class="markdownTableBodyNone">roundToScreenPixel arrondit au pixel ecran le plus proche.  </td><td class="markdownTableBodyNone">1. Arrondir une position fractionnaire a 16 px/unite.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">rounded.x</span> vaut <span class="tt">1.0f</span> (comparaison flottante).<br  />
+Vérifie que <span class="tt">rounded.y</span> vaut <span class="tt">2.5f</span> (comparaison flottante).  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>ParallaxTest.DecorParallaxeVisibleNEstPasEcarte</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:176</span></sub>  </td><td class="markdownTableBodyNone">Un decor parallaxe visible n'est pas ecarte par le culling.  </td><td class="markdownTableBodyNone">1. Composer un decor hors cadre a sa position simulee mais dont le facteur arriere-plan le ramene dans le cadrage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.<br  />
+Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>ParallaxTest.DecorParallaxeHorsCadreEstEcarte</b> (Critique)<br  />
+<sub><span class="tt"><a class="el" href="test__parallax_8cpp.html" title="Tests unitaires du facteur de parallaxe par couche et du décalage relatif à la salle courante (LOT-49...">Source/Test/Unit/HMI/Graphics/test_parallax.cpp</a>:215</span></sub>  </td><td class="markdownTableBodyNone">Un decor parallaxe hors cadre est ecarte par le culling.  </td><td class="markdownTableBodyNone">1. Composer un decor dans le cadrage a sa position simulee mais dont le facteur premier plan le pousse hors du cadrage.  </td><td class="markdownTableBodyNone">Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">1u</span>.<br  />
+Vérifie que <span class="tt">scene.size()</span> vaut <span class="tt">0u</span>.  </td></tr>
 </table>
 <p><b><span class="tt"><a class="el" href="test__player__sprite_8cpp.html" title="Tests unitaires de l&#39;habillage du personnage : ancrage image/hitbox, repli entre clips et retournemen...">test_player_sprite.cpp</a></span></b></p>
 <table class="markdownTable">

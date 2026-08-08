@@ -8,6 +8,8 @@ var dir_8582677ef72a95e6c2b44a30d95c0011 =
     [ "AssetReferences.h", "AssetReferences_8h.html", "AssetReferences_8h" ],
     [ "AssetThumbnailView.cpp", "AssetThumbnailView_8cpp.html", null ],
     [ "AssetThumbnailView.h", "AssetThumbnailView_8h.html", "AssetThumbnailView_8h" ],
+    [ "DecorPlacementGesture.cpp", "DecorPlacementGesture_8cpp.html", "DecorPlacementGesture_8cpp" ],
+    [ "DecorPlacementGesture.h", "DecorPlacementGesture_8h.html", "DecorPlacementGesture_8h" ],
     [ "EditorTool.h", "EditorTool_8h.html", "EditorTool_8h" ],
     [ "LevelBrowserPanel.cpp", "LevelBrowserPanel_8cpp.html", null ],
     [ "LevelBrowserPanel.h", "LevelBrowserPanel_8h.html", "LevelBrowserPanel_8h" ],

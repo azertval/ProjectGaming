@@ -127,6 +127,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa1b0f14b74c790ed226ce9ad3302eaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit le type de tuile peint au clic (relié à la sélection de la palette).  <br /></td></tr>
 <tr class="memitem:ab2fd09e359b451414074b6b00ddd4c25" id="r_ab2fd09e359b451414074b6b00ddd4c25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab2fd09e359b451414074b6b00ddd4c25">setActiveTextureAsset</a> (std::optional&lt; std::string &gt; asset) noexcept</td></tr>
 <tr class="memdesc:ab2fd09e359b451414074b6b00ddd4c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'asset assigné au clic par l'outil « Texture par instance » (<span class="tt">LOT-45</span>), relié à la sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.  <br /></td></tr>
+<tr class="memitem:aafa498909e1ec9c58ed39e5652f4630a" id="r_aafa498909e1ec9c58ed39e5652f4630a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aafa498909e1ec9c58ed39e5652f4630a">setActiveDecorAsset</a> (std::optional&lt; std::string &gt; asset) noexcept</td></tr>
+<tr class="memdesc:aafa498909e1ec9c58ed39e5652f4630a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), relié à la sélection de la bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné.  <br /></td></tr>
+<tr class="memitem:a056edea1538cd0013c72ac26e263d2a4" id="r_a056edea1538cd0013c72ac26e263d2a4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a056edea1538cd0013c72ac26e263d2a4">setActiveDecorLayer</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) noexcept</td></tr>
+<tr class="memdesc:a056edea1538cd0013c72ac26e263d2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit la couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>), reliée au sélecteur de couche du panneau « Outils ».  <br /></td></tr>
 <tr class="memitem:a0dcbcc0d9c69040710cb070afe2e828c" id="r_a0dcbcc0d9c69040710cb070afe2e828c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0dcbcc0d9c69040710cb070afe2e828c">setTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a0dcbcc0d9c69040710cb070afe2e828c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définit l'outil d'édition actif (pinceau, rectangle, sélection, lien, texture par instance).  <br /></td></tr>
 <tr class="memitem:a30fb475c885ff369c5710284cf1450eb" id="r_a30fb475c885ff369c5710284cf1450eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30fb475c885ff369c5710284cf1450eb">setLocalization</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *loc) noexcept</td></tr>
@@ -228,6 +232,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a99a73b1b7b40806ee7785b6cf71cf82c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil Lien (<span class="tt"><a class="el" href="namespacehmi.html#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>) et l'applique (attente, liaison).  <br /></td></tr>
 <tr class="memitem:abae0c17d59f3e99daac38bd485051fba" id="r_abae0c17d59f3e99daac38bd485051fba"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abae0c17d59f3e99daac38bd485051fba">handleTextureAssignClick</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>, bool rightClick)</td></tr>
 <tr class="memdesc:abae0c17d59f3e99daac38bd485051fba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout le clic de l'outil « Texture par instance » (<span class="tt"><a class="el" href="namespacehmi.html#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>) et l'applique (assignation/retrait) ; <code class="param">rightClick</code> distingue le clic droit (retrait explicite).  <br /></td></tr>
+<tr class="memitem:ac71069276d05341fffe54f5d071ef5d1" id="r_ac71069276d05341fffe54f5d071ef5d1"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac71069276d05341fffe54f5d071ef5d1">worldPositionAt</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
+<tr class="memdesc:ac71069276d05341fffe54f5d071ef5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit la position écran d'un événement souris en position <b>monde</b>, non calée sur la grille (<span class="tt">EX-DEC-001</span>) — contrairement à <span class="tt"><a class="el" href="#a5f7a14d556f4c45f5e5eb6331c27be81" title="Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.">cellAt</a></span>/<span class="tt"><a class="el" href="#a078cc498875632716eaea7c6383171d0" title="Case de grille sous event, bornée à la grille (jamais hors bornes) — pour les glissers rectangle/séle...">clampedCell</a></span>, utilisées par les autres outils.  <br /></td></tr>
+<tr class="memitem:a221559c4b6b621cb40b257f84d321edd" id="r_a221559c4b6b621cb40b257f84d321edd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a221559c4b6b621cb40b257f84d321edd">handleDecorPlaceClick</a> (const QMouseEvent *<a class="el" href="#a5d3760d8afacd89cccc12dff1f843a9b">event</a>)</td></tr>
+<tr class="memdesc:a221559c4b6b621cb40b257f84d321edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un décor (asset et couche sélectionnés) à la position exacte du clic (outil Décor, <span class="tt">LOT-49</span> TACHE-04) ; sans effet si aucun asset n'est sélectionné dans la bibliothèque.  <br /></td></tr>
+<tr class="memitem:a2973283a59820ca8d8669efb9d022c4c" id="r_a2973283a59820ca8d8669efb9d022c4c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2973283a59820ca8d8669efb9d022c4c">handleDecorRemoveClick</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition)</td></tr>
+<tr class="memdesc:a2973283a59820ca8d8669efb9d022c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le décor le plus proche du clic (<span class="tt"><a class="el" href="namespacehmi.html#a128cfb0ca7ddd975c1f2c1dac2c52a5a" title="Trouve le rang du décor le plus proche de worldPosition, dans DECOR_PICK_RADIUS.">hmi::nearestDecorAt</a></span>), sans effet si aucun n'est à portée (<span class="tt"><a class="el" href="namespacehmi.html#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">hmi::DECOR_PICK_RADIUS</a></span>).  <br /></td></tr>
 <tr class="memitem:a0bbb467b21ce8b7ce3d8ec38a799d671" id="r_a0bbb467b21ce8b7ce3d8ec38a799d671"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0bbb467b21ce8b7ce3d8ec38a799d671">linkExists</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> switchPosition, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> targetPosition) const</td></tr>
 <tr class="memitem:ab3bcb4f2e850c36f8a1c211fcaa8f3a2" id="r_ab3bcb4f2e850c36f8a1c211fcaa8f3a2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab3bcb4f2e850c36f8a1c211fcaa8f3a2">markDraftMutated</a> ()</td></tr>
 <tr class="memdesc:ab3bcb4f2e850c36f8a1c211fcaa8f3a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalide le rendu du brouillon et notifie les panneaux dépendants (<span class="tt"><a class="el" href="#a3646e1f1bc4d4ee8ab7c45af7410f56e" title="Le brouillon vient d&#39;être modifié (peinture, undo/redo, chargement, lien…) — le panneau « Liens » se ...">draftChanged</a></span>) — à appeler après toute mutation de <span class="tt"><a class="el" href="#a0965909558a6381fb2a51b90605b2320" title="Brouillon en cours d&#39;édition (source de vérité).">_draft</a></span> (peinture, lien, undo/redo, chargement…).  <br /></td></tr>
@@ -276,6 +286,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af0ef65fced561f5c25e609d4eca37674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type peint au clic (palette).  <br /></td></tr>
 <tr class="memitem:a660e1441fa6a267336b9450cbb524331" id="r_a660e1441fa6a267336b9450cbb524331"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a660e1441fa6a267336b9450cbb524331">_activeTextureAsset</a></td></tr>
 <tr class="memdesc:a660e1441fa6a267336b9450cbb524331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset assigné au clic par l'outil « Texture par instance » (<span class="tt">LOT-45</span>), vide si aucun n'est sélectionné dans la bibliothèque « Objets ».  <br /></td></tr>
+<tr class="memitem:a72ca397f707f841d16866836c0809c5f" id="r_a72ca397f707f841d16866836c0809c5f"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a72ca397f707f841d16866836c0809c5f">_activeDecorAsset</a></td></tr>
+<tr class="memdesc:a72ca397f707f841d16866836c0809c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), vide si aucun n'est sélectionné dans la bibliothèque de décors.  <br /></td></tr>
+<tr class="memitem:a471e328667ec9409fc6e710dbc289264" id="r_a471e328667ec9409fc6e710dbc289264"><td class="memItemLeft"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#a471e328667ec9409fc6e710dbc289264">_activeDecorLayer</a> = <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">core::DecorLayer::Decor</a></td></tr>
+<tr class="memdesc:a471e328667ec9409fc6e710dbc289264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>) ; <span class="tt">Decor</span> par défaut (couche de référence, <span class="tt">EX-DEC-006</span>).  <br /></td></tr>
 <tr class="memitem:a1f2c9e8fee197dbbfbca6b134448998c" id="r_a1f2c9e8fee197dbbfbca6b134448998c"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f2c9e8fee197dbbfbca6b134448998c">_tool</a> = <a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">hmi::EditorTool::Paint</a></td></tr>
 <tr class="memdesc:a1f2c9e8fee197dbbfbca6b134448998c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil d'édition actif (barre d'outils).  <br /></td></tr>
 <tr class="memitem:aab822f4c5afab698d6b247150897c2e2" id="r_aab822f4c5afab698d6b247150897c2e2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aab822f4c5afab698d6b247150897c2e2">_painting</a> = false</td></tr>
@@ -738,6 +752,60 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div><div class="memdoc">
 
 <p>Accès <b>modifiable</b> aux boutons manette (pour le remappage), même principe que <span class="tt"><a class="el" href="#a30002a154b0395cdc334fe7313e08219" title="Accès modifiable aux touches de jeu (pour le remappage) : la session de jeu lit ces mêmes bindings,...">gameBindings</a></span>. </p>
+
+</div>
+</div>
+<a id="a221559c4b6b621cb40b257f84d321edd" name="a221559c4b6b621cb40b257f84d321edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221559c4b6b621cb40b257f84d321edd">&#9670;&#160;</a></span>handleDecorPlaceClick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::handleDecorPlaceClick </td>
+          <td>(</td>
+          <td class="paramtype">const QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose un décor (asset et couche sélectionnés) à la position exacte du clic (outil Décor, <span class="tt">LOT-49</span> TACHE-04) ; sans effet si aucun asset n'est sélectionné dans la bibliothèque. </p>
+
+</div>
+</div>
+<a id="a2973283a59820ca8d8669efb9d022c4c" name="a2973283a59820ca8d8669efb9d022c4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2973283a59820ca8d8669efb9d022c4c">&#9670;&#160;</a></span>handleDecorRemoveClick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::handleDecorRemoveClick </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retire le décor le plus proche du clic (<span class="tt"><a class="el" href="namespacehmi.html#a128cfb0ca7ddd975c1f2c1dac2c52a5a" title="Trouve le rang du décor le plus proche de worldPosition, dans DECOR_PICK_RADIUS.">hmi::nearestDecorAt</a></span>), sans effet si aucun n'est à portée (<span class="tt"><a class="el" href="namespacehmi.html#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">hmi::DECOR_PICK_RADIUS</a></span>). </p>
 
 </div>
 </div>
@@ -1550,6 +1618,60 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="aafa498909e1ec9c58ed39e5652f4630a" name="aafa498909e1ec9c58ed39e5652f4630a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafa498909e1ec9c58ed39e5652f4630a">&#9670;&#160;</a></span>setActiveDecorAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setActiveDecorAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>asset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit l'asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), relié à la sélection de la bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné. </p>
+
+</div>
+</div>
+<a id="a056edea1538cd0013c72ac26e263d2a4" name="a056edea1538cd0013c72ac26e263d2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a056edea1538cd0013c72ac26e263d2a4">&#9670;&#160;</a></span>setActiveDecorLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::GameViewport::setActiveDecorLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définit la couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>), reliée au sélecteur de couche du panneau « Outils ». </p>
+
+</div>
+</div>
 <a id="ab2fd09e359b451414074b6b00ddd4c25" name="ab2fd09e359b451414074b6b00ddd4c25"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab2fd09e359b451414074b6b00ddd4c25">&#9670;&#160;</a></span>setActiveTextureAsset()</h2>
 
@@ -2139,6 +2261,33 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 
 </div>
 </div>
+<a id="ac71069276d05341fffe54f5d071ef5d1" name="ac71069276d05341fffe54f5d071ef5d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac71069276d05341fffe54f5d071ef5d1">&#9670;&#160;</a></span>worldPositionAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::GameViewport::worldPositionAt </td>
+          <td>(</td>
+          <td class="paramtype">const QMouseEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit la position écran d'un événement souris en position <b>monde</b>, non calée sur la grille (<span class="tt">EX-DEC-001</span>) — contrairement à <span class="tt"><a class="el" href="#a5f7a14d556f4c45f5e5eb6331c27be81" title="Case de grille sous la position écran donnée (pixels physiques), si dans les bornes.">cellAt</a></span>/<span class="tt"><a class="el" href="#a078cc498875632716eaea7c6383171d0" title="Case de grille sous event, bornée à la grille (jamais hors bornes) — pour les glissers rectangle/séle...">clampedCell</a></span>, utilisées par les autres outils. </p>
+
+</div>
+</div>
 <a id="aca00d4e9745dab6b1f0139407b78bd62" name="aca00d4e9745dab6b1f0139407b78bd62"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aca00d4e9745dab6b1f0139407b78bd62">&#9670;&#160;</a></span>wouldResizeDrop()</h2>
 
@@ -2170,6 +2319,54 @@ paintTile</span>) ; <span class="tt">Ctrl+Z</span>/<span class="tt">Ctrl+Y</span
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a72ca397f707f841d16866836c0809c5f" name="a72ca397f707f841d16866836c0809c5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ca397f707f841d16866836c0809c5f">&#9670;&#160;</a></span>_activeDecorAsset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::string&gt; hmi::GameViewport::_activeDecorAsset</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asset posé au clic par l'outil Décor (<span class="tt">LOT-49</span>), vide si aucun n'est sélectionné dans la bibliothèque de décors. </p>
+
+</div>
+</div>
+<a id="a471e328667ec9409fc6e710dbc289264" name="a471e328667ec9409fc6e710dbc289264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a471e328667ec9409fc6e710dbc289264">&#9670;&#160;</a></span>_activeDecorLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> hmi::GameViewport::_activeDecorLayer = <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44">core::DecorLayer::Decor</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Couche du décor posé au clic (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>) ; <span class="tt">Decor</span> par défaut (couche de référence, <span class="tt">EX-DEC-006</span>). </p>
+
+</div>
+</div>
 <a id="a660e1441fa6a267336b9450cbb524331" name="a660e1441fa6a267336b9450cbb524331"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a660e1441fa6a267336b9450cbb524331">&#9670;&#160;</a></span>_activeTextureAsset</h2>
 

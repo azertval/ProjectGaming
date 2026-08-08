@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-54-tache-03-ouvrir-enregistrer.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-03-ouvrir-enregistrer"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2349"></a>
 Contexte</h1>
 <p>Le canevas (TACHE-02) travaille en mémoire ; il faut le relier aux fichiers d'assets. La bibliothèque de LOT-43 fournit déjà la navigation, la validation de nom et la <b>détection des références</b> — un asset peut être cité par plusieurs niveaux et par <span class="tt">skins.json</span>.</p>
 <p>C'est cette détection qui rend l'enregistrement délicat : écraser un asset utilisé par cinq niveaux n'est pas une opération anodine, et l'utilisateur n'a aucun moyen de le savoir sans qu'on le lui dise.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2349"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2350"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Ouvrir</b> un asset existant depuis la bibliothèque (LOT-43), comme point d'entrée principal de l'atelier.</li>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 <li><b>Garde-fou de perte de travail</b> : fermer l'atelier ou ouvrir un autre asset avec des modifications non enregistrées demande confirmation — même patron que l'éditeur de niveaux (<span class="tt">EX-EDIT-021</span>).</li>
 <li><b>Enregistrer sous</b> : créer une copie plutôt qu'écraser, la voie de sortie naturelle quand le garde-fou d'écrasement se déclenche.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2350"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2351"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span>, <span class="tt">TexturePanel.{h,cpp}</span>, <span class="tt">AssetThumbnailView.{h,cpp}</span>.</li>
 <li><span class="tt">Source/HMI/Editor/AssetReferences.{h,cpp}</span> (réutilisé), <span class="tt">AssetFileOperations.{h,cpp}</span>.</li>
 <li><span class="tt">Source/Elements/Localization/fr.lang</span>, <span class="tt">en.lang</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2351"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2352"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Préservation des dimensions</b> : ouvrir puis enregistrer sans modification produit une image de mêmes dimensions et de mêmes pixels.</li>
@@ -124,19 +124,19 @@ Tests (obligatoires)</h1>
 <li>Suivi de l'état « modifié » : un coup de pinceau le marque, un enregistrement le lève.</li>
 <li>Logique testée sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2352"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2353"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas réimplémenter la détection des références</b> : elle existe depuis LOT-43 et doit rester unique, sinon les deux implémentations divergeront.</li>
 <li>L'enregistrement doit déclencher l'<b>invalidation ciblée</b> du cache (LOT-43, TACHE-03) pour que l'aperçu live (TACHE-04) se mette à jour — mais l'invalidation elle-même n'est pas le sujet de cette tâche.</li>
 <li>Une création à une taille non conforme ne doit pas être possible du tout, plutôt que refusée après coup : c'est la différence entre un outil qui guide et un outil qui punit.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2353"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2354"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Ouvrir, créer et enregistrer un asset fonctionne depuis la bibliothèque ; les dimensions sont préservées ; l'écrasement d'un asset référencé et la perte de travail sont couverts par des garde-fous nommant les éléments concernés ; chaînes traduites ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2354"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2355"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-EDIT-021</span> (garde-fous contre la perte de travail), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction), <span class="tt">EX-NFR-040</span> (erreur récupérable). </p>
 </div></div><!-- contents -->

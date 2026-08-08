@@ -2,6 +2,7 @@ var dir_e9bc3547f945e106b199f4f7c7c6d92f =
 [
     [ "DangerGeometry.cpp", "DangerGeometry_8cpp.html", "DangerGeometry_8cpp" ],
     [ "DangerGeometry.h", "DangerGeometry_8h.html", "DangerGeometry_8h" ],
+    [ "Decor.h", "Decor_8h.html", "Decor_8h" ],
     [ "GridPosition.h", "GridPosition_8h.html", "GridPosition_8h" ],
     [ "Level.h", "Level_8h.html", "Level_8h" ],
     [ "LevelDraft.cpp", "LevelDraft_8cpp.html", null ],

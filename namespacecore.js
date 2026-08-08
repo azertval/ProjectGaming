@@ -28,6 +28,7 @@ var namespacecore =
     [ "BlockController", "classcore_1_1BlockController.html", "classcore_1_1BlockController" ],
     [ "DangerController", "classcore_1_1DangerController.html", "classcore_1_1DangerController" ],
     [ "MechanismController", "classcore_1_1MechanismController.html", "classcore_1_1MechanismController" ],
+    [ "Decor", "structcore_1_1Decor.html", "structcore_1_1Decor" ],
     [ "GridPosition", "structcore_1_1GridPosition.html", "structcore_1_1GridPosition" ],
     [ "Mechanism", "structcore_1_1Mechanism.html", "structcore_1_1Mechanism" ],
     [ "DangerLink", "structcore_1_1DangerLink.html", "structcore_1_1DangerLink" ],
@@ -57,6 +58,11 @@ var namespacecore =
     [ "DangerMoverAxis", "namespacecore.html#a691dfee41b7946ec78288271f8925d51", [
       [ "Horizontal", "namespacecore.html#a691dfee41b7946ec78288271f8925d51ac1b5fa03ecdb95d4a45dd1c40b02527f", null ],
       [ "Vertical", "namespacecore.html#a691dfee41b7946ec78288271f8925d51a06ce2a25e5d12c166a36f654dbea6012", null ]
+    ] ],
+    [ "DecorLayer", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20", [
+      [ "Background", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419", null ],
+      [ "Decor", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20ae953e8671da3a0647c0939df8ebe8e44", null ],
+      [ "Foreground", "namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20a45bd1d5b32931106efbf1a82fe6a732f", null ]
     ] ],
     [ "LevelOutcome", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aa", [
       [ "Playing", "namespacecore.html#a60398ec3835dd2882a7d3a9eaddb65aaac9dbb2b7c84159b632d71e512eba8428", null ],
@@ -117,7 +123,7 @@ var namespacecore =
     ] ],
     [ "advanceAnimation", "namespacecore.html#a209ceac8415ddadd8463746b94934eed", null ],
     [ "approximatelyEqual", "namespacecore.html#a69640dd3c9f3f8778a7c7621839c3794", null ],
-    [ "buildLevelScene", "namespacecore.html#a671cc58bea9439fdb3ea23009b0da54b", null ],
+    [ "buildLevelScene", "namespacecore.html#a2af6bf1cd31d496a597f6bdf257ce148", null ],
     [ "ceilingSlopeHeight", "namespacecore.html#aef7136a2093c38f28dc2f24fedfae124", null ],
     [ "currentTimestamp", "namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4", null ],
     [ "dangerHitbox", "namespacecore.html#a6c0f85da9ce20757943b19c8034f459e", null ],

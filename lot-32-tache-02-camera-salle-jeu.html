@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-32-tache-02-camera-salle-jeu.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-32-niveaux-a-salles_2tache-02-camera-salle-jeu"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-32.html#md_Lot_2LOT-32-niveaux-a-salles_2epic" title="Lot/LOT-32-niveaux-a-salles/epic.md">LOT-32</a> · <b>Emplacement :</b> <span class="tt">HMI/Interface</span> · <b>Statut :</b> fait (mécanique de salle/franchissement prouvée par le test système de TACHE-04, sans couche GPU ; confirmation visuelle à l'écran non automatisée, laissée à un essai manuel par un humain lançant le jeu)</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1554"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1555"></a>
 Contexte</h1>
 <p><span class="tt">GameScreen::render</span> (<span class="tt">LOT-16</span>) calcule aujourd'hui un zoom d'ajustement sur le <b>niveau entier</b> (<span class="tt">Camera2D::fitZoom</span> avec <span class="tt">_levelWidth</span>/<span class="tt">_levelHeight</span>) et centre la caméra <b>une seule fois</b>, au chargement (<span class="tt">loadLevel</span>, milieu du niveau). Cette tâche fait dépendre le rectangle cadré de la <b>salle courante</b> du personnage (<span class="tt">RoomGrid</span>, TACHE-01) plutôt que du niveau entier, avec une <b>coupure nette</b> au changement de salle plutôt qu'un recentrage continu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1555"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1556"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Construire un <span class="tt"><a class="el" href="classhmi_1_1RoomGrid.html" title="Partitionne une grille de niveau en un tableau de salles de taille fixe, façon Celeste (LOT-32).">hmi::RoomGrid</a></span></b> à partir des dimensions du niveau chargé (<span class="tt">_levelWidth</span>/ <span class="tt">_levelHeight</span>), au même moment que le reste de l'état de scène (<span class="tt">loadLevel</span>).</li>
@@ -108,31 +108,31 @@ Travail à réaliser</h1>
 <li><b>Non-régression</b> : pour un niveau tenant dans une seule salle, <span class="tt">RoomGrid</span> produit une seule salle dont le rectangle couvre le niveau entier (TACHE-01) — le calcul de zoom et de centre retombe exactement sur le comportement <span class="tt">LOT-16</span> actuel, sans branche spéciale à écrire pour ce cas.</li>
 <li><b>Chargement/redémarrage</b> : au (re)chargement d'un niveau (nouvelle partie, échec → redémarrage), le personnage repart à l'<b>entrée</b> — recalculer la salle et centrer la caméra dessus immédiatement (pas de salle « en retard » d'une frame après un redémarrage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1556"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1557"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span> (état <span class="tt">RoomGrid</span>/salle courante, <span class="tt">render</span>, <span class="tt">loadLevel</span>, réinitialisation au redémarrage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1557"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1558"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Non testable automatiquement au niveau de <span class="tt">GameScreen</span> (dépendance rendu D3D11, non compilé dans <span class="tt">UnitTests</span>, même limite que <span class="tt">LOT-16</span> TACHE-03) : vérifié par relecture et <b>essai manuel</b> — charger le niveau de démonstration de TACHE-04 (plus grand qu'une salle) et constater que la caméra reste au zoom natif et bascule nettement d'une salle à l'autre en franchissant chaque frontière, dans les quatre directions.</li>
 <li>Non-régression manuelle : les niveaux existants (tenant dans une seule salle) s'affichent avec <b>exactement</b> le même zoom/cadrage qu'avant ce lot.</li>
 <li>La logique de <b>décision</b> (« l'indice de salle a-t-il changé ? ») doit rester séparable et testable sans GPU si l'implémentation le permet naturellement (ex. une petite fonction pure <span class="tt">hasRoomChanged(previous, current)</span> ou équivalent) — sans forcer une abstraction si <span class="tt">RoomGrid</span> seul (TACHE-01, déjà testé) suffit à couvrir la logique non triviale.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1558"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1559"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Ne pas recentrer à chaque frame</b> même dans la salle courante : <span class="tt">setCenter</span> n'est appelé qu'au <b>changement</b> d'indice de salle, sinon le moindre calcul flottant pourrait introduire un tremblement invisible mais superflu — la caméra doit rester <b>rigoureusement fixe</b> tant que le personnage reste dans la même salle (comportement <span class="tt">LOT-16</span> déjà de ce type : caméra fixe, pas suiveuse).</li>
 <li><b>Écran d'erreur</b> (<span class="tt">_loadError</span>, cf. <span class="tt">GameScreen::render</span> actuel) : chemin inchangé, aucune notion de salle n'y intervient.</li>
 <li><span class="tt">Camera2D</span> (<span class="tt">LOT-05</span>) n'a besoin d'aucune modification : <span class="tt">setCenter</span>/<span class="tt">setZoom</span> acceptent déjà n'importe quel centre/zoom positif.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1559"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1560"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Caméra en jeu cadrée sur la salle courante, coupure nette au changement, non-régression sur les niveaux existants vérifiée manuellement ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1560"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1561"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-015</span> (nouvelle), <span class="tt">EX-REN-013</span> (portée corrigée — scopée aux niveaux tenant dans une seule salle), <span class="tt">EX-ARCH-022</span> (zoom pixel art de préférence entier). </p>
 </div></div><!-- contents -->

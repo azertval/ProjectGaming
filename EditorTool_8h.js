@@ -5,6 +5,7 @@ var EditorTool_8h =
       [ "hmi::EditorTool::Rectangle", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e", null ],
       [ "hmi::EditorTool::Selection", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda6ff9dd0d34f65181173c1e4bc39939de", null ],
       [ "hmi::EditorTool::Link", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda97e7c9a7d06eac006a28bf05467fcc8b", null ],
-      [ "hmi::EditorTool::TextureAssign", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4", null ]
+      [ "hmi::EditorTool::TextureAssign", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddaa60d5a3d966eadf0cbf28a67b401bbf4", null ],
+      [ "hmi::EditorTool::Decor", "namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68ddae953e8671da3a0647c0939df8ebe8e44", null ]
     ] ]
 ];

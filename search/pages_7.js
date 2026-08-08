@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['7_20bonnes_20pratiques_0',['7. Bonnes pratiques',['../spec-conventions.html#autotoc_md201',1,'']]],
-  ['7_20modèle_20de_20threading_1',['7. Modèle de threading',['../spec-architecture.html#autotoc_md177',1,'']]],
-  ['7_20niveaux_20de_20grande_20taille_20lot_2016_2',['7. Niveaux de grande taille (LOT-16)',['../spec-editeur.html#autotoc_md223',1,'']]]
+  ['7_20bonnes_20pratiques_0',['7. Bonnes pratiques',['../spec-conventions.html#autotoc_md202',1,'']]],
+  ['7_20modèle_20de_20threading_1',['7. Modèle de threading',['../spec-architecture.html#autotoc_md178',1,'']]],
+  ['7_20niveaux_20de_20grande_20taille_20lot_2016_2',['7. Niveaux de grande taille (LOT-16)',['../spec-editeur.html#autotoc_md224',1,'']]]
 ];

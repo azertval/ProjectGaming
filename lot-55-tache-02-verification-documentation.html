@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-55-tache-02-verification-documentation.html','',''
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-55-ombres-plan-physique_2tache-02-verification-documentation"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-55.html#md_Lot_2LOT-55-ombres-plan-physique_2epic" title="Lot/LOT-55-ombres-plan-physique/epic.md">LOT-55</a> · <b>Emplacement :</b> <span class="tt">Source/Test</span>, <span class="tt">Documentation</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2379"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2380"></a>
 Contexte</h1>
 <p>Dernier lot du programme d'habillage. Au-delà de la vérification de ses propres ombres, cette tâche est l'occasion — et la dernière — de constater que l'ensemble tient : seize lots ont ajouté des calques, des animations, des décors, du texte et des effets par-dessus un rendu qui n'affichait qu'une texture et deux couches.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2380"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2381"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Vérification manuelle des ombres</b> : mode Texture avec fond, avec décor d'arrière-plan, sans aucun des deux ; mode Physique ; sur un niveau à pentes et arrondis.</li>
@@ -117,33 +117,33 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2381"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2382"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Test/Systeme/</span> (scénario de vérification d'ensemble, si automatisable).</li>
 <li><span class="tt"><a class="el" href="guide-rendu_8md.html">Documentation/Guide/guide-rendu.md</a></span>, <span class="tt"><a class="el" href="guide-editeur_8md.html">guide-editeur.md</a></span>, <span class="tt"><a class="el" href="jouer_8md.html">Documentation/Manuel/jouer.md</a></span>, <span class="tt"><a class="el" href="partager-un-niveau_8md.html">partager-un-niveau.md</a></span>.</li>
 <li><span class="tt">Source/HMI/Graphics/README.md</span>, <span class="tt">Source/HMI/Editor/README.md</span>, <span class="tt">Source/Elements/Assets/README.md</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2382"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2383"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Test de composition d'ensemble : sur une scène couvrant tous les calques, l'ordre des primitives est celui de <span class="tt">EX-REN-014</span>, asserté via le <em>QuadRecorder</em>.</li>
 <li>Dénombrement de primitives sur le plus grand niveau de démonstration, en mode Texture complet.</li>
 <li>L'ensemble de la suite de tests reste verte, y compris les tests de franchissabilité.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2383"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2384"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Les sections « À venir » doivent disparaître.</b> Une documentation qui annonce encore comme futur ce qui est livré est pire qu'une documentation absente : elle induit en erreur le prochain développeur.</li>
 <li>Le guide de rendu décrit encore, en plusieurs endroits, des limites levées par le programme (une seule texture par lot, deux valeurs de couche, pas de texte en scène). Les relire toutes, pas seulement celles de ce lot.</li>
 <li>Si le dénombrement de primitives révèle un dépassement, c'est un constat à <b>remonter</b>, pas à corriger dans ce lot : l'optimisation par atlas dynamique a été explicitement écartée en LOT-40, sous réserve d'un profilage réel. Ce serait ce profilage.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2384"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2385"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les ombres sont vérifiées dans tous les cas de fond ; l'ensemble du programme est constaté cohérent sur un niveau complet ; le budget de primitives est mesuré et documenté ; guides, manuel et README ne contiennent plus de section « À venir » réalisée ; Doxygen et lint verts.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2385"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2386"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-045</span> (ombres) ; réutilise <span class="tt">EX-REN-014</span> (ordonnancement des calques), <span class="tt">EX-NFR-005</span> (budget de primitives), <span class="tt">EX-NFR-004</span> (vérification sans GPU), <span class="tt">EX-NFR-021</span> (test système), <span class="tt">EX-NFR-012</span> (conventions et documentation). </p>
 </div></div><!-- contents -->

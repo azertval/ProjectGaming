@@ -93,7 +93,7 @@ $(function(){initNavTree('classhmi_1_1ToolPanel.html','','classhmi_1_1ToolPanel-
 </div><!--header-->
 <div class="contents">
 
-<p>Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien.  
+<p>Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien, Texture par instance, Décor.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ToolPanel_8h_source.html">ToolPanel.h</a>&gt;</code></p>
@@ -107,26 +107,38 @@ Inheritance diagram for hmi::ToolPanel:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:ab6b2b89386fe3445253d5470111a7244" id="r_ab6b2b89386fe3445253d5470111a7244"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
+<tr class="memitem:adc22c97cbef639f3090e761ad2bf7c81" id="r_adc22c97cbef639f3090e761ad2bf7c81"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc22c97cbef639f3090e761ad2bf7c81">decorAssetSelected</a> (const QString &amp;fileName)</td></tr>
+<tr class="memdesc:adc22c97cbef639f3090e761ad2bf7c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit un asset dans la grille de décors (<span class="tt">LOT-49</span>) : asset actif de l'outil Décor ; vide si aucun n'est sélectionné.  <br /></td></tr>
+<tr class="memitem:a5c163eb57750e0d6b2e80bc8873c4195" id="r_a5c163eb57750e0d6b2e80bc8873c4195"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5c163eb57750e0d6b2e80bc8873c4195">decorLayerSelected</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer)</td></tr>
+<tr class="memdesc:a5c163eb57750e0d6b2e80bc8873c4195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit la couche du décor à poser (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aea9c1fe9ea7349b95b89504f36c88a27" id="r_aea9c1fe9ea7349b95b89504f36c88a27"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aea9c1fe9ea7349b95b89504f36c88a27">ToolPanel</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memitem:aebb90108c898afaa5376157d95dfcecc" id="r_aebb90108c898afaa5376157d95dfcecc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aebb90108c898afaa5376157d95dfcecc">ToolPanel</a> (std::filesystem::path decorsDirectory, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:aebb90108c898afaa5376157d95dfcecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
 <tr class="memitem:ae73d919adbc5cdaa78afa9326ec7155c" id="r_ae73d919adbc5cdaa78afa9326ec7155c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae73d919adbc5cdaa78afa9326ec7155c">~ToolPanel</a> () override</td></tr>
 <tr class="memitem:a58c3f4f3e479000f63d7cb75f71cd947" id="r_a58c3f4f3e479000f63d7cb75f71cd947"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a58c3f4f3e479000f63d7cb75f71cd947">retranslateUi</a> (const <a class="el" href="classhmi_1_1Localization.html">Localization</a> &amp;loc)</td></tr>
 <tr class="memdesc:a58c3f4f3e479000f63d7cb75f71cd947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique la langue active aux libellés des outils.  <br /></td></tr>
 <tr class="memitem:a73f29aa7fab8c82d99807459dca3e898" id="r_a73f29aa7fab8c82d99807459dca3e898"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73f29aa7fab8c82d99807459dca3e898">setActiveTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
 <tr class="memdesc:a73f29aa7fab8c82d99807459dca3e898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coche le bouton radio de <code class="param">tool</code> sans émettre <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span> (<span class="tt">LOT-45</span>).  <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab43ba09347e5523800a53360578308a6" id="r_ab43ba09347e5523800a53360578308a6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab43ba09347e5523800a53360578308a6">updateDecorPickerVisibility</a> ()</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab1e856f382539bf2e6df5546a0dd94d7" id="r_ab1e856f382539bf2e6df5546a0dd94d7"><td class="memItemLeft">std::unique_ptr&lt; Ui::ToolPanel &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab1e856f382539bf2e6df5546a0dd94d7">_ui</a></td></tr>
+<tr class="memitem:ad85e048ec1397368c89922e5426aecef" id="r_ad85e048ec1397368c89922e5426aecef"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad85e048ec1397368c89922e5426aecef">_decorView</a></td></tr>
+<tr class="memdesc:ad85e048ec1397368c89922e5426aecef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes de <span class="tt">Assets/Decors/</span> (<span class="tt">LOT-49</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien. </p>
-<p>Mise en page dans <span class="tt">ToolPanel.ui</span> (boutons radio, exclusifs entre frères). Changer d'outil émet <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span>, consommé par le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a0dcbcc0d9c69040710cb070afe2e828c" title="Définit l&#39;outil d&#39;édition actif (pinceau, rectangle, sélection, lien, texture par instance).">GameViewport::setTool</a></span>). Pinceau actif par défaut. </p>
+<div class="textblock"><p>Sélecteur d'outil d'édition (<span class="tt">EX-EDIT-014</span>) : Pinceau, Rectangle, Sélection, Lien, Texture par instance, Décor. </p>
+<p>Mise en page dans <span class="tt">ToolPanel.ui</span> (boutons radio, exclusifs entre frères). Changer d'outil émet <span class="tt"><a class="el" href="#ab6b2b89386fe3445253d5470111a7244">toolSelected</a></span>, consommé par le viewport (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html#a0dcbcc0d9c69040710cb070afe2e828c" title="Définit l&#39;outil d&#39;édition actif (pinceau, rectangle, sélection, lien, texture par instance).">GameViewport::setTool</a></span>). Pinceau actif par défaut.</p>
+<p>Porte aussi le <b>strict nécessaire</b> de l'outil Décor (<span class="tt">LOT-49</span> TACHE-04) : une grille de vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>) sur <span class="tt">Assets/Decors/</span> et un sélecteur de couche — la manipulation complète (déplacer, redimensionner, pivoter, réordonner) relève de <span class="tt">LOT-50</span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aea9c1fe9ea7349b95b89504f36c88a27" name="aea9c1fe9ea7349b95b89504f36c88a27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9c1fe9ea7349b95b89504f36c88a27">&#9670;&#160;</a></span>ToolPanel()</h2>
+<a id="aebb90108c898afaa5376157d95dfcecc" name="aebb90108c898afaa5376157d95dfcecc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebb90108c898afaa5376157d95dfcecc">&#9670;&#160;</a></span>ToolPanel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,8 +149,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">hmi::ToolPanel::ToolPanel </td>
           <td>(</td>
-          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>decorsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -147,6 +163,15 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construit le panneau. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decorsDirectory</td><td>Dossier balayé pour peupler la grille de décors (outil Décor, <span class="tt">LOT-49</span>). </td></tr>
+    <tr><td class="paramname">parent</td><td>Widget parent. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -176,6 +201,60 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="adc22c97cbef639f3090e761ad2bf7c81" name="adc22c97cbef639f3090e761ad2bf7c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc22c97cbef639f3090e761ad2bf7c81">&#9670;&#160;</a></span>decorAssetSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ToolPanel::decorAssetSelected </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit un asset dans la grille de décors (<span class="tt">LOT-49</span>) : asset actif de l'outil Décor ; vide si aucun n'est sélectionné. </p>
+
+</div>
+</div>
+<a id="a5c163eb57750e0d6b2e80bc8873c4195" name="a5c163eb57750e0d6b2e80bc8873c4195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c163eb57750e0d6b2e80bc8873c4195">&#9670;&#160;</a></span>decorLayerSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ToolPanel::decorLayerSelected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit la couche du décor à poser (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-002</span>). </p>
+
+</div>
+</div>
 <a id="a58c3f4f3e479000f63d7cb75f71cd947" name="a58c3f4f3e479000f63d7cb75f71cd947"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a58c3f4f3e479000f63d7cb75f71cd947">&#9670;&#160;</a></span>retranslateUi()</h2>
 
@@ -240,7 +319,56 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab43ba09347e5523800a53360578308a6" name="ab43ba09347e5523800a53360578308a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab43ba09347e5523800a53360578308a6">&#9670;&#160;</a></span>updateDecorPickerVisibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ToolPanel::updateDecorPickerVisibility </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad85e048ec1397368c89922e5426aecef" name="ad85e048ec1397368c89922e5426aecef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad85e048ec1397368c89922e5426aecef">&#9670;&#160;</a></span>_decorView</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a>* hmi::ToolPanel::_decorView</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Grille de vignettes de <span class="tt">Assets/Decors/</span> (<span class="tt">LOT-49</span>). </p>
+
+</div>
+</div>
 <a id="ab1e856f382539bf2e6df5546a0dd94d7" name="ab1e856f382539bf2e6df5546a0dd94d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1e856f382539bf2e6df5546a0dd94d7">&#9670;&#160;</a></span>_ui</h2>
 

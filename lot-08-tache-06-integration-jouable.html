@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-08-tache-06-integration-jouable.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-08-gameplay-personnage_2tache-06-integration-jouable"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-08.html#md_Lot_2LOT-08-gameplay-personnage_2epic" title="Lot/LOT-08-gameplay-personnage/epic.md">LOT-08</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md687"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
 Contexte</h1>
 <p>Dernière tâche : assembler les briques <span class="tt">Core</span> (physique, balayage, règles) et le mapping d'entrée dans le <span class="tt">GameScreen</span>, qui n'affiche pour l'instant qu'un niveau <b>statique</b> (LOT-07). C'est une <b>brique GPU/écran</b> : vérifiée <b>visuellement</b>, non testée en unitaire (précédent du projet), la logique sous-jacente étant déjà couverte par TACHE-02 à TACHE-05.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md688"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Apparition du personnage</b> : à l'entrée du niveau (<span class="tt">Level::entry</span>), créer une entité <span class="tt">Player</span> + <span class="tt">Transform</span> + <span class="tt">Velocity</span> + <span class="tt">Collider</span> + <span class="tt">Sprite</span> (région d'atlas du personnage, <span class="tt">EX-REN-011</span>).</li>
@@ -112,12 +112,12 @@ Travail à réaliser</h1>
 <li><b>Rendu</b> : le personnage est dessiné par le <span class="tt">SpriteRenderer</span> existant, par-dessus la grille.</li>
 <li><b>Échap</b> : conserve le retour au menu (comportement LOT-07).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md689"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span> (conserver le <span class="tt">Level</span> chargé, ajouter personnage, simulation, gestion succès/échec ; le cadrage fixe existe déjà).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md690"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
 Vérification (visuelle, pas de test unitaire)</h1>
 <ul>
 <li>Le personnage <b>tombe</b> à l'apparition et <b>repose</b> sur le premier sol.</li>
@@ -126,7 +126,7 @@ Vérification (visuelle, pas de test unitaire)</h1>
 <li>Atteindre la <b>sortie</b> → retour menu ; toucher un <b>danger</b> ou <b>tomber dans le vide</b> → niveau <b>redémarré</b> au point d'entrée.</li>
 <li>Capture d'écran de contrôle (procédure visuelle habituelle) jointe à la revue.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md691"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Frontière</b> : aucune logique de simulation nouvelle ici — le <span class="tt">GameScreen</span> <b>orchestre</b> des briques <span class="tt">Core</span> déjà testées. S'il faut ajouter de la logique testable, la remonter dans <span class="tt">Core</span>.</li>
@@ -134,12 +134,12 @@ Points d'attention</h1>
 <li><b>Cadrage fixe</b> : le tableau entier tient à l'écran (zoom ajusté aux dimensions) ; rien à suivre. Réutiliser tel quel le cadrage du <span class="tt">GameScreen</span> (LOT-07).</li>
 <li>Câblage des <b>assets</b> (région d'atlas du personnage) cohérent avec le LOT-05.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md692"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li><span class="tt">GameScreen</span> jouable : déplacement + gravité + collisions + cadrage fixe du tableau + succès/échec fonctionnels et <b>vérifiés visuellement</b> ; build <span class="tt">/W4 /WX</span>, <span class="tt">CHANGELOG.md</span> et Doxygen à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md693"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md694"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-010</span>, <span class="tt">EX-GP-012</span>, <span class="tt">EX-GP-014</span>, <span class="tt">EX-GP-030</span>, <span class="tt">EX-GP-031</span>, <span class="tt">EX-GP-032</span>, <span class="tt">EX-REN-013</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-CTRL-010</span>. </p>
 </div></div><!-- contents -->

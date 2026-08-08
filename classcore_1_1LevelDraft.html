@@ -125,6 +125,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6820058154fd9e3f777c5fd843b7b0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne (ou remplace) la texture affichée pour <b>une case précise</b> (<span class="tt">EX-EDIT-043</span>), prioritaire sur le skin de son type (LOT-42).  <br /></td></tr>
 <tr class="memitem:a6a0636029b5b633d7b93b2ebca0d80c8" id="r_a6a0636029b5b633d7b93b2ebca0d80c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a0636029b5b633d7b93b2ebca0d80c8">removeTextureOverride</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> position)</td></tr>
 <tr class="memdesc:a6a0636029b5b633d7b93b2ebca0d80c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire l'override de texture de <code class="param">position</code>, s'il y en a un. Sans effet sinon.  <br /></td></tr>
+<tr class="memitem:aa42de621ae8ab7c2380d8467b4c4f7ce" id="r_aa42de621ae8ab7c2380d8467b4c4f7ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce">addDecor</a> (<a class="el" href="structcore_1_1Decor.html">Decor</a> decor)</td></tr>
+<tr class="memdesc:aa42de621ae8ab7c2380d8467b4c4f7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un décor libre en fin de vecteur (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
+<tr class="memitem:aedf72e83d2c50fa8a082296cda3f1c20" id="r_aedf72e83d2c50fa8a082296cda3f1c20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aedf72e83d2c50fa8a082296cda3f1c20">removeDecor</a> (std::size_t index)</td></tr>
+<tr class="memdesc:aedf72e83d2c50fa8a082296cda3f1c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
 <tr class="memitem:adcaec64d68695ac6214641b19e2ec1af" id="r_adcaec64d68695ac6214641b19e2ec1af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adcaec64d68695ac6214641b19e2ec1af">resize</a> (int width, int height)</td></tr>
 <tr class="memdesc:adcaec64d68695ac6214641b19e2ec1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne la grille (<span class="tt">EX-EDIT-005</span>).  <br /></td></tr>
 <tr class="memitem:a7bb1c529de03797c0e158a1f13b39084" id="r_a7bb1c529de03797c0e158a1f13b39084"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7bb1c529de03797c0e158a1f13b39084">wouldResizeDropContent</a> (int width, int height) const noexcept</td></tr>
@@ -154,6 +158,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6a71a9a20011b0d7cbd0c612916b7c8" id="r_ac6a71a9a20011b0d7cbd0c612916b7c8"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerMoverConfig.html">DangerMoverConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6a71a9a20011b0d7cbd0c612916b7c8">moverConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:ad7a21f008704e147cb459f4ee5cf2a02" id="r_ad7a21f008704e147cb459f4ee5cf2a02"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1DangerBlinkConfig.html">DangerBlinkConfig</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad7a21f008704e147cb459f4ee5cf2a02">blinkConfigs</a> () const noexcept</td></tr>
 <tr class="memitem:af2eb7b9effb3254a92e30abba631eba9" id="r_af2eb7b9effb3254a92e30abba631eba9"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af2eb7b9effb3254a92e30abba631eba9">textureOverrides</a> () const noexcept</td></tr>
+<tr class="memitem:a1d49b3c7088c0f8928c8a2aaadee665e" id="r_a1d49b3c7088c0f8928c8a2aaadee665e"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors</a> () const noexcept</td></tr>
 <tr class="memitem:a5c63e9d12c9473f4aa8693b04f3293ff" id="r_a5c63e9d12c9473f4aa8693b04f3293ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c63e9d12c9473f4aa8693b04f3293ff">jumpBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ac8048001ee2bf60309c234ff6f717ff4" id="r_ac8048001ee2bf60309c234ff6f717ff4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac8048001ee2bf60309c234ff6f717ff4">dashBudget</a> () const noexcept</td></tr>
 <tr class="memitem:ae10fca65c113da45ec8bf89846979889" id="r_ae10fca65c113da45ec8bf89846979889"><td class="memItemLeft">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae10fca65c113da45ec8bf89846979889">background</a> () const noexcept</td></tr>
@@ -201,6 +206,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a092ed94e8ecc1a8aee79de183afe6338" id="r_a092ed94e8ecc1a8aee79de183afe6338"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a092ed94e8ecc1a8aee79de183afe6338">_background</a></td></tr>
 <tr class="memitem:ae457b861d1482369c3d63cf424b073a6" id="r_ae457b861d1482369c3d63cf424b073a6"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae457b861d1482369c3d63cf424b073a6">_skinSet</a></td></tr>
 <tr class="memitem:a1549c812b59d506266ccdefb5356b752" id="r_a1549c812b59d506266ccdefb5356b752"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1549c812b59d506266ccdefb5356b752">_textureOverrides</a></td></tr>
+<tr class="memitem:a13dd782e9b0882563e3c7bc01d5adfd4" id="r_a13dd782e9b0882563e3c7bc01d5adfd4"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a13dd782e9b0882563e3c7bc01d5adfd4">_decors</a></td></tr>
 <tr class="memitem:a86779d05f96a388738e19979489d7a63" id="r_a86779d05f96a388738e19979489d7a63"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86779d05f96a388738e19979489d7a63">_undoHistory</a></td></tr>
 <tr class="memitem:a886d07163934d6b0f0f5b8f9da13c410" id="r_a886d07163934d6b0f0f5b8f9da13c410"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LevelDraft_1_1State.html">State</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a886d07163934d6b0f0f5b8f9da13c410">_redoHistory</a></td></tr>
 </table>
@@ -240,6 +246,31 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aa42de621ae8ab7c2380d8467b4c4f7ce" name="aa42de621ae8ab7c2380d8467b4c4f7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa42de621ae8ab7c2380d8467b4c4f7ce">&#9670;&#160;</a></span>addDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::addDecor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Decor.html">Decor</a></td>          <td class="paramname"><span class="paramname"><em>decor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un décor libre en fin de vecteur (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-EDIT-010</span>). </p>
+<p>L'ordre d'ajout fixe le rang de superposition intra-couche (TACHE-02) : un décor ajouté après un autre de la même couche se dessine par-dessus. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decor</td><td>Décor à ajouter (position libre, hors grille). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae10fca65c113da45ec8bf89846979889" name="ae10fca65c113da45ec8bf89846979889"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae10fca65c113da45ec8bf89846979889">&#9670;&#160;</a></span>background()</h2>
 
@@ -393,6 +424,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le budget de dashs courant (<span class="tt">-1</span> = illimité). </dd></dl>
+
+</div>
+</div>
+<a id="a1d49b3c7088c0f8928c8a2aaadee665e" name="a1d49b3c7088c0f8928c8a2aaadee665e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d49b3c7088c0f8928c8a2aaadee665e">&#9670;&#160;</a></span>decors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">Decor</a> &gt; &amp; core::LevelDraft::decors </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les décors libres courants, dans leur ordre de superposition intra-couche. </dd></dl>
 
 </div>
 </div>
@@ -806,6 +863,31 @@ Private Attributes</h2></td></tr>
 
 <p>Refait la dernière mutation annulée. </p>
 <p>Toute nouvelle mutation après un <span class="tt"><a class="el" href="#adec82624786f4ad3a83502eccc8712af" title="Annule la dernière mutation (EX-EDIT-005).">undo()</a></span> invalide la branche de refaire (historique linéaire classique) : <span class="tt"><a class="el" href="#a4c48b964ac9310a3b90a3d364aae97aa" title="Refait la dernière mutation annulée.">redo()</a></span> redevient sans effet tant qu'aucun nouvel <span class="tt"><a class="el" href="#adec82624786f4ad3a83502eccc8712af" title="Annule la dernière mutation (EX-EDIT-005).">undo()</a></span> n'a eu lieu depuis. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si une mutation a été refaite, <span class="tt">false</span> si rien n'était à refaire. </dd></dl>
+
+</div>
+</div>
+<a id="aedf72e83d2c50fa8a082296cda3f1c20" name="aedf72e83d2c50fa8a082296cda3f1c20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedf72e83d2c50fa8a082296cda3f1c20">&#9670;&#160;</a></span>removeDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LevelDraft::removeDecor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span> ; sans effet si hors bornes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1533,6 +1615,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int core::LevelDraft::_dashBudget = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13dd782e9b0882563e3c7bc01d5adfd4" name="a13dd782e9b0882563e3c7bc01d5adfd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13dd782e9b0882563e3c7bc01d5adfd4">&#9670;&#160;</a></span>_decors</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Decor.html">Decor</a>&gt; core::LevelDraft::_decors</td>
         </tr>
       </table>
   </td>

@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-54.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>non commencé</b>. Prérequis : <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (convention <span class="tt">Assets/Skins/</span>, planches à raccords), <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque et rechargement à chaud). </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2324"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2325"></a>
 Objectif</h1>
 <p>Permettre de créer et modifier les fichiers d'assets de texture (skins, planches, fonds, objets, décors, images d'animation) <b>sans quitter l'application</b>, avec un canevas pixel art minimal — et en voyant immédiatement le résultat dans le niveau.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2325"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2326"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2326"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2327"></a>
 Inclus</h2>
 <ul>
 <li><b>Canevas</b> <span class="tt">QWidget</span> + <span class="tt">QImage</span> + <span class="tt">QPainter</span> : peindre et effacer au pixel près (grille alignée), <b>pot de peinture</b> (remplissage par zone contiguë), pipette, palette de couleurs, zoom, annuler/refaire <b>local</b> — propre au canevas, totalement indépendant de l'historique de <span class="tt">LevelDraft</span>.</li>
@@ -111,7 +111,7 @@ Inclus</h2>
 <li><b>Garde-fou d'écrasement</b> : enregistrer par-dessus un asset référencé par des niveaux ou par un jeu de skins demande confirmation, en nommant les références concernées (détection déjà livrée en LOT-43).</li>
 <li>Toute UI passe par le catalogue de traduction.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md2327"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2328"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li>Calques dans le canevas, sélection et déplacement de région, transformations (rotation, symétrie), dégradés, anticrénelage — périmètre minimal pour un premier jet ; extensions possibles dans un lot ultérieur si le besoin se confirme à l'usage.</li>
@@ -119,7 +119,7 @@ Exclus (hors périmètre de ce lot)</h2>
 <li>Conversion photo → pixel art (<span class="tt">EX-EDIT-041</span>, <span class="tt">EX-DEC-030</span> à <span class="tt">EX-DEC-032</span>) : hors programme.</li>
 <li>Toute intégration d'une bibliothèque externe (cf. décision de cadrage).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2328"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2329"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Développement interne, pas de bibliothèque externe.</b> La licence du projet (« tous droits réservés ») est incompatible avec les éditeurs pixel art matures existants (Aseprite, LibreSprite — tous deux de lignée GPL) ; il n'existe pas de bibliothèque Qt/C++ légère et <b>permissive</b> équivalente pour ce besoin précis. Le périmètre réel (peindre, effacer, remplir, palette, zoom, annuler, enregistrer) est modeste et repose entièrement sur des primitives déjà en place (Qt Widgets depuis LOT-34, <em>TextureLoader</em>/<span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> depuis LOT-39) — cohérent avec la politique du projet de préférer Qt à une dépendance tierce.</li>
@@ -127,13 +127,13 @@ Décisions de cadrage</h1>
 <li><b>Aperçu live plutôt qu'aller-retour</b> : sans lui, l'atelier n'apporterait rien de plus qu'un éditeur d'images externe, et le programme aurait payé un lot pour une commodité.</li>
 <li><b>Amende le non-objectif « pas d'édition d'assets graphiques »</b> de <a class="el" href="spec-editeur.html#md_Specification_2editeur-niveaux" title="Specification/editeur-niveaux.md"><span class="tt">editeur-niveaux.md</span></a> (section 5) de façon ciblée : l'éditeur de niveaux continue d'agencer des tuiles existantes sans générer de sprites procéduraux ; seul ce canevas dédié édite les fichiers d'assets eux-mêmes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2329"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2330"></a>
 Exigences couvertes</h1>
 <ul>
 <li>Amendée : <span class="tt">EX-EDIT-045</span> (outil de dessin pixel art intégré, avec aperçu du rendu dans le niveau).</li>
 <li>Réutilisées : <span class="tt">EX-EDIT-024</span>/<span class="tt">EX-EDIT-025</span> (jeux de skins, planches à raccords), <span class="tt">EX-EDIT-026</span> (gestion des fichiers d'assets), <span class="tt">EX-REN-041</span> (décodage image), <span class="tt">EX-REN-007</span> (contrat d'asset), <span class="tt">EX-REN-033</span> (traduction).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2330"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2331"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -150,7 +150,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-54-tache-04-apercu-live-planche.html#md_Lot_2LOT-54-atelier-pixel-art_2tache-04-apercu-live-planche" title="Lot/LOT-54-atelier-pixel-art/tache-04-apercu-live-planche.md">TACHE-04</a>  </td><td class="markdownTableBodyNone">Aperçu live (invalidation du cache) + mode planche à raccords avec repères  </td><td class="markdownTableBodyNone"><span class="tt">Source/HMI/Editor</span>, <span class="tt">Source/HMI/Graphics</span>  </td><td class="markdownTableBodyCenter">⬜  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2331"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2332"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Créer, peindre et enregistrer un nouvel asset PNG depuis le canevas, puis le retrouver assignable dans le panneau « Textures » sans redémarrer.</li>
@@ -161,10 +161,10 @@ Critères d'acceptation du lot</h1>
 <li>L'annuler/refaire du canevas est fonctionnel et <b>indépendant</b> de celui de <span class="tt">LevelDraft</span> : annuler un coup de pinceau n'annule jamais une action d'édition de niveau.</li>
 <li>Build <span class="tt">/W4 /WX</span>, Doxygen, lint verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2332"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2333"></a>
 Dépendances</h1>
 <p>Bâtit sur <a class="el" href="lot-42.html" title="LOT-42 — Skin des tuiles : jeux de skins et raccords automatiques">LOT-42</a> (convention de dossiers, planches à raccords) et <a class="el" href="lot-43.html" title="LOT-43 — Bibliothèque d&#39;assets : vignettes, import, rechargement à chaud">LOT-43</a> (bibliothèque, détection de références, rechargement à chaud). Réutilise <em>TextureLoader</em>/<span class="tt"><a class="el" href="classhmi_1_1AssetPaths.html" title="Résout des noms d&#39;assets logiques vers des chemins de fichiers, dans un dossier donné.">hmi::AssetPaths</a></span> (LOT-39) et <span class="tt">TextureCache::invalidate</span> (<a class="el" href="lot-40.html" title="LOT-40 — Fondations : registre de textures, calques, culling, testabilité">LOT-40</a>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2333"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2334"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-54-tache-01-encodage-image.html" title="TACHE-01 — Encodage et enregistrement d&#39;image">TACHE-01 — Encodage et enregistrement d'image</a></li>

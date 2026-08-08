@@ -1,10 +1,11 @@
 var classcore_1_1Level =
 [
-    [ "Level", "classcore_1_1Level.html#a59bc54dfcb6fb6db92701f973d406876", null ],
+    [ "Level", "classcore_1_1Level.html#a2bacad9adf93628a7cfa1d73728788d4", null ],
     [ "background", "classcore_1_1Level.html#a8eb90b383f0aa69b2674aea4c416681f", null ],
     [ "blinkConfigs", "classcore_1_1Level.html#a9e1c9105ee90597836bf6addcbb0d98d", null ],
     [ "dangerLinks", "classcore_1_1Level.html#ac843149dd61590cf118ab6339a65e470", null ],
     [ "dashBudget", "classcore_1_1Level.html#a38abc958ccecd93027b728d680c4649d", null ],
+    [ "decors", "classcore_1_1Level.html#a677096397aa22dd5a7e3a8ce371a7e9d", null ],
     [ "entry", "classcore_1_1Level.html#a08c4420372462d6e7991956902906da5", null ],
     [ "exit", "classcore_1_1Level.html#a48013f02f41e85d8928b0e2412486273", null ],
     [ "jumpBudget", "classcore_1_1Level.html#abf83804977ffb806c167c6d905766745", null ],
@@ -18,6 +19,7 @@ var classcore_1_1Level =
     [ "_blinkConfigs", "classcore_1_1Level.html#abd32b32f40b636b0adc934fc70d9c6b4", null ],
     [ "_dangerLinks", "classcore_1_1Level.html#a5ef3a5dd968618ce18b29f28094eda09", null ],
     [ "_dashBudget", "classcore_1_1Level.html#a53b19e727268358e358529a51e37c322", null ],
+    [ "_decors", "classcore_1_1Level.html#ae063d18199ae13f7057ba009c9f74e27", null ],
     [ "_entry", "classcore_1_1Level.html#a6222b34ab7079f9ce8044892436e5313", null ],
     [ "_exit", "classcore_1_1Level.html#a3aff3249578a9f2e2ed4996632a456f4", null ],
     [ "_jumpBudget", "classcore_1_1Level.html#a4343c41b514da24fd083b045ce08f9eb", null ],
