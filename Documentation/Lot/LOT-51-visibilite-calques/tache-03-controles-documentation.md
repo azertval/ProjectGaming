@@ -1,6 +1,6 @@
 # TACHE-03 — Contrôles d'interface et documentation {#lot-51-tache-03-controles-documentation}
 
-**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Documentation` · **Statut :** non commencé
+**Lot :** [LOT-51](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Documentation` · **Statut :** fait
 
 ## Contexte
 Deux commandes du projet agissent désormais sur le rendu, et elles sont proches sans être
@@ -27,7 +27,9 @@ L'interface et la documentation doivent lever cette ambiguïté sans qu'on ait �
   - `Documentation/Manuel/partager-un-niveau.md` — mention côté level designer.
 
 ## Fichiers impactés
-- `Source/HMI/Editor/TexturePanel.{h,cpp}` ou nouveau contrôle, `Source/Elements/UI/*.ui`.
+- `Source/HMI/Editor/TexturePanel.{h,cpp}` (nouvel onglet « Calques »),
+  `Source/Elements/UI/TexturePanel.ui`.
+- `Source/HMI/Interface/MainWindow.cpp` (câblage panneau ↔ `GameViewport`).
 - `Source/Elements/Localization/fr.lang`, `en.lang`.
 - `Documentation/Guide/guide-editeur.md`, `guide-rendu.md`,
   `Documentation/Manuel/partager-un-niveau.md`.

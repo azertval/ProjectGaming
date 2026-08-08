@@ -50,7 +50,7 @@ void DraftRenderer::render(
     const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
     const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
     const LinkOverlayState& linkOverlay, RenderMode mode, bool showTextureOverrides,
-    float deltaSeconds, const DecorOverlayState& decorOverlay) {
+    float deltaSeconds, const DecorOverlayState& decorOverlay, const LayerVisibility& visibility) {
     if (_dirty) {
         rebuild(draft);
         _dirty = false;
@@ -89,12 +89,16 @@ void DraftRenderer::render(
     // le lot -- a calque et texture egaux, le tri stable le preserve tel quel.
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
-    composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
-                      draft.tileMap().width(), draft.tileMap().height(), mode);
+    // Calque Fond (LOT-51) : hors de composeWorldSprites (le fond ne vient pas de l'ECS), gate donc
+    // ici l'appel entier plutot que de filtrer une primitive deja composee.
+    if (visibility.visible(RenderLayer::Background)) {
+        composeBackground(_scene, resolveBackgroundTexture(draft.background(), _cache),
+                          draft.tileMap().width(), draft.tileMap().height(), mode);
+    }
     composeWorldSprites(_scene, _world, mode,
                         sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(),
                                       _tileAnimations, draft.decors()),
-                        1.0f, &camera);
+                        1.0f, &camera, visibility);
     if (showGrid) {
         composeGrid(draft, decorOverlay.snapToGrid);
     }

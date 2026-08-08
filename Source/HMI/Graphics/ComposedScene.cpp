@@ -186,7 +186,7 @@ core::Rect lineQuadBounds(const LineQuad& quad) noexcept {
 // Compose les entites affichables d'un monde ECS en primitives (lecture seule de l'ECS).
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
-                         const Camera2D* camera) {
+                         const Camera2D* camera, const LayerVisibility& visibility) {
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
@@ -207,6 +207,19 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                                                    ? &world.getComponent<PlayerSpriteTag>(entity)
                                                    : nullptr;
             const bool usePlayerAppearance = playerTag != nullptr && mode == RenderMode::Texture;
+
+            // Calque de presentation : porte par l'entite si elle est taguee, sinon le defaut
+            // (tuiles). Calcule ici, avant toute resolution d'apparence, pour pouvoir ecarter au
+            // plus tot une entite de calque masque (LOT-51) -- decor et personnage seulement : une
+            // entite "tuile" (aucun RenderLayerTag) est filtree plus finement ci-dessous, par axe
+            // skin/surcharge plutot que par ce seul bit de calque (hmi::resolveTileAppearance).
+            const RenderLayer layer = world.hasComponent<RenderLayerTag>(entity)
+                                          ? world.getComponent<RenderLayerTag>(entity).value
+                                          : DEFAULT_RENDER_LAYER;
+            const bool isTileEntity = decorTag == nullptr && !usePlayerAppearance;
+            if (!isTileEntity && !visibility.visible(layer)) {
+                return;
+            }
 
             core::AtlasRegion region;
             TextureHandle texture = nullptr;
@@ -261,13 +274,20 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                                                  : nullptr;
 
                 // Apparence resolue par le point d'appel unique (LOT-41) : c'est ici, a la
-                // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas.
-                const TileAppearance appearance =
-                    resolveTileAppearance(mode, sprite.region, skinTag, textures);
-                region = appearance.region;
-                texture = textures.textureFor(appearance);
-                atlasWidth = static_cast<float>(textures.widthFor(appearance));
-                atlasHeight = static_cast<float>(textures.heightFor(appearance));
+                // composition, que le mode de rendu agit -- la scene ECS, elle, ne bouge pas. Les
+                // axes skin/surcharge (LOT-51) sont ceux des bits Tile/Object de `visibility` :
+                // absent (std::nullopt), rien n'est compose pour cette entite (calque masque, ou
+                // axe isole sans rien a montrer).
+                const std::optional<TileAppearance> appearance = resolveTileAppearance(
+                    mode, sprite.region, skinTag, textures, visibility.visible(RenderLayer::Tile),
+                    visibility.visible(RenderLayer::Object));
+                if (!appearance.has_value()) {
+                    return;
+                }
+                region = appearance->region;
+                texture = textures.textureFor(*appearance);
+                atlasWidth = static_cast<float>(textures.widthFor(*appearance));
+                atlasHeight = static_cast<float>(textures.heightFor(*appearance));
 
                 // Taille du sprite en unites monde : la region (en pixels) ramenee a l'echelle du
                 // monde (16 px/unite), multipliee par l'echelle du Transform. Le zoom est applique
@@ -328,11 +348,8 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             quad.b = sprite.tint.b;
             quad.a = sprite.tint.a;
 
-            // Calque de presentation : porte par l'entite si elle est taguee, sinon le defaut
-            // (tuiles). `core::Sprite::layer` reste le tri fin a l'interieur de ce calque.
-            const RenderLayer layer = world.hasComponent<RenderLayerTag>(entity)
-                                          ? world.getComponent<RenderLayerTag>(entity).value
-                                          : DEFAULT_RENDER_LAYER;
+            // `layer` (calcule plus haut) reste le calque de presentation ; `core::Sprite::layer`
+            // le tri fin a l'interieur de ce calque.
             scene.addSprite(layer, texture, sprite.layer, quad);
         });
 }

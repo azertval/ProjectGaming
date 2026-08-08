@@ -214,6 +214,86 @@
        </item>
       </layout>
      </widget>
+     <!-- Section « Calques » (LOT-51) : mode d'inspection « définition des textures », éditeur
+          uniquement. DÉCOMPOSE le rendu pour auditer chaque calque, à l'inverse de F8 qui le
+          COMPOSE tel que le joueur le verra (EX-REN-046) : les deux ne doivent jamais être
+          confondus, d'où le libellé "Aperçu" (jamais "Jeu") sur cet onglet. Cases dans l'ORDRE DE
+          DESSIN (hmi::RenderLayer, EX-REN-014) : c'est ce qui rend la pile de calques
+          compréhensible d'un coup d'œil. Toutes cochées par défaut (tout visible), jamais
+          persistées entre deux sessions. -->
+     <widget class="QWidget" name="layersTab">
+      <attribute name="title"><string>Calques</string></attribute>
+      <layout class="QVBoxLayout" name="layersLayout">
+       <item>
+        <widget class="QLabel" name="layersHintLabel">
+         <property name="text">
+          <string>Aperçu d'édition uniquement : masquer un calque ici n'affecte jamais le jeu.</string>
+         </property>
+         <property name="wordWrap"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersBackgroundCheck">
+         <property name="text"><string>Fond</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersDecorBackgroundCheck">
+         <property name="text"><string>Décor d'arrière-plan</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersShadowCheck">
+         <property name="text"><string>Ombres</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersTileSkinCheck">
+         <property name="text"><string>Skin des tuiles</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersObjectsCheck">
+         <property name="text"><string>Objets interactifs</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersPlayerCheck">
+         <property name="text"><string>Personnage</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersDecorForegroundCheck">
+         <property name="text"><string>Décor de premier plan</string></property>
+         <property name="checked"><bool>true</bool></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="layersPhysiqueCheck">
+         <property name="text"><string>Physique seul</string></property>
+         <property name="toolTip">
+          <string>Même bascule que F8 (Jeu), vue depuis ce panneau.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="layersShowAllButton">
+         <property name="text"><string>Tout afficher</string></property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="layersSpacer">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

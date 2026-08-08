@@ -806,7 +806,8 @@ void GameViewport::renderFrame(float deltaSeconds) {
         decorOverlay.preview = _decorPreview;
         decorOverlay.snapToGrid = _decorSnapToGrid;
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
-                               showTextureOverrides, deltaSeconds, decorOverlay);
+                               showTextureOverrides, deltaSeconds, decorOverlay,
+                               _layerVisibility);
     }
     _graphics->present();
 }

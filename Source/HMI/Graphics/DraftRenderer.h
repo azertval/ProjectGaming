@@ -12,6 +12,7 @@
 #include "Core/Ecs/World.h"
 #include "Core/Levels/GridPosition.h"
 #include "HMI/Editor/DecorGesture.h"
+#include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 
 /**
@@ -98,12 +99,15 @@ public:
     /// @p decorOverlay pilote le cadre de sélection, les poignées et l'aperçu de manipulation des
     /// décors (`LOT-50` TACHE-02/03) — décor par défaut (aucune sélection) si omis. Ces aides,
     /// comme le reste du calque `RenderLayer::EditorOverlay`, ne sont **jamais** composées en jeu
-    /// ni en essai (`hmi::GameSession` ne passe jamais par `DraftRenderer`).
+    /// ni en essai (`hmi::GameSession` ne passe jamais par `DraftRenderer`). @p visibility pilote
+    /// le mode d'inspection « définition des textures » (`LOT-51`, `EX-EDIT-044`) — tout visible
+    /// par défaut, sans effet sur les aides d'édition ci-dessus (jamais un calque de contenu).
     void render(const core::LevelDraft& draft, const Camera2D& camera, bool showGrid,
                 const std::optional<std::pair<core::GridPosition, core::GridPosition>>& highlight,
                 const LinkOverlayState& linkOverlay, RenderMode mode,
                 bool showTextureOverrides = false, float deltaSeconds = 0.0f,
-                const DecorOverlayState& decorOverlay = {});
+                const DecorOverlayState& decorOverlay = {},
+                const LayerVisibility& visibility = {});
 
     /// Marque la scène comme périmée : elle sera reconstruite au prochain `render` (à appeler après
     /// toute mutation du brouillon — peinture, undo/redo, chargement, redimensionnement).

@@ -73,6 +73,21 @@ textures.decors_center = Center
 textures.decors_remove = Remove
 textures.decors_missing_asset = Asset not found in Assets/Decors/
 
+# "Layers" section of the Textures panel (LOT-51): "texture definition" inspection mode, distinct
+# from the Game toggle (F8) -- decomposes the render to audit it, never composes it.
+textures.section_layers = Layers
+textures.layers_hint = Editor preview only: hiding a layer here never affects the game.
+textures.layers_background = Background
+textures.layers_decor_background = Background decor
+textures.layers_shadow = Shadows
+textures.layers_tile_skin = Tile skin
+textures.layers_objects = Interactive objects
+textures.layers_player = Character
+textures.layers_decor_foreground = Foreground decor
+textures.layers_physique = Physics only
+textures.layers_physique_tooltip = Same toggle as F8 (Game), viewed from this panel.
+textures.layers_show_all = Show all
+
 # Shared asset library (LOT-43)
 assets.search = Search…
 assets.none = (none)

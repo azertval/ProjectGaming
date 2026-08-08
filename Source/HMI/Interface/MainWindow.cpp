@@ -209,6 +209,22 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
     });
     connect(_viewport, &GameViewport::renderModeChanged, this, [this](RenderMode mode) {
         _palette->refreshThumbnails(mode, _textures->currentSet());
+        // Case "Physique seul" de la section "Calques" (LOT-51) : F8 doit la resynchroniser, sinon
+        // les deux entrees du meme etat divergent (ni l'inverse : ce panneau ne fait qu'exposer un
+        // second acces a la meme bascule, jamais un troisieme mode).
+        _textures->setRenderModeIndicator(mode);
+    });
+
+    // Section « Calques » (LOT-51) : mode d'inspection editeur uniquement, jamais lu par
+    // hmi::GameSession -- les cases n'agissent que sur le viewport, comme la grille de repere
+    // (F10) ou l'aimantation de decors, sans aucune resynchronisation en retour (rien d'autre ne
+    // change cet etat).
+    connect(_textures, &TexturePanel::layerVisibilityChanged, _viewport,
+            &GameViewport::setLayerVisible);
+    connect(_textures, &TexturePanel::showAllLayersRequested, _viewport,
+            &GameViewport::showAllLayers);
+    connect(_textures, &TexturePanel::physiqueOnlyToggled, this, [this](bool enabled) {
+        _viewport->setRenderMode(enabled ? hmi::RenderMode::Physique : hmi::RenderMode::Texture);
     });
 
     // Rechargement a chaud (LOT-43 TACHE-03) : un asset modifie/renomme/ajoute hors de

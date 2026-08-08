@@ -186,7 +186,7 @@ TEST(PaletteAppearanceTest, PaletteEtCanevasDecidentPareil) {
             const hmi::PaletteThumbnail thumbnail =
                 hmi::paletteThumbnail(mode, type, physical, &catalog, "foret");
             const hmi::TileAppearance appearance =
-                hmi::resolveTileAppearance(mode, physical, &tag, textures);
+                hmi::resolveTileAppearance(mode, physical, &tag, textures).value();
 
             const bool sameAtlas = thumbnail.source == hmi::PaletteThumbnailSource::Atlas &&
                                    appearance.source == hmi::AppearanceSource::Atlas;

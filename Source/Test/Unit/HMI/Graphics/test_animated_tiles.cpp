@@ -86,9 +86,11 @@ TEST(AnimatedTilesTest, SkinNonAnimeProduitUneRegionConstante) {
 
     const hmi::TileSkinTag tag{core::TileType::Solid, 0};
     const hmi::TileAppearance first =
-        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures);
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures)
+            .value();
     const hmi::TileAppearance second =
-        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures);
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures)
+            .value();
 
     EXPECT_EQ(first.region.x, 0);
     EXPECT_EQ(first.region.x, second.region.x);
@@ -111,7 +113,8 @@ TEST(AnimatedTilesTest, SkinAnimeUtiliseLaRegionCouranteDeAnimatedFrame) {
 
     const hmi::TileSkinTag tag{core::TileType::Solid, 0};
     const hmi::TileAppearance appearance =
-        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures);
+        hmi::resolveTileAppearance(hmi::RenderMode::Texture, core::AtlasRegion{}, &tag, textures)
+            .value();
 
     EXPECT_EQ(appearance.region.x, currentFrame.x);
     EXPECT_EQ(appearance.region.width, TILE);

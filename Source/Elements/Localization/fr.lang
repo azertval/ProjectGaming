@@ -74,6 +74,21 @@ textures.decors_center = Centrer
 textures.decors_remove = Supprimer
 textures.decors_missing_asset = Asset introuvable dans Assets/Decors/
 
+# Section « Calques » du panneau Textures (LOT-51) : mode d'inspection "definition des textures",
+# distinct de la bascule Jeu (F8) -- decompose le rendu pour auditer, ne compose jamais.
+textures.section_layers = Calques
+textures.layers_hint = Aperçu d'édition uniquement : masquer un calque ici n'affecte jamais le jeu.
+textures.layers_background = Fond
+textures.layers_decor_background = Décor d'arrière-plan
+textures.layers_shadow = Ombres
+textures.layers_tile_skin = Skin des tuiles
+textures.layers_objects = Objets interactifs
+textures.layers_player = Personnage
+textures.layers_decor_foreground = Décor de premier plan
+textures.layers_physique = Physique seul
+textures.layers_physique_tooltip = Même bascule que F8 (Jeu), vue depuis ce panneau.
+textures.layers_show_all = Tout afficher
+
 # Bibliotheque d'assets partagee (LOT-43)
 assets.search = Rechercher…
 assets.none = (aucun)

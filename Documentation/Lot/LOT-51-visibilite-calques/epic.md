@@ -1,6 +1,6 @@
 # LOT-51 — Mode « définition des textures » : visibilité par calque {#lot-51}
 
-> Statut : **non commencé**. Prérequis : [LOT-41](@ref lot-41) (plomberie de mode),
+> Statut : **fait**. Prérequis : [LOT-41](@ref lot-41) (plomberie de mode),
 > [LOT-44](@ref lot-44) (fond), [LOT-45](@ref lot-45) (objets), [LOT-49](@ref lot-49) (décors).
 
 ## Objectif
@@ -48,6 +48,14 @@ trois couches (LOT-49), personnage (LOT-48).
   « Jeu ») pour que les deux ne soient jamais confondus.
 - **Aucun repli en mode isolé** : un calque vide doit se voir vide. Afficher un repli reviendrait à
   masquer précisément l'information recherchée.
+- **`RenderLayer::Object` prend son sens à ce lot** — décision prise à l'implémentation, non prévue
+  au cadrage initial : ce calque était réservé mais resté inutilisé (`LOT-45` garde les objets
+  interactifs sur `RenderLayer::Tile`, un override étant une propriété de n'importe quelle case, pas
+  d'un calque à part). `hmi::LayerVisibility` réutilise donc son bit comme **axe de résolution** —
+  « la surcharge par instance doit-elle s'afficher ? » — distinct du bit `RenderLayer::Tile` — « le
+  skin de type doit-il s'afficher ? » — plutôt que d'ajouter une structure parallèle qui aurait
+  contredit « indexé par `RenderLayer`, pas par une liste écrite à la main ». Les deux entités
+  restent sur `RenderLayer::Tile` pour l'ordre de dessin, inchangé.
 
 ## Exigences couvertes
 - Amendée : `EX-EDIT-044` (visibilité par calque : isolement et combinaisons).
@@ -61,9 +69,9 @@ trois couches (LOT-49), personnage (LOT-48).
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-visibilite-calques.md) | Jeu de visibilités par calque + câblage `GameViewport`/`DraftRenderer` (éditeur uniquement) | `Source/HMI/Game`, `Source/HMI/Graphics` | ⬜ |
-| [TACHE-02](tache-02-affichage-isole.md) | Affichage isolé sans repli (objets interactifs seuls, skin seul) | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-controles-documentation.md) | Contrôles d'interface traduits + documentation | `Source/HMI/Editor`, `Documentation` | ⬜ |
+| [TACHE-01](tache-01-visibilite-calques.md) | Jeu de visibilités par calque + câblage `GameViewport`/`DraftRenderer` (éditeur uniquement) | `Source/HMI/Game`, `Source/HMI/Graphics` | ✅ |
+| [TACHE-02](tache-02-affichage-isole.md) | Affichage isolé sans repli (objets interactifs seuls, skin seul) | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-controles-documentation.md) | Contrôles d'interface traduits + documentation | `Source/HMI/Editor`, `Documentation` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Chaque calque peut être affiché ou masqué indépendamment, y compris en combinaisons.

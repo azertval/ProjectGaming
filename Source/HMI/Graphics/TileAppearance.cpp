@@ -52,26 +52,41 @@ namespace {
 }  // namespace
 
 // Resout l'apparence d'une entite affichee selon le mode de rendu courant (point d'appel unique).
-TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& physicalRegion,
-                                     const TileSkinTag* tag,
-                                     const SceneTextures& textures) noexcept {
+std::optional<TileAppearance> resolveTileAppearance(RenderMode mode,
+                                                     const core::AtlasRegion& physicalRegion,
+                                                     const TileSkinTag* tag,
+                                                     const SceneTextures& textures,
+                                                     bool skinVisible,
+                                                     bool overrideVisible) noexcept {
     if (mode == RenderMode::Physique) {
         // Mode de reference : la region deja resolue par hmi::regionForTile a la construction de
-        // la scene. Rien n'est recalcule ici -- c'est ce qui garantit l'absence de regression.
+        // la scene. Rien n'est recalcule ici -- c'est ce qui garantit l'absence de regression. Les
+        // axes skin/surcharge (LOT-51) n'ont pas de sens en Physique : ignores.
         return TileAppearance{AppearanceSource::Atlas, physicalRegion, -1};
     }
 
-    // Entite non habillable (personnage, aides d'edition) : damier.
+    // Entite non habillable (personnage, aides d'edition) : damier, quels que soient les axes
+    // skin/surcharge (LOT-51) -- cette entite n'en releve pas.
     if (tag == nullptr) {
         return missingAppearance();
     }
 
+    // Mode compose (LOT-45 inchange) : les deux axes sont visibles, c'est le seul cas ou une
+    // resolution manquante retombe sur le damier plutot que de composer une primitive vide.
+    const bool composeMode = skinVisible && overrideVisible;
+
     // Surcharge de texture par instance (EX-EDIT-043, LOT-45) : prioritaire sur le skin du type,
-    // lui-meme prioritaire sur le damier -- verifiee avant tout acces au catalogue de skins. Un
-    // asset introuvable retombe directement sur le damier, jamais sur le skin du type.
+    // lui-meme prioritaire sur le damier -- verifiee avant tout acces au catalogue de skins.
     if (tag->overrideAsset) {
+        if (!overrideVisible) {
+            // Axe "surcharge" isole hors service (LOT-51) : cette entite n'appartient pas a l'axe
+            // demande (skin), et l'isolement ne retombe jamais sur un autre axe -- rien a composer.
+            return std::nullopt;
+        }
         const int index = textures.objectIndexOf(*tag->overrideAsset);
         if (index < 0) {
+            // Surcharge configuree mais asset introuvable : signal d'audit legitime meme isole
+            // (c'est precisement ce qui est configure sur cet axe) -- jamais le skin du type.
             return missingAppearance();
         }
         // Image courante par instance (LOT-47), meme priorite que pour un skin ci-dessous ; a
@@ -82,20 +97,30 @@ TileAppearance resolveTileAppearance(RenderMode mode, const core::AtlasRegion& p
         return TileAppearance{AppearanceSource::Override, region, index};
     }
 
+    // Pas de surcharge : cette entite ne concerne l'axe "surcharge" en rien -- seul l'axe skin
+    // decide de sa visibilite (LOT-51). Masque si l'audit isole precisement les surcharges.
+    if (!skinVisible) {
+        return std::nullopt;
+    }
+
     if (textures.skinCatalog == nullptr) {
-        return missingAppearance();
+        return composeMode ? std::optional<TileAppearance>{missingAppearance()} : std::nullopt;
     }
 
     const std::optional<SkinEntry> entry = textures.skinCatalog->resolve(textures.skinSet, tag->type);
     if (!entry.has_value()) {
-        return missingAppearance();  // type pas encore habille : etat normal, pas un defaut.
+        // Type pas encore habille : etat normal (EX-NFR-040). En mode compose, le damier le
+        // signale comme avant LOT-51 ; isole sur le skin, rien ne s'affiche -- c'est justement le
+        // diagnostic recherche (« quels types manquent encore »).
+        return composeMode ? std::optional<TileAppearance>{missingAppearance()} : std::nullopt;
     }
 
     // Skin assigne mais texture pas (encore) chargee -- fichier absent, illisible ou refuse par le
-    // contrat d'asset : damier, l'avertissement ayant deja ete journalise par le TextureCache.
+    // contrat d'asset : damier en mode compose (l'avertissement a deja ete journalise par le
+    // TextureCache), rien en mode isole (meme raisonnement que ci-dessus).
     const int index = textures.skinIndexOf(entry->asset, tag->type);
     if (index < 0) {
-        return missingAppearance();
+        return composeMode ? std::optional<TileAppearance>{missingAppearance()} : std::nullopt;
     }
 
     return TileAppearance{AppearanceSource::Skin,

@@ -264,17 +264,33 @@ private:
  * - tout autre cas (entité sans `hmi::TileSkinTag`, type non skinné, asset absent ou refusé) → le
  *   damier magenta en entier. C'est un état **normal** du programme d'habillage tant que tous les
  *   types ne sont pas habillés, pas un défaut (`EX-NFR-040`).
+ *
+ * @p skinVisible et @p overrideVisible pilotent le mode d'inspection « définition des textures »
+ * de l'éditeur (`hmi::LayerVisibility`, `LOT-51`, `EX-EDIT-044`) : à `true` tous les deux (le
+ * défaut), le comportement ci-dessus est **exactement** celui de `LOT-45`, sans repli différent.
+ * Dès que l'un des deux vaut `false`, la résolution **isole** — plus de repli sur le damier pour
+ * l'axe masqué :
+ * - une surcharge dont l'axe (`overrideVisible`) est masqué ne s'affiche pas du tout ;
+ * - un skin dont l'axe (`skinVisible`) est masqué ne s'affiche pas du tout ;
+ * - une entité **sans** surcharge, quand `overrideVisible` seul est masqué, s'affiche normalement
+ *   (le skin n'a pas besoin de la surcharge pour être signifiant) ;
+ * - une entité sans surcharge ni skin (chargé) n'affiche **rien** dès que `skinVisible` est actif
+ *   seul (pas de damier : ce n'est pas ce qu'on isole) — alors qu'en mode composé (les deux
+ *   `true`), elle affiche le damier comme avant.
  * @param mode           Mode de rendu courant.
  * @param physicalRegion Région d'atlas de l'entité en mode Physique (`core::Sprite::region`).
  * @param tag            Type et voisinage de la tuile, ou `nullptr` pour une entité non habillable
  *                       (personnage, aides d'édition) — qui reste alors au damier en mode Texture.
  * @param textures       Textures liables, catalogue et jeu de skins courant.
- * @return L'apparence à utiliser pour composer la primitive.
+ * @param skinVisible    Axe « skin de type » visible (`LOT-51`) ; `true` par défaut (comportement
+ *                       `LOT-45` inchangé pour tout appelant qui ignore cet axe).
+ * @param overrideVisible Axe « surcharge par instance » visible (`LOT-51`) ; `true` par défaut.
+ * @return L'apparence à utiliser pour composer la primitive, ou `std::nullopt` si rien ne doit être
+ *         composé pour cette entité (calque masqué, ou axe isolé sans rien à montrer, `LOT-51`).
  */
-[[nodiscard]] TileAppearance resolveTileAppearance(RenderMode mode,
-                                                   const core::AtlasRegion& physicalRegion,
-                                                   const TileSkinTag* tag,
-                                                   const SceneTextures& textures) noexcept;
+[[nodiscard]] std::optional<TileAppearance> resolveTileAppearance(
+    RenderMode mode, const core::AtlasRegion& physicalRegion, const TileSkinTag* tag,
+    const SceneTextures& textures, bool skinVisible = true, bool overrideVisible = true) noexcept;
 
 /**
  * @brief Indique si la combinaison (mode de skin, type de tuile) exclut l'animation
