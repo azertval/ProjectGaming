@@ -69,6 +69,9 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_decor_visuals.cpp
     Unit/HMI/Graphics/test_parallax.cpp
     Unit/HMI/Graphics/test_layer_visibility.cpp
+    Unit/HMI/Graphics/test_bitmap_font.cpp
+    Unit/HMI/Graphics/test_text_renderer.cpp
+    Unit/HMI/Game/test_game_hud.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -203,6 +206,16 @@ add_executable(UnitTests
     # Les lignes du panneau « Textures » / section Animations et leur diagnostic de clips
     # manquants (LOT-47) sont une logique pure (filesystem + AnimationCatalog), testable sans Qt.
     ../HMI/Editor/MechanismAnimationAssignments.cpp
+    # Métriques de police bitmap, mesure pure de texte, lecture JSON et repli procédural (LOT-52) :
+    # aucune dépendance GPU/Qt (contrairement à BitmapFont.cpp, qui charge la texture réelle et
+    # n'est donc pas compilé ici, comme TextureAtlas.cpp/TextureCache.cpp) : testable hors GPU.
+    ../HMI/Graphics/ProceduralFont.cpp
+    # Composition d'une chaîne en quads sur le calque UI et projection écran (LOT-52) : logique
+    # pure sur des SpriteQuad/hmi::ComposedScene, sans dépendance GPU : testable hors GPU.
+    ../HMI/Graphics/TextRenderer.cpp
+    # Choix des lignes du HUD (budgets, nom du tableau) à partir de core::Player/core::Level
+    # (LOT-52) : fonction pure, testable hors GPU.
+    ../HMI/Game/GameHud.cpp
 )
 
 target_link_libraries(UnitTests PRIVATE

@@ -216,6 +216,10 @@ keybindings.action.grid = Grille
 keybindings.action.help = Aide
 keybindings.action.rename = Renommer
 
+# Affichage tete haute en jeu (LOT-52, EX-IHM-003)
+hud.jumps_remaining = Sauts : %1
+hud.dashes_remaining = Dashs : %1
+
 # Palette de tuiles : categories, sous-groupes, tuiles
 palette.cat.tile = Tuile
 palette.cat.interactive = Interactif

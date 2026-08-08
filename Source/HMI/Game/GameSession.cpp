@@ -22,21 +22,25 @@
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/RenderLayer.h"
+#include "HMI/Graphics/TextRenderer.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
 #include "HMI/Graphics/TileAppearance.h"
 #include "HMI/Graphics/TileAutotile.h"
 #include "HMI/Graphics/TileSkinTag.h"
 #include "HMI/Graphics/TileVisuals.h"
+#include "HMI/Game/GameHud.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Input/InputState.h"
 #include "HMI/Input/PlayerInputMapper.h"
+#include "HMI/Localization/Localization.h"
 
 namespace hmi {
 
@@ -77,11 +81,15 @@ PlayerClipKind proceduralClipKindFor(const std::string& clipName) {
 GameSession::GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
                          int viewportWidth, int viewportHeight, core::Level level,
                          const GameKeyBindings& gameBindings,
-                         const GamepadBindings& gamepadBindings)
+                         const GamepadBindings& gamepadBindings, const BitmapFont& font,
+                         const Localization* localization)
     : _atlas(atlas),
       _cache(cache),
       _gameBindings(gameBindings),
       _gamepadBindings(gamepadBindings),
+      _batch(batch),
+      _font(font),
+      _localization(localization),
       _camera(viewportWidth, viewportHeight),
       _renderer(batch, atlas, cache) {
     loadLevel(std::move(level));
@@ -697,6 +705,37 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
                      _levelHeight, _level->textureOverrides(), _tileAnimations,
                      _level->decors());
+
+    renderHud(viewportWidth, viewportHeight);
+}
+
+// Compose et soumet l'affichage tete haute, en espace ecran (voir en-tete).
+void GameSession::renderHud(int viewportWidth, int viewportHeight) {
+    if (_localization == nullptr) {
+        return;  // catalogue pas encore charge (demarrage) : pas de HUD plutot qu'un plantage.
+    }
+
+    constexpr float HUD_MARGIN = 8.0f;
+    constexpr float HUD_SCALE = 1.0f;
+    constexpr float HUD_LINE_SPACING = 2.0f;
+    // Ombre portee (decalage d'un pixel, noir semi-opaque) : contraste suffisant sur un fond
+    // clair comme sur un fond sombre, le fond de niveau etant libre (TACHE-03).
+    constexpr core::Color HUD_SHADOW_COLOR{0.0f, 0.0f, 0.0f, 0.75f};
+    constexpr core::Color HUD_TEXT_COLOR{1.0f, 1.0f, 1.0f, 1.0f};
+
+    const core::Player& player = _world.getComponent<core::Player>(_player);
+    const std::vector<std::string> lines = gameHudLines(player, _level->name(), *_localization);
+
+    _hudScene.clear();
+    float lineY = HUD_MARGIN;
+    for (const std::string& line : lines) {
+        composeText(_hudScene, _font, line, HUD_MARGIN + 1.0f, lineY + 1.0f, HUD_SCALE,
+                   HUD_SHADOW_COLOR);
+        composeText(_hudScene, _font, line, HUD_MARGIN, lineY, HUD_SCALE, HUD_TEXT_COLOR);
+        lineY += static_cast<float>(_font.metrics().lineHeight) * HUD_SCALE + HUD_LINE_SPACING;
+    }
+    _hudScene.sort();
+    submitComposedScene(_batch, screenProjectionMatrix(viewportWidth, viewportHeight), _hudScene);
 }
 
 }  // namespace hmi

@@ -1,6 +1,6 @@
 # TACHE-01 — Police bitmap : atlas de glyphes et métriques {#lot-52-tache-01-police-bitmap}
 
-**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Le projet a déjà eu une police bitmap : *hmi::BitmapFont*, retirée au `LOT-38` (commit `8338bc15`)

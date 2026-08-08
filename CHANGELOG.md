@@ -7,6 +7,184 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-52 — Texte, police bitmap et affichage tête haute** (`EX-IHM-003`, re-concrétise
+  `EX-REN-032` retirée au `LOT-38`) : le jeu peut de nouveau afficher du texte **dans la scène
+  rendue** — les budgets de sauts/dashs (`EX-GP-024`, `LOT-12`) et le nom du tableau, jusqu'ici
+  invisibles faute de tout rendu de texte, apparaissent désormais en jeu et en essai.
+  - `hmi::ProceduralFont`/`hmi::BitmapFont` — police bitmap chargée depuis `Assets/Fonts/
+    font.png` + ses métriques (`font.json`, format JSON versionné, même patron que
+    `hmi::AnimationCatalog`), validée par le contrat d'asset (`AssetFamily::Font`, `EX-REN-007`)
+    et par sa cohérence avec les dimensions du PNG. Repli **procédural** déterministe si l'atlas
+    ou ses métriques sont absents/invalides (glyphes 5×7 pixels, ASCII imprimable + accents
+    français `é è à ç ù ê î ô û`, sur le modèle de `hmi::buildProceduralAtlasImage`, `LOT-39`) :
+    le jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Aucun asset n'est livré pour
+    l'instant (`Source/Elements/Assets/Fonts/README.md`) : le repli procédural est donc le
+    rendu actif tant qu'un artiste n'a pas déposé `font.png`/`font.json`. Un caractère non
+    couvert est substitué par un glyphe de remplacement, jamais un trou silencieux. Mesure de
+    texte pure (`hmi::measureText`), parcourant des **points de code** UTF-8 (pas des octets) —
+    piège classique explicitement évité, comme documenté dans l'ancien `hmi::BitmapFont` retiré.
+  - `hmi::TextRenderer` (`HMI/Graphics/TextRenderer.h`) — compose une chaîne en `SpriteQuad` sur
+    le calque `RenderLayer::UI` (réservé sans être utilisé depuis `LOT-40`), avec ancrage
+    paramétrable (gauche/centre/droite, haut/milieu/bas) et positions arrondies au pixel écran
+    entier (netteté, `EX-ARCH-022`). **Projection écran dédiée** (`hmi::screenProjectionMatrix`,
+    dépendant uniquement des dimensions du viewport) : premier cas du projet où une passe de
+    rendu a sa propre projection, indépendante de `Camera2D` — le HUD ne tourne ni ne change de
+    taille avec le zoom. Composé dans une `hmi::ComposedScene` **dédiée**, distincte de celle de
+    `hmi::SpriteRenderer` et jamais soumise à un cadrage de culling caméra : le texte, en espace
+    écran, n'a pas de position monde (`LOT-40` TACHE-05 ne s'y applique pas).
+  - `hmi::GameHud`/`hmi::GameSession::renderHud` — fonction **pure** (`hmi::gameHudLines`)
+    choisissant les lignes à afficher (compteurs de sauts/dashs, seulement si le budget du
+    niveau est **fini** — `-1` = illimité, cas de la grande majorité des tableaux, aucune ligne
+    superflue ; nom du tableau) à partir de `core::Player`/`core::Level::name`, testée sans GPU.
+    Affichage en jeu et en essai (hérité du point d'entrée unique `hmi::GameSession::render`,
+    jamais appelé en édition pure — `hmi::DraftRenderer` reste le seul chemin de l'éditeur) avec
+    une ombre portée (décalage d'un pixel) pour rester lisible sur fond clair comme sur fond
+    sombre. Nouvelles clés `hud.jumps_remaining`/`hud.dashes_remaining` dans les deux catalogues
+    de traduction (`EX-REN-033`).
+  - **32 nouveaux tests**, tous sans GPU (`hmi::ProceduralFont`/`hmi::TextRenderer`/`hmi::
+    GameHud` sont des fichiers séparés de leurs classes propriétaires de ressources Direct3D —
+    `hmi::BitmapFont` n'est pas compilé dans `UnitTests`, comme `hmi::TextureAtlas`) ; build
+    `/W4 /WX` propre, 832 tests verts.
+
+- **LOT-51 — Mode d'inspection « définition des textures » par calque** (`EX-EDIT-044`) : nouvel
+  onglet « Calques » du panneau Textures — une case à cocher par calque de rendu, dans l'ordre de
+  dessin, plus « Physique seul » et « Tout afficher ». Réservé à l'éditeur, **sans aucun effet** ni
+  sur `hmi::GameSession` ni sur la bascule `F8` (`LOT-41`), distinction rappelée par une info-bulle.
+  `hmi::LayerVisibility` (nouveau) : jeu de visibilités indexé par `RenderLayer`, tout visible par
+  défaut, sans persistance entre deux sessions. `hmi::resolveTileAppearance` étend le résolveur
+  unique surcharge > skin > damier avec un mode « isoler » : les bits Tuile/Objet pilotent
+  désormais les deux axes de résolution d'une tuile plutôt qu'un calque physique distinct, en
+  isolant sans repli sur le damier quand un seul axe est actif. `composeWorldSprites`/
+  `DraftRenderer::render` filtrent à la **composition** (jamais à la construction de la scène ECS).
+
+- **LOT-50 — Manipulation de décors dans l'éditeur** (`EX-DEC-010`) : outillage d'édition complet
+  pour un décor déjà posé (`LOT-49`) — sélectionner, déplacer, redimensionner, pivoter, changer de
+  couche et réordonner, en plus du placement/retrait déjà existants.
+  - Mutateurs `core::LevelDraft` (`moveDecor`/`resizeDecor`/`rotateDecor`/`setDecorLayer`/
+    `bring*Forward`/`send*Backward`/`bring*ToFront`/`send*ToBack`) : position et échelle
+    appliquées **atomiquement** pour un redimensionnement, une seule entrée d'historique
+    (undo/redo) par geste complet.
+  - Géométrie partagée (`hmi::DecorGeometry`) et machine à état pure du geste (`hmi::
+    DecorGesture`, même patron que `hmi::LinkGesture`, `LOT-37`) : désignation, distinction
+    clic/glisser, poignées (taille écran constante), abandon — jamais de mutation directe du
+    brouillon pendant l'aperçu. Remplace `hmi::DecorPlacementGesture` (`LOT-49`), supersedé par la
+    détection par rectangle englobant.
+  - Section « Décors » du panneau Textures : liste groupée par couche puis par ordre de
+    superposition, sélection **croisée** unique avec le canevas, signalement des assets manquants.
+  - **Trois défauts corrigés en cours de lot** : `decorWorldBounds` oubliait de convertir les
+    pixels de l'asset en unités monde (rectangle englobant, donc poignées et cadre de sélection,
+    seize fois trop grands) ; la rotation posée par la poignée dédiée n'avait aucun effet visible
+    (`core::Transform::rotation` était ignorée au rendu depuis `LOT-49` — `hmi::SpriteQuad` porte
+    désormais une rotation optionnelle, appliquée par `SpriteBatch::draw`, coins tournés autour du
+    centre) ; le cadre de sélection et ses poignées restaient alignés aux axes pendant que le
+    décor tournait sous eux (`hmi::decorRotatedPoint`, même formule de rotation que le rendu).
+
+- **LOT-49 — Décors libres, rendu multicouche et parallaxe** (`EX-DEC-001`, `EX-DEC-002`,
+  `EX-DEC-006`) : `core::Decor` (position/échelle/rotation libres, hors grille, couche,
+  statique/manipulable) sérialisé dans le format de niveau versionné (`LOT-44`). Rendu sur les
+  calques arrière-plan et premier plan (le premier plan passe **au-dessus** du personnage), repli
+  sur le damier magenta pour un asset introuvable ; **parallaxe** relative au centre de la salle
+  courante, cohérente avec la caméra à coupure nette entre salles (`LOT-32`). Placement minimal
+  dans l'éditeur (poser/supprimer) depuis une nouvelle bibliothèque `Assets/Decors/`.
+
+- **LOT-48 — Personnage habillé depuis une spritesheet externe** : dernier sprite resté hors du
+  programme d'habillage — en mode Texture, le personnage retombait jusqu'ici sur le damier
+  magenta. Spritesheet externe (`Assets/Player/`) avec repli procédural, taille de l'image
+  **découplée** de la hitbox par un point d'ancrage centre-bas (une image plus grande que la
+  hitbox ne la déforme donc plus), projection état → clip étendue à la chute, l'atterrissage, la
+  glissade murale et le dash (clips prioritaires, résolus sans nouveau champ sur `core::Player`),
+  personnage retourné selon son sens de déplacement.
+
+- **LOT-47 — Apparence des mécanismes pilotée par leur état logique** (`EX-REN-006`) : une porte,
+  un interrupteur, une plaque de pression et les dangers commuté/temporisé/mobile changent
+  désormais d'**apparence** selon leur état en mode Texture, plutôt que la simple modulation
+  d'opacité qu'appliquait `GameSession` jusque-là. `hmi::MechanismVisuals` traduit l'état lu dans
+  `Core` en clip attendu (infrastructure `LOT-46`) ; un clip manquant retombe proprement sur
+  l'image statique. La modulation d'opacité de diagnostic reste réservée au mode **Physique**,
+  désormais isolée dans une fonction pure. Nouvelle section « Animations » du panneau Textures
+  (asset par défaut par famille de mécanisme, diagnostic des clips manquants, aperçu).
+
+- **LOT-46 — Moteur d'animation générique piloté par données** (précise `EX-REN-012`) : remplace
+  l'`enum AnimationClip` figé (`Idle`/`Run`/`Jump`) par des clips-**données**
+  (`core::AnimationClip`/`core::ClipSet`) et généralise `AnimationSystem` à **toute** entité
+  portant `core::Animation`, plus seulement le personnage. Nouveau format `nom-asset.anim.json`
+  (`hmi::AnimationCatalog`) décrivant une spritesheet animée, mis en cache et invalidé
+  **conjointement** par `TextureCache`. Anime les skins de tuiles (eau, lave, torche) via une
+  horloge **partagée par asset**, résolue à la composition du rendu plutôt qu'écrite par tuile —
+  toutes les tuiles d'un même type animé restent ainsi en phase, sans coût par case. Le personnage
+  est migré à l'identique (mêmes durées, mêmes images), non-régression attestée par le test de
+  référence existant. **Deux défauts corrigés en cours de lot** : le canevas d'édition
+  (`hmi::DraftRenderer`, rendu en continu hors essai) composait toujours la première image d'un
+  asset animé, sans jamais progresser (horloge partagée factorisée entre pas fixe déterministe du
+  jeu et temps réel de l'aperçu d'édition) ; `TextureCache::getAnimation` résolvait le descripteur
+  à la racine du dossier `Assets` plutôt que dans `Assets/Skins/`, empêchant silencieusement
+  toute tuile de s'animer.
+
+- **LOT-45 — Texture par instance sur les objets interactifs** : assigne une texture à une case
+  **précise** d'un niveau, prioritaire sur le skin de son type (`LOT-42`) — `core::
+  TileTextureOverride` sur `Level`/`LevelDraft` (JSON, nettoyage, undo/redo), outil `hmi::
+  EditorTool::TextureAssign` avec geste pur (`hmi::TextureAssignGesture`) et raccourci `T`,
+  résolveur de priorité **unique** (surcharge > skin > damier) dans `hmi::resolveTileAppearance`,
+  partagé par le jeu et l'éditeur. Section « Objets » du panneau Textures (choix d'asset, liste
+  des surcharges, retrait, surbrillance croisée) et dossier `Assets/Objects/`. Corrige au passage
+  une régression silencieuse survenue lors de la réécriture Qt/Direct3D 11 (`LOT-33`-`35`) : le
+  pan/zoom manuel de l'éditeur (molette, glisser bouton droit, touche `0`) avait disparu, la
+  caméra recalculant un cadrage automatique à chaque image.
+
+- **LOT-44 — Fond de niveau et versionnement du format** : associe un fond à un niveau (calque
+  `Background`, ratio préservé, recadrage par le centre, repli en damier si introuvable) et
+  introduit le **numéro de version** du format JSON de niveau — première extension de
+  `core::Level`/`LevelDraft` du programme d'habillage, pour que les formats suivants (décors,
+  surcharges de texture) puissent évoluer sans casser les niveaux déjà écrits. Section « Fond » et
+  sélecteur de jeu de skins **du niveau** (distinct du jeu de skins courant d'édition) ajoutés au
+  panneau Textures.
+
+- **LOT-43 — Bibliothèque d'assets à vignettes, gestion de fichiers et rechargement à chaud** :
+  le panneau Textures affichait les skins par nom de fichier et imposait de passer par
+  l'explorateur puis de relancer l'application à chaque retouche d'asset — un coût payé à chaque
+  itération des lots d'habillage suivants. Widget de vignettes partagé (`hmi::
+  AssetThumbnailView`), import/renommage/duplication/suppression avec **détection des
+  références** (`skins.json`), et rechargement à chaud (invalidation `TextureCache` + relecture du
+  catalogue) sans reconstruire la scène ni toucher au brouillon en cours d'édition. La
+  mémoïsation/invalidation de `TextureCache` est extraite dans `hmi::CacheRegistry`, un registre
+  générique testable sans GPU dont `LOT-40` dépendait déjà sans qu'elle soit vérifiée isolément.
+
+- **LOT-42 — Skins de tuiles, raccords automatiques et panneau Textures** : premier lot de
+  contenu visuel du programme d'habillage — le mode Texture (`LOT-41`) cesse d'afficher un damier
+  partout.
+  - `hmi::SkinCatalog` — associe un type de tuile à un asset et un mode de découpage, en **jeux
+    nommés** ; format versionné dès sa création (une version supérieure à celle gérée est refusée
+    plutôt que lue au mieux), aucune exception ne franchit la lecture (`EX-NFR-040`, patron de
+    `core::LevelLoadResult`).
+  - `hmi::TileAutotile` — table de **raccords automatiques** par masque de voisinage solide
+    (quatre voisins, seize configurations, planche 4×4) : une image unique par type rendait la
+    grille visible et le dessus d'une plateforme indiscernable de son intérieur. L'extérieur du
+    niveau compte comme solide et le raccord suit la **solidité**, pas le type (un bloc poussable
+    jouxtant un mur ne laisse pas de couture) ; les pentes/arrondis, jamais solides, ne
+    participent pas au voisinage.
+  - Skins appliqués au rendu via `hmi::TileSkinTag` (composant de présentation, même patron que
+    `RenderLayerTag`) et le résolveur unique `hmi::resolveTileAppearance` (priorité skin >
+    damier) ; le masque de voisinage est calculé **une fois** à la construction, indépendant du
+    mode et du jeu de skins, pour que `F8` ou une réassignation se voient à l'image suivante sans
+    reconstruire l'ECS.
+  - **Détourage** des skins des douze types à silhouette inclinée/courbe (`hmi::
+    isInsideSilhouette`, point de vérité unique partagé avec l'atlas procédural) : un skin fourni
+    par l'auteur reste une image carrée, le moteur le découpe à la forme exacte de la hitbox
+    (`core::slopeSurfaceHeight`), jamais anticrénelée (filtrage *nearest*, `EX-ARCH-022`).
+  - Dock **« Textures »**, organisé en onglets dès ce lot bien qu'il n'en compte qu'un — sans
+    cette structure, chacun des lots d'habillage suivants (Fond, Objets, Animations, Décors)
+    aurait créé son propre panneau. Fichier et mode choisis dans une liste fermée (balayage de
+    `Assets/Skins/`, jamais une saisie de chemin).
+  - Palette de l'éditeur rendue **fidèle** au mode de rendu courant (`hmi::paletteThumbnail`,
+    fonction pure appliquant exactement la même priorité que `hmi::resolveTileAppearance` —
+    vérifié par test qu'elles ne divergent jamais) : texture réelle en mode Texture, couleur plate
+    en mode Physique, damier pour un type non habillé.
+  - **Portabilité du build** corrigée à l'ouverture du lot : sur une configuration neuve, aucun
+    exécutable n'était produit (Qt non découvert par `find_package` hors `CMAKE_PREFIX_PATH`, et
+    l'architecture du terminal appelant décidait silencieusement de celle du build, x86 depuis une
+    « Developer PowerShell »). `scripts/build.ps1` établit désormais lui-même l'environnement x64
+    (`vswhere`), et un garde-fou rejette les deux cas à la configuration CMake.
+
 - **LOT-41 — Bascule Physique/Texture (`F8`)** (`EX-REN-046`) : une commande **fixe et non
   remappable** bascule, en édition, en essai **et** en jeu réel, entre le rendu **Physique**
   (couleur plate par type de tuile — la lecture directe des collisions, comportement historique
