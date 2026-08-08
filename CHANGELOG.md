@@ -142,6 +142,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   domaine (`Platform`/`Input`/`Graphics`/`Game`/`Localization`/`Interface`/`Editor`). Documentation
   (guides écrans/éditeur/rendu/entrées) et journalisation mises à jour en conséquence.
 
+## [0.0.4] - 2026-07-27
+
+> Quatrième jalon : **fluidité du moteur** au-dessus de 60 Hz (LOT-33) — les entrées sont désormais
+> consommées par **pas de simulation** plutôt que par frame de rendu (plus de perte à haut
+> framerate), la présentation passe en **flip-model** (latence entrée → image réduite, cadence plus
+> régulière) et le rendu **interpole** la position des entités mobiles entre deux pas fixes, sans
+> jamais toucher au déterminisme de la simulation. **541 tests** (540 au jalon précédent).
+>
+> Voir le [CHANGELOG](CHANGELOG.md) pour le détail (LOT-33).
+
+### Modifié
 - **LOT-33 — Fluidité du moteur** (`EX-REN-004`, `EX-ARCH-031`, `EX-CTRL-020`, `EX-CTRL-021`) :
   ensemble de corrections de choix techniques boucle/rendu/entrées qui dégradaient le ressenti
   au-dessus de 60 Hz. **Entrées nerveuses** : les fronts (pressée/relâchée) sont désormais consommés
@@ -160,6 +171,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   alpha)` via `core::FixedTimestep::interpolationAlpha`, supprimant le *judder* à haut framerate. La
   simulation reste strictement déterministe (l'interpolation ne touche que l'affichage) ; la caméra
   n'est pas interpolée (coupure nette par salle, `LOT-32`).
+
+## [0.0.3] - 2026-07-25
+
+> Troisième jalon : le prototype devient un **vrai platformer**. Personnage animé (LOT-17/18) et
+> **physique newtonienne** (LOT-19) ; **manette** pleinement supportée et **remappage** complet,
+> clavier **et** manette (LOT-20, LOT-29, LOT-30) ; bibliothèque de tuiles de plateforme — pentes,
+> arrondis (convexes puis concaves), blocs poussables et blocs à taille fractionnaire, sol **et**
+> plafond (LOT-21 à LOT-26, LOT-28) ; **dangers avancés** — directionnels, mobiles, commutés,
+> temporisés (LOT-31) ; niveaux à **salles** façon *Celeste* (LOT-32) ; palette de l'éditeur
+> réorganisée par catégories (LOT-27) et refactoring complet des niveaux de démonstration (LOT-25).
+> **540 tests** (292 au jalon précédent).
+>
+> Voir le [CHANGELOG](CHANGELOG.md) pour le détail par lot (LOT-17 → LOT-32).
+
+### Ajouté
 - **LOT-32 — Niveaux à salles** (`EX-REN-015`, `EX-EDIT-023`) : un niveau plus grand qu'une
   **salle** (nouveau `hmi::RoomGrid`, taille fixe en tuiles, `Source/HMI/Graphics`) se joue avec
   une caméra qui cadre la salle **courante** du personnage, au zoom pixel art natif, et bascule
