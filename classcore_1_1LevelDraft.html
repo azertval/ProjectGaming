@@ -129,6 +129,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa42de621ae8ab7c2380d8467b4c4f7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un décor libre en fin de vecteur (<span class="tt">EX-DEC-001</span>, <span class="tt">EX-EDIT-010</span>).  <br /></td></tr>
 <tr class="memitem:aedf72e83d2c50fa8a082296cda3f1c20" id="r_aedf72e83d2c50fa8a082296cda3f1c20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aedf72e83d2c50fa8a082296cda3f1c20">removeDecor</a> (std::size_t index)</td></tr>
 <tr class="memdesc:aedf72e83d2c50fa8a082296cda3f1c20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
+<tr class="memitem:aba9a556ae6046d9038f6368998f8eb75" id="r_aba9a556ae6046d9038f6368998f8eb75"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba9a556ae6046d9038f6368998f8eb75">moveDecor</a> (std::size_t index, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> position)</td></tr>
+<tr class="memdesc:aba9a556ae6046d9038f6368998f8eb75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le décor au rang <code class="param">index</code> à une nouvelle position libre (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
+<tr class="memitem:afd9bdb93ac057f2c7e6c8c14be5a74ab" id="r_afd9bdb93ac057f2c7e6c8c14be5a74ab"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afd9bdb93ac057f2c7e6c8c14be5a74ab">resizeDecor</a> (std::size_t index, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> position, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> scale)</td></tr>
+<tr class="memdesc:afd9bdb93ac057f2c7e6c8c14be5a74ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>), en repositionnant son coin éventuellement du même geste.  <br /></td></tr>
+<tr class="memitem:ad285d0c016f041d678a7f222a8f8b23f" id="r_ad285d0c016f041d678a7f222a8f8b23f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad285d0c016f041d678a7f222a8f8b23f">rotateDecor</a> (std::size_t index, float rotation)</td></tr>
+<tr class="memdesc:ad285d0c016f041d678a7f222a8f8b23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pivote le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>).  <br /></td></tr>
+<tr class="memitem:a6d40a7451d269feb1badaf2a5065752e" id="r_a6d40a7451d269feb1badaf2a5065752e"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d40a7451d269feb1badaf2a5065752e">setDecorLayer</a> (std::size_t index, <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a> layer)</td></tr>
+<tr class="memdesc:a6d40a7451d269feb1badaf2a5065752e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la couche du décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-002</span>).  <br /></td></tr>
+<tr class="memitem:ab20f2eb5c24b94a43e85581f8d2ccf23" id="r_ab20f2eb5c24b94a43e85581f8d2ccf23"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23">bringDecorForward</a> (std::size_t index)</td></tr>
+<tr class="memdesc:ab20f2eb5c24b94a43e85581f8d2ccf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance le décor au rang <code class="param">index</code> d'un cran dans l'ordre de superposition <b>de sa couche</b> (<span class="tt">EX-DEC-010</span>) : échange avec le décor de même couche immédiatement suivant.  <br /></td></tr>
+<tr class="memitem:a0eabbb032c3a59a3c0888d5f9a3fe95d" id="r_a0eabbb032c3a59a3c0888d5f9a3fe95d"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0eabbb032c3a59a3c0888d5f9a3fe95d">sendDecorBackward</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a0eabbb032c3a59a3c0888d5f9a3fe95d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recule le décor au rang <code class="param">index</code> d'un cran dans l'ordre de sa couche (symétrique de <span class="tt"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">bringDecorForward</a></span>) : échange avec le décor de même couche immédiatement précédent.  <br /></td></tr>
+<tr class="memitem:a374432bd310bf7f4f1da323291a9fadc" id="r_a374432bd310bf7f4f1da323291a9fadc"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a374432bd310bf7f4f1da323291a9fadc">bringDecorToFront</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a374432bd310bf7f4f1da323291a9fadc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amène le décor au rang <code class="param">index</code> au premier rang (le plus en avant) de sa couche.  <br /></td></tr>
+<tr class="memitem:a0b0f16e06f765e2a1daf4bc797a07f3a" id="r_a0b0f16e06f765e2a1daf4bc797a07f3a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b0f16e06f765e2a1daf4bc797a07f3a">sendDecorToBack</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a0b0f16e06f765e2a1daf4bc797a07f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoie le décor au rang <code class="param">index</code> au dernier rang (le plus en arrière) de sa couche.  <br /></td></tr>
 <tr class="memitem:adcaec64d68695ac6214641b19e2ec1af" id="r_adcaec64d68695ac6214641b19e2ec1af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adcaec64d68695ac6214641b19e2ec1af">resize</a> (int width, int height)</td></tr>
 <tr class="memdesc:adcaec64d68695ac6214641b19e2ec1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne la grille (<span class="tt">EX-EDIT-005</span>).  <br /></td></tr>
 <tr class="memitem:a7bb1c529de03797c0e158a1f13b39084" id="r_a7bb1c529de03797c0e158a1f13b39084"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7bb1c529de03797c0e158a1f13b39084">wouldResizeDropContent</a> (int width, int height) const noexcept</td></tr>
@@ -320,6 +336,51 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les configurations de danger temporisé posées explicitement (<span class="tt">EX-GP-053</span>). </dd></dl>
+
+</div>
+</div>
+<a id="ab20f2eb5c24b94a43e85581f8d2ccf23" name="ab20f2eb5c24b94a43e85581f8d2ccf23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab20f2eb5c24b94a43e85581f8d2ccf23">&#9670;&#160;</a></span>bringDecorForward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::bringDecorForward </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance le décor au rang <code class="param">index</code> d'un cran dans l'ordre de superposition <b>de sa couche</b> (<span class="tt">EX-DEC-010</span>) : échange avec le décor de même couche immédiatement suivant. </p>
+<p>Ne change jamais la couche du décor (<span class="tt">EX-DEC-002</span>) : seul l'ordre <b>à l'intérieur</b> de sa couche est affecté. Sans effet (mais succès, rang inchangé) si <code class="param">index</code> désigne déjà le décor le plus en avant de sa couche. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nouveau rang du décor, ou <span class="tt">std::nullopt</span> si <code class="param">index</code> est hors bornes. </dd></dl>
+
+</div>
+</div>
+<a id="a374432bd310bf7f4f1da323291a9fadc" name="a374432bd310bf7f4f1da323291a9fadc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374432bd310bf7f4f1da323291a9fadc">&#9670;&#160;</a></span>bringDecorToFront()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::bringDecorToFront </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Amène le décor au rang <code class="param">index</code> au premier rang (le plus en avant) de sa couche. </p>
 
 </div>
 </div>
@@ -658,6 +719,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aba9a556ae6046d9038f6368998f8eb75" name="aba9a556ae6046d9038f6368998f8eb75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba9a556ae6046d9038f6368998f8eb75">&#9670;&#160;</a></span>moveDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::moveDecor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déplace le décor au rang <code class="param">index</code> à une nouvelle position libre (<span class="tt">EX-DEC-010</span>). </p>
+<p>Ne change ni la couche ni le rang : seule <span class="tt"><a class="el" href="structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac" title="Position en unités monde, flottante : aucune contrainte de grille (EX-DEC-001).">Decor::position</a></span> est modifiée. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
+    <tr><td class="paramname">position</td><td>Nouvelle position, en unités monde (aucune contrainte de grille). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes (sans effet, <span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
 <a id="ac6a71a9a20011b0d7cbd0c612916b7c8" name="ac6a71a9a20011b0d7cbd0c612916b7c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6a71a9a20011b0d7cbd0c612916b7c8">&#9670;&#160;</a></span>moverConfigs()</h2>
 
@@ -972,6 +1064,44 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afd9bdb93ac057f2c7e6c8c14be5a74ab" name="afd9bdb93ac057f2c7e6c8c14be5a74ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd9bdb93ac057f2c7e6c8c14be5a74ab">&#9670;&#160;</a></span>resizeDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::resizeDecor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Redimensionne le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>), en repositionnant son coin éventuellement du même geste. </p>
+<p><code class="param">position</code> et <code class="param">scale</code> sont appliquées <b>atomiquement</b>, en une seule mutation annulable : redimensionner depuis un coin (poignée, <span class="tt">LOT-50</span> TACHE-02) déplace le coin <b>opposé au coin ancré</b>, sauf depuis le coin bas-droit — les deux changent donc ensemble le plus souvent, et scinder l'opération en deux appels (<span class="tt"><a class="el" href="#aba9a556ae6046d9038f6368998f8eb75" title="Déplace le décor au rang index à une nouvelle position libre (EX-DEC-010).">moveDecor</a></span> + <span class="tt"><a class="el" href="#afd9bdb93ac057f2c7e6c8c14be5a74ab" title="Redimensionne le décor au rang index (EX-DEC-010), en repositionnant son coin éventuellement du même ...">resizeDecor</a></span>) empilerait deux entrées d'historique pour un seul geste utilisateur. Un appelant qui ne change que l'échelle (ex. futur champ numérique, <span class="tt">LOT-50</span> TACHE-04) passe simplement la position courante du décor, inchangée.</p>
+<p>Une échelle non strictement positive sur un axe est <b>rejetée</b> (aucune mutation, position comprise) : un décor invisible (échelle nulle) ou retourné par accident (échelle négative) serait un piège d'usage plutôt qu'une fonctionnalité. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
+    <tr><td class="paramname">position</td><td>Nouvelle position (coin haut-gauche), en unités monde. </td></tr>
+    <tr><td class="paramname">scale</td><td>Nouvelle échelle ; chaque composante doit être strictement positive. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes ou si <code class="param">scale</code> n'est pas strictement positive sur les deux axes (sans effet, <span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a320a399e76d85ed27d70875d6b410f93" name="a320a399e76d85ed27d70875d6b410f93"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a320a399e76d85ed27d70875d6b410f93">&#9670;&#160;</a></span>restore()</h2>
 
@@ -996,6 +1126,75 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Restitue un état capturé précédemment. </p>
+
+</div>
+</div>
+<a id="ad285d0c016f041d678a7f222a8f8b23f" name="ad285d0c016f041d678a7f222a8f8b23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad285d0c016f041d678a7f222a8f8b23f">&#9670;&#160;</a></span>rotateDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::rotateDecor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotation</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pivote le décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>). </p>
+<p>La rotation est <b>normalisée</b> dans <span class="tt">[0, 2π[</span> avant d'être stockée : contrairement à l'échelle, aucune valeur n'est rejetée, une rotation n'a pas de valeur invalide. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
+    <tr><td class="paramname">rotation</td><td>Nouvelle rotation, en radians (n'importe quelle valeur, y compris hors <span class="tt">[0, 2π[</span> ou négative). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si appliqué ; <span class="tt">false</span> si <code class="param">index</code> est hors bornes (sans effet). </dd></dl>
+
+</div>
+</div>
+<a id="a0eabbb032c3a59a3c0888d5f9a3fe95d" name="a0eabbb032c3a59a3c0888d5f9a3fe95d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eabbb032c3a59a3c0888d5f9a3fe95d">&#9670;&#160;</a></span>sendDecorBackward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::sendDecorBackward </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recule le décor au rang <code class="param">index</code> d'un cran dans l'ordre de sa couche (symétrique de <span class="tt"><a class="el" href="#ab20f2eb5c24b94a43e85581f8d2ccf23" title="Avance le décor au rang index d&#39;un cran dans l&#39;ordre de superposition de sa couche (EX-DEC-010) : éch...">bringDecorForward</a></span>) : échange avec le décor de même couche immédiatement précédent. </p>
+
+</div>
+</div>
+<a id="a0b0f16e06f765e2a1daf4bc797a07f3a" name="a0b0f16e06f765e2a1daf4bc797a07f3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b0f16e06f765e2a1daf4bc797a07f3a">&#9670;&#160;</a></span>sendDecorToBack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::sendDecorToBack </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Envoie le décor au rang <code class="param">index</code> au dernier rang (le plus en arrière) de sa couche. </p>
 
 </div>
 </div>
@@ -1082,6 +1281,37 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Définit le budget de dashs (<span class="tt">-1</span> = illimité). </p>
+
+</div>
+</div>
+<a id="a6d40a7451d269feb1badaf2a5065752e" name="a6d40a7451d269feb1badaf2a5065752e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d40a7451d269feb1badaf2a5065752e">&#9670;&#160;</a></span>setDecorLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::LevelDraft::setDecorLayer </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la couche du décor au rang <code class="param">index</code> (<span class="tt">EX-DEC-010</span>, <span class="tt">EX-DEC-002</span>). </p>
+<p>Comportement défini explicitement (<span class="tt">EX-EDIT-010</span>, pour ne pas le laisser émerger) : le décor rejoint la <b>fin</b> du vecteur, ce qui en fait le rang le plus élevé (« dessus ») de sa nouvelle couche — même convention que <span class="tt"><a class="el" href="#aa42de621ae8ab7c2380d8467b4c4f7ce" title="Ajoute un décor libre en fin de vecteur (EX-DEC-001, EX-EDIT-010).">addDecor</a></span>, qui place toujours un nouveau décor en fin de vecteur. Sans effet (mais succès) si <code class="param">layer</code> est déjà la couche courante du décor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Rang dans <span class="tt"><a class="el" href="#a1d49b3c7088c0f8928c8a2aaadee665e">decors()</a></span>. </td></tr>
+    <tr><td class="paramname">layer</td><td>Nouvelle couche. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nouveau rang du décor, ou <span class="tt">std::nullopt</span> si <code class="param">index</code> est hors bornes. </dd></dl>
 
 </div>
 </div>

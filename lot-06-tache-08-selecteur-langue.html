@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-06-tache-08-selecteur-langue.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-08-selecteur-langue"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span>, <span class="tt">Source/HMI/Graphics</span>, <span class="tt">Source/Elements/Localization</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md584"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md585"></a>
 Contexte</h1>
 <p>Le catalogue de traduction (TACHE-03) sait charger n'importe quelle langue, mais l'application démarre en français sans moyen d'en changer. Cette tâche ajoute un <b>bouton de langue</b> en bas à droite du menu, matérialisé par le <b>drapeau de la langue courante</b>, qui bascule entre <b>français</b> et <b>anglais</b> (<span class="tt">EX-REN-033</span>). Elle introduit le catalogue anglais et des icônes de drapeaux.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md585"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md586"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Catalogue anglais</b> <span class="tt">en.lang</span> (mêmes clés que <span class="tt">fr.lang</span>) dans <span class="tt">Source/Elements/Localization</span>.</li>
@@ -105,7 +105,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt">LanguageSelector</span></b> (<span class="tt">HMI/Interface</span>) : logique <b>pure</b> du bouton — rectangle ancré en bas à droite, détection du <b>clic</b> gauche, bascule vers l'autre langue. Testable hors GPU (<span class="tt">EX-NFR-010</span>).</li>
 <li><b><span class="tt">MenuScreen</span></b> : détient une référence <b>mutable</b> au catalogue ; à un clic sur le bouton, recharge la langue (<span class="tt">loadLanguage</span>), ce qui met à jour les libellés dès la frame suivante ; dessine l'icône du drapeau de la langue active (<span class="tt">RenderContext</span> porte les <span class="tt">FlagIcons</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md586"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md587"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Elements/Localization/en.lang</span> (nouveau).</li>
@@ -114,14 +114,14 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/HMI/Interface/RenderContext.h</span>, <span class="tt">MenuScreen.h</span>, <span class="tt">MenuScreen.cpp</span>, <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">HMI/main.cpp</a></span>.</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md587"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md588"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Le rectangle du bouton est ancré au coin <b>bas-droit</b> (marge comprise).</li>
 <li>La bascule renvoie l'<b>autre</b> langue (fr ↔ en), avec un défaut robuste.</li>
 <li>Un <b>clic dans</b> le bouton demande la bascule ; un clic <b>hors</b> du bouton, ou l'absence de clic, ne bascule pas.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md588"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md589"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Séparer</b> la logique (<span class="tt">LanguageSelector</span>, testable) du dessin (icône via <span class="tt">SpriteBatch</span>).</li>
@@ -129,13 +129,13 @@ Points d'attention</h1>
 <li>Bascule <b>récupérable</b> : si le fichier de la langue cible est absent, la langue courante est conservée (<span class="tt">EX-NFR-040</span>).</li>
 <li>Le bouton est à l'opposé des options : un clic dessus ne déclenche aucune action de menu.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md589"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md590"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le menu affiche le drapeau de la langue courante ; un clic bascule fr ↔ en et met à jour tous les libellés ; logique testée (<span class="tt">ctest</span> vert) ; build <span class="tt">/W4 /WX</span>, documenté.</li>
 <li>Vérifié visuellement (menu français ↔ anglais, drapeaux France / Royaume-Uni).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md590"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md591"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-033</span>, <span class="tt">EX-REN-030</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-NFR-010</span>, <span class="tt">EX-NFR-040</span>. </p>
 </div></div><!-- contents -->

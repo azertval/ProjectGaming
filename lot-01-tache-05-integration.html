@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-01-tache-05-integration.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-01-fenetre-boucle-jeu_2tache-05-integration"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">LOT-01</a> · <b>Module :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> terminé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md303"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md304"></a>
 Contexte</h1>
 <p>Dernière tâche du lot : assembler fenêtre, device et boucle de temps fixe dans le point d'entrée, et vérifier le comportement d'ensemble.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md304"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
 Travail à réaliser</h1>
 <ul>
 <li>Réécrire <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span> pour :<ol type="1">
@@ -109,26 +109,26 @@ Travail à réaliser</h1>
 </li>
 <li>Encadrer le démarrage par une gestion d'exception à la frontière (échec d'init → message clair, sortie contrôlée).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md305"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 <li><span class="tt">CHANGELOG.md</span> (section <em>Non publié</em>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md306"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
 Vérification (manuelle + automatique)</h1>
 <ul>
 <li><b>Manuelle</b> : la fenêtre s'ouvre, affiche la couleur, se redimensionne, se ferme (croix et Échap) ; le processus se termine avec le code 0.</li>
 <li><b>Sanitizer</b> : exécution ponctuelle avec <span class="tt">-DENABLE_ASAN=ON</span> sans rapport d'erreur.</li>
 <li><b>Automatique</b> : <span class="tt">ctest</span> vert (tests de <span class="tt">FixedTimestep</span>), build <span class="tt">/W4 /WX</span> sans avertissement, <b>CI verte</b>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md307"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Tous les critères d'acceptation de l'<a class="el" href="lot-01.html#md_Lot_2LOT-01-fenetre-boucle-jeu_2epic" title="Lot/LOT-01-fenetre-boucle-jeu/epic.md">epic</a> sont satisfaits.</li>
 <li><span class="tt">CHANGELOG.md</span> mis à jour ; documentation Doxygen générable sans erreur.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md308"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md309"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-020</span>, <span class="tt">EX-REN-021</span>, <span class="tt">EX-NFR-013</span>, <span class="tt">EX-NFR-022</span>. </p>
 </div></div><!-- contents -->

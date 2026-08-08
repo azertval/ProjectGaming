@@ -120,11 +120,25 @@ Signals</h2></td></tr>
 <tr class="memdesc:ad88da6cdd120fad270eb8cd56fcd7d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand la sélection change dans la liste des surcharges du niveau (surbrillance dans le viewport), ou <span class="tt">std::nullopt</span> si aucune ligne n'est sélectionnée.  <br /></td></tr>
 <tr class="memitem:a697ae60c93093d3d804ff666d5e5563d" id="r_a697ae60c93093d3d804ff666d5e5563d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a697ae60c93093d3d804ff666d5e5563d">textureOverrideRemoveRequested</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> position)</td></tr>
 <tr class="memdesc:a697ae60c93093d3d804ff666d5e5563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Retirer » de la section « Objets » pour la ligne sélectionnée.  <br /></td></tr>
+<tr class="memitem:ae31bb3980bbffeb8e7342ea80921332f" id="r_ae31bb3980bbffeb8e7342ea80921332f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f">decorSelected</a> (std::optional&lt; std::size_t &gt; index)</td></tr>
+<tr class="memdesc:ae31bb3980bbffeb8e7342ea80921332f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas, <span class="tt">LOT-50</span> TACHE-04), ou <span class="tt">std::nullopt</span> si aucune ligne n'est sélectionnée.  <br /></td></tr>
+<tr class="memitem:acaad51e248c86b2afd6fd07cf460ffb1" id="r_acaad51e248c86b2afd6fd07cf460ffb1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acaad51e248c86b2afd6fd07cf460ffb1">decorForwardRequested</a> (std::size_t index)</td></tr>
+<tr class="memdesc:acaad51e248c86b2afd6fd07cf460ffb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Avancer » pour le décor sélectionné (<span class="tt">hmi::LevelDraft::
+bringDecorForward</span>).  <br /></td></tr>
+<tr class="memitem:a7f9cf27de2bdf6ad9ab4166d8912cc3e" id="r_a7f9cf27de2bdf6ad9ab4166d8912cc3e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7f9cf27de2bdf6ad9ab4166d8912cc3e">decorBackwardRequested</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a7f9cf27de2bdf6ad9ab4166d8912cc3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Reculer » pour le décor sélectionné (<span class="tt">hmi::LevelDraft::
+sendDecorBackward</span>).  <br /></td></tr>
+<tr class="memitem:a2c5e38f07104655eaa16d3353226846d" id="r_a2c5e38f07104655eaa16d3353226846d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2c5e38f07104655eaa16d3353226846d">decorLayerChangeRequested</a> (std::size_t index, <a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer)</td></tr>
+<tr class="memdesc:a2c5e38f07104655eaa16d3353226846d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis quand l'utilisateur choisit une nouvelle couche pour le décor sélectionné (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e" title="Change la couche du décor au rang index (EX-DEC-010, EX-DEC-002).">core::LevelDraft::setDecorLayer</a></span>).  <br /></td></tr>
+<tr class="memitem:a295254fd1f1f1ed78b448551f3188337" id="r_a295254fd1f1f1ed78b448551f3188337"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a295254fd1f1f1ed78b448551f3188337">decorRemoveRequested</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a295254fd1f1f1ed78b448551f3188337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Supprimer » pour le décor sélectionné.  <br /></td></tr>
+<tr class="memitem:a5b4365e5fe575f3393a6bac2fdd3be18" id="r_a5b4365e5fe575f3393a6bac2fdd3be18"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b4365e5fe575f3393a6bac2fdd3be18">decorCenterRequested</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a5b4365e5fe575f3393a6bac2fdd3be18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émis par le bouton « Centrer » : demande de cadrer la caméra sur le décor sélectionné.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adcb7047845ad82abe9e3e221fe67c722" id="r_adcb7047845ad82abe9e3e221fe67c722"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adcb7047845ad82abe9e3e221fe67c722">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, std::filesystem::path backgroundsDirectory, std::filesystem::path objectsDirectory, QWidget *parent=nullptr)</td></tr>
-<tr class="memdesc:adcb7047845ad82abe9e3e221fe67c722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
+<tr class="memitem:a9ae52e189cd57bdb3373fa6d6f39be83" id="r_a9ae52e189cd57bdb3373fa6d6f39be83"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9ae52e189cd57bdb3373fa6d6f39be83">TexturePanel</a> (std::filesystem::path skinsDirectory, std::filesystem::path catalogPath, std::filesystem::path backgroundsDirectory, std::filesystem::path objectsDirectory, std::filesystem::path decorsDirectory, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a9ae52e189cd57bdb3373fa6d6f39be83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit le panneau.  <br /></td></tr>
 <tr class="memitem:af9948eba8e1ae33c5f2dcf1cc3d42790" id="r_af9948eba8e1ae33c5f2dcf1cc3d42790"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af9948eba8e1ae33c5f2dcf1cc3d42790">~TexturePanel</a> () override</td></tr>
 <tr class="memitem:ab68661f6c1fb3a92bca60bff222f6423" id="r_ab68661f6c1fb3a92bca60bff222f6423"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423">setCatalog</a> (<a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *catalog)</td></tr>
 <tr class="memdesc:ab68661f6c1fb3a92bca60bff222f6423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confie au panneau le catalogue à éditer.  <br /></td></tr>
@@ -137,6 +151,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af82527067fd5d09d052714df4797ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recharge l'arbre depuis le disque après un rechargement à chaud (<span class="tt">LOT-43</span> TACHE-03).  <br /></td></tr>
 <tr class="memitem:ab06e11a3895938523f95c28d2884d26a" id="r_ab06e11a3895938523f95c28d2884d26a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a">refreshObjects</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft)</td></tr>
 <tr class="memdesc:ab06e11a3895938523f95c28d2884d26a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la section « Objets » avec le brouillon courant (<span class="tt">LOT-45</span>).  <br /></td></tr>
+<tr class="memitem:a5597c93d8146bc04b6983b8e1201db30" id="r_a5597c93d8146bc04b6983b8e1201db30"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30">refreshDecors</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, std::optional&lt; std::size_t &gt; selectedIndex)</td></tr>
+<tr class="memdesc:a5597c93d8146bc04b6983b8e1201db30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resynchronise la section « Décors » avec le brouillon et la sélection courants (<span class="tt">LOT-50</span> TACHE-04).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -161,6 +177,22 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a8ae09e24a36d04218664fe6fe0776db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge l'apercu (spritesheet decodee + description d'animation) de la ligne selectionnee.  <br /></td></tr>
 <tr class="memitem:a8f596754205c547cb8e7e99560afa2f0" id="r_a8f596754205c547cb8e7e99560afa2f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f596754205c547cb8e7e99560afa2f0">tickAnimationPreview</a> ()</td></tr>
 <tr class="memdesc:a8f596754205c547cb8e7e99560afa2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (<span class="tt">LOT-47</span> TACHE-04) : lecture en temps reel du meme catalogue que le jeu (<span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>), pas une reimplementation parallele.  <br /></td></tr>
+<tr class="memitem:a8f313104722e95e480f2dd6ba9a94183" id="r_a8f313104722e95e480f2dd6ba9a94183"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#a8f313104722e95e480f2dd6ba9a94183">decorThumbnailFor</a> (const std::string &amp;asset)</td></tr>
+<tr class="memdesc:a8f313104722e95e480f2dd6ba9a94183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vignette d'un asset de décor, décodée au premier besoin puis mise en cache (<span class="tt">LOT-50</span> TACHE-04) — même repli en damier magenta que <span class="tt"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e" title="Vignette d&#39;un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — r...">thumbnailFor</a></span> si absent/illisible.  <br /></td></tr>
+<tr class="memitem:af48e48d2ca91864a1b40fba6ef963396" id="r_af48e48d2ca91864a1b40fba6ef963396"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af48e48d2ca91864a1b40fba6ef963396">decorLayerLabel</a> (<a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a> layer) const</td></tr>
+<tr class="memdesc:af48e48d2ca91864a1b40fba6ef963396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>).  <br /></td></tr>
+<tr class="memitem:aeef7cef4b5aeba0c8554ad0559052dc1" id="r_aeef7cef4b5aeba0c8554ad0559052dc1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1">rebuildDecorRows</a> ()</td></tr>
+<tr class="memdesc:aeef7cef4b5aeba0c8554ad0559052dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit le tableau de la section « Décors » depuis <span class="tt"><a class="el" href="#a1ef4183df2edfd0c47f695d39d8c1863" title="Lignes affichées par le tableau « Décors », déjà groupées/triées (LOT-50 TACHE-04).">_decorRows</a></span> (déjà groupées/triées par <span class="tt"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30" title="Resynchronise la section « Décors » avec le brouillon et la sélection courants (LOT-50 TACHE-04).">refreshDecors</a></span>) et resélectionne <span class="tt"><a class="el" href="#a56f8c9dafa1d5369fb3c3763a2be2030" title="Décor actuellement sélectionné (rang dans core::LevelDraft::decors()), poussé par refreshDecors — jam...">_selectedDecorIndex</a></span>, <b>sans</b> réémettre <span class="tt"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f" title="Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,...">decorSelected</a></span> (resynchronisation programmatique, même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>).  <br /></td></tr>
+<tr class="memitem:a12eaa0f30852a6ce86ab3a55d6d8d6cf" id="r_a12eaa0f30852a6ce86ab3a55d6d8d6cf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12eaa0f30852a6ce86ab3a55d6d8d6cf">updateDecorActionButtons</a> ()</td></tr>
+<tr class="memdesc:a12eaa0f30852a6ce86ab3a55d6d8d6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active/désactive les boutons d'action et resynchronise le sélecteur de couche avec la ligne actuellement sélectionnée dans le tableau — factorisé entre <span class="tt"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1" title="Reconstruit le tableau de la section « Décors » depuis _decorRows (déjà groupées/triées par refreshDe...">rebuildDecorRows</a></span> (silencieux) et <span class="tt"><a class="el" href="#a10ac0d845f3edcaa8abdc280f805ac6f">onDecorsSelectionChanged</a></span> (qui émet en plus <span class="tt"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f" title="Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,...">decorSelected</a></span>).  <br /></td></tr>
+<tr class="memitem:a5550396b636715a9ed765526d6e1edae" id="r_a5550396b636715a9ed765526d6e1edae"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5550396b636715a9ed765526d6e1edae">selectedDecorRowIndex</a> () const</td></tr>
+<tr class="memdesc:a5550396b636715a9ed765526d6e1edae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang du décor porté par la ligne actuellement sélectionnée du tableau « Décors » (donnée stockée sur l'item lors de <span class="tt"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1" title="Reconstruit le tableau de la section « Décors » depuis _decorRows (déjà groupées/triées par refreshDe...">rebuildDecorRows</a></span>), ou <span class="tt">std::nullopt</span> si aucune sélection.  <br /></td></tr>
+<tr class="memitem:a10ac0d845f3edcaa8abdc280f805ac6f" id="r_a10ac0d845f3edcaa8abdc280f805ac6f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10ac0d845f3edcaa8abdc280f805ac6f">onDecorsSelectionChanged</a> ()</td></tr>
+<tr class="memitem:a4f820dcbcefa2e31f7837724bc0f33a0" id="r_a4f820dcbcefa2e31f7837724bc0f33a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4f820dcbcefa2e31f7837724bc0f33a0">onDecorForwardClicked</a> ()</td></tr>
+<tr class="memitem:a64fb7b4f64cbe146c1e484933bea0a9d" id="r_a64fb7b4f64cbe146c1e484933bea0a9d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a64fb7b4f64cbe146c1e484933bea0a9d">onDecorBackwardClicked</a> ()</td></tr>
+<tr class="memitem:ac0ba67505a1cd06b35a0532822d4813d" id="r_ac0ba67505a1cd06b35a0532822d4813d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0ba67505a1cd06b35a0532822d4813d">onDecorLayerComboChanged</a> (int index)</td></tr>
+<tr class="memitem:aa87a55f7ba2a115bd8b04f042c82bb99" id="r_aa87a55f7ba2a115bd8b04f042c82bb99"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa87a55f7ba2a115bd8b04f042c82bb99">onDecorRemoveClicked</a> ()</td></tr>
+<tr class="memitem:a4dead7a743f8820a68cc33b121255c82" id="r_a4dead7a743f8820a68cc33b121255c82"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4dead7a743f8820a68cc33b121255c82">onDecorCenterClicked</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -182,12 +214,21 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6a4b59fc8d38d9338d4f8d02db052829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Description d'animation de l'asset prévisualisé, ou <span class="tt">std::nullopt</span> si absente/invalide/non sélectionnée : l'aperçu reste alors sur l'image entière de <span class="tt"><a class="el" href="#a29aac1cec019944e00abf4decbaf7928" title="Spritesheet décodée de l&#39;asset actuellement prévisualisé (vide si aucune sélection/asset illisible) —...">_animationPreviewSheet</a></span>.  <br /></td></tr>
 <tr class="memitem:a546862a994570e4a6822b2a79f508168" id="r_a546862a994570e4a6822b2a79f508168"><td class="memItemLeft"><a class="el" href="structcore_1_1Animation.html">core::Animation</a>&#160;</td><td class="memItemRight"><a class="el" href="#a546862a994570e4a6822b2a79f508168">_animationPreviewAnimation</a></td></tr>
 <tr class="memdesc:a546862a994570e4a6822b2a79f508168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horloge d'aperçu, avancée par <span class="tt"><a class="el" href="#a4b2b9263dd65b896be2f989e36e94c45" title="Fait avancer l&#39;aperçu de la section « Animations ».">_animationPreviewTimer</a></span> (temps réel, comme l'aperçu d'édition de <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span> — la détermination n'a pas de sens hors simulation).  <br /></td></tr>
+<tr class="memitem:aa09242043d937a592f91117134e0b909" id="r_aa09242043d937a592f91117134e0b909"><td class="memItemLeft">QStandardItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#aa09242043d937a592f91117134e0b909">_decorsModel</a></td></tr>
+<tr class="memdesc:aa09242043d937a592f91117134e0b909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modèle du tableau de la section « Décors » (<span class="tt">LOT-50</span>).  <br /></td></tr>
 <tr class="memitem:a7adaa51b0922db2f2c3c6e3c076d91e0" id="r_a7adaa51b0922db2f2c3c6e3c076d91e0"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a7adaa51b0922db2f2c3c6e3c076d91e0">_skinsDirectory</a></td></tr>
 <tr class="memitem:ab34fd9852d1e50ff3d063ee2c38e3f33" id="r_ab34fd9852d1e50ff3d063ee2c38e3f33"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ab34fd9852d1e50ff3d063ee2c38e3f33">_catalogPath</a></td></tr>
 <tr class="memitem:a33abf9819a780a7de48c412af68d16ae" id="r_a33abf9819a780a7de48c412af68d16ae"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a33abf9819a780a7de48c412af68d16ae">_backgroundsDirectory</a></td></tr>
 <tr class="memitem:a009d8aa8fc88c8b4e4b3a3ac8ebe1003" id="r_a009d8aa8fc88c8b4e4b3a3ac8ebe1003"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a009d8aa8fc88c8b4e4b3a3ac8ebe1003">_objectsDirectory</a></td></tr>
+<tr class="memitem:a3414bd2106ec3c869494d1aba771eb6d" id="r_a3414bd2106ec3c869494d1aba771eb6d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a3414bd2106ec3c869494d1aba771eb6d">_decorsDirectory</a></td></tr>
 <tr class="memitem:a1aa7e19c118c96feaa951cb7063140ad" id="r_a1aa7e19c118c96feaa951cb7063140ad"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1TileTextureOverride.html">core::TileTextureOverride</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1aa7e19c118c96feaa951cb7063140ad">_objectRows</a></td></tr>
 <tr class="memdesc:a1aa7e19c118c96feaa951cb7063140ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surcharges affichées par le tableau, indexées comme ses lignes (<span class="tt">LOT-45</span>).  <br /></td></tr>
+<tr class="memitem:a1ef4183df2edfd0c47f695d39d8c1863" id="r_a1ef4183df2edfd0c47f695d39d8c1863"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1ef4183df2edfd0c47f695d39d8c1863">_decorRows</a></td></tr>
+<tr class="memdesc:a1ef4183df2edfd0c47f695d39d8c1863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lignes affichées par le tableau « Décors », déjà groupées/triées (<span class="tt">LOT-50</span> TACHE-04).  <br /></td></tr>
+<tr class="memitem:a56f8c9dafa1d5369fb3c3763a2be2030" id="r_a56f8c9dafa1d5369fb3c3763a2be2030"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a56f8c9dafa1d5369fb3c3763a2be2030">_selectedDecorIndex</a></td></tr>
+<tr class="memdesc:a56f8c9dafa1d5369fb3c3763a2be2030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décor actuellement sélectionné (rang dans <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>), poussé par <span class="tt"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30" title="Resynchronise la section « Décors » avec le brouillon et la sélection courants (LOT-50 TACHE-04).">refreshDecors</a></span> — jamais possédé ici au sens propre, seulement reflété (source unique : <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>).  <br /></td></tr>
+<tr class="memitem:a523d9bacc066a5f751c91ec4ac073721" id="r_a523d9bacc066a5f751c91ec4ac073721"><td class="memItemLeft">std::unordered_map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a523d9bacc066a5f751c91ec4ac073721">_decorThumbnails</a></td></tr>
+<tr class="memdesc:a523d9bacc066a5f751c91ec4ac073721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier de décor -&gt; vignette décodée (<span class="tt">LOT-50</span>). Vidé par <span class="tt"><a class="el" href="#af82527067fd5d09d052714df4797ef2a" title="Recharge l&#39;arbre depuis le disque après un rechargement à chaud (LOT-43 TACHE-03).">reloadAssets</a></span>.  <br /></td></tr>
 <tr class="memitem:a8686f12685ae19a07b1b5307c1933e65" id="r_a8686f12685ae19a07b1b5307c1933e65"><td class="memItemLeft"><a class="el" href="classhmi_1_1SkinCatalog.html">SkinCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8686f12685ae19a07b1b5307c1933e65">_catalog</a> = nullptr</td></tr>
 <tr class="memdesc:a8686f12685ae19a07b1b5307c1933e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non possédé (propriété de <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span>).  <br /></td></tr>
 <tr class="memitem:aa2fe2666a58c938bddea969c2294644d" id="r_aa2fe2666a58c938bddea969c2294644d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa2fe2666a58c938bddea969c2294644d">_currentSet</a></td></tr>
@@ -207,8 +248,8 @@ Private Attributes</h2></td></tr>
 <p>Le panneau <b>ne possède pas</b> le catalogue : il agit sur celui que lui confie <span class="tt"><a class="el" href="#ab68661f6c1fb3a92bca60bff222f6423" title="Confie au panneau le catalogue à éditer.">setCatalog</a></span>, dont <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">GameViewport</a></span> reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement. Toute modification est écrite sur disque (<span class="tt">skins.json</span>, au chemin déployé) et signalée par <span class="tt"><a class="el" href="#a8beee864e1295689d194f5e2a3b8d7ed" title="Émis après toute modification d&#39;assignation ou changement de jeu courant, une fois le catalogue à jou...">assignmentsChanged</a></span>, que le viewport et la palette consomment pour se rafraîchir.</p>
 <p>La logique alimentant l'arbre est <b>hors</b> du widget (<span class="tt"><a class="el" href="namespacehmi.html#ab7217d187da26402006a3c0d1eb98cbb" title="Construit les lignes du panneau pour un jeu de skins donné.">hmi::buildSkinRows</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#a996180d6d3e7f5351cb2fd138872dbe4" title="Applique une assignation à un catalogue, ou la retire.">hmi::applySkinAssignment</a></span>), donc testée sans Qt (<span class="tt">EX-NFR-010</span>). Le choix du fichier assigné à un type se fait par vignettes (<span class="tt"><a class="el" href="classhmi_1_1AssetThumbnailView.html" title="Grille de vignettes d&#39;un dossier d&#39;assets, avec recherche, sélection et gestion des fichiers (importe...">hmi::AssetThumbnailView</a></span>, <span class="tt">LOT-43</span>), pas par saisie de nom. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adcb7047845ad82abe9e3e221fe67c722" name="adcb7047845ad82abe9e3e221fe67c722"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcb7047845ad82abe9e3e221fe67c722">&#9670;&#160;</a></span>TexturePanel()</h2>
+<a id="a9ae52e189cd57bdb3373fa6d6f39be83" name="a9ae52e189cd57bdb3373fa6d6f39be83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae52e189cd57bdb3373fa6d6f39be83">&#9670;&#160;</a></span>TexturePanel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,6 +280,11 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>decorsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
@@ -256,6 +302,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">catalogPath</td><td>Chemin d'écriture de <span class="tt">skins.json</span>. </td></tr>
     <tr><td class="paramname">backgroundsDirectory</td><td>Dossier balayé pour peupler la grille de fonds (section « Fond », <span class="tt">LOT-44</span>). </td></tr>
     <tr><td class="paramname">objectsDirectory</td><td>Dossier balayé pour peupler la grille d'assets de la section « Objets » (<span class="tt">LOT-45</span>). </td></tr>
+    <tr><td class="paramname">decorsDirectory</td><td>Dossier balayé pour résoudre les vignettes de la section « Décors » (<span class="tt">LOT-50</span> TACHE-04) et détecter les assets manquants. </td></tr>
     <tr><td class="paramname">parent</td><td>Widget parent. </td></tr>
   </table>
   </dd>
@@ -369,6 +416,228 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7f9cf27de2bdf6ad9ab4166d8912cc3e" name="a7f9cf27de2bdf6ad9ab4166d8912cc3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f9cf27de2bdf6ad9ab4166d8912cc3e">&#9670;&#160;</a></span>decorBackwardRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorBackwardRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Reculer » pour le décor sélectionné (<span class="tt">hmi::LevelDraft::
+sendDecorBackward</span>). </p>
+
+</div>
+</div>
+<a id="a5b4365e5fe575f3393a6bac2fdd3be18" name="a5b4365e5fe575f3393a6bac2fdd3be18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b4365e5fe575f3393a6bac2fdd3be18">&#9670;&#160;</a></span>decorCenterRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorCenterRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Centrer » : demande de cadrer la caméra sur le décor sélectionné. </p>
+
+</div>
+</div>
+<a id="acaad51e248c86b2afd6fd07cf460ffb1" name="acaad51e248c86b2afd6fd07cf460ffb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaad51e248c86b2afd6fd07cf460ffb1">&#9670;&#160;</a></span>decorForwardRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorForwardRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Avancer » pour le décor sélectionné (<span class="tt">hmi::LevelDraft::
+bringDecorForward</span>). </p>
+
+</div>
+</div>
+<a id="a2c5e38f07104655eaa16d3353226846d" name="a2c5e38f07104655eaa16d3353226846d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c5e38f07104655eaa16d3353226846d">&#9670;&#160;</a></span>decorLayerChangeRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorLayerChangeRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand l'utilisateur choisit une nouvelle couche pour le décor sélectionné (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6d40a7451d269feb1badaf2a5065752e" title="Change la couche du décor au rang index (EX-DEC-010, EX-DEC-002).">core::LevelDraft::setDecorLayer</a></span>). </p>
+
+</div>
+</div>
+<a id="af48e48d2ca91864a1b40fba6ef963396" name="af48e48d2ca91864a1b40fba6ef963396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af48e48d2ca91864a1b40fba6ef963396">&#9670;&#160;</a></span>decorLayerLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::TexturePanel::decorLayerLabel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20">core::DecorLayer</a></td>          <td class="paramname"><span class="paramname"><em>layer</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Libellé localisé d'une couche de décor (mêmes trois libellés que le sélecteur de l'outil Décor, <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>). </p>
+
+</div>
+</div>
+<a id="a295254fd1f1f1ed78b448551f3188337" name="a295254fd1f1f1ed78b448551f3188337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295254fd1f1f1ed78b448551f3188337">&#9670;&#160;</a></span>decorRemoveRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorRemoveRequested </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis par le bouton « Supprimer » pour le décor sélectionné. </p>
+
+</div>
+</div>
+<a id="ae31bb3980bbffeb8e7342ea80921332f" name="ae31bb3980bbffeb8e7342ea80921332f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae31bb3980bbffeb8e7342ea80921332f">&#9670;&#160;</a></span>decorSelected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::decorSelected </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas, <span class="tt">LOT-50</span> TACHE-04), ou <span class="tt">std::nullopt</span> si aucune ligne n'est sélectionnée. </p>
+
+</div>
+</div>
+<a id="a8f313104722e95e480f2dd6ba9a94183" name="a8f313104722e95e480f2dd6ba9a94183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f313104722e95e480f2dd6ba9a94183">&#9670;&#160;</a></span>decorThumbnailFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QPixmap hmi::TexturePanel::decorThumbnailFor </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>asset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vignette d'un asset de décor, décodée au premier besoin puis mise en cache (<span class="tt">LOT-50</span> TACHE-04) — même repli en damier magenta que <span class="tt"><a class="el" href="#a4af3d78ff3009ccd51e057588acaf63e" title="Vignette d&#39;un fichier de skin (vide pour « aucun »), décodée au premier besoin puis mise en cache — r...">thumbnailFor</a></span> si absent/illisible. </p>
+
+</div>
+</div>
 <a id="a14735adac3bd42b177a10ec98e2cf527" name="a14735adac3bd42b177a10ec98e2cf527"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14735adac3bd42b177a10ec98e2cf527">&#9670;&#160;</a></span>levelSkinSetChanged</h2>
 
@@ -463,6 +732,156 @@ Private Attributes</h2></td></tr>
           <td class="memname">void hmi::TexturePanel::onAssetColumnActivated </td>
           <td>(</td>
           <td class="paramtype">const QModelIndex &amp;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64fb7b4f64cbe146c1e484933bea0a9d" name="a64fb7b4f64cbe146c1e484933bea0a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64fb7b4f64cbe146c1e484933bea0a9d">&#9670;&#160;</a></span>onDecorBackwardClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorBackwardClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4dead7a743f8820a68cc33b121255c82" name="a4dead7a743f8820a68cc33b121255c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dead7a743f8820a68cc33b121255c82">&#9670;&#160;</a></span>onDecorCenterClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorCenterClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f820dcbcefa2e31f7837724bc0f33a0" name="a4f820dcbcefa2e31f7837724bc0f33a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f820dcbcefa2e31f7837724bc0f33a0">&#9670;&#160;</a></span>onDecorForwardClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorForwardClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0ba67505a1cd06b35a0532822d4813d" name="ac0ba67505a1cd06b35a0532822d4813d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0ba67505a1cd06b35a0532822d4813d">&#9670;&#160;</a></span>onDecorLayerComboChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorLayerComboChanged </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa87a55f7ba2a115bd8b04f042c82bb99" name="aa87a55f7ba2a115bd8b04f042c82bb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa87a55f7ba2a115bd8b04f042c82bb99">&#9670;&#160;</a></span>onDecorRemoveClicked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorRemoveClicked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a10ac0d845f3edcaa8abdc280f805ac6f" name="a10ac0d845f3edcaa8abdc280f805ac6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ac0d845f3edcaa8abdc280f805ac6f">&#9670;&#160;</a></span>onDecorsSelectionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::onDecorsSelectionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -602,6 +1021,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aeef7cef4b5aeba0c8554ad0559052dc1" name="aeef7cef4b5aeba0c8554ad0559052dc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeef7cef4b5aeba0c8554ad0559052dc1">&#9670;&#160;</a></span>rebuildDecorRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::rebuildDecorRows </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reconstruit le tableau de la section « Décors » depuis <span class="tt"><a class="el" href="#a1ef4183df2edfd0c47f695d39d8c1863" title="Lignes affichées par le tableau « Décors », déjà groupées/triées (LOT-50 TACHE-04).">_decorRows</a></span> (déjà groupées/triées par <span class="tt"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30" title="Resynchronise la section « Décors » avec le brouillon et la sélection courants (LOT-50 TACHE-04).">refreshDecors</a></span>) et resélectionne <span class="tt"><a class="el" href="#a56f8c9dafa1d5369fb3c3763a2be2030" title="Décor actuellement sélectionné (rang dans core::LevelDraft::decors()), poussé par refreshDecors — jam...">_selectedDecorIndex</a></span>, <b>sans</b> réémettre <span class="tt"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f" title="Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,...">decorSelected</a></span> (resynchronisation programmatique, même garde que <span class="tt"><a class="el" href="#ad8ba70ed6f484d3a30ffc3235b13d6e1" title="Synchronise la section « Fond » avec le niveau courant (LOT-44).">setLevelProperties</a></span>). </p>
+
+</div>
+</div>
 <a id="a8191178ea4259916e0bfc4729c69d48e" name="a8191178ea4259916e0bfc4729c69d48e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8191178ea4259916e0bfc4729c69d48e">&#9670;&#160;</a></span>rebuildLevelSkinSetSelector()</h2>
 
@@ -678,6 +1124,36 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5597c93d8146bc04b6983b8e1201db30" name="a5597c93d8146bc04b6983b8e1201db30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5597c93d8146bc04b6983b8e1201db30">&#9670;&#160;</a></span>refreshDecors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::refreshDecors </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>selectedIndex</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resynchronise la section « Décors » avec le brouillon et la sélection courants (<span class="tt">LOT-50</span> TACHE-04). </p>
+<p>À appeler après tout changement de brouillon (comme <span class="tt"><a class="el" href="#ab06e11a3895938523f95c28d2884d26a" title="Resynchronise la section « Objets » avec le brouillon courant (LOT-45).">refreshObjects</a></span>) <b>et</b> après tout changement de sélection venu du canevas (<span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>) — c'est ce qui tient la sélection croisée sans qu'aucune des deux vues n'en possède sa propre copie (« ne pas dupliquer l'état de sélection », TACHE-04). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draft</td><td>Brouillon dont on lit <span class="tt">decors()</span>. </td></tr>
+    <tr><td class="paramname">selectedIndex</td><td>Décor actuellement sélectionné (rang dans <span class="tt">draft.decors()</span>), si un l'est. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -794,6 +1270,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5550396b636715a9ed765526d6e1edae" name="a5550396b636715a9ed765526d6e1edae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5550396b636715a9ed765526d6e1edae">&#9670;&#160;</a></span>selectedDecorRowIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; hmi::TexturePanel::selectedDecorRowIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rang du décor porté par la ligne actuellement sélectionnée du tableau « Décors » (donnée stockée sur l'item lors de <span class="tt"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1" title="Reconstruit le tableau de la section « Décors » depuis _decorRows (déjà groupées/triées par refreshDe...">rebuildDecorRows</a></span>), ou <span class="tt">std::nullopt</span> si aucune sélection. </p>
 
 </div>
 </div>
@@ -984,6 +1487,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Avance l'horloge d'apercu d'un pas de minuterie et rafraichit la vignette (<span class="tt">LOT-47</span> TACHE-04) : lecture en temps reel du meme catalogue que le jeu (<span class="tt"><a class="el" href="classhmi_1_1AnimationCatalog.html" title="Lecture, validation et traduction en région de texture du format nom-asset.anim.json.">hmi::AnimationCatalog</a></span>), pas une reimplementation parallele. </p>
+
+</div>
+</div>
+<a id="a12eaa0f30852a6ce86ab3a55d6d8d6cf" name="a12eaa0f30852a6ce86ab3a55d6d8d6cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12eaa0f30852a6ce86ab3a55d6d8d6cf">&#9670;&#160;</a></span>updateDecorActionButtons()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::TexturePanel::updateDecorActionButtons </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Active/désactive les boutons d'action et resynchronise le sélecteur de couche avec la ligne actuellement sélectionnée dans le tableau — factorisé entre <span class="tt"><a class="el" href="#aeef7cef4b5aeba0c8554ad0559052dc1" title="Reconstruit le tableau de la section « Décors » depuis _decorRows (déjà groupées/triées par refreshDe...">rebuildDecorRows</a></span> (silencieux) et <span class="tt"><a class="el" href="#a10ac0d845f3edcaa8abdc280f805ac6f">onDecorsSelectionChanged</a></span> (qui émet en plus <span class="tt"><a class="el" href="#ae31bb3980bbffeb8e7342ea80921332f" title="Émis quand la sélection change dans la liste « Décors » (surbrillance dans le canevas,...">decorSelected</a></span>). </p>
 
 </div>
 </div>
@@ -1222,6 +1752,100 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1ef4183df2edfd0c47f695d39d8c1863" name="a1ef4183df2edfd0c47f695d39d8c1863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ef4183df2edfd0c47f695d39d8c1863">&#9670;&#160;</a></span>_decorRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a>&gt; hmi::TexturePanel::_decorRows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lignes affichées par le tableau « Décors », déjà groupées/triées (<span class="tt">LOT-50</span> TACHE-04). </p>
+
+</div>
+</div>
+<a id="a3414bd2106ec3c869494d1aba771eb6d" name="a3414bd2106ec3c869494d1aba771eb6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3414bd2106ec3c869494d1aba771eb6d">&#9670;&#160;</a></span>_decorsDirectory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::TexturePanel::_decorsDirectory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa09242043d937a592f91117134e0b909" name="aa09242043d937a592f91117134e0b909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa09242043d937a592f91117134e0b909">&#9670;&#160;</a></span>_decorsModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStandardItemModel* hmi::TexturePanel::_decorsModel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modèle du tableau de la section « Décors » (<span class="tt">LOT-50</span>). </p>
+
+</div>
+</div>
+<a id="a523d9bacc066a5f751c91ec4ac073721" name="a523d9bacc066a5f751c91ec4ac073721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a523d9bacc066a5f751c91ec4ac073721">&#9670;&#160;</a></span>_decorThumbnails</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, QPixmap&gt; hmi::TexturePanel::_decorThumbnails</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fichier de décor -&gt; vignette décodée (<span class="tt">LOT-50</span>). Vidé par <span class="tt"><a class="el" href="#af82527067fd5d09d052714df4797ef2a" title="Recharge l&#39;arbre depuis le disque après un rechargement à chaud (LOT-43 TACHE-03).">reloadAssets</a></span>. </p>
+
+</div>
+</div>
 <a id="a7d3776990d11880d96ae05010bba1579" name="a7d3776990d11880d96ae05010bba1579"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d3776990d11880d96ae05010bba1579">&#9670;&#160;</a></span>_levelBackground</h2>
 
@@ -1405,6 +2029,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Grille de vignettes de <span class="tt">Assets/Objects/</span> (LOT-45). </p>
+
+</div>
+</div>
+<a id="a56f8c9dafa1d5369fb3c3763a2be2030" name="a56f8c9dafa1d5369fb3c3763a2be2030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56f8c9dafa1d5369fb3c3763a2be2030">&#9670;&#160;</a></span>_selectedDecorIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::size_t&gt; hmi::TexturePanel::_selectedDecorIndex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décor actuellement sélectionné (rang dans <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>), poussé par <span class="tt"><a class="el" href="#a5597c93d8146bc04b6983b8e1201db30" title="Resynchronise la section « Décors » avec le brouillon et la sélection courants (LOT-50 TACHE-04).">refreshDecors</a></span> — jamais possédé ici au sens propre, seulement reflété (source unique : <span class="tt"><a class="el" href="classhmi_1_1GameViewport.html" title="Fenêtre native (QWindow) où Direct3D 11 présente, embarquée dans Qt.">hmi::GameViewport</a></span>). </p>
 
 </div>
 </div>

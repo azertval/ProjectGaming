@@ -23,7 +23,8 @@ var searchData=
   ['mousereleaseevent_20',['mouseReleaseEvent',['../classhmi_1_1GameViewport.html#a4eee85c28a70190e6822f0d916a01105',1,'hmi::GameViewport']]],
   ['mousex_21',['mouseX',['../classhmi_1_1InputState.html#a88904c498ce8939978b988bc685dc904',1,'hmi::InputState']]],
   ['mousey_22',['mouseY',['../classhmi_1_1InputState.html#a7d36fdb64d478ef67dacee6c869432b9',1,'hmi::InputState']]],
-  ['moverbox_23',['moverBox',['../classcore_1_1DangerController.html#a7ab7464ce644f1206c71e4a2f482b48e',1,'core::DangerController']]],
-  ['moverconfigs_24',['moverConfigs',['../classcore_1_1Level.html#a4cae6fe32995982eebc6c73c4bfbae10',1,'core::Level::moverConfigs()'],['../classcore_1_1LevelDraft.html#ac6a71a9a20011b0d7cbd0c612916b7c8',1,'core::LevelDraft::moverConfigs()']]],
-  ['movercount_25',['moverCount',['../classcore_1_1DangerController.html#a0bd7462c2f4c9b19267139dacbea9172',1,'core::DangerController']]]
+  ['movedecor_23',['moveDecor',['../classcore_1_1LevelDraft.html#aba9a556ae6046d9038f6368998f8eb75',1,'core::LevelDraft']]],
+  ['moverbox_24',['moverBox',['../classcore_1_1DangerController.html#a7ab7464ce644f1206c71e4a2f482b48e',1,'core::DangerController']]],
+  ['moverconfigs_25',['moverConfigs',['../classcore_1_1Level.html#a4cae6fe32995982eebc6c73c4bfbae10',1,'core::Level::moverConfigs()'],['../classcore_1_1LevelDraft.html#ac6a71a9a20011b0d7cbd0c612916b7c8',1,'core::LevelDraft::moverConfigs()']]],
+  ['movercount_26',['moverCount',['../classcore_1_1DangerController.html#a0bd7462c2f4c9b19267139dacbea9172',1,'core::DangerController']]]
 ];

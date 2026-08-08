@@ -13,10 +13,12 @@ var searchData=
   ['tiles_5fper_5fside_10',['TILES_PER_SIDE',['../classhmi_1_1TextureAtlas.html#af4e63cbf4c417709c3a22399de752c67',1,'hmi::TextureAtlas']]],
   ['tiletype_11',['tileType',['../structhmi_1_1PendingLink.html#a19ae36a60be74045f0475f3e6fd8cbe0',1,'hmi::PendingLink']]],
   ['tint_12',['tint',['../structcore_1_1Sprite.html#aa14509186966df68f09f59dfda0e2318',1,'core::Sprite']]],
-  ['topy_13',['topY',['../structcore_1_1CeilingSlopeFollowResult.html#a1621909caf4fecdc1bd3d1f880dbef58',1,'core::CeilingSlopeFollowResult']]],
-  ['trigger_14',['trigger',['../structhmi_1_1LinkRow.html#a93d02effe5cbd921e51baa5b4700076a',1,'hmi::LinkRow']]],
-  ['triggerposition_15',['triggerPosition',['../structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e',1,'core::DangerLink']]],
-  ['type_16',['type',['../structhmi_1_1MechanismAnimationRow.html#a40938cd8c8ca322f13335109639fda81',1,'hmi::MechanismAnimationRow::type'],['../structhmi_1_1SkinRow.html#aab2e46edc96113bb33a3e70e451507e1',1,'hmi::SkinRow::type'],['../structhmi_1_1TileEntry.html#a9c1d5d345916c39548749b802bd7deb9',1,'hmi::TileEntry::type'],['../structhmi_1_1TileSkinTag.html#af27ab75e03393c0fd46707ed7306232d',1,'hmi::TileSkinTag::type']]],
-  ['typelabel_17',['typeLabel',['../structhmi_1_1MechanismAnimationRow.html#ae46764178a55be9dd1ba03002ce4efdc',1,'hmi::MechanismAnimationRow::typeLabel'],['../structhmi_1_1SkinRow.html#a770046b5c0e30e8b55f7f69705d8dde4',1,'hmi::SkinRow::typeLabel']]],
-  ['typename_18',['typeName',['../structhmi_1_1AssetReference.html#a636c024ee797ff2d5a226207884b7845',1,'hmi::AssetReference']]]
+  ['topleft_13',['topLeft',['../structhmi_1_1DecorHandleLayout.html#af53acc4bf37bb0f088c72077ee3f9e4c',1,'hmi::DecorHandleLayout']]],
+  ['topright_14',['topRight',['../structhmi_1_1DecorHandleLayout.html#ab3a80d6ab00237822d9f966e79ada94b',1,'hmi::DecorHandleLayout']]],
+  ['topy_15',['topY',['../structcore_1_1CeilingSlopeFollowResult.html#a1621909caf4fecdc1bd3d1f880dbef58',1,'core::CeilingSlopeFollowResult']]],
+  ['trigger_16',['trigger',['../structhmi_1_1LinkRow.html#a93d02effe5cbd921e51baa5b4700076a',1,'hmi::LinkRow']]],
+  ['triggerposition_17',['triggerPosition',['../structcore_1_1DangerLink.html#ac61fceafca962045c455696133b9547e',1,'core::DangerLink']]],
+  ['type_18',['type',['../structhmi_1_1MechanismAnimationRow.html#a40938cd8c8ca322f13335109639fda81',1,'hmi::MechanismAnimationRow::type'],['../structhmi_1_1SkinRow.html#aab2e46edc96113bb33a3e70e451507e1',1,'hmi::SkinRow::type'],['../structhmi_1_1TileEntry.html#a9c1d5d345916c39548749b802bd7deb9',1,'hmi::TileEntry::type'],['../structhmi_1_1TileSkinTag.html#af27ab75e03393c0fd46707ed7306232d',1,'hmi::TileSkinTag::type']]],
+  ['typelabel_19',['typeLabel',['../structhmi_1_1MechanismAnimationRow.html#ae46764178a55be9dd1ba03002ce4efdc',1,'hmi::MechanismAnimationRow::typeLabel'],['../structhmi_1_1SkinRow.html#a770046b5c0e30e8b55f7f69705d8dde4',1,'hmi::SkinRow::typeLabel']]],
+  ['typename_20',['typeName',['../structhmi_1_1AssetReference.html#a636c024ee797ff2d5a226207884b7845',1,'hmi::AssetReference']]]
 ];

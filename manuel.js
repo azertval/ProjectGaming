@@ -1,23 +1,23 @@
 var manuel =
 [
-    [ "Pages", "manuel.html#autotoc_md2400", null ],
+    [ "Pages", "manuel.html#autotoc_md2404", null ],
     [ "Télécharger et lancer le jeu", "manuel-telecharger.html", [
-      [ "Prérequis", "manuel-telecharger.html#autotoc_md2407", null ],
-      [ "Étapes", "manuel-telecharger.html#autotoc_md2408", null ],
-      [ "Remarques", "manuel-telecharger.html#autotoc_md2409", null ]
+      [ "Prérequis", "manuel-telecharger.html#autotoc_md2411", null ],
+      [ "Étapes", "manuel-telecharger.html#autotoc_md2412", null ],
+      [ "Remarques", "manuel-telecharger.html#autotoc_md2413", null ]
     ] ],
     [ "Jouer", "manuel-jouer.html", [
-      [ "Le menu principal", "manuel-jouer.html#autotoc_md2396", null ],
-      [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md2397", null ],
-      [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md2398", null ],
-      [ "Le menu d'options", "manuel-jouer.html#autotoc_md2399", null ]
+      [ "Le menu principal", "manuel-jouer.html#autotoc_md2400", null ],
+      [ "Contrôles en jeu", "manuel-jouer.html#autotoc_md2401", null ],
+      [ "Objectif d'un niveau", "manuel-jouer.html#autotoc_md2402", null ],
+      [ "Le menu d'options", "manuel-jouer.html#autotoc_md2403", null ]
     ] ],
     [ "Créer et partager un niveau (sans ligne de commande)", "manuel-partager-niveau.html", [
-      [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md2401", null ],
-      [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md2402", null ],
-      [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md2403", null ],
-      [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md2404", null ],
-      [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md2405", null ],
-      [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md2406", null ]
+      [ "1. Récupérer le projet", "manuel-partager-niveau.html#autotoc_md2405", null ],
+      [ "2. Lancer l'éditeur", "manuel-partager-niveau.html#autotoc_md2406", null ],
+      [ "3. Créer un niveau", "manuel-partager-niveau.html#autotoc_md2407", null ],
+      [ "4. Publier votre niveau", "manuel-partager-niveau.html#autotoc_md2408", null ],
+      [ "5. Récupérer les niveaux des autres", "manuel-partager-niveau.html#autotoc_md2409", null ],
+      [ "En cas de problème", "manuel-partager-niveau.html#autotoc_md2410", null ]
     ] ]
 ];

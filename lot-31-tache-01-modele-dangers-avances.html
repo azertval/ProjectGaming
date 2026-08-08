@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-31-tache-01-modele-dangers-avances.html','',''); }
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-31-blocs-danger-avances_2tache-01-modele-dangers-avances"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-31.html#md_Lot_2LOT-31-blocs-danger-avances_2epic" title="Lot/LOT-31-blocs-danger-avances/epic.md">LOT-31</a> · <b>Emplacement :</b> <span class="tt">Core/Levels</span> · <b>Statut :</b> ✅</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1514"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1515"></a>
 Contexte</h1>
 <p>Pose les fondations de données des quatre variantes, indépendamment de toute simulation (TACHE-02) ou de tout rendu (TACHE-03) : nouveaux <span class="tt">TileType</span>, format JSON (<span class="tt">LevelLoader</span>/<span class="tt">LevelWriter</span>), et une liaison interrupteur/plaque → danger commuté.</p>
 <p><b>Écart de cadrage tranché pendant l'implémentation</b> (l'epic laissait le détail ouvert, « cadré en TACHE-01 ») : <span class="tt"><a class="el" href="structcore_1_1Mechanism.html" title="Liaison d&#39;un interrupteur à une porte, par positions résolues.">core::Mechanism</a></span> n'a <b>pas</b> été généralisé. <span class="tt">Mechanism::doorPosition</span> est consommé par nom dans une trentaine de sites (<span class="tt">MechanismController</span>, <span class="tt">EditorScreen</span>, <span class="tt">GameScreen</span>, <span class="tt">LevelDraft</span>, et les tests aux trois niveaux) pour lesquels la cible est toujours une porte — le renommer en un champ générique n'aurait profité qu'au danger commuté, pour un coût de renommage sans rapport. À la place, <span class="tt"><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a>{triggerPosition, dangerPosition}</span> (<span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>) est une struct <b>dupliquée</b>, miroir de <span class="tt">Mechanism</span> : même schéma de liaison par identifiant dans le fichier (<span class="tt">switch.id</span> ↔ <span class="tt">dangerSwitched.opensWith</span>), résolue dans une liste <b>séparée</b>. Cohérent avec la préférence déjà actée du projet (<span class="tt">GameKeyBindings</span>/<span class="tt">EditorKeyBindings</span>, <span class="tt">LOT-29</span>) : dupliquer une petite struct à deux cas concrets plutôt qu'introduire une abstraction commune.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1515"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1516"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span></b> : sept nouvelles valeurs — <span class="tt">DangerUp</span>/<span class="tt">DangerDown</span>/<span class="tt">DangerLeft</span>/<span class="tt">DangerRight</span> (directionnel, <span class="tt">EX-GP-050</span> ; nom = bord <b>mortel</b> de la case, même convention que <span class="tt">SlopeUpRight</span> où le suffixe décrit la géométrie, pas un mouvement), <span class="tt">DangerMover</span> (mobile, <span class="tt">EX-GP-051</span>), <span class="tt">DangerSwitched</span> (commuté, <span class="tt">EX-GP-052</span>), <span class="tt">DangerBlink</span> (temporisé, <span class="tt">EX-GP-053</span>). Doc Doxygen de l'enum étendue, même style que l'existant (une phrase par famille, référence aux exigences).</li>
@@ -107,7 +107,7 @@ Travail à réaliser</h1>
 <li><b><span class="tt"><a class="el" href="structcore_1_1DangerLink.html" title="Liaison d&#39;un interrupteur/plaque de pression à un danger commuté (TileType::DangerSwitched,...">core::DangerLink</a></span></b> (<span class="tt"><a class="el" href="Level_8h.html" title="Niveau chargé : grille de tuiles, entrée/sortie et mécanismes.">Level.h</a></span>, nouveau) : struct dupliquée de <span class="tt">Mechanism</span> (voir écart de cadrage ci-dessus), résolue au chargement exactement comme une porte — seul le type de tuile à la position cible distingue les deux résolutions (<span class="tt">DangerSwitchedLink</span> en interne du loader, symétrique à <span class="tt">DoorLink</span>). <span class="tt">Level</span>/<span class="tt">LevelDraft</span> gagnent aussi <span class="tt">DangerMoverConfig</span>/<span class="tt">DangerBlinkConfig</span> (axe/ portée, période/déphasage/durée active) : <span class="tt">TileMap</span> ne portant qu'un <span class="tt">TileType</span> par case (limite déjà actée en <span class="tt">LOT-19</span>), ces paramètres vivent dans des vecteurs annexes de <span class="tt">Level</span>/<span class="tt">LevelDraft</span>, keyés par position, même patron que <span class="tt">Mechanism</span>/<span class="tt">DangerLink</span>.</li>
 <li><b>Validation</b> (<span class="tt">EX-LVL-004</span>) : une liaison <span class="tt">opensWith</span> doit référencer un <span class="tt">switch</span>/ <span class="tt">pressurePlate</span> existant (même erreur <span class="tt">UnresolvedMechanism</span> que pour une porte) ; <span class="tt">dangerMover</span> avec une portée qui sortirait de la grille est invalide (<span class="tt">OutOfBounds</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1516"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1517"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="TileType_8h.html" title="Types de tuiles d&#39;un niveau et utilitaires associés.">Source/Core/Levels/TileType.h</a></span> (sept types).</li>
@@ -118,7 +118,7 @@ Fichiers impactés</h1>
 <li><span class="tt">Source/Core/CMakeLists.txt</span>, <span class="tt">Source/Test/CMakeLists.txt</span> (nouveau fichier source/test).</li>
 <li>Tests : <span class="tt"><a class="el" href="test__level__loader_8cpp.html" title="Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).">Source/Test/Unit/Core/Levels/test_level_loader.cpp</a></span>, <span class="tt"><a class="el" href="test__level__writer_8cpp.html" title="Tests unitaires de la sérialisation de niveau (round-trip avec LevelLoader, EX-EDIT-011).">test_level_writer.cpp</a></span>, <span class="tt"><a class="el" href="test__level__draft_8cpp.html" title="Tests unitaires du modèle d&#39;édition mutable (LOT-14, EX-EDIT-002 à EX-EDIT-007).">test_level_draft.cpp</a></span>, <span class="tt"><a class="el" href="test__level_8cpp.html" title="Tests unitaires du modèle de niveau : TileMap et Level.">test_level.cpp</a></span>, <span class="tt"><a class="el" href="test__danger__geometry_8cpp.html" title="Tests unitaires de la géométrie des dangers directionnels (core::dangerHitbox, EX-GP-050).">test_danger_geometry.cpp</a></span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1517"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1518"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li>Round-trip JSON (écriture puis lecture) pour chacun des sept nouveaux types, avec et sans champs optionnels.</li>
@@ -126,12 +126,12 @@ Tests (obligatoires)</h1>
 <li>Une liaison <span class="tt">opensWith</span> peut cibler une <span class="tt">dangerSwitched</span> aussi bien qu'une <span class="tt">door</span> ; le comportement existant (<span class="tt">switch</span>/<span class="tt">pressurePlate</span> → <span class="tt">door</span>) reste inchangé bit à bit (tests existants toujours verts sans modification).</li>
 <li>Validation rejette une liaison vers un type qui n'est ni <span class="tt">door</span> ni <span class="tt">dangerSwitched</span>, et une portée de <span class="tt">dangerMover</span> hors bornes.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1518"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1519"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Compile, testé, <b>aucun</b> appelant en jeu ou en éditeur pour l'instant (simulation en TACHE-02, palette/rendu en TACHE-03) — tâche purement additive côté modèle, comme le veut l'ordre du processus de lot (modèle avant intégration).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1519"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1520"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-050</span>, <span class="tt">EX-GP-051</span>, <span class="tt">EX-GP-052</span>, <span class="tt">EX-GP-053</span>, <span class="tt">EX-LVL-002</span>, <span class="tt">EX-LVL-004</span>. </p>
 </div></div><!-- contents -->

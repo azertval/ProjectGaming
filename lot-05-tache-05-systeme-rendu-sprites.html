@@ -94,41 +94,41 @@ $(function(){initNavTree('lot-05-tache-05-systeme-rendu-sprites.html','',''); })
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-05-rendu-2d_2tache-05-systeme-rendu-sprites"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-05.html#md_Lot_2LOT-05-rendu-2d_2epic" title="Lot/LOT-05-rendu-2d/epic.md">LOT-05</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span> · <b>Statut :</b> fait</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md511"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md512"></a>
 Contexte</h1>
 <p>Le pont entre la simulation et l'image : un composant de rendu qui <b>lit</b> l'ECS et dessine chaque entité affichable. Il vit dans <span class="tt">HMI</span> (présentation) et ne modifie jamais les composants (<span class="tt">EX-ARCH-012</span>).</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md512"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md513"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">SpriteRenderer</span> (dans <span class="tt">HMI</span>) : à chaque frame, itère <span class="tt">world.view&lt;Transform, Sprite&gt;()</span>, résout la région d'atlas (TACHE-03), calcule le quad monde (position/échelle depuis <span class="tt">Transform</span>), applique la caméra (TACHE-04) et l'empile dans le <span class="tt">SpriteBatch</span> (TACHE-02).</li>
 <li><b>Tri par couche</b> (<span class="tt">EX-REN-014</span>) : dessiner fond → décor → entités → interface (ordre stable et déterministe à couche égale).</li>
 <li>Rendu <b>en lecture seule</b> de l'ECS : accès par référence const, aucune mutation.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md513"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md514"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt"><a class="el" href="SpriteRenderer_8h.html" title="Rend les entités de l&#39;ECS possédant un Transform et un Sprite.">Source/HMI/Graphics/SpriteRenderer.h</a></span>, <span class="tt"><a class="el" href="SpriteRenderer_8cpp.html">SpriteRenderer.cpp</a></span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md514"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md515"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>Toutes les entités <span class="tt">Transform + Sprite</span> sont dessinées ; celles sans <span class="tt">Sprite</span> ne le sont pas.</li>
 <li>L'ordre de dessin respecte les couches (une entité de couche supérieure passe au-dessus).</li>
 <li>Vérification que l'ECS n'est pas muté par le rendu (accès const).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md515"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md516"></a>
 Points d'attention</h1>
 <ul>
 <li>Ne pas allouer par frame de façon incontrôlée (réutiliser les tampons du <span class="tt">SpriteBatch</span>).</li>
 <li>Le renderer <b>n'est pas</b> un <span class="tt"><a class="el" href="classcore_1_1ISystem.html" title="Interface d&#39;un système : porte la logique itérant sur les composants.">core::ISystem</a></span> (il vit dans <span class="tt">HMI</span>) : il lit le <span class="tt">World</span> mais n'est pas orchestré par <span class="tt">World::update</span> (le rendu est découplé de la simulation, <span class="tt">EX-REN-021</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md516"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md517"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Rendu ECS → écran correct (couches respectées, lecture seule), documenté ; build <span class="tt">/W4 /WX</span> sans avertissement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md517"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md518"></a>
 Exigences</h1>
 <p><span class="tt">EX-ARCH-012</span>, <span class="tt">EX-REN-010</span>, <span class="tt">EX-REN-011</span>, <span class="tt">EX-REN-014</span>, <span class="tt">EX-REN-021</span>. </p>
 </div></div><!-- contents -->

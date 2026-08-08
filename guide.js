@@ -1,8 +1,8 @@
 var guide =
 [
-    [ "Comment lire ce guide", "guide.html#autotoc_md169", null ],
-    [ "Architecture en deux couches", "guide.html#autotoc_md170", null ],
-    [ "Plan du guide", "guide.html#autotoc_md171", null ],
+    [ "Comment lire ce guide", "guide.html#autotoc_md170", null ],
+    [ "Architecture en deux couches", "guide.html#autotoc_md171", null ],
+    [ "Plan du guide", "guide.html#autotoc_md172", null ],
     [ "Boucle de jeu et pas de temps fixe", "guide-boucle.html", [
       [ "Qu'est-ce qu'une boucle de jeu ?", "guide-boucle.html#autotoc_md30", null ],
       [ "Le piège du framerate variable", "guide-boucle.html#autotoc_md31", null ],
@@ -120,12 +120,13 @@ var guide =
         [ "Ne dessiner que ce qui se voit : le culling (<span class=\"tt\">LOT-40</span>)", "guide-rendu.html#autotoc_md161", null ],
         [ "Deux modes de rendu : Physique et Texture (<span class=\"tt\">LOT-41</span>)", "guide-rendu.html#autotoc_md162", null ],
         [ "Interpoler le mouvement : <span class=\"tt\">hmi::PreviousPosition</span> et le facteur d'interpolation", "guide-rendu.html#autotoc_md163", null ],
-        [ "Décors libres et parallaxe (<span class=\"tt\">LOT-49</span>)", "guide-rendu.html#autotoc_md164", null ]
+        [ "Décors libres et parallaxe (<span class=\"tt\">LOT-49</span>)", "guide-rendu.html#autotoc_md164", null ],
+        [ "Manipulation de décors dans l'éditeur (<span class=\"tt\">LOT-50</span>)", "guide-rendu.html#autotoc_md165", null ]
       ] ],
-      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md165", null ],
-      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md166", null ],
-      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md167", null ],
-      [ "Voir aussi", "guide-rendu.html#autotoc_md168", null ]
+      [ "Le texte d'interface : côté Qt, plus dans le pipeline Direct3D", "guide-rendu.html#autotoc_md166", null ],
+      [ "Assembler la frame complète", "guide-rendu.html#autotoc_md167", null ],
+      [ "Ce qui vient ensuite : le programme d'habillage (<span class=\"tt\">LOT-40</span> → <span class=\"tt\">LOT-55</span>)", "guide-rendu.html#autotoc_md168", null ],
+      [ "Voir aussi", "guide-rendu.html#autotoc_md169", null ]
     ] ],
     [ "Journalisation et assertions", "guide-journalisation.html", [
       [ "Pourquoi journaliser dans un jeu vidéo", "guide-journalisation.html#autotoc_md91", null ],

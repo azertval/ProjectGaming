@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-35-tache-01-fenetre-docks-persistance.html','','')
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-35-refonte-ihm-qt-editeur_2tache-01-fenetre-docks-persistance"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-35.html#md_Lot_2LOT-35-refonte-ihm-qt-editeur_2epic" title="Lot/LOT-35-refonte-ihm-qt-editeur/epic.md">LOT-35</a> · <b>Emplacement :</b> <span class="tt">Source/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1666"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1667"></a>
 Contexte</h1>
 <p>Le <a class="el" href="lot-34.html" title="LOT-34 — Refonte IHM (Qt) : socle applicatif &amp; viewport D3D11 embarqué">LOT-34</a> fournit une <span class="tt">MainWindow</span> (<span class="tt">QMainWindow</span>) dont le widget central est le viewport D3D11. Cette tâche transforme cette fenêtre en <b>poste de travail d'éditeur à panneaux dockables</b> : cadre <span class="tt">QDockWidget</span> autour du viewport, et <b>persistance hors code</b> de la disposition (le demandeur veut des « plusieurs fenêtres réglables, hors code de préférence »). Les panneaux concrets (palette, outils, etc.) sont remplis par les tâches suivantes ; ici on pose le <b>cadre de docking</b> et sa sauvegarde/restauration.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1667"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1668"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Zones de docking</b> : activer <span class="tt">setDockNestingEnabled(true)</span>, autoriser les quatre zones ; le viewport (<span class="tt">createWindowContainer</span>) reste le <b>widget central</b> non-dockable.</li>
@@ -110,31 +110,31 @@ Travail à réaliser</h1>
 </li>
 <li><b>Menu Affichage</b> listant les docks (toggler leur visibilité — <span class="tt">QDockWidget::toggleViewAction</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1668"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1669"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/Editor/MainWindow.{h,cpp}</span> (docks, menu Affichage, persistance).</li>
 <li>Éventuel <span class="tt">Source/Editor/EditorSettings.{h,cpp}</span> (encapsulation <span class="tt">QSettings</span> : clés centralisées).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1669"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1670"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Logique de persistance testable</b> : si l'accès <span class="tt">QSettings</span> est encapsulé, tester la sérialisation/désérialisation des clés (présence/valeurs par défaut) sans fenêtre.</li>
 <li><b>Vérification manuelle</b> : déplacer/détacher/masquer des docks, fermer, rouvrir → disposition restaurée ; « Réinitialiser » revient au défaut.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1670"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1671"></a>
 Points d'attention</h1>
 <ul>
 <li><b><span class="tt">objectName</span> obligatoires et stables</b> sur chaque <span class="tt">QDockWidget</span> et sur la <span class="tt">QMainWindow</span>, sinon <span class="tt">restoreState</span> échoue silencieusement.</li>
 <li><b>Version de layout</b> : préfixer l'état d'un numéro de version (<span class="tt">saveState(int version)</span>) pour invalider proprement une disposition sauvegardée devenue incompatible après ajout/retrait de docks.</li>
 <li><b>Emplacement de <span class="tt">QSettings</span></b> : documenter où il est stocké (registre Windows par défaut) ; ne pas y mettre de données de niveau (elles restent dans les fichiers <span class="tt">Levels</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1671"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1672"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Fenêtre d'éditeur à docks fonctionnels autour du viewport, disposition sauvegardée/restaurée et réinitialisable ; <span class="tt">/W4 /WX</span> propre ; vérification manuelle OK.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1672"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1673"></a>
 Exigences</h1>
 <p><span class="tt">EX-IHM-010</span> (éditeur à docks Qt), <span class="tt">EX-IHM-011</span> (disposition persistée hors code). </p>
 </div></div><!-- contents -->

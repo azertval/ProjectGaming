@@ -5,6 +5,7 @@ var structhmi_1_1SpriteQuad =
     [ "g", "structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d", null ],
     [ "height", "structhmi_1_1SpriteQuad.html#ad57ebf8af5db3949c45ab0b1f99c4344", null ],
     [ "r", "structhmi_1_1SpriteQuad.html#ab8e8494560e6c855471cfab0f735ac48", null ],
+    [ "rotation", "structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a", null ],
     [ "u0", "structhmi_1_1SpriteQuad.html#ae7e99128d209fb85b68f901744c063a8", null ],
     [ "u1", "structhmi_1_1SpriteQuad.html#a011e7b579cef80bf6c48ecb04ce17461", null ],
     [ "v0", "structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252", null ],

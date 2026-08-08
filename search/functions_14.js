@@ -4,10 +4,12 @@ var searchData=
   ['unlinkmechanism_1',['unlinkMechanism',['../classcore_1_1LevelDraft.html#a146bf5eda5759568e54fb0318039498b',1,'core::LevelDraft::unlinkMechanism()'],['../classhmi_1_1GameViewport.html#ae7ad870c084ca5c30be9891d70250638',1,'hmi::GameViewport::unlinkMechanism()']]],
   ['update_2',['update',['../classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4',1,'core::ISystem::update()'],['../classcore_1_1AnimationSystem.html#af5da04fcf16d71fb7d6181377e8251a8',1,'core::AnimationSystem::update()'],['../classcore_1_1CharacterPhysicsSystem.html#a0ff9c69450962a56c6ec576b2b2c332d',1,'core::CharacterPhysicsSystem::update()'],['../classcore_1_1MovementSystem.html#af4476267f1301a583126866e01567b1f',1,'core::MovementSystem::update()'],['../classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251',1,'core::World::update()'],['../classcore_1_1BlockController.html#a38dd7d13518168abfbe6d56b11cf279f',1,'core::BlockController::update()'],['../classcore_1_1DangerController.html#a757f3ebbb187c22b6ef555f9ff78b4db',1,'core::DangerController::update()'],['../classcore_1_1MechanismController.html#a1b1a329fda4104534e1e54402ddf528c',1,'core::MechanismController::update()'],['../classhmi_1_1GameSession.html#a890870ab22ce42a6b1d67f20e7209aa2',1,'hmi::GameSession::update(const InputState &amp;input, float fixedDelta)']]],
   ['updatecurrentroom_3',['updateCurrentRoom',['../classhmi_1_1GameSession.html#a626952821cb4fc9a0144a4bdf6b9eaaf',1,'hmi::GameSession']]],
-  ['updatedecorpickervisibility_4',['updateDecorPickerVisibility',['../classhmi_1_1ToolPanel.html#ab43ba09347e5523800a53360578308a6',1,'hmi::ToolPanel']]],
-  ['updateeditcamera_5',['updateEditCamera',['../classhmi_1_1GameViewport.html#a751bc28ce93fe7547fafd85eeae90feb',1,'hmi::GameViewport']]],
-  ['updatemechanismvisuals_6',['updateMechanismVisuals',['../classhmi_1_1GameSession.html#a2a575a6cc519a25b3a6bee83876d11bb',1,'hmi::GameSession']]],
-  ['updatemouseposition_7',['updateMousePosition',['../classhmi_1_1GameViewport.html#ab2638f80f14726b02741409d6ff1f960',1,'hmi::GameViewport']]],
-  ['updatestatus_8',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]],
-  ['updatetileanimations_9',['updateTileAnimations',['../classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb',1,'hmi::GameSession']]]
+  ['updatedecoractionbuttons_4',['updateDecorActionButtons',['../classhmi_1_1TexturePanel.html#a12eaa0f30852a6ce86ab3a55d6d8d6cf',1,'hmi::TexturePanel']]],
+  ['updatedecorgesture_5',['updateDecorGesture',['../namespacehmi.html#a4f30c6bfd2448aa006603a325bef5bae',1,'hmi']]],
+  ['updatedecorpickervisibility_6',['updateDecorPickerVisibility',['../classhmi_1_1ToolPanel.html#ab43ba09347e5523800a53360578308a6',1,'hmi::ToolPanel']]],
+  ['updateeditcamera_7',['updateEditCamera',['../classhmi_1_1GameViewport.html#a751bc28ce93fe7547fafd85eeae90feb',1,'hmi::GameViewport']]],
+  ['updatemechanismvisuals_8',['updateMechanismVisuals',['../classhmi_1_1GameSession.html#a2a575a6cc519a25b3a6bee83876d11bb',1,'hmi::GameSession']]],
+  ['updatemouseposition_9',['updateMousePosition',['../classhmi_1_1GameViewport.html#ab2638f80f14726b02741409d6ff1f960',1,'hmi::GameViewport']]],
+  ['updatestatus_10',['updateStatus',['../classhmi_1_1GamepadBindingsWidget.html#a7d152ebc17a38ff34e2b5083e4cba46e',1,'hmi::GamepadBindingsWidget']]],
+  ['updatetileanimations_11',['updateTileAnimations',['../classhmi_1_1GameSession.html#a930a2413f190c4c2ce9bfdea2ea4eadb',1,'hmi::GameSession']]]
 ];

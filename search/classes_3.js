@@ -7,6 +7,12 @@ var searchData=
   ['decodedimage_4',['DecodedImage',['../structhmi_1_1DecodedImage.html',1,'hmi']]],
   ['decor_5',['Decor',['../structcore_1_1Decor.html',1,'core']]],
   ['decorappearance_6',['DecorAppearance',['../structhmi_1_1DecorAppearance.html',1,'hmi']]],
-  ['decorvisualtag_7',['DecorVisualTag',['../structhmi_1_1DecorVisualTag.html',1,'hmi']]],
-  ['draftrenderer_8',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
+  ['decorgestureaction_7',['DecorGestureAction',['../structhmi_1_1DecorGestureAction.html',1,'hmi']]],
+  ['decorgesturestate_8',['DecorGestureState',['../structhmi_1_1DecorGestureState.html',1,'hmi']]],
+  ['decorhandlelayout_9',['DecorHandleLayout',['../structhmi_1_1DecorHandleLayout.html',1,'hmi']]],
+  ['decorhit_10',['DecorHit',['../structhmi_1_1DecorHit.html',1,'hmi']]],
+  ['decorlistrow_11',['DecorListRow',['../structhmi_1_1DecorListRow.html',1,'hmi']]],
+  ['decoroverlaystate_12',['DecorOverlayState',['../structhmi_1_1DecorOverlayState.html',1,'hmi']]],
+  ['decorvisualtag_13',['DecorVisualTag',['../structhmi_1_1DecorVisualTag.html',1,'hmi']]],
+  ['draftrenderer_14',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
 ];

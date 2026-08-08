@@ -96,12 +96,12 @@ $(function(){initNavTree('lot-28.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>✅ terminé</b>. Quatre nouvelles tuiles, <span class="tt">ConcaveUpRight</span>/<span class="tt">ConcaveUpLeft</span>/ <span class="tt">ConcaveDownRight</span>/<span class="tt">ConcaveDownLeft</span> (<span class="tt">EX-GP-007</span>) — une <b>seconde famille</b> de quart de cercle, <b>concave</b> plutôt que <b>convexe</b> (<span class="tt">RoundedUpRight</span>/<span class="tt">RoundedUpLeft</span> et leurs variantes de plafond, <span class="tt">EX-GP-004</span>/<span class="tt">EX-GP-006</span>) : le bloc arrondi « dans l'autre sens ». </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1399"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1400"></a>
 Objectif</h1>
 <p>L'arrondi existant (<span class="tt">EX-GP-004</span>) est un quart de cercle <b>convexe</b> : le centre du cercle est du côté <b>creux</b>, la matière bombe vers l'extérieur (tangente verticale du côté creux, horizontale du côté plein) — utile pour arrondir un coin <b>saillant</b> (bosse, sommet de pente). Il manque son inverse : un quart de cercle <b>concave</b> (centre du cercle du côté <b>plein</b>), utile pour un raccord <b>en creux</b> entre deux surfaces perpendiculaires (transition sol→mur en douceur, comme un quart de tuyau/vallée) — tangente <b>horizontale</b> du côté creux, <b>verticale</b> du côté plein, exactement l'inverse de l'arrondi convexe. Ce lot ajoute cette seconde famille en réutilisant <b>entièrement</b> l'infrastructure de suivi de surface posée par <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span> (sol) et <span class="tt">LOT-26</span> (plafond) — seule la <b>formule</b> de hauteur change, comme <span class="tt">LOT-23</span> l'avait déjà fait pour l'arrondi convexe par rapport à la pente linéaire.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1400"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1401"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1401"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1402"></a>
 Inclus</h2>
 <ul>
 <li>Quatre nouvelles tuiles : <span class="tt">ConcaveUpRight</span>, <span class="tt">ConcaveUpLeft</span> (sol) et <span class="tt">ConcaveDownRight</span>, <span class="tt">ConcaveDownLeft</span> (plafond, miroir vertical des deux premières) — sol <b>et</b> plafond dans un seul lot (contrairement à <span class="tt">LOT-23</span>→<span class="tt">LOT-26</span>, séquencés séparément), le plafond ne demandant ici <b>aucune</b> formule nouvelle (<span class="tt"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></span> générique, déjà en place depuis <span class="tt">LOT-26</span>, n'a qu'à apprendre le mapping vers ces deux nouveaux types de sol).</li>
@@ -109,14 +109,14 @@ Inclus</h2>
 <li><b>Collision par suivi</b>, réutilisant tel quel <span class="tt"><a class="el" href="namespacecore.html#a467a4de3899a77b3500f043561e51b3f" title="Détecte si le bord bas d&#39;une boîte a franchi une surface suivable (pente, arrondi) pendant un pas,...">core::resolveSlopeFollow</a></span>/ <span class="tt"><a class="el" href="namespacecore.html#af1cccb4ee1491e658a3af9705f20b5e1" title="Détecte si le bord haut d&#39;une boîte a franchi une silhouette de pente/arrondi de plafond (EX-GP-006) ...">core::resolveCeilingSlopeFollow</a></span> (sol/plafond) — jamais solides pour la grille classique (<span class="tt"><a class="el" href="namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>), suivies en marchant pour les variantes de sol (<span class="tt"><a class="el" href="namespacecore.html#aaa7b295b62e61a2f387f7b2775836d90">core::isFollowableSurface</a></span>), jamais pour les variantes de plafond (bloquent seulement un saut qui les franchit par en dessous).</li>
 <li>Rendu (silhouette réelle, en gris — même matériau qu'un <span class="tt">Solid</span>, cohérent avec l'arrondi convexe et les pentes), nouveau sous-groupe <b>Concave</b> dans la palette de l'éditeur (à côté du sous-groupe <b>Arrondi</b> existant, sous la catégorie <b>Tuile</b>), sérialisation JSON (<span class="tt">concaveUpRight</span>/<span class="tt">concaveUpLeft</span>/<span class="tt">concaveDownRight</span>/<span class="tt">concaveDownLeft</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1402"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md1403"></a>
 Exclus (hors périmètre de ce lot)</h2>
 <ul>
 <li><b>Angle autre que 45°</b> ou <b>rayon différent</b> — hors périmètre, comme pour <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span>.</li>
 <li><b>Bloc poussable en forme d'arrondi concave</b> — une mécanique à part, non demandée ici (comme pour <span class="tt">LOT-23</span>/<span class="tt">LOT-26</span> : un bloc poussable traite toute case de pente/arrondi comme un obstacle simple, <span class="tt">EX-GP-022</span>, y compris cette nouvelle famille — aucun changement requis côté <span class="tt">BlockController</span>, qui ne distingue déjà pas les familles de courbe).</li>
 <li><b>Niveau démo dédié</b> (<span class="tt">LOT-25</span>) — comme pour l'arrondi de plafond (<span class="tt">LOT-26</span>), ces tuiles sont un outil d'édition/décor ; les variantes de <b>sol</b>, elles, sont bien praticables en marchant (comme tout arrondi convexe), mais n'introduisent aucune mécanique de gameplay nouvelle à prouver isolément par un niveau démo — couvertes par les tests unitaires/intégration décrits ci-dessous.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1403"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1404"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Formule concave, dérivée par raisonnement géométrique puis vérifiée par tangentes</b> : pour une case <span class="tt">[0, 1] × [0, 1]</span> (repère local de <span class="tt"><a class="el" href="namespacecore.html#afbc2bbb5c0d097cee136a1aadee0afcb" title="Hauteur de la surface d&#39;une tuile suivable (pente, arrondi) à une position horizontale donnée.">core::slopeSurfaceHeight</a></span>, hauteur mesurée depuis le <b>haut</b>), l'arrondi convexe <span class="tt">RoundedUpRight</span> a pour centre de cercle le coin <b>bas</b> du côté creux (<span class="tt">(0, 1)</span>, coin bas-gauche) : <span class="tt">h(x) = 1 - sqrt(1 - (1-x)²)</span>, tangente <b>verticale</b> en <span class="tt">x=0</span> (côté creux), <b>horizontale</b> en <span class="tt">x=1</span> (côté plein). <span class="tt">ConcaveUpRight</span> <b>inverse</b> ce choix de centre : coin <b>haut</b> du côté creux (<span class="tt">(0, 0)</span>, coin haut-gauche) plutôt que coin bas — <span class="tt">h(x) = sqrt(1 - x²)</span>, tangente <b>horizontale</b> en <span class="tt">x=0</span> (raccord lisse avec un sol plat en contrebas), <b>verticale</b> en <span class="tt">x=1</span> (raccord lisse avec un mur), l'inverse exact du convexe. Mêmes valeurs aux deux bords que <span class="tt">RoundedUpRight</span> (<span class="tt">1</span> à <span class="tt">x=0</span>, <span class="tt">0</span> à <span class="tt">x=1</span>) — seule la courbe entre les deux diffère. <span class="tt">ConcaveUpLeft</span> est le symétrique (<span class="tt">h(x) = sqrt(1 - (1-x)²)</span>, centre en <span class="tt">(1, 0)</span>, coin haut-droit). Confirmé avec le demandeur via un aperçu ASCII (convexe bombé vs. concave creux) avant toute implémentation.</li>
@@ -129,12 +129,12 @@ Décisions de cadrage</h1>
   TILES_PER_SIDE</span> reste à <span class="tt">5</span> (25 cases). L'agrandissement <span class="tt">4→5</span> fait par <span class="tt">LOT-26</span> avait laissé <b>six</b> cases réellement libres (une seule silhouette de plus aurait suffi, mais un agrandissement de grille se fait toujours par lot entier) — sept cases semblaient libres à première vue, mais l'une d'elles (<span class="tt">(4,4)</span>) est en réalité réservée au damier de transparence (<span class="tt">TextureAtlas::transparentTileIndex</span>, écart constaté en cours de lot, voir TACHE-02/TACHE-03) ; les quatre nouvelles silhouettes de ce lot logent dans quatre des six cases authentiquement libres (couleur noire par convention, <span class="tt">tileColor</span>), sans toucher au jeu de couleurs existant ni à aucune couleur de tuile déjà en place.</li>
 <li><b>Nouveau sous-groupe de palette « Concave »</b>, frère de « Arrondi » sous la catégorie « Tuile » (<span class="tt">LOT-27</span>) — pas une fusion dans le sous-groupe « Arrondi » existant : les deux familles de courbe (convexe/concave) sont des choix de forme distincts pour le niveau, une entrée de palette par famille reste plus lisible qu'un sous-groupe mélangeant les deux.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1404"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1405"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-007</span> — nouvelle exigence.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1405"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1406"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -149,7 +149,7 @@ Découpage</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a class="el" href="lot-28-tache-03-documentation-verification.html#md_Lot_2LOT-28-arrondis-concaves_2tache-03-documentation-verification" title="Lot/LOT-28-arrondis-concaves/tache-03-documentation-verification.md">TACHE-03</a>  </td><td class="markdownTableBodyNone">Documentation et vérification  </td><td class="markdownTableBodyNone"><span class="tt">Documentation</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1406"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1407"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li>Le personnage suit une tuile <span class="tt">ConcaveUpRight</span>/<span class="tt">ConcaveUpLeft</span> en marchant dessus, avec une courbe visuellement et physiquement distincte de l'arrondi convexe existant (courbure inversée).</li>
@@ -158,13 +158,13 @@ Critères d'acceptation du lot</h1>
 <li>Placeables depuis la palette de l'éditeur (nouveau sous-groupe « Concave »), sérialisables (JSON), rendues avec leur silhouette réelle en gris, sans décaler aucune couleur de tuile existante dans l'atlas.</li>
 <li>Logique nouvelle <b>couverte par des tests</b> dédiés (formule de courbe aux bords et au centre, classification statique, mapping miroir plafond, aller-retour JSON, physique de suivi/blocage). Build <span class="tt">/W4 /WX</span> sans avertissement, Doxygen et lint des exigences verts.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1407"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1408"></a>
 Dépendances</h1>
 <ul>
 <li><b>Dépend de <span class="tt">LOT-22</span>/<span class="tt">LOT-23</span></b> (infrastructure de suivi de surface, sol) et de <span class="tt">LOT-26</span> (infrastructure de suivi de silhouette, plafond, <span class="tt"><a class="el" href="namespacecore.html#aef7136a2093c38f28dc2f24fedfae124" title="Hauteur de la silhouette d&#39;une pente/arrondi de plafond (EX-GP-006), au même repère que slopeSurfaceH...">core::ceilingSlopeHeight</a></span> déjà générique) — ne doit pas être commencé avant que ces trois lots soient terminés (ils le sont).</li>
 <li>Étend <span class="tt">TileType</span> (<span class="tt">LOT-03</span>/<span class="tt">LOT-07</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md1408"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md1409"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-28-tache-01-modele-physique-concave.html" title="TACHE-01 — Modèle de tuile et formule de courbe concave">TACHE-01 — Modèle de tuile et formule de courbe concave</a></li>

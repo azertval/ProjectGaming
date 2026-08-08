@@ -6,8 +6,10 @@ var searchData=
   ['batches_3',['batches',['../structhmi_1_1SceneStatistics.html#ad7138a1319fdb40388fb35bc913ec6d5',1,'hmi::SceneStatistics']]],
   ['blinkconfigs_4',['blinkConfigs',['../structcore_1_1LevelDraft_1_1State.html#a0e83d09e4558721ba3b7dcd98df310b7',1,'core::LevelDraft::State']]],
   ['blocked_5',['blocked',['../structcore_1_1CeilingSlopeFollowResult.html#a70edade298ee33b77d266cf593651806',1,'core::CeilingSlopeFollowResult']]],
-  ['bottomy_6',['bottomY',['../structcore_1_1SlopeFollowResult.html#a67675a0a2b2290e4398b009fd40d7ec3',1,'core::SlopeFollowResult']]],
-  ['button_5fcount_7',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
-  ['bx_8',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_9',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
+  ['bottomleft_6',['bottomLeft',['../structhmi_1_1DecorHandleLayout.html#a56d9d743dabdb43345fda8aa004871c2',1,'hmi::DecorHandleLayout']]],
+  ['bottomright_7',['bottomRight',['../structhmi_1_1DecorHandleLayout.html#acf73f9b2b6a86bd3a032929bf2d05cf0',1,'hmi::DecorHandleLayout']]],
+  ['bottomy_8',['bottomY',['../structcore_1_1SlopeFollowResult.html#a67675a0a2b2290e4398b009fd40d7ec3',1,'core::SlopeFollowResult']]],
+  ['button_5fcount_9',['BUTTON_COUNT',['../classhmi_1_1InputState.html#a692a4d893cae9b15948b3d1081bbafeb',1,'hmi::InputState']]],
+  ['bx_10',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
+  ['by_11',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]]
 ];

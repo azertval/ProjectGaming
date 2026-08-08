@@ -101,6 +101,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une référence nommée à un asset : dans quel jeu de skins, pour quel type de tuile.  <a href="structhmi_1_1AssetReference.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetThumbnailView" id="r_AssetThumbnailView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetThumbnailView.html">AssetThumbnailView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grille de vignettes d'un dossier d'assets, avec recherche, sélection et gestion des fichiers (importer/renommer/dupliquer/supprimer).  <a href="classhmi_1_1AssetThumbnailView.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorHandleLayout" id="r_DecorHandleLayout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangles des cinq poignées d'un décor sélectionné (quatre coins + rotation), en unités monde.  <a href="structhmi_1_1DecorHandleLayout.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorHit" id="r_DecorHit"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorHit.html">DecorHit</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Élément visé par un clic (voir <span class="tt"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>).  <a href="structhmi_1_1DecorHit.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorGestureAction" id="r_DecorGestureAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorGestureAction.html">DecorGestureAction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action à appliquer par l'appelant : en aperçu pendant le glisser (<span class="tt"><a class="el" href="#a4f30c6bfd2448aa006603a325bef5bae" title="Fait progresser un glisser en cours.">hmi::updateDecorGesture</a></span>, consommée par le rendu, <span class="tt">LOT-50</span> TACHE-03), ou pour de bon au relâchement (<span class="tt"><a class="el" href="#a16be7eae78f5fc7596567c6af2d382ab" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">hmi::endDecorGesture</a></span>, consommée par les mutateurs de TACHE-01 — un seul appel par geste complet, l'historique n'est jamais spammé par les positions intermédiaires).  <a href="structhmi_1_1DecorGestureAction.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorGestureState" id="r_DecorGestureState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État complet du geste en cours, possédé par l'appelant (même patron que <span class="tt"><a class="el" href="structhmi_1_1PendingLink.html" title="Case en attente d&#39;appariement (premier clic de l&#39;outil « Lien »), avec son type courant.">hmi::PendingLink</a></span> pour <span class="tt">LinkGesture</span> : l'appelant porte l'état, ces fonctions le font évoluer).  <a href="structhmi_1_1DecorGestureState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorListRow" id="r_DecorListRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne de la section « Décors » : un décor du niveau courant, avec son rang d'origine (identité stable pour la sélection croisée et les actions, <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>).  <a href="structhmi_1_1DecorListRow.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LevelBrowserPanel" id="r_LevelBrowserPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LevelBrowserPanel.html">LevelBrowserPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Panneau de gestion des niveaux : liste filtrable + créer/renommer/dupliquer/supprimer.  <a href="classhmi_1_1LevelBrowserPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileOpResult" id="r_FileOpResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOpResult.html">FileOpResult</a></td></tr>
@@ -177,6 +187,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apparence résolue d'un décor : quelle texture lier, et sa taille en pixels.  <a href="structhmi_1_1DecorAppearance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LinkOverlayState" id="r_LinkOverlayState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LinkOverlayState.html">LinkOverlayState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'affichage des liens de mécanismes (LOT-37), fourni par le viewport à chaque rendu.  <a href="structhmi_1_1LinkOverlayState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DecorOverlayState" id="r_DecorOverlayState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DecorOverlayState.html">DecorOverlayState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État d'affichage de la manipulation de décors (<span class="tt">LOT-50</span> TACHE-02/03), fourni par le viewport à chaque rendu — jamais écrit dans le brouillon, purement présentatif.  <a href="structhmi_1_1DecorOverlayState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftRenderer" id="r_DraftRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine la grille d'un <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span> en cours d'édition.  <a href="classhmi_1_1DraftRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GraphicsDevice" id="r_GraphicsDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GraphicsDevice.html">GraphicsDevice</a></td></tr>
@@ -263,6 +275,29 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a85a2df4671d768ea880f930a5f87e00d" id="r_a85a2df4671d768ea880f930a5f87e00d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00d">DecorHandle</a> { <br />
+&#160;&#160;<a class="el" href="#a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8">Body</a>
+, <a class="el" href="#a85a2df4671d768ea880f930a5f87e00dab32beb056fbfe36afbabc6c88c81ab36">TopLeft</a>
+, <a class="el" href="#a85a2df4671d768ea880f930a5f87e00da1d85a557894c340c318493f33bfa8efb">TopRight</a>
+, <br />
+&#160;&#160;<a class="el" href="#a85a2df4671d768ea880f930a5f87e00da98e5a1c44509157ebcaf46c515c78875">BottomLeft</a>
+, <a class="el" href="#a85a2df4671d768ea880f930a5f87e00da9146bfc669fddc88db2c4d89297d0e9a">BottomRight</a>
+, <a class="el" href="#a85a2df4671d768ea880f930a5f87e00daf1a42bd417390fc63b030a519624607a">Rotation</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a85a2df4671d768ea880f930a5f87e00d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Élément d'un décor visé par un clic/geste : son corps (déplacement), une poignée de coin (redimensionnement) ou la poignée dédiée (rotation).  <a href="#a85a2df4671d768ea880f930a5f87e00d">More...</a><br /></td></tr>
+<tr class="memitem:a36a02809aec3ca6ea3feb8e455433599" id="r_a36a02809aec3ca6ea3feb8e455433599"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a36a02809aec3ca6ea3feb8e455433599">DecorGestureActionKind</a> { <a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a6bc362dbf494c61ea117fe3c71ca48a5">Move</a>
+, <a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a9d723d04c40bfd81835c0766a698cf63">Resize</a>
+, <a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a8d2de5368588552fbae54044ac5c7b3d">Rotate</a>
+ }</td></tr>
+<tr class="memdesc:a36a02809aec3ca6ea3feb8e455433599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nature de l'action produite par le geste.  <a href="#a36a02809aec3ca6ea3feb8e455433599">More...</a><br /></td></tr>
+<tr class="memitem:a8744c2d1b1960326e40d3fb62e333ded" id="r_a8744c2d1b1960326e40d3fb62e333ded"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a8744c2d1b1960326e40d3fb62e333ded">DecorGesturePhase</a> { <a class="el" href="#a8744c2d1b1960326e40d3fb62e333dedae599161956d626eda4cb0a5ffb85271c">Idle</a>
+, <a class="el" href="#a8744c2d1b1960326e40d3fb62e333dedad78a68f6a85421ae121c2cb5b73a1040">Pressed</a>
+, <a class="el" href="#a8744c2d1b1960326e40d3fb62e333deda7c0a2f343108fd64dbd0b5e97a75f145">Dragging</a>
+ }</td></tr>
+<tr class="memdesc:a8744c2d1b1960326e40d3fb62e333ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase du geste en cours.  <a href="#a8744c2d1b1960326e40d3fb62e333ded">More...</a><br /></td></tr>
 <tr class="memitem:a02048ad8ad69a87a10e8307ac2bd68dd" id="r_a02048ad8ad69a87a10e8307ac2bd68dd"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dd">EditorTool</a> { <br />
 &#160;&#160;<a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e">Paint</a>
 , <a class="el" href="#a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e">Rectangle</a>
@@ -474,8 +509,26 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab28a0db7bcd8252c1df7c0f37443e0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repère toutes les entrées de <span class="tt">skins.json</span> qui citent un fichier donné.  <br /></td></tr>
 <tr class="memitem:a5788fed057d46145b1fcb3d9ed9c2ec1" id="r_a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5788fed057d46145b1fcb3d9ed9c2ec1">describeReferences</a> (const std::vector&lt; <a class="el" href="structhmi_1_1AssetReference.html">AssetReference</a> &gt; &amp;references)</td></tr>
 <tr class="memdesc:a5788fed057d46145b1fcb3d9ed9c2ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message d'avertissement listant des références, une par jeu de skins.  <br /></td></tr>
-<tr class="memitem:a128cfb0ca7ddd975c1f2c1dac2c52a5a" id="r_a128cfb0ca7ddd975c1f2c1dac2c52a5a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a">nearestDecorAt</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;decors) noexcept</td></tr>
-<tr class="memdesc:a128cfb0ca7ddd975c1f2c1dac2c52a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trouve le rang du décor le plus proche de <code class="param">worldPosition</code>, dans <span class="tt"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">DECOR_PICK_RADIUS</a></span>.  <br /></td></tr>
+<tr class="memitem:a68b105dbefc5ef9bda7a95567e2384a5" id="r_a68b105dbefc5ef9bda7a95567e2384a5"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a68b105dbefc5ef9bda7a95567e2384a5">decorWorldBounds</a> (const <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &amp;decor, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> pixelSize) noexcept</td></tr>
+<tr class="memdesc:a68b105dbefc5ef9bda7a95567e2384a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle englobant d'un décor, en unités monde.  <br /></td></tr>
+<tr class="memitem:af95438c94c3a4b38580c7af806bd6c94" id="r_af95438c94c3a4b38580c7af806bd6c94"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#af95438c94c3a4b38580c7af806bd6c94">decorRotatedPoint</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> localOffset, float rotation) noexcept</td></tr>
+<tr class="memdesc:af95438c94c3a4b38580c7af806bd6c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point tourné autour du <b>centre</b> de <code class="param">bounds</code>, du même angle que l'affichage du décor (<span class="tt">LOT-50</span>, révision post-livraison de TACHE-03 : le cadre de sélection reste sinon droit alors que le décor pivote sous lui, déroutant).  <br /></td></tr>
+<tr class="memitem:a1ec05f9f9a488599614b6924adce974d" id="r_a1ec05f9f9a488599614b6924adce974d"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1ec05f9f9a488599614b6924adce974d">decorHandleLayout</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, float worldUnitsPerScreenPixel, float rotation) noexcept</td></tr>
+<tr class="memdesc:a1ec05f9f9a488599614b6924adce974d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule les rectangles des poignées d'un décor sélectionné.  <br /></td></tr>
+<tr class="memitem:a375ceba0ca2cc74fa38e49f139bb1b44" id="r_a375ceba0ca2cc74fa38e49f139bb1b44"><td class="memItemLeft"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00d">DecorHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a375ceba0ca2cc74fa38e49f139bb1b44">hitTestDecorHandles</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> point, const <a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a> &amp;layout) noexcept</td></tr>
+<tr class="memdesc:a375ceba0ca2cc74fa38e49f139bb1b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poignée de <code class="param">layout</code> sous <code class="param">point</code>, s'il y en a une.  <br /></td></tr>
+<tr class="memitem:a019a3a576b0c838e3ec1eaa6827d1dd7" id="r_a019a3a576b0c838e3ec1eaa6827d1dd7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecorHit.html">DecorHit</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7">designateDecorAt</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> point, const std::vector&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;bounds, std::optional&lt; std::size_t &gt; selectedIndex, const std::optional&lt; <a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a> &gt; &amp;selectedHandles) noexcept</td></tr>
+<tr class="memdesc:a019a3a576b0c838e3ec1eaa6827d1dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne l'élément sous <code class="param">point</code> : quel décor, et quelle poignée le cas échéant.  <br /></td></tr>
+<tr class="memitem:a263efd837914cad8c91c95b803c649ae" id="r_a263efd837914cad8c91c95b803c649ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a263efd837914cad8c91c95b803c649ae">beginDecorGesture</a> (<a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;state, <a class="el" href="structhmi_1_1DecorHit.html">DecorHit</a> hit, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, const <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &amp;decor, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds) noexcept</td></tr>
+<tr class="memdesc:a263efd837914cad8c91c95b803c649ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amorce un geste sur l'élément désigné par <code class="param">hit</code> (<span class="tt"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>).  <br /></td></tr>
+<tr class="memitem:a4f30c6bfd2448aa006603a325bef5bae" id="r_a4f30c6bfd2448aa006603a325bef5bae"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorGestureAction.html">DecorGestureAction</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4f30c6bfd2448aa006603a325bef5bae">updateDecorGesture</a> (<a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;state, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, bool snapToGrid) noexcept</td></tr>
+<tr class="memdesc:a4f30c6bfd2448aa006603a325bef5bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait progresser un glisser en cours.  <br /></td></tr>
+<tr class="memitem:a16be7eae78f5fc7596567c6af2d382ab" id="r_a16be7eae78f5fc7596567c6af2d382ab"><td class="memItemLeft"><a class="el" href="structhmi_1_1DecorGestureAction.html">DecorGestureAction</a>&#160;</td><td class="memItemRight"><a class="el" href="#a16be7eae78f5fc7596567c6af2d382ab">endDecorGesture</a> (<a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;state, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, bool snapToGrid) noexcept</td></tr>
+<tr class="memdesc:a16be7eae78f5fc7596567c6af2d382ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine le geste (relâchement) et renvoie l'action <b>finale</b> à appliquer.  <br /></td></tr>
+<tr class="memitem:ad2d0d345135e466b79a1a624d0bbe056" id="r_ad2d0d345135e466b79a1a624d0bbe056"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad2d0d345135e466b79a1a624d0bbe056">cancelDecorGesture</a> (<a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;state) noexcept</td></tr>
+<tr class="memdesc:ad2d0d345135e466b79a1a624d0bbe056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abandonne le geste en cours (<span class="tt">Échap</span>).  <br /></td></tr>
+<tr class="memitem:a1e20408c7b772742c9fba1a5ab462554" id="r_a1e20408c7b772742c9fba1a5ab462554"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1e20408c7b772742c9fba1a5ab462554">buildDecorListRows</a> (const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;decors, const std::vector&lt; std::string &gt; &amp;availableAssets)</td></tr>
+<tr class="memdesc:a1e20408c7b772742c9fba1a5ab462554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit les lignes de la section « Décors », groupées par couche puis dans l'ordre de superposition.  <br /></td></tr>
 <tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
 <tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
@@ -552,6 +605,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5deae0becbca097ff1447b2f62de20ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de défilement de la couche d'un décor (<span class="tt">EX-DEC-006</span>).  <br /></td></tr>
 <tr class="memitem:a8558cd4ffaa070fd58be27ca40926c53" id="r_a8558cd4ffaa070fd58be27ca40926c53"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53">parallaxRenderPosition</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> decorPosition, float factor, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;cameraBounds) noexcept</td></tr>
 <tr class="memdesc:a8558cd4ffaa070fd58be27ca40926c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la position de <b>rendu</b> d'un décor, décalée par sa parallaxe.  <br /></td></tr>
+<tr class="memitem:a55d947fd87c323efd9d2e1b7c1ed0fa5" id="r_a55d947fd87c323efd9d2e1b7c1ed0fa5"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a55d947fd87c323efd9d2e1b7c1ed0fa5">parallaxModelPosition</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> renderPosition, float factor, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;cameraBounds) noexcept</td></tr>
+<tr class="memdesc:a55d947fd87c323efd9d2e1b7c1ed0fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse de <span class="tt"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53" title="Calcule la position de rendu d&#39;un décor, décalée par sa parallaxe.">parallaxRenderPosition</a></span> : retrouve la position <b>simulée</b> équivalente à un point exprimé en espace de rendu (<span class="tt">LOT-50</span> TACHE-02).  <br /></td></tr>
 <tr class="memitem:a1e5980df41367af8a056278ffa933ea8" id="r_a1e5980df41367af8a056278ffa933ea8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1e5980df41367af8a056278ffa933ea8">roundToScreenPixel</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> worldPosition, float pixelsPerWorldUnit) noexcept</td></tr>
 <tr class="memdesc:a1e5980df41367af8a056278ffa933ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.  <br /></td></tr>
 <tr class="memitem:a0a13a6b4cbedcfe953e4532f97cd953c" id="r_a0a13a6b4cbedcfe953e4532f97cd953c"><td class="memItemLeft"><a class="el" href="structhmi_1_1PlayerSpriteQuad.html">PlayerSpriteQuad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a13a6b4cbedcfe953e4532f97cd953c">computePlayerSpriteQuad</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> imageSizePixels, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hitboxSize)</td></tr>
@@ -635,8 +690,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:acf63dcd325dad2886e2b1d13813ee219" id="r_acf63dcd325dad2886e2b1d13813ee219"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219">DECOR_PICK_RADIUS</a> = 0.5f</td></tr>
-<tr class="memdesc:acf63dcd325dad2886e2b1d13813ee219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un décor libre n'a pas de case qui le désigne sans ambiguïté, contrairement à une tuile.  <br /></td></tr>
+<tr class="memitem:a06830d57e8b32aa87edbc7e6be005d72" id="r_a06830d57e8b32aa87edbc7e6be005d72"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a06830d57e8b32aa87edbc7e6be005d72">DECOR_HANDLE_SCREEN_SIZE</a> = 10.0f</td></tr>
+<tr class="memdesc:a06830d57e8b32aa87edbc7e6be005d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille écran (en pixels) d'une poignée de coin, <b>constante quel que soit le zoom</b> — sinon les poignées deviennent inutilisables aux extrêmes (TACHE-03).  <br /></td></tr>
+<tr class="memitem:a4fff0af1be72396c270a9a711b5ae736" id="r_a4fff0af1be72396c270a9a711b5ae736"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a4fff0af1be72396c270a9a711b5ae736">DECOR_ROTATION_HANDLE_SCREEN_OFFSET</a> = 24.0f</td></tr>
+<tr class="memdesc:a4fff0af1be72396c270a9a711b5ae736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance écran (en pixels) entre le centre du bord supérieur et la poignée de rotation.  <br /></td></tr>
+<tr class="memitem:a3ec3b0d0a4b02829e3cf0fe6f72bf05b" id="r_a3ec3b0d0a4b02829e3cf0fe6f72bf05b"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a3ec3b0d0a4b02829e3cf0fe6f72bf05b">DECOR_DRAG_THRESHOLD</a> = 0.1f</td></tr>
+<tr class="memdesc:a3ec3b0d0a4b02829e3cf0fe6f72bf05b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d'un glisser (manipulation) — sans lui, poser puis relâcher sans bouger produirait un micro-déplacement.  <br /></td></tr>
 <tr class="memitem:a71400cfb82eb06125e98cf974b6dc1be" id="r_a71400cfb82eb06125e98cf974b6dc1be"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a71400cfb82eb06125e98cf974b6dc1be">MECHANISM_ANIMATION_TYPES</a> []</td></tr>
 <tr class="memdesc:a71400cfb82eb06125e98cf974b6dc1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six familles de mécanismes à état dont l'apparence est pilotée par un clip (<span class="tt">LOT-47</span>), dans l'ordre où elles sont proposées par la section « Animations ».  <br /></td></tr>
 <tr class="memitem:ad72608bb6233a89509a4835525f62339" id="r_ad72608bb6233a89509a4835525f62339"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad72608bb6233a89509a4835525f62339">DECORS_SUBDIRECTORY</a> = &quot;Decors/&quot;</td></tr>
@@ -832,6 +891,106 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a36a02809aec3ca6ea3feb8e455433599" name="a36a02809aec3ca6ea3feb8e455433599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36a02809aec3ca6ea3feb8e455433599">&#9670;&#160;</a></span>DecorGestureActionKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a36a02809aec3ca6ea3feb8e455433599">hmi::DecorGestureActionKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nature de l'action produite par le geste. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754" name="a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Rien à appliquer (glisser encore sous le seuil, ou fin d'un simple clic). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a36a02809aec3ca6ea3feb8e455433599a6bc362dbf494c61ea117fe3c71ca48a5" name="a36a02809aec3ca6ea3feb8e455433599a6bc362dbf494c61ea117fe3c71ca48a5"></a>Move&#160;</td><td class="fielddoc"><p>Déplacer le décor vers <span class="tt">position</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a36a02809aec3ca6ea3feb8e455433599a9d723d04c40bfd81835c0766a698cf63" name="a36a02809aec3ca6ea3feb8e455433599a9d723d04c40bfd81835c0766a698cf63"></a>Resize&#160;</td><td class="fielddoc"><p>Redimensionner le décor à <span class="tt">scale</span>, avec la nouvelle <span class="tt">position</span> du coin ancré. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a36a02809aec3ca6ea3feb8e455433599a8d2de5368588552fbae54044ac5c7b3d" name="a36a02809aec3ca6ea3feb8e455433599a8d2de5368588552fbae54044ac5c7b3d"></a>Rotate&#160;</td><td class="fielddoc"><p>Pivoter le décor à <span class="tt">rotation</span>. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a8744c2d1b1960326e40d3fb62e333ded" name="a8744c2d1b1960326e40d3fb62e333ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8744c2d1b1960326e40d3fb62e333ded">&#9670;&#160;</a></span>DecorGesturePhase</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8744c2d1b1960326e40d3fb62e333ded">hmi::DecorGesturePhase</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Phase du geste en cours. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8744c2d1b1960326e40d3fb62e333dedae599161956d626eda4cb0a5ffb85271c" name="a8744c2d1b1960326e40d3fb62e333dedae599161956d626eda4cb0a5ffb85271c"></a>Idle&#160;</td><td class="fielddoc"><p>Aucun geste en cours. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8744c2d1b1960326e40d3fb62e333dedad78a68f6a85421ae121c2cb5b73a1040" name="a8744c2d1b1960326e40d3fb62e333dedad78a68f6a85421ae121c2cb5b73a1040"></a>Pressed&#160;</td><td class="fielddoc"><p>Bouton pressé, sous le seuil de glisser : pas encore de manipulation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8744c2d1b1960326e40d3fb62e333deda7c0a2f343108fd64dbd0b5e97a75f145" name="a8744c2d1b1960326e40d3fb62e333deda7c0a2f343108fd64dbd0b5e97a75f145"></a>Dragging&#160;</td><td class="fielddoc"><p>Glisser au-delà du seuil : une manipulation (déplacer/redimensionner/pivoter) est en cours. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a85a2df4671d768ea880f930a5f87e00d" name="a85a2df4671d768ea880f930a5f87e00d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85a2df4671d768ea880f930a5f87e00d">&#9670;&#160;</a></span>DecorHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a85a2df4671d768ea880f930a5f87e00d">hmi::DecorHandle</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Élément d'un décor visé par un clic/geste : son corps (déplacement), une poignée de coin (redimensionnement) ou la poignée dédiée (rotation). </p>
+<p><span class="tt">None</span> : rien de tout cela. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754" name="a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8" name="a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8"></a>Body&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00dab32beb056fbfe36afbabc6c88c81ab36" name="a85a2df4671d768ea880f930a5f87e00dab32beb056fbfe36afbabc6c88c81ab36"></a>TopLeft&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00da1d85a557894c340c318493f33bfa8efb" name="a85a2df4671d768ea880f930a5f87e00da1d85a557894c340c318493f33bfa8efb"></a>TopRight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00da98e5a1c44509157ebcaf46c515c78875" name="a85a2df4671d768ea880f930a5f87e00da98e5a1c44509157ebcaf46c515c78875"></a>BottomLeft&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00da9146bfc669fddc88db2c4d89297d0e9a" name="a85a2df4671d768ea880f930a5f87e00da9146bfc669fddc88db2c4d89297d0e9a"></a>BottomRight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a85a2df4671d768ea880f930a5f87e00daf1a42bd417390fc63b030a519624607a" name="a85a2df4671d768ea880f930a5f87e00daf1a42bd417390fc63b030a519624607a"></a>Rotation&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="aa4f5968d7b564d555f29fdc5d2fc9585" name="aa4f5968d7b564d555f29fdc5d2fc9585"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4f5968d7b564d555f29fdc5d2fc9585">&#9670;&#160;</a></span>EditorAction</h2>
 
@@ -891,7 +1050,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Outil actif dans la grille de l'éditeur, changé via <span class="tt">Tab</span> ou le panneau <span class="tt"><a class="el" href="classhmi_1_1ToolPanel.html" title="Sélecteur d&#39;outil d&#39;édition (EX-EDIT-014) : Pinceau, Rectangle, Sélection, Lien, Texture par instance...">ToolPanel</a></span>. </p>
-<p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. <span class="tt">Decor</span> (<span class="tt">LOT-49</span>, <span class="tt">EX-DEC-001</span>, placement minimal — la manipulation complète relève de <span class="tt">LOT-50</span>) pose un décor libre à la position <b>exacte</b> du clic (jamais calée sur la grille) : clic gauche pose l'asset et la couche sélectionnés dans la bibliothèque de décors, clic droit ou touche « Suppr » retire le décor le plus proche du curseur — voir <span class="tt"><a class="el" href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a" title="Trouve le rang du décor le plus proche de worldPosition, dans DECOR_PICK_RADIUS.">hmi::nearestDecorAt</a></span>. </p>
+<p><span class="tt">Paint</span> peint case par case au clic/glisser (comportement LOT-14, inchangé). <span class="tt">Rectangle</span> peint un rectangle entier au relâchement d'un glisser. <span class="tt">Selection</span> définit une zone (glisser) dont le contenu peut être copié (<span class="tt">Ctrl+C</span>) puis collé ailleurs (<span class="tt">Ctrl+V</span>), sans peindre directement. <span class="tt">Link</span> (<span class="tt">LOT-37</span>, <span class="tt">EX-IHM-030</span>) lie/délie un mécanisme : cliquer un déclencheur (interrupteur/ plaque) passe en attente de cible, cliquer une cible (porte/danger commuté) crée la liaison ; refaire la même paire la supprime (bascule) — voir <span class="tt"><a class="el" href="#a7f0f0f4f71e52b8deb6fb88a8d6411d9" title="Résout le clic de l&#39;outil « Lien » sur clickedCell selon l&#39;attente courante.">hmi::resolveLinkClick</a></span>. <span class="tt">Échap</span> annule une attente en cours (revient à aucune case sélectionnée), sans toucher au brouillon. <span class="tt">TextureAssign</span> (<span class="tt">LOT-45</span>, <span class="tt">EX-EDIT-043</span>) assigne une texture par instance à une case : clic gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic droit retire l'assignation — voir <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>. <span class="tt">Decor</span> (<span class="tt">LOT-49</span>/<span class="tt">LOT-50</span>, <span class="tt">EX-DEC-001</span>, <span class="tt">EX-DEC-010</span>) place, sélectionne, déplace, redimensionne, pivote et supprime des décors libres, jamais calés sur la grille : cliquer un décor le sélectionne et arme un glisser (corps = déplacer, coin = redimensionner, poignée dédiée = pivoter, <span class="tt">hmi::DecorGesture</span>) ; cliquer une zone vide pose l'asset/la couche sélectionnés dans la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche « Suppr » retire le décor visé/sélectionné ; <span class="tt">Échap</span> abandonne un glisser en cours sans y toucher. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e" name="a02048ad8ad69a87a10e8307ac2bd68dda4802a5ac6005a6ab9c68a2fb29e30a3e"></a>Paint&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e" name="a02048ad8ad69a87a10e8307ac2bd68ddace9291906a4c3b042650b70d7f3b152e"></a>Rectangle&#160;</td><td class="fielddoc"></td></tr>
@@ -1846,6 +2005,101 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a263efd837914cad8c91c95b803c649ae" name="a263efd837914cad8c91c95b803c649ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a263efd837914cad8c91c95b803c649ae">&#9670;&#160;</a></span>beginDecorGesture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::beginDecorGesture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecorHit.html">DecorHit</a></td>          <td class="paramname"><span class="paramname"><em>hit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>decor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Amorce un geste sur l'élément désigné par <code class="param">hit</code> (<span class="tt"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>). </p>
+<p>Sélectionne immédiatement le décor (<span class="tt">state.selectedIndex</span>), avant même de savoir si un glisser suivra — un simple clic doit déjà sélectionner. Capture le transform de départ (pour calculer les deltas des mises à jour suivantes, et pouvoir tout restaurer sur abandon). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État du geste, muté en place. </td></tr>
+    <tr><td class="paramname">hit</td><td>Élément désigné (<span class="tt"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>). </td></tr>
+    <tr><td class="paramname">worldPosition</td><td>Position du clic, en unités monde. </td></tr>
+    <tr><td class="paramname">decor</td><td>Décor visé, à l'instant du clic (transform de départ). </td></tr>
+    <tr><td class="paramname">bounds</td><td>Rectangle englobant du décor à l'instant du clic (<span class="tt"><a class="el" href="#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">hmi::decorWorldBounds</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1e20408c7b772742c9fba1a5ab462554" name="a1e20408c7b772742c9fba1a5ab462554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e20408c7b772742c9fba1a5ab462554">&#9670;&#160;</a></span>buildDecorListRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1DecorListRow.html">DecorListRow</a> &gt; hmi::buildDecorListRows </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>decors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>availableAssets</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit les lignes de la section « Décors », groupées par couche puis dans l'ordre de superposition. </p>
+<p>Fonction <b>pure</b>, testable sans Qt (<span class="tt">EX-NFR-010</span>) : trie <code class="param">decors</code> par couche (<span class="tt"><a class="el" href="namespacecore.html#a44c22576c7f052fd73b6de57de7ecc20aa9ded1e5ce5d75814730bb4caaf49419" title="Arrière-plan : sous les tuiles.">core::DecorLayer::Background</a></span> puis <span class="tt">Decor</span> puis <span class="tt">Foreground</span>, l'ordre de déclaration de l'énumération) et, à couche égale, préserve l'ordre d'origine du vecteur — c'est l'ordre de superposition (<span class="tt">LOT-49</span> TACHE-01, rang croissant = dessiné par-dessus). C'est ce regroupement qui rend le réordonnancement compréhensible : sans lui, la liste mélangerait des décors sans rapport de superposition entre eux. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decors</td><td>Décors du niveau courant, dans leur ordre (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>). </td></tr>
+    <tr><td class="paramname">availableAssets</td><td>Noms des assets effectivement présents dans <span class="tt">Assets/Decors/</span> (balayage du dossier, résolu par l'appelant — cette fonction reste pure) ; un décor dont l'asset n'y figure pas est marqué <span class="tt">assetMissing</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les lignes, groupées par couche puis triées par ordre de superposition. </dd></dl>
+
+</div>
+</div>
 <a id="a5308a5fca2e3f3a42451aaf1719d3ab4" name="a5308a5fca2e3f3a42451aaf1719d3ab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5308a5fca2e3f3a42451aaf1719d3ab4">&#9670;&#160;</a></span>buildLinkRows()</h2>
 
@@ -2026,6 +2280,39 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Les sections, dans l'ordre de la taxonomie. </dd></dl>
+
+</div>
+</div>
+<a id="ad2d0d345135e466b79a1a624d0bbe056" name="ad2d0d345135e466b79a1a624d0bbe056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d0d345135e466b79a1a624d0bbe056">&#9670;&#160;</a></span>cancelDecorGesture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::cancelDecorGesture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Abandonne le geste en cours (<span class="tt">Échap</span>). </p>
+<p>Aucune action à appliquer : le brouillon n'a jamais été touché pendant le glisser (seul l'aperçu l'était, côté rendu) — il suffit à l'appelant de cesser d'afficher l'aperçu. Remet la phase à <span class="tt">Idle</span> ; la sélection persiste. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État du geste, muté en place. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2382,6 +2669,51 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a1ec05f9f9a488599614b6924adce974d" name="a1ec05f9f9a488599614b6924adce974d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ec05f9f9a488599614b6924adce974d">&#9670;&#160;</a></span>decorHandleLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a> hmi::decorHandleLayout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>worldUnitsPerScreenPixel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotation</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule les rectangles des poignées d'un décor sélectionné. </p>
+<p>Fonction <b>pure</b>. Les poignées ont une taille <b>écran constante</b> (<span class="tt"><a class="el" href="#a06830d57e8b32aa87edbc7e6be005d72" title="Taille écran (en pixels) d&#39;une poignée de coin, constante quel que soit le zoom — sinon les poignées ...">DECOR_HANDLE_SCREEN_SIZE</a></span>) : calculée en pixels puis convertie en unités monde via <code class="param">worldUnitsPerScreenPixel</code>, jamais l'inverse — sinon leur taille apparente varierait avec le zoom. Leurs <b>centres</b> suivent la rotation du décor (<span class="tt"><a class="el" href="#af95438c94c3a4b38580c7af806bd6c94" title="Point tourné autour du centre de bounds, du même angle que l&#39;affichage du décor (LOT-50,...">decorRotatedPoint</a></span>) ; les rectangles eux-mêmes restent alignés aux axes (simplification assumée — un petit carré non tourné reste un repère de coin lisible même sur un décor pivoté). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bounds</td><td>Rectangle englobant <b>non tourné</b> du décor (<span class="tt"><a class="el" href="#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">decorWorldBounds</a></span>). </td></tr>
+    <tr><td class="paramname">worldUnitsPerScreenPixel</td><td>Échelle inverse de la caméra courante (<span class="tt">1 / (<a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88" title="Nombre de pixels par unité monde (EX-ARCH-021).">hmi::Camera2D::PIXELS_PER_UNIT</a> * zoom)</span>). </td></tr>
+    <tr><td class="paramname">rotation</td><td>Rotation du décor, en radians (<span class="tt"><a class="el" href="structcore_1_1Decor.html#a10aafe53f051ccbe14c2f6ec0c83d6f4" title="Rotation autour de la position, en radians (sort au rendu tranché en TACHE-02).">core::Decor::rotation</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les cinq rectangles de poignées, en unités monde. </dd></dl>
+
+</div>
+</div>
 <a id="acce38c10bb9e9e440f634df58c943f35" name="acce38c10bb9e9e440f634df58c943f35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acce38c10bb9e9e440f634df58c943f35">&#9670;&#160;</a></span>decorRenderLayer()</h2>
 
@@ -2414,6 +2746,90 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le calque de rendu correspondant. </dd></dl>
+
+</div>
+</div>
+<a id="af95438c94c3a4b38580c7af806bd6c94" name="af95438c94c3a4b38580c7af806bd6c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af95438c94c3a4b38580c7af806bd6c94">&#9670;&#160;</a></span>decorRotatedPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::decorRotatedPoint </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>localOffset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>rotation</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Point tourné autour du <b>centre</b> de <code class="param">bounds</code>, du même angle que l'affichage du décor (<span class="tt">LOT-50</span>, révision post-livraison de TACHE-03 : le cadre de sélection reste sinon droit alors que le décor pivote sous lui, déroutant). </p>
+<p>Fonction <b>pure</b>, source unique de cette rotation : le cadre de sélection (bordure, <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Dessine la grille d&#39;un core::LevelDraft en cours d&#39;édition.">hmi::DraftRenderer</a></span>) et les poignées (<span class="tt"><a class="el" href="#a1ec05f9f9a488599614b6924adce974d" title="Calcule les rectangles des poignées d&#39;un décor sélectionné.">decorHandleLayout</a></span>, ci-dessous) l'utilisent tous deux, pour ne jamais diverger. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bounds</td><td>Rectangle englobant <b>non tourné</b> du décor (<span class="tt"><a class="el" href="#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">decorWorldBounds</a></span>). </td></tr>
+    <tr><td class="paramname">localOffset</td><td>Déplacement depuis le centre de <code class="param">bounds</code>, <b>avant</b> rotation (ex. un coin : <span class="tt">(largeur / 2, hauteur / 2)</span>). </td></tr>
+    <tr><td class="paramname">rotation</td><td>Rotation du décor, en radians (même convention que <span class="tt"><a class="el" href="structcore_1_1Decor.html#a10aafe53f051ccbe14c2f6ec0c83d6f4" title="Rotation autour de la position, en radians (sort au rendu tranché en TACHE-02).">core::Decor::rotation</a></span> et <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a">hmi::SpriteQuad::rotation</a></span> : tourne autour du centre, sens horaire croissant en axe Y vers le bas). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le point tourné, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="a68b105dbefc5ef9bda7a95567e2384a5" name="a68b105dbefc5ef9bda7a95567e2384a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68b105dbefc5ef9bda7a95567e2384a5">&#9670;&#160;</a></span>decorWorldBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::decorWorldBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>decor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>pixelSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rectangle englobant d'un décor, en unités monde. </p>
+<p>Fonction <b>pure</b> : <span class="tt"><a class="el" href="structcore_1_1Decor.html" title="Décor libre : nom d&#39;asset, transform en unités monde flottantes, couche et indicateur statique/manipu...">core::Decor</a></span> ne connaît pas les dimensions réelles de son asset (résolues côté <span class="tt">HMI</span> via <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Charge, valide et met en cache des textures Direct3D 11 désignées par leur nom de fichier logique.">hmi::TextureCache</a></span>, comme <span class="tt"><a class="el" href="#ac3ffff683e20d285cb666f9785ca0cf1" title="Résout l&#39;apparence d&#39;un décor : asset désigné si chargé, damier de repli sinon.">hmi::resolveDecorAppearance</a></span>, <span class="tt">LOT-49</span>) — <code class="param">pixelSize</code> est donc fourni par l'appelant plutôt que recalculé ici. <span class="tt">position</span> reste le coin <b>haut-gauche</b> du rectangle <b>non tourné</b> (même convention que <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">hmi::SpriteQuad</a></span>) ; la rotation n'est <b>pas</b> prise en compte ici — c'est <span class="tt"><a class="el" href="#af95438c94c3a4b38580c7af806bd6c94" title="Point tourné autour du centre de bounds, du même angle que l&#39;affichage du décor (LOT-50,...">decorRotatedPoint</a></span> (ci-dessous), appliqué par l'appelant, qui en tient compte pour le cadre de sélection et les poignées. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">decor</td><td>Décor dont on calcule le rectangle. </td></tr>
+    <tr><td class="paramname">pixelSize</td><td>Dimensions réelles de l'asset chargé, en pixels (<span class="tt"><a class="el" href="structhmi_1_1DecorAppearance.html" title="Apparence résolue d&#39;un décor : quelle texture lier, et sa taille en pixels.">hmi::DecorAppearance</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le rectangle englobant, en unités monde. </dd></dl>
 
 </div>
 </div>
@@ -2482,6 +2898,102 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le message en français, ou une chaîne vide si <code class="param">references</code> est vide. </dd></dl>
+
+</div>
+</div>
+<a id="a019a3a576b0c838e3ec1eaa6827d1dd7" name="a019a3a576b0c838e3ec1eaa6827d1dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a019a3a576b0c838e3ec1eaa6827d1dd7">&#9670;&#160;</a></span>designateDecorAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1DecorHit.html">DecorHit</a> &gt; hmi::designateDecorAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>selectedIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>selectedHandles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Désigne l'élément sous <code class="param">point</code> : quel décor, et quelle poignée le cas échéant. </p>
+<p>Fonction <b>pure</b>. Priorité aux poignées du décor <b>déjà sélectionné</b> (<code class="param">selectedIndex/</code> <code class="param">selectedHandles</code>, si fournis — un décor non sélectionné n'affiche pas de poignées) ; à défaut, au <b>corps</b> des décors, du <b>dernier au premier</b> de <code class="param">bounds</code> — l'ordre de superposition (<span class="tt">LOT-49</span> TACHE-01) place le décor le plus au-dessus en dernière position du vecteur, donc le plus probable visé par un clic sur une zone de recouvrement. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>Point testé, en unités monde. </td></tr>
+    <tr><td class="paramname">bounds</td><td>Rectangles englobants des décors du niveau (<span class="tt"><a class="el" href="#a68b105dbefc5ef9bda7a95567e2384a5" title="Rectangle englobant d&#39;un décor, en unités monde.">hmi::decorWorldBounds</a></span>), alignés avec <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors()</a></span>. </td></tr>
+    <tr><td class="paramname">selectedIndex</td><td>Rang du décor actuellement sélectionné, si un l'est. </td></tr>
+    <tr><td class="paramname">selectedHandles</td><td>Poignées du décor sélectionné (<span class="tt"><a class="el" href="#a1ec05f9f9a488599614b6924adce974d" title="Calcule les rectangles des poignées d&#39;un décor sélectionné.">hmi::decorHandleLayout</a></span>), si un l'est. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'élément visé, ou <span class="tt">std::nullopt</span> si le clic ne touche rien. </dd></dl>
+
+</div>
+</div>
+<a id="a16be7eae78f5fc7596567c6af2d382ab" name="a16be7eae78f5fc7596567c6af2d382ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16be7eae78f5fc7596567c6af2d382ab">&#9670;&#160;</a></span>endDecorGesture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecorGestureAction.html">DecorGestureAction</a> hmi::endDecorGesture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>snapToGrid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Termine le geste (relâchement) et renvoie l'action <b>finale</b> à appliquer. </p>
+<p><span class="tt"><a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754" title="Rien à appliquer (glisser encore sous le seuil, ou fin d&#39;un simple clic).">DecorGestureActionKind::None</a></span> si le glisser n'a jamais dépassé le seuil (un simple clic, déjà traduit en sélection par <span class="tt"><a class="el" href="#a263efd837914cad8c91c95b803c649ae" title="Amorce un geste sur l&#39;élément désigné par hit (hmi::designateDecorAt).">beginDecorGesture</a></span>) — c'est l'appelant qui décide alors de ne rien passer aux mutateurs de TACHE-01. Remet la phase à <span class="tt">Idle</span> ; la sélection, elle, persiste. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État du geste, muté en place. </td></tr>
+    <tr><td class="paramname">worldPosition</td><td>Position du relâchement, en unités monde. </td></tr>
+    <tr><td class="paramname">snapToGrid</td><td>Même paramètre que <span class="tt"><a class="el" href="#a4f30c6bfd2448aa006603a325bef5bae" title="Fait progresser un glisser en cours.">updateDecorGesture</a></span>, pour que la valeur finale corresponde exactement au dernier aperçu affiché. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'action à appliquer aux mutateurs de TACHE-01. </dd></dl>
 
 </div>
 </div>
@@ -2692,6 +3204,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true pour les douze pentes et arrondis, false pour tous les autres types — qui ne doivent jamais être détourés. </dd></dl>
+
+</div>
+</div>
+<a id="a375ceba0ca2cc74fa38e49f139bb1b44" name="a375ceba0ca2cc74fa38e49f139bb1b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a375ceba0ca2cc74fa38e49f139bb1b44">&#9670;&#160;</a></span>hitTestDecorHandles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00d">DecorHandle</a> hmi::hitTestDecorHandles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>point</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DecorHandleLayout.html">DecorHandleLayout</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>layout</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Poignée de <code class="param">layout</code> sous <code class="param">point</code>, s'il y en a une. </p>
+<p>Fonction <b>pure</b>. Teste la poignée de rotation en priorité, puis les quatre coins ; ne teste jamais le corps (<span class="tt"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00daac101b32dda4448cf13a93fe283dddd8">DecorHandle::Body</a></span>) — c'est au rectangle englobant lui-même de le faire (<span class="tt"><a class="el" href="structcore_1_1Rect.html#a136b376d96d042f839c0af03ce894d00" title="Teste si un point est contenu dans le rectangle.">core::Rect::contains</a></span>), à la charge de l'appelant (voir <span class="tt"><a class="el" href="#a019a3a576b0c838e3ec1eaa6827d1dd7" title="Désigne l&#39;élément sous point : quel décor, et quelle poignée le cas échéant.">hmi::designateDecorAt</a></span>). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>Point testé, en unités monde. </td></tr>
+    <tr><td class="paramname">layout</td><td>Poignées du décor sélectionné. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La poignée touchée, ou <span class="tt"><a class="el" href="#a85a2df4671d768ea880f930a5f87e00da6adf97f83acf6453d4a6a4b1070f3754">DecorHandle::None</a></span> si aucune. </dd></dl>
 
 </div>
 </div>
@@ -3341,45 +3892,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a128cfb0ca7ddd975c1f2c1dac2c52a5a" name="a128cfb0ca7ddd975c1f2c1dac2c52a5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a128cfb0ca7ddd975c1f2c1dac2c52a5a">&#9670;&#160;</a></span>nearestDecorAt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; std::size_t &gt; hmi::nearestDecorAt </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1Decor.html">core::Decor</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>decors</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Trouve le rang du décor le plus proche de <code class="param">worldPosition</code>, dans <span class="tt"><a class="el" href="#acf63dcd325dad2886e2b1d13813ee219" title="Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un déc...">DECOR_PICK_RADIUS</a></span>. </p>
-<p>Fonction <b>pure</b>, testable sans Qt/GPU (même patron que <span class="tt"><a class="el" href="#ad9c60c575bab3fcb92a2876cc1b11bfc" title="Résout le clic de l&#39;outil « Texture par instance » sur clickedCell.">hmi::resolveTextureAssignClick</a></span>) : ne modifie rien, décrit seulement quel décor un clic de suppression viserait — l'appelant applique <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#aedf72e83d2c50fa8a082296cda3f1c20" title="Retire le décor au rang index (EX-DEC-010).">core::LevelDraft::removeDecor</a></span> avec le rang renvoyé. À distance égale, le décor de <b>rang le plus élevé</b> (posé le plus récemment) est préféré : c'est celui dessiné par-dessus les autres de sa couche (<span class="tt">EX-DEC-001</span> TACHE-01, ordre intra-couche), donc le plus probable visé par le clic. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">worldPosition</td><td>Position du clic, en unités monde (jamais calée sur la grille). </td></tr>
-    <tr><td class="paramname">decors</td><td>Décors du brouillon courant, dans leur ordre (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a1d49b3c7088c0f8928c8a2aaadee665e">core::LevelDraft::decors</a></span>). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Le rang du décor le plus proche, ou <span class="tt">std::nullopt</span> si aucun n'est à portée. </dd></dl>
-
-</div>
-</div>
 <a id="aa391954b311db21fd63162e8ec40fcc5" name="aa391954b311db21fd63162e8ec40fcc5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa391954b311db21fd63162e8ec40fcc5">&#9670;&#160;</a></span>paletteThumbnail()</h2>
 
@@ -3471,6 +3983,51 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le facteur associé (constante nommée, jamais une valeur magique en aval). </dd></dl>
+
+</div>
+</div>
+<a id="a55d947fd87c323efd9d2e1b7c1ed0fa5" name="a55d947fd87c323efd9d2e1b7c1ed0fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55d947fd87c323efd9d2e1b7c1ed0fa5">&#9670;&#160;</a></span>parallaxModelPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::parallaxModelPosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>renderPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>factor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cameraBounds</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inverse de <span class="tt"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53" title="Calcule la position de rendu d&#39;un décor, décalée par sa parallaxe.">parallaxRenderPosition</a></span> : retrouve la position <b>simulée</b> équivalente à un point exprimé en espace de rendu (<span class="tt">LOT-50</span> TACHE-02). </p>
+<p>Nécessaire à l'éditeur : le curseur converti par <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html#aea18d5858adba920f73a1a252c3be08d" title="Convertit une position écran (pixels) en unités monde.">hmi::Camera2D::screenToWorld</a></span> est comparable à la position de <b>rendu</b> d'un décor (c'est elle qui occupe l'écran, décalée par la parallaxe), jamais directement à sa position modèle si sa couche a un facteur différent de <span class="tt">1.0</span>. Le geste de manipulation (<span class="tt">hmi::DecorGesture</span>), lui, raisonne uniquement en position modèle (comme <span class="tt"><a class="el" href="structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac" title="Position en unités monde, flottante : aucune contrainte de grille (EX-DEC-001).">core::Decor::position</a></span>, <span class="tt">EX-ARCH-012</span>) : cette fonction ramène donc le curseur dans cet espace avant de l'y faire entrer, pour que le décor déplacé reste visuellement « collé » au curseur quel que soit son facteur de parallaxe. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderPosition</td><td>Position en espace de rendu, en unités monde. </td></tr>
+    <tr><td class="paramname">factor</td><td>Facteur de la couche du décor (<span class="tt"><a class="el" href="#a5deae0becbca097ff1447b2f62de20ec" title="Facteur de défilement de la couche d&#39;un décor (EX-DEC-006).">parallaxFactor</a></span>). </td></tr>
+    <tr><td class="paramname">cameraBounds</td><td>Même rectangle caméra que celui utilisé pour <span class="tt"><a class="el" href="#a8558cd4ffaa070fd58be27ca40926c53" title="Calcule la position de rendu d&#39;un décor, décalée par sa parallaxe.">parallaxRenderPosition</a></span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position modèle correspondante ; <code class="param">renderPosition</code> inchangée si <code class="param">factor</code> est nul (robustesse &ndash; aucune couche du projet n'a un facteur nul). </dd></dl>
 
 </div>
 </div>
@@ -4749,6 +5306,51 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4f30c6bfd2448aa006603a325bef5bae" name="a4f30c6bfd2448aa006603a325bef5bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f30c6bfd2448aa006603a325bef5bae">&#9670;&#160;</a></span>updateDecorGesture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DecorGestureAction.html">DecorGestureAction</a> hmi::updateDecorGesture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1DecorGestureState.html">DecorGestureState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>worldPosition</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>snapToGrid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fait progresser un glisser en cours. </p>
+<p>Sous <span class="tt"><a class="el" href="#a3ec3b0d0a4b02829e3cf0fe6f72bf05b" title="Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d&#39;un glisser (manipulation...">DECOR_DRAG_THRESHOLD</a></span>, reste <span class="tt">Pressed</span> et renvoie <span class="tt"><a class="el" href="#a36a02809aec3ca6ea3feb8e455433599a6adf97f83acf6453d4a6a4b1070f3754" title="Rien à appliquer (glisser encore sous le seuil, ou fin d&#39;un simple clic).">DecorGestureActionKind::None</a></span> — un clic sans mouvement ne produit donc aucun micro-déplacement. Au-delà, passe <span class="tt">Dragging</span> et renvoie l'action d'<b>aperçu</b> courante (<span class="tt">LOT-50</span> TACHE-03) : cette fonction ne mute jamais le brouillon, seul <span class="tt"><a class="el" href="#a16be7eae78f5fc7596567c6af2d382ab" title="Termine le geste (relâchement) et renvoie l&#39;action finale à appliquer.">hmi::endDecorGesture</a></span> produit l'action à appliquer pour de bon. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>État du geste, muté en place. </td></tr>
+    <tr><td class="paramname">worldPosition</td><td>Position courante du curseur, en unités monde. </td></tr>
+    <tr><td class="paramname">snapToGrid</td><td>Aimante la position/les coins sur la grille entière si <span class="tt">true</span> — optionnelle et jamais imposée (<span class="tt">EX-DEC-001</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>L'action d'aperçu courante. </dd></dl>
+
+</div>
+</div>
 <a id="ab24a5852795a7f93e35b8ab9ad8e9c9c" name="ab24a5852795a7f93e35b8ab9ad8e9c9c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab24a5852795a7f93e35b8ab9ad8e9c9c">&#9670;&#160;</a></span>validateAsset()</h2>
 
@@ -4873,8 +5475,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acf63dcd325dad2886e2b1d13813ee219" name="acf63dcd325dad2886e2b1d13813ee219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf63dcd325dad2886e2b1d13813ee219">&#9670;&#160;</a></span>DECOR_PICK_RADIUS</h2>
+<a id="a3ec3b0d0a4b02829e3cf0fe6f72bf05b" name="a3ec3b0d0a4b02829e3cf0fe6f72bf05b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec3b0d0a4b02829e3cf0fe6f72bf05b">&#9670;&#160;</a></span>DECOR_DRAG_THRESHOLD</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4883,7 +5485,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float hmi::DECOR_PICK_RADIUS = 0.5f</td>
+          <td class="memname">float hmi::DECOR_DRAG_THRESHOLD = 0.1f</td>
         </tr>
       </table>
   </td>
@@ -4893,7 +5495,55 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rayon de détection (en unités monde) pour retrouver un décor déjà posé au clic (suppression) : un décor libre n'a pas de case qui le désigne sans ambiguïté, contrairement à une tuile. </p>
+<p>Seuil de déplacement (unités monde) distinguant un clic (sélection simple) d'un glisser (manipulation) — sans lui, poser puis relâcher sans bouger produirait un micro-déplacement. </p>
+
+</div>
+</div>
+<a id="a06830d57e8b32aa87edbc7e6be005d72" name="a06830d57e8b32aa87edbc7e6be005d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06830d57e8b32aa87edbc7e6be005d72">&#9670;&#160;</a></span>DECOR_HANDLE_SCREEN_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DECOR_HANDLE_SCREEN_SIZE = 10.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Taille écran (en pixels) d'une poignée de coin, <b>constante quel que soit le zoom</b> — sinon les poignées deviennent inutilisables aux extrêmes (TACHE-03). </p>
+
+</div>
+</div>
+<a id="a4fff0af1be72396c270a9a711b5ae736" name="a4fff0af1be72396c270a9a711b5ae736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fff0af1be72396c270a9a711b5ae736">&#9670;&#160;</a></span>DECOR_ROTATION_HANDLE_SCREEN_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DECOR_ROTATION_HANDLE_SCREEN_OFFSET = 24.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Distance écran (en pixels) entre le centre du bord supérieur et la poignée de rotation. </p>
 
 </div>
 </div>

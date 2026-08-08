@@ -94,43 +94,43 @@ $(function(){initNavTree('lot-06-tache-06-ecrans-cibles.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-06-menu-principal_2tache-06-ecrans-cibles"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-06.html#md_Lot_2LOT-06-menu-principal_2epic" title="Lot/LOT-06-menu-principal/epic.md">LOT-06</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Interface</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md570"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
 Contexte</h1>
 <p>Les deux options non triviales du menu doivent mener quelque part de tangible, alors que le chargement de niveaux et l'éditeur sont des lots futurs. « Charger niveau » ouvre la <b>scène de démonstration</b> du LOT-05 (niveau provisoire) ; « Mode Edition » ouvre un écran <b>« à venir »</b>. Depuis ces deux écrans, <b>Échap</b> revient au menu.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md571"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
 Travail à réaliser</h1>
 <ul>
 <li><span class="tt">GameScreen</span> (implémente <span class="tt">IScreen</span>) : encapsule la scène de démo du LOT-05 (un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">core::World</a></span> avec le <span class="tt">MovementSystem</span>, <span class="tt">SpriteRenderer</span>, <span class="tt">Camera2D</span>) — la construction de scène <b>quitte <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span></b> pour vivre ici. Met à jour la simulation à pas fixe et rend la scène ; <b>Échap</b> demande le retour au menu.</li>
 <li><span class="tt">EditorScreen</span> (implémente <span class="tt">IScreen</span>) : affiche un texte « à venir » (via <span class="tt">BitmapFont</span>), <b>issu du catalogue de traduction</b> (clé <span class="tt">editeur.a_venir</span>, TACHE-03) et non en dur ; <b>Échap</b> revient au menu.</li>
 <li>Passage des dépendances de rendu (device, <span class="tt">SpriteBatch</span>, atlas, police) aux écrans qui en ont besoin.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md572"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>, <span class="tt">GameScreen.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/Interface/EditorScreen.h</span>, <span class="tt">EditorScreen.cpp</span> (nouveau).</li>
 <li><span class="tt">Source/HMI/CMakeLists.txt</span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md573"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
 Vérifications (obligatoires)</h1>
 <ul>
 <li>« Charger niveau » ouvre la scène de démo animée (sprite mobile) ; Échap revient au menu.</li>
 <li>« Mode Edition » affiche l'écran « à venir » ; Échap revient au menu.</li>
 <li>Aucune fuite au changement d'écran (ressources d'écran libérées à la transition).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md574"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
 Points d'attention</h1>
 <ul>
 <li>Le <span class="tt">GameScreen</span> reprend la logique de démo <b>sans la dupliquer inutilement</b> ; la scène reste codée en dur (le chargement de fichier est un lot ultérieur).</li>
 <li>Rendu de la scène <b>découplé</b> de la simulation ; lecture seule de l'ECS (<span class="tt">EX-ARCH-012</span>).</li>
 <li>Écrans propriétaires de leurs ressources (RAII) ; le retour menu recrée le menu proprement.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md575"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Les deux écrans fonctionnent avec retour menu par Échap ; la scène codée en dur a quitté <span class="tt"><a class="el" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Point d&#39;entrée du programme.">main</a></span> ; build <span class="tt">/W4 /WX</span> sans avertissement, documenté.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md576"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md577"></a>
 Exigences</h1>
 <p><span class="tt">EX-REN-030</span>, <span class="tt">EX-REN-032</span>, <span class="tt">EX-ARCH-012</span>, <span class="tt">EX-ARCH-030</span>. </p>
 </div></div><!-- contents -->

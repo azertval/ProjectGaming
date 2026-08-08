@@ -104,6 +104,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aa5c6523969fab44f779387543dc3365a" id="r_aa5c6523969fab44f779387543dc3365a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aa5c6523969fab44f779387543dc3365a">y</a> = 0.0f</td></tr>
 <tr class="memitem:a7f473f58edf9e7c97b268324b914cfaf" id="r_a7f473f58edf9e7c97b268324b914cfaf"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a7f473f58edf9e7c97b268324b914cfaf">width</a> = 0.0f</td></tr>
 <tr class="memitem:ad57ebf8af5db3949c45ab0b1f99c4344" id="r_ad57ebf8af5db3949c45ab0b1f99c4344"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ad57ebf8af5db3949c45ab0b1f99c4344">height</a> = 0.0f</td></tr>
+<tr class="memitem:a6d77667b205966d8edb35e16aa6f8b3a" id="r_a6d77667b205966d8edb35e16aa6f8b3a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a6d77667b205966d8edb35e16aa6f8b3a">rotation</a> = 0.0f</td></tr>
 <tr class="memitem:ae7e99128d209fb85b68f901744c063a8" id="r_ae7e99128d209fb85b68f901744c063a8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae7e99128d209fb85b68f901744c063a8">u0</a> = 0.0f</td></tr>
 <tr class="memitem:a57d8a28d381a274c651561943f89c252" id="r_a57d8a28d381a274c651561943f89c252"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a57d8a28d381a274c651561943f89c252">v0</a> = 0.0f</td></tr>
 <tr class="memitem:a011e7b579cef80bf6c48ecb04ce17461" id="r_a011e7b579cef80bf6c48ecb04ce17461"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a011e7b579cef80bf6c48ecb04ce17461">u1</a> = 1.0f</td></tr>
@@ -115,7 +116,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un quad texturé à dessiner : rectangle en <b>unités monde</b>, région de texture (coordonnées normalisées) et teinte. </p>
-<p>Le coin est haut-gauche, l'axe Y va vers le bas (convention du projet). Les coordonnées de texture <span class="tt">u,v</span> sont normalisées dans [0, 1] ; la conversion depuis une région d'atlas en pixels est faite en amont (par le rendu des sprites). </p>
+<p>Le coin (<span class="tt"><a class="el" href="#a92c64adb689a74573ddd55c2ad06e1bf">x</a></span>, <span class="tt"><a class="el" href="#aa5c6523969fab44f779387543dc3365a">y</a></span>) est haut-gauche <b>avant rotation</b>, l'axe Y va vers le bas (convention du projet). Les coordonnées de texture <span class="tt">u,v</span> sont normalisées dans [0, 1] ; la conversion depuis une région d'atlas en pixels est faite en amont (par le rendu des sprites). <span class="tt"><a class="el" href="#a6d77667b205966d8edb35e16aa6f8b3a">rotation</a></span> (radians, <span class="tt">LOT-50</span> TACHE-02) tourne le rectangle autour de <b>son propre centre</b> — nul par défaut, donc sans coût ni différence visuelle pour les quads alignés aux axes (tuiles, personnage). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a93b181adcb81b4e6d1ecbb2c7965108f" name="a93b181adcb81b4e6d1ecbb2c7965108f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93b181adcb81b4e6d1ecbb2c7965108f">&#9670;&#160;</a></span>a</h2>
@@ -181,6 +182,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float hmi::SpriteQuad::r = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d77667b205966d8edb35e16aa6f8b3a" name="a6d77667b205966d8edb35e16aa6f8b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d77667b205966d8edb35e16aa6f8b3a">&#9670;&#160;</a></span>rotation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SpriteQuad::rotation = 0.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">

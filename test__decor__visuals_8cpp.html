@@ -125,6 +125,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:acc0c10adab8b3151cee0964375ec8fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un décor n'est jamais composé en mode Physique : la lecture des collisions reste sans distraction (<span class="tt">EX-ARCH-012</span>).  <br /></td></tr>
 <tr class="memitem:aec3a836ac91f632997f788ae2096fef3" id="r_aec3a836ac91f632997f788ae2096fef3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aec3a836ac91f632997f788ae2096fef3">TEST</a> (DecorVisualsTest, DecorEnModeTextureProduitUnQuadALaTailleDeSonAsset)</td></tr>
 <tr class="memdesc:aec3a836ac91f632997f788ae2096fef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">En mode Texture, un décor produit un quad dont la taille dérive des dimensions réelles de son asset (et de l'échelle du décor), pas d'une case fixe.  <br /></td></tr>
+<tr class="memitem:a3ec17ba200c289cd3e4e1cf23b30d64a" id="r_a3ec17ba200c289cd3e4e1cf23b30d64a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3ec17ba200c289cd3e4e1cf23b30d64a">TEST</a> (DecorVisualsTest, LaRotationDUnDecorAtteintLeQuadCompose)</td></tr>
+<tr class="memdesc:a3ec17ba200c289cd3e4e1cf23b30d64a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La rotation d'un décor (<span class="tt"><a class="el" href="structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f" title="Rotation autour de l&#39;origine de l&#39;entité, en radians.">core::Transform::rotation</a></span>) atteint le quad composé : nécessaire pour que la poignée de rotation de l'éditeur (<span class="tt">LOT-50</span>) ait un effet visible, contrairement au choix (révolu) de LOT-49 TACHE-02 de l'ignorer.  <br /></td></tr>
 <tr class="memitem:aa5189b9432170b3f7c63fe6ae6944d8d" id="r_aa5189b9432170b3f7c63fe6ae6944d8d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa5189b9432170b3f7c63fe6ae6944d8d">TEST</a> (DecorVisualsTest, PremierPlanApresLePersonnageArrierePlanAvantLesTuiles)</td></tr>
 <tr class="memdesc:aa5189b9432170b3f7c63fe6ae6944d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un décor de premier plan est soumis après le personnage ; un décor d'arrière-plan avant les tuiles (<span class="tt">EX-DEC-002</span>, contrat de lecture du lot).  <br /></td></tr>
 <tr class="memitem:a86613ac1827f156a99fb64ef748bbbfa" id="r_a86613ac1827f156a99fb64ef748bbbfa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a86613ac1827f156a99fb64ef748bbbfa">TEST</a> (DecorVisualsTest, OrdreIntraCoucheRespecteLeRangDuVecteur)</td></tr>
@@ -134,7 +136,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires de la projection couche → calque et du rendu des décors (LOT-49 TACHE-02, <span class="tt">EX-DEC-002</span>, <span class="tt">EX-ARCH-012</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="acc0c10adab8b3151cee0964375ec8fdc" name="acc0c10adab8b3151cee0964375ec8fdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc0c10adab8b3151cee0964375ec8fdc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acc0c10adab8b3151cee0964375ec8fdc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,7 +165,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aec3a836ac91f632997f788ae2096fef3" name="aec3a836ac91f632997f788ae2096fef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec3a836ac91f632997f788ae2096fef3">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aec3a836ac91f632997f788ae2096fef3">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +194,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae25f7a06ba6e665f56d0ffa24817a0a9" name="ae25f7a06ba6e665f56d0ffa24817a0a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae25f7a06ba6e665f56d0ffa24817a0a9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae25f7a06ba6e665f56d0ffa24817a0a9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,8 +222,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3ec17ba200c289cd3e4e1cf23b30d64a" name="a3ec17ba200c289cd3e4e1cf23b30d64a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec17ba200c289cd3e4e1cf23b30d64a">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DecorVisualsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaRotationDUnDecorAtteintLeQuadCompose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La rotation d'un décor (<span class="tt"><a class="el" href="structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f" title="Rotation autour de l&#39;origine de l&#39;entité, en radians.">core::Transform::rotation</a></span>) atteint le quad composé : nécessaire pour que la poignée de rotation de l'éditeur (<span class="tt">LOT-50</span>) ait un effet visible, contrairement au choix (révolu) de LOT-49 TACHE-02 de l'ignorer. </p>
+<p><b>Cas de test :</b> <b>La rotation d'un decor atteint le quad compose.</b><br  />
+ <b>Categorie :</b> Unitaire · Decor Visuals<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer un decor dont le Transform porte une rotation non nulle.<br  />
+ <b>Resultat attendu :</b> Le quad soumis porte la meme rotation. </p>
+
+</div>
+</div>
 <a id="a86613ac1827f156a99fb64ef748bbbfa" name="a86613ac1827f156a99fb64ef748bbbfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86613ac1827f156a99fb64ef748bbbfa">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a86613ac1827f156a99fb64ef748bbbfa">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +281,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa5189b9432170b3f7c63fe6ae6944d8d" name="aa5189b9432170b3f7c63fe6ae6944d8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5189b9432170b3f7c63fe6ae6944d8d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5189b9432170b3f7c63fe6ae6944d8d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +310,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af052077cb19f799081d9c240fb4cb409" name="af052077cb19f799081d9c240fb4cb409"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af052077cb19f799081d9c240fb4cb409">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af052077cb19f799081d9c240fb4cb409">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,7 +339,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aaf844ebc6656209197281cf933b02702" name="aaf844ebc6656209197281cf933b02702"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf844ebc6656209197281cf933b02702">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf844ebc6656209197281cf933b02702">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

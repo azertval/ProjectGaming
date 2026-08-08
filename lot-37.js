@@ -1,41 +1,41 @@
 var lot_37 =
 [
-    [ "Objectif", "lot-37.html#autotoc_md1725", null ],
-    [ "Périmètre", "lot-37.html#autotoc_md1726", [
-      [ "Inclus", "lot-37.html#autotoc_md1727", null ],
-      [ "Exclus (hors périmètre de ce lot)", "lot-37.html#autotoc_md1728", null ]
+    [ "Objectif", "lot-37.html#autotoc_md1726", null ],
+    [ "Périmètre", "lot-37.html#autotoc_md1727", [
+      [ "Inclus", "lot-37.html#autotoc_md1728", null ],
+      [ "Exclus (hors périmètre de ce lot)", "lot-37.html#autotoc_md1729", null ]
     ] ],
-    [ "Décisions de cadrage", "lot-37.html#autotoc_md1729", null ],
-    [ "Exigences couvertes", "lot-37.html#autotoc_md1730", null ],
-    [ "Découpage", "lot-37.html#autotoc_md1731", null ],
-    [ "Critères d'acceptation du lot", "lot-37.html#autotoc_md1732", null ],
-    [ "Dépendances", "lot-37.html#autotoc_md1733", null ],
-    [ "Navigation des tâches", "lot-37.html#autotoc_md1734", null ],
+    [ "Décisions de cadrage", "lot-37.html#autotoc_md1730", null ],
+    [ "Exigences couvertes", "lot-37.html#autotoc_md1731", null ],
+    [ "Découpage", "lot-37.html#autotoc_md1732", null ],
+    [ "Critères d'acceptation du lot", "lot-37.html#autotoc_md1733", null ],
+    [ "Dépendances", "lot-37.html#autotoc_md1734", null ],
+    [ "Navigation des tâches", "lot-37.html#autotoc_md1735", null ],
     [ "TACHE-01 — Primitive de ligne/flèche (pipeline) + géométrie des traits (logique testable)", "lot-37-tache-01-primitive-ligne-geometrie.html", [
-      [ "Contexte", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1735", null ],
-      [ "Travail à réaliser", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1736", null ],
-      [ "Fichiers impactés", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1737", null ],
-      [ "Tests (obligatoires)", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1738", null ],
-      [ "Points d'attention", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1739", null ],
-      [ "Définition de fait (DoD)", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1740", null ],
-      [ "Exigences", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1741", null ]
+      [ "Contexte", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1736", null ],
+      [ "Travail à réaliser", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1737", null ],
+      [ "Fichiers impactés", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1738", null ],
+      [ "Tests (obligatoires)", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1739", null ],
+      [ "Points d'attention", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1740", null ],
+      [ "Définition de fait (DoD)", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1741", null ],
+      [ "Exigences", "lot-37-tache-01-primitive-ligne-geometrie.html#autotoc_md1742", null ]
     ] ],
     [ "TACHE-02 — Rendu des liens + création avec retour visuel immédiat dans le viewport", "lot-37-tache-02-rendu-liens-creation.html", [
-      [ "Contexte", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1742", null ],
-      [ "Travail à réaliser", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1743", null ],
-      [ "Fichiers impactés", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1744", null ],
-      [ "Tests (obligatoires)", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1745", null ],
-      [ "Points d'attention", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1746", null ],
-      [ "Définition de fait (DoD)", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1747", null ],
-      [ "Exigences", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1748", null ]
+      [ "Contexte", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1743", null ],
+      [ "Travail à réaliser", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1744", null ],
+      [ "Fichiers impactés", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1745", null ],
+      [ "Tests (obligatoires)", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1746", null ],
+      [ "Points d'attention", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1747", null ],
+      [ "Définition de fait (DoD)", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1748", null ],
+      [ "Exigences", "lot-37-tache-02-rendu-liens-creation.html#autotoc_md1749", null ]
     ] ],
     [ "TACHE-03 — Panneau « Liens » (liste, surbrillance, suppression) ; documentation &amp; vérification", "lot-37-tache-03-panneau-liens-doc.html", [
-      [ "Contexte", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1749", null ],
-      [ "Travail à réaliser", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1750", null ],
-      [ "Fichiers impactés", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1751", null ],
-      [ "Tests (obligatoires)", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1752", null ],
-      [ "Points d'attention", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1753", null ],
-      [ "Définition de fait (DoD)", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1754", null ],
-      [ "Exigences", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1755", null ]
+      [ "Contexte", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1750", null ],
+      [ "Travail à réaliser", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1751", null ],
+      [ "Fichiers impactés", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1752", null ],
+      [ "Tests (obligatoires)", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1753", null ],
+      [ "Points d'attention", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1754", null ],
+      [ "Définition de fait (DoD)", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1755", null ],
+      [ "Exigences", "lot-37-tache-03-panneau-liens-doc.html#autotoc_md1756", null ]
     ] ]
 ];

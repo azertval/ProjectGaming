@@ -94,11 +94,11 @@ $(function(){initNavTree('lot-54-tache-02-canevas.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-54-atelier-pixel-art_2tache-02-canevas"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-54.html#md_Lot_2LOT-54-atelier-pixel-art_2epic" title="Lot/LOT-54-atelier-pixel-art/epic.md">LOT-54</a> · <b>Emplacement :</b> <span class="tt">Source/HMI/Editor</span> · <b>Statut :</b> non commencé</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2342"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2346"></a>
 Contexte</h1>
 <p>Le cœur de l'atelier. Le périmètre est délibérément <b>modeste</b> — peindre, effacer, remplir, prélever une couleur, zoomer, annuler — parce que c'est ce que demande le dessin de tuiles 16×16, et parce qu'aucune bibliothèque permissive ne couvre ce besoin (les éditeurs pixel art matures sont de lignée GPL, incompatible avec la licence du projet).</p>
 <p>Tout repose sur des primitives déjà présentes : Qt Widgets depuis le <span class="tt">LOT-34</span>, <span class="tt">QImage</span> et <span class="tt">QPainter</span>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2343"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2347"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b>Canevas</b> (<span class="tt">QWidget</span>) affichant une <span class="tt">QImage</span> en cours d'édition, à un zoom entier, avec une grille de pixels visible au-delà d'un certain facteur.</li>
@@ -108,14 +108,14 @@ Travail à réaliser</h1>
 <li><b>Annuler/refaire local</b> : propre au canevas, <b>totalement indépendant</b> de l'historique de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Niveau mutable en cours d&#39;édition, distinct de Level (immuable, LOT-07).">core::LevelDraft</a></span>. Annuler un coup de pinceau ne doit jamais annuler une action d'édition de niveau, et réciproquement.</li>
 <li><b>Logique pure séparée</b> : les opérations sur les pixels (remplissage par zone contiguë, tracé de ligne entre deux positions lors d'un glisser rapide) sont des fonctions sur un tampon, testables sans Qt.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2344"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2348"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Editor/PixelCanvas.{h,cpp}</span> (nouveau) — widget.</li>
 <li><span class="tt">Source/HMI/Editor/PixelOperations.{h,cpp}</span> (nouveau) — opérations pures sur un tampon.</li>
 <li><span class="tt">Source/Test/Unit/HMI/Editor/test_pixel_operations.cpp</span> (nouveau).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2345"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2349"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><b>Remplissage par zone contiguë</b> : zone fermée, zone ouverte débouchant sur un bord, remplissage sur la couleur déjà présente (aucun changement, et surtout pas de récursion infinie), image d'un seul pixel.</li>
@@ -123,7 +123,7 @@ Tests (obligatoires)</h1>
 <li><b>Annuler/refaire</b> : suite d'opérations, annulation partielle, nouvelle opération après annulation (la pile de rétablissement est vidée).</li>
 <li>Opérations <b>pures</b>, testées sans Qt ni GPU.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2346"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2350"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Le tracé entre positions n'est pas optionnel.</b> Sans lui, un glisser rapide produit des pixels isolés — c'est le défaut le plus visible d'un canevas pixel art fait naïvement.</li>
@@ -131,12 +131,12 @@ Points d'attention</h1>
 <li>Deux historiques coexistent dans l'application (canevas et niveau). Vérifier explicitement que <span class="tt">Ctrl+Z</span> s'applique à celui qui a le focus, et jamais à l'autre.</li>
 <li>Le zoom doit rester <b>entier</b> pour que les pixels restent carrés et nets.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2347"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2351"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Le canevas permet de peindre, effacer, remplir, prélever une couleur, zoomer et annuler ; le glisser rapide ne laisse pas de trous ; l'historique est local et indépendant de celui du niveau ; les opérations sur pixels sont pures et testées ; <span class="tt">/W4 /WX</span> propre.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2348"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2352"></a>
 Exigences</h1>
 <p><span class="tt">EX-EDIT-045</span> (outil de dessin pixel art) ; réutilise <span class="tt">EX-EDIT-013</span> (déplacement et zoom), <span class="tt">EX-EDIT-030</span> (éditeur intégré), <span class="tt">EX-ARCH-022</span> (pixel art net), <span class="tt">EX-REN-033</span> (traduction). </p>
 </div></div><!-- contents -->

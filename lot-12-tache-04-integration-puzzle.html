@@ -94,10 +94,10 @@ $(function(){initNavTree('lot-12-tache-04-integration-puzzle.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_Lot_2LOT-12-niveau-puzzle_2tache-04-integration-puzzle"></a></p>
 <p><b>Lot :</b> <a class="el" href="lot-12.html#md_Lot_2LOT-12-niveau-puzzle_2epic" title="Lot/LOT-12-niveau-puzzle/epic.md">LOT-12</a> · <b>Emplacement :</b> <span class="tt">Source/HMI</span>, <span class="tt">Source/Elements/Levels</span> · <b>Statut :</b> à faire</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md868"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md869"></a>
 Contexte</h1>
 <p>Dernière tâche : brancher mécanismes + budget dans le jeu et livrer un <b>niveau puzzle</b> prouvé.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md869"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
 Travail à réaliser</h1>
 <ul>
 <li><b><span class="tt">GameScreen</span></b> :<ul>
@@ -114,32 +114,32 @@ Travail à réaliser</h1>
 </ul>
 </li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md870"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md871"></a>
 Fichiers impactés</h1>
 <ul>
 <li><span class="tt">Source/HMI/Interface/GameScreen.h</span>/<span class="tt">.cpp</span>, <span class="tt"><a class="el" href="main_8cpp.html" title="Point d&#39;entrée de l&#39;application Qt (ProjectGaming).">Source/HMI/main.cpp</a></span>.</li>
 <li><span class="tt">Source/Elements/Levels/demo4.json</span>.</li>
 <li><span class="tt"><a class="el" href="test__physique__personnage_8cpp.html" title="Tests d&#39;intégration de la physique du personnage : ECS + grille + balayage assemblés.">Source/Test/Integration/test_physique_personnage.cpp</a></span> (ou dédié), <span class="tt"><a class="el" href="test__parcours__complet_8cpp.html" title="Test système : jouer toute la séquence de niveaux de bout en bout (« titre → niveaux → titre »),...">Source/Test/Systeme/test_parcours_complet.cpp</a></span>.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md871"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md872"></a>
 Tests (obligatoires)</h1>
 <ul>
 <li><span class="tt">demo4</span> : franchissable <b>avec</b> l'interrupteur ; bloqué <b>sans</b> (porte fermée).</li>
 <li>Parcours <b>système</b> complet vert.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md872"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md873"></a>
 Points d'attention</h1>
 <ul>
 <li><b>Grille de collision</b> : la physique doit consommer la grille des mécanismes (portes), pas la carte brute — sinon les portes ne bloquent jamais.</li>
 <li><b>Budget</b> au spawn <b>et</b> au reset (rejouer le niveau redonne le budget plein).</li>
 <li><b>Faisabilité</b> : le budget doit rester suffisant pour un plan correct (marge), le puzzle vient de l'<b>ordre</b> (interrupteur avant la porte), pas d'un timing à la frame près.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md873"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md874"></a>
 Définition de fait (DoD)</h1>
 <ul>
 <li>Mécanismes + budget jouables ; <span class="tt">demo4</span> livré et enchaîné ; preuves intégration + système vertes ; vérif visuelle des portes ; build <span class="tt">/W4 /WX</span>, <span class="tt">CHANGELOG.md</span> à jour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md874"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md875"></a>
 Exigences</h1>
 <p><span class="tt">EX-GP-020</span>, <span class="tt">EX-GP-021</span>, <span class="tt">EX-GP-024</span>, <span class="tt">EX-LVL-004</span>, <span class="tt">EX-LVL-010</span>, <span class="tt">EX-NFR-002</span>, <span class="tt">EX-NFR-020</span>. </p>
 </div></div><!-- contents -->

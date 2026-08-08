@@ -96,7 +96,7 @@ $(function(){initNavTree('lot-10.html','',''); });
 <blockquote class="doxtable">
 <p>Statut : <b>terminé</b>. Ce lot enrichit le personnage du LOT-09 de trois mécaniques de platformer avancé : <b>double saut</b>, <b>wall jump</b> (+ wall slide) et <b>dash</b> 8 directions. Il <b>étend le MVP</b> et <b>assouplit</b> <span class="tt">EX-GP-013</span> (pas de double saut) via les nouvelles exigences <span class="tt">EX-GP-015</span>/<span class="tt">EX-GP-016</span>/<span class="tt">EX-GP-017</span> et l'action <span class="tt">EX-CTRL-013</span>. </p>
 </blockquote>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md747"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
 Objectif</h1>
 <p>Ajouter au <span class="tt">CharacterPhysicsSystem</span> (LOT-08/09) trois mécaniques aériennes, en gardant la simulation <b>pure et déterministe au pas fixe</b> dans <span class="tt">Core</span> (<span class="tt">EX-NFR-002</span>, <span class="tt">EX-ARCH-011</span>), testée sans GPU :</p>
 <ul>
@@ -105,9 +105,9 @@ Objectif</h1>
 <li><b>Dash</b> (<span class="tt">EX-GP-017</span>) : une <b>ruée</b> à vitesse élevée dans l'une des <b>8 directions</b> (données par les touches directionnelles, à défaut l'orientation), sur une <b>courte durée</b>, <b>disponible une fois</b> puis <b>rechargée au contact du sol</b>.</li>
 </ul>
 <p>Le lot se conclut par un <b>niveau de démonstration « parkour »</b> exigeant ces mécaniques et des tests (unitaires, intégration, système) prouvant qu'elles fonctionnent et que le niveau est franchissable.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md748"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
 Périmètre</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md749"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
 Inclus</h2>
 <ul>
 <li><b>Spec</b> : nouvelles exigences <span class="tt">EX-GP-015</span>/<span class="tt">016</span>/<span class="tt">017</span> et action <span class="tt">EX-CTRL-013</span> (déjà ajoutées au cadrage).</li>
@@ -118,14 +118,14 @@ Inclus</h2>
 <li><b>Dash (Core)</b> : burst directionnel (8 directions) à vitesse élevée sur une durée, gravité suspendue pendant le dash, recharge au sol.</li>
 <li><b>Contenu + preuve</b> : niveau « parkour » (murs à remonter, gouffre à franchir au dash) ; tests de franchissabilité et parcours système.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md750"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
 Exclus (lots ultérieurs)</h2>
 <ul>
 <li><b>Gravité asymétrique</b>, <b>coyote/buffer</b> appliqués au wall jump (raffinements de <em>feel</em>).</li>
 <li><b>Dash directionnel infini / rechargeable en l'air</b>, <b>grab de rebord (ledge grab)</b>, <b>wall climb</b>.</li>
 <li><b>Niveau puzzle</b> (mécanismes interrupteur/porte, <span class="tt">EX-GP-020</span>…) et <b>animations</b> (<span class="tt">EX-REN-012</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md751"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
 Décisions de cadrage</h1>
 <ul>
 <li><b>Dash à 8 directions</b>, <b>consommé</b> à l'usage et <b>rechargé au contact du sol</b> (une ruée par phase aérienne). Direction depuis les touches directionnelles ; à défaut, l'<b>orientation</b> courante (dernier sens horizontal). Gravité <b>suspendue</b> pendant le dash (trajectoire nette).</li>
@@ -135,14 +135,14 @@ Décisions de cadrage</h1>
 <li><b><span class="tt">EX-GP-013</span> assoupli</b> : le saut n'est plus « au sol uniquement » — il est <b>contextuel</b> (sol, coyote, saut aérien restant, ou mur). Documenté comme extension au-delà du MVP.</li>
 <li><b>État porté par les données</b> : compteurs/minuteries/orientation vivent dans <span class="tt">Player</span>, décomptés par le système au pas fixe → déterminisme (<span class="tt">EX-NFR-002</span>).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md752"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
 Exigences couvertes</h1>
 <ul>
 <li><span class="tt">EX-GP-015</span> (double/multi saut), <span class="tt">EX-GP-016</span> (wall jump + slide), <span class="tt">EX-GP-017</span> (dash 8 directions).</li>
 <li><span class="tt">EX-CTRL-013</span> (action dash), <span class="tt">EX-CTRL-010</span>/<span class="tt">EX-CTRL-011</span> (action logique, fronts).</li>
 <li><span class="tt">EX-GP-011</span> (saut, réutilisé), <span class="tt">EX-NFR-002</span> (pas fixe déterministe), <span class="tt">EX-NFR-010</span>/<span class="tt">EX-NFR-020</span> (testabilité, tests), <span class="tt">EX-ARCH-011</span> (composants = données pures).</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md753"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
 Découpage</h1>
 <blockquote class="doxtable">
 <p>État : ✅ fait · 🔄 en cours · ⬜ non commencé. </p>
@@ -163,7 +163,7 @@ Découpage</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="lot-10-tache-06-niveau-parkour.html#md_Lot_2LOT-10-mecaniques-avancees_2tache-06-niveau-parkour" title="Lot/LOT-10-mecaniques-avancees/tache-06-niveau-parkour.md">TACHE-06</a>  </td><td class="markdownTableBodyNone">Niveau de démo « parkour » + preuve système  </td><td class="markdownTableBodyNone"><span class="tt">Elements/Levels</span>  </td><td class="markdownTableBodyCenter">✅  </td></tr>
 </table>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md754"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md755"></a>
 Critères d'acceptation du lot</h1>
 <ol type="1">
 <li><b>Double saut</b> : un second saut est possible <b>en l'air</b>, puis plus, jusqu'au retour au sol.</li>
@@ -172,13 +172,13 @@ Critères d'acceptation du lot</h1>
 <li>Un niveau de démo <b>exige</b> ces mécaniques (mur à remonter, gouffre à franchir au dash) ; des tests prouvent sa franchissabilité, et le test <b>système</b> enchaîne la séquence.</li>
 <li>Logique <b>couverte par des tests</b> (<span class="tt">ctest</span> vert), déterministe ; build <span class="tt">/W4 /WX</span>, Doxygen et <span class="tt">CHANGELOG.md</span> à jour, <span class="tt">lint</span> des exigences vert.</li>
 </ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md755"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md756"></a>
 Dépendances</h1>
 <ul>
 <li>Prolonge le LOT-09 : réutilise le saut, la hauteur variable, le buffering, <span class="tt">grounded</span>, la normale de contact du balayage (<span class="tt">sweepAabb</span>) pour le mur, et l'orientation issue de <span class="tt">moveX</span>.</li>
 <li>L'<span class="tt">InputState</span> (LOT-06) fournit la touche Maj et les directions ; le <span class="tt">GameScreen</span>/<span class="tt">LevelSequence</span> (LOT-09) accueillent le niveau parkour.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md756"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md757"></a>
 Navigation des tâches</h1>
 <ul>
 <li><a class="el" href="lot-10-tache-01-donnees.html" title="TACHE-01 — Données des mécaniques (PlayerInput, Player, PhysicsConfig)">TACHE-01 — Données des mécaniques (PlayerInput, Player, PhysicsConfig)</a></li>

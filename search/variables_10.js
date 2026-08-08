@@ -6,7 +6,7 @@ var searchData=
   ['path_3',['path',['../structhmi_1_1FileOpResult.html#abc63325c5ab2e33ad0a317c2010428ae',1,'hmi::FileOpResult']]],
   ['pendinglink_4',['pendingLink',['../structhmi_1_1LinkOverlayState.html#a981072e45759cbbe1e6c897e08f5964b',1,'hmi::LinkOverlayState']]],
   ['period_5',['period',['../structcore_1_1DangerBlinkConfig.html#a34073d8c80bc4660b36c5b40e112a119',1,'core::DangerBlinkConfig']]],
-  ['phase_6',['phase',['../structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295',1,'core::DangerBlinkConfig']]],
+  ['phase_6',['phase',['../structcore_1_1DangerBlinkConfig.html#a74ae6768940a966b4ab83994dbc80295',1,'core::DangerBlinkConfig::phase'],['../structhmi_1_1DecorGestureState.html#a704cf64626188c71727087fcb3ef8e28',1,'hmi::DecorGestureState::phase']]],
   ['pixelheight_7',['pixelHeight',['../structhmi_1_1DecorAppearance.html#aa8028858b8e19b38d5f13e8c3fa0cffd',1,'hmi::DecorAppearance']]],
   ['pixels_8',['pixels',['../structhmi_1_1ProceduralAtlasImage.html#a9793e61a5644666b4d997ae64dde340b',1,'hmi::ProceduralAtlasImage::pixels'],['../structhmi_1_1DecodedImage.html#aba74a5cfbd117d38f4d96921cafe3107',1,'hmi::DecodedImage::pixels']]],
   ['pixels_5fper_5funit_9',['PIXELS_PER_UNIT',['../classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88',1,'hmi::Camera2D']]],
@@ -25,6 +25,8 @@ var searchData=
   ['player_5frun_5fframe_5fcount_22',['PLAYER_RUN_FRAME_COUNT',['../namespacehmi.html#ad7c36223ccc4c82e7dd0f53719779608',1,'hmi']]],
   ['player_5fsheet_5ffile_5fname_23',['PLAYER_SHEET_FILE_NAME',['../namespacehmi.html#af9d5162737bdb5221fd49e4eeed58380',1,'hmi']]],
   ['player_5fsubdirectory_24',['PLAYER_SUBDIRECTORY',['../namespacehmi.html#a3056f1e4372f3a240ed0fcb1715237fd',1,'hmi']]],
-  ['position_25',['position',['../structcore_1_1Transform.html#a95083539c843b0577d8f8c324c4e6b27',1,'core::Transform::position'],['../structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac',1,'core::Decor::position'],['../structcore_1_1DangerBlinkConfig.html#a65b8183dacd7b4826a707ac18e3e7615',1,'core::DangerBlinkConfig::position'],['../structcore_1_1TileTextureOverride.html#a03a135f3977d8006b699cb8e352af176',1,'core::TileTextureOverride::position'],['../structcore_1_1Rect.html#aa80907b79b8c68b4b6cb2ad6600ff1d3',1,'core::Rect::position'],['../structcore_1_1SweepResult.html#a9f874ecc7effce266633af49e4da07f0',1,'core::SweepResult::position']]],
-  ['previousactive_26',['previousActive',['../structhmi_1_1MechanismVisualState.html#a638ee6429d408f4770bf09dcc712611c',1,'hmi::MechanismVisualState']]]
+  ['position_25',['position',['../structcore_1_1Transform.html#a95083539c843b0577d8f8c324c4e6b27',1,'core::Transform::position'],['../structcore_1_1Decor.html#aed57c93e14ec7d99f5d70ec572159aac',1,'core::Decor::position'],['../structcore_1_1DangerBlinkConfig.html#a65b8183dacd7b4826a707ac18e3e7615',1,'core::DangerBlinkConfig::position'],['../structcore_1_1TileTextureOverride.html#a03a135f3977d8006b699cb8e352af176',1,'core::TileTextureOverride::position'],['../structcore_1_1Rect.html#aa80907b79b8c68b4b6cb2ad6600ff1d3',1,'core::Rect::position'],['../structcore_1_1SweepResult.html#a9f874ecc7effce266633af49e4da07f0',1,'core::SweepResult::position'],['../structhmi_1_1DecorGestureAction.html#a9fb13b8d8859d33c71400ac5256dab0d',1,'hmi::DecorGestureAction::position']]],
+  ['pressposition_26',['pressPosition',['../structhmi_1_1DecorGestureState.html#aa6933f6f03989538b6fc08cb1a232f44',1,'hmi::DecorGestureState']]],
+  ['preview_27',['preview',['../structhmi_1_1DecorOverlayState.html#a2d2fe564b8e45898341047336b78da5b',1,'hmi::DecorOverlayState']]],
+  ['previousactive_28',['previousActive',['../structhmi_1_1MechanismVisualState.html#a638ee6429d408f4770bf09dcc712611c',1,'hmi::MechanismVisualState']]]
 ];
