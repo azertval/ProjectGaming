@@ -248,6 +248,38 @@ capture de `F10` (et de toutes les touches d'édition) passe désormais par `key
 table `hmi::qtKeyToHmiKey` (@ref guide-entrees) — l'ancienne fenêtre Win32 et ses messages
 `WM_SYSKEYDOWN` n'existent plus.
 
+## Le mode « définition des textures » : auditer les calques sans les confondre avec `F8` (`LOT-51`)
+
+`F8` (@ref guide-rendu, `LOT-41`) **compose** le rendu final — surcharge par instance (`LOT-45`) >
+skin de type (`LOT-42`) > damier de repli — exactement ce que le joueur voit. À partir de six
+calques empilés (fond, décors d'arrière-plan, skin des tuiles, objets interactifs, personnage,
+décors de premier plan), la seule bascule Physique/Texture ne dit plus **d'où** vient ce qui est
+affiché à l'écran.
+
+L'onglet **Calques** du panneau **Textures** répond à cette question précise : il **décompose**
+plutôt que de composer. Une case à cocher par calque, dans l'**ordre de dessin** (`hmi::RenderLayer`,
+`EX-REN-014`) — Fond, Décor d'arrière-plan, Ombres, Skin des tuiles, Objets interactifs, Personnage,
+Décor de premier plan — chacune indépendamment activable/désactivable, plus une case « Physique
+seul » (la même bascule que `F8`, vue sous cet angle) et un bouton « Tout afficher ». C'est un mode
+d'**inspection de l'éditeur**, sans persistance entre deux sessions et **sans aucun effet sur le
+jeu** — masquer un calque ici ne le masque jamais en jeu ni en essai (`hmi::GameSession` ne connaît
+pas cet onglet).
+
+**Ce qui distingue ce mode d'un simple masquage** : quand un seul calque de contenu est coché,
+l'affichage **isole** — il ne retombe **jamais** sur un niveau de priorité inférieur. Cocher
+uniquement « Objets interactifs » ne montre que les cases portant une surcharge par instance
+assignée, sans repli sur le skin de leur type ni sur le damier ; cocher uniquement « Skin des
+tuiles » ne montre que les types dont un skin est chargé dans le jeu courant, une case vide révélant
+directement **quels types n'ont pas encore de skin** — le diagnostic le plus utile du programme
+d'habillage (`LOT-40` → `LOT-55`). Combiner plusieurs cases répond à des questions d'audit
+différentes (« le décor de premier plan cache-t-il quelque chose d'important au-dessus du
+personnage ? » suppose deux calques visibles à la fois, pas un seul).
+
+Les libellés « Aperçu » de cet onglet ne doivent jamais se confondre avec « Jeu » (`F8`) : les deux
+réutilisent le même résolveur de priorité (`hmi::resolveTileAppearance`), avec deux règles
+d'affichage différentes plutôt que deux résolveurs — c'est ce qui garantit que l'audit ne divergera
+jamais silencieusement du rendu réel.
+
 ## Gérer ses fichiers de niveaux
 
 Le panneau **Niveaux** (`hmi::LevelBrowserPanel`) liste les fichiers `.json` du dossier `Levels` et
@@ -264,6 +296,8 @@ dupliquer/supprimer, sans dépendance Qt) — la même séparation « logique pu
 - `hmi::GameViewport`, `hmi::EditorTool`, `hmi::PalettePanel`, `hmi::tileTaxonomy`, `hmi::ToolPanel`,
   `hmi::LevelBrowserPanel`, `hmi::LevelFileOperations`, `hmi::isValidLevelName`.
 - `hmi::Camera2D::fitZoom` — le cadrage partagé par l'éditeur et le jeu.
+- `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — le mode d'inspection « définition des
+  textures » (`LOT-51`) et le résolveur unique qu'il réutilise avec `F8`.
 - @ref guide-ihm-qt — l'IHM Qt : fenêtre, docks, arbre de palette, navigateur de fichiers, viewport.
 - @ref guide-niveaux — le modèle de niveau immuable, la validation et le format JSON réutilisés sans
   duplication.

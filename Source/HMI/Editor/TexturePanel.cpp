@@ -2,6 +2,7 @@
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -341,9 +342,49 @@ TexturePanel::TexturePanel(std::filesystem::path skinsDirectory, std::filesystem
             [this] { onDecorRemoveClicked(); });
     connect(_ui->decorCenterButton, &QPushButton::clicked, this,
             [this] { onDecorCenterClicked(); });
+
+    // Section « Calques » (LOT-51) : une case par calque de contenu, dans l'ordre de dessin
+    // (hmi::RenderLayer, EX-REN-014) -- chaque case emet directement le calque qu'elle represente,
+    // pas d'etat intermediaire a resynchroniser (aucun autre moyen ne change ces cases, contrairement
+    // au mode de rendu qui a aussi F8). « Objets interactifs »/« Skin des tuiles » pilotent les deux
+    // axes de resolution d'une meme tuile (RenderLayer::Object/Tile, LOT-51) ; les autres masquent
+    // un calque au sens strict.
+    connect(_ui->layersBackgroundCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Background, checked); });
+    connect(_ui->layersDecorBackgroundCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Decor, checked); });
+    connect(_ui->layersShadowCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Shadow, checked); });
+    connect(_ui->layersTileSkinCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Tile, checked); });
+    connect(_ui->layersObjectsCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Object, checked); });
+    connect(_ui->layersPlayerCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Player, checked); });
+    connect(_ui->layersDecorForegroundCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit layerVisibilityChanged(RenderLayer::Foreground, checked); });
+    connect(_ui->layersPhysiqueCheck, &QCheckBox::toggled, this,
+            [this](bool checked) { emit physiqueOnlyToggled(checked); });
+    connect(_ui->layersShowAllButton, &QPushButton::clicked, this, [this] {
+        // Recoche les sept cases SANS reemettre layerVisibilityChanged sept fois : un seul signal
+        // suffit, hmi::GameViewport::showAllLayers fait le reste cote rendu.
+        for (QCheckBox* const check :
+             {_ui->layersBackgroundCheck, _ui->layersDecorBackgroundCheck, _ui->layersShadowCheck,
+              _ui->layersTileSkinCheck, _ui->layersObjectsCheck, _ui->layersPlayerCheck,
+              _ui->layersDecorForegroundCheck}) {
+            const QSignalBlocker blocker(check);
+            check->setChecked(true);
+        }
+        emit showAllLayersRequested();
+    });
 }
 
 TexturePanel::~TexturePanel() = default;
+
+void TexturePanel::setRenderModeIndicator(RenderMode mode) {
+    const QSignalBlocker blocker(_ui->layersPhysiqueCheck);
+    _ui->layersPhysiqueCheck->setChecked(mode == RenderMode::Physique);
+}
 
 void TexturePanel::setCatalog(SkinCatalog* catalog) {
     _catalog = catalog;
@@ -377,6 +418,23 @@ void TexturePanel::retranslateUi(const Localization& loc) {
     _ui->sections->setTabText(2, QString::fromStdString(loc.text("textures.section_objects")));
     _ui->sections->setTabText(3, QString::fromStdString(loc.text("textures.section_animations")));
     _ui->sections->setTabText(4, QString::fromStdString(loc.text("textures.section_decors")));
+    _ui->sections->setTabText(5, QString::fromStdString(loc.text("textures.section_layers")));
+    _ui->layersHintLabel->setText(QString::fromStdString(loc.text("textures.layers_hint")));
+    _ui->layersBackgroundCheck->setText(
+        QString::fromStdString(loc.text("textures.layers_background")));
+    _ui->layersDecorBackgroundCheck->setText(
+        QString::fromStdString(loc.text("textures.layers_decor_background")));
+    _ui->layersShadowCheck->setText(QString::fromStdString(loc.text("textures.layers_shadow")));
+    _ui->layersTileSkinCheck->setText(
+        QString::fromStdString(loc.text("textures.layers_tile_skin")));
+    _ui->layersObjectsCheck->setText(QString::fromStdString(loc.text("textures.layers_objects")));
+    _ui->layersPlayerCheck->setText(QString::fromStdString(loc.text("textures.layers_player")));
+    _ui->layersDecorForegroundCheck->setText(
+        QString::fromStdString(loc.text("textures.layers_decor_foreground")));
+    _ui->layersPhysiqueCheck->setText(QString::fromStdString(loc.text("textures.layers_physique")));
+    _ui->layersPhysiqueCheck->setToolTip(
+        QString::fromStdString(loc.text("textures.layers_physique_tooltip")));
+    _ui->layersShowAllButton->setText(QString::fromStdString(loc.text("textures.layers_show_all")));
     _ui->backgroundModeHintLabel->setText(
         QString::fromStdString(loc.text("textures.background_mode_hint")));
     _ui->backgroundLabel->setText(QString::fromStdString(loc.text("textures.background_label")));

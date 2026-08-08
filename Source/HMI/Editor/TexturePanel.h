@@ -17,6 +17,8 @@
 #include "Core/Levels/TileType.h"
 #include "HMI/Editor/DecorListModel.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/RenderLayer.h"
+#include "HMI/Graphics/RenderMode.h"
 #include "HMI/Graphics/SkinCatalog.h"
 
 /**
@@ -46,9 +48,9 @@ class Localization;
  * @brief Panneau d'habillage, organisé en **sections** extensibles (`EX-EDIT-042`, `EX-EDIT-024`).
  *
  * Premier — et unique — panneau du programme d'habillage : `LOT-44` (Fond), `LOT-45` (Objets),
- * `LOT-47` (Animations) et `LOT-50` (Décors) y ajouteront leur onglet plutôt que de créer chacun
- * leur dock. C'est la raison d'être de la structure en onglets dès ce lot : sans elle, chaque lot
- * suivant créerait le sien et l'éditeur finirait avec cinq panneaux d'habillage.
+ * `LOT-47` (Animations), `LOT-50` (Décors) et `LOT-51` (Calques) y ajoutent leur onglet plutôt que
+ * de créer chacun leur dock. C'est la raison d'être de la structure en onglets dès ce lot : sans
+ * elle, chaque lot suivant créerait le sien et l'éditeur finirait avec cinq panneaux d'habillage.
  *
  * Le panneau **ne possède pas** le catalogue : il agit sur celui que lui confie `setCatalog`, dont
  * `GameViewport` reste propriétaire — le rendu doit voir les mêmes assignations, immédiatement.
@@ -142,6 +144,15 @@ public:
      */
     void refreshDecors(const core::LevelDraft& draft, std::optional<std::size_t> selectedIndex);
 
+    /**
+     * @brief Resynchronise la case « Physique seul » de la section « Calques » (`LOT-51`) avec le
+     *        mode de rendu courant, sans réémettre `physiqueOnlyToggled` — même garde que
+     *        `setLevelProperties`. À appeler quand le mode change par un autre moyen que ce
+     *        panneau (`F8`), pour que les deux entrées du même état ne divergent jamais.
+     * @param mode Mode de rendu courant (`hmi::GameViewport::renderMode`).
+     */
+    void setRenderModeIndicator(RenderMode mode);
+
 signals:
     /// Émis après toute modification d'assignation ou changement de jeu courant, une fois le
     /// catalogue à jour — le rendu et la palette n'ont qu'à se redessiner.
@@ -178,6 +189,16 @@ signals:
     void decorRemoveRequested(std::size_t index);
     /// Émis par le bouton « Centrer » : demande de cadrer la caméra sur le décor sélectionné.
     void decorCenterRequested(std::size_t index);
+
+    /// Émis quand une case de la section « Calques » change (`LOT-51`, `EX-EDIT-044`) : calque
+    /// concerné et nouvelle visibilité — mode d'inspection éditeur, sans effet sur `GameSession`.
+    void layerVisibilityChanged(RenderLayer layer, bool visible);
+    /// Émis par le bouton « Tout afficher » de la section « Calques » (`LOT-51` TACHE-03).
+    void showAllLayersRequested();
+    /// Émis quand la case « Physique seul » de la section « Calques » change : demande de bascule
+    /// du mode de rendu, **la même bascule que `F8`** vue depuis ce panneau (`LOT-51`) — pas un
+    /// troisième mode.
+    void physiqueOnlyToggled(bool enabled);
 
 private:
     void rebuildTree();

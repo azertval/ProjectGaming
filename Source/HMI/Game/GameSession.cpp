@@ -306,8 +306,10 @@ void GameSession::applyMechanismVisual(core::Entity entity, bool active, Mechani
     // du rendu. On ignore la region retournee (calculee sans connaitre l'etat), seuls la source et
     // l'index servent a retrouver l'asset et ses dimensions.
     const core::Sprite& sprite = _world.getComponent<core::Sprite>(entity);
+    // Axes skin/surcharge (LOT-51) tous deux visibles par defaut : mode compose, une valeur est
+    // donc toujours renvoyee, comme avant ce lot -- GameSession n'expose jamais ces axes.
     const TileAppearance appearance =
-        resolveTileAppearance(RenderMode::Texture, sprite.region, &tag, textures);
+        resolveTileAppearance(RenderMode::Texture, sprite.region, &tag, textures).value();
 
     std::string assetPath;
     int width = 0;

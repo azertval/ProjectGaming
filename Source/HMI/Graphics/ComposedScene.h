@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Core/Math/Rect.h"
+#include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/RenderMode.h"
@@ -245,9 +246,14 @@ private:
  *                           décor est alors composé à sa position simulée telle quelle), ce qui
  *                           reste correct pour un décor de couche `core::DecorLayer::Decor`
  *                           (facteur `1.0`, `EX-DEC-006`).
+ * @param visibility         Jeu de visibilités par calque du mode d'inspection de l'éditeur
+ *                           (`hmi::LayerVisibility`, `LOT-51`, `EX-EDIT-044`) : tout visible par
+ *                           défaut, donc sans effet pour `hmi::GameSession` qui ne le fournit
+ *                           jamais.
  */
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
                          const SceneTextures& textures, float interpolationAlpha,
-                         const Camera2D* camera = nullptr);
+                         const Camera2D* camera = nullptr,
+                         const LayerVisibility& visibility = LayerVisibility{});
 
 }  // namespace hmi

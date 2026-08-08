@@ -19,6 +19,7 @@
 #include "HMI/Editor/EditorTool.h"
 #include "HMI/Game/GameSession.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/LayerVisibility.h"
 #include "HMI/Graphics/RenderMode.h"
 #include "HMI/Graphics/SkinCatalog.h"
 #include "HMI/Input/EditorKeyBindings.h"
@@ -206,6 +207,29 @@ public:
     /// @return Le mode de rendu courant, commun à l'édition, à l'essai et au jeu réel.
     [[nodiscard]] RenderMode renderMode() const noexcept {
         return _renderMode;
+    }
+
+    /**
+     * @brief Jeu de visibilités par calque du mode d'inspection « définition des textures »
+     *        (`LOT-51`, `EX-EDIT-044`) — édition uniquement, jamais lu par `hmi::GameSession`.
+     * @return Le jeu de visibilités courant.
+     */
+    [[nodiscard]] const LayerVisibility& layerVisibility() const noexcept {
+        return _layerVisibility;
+    }
+
+    /// Affiche ou masque un calque du mode d'inspection (section « Calques » du panneau
+    /// « Textures », `LOT-51`). Comme `setRenderMode`, purement visuel : la scène ECS n'est jamais
+    /// invalidée, seule la résolution d'apparence de l'image suivante en tient compte. Aucune
+    /// persistance entre deux sessions (TACHE-01) : contrairement à `setRenderMode`, rien n'est
+    /// écrit dans les préférences.
+    void setLayerVisible(RenderLayer layer, bool visible) noexcept {
+        _layerVisibility.setVisible(layer, visible);
+    }
+
+    /// Rétablit la visibilité de tous les calques (action « tout afficher », TACHE-03).
+    void showAllLayers() noexcept {
+        _layerVisibility.showAll();
     }
 
     /**
@@ -473,6 +497,9 @@ private:
     /// et réécrit à chaque bascule. Porté par le viewport parce qu'il est le widget **unique**
     /// derrière l'édition, l'essai et le jeu réel (`EX-IHM-002`) : un seul état, jamais dupliqué.
     RenderMode _renderMode = DEFAULT_RENDER_MODE;
+    /// Jeu de visibilités par calque du mode d'inspection « définition des textures » (`LOT-51`) —
+    /// tout visible par défaut, jamais persisté (TACHE-01), édition uniquement.
+    LayerVisibility _layerVisibility;
     bool _vsync = true;      ///< Synchronisation verticale (appliquée au device D3D11).
     bool _gameMode = false;  ///< La session courante est une **partie** (menu Jouer) et
                              ///< non un essai depuis l'éditeur (enchaînement/retour menu).

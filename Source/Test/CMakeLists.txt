@@ -68,6 +68,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_mechanism_transitions.cpp
     Unit/HMI/Graphics/test_decor_visuals.cpp
     Unit/HMI/Graphics/test_parallax.cpp
+    Unit/HMI/Graphics/test_layer_visibility.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp

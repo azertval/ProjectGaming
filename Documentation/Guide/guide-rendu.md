@@ -446,6 +446,34 @@ au pas fixe (`EX-REN-021`), cohérent avec la séparation décrite en @ref guide
 avance par pas fixes, discrets ; le rendu, lui, redessine l'état courant une fois par **frame**
 réelle, qu'un pas fixe ait eu lieu ou non entre deux frames.
 
+### Isoler un calque pour l'audit : `hmi::LayerVisibility` (`LOT-51`)
+
+`F8` **compose** : il choisit une seule apparence par tuile (surcharge > skin > damier) pour
+reproduire fidèlement ce que le joueur voit. L'éditeur a aussi besoin de l'inverse — **décomposer**,
+pour répondre à « qu'est-ce qui est réellement configuré sur *ce* calque ? ». C'est le rôle de
+`hmi::LayerVisibility` (section « Calques » du panneau Textures, @ref guide-editeur), un jeu de
+booléens **indexé par la valeur de `hmi::RenderLayer`** plutôt que par une liste de champs écrite à
+la main — un calque futur ne demande donc de grandir que `RENDER_LAYER_COUNT`, jamais de réécrire la
+classe.
+
+Deux mécanismes distincts, selon le calque :
+- **Fond, Décor, Ombres, Personnage, Décor de premier plan** : un bit à `false` masque
+  grossièrement — `hmi::composeWorldSprites`/`DraftRenderer::render` sautent l'entité ou l'appel de
+  composition entier avant toute résolution d'apparence, aucune primitive n'est émise.
+- **Skin des tuiles et Objets interactifs** : ces deux calques UI pilotent en réalité les **deux
+  axes de résolution** d'une même entité « tuile » (toujours dessinée sur `RenderLayer::Tile`, l'ordre
+  de dessin ne change jamais) — `RenderLayer::Tile` pour l'axe skin, `RenderLayer::Object` pour l'axe
+  surcharge. Tant que les deux valent `true` (le défaut), `hmi::resolveTileAppearance` se comporte
+  exactement comme au `LOT-45` : surcharge > skin > damier, sans repli différent. Dès qu'un seul des
+  deux est masqué, la résolution **isole** — plus de repli sur le damier pour l'axe inactif : une
+  case sans surcharge n'affiche rien quand seul l'axe surcharge est actif, un type sans skin
+  n'affiche rien quand seul l'axe skin est actif. C'est le même résolveur, avec un indicateur
+  « composer » ou « isoler », **jamais** un second résolveur parallèle qui risquerait de diverger.
+
+Édition uniquement : `hmi::GameSession` ne fournit jamais de `hmi::LayerVisibility` à
+`composeWorldSprites` (valeur par défaut, tout visible), donc le jeu réel et l'essai restent
+strictement inchangés par ce mode. Aucune persistance entre deux sessions, contrairement à `F8`.
+
 ### Interpoler le mouvement : `hmi::PreviousPosition` et le facteur d'interpolation
 
 Ce découplage crée un artefact visuel dès qu'un écran dépasse 60 Hz : entre deux pas de simulation,
@@ -655,6 +683,8 @@ de cette page qu'il modifie, dans l'ordre :
 - **`LOT-50`** — *livré* : manipulation complète des décors dans l'éditeur — sélectionner,
   déplacer, redimensionner, pivoter, changer de couche, réordonner (décrit plus haut dans cette
   page).
+- **`LOT-51`** — *livré* : le mode d'inspection « définition des textures » — visibilité et
+  isolement par calque, distinct de `F8` (décrit plus haut dans cette page).
 - **`LOT-52`** — le retour du texte dans la scène rendue.
 
 Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
@@ -667,6 +697,8 @@ fil de leur intégration.
 - `hmi::RenderLayer`, `hmi::RenderLayerTag`, `hmi::ComposedScene`, `hmi::QuadRecorder`,
   `hmi::TextureCache`, `hmi::validateAsset`, `hmi::buildMissingTextureImage` — fondations du rendu
   texturé (`LOT-40`, `EX-REN-043`/`EX-REN-007`/`EX-NFR-004`/`EX-NFR-005`).
+- `hmi::LayerVisibility`, `hmi::resolveTileAppearance` — visibilité et isolement par calque, mode
+  d'inspection éditeur distinct de `F8` (`LOT-51`, `EX-EDIT-044`).
 - `hmi::RenderMode`, `hmi::resolveTileAppearance` — bascule Physique/Texture (`LOT-41`,
   `EX-REN-046`).
 - `hmi::AssetPaths`, `hmi::TextureLoader` (`decodeImageFile`, `createTexture`,
