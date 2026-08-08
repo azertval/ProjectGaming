@@ -19,23 +19,25 @@ using core::Vector2;
 }  // namespace
 
 /**
- * @brief decorWorldBounds place le rectangle au coin haut-gauche du décor, à sa taille réelle
- * (pixels de l'asset multipliés par l'échelle).
- * \castest{<b>decorWorldBounds calcule le rectangle englobant.</b><br/>
+ * @brief decorWorldBounds place le rectangle au coin haut-gauche du décor, à sa taille réelle en
+ * unités monde (pixels de l'asset convertis à 16 px/unité, `EX-ARCH-021`, puis multipliés par
+ * l'échelle) — jamais la taille en pixels telle quelle.
+ * \castest{<b>decorWorldBounds calcule le rectangle englobant en unites monde.</b><br/>
  * \tcat Unitaire · Decor Geometry<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Calculer le rectangle d'un decor a echelle non uniforme.<br/>
- * \tattendu Position = position du decor ; taille = taille pixel * echelle sur chaque axe.
+ * \tattendu Position = position du decor ; taille = (taille pixel / 16) * echelle sur chaque axe.
  * }
  */
-TEST(DecorGeometryTest, DecorWorldBoundsCalculeLeRectangleEnglobant) {
+TEST(DecorGeometryTest, DecorWorldBoundsCalculeLeRectangleEnglobantEnUnitesMonde) {
     Decor decor{"tree.png", Vector2{3.0f, 4.0f}};
     decor.scale = Vector2{2.0f, 0.5f};
 
-    const Rect bounds = hmi::decorWorldBounds(decor, Vector2{16.0f, 32.0f});
+    // 32x16 px, a 16 px/unite (Camera2D::PIXELS_PER_UNIT) : 2x1 unite avant echelle.
+    const Rect bounds = hmi::decorWorldBounds(decor, Vector2{32.0f, 16.0f});
 
     EXPECT_EQ(bounds.position, (Vector2{3.0f, 4.0f}));
-    EXPECT_EQ(bounds.size, (Vector2{32.0f, 16.0f}));
+    EXPECT_EQ(bounds.size, (Vector2{4.0f, 0.5f}));  // (2*2.0, 1*0.5)
 }
 
 /**

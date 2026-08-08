@@ -1,11 +1,17 @@
 #include "HMI/Editor/DecorGeometry.h"
 
+#include "HMI/Graphics/Camera2D.h"
+
 namespace hmi {
 
-// Rectangle englobant d'un decor, en unites monde (voir en-tete).
+// Rectangle englobant d'un decor, en unites monde (voir en-tete). pixelSize est en PIXELS de
+// l'asset : la conversion vers les unites monde (16 px/unite, EX-ARCH-021) doit se faire ici,
+// meme formule que la taille du quad reellement rendu (hmi::composeWorldSprites, LOT-49) --
+// l'oublier fait un rectangle 16x trop grand, une poignee bien plus grande que le decor lui-meme.
 core::Rect decorWorldBounds(const core::Decor& decor, core::Vector2 pixelSize) noexcept {
-    return core::Rect{decor.position, core::Vector2{pixelSize.x * decor.scale.x,
-                                                     pixelSize.y * decor.scale.y}};
+    return core::Rect{decor.position,
+                      core::Vector2{pixelSize.x / Camera2D::PIXELS_PER_UNIT * decor.scale.x,
+                                    pixelSize.y / Camera2D::PIXELS_PER_UNIT * decor.scale.y}};
 }
 
 namespace {
