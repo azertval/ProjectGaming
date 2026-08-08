@@ -25,6 +25,16 @@ core::Vector2 parallaxRenderPosition(core::Vector2 decorPosition, float factor,
     return center + (decorPosition - center) * factor;
 }
 
+// Inverse de parallaxRenderPosition (voir en-tete) : centre + (position_rendu - centre) / facteur.
+core::Vector2 parallaxModelPosition(core::Vector2 renderPosition, float factor,
+                                    const core::Rect& cameraBounds) noexcept {
+    if (factor == 0.0f) {
+        return renderPosition;
+    }
+    const core::Vector2 center = cameraBounds.position + cameraBounds.size * 0.5f;
+    return center + (renderPosition - center) / factor;
+}
+
 // Arrondit une position monde au pixel ecran le plus proche (voir en-tete).
 core::Vector2 roundToScreenPixel(core::Vector2 worldPosition, float pixelsPerWorldUnit) noexcept {
     if (pixelsPerWorldUnit <= 0.0f) {

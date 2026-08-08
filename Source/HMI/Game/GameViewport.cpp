@@ -32,6 +32,7 @@
 #include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
@@ -391,8 +392,17 @@ core::Vector2 GameViewport::decorPixelSize(const std::string& assetName) const {
 std::vector<core::Rect> GameViewport::decorBoundsForGesture() const {
     std::vector<core::Rect> bounds;
     bounds.reserve(_draft.decors().size());
+    // Espace de RENDU (LOT-50), jamais l'espace modele brut : le curseur (worldPositionAt, via
+    // Camera2D::screenToWorld) est comparable a la position visuellement occupee par le decor,
+    // decalee par sa parallaxe de couche (EX-DEC-006, LOT-49 TACHE-03) -- l'oublier desynchronise
+    // la designation/les poignees du decor tel qu'il apparait a l'ecran des que sa couche n'est
+    // pas la couche de reference (Background/Foreground).
+    const core::Rect cameraBounds = _camera.visibleBounds();
     for (const core::Decor& decor : _draft.decors()) {
-        bounds.push_back(hmi::decorWorldBounds(decor, decorPixelSize(decor.assetName)));
+        core::Decor rendered = decor;
+        rendered.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
+                                                         cameraBounds);
+        bounds.push_back(hmi::decorWorldBounds(rendered, decorPixelSize(decor.assetName)));
     }
     return bounds;
 }
@@ -401,7 +411,11 @@ std::optional<hmi::DecorHandleLayout> GameViewport::selectedDecorHandles() const
     if (!_decorGesture.selectedIndex || *_decorGesture.selectedIndex >= _draft.decors().size()) {
         return std::nullopt;
     }
-    const core::Decor& decor = _draft.decors()[*_decorGesture.selectedIndex];
+    core::Decor decor = _draft.decors()[*_decorGesture.selectedIndex];
+    // Meme conversion vers l'espace de rendu que decorBoundsForGesture (voir ci-dessus) : les
+    // poignees doivent apparaitre sur le decor tel qu'il est vu, pas sur sa position modele brute.
+    decor.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
+                                                 _camera.visibleBounds());
     const core::Rect bounds = hmi::decorWorldBounds(decor, decorPixelSize(decor.assetName));
     // Le cadrage courant est deja a jour : chaque appelant (handleDecorPress/Move/Release) rafraichit
     // la camera via worldPositionAt() avant de consulter les poignees.
@@ -410,14 +424,21 @@ std::optional<hmi::DecorHandleLayout> GameViewport::selectedDecorHandles() const
 }
 
 void GameViewport::handleDecorPress(const QMouseEvent* event) {
-    const core::Vector2 world = worldPositionAt(event);
+    // Curseur en espace de RENDU (ce que l'utilisateur voit) : comparable aux bounds/poignees, qui
+    // le sont aussi desormais (voir decorBoundsForGesture/selectedDecorHandles).
+    const core::Vector2 cursorRender = worldPositionAt(event);
     const std::vector<core::Rect> bounds = decorBoundsForGesture();
-    const std::optional<hmi::DecorHit> hit =
-        hmi::designateDecorAt(world, bounds, _decorGesture.selectedIndex, selectedDecorHandles());
+    const std::optional<hmi::DecorHit> hit = hmi::designateDecorAt(
+        cursorRender, bounds, _decorGesture.selectedIndex, selectedDecorHandles());
 
     if (hit) {
-        hmi::beginDecorGesture(_decorGesture, *hit, world, _draft.decors()[hit->index],
-                               bounds[hit->index]);
+        const core::Decor& decor = _draft.decors()[hit->index];
+        // hmi::DecorGesture raisonne uniquement en espace MODELE (jamais la parallaxe, purement
+        // visuelle, EX-ARCH-012) : le curseur est ramene dans cet espace avant d'y entrer, avec le
+        // facteur de la couche du decor vise (hmi::parallaxModelPosition).
+        const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+            cursorRender, hmi::parallaxFactor(decor.layer), _camera.visibleBounds());
+        hmi::beginDecorGesture(_decorGesture, *hit, cursorModel, decor, bounds[hit->index]);
         // La section « Decors » (TACHE-04) doit refleter la nouvelle selection, meme si aucun
         // glisser ne suit (simple clic de selection).
         emit decorSelectionChanged(_decorGesture.selectedIndex);
@@ -435,8 +456,12 @@ void GameViewport::handleDecorPress(const QMouseEvent* event) {
     }
     core::Decor decor;
     decor.assetName = *_activeDecorAsset;
-    decor.position = world;  // position EXACTE du clic (EX-DEC-001), jamais calee sur la grille.
     decor.layer = _activeDecorLayer;
+    // Position EXACTE du clic (EX-DEC-001), jamais calee sur la grille -- en espace MODELE : sans
+    // cette conversion, un decor pose en couche Arriere-plan/Premier plan sauterait hors du point
+    // de clic des l'image suivante (sa parallaxe le decalerait au rendu).
+    decor.position = hmi::parallaxModelPosition(cursorRender, hmi::parallaxFactor(_activeDecorLayer),
+                                                _camera.visibleBounds());
     _draft.addDecor(decor);
     _decorGesture.selectedIndex = _draft.decors().size() - 1;  // le nouveau decor reste selectionne
     _dirty = true;
@@ -450,8 +475,13 @@ void GameViewport::handleDecorMove(const QMouseEvent* event) {
     if (_decorGesture.phase == hmi::DecorGesturePhase::Idle) {
         return;
     }
+    // Meme conversion qu'a l'amorce (handleDecorPress) : le geste raisonne en espace modele, avec
+    // le facteur de la couche du decor deja saisi (_decorGesture.selectedIndex, fixe pour le geste).
+    const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
+    const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+        worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
     const hmi::DecorGestureAction preview =
-        hmi::updateDecorGesture(_decorGesture, worldPositionAt(event), _decorSnapToGrid);
+        hmi::updateDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
     // Jamais d'invalidate() ici : l'apercu ne touche pas _draft, DraftRenderer le lit a chaque
     // image comme un parametre ordinaire (LOT-50 TACHE-03), pas via une reconstruction de scene.
     _decorPreview =
@@ -484,8 +514,11 @@ void GameViewport::handleDecorRelease(const QMouseEvent* event, bool rightClick)
     if (_decorGesture.phase == hmi::DecorGesturePhase::Idle) {
         return;
     }
-    const hmi::DecorGestureAction action =
-        hmi::endDecorGesture(_decorGesture, worldPositionAt(event), _decorSnapToGrid);
+    // Meme conversion que handleDecorMove : l'action finale doit sortir en espace modele.
+    const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
+    const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+        worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
+    const hmi::DecorGestureAction action = hmi::endDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
     _decorPreview.reset();
     applyDecorGestureAction(action);  // invalide via markDraftMutated() si applique.
 }

@@ -200,17 +200,26 @@ void SpriteBatch::draw(const SpriteQuad& quad) {
         flush();
     }
 
-    const float left = quad.x;
-    const float top = quad.y;
-    const float right = quad.x + quad.width;
-    const float bottom = quad.y + quad.height;
+    const float halfWidth = quad.width * 0.5f;
+    const float halfHeight = quad.height * 0.5f;
+    const float centerX = quad.x + halfWidth;
+    const float centerY = quad.y + halfHeight;
+    const float cosR = std::cos(quad.rotation);
+    const float sinR = std::sin(quad.rotation);
 
-    // Quatre coins, dans l'ordre attendu par le tampon d'indices (haut-gauche, haut-droit,
-    // bas-droit, bas-gauche). Y vers le bas : `top` < `bottom`.
-    _vertices.push_back(Vertex{left, top, quad.u0, quad.v0, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{right, top, quad.u1, quad.v0, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{right, bottom, quad.u1, quad.v1, quad.r, quad.g, quad.b, quad.a});
-    _vertices.push_back(Vertex{left, bottom, quad.u0, quad.v1, quad.r, quad.g, quad.b, quad.a});
+    // Coins relatifs au centre (haut-gauche, haut-droit, bas-droit, bas-gauche), tournes de
+    // `rotation` radians autour du centre -- a rotation nulle (cosR=1, sinR=0), coincide avec le
+    // rectangle aligne d'origine (meme formule que draw(LineQuad), coins pousses dans le meme
+    // ordre attendu par le tampon d'indices).
+    const float offsetsX[4] = {-halfWidth, halfWidth, halfWidth, -halfWidth};
+    const float offsetsY[4] = {-halfHeight, -halfHeight, halfHeight, halfHeight};
+    const float us[4] = {quad.u0, quad.u1, quad.u1, quad.u0};
+    const float vs[4] = {quad.v0, quad.v0, quad.v1, quad.v1};
+    for (int i = 0; i < 4; ++i) {
+        const float x = centerX + offsetsX[i] * cosR - offsetsY[i] * sinR;
+        const float y = centerY + offsetsX[i] * sinR + offsetsY[i] * cosR;
+        _vertices.push_back(Vertex{x, y, us[i], vs[i], quad.r, quad.g, quad.b, quad.a});
+    }
 }
 
 // Ajoute un segment épais (orienté librement) au lot courant.

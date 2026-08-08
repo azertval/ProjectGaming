@@ -49,6 +49,23 @@ nouveau n'est requis côté pipeline.
   l'aperçu suit le geste, l'aimantation est signalée, et rien n'apparaît en jeu ; la géométrie est
   partagée avec la détection et testée ; `/W4 /WX` propre.
 
+## Correctifs post-livraison
+- **Cadre désolidarisé du décor (couches Arrière-plan/Premier plan).**
+  `DraftRenderer::composeDecorSelection` calculait le cadre/les poignées à partir de la position
+  **modèle** du décor, jamais décalée par sa parallaxe (`LOT-49` TACHE-03) — contrairement au sprite
+  réellement rendu. Corrigé en appliquant la même conversion que `hmi::composeWorldSprites`
+  (`hmi::parallaxRenderPosition` + `hmi::roundToScreenPixel`), en dernier, une fois l'aperçu de
+  geste éventuel résolu. Voir aussi le correctif jumeau de désignation/geste, @ref
+  lot-50-tache-02-outil-geste.
+- **Poignée de rotation sans effet visible.** LOT-49 TACHE-02 avait délibérément choisi d'ignorer
+  `core::Transform::rotation` au rendu (pipeline de quads alignés aux axes) ; la poignée de
+  rotation de cette tâche pivotait donc bien le décor en mémoire, mais rien ne le montrait à
+  l'écran — geste fonctionnellement inutilisable en pratique. Revu : `hmi::SpriteQuad` porte
+  désormais une rotation optionnelle, tournée autour du centre du quad par
+  `hmi::SpriteBatch::draw` (même patron que `hmi::LineQuad`, `LOT-37`) ; le culling
+  (`hmi::spriteQuadBounds`) en tient compte. Le cadre/les poignées, eux, restent délibérément
+  alignés aux axes (simplification assumée, cf. `HMI/Editor/DecorGeometry.h`).
+
 ## Exigences
 `EX-DEC-010` (manipulation de décors), `EX-EDIT-040` (édition de décors) ; réutilise `EX-REN-043`
 (calques), `EX-EDIT-030` (éditeur intégré), `EX-ARCH-022` (netteté), `EX-NFR-004` (vérification sans

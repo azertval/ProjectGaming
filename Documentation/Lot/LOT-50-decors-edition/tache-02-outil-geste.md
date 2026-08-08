@@ -60,6 +60,19 @@ manipulation finirait dispersée dans des gestionnaires d'événements Qt intest
   redimensionner et pivoter fonctionnent, avec abandon et aimantation optionnelle ; le geste est pur
   et testé sans Qt ; `/W4 /WX` propre.
 
+## Correctif post-livraison
+La mise en garde ci-dessus (« Points d'attention ») avait été identifiée mais pas suivie à la
+livraison initiale : la désignation/les poignées comparaient le curseur (position de **rendu**) à
+des rectangles calculés depuis la position **modèle** brute des décors, jamais convertie. Sans
+effet sur la couche `Decor` (facteur `1.0`, `EX-DEC-006`), mais un décor en couche
+Arrière-plan/Premier plan désignait/manipulait à côté de ce qui était visible à l'écran — rapporté
+comme « le cadre de modification se désolidarise du décor ». Corrigé en convertissant
+explicitement aux deux frontières concernées (`GameViewport::decorBoundsForGesture`/
+`selectedDecorHandles` vers l'espace de rendu, `hmi::parallaxRenderPosition` ; le curseur vers
+l'espace modèle avant d'entrer dans `hmi::DecorGesture`, `hmi::parallaxModelPosition`, son inverse
+exact) — voir @ref guide-rendu pour le détail. `hmi::DecorGesture` lui-même n'a pas changé : il n'a
+jamais connu la parallaxe, et n'a pas à la connaître.
+
 ## Exigences
 `EX-DEC-010` (placer, déplacer, redimensionner, supprimer), `EX-EDIT-040` (édition de décors) ;
 réutilise `EX-DEC-001` (position libre), `EX-EDIT-005` (annuler/refaire), `EX-EDIT-030` (éditeur

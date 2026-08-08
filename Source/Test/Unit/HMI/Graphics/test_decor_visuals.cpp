@@ -189,6 +189,29 @@ TEST(DecorVisualsTest, DecorEnModeTextureProduitUnQuadALaTailleDeSonAsset) {
 }
 
 /**
+ * @brief La rotation d'un décor (`core::Transform::rotation`) atteint le quad composé : nécessaire
+ * pour que la poignée de rotation de l'éditeur (`LOT-50`) ait un effet visible, contrairement au
+ * choix (révolu) de LOT-49 TACHE-02 de l'ignorer.
+ * \castest{<b>La rotation d'un decor atteint le quad compose.</b><br/>
+ * \tcat Unitaire · Decor Visuals<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer un decor dont le Transform porte une rotation non nulle.<br/>
+ * \tattendu Le quad soumis porte la meme rotation.
+ * }
+ */
+TEST(DecorVisualsTest, LaRotationDUnDecorAtteintLeQuadCompose) {
+    core::World world;
+    const core::Entity entity = addDecorEntity(world, "tree.png", DecorLayer::Decor, 0);
+    world.getComponent<core::Transform>(entity).rotation = 1.2f;
+
+    hmi::ComposedScene scene;
+    hmi::composeWorldSprites(scene, world, hmi::RenderMode::Texture, testTextures(), 0.0f);
+
+    ASSERT_EQ(scene.size(), 1u);
+    EXPECT_FLOAT_EQ(scene.quads()[0].sprite.rotation, 1.2f);
+}
+
+/**
  * @brief Un décor de premier plan est soumis après le personnage ; un décor d'arrière-plan avant
  * les tuiles (`EX-DEC-002`, contrat de lecture du lot).
  * \castest{<b>Premier plan apres le personnage, arriere-plan avant les tuiles.</b><br/>

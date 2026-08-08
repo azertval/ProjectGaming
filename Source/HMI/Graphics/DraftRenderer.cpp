@@ -16,6 +16,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -344,7 +345,9 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
     }
 
     // Copie locale : l'apercu du geste en cours (TACHE-02) s'applique ici SANS jamais toucher au
-    // brouillon, seule la position d'affichage en tient compte.
+    // brouillon, seule la position d'affichage en tient compte. decor.position reste en espace
+    // MODELE a ce stade, que ce soit celle du brouillon ou celle de l'apercu (hmi::DecorGesture,
+    // TACHE-02, raisonne uniquement en espace modele, EX-ARCH-012) -- jamais l'espace de rendu.
     core::Decor decor = draft.decors()[*decorOverlay.selectedIndex];
     if (decorOverlay.preview && decorOverlay.preview->index == *decorOverlay.selectedIndex) {
         const DecorGestureAction& preview = *decorOverlay.preview;
@@ -363,6 +366,15 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
                 break;
         }
     }
+
+    // Position d'AFFICHAGE : decalee par la parallaxe de la couche du decor, exactement comme le
+    // sprite reellement rendu (hmi::composeWorldSprites, LOT-49 TACHE-03) -- appliquee en dernier,
+    // decor.position etant toujours en espace modele jusqu'ici (brouillon ou apercu). Sans cette
+    // conversion, le cadre de selection se desolidarise visiblement du decor des que sa couche
+    // n'est pas la couche de reference (Background/Foreground, facteur != 1.0).
+    decor.position = roundToScreenPixel(
+        parallaxRenderPosition(decor.position, parallaxFactor(decor.layer), camera.visibleBounds()),
+        Camera2D::PIXELS_PER_UNIT * camera.zoom());
 
     // Dimensions reelles de l'asset (meme repli que hmi::resolveDecorAppearance, LOT-49) : la
     // geometrie partagee (hmi::decorWorldBounds) en depend, comme pour la detection (TACHE-02).

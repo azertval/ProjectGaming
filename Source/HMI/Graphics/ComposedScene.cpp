@@ -1,6 +1,7 @@
 #include "HMI/Graphics/ComposedScene.h"
 
 #include <algorithm>
+#include <cmath>
 #include <utility>
 
 #include "Core/Ecs/Components/Sprite.h"
@@ -152,9 +153,24 @@ std::string formatSceneStatistics(const SceneStatistics& statistics) {
            std::to_string(statistics.batches) + " passe(s).";
 }
 
-// Boite englobante d'un rectangle texture, en unites monde.
+// Boite englobante d'un rectangle texture, en unites monde -- tient compte de la rotation
+// (LOT-50 TACHE-02) : un quad pivote occupe un rectangle englobant plus grand que sa taille
+// propre, le culling doit donc le juger sur ce rectangle-la, jamais sur (x, y, width, height) brut
+// (un decor pivote pres du bord du cadrage disparaitrait sinon a tort).
 core::Rect spriteQuadBounds(const SpriteQuad& quad) noexcept {
-    return core::Rect{core::Vector2{quad.x, quad.y}, core::Vector2{quad.width, quad.height}};
+    if (quad.rotation == 0.0f) {
+        return core::Rect{core::Vector2{quad.x, quad.y}, core::Vector2{quad.width, quad.height}};
+    }
+    const float halfWidth = quad.width * 0.5f;
+    const float halfHeight = quad.height * 0.5f;
+    const float centerX = quad.x + halfWidth;
+    const float centerY = quad.y + halfHeight;
+    const float cosR = std::fabs(std::cos(quad.rotation));
+    const float sinR = std::fabs(std::sin(quad.rotation));
+    const float extentX = halfWidth * cosR + halfHeight * sinR;
+    const float extentY = halfWidth * sinR + halfHeight * cosR;
+    return core::Rect{core::Vector2{centerX - extentX, centerY - extentY},
+                      core::Vector2{extentX * 2.0f, extentY * 2.0f}};
 }
 
 // Boite englobante d'un segment epais, en unites monde (extremites elargies d'une demi-epaisseur).
@@ -206,12 +222,12 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 // designe si charge, damier de repli a sa taille sinon. L'image est toujours
                 // echantillonnee en entier (pas de decoupage en grille, contrairement aux tuiles).
                 //
-                // Rotation (core::Transform::rotation) : deliberement IGNOREE par ce lot -- le
-                // pipeline de quads textures (hmi::SpriteQuad) ne dessine que des rectangles
-                // alignes aux axes ; un decor pivote continuerait donc a s'afficher droit. Sort
-                // tranche par TACHE-02 (epic LOT-49) plutot que laisse silencieux : un quad
-                // veritablement oriente suivrait le patron de hmi::LineQuad (LOT-37), hors
-                // perimetre de ce lot.
+                // Rotation (core::Transform::rotation) : appliquee au quad (LOT-50 TACHE-02) --
+                // hmi::SpriteQuad porte une rotation optionnelle (nulle par defaut, cf.
+                // HMI/Graphics/Quad.h), tournee autour du centre du quad par
+                // hmi::SpriteBatch::draw, meme patron que hmi::LineQuad (LOT-37) pour un quad
+                // oriente. Revient sur le choix de LOT-49 TACHE-02 de l'ignorer : necessaire pour
+                // que la poignee de rotation de l'editeur (LOT-50) ait un effet visible.
                 const DecorAppearance appearance = resolveDecorAppearance(*decorTag, textures);
                 texture = appearance.texture;
                 region = core::AtlasRegion{0, 0, appearance.pixelWidth, appearance.pixelHeight};
@@ -294,6 +310,9 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             quad.y = position.y;
             quad.width = worldWidth;
             quad.height = worldHeight;
+            // Rotation du decor (LOT-50) : nulle pour toute autre entite (tuiles, personnage),
+            // jamais ecrite ailleurs que par les mutateurs de decors (core::Transform::rotation).
+            quad.rotation = transform.rotation;
             // Coordonnees de texture normalisees a partir de la region en pixels.
             quad.u0 = static_cast<float>(region.x) / atlasWidth;
             quad.v0 = static_cast<float>(region.y) / atlasHeight;
