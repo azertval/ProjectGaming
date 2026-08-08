@@ -63,7 +63,7 @@ TEST(DecorGestureTest, DesignateDecorAtPrivilegieLesPoigneesDuDecorSelectionne) 
         Rect{Vector2{0.0f, 0.0f}, Vector2{4.0f, 4.0f}},
         Rect{Vector2{-1.0f, -1.0f}, Vector2{4.0f, 4.0f}},
     };
-    const hmi::DecorHandleLayout handles = hmi::decorHandleLayout(bounds[0], 0.1f);
+    const hmi::DecorHandleLayout handles = hmi::decorHandleLayout(bounds[0], 0.1f, 0.0f);
 
     const std::optional<DecorHit> hit =
         hmi::designateDecorAt(Vector2{0.0f, 0.0f}, bounds, 0u, handles);

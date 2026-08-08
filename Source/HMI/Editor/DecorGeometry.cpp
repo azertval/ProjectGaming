@@ -1,5 +1,7 @@
 #include "HMI/Editor/DecorGeometry.h"
 
+#include <cmath>
+
 #include "HMI/Graphics/Camera2D.h"
 
 namespace hmi {
@@ -14,6 +16,19 @@ core::Rect decorWorldBounds(const core::Decor& decor, core::Vector2 pixelSize) n
                                     pixelSize.y / Camera2D::PIXELS_PER_UNIT * decor.scale.y}};
 }
 
+// Point tourne autour du centre de bounds (voir en-tete) -- meme formule que
+// hmi::SpriteBatch::draw(const SpriteQuad&) pour un decor reellement rendu pivote (LOT-50), afin
+// que le cadre de selection tourne visiblement avec lui plutot que de rester droit.
+core::Vector2 decorRotatedPoint(const core::Rect& bounds, core::Vector2 localOffset,
+                                float rotation) noexcept {
+    const core::Vector2 center{bounds.position.x + bounds.size.x * 0.5f,
+                               bounds.position.y + bounds.size.y * 0.5f};
+    const float cosR = std::cos(rotation);
+    const float sinR = std::sin(rotation);
+    return core::Vector2{center.x + localOffset.x * cosR - localOffset.y * sinR,
+                         center.y + localOffset.x * sinR + localOffset.y * cosR};
+}
+
 namespace {
 // Carre de cote 2*halfSize centre sur `center`.
 core::Rect squareCenteredAt(core::Vector2 center, float halfSize) noexcept {
@@ -23,24 +38,25 @@ core::Rect squareCenteredAt(core::Vector2 center, float halfSize) noexcept {
 }  // namespace
 
 // Calcule les rectangles des poignees d'un decor selectionne (voir en-tete).
-DecorHandleLayout decorHandleLayout(const core::Rect& bounds,
-                                    float worldUnitsPerScreenPixel) noexcept {
+DecorHandleLayout decorHandleLayout(const core::Rect& bounds, float worldUnitsPerScreenPixel,
+                                    float rotation) noexcept {
     const float half = DECOR_HANDLE_SCREEN_SIZE * 0.5f * worldUnitsPerScreenPixel;
-    const core::Vector2 topLeft = bounds.position;
-    const core::Vector2 topRight{bounds.position.x + bounds.size.x, bounds.position.y};
-    const core::Vector2 bottomLeft{bounds.position.x, bounds.position.y + bounds.size.y};
-    const core::Vector2 bottomRight{bounds.position.x + bounds.size.x,
-                                    bounds.position.y + bounds.size.y};
+    const float halfWidth = bounds.size.x * 0.5f;
+    const float halfHeight = bounds.size.y * 0.5f;
     const float rotationOffset = DECOR_ROTATION_HANDLE_SCREEN_OFFSET * worldUnitsPerScreenPixel;
-    const core::Vector2 rotationCenter{bounds.position.x + bounds.size.x * 0.5f,
-                                       bounds.position.y - rotationOffset};
 
     DecorHandleLayout layout;
-    layout.topLeft = squareCenteredAt(topLeft, half);
-    layout.topRight = squareCenteredAt(topRight, half);
-    layout.bottomLeft = squareCenteredAt(bottomLeft, half);
-    layout.bottomRight = squareCenteredAt(bottomRight, half);
-    layout.rotation = squareCenteredAt(rotationCenter, half);
+    layout.topLeft = squareCenteredAt(
+        decorRotatedPoint(bounds, core::Vector2{-halfWidth, -halfHeight}, rotation), half);
+    layout.topRight = squareCenteredAt(
+        decorRotatedPoint(bounds, core::Vector2{halfWidth, -halfHeight}, rotation), half);
+    layout.bottomLeft = squareCenteredAt(
+        decorRotatedPoint(bounds, core::Vector2{-halfWidth, halfHeight}, rotation), half);
+    layout.bottomRight = squareCenteredAt(
+        decorRotatedPoint(bounds, core::Vector2{halfWidth, halfHeight}, rotation), half);
+    layout.rotation = squareCenteredAt(
+        decorRotatedPoint(bounds, core::Vector2{0.0f, -halfHeight - rotationOffset}, rotation),
+        half);
     return layout;
 }
 

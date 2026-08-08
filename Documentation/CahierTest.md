@@ -1,8 +1,8 @@
 # Cahier de test {#cahiertest}
 
-**644 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
+**647 cas de test**, générés depuis les blocs `\castest{...}` du code par `scripts/generate_cahier_test.py` (ne pas éditer directement — modifier le commentaire du test concerné puis relancer le script). Organisés ici selon l'arborescence de `Source/Test/` pour rester lisibles page par page.
 
-## Tests unitaires (554)
+## Tests unitaires (557)
 
 ### Core
 
@@ -484,7 +484,7 @@
 | **SessionLogTest.SerialiseUneLigneParMessage** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:15`</sub> | Chaque message donne une ligne, dans l'ordre d'arrivée. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog(entries)` vaut `"premier message\\nsecond message\\n"`. |
 | **SessionLogTest.VideDonneChaineVide** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Diagnostics/test_session_log.cpp:34`</sub> | Une session sans message produit un texte vide. | 1. Mettre en place le contexte du test (arrangement).<br/>2. Executer le scenario et verifier les assertions. | Vérifie que `hmi::serializeSessionLog({})` vaut `""`. |
 
-#### Editor (34)
+#### Editor (37)
 
 **`test_decor_geometry.cpp`**
 
@@ -494,6 +494,9 @@
 | **DecorGeometryTest.PoigneesTailleEcranConstante** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:46`</sub> | Les poignees gardent une taille ecran constante quel que soit le zoom. | 1. Calculer les poignees d'un decor a deux echelles ecran differentes. | Vérifie que `wide.topLeft.size.x` vaut `narrow.topLeft.size.x * 2.0f` (comparaison flottante).<br/>Vérifie que `wide.topLeft.size.y` vaut `narrow.topLeft.size.y * 2.0f` (comparaison flottante). |
 | **DecorGeometryTest.PoigneesPositionneesAuxCoinsEtAuDessusDuBordSuperieur** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:67`</sub> | Les poignees sont positionnees sur les coins et au-dessus du bord superieur. | 1. Calculer les poignees d'un decor connu. | Vérifie que `layout.topLeft.contains(Vector2{10.0f, 10.0f})` est vrai.<br/>Vérifie que `layout.topRight.contains(Vector2{14.0f, 10.0f})` est vrai.<br/>Vérifie que `layout.bottomLeft.contains(Vector2{10.0f, 12.0f})` est vrai.<br/>Vérifie que `layout.bottomRight.contains(Vector2{14.0f, 12.0f})` est vrai.<br/>Vérifie que `layout.rotation.position.x + layout.rotation.size.x * 0.5f` vaut `12.0f`, à `1e-3f` près.<br/>Vérifie que `layout.rotation.position.y + layout.rotation.size.y` est strictement inférieur à `10.0f`. |
 | **DecorGeometryTest.HitTestDecorHandlesIdentifieLaPoigneeTouchee** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:90`</sub> | hitTestDecorHandles identifie la poignee touchee. | 1. Tester un point sur chaque poignee, puis un point hors de toutes. | Vérifie que `hmi::hitTestDecorHandles(Vector2{0.0f, 0.0f}, layout)` vaut `hmi::DecorHandle::TopLeft`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{4.0f, 0.0f}, layout)` vaut `hmi::DecorHandle::TopRight`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{0.0f, 2.0f}, layout)` vaut `hmi::DecorHandle::BottomLeft`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{4.0f, 2.0f}, layout)` vaut `hmi::DecorHandle::BottomRight`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{2.0f, -2.4f}, layout)` vaut `hmi::DecorHandle::Rotation`.<br/>Vérifie que `hmi::hitTestDecorHandles(Vector2{2.0f, 1.0f}, layout)` vaut `hmi::DecorHandle::None`. |
+| **DecorGeometryTest.DecorRotatedPointARotationNulleEstLIdentite** (Majeur)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:114`</sub> | decorRotatedPoint a rotation nulle est l'identite. | 1. Calculer decorRotatedPoint a rotation 0. | Vérifie que `point.x` vaut `14.0f`, à `1e-4f` près.<br/>Vérifie que `point.y` vaut `10.0f`, à `1e-4f` près. |
+| **DecorGeometryTest.DecorRotatedPointA90DegresTourneDansLeSensHoraire** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:134`</sub> | decorRotatedPoint a 90 degres tourne dans le sens horaire. | 1. Calculer decorRotatedPoint pour le coin superieur droit, tourne de 90 degres. | Vérifie que `point.x` vaut `4.0f`, à `1e-3f` près.<br/>Vérifie que `point.y` vaut `4.0f`, à `1e-3f` près. |
+| **DecorGeometryTest.PoigneesDeCoinTournentAvecLeDecor** (Critique)<br/><sub>`Source/Test/Unit/HMI/Editor/test_decor_geometry.cpp:156`</sub> | Les poignees de decorHandleLayout tournent avec le decor. | 1. Calculer les poignees d'un decor carre a rotation nulle, puis a 90 degres. | Vérifie que `rotatedTopLeftCenter.x` vaut `uprightTopRightCenter.x`, à `1e-3f` près.<br/>Vérifie que `rotatedTopLeftCenter.y` vaut `uprightTopRightCenter.y`, à `1e-3f` près. |
 
 **`test_decor_list_model.cpp`**
 

@@ -420,7 +420,9 @@ std::optional<hmi::DecorHandleLayout> GameViewport::selectedDecorHandles() const
     // Le cadrage courant est deja a jour : chaque appelant (handleDecorPress/Move/Release) rafraichit
     // la camera via worldPositionAt() avant de consulter les poignees.
     const float worldUnitsPerScreenPixel = 1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
-    return hmi::decorHandleLayout(bounds, worldUnitsPerScreenPixel);
+    // decor.rotation n'est jamais touche par la parallaxe (purement une position de rendu,
+    // EX-ARCH-012) : celui du brouillon convient tel quel, sans conversion.
+    return hmi::decorHandleLayout(bounds, worldUnitsPerScreenPixel, decor.rotation);
 }
 
 void GameViewport::handleDecorPress(const QMouseEvent* event) {

@@ -544,9 +544,15 @@ cinq poignées (quatre coins + rotation) à **taille écran constante**, convert
 `1 / (Camera2D::PIXELS_PER_UNIT × zoom)`, jamais l'inverse. C'est la **même** géométrie qui sert au
 rendu (`DraftRenderer::composeDecorSelection`) et à la détection (`hmi::DecorGesture`) : les
 calculer à deux endroits différents les aurait fait diverger au premier ajustement de taille.
-`hmi::decorWorldBounds`/`hmi::decorHandleLayout` ignorent la rotation du décor (les poignées et le
-cadre restent alignés aux axes même quand le décor est pivoté, une simplification volontaire — le
-geste reste utilisable sans exiger de détection de rectangle orienté).
+`hmi::decorWorldBounds` calcule le rectangle **non tourné** ; `hmi::decorRotatedPoint` (même
+formule que `hmi::SpriteBatch::draw`) tourne un point donné autour de son centre — utilisé par
+`decorHandleLayout` pour les **centres** des cinq poignées (les carrés eux-mêmes restent non
+tournés, repère de coin lisible même pivoté) et par `DraftRenderer::composeDecorSelection` pour les
+quatre coins du cadre, dessiné en segments orientés (`hmi::LineQuad`). Le décor tourne donc bien
+« sous » son propre cadre, plutôt que de laisser un cadre droit trahir une rotation qui, sans ça,
+semblerait n'avoir aucun effet. Seule la désignation du **corps** (hors poignées, `hmi::
+designateDecorAt`) reste testée contre le rectangle non tourné — zone cliquable un peu plus
+généreuse que la silhouette pivotée, jamais plus restrictive.
 
 **Espace de rendu vs. espace modèle** : le curseur converti par `Camera2D::screenToWorld` (donc
 tout ce qui en dérive — désignation, poignées, geste) est comparable à la position **de rendu**

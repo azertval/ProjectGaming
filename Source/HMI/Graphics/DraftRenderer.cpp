@@ -386,55 +386,73 @@ void DraftRenderer::composeDecorSelection(const core::LevelDraft& draft,
     }
     const core::Rect bounds = decorWorldBounds(decor, pixelSize);
     const float worldUnitsPerScreenPixel = 1.0f / (Camera2D::PIXELS_PER_UNIT * camera.zoom());
-    const DecorHandleLayout handles = decorHandleLayout(bounds, worldUnitsPerScreenPixel);
+    const DecorHandleLayout handles = decorHandleLayout(bounds, worldUnitsPerScreenPixel, decor.rotation);
 
     const core::AtlasRegion solid = _atlas.tile(0, 0);
     const float atlasWidth = static_cast<float>(_atlas.width());
     const float atlasHeight = static_cast<float>(_atlas.height());
+    const float solidU0 = static_cast<float>(solid.x) / atlasWidth;
+    const float solidV0 = static_cast<float>(solid.y) / atlasHeight;
+    const float solidU1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
+    const float solidV1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
     const auto solidQuad = [&](const core::Rect& rect, float r, float g, float b, float a) {
         SpriteQuad quad;
         quad.x = rect.position.x;
         quad.y = rect.position.y;
         quad.width = rect.size.x;
         quad.height = rect.size.y;
-        quad.u0 = static_cast<float>(solid.x) / atlasWidth;
-        quad.v0 = static_cast<float>(solid.y) / atlasHeight;
-        quad.u1 = static_cast<float>(solid.x + solid.width) / atlasWidth;
-        quad.v1 = static_cast<float>(solid.y + solid.height) / atlasHeight;
+        quad.u0 = solidU0;
+        quad.v0 = solidV0;
+        quad.u1 = solidU1;
+        quad.v1 = solidV1;
         quad.r = r;
         quad.g = g;
         quad.b = b;
         quad.a = a;
         return quad;
     };
-    // Cadre de selection : 4 bords fins formant un rectangle vide (jamais un voile plein, qui
-    // cacherait le decor). Contour double ton (sombre puis cyan clair, EX-EDIT-030) pour rester
-    // lisible sur n'importe quel fond -- un simple trait clair disparaitrait sur un fond clair.
+    // Segment epais entre deux points monde, meme region de texture (unie) que solidQuad -- pour
+    // un cadre de selection ORIENTE (LOT-50, revision post-livraison de TACHE-03), contrairement a
+    // solidQuad qui ne dessine que des rectangles alignes aux axes.
+    const auto segment = [&](core::Vector2 a, core::Vector2 b, float thickness, float r, float g,
+                             float bl, float alpha, std::int32_t order) {
+        LineQuad quad;
+        quad.ax = a.x;
+        quad.ay = a.y;
+        quad.bx = b.x;
+        quad.by = b.y;
+        quad.thickness = thickness;
+        quad.u0 = solidU0;
+        quad.v0 = solidV0;
+        quad.u1 = solidU1;
+        quad.v1 = solidV1;
+        quad.r = r;
+        quad.g = g;
+        quad.b = bl;
+        quad.a = alpha;
+        _scene.addLine(RenderLayer::EditorOverlay, _atlas.textureView(), order, quad);
+    };
+    // Cadre de selection : 4 segments joignant les coins du decor -- TOURNES avec lui
+    // (hmi::decorRotatedPoint, meme angle que le sprite reellement rendu, LOT-50) plutot que rester
+    // droits alors que le decor pivote sous eux. Jamais un voile plein, qui cacherait le decor.
+    // Contour double ton (sombre puis cyan clair, EX-EDIT-030) pour rester lisible sur n'importe
+    // quel fond -- un simple trait clair disparaitrait sur un fond clair.
+    const float halfWidth = bounds.size.x * 0.5f;
+    const float halfHeight = bounds.size.y * 0.5f;
+    const core::Vector2 topLeftCorner =
+        decorRotatedPoint(bounds, core::Vector2{-halfWidth, -halfHeight}, decor.rotation);
+    const core::Vector2 topRightCorner =
+        decorRotatedPoint(bounds, core::Vector2{halfWidth, -halfHeight}, decor.rotation);
+    const core::Vector2 bottomRightCorner =
+        decorRotatedPoint(bounds, core::Vector2{halfWidth, halfHeight}, decor.rotation);
+    const core::Vector2 bottomLeftCorner =
+        decorRotatedPoint(bounds, core::Vector2{-halfWidth, halfHeight}, decor.rotation);
     const auto border = [&](float thickness, float r, float g, float b, float a,
                             std::int32_t order) {
-        const float half = thickness * 0.5f;
-        const float left = bounds.position.x;
-        const float top = bounds.position.y;
-        const float right = bounds.position.x + bounds.size.x;
-        const float bottom = bounds.position.y + bounds.size.y;
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), order,
-                         solidQuad(core::Rect{core::Vector2{left - half, top - half},
-                                              core::Vector2{bounds.size.x + thickness, thickness}},
-                                   r, g, b, a));
-        _scene.addSprite(
-            RenderLayer::EditorOverlay, _atlas.textureView(), order,
-            solidQuad(core::Rect{core::Vector2{left - half, bottom - half},
-                                 core::Vector2{bounds.size.x + thickness, thickness}},
-                      r, g, b, a));
-        _scene.addSprite(RenderLayer::EditorOverlay, _atlas.textureView(), order,
-                         solidQuad(core::Rect{core::Vector2{left - half, top - half},
-                                              core::Vector2{thickness, bounds.size.y + thickness}},
-                                   r, g, b, a));
-        _scene.addSprite(
-            RenderLayer::EditorOverlay, _atlas.textureView(), order,
-            solidQuad(core::Rect{core::Vector2{right - half, top - half},
-                                 core::Vector2{thickness, bounds.size.y + thickness}},
-                      r, g, b, a));
+        segment(topLeftCorner, topRightCorner, thickness, r, g, b, a, order);
+        segment(topRightCorner, bottomRightCorner, thickness, r, g, b, a, order);
+        segment(bottomRightCorner, bottomLeftCorner, thickness, r, g, b, a, order);
+        segment(bottomLeftCorner, topLeftCorner, thickness, r, g, b, a, order);
     };
     border(0.07f, 0.02f, 0.05f, 0.08f, 0.9f, OVERLAY_ORDER_DECOR_OUTLINE_DARK);
     border(0.035f, 0.25f, 0.95f, 1.0f, 0.95f, OVERLAY_ORDER_DECOR_OUTLINE_BRIGHT);

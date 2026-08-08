@@ -63,8 +63,20 @@ nouveau n'est requis côté pipeline.
   l'écran — geste fonctionnellement inutilisable en pratique. Revu : `hmi::SpriteQuad` porte
   désormais une rotation optionnelle, tournée autour du centre du quad par
   `hmi::SpriteBatch::draw` (même patron que `hmi::LineQuad`, `LOT-37`) ; le culling
-  (`hmi::spriteQuadBounds`) en tient compte. Le cadre/les poignées, eux, restent délibérément
-  alignés aux axes (simplification assumée, cf. `HMI/Editor/DecorGeometry.h`).
+  (`hmi::spriteQuadBounds`) en tient compte.
+- **Cadre de sélection resté droit pendant une rotation.** Une fois la rotation visible sur le
+  décor (correctif ci-dessus), le cadre/les poignées — restés délibérément alignés aux axes à la
+  livraison initiale — donnaient l'impression trompeuse que la rotation n'avait pas pris : le
+  décor tournait sous un cadre immobile. Revu : `hmi::decorRotatedPoint`
+  (`HMI/Editor/DecorGeometry.h`) tourne tout point autour du **centre** du rectangle englobant, du
+  même angle que le décor (même formule que `hmi::SpriteBatch::draw`) ; `decorHandleLayout` l'utilise
+  pour les **centres** des cinq poignées (les carrés eux-mêmes restent non tournés — repère de coin
+  lisible même sur un décor pivoté, simplification assumée) et
+  `DraftRenderer::composeDecorSelection` pour les quatre coins du cadre, désormais dessiné avec des
+  segments orientés (`hmi::LineQuad`) plutôt que des bandes alignées aux axes. La désignation du
+  **corps** du décor (hors poignées) reste, elle, testée contre le rectangle englobant non tourné
+  (`hmi::designateDecorAt`) — zone cliquable légèrement plus généreuse que la silhouette pivotée,
+  jamais plus restrictive, donc sans régression fonctionnelle.
 
 ## Exigences
 `EX-DEC-010` (manipulation de décors), `EX-EDIT-040` (édition de décors) ; réutilise `EX-REN-043`
