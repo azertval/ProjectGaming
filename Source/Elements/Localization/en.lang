@@ -215,6 +215,10 @@ keybindings.action.grid = Grid
 keybindings.action.help = Help
 keybindings.action.rename = Rename
 
+# In-game head-up display (LOT-52, EX-IHM-003)
+hud.jumps_remaining = Jumps: %1
+hud.dashes_remaining = Dashes: %1
+
 # Tile palette: categories, subgroups, tiles
 palette.cat.tile = Tile
 palette.cat.interactive = Interactive

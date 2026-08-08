@@ -1,6 +1,6 @@
 # TACHE-03 — Affichage tête haute : budgets et tableau courant {#lot-52-tache-03-hud}
 
-**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/Elements/Localization` · **Statut :** non commencé
+**Lot :** [LOT-52](epic.md) · **Emplacement :** `Source/HMI/Game`, `Source/Elements/Localization` · **Statut :** fait
 
 ## Contexte
 `LOT-12` a introduit les **budgets de sauts et de dashs** par tableau (`EX-GP-024`) : une contrainte

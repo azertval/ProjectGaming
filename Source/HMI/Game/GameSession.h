@@ -34,6 +34,8 @@ class SpriteBatch;
 class TextureAtlas;
 class TextureCache;
 class InputState;
+class BitmapFont;
+class Localization;
 
 /**
  * @brief Simule et rend **un seul niveau** (déjà validé, en mémoire), indépendamment de toute
@@ -65,10 +67,16 @@ public:
      * session).
      * @param gamepadBindings Boutons manette de jeu (référence conservée, doit survivre à la
      * session).
+     * @param font          Police bitmap de l'affichage tête haute (référence conservée, doit
+     *                      survivre à la session, `LOT-52`).
+     * @param localization  Catalogue de traduction des libellés du HUD (`EX-REN-033`) ;
+     *                      `nullptr` désactive le HUD sans plantage (`EX-NFR-040`), état de
+     *                      démarrage légitime avant que le catalogue ne soit chargé.
      */
     GameSession(SpriteBatch& batch, const TextureAtlas& atlas, TextureCache& cache,
                 int viewportWidth, int viewportHeight, core::Level level,
-                const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings);
+                const GameKeyBindings& gameBindings, const GamepadBindings& gamepadBindings,
+                const BitmapFont& font, const Localization* localization = nullptr);
 
     /**
      * @brief Simule le niveau d'un pas fixe (mécanismes, blocs, physique, animation, dangers).
@@ -141,14 +149,25 @@ private:
     /// `SkinMode::Single` sans silhouette (`bitmask16` et silhouette détourée excluent
     /// l'animation, signalé une fois par asset via `_warnedExcludedAnimations`).
     void updateTileAnimations(float fixedDelta);
+    /// Compose et soumet l'affichage tête haute (budgets, nom du tableau), en espace écran, sur
+    /// sa propre projection (`hmi::screenProjectionMatrix`) — jamais affecté par le zoom de la
+    /// caméra ni par son culling (`LOT-52` TACHE-02/03). Sans effet si `_localization` est nul.
+    void renderHud(int viewportWidth, int viewportHeight);
 
     const TextureAtlas& _atlas;
     TextureCache& _cache;
     const GameKeyBindings& _gameBindings;
     const GamepadBindings& _gamepadBindings;
+    SpriteBatch& _batch;
+    const BitmapFont& _font;
+    const Localization* _localization;  // non possede ; nul = HUD desactive (EX-NFR-040)
     core::World _world;
     Camera2D _camera;
     SpriteRenderer _renderer;
+    /// Scène composée du HUD, distincte de celle de `_renderer` (`LOT-52` TACHE-02) : jamais de
+    /// cadrage de culling actif dessus (`ComposedScene::setVisibleBounds`), le texte est en
+    /// espace écran et n'a pas de position monde.
+    ComposedScene _hudScene;
     std::optional<core::Level> _level;
     std::optional<core::MechanismController> _mechanisms;
     std::vector<core::Entity> _doorEntities;

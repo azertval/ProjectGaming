@@ -28,6 +28,7 @@
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
 #include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
+#include "HMI/Graphics/BitmapFont.h"
 #include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
@@ -134,6 +135,9 @@ void GameViewport::ensureResources() {
     _graphics->setVSyncEnabled(_vsync);
     _spriteBatch = std::make_unique<hmi::SpriteBatch>(_graphics->device(), _graphics->context());
     _atlas = std::make_unique<hmi::TextureAtlas>(_graphics->device());
+    // Police bitmap du HUD (LOT-52), chargee une fois comme l'atlas (repli procedural integre,
+    // pas de damier de secours a gerer ici).
+    _font = std::make_unique<hmi::BitmapFont>(_graphics->device());
     // Registre des textures nommees (LOT-40) : proprietaire du damier de repli du mode Texture,
     // et point d'entree des skins a partir du LOT-42.
     _textureCache = std::make_unique<hmi::TextureCache>(
@@ -1018,7 +1022,7 @@ void GameViewport::startPlaytest() {
     }
     ensureResources();
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
-                     std::move(*validated.level), _gameBindings, _gamepadBindings);
+                     std::move(*validated.level), _gameBindings, _gamepadBindings, *_font, _loc);
     // Meme habillage qu'en edition : l'essai doit montrer exactement le canevas de l'editeur.
     _session->setSkins(&_skins, _skinSet);
     HMI_LOG_INFO("Editeur : essai immediat demarre.");
@@ -1073,7 +1077,7 @@ void GameViewport::loadGameLevel(std::size_t index) {
     HMI_LOG_INFO("Jeu : niveau " + std::to_string(index) +
                  " charge : " + _gameLevels[index].filename().string());
     _session.emplace(*_spriteBatch, *_atlas, *_textureCache, pixelWidth(), pixelHeight(),
-                     std::move(*loaded.level), _gameBindings, _gamepadBindings);
+                     std::move(*loaded.level), _gameBindings, _gamepadBindings, *_font, _loc);
     _session->setSkins(&_skins, _skinSet);
 }
 

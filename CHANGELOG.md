@@ -7,6 +7,45 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 ## [Non publié]
 
 ### Ajouté
+- **LOT-52 — Texte, police bitmap et affichage tête haute** (`EX-IHM-003`, re-concrétise
+  `EX-REN-032` retirée au `LOT-38`) : le jeu peut de nouveau afficher du texte **dans la scène
+  rendue** — les budgets de sauts/dashs (`EX-GP-024`, `LOT-12`) et le nom du tableau, jusqu'ici
+  invisibles faute de tout rendu de texte, apparaissent désormais en jeu et en essai.
+  - `hmi::ProceduralFont`/`hmi::BitmapFont` — police bitmap chargée depuis `Assets/Fonts/
+    font.png` + ses métriques (`font.json`, format JSON versionné, même patron que
+    `hmi::AnimationCatalog`), validée par le contrat d'asset (`AssetFamily::Font`, `EX-REN-007`)
+    et par sa cohérence avec les dimensions du PNG. Repli **procédural** déterministe si l'atlas
+    ou ses métriques sont absents/invalides (glyphes 5×7 pixels, ASCII imprimable + accents
+    français `é è à ç ù ê î ô û`, sur le modèle de `hmi::buildProceduralAtlasImage`, `LOT-39`) :
+    le jeu reste lisible sans aucun asset de police (`EX-NFR-040`). Aucun asset n'est livré pour
+    l'instant (`Source/Elements/Assets/Fonts/README.md`) : le repli procédural est donc le
+    rendu actif tant qu'un artiste n'a pas déposé `font.png`/`font.json`. Un caractère non
+    couvert est substitué par un glyphe de remplacement, jamais un trou silencieux. Mesure de
+    texte pure (`hmi::measureText`), parcourant des **points de code** UTF-8 (pas des octets) —
+    piège classique explicitement évité, comme documenté dans l'ancien `hmi::BitmapFont` retiré.
+  - `hmi::TextRenderer` (`HMI/Graphics/TextRenderer.h`) — compose une chaîne en `SpriteQuad` sur
+    le calque `RenderLayer::UI` (réservé sans être utilisé depuis `LOT-40`), avec ancrage
+    paramétrable (gauche/centre/droite, haut/milieu/bas) et positions arrondies au pixel écran
+    entier (netteté, `EX-ARCH-022`). **Projection écran dédiée** (`hmi::screenProjectionMatrix`,
+    dépendant uniquement des dimensions du viewport) : premier cas du projet où une passe de
+    rendu a sa propre projection, indépendante de `Camera2D` — le HUD ne tourne ni ne change de
+    taille avec le zoom. Composé dans une `hmi::ComposedScene` **dédiée**, distincte de celle de
+    `hmi::SpriteRenderer` et jamais soumise à un cadrage de culling caméra : le texte, en espace
+    écran, n'a pas de position monde (`LOT-40` TACHE-05 ne s'y applique pas).
+  - `hmi::GameHud`/`hmi::GameSession::renderHud` — fonction **pure** (`hmi::gameHudLines`)
+    choisissant les lignes à afficher (compteurs de sauts/dashs, seulement si le budget du
+    niveau est **fini** — `-1` = illimité, cas de la grande majorité des tableaux, aucune ligne
+    superflue ; nom du tableau) à partir de `core::Player`/`core::Level::name`, testée sans GPU.
+    Affichage en jeu et en essai (hérité du point d'entrée unique `hmi::GameSession::render`,
+    jamais appelé en édition pure — `hmi::DraftRenderer` reste le seul chemin de l'éditeur) avec
+    une ombre portée (décalage d'un pixel) pour rester lisible sur fond clair comme sur fond
+    sombre. Nouvelles clés `hud.jumps_remaining`/`hud.dashes_remaining` dans les deux catalogues
+    de traduction (`EX-REN-033`).
+  - **32 nouveaux tests**, tous sans GPU (`hmi::ProceduralFont`/`hmi::TextRenderer`/`hmi::
+    GameHud` sont des fichiers séparés de leurs classes propriétaires de ressources Direct3D —
+    `hmi::BitmapFont` n'est pas compilé dans `UnitTests`, comme `hmi::TextureAtlas`) ; build
+    `/W4 /WX` propre, 832 tests verts.
+
 - **LOT-41 — Bascule Physique/Texture (`F8`)** (`EX-REN-046`) : une commande **fixe et non
   remappable** bascule, en édition, en essai **et** en jeu réel, entre le rendu **Physique**
   (couleur plate par type de tuile — la lecture directe des collisions, comportement historique
