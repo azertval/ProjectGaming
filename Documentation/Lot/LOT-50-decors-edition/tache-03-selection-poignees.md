@@ -1,6 +1,6 @@
 # TACHE-03 — Rendu de la sélection, poignées et aimantation {#lot-50-tache-03-selection-poignees}
 
-**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** non commencé
+**Lot :** [LOT-50](epic.md) · **Emplacement :** `Source/HMI/Graphics`, `Source/HMI/Editor` · **Statut :** fait
 
 ## Contexte
 Le geste de TACHE-02 est aveugle sans retour visuel : l'auteur doit voir quel décor est sélectionné,
@@ -48,6 +48,35 @@ nouveau n'est requis côté pipeline.
 - Le décor sélectionné est encadré, ses poignées sont visibles et de taille constante à l'écran,
   l'aperçu suit le geste, l'aimantation est signalée, et rien n'apparaît en jeu ; la géométrie est
   partagée avec la détection et testée ; `/W4 /WX` propre.
+
+## Correctifs post-livraison
+- **Cadre désolidarisé du décor (couches Arrière-plan/Premier plan).**
+  `DraftRenderer::composeDecorSelection` calculait le cadre/les poignées à partir de la position
+  **modèle** du décor, jamais décalée par sa parallaxe (`LOT-49` TACHE-03) — contrairement au sprite
+  réellement rendu. Corrigé en appliquant la même conversion que `hmi::composeWorldSprites`
+  (`hmi::parallaxRenderPosition` + `hmi::roundToScreenPixel`), en dernier, une fois l'aperçu de
+  geste éventuel résolu. Voir aussi le correctif jumeau de désignation/geste, @ref
+  lot-50-tache-02-outil-geste.
+- **Poignée de rotation sans effet visible.** LOT-49 TACHE-02 avait délibérément choisi d'ignorer
+  `core::Transform::rotation` au rendu (pipeline de quads alignés aux axes) ; la poignée de
+  rotation de cette tâche pivotait donc bien le décor en mémoire, mais rien ne le montrait à
+  l'écran — geste fonctionnellement inutilisable en pratique. Revu : `hmi::SpriteQuad` porte
+  désormais une rotation optionnelle, tournée autour du centre du quad par
+  `hmi::SpriteBatch::draw` (même patron que `hmi::LineQuad`, `LOT-37`) ; le culling
+  (`hmi::spriteQuadBounds`) en tient compte.
+- **Cadre de sélection resté droit pendant une rotation.** Une fois la rotation visible sur le
+  décor (correctif ci-dessus), le cadre/les poignées — restés délibérément alignés aux axes à la
+  livraison initiale — donnaient l'impression trompeuse que la rotation n'avait pas pris : le
+  décor tournait sous un cadre immobile. Revu : `hmi::decorRotatedPoint`
+  (`HMI/Editor/DecorGeometry.h`) tourne tout point autour du **centre** du rectangle englobant, du
+  même angle que le décor (même formule que `hmi::SpriteBatch::draw`) ; `decorHandleLayout` l'utilise
+  pour les **centres** des cinq poignées (les carrés eux-mêmes restent non tournés — repère de coin
+  lisible même sur un décor pivoté, simplification assumée) et
+  `DraftRenderer::composeDecorSelection` pour les quatre coins du cadre, désormais dessiné avec des
+  segments orientés (`hmi::LineQuad`) plutôt que des bandes alignées aux axes. La désignation du
+  **corps** du décor (hors poignées) reste, elle, testée contre le rectangle englobant non tourné
+  (`hmi::designateDecorAt`) — zone cliquable légèrement plus généreuse que la silhouette pivotée,
+  jamais plus restrictive, donc sans régression fonctionnelle.
 
 ## Exigences
 `EX-DEC-010` (manipulation de décors), `EX-EDIT-040` (édition de décors) ; réutilise `EX-REN-043`

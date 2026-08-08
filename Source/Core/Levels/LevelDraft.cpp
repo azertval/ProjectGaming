@@ -1,6 +1,7 @@
 #include "Core/Levels/LevelDraft.h"
 
 #include <algorithm>
+#include <cmath>
 #include <utility>
 
 #include "Core/Diagnostics/Assert.h"
@@ -219,6 +220,133 @@ void LevelDraft::removeDecor(std::size_t index) {
     }
     pushUndo();
     _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+}
+
+bool LevelDraft::moveDecor(std::size_t index, Vector2 position) {
+    if (index >= _decors.size()) {
+        return false;
+    }
+    pushUndo();
+    _decors[index].position = position;
+    return true;
+}
+
+bool LevelDraft::resizeDecor(std::size_t index, Vector2 position, Vector2 scale) {
+    if (index >= _decors.size() || scale.x <= 0.0f || scale.y <= 0.0f) {
+        return false;
+    }
+    pushUndo();
+    _decors[index].position = position;
+    _decors[index].scale = scale;
+    return true;
+}
+
+bool LevelDraft::rotateDecor(std::size_t index, float rotation) {
+    if (index >= _decors.size()) {
+        return false;
+    }
+    pushUndo();
+    // Normalise dans [0, 2*pi[ : std::fmod conserve le signe de son operande, un reste negatif
+    // est donc ramene dans l'intervalle par un tour complet supplementaire.
+    constexpr float TWO_PI = 6.28318530717958647692f;
+    float normalized = std::fmod(rotation, TWO_PI);
+    if (normalized < 0.0f) {
+        normalized += TWO_PI;
+    }
+    _decors[index].rotation = normalized;
+    return true;
+}
+
+std::optional<std::size_t> LevelDraft::setDecorLayer(std::size_t index, DecorLayer layer) {
+    if (index >= _decors.size()) {
+        return std::nullopt;
+    }
+    if (_decors[index].layer == layer) {
+        return index;  // deja la couche courante : succes sans effet, aucun deplacement.
+    }
+    pushUndo();
+    Decor moved = std::move(_decors[index]);
+    moved.layer = layer;
+    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+    _decors.push_back(std::move(moved));  // meme convention que addDecor : rang le plus eleve.
+    return _decors.size() - 1;
+}
+
+std::optional<std::size_t> LevelDraft::bringDecorForward(std::size_t index) {
+    if (index >= _decors.size()) {
+        return std::nullopt;
+    }
+    const DecorLayer layer = _decors[index].layer;
+    for (std::size_t candidate = index + 1; candidate < _decors.size(); ++candidate) {
+        if (_decors[candidate].layer == layer) {
+            pushUndo();
+            std::swap(_decors[index], _decors[candidate]);
+            return candidate;
+        }
+    }
+    return index;  // deja le plus en avant de sa couche : succes sans effet.
+}
+
+std::optional<std::size_t> LevelDraft::sendDecorBackward(std::size_t index) {
+    if (index >= _decors.size()) {
+        return std::nullopt;
+    }
+    const DecorLayer layer = _decors[index].layer;
+    for (std::size_t candidate = index; candidate > 0; --candidate) {
+        if (_decors[candidate - 1].layer == layer) {
+            pushUndo();
+            std::swap(_decors[index], _decors[candidate - 1]);
+            return candidate - 1;
+        }
+    }
+    return index;  // deja le plus en arriere de sa couche : succes sans effet.
+}
+
+std::optional<std::size_t> LevelDraft::bringDecorToFront(std::size_t index) {
+    if (index >= _decors.size()) {
+        return std::nullopt;
+    }
+    const DecorLayer layer = _decors[index].layer;
+    // Rang le plus eleve deja occupe par un decor de cette couche.
+    std::size_t lastSameLayer = index;
+    for (std::size_t candidate = index + 1; candidate < _decors.size(); ++candidate) {
+        if (_decors[candidate].layer == layer) {
+            lastSameLayer = candidate;
+        }
+    }
+    if (lastSameLayer == index) {
+        return index;  // deja le plus en avant de sa couche : succes sans effet.
+    }
+    pushUndo();
+    Decor moved = std::move(_decors[index]);
+    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+    // lastSameLayer pointait dans le vecteur AVANT l'effacement : un cran plus loin que l'index
+    // d'insertion voulu, puisque l'effacement a decale tout ce qui suivait `index` d'un rang.
+    const std::size_t insertAt = lastSameLayer;
+    _decors.insert(_decors.begin() + static_cast<std::ptrdiff_t>(insertAt), std::move(moved));
+    return insertAt;
+}
+
+std::optional<std::size_t> LevelDraft::sendDecorToBack(std::size_t index) {
+    if (index >= _decors.size()) {
+        return std::nullopt;
+    }
+    const DecorLayer layer = _decors[index].layer;
+    // Rang le plus bas deja occupe par un decor de cette couche.
+    std::size_t firstSameLayer = index;
+    for (std::size_t candidate = index; candidate > 0; --candidate) {
+        if (_decors[candidate - 1].layer == layer) {
+            firstSameLayer = candidate - 1;
+        }
+    }
+    if (firstSameLayer == index) {
+        return index;  // deja le plus en arriere de sa couche : succes sans effet.
+    }
+    pushUndo();
+    Decor moved = std::move(_decors[index]);
+    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+    _decors.insert(_decors.begin() + static_cast<std::ptrdiff_t>(firstSameLayer), std::move(moved));
+    return firstSameLayer;
 }
 
 void LevelDraft::setBackground(std::optional<std::string> background) {

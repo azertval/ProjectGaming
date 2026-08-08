@@ -170,6 +170,49 @@ TEST(ParallaxTest, RoundToScreenPixelArrondiAuPixelEcran) {
 }
 
 /**
+ * @brief `parallaxModelPosition` est l'inverse exact de `parallaxRenderPosition` : convertir une
+ * position modèle en rendu puis revenir en arrière redonne la position de départ.
+ * \castest{<b>parallaxModelPosition est l'inverse de parallaxRenderPosition.</b><br/>
+ * \tcat Unitaire · Parallax<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Calculer la position de rendu d'une position modele (facteur != 1).<br/>2. Appliquer
+ * parallaxModelPosition au resultat.<br/>
+ * \tattendu La position modele d'origine est retrouvee.
+ * }
+ */
+TEST(ParallaxTest, ParallaxModelPositionEstLInverseDeParallaxRenderPosition) {
+    const core::Rect bounds{core::Vector2{0.0f, 0.0f}, core::Vector2{100.0f, 100.0f}};
+    const core::Vector2 modelPosition{80.0f, 30.0f};
+    constexpr float FACTOR = 0.5f;
+
+    const core::Vector2 rendered = hmi::parallaxRenderPosition(modelPosition, FACTOR, bounds);
+    const core::Vector2 roundTrip = hmi::parallaxModelPosition(rendered, FACTOR, bounds);
+
+    EXPECT_FLOAT_EQ(roundTrip.x, modelPosition.x);
+    EXPECT_FLOAT_EQ(roundTrip.y, modelPosition.y);
+}
+
+/**
+ * @brief À facteur `1.0`, `parallaxModelPosition` laisse aussi la position inchangée (couche de
+ * référence, symétrique de `parallaxRenderPosition`).
+ * \castest{<b>parallaxModelPosition a facteur 1 laisse la position inchangee.</b><br/>
+ * \tcat Unitaire · Parallax<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Appliquer parallaxModelPosition a facteur 1.0.<br/>
+ * \tattendu La position renvoyee est identique a la position de rendu.
+ * }
+ */
+TEST(ParallaxTest, ParallaxModelPositionFacteurUnLaissePositionInchangee) {
+    const core::Rect bounds{core::Vector2{10.0f, 10.0f}, core::Vector2{20.0f, 10.0f}};
+    const core::Vector2 renderPosition{15.0f, 12.0f};
+
+    const core::Vector2 model = hmi::parallaxModelPosition(renderPosition, 1.0f, bounds);
+
+    EXPECT_FLOAT_EQ(model.x, renderPosition.x);
+    EXPECT_FLOAT_EQ(model.y, renderPosition.y);
+}
+
+/**
  * @brief Un décor pris en défaut par le culling à sa position simulée devient visible une fois la
  * parallaxe appliquée (échelle réduite, couche arrière-plan) — le culling juge la position
  * **décalée**.

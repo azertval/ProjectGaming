@@ -20,15 +20,19 @@
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
-#include "HMI/Editor/DecorPlacementGesture.h"
+#include "HMI/Editor/DecorGesture.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
 #include "HMI/Editor/TextureAssignGesture.h"
 #include "HMI/Input/QtKeyMap.h"
 // GraphicsDevice tire <Windows.h>/<d3d11.h> (HWND, device D3D11). Inclus après les en-têtes Qt.
+#include "HMI/Graphics/AssetContract.h"
 #include "HMI/Graphics/AssetPaths.h"
+#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/DraftRenderer.h"
 #include "HMI/Graphics/GraphicsDevice.h"
+#include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
 #include "HMI/Graphics/TextureCache.h"
@@ -372,34 +376,265 @@ core::Vector2 GameViewport::worldPositionAt(const QMouseEvent* event) {
                                                static_cast<float>(event->position().y() * ratio)});
 }
 
-void GameViewport::handleDecorPlaceClick(const QMouseEvent* event) {
+core::Vector2 GameViewport::decorPixelSize(const std::string& assetName) const {
+    if (_textureCache) {
+        if (const hmi::LoadedTexture* loaded =
+                _textureCache->get(hmi::DECORS_SUBDIRECTORY + assetName, hmi::AssetFamily::Decor)) {
+            return core::Vector2{static_cast<float>(loaded->width), static_cast<float>(loaded->height)};
+        }
+    }
+    // Asset introuvable/cache pas encore pret : meme repli que hmi::resolveDecorAppearance
+    // (LOT-49) -- le damier de repli, a sa taille normale.
+    return core::Vector2{static_cast<float>(hmi::MISSING_TEXTURE_SIZE),
+                         static_cast<float>(hmi::MISSING_TEXTURE_SIZE)};
+}
+
+std::vector<core::Rect> GameViewport::decorBoundsForGesture() const {
+    std::vector<core::Rect> bounds;
+    bounds.reserve(_draft.decors().size());
+    // Espace de RENDU (LOT-50), jamais l'espace modele brut : le curseur (worldPositionAt, via
+    // Camera2D::screenToWorld) est comparable a la position visuellement occupee par le decor,
+    // decalee par sa parallaxe de couche (EX-DEC-006, LOT-49 TACHE-03) -- l'oublier desynchronise
+    // la designation/les poignees du decor tel qu'il apparait a l'ecran des que sa couche n'est
+    // pas la couche de reference (Background/Foreground).
+    const core::Rect cameraBounds = _camera.visibleBounds();
+    for (const core::Decor& decor : _draft.decors()) {
+        core::Decor rendered = decor;
+        rendered.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
+                                                         cameraBounds);
+        bounds.push_back(hmi::decorWorldBounds(rendered, decorPixelSize(decor.assetName)));
+    }
+    return bounds;
+}
+
+std::optional<hmi::DecorHandleLayout> GameViewport::selectedDecorHandles() const {
+    if (!_decorGesture.selectedIndex || *_decorGesture.selectedIndex >= _draft.decors().size()) {
+        return std::nullopt;
+    }
+    core::Decor decor = _draft.decors()[*_decorGesture.selectedIndex];
+    // Meme conversion vers l'espace de rendu que decorBoundsForGesture (voir ci-dessus) : les
+    // poignees doivent apparaitre sur le decor tel qu'il est vu, pas sur sa position modele brute.
+    decor.position = hmi::parallaxRenderPosition(decor.position, hmi::parallaxFactor(decor.layer),
+                                                 _camera.visibleBounds());
+    const core::Rect bounds = hmi::decorWorldBounds(decor, decorPixelSize(decor.assetName));
+    // Le cadrage courant est deja a jour : chaque appelant (handleDecorPress/Move/Release) rafraichit
+    // la camera via worldPositionAt() avant de consulter les poignees.
+    const float worldUnitsPerScreenPixel = 1.0f / (hmi::Camera2D::PIXELS_PER_UNIT * _camera.zoom());
+    // decor.rotation n'est jamais touche par la parallaxe (purement une position de rendu,
+    // EX-ARCH-012) : celui du brouillon convient tel quel, sans conversion.
+    return hmi::decorHandleLayout(bounds, worldUnitsPerScreenPixel, decor.rotation);
+}
+
+void GameViewport::handleDecorPress(const QMouseEvent* event) {
+    // Curseur en espace de RENDU (ce que l'utilisateur voit) : comparable aux bounds/poignees, qui
+    // le sont aussi desormais (voir decorBoundsForGesture/selectedDecorHandles).
+    const core::Vector2 cursorRender = worldPositionAt(event);
+    const std::vector<core::Rect> bounds = decorBoundsForGesture();
+    const std::optional<hmi::DecorHit> hit = hmi::designateDecorAt(
+        cursorRender, bounds, _decorGesture.selectedIndex, selectedDecorHandles());
+
+    if (hit) {
+        const core::Decor& decor = _draft.decors()[hit->index];
+        // hmi::DecorGesture raisonne uniquement en espace MODELE (jamais la parallaxe, purement
+        // visuelle, EX-ARCH-012) : le curseur est ramene dans cet espace avant d'y entrer, avec le
+        // facteur de la couche du decor vise (hmi::parallaxModelPosition).
+        const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+            cursorRender, hmi::parallaxFactor(decor.layer), _camera.visibleBounds());
+        hmi::beginDecorGesture(_decorGesture, *hit, cursorModel, decor, bounds[hit->index]);
+        // La section « Decors » (TACHE-04) doit refleter la nouvelle selection, meme si aucun
+        // glisser ne suit (simple clic de selection).
+        emit decorSelectionChanged(_decorGesture.selectedIndex);
+        return;
+    }
+
+    // Rien sous le clic : pose un nouveau decor si un asset est arme, deselectionne sinon.
+    _decorGesture.selectedIndex.reset();
     if (!_activeDecorAsset) {
-        // Cas silencieux le plus deroutant : poser sans avoir choisi d'asset dans la bibliotheque
-        // de decors ne fait rien -- le signaler, meme principe que l'outil « Texture par instance ».
+        // Cas silencieux le plus deroutant : cliquer dans le vide sans asset arme ne fait rien --
+        // le signaler, meme principe que l'outil « Texture par instance ».
         emit statusMessage(statusText("status.decor_no_asset_selected"));
+        emit decorSelectionChanged(_decorGesture.selectedIndex);
         return;
     }
     core::Decor decor;
     decor.assetName = *_activeDecorAsset;
-    decor.position = worldPositionAt(event);  // position EXACTE du clic (EX-DEC-001), jamais calee
-                                              // sur la grille.
     decor.layer = _activeDecorLayer;
+    // Position EXACTE du clic (EX-DEC-001), jamais calee sur la grille -- en espace MODELE : sans
+    // cette conversion, un decor pose en couche Arriere-plan/Premier plan sauterait hors du point
+    // de clic des l'image suivante (sa parallaxe le decalerait au rendu).
+    decor.position = hmi::parallaxModelPosition(cursorRender, hmi::parallaxFactor(_activeDecorLayer),
+                                                _camera.visibleBounds());
     _draft.addDecor(decor);
+    _decorGesture.selectedIndex = _draft.decors().size() - 1;  // le nouveau decor reste selectionne
     _dirty = true;
     markDraftMutated();
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
     emit statusMessage(
         statusText("status.decor_placed").arg(QString::fromStdString(*_activeDecorAsset)));
 }
 
-void GameViewport::handleDecorRemoveClick(core::Vector2 worldPosition) {
-    const std::optional<std::size_t> index = hmi::nearestDecorAt(worldPosition, _draft.decors());
-    if (!index) {
-        return;  // aucun decor a portee du clic : sans effet, comme resolveTextureAssignClick.
+void GameViewport::handleDecorMove(const QMouseEvent* event) {
+    if (_decorGesture.phase == hmi::DecorGesturePhase::Idle) {
+        return;
     }
-    _draft.removeDecor(*index);
+    // Meme conversion qu'a l'amorce (handleDecorPress) : le geste raisonne en espace modele, avec
+    // le facteur de la couche du decor deja saisi (_decorGesture.selectedIndex, fixe pour le geste).
+    const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
+    const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+        worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
+    const hmi::DecorGestureAction preview =
+        hmi::updateDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
+    // Jamais d'invalidate() ici : l'apercu ne touche pas _draft, DraftRenderer le lit a chaque
+    // image comme un parametre ordinaire (LOT-50 TACHE-03), pas via une reconstruction de scene.
+    _decorPreview =
+        preview.kind == hmi::DecorGestureActionKind::None ? std::nullopt : std::make_optional(preview);
+}
+
+void GameViewport::handleDecorRelease(const QMouseEvent* event, bool rightClick) {
+    if (rightClick) {
+        const core::Vector2 world = worldPositionAt(event);
+        const std::optional<hmi::DecorHit> hit =
+            hmi::designateDecorAt(world, decorBoundsForGesture(), std::nullopt, std::nullopt);
+        if (!hit) {
+            return;  // aucun decor sous le clic droit : sans effet.
+        }
+        _draft.removeDecor(hit->index);
+        // La suppression decale tous les rangs suivants d'un cran (contrat de stabilite des index,
+        // LOT-50 TACHE-01) : la selection doit suivre, pas rester bloquee sur un rang perime.
+        if (_decorGesture.selectedIndex == hit->index) {
+            _decorGesture.selectedIndex.reset();
+        } else if (_decorGesture.selectedIndex && *_decorGesture.selectedIndex > hit->index) {
+            *_decorGesture.selectedIndex -= 1;
+        }
+        _dirty = true;
+        markDraftMutated();
+        emit decorSelectionChanged(_decorGesture.selectedIndex);
+        emit statusMessage(statusText("status.decor_removed"));
+        return;
+    }
+
+    if (_decorGesture.phase == hmi::DecorGesturePhase::Idle) {
+        return;
+    }
+    // Meme conversion que handleDecorMove : l'action finale doit sortir en espace modele.
+    const core::DecorLayer layer = _draft.decors()[*_decorGesture.selectedIndex].layer;
+    const core::Vector2 cursorModel = hmi::parallaxModelPosition(
+        worldPositionAt(event), hmi::parallaxFactor(layer), _camera.visibleBounds());
+    const hmi::DecorGestureAction action = hmi::endDecorGesture(_decorGesture, cursorModel, _decorSnapToGrid);
+    _decorPreview.reset();
+    applyDecorGestureAction(action);  // invalide via markDraftMutated() si applique.
+}
+
+void GameViewport::applyDecorGestureAction(const hmi::DecorGestureAction& action) {
+    bool applied = false;
+    switch (action.kind) {
+        case hmi::DecorGestureActionKind::None:
+            break;
+        case hmi::DecorGestureActionKind::Move:
+            applied = _draft.moveDecor(action.index, action.position);
+            break;
+        case hmi::DecorGestureActionKind::Resize:
+            applied = _draft.resizeDecor(action.index, action.position, action.scale);
+            break;
+        case hmi::DecorGestureActionKind::Rotate:
+            applied = _draft.rotateDecor(action.index, action.rotation);
+            break;
+    }
+    if (applied) {
+        _dirty = true;
+        markDraftMutated();
+    }
+}
+
+void GameViewport::cancelDecorGesture() {
+    if (_decorGesture.phase == hmi::DecorGesturePhase::Idle) {
+        return;
+    }
+    hmi::cancelDecorGesture(_decorGesture);
+    _decorPreview.reset();
+    // _draft n'a jamais ete touche, mais DraftRenderer a mute directement l'entite du decor
+    // glisse pour l'apercu (TACHE-03, evite une reconstruction a chaque image) : sans ce
+    // invalidate(), l'entite resterait affichee a sa derniere position d'apercu au lieu de la
+    // position committee.
+    if (_draftRenderer) {
+        _draftRenderer->invalidate();
+    }
+}
+
+void GameViewport::selectDecor(std::optional<std::size_t> index) {
+    // Vient de la section « Decors » (LOT-50 TACHE-04) : n'abandonne pas un glisser en cours (la
+    // liste est desactivee pendant qu'un geste manipule deja un decor, cote UI), simple changement
+    // de la selection courante.
+    if (index && *index >= _draft.decors().size()) {
+        index.reset();
+    }
+    _decorGesture.selectedIndex = index;
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
+}
+
+void GameViewport::bringDecorForward(std::size_t index) {
+    const std::optional<std::size_t> newIndex = _draft.bringDecorForward(index);
+    if (!newIndex) {
+        return;
+    }
+    _dirty = true;
+    // Le reordonnancement echange deux rangs (LOT-50 TACHE-01) : la selection doit suivre le MEME
+    // decor, pas rester sur l'ancien rang qui designe desormais son voisin.
+    _decorGesture.selectedIndex = newIndex;
+    markDraftMutated();
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
+}
+
+void GameViewport::sendDecorBackward(std::size_t index) {
+    const std::optional<std::size_t> newIndex = _draft.sendDecorBackward(index);
+    if (!newIndex) {
+        return;
+    }
+    _dirty = true;
+    _decorGesture.selectedIndex = newIndex;
+    markDraftMutated();
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
+}
+
+void GameViewport::setDecorLayer(std::size_t index, core::DecorLayer layer) {
+    const std::optional<std::size_t> newIndex = _draft.setDecorLayer(index, layer);
+    if (!newIndex) {
+        return;
+    }
+    _dirty = true;
+    // Changer de couche deplace le decor en fin de vecteur (LevelDraft::setDecorLayer, LOT-50
+    // TACHE-01) : son rang change, la selection doit suivre le MEME decor, pas rester sur l'ancien
+    // rang (qui designe desormais un autre decor, ou plus rien).
+    _decorGesture.selectedIndex = newIndex;
+    markDraftMutated();
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
+}
+
+void GameViewport::removeDecor(std::size_t index) {
+    if (index >= _draft.decors().size()) {
+        return;
+    }
+    _draft.removeDecor(index);
+    // La suppression decale tous les rangs suivants d'un cran (contrat de stabilite des index,
+    // LOT-50 TACHE-01) : la selection doit suivre, pas rester bloquee sur un rang perime.
+    if (_decorGesture.selectedIndex == index) {
+        _decorGesture.selectedIndex.reset();
+    } else if (_decorGesture.selectedIndex && *_decorGesture.selectedIndex > index) {
+        *_decorGesture.selectedIndex -= 1;
+    }
     _dirty = true;
     markDraftMutated();
-    emit statusMessage(statusText("status.decor_removed"));
+    emit decorSelectionChanged(_decorGesture.selectedIndex);
+}
+
+void GameViewport::centerCameraOnDecor(std::size_t index) {
+    if (index >= _draft.decors().size()) {
+        return;
+    }
+    updateEditCamera();  // assure un zoom courant valide (auto ou manuel) avant de le reprendre.
+    _manualZoom = _camera.zoom();
+    _manualCenter = _draft.decors()[index].position;
+    _manualCamera = true;
 }
 
 void GameViewport::setLevelBackground(std::optional<std::string> background) {
@@ -566,8 +801,12 @@ void GameViewport::renderFrame(float deltaSeconds) {
         // Retour visuel des cases habillees (LOT-45) : seulement quand l'outil dedie est actif,
         // sinon l'auteur ne sait pas ce qui est deja habille sans que ca encombre les autres outils.
         const bool showTextureOverrides = _tool == hmi::EditorTool::TextureAssign;
+        hmi::DecorOverlayState decorOverlay;
+        decorOverlay.selectedIndex = _decorGesture.selectedIndex;
+        decorOverlay.preview = _decorPreview;
+        decorOverlay.snapToGrid = _decorSnapToGrid;
         _draftRenderer->render(_draft, _camera, _showGrid, highlight(), linkOverlay, _renderMode,
-                               showTextureOverrides, deltaSeconds);
+                               showTextureOverrides, deltaSeconds, decorOverlay);
     }
     _graphics->present();
 }
@@ -659,6 +898,12 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         }
         return;
     }
+    if (event->key() == Qt::Key_Escape && _decorGesture.phase != hmi::DecorGesturePhase::Idle) {
+        // Abandonne un glisser de decor en cours (LOT-50 TACHE-02) : le brouillon n'a jamais ete
+        // touche pendant le glisser, seul l'apercu l'etait.
+        cancelDecorGesture();
+        return;
+    }
     if (event->modifiers() & Qt::ControlModifier) {
         if (event->key() == Qt::Key_Z && _draft.undo()) {
             _dirty = true;
@@ -695,13 +940,13 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         _manualCamera = false;  // reinitialise au cadrage automatique (LOT-15).
         return;
     }
-    if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor) {
-        // Retrait par touche "Suppr" (LOT-49 TACHE-04), en plus du clic droit : vise le decor le
-        // plus proche du curseur, sans exiger un clic explicite.
-        updateEditCamera();
-        const core::Vector2 world = _camera.screenToWorld(
-            core::Vector2{static_cast<float>(_input.mouseX()), static_cast<float>(_input.mouseY())});
-        handleDecorRemoveClick(world);
+    if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor &&
+        _decorGesture.selectedIndex) {
+        // Retrait par touche "Suppr" (LOT-50 TACHE-02), en plus du clic droit : vise le decor
+        // actuellement selectionne. Meme chemin que le bouton "Supprimer" de la section « Decors »
+        // (TACHE-04) : decalage de la selection compris.
+        removeDecor(*_decorGesture.selectedIndex);
+        emit statusMessage(statusText("status.decor_removed"));
         return;
     }
     if (event->isAutoRepeat()) {
@@ -908,7 +1153,7 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
             handleTextureAssignClick(event, /*rightClick=*/false);
             break;
         case hmi::EditorTool::Decor:
-            handleDecorPlaceClick(event);
+            handleDecorPress(event);
             break;
     }
 }
@@ -920,14 +1165,14 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     }
     if (event->button() == Qt::RightButton) {
         // Glisser droit sans mouvement significatif = un clic : l'outil « Texture par instance »
-        // (LOT-45) y retire l'override de la case, l'outil Decor (LOT-49) y retire le decor le
-        // plus proche, les autres outils l'ignorent. Un glisser (pan) ne declenche jamais d'action
+        // (LOT-45) y retire l'override de la case, l'outil Decor (LOT-49/LOT-50) y retire le
+        // decor vise, les autres outils l'ignorent. Un glisser (pan) ne declenche jamais d'action
         // d'edition.
         if (_rightDragging && !_cameraPanned) {
             if (_tool == hmi::EditorTool::TextureAssign) {
                 handleTextureAssignClick(event, /*rightClick=*/true);
             } else if (_tool == hmi::EditorTool::Decor) {
-                handleDecorRemoveClick(worldPositionAt(event));
+                handleDecorRelease(event, /*rightClick=*/true);
             }
         }
         _rightDragging = false;
@@ -949,6 +1194,9 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
                                                   std::max(_dragStart.row, _dragCurrent.row)});
         }
         _dragging = false;
+    }
+    if (_tool == hmi::EditorTool::Decor) {
+        handleDecorRelease(event, /*rightClick=*/false);
     }
     _painting = false;
 }
@@ -985,6 +1233,8 @@ void GameViewport::mouseMoveEvent(QMouseEvent* event) {
         paintAt(event);  // glisser de peinture
     } else if (_dragging) {
         _dragCurrent = clampedCell(event);  // aperçu du rectangle/de la sélection
+    } else if (_tool == hmi::EditorTool::Decor) {
+        handleDecorMove(event);  // glisser de manipulation de decor (LOT-50 TACHE-02)
     }
 }
 

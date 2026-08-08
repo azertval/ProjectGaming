@@ -498,9 +498,11 @@ introuvable retombe sur le damier magenta à sa taille normale, avec l'avertisse
 journalisé au chargement (`hmi::sceneTextures`, section `Assets/Decors/`) — contrairement au fond
 de niveau, un décor **désigné** est toujours censé exister. Composé en `RenderMode::Texture`
 uniquement : le mode Physique reste la lecture nue des collisions, et un décor n'en fait jamais
-partie. La rotation (`core::Transform::rotation`) est délibérément **ignorée** au rendu pour ce
-lot — le pipeline de quads (`hmi::SpriteQuad`) ne dessine que des rectangles alignés aux axes ; un
-quad orienté suivrait le patron de `hmi::LineQuad`, hors périmètre.
+partie. La rotation (`core::Transform::rotation`) atteint le quad composé (`hmi::SpriteQuad::
+rotation`, `LOT-50`) — `hmi::SpriteBatch::draw` tourne les quatre coins autour du **centre** du
+quad, même patron que `hmi::LineQuad` (`LOT-37`) pour un quad orienté ; le culling
+(`hmi::spriteQuadBounds`) tient compte de cette rotation pour juger de la boîte englobante réelle,
+plus grande que `(largeur, hauteur)` brut dès qu'elle est non nulle.
 
 **Parallaxe** (`EX-DEC-006`, `hmi::Parallax.h`) : chaque couche porte un facteur de défilement
 (`hmi::parallaxFactor`), `1.0` pour `Decor` (solidaire du niveau, valeur de référence), inférieur
@@ -519,12 +521,86 @@ applique la parallaxe **avant** de composer le quad — le culling (`hmi::Compos
 juge donc la position déjà décalée, une couche parallaxée n'occupant pas le même rectangle monde
 que le niveau.
 
-Le placement dans l'éditeur (`LOT-49` TACHE-04) est volontairement **minimal** : l'outil Décor
-(`hmi::EditorTool::Decor`, panneau « Outils ») pose l'asset et la couche choisis à la position
-**exacte** du clic (`core::LevelDraft::addDecor`), et retire au clic droit ou à la touche
-« Suppr » le décor le plus proche du curseur (`hmi::nearestDecorAt`, fonction pure testée sans
-Qt). Déplacer, redimensionner, pivoter et réordonner un décor déjà posé restent hors périmètre —
-c'est l'objet de `LOT-50`.
+Le placement dans l'éditeur (`LOT-49` TACHE-04) était volontairement **minimal** : poser un décor
+à la position exacte du clic, ou le retirer. La manipulation complète — sélectionner, déplacer,
+redimensionner, pivoter, changer de couche, réordonner — est l'objet de `LOT-50`, décrit ci-dessous.
+
+### Manipulation de décors dans l'éditeur (`LOT-50`)
+
+**Mutateurs** (`Source/Core/Levels/LevelDraft.{h,cpp}`) : `moveDecor`, `resizeDecor` (position **et**
+échelle appliquées atomiquement — redimensionner depuis un coin déplace aussi le coin opposé, une
+seule entrée d'historique par geste), `rotateDecor` (normalise toujours dans `[0, 2π[`),
+`setDecorLayer` (envoie le décor en fin de vecteur, donc au rang le plus élevé de sa nouvelle
+couche — comportement défini, jamais laissé émerger), et le réordonnancement intra-couche
+(`bringDecorForward`/`sendDecorBackward`/`bringDecorToFront`/`sendDecorToBack`, qui sautent par-
+dessus les décors d'une autre couche sans les toucher). Chacun renvoie le **nouveau rang** du
+décor (ou `false`/`std::nullopt` si l'index était hors bornes) : c'est le contrat de stabilité des
+index après une opération qui réordonne.
+
+**Géométrie partagée** (`HMI/Editor/DecorGeometry.h`) : `hmi::decorWorldBounds` calcule le
+rectangle englobant d'un décor à partir de la taille **réelle** de son asset (résolue par
+l'appelant via `hmi::TextureCache`, `Core` n'en sait rien) ; `hmi::decorHandleLayout` calcule les
+cinq poignées (quatre coins + rotation) à **taille écran constante**, convertie en unités monde via
+`1 / (Camera2D::PIXELS_PER_UNIT × zoom)`, jamais l'inverse. C'est la **même** géométrie qui sert au
+rendu (`DraftRenderer::composeDecorSelection`) et à la détection (`hmi::DecorGesture`) : les
+calculer à deux endroits différents les aurait fait diverger au premier ajustement de taille.
+`hmi::decorWorldBounds` calcule le rectangle **non tourné** ; `hmi::decorRotatedPoint` (même
+formule que `hmi::SpriteBatch::draw`) tourne un point donné autour de son centre — utilisé par
+`decorHandleLayout` pour les **centres** des cinq poignées (les carrés eux-mêmes restent non
+tournés, repère de coin lisible même pivoté) et par `DraftRenderer::composeDecorSelection` pour les
+quatre coins du cadre, dessiné en segments orientés (`hmi::LineQuad`). Le décor tourne donc bien
+« sous » son propre cadre, plutôt que de laisser un cadre droit trahir une rotation qui, sans ça,
+semblerait n'avoir aucun effet. Seule la désignation du **corps** (hors poignées, `hmi::
+designateDecorAt`) reste testée contre le rectangle non tourné — zone cliquable un peu plus
+généreuse que la silhouette pivotée, jamais plus restrictive.
+
+**Espace de rendu vs. espace modèle** : le curseur converti par `Camera2D::screenToWorld` (donc
+tout ce qui en dérive — désignation, poignées, geste) est comparable à la position **de rendu**
+d'un décor, celle décalée par sa parallaxe de couche (`EX-DEC-006`), pas à sa position modèle brute
+dès que sa couche a un facteur différent de `1.0`. `decorBoundsForGesture`/`selectedDecorHandles`
+(`GameViewport`) calculent donc leurs rectangles à partir de la position **décalée**
+(`hmi::parallaxRenderPosition`) ; `hmi::DecorGesture`, lui, raisonne toujours en position
+**modèle** (`EX-ARCH-012`, la parallaxe reste purement visuelle) — `GameViewport` convertit le
+curseur d'un espace à l'autre à la frontière (`hmi::parallaxModelPosition`, l'inverse exact de
+`parallaxRenderPosition`) avant d'entrer dans le geste, et jamais ailleurs. Un décor posé ou
+déplacé en couche Arrière-plan/Premier plan reste ainsi visuellement **collé** au curseur, quel que
+soit son facteur de parallaxe.
+
+**Geste pur** (`HMI/Editor/DecorGesture.h`), même parti que `hmi::LinkGesture` (`LOT-37`) : une
+machine à états sans Qt ni GPU, ni connaissance de la parallaxe (raisonne toujours en espace
+modèle, voir ci-dessus). `hmi::designateDecorAt` désigne l'élément sous le curseur — priorité aux
+poignées du décor déjà sélectionné, puis au corps des décors du dernier au premier (le plus
+au-dessus d'abord). `beginDecorGesture` sélectionne **immédiatement**, avant même de savoir si un
+glisser suivra. `updateDecorGesture` distingue clic et glisser par un seuil de déplacement
+(`DECOR_DRAG_THRESHOLD`) et renvoie une action d'**aperçu** — jamais appliquée au brouillon,
+seulement au rendu, pour que déplacer/redimensionner/pivoter ne produise qu'**une seule** entrée
+d'historique au relâchement (`endDecorGesture`), pas une par position intermédiaire. `Échap`
+(`cancelDecorGesture`) abandonne sans avoir jamais touché `_draft`. L'aimantation sur la grille est
+optionnelle et **jamais imposée** (`EX-DEC-001`) : elle arrondit position/coins à l'entier le plus
+proche, seulement si activée.
+
+**Rendu de la sélection** (`DraftRenderer::composeDecorSelection`) : cadre de sélection et
+poignées à contour double ton (sombre puis clair, pour rester lisibles sur tout fond), la poignée
+de rotation teintée différemment des coins de redimensionnement. La position affichée applique la
+**même** parallaxe que le sprite réellement rendu (`hmi::parallaxRenderPosition` +
+`hmi::roundToScreenPixel`, appliquée en dernier à la position modèle déjà résolue — brouillon ou
+aperçu de geste) : sans cette conversion, le cadre se désolidarise visiblement du décor dès que sa
+couche n'est pas la couche de référence. Pendant un glisser, `DraftRenderer` mute **directement**
+l'entité ECS du décor concerné (`_decorEntities`, un tableau parallèle à
+`core::LevelDraft::decors()` peuplé par `rebuild`) plutôt que de reconstruire toute la scène à
+chaque position glissée — `invalidate()` reste réservé aux vraies mutations du brouillon. Un
+abandon (`Échap`) force malgré tout un `invalidate()` explicite : lui seul restaure l'entité à sa
+position **committée**, puisque rien dans `_draft` n'a changé pour le déclencher autrement.
+L'aimantation active accentue en prime la grille de repère (`composeGrid`, paramètre
+`accentuate`) — sans ce repère visuel, l'auteur ne comprendrait pas pourquoi sa position « saute ».
+
+**Section « Décors » du panneau « Textures »** (`hmi::buildDecorListRows`, fonction pure) : liste
+groupée par couche (arrière-plan, puis décor, puis premier plan) et, à l'intérieur d'une couche,
+dans l'ordre de superposition. La sélection est **unique** — ni le canevas ni la liste n'en gardent
+de copie propre, seul `hmi::GameViewport::selectedDecorIndex()` fait foi, les deux vues ne font que
+la refléter (`decorSelectionChanged`/`decorSelected`, resynchronisation bloquée en signal pour ne
+jamais reboucler). Un décor dont l'asset est introuvable dans `Assets/Decors/` est signalé en
+rouge dans la liste, en plus du damier magenta déjà visible au canevas.
 
 ## Le texte d'interface : côté Qt, plus dans le pipeline Direct3D
 
@@ -576,6 +652,9 @@ de cette page qu'il modifie, dans l'ordre :
 - **`LOT-49`** — *livré* : des décors libres hors grille sur trois couches, dont une
   **au-dessus** du personnage, et leur parallaxe relative à la salle courante (décrits plus haut
   dans cette page).
+- **`LOT-50`** — *livré* : manipulation complète des décors dans l'éditeur — sélectionner,
+  déplacer, redimensionner, pivoter, changer de couche, réordonner (décrit plus haut dans cette
+  page).
 - **`LOT-52`** — le retour du texte dans la scène rendue.
 
 Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
@@ -597,8 +676,11 @@ fil de leur intégration.
   @ref guide-editeur).
 - `core::Decor`, `core::DecorLayer`, `hmi::DecorVisualTag`, `hmi::decorRenderLayer`,
   `hmi::resolveDecorAppearance`, `hmi::parallaxFactor`, `hmi::parallaxRenderPosition`,
-  `hmi::nearestDecorAt` — décors libres et parallaxe (`LOT-49`, `EX-DEC-001`/`EX-DEC-002`/
-  `EX-DEC-006`).
+  `hmi::parallaxModelPosition` — décors libres et parallaxe (`LOT-49`,
+  `EX-DEC-001`/`EX-DEC-002`/`EX-DEC-006`).
+- `core::LevelDraft::moveDecor`/`resizeDecor`/`rotateDecor`/`setDecorLayer`/`bringDecorForward`/
+  `sendDecorBackward`, `hmi::DecorGeometry.h`, `hmi::DecorGesture.h`, `hmi::designateDecorAt`,
+  `hmi::buildDecorListRows` — manipulation de décors dans l'éditeur (`LOT-50`, `EX-DEC-010`).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

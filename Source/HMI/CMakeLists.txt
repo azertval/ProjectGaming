@@ -154,7 +154,9 @@ add_executable(ProjectGaming
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
     Editor/TextureAssignGesture.cpp
-    Editor/DecorPlacementGesture.cpp
+    Editor/DecorGeometry.cpp
+    Editor/DecorGesture.cpp
+    Editor/DecorListModel.cpp
     Editor/AssetLibrary.cpp
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp

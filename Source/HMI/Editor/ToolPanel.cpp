@@ -1,5 +1,6 @@
 #include "HMI/Editor/ToolPanel.h"
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QRadioButton>
 #include <QSignalBlocker>
@@ -78,6 +79,9 @@ ToolPanel::ToolPanel(std::filesystem::path decorsDirectory, QWidget* parent)
                 }
             });
 
+    connect(_ui->decorSnapCheckBox, &QCheckBox::toggled, this,
+            [this](bool checked) { emit decorSnapToGridChanged(checked); });
+
     updateDecorPickerVisibility();
 }
 
@@ -93,6 +97,7 @@ void ToolPanel::retranslateUi(const Localization& loc) {
     _ui->decorLayerCombo->setItemText(0, QString::fromStdString(loc.text("tool.decor_layer_background")));
     _ui->decorLayerCombo->setItemText(1, QString::fromStdString(loc.text("tool.decor_layer_decor")));
     _ui->decorLayerCombo->setItemText(2, QString::fromStdString(loc.text("tool.decor_layer_foreground")));
+    _ui->decorSnapCheckBox->setText(QString::fromStdString(loc.text("tool.decor_snap_to_grid")));
     _decorView->retranslateUi(loc);
 }
 

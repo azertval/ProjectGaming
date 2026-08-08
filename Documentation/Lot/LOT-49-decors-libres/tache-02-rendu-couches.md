@@ -57,6 +57,11 @@ demande aucun apprentissage.
   décor en mode Physique ; l'asset introuvable dégrade proprement ; le sort de la rotation est
   tranché et documenté ; ordre asserté sans GPU ; `/W4 /WX` propre.
 
+## Révision (`LOT-50`)
+Tranché ici pour l'ignorer (poignée de rotation, `LOT-50` TACHE-02, encore à venir). Une fois cette
+poignée livrée, le choix s'est révélé un geste sans effet visible — revu en TACHE-03 de `LOT-50`
+(voir @ref lot-50-tache-03-selection-poignees) : la rotation atteint désormais le quad composé.
+
 ## Exigences
 `EX-DEC-002` (couches), `EX-DEC-003` (pixel art net) ; réutilise `EX-REN-014` (ordonnancement des
 calques), `EX-REN-043` (multi-textures), `EX-REN-046` (bascule), `EX-ARCH-012` (rendu sans effet sur

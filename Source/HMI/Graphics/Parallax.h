@@ -54,6 +54,26 @@ inline constexpr float PARALLAX_FACTOR_FOREGROUND = 1.15f;
                                                     const core::Rect& cameraBounds) noexcept;
 
 /**
+ * @brief Inverse de `parallaxRenderPosition` : retrouve la position **simulée** équivalente à un
+ * point exprimé en espace de rendu (`LOT-50` TACHE-02).
+ *
+ * Nécessaire à l'éditeur : le curseur converti par `hmi::Camera2D::screenToWorld` est comparable à
+ * la position de **rendu** d'un décor (c'est elle qui occupe l'écran, décalée par la parallaxe),
+ * jamais directement à sa position modèle si sa couche a un facteur différent de `1.0`. Le geste de
+ * manipulation (`hmi::DecorGesture`), lui, raisonne uniquement en position modèle (comme
+ * `core::Decor::position`, `EX-ARCH-012`) : cette fonction ramène donc le curseur dans cet espace
+ * avant de l'y faire entrer, pour que le décor déplacé reste visuellement « collé » au curseur quel
+ * que soit son facteur de parallaxe.
+ * @param renderPosition Position en espace de rendu, en unités monde.
+ * @param factor         Facteur de la couche du décor (`parallaxFactor`).
+ * @param cameraBounds   Même rectangle caméra que celui utilisé pour `parallaxRenderPosition`.
+ * @return La position modèle correspondante ; @p renderPosition inchangée si @p factor est nul
+ *         (robustesse -- aucune couche du projet n'a un facteur nul).
+ */
+[[nodiscard]] core::Vector2 parallaxModelPosition(core::Vector2 renderPosition, float factor,
+                                                   const core::Rect& cameraBounds) noexcept;
+
+/**
  * @brief Arrondit une position monde au pixel écran le plus proche, pour un zoom pixel art net.
  *
  * Un décalage de parallaxe fractionnaire produirait un décor flou ou tremblant : le zoom de la

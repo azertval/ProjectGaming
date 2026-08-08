@@ -20,10 +20,13 @@ namespace hmi {
  * `TextureAssign` (`LOT-45`, `EX-EDIT-043`) assigne une texture par instance à une case : clic
  * gauche assigne/remplace l'asset sélectionné dans la bibliothèque, reclic du même asset ou clic
  * droit retire l'assignation — voir `hmi::resolveTextureAssignClick`.
- * `Decor` (`LOT-49`, `EX-DEC-001`, placement minimal — la manipulation complète relève de
- * `LOT-50`) pose un décor libre à la position **exacte** du clic (jamais calée sur la grille) :
- * clic gauche pose l'asset et la couche sélectionnés dans la bibliothèque de décors, clic droit ou
- * touche « Suppr » retire le décor le plus proche du curseur — voir `hmi::nearestDecorAt`.
+ * `Decor` (`LOT-49`/`LOT-50`, `EX-DEC-001`, `EX-DEC-010`) place, sélectionne, déplace,
+ * redimensionne, pivote et supprime des décors libres, jamais calés sur la grille : cliquer un
+ * décor le sélectionne et arme un glisser (corps = déplacer, coin = redimensionner, poignée dédiée
+ * = pivoter, `hmi::DecorGesture`) ; cliquer une zone vide pose l'asset/la couche sélectionnés dans
+ * la bibliothèque de décors (aucun décor sous le curseur, aucune sélection) ; clic droit ou touche
+ * « Suppr » retire le décor visé/sélectionné ; `Échap` abandonne un glisser en cours sans y
+ * toucher.
  */
 enum class EditorTool { Paint, Rectangle, Selection, Link, TextureAssign, Decor };
 

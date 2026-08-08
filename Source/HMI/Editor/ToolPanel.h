@@ -64,6 +64,9 @@ signals:
     void decorAssetSelected(const QString& fileName);
     /// Émis quand l'utilisateur choisit la couche du décor à poser (`LOT-49`, `EX-DEC-002`).
     void decorLayerSelected(core::DecorLayer layer);
+    /// Émis quand l'utilisateur active/désactive l'aimantation sur la grille du geste de décors
+    /// (`LOT-50` TACHE-02) — optionnelle et jamais imposée par défaut (`EX-DEC-001`).
+    void decorSnapToGridChanged(bool enabled);
 
 private:
     void updateDecorPickerVisibility();
