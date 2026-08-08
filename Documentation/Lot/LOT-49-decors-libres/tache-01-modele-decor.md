@@ -1,6 +1,6 @@
 # TACHE-01 — *core::Decor* : modèle, couches et sérialisation {#lot-49-tache-01-modele-decor}
 
-**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** non commencé
+**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/Core/Levels` · **Statut :** fait
 
 ## Contexte
 Tout ce que contient un niveau est aujourd'hui **calé sur la grille** : `core::TileMap` est une

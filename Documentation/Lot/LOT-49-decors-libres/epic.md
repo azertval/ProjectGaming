@@ -1,6 +1,6 @@
 # LOT-49 — Décors libres : modèle, rendu et parallaxe {#lot-49}
 
-> Statut : **non commencé**. Prérequis : [LOT-40](@ref lot-40) (calques), [LOT-41](@ref lot-41)
+> Statut : **fait**. Prérequis : [LOT-40](@ref lot-40) (calques), [LOT-41](@ref lot-41)
 > (bascule), [LOT-44](@ref lot-44) (format de niveau versionné). Concrétise
 > [`decors.md`](../../Specification/decors.md).
 
@@ -83,10 +83,10 @@ avoir jamais été rattaché à un lot.
 
 | Tâche | Intitulé | Emplacement | État |
 |-------|----------|-------------|:----:|
-| [TACHE-01](tache-01-modele-decor.md) | *core::Decor* et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ⬜ |
-| [TACHE-02](tache-02-rendu-couches.md) | Rendu des trois couches, premier plan au-dessus du personnage | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-03](tache-03-parallaxe.md) | Parallaxe : arbitrage avec la caméra par salle, application au rendu et au culling | `Source/HMI/Graphics` | ⬜ |
-| [TACHE-04](tache-04-placement-minimal.md) | Placement minimal dans l'éditeur + dossier `Assets/Decors/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ⬜ |
+| [TACHE-01](tache-01-modele-decor.md) | *core::Decor* et `DecorLayer` sur `Level`/`LevelDraft` + JSON rétrocompatible + undo/redo | `Source/Core/Levels` | ✅ |
+| [TACHE-02](tache-02-rendu-couches.md) | Rendu des trois couches, premier plan au-dessus du personnage | `Source/HMI/Graphics` | ✅ |
+| [TACHE-03](tache-03-parallaxe.md) | Parallaxe : arbitrage avec la caméra par salle, application au rendu et au culling | `Source/HMI/Graphics` | ✅ |
+| [TACHE-04](tache-04-placement-minimal.md) | Placement minimal dans l'éditeur + dossier `Assets/Decors/` + `POST_BUILD` | `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` | ✅ |
 
 ## Critères d'acceptation du lot
 1. Un décor posé sur la couche premier plan est dessiné **au-dessus** du personnage ; sur les couches

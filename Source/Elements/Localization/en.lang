@@ -81,6 +81,9 @@ status.edit_help = Editor — paint: left click · Ctrl+Z/Y · P: playtest · F1
 status.texture_assigned = Texture assigned: %1
 status.texture_removed = Texture removed.
 status.texture_no_asset_selected = No asset selected: pick one in the "Objects" tab of the Textures panel.
+status.decor_placed = Decor placed: %1
+status.decor_removed = Decor removed.
+status.decor_no_asset_selected = No decor selected: pick one in the Tools panel.
 dialog.unsaved_title = Unsaved changes
 dialog.unsaved_text = The current level has unsaved changes. Quit anyway?
 dialog.resize_title = Resize level
@@ -94,6 +97,10 @@ tool.rectangle = Rectangle
 tool.selection = Selection
 tool.link = Link
 tool.texture_assign = Texture
+tool.decor = Decor
+tool.decor_layer_background = Background
+tool.decor_layer_decor = Decor
+tool.decor_layer_foreground = Foreground
 
 # Links panel (LOT-37)
 link.column.type = Type

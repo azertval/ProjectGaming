@@ -4,12 +4,14 @@
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion, core::Color
 #include "Core/Ecs/Components/Transform.h"
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/RoomGrid.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -57,8 +59,8 @@ void DraftRenderer::render(
                       draft.tileMap().width(), draft.tileMap().height(), mode);
     composeWorldSprites(_scene, _world, mode,
                         sceneTextures(_atlas, _cache, _skins, _skinSet, draft.textureOverrides(),
-                                      _tileAnimations),
-                        1.0f);
+                                      _tileAnimations, draft.decors()),
+                        1.0f, &camera);
     if (showGrid) {
         composeGrid(draft);
     }
@@ -328,6 +330,22 @@ void DraftRenderer::rebuild(const core::LevelDraft& draft) {
                                     textureOverrideAt(draft.textureOverrides(),
                                                        core::GridPosition{column, row})});
         }
+    }
+
+    // Decors libres (EX-DEC-001, LOT-49) : meme construction que core::buildLevelScene (position
+    // flottante, jamais calee sur la grille), reproduite ici a la main puisque LevelDraft n'est
+    // pas un core::Level -- c'est ce qui garantit que le canevas de l'editeur montre exactement ce
+    // que le jeu affichera une fois le brouillon valide.
+    const std::vector<core::Decor>& decors = draft.decors();
+    for (std::size_t index = 0; index < decors.size(); ++index) {
+        const core::Decor& decor = decors[index];
+        const core::Entity entity = _world.createEntity();
+        _world.addComponent(entity, core::Transform{decor.position, decor.scale, decor.rotation});
+        core::Sprite sprite;
+        sprite.layer = static_cast<std::int32_t>(index);
+        _world.addComponent(entity, sprite);
+        _world.addComponent(entity, DecorVisualTag{decor.assetName, decor.layer});
+        _world.addComponent(entity, RenderLayerTag{decorRenderLayer(decor.layer)});
     }
 }
 

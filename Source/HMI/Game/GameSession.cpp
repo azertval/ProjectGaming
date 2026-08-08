@@ -12,6 +12,7 @@
 #include "Core/Ecs/Components/Transform.h"
 #include "Core/Ecs/Components/Velocity.h"
 #include "Core/Levels/DangerGeometry.h"
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/LevelScene.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -21,6 +22,7 @@
 #include "Core/Physics/PlayerInput.h"
 #include "Core/Physics/PlayerSpawn.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/MechanismVisuals.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
@@ -113,6 +115,12 @@ void GameSession::loadLevel(core::Level level) {
                 entity, TileSkinTag{type, solidNeighborMask(sceneMap, column, row),
                                     textureOverrideAt(levelRef.textureOverrides(),
                                                        core::GridPosition{column, row})});
+        },
+        [this](core::Entity entity, const core::Decor& decor, std::size_t) {
+            // Marque de presentation (nom d'asset) + calque de rendu projete (EX-DEC-002,
+            // LOT-49) : Core ne connait ni les assets ni hmi::RenderLayer (EX-NFR-011).
+            _world.addComponent(entity, DecorVisualTag{decor.assetName, decor.layer});
+            _world.addComponent(entity, RenderLayerTag{decorRenderLayer(decor.layer)});
         });
     // Mecanismes : etat interrupteurs/portes + grille de collision (portes fermees = solides).
     _mechanisms.emplace(levelRef);
@@ -685,7 +693,8 @@ void GameSession::render(int viewportWidth, int viewportHeight, RenderMode mode,
 
     // Interpolation de rendu (EX-ARCH-031) entre le pas precedent et le pas courant.
     _renderer.render(_world, _camera, mode, interpolationAlpha, _level->background(), _levelWidth,
-                     _levelHeight, _level->textureOverrides(), _tileAnimations);
+                     _levelHeight, _level->textureOverrides(), _tileAnimations,
+                     _level->decors());
 }
 
 }  // namespace hmi

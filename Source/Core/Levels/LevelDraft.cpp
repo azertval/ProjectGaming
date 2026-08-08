@@ -28,6 +28,7 @@ LevelDraft LevelDraft::fromLevel(const Level& level) {
     draft._background = level.background();
     draft._skinSet = level.skinSet();
     draft._textureOverrides = level.textureOverrides();
+    draft._decors = level.decors();
     return draft;
 }
 
@@ -207,6 +208,19 @@ void LevelDraft::removeTextureOverride(GridPosition position) {
                             _textureOverrides.end());
 }
 
+void LevelDraft::addDecor(Decor decor) {
+    pushUndo();
+    _decors.push_back(std::move(decor));
+}
+
+void LevelDraft::removeDecor(std::size_t index) {
+    if (index >= _decors.size()) {
+        return;
+    }
+    pushUndo();
+    _decors.erase(_decors.begin() + static_cast<std::ptrdiff_t>(index));
+}
+
 void LevelDraft::setBackground(std::optional<std::string> background) {
     pushUndo();
     _background = std::move(background);
@@ -271,6 +285,9 @@ void LevelDraft::resize(int width, int height) {
                                                        override.position.row);
                        }),
         _textureOverrides.end());
+    // _decors n'est volontairement PAS filtre : contrairement aux autres donnees annexes (keyees
+    // par case), un decor libre peut legitimement deborder du niveau (une branche qui depasse) --
+    // le tronquer serait une perte de travail (TACHE-01).
 }
 
 bool LevelDraft::wouldResizeDropContent(int width, int height) const noexcept {
@@ -335,7 +352,7 @@ bool LevelDraft::redo() {
 LevelDraft::State LevelDraft::snapshot() const {
     return State{_name,        _tileMap,     _entry,        _exit,         _mechanisms,
                  _jumpBudget,  _dashBudget,  _dangerLinks,  _moverConfigs, _blinkConfigs,
-                 _background,  _skinSet,     _textureOverrides};
+                 _background,  _skinSet,     _textureOverrides, _decors};
 }
 
 void LevelDraft::restore(State state) {
@@ -352,6 +369,7 @@ void LevelDraft::restore(State state) {
     _background = std::move(state.background);
     _skinSet = std::move(state.skinSet);
     _textureOverrides = std::move(state.textureOverrides);
+    _decors = std::move(state.decors);
 }
 
 void LevelDraft::pushUndo() {
@@ -362,7 +380,7 @@ void LevelDraft::pushUndo() {
 LevelLoadResult LevelDraft::toLevel() const {
     const std::string json = LevelWriter::buildJson(
         _name, _tileMap, _mechanisms, _jumpBudget, _dashBudget, _dangerLinks, _moverConfigs,
-        _blinkConfigs, _background, _skinSet, _textureOverrides);
+        _blinkConfigs, _background, _skinSet, _textureOverrides, _decors);
     return LevelLoader::loadFromString(json);
 }
 

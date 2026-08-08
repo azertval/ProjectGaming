@@ -147,6 +147,14 @@ MainWindow::MainWindow(core::MemoryLogSink* sessionLog)
             &GameViewport::setHighlightedTextureOverride);
     connect(_textures, &TexturePanel::textureOverrideRemoveRequested, _viewport,
             &GameViewport::removeTextureOverride);
+
+    // Outil Décor (LOT-49 TACHE-04) : choisir un asset/une couche dans le panneau Outils arme le
+    // clic de placement du viewport, même séparation que la section « Objets » ci-dessus.
+    connect(_tools, &ToolPanel::decorAssetSelected, _viewport, [this](const QString& fileName) {
+        _viewport->setActiveDecorAsset(
+            fileName.isEmpty() ? std::nullopt : std::make_optional(fileName.toStdString()));
+    });
+    connect(_tools, &ToolPanel::decorLayerSelected, _viewport, &GameViewport::setActiveDecorLayer);
     _textures->refreshObjects(_viewport->draft());  // etat initial (avant tout draftChanged).
 
     // Panneau Textures : agit sur le catalogue dont le viewport est proprietaire, et lui signale
@@ -302,7 +310,7 @@ void MainWindow::buildUi() {
     // en code.
     _palette = new PalettePanel(_ui->PalettePanel);
     _ui->PalettePanel->setWidget(_palette);
-    _tools = new ToolPanel(_ui->ToolPanel);
+    _tools = new ToolPanel(hmi::executableDirectory() / "Assets" / "Decors", _ui->ToolPanel);
     _ui->ToolPanel->setWidget(_tools);
     _levels = new LevelBrowserPanel(hmi::executableDirectory() / "Levels", _ui->LevelsPanel);
     _ui->LevelsPanel->setWidget(_levels);

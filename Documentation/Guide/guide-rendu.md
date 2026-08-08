@@ -468,6 +468,64 @@ fixes, sans le composant, sont dessinées à leur position courante, inchangées
 L'interpolation ne touche que l'**affichage** — la logique de jeu (collisions, fin de niveau)
 continue de lire les positions **simulées** exactes, le déterminisme est préservé (`EX-NFR-002`).
 
+### Décors libres et parallaxe (`LOT-49`)
+
+`core::Decor` est le premier objet du niveau **libre** : une position en unités monde
+**flottantes**, jamais calée sur la grille de `core::TileMap`, avec échelle, rotation et une
+couche (`core::DecorLayer{Background, Decor, Foreground}`). Vecteur annexe de
+`Level`/`LevelDraft`, sur le patron `Mechanism`/`DangerLink`/`TileTextureOverride` (@ref
+guide-niveaux) — sérialisé dans le tableau racine optionnel `"decors"`, ordre préservé (il fixe la
+superposition **à l'intérieur** d'une couche). Contrairement aux autres données annexes,
+redimensionner le niveau ne tronque **jamais** les décors hors des nouvelles bornes : un décor
+libre peut légitimement déborder (une branche qui dépasse), le tronquer serait une perte de
+travail.
+
+`core::buildLevelScene` peuple une entité par décor après les tuiles — `Transform` (position,
+échelle, rotation) et `Sprite` dont `layer` porte le rang du décor (tri fin intra-calque) — et
+délègue à `HMI`, via le même patron d'injection que `onTileEntity`, l'attache de
+`hmi::DecorVisualTag` (nom d'asset + couche d'origine). `hmi::decorRenderLayer` projette les trois
+couches vers les **deux** calques réservés dès `LOT-40` : `Background` **et** `Decor` (côté
+`Core`) partagent le même `RenderLayer::Decor` (un seul calque « arrière-plan » existe), seul
+`Foreground` a son propre calque, au-dessus du personnage — c'est le contrat de lecture du lot :
+ce qui passe devant le personnage ne le porte pas et ne le bloque pas.
+
+La résolution d'apparence d'un décor est **volontairement séparée** de
+`hmi::resolveTileAppearance` (`hmi::resolveDecorAppearance`, `HMI/Graphics/DecorVisuals.h`), même
+principe que `hmi::PlayerSpriteTag` pour le personnage : un décor n'est jamais découpé en grille
+(l'image entière est échantillonnée, à sa taille **réelle** en pixels — `hmi::AssetFamily::Decor`
+n'impose aucune dimension), là où `resolveTileAppearance` suppose toujours une case. Un asset
+introuvable retombe sur le damier magenta à sa taille normale, avec l'avertissement déjà
+journalisé au chargement (`hmi::sceneTextures`, section `Assets/Decors/`) — contrairement au fond
+de niveau, un décor **désigné** est toujours censé exister. Composé en `RenderMode::Texture`
+uniquement : le mode Physique reste la lecture nue des collisions, et un décor n'en fait jamais
+partie. La rotation (`core::Transform::rotation`) est délibérément **ignorée** au rendu pour ce
+lot — le pipeline de quads (`hmi::SpriteQuad`) ne dessine que des rectangles alignés aux axes ; un
+quad orienté suivrait le patron de `hmi::LineQuad`, hors périmètre.
+
+**Parallaxe** (`EX-DEC-006`, `hmi::Parallax.h`) : chaque couche porte un facteur de défilement
+(`hmi::parallaxFactor`), `1.0` pour `Decor` (solidaire du niveau, valeur de référence), inférieur
+pour `Background`, supérieur pour `Foreground`. Le point délicat n'est pas la formule mais son
+ancrage : la caméra de ce jeu ne défile jamais en continu, elle cadre une salle et **bascule
+nettement** sur la suivante (`hmi::RoomGrid`, `LOT-32`). Un décalage calculé en espace niveau
+absolu ferait donc sauter visiblement le décor à chaque bascule. La parallaxe est donc calculée
+**relativement au centre de la salle courante** (`hmi::Camera2D::visibleBounds`) :
+`hmi::parallaxRenderPosition` renvoie `centre + (position − centre) × facteur` — nulle à facteur
+`1.0`, et telle que deux décors à la même position **relative** dans deux salles différentes
+tombent exactement à la même position écran, quelle que soit la salle. Le décor se replace donc à
+chaque bascule, au moment exact où toute l'image change déjà — invisible, là où le décalage
+absolu aurait été un artefact. `hmi::roundToScreenPixel` referme l'écart introduit par un
+décalage fractionnaire (le zoom pixel art reste net, `EX-ARCH-022`), et `hmi::composeWorldSprites`
+applique la parallaxe **avant** de composer le quad — le culling (`hmi::ComposedScene::addSprite`)
+juge donc la position déjà décalée, une couche parallaxée n'occupant pas le même rectangle monde
+que le niveau.
+
+Le placement dans l'éditeur (`LOT-49` TACHE-04) est volontairement **minimal** : l'outil Décor
+(`hmi::EditorTool::Decor`, panneau « Outils ») pose l'asset et la couche choisis à la position
+**exacte** du clic (`core::LevelDraft::addDecor`), et retire au clic droit ou à la touche
+« Suppr » le décor le plus proche du curseur (`hmi::nearestDecorAt`, fonction pure testée sans
+Qt). Déplacer, redimensionner, pivoter et réordonner un décor déjà posé restent hors périmètre —
+c'est l'objet de `LOT-50`.
+
 ## Le texte d'interface : côté Qt, plus dans le pipeline Direct3D
 
 Le texte (menus, libellés, options) ne se dessine **pas** avec ce pipeline : c'est une préoccupation
@@ -515,8 +573,9 @@ de cette page qu'il modifie, dans l'ordre :
   mode Texture cesse d'afficher un damier.
 - **`LOT-46`** — *livré* : les animations décrites par des **données** et non par un `enum` figé,
   applicables à toute entité et plus seulement au personnage (décrit plus haut dans cette page).
-- **`LOT-49`** — des décors libres hors grille sur trois couches, dont une **au-dessus** du
-  personnage.
+- **`LOT-49`** — *livré* : des décors libres hors grille sur trois couches, dont une
+  **au-dessus** du personnage, et leur parallaxe relative à la salle courante (décrits plus haut
+  dans cette page).
 - **`LOT-52`** — le retour du texte dans la scène rendue.
 
 Tant que ces lots ne sont pas livrés, ce guide décrit l'état réel du code ; il sera mis à jour au
@@ -536,6 +595,10 @@ fil de leur intégration.
   repli procédural (`LOT-39`, `EX-REN-041`/`EX-REN-042`).
 - `hmi::LinkGeometry`, `hmi::LinkGesture`, `hmi::LinkPanel` — liens de mécanismes (`LOT-37`, voir
   @ref guide-editeur).
+- `core::Decor`, `core::DecorLayer`, `hmi::DecorVisualTag`, `hmi::decorRenderLayer`,
+  `hmi::resolveDecorAppearance`, `hmi::parallaxFactor`, `hmi::parallaxRenderPosition`,
+  `hmi::nearestDecorAt` — décors libres et parallaxe (`LOT-49`, `EX-DEC-001`/`EX-DEC-002`/
+  `EX-DEC-006`).
 - `core::Transform`, `core::Sprite`, `core::AtlasRegion`, `core::Color` — les composants lus par le rendu.
 - @ref guide-ecs — le `World` et les vues que `SpriteRenderer` parcourt.
 - @ref guide-boucle — où le rendu s'insère dans la boucle de jeu.

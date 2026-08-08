@@ -1,6 +1,6 @@
 # TACHE-03 — Parallaxe et arbitrage avec la caméra par salle {#lot-49-tache-03-parallaxe}
 
-**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Un facteur de défilement par couche (`EX-DEC-006`) donne la profondeur : l'arrière-plan défile moins

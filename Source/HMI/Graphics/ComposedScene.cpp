@@ -8,6 +8,8 @@
 #include "Core/Ecs/Entity.h"
 #include "Core/Ecs/World.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/DecorVisuals.h"
+#include "HMI/Graphics/Parallax.h"
 #include "HMI/Graphics/PlayerSpriteTag.h"
 #include "HMI/Graphics/PreviousPosition.h"
 #include "HMI/Graphics/TileSkinTag.h"
@@ -167,10 +169,21 @@ core::Rect lineQuadBounds(const LineQuad& quad) noexcept {
 
 // Compose les entites affichables d'un monde ECS en primitives (lecture seule de l'ECS).
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
-                         const SceneTextures& textures, float interpolationAlpha) {
+                         const SceneTextures& textures, float interpolationAlpha,
+                         const Camera2D* camera) {
     // Lecture seule de l'ECS : les composants sont pris par reference constante.
     world.view<core::Transform, core::Sprite>().each(
         [&](core::Entity entity, const core::Transform& transform, const core::Sprite& sprite) {
+            // Decor libre (EX-DEC-001, LOT-49) : jamais compose en mode Physique (TACHE-02), qui
+            // doit rester la lecture nue des collisions -- un decor n'en fait jamais partie
+            // (EX-ARCH-012). Sorti tot, avant meme de lire les autres marques de presentation.
+            const DecorVisualTag* decorTag = world.hasComponent<DecorVisualTag>(entity)
+                                                 ? &world.getComponent<DecorVisualTag>(entity)
+                                                 : nullptr;
+            if (decorTag != nullptr && mode != RenderMode::Texture) {
+                return;
+            }
+
             // Habillage du personnage (LOT-48), en RenderMode::Texture uniquement : resolu a part
             // de hmi::resolveTileAppearance (le personnage n'est pas une tuile, cf. PlayerSpriteTag)
             // -- son quad est decorrelee de la hitbox, contrairement au chemin generique ci-dessous.
@@ -187,7 +200,28 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
             float worldHeight = 0.0f;
             core::Vector2 quadOffset{};
 
-            if (usePlayerAppearance) {
+            if (decorTag != nullptr) {
+                // Apparence resolue par hmi::resolveDecorAppearance (LOT-49 TACHE-02), point
+                // d'appel unique symetrique a hmi::resolveTileAppearance pour les tuiles : asset
+                // designe si charge, damier de repli a sa taille sinon. L'image est toujours
+                // echantillonnee en entier (pas de decoupage en grille, contrairement aux tuiles).
+                //
+                // Rotation (core::Transform::rotation) : deliberement IGNOREE par ce lot -- le
+                // pipeline de quads textures (hmi::SpriteQuad) ne dessine que des rectangles
+                // alignes aux axes ; un decor pivote continuerait donc a s'afficher droit. Sort
+                // tranche par TACHE-02 (epic LOT-49) plutot que laisse silencieux : un quad
+                // veritablement oriente suivrait le patron de hmi::LineQuad (LOT-37), hors
+                // perimetre de ce lot.
+                const DecorAppearance appearance = resolveDecorAppearance(*decorTag, textures);
+                texture = appearance.texture;
+                region = core::AtlasRegion{0, 0, appearance.pixelWidth, appearance.pixelHeight};
+                atlasWidth = static_cast<float>(appearance.pixelWidth);
+                atlasHeight = static_cast<float>(appearance.pixelHeight);
+                worldWidth = static_cast<float>(appearance.pixelWidth) / Camera2D::PIXELS_PER_UNIT *
+                            transform.scale.x;
+                worldHeight = static_cast<float>(appearance.pixelHeight) /
+                             Camera2D::PIXELS_PER_UNIT * transform.scale.y;
+            } else if (usePlayerAppearance) {
                 region = playerTag->textureRegion;
                 if (playerTag->usesCharacterSheet) {
                     texture = textures.characterSheet;
@@ -240,6 +274,19 @@ void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mo
                 const core::Vector2 previous = world.getComponent<PreviousPosition>(entity).value;
                 position = previous + (transform.position - previous) * interpolationAlpha;
             }
+
+            // Parallaxe (EX-DEC-006, LOT-49 TACHE-03) : purement visuelle -- ne touche que la
+            // position DE RENDU, jamais `transform.position` (la position simulee, EX-ARCH-012).
+            // Le culling (scene.addSprite ci-dessous, via spriteQuadBounds) juge donc la position
+            // DEJA decalee, comme l'exige la tache (une couche parallaxee n'occupe pas le meme
+            // rectangle monde que le niveau).
+            if (decorTag != nullptr && camera != nullptr) {
+                position = parallaxRenderPosition(position, parallaxFactor(decorTag->layer),
+                                                  camera->visibleBounds());
+                position = roundToScreenPixel(position,
+                                              Camera2D::PIXELS_PER_UNIT * camera->zoom());
+            }
+
             position = position + quadOffset;
 
             SpriteQuad quad;

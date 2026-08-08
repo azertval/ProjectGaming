@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <optional>
 #include <string>
 #include <vector>
@@ -144,6 +145,21 @@ public:
     void removeTextureOverride(GridPosition position);
 
     /**
+     * @brief Ajoute un décor libre en fin de vecteur (`EX-DEC-001`, `EX-EDIT-010`).
+     *
+     * L'ordre d'ajout fixe le rang de superposition intra-couche (TACHE-02) : un décor ajouté
+     * après un autre de la même couche se dessine par-dessus.
+     * @param decor Décor à ajouter (position libre, hors grille).
+     */
+    void addDecor(Decor decor);
+
+    /**
+     * @brief Retire le décor au rang @p index (`EX-DEC-010`).
+     * @param index Rang dans `decors()` ; sans effet si hors bornes.
+     */
+    void removeDecor(std::size_t index);
+
+    /**
      * @brief Redimensionne la grille (`EX-EDIT-005`).
      *
      * Agrandir complète les nouvelles cases en `Empty` ; réduire **tronque** silencieusement le
@@ -267,6 +283,11 @@ public:
         return _textureOverrides;
     }
 
+    /// @return Les décors libres courants, dans leur ordre de superposition intra-couche.
+    [[nodiscard]] const std::vector<Decor>& decors() const noexcept {
+        return _decors;
+    }
+
     /// @return Le budget de sauts courant (`-1` = illimité).
     [[nodiscard]] int jumpBudget() const noexcept {
         return _jumpBudget;
@@ -332,6 +353,7 @@ private:
         std::optional<std::string> background;
         std::optional<std::string> skinSet;
         std::vector<TileTextureOverride> textureOverrides;
+        std::vector<Decor> decors;
     };
 
     /// Capture l'état courant (pour empiler dans l'historique undo/redo).
@@ -357,6 +379,7 @@ private:
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
+    std::vector<Decor> _decors;
     std::vector<State> _undoHistory;
     std::vector<State> _redoHistory;
 };

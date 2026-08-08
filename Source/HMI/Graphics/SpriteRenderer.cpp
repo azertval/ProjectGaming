@@ -2,9 +2,11 @@
 
 #include "Core/Ecs/Systems/AnimationSystem.h"
 #include "Core/Ecs/World.h"
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/Level.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/DecorVisuals.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/PlayerSprite.h"
 #include "HMI/Graphics/TextureAtlas.h"
@@ -49,7 +51,8 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
 SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
                             const SkinCatalog* skins, const std::string& skinSet,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
-                            const std::unordered_map<std::string, core::Animation>& tileAnimations) {
+                            const std::unordered_map<std::string, core::Animation>& tileAnimations,
+                            const std::vector<core::Decor>& decors) {
     SceneTextures textures;
     textures.atlas = atlas.textureView();
     textures.atlasWidth = atlas.width();
@@ -85,6 +88,23 @@ SceneTextures sceneTextures(const TextureAtlas& atlas, TextureCache& cache,
         }
         textures.objects.push_back(SkinTexture{override.assetName, std::nullopt, loaded->view.Get(),
                                                loaded->width, loaded->height});
+    }
+
+    // Charge les decors libres du niveau courant (EX-DEC-001, LOT-49), meme principe que les
+    // surcharges de texture ci-dessus : un asset introuvable/illisible/refuse n'est simplement pas
+    // ajoute -- la resolution (hmi::resolveDecorAppearance) retombera sur le damier, apres
+    // l'avertissement deja journalise par le TextureCache.
+    for (const core::Decor& decor : decors) {
+        if (textures.decorIndexOf(decor.assetName) >= 0) {
+            continue;  // asset deja charge.
+        }
+        const LoadedTexture* loaded =
+            cache.get(DECORS_SUBDIRECTORY + decor.assetName, AssetFamily::Decor);
+        if (loaded == nullptr) {
+            continue;
+        }
+        textures.decors.push_back(SkinTexture{decor.assetName, std::nullopt, loaded->view.Get(),
+                                              loaded->width, loaded->height});
     }
 
     textures.skinCatalog = skins;
@@ -207,15 +227,16 @@ void SpriteRenderer::render(core::World& world, const Camera2D& camera, RenderMo
                             const std::optional<std::string>& background, int levelWidth,
                             int levelHeight,
                             const std::vector<core::TileTextureOverride>& textureOverrides,
-                            const std::unordered_map<std::string, core::Animation>& tileAnimations) {
+                            const std::unordered_map<std::string, core::Animation>& tileAnimations,
+                            const std::vector<core::Decor>& decors) {
     _scene.clear();
     _scene.setVisibleBounds(camera.visibleBounds());
     composeBackground(_scene, resolveBackgroundTexture(background, *_cache), levelWidth,
                       levelHeight, mode);
-    composeWorldSprites(
-        _scene, world, mode,
-        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides, tileAnimations),
-        interpolationAlpha);
+    composeWorldSprites(_scene, world, mode,
+                        sceneTextures(*_atlas, *_cache, _skins, _skinSet, textureOverrides,
+                                      tileAnimations, decors),
+                        interpolationAlpha, &camera);
     _scene.sort();
     logStatisticsIfChanged();
     submitComposedScene(*_batch, camera.projectionMatrix(), _scene);

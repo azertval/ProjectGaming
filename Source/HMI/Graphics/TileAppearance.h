@@ -113,6 +113,11 @@ struct SceneTextures {
     /// détourée à une silhouette, contrairement à un skin de type).
     std::vector<SkinTexture> objects;
 
+    /// Décors libres chargés (`EX-DEC-001`, `LOT-49`), adressés par index. Mêmes remarques que
+    /// `objects` (`maskType` toujours vide, dimensions **réelles** du fichier plutôt qu'une case) :
+    /// contrairement à un skin, un décor n'est jamais contraint à la taille d'une case.
+    std::vector<SkinTexture> decors;
+
     /**
      * @brief Index du skin chargé pour un asset et un type de tuile donnés.
      *
@@ -147,6 +152,20 @@ struct SceneTextures {
     [[nodiscard]] int objectIndexOf(std::string_view asset) const noexcept {
         for (std::size_t index = 0; index < objects.size(); ++index) {
             if (objects[index].asset == asset) {
+                return static_cast<int>(index);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * @brief Index du décor chargé pour un asset donné (`EX-DEC-001`, `LOT-49`).
+     * @param asset Nom du fichier cherché.
+     * @return Son index dans `decors`, ou `-1` si non chargé.
+     */
+    [[nodiscard]] int decorIndexOf(std::string_view asset) const noexcept {
+        for (std::size_t index = 0; index < decors.size(); ++index) {
+            if (decors[index].asset == asset) {
                 return static_cast<int>(index);
             }
         }

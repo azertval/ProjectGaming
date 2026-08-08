@@ -9,6 +9,7 @@
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileType.h"
@@ -72,6 +73,18 @@ public:
     /// sélection de la bibliothèque « Objets » ; vide si aucun asset n'est sélectionné.
     void setActiveTextureAsset(std::optional<std::string> asset) noexcept {
         _activeTextureAsset = std::move(asset);
+    }
+
+    /// Définit l'asset posé au clic par l'outil Décor (`LOT-49`), relié à la sélection de la
+    /// bibliothèque de décors du panneau « Outils » ; vide si aucun asset n'est sélectionné.
+    void setActiveDecorAsset(std::optional<std::string> asset) noexcept {
+        _activeDecorAsset = std::move(asset);
+    }
+
+    /// Définit la couche du décor posé au clic (`LOT-49`, `EX-DEC-002`), reliée au sélecteur de
+    /// couche du panneau « Outils ».
+    void setActiveDecorLayer(core::DecorLayer layer) noexcept {
+        _activeDecorLayer = layer;
     }
 
     /**
@@ -297,6 +310,16 @@ private:
     /// Résout le clic de l'outil « Texture par instance » (`hmi::resolveTextureAssignClick`) et
     /// l'applique (assignation/retrait) ; @p rightClick distingue le clic droit (retrait explicite).
     void handleTextureAssignClick(const QMouseEvent* event, bool rightClick);
+    /// Convertit la position écran d'un événement souris en position **monde**, non calée sur la
+    /// grille (`EX-DEC-001`) — contrairement à `cellAt`/`clampedCell`, utilisées par les autres
+    /// outils.
+    [[nodiscard]] core::Vector2 worldPositionAt(const QMouseEvent* event);
+    /// Pose un décor (asset et couche sélectionnés) à la position exacte du clic (outil Décor,
+    /// `LOT-49` TACHE-04) ; sans effet si aucun asset n'est sélectionné dans la bibliothèque.
+    void handleDecorPlaceClick(const QMouseEvent* event);
+    /// Retire le décor le plus proche du clic (`hmi::nearestDecorAt`), sans effet si aucun n'est à
+    /// portée (`hmi::DECOR_PICK_RADIUS`).
+    void handleDecorRemoveClick(core::Vector2 worldPosition);
     /// @return true si (@p switchPosition, @p targetPosition) est déjà une liaison du brouillon.
     [[nodiscard]] bool linkExists(core::GridPosition switchPosition,
                                   core::GridPosition targetPosition) const;
@@ -349,6 +372,12 @@ private:
     /// Asset assigné au clic par l'outil « Texture par instance » (`LOT-45`), vide si aucun n'est
     /// sélectionné dans la bibliothèque « Objets ».
     std::optional<std::string> _activeTextureAsset;
+    /// Asset posé au clic par l'outil Décor (`LOT-49`), vide si aucun n'est sélectionné dans la
+    /// bibliothèque de décors.
+    std::optional<std::string> _activeDecorAsset;
+    /// Couche du décor posé au clic (`LOT-49`, `EX-DEC-002`) ; `Decor` par défaut (couche de
+    /// référence, `EX-DEC-006`).
+    core::DecorLayer _activeDecorLayer = core::DecorLayer::Decor;
     hmi::EditorTool _tool = hmi::EditorTool::Paint;  ///< Outil d'édition actif (barre d'outils).
     bool _painting = false;             ///< Un glisser de peinture (Pinceau) est en cours.
     bool _dragging = false;             ///< Un glisser Rectangle/Sélection est en cours.

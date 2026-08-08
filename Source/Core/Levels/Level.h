@@ -5,6 +5,7 @@
 #include <utility>
 #include <vector>
 
+#include "Core/Levels/Decor.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/TileMap.h"
 
@@ -125,6 +126,8 @@ public:
      *                     défaut.
      * @param textureOverrides Textures assignées par instance (`EX-EDIT-043`), prioritaires sur
      *                     le skin de leur type.
+     * @param decors       Décors libres du niveau (`EX-DEC-001`, LOT-49), dans leur ordre de
+     *                     superposition intra-couche.
      */
     Level(std::string name, TileMap tileMap, GridPosition entry, GridPosition exit,
           std::vector<Mechanism> mechanisms, int jumpBudget = -1, int dashBudget = -1,
@@ -133,7 +136,8 @@ public:
           std::vector<DangerBlinkConfig> blinkConfigs = {},
           std::optional<std::string> background = std::nullopt,
           std::optional<std::string> skinSet = std::nullopt,
-          std::vector<TileTextureOverride> textureOverrides = {})
+          std::vector<TileTextureOverride> textureOverrides = {},
+          std::vector<Decor> decors = {})
         : _name(std::move(name)),
           _tileMap(std::move(tileMap)),
           _entry(entry),
@@ -146,7 +150,8 @@ public:
           _blinkConfigs(std::move(blinkConfigs)),
           _background(std::move(background)),
           _skinSet(std::move(skinSet)),
-          _textureOverrides(std::move(textureOverrides)) {}
+          _textureOverrides(std::move(textureOverrides)),
+          _decors(std::move(decors)) {}
 
     /// @return Le nom du niveau.
     [[nodiscard]] const std::string& name() const noexcept {
@@ -215,6 +220,12 @@ public:
         return _textureOverrides;
     }
 
+    /// @return Les décors libres du niveau (`EX-DEC-001`), dans leur ordre de superposition
+    /// intra-couche.
+    [[nodiscard]] const std::vector<Decor>& decors() const noexcept {
+        return _decors;
+    }
+
 private:
     std::string _name;
     TileMap _tileMap;
@@ -229,6 +240,7 @@ private:
     std::optional<std::string> _background;
     std::optional<std::string> _skinSet;
     std::vector<TileTextureOverride> _textureOverrides;
+    std::vector<Decor> _decors;
 };
 
 }  // namespace core

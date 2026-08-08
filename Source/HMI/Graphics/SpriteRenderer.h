@@ -23,6 +23,7 @@
 namespace core {
 class World;
 struct TileTextureOverride;
+struct Decor;
 }
 
 namespace hmi {
@@ -79,6 +80,8 @@ inline const std::string BACKGROUNDS_SUBDIRECTORY = "Backgrounds/";
 /// Sous-dossier des textures d'objets interactifs, relatif au dossier d'assets (`LOT-45`).
 inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
 
+// hmi::DECORS_SUBDIRECTORY (LOT-49) est déclaré dans HMI/Graphics/DecorVisuals.h.
+
 /**
  * @brief Textures liables par la composition d'une scène : atlas, damier de repli et skins.
  *
@@ -98,13 +101,17 @@ inline const std::string OBJECTS_SUBDIRECTORY = "Objects/";
  *                 `GameSession::updateTileAnimations`, avancée au **pas fixe**) : un skin en mode
  *                 `SkinMode::Single`, sans silhouette, dont l'asset est animé et présent dans
  *                 cette table échantillonne l'image **courante** plutôt que l'image entière.
+ * @param decors   Décors libres du niveau courant (`EX-DEC-001`, `LOT-49`) ; chaque asset distinct
+ *                 est chargé une fois (`hmi::SceneTextures::decors`), même principe que
+ *                 @p textureOverrides.
  * @return Les textures et leurs dimensions, prêtes pour `hmi::composeWorldSprites`.
  */
 [[nodiscard]] SceneTextures sceneTextures(
     const TextureAtlas& atlas, TextureCache& cache, const SkinCatalog* skins = nullptr,
     const std::string& skinSet = {},
     const std::vector<core::TileTextureOverride>& textureOverrides = {},
-    const std::unordered_map<std::string, core::Animation>& tileAnimations = {});
+    const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
+    const std::vector<core::Decor>& decors = {});
 
 /**
  * @brief Résout la texture de fond d'un niveau (accès `TextureCache`/GPU, `LOT-44`).
@@ -171,12 +178,15 @@ public:
      *                    `LOT-45`), transmises telles quelles à `hmi::sceneTextures`.
      * @param tileAnimations Horloge d'animation partagée par asset de tuile (`LOT-46` TACHE-05),
      *                    transmise telle quelle à `hmi::sceneTextures`.
+     * @param decors      Décors libres du niveau courant (`EX-DEC-001`, `LOT-49`), transmis tels
+     *                    quels à `hmi::sceneTextures`.
      */
     void render(core::World& world, const Camera2D& camera, RenderMode mode,
                 float interpolationAlpha, const std::optional<std::string>& background = {},
                 int levelWidth = 0, int levelHeight = 0,
                 const std::vector<core::TileTextureOverride>& textureOverrides = {},
-                const std::unordered_map<std::string, core::Animation>& tileAnimations = {});
+                const std::unordered_map<std::string, core::Animation>& tileAnimations = {},
+                const std::vector<core::Decor>& decors = {});
 
     /// @return La scène composée à la dernière image (primitives soumises et compteurs).
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {

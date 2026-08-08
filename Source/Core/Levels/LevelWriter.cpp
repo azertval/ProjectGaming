@@ -22,13 +22,27 @@ namespace {
     return type == TileType::Switch || type == TileType::PressurePlate;
 }
 
+// Nom JSON d'une DecorLayer (LOT-49, EX-DEC-002), symétrique à decorLayerFromName ci-dessous
+// (LevelLoader.cpp).
+[[nodiscard]] const char* decorLayerName(DecorLayer layer) {
+    switch (layer) {
+        case DecorLayer::Background:
+            return "background";
+        case DecorLayer::Decor:
+            return "decor";
+        case DecorLayer::Foreground:
+            return "foreground";
+    }
+    return "decor";
+}
+
 }  // namespace
 
 std::string LevelWriter::toJsonString(const Level& level) {
     return buildJson(level.name(), level.tileMap(), level.mechanisms(), level.jumpBudget(),
                      level.dashBudget(), level.dangerLinks(), level.moverConfigs(),
                      level.blinkConfigs(), level.background(), level.skinSet(),
-                     level.textureOverrides());
+                     level.textureOverrides(), level.decors());
 }
 
 bool LevelWriter::saveToFile(const Level& level, const std::filesystem::path& path) {
@@ -48,7 +62,8 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
                                    const std::vector<DangerBlinkConfig>& blinkConfigs,
                                    const std::optional<std::string>& background,
                                    const std::optional<std::string>& skinSet,
-                                   const std::vector<TileTextureOverride>& textureOverrides) {
+                                   const std::vector<TileTextureOverride>& textureOverrides,
+                                   const std::vector<Decor>& decors) {
     nlohmann::json root;
     root["version"] = kLevelFormatVersion;
     root["name"] = name;
@@ -177,6 +192,31 @@ std::string LevelWriter::buildJson(const std::string& name, const TileMap& tileM
         }
     }
     root["tiles"] = std::move(tiles);
+
+    // Tableau racine optionnel "decors" (EX-DEC-001, LOT-49), omis si vide (retrocompatibilite,
+    // EX-LVL-005) : l'ordre du vecteur est preserve (rang = superposition intra-couche).
+    if (!decors.empty()) {
+        nlohmann::json decorsJson = nlohmann::json::array();
+        for (const Decor& decor : decors) {
+            nlohmann::json entry;
+            entry["asset"] = decor.assetName;
+            entry["x"] = decor.position.x;
+            entry["y"] = decor.position.y;
+            if (decor.scale.x != 1.0f || decor.scale.y != 1.0f) {
+                entry["scaleX"] = decor.scale.x;
+                entry["scaleY"] = decor.scale.y;
+            }
+            if (decor.rotation != 0.0f) {
+                entry["rotation"] = decor.rotation;
+            }
+            entry["layer"] = decorLayerName(decor.layer);
+            if (decor.manipulable) {
+                entry["manipulable"] = true;
+            }
+            decorsJson.push_back(std::move(entry));
+        }
+        root["decors"] = std::move(decorsJson);
+    }
 
     return root.dump();
 }
