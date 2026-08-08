@@ -73,7 +73,10 @@ uniquement de la documentation externe.
   zone de tuiles.
 - \anchor EX-EDIT-015 **EX-EDIT-015** — L'éditeur doit exposer ses commandes de façon
   **découvrable** à l'écran : une barre d'outils pour changer d'outil, un aperçu des raccourcis
-  clavier, et des libellés sur les entrées de la palette.
+  clavier, et des libellés sur les entrées de la palette. *La barre d'outils à icônes est concrétisée
+  en [`LOT-56`](@ref lot-56) (`EX-IHM-055`) et l'aperçu des raccourcis en [`LOT-57`](@ref lot-57) : le
+  changement d'outil passait jusqu'ici par des boutons radio empilés, et aucun aperçu des raccourcis
+  n'était atteignable depuis l'application.*
 - \anchor EX-EDIT-016 **EX-EDIT-016** — Lorsque plusieurs liaisons interrupteur ↔ porte sont
   visibles simultanément, chacune doit être **visuellement distinguable** des autres (et non une
   teinte unique partagée par toutes les liaisons).

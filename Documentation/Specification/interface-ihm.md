@@ -1,6 +1,8 @@
 # Interface utilisateur (IHM) {#spec-interface-ihm}
 
-> Statut : **brouillon**. Cadre la refonte de l'interface hors-jeu (programme `LOT-34` → `LOT-39`).
+> Statut : **brouillon**. Cadre la refonte de l'interface hors-jeu (programme `LOT-34` → `LOT-39`),
+> étendue par le **système de design** (section 6, `LOT-56`) et l'**architecture de l'information de
+> l'éditeur** (section 7, `LOT-57`).
 > Dépend de [`rendu-technique.md`](rendu-technique.md) et [`editeur-niveaux.md`](editeur-niveaux.md).
 
 L'interface **hors-jeu** (menus, options, remappage, éditeur de niveaux) est distincte du **rendu
@@ -54,9 +56,77 @@ l'UI « maison » dessinée quad par quad. `Core` demeure indépendant de la pr�
   d'UI** : la pile d'UI « maison » (écrans dessinés au `SpriteBatch`, gestion d'écrans dédiée, fenêtre
   Win32 propre) est **retirée** une fois la parité atteinte.
 
+## 6. Système de design et habillage (LOT-56)
+La refonte `LOT-34` → `LOT-39` a livré une interface Qt **fonctionnelle**, sans jamais traiter son
+apparence pour elle-même. L'application n'a jamais choisi de style Qt : elle s'exécute donc sur le
+style **natif** de la plate-forme, qui dessine la plupart des contrôles hors du contrôle de
+l'application et ignore une large part de toute feuille de style posée par-dessus. C'est la raison
+pour laquelle le thème existant a dû être **restreint** au menu principal et à la page Options
+(portée par `objectName`) au lieu d'être étendu : l'étendre ne produisait pas un résultat homogène.
+Il en résulte deux apparences dans la même fenêtre — écrans thématisés d'un côté, panneaux de
+l'éditeur au rendu natif de l'autre — et des grandeurs d'habillage (couleurs, marges, tailles de
+vignettes, largeurs) éparpillées entre la feuille de style, les fichiers de description d'interface
+et des constantes locales à chaque widget.
+
+- \anchor EX-IHM-050 **EX-IHM-050** — L'interface hors-jeu doit reposer sur un **style d'interface
+  maîtrisé par l'application** (et non sur le style natif de la plate-forme), assorti d'un **thème
+  unique externalisé** couvrant **l'ensemble** des widgets — fenêtre, panneaux dockables, barres de
+  menus et d'état, onglets, arbres et tables, champs de saisie, barres de défilement, infobulles,
+  boîtes de dialogue standard — et non un sous-ensemble d'écrans. L'état de **focus** doit rester
+  visible en toute circonstance : la navigation à la manette dans les menus repose sur le parcours de
+  focus (`EX-IHM-040`), qu'un focus invisible rend inutilisable.
+- \anchor EX-IHM-051 **EX-IHM-051** — Les grandeurs d'habillage (couleurs, espacements, tailles
+  d'icônes et de vignettes, largeurs de contrôles) doivent provenir d'une **source unique**, dont
+  dérivent à la fois la palette de l'application, la feuille de style et la **couleur d'effacement du
+  viewport** — cette dernière étant aujourd'hui définie indépendamment, d'où une couture visible entre
+  le canevas Direct3D 11 et les widgets qui l'entourent. Aucune constante de style ne doit subsister
+  en dur dans le code des widgets.
+- \anchor EX-IHM-052 **EX-IHM-052** — La **typographie** doit avoir une source de vérité unique (et
+  non partagée entre feuille de style et fichiers de description d'interface), et reposer sur une
+  **police embarquée avec l'application**, avec **repli** sur une famille générique si elle est
+  absente — l'interface ne doit dépendre d'aucune police installée sur le système hôte.
+- \anchor EX-IHM-053 **EX-IHM-053** — Les **icônes et vignettes** de l'interface doivent rester
+  **nettes à toute échelle d'affichage** (facteur de mise à l'échelle du système), sans lissage : les
+  vignettes représentent du pixel art rendu en filtrage *nearest* (`EX-ARCH-022`), et un
+  agrandissement interpolé en trahit le contenu.
+- \anchor EX-IHM-054 **EX-IHM-054** — L'interface doit proposer un thème **clair et sombre**, suivant
+  par défaut le réglage du système, modifiable par l'utilisateur et **persisté** entre deux sessions ;
+  le changement s'applique sans redémarrage.
+- \anchor EX-IHM-055 **EX-IHM-055** — Les **commandes de l'éditeur** doivent être exposées comme des
+  **actions réutilisables** — porteuses de leur libellé, de leur icône, de leur raccourci et de leur
+  état — présentées dans une **barre d'outils à icônes**, de sorte qu'une même commande placée à
+  plusieurs endroits reste une seule définition (condition d'`EX-IHM-062`).
+
+## 7. Architecture de l'information de l'éditeur (LOT-57)
+L'éditeur a gagné un panneau ou un onglet à presque chaque lot du programme d'habillage (`LOT-42`,
+`LOT-43`, `LOT-45`, `LOT-50`, `LOT-51`), sans que la répartition d'ensemble soit jamais revue. Tous
+ses panneaux restent affichés simultanément quel que soit l'outil actif, plusieurs états sont pilotés
+depuis deux endroits distincts, et l'aide de la barre d'état est une ligne unique de raccourcis
+concaténés qu'un simple message transitoire efface définitivement. À l'inverse, l'état dont l'auteur
+d'un niveau a besoin en permanence — quel niveau est ouvert, s'il comporte des modifications non
+enregistrées, quel outil est actif, quelle case est survolée — n'est affiché nulle part, alors que
+l'application le connaît.
+
+- \anchor EX-IHM-060 **EX-IHM-060** — L'éditeur doit afficher **en permanence** son état de travail :
+  niveau ouvert, présence de **modifications non enregistrées**, outil actif, case survolée et niveau
+  de zoom. L'aide affichée doit être **contextuelle à l'outil actif**, et un message transitoire ne
+  doit jamais la faire disparaître définitivement.
+- \anchor EX-IHM-061 **EX-IHM-061** — Les panneaux de l'éditeur doivent être **groupés** plutôt que
+  tous déployés simultanément, le panneau pertinent étant mis en avant selon l'outil actif. Cette mise
+  en avant est une **suggestion** : un panneau que l'utilisateur a ouvert explicitement n'est jamais
+  masqué automatiquement, et la disposition reste réglable et persistée (`EX-IHM-010`,
+  `EX-IHM-011`).
+- \anchor EX-IHM-062 **EX-IHM-062** — Un même **état** ou une même **commande** ne doit être exposé
+  qu'à **un seul endroit** de l'interface, **raccourci clavier compris** : deux contrôles pilotant la
+  même valeur peuvent diverger et obligent l'utilisateur à deviner lequel fait autorité. Un raccourci
+  clavier reste un second chemin **légitime** vers une commande, à condition d'être affiché par la
+  commande elle-même plutôt que dupliqué en contrôle distinct.
+
 ## Traçabilité
 Tout ceci relève de `Source/HMI` — depuis le `LOT-38`, l'unique application Qt `ProjectGaming` (rendu
 de jeu Direct3D 11 + widgets Qt répartis par domaine) ; les assets Qt déclaratifs vivent dans
 `Source/Elements`. La logique testable (édition, validation, remappage) reste découplée de l'UI et
 couverte par des tests (`EX-NFR-010`, `EX-NFR-020`). Détail du séquencement : lots
-[`LOT-34`](@ref lot-34) à [`LOT-39`](@ref lot-39).
+[`LOT-34`](@ref lot-34) à [`LOT-39`](@ref lot-39) pour la refonte initiale ;
+[`LOT-56`](@ref lot-56) (section 6) et [`LOT-57`](@ref lot-57) (section 7) pour la révision de
+l'apparence et de la répartition de l'information.
