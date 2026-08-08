@@ -1,6 +1,6 @@
 # TACHE-02 — Rendu des trois couches et premier plan {#lot-49-tache-02-rendu-couches}
 
-**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** non commencé
+**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Graphics` · **Statut :** fait
 
 ## Contexte
 Les calques `Decor` et `Foreground` ont été réservés dans *RenderLayer* en LOT-40 sans être

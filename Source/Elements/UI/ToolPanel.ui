@@ -30,6 +30,32 @@
     </widget>
    </item>
    <item>
+    <widget class="QRadioButton" name="decorRadio">
+     <property name="text"><string>Décor</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="decorPickerGroup">
+     <layout class="QVBoxLayout" name="decorPickerGroupLayout">
+      <property name="leftMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QComboBox" name="decorLayerCombo"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="decorPickerContainerLayout">
+        <property name="leftMargin"><number>0</number></property>
+        <property name="rightMargin"><number>0</number></property>
+        <property name="topMargin"><number>0</number></property>
+        <property name="bottomMargin"><number>0</number></property>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <spacer name="spacer">
      <property name="orientation"><enum>Qt::Vertical</enum></property>
      <property name="sizeHint" stdset="0"><size><width>0</width><height>0</height></size></property>

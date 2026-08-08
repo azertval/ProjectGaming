@@ -23,6 +23,8 @@ class World;
 
 namespace hmi {
 
+class Camera2D;
+
 /// Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.
 enum class QuadKind {
     /// `hmi::SpriteQuad` : rectangle aligné sur les axes.
@@ -235,8 +237,17 @@ private:
  * @param interpolationAlpha Facteur d'interpolation `[0, 1[` entre le pas de simulation précédent
  *                           et le pas courant (`EX-ARCH-031`) ; `0` reproduit le rendu non
  *                           interpolé.
+ * @param camera             Caméra courante, pour la parallaxe des décors (`hmi::parallaxFactor`,
+ *                           `EX-DEC-006`, `LOT-49` TACHE-03) : sa `visibleBounds()` sert de
+ *                           rectangle de référence (solidaire de la salle), son zoom d'échelle pour
+ *                           arrondir le décalage au pixel écran (`hmi::roundToScreenPixel`). Sans
+ *                           effet sur les entités non décor. `nullptr` désactive la parallaxe (un
+ *                           décor est alors composé à sa position simulée telle quelle), ce qui
+ *                           reste correct pour un décor de couche `core::DecorLayer::Decor`
+ *                           (facteur `1.0`, `EX-DEC-006`).
  */
 void composeWorldSprites(ComposedScene& scene, core::World& world, RenderMode mode,
-                         const SceneTextures& textures, float interpolationAlpha);
+                         const SceneTextures& textures, float interpolationAlpha,
+                         const Camera2D* camera = nullptr);
 
 }  // namespace hmi

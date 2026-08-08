@@ -1,0 +1,25 @@
+# Elements/Assets/Decors/
+
+Éléments de décor libres, posés sans contrainte de grille (`LOT-49`, `EX-DEC-001`).
+
+Déposer un fichier ici suffit à le rendre sélectionnable dans le sélecteur de décors du panneau
+« Outils » de l'éditeur (outil **Décor**) : la liste est peuplée par **balayage de ce dossier**,
+jamais par saisie d'un chemin (même patron que `Skins/`/`Objects/`/`Backgrounds/`).
+
+Dimensions **libres** (`hmi::AssetFamily::Decor`, `EX-REN-007`) : contrairement à un skin de tuile
+ou un objet interactif, un décor n'est jamais découpé en grille — l'image entière est affichée à sa
+taille réelle (mise à l'échelle par `core::Decor::scale`). Un fichier introuvable ou illisible
+retombe sur le damier magenta, avec un avertissement journalisé nommant l'asset (`EX-NFR-040`) —
+contrairement au fond de niveau, un décor **désigné** est toujours censé exister.
+
+## Contenu actuel : décors de **test**
+
+`bush.png` (22×18) et `branch.png` (40×12) sont **schématiques** et servent à vérifier le
+placement, la superposition par couche et la traversabilité des décors, pas à habiller le jeu.
+Générés par script, donc reproductibles et modifiables sans éditeur d'image :
+
+```
+python scripts/generate_test_decors.py
+```
+
+Un artiste les remplacera par les vrais assets, sans toucher au code.

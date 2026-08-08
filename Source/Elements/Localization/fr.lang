@@ -82,6 +82,9 @@ status.edit_help = Éditeur — peindre : clic gauche · Ctrl+Z/Y · P : essayer
 status.texture_assigned = Texture assignée : %1
 status.texture_removed = Texture retirée.
 status.texture_no_asset_selected = Aucun asset sélectionné : choisissez-en un dans l'onglet « Objets » du panneau Textures.
+status.decor_placed = Décor posé : %1
+status.decor_removed = Décor retiré.
+status.decor_no_asset_selected = Aucun décor sélectionné : choisissez-en un dans le panneau Outils.
 dialog.unsaved_title = Modifications non enregistrées
 dialog.unsaved_text = Le niveau courant a des modifications non enregistrées. Quitter quand même ?
 dialog.resize_title = Redimensionner le niveau
@@ -95,6 +98,10 @@ tool.rectangle = Rectangle
 tool.selection = Sélection
 tool.link = Lien
 tool.texture_assign = Texture
+tool.decor = Décor
+tool.decor_layer_background = Arrière-plan
+tool.decor_layer_decor = Décor
+tool.decor_layer_foreground = Premier plan
 
 # Panneau Liens (LOT-37)
 link.column.type = Type

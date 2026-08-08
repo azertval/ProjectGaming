@@ -79,5 +79,9 @@
     { "x": 22, "y": 5, "type": "switch", "id": "s1" },
     { "x": 25, "y": 5, "type": "door", "opensWith": "s1" },
     { "x": 31, "y": 2, "type": "exit" }
+  ],
+  "decors": [
+    { "asset": "bush.png", "x": 5.0, "y": 6.3, "layer": "background" },
+    { "asset": "branch.png", "x": 1.0, "y": 6.2, "layer": "foreground" }
   ]
 }

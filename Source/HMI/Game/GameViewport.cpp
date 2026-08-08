@@ -20,6 +20,7 @@
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Editor/DecorPlacementGesture.h"
 #include "HMI/Editor/LinkGeometry.h"
 #include "HMI/Editor/LinkGesture.h"
 #include "HMI/Editor/TextureAssignGesture.h"
@@ -364,6 +365,43 @@ void GameViewport::handleTextureAssignClick(const QMouseEvent* event, bool right
     }
 }
 
+core::Vector2 GameViewport::worldPositionAt(const QMouseEvent* event) {
+    updateEditCamera();  // s'assure que la conversion écran→monde utilise le cadrage courant.
+    const qreal ratio = devicePixelRatio();
+    return _camera.screenToWorld(core::Vector2{static_cast<float>(event->position().x() * ratio),
+                                               static_cast<float>(event->position().y() * ratio)});
+}
+
+void GameViewport::handleDecorPlaceClick(const QMouseEvent* event) {
+    if (!_activeDecorAsset) {
+        // Cas silencieux le plus deroutant : poser sans avoir choisi d'asset dans la bibliotheque
+        // de decors ne fait rien -- le signaler, meme principe que l'outil « Texture par instance ».
+        emit statusMessage(statusText("status.decor_no_asset_selected"));
+        return;
+    }
+    core::Decor decor;
+    decor.assetName = *_activeDecorAsset;
+    decor.position = worldPositionAt(event);  // position EXACTE du clic (EX-DEC-001), jamais calee
+                                              // sur la grille.
+    decor.layer = _activeDecorLayer;
+    _draft.addDecor(decor);
+    _dirty = true;
+    markDraftMutated();
+    emit statusMessage(
+        statusText("status.decor_placed").arg(QString::fromStdString(*_activeDecorAsset)));
+}
+
+void GameViewport::handleDecorRemoveClick(core::Vector2 worldPosition) {
+    const std::optional<std::size_t> index = hmi::nearestDecorAt(worldPosition, _draft.decors());
+    if (!index) {
+        return;  // aucun decor a portee du clic : sans effet, comme resolveTextureAssignClick.
+    }
+    _draft.removeDecor(*index);
+    _dirty = true;
+    markDraftMutated();
+    emit statusMessage(statusText("status.decor_removed"));
+}
+
 void GameViewport::setLevelBackground(std::optional<std::string> background) {
     _draft.setBackground(std::move(background));
     _dirty = true;
@@ -657,6 +695,15 @@ void GameViewport::keyPressEvent(QKeyEvent* event) {
         _manualCamera = false;  // reinitialise au cadrage automatique (LOT-15).
         return;
     }
+    if (event->key() == Qt::Key_Delete && _tool == hmi::EditorTool::Decor) {
+        // Retrait par touche "Suppr" (LOT-49 TACHE-04), en plus du clic droit : vise le decor le
+        // plus proche du curseur, sans exiger un clic explicite.
+        updateEditCamera();
+        const core::Vector2 world = _camera.screenToWorld(
+            core::Vector2{static_cast<float>(_input.mouseX()), static_cast<float>(_input.mouseY())});
+        handleDecorRemoveClick(world);
+        return;
+    }
     if (event->isAutoRepeat()) {
         return;
     }
@@ -860,6 +907,9 @@ void GameViewport::mousePressEvent(QMouseEvent* event) {
         case hmi::EditorTool::TextureAssign:
             handleTextureAssignClick(event, /*rightClick=*/false);
             break;
+        case hmi::EditorTool::Decor:
+            handleDecorPlaceClick(event);
+            break;
     }
 }
 
@@ -870,10 +920,15 @@ void GameViewport::mouseReleaseEvent(QMouseEvent* event) {
     }
     if (event->button() == Qt::RightButton) {
         // Glisser droit sans mouvement significatif = un clic : l'outil « Texture par instance »
-        // (LOT-45) y retire l'override de la case, les autres outils l'ignorent (aucun clic droit
-        // avant ce lot). Un glisser (pan) ne declenche jamais d'action d'edition.
-        if (_rightDragging && !_cameraPanned && _tool == hmi::EditorTool::TextureAssign) {
-            handleTextureAssignClick(event, /*rightClick=*/true);
+        // (LOT-45) y retire l'override de la case, l'outil Decor (LOT-49) y retire le decor le
+        // plus proche, les autres outils l'ignorent. Un glisser (pan) ne declenche jamais d'action
+        // d'edition.
+        if (_rightDragging && !_cameraPanned) {
+            if (_tool == hmi::EditorTool::TextureAssign) {
+                handleTextureAssignClick(event, /*rightClick=*/true);
+            } else if (_tool == hmi::EditorTool::Decor) {
+                handleDecorRemoveClick(worldPositionAt(event));
+            }
         }
         _rightDragging = false;
         _cameraPanned = false;

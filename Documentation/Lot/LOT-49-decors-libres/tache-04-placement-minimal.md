@@ -1,6 +1,6 @@
 # TACHE-04 — Placement minimal et déploiement des assets {#lot-49-tache-04-placement-minimal}
 
-**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` · **Statut :** non commencé
+**Lot :** [LOT-49](epic.md) · **Emplacement :** `Source/HMI/Editor`, `Source/HMI/CMakeLists.txt` · **Statut :** fait
 
 ## Contexte
 Un modèle et un rendu de décors qu'on ne peut pas alimenter ne sont pas vérifiables : sans un moyen

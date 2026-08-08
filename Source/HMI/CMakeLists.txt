@@ -124,6 +124,8 @@ add_executable(ProjectGaming
     Graphics/DraftRenderer.cpp
     Graphics/TileVisuals.cpp
     Graphics/MechanismVisuals.cpp
+    Graphics/DecorVisuals.cpp
+    Graphics/Parallax.cpp
     # Jeu (simulation d'un niveau + viewport Qt jeu/édition)
     Game/GameSession.cpp
     Game/GameViewport.cpp
@@ -152,6 +154,7 @@ add_executable(ProjectGaming
     Editor/LinkGeometry.cpp
     Editor/LinkGesture.cpp
     Editor/TextureAssignGesture.cpp
+    Editor/DecorPlacementGesture.cpp
     Editor/AssetLibrary.cpp
     Editor/AssetThumbnailView.cpp
     Editor/AssetFileOperations.cpp

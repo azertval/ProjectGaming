@@ -23,6 +23,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_danger_geometry.cpp
     Unit/Core/Levels/test_tile_type_name.cpp
     Unit/Core/Levels/test_tile_texture_override.cpp
+    Unit/Core/Levels/test_decor.cpp
     Unit/Core/Gameplay/test_mechanism_controller.cpp
     Unit/Core/Gameplay/test_danger_controller.cpp
     Unit/Core/Gameplay/test_block_controller.cpp
@@ -64,6 +65,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_mechanism_visuals.cpp
     Unit/HMI/Graphics/test_mechanism_transitions.cpp
+    Unit/HMI/Graphics/test_decor_visuals.cpp
+    Unit/HMI/Graphics/test_parallax.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Diagnostics/test_session_log.cpp
     Unit/HMI/Editor/test_level_name_validation.cpp
@@ -77,6 +80,7 @@ add_executable(UnitTests
     Unit/HMI/Editor/test_asset_library.cpp
     Unit/HMI/Editor/test_asset_file_operations.cpp
     Unit/HMI/Editor/test_asset_references.cpp
+    Unit/HMI/Editor/test_decor_placement_gesture.cpp
     Unit/HMI/Editor/test_mechanism_animation_assignments.cpp
     # La caméra 2D est de la logique pure (DirectXMath), testable hors GPU :
     # on compile sa source dans les tests unitaires.
@@ -168,6 +172,9 @@ add_executable(UnitTests
     # Geste pur de l'outil « Texture par instance » (LOT-45) : meme patron que LinkGesture.cpp,
     # testable hors Qt/GPU.
     ../HMI/Editor/TextureAssignGesture.cpp
+    # Geste pur de l'outil « Decor » (LOT-49 TACHE-04) : recherche du decor le plus proche d'un
+    # clic, meme patron que TextureAssignGesture.cpp, testable hors Qt/GPU.
+    ../HMI/Editor/DecorPlacementGesture.cpp
     # Balayage/filtrage d'un dossier d'assets (LOT-43), partagé par AssetThumbnailView : pur,
     # testable hors Qt.
     ../HMI/Editor/AssetLibrary.cpp
@@ -179,6 +186,13 @@ add_executable(UnitTests
     # La correspondance etat logique -> clip des mecanismes (LOT-47) est une fonction pure, sans
     # dependance GPU/Qt/ECS : testable exhaustivement hors GPU.
     ../HMI/Graphics/MechanismVisuals.cpp
+    # La projection couche -> calque et la resolution d'apparence des decors (LOT-49) sont des
+    # fonctions pures, sans dependance GPU/Qt : testables hors GPU, meme patron que
+    # MechanismVisuals.cpp ci-dessus.
+    ../HMI/Graphics/DecorVisuals.cpp
+    # Le facteur de parallaxe par couche et le calcul du decalage (LOT-49 TACHE-03) sont des
+    # fonctions pures, sans dependance GPU : testables hors GPU.
+    ../HMI/Graphics/Parallax.cpp
     # Les lignes du panneau « Textures » / section Animations et leur diagnostic de clips
     # manquants (LOT-47) sont une logique pure (filesystem + AnimationCatalog), testable sans Qt.
     ../HMI/Editor/MechanismAnimationAssignments.cpp

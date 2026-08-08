@@ -53,6 +53,20 @@ struct DangerSwitchedLink {
                                                                         : DangerMoverAxis::Horizontal;
 }
 
+// Convertit le champ "layer" d'un décor ("background"/"decor"/"foreground") ; valeur de
+// conception par défaut (Decor) si absent ou non reconnu -- symétrique à decorLayerName
+// (LevelWriter.cpp).
+[[nodiscard]] DecorLayer parseDecorLayer(const nlohmann::json& decor) {
+    const std::string layer = decor.value("layer", std::string{"decor"});
+    if (layer == "background") {
+        return DecorLayer::Background;
+    }
+    if (layer == "foreground") {
+        return DecorLayer::Foreground;
+    }
+    return DecorLayer::Decor;
+}
+
 }  // namespace
 
 // Charge un niveau depuis une chaine JSON.
@@ -235,6 +249,30 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
             dangerLinks.push_back(DangerLink{found->second, danger.position});
         }
 
+        // Tableau racine optionnel "decors" (EX-DEC-001, LOT-49) : absent = aucun décor
+        // (rétrocompatibilité, EX-LVL-005). L'ordre du tableau est préservé tel quel (rang =
+        // superposition intra-couche, TACHE-01), aucune validation d'existence de l'asset
+        // (EX-NFR-011 : Core ignore tout du dossier d'assets).
+        std::vector<Decor> decors;
+        if (root.contains("decors")) {
+            if (!root.at("decors").is_array()) {
+                return failure("Le champ 'decors' doit etre une liste",
+                               LevelValidationError::ParseError);
+            }
+            for (const nlohmann::json& decorJson : root.at("decors")) {
+                Decor decor;
+                decor.assetName = decorJson.at("asset").get<std::string>();
+                decor.position.x = decorJson.at("x").get<float>();
+                decor.position.y = decorJson.at("y").get<float>();
+                decor.scale.x = decorJson.value("scaleX", 1.0f);
+                decor.scale.y = decorJson.value("scaleY", 1.0f);
+                decor.rotation = decorJson.value("rotation", 0.0f);
+                decor.layer = parseDecorLayer(decorJson);
+                decor.manipulable = decorJson.value("manipulable", false);
+                decors.push_back(std::move(decor));
+            }
+        }
+
         LEVELS_LOG_TRACE("Niveau charge : '" + name + "' (" + std::to_string(width) + "x" +
                          std::to_string(height) + ", " + std::to_string(mechanisms.size()) +
                          " mecanisme(s))");
@@ -242,7 +280,8 @@ LevelLoadResult LevelLoader::loadFromString(std::string_view json) {
                                      std::move(mechanisms), jumpBudget, dashBudget,
                                      std::move(dangerLinks), std::move(moverConfigs),
                                      std::move(blinkConfigs), std::move(background),
-                                     std::move(skinSet), std::move(textureOverrides)),
+                                     std::move(skinSet), std::move(textureOverrides),
+                                     std::move(decors)),
                                {}};
     } catch (const nlohmann::json::exception& error) {
         return failure(std::string("JSON invalide : ") + error.what(), LevelValidationError::ParseError);
