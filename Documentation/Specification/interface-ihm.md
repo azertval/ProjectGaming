@@ -72,7 +72,9 @@ et des constantes locales à chaque widget.
   maîtrisé par l'application** (et non sur le style natif de la plate-forme), assorti d'un **thème
   unique externalisé** couvrant **l'ensemble** des widgets — fenêtre, panneaux dockables, barres de
   menus et d'état, onglets, arbres et tables, champs de saisie, barres de défilement, infobulles,
-  boîtes de dialogue standard — et non un sous-ensemble d'écrans. L'état de **focus** doit rester
+  boîtes de dialogue standard — et non un sous-ensemble d'écrans. Ce thème distingue deux portées :
+  une part **invariante**, qui porte l'identité visuelle du jeu (menu principal, Options, jeu), et une
+  part **variable**, le châssis d'édition, seule concernée par `EX-IHM-054`. L'état de **focus** doit rester
   visible en toute circonstance : la navigation à la manette dans les menus repose sur le parcours de
   focus (`EX-IHM-040`), qu'un focus invisible rend inutilisable.
 - \anchor EX-IHM-051 **EX-IHM-051** — Les grandeurs d'habillage (couleurs, espacements, tailles
@@ -89,9 +91,13 @@ et des constantes locales à chaque widget.
   **nettes à toute échelle d'affichage** (facteur de mise à l'échelle du système), sans lissage : les
   vignettes représentent du pixel art rendu en filtrage *nearest* (`EX-ARCH-022`), et un
   agrandissement interpolé en trahit le contenu.
-- \anchor EX-IHM-054 **EX-IHM-054** — L'interface doit proposer un thème **clair et sombre**, suivant
+- \anchor EX-IHM-054 **EX-IHM-054** — L'**éditeur** doit proposer un thème **clair et sombre**, suivant
   par défaut le réglage du système, modifiable par l'utilisateur et **persisté** entre deux sessions ;
-  le changement s'applique sans redémarrage.
+  le changement s'applique sans redémarrage. Ce réglage est **strictement limité au châssis
+  d'édition** : le **menu principal, l'écran Options et le jeu conservent en toute circonstance
+  l'identité visuelle sombre du jeu**, qui n'est pas un thème mais une composante de son apparence.
+  L'éditeur est un **outil de travail**, utilisé de jour et pendant de longues sessions, et c'est à ce
+  titre — et à ce titre seul — qu'il suit les préférences d'affichage de son utilisateur.
 - \anchor EX-IHM-055 **EX-IHM-055** — Les **commandes de l'éditeur** doivent être exposées comme des
   **actions réutilisables** — porteuses de leur libellé, de leur icône, de leur raccourci et de leur
   état — présentées dans une **barre d'outils à icônes**, de sorte qu'une même commande placée à

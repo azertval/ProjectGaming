@@ -25,7 +25,9 @@ aucune `QToolBar`, aucun `QActionGroup`, aucun `QProxyStyle`, aucun `QFontDataba
 Trois conséquences directes :
 
 - **Deux apparences dans la même fenêtre** : écrans thématisés d'un côté, panneaux de l'éditeur au
-  rendu natif de l'autre.
+  rendu natif de l'autre. À ne pas confondre avec la distinction **délibérée** que ce lot introduit
+  entre l'identité du jeu et le châssis d'édition (cf. décisions de cadrage) : l'une est un défaut
+  subi, l'autre un choix assumé et cohérent de part et d'autre.
 - **La typographie a deux sources de vérité** : tailles de police et marges figées dans les fichiers
   `.ui`, famille et taille redéfinies dans la feuille de style — qui impose par ailleurs une police
   disponible **sur Windows uniquement**, alors que `Source/Elements/Assets/Fonts/` existe et ne
@@ -56,7 +58,9 @@ couche à construire.
   panneau Outils ; les commandes deviennent des **actions** porteuses de leur libellé, icône,
   raccourci et état.
 - **Netteté à toute échelle d'affichage** pour les vignettes et les icônes.
-- **Thème clair et sombre**, suivant le système par défaut, réglable et persisté.
+- **Thème clair et sombre de l'éditeur uniquement**, suivant le système par défaut, réglable et
+  persisté. Le menu principal, l'écran Options et le jeu conservent l'identité sombre en toute
+  circonstance.
 
 ### Exclus (hors périmètre de ce lot)
 - **Réorganisation des panneaux de l'éditeur** : quels panneaux sont visibles, quelle information est
@@ -95,19 +99,30 @@ couche à construire.
   icône, son raccourci et son état peut être placée simultanément dans une barre d'outils, un menu et
   un menu contextuel **sans duplication**. C'est ce qui rendra la déduplication du `LOT-57`
   structurelle plutôt que cosmétique.
+- **L'identité du jeu n'est pas un thème.** Le fond sombre et l'accent ambre du menu principal font
+  partie de l'apparence du jeu, au même titre que ses tuiles : ils ne suivent pas les préférences
+  d'affichage du poste. L'éditeur, lui, est un **outil de travail** — utilisé de jour, sur de longues
+  sessions, souvent à côté d'autres applications — et c'est à ce titre qu'il suit le réglage
+  clair/sombre du système. L'habillage se scinde donc en deux portées : une part **invariante**
+  (menu principal, Options, jeu) et une part **variable** (châssis d'édition : panneaux, barre
+  d'outils, barre d'état, barre de menus de l'éditeur, boîtes de dialogue ouvertes depuis lui).
+  Ce n'est pas une exception ajoutée à la fin : la frontière est portée par les jetons dès la
+  TACHE-01 et par la feuille de style dès la TACHE-02, faute de quoi la TACHE-06 ne pourrait pas
+  l'introduire après coup.
 - **Six tâches, au-dessus du grain habituel.** Les tâches 1 et 2 sont indissociables (le style et la
   palette conditionnent la feuille de style), et les tâches 3 à 5 corrigent chacune un défaut
-  autonome. La tâche 6 (thème clair) est explicitement la première à retirer si le lot doit être
-  resserré : elle emporte alors `EX-IHM-054` avec elle, sans rien invalider d'autre.
+  autonome. La tâche 6 (thème clair de l'éditeur) est explicitement la première à retirer si le lot
+  doit être resserré : elle emporte alors `EX-IHM-054` avec elle, sans rien invalider d'autre — la
+  séparation des deux portées, elle, reste acquise depuis la TACHE-01.
 - **Amende le statut « brouillon » de [`interface-ihm.md`](../../Specification/interface-ihm.md)** en y
   ajoutant une section 6 : la spécification cadrait la refonte `LOT-34` → `LOT-39` sans jamais exiger
   quoi que ce soit sur l'apparence.
 
 ## Exigences couvertes
-- Nouvelles : `EX-IHM-050` (style maîtrisé et thème couvrant toute l'IHM), `EX-IHM-051` (source unique
-  des grandeurs d'habillage), `EX-IHM-052` (typographie unique et police embarquée), `EX-IHM-053`
-  (netteté à toute échelle d'affichage), `EX-IHM-054` (thème clair/sombre), `EX-IHM-055` (commandes
-  exposées comme actions dans une barre d'outils).
+- Nouvelles : `EX-IHM-050` (style maîtrisé et thème couvrant toute l'IHM, en deux portées),
+  `EX-IHM-051` (source unique des grandeurs d'habillage), `EX-IHM-052` (typographie unique et police
+  embarquée), `EX-IHM-053` (netteté à toute échelle d'affichage), `EX-IHM-054` (thème clair/sombre de
+  l'éditeur), `EX-IHM-055` (commandes exposées comme actions dans une barre d'outils).
 - Concrétise enfin la partie « barre d'outils » d'`EX-EDIT-015` (découvrabilité), restée à l'état de
   boutons radio empilés depuis le `LOT-15`.
 - Réutilisées : `EX-IHM-001` (interface hors-jeu en Qt), `EX-IHM-040` (menus, options, remappage —
@@ -125,7 +140,7 @@ couche à construire.
 | [TACHE-03](tache-03-typographie-police.md) | Police embarquée avec repli et typographie à source unique | `Source/Elements`, `Source/HMI/Interface` | ⬜ |
 | [TACHE-04](tache-04-icones-barre-outils.md) | Icônes dessinées par code et barre d'outils à actions | `Source/HMI/Interface`, `Source/HMI/Editor` | ⬜ |
 | [TACHE-05](tache-05-nettete-dpi.md) | Netteté des vignettes à toute échelle d'affichage | `Source/HMI/Editor` | ⬜ |
-| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ⬜ |
+| [TACHE-06](tache-06-theme-clair-sombre.md) | Thème clair/sombre **de l'éditeur**, suivant le système, réglable et persisté | `Source/HMI/Interface`, `Source/Elements/Themes` | ⬜ |
 
 ## Critères d'acceptation du lot
 1. L'ensemble de l'application partage une seule apparence : aucun panneau, aucune boîte de dialogue
@@ -139,9 +154,11 @@ couche à construire.
    raccourci sans qu'il soit saisi deux fois.
 6. Les vignettes de la palette et des grilles d'assets restent nettes à 100 %, 125 % et 150 % d'échelle
    d'affichage, sans lissage du pixel art.
-7. Le thème suit le réglage clair/sombre du système et peut être forcé depuis les Options, sans
-   redémarrage.
-8. Tous les libellés ajoutés passent par le catalogue de traduction et existent dans les deux langues ;
+7. Le thème **de l'éditeur** suit le réglage clair/sombre du système et peut être forcé depuis le menu
+   Affichage de l'éditeur, sans redémarrage.
+8. Le menu principal, l'écran Options et le jeu ont **exactement la même apparence** quel que soit le
+   thème d'éditeur actif, y compris après une bascule à chaud.
+9. Tous les libellés ajoutés passent par le catalogue de traduction et existent dans les deux langues ;
    build `/W4 /WX`, Doxygen, lint verts.
 
 ## Dépendances

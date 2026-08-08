@@ -27,12 +27,26 @@ Cette tâche est le socle : les cinq suivantes en dépendent.
   échelle typographique, tailles d'icônes et de vignettes, largeurs de contrôles usuelles.
   Nommer par rôle et non par teinte — un jeton `accent` survit à un changement de couleur, un jeton
   `ambre` non, et la tâche 6 introduira un second jeu de valeurs pour le thème clair.
+- **Deux portées d'habillage**, distinguées dès les jetons :
+  - l'**identité du jeu** — menu principal, écran Options, jeu — dont les couleurs sont **invariantes**
+    et ne suivront jamais aucun réglage d'affichage ;
+  - le **châssis d'édition** — panneaux, barre d'outils, barre d'état, barre de menus de l'éditeur,
+    boîtes de dialogue ouvertes depuis lui — dont les couleurs sont **variables** et deviendront
+    réglables en TACHE-06.
+
+  Les deux portées partagent la même **structure** de rôles, les mêmes échelles d'espacement et de
+  typographie, et les mêmes tailles : seules les valeurs de couleur diffèrent. C'est cette symétrie qui
+  permettra d'ajouter un jeu clair sans toucher à la feuille de style.
 - **Choix explicite du style Qt** au démarrage, avant toute création de widget.
 - **Palette applicative** complète construite à partir des jetons, couvrant les trois groupes de
   Qt (actif, inactif, désactivé) — le groupe désactivé est celui qu'on oublie, et celui qui trahit le
-  plus vite un thème incomplet.
-- **Couleur d'effacement du viewport dérivée du même jeton** que le fond de l'interface, en
-  remplacement de la valeur littérale actuelle de *GameViewport*.
+  plus vite un thème incomplet. La palette de l'application porte la portée **variable** (le châssis
+  d'édition, majoritaire en nombre de widgets) ; les écrans d'identité reçoivent explicitement la
+  leur, construite depuis les jetons invariants.
+- **Couleur d'effacement du viewport dérivée des jetons**, en remplacement de la valeur littérale
+  actuelle de *GameViewport* : du jeton de fond **variable** en mode édition, du jeton de fond
+  **invariant** en mode jeu et en essai. Le viewport est la seule surface qui appartient tour à tour
+  aux deux portées, selon le mode de l'application.
 - **Remplacement des constantes de style locales** des widgets par les jetons correspondants, en
   unifiant au passage les deux largeurs minimales divergentes des widgets de remappage.
 - **Conversion pure** jeton → chaîne de couleur, exposée comme fonction testable sans instance
@@ -52,9 +66,13 @@ Cette tâche est le socle : les cinq suivantes en dépendent.
 ## Tests (obligatoires)
 - **Conversion de couleur** : chaque jeton produit une chaîne de couleur valide et stable ; la
   conversion est **pure** (même entrée, même sortie), testée sans instance d'application.
-- **Cohérence viewport / interface** : la couleur d'effacement du viewport et le jeton de fond de
-  l'interface dérivent de la même valeur — un test qui échoue si l'une des deux est modifiée seule.
-  C'est le seul garde-fou possible contre la réapparition de la couture actuelle.
+- **Cohérence viewport / interface** : la couleur d'effacement du viewport et le jeton de fond de la
+  portée correspondante dérivent de la même valeur, en mode édition **comme** en mode jeu — un test
+  par mode, qui échoue si l'une des deux est modifiée seule. C'est le seul garde-fou possible contre
+  la réapparition de la couture actuelle.
+- **Symétrie des deux portées** : les jeux de jetons invariant et variable définissent exactement le
+  même ensemble de rôles, d'échelles et de tailles — un test qui échoue si un rôle est ajouté à l'un
+  sans l'autre. Sans lui, la TACHE-06 découvrirait la divergence trop tard.
 - **Aucun doublon de grandeur** : les widgets de remappage exposent la même largeur minimale.
 
 ## Points d'attention
@@ -69,13 +87,21 @@ Cette tâche est le socle : les cinq suivantes en dépendent.
   entre dans le périmètre.
 - Ne pas nommer les jetons d'après leur teinte : la TACHE-06 ajoutera un jeu clair, et un jeton nommé
   d'après sa couleur y deviendra un contresens.
+- **La frontière entre les deux portées se pose maintenant, pas en TACHE-06.** Un habillage conçu
+  comme un jeu unique de couleurs ne se scinde pas après coup sans réécrire la feuille de style : la
+  TACHE-06 doit n'avoir qu'à fournir un second jeu de valeurs.
+- **Ne pas faire de l'identité un « thème sombre » parmi d'autres.** Le fond sombre et l'accent ambre
+  du menu appartiennent à l'apparence du jeu ; les exposer comme un thème inviterait tôt ou tard à les
+  rendre réglables, ce que ce lot exclut.
 
 ## Définition de fait (DoD)
-- L'application choisit explicitement son style et applique une palette complète dérivée d'un jeu
-  unique de jetons ; la couleur d'effacement du viewport et le fond de l'interface proviennent du même
-  jeton et un test le garantit ; aucune constante de style ne subsiste dans le code des widgets
-  concernés ; les boîtes de dialogue standard ont été revues ; `/W4 /WX` propre.
+- L'application choisit explicitement son style et applique des palettes complètes dérivées d'un jeu
+  unique de jetons, séparé en portée invariante et portée variable de structure identique ; la couleur
+  d'effacement du viewport suit la portée du mode courant et des tests le garantissent ; aucune
+  constante de style ne subsiste dans le code des widgets concernés ; les boîtes de dialogue standard
+  ont été revues ; `/W4 /WX` propre.
 
 ## Exigences
-`EX-IHM-050` (style maîtrisé), `EX-IHM-051` (source unique des grandeurs d'habillage) ; réutilise
-`EX-IHM-001` (interface hors-jeu en Qt), `EX-NFR-010` (`Core` indépendant de la présentation).
+`EX-IHM-050` (style maîtrisé, deux portées d'habillage), `EX-IHM-051` (source unique des grandeurs
+d'habillage) ; prépare `EX-IHM-054` (thème clair/sombre de l'éditeur) ; réutilise `EX-IHM-001`
+(interface hors-jeu en Qt), `EX-NFR-010` (`Core` indépendant de la présentation).

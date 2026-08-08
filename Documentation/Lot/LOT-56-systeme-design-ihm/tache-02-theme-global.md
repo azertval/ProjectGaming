@@ -25,8 +25,16 @@ sont aujourd'hui saisies littéralement, en parallèle de celles du code.
   désactivé.
 - **Revue des boîtes de dialogue standard** (message, fichier, saisie) et du dialogue de
   redimensionnement construit à la main dans *MainWindow*.
-- **Retrait des sélecteurs d'`objectName` devenus inutiles** : ne conserver une portée nominative que
-  pour ce qui est réellement spécifique au menu principal ou à la page Options.
+- **Séparation des deux portées dans la feuille de style**, conformément aux jetons de la TACHE-01 :
+  les règles du menu principal et de la page Options sont substituées avec les jetons **invariants**,
+  toutes les autres avec les jetons **variables**. La portée nominative par `objectName` déjà en place
+  sur ces deux écrans devient donc le support de cette frontière, au lieu d'être le contournement
+  qu'elle était — elle est **conservée pour cette raison**, et retirée partout où elle ne fait que
+  compenser l'ancien style natif.
+- **Régénération à la demande** : la feuille de style doit pouvoir être reproduite et réappliquée en
+  cours d'exécution avec un autre jeu de valeurs variables, sans reconstruire les widgets. La
+  TACHE-06 s'appuiera dessus ; l'écrire maintenant coûte une fonction, l'ajouter après coûte une
+  réécriture.
 - **Repli** conservé : en l'absence du fichier de thème, l'application démarre et reste utilisable, avec
   un avertissement journalisé — comportement actuel de `main.cpp`, à ne pas régresser.
 
@@ -43,6 +51,9 @@ sont aujourd'hui saisies littéralement, en parallèle de celles du code.
 - **Aucune couleur littérale résiduelle** : la feuille de style produite ne contient plus de marqueur,
   et le modèle source ne contient aucune valeur de couleur écrite en dur — un test qui lit le fichier
   et échoue si une couleur littérale y réapparaît.
+- **Étanchéité des portées** : produire la feuille de style avec deux jeux de valeurs variables
+  différents donne deux résultats dont les **règles d'identité sont identiques au caractère près**.
+  C'est le test qui garantit que le menu principal ne bougera jamais avec le thème de l'éditeur.
 - **Repli** : thème absent ou illisible → l'application démarre, un avertissement est journalisé.
 
 ## Points d'attention
@@ -61,10 +72,12 @@ sont aujourd'hui saisies littéralement, en parallèle de celles du code.
 
 ## Définition de fait (DoD)
 - L'ensemble de l'application partage une seule apparence, aucun contrôle ne conservant un rendu natif
-  résiduel ; la feuille de style ne contient aucune couleur littérale et est produite depuis les
-  jetons ; le focus est visible partout et la navigation à la manette reste utilisable de bout en
-  bout ; le repli sans fichier de thème fonctionne ; `/W4 /WX` propre.
+  résiduel ; la feuille de style ne contient aucune couleur littérale, est produite depuis les jetons
+  et sépare de façon étanche l'identité du jeu du châssis d'édition, ce qu'un test garantit ; elle peut
+  être régénérée et réappliquée à chaud ; le focus est visible partout et la navigation à la manette
+  reste utilisable de bout en bout ; le repli sans fichier de thème fonctionne ; `/W4 /WX` propre.
 
 ## Exigences
-`EX-IHM-050` (thème couvrant toute l'IHM, focus visible), `EX-IHM-051` (source unique) ; réutilise
-`EX-IHM-040` (navigation à la manette dans les menus), `EX-NFR-040` (repli en l'absence d'asset).
+`EX-IHM-050` (thème couvrant toute l'IHM, deux portées, focus visible), `EX-IHM-051` (source unique) ;
+prépare `EX-IHM-054` (thème clair/sombre de l'éditeur) ; réutilise `EX-IHM-040` (navigation à la
+manette dans les menus), `EX-NFR-040` (repli en l'absence d'asset).
